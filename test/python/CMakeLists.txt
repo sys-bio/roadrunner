@@ -24,19 +24,13 @@ if (BUILD_PYTHON)
 
     add_test(
             NAME PythonTests
-            COMMAND Python::Interpreter "${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/testing"
+            COMMAND Python::Interpreter "${RR_PYTHON_TESTING_BUILD_PREFIX}"
             WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/lib/site-packages"
     )
 
-    set_tests_properties(PythonTests PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_BINARY_DIR}/lib/site-packages:$PYTHONPATH")
+    set_tests_properties(PythonTests PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH")
 
-    # Creates a custom target which runs only the sbml tests suite
-    add_custom_target(
-            run-python-tests
-            ctest ${ctest_args} --tests-regex PythonTests
-    )
 
-    add_dependencies(run-python-tests ${test_targets})
 
 endif ()
 

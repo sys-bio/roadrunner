@@ -1,7 +1,7 @@
 
 // Module Name
-%module(docstring="The RoadRunner SBML Simulation Engine, (c) 2009-2014 Andy Somogyi and Herbert Sauro",
-        "threads"=1 /*, directors="1"*/) roadrunner
+%module(directors="1", docstring="The RoadRunner SBML Simulation Engine, (c) 2009-2014 Andy Somogyi and Herbert Sauro",
+        "threads"=1) roadrunner
 
 // most methods should leave the GIL locked, no point to extra overhead
 // for fast methods. Only Roadrunner with long methods like simulate
@@ -64,10 +64,29 @@
     #include "PyUtils.h"
     #include "PyLoggerStream.h"
 
+    #include "Registrable.h"
+    #include "RegistrationFactory.h"
+
+    // Steady State Solvers
     #include "KinsolSteadyStateSolver.h"
     #include "NewtonIteration.h"
     #include "BasicNewtonIteration.h"
     #include "LinesearchNewtonIteration.h"
+    #include "NLEQ1Solver.h"
+    #include "NLEQ2Solver.h"
+
+    // sundials Sensitivity solvers
+    #include "SensitivitySolver.h"
+    #include "ForwardSensitivitySolver.h"
+    #include "Matrix.h"
+    #include "Matrix3D.h"
+
+    // Integrators
+    #include "CVODEIntegrator.h"
+    #include "GillespieIntegrator.h"
+    #include "RK4Integrator.h"
+    #include "RK45Integrator.h"
+    #include "EulerIntegrator.h"
 
 
     // make a python obj out of the C++ ExecutableModel, this is used by the PyEventListener
@@ -75,16 +94,14 @@
     PyObject *ExecutableModel_NewPythonObj(rr::ExecutableModel*);
     PyObject *Integrator_NewPythonObj(rr::Integrator*);
 
-
     #include "PyEventListener.h"
     #include "PyIntegratorListener.h"
-
     #include "tr1proxy/cxx11_ns.h"
 
-    using ls::Matrix;
-    using ls::DoubleMatrix;
-    using ls::Complex;
-    using ls::ComplexMatrix;
+    /**
+     * Note, avoid "using" declarations, which can confuse
+     * swig. Best to just be explicit about namespaces.
+     */
 
 
 // Windows is just so special...
@@ -113,8 +130,6 @@
             delete dict;
         }
     };
-
-
 %}
 
 
@@ -125,9 +140,7 @@
 
 // C++ std::map handling
 %include "std_unordered_map.i"
-//%include "std_map.i"
 
-// C++ std::map handling
 %include "std_vector.i"
 
 %include "std_list.i"
@@ -156,9 +169,9 @@
 %template(IntVector) std::vector<int>;
 %template(StringVector) std::vector<std::string>;
 %template(StringList) std::list<std::string>;
+//%template(DoubleMap) std::unordered_map< std::string,double,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,double > > > >;
 
 
-%apply std::vector<std::string> {std::vector<std::string>, std::vector<std::string>, std::vector<std::string> };
 
 //%template(SelectionRecordVector) std::vector<rr::SelectionRecord>;
 //%apply std::vector<rr::SelectionRecord> {std::vector<SelectionRecord>, std::vector<rr::SelectionRecord>, std::vector<SelectionRecord>};
@@ -200,6 +213,39 @@
 
 %apply const ls::DoubleMatrix* {ls::DoubleMatrix*, DoubleMatrix*, const DoubleMatrix* };
 
+/**
+ * Converts a rr::Matrix<double> to a numpy array,
+ * using the same functions/methods as for ls::Matrix<double> (its superclass)
+ * (proxy via rrDoubleMatrix_to_py)
+ */
+%typemap(out) rr::Matrix<double> {
+    // marker for rrDoubleMatrix typemap. Look for me in TestModelFactoryPYTHON_wrap.cxx
+    const rr::Matrix<double>* mat = &($1);
+    $result = rrDoubleMatrix_to_py(mat, true);
+}
+
+%apply rr::Matrix<double> {
+    const rr::Matrix<double>,
+    const rr::Matrix<double>&,
+    rr::Matrix<double>&
+};
+
+
+/**
+ * Note - you do not need to %include "Matrix3D.h"
+ * since we convert it to a Tuple[np.ndarray, np.ndarray]
+ */
+//%include "Matrix3D.h"
+%typemap(out) rr::Matrix3D<double, double> {
+    // marker for a rr::Matrix3D<double, double> typemap
+    Matrix3DToNumpy matrix3DtoNumpy($1);
+    PyObject* npArray3D = matrix3DtoNumpy.convertData();
+    PyObject* idx = matrix3DtoNumpy.convertIndex();
+
+    $result = PyTuple_Pack(2, idx, npArray3D);
+}
+
+
 
 
 /* Convert from C --> Python */
@@ -225,9 +271,10 @@
     $result  = array;
 }
 
+%typedef ls::Complex std::complex<double>;
 
 /* Convert from C --> Python */
-%typemap(out) std::vector<ls::Complex> {
+%typemap(out) std::vector<std::complex<double>> {
 
     typedef std::complex<double> cpx;
 
@@ -308,7 +355,6 @@
 };
 
 
-
 /**
  * @brief typemap to convert a string : Variant map into a Python dict.
  * Used in the "settings" map of TestModelFactory (tmf).
@@ -354,6 +400,23 @@
     // const std::unordered_map< std::string,Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,Setting > > > & // without rr::     reference
 };
 
+// C++ std::unordered_map<std::string, double> to Python Dictionary
+//%template(StringDoubleMap) std::unordered_map<std::string, double>;
+
+%typemap(out) std::unordered_map<std::string, double> {
+    // Marker for StringDoubleMap
+    $result = PyDict_New();
+    if (!$result){
+        std::cerr << "Could not create Python Dict" << std::endl;
+    }
+
+    for (const auto& item: *(&$1)){
+        int err = PyDict_SetItem($result, PyUnicode_FromString(item.first.c_str()), PyFloat_FromDouble(item.second));
+        if (err < 0){
+            std::cout << "Could not create item in Python Dict" << std::endl;
+        }
+    }
+}
 
 
 /**
@@ -386,28 +449,6 @@
 
 %typemap(typecheck) const rr::Dictionary* = PyObject*;
 %apply const rr::Dictionary* {const Dictionary*, rr::Dictionary*, Dictionary*};
-
-
-
-/*
-%typemap(out) std::vector<std::string> {
-
-    size_t len = $1.size();
-
-    PyObject* pyList = PyList_New(len);
-
-    for(int i = 0; i < len; i++)
-    {
-        const std::string& str  = $1.at(i);
-        PyObject* pyStr = PyString_FromString(str.c_str());
-        PyList_SET_ITEM(pyList, i, pyStr);
-    }
-
-    $result = pyList;
-}
-*/
-
-//%apply std::vector<std::string> {std::vector<std::string>, std::vector<std::string>, std::vector<std::string> };
 
 %include "numpy.i"
 
@@ -714,6 +755,11 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %rename (__str__) rr::Integrator::toString;
 //%rename (__repr__) rr::Integrator::toRepr;
 
+%ignore rr::integratorFactoryMutex;
+%ignore rr::integratorRegistrationMutex;
+%ignore rr::steadyStateSolverFactoryMutex;
+%ignore rr::steadyStateSolverRegistrationMutex;
+
 
 %rename (__str__) rr::SteadyStateSolver::toString;
 
@@ -925,9 +971,17 @@ namespace std { class ostream{}; }
 %include <rrSelectionRecord.h>
 %include <conservation/ConservedMoietyConverter.h>
 
+/**
+ * Adding director="1" to the %module directive on line 1
+ * and adding this %feature("director") directive to
+ * Solve base class tells swig to properly handle
+ * cross language polymorphism. Works like a charm.
+ */
+%feature("director") Solver;
 %include <Solver.h>
 %include <Integrator.h>
 %include <SteadyStateSolver.h>
+%include <SensitivitySolver.h>
 
 %include "PyEventListener.h"
 %include "PyIntegratorListener.h"
@@ -1587,9 +1641,6 @@ namespace std { class ostream{}; }
 
             return result
 
-        # ---------------------------------------------------------------------
-        # Reset Methods
-        # ---------------------------------------------------------------------
         def resetToOrigin(self):
             """ Reset model to state when first loaded.
 
@@ -2666,20 +2717,42 @@ namespace std { class ostream{}; }
 
 // Copy this code ad verbatim to the Python module
 %pythoncode %{
-RoadRunner.ensureSolversRegistered()
+RoadRunner.registerSolvers()
 integrators = list(RoadRunner.getRegisteredIntegratorNames())
 steadyStateSolvers = list(RoadRunner.getRegisteredSteadyStateSolverNames())
 solvers = integrators + steadyStateSolvers
 %}
 
 
+// no need to port the mutexes
+%ignore rr::sensitivitySolverMutex;
+%ignore rr::sensitivityRegistrationMutex;
+%ignore rr::steadyStateSolverFactoryMutex;
+%ignore rr::steadyStateSolverRegistrationMutex;
+%ignore rr::integratorFactoryMutex;
+%ignore rr::integratorRegistrationMutex;
 
-// NewtonIteration
+%include "Registrable.h"
+%include "RegistrationFactory.h"
+
+// sundials steady state solvers
 %include "KinsolSteadyStateSolver.h"
 %include "NewtonIteration.h"
 %include "BasicNewtonIteration.h"
 %include "LinesearchNewtonIteration.h"
+%include "NLEQ1Solver.h"
+%include "NLEQ2Solver.h"
 
+// sundials Sensitivity solvers
+%include "ForwardSensitivitySolver.h"
+
+
+// Integrators
+%include "CVODEIntegrator.h"
+%include "GillespieIntegrator.h"
+%include "RK4Integrator.h"
+%include "RK45Integrator.h"
+%include "EulerIntegrator.h"
 
 
 

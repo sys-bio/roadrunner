@@ -20,7 +20,8 @@ namespace rr {
     class BasicNewtonIteration : public NewtonIteration {
 
     public:
-        
+        using NewtonIteration::NewtonIteration;
+
         ~BasicNewtonIteration() override = default ;
 
         explicit BasicNewtonIteration(ExecutableModel *executableModel);
@@ -41,19 +42,10 @@ namespace rr {
         std::string getHint() const override;
 
         /**
-         * @brief static version of getName
+         * @brief construct a new BasicNewtonIterator
+         * @details caller is responsible for deleting memory returned.
          */
-        static std::string getBasicNewtonIterationName();
-
-        /**
-         * @brief static version of getDescription
-         */
-        static std::string getBasicNewtonIterationDescription();
-
-        /**
-         * @brief static version of getHint
-         */
-        static std::string getBasicNewtonIterationHint();
+        Solver *construct(ExecutableModel *model) const override;
 
         /**
          * @brief solve the currently defined problem
@@ -61,40 +53,6 @@ namespace rr {
         double solve() override;
 
     };
-    
-    
-    class BasicNewtonIterationRegistrar : public SteadyStateSolverRegistrar {
-    public:
-        /**
-        * @brief Gets the name associated with this integrator type
-        */
-        std::string getName() const override {
-            return BasicNewtonIteration::getBasicNewtonIterationName();
-        }
-
-        /**
-        * @brief Gets the description associated with this integrator type
-        */
-        std::string getDescription() const override {
-            return BasicNewtonIteration::getBasicNewtonIterationDescription();
-        }
-
-        /**
-        * @brief Gets the hint associated with this integrator type
-        */
-        std::string getHint() const override {
-            return BasicNewtonIteration::getBasicNewtonIterationHint();
-        }
-
-        /**
-        * @brief Constructs a new integrator of a given type
-        */
-        SteadyStateSolver *construct(ExecutableModel *model) const override {
-            return new BasicNewtonIteration(model);
-        }
-    };
-
-
 }
 
 #endif //ROADRUNNER_BASICNEWTONITERATION_H

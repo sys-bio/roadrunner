@@ -19,33 +19,30 @@ class SteadyStateIntegrationTest : public ::testing::Test {
 public:
     SteadyStateIntegrationTest() = default;
 
-    /**
-     * deprecated. Use SteadyStateResult::checkSteadyState instead
-     */
-    template<class TestModelType>
     void testSteadyState(
             const std::string &modelName,
-            const std::string &solverName) {
-        // todo much of this method has been abstracted further. See "SteadyStateResult::checkSteadyState".
-        //  Do refactoring to use the new interface.
+            const std::string &solverName,
+            double tol = 1e-4) {
         // get the model
-        TestModel *testModel_ = TestModelFactory(modelName);
-        TestModelType *testModel = dynamic_cast<TestModelType *>(testModel_);
+        TestModel *testModel = TestModelFactory(modelName);
+
+        auto* steadyStateTestModel = dynamic_cast<SteadyStateResult *>(testModel);
 
         assert(testModel && "testModel is nullptr");
+        assert(steadyStateTestModel && "steadyStateTestModel is nullptr");
 
         // load it into rr
         RoadRunner rr(testModel->str());
 
         // collect reference results
-        StringDoubleMap expectedResult = testModel->steadyState();
+        StringDoubleMap expectedResult = steadyStateTestModel->steadyState();
 
         rr.setSteadyStateSolver(solverName);
 
         BasicDictionary steadyStateOptions;
         steadyStateOptions.setItem("PrintLevel", 0);
 
-        for (auto &settingsIterator : testModel->steadyStateSettings()) {
+        for (auto &settingsIterator : steadyStateTestModel->steadyStateSettings()) {
             if (settingsIterator.first == "moiety_conservation") {
                 rr.setConservedMoietyAnalysis(settingsIterator.second);
             } else {
@@ -72,10 +69,59 @@ public:
 
             std::cout << "Comparing \"" << speciesID << "\" expected result: " << expected
                       << " with actual result " << actualResult << std::endl;
-            EXPECT_NEAR(expected, actualResult, 0.0001);
+            EXPECT_NEAR(expected, actualResult, tol);
         }
         delete testModel;
     }
+
+    void testSteadyStateFluxes(
+            const std::string& modelName,
+            const std::string& solverName,
+            double tol = 1e-4
+            ){
+        // get the model
+        TestModel *testModel = TestModelFactory(modelName);
+        assert(testModel && "testModel is nullptr");
+
+        // load it into rr
+        RoadRunner rr(testModel->str());
+
+        // collect reference results
+        auto* steadyStateFluxesTestModel = dynamic_cast<SteadyStateFluxes *>(testModel);
+        assert(steadyStateFluxesTestModel && "steadyStateFluxesTestModel is nullptr");
+        StringDoubleMap expectedResult = steadyStateFluxesTestModel->steadyStateFluxes();
+
+        rr.setSteadyStateSolver(solverName);
+
+        BasicDictionary steadyStateOptions;
+        steadyStateOptions.setItem("PrintLevel", 0);
+
+        for (auto &settingsIterator : steadyStateFluxesTestModel->steadyStateSettings()) {
+            if (settingsIterator.first == "moiety_conservation") {
+                rr.setConservedMoietyAnalysis(settingsIterator.second);
+            } else {
+                try {
+                    rr.getSteadyStateSolver()->setValue(settingsIterator.first, Setting(settingsIterator.second));
+                } catch (std::exception &err) {
+                    // if solver does not have this option, that's okay
+                    continue;
+                }
+            }
+        }
+
+        rr.steadyState(&steadyStateOptions);
+
+        for (auto& [reactionId, expectedSteadyStateFlux] : expectedResult){
+            double actualSteadyStateFlux = rr.getModel()->getValue(reactionId);
+            std::cout << "comparing steady state flux for reaction \""
+                << reactionId << "\": expected value = " << expectedSteadyStateFlux
+                << "; actual value = " << actualSteadyStateFlux << std::endl;
+            ASSERT_NEAR(expectedSteadyStateFlux, actualSteadyStateFlux, tol);
+        }
+
+        delete testModel;
+    }
+
 };
 
 #endif //ROADRUNNER_STEADYSTATEINTEGRATIONTEST

@@ -24,10 +24,11 @@
 #include <limits>
 #include <cassert>
 #include <Poco/Logger.h>
-
 #include <iostream>
 
 #define CVODE_INT_TYPECODE 0x7799ff00
+
+//
 
 namespace rr {
     const int CVODEIntegrator::mDefaultMaxNumSteps = 20000;
@@ -37,6 +38,7 @@ namespace rr {
     int cvodeDyDtFcn(realtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
 
     int cvodeRootFcn(realtype t, N_Vector y, realtype *gout, void *userData);
+
 
     // Sets the value of an element in a N_Vector object
     inline void SetVector(N_Vector v, int Index, double Value) {
@@ -75,7 +77,7 @@ namespace rr {
     */
 #define handleCVODEError(errCode) \
     { std::string _err_what = std::string("CVODE Error: ") + \
-    cvodeDecodeError(errCode); \
+    decodeSundialsError(this, errCode, true); \
     throw IntegratorException(_err_what, std::string(__FUNC__)); }
 
 
@@ -94,7 +96,7 @@ namespace rr {
         CVODEIntegrator::resetSettings();
 
         if (aModel) {
-            createCVode();
+            create();
 
             // allocate space for the event status array
             eventStatus = std::vector<unsigned char>(mModel->getEventTriggers(0, nullptr, nullptr), false);
@@ -105,9 +107,10 @@ namespace rr {
     }
 
     CVODEIntegrator::~CVODEIntegrator() {
-        freeCVode();
+        if (mCVODE_Memory && mModel) {
+            freeSundialsMemory();
+        }
     }
-
 
     void CVODEIntegrator::setListener(IntegratorListenerPtr p) {
         listener = p;
@@ -159,7 +162,8 @@ namespace rr {
         addSetting("absolute_tolerance", Setting(Config::getDouble(Config::CVODE_MIN_ABSOLUTE)), "Absolute Tolerance",
                    "Specifies the scalar or std::vector absolute tolerance based on amounts (double or double std::vector).",
                    "(double or double std::vector) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
-        addSetting("stiff", Setting(true), "Stiff", "Specifies whether the integrator attempts to solve stiff equations. (bool)",
+        addSetting("stiff", Setting(true), "Stiff",
+                   "Specifies whether the integrator attempts to solve stiff equations. (bool)",
                    "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
         addSetting("maximum_bdf_order", Setting(mDefaultMaxBDFOrder), "Maximum BDF Order",
                    "Specifies the maximum order for Backward Differentiation Formula integration. (int)",
@@ -176,11 +180,14 @@ namespace rr {
         addSetting("minimum_time_step", Setting(0.0), "Minimum Time Step",
                    "Specifies the minimum absolute value of step size allowed. (double)",
                    "(double) The minimum absolute value of step size allowed.");
-        addSetting("initial_time_step", Setting(0.0), "Initial Time Step", "Specifies the initial time step size. (double)",
+        addSetting("initial_time_step", Setting(0.0), "Initial Time Step",
+                   "Specifies the initial time step size. (double)",
                    "(double) Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step.");
-        addSetting("multiple_steps", Setting(false), "Multiple Steps", "Perform a multiple time step simulation. (bool)",
+        addSetting("multiple_steps", Setting(false), "Multiple Steps",
+                   "Perform a multiple time step simulation. (bool)",
                    "(bool) Perform a multiple time step simulation.");
-        addSetting("variable_step_size", Setting(false), "Variable Step Size", "Perform a variable time step simulation. (bool)",
+        addSetting("variable_step_size", Setting(false), "Variable Step Size",
+                   "Perform a variable time step simulation. (bool)",
                    "(bool) Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.  The number of steps or points will be ignored, and the max number of output rows will be used instead.");
         addSetting("max_output_rows", Setting(Config::getInt(Config::MAX_OUTPUT_ROWS)), "Maximum Output Rows",
                    "For variable step size simulations, the maximum number of output rows produced (int).",
@@ -190,7 +197,9 @@ namespace rr {
 
 
     void CVODEIntegrator::syncWithModel(ExecutableModel *m) {
-        freeCVode();
+        if (mCVODE_Memory) {
+            freeSundialsMemory();
+        }
 
         mModel = m;
 
@@ -200,7 +209,7 @@ namespace rr {
         variableStepTimeEndEvent = false;
 
         if (m) {
-            createCVode();
+            create();
 
             // allocate space for the event status array
             eventStatus = std::vector<unsigned char>(mModel->getEventTriggers(0, 0, 0), false);
@@ -217,7 +226,6 @@ namespace rr {
             bVal = Config::getBool(Config::SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP);
             Integrator::setValue("variable_step_size", Setting(bVal));
         }
-        // Why is this here? This is CVODE, a *deterministic* integrator.
         else if (getIntegrationMethod() == Integrator::Stochastic) {
             bVal = Config::getBool(Config::SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP);
             Integrator::setValue("variable_step_size", Setting(bVal));
@@ -281,18 +289,10 @@ namespace rr {
     }
 
     std::string CVODEIntegrator::getName() const {
-        return CVODEIntegrator::getCVODEIntegratorName();
-    }
-
-    std::string CVODEIntegrator::getCVODEIntegratorName() {
         return "cvode";
     }
 
     std::string CVODEIntegrator::getDescription() const {
-        return CVODEIntegrator::getCVODEIntegratorDescription();
-    }
-
-    std::string CVODEIntegrator::getCVODEIntegratorDescription() {
         return "CVODE is a deterministic ODE solver from the SUNDIALS suite "
                "of timecourse integrators. It implements an Adams-Moulton solver "
                "for non-stiff problems and a backward differentiation formula "
@@ -300,17 +300,17 @@ namespace rr {
     }
 
     std::string CVODEIntegrator::getHint() const {
-        return CVODEIntegrator::getCVODEIntegratorHint();
-    }
-
-    std::string CVODEIntegrator::getCVODEIntegratorHint() {
         return "Deterministic ODE solver";
     }
+
+    Solver *CVODEIntegrator::construct(ExecutableModel *executableModel) const {
+        return new CVODEIntegrator(executableModel);
+    }
+
 
     Integrator::IntegrationMethod CVODEIntegrator::getIntegrationMethod() const {
         return Integrator::Deterministic;
     }
-
 
     void CVODEIntegrator::setIndividualTolerance(std::string sid, double value) {
 
@@ -338,7 +338,6 @@ namespace rr {
             }
         }
 
-
         switch (getType("absolute_tolerance")) {
 
             // all cases below could be convert to a double type
@@ -351,7 +350,7 @@ namespace rr {
                 // scalar tolerance
                 // need to be converted to std::vector tolerance since tolerance of individual variables is set
 
-                double abstol =(double) CVODEIntegrator::getValue("absolute_tolerance");
+                double abstol = (double) CVODEIntegrator::getValue("absolute_tolerance");
                 for (int i = 0; i < mModel->getNumFloatingSpecies(); i++)
                     v.push_back(i == index ? value : abstol);
             }
@@ -359,7 +358,7 @@ namespace rr {
             case Setting::DOUBLEVECTOR: {
                 // std::vector tolerance
                 Setting absTolSetting = CVODEIntegrator::getValue("absolute_tolerance");
-                if (auto vec = absTolSetting.get_if<std::vector<double>>()){
+                if (auto vec = absTolSetting.get_if<std::vector<double>>()) {
                     v = *vec;
                 }
                 // only need to update the corresponding index
@@ -410,7 +409,7 @@ namespace rr {
                     } else {
                         // compare the concentration tolerance with the adjusted amount tolerace
                         // store whichever is smaller
-                        v.push_back(std::min(abstol, abstol * volumes[index]));
+                        v.push_back((std::min)(abstol, abstol * volumes[index]));
                     }
                 }
 
@@ -427,7 +426,7 @@ namespace rr {
                         } else {
                             // compare the concentration tolerance with the adjusted amount tolerace
                             // store whichever is smaller
-                            v.push_back(std::min(abstol, abstol * volumes[index]));
+                            v.push_back((std::min)(abstol, abstol * volumes[index]));
                         }
                     } else {
                         // not a species, no need to multiply compartment volume
@@ -456,10 +455,9 @@ namespace rr {
                     if (volumes[index] > 0) {
                         // compare the concentration tolerance with the adjusted amount tolerace
                         // store whichever is smaller
-                        v[i] = std::min(v[i], v[i] * volumes[index]);
+                        v[i] = (std::min)(v[i], v[i] * volumes[index]);
                     }
                 }
-
 
                 std::vector<std::string> symbols = mModel->getRateRuleSymbols();
                 for (int i = mModel->getNumIndFloatingSpecies();
@@ -472,7 +470,7 @@ namespace rr {
                         if (volumes[index] > 0) {
                             // compare the concentration tolerance with the adjusted amount tolerace
                             // store whichever is smaller
-                            v[i] = std::min(v[i], v[i] * volumes[index]);
+                            v[i] = (std::min)(v[i], v[i] * volumes[index]);
                         }
                     }
                 }
@@ -591,7 +589,17 @@ namespace rr {
         return v;
     }
 
-    void CVODEIntegrator::setValue(const std::string& key, Setting val) {
+    void CVODEIntegrator::setMaxOrder(int newValue) {
+        auto oldOrderValue = getValue("maximum_adams_order");
+        if (getValue("stiff").getAs<bool>()) {
+            oldOrderValue = getValue("maximum_bdf_order");
+        }
+        if (newValue <= oldOrderValue.getAs<int>()) {
+            CVodeSetMaxOrd(mCVODE_Memory, newValue);
+        }
+    }
+
+    void CVODEIntegrator::setValue(const std::string &key, Setting val) {
         // if std::vector tolerance is set, the size of std::vector must be equal to
         // the number of floating species
         if (key == "absolute_tolerance" && val.type() == Setting::DOUBLEVECTOR)
@@ -605,21 +613,28 @@ namespace rr {
         /// parameters requires a call into the CVODE library to synchronize
         /// CVODE's internal memory with the settings std::map.
         if (mCVODE_Memory) {
+
+            /**
+            * The default value is ADAMS Q MAX = 12 for the Adams-Moulton method and BDF Q MAX
+            * = 5 for the BDF method. Since maxord affects the memory requirements for the internal
+            * cvodes memory block, its value cannot be increased past its previous value.
+            */
             if (key == "maximum_bdf_order") {
-                CVodeSetMaxOrd(mCVODE_Memory, (int)getValue("maximum_bdf_order"));
+//                CVodeSetMaxOrd(mCVODE_Memory, getValue("maximum_bdf_order"));
+                setMaxOrder(getValue("maximum_bdf_order").getAs<int>());
             } else if (key == "maximum_adams_order") {
-                CVodeSetMaxOrd(mCVODE_Memory, (int)getValue("maximum_adams_order"));
+//                CVodeSetMaxOrd(mCVODE_Memory, getValue("maximum_adams_order"));
+                setMaxOrder(getValue("maximum_adams_order").getAs<int>());
             } else if (key == "initial_time_step") {
-                CVodeSetInitStep(mCVODE_Memory, (double)getValue("initial_time_step"));
+                CVodeSetInitStep(mCVODE_Memory, (double) getValue("initial_time_step"));
             } else if (key == "minimum_time_step") {
-                CVodeSetMinStep(mCVODE_Memory, (double)getValue("minimum_time_step"));
+                CVodeSetMinStep(mCVODE_Memory, (double) getValue("minimum_time_step"));
             } else if (key == "maximum_time_step") {
-                CVodeSetMaxStep(mCVODE_Memory, (double)getValue("maximum_time_step"));
+                CVodeSetMaxStep(mCVODE_Memory, (double) getValue("maximum_time_step"));
             } else if (key == "maximum_num_steps") {
-                CVodeSetMaxNumSteps(mCVODE_Memory, (int)getValue("maximum_num_steps"));
-            }
-            else if (key == "absolute_tolerance" || key == "relative_tolerance") {
-                CVodeSetMaxNumSteps(mCVODE_Memory, (double)getValue("maximum_num_steps"));
+                CVodeSetMaxNumSteps(mCVODE_Memory, (int) getValue("maximum_num_steps"));
+            } else if (key == "absolute_tolerance" || key == "relative_tolerance") {
+                CVodeSetMaxNumSteps(mCVODE_Memory, (double) getValue("maximum_num_steps"));
                 setCVODETolerances();
 
             }
@@ -627,8 +642,8 @@ namespace rr {
         if (key == "stiff") {
             // If the integrator is changed from stiff to standard, we must re-create CVode.
             rrLog(Logger::LOG_INFORMATION) << "Integrator stiffness has been changed. Re-creating CVode.";
-            freeCVode();
-            createCVode();
+            freeSundialsMemory();
+            create();
         }
     }
 
@@ -637,15 +652,15 @@ namespace rr {
             return;
         }
 
-        CVodeSetInitStep(mCVODE_Memory, (double)getValue("initial_time_step"));
-        CVodeSetMinStep(mCVODE_Memory, (double)getValue("minimum_time_step"));
-        CVodeSetMaxStep(mCVODE_Memory, (double)getValue("maximum_time_step"));
-        CVodeSetMaxNumSteps(mCVODE_Memory, (int)getValue("maximum_num_steps") > 0 ? (int)getValue("maximum_num_steps")
-                                                                                  : mDefaultMaxNumSteps);
-        if ((bool)getValue("stiff"))
-            CVodeSetMaxOrd(mCVODE_Memory, (int)getValue("maximum_bdf_order"));
+        CVodeSetInitStep(mCVODE_Memory, (double) getValue("initial_time_step"));
+        CVodeSetMinStep(mCVODE_Memory, (double) getValue("minimum_time_step"));
+        CVodeSetMaxStep(mCVODE_Memory, (double) getValue("maximum_time_step"));
+        CVodeSetMaxNumSteps(mCVODE_Memory, (int) getValue("maximum_num_steps") > 0 ? (int) getValue("maximum_num_steps")
+                                                                                   : mDefaultMaxNumSteps);
+        if ((bool) getValue("stiff"))
+            CVodeSetMaxOrd(mCVODE_Memory, (int) getValue("maximum_bdf_order"));
         else
-            CVodeSetMaxOrd(mCVODE_Memory, (int)getValue("maximum_adams_order"));
+            CVodeSetMaxOrd(mCVODE_Memory, (int) getValue("maximum_adams_order"));
         setCVODETolerances();
     }
 
@@ -671,7 +686,7 @@ namespace rr {
         static const double roottol = 100. * (32. * epsilon) * (fabs(timeStart) + fabs(hstep));
 
         rrLog(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
-                               << timeStart << ", " << hstep << ")";
+                                 << timeStart << ", " << hstep << ")";
 
         if (variableStepPendingEvent || variableStepTimeEndEvent) {
             return applyVariableStepPendingEvents() + roottol;
@@ -683,10 +698,10 @@ namespace rr {
 
         // Set itask based on step size settings.
         int itask = CV_NORMAL;
-        bool varstep = (bool)getValue("variable_step_size");
-        double relTol = (double)getValue("relative_tolerance");
+        bool varstep = (bool) getValue("variable_step_size");
+        double relTol = (double) getValue("relative_tolerance");
 
-        if ((bool)getValue("multiple_steps") || (bool)getValue("variable_step_size")) {
+        if ((bool) getValue("multiple_steps") || (bool) getValue("variable_step_size")) {
             itask = CV_ONE_STEP;
         }
 
@@ -822,7 +837,8 @@ namespace rr {
             case Setting::DOUBLE:
                 // scalar tolerance
                 CVODEIntegrator::setValue("absolute_tolerance",
-                                          Setting(std::min((double)CVODEIntegrator::getValue("absolute_tolerance"), minAbs)));
+                                          Setting((std::min)((double) CVODEIntegrator::getValue("absolute_tolerance"),
+                                                             minAbs)));
                 break;
 
 
@@ -830,7 +846,7 @@ namespace rr {
                 // std::vector tolerance
                 std::vector<double> v = CVODEIntegrator::getValue("absolute_tolerance");
                 for (int i = 0; i < v.size(); i++)
-                    v[i] = std::min(v[i], minAbs);
+                    v[i] = (std::min)(v[i], minAbs);
                 CVODEIntegrator::setValue("absolute_tolerance", Setting(v));
 
                 break;
@@ -841,11 +857,12 @@ namespace rr {
         }
 
         CVODEIntegrator::setValue("relative_tolerance",
-                                  Setting(std::min((double)CVODEIntegrator::getValue("relative_tolerance"), minRel)));
+                                  Setting((std::min)((double) CVODEIntegrator::getValue("relative_tolerance"),
+                                                     minRel)));
 
         rrLog(Logger::LOG_INFORMATION) << "tweaking CVODE tolerances to abs="
-                                     << (double)CVODEIntegrator::getValue("absolute_tolerance") << ", rel="
-                                     << (double)CVODEIntegrator::getValue("relative_tolerance");
+                                       << (double) CVODEIntegrator::getValue("absolute_tolerance") << ", rel="
+                                       << (double) CVODEIntegrator::getValue("relative_tolerance");
     }
 
 
@@ -853,7 +870,7 @@ namespace rr {
         return stateVectorVariables;
     }
 
-    void CVODEIntegrator::createCVode() {
+    void CVODEIntegrator::create() {
         if (!mModel) {
             return;
         }
@@ -886,11 +903,20 @@ namespace rr {
         mStateVector = N_VNew_Serial(allocStateVectorSize);
         variableStepPostEventState.resize(allocStateVectorSize);
 
-        for (int i = 0; i < allocStateVectorSize; i++) {
-            SetVector(mStateVector, i, 0.);
-        }
 
-        if ((bool)getValue("stiff")) {
+//        for (int i = 0; i < allocStateVectorSize; i++) {
+//            SetVector(mStateVector, i, 0.);
+//        }
+//         set mStateVector to the values that are currently in the model
+        auto states = new double[allocStateVectorSize];
+        mModel->getStateVector(states);
+
+        for (int i = 0; i < allocStateVectorSize; i++) {
+            mStateVector->ops->nvgetarraypointer(mStateVector)[i] = states[i];
+        }
+        delete[] states;
+
+        if ((bool) getValue("stiff")) {
             rrLog(Logger::LOG_INFORMATION) << "using stiff integrator";
             mCVODE_Memory = (void *) CVodeCreate(CV_BDF);
         } else {
@@ -932,7 +958,7 @@ namespace rr {
          */
 
         /* create fixed point nonlinear solver object */
-        if ((bool)getValue("stiff")) {
+        if ((bool) getValue("stiff")) {
             // as per the cvode docs (look closely at docs for CVodeCreate)
             // we use the default Newton iteration for stiff
 
@@ -1043,8 +1069,8 @@ namespace rr {
             case Setting::FLOAT:
             case Setting::DOUBLE:
                 // scalar tolerance
-                err = CVodeSStolerances(mCVODE_Memory, (double)getValue("relative_tolerance"),
-                                        (double)getValue("absolute_tolerance"));
+                err = CVodeSStolerances(mCVODE_Memory, (double) getValue("relative_tolerance"),
+                                        (double) getValue("absolute_tolerance"));
                 break;
 
 
@@ -1058,7 +1084,7 @@ namespace rr {
                 N_Vector nv = N_VMake_Serial(static_cast<long>(v.size()), arr);
 
 
-                err = CVodeSVtolerances(mCVODE_Memory, (double)getValue("relative_tolerance"), nv);
+                err = CVodeSVtolerances(mCVODE_Memory, (double) getValue("relative_tolerance"), nv);
                 // need to destroy
 
                 N_VDestroy_Serial(nv);
@@ -1086,8 +1112,8 @@ namespace rr {
             case Setting::FLOAT:
             case Setting::DOUBLE:
                 rrLog(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << std::setprecision(16)
-                                             << (double)getValue("absolute_tolerance") << ", rel: "
-                                             << (double)getValue("relative_tolerance") << std::endl;
+                                               << (double) getValue("absolute_tolerance") << ", rel: "
+                                               << (double) getValue("relative_tolerance") << std::endl;
                 break;
 
                 // std::vector tolerance
@@ -1100,7 +1126,7 @@ namespace rr {
                     }
                     rrLog(Logger::LOG_INFORMATION) << v[i];
                 }
-                rrLog(Logger::LOG_INFORMATION) << "], rel: " << (double)getValue("relative_tolerance") << std::endl;
+                rrLog(Logger::LOG_INFORMATION) << "], rel: " << (double) getValue("relative_tolerance") << std::endl;
 
                 break;
             }
@@ -1170,33 +1196,33 @@ namespace rr {
         return CV_SUCCESS;
     }
 
-    void CVODEIntegrator::freeCVode() {
+    void CVODEIntegrator::freeSundialsMemory() {
         // cvode does not check for null values.
         if (mStateVector) {
             N_VDestroy_Serial(mStateVector);
+            mStateVector = nullptr;
         }
 
         if (mCVODE_Memory) {
             CVodeFree(&mCVODE_Memory);
+            mCVODE_Memory = nullptr;
         }
 
         if (nonLinSolver) {
             SUNNonlinSolFree(nonLinSolver);
+            nonLinSolver = nullptr;
         }
 
         if (linSolver) {
             SUNLinSolFree(linSolver);
+            linSolver = nullptr;
         }
 
-        if (jac){
+        if (jac) {
             SUNMatDestroy(jac);
+            jac = nullptr;
         }
 
-        mCVODE_Memory = nullptr;
-        mStateVector = nullptr;
-        nonLinSolver = nullptr;
-        linSolver = nullptr;
-        jac = nullptr;
     }
 
     double CVODEIntegrator::applyVariableStepPendingEvents() {
@@ -1239,153 +1265,6 @@ namespace rr {
         return CV_SUCCESS;
     }
 
-    std::string CVODEIntegrator::cvodeDecodeError(int cvodeError, bool exInfo) {
-        std::string result;
-        std::stringstream ss;
-        ss << (int)getValue("maximum_num_steps");
-        std::string max_steps = ss.str();
-
-        switch (cvodeError) {
-            case CV_TOO_MUCH_WORK:
-                result = "CV_TOO_MUCH_WORK";
-                if (exInfo) {
-                    result += ": The solver took mxstep (" + max_steps + ") internal steps but " +
-                              "could not reach tout.";
-                }
-                break;
-            case CV_TOO_MUCH_ACC:
-                result = "CV_TOO_MUCH_ACC";
-                if (exInfo) {
-                    result += ": The solver could not satisfy the accuracy "
-                              "demanded by the user for some internal step.";
-                }
-                break;
-            case CV_ERR_FAILURE:
-                result = "CV_ERR_FAILURE";
-                if (exInfo) {
-                    result += ": Error test failures occurred too many times "
-                              "(= MXNEF = 7) during one internal time step or"
-                              "occurred with |h| = hmin.";
-                }
-                break;
-            case CV_CONV_FAILURE:
-                result = "CV_CONV_FAILURE";
-                if (exInfo) {
-                    result += ": Convergence test failures occurred too many "
-                              "times (= MXNCF = 10) during one internal time"
-                              "step or occurred with |h| = hmin.";
-                }
-                break;
-            case CV_LINIT_FAIL:
-                result = "CV_LINIT_FAIL";
-                if (exInfo) {
-                    result += ": The linear solver's initialization function "
-                              "failed.";
-                }
-                break;
-            case CV_LSETUP_FAIL:
-                result = "CV_LSETUP_FAIL";
-                if (exInfo) {
-                    result += ": The linear solver's setup routine failed in an "
-                              "unrecoverable manner.";
-                }
-                break;
-            case CV_LSOLVE_FAIL:
-                result = "CV_LSOLVE_FAIL";
-                if (exInfo) {
-                    result += ": The linear solver's solve routine failed in an "
-                              "unrecoverable manner.";
-                }
-                break;
-            case CV_RHSFUNC_FAIL:
-                result = "CV_RHSFUNC_FAIL";
-                break;
-            case CV_FIRST_RHSFUNC_ERR:
-                result = "CV_FIRST_RHSFUNC_ERR";
-                break;
-            case CV_REPTD_RHSFUNC_ERR:
-                result = "CV_REPTD_RHSFUNC_ERR";
-                break;
-            case CV_UNREC_RHSFUNC_ERR:
-                result = "CV_UNREC_RHSFUNC_ERR";
-                break;
-            case CV_RTFUNC_FAIL:
-                result = "CV_RTFUNC_FAIL";
-                break;
-            case CV_MEM_FAIL:
-                result = "CV_MEM_FAIL";
-                break;
-            case CV_MEM_NULL:
-                result = "CV_MEM_NULL";
-                if (exInfo) {
-                    result += ": The cvode_mem argument was NULL.";
-                }
-                break;
-            case CV_ILL_INPUT:
-                result = "CV_ILL_INPUT";
-                if (exInfo) {
-                    result += ": One of the inputs to CVode is illegal. This "
-                              "includes the situation when a component of the "
-                              "error weight vectors becomes < 0 during "
-                              "internal time-stepping.  It also includes the "
-                              "situation where a root of one of the root "
-                              "functions was found both at t0 and very near t0. "
-                              "The ILL_INPUT flag will also be returned if the "
-                              "linear solver routine CV--- (called by the user "
-                              "after calling CVodeCreate) failed to set one of "
-                              "the linear solver-related fields in cvode_mem or "
-                              "if the linear solver's init routine failed. In "
-                              "any case, the user should see the printed "
-                              "error message for more details.";
-                }
-                break;
-            case CV_NO_MALLOC:
-                result = "CV_NO_MALLOC";
-                if (exInfo) {
-                    result += ": indicating that cvode_mem has not been "
-                              "allocated (i.e., CVodeInit has not been "
-                              "called).";
-                }
-                break;
-            case CV_BAD_K:
-                result = "CV_BAD_K";
-                if (exInfo) {
-                    result += ": k is not in the range 0, 1, ..., qu.";
-                }
-                break;
-            case CV_BAD_T:
-                result = "CV_BAD_T";
-                if (exInfo) {
-                    result += ": t is not in the interval [tn-hu,tn].";
-                }
-                break;
-            case CV_BAD_DKY:
-                result = "CV_BAD_DKY";
-                if (exInfo) {
-                    result += ": The dky argument was NULL.";
-                }
-                break;
-            case CV_TOO_CLOSE:
-                result = "CV_TOO_CLOSE:";
-                break;
-            default:
-                result = "UNKNOWN_CODE";
-                break;
-        }
-        return result;
-    }
-
-    void *CVODEIntegrator::getCvodeMemory() const {
-        return mCVODE_Memory;
-    }
-
-    N_Vector CVODEIntegrator::getStateVector() const {
-        return mStateVector;
-    }
-
-    SUNNonlinearSolver CVODEIntegrator::getSolver() const {
-        return nonLinSolver;
-    }
 
     /**
     * Purpose
@@ -1412,16 +1291,29 @@ namespace rr {
         i->checkType();
 
         if (error_code < 0) {
-            rrLog(Logger::LOG_ERROR) << "CVODE Error: " << i->cvodeDecodeError(error_code, false)
-                                   << ", Module: " << module << ", Function: " << function
-                                   << ", Message: " << msg;
+            rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
+                                     << ", Module: " << module << ", Function: " << function
+                                     << ", Message: " << msg;
 
         } else if (error_code == CV_WARNING) {
             rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                     << ", Module: " << module << ", Function: " << function
-                                     << ", Message: " << msg;
+                                       << ", Module: " << module << ", Function: " << function
+                                       << ", Message: " << msg;
         }
     }
+
+    void *CVODEIntegrator::getCvodeMemory() const {
+        return mCVODE_Memory;
+    }
+
+    N_Vector CVODEIntegrator::getStateVector() const {
+        return mStateVector;
+    }
+
+    SUNNonlinearSolver CVODEIntegrator::getSolver() const {
+        return nonLinSolver;
+    }
+
 
 }
 

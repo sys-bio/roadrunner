@@ -59,6 +59,12 @@ Options
     Build Java bindings?                ${BUILD_JAVA}
     Package roadrunner?                 ${BUILD_PACKAGING}
     Build with address sanitizer?       ${WITH_ADDRESS_SANITIZER}
+    PYTHON_PACKAGE_SITE_DIR_BUILD_TREE  ${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}
+    PYTHON_PACKAGE_BUILD_PREFIX         ${PYTHON_PACKAGE_BUILD_PREFIX}
+    RR_PYTHON_TESTING_BUILD_PREFIX      ${RR_PYTHON_TESTING_BUILD_PREFIX}
+    PYTHON_PACKAGE_SITE_DIR             ${PYTHON_PACKAGE_SITE_DIR}
+    PYTHON_PACKAGE_INSTALL_PREFIX       ${PYTHON_PACKAGE_INSTALL_PREFIX}
+    RR_PYTHON_TESTING_INSTALL_PREFIX    ${RR_PYTHON_TESTING_INSTALL_PREFIX}
 
 -------------------------------------------------------------------------------
 rrplugins

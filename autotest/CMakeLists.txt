@@ -35,4 +35,5 @@ if(BUILD_PYTHON)
     COMMAND ${PYTHON_EXECUTABLE} run.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/python-unit-tests)
   set_tests_properties(PythonUnitTests PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_BINARY_DIR}/lib/site-packages:$PYTHONPATH")
+
 endif()

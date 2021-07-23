@@ -43,6 +43,7 @@ namespace rr {
      */
     class KinsolSteadyStateSolver : public SteadyStateSolver {
     public:
+        using SteadyStateSolver::SteadyStateSolver;
 
         /**
          * @brief constructor for creating KinsolSteadyStateSolver

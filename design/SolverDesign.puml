@@ -76,19 +76,19 @@ class SundialsSteadyStateSolver
 
 SteadyStateSolver <|-- SundialsSteadyStateSolver
 
-class NewtonIteration {
-    inexact: bool
-    modified: bool
-}
+class NewtonIteration
+class BasicNewtonIteration
+class LineSearchNewtonIteration
 
-class PicardIteration
 
-class FixedPointIteration {
-    withAndersonAcceleration: bool
+class FixedPointIteration
+note top of FixedPointIteration {
+    Still needs work
 }
 
 SundialsSteadyStateSolver <|-- NewtonIteration
-SundialsSteadyStateSolver <|-- PicardIteration
+NewtonIteration <|-- BasicNewtonIteration
+NewtonIteration <|-- LineSearchNewtonIteration
 SundialsSteadyStateSolver <|-- FixedPointIteration
 
 

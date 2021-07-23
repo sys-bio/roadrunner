@@ -24,7 +24,7 @@
 
 namespace rr
 {
-	static unsigned long defaultSeed()
+	static std::uint64_t defaultSeed()
 	{
 	    Setting seedSetting = Config::getValue(Config::RANDOM_SEED);
 	    std::uint64_t seed;
@@ -91,16 +91,20 @@ namespace rr
 
 	GillespieIntegrator::~GillespieIntegrator()
 	{
-		delete[] reactionRates;
-		delete[] reactionRatesBuffer;
-		delete[] stateVector;
-		delete[] stateVectorRate;
-		delete[] stoichData;
-        reactionRates = nullptr;
-        reactionRatesBuffer = nullptr;
-        stateVector = nullptr;
-        stateVectorRate = nullptr;
-        stoichData = nullptr;
+	    if (mModel) {
+	        // like in the constructor, we only delete these components
+	        // if the model was present on construction.
+            delete[] reactionRates;
+            delete[] reactionRatesBuffer;
+            delete[] stateVector;
+            delete[] stateVectorRate;
+            delete[] stoichData;
+            reactionRates = nullptr;
+            reactionRatesBuffer = nullptr;
+            stateVector = nullptr;
+            stateVectorRate = nullptr;
+            stoichData = nullptr;
+        }
 	}
 
     void GillespieIntegrator::syncWithModel(ExecutableModel* m)
@@ -134,18 +138,10 @@ namespace rr
     }
 
     std::string GillespieIntegrator::getName() const {
-        return GillespieIntegrator::getGillespieName();
-    }
-
-    std::string GillespieIntegrator::getGillespieName() {
         return "gillespie";
     }
 
     std::string GillespieIntegrator::getDescription() const {
-        return GillespieIntegrator::getGillespieDescription();
-    }
-
-    std::string GillespieIntegrator::getGillespieDescription() {
         return "RoadRunner's implementation of the standard Gillespie Direct "
             "Method SSA. The granularity of this simulator is individual "
             "molecules and kinetic processes are stochastic. "
@@ -154,10 +150,6 @@ namespace rr
     }
 
     std::string GillespieIntegrator::getHint() const {
-        return GillespieIntegrator::getGillespieHint();
-    }
-
-    std::string GillespieIntegrator::getGillespieHint() {
         return "Gillespie Direct Method SSA";
     }
 
@@ -425,12 +417,16 @@ namespace rr
 		return (double)engine() / (double)std::mt19937::max();
 	}
 
-	void GillespieIntegrator::setEngineSeed(unsigned long seed)
+	void GillespieIntegrator::setEngineSeed(std::uint64_t seed)
 	{
 		rrLog(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
 
 		// MSVC needs an explicit cast, fail to compile otherwise.
-		engine.seed((unsigned long)seed);
+		engine.seed((std::int64_t)seed);
 	}
 
-	} /* namespace rr */
+    Solver *GillespieIntegrator::construct(ExecutableModel *executableModel) const {
+        return new GillespieIntegrator(executableModel);
+    }
+
+} /* namespace rr */

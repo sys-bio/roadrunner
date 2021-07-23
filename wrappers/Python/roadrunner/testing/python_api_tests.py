@@ -1,96 +1,62 @@
 """Unit test style tests for roadrunner Python API"""
 
 import os
-import unittest
-
 import sys
+import unittest
 
 thisDir = os.path.dirname(os.path.realpath(__file__))
 rr_site_packages = os.path.dirname(os.path.dirname(thisDir))
 
 sys.path += [
-    r"D:\roadrunner\roadrunner\cmake-build-release-visual-studio---with-python\lib\site-packages",
     rr_site_packages,
 ]
 
 try:
     from roadrunner.roadrunner import (
         RoadRunner, Integrator, SteadyStateSolver,
-        ExecutableModel, RoadRunnerOptions, Config
+        ExecutableModel, RoadRunnerOptions, Config,
+        SensitivitySolver,
+        BasicNewtonIteration,
+        LinesearchNewtonIteration,
+        NLEQ1Solver,
+        NLEQ2Solver,
     )
+
+
 except ImportError:
     from roadrunner import (
         RoadRunner, Integrator, SteadyStateSolver,
-        ExecutableModel, RoadRunnerOptions, Config
+        ExecutableModel,
+        RoadRunnerOptions,
+        Config,
+        SensitivitySolver,
+        BasicNewtonIteration,
+        LinesearchNewtonIteration,
+        NLEQ1Solver,
+        NLEQ2Solver,
     )
 
-sbml = """<?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.5 on 2014-08-04 19:56 with libSBML version 5.9.1. -->
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-<model id="__main" name="__main">
-<listOfCompartments>
-  <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
-</listOfCompartments>
-<listOfSpecies>
-  <species id="S1" compartment="default_compartment" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-  <species id="S2" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-  <species id="S3" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-</listOfSpecies>
-<listOfParameters>
-  <parameter id="k1" value="0.1" constant="true"/>
-  <parameter id="k2" value="0.2" constant="true"/>
-</listOfParameters>
-<listOfReactions>
-  <reaction id="_J0" reversible="true" fast="false">
-    <listOfReactants>
-      <speciesReference species="S1" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="S2" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> k1 </ci>
-          <ci> S1 </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-  <reaction id="_J1" reversible="true" fast="false">
-    <listOfReactants>
-      <speciesReference species="S2" stoichiometry="1" constant="true"/>
-    </listOfReactants>
-    <listOfProducts>
-      <speciesReference species="S3" stoichiometry="1" constant="true"/>
-    </listOfProducts>
-    <kineticLaw>
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <times/>
-          <ci> k2 </ci>
-          <ci> S2 </ci>
-        </apply>
-      </math>
-    </kineticLaw>
-  </reaction>
-</listOfReactions>
-</model>
-</sbml>
-"""
+# note, we can also just import test models directly
+#   aka import OpenLinearFlux
+# Note: Importing "TestModelFactory" into global namespaces
+#  tricks some Python unit testing frameworks (such as nose)
+#  into thinking the function TestModelFactory is a test, which will fail.
+#  So we import TestModelFactory as an alias.
+import roadrunner.testing.TestModelFactory as tmf
 
 
 class RoadRunnerTests(unittest.TestCase):
     maxDiff = None
 
     def setUp(self) -> None:
-        self.rr = RoadRunner(sbml)
+        # print(getAvailableTestModels())
+        self.testModel = tmf.TestModelFactory("SimpleFlux")
+        self.rr = RoadRunner(self.testModel.str())
 
     def tearDown(self) -> None:
         pass
 
-    def checkMatricesEqual(self, expected, actual):
+    def checkMatricesAlmostEqual(self, expected, actual, places=7):
         if len(expected) != len(actual):
             raise ValueError("len(expected) != len(actual)")
 
@@ -99,7 +65,7 @@ class RoadRunnerTests(unittest.TestCase):
 
         for i in range(len(expected)):
             for j in range(len(expected[0])):
-                self.assertAlmostEqual(expected[i][j], actual[i][j])
+                self.assertAlmostEqual(expected[i][j], actual[i][j], places=places)
 
     def test_species_attribute(self):
         self.assertEqual(self.rr.S1, 10)
@@ -132,10 +98,10 @@ class RoadRunnerTests(unittest.TestCase):
         pass
 
     def test___getitem__(self):
-        self.assertEqual(self.rr.__getitem__("S1"), 10)
+        self.assertEqual(self.rr.__getitem__("S1"), 10.0)
 
     def test___len__(self):
-        self.assertEqual(len(self.rr), 17)  # not sure what this is enumerating though. Species, reactions?
+        self.assertEqual(len(self.rr), 21)  # not sure what this is enumerating though. Species, reactions?
 
     def test___repr__(self):
         l = repr([self.rr])
@@ -176,7 +142,8 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(25, self.rr.k_new)
 
     def testAddReaction(self):
-        self.rr.addReaction("NewReaction", ["S1"], ["S2"], "k1*S1", True)
+        self.rr.addReaction("NewReaction", ["S1"], ["S2"], "kf*S1", True)
+        self.rr.S1 = 10
         self.assertEqual(self.rr.NewReaction, 1.0)
 
     def testAddSpeciesConcentrations(self):
@@ -286,36 +253,46 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(self.rr.getAvailableIntegrators(), ("cvode",))
 
     def test_getBoundarySpeciesAmountsNamedArray(self):
+        self.rr.setBoundary("S1", True)
         bs = self.rr.getBoundarySpeciesAmountsNamedArray()
         self.assertEqual(bs["S1"], 10)
-        self.assertEqual(bs["S3"], 0)
 
     def test_getBoundarySpeciesConcentrationsNamedArray(self):
+        self.rr.setBoundary("S1", True)
+        self.rr.default_compartment = 0.5
         bs = self.rr.getBoundarySpeciesConcentrationsNamedArray()
-        self.assertEqual(bs["S1"], 10)
-        self.assertEqual(bs["S3"], 0)
+        self.assertEqual(bs["S1"], 20)
 
     def test_getCC(self):
-        self.assertAlmostEqual(self.rr.getCC("_J0", "k1"), 1.0000000000000024)
+        self.assertAlmostEqual(self.rr.getCC("_J0", "kf"), 0.009090752242926029)
 
     def test_getCompiler(self):
         compiler_string = str(self.rr.getCompiler())
         self.assertIn("Compiler", compiler_string)
 
     def test_getConservationMatrix(self):
-        """This mode has no conserved moieties so poor model for testing this feature"""
-        self.rr.conservedMoietyAnalysis = True
-        self.assertEqual(self.rr.getConservationMatrix().size, 0)
+        rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
+        rr2.conservedMoietyAnalysis = True
+        print(rr2.getConservationMatrix().shape)
+        self.assertEqual(rr2.getConservationMatrix().shape, (15, 28))
 
     def test_getConservedMoietyIds(self):
         """This mode has no conserved moieties so poor model for testing this feature"""
-        self.rr.conservedMoietyAnalysis = True
-        self.assertEqual(self.rr.getConservedMoietyIds(), ())
+        rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
+        rr2.conservedMoietyAnalysis = True
+        expected = tuple([f"_CSUM{i}" for i in range(15)])
+        self.assertEqual(rr2.getConservedMoietyIds(), expected)
 
     def test_getConservedMoietyValues(self):
         """This mode has no conserved moieties so poor model for testing this feature"""
-        self.rr.conservedMoietyAnalysis = True
-        self.assertEqual(len(self.rr.getConservedMoietyValues()), 0)
+        rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
+        rr2.conservedMoietyAnalysis = True
+        print(rr2.getConservedMoietyValues())
+        expected = [1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
+                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04]
+        actual = rr2.getConservedMoietyValues()
+        for i in range(len(expected)):
+            self.assertAlmostEqual(expected[i], actual[i])
 
     def test_getCurrentSBML(self):
         self.assertIsInstance(self.rr.getCurrentSBML(), str)
@@ -336,10 +313,10 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(0.05, self.rr.getDiffStepSize())
 
     def test_getEE(self):
-        self.assertAlmostEqual(self.rr.getEE("_J0", "k1"), 1.0000000000000024)
+        self.assertAlmostEqual(self.rr.getEE("_J0", "kf"), 1.0000000000000024)
 
     def test_getEigenValueIds(self):
-        expected = ('eigen(S2)', 'eigenReal(S2)', 'eigenImag(S2)')
+        expected = ('eigen(S1)', 'eigenReal(S1)', 'eigenImag(S1)', 'eigen(S2)', 'eigenReal(S2)', 'eigenImag(S2)')
         self.assertEqual(self.rr.getEigenValueIds(), expected)
 
     def test_getExistingIntegratorNames(self):
@@ -347,50 +324,77 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(expected, self.rr.getExistingIntegratorNames())
 
     def test_getExtendedStoichiometryMatrix(self):
-        expected = [[1, -1],
-                    [-1, 0],
-                    [0, 1]]
+        rr2 = RoadRunner(tmf.TestModelFactory("OpenLinearFlux").str())
+        mat = rr2.getExtendedStoichiometryMatrix()
+        print(mat)
+        expected = [
+            [1, -1, 0],
+            [0, 1, -1],
+            [-1, 0, 0],
+            [0, 0, 1],
+        ]
         # todo implement proper equality operators
-        for i in range(len(expected)):
-            for j in range(len(expected[0])):
-                self.assertEqual(expected[i][j], self.rr.getExtendedStoichiometryMatrix()[i][j])
+        print(mat.shape)
+        for i in range(mat.shape[0]):
+            for j in range(mat.shape[1]):
+                self.assertEqual(expected[i][j], mat[i][j])
 
     def test_getFloatingSpeciesAmountsNamedArray(self):
         x = self.rr.getFloatingSpeciesAmountsNamedArray()
-        self.assertEqual(x["S2"], 0)
+        self.assertEqual(x["S2"], 1)
 
     def test_getFloatingSpeciesConcentrationsNamedArray(self):
+        self.rr.default_compartment = 0.33
         x = self.rr.getFloatingSpeciesConcentrationsNamedArray()
-        self.assertEqual(x["S2"], 0)
+        self.assertAlmostEqual(3.0303030303030303, x["S2"][0])
 
     def test_getFloatingSpeciesInitialConcentrationIds(self):
         x = self.rr.getFloatingSpeciesInitialConcentrationIds()
-        self.assertEqual(x, ("init([S2])",))
+        self.assertEqual(x, ("init([S1])", "init([S2])",))
 
     @unittest.skip("figure out how to use")
     def test_getFrequencyResponse(self):
         pass
 
     def test_getFullEigenValues(self):
-        self.assertEqual([-0.2], self.rr.getFullEigenValues())
+        print(dir(self.testModel))
+        expected = self.testModel.fullEigenValues()
+        actual = self.rr.getFullEigenValues()
+        print(expected)
+        print(actual)
+        self.assertAlmostEqual(expected[0], actual[0])
+        self.assertAlmostEqual(expected[1], actual[1])
 
     def test_getFullJacobian(self):
-        self.assertEqual(-0.2, self.rr.getFullJacobian()["S2"])
+        print(dir(self.testModel))
+        expected = self.testModel.fullJacobianAmt()
+        actual = self.rr.getFullJacobian()
+        for i in range(expected.shape[0]):
+            for j in range(expected.shape[1]):
+                self.assertAlmostEqual(expected[i][j], actual[i][j])
 
     def test_getFullJacobianConc(self):
         Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
-        self.assertEqual(-0.2, self.rr.getFullJacobian()["S2"])
+        expected = self.testModel.fullJacobianConc()
+        actual = self.rr.getFullJacobian()
+        for i in range(expected.shape[0]):
+            for j in range(expected.shape[1]):
+                self.assertAlmostEqual(expected[i][j], actual[i][j])
 
     def test_getFullJacobianAmt(self):
+        expected = self.testModel.fullJacobianAmt()
         Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
-        self.assertEqual(-0.2, self.rr.getFullJacobian()["S2"])
+        actual = self.rr.getFullJacobian()
+        for i in range(expected.shape[0]):
+            for j in range(expected.shape[1]):
+                self.assertAlmostEqual(expected[i][j], actual[i][j])
 
     def test_getFullStoichiometryMatrix(self):
-        expected = [[1, -1]]
-        self.checkMatricesEqual(expected, self.rr.getFullStoichiometryMatrix())
+        expected = self.testModel.fullStoicMatrix()
+        self.checkMatricesAlmostEqual(expected, self.rr.getFullStoichiometryMatrix())
 
     def test_getGlobalParameterByName(self):
-        self.assertEqual(self.rr.getGlobalParameterByName("k1"), 0.1)
+        self.assertEqual(self.rr.getGlobalParameterByName("kf"), 0.1)
 
     @unittest.skip("No way to use this method from Python - it "
                    "requires an out parameter as input")
@@ -398,15 +402,15 @@ class RoadRunnerTests(unittest.TestCase):
         pass
 
     def test_getIndependentFloatingSpeciesIds(self):
-        self.assertEqual(self.rr.getIndependentFloatingSpeciesIds(), ["S2"])
+        self.assertEqual(self.rr.getIndependentFloatingSpeciesIds(), ["S1"])
 
     def test_getIndependentRatesOfChange(self):
-        self.assertEqual(1, self.rr.getIndependentRatesOfChange())
+        self.assertEqual(-0.99, self.rr.getIndependentRatesOfChange())
 
     def test_getIndependentRatesOfChangeNamedArray(self):
         self.assertEqual(
             self.rr.getIndependentRatesOfChangeNamedArray(),
-            [[1]]
+            [[-0.99]]
         )
 
     def test_getInfo(self):
@@ -416,9 +420,9 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_getIntegrator(self):
-        self.assertIsInstance(
-            self.rr.getIntegrator(),
-            Integrator
+        self.assertEqual(
+            self.rr.getIntegrator().getName(),
+            "cvode"
         )
 
     def test_getIntegratorByName(self):
@@ -429,7 +433,7 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_getKMatrix(self):
         expected = [[1], [1]]
-        self.checkMatricesEqual(
+        self.checkMatricesAlmostEqual(
             expected,
             self.rr.getKMatrix(),
         )
@@ -437,21 +441,23 @@ class RoadRunnerTests(unittest.TestCase):
     def test_getKineticLaw(self):
         self.assertEqual(
             self.rr.getKineticLaw("_J0"),
-            "k1 * S1"
+            "kf * S1"
         )
 
     def test_getL0Matrix(self):
-        self.assertEqual(
-            self.rr.getL0Matrix().size, 0
-        )
+        print(dir(self.testModel))
+        expected = self.testModel.L0Matrix()
+        actual = self.rr.getL0Matrix()
+        self.assertEqual(expected, actual)
 
     def test_getLinkMatrix(self):
-
-        expected = [[1]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getLinkMatrix(),
-        )
+        # roadrunner automatically trasposes column vectors
+        # into row vectors
+        expected = self.testModel.linkMatrix()
+        actual = self.rr.getLinkMatrix().T[0]
+        print(expected)
+        print(actual)
+        self.assertTrue((expected == actual).all())
 
     def test_getModel(self):
         self.assertIsInstance(
@@ -460,9 +466,8 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_getNrMatrix(self):
-
-        expected = [[1, -1]]
-        self.checkMatricesEqual(
+        expected = self.testModel.NrMatrix()
+        self.checkMatricesAlmostEqual(
             expected,
             self.rr.getNrMatrix(),
         )
@@ -474,37 +479,48 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_getRatesOfChange(self):
-        self.assertEqual(
-            self.rr.getRatesOfChange(),
-            [1.0]
+        print(self.rr.getRatesOfChange())
+        self.assertSequenceEqual(
+            list(self.rr.getRatesOfChange()),
+            [-0.99, 0.99]
         )
 
     def test_getRatesOfChangeNamedArray(self):
-        self.assertEqual(
-            self.rr.getRatesOfChangeNamedArray(),
-            [[1.0]]
+        print(self.rr.getRatesOfChangeNamedArray())
+        self.assertSequenceEqual(
+            list(self.rr.getRatesOfChangeNamedArray()[0]),
+            [-0.99, 0.99]
         )
 
     def test_getReactionRates(self):
         self.assertEqual(1.0, self.rr.getReactionRates()[0])
-        self.assertEqual(0.0, self.rr.getReactionRates()[1])
+        self.assertEqual(0.01, self.rr.getReactionRates()[1])
 
     def test_getReducedEigenValues(self):
-        self.assertAlmostEqual(
-            self.rr.getReducedEigenValues()[0],
-            -0.2
-        )
+        expected = self.testModel.reducedEigenValues()
+        self.rr.conservedMoietyAnalysis = True
+        actual = self.rr.getReducedEigenValues()
+        print("expected: ", expected)
+        print("actual: ", actual)
+        self.assertEqual(expected.shape, actual.shape)
+        self.assertAlmostEqual(expected[0], actual[0])
 
     def test_getReducedJacobian(self):
+        self.rr.conservedMoietyAnalysis = True
+        expected = self.testModel.reducedJacobianConc()
+        actual = self.rr.getReducedJacobian()
+        print(expected)
+        print(actual)
+
         self.assertAlmostEqual(
-            -0.2,
-            self.rr.getReducedJacobian()["S2"][0],
+            -0.11,
+            self.rr.getReducedJacobian()["S1"][0],
         )
 
     def test_getReducedStoichiometryMatrix(self):
-
-        expected = [[1, -1]]
-        self.checkMatricesEqual(
+        self.rr.conservedMoietyAnalysis = True
+        expected = self.testModel.reducedStoicMatrix()
+        self.checkMatricesAlmostEqual(
             expected,
             self.rr.getReducedStoichiometryMatrix(),
         )
@@ -521,6 +537,13 @@ class RoadRunnerTests(unittest.TestCase):
             self.rr.getRegisteredSteadyStateSolverNames(),
         )
 
+    def test_getRegisteredSensitivitySolverNames(self):
+        print(dir(self.rr))
+        self.assertEqual(
+            ("forward",),
+            self.rr.getRegisteredSensitivitySolverNames(),
+        )
+
     def test_getSBML(self):
         self.assertIsInstance(
             self.rr.getSBML(),
@@ -528,54 +551,55 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_getScaledConcentrationControlCoefficientMatrix(self):
-
-        expected = [[1, -1]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getScaledConcentrationControlCoefficientMatrix(),
+        expected = self.testModel.scaledConcentrationControlCoefficientMatrix()
+        actual = self.rr.getScaledConcentrationControlCoefficientMatrix()
+        self.checkMatricesAlmostEqual(
+            expected, actual, 5
         )
 
     def test_getScaledElasticityMatrix(self):
-        self.assertEqual(
-            0,
-            self.rr.getScaledElasticityMatrix()[0],
+        actual = self.rr.getScaledElasticityMatrix()
+        expected = self.testModel.scaledElasticityMatrix()
+        print(actual)
+        self.checkMatricesAlmostEqual(
+            expected, actual
         )
 
     def test_getScaledFloatingSpeciesElasticity(self):
-        self.assertEqual(
-            0.0,
-            self.rr.getScaledFloatingSpeciesElasticity("_J0", "S2"),
+        self.assertAlmostEqual(
+            1.0,
+            self.rr.getScaledFloatingSpeciesElasticity("_J1", "S2"),
         )
 
     def test_getScaledFluxControlCoefficientMatrix(self):
-
-        expected = [[1, 0],
-                    [1, -2.88658e-15]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getScaledFluxControlCoefficientMatrix(),
+        expected = self.testModel.scaledFluxControlCoefficientMatrix()
+        actual = self.rr.getScaledFluxControlCoefficientMatrix()
+        self.checkMatricesAlmostEqual(
+            expected, actual, 5
         )
 
     def test_getSelectedValues(self):
         self.assertEqual(self.rr.getSelectedValues()[0], 0)
-        self.assertEqual(self.rr.getSelectedValues()[1], 0)
+        self.assertEqual(self.rr.getSelectedValues()[1], 10)
 
     def test_getSimulationData(self):
         self.assertTrue(
             self.rr.getSimulationData().size == 0
         )
+        self.rr.simulate(0, 10, 11)
+        actual = self.rr.getSimulationData()
+        expected = self.testModel.timeSeriesResult()
+        self.checkMatricesAlmostEqual(actual, expected, places=4)
 
     def test_getSteadyStateSelectionStrings(self):
         self.assertEqual(
             self.rr.getSteadyStateSelectionStrings(),
-            ("[S2]",)
+            ("[S1]", "[S2]")
         )
 
     def test_getSteadyStateSolver(self):
-        self.assertIsInstance(
-            self.rr.getSteadyStateSolver(),
-            SteadyStateSolver
-        )
+        solver = self.rr.getSteadyStateSolver()
+        self.assertEqual("nleq2", solver.getName())
 
     def test_getSteadyStateThreshold(self):
         self.assertEqual(
@@ -584,15 +608,24 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_getSteadyStateValues(self):
-        self.assertAlmostEqual(
-            self.rr.getSteadyStateValues()[0],
-            5.
-        )
+        expected = self.testModel.steadyState()
+        actual = self.rr.getSteadyStateValues()
+        print(expected)
+        print(actual)
+        self.assertEqual(expected["S1"], actual[0])
+        self.assertEqual(expected["S2"], actual[1])
 
     def test_getSteadyStateValuesNamedArray(self):
-        self.assertAlmostEqual(
-            self.rr.getSteadyStateValuesNamedArray()[0][0],
-            5.
+        expected = self.testModel.steadyState()
+        actual = self.rr.getSteadyStateValuesNamedArray()
+        print(expected)
+        self.assertAlmostEqual(expected["S1"], actual[0, 0])
+        self.assertAlmostEqual(expected["S2"], actual[0, 1])
+
+    def test_getSensitivitySolver(self):
+        self.assertEqual(
+            "forward",
+            self.rr.getSensitivitySolver().getName()
         )
 
     @unittest.skip("This method should be not be visible in Python")
@@ -600,59 +633,53 @@ class RoadRunnerTests(unittest.TestCase):
         """returns a bit field of the ids that this class supports."""
 
     def test_getUnscaledConcentrationControlCoefficientMatrix(self):
-
-        expected = [[5, -5]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getUnscaledConcentrationControlCoefficientMatrix(),
+        expected = self.testModel.unscaledConcentrationControlCoefficientMatrix()
+        actual = self.rr.getUnscaledConcentrationControlCoefficientMatrix()
+        self.checkMatricesAlmostEqual(
+            expected, actual, 5
         )
 
     def test_getUnscaledElasticityMatrix(self):
-
-        expected = [[0],
-                    [0.2]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getUnscaledElasticityMatrix(),
+        expected = self.testModel.unscaledElasticityMatrix()
+        actual = self.rr.getUnscaledElasticityMatrix()
+        self.checkMatricesAlmostEqual(
+            expected, actual, 5
         )
 
     def test_getUnscaledFluxControlCoefficientMatrix(self):
-
-        expected = [[1, 0],
-                    [1, -2.88658e-15]]
-        self.checkMatricesEqual(
-            expected,
-            self.rr.getUnscaledFluxControlCoefficientMatrix(),
+        expected = self.testModel.unscaledFluxControlCoefficientMatrix()
+        actual = self.rr.getUnscaledFluxControlCoefficientMatrix()
+        self.checkMatricesAlmostEqual(
+            expected, actual, 5
         )
 
     def test_getUnscaledParameterElasticity(self):
         self.assertAlmostEqual(
             10,
-            self.rr.getUnscaledParameterElasticity("_J0", "k1"),
+            self.rr.getUnscaledParameterElasticity("_J0", "kf"),
         )
 
     def test_getUnscaledSpeciesElasticity(self):
         self.assertEqual(
-            0.0,
+            0.09999999999999994,
             self.rr.getUnscaledSpeciesElasticity(0, 0),
-
         )
 
     def test_getValue(self):
         self.assertEqual(
-            self.rr.getValue("k1"),
-            0.1
+            self.rr.getValue("kb"),
+            0.01
         )
 
     def test_getuCC(self):
         self.assertAlmostEqual(
-            self.rr.getuCC("_J0", "k1"),
-            10
+            0.09090752242926028,
+            self.rr.getuCC("_J0", "kf"),
         )
 
     def test_getuEE(self):
         self.assertAlmostEqual(
-            self.rr.getuEE("_J0", "k1"),
+            self.rr.getuEE("_J0", "kf"),
             10
         )
 
@@ -680,13 +707,27 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_items(self):
 
-        expected = [('S2', 0.0), ('S1', 10.0), ('S3', 0.0),
-                    ('[S2]', 0.0), ('[S1]', 10.0), ('[S3]', 0.0),
-                    ('default_compartment', 1.0), ('k1', 0.1),
-                    ('k2', 0.2), ('_J0', 1.0), ('_J1', 0.0),
-                    ('init([S2])', 0.0), ('init(S2)', 0.0),
-                    ("S2'", 1.0), ('eigen(S2)', (-0.2 + 0j)),
-                    ('eigenReal(S2)', -0.2), ('eigenImag(S2)', 0.0)]
+        expected = [('S1', 10.0),
+                    ('S2', 1.0),
+                    ('[S1]', 10.0),
+                    ('[S2]', 1.0),
+                    ('default_compartment', 1.0),
+                    ('kf', 0.1),
+                    ('kb', 0.01),
+                    ('_J0', 1.0),
+                    ('_J1', 0.01),
+                    ('init([S1])', 10.0),
+                    ('init([S2])', 1.0),
+                    ('init(S1)', 10.0),
+                    ('init(S2)', 1.0),
+                    ("S1'", -0.99),
+                    ("S2'", 0.99),
+                    ('eigen(S1)', (-0.10999999999999997 + 0j)),
+                    ('eigenReal(S1)', -0.10999999999999997),
+                    ('eigenImag(S1)', 0.0),
+                    ('eigen(S2)', 0j),
+                    ('eigenReal(S2)', 0.0),
+                    ('eigenImag(S2)', 0.0)]
         self.assertEqual(
             expected,
             self.rr.items(),
@@ -715,21 +756,40 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_parameter_value(self):
         self.assertEqual(
-            self.rr.k1,
+            self.rr.kf,
             0.1
         )
 
     def test_keys(self):
 
-        expected = ['S2', 'S1', 'S3', '[S2]', '[S1]', '[S3]', 'default_compartment', 'k1', 'k2', '_J0', '_J1',
-                    'init([S2])', 'init(S2)', "S2'", 'eigen(S2)', 'eigenReal(S2)', 'eigenImag(S2)']
+        expected = ['S1',
+                    'S2',
+                    '[S1]',
+                    '[S2]',
+                    'default_compartment',
+                    'kf',
+                    'kb',
+                    '_J0',
+                    '_J1',
+                    'init([S1])',
+                    'init([S2])',
+                    'init(S1)',
+                    'init(S2)',
+                    "S1'",
+                    "S2'",
+                    'eigen(S1)',
+                    'eigenReal(S1)',
+                    'eigenImag(S1)',
+                    'eigen(S2)',
+                    'eigenReal(S2)',
+                    'eigenImag(S2)']
         self.assertEqual(
             expected,
             self.rr.keys(),
         )
 
     def test_load(self):
-        self.rr.load(sbml),
+        self.rr.load(self.testModel.str()),
         self.assertTrue(self.rr.isModelLoaded())
 
     def test_loadState(self):
@@ -749,9 +809,9 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_mcaSteadyState(self):
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.rr.mcaSteadyState(),
-            0
+            1.3877787807814457e-17
         )
 
     def test_model(self):
@@ -804,38 +864,43 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_resetParameter(self):
-        self.assertEqual(self.rr.k1, 0.1) # starting value
-        self.rr.k1 = 15 # uses setattr
-        self.assertEqual(self.rr.k1, 15) # starting value
+        self.assertEqual(self.rr.kf, 0.1)  # starting value
+        self.rr.kf = 15  # uses setattr
+        self.assertEqual(self.rr.kf, 15)  # starting value
         self.rr.resetParameter()
-        self.assertEqual(self.rr.k1, 0.1)
+        self.assertEqual(self.rr.kf, 0.1)
 
     def test_resetSelectionLists(self):
         self.rr.selections = ["[S2]"]
         self.rr.resetSelectionLists()
         self.assertEqual(
+            ['time', "[S1]", '[S2]'],
             self.rr.selections,
-            ['time', '[S2]']
         )
 
     def test_resetToOrigin(self):
-        self.k1 = 16
+        self.kf = 16
         self.rr.resetToOrigin()
         self.assertEqual(
-            self.rr.k1, 0.1
+            self.rr.kf, 0.1
         )
+
+    def test_getCurrentTime(self):
+        self.assertEqual(0, self.rr.getCurrentTime())
+        self.rr.simulate(0, 100, 101)
+        self.assertEqual(100, self.rr.getCurrentTime())
 
     def test_selections(self):
         self.assertEqual(
             self.rr.selections,
-            ['time', '[S2]']
+            ['time', '[S1]', '[S2]']
         )
 
     def test_setBoundary(self):
         self.rr.setBoundary("S1", False)
-        self.assertEqual(1, self.rr.getBoundarySpeciesAmountsNamedArray().size)
+        self.assertEqual(0, self.rr.getBoundarySpeciesAmountsNamedArray().size)
         self.rr.setBoundary("S1", True)
-        self.assertEqual(2, self.rr.getBoundarySpeciesAmountsNamedArray().size)
+        self.assertEqual(1, self.rr.getBoundarySpeciesAmountsNamedArray().size)
 
     @unittest.skip("We can setConstant but how to getConstant?")
     def test_setConstant(self):
@@ -849,9 +914,9 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_setGlobalParameterByName(self):
-        self.rr.setGlobalParameterByName("k1", 6),
+        self.rr.setGlobalParameterByName("kf", 6),
         self.assertEqual(
-            self.rr.k1, 6
+            self.rr.kf, 6
         )
 
     @unittest.skip("How to getHasOnlySubstanceUnits?")
@@ -874,9 +939,9 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_setIntegrator(self):
         self.rr.setIntegrator("gillespie")
-        self.assertIsInstance(
-            self.rr.integrator,
-            Integrator
+        self.assertEqual(
+            "gillespie",
+            self.rr.integrator.getName()
         )
 
     def test_setIntegratorSetting(self):
@@ -910,8 +975,10 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_setSteadyStateSolver(self):
         self.rr.setSteadyStateSolver("newton")
+        solver = self.rr.getSteadyStateSolver()
+        print(solver, type(solver))
         self.assertEqual(
-            self.rr.getSteadyStateSolver().getName(),
+            solver.getName(),
             "newton"
         )
 
@@ -934,28 +1001,40 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_simulate(self):
-        before = self.rr.getFloatingSpeciesAmountsNamedArray()
-        self.rr.simulate(0, 10, 11)
-        after = self.rr.getFloatingSpeciesAmountsNamedArray()
-        self.assertNotEqual(before, after)
+        expected = self.testModel.timeSeriesResult()
+        settings = self.testModel.timeSeriesSettings()
+        start = settings["start"]
+        duration = settings["duration"]
+        steps = settings["steps"]
+        num = steps + 1
+        self.rr.simulate(start, duration, num)
+        print(expected)
+        actual = self.rr.getSimulationData()
+        print(actual)
+        self.checkMatricesAlmostEqual(expected, actual, 4)
 
     def test_steadyState(self):
-        before = self.rr.getFloatingSpeciesAmountsNamedArray()
+        expected = self.testModel.steadyState()
         self.rr.steadyState()
-        after = self.rr.getFloatingSpeciesAmountsNamedArray()
-        self.assertNotEqual(before, after)
+        actual = self.rr.getFloatingSpeciesAmountsNamedArray()
+        print(expected)
+        print(actual)
+        self.assertAlmostEqual(expected["S1"], actual[0][0])
+        self.assertAlmostEqual(expected["S2"], actual[0][1])
 
     def test_steadyStateNamedArray(self):
-        self.assertEqual(
-            self.rr.steadyStateNamedArray(),
-            5
-        )
+        expected = self.testModel.steadyState()
+        self.rr.steadyState()
+        actual = self.rr.steadyStateNamedArray()
+        print(expected)
+        print(actual)
+        self.assertAlmostEqual(expected["S1"], actual[0][0])
+        self.assertAlmostEqual(expected["S2"], actual[0][1])
 
     def test_steadyStateSelections(self):
         self.assertEqual(
             self.rr.steadyStateSelections,
-            ["[S2]"]
-
+            ["[S1]", "[S2]"]
         )
 
     def test_steadyStateSolver(self):
@@ -977,13 +1056,12 @@ class RoadRunnerTests(unittest.TestCase):
     def test_timeCourseSelections(self):
         self.assertEqual(
             self.rr.timeCourseSelections,
-            ['time', '[S2]']
+            ['time', "[S1]", '[S2]']
         )
 
     @unittest.skip("unclear how to test. Should this method be private?")
     def test_validateCurrentSBML(self):
         self.assertTrue(self.rr.validateCurrentSBML())
-
 
     def test_load_model_with_large_recursion_limit(self):
         """
@@ -1000,26 +1078,26 @@ class RoadRunnerTests(unittest.TestCase):
         """
         import sys
         sys.setrecursionlimit(3000)
-        m = RoadRunner(sbml)
+        m = RoadRunner(self.testModel.str())
         self.assertIsInstance(m, RoadRunner)
 
     def test_getitem_when_exists(self):
         import sys
         sys.setrecursionlimit(3000)
-        m = RoadRunner(sbml)
+        m = RoadRunner(self.testModel.str())
         self.assertEqual(10.0, m["S1"])
 
     def test_getitem_when_not_exists(self):
         import sys
         sys.setrecursionlimit(3000)
-        m = RoadRunner(sbml)
+        m = RoadRunner(self.testModel.str())
         with self.assertRaises(RuntimeError):
             s = m["S100"]
 
     def test_getitem_when_created_after_instantiation(self):
         import sys
         sys.setrecursionlimit(3000)
-        m = RoadRunner(sbml)
+        m = RoadRunner(self.testModel.str())
         m.addSpeciesConcentration("S100", "default_compartment", 123.3, False, False, "", True)
         val = m["S100"]
         self.assertAlmostEqual(val, 123.3)
@@ -1027,69 +1105,7 @@ class RoadRunnerTests(unittest.TestCase):
     def test_getitem_when_created_after_instantiation_dot_notation(self):
         import sys
         sys.setrecursionlimit(3000)
-        m = RoadRunner(sbml)
+        m = RoadRunner(self.testModel.str())
         m.addSpeciesConcentration("S100", "default_compartment", 123.3, False, False, "", True)
         m._makeProperties()
         self.assertAlmostEqual(m.S100, 123.3)
-
-
-class CVODEIntegratorTests(unittest.TestCase):
-    maxDiff = None
-
-    def setUp(self) -> None:
-        self.rr = RoadRunner(sbml)
-        self.integrator = self.rr.getIntegrator()
-
-    def tearDown(self) -> None:
-        pass
-
-    def test_relative_tolerance(self):
-        self.integrator.setValue("relative_tolerance", 1e-07)
-        self.assertEqual(1e-07, self.integrator.getValue("relative_tolerance"))
-
-    def test_absolute_tolerance(self):
-        self.integrator.setValue("absolute_tolerance", 1e-13)
-        self.assertEqual(1e-13, self.integrator.getValue("absolute_tolerance"))
-
-    def test_stiff(self):
-        self.integrator.setValue("stiff", False)
-        self.assertFalse(self.integrator.getValue("stiff"))
-
-    def test_set_maximum_bdf_order(self):
-        self.integrator.setValue("maximum_bdf_order", 3)
-        self.assertEqual(3, self.integrator.getValue("maximum_bdf_order"))
-
-    def test_set_maximum_adams_order(self):
-        self.integrator.setValue("maximum_adams_order", 2)
-        self.assertEqual(2, self.integrator.getValue("maximum_adams_order"))
-
-    def test_set_maximum_num_steps(self):
-        self.integrator.setValue("maximum_num_steps", 500)
-        self.assertEqual(500, self.integrator.getValue("maximum_num_steps"))
-
-    def test_set_maximum_time_step(self):
-        self.integrator.setValue("maximum_time_step", 5)
-        self.assertEqual(5, self.integrator.getValue("maximum_time_step"))
-
-    def test_set_minimum_time_step(self):
-        self.integrator.setValue("minimum_time_step", 0.1)
-        self.assertEqual(0.1, self.integrator.getValue("minimum_time_step"))
-
-    def test_set_initial_time_step(self):
-        self.integrator.setValue("initial_time_step", 3.56)
-        self.assertEqual(3.56, self.integrator.getValue("initial_time_step"))
-
-    def test_set_multiple_steps(self):
-        self.integrator.setValue("multiple_steps", True)
-        self.assertTrue(self.integrator.getValue("multiple_steps"))
-
-    def test_set_variable_step_size(self):
-        self.integrator.setValue("variable_step_size", True)
-        self.assertTrue(self.integrator.getValue("variable_step_size"))
-
-    def test_set_max_output_rows(self):
-        self.integrator.setValue("max_output_rows", 50)
-        self.assertEqual(50, self.integrator.getValue("max_output_rows"))
-
-    def test_set_concentration_tolerance(self):
-        self.integrator.setConcentrationTolerance(1e-8)

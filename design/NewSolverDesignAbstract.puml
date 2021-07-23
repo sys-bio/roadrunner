@@ -1,0 +1,198 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Registrable {}
+
+class Solver{
+    construct()
+}
+note right of Solver{
+    Solvers must now have a
+    construct method that can
+    be used by SolverSubtypeFactory
+    objects in a loop
+    to construct Solver instances
+    (explicit method is needed)
+}
+
+Registrable <|-- Solver
+
+note left of Registrable {
+    All solvers implement
+    the Registrable interface.
+    In one fell swoop we remove
+    the need for individual "Registrar"
+    for each type of Solver and prevent
+    the need for static and non-static
+    versions of the same method
+}
+
+class SolverSubtype
+
+note left of SolverSubtype {
+    For example Integrator
+    and SteadyStateSolver
+    types
+}
+
+class SolverSubtypeFactory {
+    New(string solverName) 
+}
+
+ConcreteSolver <-- SolverSubtypeFactory
+
+class ConcreteSolver{
+    + construct()
+}
+
+Solver <|-- SolverSubtype
+SolverSubtype <|-- ConcreteSolver
+
+
+class RegistrationFactory{}
+
+note right of SolverSubtypeFactory {
+    The logic of this factory
+    exists entirely in the superclass
+    now, whereas before they were
+    duplicated
+}
+
+RegistrationFactory <|-- SolverSubtypeFactory
+
+
+note right of ConcreteSolver {
+    Instances are constructed
+    by SolverSubtypeFactory
+    that can
+}
+
+
+class RoadRunner 
+
+SolverSubtypeFactory *-- RoadRunner 
+
+note left of RoadRunner {
+    RoadRunner instances use
+    SolverSubtypeFactory to create
+    ConcreteSolver objects
+}
+
+
+'Problems with this design: 
+'    - Every ConcreteSolver requires its own SolverRegistrar type
+'    - The nature of this design requires that solvers have both a
+'      static and non-static version of the same method. This is a
+'      very ugly code smell.
+'    - Every SolverSubtype requires its own Factory
+'
+'
+'
+'
+'class Solver #aqua-white
+'
+'class Integrator #aqua-white
+'
+'Solver <|-- Integrator
+'
+'class SteadyStateSolver #aqua-white
+'
+'Solver <|-- SteadyStateSolver
+'
+'class NLEQ1 #LightGreen-white
+'class NLEQ2 #LightGreen-white
+'
+'SteadyStateSolver <|-- NLEQ1
+'SteadyStateSolver <|-- NLEQ2
+'
+'class ConcreteIntegrator #LightGreen-white
+'
+'Integrator <|-- ConcreteIntegrator
+'
+'class IntegratorFactory #aqua-white
+'
+'
+'class ConcreteIntegratorRegistrar #aqua-white
+'
+'IntegratorRegistrar <|-- ConcreteIntegratorRegistrar
+'
+'
+'Integrator *-- IntegratorRegistrar
+'
+'IntegratorFactory *-- IntegratorRegistrar
+'
+'class RoadRunner #red-white
+'
+'RoadRunner *-- IntegratorFactory
+'
+'
+'class SteadyStateSolverRegistrar #aqua-white
+'class SteadyStateSolverSubtypeFactory #aqua-white
+'
+'SteadyStateSolverSubtypeFactory *-- SteadyStateSolverRegistrar
+'
+'RoadRunner *-- SteadyStateSolverSubtypeFactory
+'
+'SteadyStateSolver *-- SteadyStateSolverRegistrar
+'
+'class NLEQ1Registrar #LightGreen-white
+'class NLEQ2Registrar #LightGreen-white
+'
+'SteadyStateSolverRegistrar <|-- NLEQ1Registrar
+'SteadyStateSolverRegistrar <|-- NLEQ2Registrar
+'
+'
+'
+'class SundialsSteadyStateSolver
+'
+'SteadyStateSolver <|-- SundialsSteadyStateSolver
+'
+'class NewtonIteration {
+'    inexact: bool
+'    modified: bool
+'}
+'
+'class PicardIteration
+'
+'class FixedPointIteration {
+'    withAndersonAcceleration: bool
+'}
+'
+'SundialsSteadyStateSolver <|-- NewtonIteration
+'SundialsSteadyStateSolver <|-- PicardIteration
+'SundialsSteadyStateSolver <|-- FixedPointIteration
+'
+
+
+
+
+
+
+
+
+
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+@enduml

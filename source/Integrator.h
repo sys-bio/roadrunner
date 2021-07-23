@@ -14,8 +14,6 @@
 # ifndef RR_INTEGRATOR_H_
 # define RR_INTEGRATOR_H_
 
-// == INCLUDES ================================================
-
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
 #include "Dictionary.h"
@@ -24,9 +22,9 @@
 
 #include "tr1proxy/rr_memory.h"
 #include "tr1proxy/rr_unordered_map.h"
+#include "Registrable.h"
+#include "RegistrationFactory.h"
 #include <stdexcept>
-
-// == CODE ====================================================
 
 namespace rr {
 
@@ -61,6 +59,9 @@ namespace rr {
     ---------------------------------------------------------------------------------------------*/
     class RR_DECLSPEC Integrator : public Solver {
     public:
+
+        using Solver::Solver;
+
         /**
         * Pull down the setValue from superclass.
         * We do not need to reimplement this
@@ -151,96 +152,6 @@ namespace rr {
         explicit IntegratorException(const std::string &what, const std::string &where) :
                 std::runtime_error(what + "; In " + where) {
         }
-    };
-
-    /**
-     * @author JKM, WBC
-     * @brief Handles constructing an integrator and contains meta
-     * information about it
-     */
-    class RR_DECLSPEC IntegratorRegistrar {
-    protected:
-        typedef Integrator *(*IntegratorCtor)(ExecutableModel *model);
-
-    public:
-        virtual ~IntegratorRegistrar();
-
-        /**
-         * @author JKM, WBC
-         * @brief Gets the name associated with this integrator type
-         */
-        virtual std::string getName() const = 0;
-
-        /**
-         * @author JKM, WBC
-         * @brief Gets the description associated with this integrator type
-         */
-        virtual std::string getDescription() const = 0;
-
-        /**
-         * @author JKM, WBC
-         * @brief Gets the hint associated with this integrator type
-         */
-        virtual std::string getHint() const = 0;
-
-        /**
-         * @author JKM, WBC
-         * @brief Constructs a new integrator of a given type
-         */
-        virtual Integrator *construct(ExecutableModel *model) const = 0;
-    };
-
-    /**
-     * @author JKM, WBC
-     * @brief Constructs new integrators
-     * @details Implements the factory and singleton patterns.
-     * Constructs a new integrator given the name (e.g. cvode, gillespie)
-     * and returns a base pointer to @ref rr::Integrator.
-     */
-    class RR_DECLSPEC IntegratorFactory {
-    public:
-        virtual ~IntegratorFactory();
-
-        /**
-         * @author JKM, WBC
-         * @brief Constructs a new integrator given the name
-         * (e.g. cvode, gillespie)
-         */
-        Integrator *New(std::string name, ExecutableModel *m) const;
-
-        /**
-         * @author JKM, WBC
-         * @brief Registers a new integrator with the factory
-         * so that it can be constructed
-         * @details Should be called at startup for new integrators.
-         */
-        void registerIntegrator(IntegratorRegistrar *i);
-
-        /**
-         * @author JKM, WBC
-         * @brief Returns the singleton instance of the integrator factory
-         */
-        static IntegratorFactory &getInstance();
-
-        // ** Indexing *********************************************************
-
-        std::size_t getNumIntegrators() const;
-
-        std::string getIntegratorName(std::size_t n) const;
-
-        std::string getIntegratorHint(std::size_t n) const;
-
-        std::string getIntegratorDescription(std::size_t n) const;
-
-    private:
-        /**
-         * @author JKM, WBC
-         * @brief Prevents external instantiation
-         */
-        IntegratorFactory() {}
-
-        typedef std::vector<IntegratorRegistrar *> IntegratorRegistrars;
-        IntegratorRegistrars mRegisteredIntegrators;
     };
 
 }

@@ -17,6 +17,8 @@ namespace rr {
      */
     class PresimulationProgramDecorator : public SteadyStateSolverDecorator {
     public:
+        using SteadyStateSolverDecorator::SteadyStateSolverDecorator;
+
         ~PresimulationProgramDecorator() override = default;
 
         /**
@@ -30,6 +32,8 @@ namespace rr {
         explicit PresimulationProgramDecorator(SteadyStateSolver *solver);
 
         double solve() override;
+
+        Solver* construct(ExecutableModel* executableModel) const override;
 
     private:
         std::string decoratorName() const override;

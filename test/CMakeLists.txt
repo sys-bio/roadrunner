@@ -24,6 +24,7 @@ configure_file(RoadRunnerTestDirectory.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/RoadR
 set(ThisSourceDirectory "${CMAKE_CURRENT_SOURCE_DIR}")
 set(ThisBinaryDirectory "${CMAKE_CURRENT_BINARY_DIR}")
 set(MOCKUPS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mockups")
+set(RR_Python_wrapper_dir "${CMAKE_CURRENT_SOURCE_DIR}/../wrappers/Python/roadrunner")
 
 #todo move these to the rr_root/cmake folder
 # Adds a new executable cmake target to cmake.
@@ -34,18 +35,24 @@ set(MOCKUPS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mockups")
 #   - All further arguments are added to the binary as sources.
 function(add_test_executable TEST_TARGET OUT_VARIABLE)
     #message(STATUS "Adding test ${TEST_TARGET} as part of ${OUT_VARIABLE}. Source Files: ARGN: ${ARGN}" )
-    add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>)
+    add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>
+            ${ThisSourceDirectory}/TestModelFactory)
 
     target_include_directories(
             ${TEST_TARGET} PRIVATE
             "${ThisSourceDirectory}"
             "${ThisBinaryDirectory}"
             "${MOCKUPS_DIRECTORY}"
+            "${RR_Python_wrapper_dir}" # for PyUtils in tests that need it
     )
 
     target_link_libraries(${TEST_TARGET} PRIVATE
-            roadrunner_c_api roadrunner-static rr-mockups gtest gtest_main gmock gmock_main
+            roadrunner_c_api
+            roadrunner-static
+            rr-mockups
+            gtest gtest_main gmock gmock_main
             )
+
     # This causes a weird build error whereby it is no longer possible
     # to name a class the name as the binary filename. However, since w
     # link to roadrunner-static, the flags needed should be transitive
@@ -119,17 +126,19 @@ macro(add_swig_executable SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
             SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE
             )
 
+    set(thisDir ${CMAKE_CURRENT_SOURCE_DIR})
     target_include_directories(${SWIG_TARGET_NAME} PUBLIC
-            ${Python_INCLUDE_DIRS}
-            ${CMAKE_CURRENT_SOURCE_DIR}
-            "${RR_ROOT}/wrappers/Python/include" # for additional includes(.i) in tests
+            ${thisDir}
+            "${RR_ROOT}/wrappers/Python/include"
+            "${RR_ROOT}/wrappers/Python/roadrunner"
             $<TARGET_PROPERTY:roadrunner-static,INCLUDE_DIRECTORIES>
             $<TARGET_PROPERTY:roadrunner_python,INCLUDE_DIRECTORIES>
             )
     target_link_libraries(${SWIG_TARGET_NAME} PUBLIC
             rr-mockups
             roadrunner-static
-            ${Python_LIBRARIES}
+            Python::Python # remember, includes will just come with linking Python::Python
+            Python::NumPy  # remember, includes will just come with linking Python::NumPy
             )
 
     message(STATUS "Adding swig executable: ${SWIG_TARGET_NAME}")
@@ -154,6 +163,7 @@ endmacro()
 #########################################################
 #   Build the TestModelFactory
 #
+message(STATUS "RR_PYTHON_TESTING_BUILD_PREFIX: ${RR_PYTHON_TESTING_BUILD_PREFIX}")
 
 if (BUILD_PYTHON AND BUILD_TESTS)
     message(STATUS "Building TestModelFactory")
@@ -164,18 +174,24 @@ if (BUILD_PYTHON AND BUILD_TESTS)
             "../wrappers/Python/roadrunner/PyUtils"
             )
 
-    configure_file(testTestModelFactory.py "${RR_PYTHON_TESTING_DIR}" COPYONLY)
+
+    # configure Python files to binary tree
+    configure_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactoryTests.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/TestModelFactoryTests.py" COPYONLY)
+    configure_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/RoadRunnerTest.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/RoadRunnerTest.py" COPYONLY)
 
     # install python test files to install tree
-    install(TARGETS TestModelFactory DESTINATION site-packages/roadrunner/testing)
+    install(TARGETS TestModelFactory DESTINATION "${RR_PYTHON_TESTING_INSTALL_PREFIX}")
     install(
             FILES
-                "${CMAKE_CURRENT_BINARY_DIR}/TestModelFactory.py"
-                "${CMAKE_CURRENT_SOURCE_DIR}/testTestModelFactory.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/TestModelFactory.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/TestModelFactoryTests.py"
             DESTINATION
-            site-packages/roadrunner/testing
+            "${RR_PYTHON_TESTING_INSTALL_PREFIX}"
     )
-
 endif ()
 
 
@@ -212,6 +228,32 @@ add_subdirectory(cxx_api_tests)
 # (fyi, build the run-ctest-exclude-sbml-test-suite target - see below)
 add_subdirectory(semantic_STS)
 
+
+#######################################################################
+#   Add Python unit tests to ctest. Assumes availability of pytest (pip install pytest)
+#
+if (BUILD_PYTHON AND BUILD_TESTS)
+    function(add_pytest_to_ctest TestName TestSourceFile)
+        add_test(
+                NAME ${TestName}
+                COMMAND Python::Interpreter -m pytest ${TestSourceFile}
+                WORKING_DIRECTORY "${RR_PYTHON_TESTING_BUILD_PREFIX}"
+        )
+        set_tests_properties(${TestName} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH")
+    endfunction()
+
+
+    add_pytest_to_ctest(PyAutomaticMoietyConservationAnalysisTests AutomaticMoietyConservationAnalysisTests.py)
+    add_pytest_to_ctest(PyForwardSensitivitySolverTests ForwardSensitivitySolverTests.py)
+    add_pytest_to_ctest(PyIntegratorTests IntegratorTests.py)
+    add_pytest_to_ctest(Pypython_api_tests python_api_tests.py)
+    add_pytest_to_ctest(PySettingTests SettingTests.py)
+    add_pytest_to_ctest(PySteadyStateSolverTests SteadyStateSolverTests.py)
+    add_pytest_to_ctest(PyStructuralAnalysisTests StructuralAnalysisTests.py)
+    add_pytest_to_ctest(PyTestModelFactoryTests TestModelFactoryTests.py)
+
+endif ()
+
 #########################################################
 #   Install tests and create wrapper for ctest command
 #
@@ -240,6 +282,7 @@ add_custom_target(
 )
 
 add_dependencies(run-ctest-only-sbml-test-suite ${test_targets})
+
 
 
 

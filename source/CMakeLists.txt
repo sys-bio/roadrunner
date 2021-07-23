@@ -46,7 +46,6 @@ set(
         rrStringUtils.cpp
         rrUtils.cpp
         Integrator.cpp
-        IntegratorRegistration.cpp
         CVODEIntegrator.cpp
         Dictionary.cpp
         GillespieIntegrator.cpp
@@ -72,9 +71,16 @@ set(
         SBMLValidator.cpp
         SteadyStateSolver.cpp
         Solver.cpp
-        SolverRegistration.cpp
-#        Variant.cpp
+        #        Variant.cpp
         Setting.cpp
+        ForwardSensitivitySolver.cpp
+
+        ForwardSensitivitySolver.cpp
+
+        RegistrationFactory.cpp
+        SensitivitySolverFactory.cpp
+        SteadyStateSolverFactory.cpp
+        IntegratorFactory.cpp
 
         KinsolSteadyStateSolver.cpp
         FixedPointIteration.cpp
@@ -114,7 +120,6 @@ set(
         rrStringUtils.h
         rrUtils.h
         Integrator.h
-        IntegratorRegistration.h
         CVODEIntegrator.h
         Dictionary.h
         GillespieIntegrator.h
@@ -140,9 +145,19 @@ set(
         SBMLValidator.h
         SteadyStateSolver.h
         Solver.h
-        SolverRegistration.h
-#        Variant.h
+        #        Variant.h
         Setting.h
+        ForwardSensitivitySolver.h
+        ForwardSensitivitySolver.h
+        SensitivitySolver.h
+        RegistrationFactory.cpp
+        Registrable.h
+        SensitivitySolverFactory.h
+        SteadyStateSolverFactory.h
+        IntegratorFactory.h
+
+        Matrix.h
+        Matrix3D.h
 
         KinsolErrHandler.h
         KinsolSteadyStateSolver.h
@@ -430,7 +445,9 @@ target_link_libraries(
         SUNDIALS::sunlinsolsptfqmr_static
         SUNDIALS::sunnonlinsolnewton_static
         SUNDIALS::sunnonlinsolfixedpoint_static
-        SUNDIALS::cvode_static
+        # cvodes is a superset of cvode.
+        # linking the both can cause a duplicate symbol problem
+        # SUNDIALS::cvode_static
         SUNDIALS::cvodes_static
         SUNDIALS::kinsol_static
 

@@ -90,27 +90,15 @@ namespace rr {
     }
 
     std::string NewtonIteration::getName() const {
-        return NewtonIteration::getNewtonIterationName();
-    }
-
-    std::string NewtonIteration::getDescription() const {
-        return NewtonIteration::getNewtonIterationDescription();
-    }
-
-    std::string NewtonIteration::getHint() const {
-        return NewtonIteration::getNewtonIterationHint();
-    }
-
-    std::string NewtonIteration::getNewtonIterationName() {
         return "NewtonIteration";
     }
 
-    std::string NewtonIteration::getNewtonIterationDescription() {
+    std::string NewtonIteration::getDescription() const {
         return "Uses the sundials implementation of newton "
                "iteration";
     }
 
-    std::string NewtonIteration::getNewtonIterationHint() {
+    std::string NewtonIteration::getHint() const {
         return "Newton Iteration";
     }
 

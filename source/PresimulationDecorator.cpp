@@ -36,4 +36,8 @@ namespace rr {
     std::string PresimulationDecorator::decoratorName() const {
         return "Presimulation";
     }
+
+    Solver *PresimulationDecorator::construct(ExecutableModel *executableModel) const {
+        return new PresimulationDecorator(executableModel);
+    }
 }

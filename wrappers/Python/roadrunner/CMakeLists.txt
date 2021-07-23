@@ -1,5 +1,5 @@
 # copy to /lib so we can import roadrunner in the build tree
-configure_file(__init__.py.in ${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py COPYONLY)
+configure_file(__init__.py.in "${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py" COPYONLY)
 
 set_source_files_properties(roadrunner.i PROPERTIES
         CPLUSPLUS ON
@@ -31,9 +31,9 @@ swig_add_library(roadrunner_python
 
 
 set_target_properties(roadrunner_python PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/python/roadrunner
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner
-        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/python/roadrunner"
+        LIBRARY_OUTPUT_DIRECTORY "${PYTHON_PACKAGE_BUILD_PREFIX}"
+        ARCHIVE_OUTPUT_DIRECTORY "${PYTHON_PACKAGE_BUILD_PREFIX}"
         OUTPUT_NAME roadrunner
         SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE # Needed for target_include_directories to have any effect on swig target
         )
@@ -41,17 +41,17 @@ set_target_properties(roadrunner_python PROPERTIES
 # Move the roadrunner.py produced by swig in the binary tree to the site-pacakges/lib folder with the binaries
 add_custom_command(
         TARGET roadrunner_python POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py" "${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/roadrunner.py"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py" "${PYTHON_PACKAGE_BUILD_PREFIX}/roadrunner.py"
 )
 
 target_include_directories(roadrunner_python PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/../include
-        ${RR_SOURCE_ROOT}
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../include"
+        "${RR_SOURCE_ROOT}"
         "$<TARGET_PROPERTY:roadrunner-static,INCLUDE_DIRECTORIES>"
-        ${RR_DEPENDENCIES_INSTALL_PREFIX}/include/rr-libstruct
-        ${Python_INCLUDE_DIRS}
-        ${Python_NumPy_INCLUDE_DIRS}
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/include/rr-libstruct"
+        "${Python_INCLUDE_DIRS}"
+        "${Python_NumPy_INCLUDE_DIRS}"
         )
 
 if (WIN32)
@@ -91,7 +91,7 @@ endif ()
 
 install(
         TARGETS roadrunner_python
-        DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}
+        DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}"
 )
 
 install(FILES
@@ -101,7 +101,8 @@ install(FILES
 
 
 install(
-        FILES testing/__init__.py
+        FILES
+        testing/__init__.py
         testing/__main__.py
         testing/README.txt
         testing/tester.py

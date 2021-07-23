@@ -11,11 +11,15 @@ namespace rr {
 
     class ApproxSteadyStateDecorator : public SteadyStateSolverDecorator {
     public:
+        using SteadyStateSolverDecorator::SteadyStateSolverDecorator;
+
         ~ApproxSteadyStateDecorator() override = default;
 
         explicit ApproxSteadyStateDecorator(SteadyStateSolver* solver) ;
 
         double solve() override;
+
+        Solver* construct(ExecutableModel* executableModel) const override;
 
     private:
         std::string decoratorName() const override;

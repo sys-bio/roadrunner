@@ -126,7 +126,7 @@ static Setting values[] = {
     Setting((std::int32_t)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS), // ROADRUNNER_JACOBIAN_MODE
     Setting(std::string(".")),              // TEMP_DIR_PATH,
     Setting(std::string("")),               // LOGGER_LOG_FILE_PATH,
-    Setting(-1),                                // RANDOM_SEED
+    Setting(-1),                 // RANDOM_SEED
     Setting(true),                              // PYTHON_ENABLE_NAMED_MATRIX
     Setting(true),                              // LLVM_SYMBOL_CACHE
     Setting(true),                              // OPTIMIZE_REACTION_RATE_SELECTION

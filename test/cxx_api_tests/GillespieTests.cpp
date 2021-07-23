@@ -5,7 +5,6 @@
 #include <rrRoadRunner.h>
 #include "gtest/gtest.h"
 
-// todo move test model factor up one directory
 #include "TestModelFactory.h"
 
 #include "GillespieIntegrator.h"
@@ -31,5 +30,14 @@ TEST_F(GillespieTests, Seed){
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("seed", 1234);
     ASSERT_TRUE(rr.getIntegrator()->getValue("seed") == 1234);
+}
+
+TEST_F(GillespieTests, SetSeedUsingInactiveIntegrator){
+    RoadRunner rr(openLinearFlux.str());
+    Integrator* integrator = rr.getIntegratorByName("gillespie");
+    integrator->setValue("seed", 4);
+    rr.setIntegrator("gillespie");
+    std::int64_t seed = rr.getIntegrator()->getValue("seed");
+    ASSERT_EQ(4, seed);
 }
 

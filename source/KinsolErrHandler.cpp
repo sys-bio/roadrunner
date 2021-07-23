@@ -110,7 +110,6 @@ namespace rr {
                 break;
             }
             default:
-
                 throw std::runtime_error("Unrecognized kinsol errorunhandled exception");
         }
         free(errorString);

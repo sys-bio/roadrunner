@@ -33,6 +33,8 @@ public:
 
     static void checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix, double absError = 1e-3) ;
 
+
+
 protected:
     /**
      * @brief check validity of the rrTestDir_ variable

@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SensitivitySolverFactory" kind="class" language="C++" prot="public">
+    <compoundname>rr::SensitivitySolverFactory</compoundname>
+    <includes refid="SensitivitySolver_8h" local="no">SensitivitySolver.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classrr_1_1SensitivitySolverFactory_1a69745bfc7024f3187cb8634d78571ff0" prot="private" static="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1SensitivitySolverRegistrar" kindref="compound">SensitivitySolverRegistrar</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;SensitivitySolverRegistrar *&gt; rr::SensitivitySolverFactory::SensitivitySolverRegistrars</definition>
+        <argsstring></argsstring>
+        <name>SensitivitySolverRegistrars</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="149" column="29" bodyfile="SensitivitySolver.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1SensitivitySolverFactory_1a1dc717fc555418d7b71d04f2bc7a9c9d" prot="private" static="no" mutable="no">
+        <type>SensitivitySolverRegistrars</type>
+        <definition>SensitivitySolverRegistrars rr::SensitivitySolverFactory::mRegisteredSensitivitySolvers</definition>
+        <argsstring></argsstring>
+        <name>mRegisteredSensitivitySolvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="150" column="37" bodyfile="SensitivitySolver.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a226720d5127cb6dd7f47ebb3d92a739d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::SensitivitySolverFactory::~SensitivitySolverFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~SensitivitySolverFactory</name>
+        <briefdescription>
+<para><ref refid="classrr_1_1SensitivitySolver" kindref="compound">SensitivitySolver</ref> FACTORY. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="107" column="17" bodyfile="SensitivitySolver.cpp" bodystart="18" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a8575eb1361b73907b745f754cd732d5f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1SensitivitySolver" kindref="compound">SensitivitySolver</ref> *</type>
+        <definition>SensitivitySolver * rr::SensitivitySolverFactory::New</definition>
+        <argsstring>(const std::string &amp;name, ExecutableModel *m) const</argsstring>
+        <name>New</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new solver given the name (e.g. cvode, gillespie) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="114" column="27" bodyfile="SensitivitySolver.cpp" bodystart="25" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a9ec32e49ba4df9f9f967d6edf50e3ca7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::SensitivitySolverFactory::registerSensitivitySolver</definition>
+        <argsstring>(SensitivitySolverRegistrar *i)</argsstring>
+        <name>registerSensitivitySolver</name>
+        <param>
+          <type><ref refid="classrr_1_1SensitivitySolverRegistrar" kindref="compound">SensitivitySolverRegistrar</ref> *</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Registers a new solver with the factory so that it can be constructed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Should be called at startup for new solvers. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="122" column="14" bodyfile="SensitivitySolver.cpp" bodystart="36" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a7663ba324f9d905caaaf34812cb1d2e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t rr::SensitivitySolverFactory::getNumSensitivitySolvers</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumSensitivitySolvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="132" column="21" bodyfile="SensitivitySolver.cpp" bodystart="48" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a093456ad98b7e933b4d19ea758c94dd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; rr::SensitivitySolverFactory::getListSensitivitySolverNames</definition>
+        <argsstring>()</argsstring>
+        <name>getListSensitivitySolverNames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="134" column="21" bodyfile="SensitivitySolver.cpp" bodystart="52" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1adb988d2433aa337861338b8f9d8c786d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SensitivitySolverFactory::getSensitivitySolverName</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSensitivitySolverName</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="136" column="21" bodyfile="SensitivitySolver.cpp" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1ae0a58171def583ebb8a751c07b19e4ce" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SensitivitySolverFactory::getSensitivitySolverHint</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSensitivitySolverHint</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="138" column="21" bodyfile="SensitivitySolver.cpp" bodystart="66" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a9566910728accd9542734605d492c4f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SensitivitySolverFactory::getSensitivitySolverDescription</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSensitivitySolverDescription</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="140" column="21" bodyfile="SensitivitySolver.cpp" bodystart="70" bodyend="72"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1a195775f017038cee09a4d9921a70f0e7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1SensitivitySolverFactory" kindref="compound">SensitivitySolverFactory</ref> &amp;</type>
+        <definition>SensitivitySolverFactory &amp; rr::SensitivitySolverFactory::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+<para>Returns the singleton instance of the solver factory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="128" column="41" bodyfile="SensitivitySolver.cpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1SensitivitySolverFactory_1aa52fa35485478ef09603c3fa5275f6b8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::SensitivitySolverFactory::SensitivitySolverFactory</definition>
+        <argsstring>()</argsstring>
+        <name>SensitivitySolverFactory</name>
+        <briefdescription>
+<para>Prevents external instantiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SensitivitySolver.h" line="147" column="9" bodyfile="SensitivitySolver.h" bodystart="147" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Constructs new integrators. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.g. cvode, gillespie) and returns a base pointer to <ref refid="classrr_1_1SensitivitySolver" kindref="compound">rr::SensitivitySolver</ref>. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="SensitivitySolver.h" line="105" column="5" bodyfile="SensitivitySolver.h" bodystart="105" bodyend="151"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a195775f017038cee09a4d9921a70f0e7" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getInstance</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a093456ad98b7e933b4d19ea758c94dd4" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getListSensitivitySolverNames</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a7663ba324f9d905caaaf34812cb1d2e0" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getNumSensitivitySolvers</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a9566910728accd9542734605d492c4f2" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getSensitivitySolverDescription</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1ae0a58171def583ebb8a751c07b19e4ce" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getSensitivitySolverHint</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1adb988d2433aa337861338b8f9d8c786d" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>getSensitivitySolverName</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a1dc717fc555418d7b71d04f2bc7a9c9d" prot="private" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>mRegisteredSensitivitySolvers</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a8575eb1361b73907b745f754cd732d5f" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>New</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a9ec32e49ba4df9f9f967d6edf50e3ca7" prot="public" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>registerSensitivitySolver</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1aa52fa35485478ef09603c3fa5275f6b8" prot="private" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>SensitivitySolverFactory</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a69745bfc7024f3187cb8634d78571ff0" prot="private" virt="non-virtual"><scope>rr::SensitivitySolverFactory</scope><name>SensitivitySolverRegistrars</name></member>
+      <member refid="classrr_1_1SensitivitySolverFactory_1a226720d5127cb6dd7f47ebb3d92a739d" prot="public" virt="virtual"><scope>rr::SensitivitySolverFactory</scope><name>~SensitivitySolverFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

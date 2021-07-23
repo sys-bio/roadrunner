@@ -142,7 +142,6 @@ if (BUILD_PYTHON)
     #	        "BUILD_PYTHON" OFF)
 endif ()
 
-
 #Setup so that roadrunner is always built as a dll and linked statically with 'as much as possible'
 option(BUILD_RR_CAPI "Generate C API" ON)
 
@@ -162,7 +161,56 @@ option(WITH_ADDRESS_SANITIZER "Build roadrunner with memory sanitizer tool (assu
 # telplugin options
 option(BUILD_RR_PLUGINS "Build the telplugins package" OFF)
 
-# todo consider whether we want to rebrand "telplugins" to rrplugins or something similar. These are actually roadrunner plugins not tellurium.
+#####################################################
+# Configure Asan build
+# https://stackoverflow.com/a/64294837/3059024
+#   and
+# Professional CMake: A Practical Guide.
+# Usage:
+#   -DCMAKE_BUILD_TYPE=Asan ...
+#
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Asan")
+    # these variables only get used in Asan builds
+    # and they will only work if CMake can find address sanitizer
+    # executable.
+    #
+    # The Asan build is based on the Debug build, but with a few extra flags
+    #
+    get_property(isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+
+    if (isMultiConfig)
+        if (NOT "Asan" IN_LIST CMAKE_CONFIGURATION_TYPES)
+            list(APPEND CMAKE_CONFIGURATION_TYPES Asan)
+        endif ()
+    else ()
+        set(allowedBuildTypes Asan Debug Release RelWithDebInfo MinSizeRel)
+        set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "${allowedBuildTypes}")
+
+        if (CMAKE_BUILD_TYPE AND NOT CMAKE_BUILD_TYPE IN_LIST allowedBuildTypes)
+            message(FATAL_ERROR "Invalid build type: ${CMAKE_BUILD_TYPE}")
+        endif ()
+    endif ()
+
+
+    set(CMAKE_C_FLAGS_ASAN
+            "${CMAKE_C_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer" CACHE STRING
+            "Flags used by the C compiler for Asan build type or configuration." FORCE)
+
+    set(CMAKE_CXX_FLAGS_ASAN
+            "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer" CACHE STRING
+            "Flags used by the C++ compiler for Asan build type or configuration." FORCE)
+
+    set(CMAKE_EXE_LINKER_FLAGS_ASAN
+            "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -fsanitize=address" CACHE STRING
+            "Linker flags to be used to create executables for Asan build type." FORCE)
+
+    set(CMAKE_SHARED_LINKER_FLAGS_ASAN
+            "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -fsanitize=address" CACHE STRING
+            "Linker lags to be used to create shared libraries for Asan build type." FORCE)
+endif ()
+
+
 ## Feature selection
 
 # These options are dependent on BUILD_RR_PLUGINS option. This reads: when BUILD_RR_PLUGINS=ON set the value of
@@ -463,7 +511,6 @@ if (BUILD_TESTS)
     foreach (f ${PYTHON_TEST_FILES})
         if (NOT IS_DIRECTORY ${f})
             get_filename_component(FILE_NAME ${f} NAME)
-            configure_file(${f} testing/${FILE_NAME} COPYONLY)
             configure_file(${f} lib/site-packages/roadrunner/testing/${FILE_NAME} COPYONLY)
         endif ()
     endforeach ()

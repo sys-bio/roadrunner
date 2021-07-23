@@ -35,7 +35,10 @@ namespace rr
     class GillespieIntegrator: public Integrator
     {
     public:
+        using Integrator::Integrator;
+
         GillespieIntegrator(ExecutableModel* model);
+
         ~GillespieIntegrator() override;
 
         /**
@@ -43,7 +46,7 @@ namespace rr
         * @brief Called whenever a new model is loaded to allow integrator
         * to reset internal state
         */
-        virtual void syncWithModel(ExecutableModel* m);
+        void syncWithModel(ExecutableModel* m) override;
 
         // ** Meta Info ********************************************************
 
@@ -52,39 +55,23 @@ namespace rr
          * @brief Get the name for this integrator
          * @note Delegates to @ref getName
          */
-        std::string getName() const;
-
-        /**
-         * @author JKM
-         * @brief Get the name for this integrator
-         */
-        static std::string getGillespieName();
+        std::string getName() const override;
 
         /**
          * @author WBC
          * @brief Get the description for this integrator
          * @note Delegates to @ref getDescription
          */
-        std::string getDescription() const;
-
-        /**
-         * @author JKM
-         * @brief Get the description for this integrator
-         */
-        static std::string getGillespieDescription();
+        std::string getDescription() const override;
 
         /**
          * @author WBC
          * @brief Get the hint for this integrator
          * @note Delegates to @ref getHint
          */
-        std::string getHint() const;
+        std::string getHint() const override;
 
-        /**
-         * @author JKM
-         * @brief Get the hint for this integrator
-         */
-        static std::string getGillespieHint();
+        Solver* construct(ExecutableModel* executableModel) const override;
 
         // ** Getters / Setters ************************************************
 
@@ -92,19 +79,19 @@ namespace rr
          * @author WBC, ETS
          * @brief Always stochastic for Gillespie
          */
-        IntegrationMethod getIntegrationMethod() const;
+        IntegrationMethod getIntegrationMethod() const override;
 
         /**
          * @author WBC, ETS
          * @brief Sets the value of an integrator setting (e.g. absolute_tolerance)
          */
-        void setValue(const std::string& setting, Setting value);
+        void setValue(const std::string& setting, Setting value) override;
 
         /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */
-        void resetSettings();
+        void resetSettings() override;
 
         // ** Integration Routines *********************************************
 
@@ -112,13 +99,13 @@ namespace rr
          * @author WBC, ETS
          * @brief Main integration routine
          */
-        double integrate(double t0, double tf);
+        double integrate(double t0, double tf) override;
 
         /**
          * @author WBC, ETS
          * @brief Reset time to zero and reinitialize model
          */
-        void restart(double timeStart);
+        void restart(double timeStart) override;
 
         // ** Listeners ********************************************************
 
@@ -126,13 +113,13 @@ namespace rr
          * @author WBC, ETS
          * @brief Gets the integrator listener
          */
-        IntegratorListenerPtr getListener();
+        IntegratorListenerPtr getListener() override;
 
         /**
          * @author WBC, ETS
          * @brief Sets the integrator listener
          */
-        void setListener(IntegratorListenerPtr);
+        void setListener(IntegratorListenerPtr) override;
 
     private:
         std::mt19937 engine;
@@ -158,8 +145,8 @@ namespace rr
         void applyEvents(double timeEnd, std::vector<unsigned char> &prevEventStatus);
 
         double urand();
-        void setEngineSeed(unsigned long seed);
-        unsigned long getSeed() const;
+        void setEngineSeed(std::uint64_t seed);
+        std::uint64_t getSeed() const;
 
         inline double getStoich(uint species, uint reaction)
         {
@@ -174,46 +161,6 @@ namespace rr
         */
         void initializeFromModel();
     };
-
-
-    // ** Registration *********************************************************
-
-
-    class GillespieIntegratorRegistrar : public IntegratorRegistrar {
-        public:
-            /**
-            * @author JKM
-            * @brief Gets the name associated with this integrator type
-            */
-            virtual std::string getName() const {
-                return GillespieIntegrator::getGillespieName();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the description associated with this integrator type
-            */
-            virtual std::string getDescription() const {
-                return GillespieIntegrator::getGillespieDescription();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the hint associated with this integrator type
-            */
-            virtual std::string getHint() const {
-                return GillespieIntegrator::getGillespieHint();
-            }
-
-            /**
-            * @author JKM
-            * @brief Constructs a new integrator of a given type
-            */
-            virtual Integrator* construct(ExecutableModel *model) const {
-                return new GillespieIntegrator(model);
-            }
-    };
-
 } /* namespace rr */
 
 #endif /* GILLESPIEINTEGRATOR_H_ */

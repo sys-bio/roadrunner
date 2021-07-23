@@ -21,7 +21,9 @@ namespace rr{
             std::uint32_t, std::int64_t, std::uint64_t,
             float, double,
             char, unsigned char,
-            std::vector<double>>;
+            std::vector<double>,
+            std::vector<std::string>
+            >;
 
 
     /**

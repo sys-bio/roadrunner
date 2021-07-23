@@ -3,6 +3,7 @@
   <compounddef id="classrr_1_1CVODEIntegrator" kind="class" language="C++" prot="public">
     <compoundname>rr::CVODEIntegrator</compoundname>
     <basecompoundref refid="classrr_1_1Integrator" prot="public" virt="non-virtual">rr::Integrator</basecompoundref>
+    <derivedcompoundref refid="classrr_1_1SensitivitySolver" prot="public" virt="non-virtual">rr::SensitivitySolver</derivedcompoundref>
     <includes refid="CVODEIntegrator_8h" local="no">CVODEIntegrator.h</includes>
       <sectiondef kind="private-static-attrib">
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a9b649330aaa115f88ec6fd751dd154b9" prot="private" static="yes" mutable="no">
@@ -289,6 +290,7 @@
         <argsstring>() override</argsstring>
         <name>loadConfigSettings</name>
         <reimplements refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f">loadConfigSettings</reimplements>
+        <reimplementedby refid="classrr_1_1SensitivitySolver_1a9ca80168204d1feda251b9d9c6878e75">loadConfigSettings</reimplementedby>
         <briefdescription>
 <para>It looks like this method only get used inside resetSettings. </para>
         </briefdescription>
@@ -328,6 +330,8 @@
         <argsstring>() const override</argsstring>
         <name>getName</name>
         <reimplements refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91">getName</reimplements>
+        <reimplementedby refid="classrr_1_1SensitivitySolver_1a6425f57bb72bb883a05ded13555714d5">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a38a772f5306181ab61940bd453059ce4">getName</reimplementedby>
         <briefdescription>
 <para>Get the name for this integrator. </para>
         </briefdescription>
@@ -348,6 +352,8 @@
         <argsstring>() const override</argsstring>
         <name>getDescription</name>
         <reimplements refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5">getDescription</reimplements>
+        <reimplementedby refid="classrr_1_1SensitivitySolver_1a41ff63b9c439924d5aa1e9c9315bda1c">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1ad1f87f41aa3d2798b5b129f1ca773a08">getDescription</reimplementedby>
         <briefdescription>
 <para>Get the description for this integrator. </para>
         </briefdescription>
@@ -368,6 +374,8 @@
         <argsstring>() const override</argsstring>
         <name>getHint</name>
         <reimplements refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6">getHint</reimplements>
+        <reimplementedby refid="classrr_1_1SensitivitySolver_1ad2d350b1f013ba1fecdb40e7ff04f32d">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a7ebffaf9c2b7d876ba0a845e869b0558">getHint</reimplementedby>
         <briefdescription>
 <para>Get the hint for this integrator. </para>
         </briefdescription>
@@ -499,6 +507,7 @@
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <reimplementedby refid="classrr_1_1SensitivitySolver_1a9ef849e2342e6c7437259d41cce5ed05">resetSettings</reimplementedby>
         <briefdescription>
 <para>Reset all integrator settings to their respective default values. </para>
         </briefdescription>
@@ -1115,6 +1124,24 @@
       <node id="3">
         <label>rr::Solver</label>
         <link refid="classrr_1_1Solver"/>
+      </node>
+      <node id="5">
+        <label>rr::AdjointSensitivitySolver</label>
+        <link refid="classrr_1_1AdjointSensitivitySolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::SensitivitySolver</label>
+        <link refid="classrr_1_1SensitivitySolver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::ForwardSensitivitySolver</label>
+        <link refid="classrr_1_1ForwardSensitivitySolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>

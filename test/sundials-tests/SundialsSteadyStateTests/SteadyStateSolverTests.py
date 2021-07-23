@@ -9,6 +9,7 @@ sys.path += [
 ]
 from roadrunner.roadrunner import RoadRunner, BasicNewtonIteration
 from roadrunner.testing.TestModelFactory import TestModelFactory
+import roadrunner.testing.TestModelFactory as tmf
 
 import unittest
 
@@ -85,9 +86,23 @@ class SteadyStateSolverIntegrationTests(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def checkSteadyState(self, model_name: str, solver_name: str):
+    def checkValidTestModelName(self, model_name: str):
+        if model_name not in tmf.getAvailableTestModels():
+            raise ValueError(f"The requested test model_name \"{model_name}\""
+                             f"is not one of the available test models: {tmf.getAvailableTestModels()}")
+
+    def checkValidTestModelType(self, test_model : tmf.TestModel):
+        if not issubclass(type(test_model), tmf.SteadyStateResult):
+            raise ValueError("This test model does not implement the "
+                             "SteadyStateResult interface")
+
+    def checkSteadyState(self, model_name: str, solver_name: str, places:int=5):
         # grab the test model
+        self.checkValidTestModelName(model_name)
+
         test_model = TestModelFactory(model_name)
+
+        self.checkValidTestModelType(test_model)
 
         # load it into roadrunner
         rr = RoadRunner(test_model.str())
@@ -119,10 +134,48 @@ class SteadyStateSolverIntegrationTests(unittest.TestCase):
         for species_name, expected_ss_val in expected_results.items():
             actual = actual_results[species_name][0]
             print("Comparing reference value : ", expected_ss_val, "with actual value: ", actual)
-            self.assertAlmostEqual(expected_ss_val, actual, places=5)
+            self.assertAlmostEqual(expected_ss_val, actual, places=places)
+
+    def checkSteadyStateFluxes(self, model_name: str, solver_name: str, places=5):
+        self.checkValidTestModelName(model_name)
+
+        test_model = TestModelFactory(model_name)
+
+        self.checkValidTestModelType(test_model)
+
+        # load it into roadrunner
+        rr = RoadRunner(test_model.str())
+
+        # collect reference results
+        expected_results = test_model.steadyStateFluxes()
+
+        # set the steady state solver
+        rr.setSteadyStateSolver(solver_name)
+
+        # get settings for this problem
+        settings = test_model.steadyStateSettings()
+
+        # apply settings
+        for setting, value in settings.items():
+            if setting == "moiety_conservation":
+                rr.conservedMoietyAnalysis = True
+            else:
+                try:
+                    rr.getSteadyStateSolver().setValue(setting, value)
+                except Exception:
+                    # its okay for a solver to not have a particular options
+                    continue
+
+        # do steady state calculation
+        rr.steadyState()
+
+        for reactionId, expectedSteadyStateFlux in expected_results.items():
+            actualSteadyStateFlux = rr.getModel().getValue(reactionId)
+            print("Comparing reference value : ", expectedSteadyStateFlux, "with actual value: ", actualSteadyStateFlux)
+            self.assertAlmostEqual(expectedSteadyStateFlux, actualSteadyStateFlux, places=places)
 
 
-class BasicNewtonIterationTests(SteadyStateSolverIntegrationTests):
+class SundialsNewtonIterationTests(SteadyStateSolverIntegrationTests):
 
     def testOpenLinearFlux(self):
         self.checkSteadyState("OpenLinearFlux", "newton")
@@ -138,6 +191,12 @@ class BasicNewtonIterationTests(SteadyStateSolverIntegrationTests):
 
     def testBrown2004(self):
         self.checkSteadyState("Brown2004", "newton")
+
+    def testBimolecularEnd(self):
+        self.checkSteadyState("BimolecularEnd", "newton", 4)
+
+    def testBimolecularEndSteadyStateFluxes(self):
+        self.checkSteadyStateFluxes("BimolecularEnd", "newton")
 
 
 class LineSearchNewtonIterationTests(SteadyStateSolverIntegrationTests):
@@ -156,6 +215,12 @@ class LineSearchNewtonIterationTests(SteadyStateSolverIntegrationTests):
     def testBrown2004(self):
         self.checkSteadyState("Brown2004", "newton_linesearch")
 
+    def testBimolecularEnd(self):
+        self.checkSteadyState("BimolecularEnd", "newton_linesearch", 4)
+
+    def testBimolecularEndSteadyStateFluxes(self):
+        self.checkSteadyStateFluxes("BimolecularEnd", "newton_linesearch", 5)
+
 
 class NLEQ1IntegrationTests(SteadyStateSolverIntegrationTests):
     def testOpenLinearFlux(self):
@@ -173,6 +238,12 @@ class NLEQ1IntegrationTests(SteadyStateSolverIntegrationTests):
     def testBrown2004(self):
         self.checkSteadyState("Brown2004", "nleq1")
 
+    def testBimolecularEnd(self):
+        self.checkSteadyState("BimolecularEnd", "nleq1", 4)
+
+    def testBimolecularEndSteadyStateFluxes(self):
+        self.checkSteadyStateFluxes("BimolecularEnd", "nleq1", 5)
+
 
 class NLEQ2IntegrationTests(SteadyStateSolverIntegrationTests):
     def testOpenLinearFlux(self):
@@ -189,3 +260,11 @@ class NLEQ2IntegrationTests(SteadyStateSolverIntegrationTests):
 
     def testBrown2004(self):
         self.checkSteadyState("Brown2004", "nleq2")
+
+    def testBimolecularEnd(self):
+        self.checkSteadyState("BimolecularEnd", "nleq2", 4)
+
+    def testBimolecularEndSteadyStateFluxes(self):
+        self.checkSteadyStateFluxes("BimolecularEnd", "nleq2", 5)
+
+

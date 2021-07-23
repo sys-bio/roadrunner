@@ -1,0 +1,82 @@
+@startuml
+
+abstract class ISundials {
+
+}
+
+class CVODEIntegrator {
+    +CVODEIntegrator(ExecutableModel* oModel)
+    +~CVODEIntegrator()
+    +getIntegrationMethod() : IntegrationMethod {query}
+    +getListener() : IntegratorListenerPtr
+    -listener : IntegratorListenerPtr
+    +getStateVector() : N_Vector {query}
+    -mStateVector : N_Vector
+    -linSolver : SUNLinearSolver
+    -jac : SUNMatrix
+    +getSolver() : SUNNonlinearSolver {query}
+    -nonLinSolver : SUNNonlinearSolver
+    -haveVariables() : bool {query}
+    -stateVectorVariables : bool
+    -variableStepPendingEvent : bool
+    -variableStepTimeEndEvent : bool
+    -applyVariableStepPendingEvents() : double
+    +integrate(double t0, double hstep) : double
+    -lastEventTime : double
+    -cvodeDyDtFcn(double t, N_Vector cv_y, N_Vector cv_ydot, void* f_data) : int
+    -cvodeRootFcn(double t, N_Vector y, double* gout, void* g_data) : int
+    -{static} mDefaultMaxAdamsOrder : static const int
+    -{static} mDefaultMaxBDFOrder : static const int
+    -{static} mDefaultMaxNumSteps : static const int
+    +ToString(int val) : std::string {query}
+    +ToString(size_t val) : std::string {query}
+    +cvodeDecodeError(int cvodeError, bool exInfo) : std::string
+    +{static} getCVODEIntegratorDescription() : std::string
+    +{static} getCVODEIntegratorHint() : std::string
+    +{static} getCVODEIntegratorName() : std::string
+    +getDescription() : std::string {query}
+    +getHint() : std::string {query}
+    +getName() : std::string {query}
+    +getConcentrationTolerance() : std::vector<double>
+    -variableStepPostEventState : std::vector<double>
+    -eventStatus : std::vector<unsigned char>
+    -typecode_ : unsigned long
+    -applyEvents(double timeEnd, std::vector<unsigned char>& previousEventStatus) : void
+    -applyPendingEvents(double timeEnd) : void
+    -assignResultsToModel() : void {query}
+    +checkIndex(int index, int size) : void {query}
+    +checkType() : void {query}
+    +checkVectorSize(int expected, size_t real) : void {query}
+    -createCVode() : void
+    -freeCVode() : void
+    +loadConfigSettings() : void
+    +loadSBMLSettings(const std::string& filename) : void
+    -reInit(double t0) : void
+    +resetSettings() : void
+    +restart(double timeStart) : void
+    -setCVODETolerances() : void
+    +setConcentrationTolerance(Setting value) : void
+    +setIndividualTolerance(std::string sid, double value) : void
+    +setListener(IntegratorListenerPtr) : void
+    +setValue(const std::string& setting, Setting value) : void
+    +syncWithModel(ExecutableModel* m) : void
+    -testRootsAtInitialTime() : void
+    +tweakTolerances() : void
+    -updateCVODE() : void
+    +getCvodeMemory() : void* {query}
+    -mCVODE_Memory : void*
+}
+
+
+
+note top {
+    We've used sundials 3 times now and
+    I think its time to bring them together
+    with an unified interface. Integrator,
+    steady state solver and sensitivities
+    all have similarities in their
+    implementation that should be
+    made explicit.
+}
+
+@enduml

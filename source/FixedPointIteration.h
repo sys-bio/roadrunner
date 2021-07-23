@@ -16,6 +16,7 @@ namespace rr {
     class RR_DECLSPEC FixedPointIteration : public KinsolSteadyStateSolver {
 
     public:
+        using KinsolSteadyStateSolver::KinsolSteadyStateSolver;
 
         explicit FixedPointIteration(ExecutableModel* executableModel) ;
 
@@ -37,21 +38,6 @@ namespace rr {
         * @brief Get a (user-readable) hint for this solver
         */
         std::string getHint() const override;
-
-        /**
-         * @brief static version of getName
-         */
-        static std::string getFixedPointIterationName();
-
-        /**
-         * @brief static version of getDescription
-         */
-        static std::string getFixedPointIterationDescription();
-
-        /**
-         * @brief static version of getHint
-         */
-        static std::string getFixedPointIterationHint();
 
         double solve() override;
 

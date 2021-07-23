@@ -1,0 +1,31 @@
+@startuml
+
+
+abstract class Registrable{}
+
+class RegistrationFactory{}
+
+class Solver{}
+
+Registrable <|-- Solver
+
+class Integrator
+class SteadyStateSolver
+class SensitivitySolver
+
+Solver <|-- Integrator
+Solver <|-- SteadyStateSolver
+Solver <|-- SensitivitySolver
+
+RegistrationFactory <|-- IntegratorFactory
+RegistrationFactory <|-- SteadyStateFactory
+RegistrationFactory <|-- SensitivityFactory
+
+class ConcreteIntegrator
+class ConcreteSteadyStateSolver
+class ConcreteSensitivitySolver
+
+Integrator <|-- ConcreteIntegrator
+SteadyStateSolver <|-- ConcreteSteadyStateSolver
+SensitivitySolver <|-- ConcreteSensitivitySolver
+@enduml

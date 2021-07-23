@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+left to right direction
+
+abstract class TestModel{
+    + str()
+    + modelName()
+}
+abstract class Result
+
+class ConcreteTestModel
+
+TestModel <|- ConcreteTestModel
+
+abstract class TimeSeriesResult {
+    + timeSeriesResult(): Matrix<double>
+    + timeSeriesSettings(): unordered_map<string, Setting>
+}
+abstract class SteadyStateResult {
+    + steadyStateResult(): Matrix<double>
+    + steadyStateSettings(): unordered_map<string, Setting>
+}
+abstract class JacobianResult
+abstract class EigenResult
+abstract class StructuralProperties
+abstract class MCAResult
+abstract class SensitivityResult
+abstract class TimeSeriesSensitivityResult
+abstract class SteadyStateSensitivityResult
+
+Result <|-- TimeSeriesResult
+Result <|-- SteadyStateResult
+Result <|-- JacobianResult
+Result <|-- EigenResult
+Result <|-- StructuralProperties
+Result <|-- MCAResult
+Result <|-- SensitivityResult
+Result <|-- TimeSeriesSensitivityResult
+Result <|-- SteadyStateSensitivityResult
+
+
+
+TimeSeriesResult *-- ConcreteTestModel
+SteadyStateResult *-- ConcreteTestModel
+JacobianResult *-- ConcreteTestModel
+EigenResult *-- ConcreteTestModel
+StructuralProperties *-- ConcreteTestModel
+MCAResult *-- ConcreteTestModel
+SensitivityResult *-- ConcreteTestModel
+TimeSeriesSensitivityResult *-- ConcreteTestModel
+SteadyStateSensitivityResult *-- ConcreteTestModel
+
+@enduml

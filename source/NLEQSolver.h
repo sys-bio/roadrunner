@@ -7,6 +7,7 @@
 
 #include "rrExporter.h"
 #include "SteadyStateSolver.h"
+#include "LLVMExecutableModel.h"
 
 namespace rr {
 
@@ -15,6 +16,8 @@ namespace rr {
      */
     class RR_DECLSPEC NLEQSolver : public SteadyStateSolver {
     public:
+        using SteadyStateSolver::SteadyStateSolver;
+
         /**
         * Creates a new Instance of NLEQ for the given Model
         */
@@ -44,9 +47,16 @@ namespace rr {
         template<class NLEQSolverType>
         double solveNLEQ() {
 
+            int size = mModel->getStateVector(nullptr);
+            double* states = new double[size];
+            for (int i=0; i<size; i++)
+                states[i] = i;
+            mModel->getStateVector(states);
+
+            delete[] states;
+
             auto nleq = std::unique_ptr<NLEQSolverType>( new NLEQSolverType(mModel));
             rrLog(Logger::LOG_DEBUG) << "NLEQSolver::solve: " << std::endl;
-
             nleq->allowPreSim = getValue("allow_presimulation");
             nleq->preSimMaximumSteps = getValue("presimulation_maximum_steps");
             nleq->preSimTime = getValue("presimulation_time");

@@ -29,7 +29,7 @@ namespace rr
     {
     public:
 
-
+        using Integrator::Integrator;
         /**
         * Creates a new RK4Integrator.
         *
@@ -50,14 +50,14 @@ namespace rr
         /**
         * clean up any mess.
         */
-        virtual ~RK4Integrator();
+        ~RK4Integrator() override;
 
         /**
         * @author JKM
         * @brief Called whenever a new model is loaded to allow integrator
         * to reset internal state
         */
-        virtual void syncWithModel(ExecutableModel* m);
+        void syncWithModel(ExecutableModel* m) override;
 
 
         /**
@@ -68,23 +68,13 @@ namespace rr
         /**
         * integrates the model from t0 to tf.
         */
-        virtual double integrate(double t0, double tf);
+        double integrate(double t0, double tf) override;
 
         /**
         * copies the state std::vector out of the model and into cvode std::vector,
         * re-initializes cvode.
         */
-        virtual void restart(double t0);
-
-        ///**
-        //* get a description of this object, compatable with python __str__
-        //*/
-        //virtual std::string toString() const;
-
-        ///**
-        //* get a short descriptions of this object, compatable with python __repr__.
-        //*/
-        //virtual std::string toRepr() const;
+        void restart(double t0) override;
 
         // ** Meta Info ********************************************************
 
@@ -93,39 +83,28 @@ namespace rr
          * @brief Get the name for this integrator
          * @note Delegates to @ref getName
          */
-        std::string getName() const;
-
-        /**
-         * @author JKM
-         * @brief Get the name for this integrator
-         */
-        static std::string getRK4Name();
+        std::string getName() const override;
 
         /**
          * @author JKM
          * @brief Get the description for this integrator
          * @note Delegates to @ref getDescription
          */
-        std::string getDescription() const;
-
-        /**
-         * @author JKM
-         * @brief Get the description for this integrator
-         */
-        static std::string getRK4Description();
+        std::string getDescription() const override;
 
         /**
          * @author WBC
          * @brief Get the hint for this integrator
          * @note Delegates to @ref getHint
          */
-        std::string getHint() const;
+        std::string getHint() const override;
 
         /**
-         * @author JKM
-         * @brief Get the hint for this integrator
+         * @brief construct an instance of type RK4Integrator.
+         * @details implements the Registrar interface. Used in
+         * factory creation of Integrators.
          */
-        static std::string getRK4Hint();
+        Solver *construct(ExecutableModel *model) const override;
 
         // ** Getters / Setters ************************************************
 
@@ -135,13 +114,13 @@ namespace rr
          * @author JKM
          * @brief Always deterministic for RK4
          */
-        IntegrationMethod getIntegrationMethod() const;
+        IntegrationMethod getIntegrationMethod() const  override;
 
         /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */
-        void resetSettings();
+        void resetSettings() override;
 
         // ** Listeners ********************************************************
 
@@ -149,12 +128,12 @@ namespace rr
         * the integrator can hold a single listener. If clients require multicast,
         * they can create a multi-cast listener.
         */
-        virtual void setListener(IntegratorListenerPtr);
+        void setListener(IntegratorListenerPtr) override;
 
         /**
         * get the integrator listener
         */
-        virtual IntegratorListenerPtr getListener();
+        IntegratorListenerPtr getListener() override;
 
     public:
 
@@ -202,40 +181,40 @@ namespace rr
     // ** Registration *********************************************************
 
 
-    class RK4IntegratorRegistrar : public IntegratorRegistrar {
-        public:
-            /**
-            * @author JKM
-            * @brief Gets the name associated with this integrator type
-            */
-            virtual std::string getName() const {
-                return RK4Integrator::getRK4Name();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the description associated with this integrator type
-            */
-            virtual std::string getDescription() const {
-                return RK4Integrator::getRK4Description();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the hint associated with this integrator type
-            */
-            virtual std::string getHint() const {
-                return RK4Integrator::getRK4Hint();
-            }
-
-            /**
-            * @author JKM
-            * @brief Constructs a new integrator of a given type
-            */
-            virtual Integrator* construct(ExecutableModel *model) const {
-                return new RK4Integrator(model);
-            }
-    };
+//    class RK4IntegratorRegistrar : public Registrar {
+//        public:
+//            /**
+//            * @author JKM
+//            * @brief Gets the name associated with this integrator type
+//            */
+//            virtual std::string getName() const {
+//                return RK4Integrator::getRK4Name();
+//            }
+//
+//            /**
+//            * @author JKM
+//            * @brief Gets the description associated with this integrator type
+//            */
+//            virtual std::string getDescription() const {
+//                return RK4Integrator::getRK4Description();
+//            }
+//
+//            /**
+//            * @author JKM
+//            * @brief Gets the hint associated with this integrator type
+//            */
+//            virtual std::string getHint() const {
+//                return RK4Integrator::getRK4Hint();
+//            }
+//
+//            /**
+//            * @author JKM
+//            * @brief Constructs a new integrator of a given type
+//            */
+//            virtual Integrator* construct(ExecutableModel *model) const {
+//                return new RK4Integrator(model);
+//            }
+//    };
 
 } /* namespace rr */
 

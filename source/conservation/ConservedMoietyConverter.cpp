@@ -245,7 +245,7 @@ int ConservedMoietyConverter::convert()
     // makes a clone of the model
     if((err = resultDoc->setModel(mModel)) != LIBSBML_OPERATION_SUCCESS)
     {
-        rrLog(Logger::LOG_ERROR) << "ConservedMoietyConverter resultDoc->setModel(mModel) failed: "
+        rrLog(Logger::LOG_ERROR) << "ConservedMoietyConverter resultDoc->syncWithModel(mModel) failed: "
                 << std::endl
                 << OperationReturnValue_toString(err);
         return err;

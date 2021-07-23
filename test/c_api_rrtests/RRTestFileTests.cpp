@@ -44,11 +44,14 @@ public:
         path rrTestFileName = (rrTestFileDir / (fname + ".rrtest"));
         check_LoadData(rrTestFileName);
         std::cout << "Checking file " << rrTestFileName << endl;
+        std::cout << " which has " << iniFile.GetNumberOfSections() << " sections " << std::endl;
         ASSERT_TRUE(gRR != NULL);
         for (size_t sec = 0; sec < iniFile.GetNumberOfSections(); sec++) {
             IniSection *aSection = iniFile.GetSection(sec);
             aSection->mIsUsed = true;
             std::string sectionName = toLower(aSection->mName);
+
+            std::cout << "running section name : " << sectionName << std::endl;
 
             if (sectionName == "sbml") {
                 break; //Already managed this section in DATA_FILES

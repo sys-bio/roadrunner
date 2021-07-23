@@ -50,16 +50,22 @@ double {\bfseries m\+Steady\+State\+Threshold}
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}\label{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}} 
 ls\+::\+Double\+Matrix {\bfseries simulation\+Result}
 \item 
-\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}{integrator}}
+\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}{integrator}} = nullptr
 \begin{DoxyCompactList}\small\item\em Points to the current integrator. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ad6f73a00fb9c1e7ea7c7b743c760d3ff}\label{classrr_1_1RoadRunnerImpl_ad6f73a00fb9c1e7ea7c7b743c760d3ff}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a41643078758b40614e337844218b308c}\label{classrr_1_1RoadRunnerImpl_a41643078758b40614e337844218b308c}} 
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ $>$ {\bfseries integrators}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}\label{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}} 
-\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}{steady\+\_\+state\+\_\+solver}}
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}{steady\+\_\+state\+\_\+solver}} = nullptr
 \begin{DoxyCompactList}\small\item\em Points to the current steady state solver. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a192040a7feed12e2774f8ffd8e5c642f}\label{classrr_1_1RoadRunnerImpl_a192040a7feed12e2774f8ffd8e5c642f}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a03fad4a942e0f6fb6ee250391eebe275}\label{classrr_1_1RoadRunnerImpl_a03fad4a942e0f6fb6ee250391eebe275}} 
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ $>$ {\bfseries steady\+\_\+state\+\_\+solvers}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a719e0e905cf6fbbf49d24be99db2c7c4}\label{classrr_1_1RoadRunnerImpl_a719e0e905cf6fbbf49d24be99db2c7c4}} 
+\mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a719e0e905cf6fbbf49d24be99db2c7c4}{sensitivities\+\_\+solver}} = nullptr
+\begin{DoxyCompactList}\small\item\em Points to the current sensitivities solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a0a9a2af5451afaacca8030fedfef77d6}\label{classrr_1_1RoadRunnerImpl_a0a9a2af5451afaacca8030fedfef77d6}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} $\ast$ $>$ {\bfseries sensitivity\+\_\+solvers}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_aab066aadcb16f00cbffb56a14ab95721}\label{classrr_1_1RoadRunnerImpl_aab066aadcb16f00cbffb56a14ab95721}} 
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} $>$ {\bfseries m\+Selection\+List}
@@ -113,7 +119,7 @@ Needed because the N\+L\+EQ is only created in the steady\+State method. \mbox{\
 \index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!integrator@{integrator}}
 \index{integrator@{integrator}!rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
 \doxysubsubsection{\texorpdfstring{integrator}{integrator}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}}$\ast$ rr\+::\+Road\+Runner\+Impl\+::integrator}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}}$\ast$ rr\+::\+Road\+Runner\+Impl\+::integrator = nullptr}
 
 
 

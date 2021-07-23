@@ -21,14 +21,14 @@ add_test_executable(
 
 
 add_test_executable(
-        test_steady_state_unit_basic_newton test_targets
-        BasicNewtonIterationUnitTests.cpp
+        test_sundials_steady_state_unit_basic_newton test_targets
+        SundialsNewtonIterationUnitTests.cpp
         SundialsSteadyStateSolverUnitTest
         ${SharedTestFiles}
 )
 
 add_test_executable(
-        test_steady_state_unit_presimulation test_targets
+        test_sundials_steady_state_unit_presimulation test_targets
         PresimulationDecoratorTests.cpp ${SharedTestFiles}
 )
 
@@ -37,41 +37,37 @@ add_test_executable(
 )
 
 add_test_executable(
-        test_steady_state_integration test_targets
+        test_sundials_steady_state_integration test_targets
         SteadyStateIntegrationTests.h
-        BasicNewtonIntegrationTests.cpp
+        SundialsNewtonIntegrationTests.cpp
         DecoratorIntegrationTests.cpp
-        LinesearchNewtonIntegrationTests.cpp
+        SundialsLinesearchIntegrationTests.cpp
         NLEQ1IntegrationTests.cpp
         NLEQ2IntegrationTests.cpp
         ${SharedTestFiles}
 )
 
-
-# copy Python tests to binary tree site packages
-configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/SteadyStateSolverTests.py"
-        "${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/testing/SteadyStateSolverTests.py"
-        COPYONLY
-)
-configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/AutomaticMoietyConservationAnalysisTests.py"
-        "${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/testing/"
-        COPYONLY
-)
-
-# install python tests to install tree
-install(
-        FILES
+if (BUILD_PYTHON)
+    # copy Python tests to binary tree site packages
+    configure_file(
             "${CMAKE_CURRENT_SOURCE_DIR}/SteadyStateSolverTests.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/SteadyStateSolverTests.py"
+            COPYONLY
+    )
+    configure_file(
             "${CMAKE_CURRENT_SOURCE_DIR}/AutomaticMoietyConservationAnalysisTests.py"
-        DESTINATION
-            site-packages/roadrunner/testing
-        )
-
-
-
-
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/AutomaticMoietyConservationAnalysisTests.py"
+            COPYONLY
+    )
+    # install python tests to install tree
+    install(
+            FILES
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/SteadyStateSolverTests.py"
+            "${RR_PYTHON_TESTING_BUILD_PREFIX}/AutomaticMoietyConservationAnalysisTests.py"
+            DESTINATION
+            "${RR_PYTHON_TESTING_INSTALL_PREFIX}"
+    )
+endif ()
 
 
 #add_test_executable(
@@ -84,8 +80,6 @@ install(
 ##        NLEQ2IntegrationTests.cpp
 #        ${SharedTestFiles}
 #)
-
-
 
 
 # make test_targets list global to all tests

@@ -6,36 +6,28 @@
 
 namespace rr {
     
-    BasicNewtonIteration::BasicNewtonIteration(ExecutableModel *executableModel) 
+    BasicNewtonIteration::BasicNewtonIteration(ExecutableModel *executableModel)
     : NewtonIteration(executableModel) {}
 
     std::string BasicNewtonIteration::getName() const {
-        return BasicNewtonIteration::getBasicNewtonIterationName();
-    }
-
-    std::string BasicNewtonIteration::getDescription() const {
-        return BasicNewtonIteration::getBasicNewtonIterationDescription();
-    }
-
-    std::string BasicNewtonIteration::getHint() const {
-        return BasicNewtonIteration::getBasicNewtonIterationHint();
-    }
-
-    std::string BasicNewtonIteration::getBasicNewtonIterationName() {
         return "newton";
     }
 
-    std::string BasicNewtonIteration::getBasicNewtonIterationDescription() {
+    std::string BasicNewtonIteration::getDescription() const {
         return "Sundials implementation of newton iteration algorithm "
                "for solving steady state problems.";
     }
 
-    std::string BasicNewtonIteration::getBasicNewtonIterationHint() {
+    std::string BasicNewtonIteration::getHint() const {
         return "Newton iteration";
     }
 
     double BasicNewtonIteration::solve() {
         return solveForSteadyState(this, KIN_NONE);
+    }
+
+    Solver *BasicNewtonIteration::construct(ExecutableModel *model) const {
+        return new BasicNewtonIteration(model);
     }
 
 }

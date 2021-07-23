@@ -13,8 +13,35 @@
 #       - RUN cd $roadrunnerSource && git pull && git checkout expand-unittests
 #   3) Run docker build . inside the "docker/roadrunner-manylinux2014-build" folder
 #
+#
+######################################################
+#  Commands to get docker working with clion
+#
+# Build:
+#  docker build -t ciaranwelsh/roadrunner-manylinux2014-build:latest -f Dockerfile .
+# Once built, run with
+#  docker run -d --cap-add sys_ptrace -p127.0.0.1:2222:22 --name clion_remote_env clion/remote-cpp-env:0.5
+# Where:
+#   -d runs the container as a daemon, so control returns back to you.
+#   --cap-add sys_ptrace adds the ptrace capability, which is necessary for debugging. Docker containers are usually very minimal, by default, so you sometimes need to enable fundamental things.
+#   -p2222:22 specifies a port mapping. Port 22 (the default SSH port) inside the container is mapped to outside the container as port 2222 on the host environment.
+#        There’s nothing special about 2222. Doubling up, or multiplying by 10 are common ways of expressing mapped ports,
+#       but you could specify any available port number, here. That can be useful if you intend to run multiple containers side-by-side (e.g. to support alternate toolchains).
+#       Whatever port number you chose, since it’s only temporarily mapped, and may be reused, it’s usually worth clearing any cached SSH keys:
+#
 
-
+# CLion remote docker environment (How to build docker container, run and stop it)
+#
+# Build and run:
+#   docker build -t clion/centos7-cpp-env:0.1 -f Dockerfile.centos7-cpp-env .
+#   docker run -d --cap-add sys_ptrace -p127.0.0.1:2222:22 clion/centos7-cpp-env:0.1
+#   ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:2222"
+#
+# stop:
+#   docker stop clion_remote_env
+#
+# ssh credentials (test user):
+#   user@password
 
 FROM ciaranwelsh/roadrunner-manylinux2014-base
 
@@ -39,21 +66,21 @@ RUN $conda init && . $bashrc \
     && pip install numpy
 
 # install a dependency
-RUN yum install -y ncurses-devel
+RUN yum install -y ncurses-devel openssh-server
 
-# get roadruner source, checkout kinsol branch which has minor fix for building on centos
-# note, build master or develop once temporary kinsol branch is merged.
-RUN pwd
 RUN git clone https://github.com/sys-bio/roadrunner.git $roadrunnerSource
-
-RUN cd $roadrunnerSource && git pull && git checkout expand-unittests
+RUN pwd
+RUN cd $roadrunnerSource && git pull && git checkout cvodes-2
 
 ## build against python 3.7
-RUN $conda init && . $bashrc && conda activate py37 && cd $roadrunnerSource \
-    && mkdir -p $roadrunnerBuild37 && cd $roadrunnerBuild37 \
-    && cmake -DLLVM_INSTALL_PREFIX=/llvm-6.x/install-llvm-6.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$roadrunnerInstall37 -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=/Miniconda3/envs/py37 -DSWIG_EXECUTABLE=$swigExec ..
-RUN cd $roadrunnerBuild37 \
-    && cmake --build . --target install --config Release -j 1
+#RUN $conda init && . $bashrc && conda activate py37 && cd $roadrunnerSource \
+#    && mkdir -p $roadrunnerBuild37 && cd $roadrunnerBuild37 \
+#    && cmake -DLLVM_INSTALL_PREFIX=/llvm-6.x/install-llvm-6.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$roadrunnerInstall37 -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=/Miniconda3/envs/py37 -DSWIG_EXECUTABLE=$swigExec ..
+#RUN cd $roadrunnerBuild37 \
+#    && cmake --build . --target install --config Release -j 1
+
+
+
 #RUN $conda init && . $bashrc && cd $roadrunnerBuild37 \
 #    && ctest --verbose --extra-verbose
 #
@@ -77,11 +104,33 @@ RUN cd $roadrunnerBuild37 \
 #    && ctest --verbose --extra-verbose
 #
 #
+# CMake location : /usr/local/bin/cmake
+# make location : /usr/bin/make
+# roadrunner dependency pckage: /libroadrunner-deps
+# C++ compiler: /opt/rh/devtoolset-9/root/usr/bin/g++
+# C compiler: /opt/rh/devtoolset-9/root/usr/bin/gcc
+# -DCMAKE_INSTALL_PREFIX=../install-manylinux2014-rel
+# -DLLVM_INSTALL_PREFIX=/llvm-6.x/install-llvm-6.x
+# -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps
+# -DBUILD_PYTHON=ON
+# -DBUILD_TESTS=ON
+# -DSWIG_EXECUTABLE=/swig-4.0.2/swig
+# -DPython_ROOT_DIR=/Miniconda3/envs/py39
+# -DBUILD_RR_PLUGINS=ON
 
-
-
-
-
+#RUN ssh-keygen -A
+#RUN ( \
+#    echo 'LogLevel DEBUG2'; \
+#    echo 'PermitRootLogin yes'; \
+#    echo 'PasswordAuthentication yes'; \
+#    echo 'Subsystem sftp /usr/libexec/openssh/sftp-server'; \
+#  ) > /etc/ssh/sshd_config_test_clion
+#
+#RUN useradd -m user \
+#  && yes password | passwd user
+#RUN pwd
+#
+#CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
 
 
 

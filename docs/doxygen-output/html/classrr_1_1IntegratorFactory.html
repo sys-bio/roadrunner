@@ -68,7 +68,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classrr_1_1IntegratorFactory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -80,41 +79,55 @@ $(function() {
  <a href="classrr_1_1IntegratorFactory.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Integrator_8h_source.html">Integrator.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for rr::IntegratorFactory:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrr_1_1IntegratorFactory.png" usemap="#rr::IntegratorFactory_map" alt=""/>
+  <map id="rr::IntegratorFactory_map" name="rr::IntegratorFactory_map">
+<area href="classrr_1_1FactoryWithRegistration.html" title="Constructs new integrators." alt="rr::RegistrationFactory" shape="rect" coords="0,0,162,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a16f496b70c5356bc9e06a35f888663ae"><td class="memItemLeft" align="right" valign="top"><a id="a16f496b70c5356bc9e06a35f888663ae"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1IntegratorFactory.html#a16f496b70c5356bc9e06a35f888663ae">~IntegratorFactory</a> ()</td></tr>
-<tr class="memdesc:a16f496b70c5356bc9e06a35f888663ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTEGRATOR FACTORY. <br /></td></tr>
-<tr class="separator:a16f496b70c5356bc9e06a35f888663ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7298b70afb06e1200181cf3981f739c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrr_1_1Integrator.html">Integrator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1IntegratorFactory.html#ab7298b70afb06e1200181cf3981f739c">New</a> (std::string name, <a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *m) const</td></tr>
-<tr class="memdesc:ab7298b70afb06e1200181cf3981f739c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new integrator given the name (e.g. cvode, gillespie)  <a href="classrr_1_1IntegratorFactory.html#ab7298b70afb06e1200181cf3981f739c">More...</a><br /></td></tr>
-<tr class="separator:ab7298b70afb06e1200181cf3981f739c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac519fc98f09e635cd209d96283a3c57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1IntegratorFactory.html#ac519fc98f09e635cd209d96283a3c57e">registerIntegrator</a> (<a class="el" href="classrr_1_1IntegratorRegistrar.html">IntegratorRegistrar</a> *i)</td></tr>
-<tr class="memdesc:ac519fc98f09e635cd209d96283a3c57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new integrator with the factory so that it can be constructed.  <a href="classrr_1_1IntegratorFactory.html#ac519fc98f09e635cd209d96283a3c57e">More...</a><br /></td></tr>
-<tr class="separator:ac519fc98f09e635cd209d96283a3c57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20355a54ec265c91bbb4a18c3b66271b"><td class="memItemLeft" align="right" valign="top"><a id="a20355a54ec265c91bbb4a18c3b66271b"></a>
-std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getNumIntegrators</b> () const</td></tr>
-<tr class="separator:a20355a54ec265c91bbb4a18c3b66271b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d073238dde422b9f2f381f36289f3c5"><td class="memItemLeft" align="right" valign="top"><a id="a0d073238dde422b9f2f381f36289f3c5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getIntegratorName</b> (std::size_t n) const</td></tr>
-<tr class="separator:a0d073238dde422b9f2f381f36289f3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf5bfa4f7ed2aa0a0728b926f85d9edc"><td class="memItemLeft" align="right" valign="top"><a id="abf5bfa4f7ed2aa0a0728b926f85d9edc"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getIntegratorHint</b> (std::size_t n) const</td></tr>
-<tr class="separator:abf5bfa4f7ed2aa0a0728b926f85d9edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8304df66871ae1a0d41d0ff75920bafb"><td class="memItemLeft" align="right" valign="top"><a id="a8304df66871ae1a0d41d0ff75920bafb"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getIntegratorDescription</b> (std::size_t n) const</td></tr>
-<tr class="separator:a8304df66871ae1a0d41d0ff75920bafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a3bd934950b0c1523d8c1b482bb85ab15"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classrr_1_1IntegratorFactory.html">IntegratorFactory</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1IntegratorFactory.html#a3bd934950b0c1523d8c1b482bb85ab15">getInstance</a> ()</td></tr>
-<tr class="memdesc:a3bd934950b0c1523d8c1b482bb85ab15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the singleton instance of the integrator factory.  <a href="classrr_1_1IntegratorFactory.html#a3bd934950b0c1523d8c1b482bb85ab15">More...</a><br /></td></tr>
+<tr class="memdesc:a3bd934950b0c1523d8c1b482bb85ab15"><td class="mdescLeft">&#160;</td><td class="mdescRight">get an instance of this <a class="el" href="classrr_1_1IntegratorFactory.html" title="Constructs new integrators.">IntegratorFactory</a>.  <a href="classrr_1_1IntegratorFactory.html#a3bd934950b0c1523d8c1b482bb85ab15">More...</a><br /></td></tr>
 <tr class="separator:a3bd934950b0c1523d8c1b482bb85ab15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_methods_classrr_1_1FactoryWithRegistration"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrr_1_1FactoryWithRegistration')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrr_1_1FactoryWithRegistration.html">rr::RegistrationFactory</a></td></tr>
+<tr class="memitem:a7c398ee43e2cc611cfdc9ba1598a1c64 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrr_1_1Solver.html">Solver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1FactoryWithRegistration.html#a7c398ee43e2cc611cfdc9ba1598a1c64">New</a> (const std::string &amp;name, <a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *m) const</td></tr>
+<tr class="memdesc:a7c398ee43e2cc611cfdc9ba1598a1c64 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new integrator given the name (e.g. cvode, gillespie)  <a href="classrr_1_1FactoryWithRegistration.html#a7c398ee43e2cc611cfdc9ba1598a1c64">More...</a><br /></td></tr>
+<tr class="separator:a7c398ee43e2cc611cfdc9ba1598a1c64 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d75bd9ffec1eef7241f173a64ef5674 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1FactoryWithRegistration.html#a8d75bd9ffec1eef7241f173a64ef5674">registerSolver</a> (<a class="el" href="classrr_1_1Registrar.html">Registrar</a> *i)</td></tr>
+<tr class="memdesc:a8d75bd9ffec1eef7241f173a64ef5674 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new integrator with the factory so that it can be constructed.  <a href="classrr_1_1FactoryWithRegistration.html#a8d75bd9ffec1eef7241f173a64ef5674">More...</a><br /></td></tr>
+<tr class="separator:a8d75bd9ffec1eef7241f173a64ef5674 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2235f601129fa81c0d32b6e778940c72 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1FactoryWithRegistration.html#a2235f601129fa81c0d32b6e778940c72">size</a> () const</td></tr>
+<tr class="memdesc:a2235f601129fa81c0d32b6e778940c72 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the singleton instance of the integrator factory.  <a href="classrr_1_1FactoryWithRegistration.html#a2235f601129fa81c0d32b6e778940c72">More...</a><br /></td></tr>
+<tr class="separator:a2235f601129fa81c0d32b6e778940c72 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac0326917df8a3aa25ed9bba5cb066d inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top"><a id="a8ac0326917df8a3aa25ed9bba5cb066d"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (std::size_t n) const</td></tr>
+<tr class="separator:a8ac0326917df8a3aa25ed9bba5cb066d inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfdf0ab1c4e8e61c20c3af4809baadc0 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top"><a id="adfdf0ab1c4e8e61c20c3af4809baadc0"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>hint</b> (std::size_t n) const</td></tr>
+<tr class="separator:adfdf0ab1c4e8e61c20c3af4809baadc0 inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87bfaaa30d0574a096f1a2c0e98d13dc inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top"><a id="a87bfaaa30d0574a096f1a2c0e98d13dc"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>description</b> (std::size_t n) const</td></tr>
+<tr class="separator:a87bfaaa30d0574a096f1a2c0e98d13dc inherit pub_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classrr_1_1FactoryWithRegistration"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrr_1_1FactoryWithRegistration')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrr_1_1FactoryWithRegistration.html">rr::RegistrationFactory</a></td></tr>
+<tr class="memitem:a5bf68f07f71d724839bc759a1791efa2 inherit pro_methods_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1FactoryWithRegistration.html#a5bf68f07f71d724839bc759a1791efa2">RegistrationFactory</a> ()=default</td></tr>
+<tr class="memdesc:a5bf68f07f71d724839bc759a1791efa2 inherit pro_methods_classrr_1_1FactoryWithRegistration"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevents external instantiation.  <a href="classrr_1_1FactoryWithRegistration.html#a5bf68f07f71d724839bc759a1791efa2">More...</a><br /></td></tr>
+<tr class="separator:a5bf68f07f71d724839bc759a1791efa2 inherit pro_methods_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classrr_1_1FactoryWithRegistration"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrr_1_1FactoryWithRegistration')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrr_1_1FactoryWithRegistration.html">rr::RegistrationFactory</a></td></tr>
+<tr class="memitem:af22bbf5b406cd4c0b1e104d1ea62530b inherit pro_attribs_classrr_1_1FactoryWithRegistration"><td class="memItemLeft" align="right" valign="top"><a id="af22bbf5b406cd4c0b1e104d1ea62530b"></a>
+RegistrarVector&#160;</td><td class="memItemRight" valign="bottom"><b>registrars</b></td></tr>
+<tr class="separator:af22bbf5b406cd4c0b1e104d1ea62530b inherit pro_attribs_classrr_1_1FactoryWithRegistration"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Constructs new integrators. </p>
-<dl class="section author"><dt>Author</dt><dd>JKM, WBC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.g. cvode, gillespie) and returns a base pointer to <a class="el" href="classrr_1_1Integrator.html">rr::Integrator</a>. </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>JKM, WBC  This is a singleton class. All methods except for getInstance are fully determined by superclass <a class="el" href="classrr_1_1FactoryWithRegistration.html" title="Constructs new integrators.">RegistrationFactory</a>. </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3bd934950b0c1523d8c1b482bb85ab15"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bd934950b0c1523d8c1b482bb85ab15">&#9670;&nbsp;</a></span>getInstance()</h2>
@@ -139,60 +152,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the singleton instance of the integrator factory. </p>
-<dl class="section author"><dt>Author</dt><dd>JKM, WBC </dd></dl>
-
-</div>
-</div>
-<a id="ab7298b70afb06e1200181cf3981f739c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7298b70afb06e1200181cf3981f739c">&#9670;&nbsp;</a></span>New()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classrr_1_1Integrator.html">Integrator</a> * rr::IntegratorFactory::New </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *&#160;</td>
-          <td class="paramname"><em>m</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs a new integrator given the name (e.g. cvode, gillespie) </p>
-<dl class="section author"><dt>Author</dt><dd>JKM, WBC </dd></dl>
-
-</div>
-</div>
-<a id="ac519fc98f09e635cd209d96283a3c57e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac519fc98f09e635cd209d96283a3c57e">&#9670;&nbsp;</a></span>registerIntegrator()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rr::IntegratorFactory::registerIntegrator </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classrr_1_1IntegratorRegistrar.html">IntegratorRegistrar</a> *&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Registers a new integrator with the factory so that it can be constructed. </p>
-<dl class="section author"><dt>Author</dt><dd>JKM, WBC  Should be called at startup for new integrators. </dd></dl>
+<p>get an instance of this <a class="el" href="classrr_1_1IntegratorFactory.html" title="Constructs new integrators.">IntegratorFactory</a>. </p>
+<p>INTEGRATOR FACTORY.</p>
+<p>If one exists return is otherwise create one. This method implements the sigleton pattern and is thread safe due to use of std::mutex. </p>
 
 </div>
 </div>

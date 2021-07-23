@@ -14,8 +14,6 @@
 #ifndef rrCvodeInterfaceH
 #define rrCvodeInterfaceH
 
-// == INCLUDES ================================================
-
 #include "Integrator.h"
 #include "rrRoadRunnerOptions.h"
 
@@ -23,20 +21,19 @@
 #include <vector>
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_nonlinearsolver.h>
+#include <cvodes/cvodes.h>
+#include <sundials/sundials_nvector.h>
+#include "ForwardSensitivitySolver.h"
 
-// == CODE ====================================================
 
-/**
-* CVode std::vector struct
-*/
-typedef struct _generic_N_Vector *N_Vector;
-
-namespace rr
-{
+namespace rr {
     using std::string;
 
     class ExecutableModel;
+
     class RoadRunner;
+
+    class ForwardSensitivitySolver;
 
     /**
      * @author WBC, ETS, MTK
@@ -46,15 +43,19 @@ namespace rr
      * and a backward differentiation formula (BDF) solver for stiff problems.
      * See: https://computation.llnl.gov/casc/sundials/documentation/toms_sundials.pdf
      */
-    class CVODEIntegrator : public Integrator
-    {
+    class CVODEIntegrator : public Integrator {
 
     public:
+
+        friend class ForwardSensitivitySolver;
+
+        using Integrator::Integrator;
+
         /**
          * @author WBC, ETS, MTK
          * @brief Constructor: takes an executable model, does not own the pointer
          */
-        explicit CVODEIntegrator(ExecutableModel* oModel);
+        explicit CVODEIntegrator(ExecutableModel *oModel);
 
         /**
          * @author WBC, ETS, MTK
@@ -62,13 +63,12 @@ namespace rr
          */
         ~CVODEIntegrator() override;
 
-
         /**
         * @author JKM
         * @brief Called whenever a new model is loaded to allow integrator
         * to reset internal state
         */
-        void syncWithModel(ExecutableModel* m) override;
+        void syncWithModel(ExecutableModel *m) override;
 
         // ** Loading Settings *************************************************
 
@@ -83,7 +83,7 @@ namespace rr
          * @brief Load an SBML settings file and apply the configuration options
          * @note Can assign relative and absolute tolerances
          */
-        void loadSBMLSettings(const std::string& filename) override;
+        void loadSBMLSettings(const std::string &filename) override;
 
         // ** Meta Info ********************************************************
 
@@ -95,23 +95,11 @@ namespace rr
         std::string getName() const override;
 
         /**
-         * @author JKM
-         * @brief Get the name for this integrator
-         */
-        static std::string getCVODEIntegratorName();
-
-        /**
          * @author WBC
          * @brief Get the description for this integrator
          * @note Delegates to @ref getDescription
          */
         std::string getDescription() const override;
-
-        /**
-         * @author JKM
-         * @brief Get the description for this integrator
-         */
-        static std::string getCVODEIntegratorDescription();
 
         /**
          * @author WBC
@@ -121,10 +109,11 @@ namespace rr
         std::string getHint() const override;
 
         /**
-         * @author JKM
-         * @brief Get the hint for this integrator
+         * @brief construct an instance of type CVODEIntegrator.
+         * @details implements the Registrar interface. Used in
+         * factory creation of Integrators.
          */
-        static std::string getCVODEIntegratorHint();
+        Solver *construct(ExecutableModel *executableModel) const override;
 
         // ** Getters / Setters ************************************************
 
@@ -138,29 +127,37 @@ namespace rr
          * @author WBC, ETS, MTK
          * @brief Sets the value of an integrator setting (e.g. absolute_tolerance)
          */
-        void setValue(const std::string& setting, Setting value) override;
+        void setValue(const std::string &setting, Setting value) override;
 
+        /**
+         * @brief sets the value of maximum order, which defaults to 12 for Adams (non-stiff)
+         * and 5 for BDF (Stiff).
+         * @details Once a CVODEIntegrator has been created, increasing the
+         * order value beyond the original value is not possible (because the underlying
+         * sundials objects require more memory). Attempts to do so will simply be ignored.
+         */
+        void setMaxOrder(int newValue);
 
-		/**
-		 * @author FY
-		 * @brief Sets tolerance for individual species
-		 */
-		void setIndividualTolerance(std::string sid, double value) override;
+        /**
+         * @author FY
+         * @brief Sets tolerance for individual species
+         */
+        void setIndividualTolerance(std::string sid, double value) override;
 
-		/**
-		 * @author FY
-		 * @brief Sets tolerance based on concentration of species
-		 * @details First converts the concentration tolerances to amount tolerances
-		 * by multiplying the compartment volume of species. Whichever is smaller
-		 * will be stored as absolute_tolerance and used in the integration process.
-		 */
-		void setConcentrationTolerance(Setting value) override;
+        /**
+         * @author FY
+         * @brief Sets tolerance based on concentration of species
+         * @details First converts the concentration tolerances to amount tolerances
+         * by multiplying the compartment volume of species. Whichever is smaller
+         * will be stored as absolute_tolerance and used in the integration process.
+         */
+        void setConcentrationTolerance(Setting value) override;
 
-		/**
-		 * @author FY
-		 * @brief Gets tolerance based on concentration of species
-		 */
-		std::vector<double> getConcentrationTolerance() override;
+        /**
+         * @author FY
+         * @brief Gets tolerance based on concentration of species
+         */
+        std::vector<double> getConcentrationTolerance() override;
 
         /**
         * @author JKM
@@ -217,35 +214,29 @@ namespace rr
         void checkType() const;
 
 
-		/**
-		* @author FY
-		* @brief Does a size check which throws if it fails
-		*/
-		void checkVectorSize(int expected, size_t real) const;
+        /**
+        * @author FY
+        * @brief Does a size check which throws if it fails
+        */
+        void checkVectorSize(int expected, size_t real) const;
 
-		/**
-		* @author FY
-		* @brief Does a index check which throws if it is out of bound
-		*/
-		void checkIndex(int index, int size) const;
+        /**
+        * @author FY
+        * @brief Does a index check which throws if it is out of bound
+        */
+        void checkIndex(int index, int size) const;
 
-		/**
-		* @author FY
-		* @brief Converts integer to std::string for error print
-		*/
-		std::string ToString(int val) const;
+        /**
+        * @author FY
+        * @brief Converts integer to std::string for error print
+        */
+        std::string ToString(int val) const;
 
         /**
         * @author LPS
         * @brief Converts size_t to std::string for error print
         */
         std::string ToString(size_t val) const;
-
-        /**
-         * @brief decode the cvode error code to a std::string
-         */
-        std::string cvodeDecodeError(int cvodeError, bool exInfo = true);
-
 
         /**
          * @brief getter for the internal state std::vector
@@ -269,22 +260,25 @@ namespace rr
         static const int mDefaultMaxBDFOrder;
 
         // cvode components
-        void* mCVODE_Memory;
-        N_Vector mStateVector;
+        void *mCVODE_Memory = nullptr;
+        N_Vector mStateVector = nullptr;
         SUNMatrix jac = nullptr;
         SUNNonlinearSolver nonLinSolver = nullptr;
-        SUNLinearSolver  linSolver = nullptr;
+        SUNLinearSolver linSolver = nullptr;
 
         IntegratorListenerPtr listener;
         double lastEventTime;
         bool variableStepPendingEvent;
         bool variableStepTimeEndEvent;
-		std::vector<double> variableStepPostEventState;
+        std::vector<double> variableStepPostEventState;
         std::vector<unsigned char> eventStatus;
 
         void testRootsAtInitialTime();
+
         bool haveVariables() const;
+
         void assignResultsToModel() const;
+
         /**
          * @author WBC, ETS, JKM
          * @brief Propagates changes in the "absolute_tolerance" and
@@ -315,9 +309,9 @@ namespace rr
 
         double applyVariableStepPendingEvents();
 
-        void createCVode();
+        void create();
 
-        void freeCVode();
+        void freeSundialsMemory();
 
         bool stateVectorVariables;
 
@@ -327,48 +321,145 @@ namespace rr
 
         friend int cvodeRootFcn(double t, N_Vector y, double *gout, void *g_data);
 
-
-
     };
 
+    template <class SundialsType = CVODEIntegrator>
+    std::string decodeSundialsError(SundialsType* solver, int cvodeError, bool exInfo) {
+        std::string result;
+        std::stringstream ss;
+        ss << (int) solver->getValue("maximum_num_steps");
+        std::string max_steps = ss.str();
 
-    // ** Registration *********************************************************
+        switch (cvodeError) {
+            case CV_TOO_MUCH_WORK:
+                result = "CV_TOO_MUCH_WORK";
+                if (exInfo) {
+                    result += ": The solver took mxstep (" + max_steps + ") internal steps but " +
+                              "could not reach tout.";
+                }
+                break;
+            case CV_TOO_MUCH_ACC:
+                result = "CV_TOO_MUCH_ACC";
+                if (exInfo) {
+                    result += ": The solver could not satisfy the accuracy "
+                              "demanded by the user for some internal step.";
+                }
+                break;
+            case CV_ERR_FAILURE:
+                result = "CV_ERR_FAILURE";
+                if (exInfo) {
+                    result += ": Error test failures occurred too many times "
+                              "(= MXNEF = 7) during one internal time step or"
+                              "occurred with |h| = hmin.";
+                }
+                break;
+            case CV_CONV_FAILURE:
+                result = "CV_CONV_FAILURE";
+                if (exInfo) {
+                    result += ": Convergence test failures occurred too many "
+                              "times (= MXNCF = 10) during one internal time"
+                              "step or occurred with |h| = hmin.";
+                }
+                break;
+            case CV_LINIT_FAIL:
+                result = "CV_LINIT_FAIL";
+                if (exInfo) {
+                    result += ": The linear solver's initialization function "
+                              "failed.";
+                }
+                break;
+            case CV_LSETUP_FAIL:
+                result = "CV_LSETUP_FAIL";
+                if (exInfo) {
+                    result += ": The linear solver's setup routine failed in an "
+                              "unrecoverable manner.";
+                }
+                break;
+            case CV_LSOLVE_FAIL:
+                result = "CV_LSOLVE_FAIL";
+                if (exInfo) {
+                    result += ": The linear solver's solve routine failed in an "
+                              "unrecoverable manner.";
+                }
+                break;
+            case CV_RHSFUNC_FAIL:
+                result = "CV_RHSFUNC_FAIL";
+                break;
+            case CV_FIRST_RHSFUNC_ERR:
+                result = "CV_FIRST_RHSFUNC_ERR";
+                break;
+            case CV_REPTD_RHSFUNC_ERR:
+                result = "CV_REPTD_RHSFUNC_ERR";
+                break;
+            case CV_UNREC_RHSFUNC_ERR:
+                result = "CV_UNREC_RHSFUNC_ERR";
+                break;
+            case CV_RTFUNC_FAIL:
+                result = "CV_RTFUNC_FAIL";
+                break;
+            case CV_MEM_FAIL:
+                result = "CV_MEM_FAIL";
+                break;
+            case CV_MEM_NULL:
+                result = "CV_MEM_NULL";
+                if (exInfo) {
+                    result += ": The cvode_mem argument was NULL.";
+                }
+                break;
+            case CV_ILL_INPUT:
+                result = "CV_ILL_INPUT";
+                if (exInfo) {
+                    result += ": One of the inputs to CVode is illegal. This "
+                              "includes the situation when a component of the "
+                              "error weight vectors becomes < 0 during "
+                              "internal time-stepping.  It also includes the "
+                              "situation where a root of one of the root "
+                              "functions was found both at t0 and very near t0. "
+                              "The ILL_INPUT flag will also be returned if the "
+                              "linear solver routine CV--- (called by the user "
+                              "after calling CVodeCreate) failed to set one of "
+                              "the linear solver-related fields in cvode_mem or "
+                              "if the linear solver's init routine failed. In "
+                              "any case, the user should see the printed "
+                              "error message for more details.";
+                }
+                break;
+            case CV_NO_MALLOC:
+                result = "CV_NO_MALLOC";
+                if (exInfo) {
+                    result += ": indicating that cvode_mem has not been "
+                              "allocated (i.e., CVodeInit has not been "
+                              "called).";
+                }
+                break;
+            case CV_BAD_K:
+                result = "CV_BAD_K";
+                if (exInfo) {
+                    result += ": k is not in the range 0, 1, ..., qu.";
+                }
+                break;
+            case CV_BAD_T:
+                result = "CV_BAD_T";
+                if (exInfo) {
+                    result += ": t is not in the interval [tn-hu,tn].";
+                }
+                break;
+            case CV_BAD_DKY:
+                result = "CV_BAD_DKY";
+                if (exInfo) {
+                    result += ": The dky argument was NULL.";
+                }
+                break;
+            case CV_TOO_CLOSE:
+                result = "CV_TOO_CLOSE:";
+                break;
+            default:
+                result = "UNKNOWN_CODE";
+                break;
+        }
+        return result;
+    }
 
-
-    class CVODEIntegratorRegistrar : public IntegratorRegistrar {
-        public:
-            /**
-            * @author JKM
-            * @brief Gets the name associated with this integrator type
-            */
-            std::string getName() const override {
-                return CVODEIntegrator::getCVODEIntegratorName();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the description associated with this integrator type
-            */
-            std::string getDescription() const override {
-                return CVODEIntegrator::getCVODEIntegratorDescription();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the hint associated with this integrator type
-            */
-            std::string getHint() const override {
-                return CVODEIntegrator::getCVODEIntegratorHint();
-            }
-
-            /**
-            * @author JKM
-            * @brief Constructs a new integrator of a given type
-            */
-            Integrator* construct(ExecutableModel *model) const override {
-                return new CVODEIntegrator(model);
-            }
-    };
 }
 
 #endif

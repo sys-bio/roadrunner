@@ -7,6 +7,8 @@
 #include "RoadRunnerTest.h"
 #include "TestModelFactory.h"
 #include "SteadyStateSolver.h"
+#include "Integrator.h"
+#include "SensitivitySolver.h"
 #include "rrExecutableModel.h"
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
@@ -283,73 +285,6 @@ TEST_F(RoadRunnerAPITests, tmpDir) {
     ASSERT_STREQ(rr.getTempDir().c_str(), fs::current_path().string().c_str());
 }
 
-TEST_F(RoadRunnerAPITests, getIntegratorByNameCVODE) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_STREQ(rr.getIntegratorByName("cvode")->getName().c_str(), "cvode");
-}
-
-TEST_F(RoadRunnerAPITests, makeGillespieIntegrator) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_STREQ(rr.makeIntegrator("gillespie")->getName().c_str(), "gillespie");
-}
-
-TEST_F(RoadRunnerAPITests, getSteadyStateSolver) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    SteadyStateSolver *solver = rr.getSteadyStateSolver();
-    ASSERT_STREQ(solver->getName().c_str(), "nleq2");
-}
-
-TEST_F(RoadRunnerAPITests, getExistingIntegratorNames) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    std::vector<std::string> expected = std::vector<std::string>({"cvode"});
-    ASSERT_EQ(expected, rr.getExistingIntegratorNames());
-}
-
-TEST_F(RoadRunnerAPITests, getRegisteredIntegratorNames) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    std::vector<std::string> expected = std::vector<std::string>({"cvode", "gillespie", "rk4", "rk45", "euler"});
-    ASSERT_EQ(expected, rr.getRegisteredIntegratorNames());
-}
-
-TEST_F(RoadRunnerAPITests, getRegisteredSteadyStateSolverNames) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    std::vector<std::string> expected = std::vector<std::string>({"nleq1", "nleq2", "newton", "newton_linesearch"});
-    ASSERT_EQ(expected, rr.getRegisteredSteadyStateSolverNames());
-}
-
-TEST_F(RoadRunnerAPITests, setIntegrator) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    rr.setIntegrator("gillespie");
-    ASSERT_STREQ(rr.getIntegrator()->getName().c_str(), "gillespie");
-}
-
-TEST_F(RoadRunnerAPITests, integratorExistsWhenTrue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_TRUE(rr.integratorExists("cvode")); // default
-}
-
-TEST_F(RoadRunnerAPITests, integratorExistsWhenFalse) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_FALSE(rr.integratorExists("gillespie")); // not yet created
-}
-
-TEST_F(RoadRunnerAPITests, setSteadyStateSolver) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    rr.setSteadyStateSolver("newton");
-    ASSERT_STREQ(rr.getSteadyStateSolver()->getName().c_str(), "newton");
-
-}
-
-TEST_F(RoadRunnerAPITests, steadyStateSolverExistsWhenTrue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_TRUE(rr.steadyStateSolverExists("nleq2"));
-}
-
-TEST_F(RoadRunnerAPITests, steadyStateSolverExistsWhenFalse) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_FALSE(rr.steadyStateSolverExists("newton"));
-}
-
 /**
  * getModelName doesn't seem to work. But it should be tested
  * in LLVMExecutableModel
@@ -450,6 +385,13 @@ TEST_F(RoadRunnerAPITests, reset) {
     ASSERT_EQ(rr.getModel()->getTime(), 100);
     rr.reset();
     ASSERT_EQ(rr.getModel()->getTime(), 0);
+}
+
+TEST_F(RoadRunnerAPITests, getCurrentTime) {
+    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    ASSERT_EQ(rr.getCurrentTime(), 0);
+    rr.simulate(0, 100, 101);
+    ASSERT_EQ(rr.getCurrentTime(), 100);
 }
 
 TEST_F(RoadRunnerAPITests, resetSelectionLists) {
@@ -651,6 +593,7 @@ TEST_F(RoadRunnerAPITests, getReducedEigenValues) {
     rr.setConservedMoietyAnalysis(true);
     std::vector<std::complex<double>> expected = rr.getReducedEigenValues();
     auto eig = rr.getReducedEigenValues();
+    std::cout << "eig: " << eig.size() << std::endl;
     for (int i = 0; i < expected.size(); i++) {
         ASSERT_EQ(expected[i], eig[i]);
     }
@@ -1261,6 +1204,188 @@ TEST_F(RoadRunnerAPITests, DISABLED_regenerateModel){
     RoadRunner rr(simpleFlux.str());
     rr.regenerateModel();
 }
+
+
+TEST_F(RoadRunnerAPITests, getIntegratorDefault){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_STREQ(rr.getIntegrator()->getName().c_str(), "cvode");
+}
+
+
+TEST_F(RoadRunnerAPITests, getSteadyStateSolver){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_STREQ(rr.getSteadyStateSolver()->getName().c_str(), "nleq2");
+
+}
+
+TEST_F(RoadRunnerAPITests, getSensitivitySolver){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_STREQ(rr.getSensitivitySolver()->getName().c_str(), "forward");
+}
+
+TEST_F(RoadRunnerAPITests, getIntegratorByName){
+    RoadRunner rr(SimpleFlux().str());
+    Integrator* gillespie = rr.getIntegratorByName("gillespie");
+    ASSERT_STREQ(rr.getIntegrator()->getName().c_str(), "cvode");
+    ASSERT_STREQ(gillespie->getName().c_str(), "gillespie");
+}
+
+TEST_F(RoadRunnerAPITests, getSteadyStateSolverByName){
+    RoadRunner rr(SimpleFlux().str());
+    SteadyStateSolver* kinsol_newton = rr.getSteadyStateSolverByName("newton");
+    ASSERT_STREQ(rr.getSteadyStateSolver()->getName().c_str(), "nleq2");
+    ASSERT_STREQ(kinsol_newton->getName().c_str(), "newton");
+}
+
+/**
+ * Disabled test - only 1 sensitivity sovler exsits right now
+ */
+TEST_F(RoadRunnerAPITests, DISABLED_getSensitivitySolverByName){
+    RoadRunner rr(SimpleFlux().str());
+    SensitivitySolver* forward = rr.getSensitivitySolverByName("forward");
+    ASSERT_STREQ(rr.getSensitivitySolver()->getName().c_str(), "forward");
+    ASSERT_STREQ(forward->getName().c_str(), "gillespie");
+
+}
+
+TEST_F(RoadRunnerAPITests, makeIntegrator){
+    RoadRunner rr(SimpleFlux().str());
+    rr.makeIntegrator("gillespie");
+    ASSERT_TRUE(rr.integratorExists("gillespie"));
+}
+
+TEST_F(RoadRunnerAPITests, makeSteadyStateSolver){
+    RoadRunner rr(SimpleFlux().str());
+    rr.makeSteadyStateSolver("newton_linesearch");
+    ASSERT_TRUE(rr.steadyStateSolverExists("newton_linesearch"));
+}
+
+/**
+ * Only 1 sensitivity solver currently exists
+ */
+TEST_F(RoadRunnerAPITests, DISABLED_makeSensitivitySolver){
+    RoadRunner rr(SimpleFlux().str());
+//    rr.makeSensitivitySolver();
+
+}
+
+TEST_F(RoadRunnerAPITests, getExistingIntegratorNamesOneExists){
+    RoadRunner rr(SimpleFlux().str());
+    auto names = rr.getExistingIntegratorNames();
+    std::vector<std::string> expected({"cvode"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getExistingIntegratorNamesTwoExists){
+    RoadRunner rr(SimpleFlux().str());
+    rr.makeIntegrator("gillespie");
+    auto names = rr.getExistingIntegratorNames();
+    std::vector<std::string> expected({"cvode", "gillespie"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getExistingSteadyStateSolverNamesOneExists){
+    RoadRunner rr(SimpleFlux().str());
+    rr.getExistingSteadyStateSolverNames();
+    auto names = rr.getExistingSteadyStateSolverNames();
+    std::vector<std::string> expected({"nleq2"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getExistingSteadyStateSolverNamesTwoExists){
+    RoadRunner rr(SimpleFlux().str());
+    rr.makeSteadyStateSolver("newton");
+    rr.getExistingSteadyStateSolverNames();
+    auto names = rr.getExistingSteadyStateSolverNames();
+    std::vector<std::string> expected({"nleq2", "newton"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getExistingSensitivitySolverNames){
+    RoadRunner rr(SimpleFlux().str());
+    rr.getExistingSensitivitySolverNames();
+    auto names = rr.getExistingSensitivitySolverNames();
+    std::vector<std::string> expected({"forward"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getRegisteredIntegratorNames){
+    RoadRunner rr(SimpleFlux().str());
+    auto names = rr.getRegisteredIntegratorNames();
+    std::vector<std::string> expected({ "cvode", "gillespie", "rk4", "rk45", "euler"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getRegisteredSteadyStateSolverNames){
+    RoadRunner rr(SimpleFlux().str());
+    auto names = rr.getRegisteredSteadyStateSolverNames();
+    std::vector<std::string> expected({"nleq1", "nleq2", "newton", "newton_linesearch" });
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, getRegisteredSensitivitySolverNames){
+    RoadRunner rr(SimpleFlux().str());
+    auto names = rr.getRegisteredSensitivitySolverNames();
+    std::vector<std::string> expected({"forward"});
+    ASSERT_EQ(expected, names);
+}
+
+TEST_F(RoadRunnerAPITests, setIntegrator){
+    RoadRunner rr(SimpleFlux().str());
+    rr.setIntegrator("gillespie");
+    ASSERT_STREQ("gillespie", rr.getIntegrator()->getName().c_str());
+}
+
+TEST_F(RoadRunnerAPITests, setSteadyStateSolver){
+    RoadRunner rr(SimpleFlux().str());
+    rr.setSteadyStateSolver("nleq1");
+    ASSERT_STREQ("nleq1", rr.getSteadyStateSolver()->getName().c_str());
+}
+
+TEST_F(RoadRunnerAPITests, setSensitivitySolver){
+    RoadRunner rr(SimpleFlux().str());
+    rr.setSensitivitySolver("forward");
+    ASSERT_STREQ("forward", rr.getSensitivitySolver()->getName().c_str());
+}
+
+TEST_F(RoadRunnerAPITests, integratorExistsWhenTrue){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_TRUE(rr.integratorExists("cvode"));
+}
+
+TEST_F(RoadRunnerAPITests, steadyStateSolverExistsWhenTrue){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_TRUE(rr.steadyStateSolverExists("nleq2"));
+}
+
+TEST_F(RoadRunnerAPITests, sensitivitySolverExistsWhenTrue){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_TRUE(rr.sensitivitySolverExists("forward"));
+}
+
+TEST_F(RoadRunnerAPITests, integratorExistsWhenFalse){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_FALSE(rr.integratorExists("gillespie"));
+}
+
+TEST_F(RoadRunnerAPITests, steadyStateSolverExistsWhenFalse){
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_FALSE(rr.steadyStateSolverExists("newton"));
+}
+
+/**
+ * @brief cannot test this, since only 1 SensitivitySolver implemented at this time
+ */
+TEST_F(RoadRunnerAPITests, DISABLED_sensitivitySolverExistsWhenFalse){
+    RoadRunner rr(SimpleFlux().str());
+//    ASSERT_TRUE(rr.sensitivitySolverExists("forward"));
+}
+
+
+
+
+
+
 
 /**
  * The remaining methods are deprecated, sometimes

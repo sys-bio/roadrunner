@@ -17,8 +17,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace rr
-{
+namespace rr {
     using std::string;
     using std::invalid_argument;
     using std::stringstream;
@@ -53,9 +52,10 @@ namespace rr
     * @endcode
     *
     */
-    class EulerIntegrator: public Integrator
-    {
+    class EulerIntegrator : public Integrator {
     public:
+
+        using Integrator::Integrator;
 
         /**
         * Creates a new EulerIntegrator.
@@ -73,18 +73,18 @@ namespace rr
         * parameters will be read from.
         */
         EulerIntegrator(ExecutableModel *m)
-			:	Integrator(m),
-			    eventStatus(std::vector<unsigned char>(m->getNumEvents(),false)),
-				previousEventStatus(std::vector<unsigned char>(m->getNumEvents(), false)) {
+                : Integrator(m),
+                  eventStatus(std::vector<unsigned char>(m->getNumEvents(), false)),
+                  previousEventStatus(std::vector<unsigned char>(m->getNumEvents(), false)) {
             EulerIntegrator::resetSettings();
 
             mModel = m;
             exampleParameter1 = 3.14;
             exampleParameter2 = "hello";
-			rrLog(Logger::LOG_WARNING) << "Euler integrator is inaccurate";
-			//std::cerr << "Number of event triggers: " << m->getEventTriggers(0, 0, 0) << std::endl;
+            rrLog(Logger::LOG_WARNING) << "Euler integrator is inaccurate";
+            //std::cerr << "Number of event triggers: " << m->getEventTriggers(0, 0, 0) << std::endl;
 
-            if(mModel) {
+            if (mModel) {
                 // calling the getStateVector with a NULL argument returns
                 // the size of teh state std::vector.
                 stateVectorSize = mModel->getStateVector(NULL);
@@ -101,10 +101,15 @@ namespace rr
         /**
         * delete any memory we allocated
         */
-        virtual ~EulerIntegrator() {
-            delete[] rateBuffer;
-            delete[] stateBufferBegin;
-            delete[] stateBufferEnd;
+        ~EulerIntegrator() override {
+            if (mModel) {
+                delete[] rateBuffer;
+                delete[] stateBufferBegin;
+                delete[] stateBufferEnd;
+                rateBuffer = nullptr;
+                stateBufferBegin = nullptr;
+                stateBufferEnd = nullptr;
+            }
         };
 
         /**
@@ -117,76 +122,77 @@ namespace rr
         * @return the end time.
         */
         virtual double integrate(double t0, double h) {
-			int internal_steps = getValue("subdivision_steps");
-			if (mModel == (rr::ExecutableModel*)NULL) return 0;
+            int internal_steps = getValue("subdivision_steps");
+            if (mModel == (rr::ExecutableModel *) NULL) return 0;
 
             double finalTimeEnd;
 
-			h /= internal_steps;
-			for (int subdiv = 0; subdiv < internal_steps; ++subdiv) {
-				// evaluate and copy the rate of change of the state std::vector
-				// rate into the local buffer. If the 2nd argument is NULL,
-				// the current mModel state is used to evaluate the
-				// state std::vector rate.
-				mModel->getStateVectorRate(t0, NULL, rateBuffer);
+            h /= internal_steps;
+            for (int subdiv = 0; subdiv < internal_steps; ++subdiv) {
+                // evaluate and copy the rate of change of the state std::vector
+                // rate into the local buffer. If the 2nd argument is NULL,
+                // the current mModel state is used to evaluate the
+                // state std::vector rate.
+                mModel->getStateVectorRate(t0, NULL, rateBuffer);
 
-				// copy the current state std::vector into a local buffer
-				mModel->getStateVector(stateBufferBegin);
+                // copy the current state std::vector into a local buffer
+                mModel->getStateVector(stateBufferBegin);
 
-				// perform the Euler integration step, i.e.
-				// y_{n+1} = y_{n} + h * y'_{n}
-				for (int i = 0; i < stateVectorSize; ++i) {
-					stateBufferEnd[i] = stateBufferBegin[i] + h * rateBuffer[i];
-				}
+                // perform the Euler integration step, i.e.
+                // y_{n+1} = y_{n} + h * y'_{n}
+                for (int i = 0; i < stateVectorSize; ++i) {
+                    stateBufferEnd[i] = stateBufferBegin[i] + h * rateBuffer[i];
+                }
 
-				// set the mModel state to the newly calculated state
-				mModel->setStateVector(stateBufferEnd);
+                // set the mModel state to the newly calculated state
+                mModel->setStateVector(stateBufferEnd);
 
-				// update the mModel time to the new time
-				double timeEnd = t0 + h;
-				mModel->setTime(timeEnd);
+                // update the mModel time to the new time
+                double timeEnd = t0 + h;
+                mModel->setTime(timeEnd);
 
-				// if we have a client, notify them that we have taken
-				// a time step
-				if (listener) {
-					listener->onTimeStep(this, mModel, timeEnd);
-				}
+                // if we have a client, notify them that we have taken
+                // a time step
+                if (listener) {
+                    listener->onTimeStep(this, mModel, timeEnd);
+                }
 
-				// events
-				bool triggered = false;
+                // events
+                bool triggered = false;
 
-				mModel->getEventTriggers(eventStatus.size(), NULL, eventStatus.size() ? &eventStatus[0] : NULL);
-				for (int k_ = 0; k_ < eventStatus.size(); ++k_) {
-					if (eventStatus.at(k_)) {
-						triggered = true;
-						//std::cerr << "Triggered" << std::endl;
-					}
-				}
+                mModel->getEventTriggers(eventStatus.size(), NULL, eventStatus.size() ? &eventStatus[0] : NULL);
+                for (int k_ = 0; k_ < eventStatus.size(); ++k_) {
+                    if (eventStatus.at(k_)) {
+                        triggered = true;
+                        //std::cerr << "Triggered" << std::endl;
+                    }
+                }
 
-				if (triggered) {
-					// applyEvents takes the list of events which were previously triggered
-					//std::cerr << "An event was triggered at " << t0 << std::endl;
-					applyEvents(timeEnd, previousEventStatus);
-				}
+                if (triggered) {
+                    // applyEvents takes the list of events which were previously triggered
+                    //std::cerr << "An event was triggered at " << t0 << std::endl;
+                    applyEvents(timeEnd, previousEventStatus);
+                }
 
-				if (!eventStatus.empty()) {
-					previousEventStatus = eventStatus;
-				}
+                if (!eventStatus.empty()) {
+                    previousEventStatus = eventStatus;
+                }
 
                 finalTimeEnd = timeEnd;
-			}
+            }
 
             return finalTimeEnd;
         }
 
-		void applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
-			//std::cerr << "Size of previous events: " << previousEventStatus.size() << std::endl;
-			// If we pass in the events including the ones just triggered, they won't be applied, so use previousEventStatus
-			mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0], stateBufferEnd, NULL);
-			// AHu: jk I think that mModel->applyEvents does update the mode's state std::vector
-			// The previous statement loaded the result into the final stateBufferEnd, so now update the mModel's state std::vector
-			//mModel->setStateVector(stateBufferEnd);
-		}
+        void applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
+            //std::cerr << "Size of previous events: " << previousEventStatus.size() << std::endl;
+            // If we pass in the events including the ones just triggered, they won't be applied, so use previousEventStatus
+            mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0],
+                                stateBufferEnd, NULL);
+            // AHu: jk I think that mModel->applyEvents does update the mode's state std::vector
+            // The previous statement loaded the result into the final stateBufferEnd, so now update the mModel's state std::vector
+            //mModel->setStateVector(stateBufferEnd);
+        }
 
         /**
         * This simple integrator has nothing to reset, so do nothing here
@@ -214,7 +220,7 @@ namespace rr
         virtual std::string toString() const {
             std::stringstream ss;
             ss << "< roadrunner.EulerIntegrator() " << std::endl;
-            ss << "{ 'this' : " << (void*)this << std::endl;
+            ss << "{ 'this' : " << (void *) this << std::endl;
             ss << "'exampleParameter1' : " << exampleParameter1 << std::endl;
             ss << "'exampleParameter2' : " << exampleParameter2 << std::endl;
             ss << "}>";
@@ -227,22 +233,14 @@ namespace rr
         virtual std::string toRepr() const {
             std::stringstream ss;
             ss << "< roadrunner.EulerIntegrator() { 'this' : "
-                << (void*)this << " }>";
+               << (void *) this << " }>";
             return ss.str();
         }
 
         /**
         * get the name of this integrator
         */
-        virtual std::string getName() const {
-            return getEulerName();
-        }
-
-        /**
-         * @author JKM
-         * @brief Get the name for this integrator
-         */
-        static std::string getEulerName() {
+        std::string getName() const override {
             return "euler";
         }
 
@@ -251,21 +249,13 @@ namespace rr
          * @brief Get the description for this integrator
          * @note Delegates to @ref getDescription
          */
-        std::string getDescription() const {
-            return getEulerDescription();
-        }
-
-        /**
-         * @author JKM
-         * @brief Get the description for this integrator
-         */
-        static std::string getEulerDescription() {
+        std::string getDescription() const override {
             return "The Euler method is one of the simplest approaches to "
-                "solving a first order ODE. Given the rate of change of "
-                "function f at time t, it computes the new value of f as "
-                "f(t+h) = f(t) + h*f'(t), where h is the time step. "
-                "Euler's method is rarely used in practice due to poor "
-                "numerical robustness.";
+                   "solving a first order ODE. Given the rate of change of "
+                   "function f at time t, it computes the new value of f as "
+                   "f(t+h) = f(t) + h*f'(t), where h is the time step. "
+                   "Euler's method is rarely used in practice due to poor "
+                   "numerical robustness.";
         }
 
         /**
@@ -273,16 +263,12 @@ namespace rr
          * @brief Get the hint for this integrator
          * @note Delegates to @ref getHint
          */
-        std::string getHint() const {
-            return getEulerHint();
+        std::string getHint() const override {
+            return "A simple Euler integrator";
         }
 
-        /**
-         * @author JKM
-         * @brief Get the hint for this integrator
-         */
-        static std::string getEulerHint() {
-            return "A simple Euler integrator";
+        Solver *construct(ExecutableModel *executableModel) const {
+            return new EulerIntegrator(executableModel);
         }
 
         /**
@@ -299,16 +285,16 @@ namespace rr
         * This integrator only supports 2 values, so those are the
         * only two valid items to set.
         */
-        virtual void setItem(const std::string& key, const rr::Setting& value) {
+        virtual void setItem(const std::string &key, const rr::Setting &value) {
             if (key == "exampleParameter1") {
                 exampleParameter1 = value.get<double>();
                 return;
             }
 
-            if(key == "exampleParameter2") {
-				// Ahu: Why is this cast here, and is this a static or dynamic cast?
+            if (key == "exampleParameter2") {
+                // Ahu: Why is this cast here, and is this a static or dynamic cast?
                 exampleParameter2 = value.get<std::string>();
-				return;
+                return;
             }
 
             // they did not give a valid key, so throw an exception.
@@ -321,12 +307,12 @@ namespace rr
         * This integrator only supports two parameters, those are the
         * only valid ones to get.
         */
-        virtual Setting getItem(const std::string& key) const {
+        virtual Setting getItem(const std::string &key) const {
             if (key == "exampleParameter1") {
                 return Setting(exampleParameter1);
             }
 
-            if(key == "exampleParameter2") {
+            if (key == "exampleParameter2") {
                 return Setting(exampleParameter2);
             }
 
@@ -337,7 +323,7 @@ namespace rr
         /**
         * is there a key matching this name.
         */
-        virtual bool hasKey(const std::string& key) const {
+        virtual bool hasKey(const std::string &key) const {
             if (key == "exampleParameter1" || key == "exampleParameter2") {
                 return true;
             } else {
@@ -349,7 +335,7 @@ namespace rr
         * remove a value, this example class does not support deleting
         * keys, so just raise an exception if someone tries to do so.
         */
-        virtual int deleteItem(const std::string& key) {
+        virtual int deleteItem(const std::string &key) {
             throw std::invalid_argument(
                     "Error, the EulerIntegrator does not support deleting keys");
         }
@@ -364,14 +350,14 @@ namespace rr
             return keys;
         }
 
-		void resetSettings() {
-			Solver::resetSettings();
+        void resetSettings() {
+            Solver::resetSettings();
 
-			// Set default integrator settings.
+            // Set default integrator settings.
             addSetting("subdivision_steps", Setting(1),
-                "Subdivision Steps",
-                "The number of subdivisions of the Euler step size (int).",
-                "(int) For each point, up to this many extra steps will be taken as smaller steps within each step, although their values are not saved");
+                       "Subdivision Steps",
+                       "The number of subdivisions of the Euler step size (int).",
+                       "(int) For each point, up to this many extra steps will be taken as smaller steps within each step, although their values are not saved");
         }
 
     private:
@@ -396,8 +382,8 @@ namespace rr
         */
         int stateVectorSize;
 
-		std::vector<unsigned char> eventStatus;
-		std::vector<unsigned char> previousEventStatus;
+        std::vector<unsigned char> eventStatus;
+        std::vector<unsigned char> previousEventStatus;
 
         /**
         * Clients may register a listener to listen for time steps, or
@@ -414,41 +400,6 @@ namespace rr
 
     // ** Registration *********************************************************
 
-
-    class EulerIntegratorRegistrar : public IntegratorRegistrar {
-        public:
-            /**
-            * @author JKM
-            * @brief Gets the name associated with this integrator type
-            */
-            virtual std::string getName() const {
-                return EulerIntegrator::getEulerName();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the description associated with this integrator type
-            */
-            virtual std::string getDescription() const {
-                return EulerIntegrator::getEulerDescription();
-            }
-
-            /**
-            * @author JKM
-            * @brief Gets the hint associated with this integrator type
-            */
-            virtual std::string getHint() const {
-                return EulerIntegrator::getEulerHint();
-            }
-
-            /**
-            * @author JKM
-            * @brief Constructs a new integrator of a given type
-            */
-            virtual Integrator* construct(ExecutableModel *model) const {
-                return new EulerIntegrator(model);
-            }
-    };
 
 } /* namespace rr */
 

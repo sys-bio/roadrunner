@@ -1,0 +1,119 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Solver #aqua-white
+
+
+abstract class Registerable
+Registerable <|-- Solver
+
+class RegistrationFactory
+class SensitivitySolverFactory
+RegistrationFactory <|-- IntegratorFactory
+RegistrationFactory <|-- SteadyStateSolverFactory
+RegistrationFactory <|-- SensitivitySolverFactory
+
+class SteadyStateSolver #aqua-white
+class Integrator #aqua-white
+class SensitivitySolver #aqua-white
+class TimeSeriesSensitivitySolver #aqua-white
+class SteadyStateSensitivitySolver #aqua-white
+
+Solver <|-- SteadyStateSolver
+Solver <|-- SensitivitySolver
+Solver <|-- Integrator
+SensitivitySolver <|-- TimeSeriesSensitivitySolver
+SensitivitySolver <|-- SteadyStateSensitivitySolver
+
+class NLEQ
+class NLEQ1 #LightGreen-white
+class NLEQ2 #LightGreen-white
+
+SteadyStateSolver <|-- NLEQ
+NLEQ <|-- NLEQ1
+NLEQ <|-- NLEQ2
+
+class CVODEIntegrator #LightGreen-white
+class GillespieIntegrator #LightGreen-white
+class EulerIntegrator #LightGreen-white
+class RK5Integrator #LightGreen-white
+class RK45Integrator #LightGreen-white
+
+Integrator <|-- CVODEIntegrator
+Integrator <|-- GillespieIntegrator
+Integrator <|-- EulerIntegrator
+Integrator <|-- RK5Integrator
+Integrator <|-- RK45Integrator
+
+class ForwardSensitivitySolver
+
+TimeSeriesSensitivitySolver <|-- ForwardSensitivitySolver
+
+ForwardSensitivitySolver *-- CVODEIntegrator : (used by)
+
+class IntegratorFactory #aqua-white
+
+class RoadRunner #red-white
+
+RoadRunner *-- IntegratorFactory
+
+
+class SteadyStateSolverFactory #aqua-white
+
+
+RoadRunner *-- SteadyStateSolverFactory
+
+
+class SundialsSteadyStateSolver
+
+SteadyStateSolver <|-- SundialsSteadyStateSolver
+
+class NewtonIteration
+class BasicNewtonIteration
+class LineSearchNewtonIteration
+
+
+class FixedPointIteration
+note bottom of FixedPointIteration {
+    Still needs work
+}
+
+SundialsSteadyStateSolver <|-- NewtonIteration
+NewtonIteration <|-- BasicNewtonIteration
+NewtonIteration <|-- LineSearchNewtonIteration
+SundialsSteadyStateSolver <|-- FixedPointIteration
+
+
+
+
+
+
+
+
+
+
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+@enduml

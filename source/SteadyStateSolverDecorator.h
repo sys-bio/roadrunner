@@ -19,6 +19,8 @@ namespace rr {
      */
     class SteadyStateSolverDecorator : public SteadyStateSolver {
     public:
+        using SteadyStateSolver::SteadyStateSolver;
+
         ~SteadyStateSolverDecorator() override = default;
 
         SteadyStateSolverDecorator() = default;

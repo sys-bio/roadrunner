@@ -17,26 +17,44 @@ public:
  * values are S1=0, S2=0. To solve this problem we use presimulation.
  */
 TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateOpenLinearFlux) {
-    testSteadyState<OpenLinearFlux>(
+    testSteadyState(
             "OpenLinearFlux",
             "nleq1"
     );
 }
 
 TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateSimpleFluxManuallyReduced) {
-    testSteadyState<SimpleFluxManuallyReduced>(
+    testSteadyState(
             "SimpleFluxManuallyReduced",
             "nleq1");
 }
 
 TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateSimpleFlux) {
-    testSteadyState<SimpleFlux>("SimpleFlux", "nleq1");
+    testSteadyState("SimpleFlux", "nleq1");
 }
 
 TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateVenkatraman2010) {
-    testSteadyState<Venkatraman2010>("Venkatraman2010", "nleq1");
+    testSteadyState("Venkatraman2010", "nleq1");
 }
 
 TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateBrown2004) {
-    testSteadyState<Brown2004>("Brown2004", "nleq1");
+    testSteadyState("Brown2004", "nleq1");
 }
+
+TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateBimolecularEnd) {
+    testSteadyState("BimolecularEnd", "nleq1");
+}
+
+TEST_F(NLEQ1IntetrationTests, CheckCorrectSteadyStateFluxBimolecularEnd) {
+    testSteadyStateFluxes("BimolecularEnd", "nleq1");
+}
+
+
+
+
+
+
+
+
+
+

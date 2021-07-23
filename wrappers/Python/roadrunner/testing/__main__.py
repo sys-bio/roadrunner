@@ -10,28 +10,21 @@ rr_site_packages_dir = os.path.dirname(roadrunner_directory)
 # without installing roadrunner.
 sys.path.append(rr_site_packages_dir)
 
+# some debugging messages
+print(f"Executing __main__.py located at \"{__file__}\"")
 print("Adding roadrunner site-packages to sys.path: ", rr_site_packages_dir)
 
 import roadrunner
 import tester
+print(f"Using roadrunner at {os.path.abspath(roadrunner.__file__)}")
+print(f"Running tester at {os.path.abspath(tester.__file__)}")
 
 roadrunner.sigtrap()
 
 tester.runTester(test_data_dir)
 
 
-# Run any other Python tests
-import unittest
 
-other_test_modules = [
-    "python_api_tests",
-    "testTestModelFactory",
-    "AutomaticMoietyConservationAnalysisTests",
-    "SteadyStateSolverTests",
-]
-
-for t in other_test_modules:
-    unittest.main(module=t)
 
 
 

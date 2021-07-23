@@ -102,7 +102,7 @@ public:
 
             libsbml::SBMLReader reader;
             path fullPath = modelFilePath / modelFileName;
-            doc = *reader.readSBML(fullPath.string());
+//            doc = *reader.readSBML(fullPath.string());
 
             if (!simulation.LoadSBMLFromFile()) {
                 throw (Exception("Failed loading sbml from file"));
@@ -195,7 +195,7 @@ public:
             //Read SBML models.....
             simulation.SetCaseNumber(0);
 
-            path modelFilePath = modelEditingModels/ path(testName);
+            path modelFilePath = modelEditingModels / path(testName);
             string modelFileName = testName + "-sbml-" + version + ".xml";
             string settingsFileName = testName + "-settings.txt";
 
@@ -295,9 +295,11 @@ TEST_F(CAPIModelEditingTests, ADD_REACTION_1) {
 }
 
 TEST_F(CAPIModelEditingTests, REMOVE_REACTION_1) {
-    EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
-        removeReaction(rri, "reaction2");
-    }));
+    EXPECT_TRUE(
+            RunTestWithModification([](RRHandle rri) {
+                removeReaction(rri, "reaction2");
+            })
+    );
 }
 
 TEST_F(CAPIModelEditingTests, ADD_SPECIES_1) {

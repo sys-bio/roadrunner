@@ -73,4 +73,8 @@ namespace rr {
         return "Approximate";
     }
 
+    Solver *ApproxSteadyStateDecorator::construct(ExecutableModel *executableModel) const {
+        return new ApproxSteadyStateDecorator(executableModel);
+    }
+
 }

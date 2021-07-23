@@ -1,6 +1,14 @@
+#include <fstream>
 #include "gtest/gtest.h"
 #include "TestModelFactory.h"
 #include "SteadyStateSolver.h"
+#include "Matrix.h"
+
+void TestModel::toFile(const string &fname) {
+    std::ofstream of(fname);
+    of << str();
+    of.close();
+}
 
 std::unordered_map<std::string, rr::Setting> SteadyStateResult::steadyStateSettings() {
     return std::unordered_map<std::string, rr::Setting>();
@@ -21,7 +29,7 @@ void SteadyStateResult::applySteadyStateSettings(rr::RoadRunner *rr) {
     }
 }
 
-void SteadyStateResult::checkSteadyState(rr::RoadRunner *rr) {
+void SteadyStateResult::checkSteadyState(rr::RoadRunner *rr, double tol) {
     applySteadyStateSettings(rr);
     rr->steadyState();
     // collect actual results from model
@@ -38,7 +46,7 @@ void SteadyStateResult::checkSteadyState(rr::RoadRunner *rr) {
 
         std::cout << "Comparing \"" << speciesID << "\" expected result: " << expected
                   << " with actual result " << actualResult << std::endl;
-        EXPECT_NEAR(expected, actualResult, 0.0001);
+        EXPECT_NEAR(expected, actualResult, tol);
     }
 }
 
@@ -105,28 +113,28 @@ std::string SimpleFlux::modelName() {
     return "SimpleFlux";
 }
 
-ls::DoubleMatrix SimpleFlux::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,        10,      1},
-                                    {0.909091, 9.14354, 1.85646},
-                                    {1.81818,  8.36858, 2.63142},
-                                    {2.72727,  7.66736, 3.33264},
-                                    {3.63636,  7.03288, 3.96712},
-                                    {4.54545,  6.45878, 4.54122},
-                                    {5.45455,  5.9393,  5.0607},
-                                    {6.36364,  5.46927, 5.53073},
-                                    {7.27273,  5.04396, 5.95604},
-                                    {8.18182,  4.65913, 6.34087},
-                                    {9.09091,  4.31092, 6.68908},
-                                    {10,       3.99584, 7.00416},
-                            });
+rr::Matrix<double> SimpleFlux::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,  10,                 1},
+                                      {1,  9.062507112353002,  1.9374928876470021},
+                                      {2,  8.222669057698957,  2.7773309423010475},
+                                      {3,  7.4703138912420455, 3.529686108757959},
+                                      {4,  6.796328282346153,  4.203671717653851},
+                                      {5,  6.19254890657869,   4.807451093421314},
+                                      {6,  5.651662724630082,  5.348337275369921},
+                                      {7,  5.167118581013939,  5.832881418986066},
+                                      {8,  4.733048693535601,  6.266951306464403},
+                                      {9,  4.344191830185,     6.655808169815003},
+                                      {10, 3.995839136128227,  7.004160863871776},
+
+                              });
 }
 
 std::unordered_map<std::string, rr::Setting> SimpleFlux::timeSeriesSettings() {
     return std::unordered_map<std::string, rr::Setting>{
             {"start",    0},
             {"duration", 10},
-            {"steps",    11}
+            {"steps",    10}
     };
 }
 
@@ -145,12 +153,12 @@ std::unordered_map<std::string, rr::Setting> SimpleFlux::steadyStateSettings() {
     };
 }
 
-ls::DoubleMatrix SimpleFlux::fullJacobianAmt() {
+rr::Matrix<double> SimpleFlux::fullJacobianAmt() {
     return fullJacobianConc(); // should this be the same?
 }
 
-ls::DoubleMatrix SimpleFlux::fullJacobianConc() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::fullJacobianConc() {
+    return rr::Matrix<double>(
             {
                     {-0.1, 0.01},
                     {0.1,  -0.01},
@@ -158,12 +166,15 @@ ls::DoubleMatrix SimpleFlux::fullJacobianConc() {
     );
 }
 
-ls::DoubleMatrix SimpleFlux::reducedJacobianAmt() {
+rr::Matrix<double> SimpleFlux::reducedJacobianAmt() {
     return reducedJacobianConc();
 }
 
-ls::DoubleMatrix SimpleFlux::reducedJacobianConc() {
-    return ls::DoubleMatrix({{-0.11}});
+rr::Matrix<double> SimpleFlux::reducedJacobianConc() {
+    auto mat = rr::Matrix<double>({{-0.11}});
+    mat.setRowNames({"S1"});
+    mat.setColNames({"S1"});
+    return mat;
 }
 
 std::unordered_map<std::string, rr::Setting> SimpleFlux::jacobianSettings() {
@@ -189,96 +200,96 @@ std::vector<std::complex<double>> SimpleFlux::fullEigenValues() {
             });
 }
 
-ls::DoubleMatrix SimpleFlux::linkMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::linkMatrix() {
+    return rr::Matrix<double>(
             {
                     {1},
                     {-1}
             });
 }
 
-ls::DoubleMatrix SimpleFlux::NrMatrix() {
-    return ls::DoubleMatrix({{-1, 1}});
+rr::Matrix<double> SimpleFlux::NrMatrix() {
+    return rr::Matrix<double>({{-1, 1}});
 }
 
-ls::DoubleMatrix SimpleFlux::KMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::KMatrix() {
+    return rr::Matrix<double>(
             {
                     {1},
                     {1}
             });
 }
 
-ls::DoubleMatrix SimpleFlux::reducedStoicMatrix() {
-    return ls::DoubleMatrix({{-1, 1}});
+rr::Matrix<double> SimpleFlux::reducedStoicMatrix() {
+    return rr::Matrix<double>({{-1, 1}});
 }
 
-ls::DoubleMatrix SimpleFlux::fullStoicMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::fullStoicMatrix() {
+    return rr::Matrix<double>(
             {
                     {-1, 1},
                     {1,  -1},
             });
 }
 
-ls::DoubleMatrix SimpleFlux::extendedStoicMatrix() {
+rr::Matrix<double> SimpleFlux::extendedStoicMatrix() {
     return fullStoicMatrix(); // not sure when extended should be used
 }
 
-ls::DoubleMatrix SimpleFlux::L0Matrix() {
-    return ls::DoubleMatrix({{-1}});
+rr::Matrix<double> SimpleFlux::L0Matrix() {
+    return rr::Matrix<double>({{-1}});
 }
 
-ls::DoubleMatrix SimpleFlux::conservationMatrix() {
-    return ls::DoubleMatrix({{1, 1}});
+rr::Matrix<double> SimpleFlux::conservationMatrix() {
+    return rr::Matrix<double>({{1, 1}});
 }
 
-ls::DoubleMatrix SimpleFlux::unscaledConcentrationControlCoefficientMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::unscaledConcentrationControlCoefficientMatrix() {
+    return rr::Matrix<double>(
             {
                     {-9.09091, 9.09091},
                     {9.09091,  -9.09091}
             });
 }
 
-ls::DoubleMatrix SimpleFlux::scaledConcentrationControlCoefficientMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::scaledConcentrationControlCoefficientMatrix() {
+    return rr::Matrix<double>(
             {
                     {-0.909091, 0.909091},
                     {0.0909091, -0.0909091}
             });
 }
 
-ls::DoubleMatrix SimpleFlux::unscaledFluxControlCoefficientMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::unscaledFluxControlCoefficientMatrix() {
+    return rr::Matrix<double>(
             {
                     {0.0909091, 0.909091},
                     {0.0909091, 0.909091}
             });
 }
 
-ls::DoubleMatrix SimpleFlux::scaledFluxControlCoefficientMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::scaledFluxControlCoefficientMatrix() {
+    return rr::Matrix<double>(
             {
                     {0.0909091, 0.909091},
                     {0.0909091, 0.909091},
             });
 }
 
-//ls::DoubleMatrix SimpleFlux::unscaledParameterElasticity() {
-//    return ls::DoubleMatrix();
+//rr::Matrix<double> SimpleFlux::unscaledParameterElasticity() {
+//    return rr::Matrix<double>();
 //}
 
-ls::DoubleMatrix SimpleFlux::unscaledElasticityMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::unscaledElasticityMatrix() {
+    return rr::Matrix<double>(
             {
                     {0.1, 0},
                     {0,   0.01},
             });
 }
 
-ls::DoubleMatrix SimpleFlux::scaledElasticityMatrix() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> SimpleFlux::scaledElasticityMatrix() {
+    return rr::Matrix<double>(
             {
                     {1, 0},
                     {0, 1},
@@ -288,6 +299,42 @@ ls::DoubleMatrix SimpleFlux::scaledElasticityMatrix() {
 
 std::unordered_map<std::string, rr::Setting> SimpleFlux::mcaSettings() {
     return std::unordered_map<std::string, rr::Setting>{{"time", 0}};
+}
+
+std::unordered_map<std::string, rr::Setting> SimpleFlux::timeSeriesSensitivityResultSettings() {
+    return std::unordered_map<std::string, rr::Setting>{
+            {"start",    0},
+            {"duration", 10},
+            {"steps",    3},
+    };
+}
+
+rr::Matrix3D<double, double> SimpleFlux::timeSeriesSensitivityResult() {
+    // copasi generated
+    rr::Matrix3D<double, double> mat(
+            {0.0, 5.0, 10},
+            {
+                    // 0.0
+                    {
+                            {0.0,                 0.0},
+                            {0.0,                0.0}
+                    },
+                    // 5.0
+                    {
+                            {-29.89114280149252,  29.891142801528048},
+                            {12.677378468328724, -12.67737846850636},
+                    },
+                    // 10.0
+                    {
+                            {-36.004745327429255, 36.00474532744258},
+                            {30.698815036078738, -30.69881503598992}
+
+                    }
+            }
+    );
+    mat.setRowNames({"S1", "S2"});
+    mat.setColNames({"kf", "kb"});
+    return mat;
 }
 
 std::string SimpleFluxManuallyReduced::str() {
@@ -451,20 +498,20 @@ StringDoubleMap OpenLinearFlux::steadyState() {
                            });
 }
 
-ls::DoubleMatrix OpenLinearFlux::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,  0,                  0},
-                                    {1,  0.9516258196428962, 0.04527958486459608},
-                                    {2,  1.812692469240729,  0.16429269841019906},
-                                    {3,  2.5918177931655006, 0.33587597514094913},
-                                    {4,  3.296799539619028,  0.5434443622065769},
-                                    {5,  3.9346934028419236, 0.7740906110974121},
-                                    {6,  4.51188363871537,   1.0178547271489167},
-                                    {7,  5.034146961185131,  1.2671318458422862},
-                                    {8,  5.506710357479626,  1.5161930250110387},
-                                    {9,  5.934303400893279,  1.7607979250221717},
-                                    {10, 6.321205586316753,  1.9978820848173928},
-                            });
+rr::Matrix<double> OpenLinearFlux::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,  0,                  0},
+                                      {1,  0.9516258196428962, 0.04527958486459608},
+                                      {2,  1.812692469240729,  0.16429269841019906},
+                                      {3,  2.5918177931655006, 0.33587597514094913},
+                                      {4,  3.296799539619028,  0.5434443622065769},
+                                      {5,  3.9346934028419236, 0.7740906110974121},
+                                      {6,  4.51188363871537,   1.0178547271489167},
+                                      {7,  5.034146961185131,  1.2671318458422862},
+                                      {8,  5.506710357479626,  1.5161930250110387},
+                                      {9,  5.934303400893279,  1.7607979250221717},
+                                      {10, 6.321205586316753,  1.9978820848173928},
+                              });
 }
 
 std::unordered_map<std::string, rr::Setting> OpenLinearFlux::timeSeriesSettings() {
@@ -473,6 +520,52 @@ std::unordered_map<std::string, rr::Setting> OpenLinearFlux::timeSeriesSettings(
             {"duration", 10},
             {"steps",    10},
     };
+}
+
+std::unordered_map<std::string, rr::Setting> OpenLinearFlux::timeSeriesSensitivityResultSettings() {
+    return std::unordered_map<std::string, rr::Setting>{
+            {"start",    0},
+            {"duration", 10},
+            {"steps",    3},
+    };
+}
+
+
+rr::Matrix3D<double, double> OpenLinearFlux::timeSeriesSensitivityResult() {
+    // copasi generated
+    rr::Matrix3D<double, double> mat(
+            {0.0, 5.0, 10},
+            {
+                    // 0.0
+                    {
+                            // S1               S2
+                            {0,                 0},
+                            {0,                   0},
+                            {0,                      0},
+                            {0, 0},
+                    },
+                    // 5.0
+                    {
+                            // S1               S2
+                            {3.934693402848577, 0.7740906159678929}, // kin
+                            {-9.018962447266965,  6.460291117027506}, // kf
+                            {-1.554312234475219e-11, -1.134615918164661}, // kout
+                            {0, 0} // kb (not used)
+                    },
+                    // 10.0
+                    {
+                            // S1               S2
+                            {6.32120558682292,  1.9978820443633527}, // kin
+                            {-26.416083570177662, 13.528667619562285}, // kf
+                            {6.843858812999315e-8,   -5.126794156565806}, // kout
+                            {0, 0} // kb (not used)
+
+                    }
+            }
+    );
+    mat.setRowNames({"kin", "kf", "kout", "kb"});
+    mat.setColNames({"S1", "S2"});
+    return mat;
 }
 
 std::string OpenLinearFlux::modelName() {
@@ -490,32 +583,16 @@ std::unordered_map<std::string, rr::Setting> OpenLinearFlux::steadyStateSettings
 }
 
 
-ls::DoubleMatrix OpenLinearFlux::fullJacobianAmt() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> OpenLinearFlux::fullJacobianAmt() {
+    return rr::Matrix<double>(
             {
                     {-0.1, 0},
                     {0.1,  -0.2},
             });
 }
 
-ls::DoubleMatrix OpenLinearFlux::fullJacobianConc() {
-    return ls::DoubleMatrix(
-            {
-                    {-0.1, 0},
-                    {0.1,  -0.2},
-            });
-}
-
-ls::DoubleMatrix OpenLinearFlux::reducedJacobianAmt() {
-    return ls::DoubleMatrix(
-            {
-                    {-0.1, 0},
-                    {0.1,  -0.2},
-            });
-}
-
-ls::DoubleMatrix OpenLinearFlux::reducedJacobianConc() {
-    return ls::DoubleMatrix(
+rr::Matrix<double> OpenLinearFlux::fullJacobianConc() {
+    return rr::Matrix<double>(
             {
                     {-0.1, 0},
                     {0.1,  -0.2},
@@ -623,20 +700,20 @@ std::string Model269::modelName() {
     return "Model269";
 }
 
-ls::DoubleMatrix Model269::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,  1,                   0},
-                                    {1,  0.5724999588105951,  0.4275000411894048},
-                                    {2,  0.444166735551334,   0.5558332644486657},
-                                    {3,  0.3641667355513341,  0.6358332644486658},
-                                    {4,  0.2841667355513341,  0.7158332644486659},
-                                    {5,  0.22708341964881273, 0.7729165803511872},
-                                    {6,  0.1870834196488127,  0.8129165803511871},
-                                    {7,  0.1470834196488127,  0.8529165803511871},
-                                    {8,  0.10708341964881266, 0.892916580351187},
-                                    {9,  0.06708341964881266, 0.9329165803511872},
-                                    {10, 0.02708341964881266, 0.9729165803511871},
-                            });
+rr::Matrix<double> Model269::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,  1,                   0},
+                                      {1,  0.5724999588105951,  0.4275000411894048},
+                                      {2,  0.444166735551334,   0.5558332644486657},
+                                      {3,  0.3641667355513341,  0.6358332644486658},
+                                      {4,  0.2841667355513341,  0.7158332644486659},
+                                      {5,  0.22708341964881273, 0.7729165803511872},
+                                      {6,  0.1870834196488127,  0.8129165803511871},
+                                      {7,  0.1470834196488127,  0.8529165803511871},
+                                      {8,  0.10708341964881266, 0.892916580351187},
+                                      {9,  0.06708341964881266, 0.9329165803511872},
+                                      {10, 0.02708341964881266, 0.9729165803511871},
+                              });
 
 }
 
@@ -646,6 +723,43 @@ std::unordered_map<std::string, rr::Setting> Model269::timeSeriesSettings() {
             {"duration", 10},
             {"steps",    10}
     };
+}
+
+std::unordered_map<std::string, rr::Setting> Model269::timeSeriesSensitivityResultSettings() {
+    return std::unordered_map<std::string, rr::Setting>{
+            {"start",    0},
+            {"duration", 10},
+            {"steps",    3},
+    };
+}
+
+
+rr::Matrix3D<double, double> Model269::timeSeriesSensitivityResult() {
+    // copasi generated
+    rr::Matrix3D<double, double> mat(
+            {0.0, 5.0, 10},
+            {
+                    // 0.0
+                    {
+                            {0.0,                  0.0},
+                            {0.0,                  0.0}
+                    },
+                    // 5.0
+                    {
+                            {-0.10465397234947493, 0.10465397234940554},
+                            {0.007987725795975953, -0.007987725795968181},
+
+                    },
+                    // 10.0
+                    {
+                            {-0.10465397234946018, 0.1046539723494333},
+                            {0.015979733787983702, -0.015979733787974126},
+                    }
+            }
+    );
+    mat.setRowNames({"p1", "p2"});
+    mat.setColNames({"S1", "S2"});
+    return mat;
 }
 
 
@@ -722,20 +836,20 @@ std::string Model28::modelName() {
     return "Model28";
 }
 
-ls::DoubleMatrix Model28::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,  1,                   0},
-                                    {1,  0.5724999588105951,  0.4275000411894048},
-                                    {2,  0.444166735551334,   0.5558332644486657},
-                                    {3,  0.3641667355513341,  0.6358332644486658},
-                                    {4,  0.2841667355513341,  0.7158332644486659},
-                                    {5,  0.22708341964881273, 0.7729165803511872},
-                                    {6,  0.1870834196488127,  0.8129165803511871},
-                                    {7,  0.1470834196488127,  0.8529165803511871},
-                                    {8,  0.10708341964881266, 0.892916580351187},
-                                    {9,  0.06708341964881266, 0.9329165803511872},
-                                    {10, 0.02708341964881266, 0.9729165803511871},
-                            });
+rr::Matrix<double> Model28::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,  1,                   0},
+                                      {1,  0.5724999588105951,  0.4275000411894048},
+                                      {2,  0.444166735551334,   0.5558332644486657},
+                                      {3,  0.3641667355513341,  0.6358332644486658},
+                                      {4,  0.2841667355513341,  0.7158332644486659},
+                                      {5,  0.22708341964881273, 0.7729165803511872},
+                                      {6,  0.1870834196488127,  0.8129165803511871},
+                                      {7,  0.1470834196488127,  0.8529165803511871},
+                                      {8,  0.10708341964881266, 0.892916580351187},
+                                      {9,  0.06708341964881266, 0.9329165803511872},
+                                      {10, 0.02708341964881266, 0.9729165803511871},
+                              });
 
 }
 
@@ -745,6 +859,43 @@ std::unordered_map<std::string, rr::Setting> Model28::timeSeriesSettings() {
             {"duration", 10},
             {"steps",    10}
     };
+}
+
+std::unordered_map<std::string, rr::Setting> Model28::timeSeriesSensitivityResultSettings() {
+    return std::unordered_map<std::string, rr::Setting>{
+            {"start",    0},
+            {"duration", 10},
+            {"steps",    3},
+    };
+}
+
+
+rr::Matrix3D<double, double> Model28::timeSeriesSensitivityResult() {
+    // copasi generated
+    rr::Matrix3D<double, double> mat(
+            {0.0, 5.0, 10},
+            {
+                    // 0.0
+                    {
+                            {0.0,                  0.0},
+                            {0.0,                  0.0}
+                    },
+                    // 5.0
+                    {
+                            {-0.10465397234947493, 0.10465397234940554},
+                            {0.007987725795975953, -0.007987725795968181}
+
+                    },
+                    // 10.0
+                    {
+                            {-0.10465397234946018, 0.1046539723494333},
+                            {0.015979733787983702, -0.015979733787974126},
+                    }
+            }
+    );
+    mat.setRowNames({"p1", "p2"});
+    mat.setColNames({"S1", "S2"});
+    return mat;
 }
 
 
@@ -797,20 +948,20 @@ std::string CeilInRateLaw::modelName() {
     return "CeilInRateLaw";
 }
 
-ls::DoubleMatrix CeilInRateLaw::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,   10,                    0},
-                                    {0.4, 3.0119408731651975,    6.9880591268348},
-                                    {0.8, 0.9071782094955865,    9.09282179050441},
-                                    {1.2, 0.2732365534742893,    9.726763446525707},
-                                    {1.6, 0.08229718872631311,   9.917702811273687},
-                                    {2,   0.024787413004265253,  9.975212586995736},
-                                    {2.4, 0.007465818043742018,  9.992534181956255},
-                                    {2.8, 0.002248658948996144,  9.997751341051005},
-                                    {3.2, 0.0006772823748483675, 9.999322717625152},
-                                    {3.6, 0.0002039933214930827, 9.999796006678507},
-                                    {4,   6.144154589603753e-5,  9.999938558454103},
-                            });
+rr::Matrix<double> CeilInRateLaw::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,   10,                    0},
+                                      {0.4, 3.0119408731651975,    6.9880591268348},
+                                      {0.8, 0.9071782094955865,    9.09282179050441},
+                                      {1.2, 0.2732365534742893,    9.726763446525707},
+                                      {1.6, 0.08229718872631311,   9.917702811273687},
+                                      {2,   0.024787413004265253,  9.975212586995736},
+                                      {2.4, 0.007465818043742018,  9.992534181956255},
+                                      {2.8, 0.002248658948996144,  9.997751341051005},
+                                      {3.2, 0.0006772823748483675, 9.999322717625152},
+                                      {3.6, 0.0002039933214930827, 9.999796006678507},
+                                      {4,   6.144154589603753e-5,  9.999938558454103},
+                              });
 
 }
 
@@ -872,20 +1023,20 @@ std::string FactorialInRateLaw::modelName() {
     return "FactorialInRateLaw";
 }
 
-ls::DoubleMatrix FactorialInRateLaw::timeSeriesResult() {
-    return ls::DoubleMatrix({
-                                    {0,   10,        0},
-                                    {0.2, 5.52892,   4.47108},
-                                    {0.4, 3.0569,    6.9431},
-                                    {0.6, 1.69013,   8.30987},
-                                    {0.8, 0.93446,   9.06554},
-                                    {1,   0.516655,  9.48334},
-                                    {1.2, 0.285655,  9.71435},
-                                    {1.4, 0.157936,  9.84206},
-                                    {1.6, 0.0873215, 9.91268},
-                                    {1.8, 0.0482793, 9.95172},
-                                    {2,   0.0266933, 9.97331},
-                            });
+rr::Matrix<double> FactorialInRateLaw::timeSeriesResult() {
+    return rr::Matrix<double>({
+                                      {0,   10,        0},
+                                      {0.2, 5.52892,   4.47108},
+                                      {0.4, 3.0569,    6.9431},
+                                      {0.6, 1.69013,   8.30987},
+                                      {0.8, 0.93446,   9.06554},
+                                      {1,   0.516655,  9.48334},
+                                      {1.2, 0.285655,  9.71435},
+                                      {1.4, 0.157936,  9.84206},
+                                      {1.6, 0.0873215, 9.91268},
+                                      {1.8, 0.0482793, 9.95172},
+                                      {2,   0.0266933, 9.97331},
+                              });
 
 }
 
@@ -1095,29 +1246,21 @@ std::unordered_map<std::string, rr::Setting> Venkatraman2010::steadyStateSetting
             });
 }
 
-ls::DoubleMatrix Venkatraman2010::fullJacobianAmt() {
+rr::Matrix<double> Venkatraman2010::fullJacobianAmt() {
     return fullJacobianConc();
 }
 
-ls::DoubleMatrix Venkatraman2010::fullJacobianConc() {
-    return ls::DoubleMatrix({
-                                    {-7744.4113653644172, 0,         -1.36469e-05, 0},
-                                    {-4.46746e-05,        -0.600427, 0,            -0.000788376},
-                                    {4.46746e-05,         0.599427,  -0.001,       0.000788376},
-                                    {7744.4113653644172,  0,         1.36469e-05,  -0.0001}
-                            });
+rr::Matrix<double> Venkatraman2010::fullJacobianConc() {
+    return rr::Matrix<double>({
+                                      {-7744.4113653644172, 0,         -1.36469e-05, 0},
+                                      {-4.46746e-05,        -0.600427, 0,            -0.000788376},
+                                      {4.46746e-05,         0.599427,  -0.001,       0.000788376},
+                                      {7744.4113653644172,  0,         1.36469e-05,  -0.0001}
+                              });
 }
 
 std::unordered_map<std::string, rr::Setting> Venkatraman2010::jacobianSettings() {
     return std::unordered_map<std::string, rr::Setting>{{"time", 0.0}};
-}
-
-ls::DoubleMatrix Venkatraman2010::reducedJacobianAmt() {
-    return ls::DoubleMatrix();
-}
-
-ls::DoubleMatrix Venkatraman2010::reducedJacobianConc() {
-    return ls::DoubleMatrix();
 }
 
 
@@ -2065,104 +2208,36 @@ StringDoubleMap Brown2004::steadyState() {
 
 };
 
+
 std::unordered_map<std::string, rr::Setting> Brown2004::steadyStateSettings() {
     return std::unordered_map<std::string, rr::Setting>{
             {"allow_presimulation", true},
             // this model can converge to a set of values different to the reference data,
             // depending on starting values. For this reason, start the list of presimulation
             // times at a larger number.
-            {"presimulation_times", std::vector<double>({10, 100, 1000})}
+            // Note: the reference data is from copasi, which presimulates to 1000.
+            // We can actually get a steady state from an earlier presimulation point,
+            // but since the reference data is from copasi, we stick to using 1000.
+            {"presimulation_times", std::vector<double>({1000, 1e4})},
     };
 }
 
-std::vector<std::string> getAvailableTestModels() {
-    return std::vector<std::string>(
-            {
-                    "SimpleFlux",
-                    "SimpleFluxManuallyReduced",
-                    "OpenLinearFlux",
-                    "Model269",
-                    "Model28",
-                    "CeilInRateLaw",
-                    "FactorialInRateLaw",
-                    "Venkatraman2010",
-                    "Brown2004",
-                    "LayoutOnly",
-                    "ModelWithLocalParameters"
-            });
-}
-
-
-TestModel *TestModelFactory(const std::string &modelName) {
-    if (modelName == "SimpleFlux") {
-        return new SimpleFlux();
-    } else if (modelName == "Model269") {
-        return new Model269();
-    } else if (modelName == "Model28") {
-        return new Model28();
-    } else if (modelName == "CeilInRateLaw") {
-        return new CeilInRateLaw();
-    } else if (modelName == "FactorialInRateLaw") {
-        return new FactorialInRateLaw();
-    } else if (modelName == "Venkatraman2010") {
-        return new Venkatraman2010();
-    } else if (modelName == "OpenLinearFlux") {
-        return new OpenLinearFlux();
-    } else if (modelName == "SimpleFluxManuallyReduced") {
-        return new SimpleFluxManuallyReduced();
-    } else if (modelName == "Brown2004") {
-        return new Brown2004();
-    } else if (modelName == "LayoutOnly") {
-        return new LayoutOnly();
-    } else if (modelName == "ModelWithLocalParameters") {
-        return new ModelWithLocalParameters();
-    } else {
-        std::ostringstream err;
-        err << "TestModelFactory::TestModelFactory(): no model called \"" << modelName << "\" found. ";
-        err << "Available test models include: ";
-        for (const auto &name: getAvailableTestModels()) {
-            err << "\"" << name << "\", ";
-        }
-        throw std::runtime_error(err.str());
-    }
-}
-
-
-namespace privateSwigTests_ {
-    // this section exists only to test the swig bindings
-    // and make sure the typemaps are doing what they are supposed
-    // to be. Users should completely ignore this
-
-    DoublePair *_testDoublePair(double first, double second) {
-        DoublePair *pair = new DoublePair(first, second);
-        return pair;
-    }
-
-    std::unordered_map<double, double> *_testDoubleMap(double first, double second) {
-        std::unordered_map<double, double> *map = new std::unordered_map<double, double>{
-                {first, second}
-        };
-        return map;
-    }
-
-    std::unordered_map<std::string, rr::Setting> *_testVariantMap() {
-        std::unordered_map<std::string, rr::Setting> *map = new std::unordered_map<std::string, rr::Setting>{
-                {"mapsy", rr::Setting(5)}
-        };
-        return map;
-    }
-
-    rr::Setting *_testVariant() {
-        rr::Setting *x = new rr::Setting(5.4);
-        return x;
-    }
-
-    StringDoublePairMap _testResultMap() {
-        return StringDoublePairMap{
-                {"First", DoublePair(0.5, 1.6)},
-        };
-    }
-}
+//rr::Matrix<double> Brown2004::timeSeriesResult() {
+//    return rr::Matrix<double>({
+//                                    // EGF      	NGF     	freeEGFReceptor 	boundEGFReceptor	freeNGFReceptor	boundNGFReceptor	SosInactive	SosActive	P90RskInactive	P90RskActive	RasInactive	RasActive	Raf1Inactive	Raf1Active	BRafInactive	BRafActive	MekInactive	MekActive	ErkInactive	ErkActive	PI3KInactive	PI3KActive	AktInactive	AktActive	C3GInactive	C3GActive	Rap1Inactive	Rap1Active
+//                                      {10002000,	456000,	80000,	0,	10000,	0,	120000,	0,	120000,	0,	120000,	0,	120000,	0,	120000,	0,	600000,	0,	600000,	0,	120000,	0,	120000,	0,	120000,	0,	120000,	0},
+//                                      {9922004.465, 453349.8606, 4.465015882, 79995.53498, 7349.860605, 2650.139395, 4259.574671, 115740.4253, 116032.427,  3967.573017, 98004.70168, 21995.29832, 116937.5552, 3062.444807, 119315.8939, 684.1061226, 395680.9755, 204319.0245, 81268.04632, 518731.9537, 2.14E-05, 120000, 115124.6722, 4875.327838, 9.89E-21, 120000, 105544.6244, 14455.37561},
+//                                      {9922004.465, 451491.1631, 4.465015882, 79995.53498, 5491.163092, 4508.836908, 20935.13104, 99064.86896, 108842.6175, 11157.38249, 101057.3069, 18942.69307, 118385.5037, 1614.496273, 119315.8938, 684.1061846, 408801.6501, 191198.3499, 78498.1564,  521501.8436, 7.10E-14, 120000, 110133.3699, 9866.630116, 1.92E-27, 120000, 105544.6244, 14455.37561}
+//                              });
+//}
+//
+//std::unordered_map<std::string, rr::Setting> Brown2004::timeSeriesSettings() {
+//    return std::unordered_map<std::string, rr::Setting>({
+//                                                                {"start",    0},
+//                                                                {"duration", 10},
+//                                                                {"steps",    2}
+//                                                        });
+//}
 
 
 std::string LayoutOnly::str() {
@@ -2384,3 +2459,588 @@ std::string ModelWithLocalParameters::str() {
 std::string ModelWithLocalParameters::modelName() {
     return "ModelWithLocalParameters";
 }
+
+
+std::string BimolecularEnd::str() {
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+           "<!-- Created by libAntimony version v2.5.2 on 2014-09-22 11:05 with libSBML version 5.10.2. -->\n"
+           "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
+           "  <model id=\"Bimolecular_end\" name=\"Bimolecular_end\">\n"
+           "    <listOfFunctionDefinitions>\n"
+           "      <functionDefinition id=\"MM\">\n"
+           "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "          <lambda>\n"
+           "            <bvar>\n"
+           "              <ci> S1 </ci>\n"
+           "            </bvar>\n"
+           "            <bvar>\n"
+           "              <ci> S2 </ci>\n"
+           "            </bvar>\n"
+           "            <bvar>\n"
+           "              <ci> Vm </ci>\n"
+           "            </bvar>\n"
+           "            <bvar>\n"
+           "              <ci> Km1 </ci>\n"
+           "            </bvar>\n"
+           "            <bvar>\n"
+           "              <ci> Km2 </ci>\n"
+           "            </bvar>\n"
+           "            <bvar>\n"
+           "              <ci> Keq </ci>\n"
+           "            </bvar>\n"
+           "            <apply>\n"
+           "              <divide/>\n"
+           "              <apply>\n"
+           "                <times/>\n"
+           "                <apply>\n"
+           "                  <divide/>\n"
+           "                  <ci> Vm </ci>\n"
+           "                  <ci> Km1 </ci>\n"
+           "                </apply>\n"
+           "                <apply>\n"
+           "                  <minus/>\n"
+           "                  <ci> S1 </ci>\n"
+           "                  <apply>\n"
+           "                    <divide/>\n"
+           "                    <ci> S2 </ci>\n"
+           "                    <ci> Keq </ci>\n"
+           "                  </apply>\n"
+           "                </apply>\n"
+           "              </apply>\n"
+           "              <apply>\n"
+           "                <plus/>\n"
+           "                <cn type=\"integer\"> 1 </cn>\n"
+           "                <apply>\n"
+           "                  <divide/>\n"
+           "                  <ci> S1 </ci>\n"
+           "                  <ci> Km1 </ci>\n"
+           "                </apply>\n"
+           "                <apply>\n"
+           "                  <divide/>\n"
+           "                  <ci> S2 </ci>\n"
+           "                  <ci> Km2 </ci>\n"
+           "                </apply>\n"
+           "              </apply>\n"
+           "            </apply>\n"
+           "          </lambda>\n"
+           "        </math>\n"
+           "      </functionDefinition>\n"
+           "    </listOfFunctionDefinitions>\n"
+           "    <listOfCompartments>\n"
+           "      <compartment sboTerm=\"SBO:0000410\" id=\"default_compartment\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
+           "    </listOfCompartments>\n"
+           "    <listOfSpecies>\n"
+           "      <species id=\"X0\" compartment=\"default_compartment\" initialConcentration=\"8.03\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"true\" constant=\"false\"/>\n"
+           "      <species id=\"S1\" compartment=\"default_compartment\" initialConcentration=\"7.12\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+           "      <species id=\"S2\" compartment=\"default_compartment\" initialConcentration=\"3.97\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+           "      <species id=\"S3\" compartment=\"default_compartment\" initialConcentration=\"0.96\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+           "      <species id=\"X1\" compartment=\"default_compartment\" initialConcentration=\"0.54\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"true\" constant=\"false\"/>\n"
+           "    </listOfSpecies>\n"
+           "    <listOfReactions>\n"
+           "      <reaction id=\"J0\" reversible=\"true\" fast=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"X0\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfReactants>\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"S1\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <ci> MM </ci>\n"
+           "              <ci> X0 </ci>\n"
+           "              <ci> S1 </ci>\n"
+           "              <cn> 4.39 </cn>\n"
+           "              <cn> 9.85 </cn>\n"
+           "              <cn> 7.38 </cn>\n"
+           "              <cn> 6.12 </cn>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "      <reaction id=\"J1\" reversible=\"true\" fast=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"S1\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfReactants>\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"S2\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <ci> MM </ci>\n"
+           "              <ci> S1 </ci>\n"
+           "              <ci> S2 </ci>\n"
+           "              <cn> 6.12 </cn>\n"
+           "              <cn> 9.15 </cn>\n"
+           "              <cn> 1.59 </cn>\n"
+           "              <cn> 4.68 </cn>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "      <reaction id=\"J2\" reversible=\"true\" fast=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"S2\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfReactants>\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"S3\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <ci> MM </ci>\n"
+           "              <ci> S2 </ci>\n"
+           "              <ci> S3 </ci>\n"
+           "              <cn> 4.68 </cn>\n"
+           "              <cn> 8.22 </cn>\n"
+           "              <cn> 4.29 </cn>\n"
+           "              <cn> 0.57 </cn>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "      <reaction id=\"J3\" reversible=\"true\" fast=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"S3\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfReactants>\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"X1\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <ci> MM </ci>\n"
+           "              <ci> S3 </ci>\n"
+           "              <ci> X1 </ci>\n"
+           "              <cn> 0.57 </cn>\n"
+           "              <cn> 0.8 </cn>\n"
+           "              <cn> 2.2 </cn>\n"
+           "              <cn> 4.65 </cn>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "      <reaction id=\"J4\" reversible=\"true\" fast=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"S2\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "          <speciesReference species=\"S3\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfReactants>\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"S1\" stoichiometry=\"1\" constant=\"true\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <minus/>\n"
+           "              <apply>\n"
+           "                <times/>\n"
+           "                <cn> 4.65 </cn>\n"
+           "                <ci> S2 </ci>\n"
+           "                <ci> S3 </ci>\n"
+           "              </apply>\n"
+           "              <apply>\n"
+           "                <times/>\n"
+           "                <cn> 7.61 </cn>\n"
+           "                <ci> S1 </ci>\n"
+           "              </apply>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "    </listOfReactions>\n"
+           "  </model>\n"
+           "</sbml>";
+}
+
+std::unordered_map<std::string, double> BimolecularEnd::steadyState() {
+    return std::unordered_map<std::string, double>{
+            {"S1", 13.3940},
+            {"S2", 8.07426},
+            {"S3", 2.72327}
+    };
+}
+
+std::unordered_map<std::string, rr::Setting> BimolecularEnd::steadyStateSettings() {
+    return std::unordered_map<std::string, rr::Setting>{};
+}
+
+std::unordered_map<std::string, double> BimolecularEnd::steadyStateFluxes() {
+    return std::unordered_map<std::string, double>{
+            {"J0", 0.717175},
+            {"J1", 1.03483},
+            {"J2", 0.717175},
+            {"J3", 0.399521},
+            {"J4", 0.317655}
+    };
+}
+
+std::unordered_map<std::string, rr::Setting> BimolecularEnd::jacobianSettings() {
+    return std::unordered_map<std::string, rr::Setting>{
+            {"steady_state", true},
+    };
+}
+
+rr::Matrix<double> BimolecularEnd::fullJacobianConc() {
+    // copasi generated steady state full jacobian
+    rr::Matrix<double> mat({
+                                   {-7.730519332005849, 37.545322537461026, 12.768450085549887},
+                                   {7.609999999602059,  -38.03670015738035, -12.478993111182907},
+                                   {7.683688395905918,  -37.099777221335,   -12.952662332648718},
+                           });
+    mat.setRowNames({"S1", "S3", "S2"});
+    mat.setColNames({"S1", "S3", "S2"});
+    return mat;
+}
+
+/**
+ * Amt is same as conc because volume of single compartment == 1
+ */
+rr::Matrix<double> BimolecularEnd::fullJacobianAmt() {
+    return fullJacobianConc();
+}
+
+std::string BimolecularEnd::modelName() {
+    return "BimolecularEnd";
+}
+
+rr::Matrix<double> BimolecularEnd::linkMatrix() {
+    rr::Matrix<double> mat({
+                                   {1, 0, 0},
+                                   {0, 1, 0},
+                                   {0, 0, 1},
+                           });
+    mat.setColNames({"S1", "S3", "S2"});
+    return mat;
+}
+
+rr::Matrix<double> BimolecularEnd::NrMatrix() {
+    return rr::Matrix<double>({
+                                      {1, -1, 0,  0,  1},
+                                      {0, 0,  1,  -1, -1},
+                                      {0, 1,  -1, 0,  -1},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::KMatrix() {
+    return rr::Matrix<double>({
+                                      {1,    0},
+                                      {0,    1},
+                                      {-0.5, 0.5},
+                                      {0.5,  0.5},
+                                      {0.5,  0.5},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::reducedStoicMatrix() {
+    return rr::Matrix<double>({
+                                      {1, -1, 0,  0,  1},
+                                      {0, 0,  1,  -1, -1},
+                                      {0, 1,  -1, 0,  -1},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::fullStoicMatrix() {
+    return rr::Matrix<double>({
+                                      {1, -1, 0,  0,  1},
+                                      {0, 0,  1,  -1, -1},
+                                      {0, 1,  -1, 0,  -1},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::extendedStoicMatrix() {
+    return rr::Matrix<double>({
+                                      {1,  -1, 0,  0,  1},
+                                      {0,  1,  -1, 0,  -1},
+                                      {0,  0,  1,  -1, -1},
+                                      {-1, 0,  0,  0,  0},
+                                      {0,  0,  0,  1,  0},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::L0Matrix() {
+    return rr::Matrix<double>();
+}
+
+rr::Matrix<double> BimolecularEnd::conservationMatrix() {
+    return rr::Matrix<double>();
+}
+
+rr::Matrix<double> BimolecularEnd::unscaledConcentrationControlCoefficientMatrix() {
+    return rr::Matrix<double>({
+                                      {14.673,  -6.20668,  -2.24064, -6.22567,  -0.0189895},
+                                      {4.90579, -0.794829, -3.27825, -0.832715, -0.037886},
+                                      {1.32614, -0.981005, 0.653527, -0.998665, -0.0176601},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::scaledConcentrationControlCoefficientMatrix() {
+    return rr::Matrix<double>({
+                                      {0.785658, -0.479532, -0.119974, -0.185701,  -0.000450359},
+                                      {0.435744, -0.101869, -0.291182, -0.0412034, -0.0014905},
+                                      {0.349241, -0.372777, 0.172107,  -0.14651,   -0.00205995},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::unscaledFluxControlCoefficientMatrix() {
+    return rr::Matrix<double>({
+                                      {0.31285,   0.290665,   0.104931,  0.291554,  0.000889297},
+                                      {0.56492,   0.626291,   0.179909,  -0.371121, 0.002588},
+                                      {0.31285,   0.290665,   0.104931,  0.291554,  0.000889297},
+                                      {0.0607802, -0.0449617, 0.0299526, 0.954229,  -0.000809402},
+                                      {0.25207,   0.335626,   0.0749784, -0.662675, 0.0016987},
+
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::scaledFluxControlCoefficientMatrix() {
+    return rr::Matrix<double>({
+                                      {0.31285,  0.419407,  0.104931,  0.162418, 0.000393892},
+                                      {0.391511, 0.626291,  0.124684,  -0.14328, 0.000794419},
+                                      {0.31285,  0.419407,  0.104931,  0.162418, 0.000393892},
+                                      {0.109106, -0.116459, 0.0537676, 0.954229, -0.000643546},
+                                      {0.569104, 1.09338,   0.16928,   -0.83346, 0.0016987},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::unscaledElasticityMatrix() {
+    return rr::Matrix<double>({
+                                      {-0.0468309, 0,         0},
+                                      {0.0736884,  0,         -0.105245},
+                                      {0,          -0.445545, 0.184212},
+                                      {0,          0.045832,  0},
+                                      {-7.61,      37.5453,   12.6632},
+                              });
+}
+
+rr::Matrix<double> BimolecularEnd::scaledElasticityMatrix() {
+    return rr::Matrix<double>({
+                                      {-0.874617, 0,        0},
+                                      {0.953764,  0,        -0.821173},
+                                      {0,         -1.69183, 2.07394},
+                                      {0,         0.312409, 0},
+                                      {-320.878,  321.878,  321.878},
+                              });
+}
+
+std::unordered_map<std::string, rr::Setting> BimolecularEnd::mcaSettings() {
+    return std::unordered_map<std::string, rr::Setting>();
+}
+
+
+std::vector<std::string> getAvailableTestModels() {
+    return std::vector<std::string>(
+            {
+                    "SimpleFlux",
+                    "SimpleFluxManuallyReduced",
+                    "OpenLinearFlux",
+                    "Model269",
+                    "Model28",
+                    "CeilInRateLaw",
+                    "FactorialInRateLaw",
+                    "Venkatraman2010",
+                    "Brown2004",
+                    "LayoutOnly",
+                    "ModelWithLocalParameters",
+                    "BimolecularEnd"
+
+            });
+}
+
+
+TestModel *TestModelFactory(const std::string &modelName) {
+    if (modelName == "SimpleFlux") {
+        return new SimpleFlux();
+    } else if (modelName == "Model269") {
+        return new Model269();
+    } else if (modelName == "Model28") {
+        return new Model28();
+    } else if (modelName == "CeilInRateLaw") {
+        return new CeilInRateLaw();
+    } else if (modelName == "FactorialInRateLaw") {
+        return new FactorialInRateLaw();
+    } else if (modelName == "Venkatraman2010") {
+        return new Venkatraman2010();
+    } else if (modelName == "OpenLinearFlux") {
+        return new OpenLinearFlux();
+    } else if (modelName == "SimpleFluxManuallyReduced") {
+        return new SimpleFluxManuallyReduced();
+    } else if (modelName == "Brown2004") {
+        return new Brown2004();
+    } else if (modelName == "LayoutOnly") {
+        return new LayoutOnly();
+    } else if (modelName == "ModelWithLocalParameters") {
+        return new ModelWithLocalParameters();
+    } else if (modelName == "BimolecularEnd") {
+        return new BimolecularEnd();
+    } else {
+        std::ostringstream err;
+        err << "TestModelFactory::TestModelFactory(): no model called \"" << modelName << "\" found. ";
+        err << "Available test models include: ";
+        for (const auto &name: getAvailableTestModels()) {
+            err << "\"" << name << "\", ";
+        }
+        throw std::runtime_error(err.str());
+    }
+}
+
+
+namespace privateSwigTests_ {
+    // this section exists only to test the swig bindings
+    // and make sure the typemaps are doing what they are supposed
+    // to be. Users should completely ignore this
+
+    DoublePair *_testDoublePair(double first, double second) {
+        DoublePair *pair = new DoublePair(first, second);
+        return pair;
+    }
+
+    std::unordered_map<double, double> *_testDoubleMap(double first, double second) {
+        std::unordered_map<double, double> *map = new std::unordered_map<double, double>{
+                {first, second}
+        };
+        return map;
+    }
+
+    std::unordered_map<std::string, rr::Setting> *_testVariantMap() {
+        std::unordered_map<std::string, rr::Setting> *map = new std::unordered_map<std::string, rr::Setting>{
+                {"mapsy", rr::Setting(5)}
+        };
+        return map;
+    }
+
+    rr::Setting *_testVariant() {
+        rr::Setting *x = new rr::Setting(5.4);
+        return x;
+    }
+
+    StringDoublePairMap _testResultMap() {
+        return StringDoublePairMap{
+                {"First", DoublePair(0.5, 1.6)},
+        };
+    }
+
+    std::vector<std::complex<double>> _testStdComplexZeroImagPart() {
+        return std::vector<std::complex<double>>({{2, 0}});
+    }
+
+    std::vector<std::complex<double>> _testStdComplexNonZeroImagPart() {
+        return std::vector<std::complex<double>>({{3, 4}});
+    }
+
+    std::vector<double> _testDoubleVectorTo1DNumpyArray() {
+        return std::vector<double>({0.1, 0.2, 0.3});
+    }
+
+    rr::Matrix3D<double, double> _testMatrix3D_3x2x3() {
+        return rr::Matrix3D<double, double>(
+                {0, 3.5, 7.9},
+                {
+                        {
+                                {0.1, 0.2, 0.3},
+                                {0.4, 0.5, 0.6},
+                        },
+                        {
+                                {0.7, 0.8, 0.9},
+                                {1.0, 1.1, 1.2},
+                        },
+                        {
+                                {1.3, 1.4, 1.5},
+                                {1.6, 1.7, 1.8},
+                        },
+                }
+        );
+    }
+
+    rr::Matrix3D<double, double> _testMatrix3D_2x3x4() {
+        return rr::Matrix3D<double, double>(
+                {0, 4.23},
+                {
+                        {
+                                {0,  1,  2,  3},
+                                {4,  5,  6,  7},
+                                {8,  9,  10, 11},
+                        },
+                        {
+                                {12, 13, 14, 15},
+                                {16, 17, 18, 19},
+                                {20, 21, 22, 23},
+                        },
+                }
+        );
+    }
+
+    rr::Matrix3D<double, double> _testMatrix3D_4x3x2() {
+        return rr::Matrix3D<double, double>(
+                {0, 6, 12, 18},
+                {
+                        {
+                                {0,  1},
+                                {2,  3},
+                                {4,  5},
+                        },
+                        {
+                                {6,  7},
+                                {8,  9},
+                                {10, 11},
+                        },
+                        {
+                                {12, 13},
+                                {14, 15},
+                                {16, 17},
+                        },
+                        {
+                                {18, 19},
+                                {20, 21},
+                                {22, 23},
+                        }
+                }
+        );
+    }
+
+    rr::Matrix3D<double, double> _testMatrix3D_3x4x2() {
+        return rr::Matrix3D<double, double>(
+                {0, 6, 12},
+                {
+                        {
+                                {0,  1},
+                                {2,  3},
+                                {4,  5},
+                                {6,  7},
+                        },
+                        {
+                                {8,  9},
+                                {10, 11},
+                                {12, 13},
+                                {14, 15},
+                        },
+                        {
+                                {16, 17},
+                                {18, 19},
+                                {20, 21},
+                                {22, 23},
+                        },
+                }
+        );
+    }
+
+    ls::Matrix<double> _testLsMatrixWithLabels() {
+        ls::Matrix<double> lsMatrix({
+                                            {1.1, 2.2}
+                                    });
+        lsMatrix.setColNames({"C0"});
+        lsMatrix.setRowNames({"R0", "R1"});
+        return lsMatrix;
+    };
+
+    rr::Matrix<double> _testRRMatrixWithLabels() {
+        rr::Matrix<double> rrMatrix({
+                                            {1.1, 2.2}
+                                    });
+        rrMatrix.setColNames({"C0"});
+        rrMatrix.setRowNames({"R0", "R1"});
+        return rrMatrix;
+    };
+
+}
+

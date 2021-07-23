@@ -39,6 +39,14 @@ class \mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} $\ast$ \mbox{\hyperlink{c
 \begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} that the Model\+Generator is using to compile / interpret sbml code. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a8372249ea83ce40f91b935b09791a920}{set\+Compiler}} (const std\+::string \&compiler)
 \begin{DoxyCompactList}\small\item\em Set the name of the externa compiler to use. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a119e77c9145176c5a0f69490ebcb8d48}\label{classrr_1_1RoadRunner_a119e77c9145176c5a0f69490ebcb8d48}} 
+\mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunner_a119e77c9145176c5a0f69490ebcb8d48}{get\+Sensitivities}} ()
+\begin{DoxyCompactList}\small\item\em get a pointer to the current sensitivities solver \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a5f1bb1899a8d66c11e7d3d85d259093f}\label{classrr_1_1RoadRunner_a5f1bb1899a8d66c11e7d3d85d259093f}} 
+void \mbox{\hyperlink{classrr_1_1RoadRunner_a5f1bb1899a8d66c11e7d3d85d259093f}{set\+Sensitivities}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em set the current sensitivities solver by name; \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1SensitivityResult}{Sensitivity\+Result}} \mbox{\hyperlink{classrr_1_1RoadRunner_a118882d4b688b0c42bbe0aafaf0c792a}{sensitivities}} (double start, double stop, double num)
+\begin{DoxyCompactList}\small\item\em compute time based sensitivities for this model \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_ac7ed0222daee67405616805b1bd02125}\label{classrr_1_1RoadRunner_ac7ed0222daee67405616805b1bd02125}} 
 \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunner_ac7ed0222daee67405616805b1bd02125}{get\+Integrator}} ()
 \begin{DoxyCompactList}\small\item\em get a pointer to the integrator which is currently being used to time evolve the system. \end{DoxyCompactList}\item 
@@ -54,8 +62,8 @@ void \mbox{\hyperlink{classrr_1_1RoadRunner_a8372249ea83ce40f91b935b09791a920}{s
 \mbox{\Hypertarget{classrr_1_1RoadRunner_ad9d66d24ede15b0c28db4093b782cd28}\label{classrr_1_1RoadRunner_ad9d66d24ede15b0c28db4093b782cd28}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Existing\+Integrator\+Names} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ac3ccb06871cfe662abd775801b25f835}\label{classrr_1_1RoadRunner_ac3ccb06871cfe662abd775801b25f835}} 
-void {\bfseries set\+Integrator} (std\+::string name)
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a1400fd93277e9c4b85be1685a4c6ebb7}\label{classrr_1_1RoadRunner_a1400fd93277e9c4b85be1685a4c6ebb7}} 
+void {\bfseries set\+Integrator} (const std\+::string \&name)
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a6255eb24622f4ff07f88585a689a6a7e}\label{classrr_1_1RoadRunner_a6255eb24622f4ff07f88585a689a6a7e}} 
 bool {\bfseries integrator\+Exists} (std\+::string name)
@@ -63,8 +71,8 @@ bool {\bfseries integrator\+Exists} (std\+::string name)
 \mbox{\Hypertarget{classrr_1_1RoadRunner_abac44c006635091660819ccbfd5a7cff}\label{classrr_1_1RoadRunner_abac44c006635091660819ccbfd5a7cff}} 
 void {\bfseries set\+Steady\+State\+Solver} (std\+::string name)
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a6b74d564136611063908de4a45652f67}\label{classrr_1_1RoadRunner_a6b74d564136611063908de4a45652f67}} 
-bool {\bfseries steady\+State\+Solver\+Exists} (std\+::string name)
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a079cff347871871d192c2db5c02cbdf5}\label{classrr_1_1RoadRunner_a079cff347871871d192c2db5c02cbdf5}} 
+bool {\bfseries steady\+State\+Solver\+Exists} (const std\+::string \&name)
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_aecea2dbffc17d0322b00e18f126058b5}\label{classrr_1_1RoadRunner_aecea2dbffc17d0322b00e18f126058b5}} 
 bool {\bfseries is\+Model\+Loaded} ()
@@ -1358,6 +1366,25 @@ For example, to reset the floating species, time and rate rule values\+:
 
 \begin{DoxyParams}{Parameters}
 {\em options} & a bitmask made from the Selection\+Record\+::\+Selection\+Types values. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a118882d4b688b0c42bbe0aafaf0c792a}\label{classrr_1_1RoadRunner_a118882d4b688b0c42bbe0aafaf0c792a}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!sensitivities@{sensitivities}}
+\index{sensitivities@{sensitivities}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{sensitivities()}{sensitivities()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SensitivityResult}{Sensitivity\+Result}} rr\+::\+Road\+Runner\+::sensitivities (\begin{DoxyParamCaption}\item[{double}]{start,  }\item[{double}]{stop,  }\item[{double}]{num }\end{DoxyParamCaption})}
+
+
+
+compute time based sensitivities for this model 
+
+this integrates the model between
+\begin{DoxyParams}{Parameters}
+{\em start} & and \\
+\hline
+{\em stop} & using\\
+\hline
+{\em num} & steps. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a3254de1bcafde8fb4aa28e4241fa7c9c}\label{classrr_1_1RoadRunner_a3254de1bcafde8fb4aa28e4241fa7c9c}} 

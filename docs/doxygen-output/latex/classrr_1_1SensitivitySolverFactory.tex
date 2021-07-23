@@ -1,0 +1,97 @@
+\hypertarget{classrr_1_1SensitivitySolverFactory}{}\doxysection{rr\+::Sensitivity\+Solver\+Factory Class Reference}
+\label{classrr_1_1SensitivitySolverFactory}\index{rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}}
+
+
+Constructs new integrators.  
+
+
+
+
+{\ttfamily \#include $<$Sensitivity\+Solver.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a226720d5127cb6dd7f47ebb3d92a739d}\label{classrr_1_1SensitivitySolverFactory_a226720d5127cb6dd7f47ebb3d92a739d}} 
+virtual \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory_a226720d5127cb6dd7f47ebb3d92a739d}{$\sim$\+Sensitivity\+Solver\+Factory}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} F\+A\+C\+T\+O\+RY. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory_a8575eb1361b73907b745f754cd732d5f}{New}} (const std\+::string \&name, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) const
+\begin{DoxyCompactList}\small\item\em Constructs a new solver given the name (e.\+g. cvode, gillespie) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory_a9ec32e49ba4df9f9f967d6edf50e3ca7}{register\+Sensitivity\+Solver}} (\mbox{\hyperlink{classrr_1_1SensitivitySolverRegistrar}{Sensitivity\+Solver\+Registrar}} $\ast$i)
+\begin{DoxyCompactList}\small\item\em Registers a new solver with the factory so that it can be constructed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a7663ba324f9d905caaaf34812cb1d2e0}\label{classrr_1_1SensitivitySolverFactory_a7663ba324f9d905caaaf34812cb1d2e0}} 
+std\+::size\+\_\+t {\bfseries get\+Num\+Sensitivity\+Solvers} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a093456ad98b7e933b4d19ea758c94dd4}\label{classrr_1_1SensitivitySolverFactory_a093456ad98b7e933b4d19ea758c94dd4}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries get\+List\+Sensitivity\+Solver\+Names} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_adb988d2433aa337861338b8f9d8c786d}\label{classrr_1_1SensitivitySolverFactory_adb988d2433aa337861338b8f9d8c786d}} 
+std\+::string {\bfseries get\+Sensitivity\+Solver\+Name} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_ae0a58171def583ebb8a751c07b19e4ce}\label{classrr_1_1SensitivitySolverFactory_ae0a58171def583ebb8a751c07b19e4ce}} 
+std\+::string {\bfseries get\+Sensitivity\+Solver\+Hint} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a9566910728accd9542734605d492c4f2}\label{classrr_1_1SensitivitySolverFactory_a9566910728accd9542734605d492c4f2}} 
+std\+::string {\bfseries get\+Sensitivity\+Solver\+Description} (std\+::size\+\_\+t n) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory}{Sensitivity\+Solver\+Factory}} \& \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory_a195775f017038cee09a4d9921a70f0e7}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Returns the singleton instance of the solver factory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Constructs new integrators. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.\+g. cvode, gillespie) and returns a base pointer to \mbox{\hyperlink{classrr_1_1SensitivitySolver}{rr\+::\+Sensitivity\+Solver}}. 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a195775f017038cee09a4d9921a70f0e7}\label{classrr_1_1SensitivitySolverFactory_a195775f017038cee09a4d9921a70f0e7}} 
+\index{rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SensitivitySolverFactory}{Sensitivity\+Solver\+Factory}} \& rr\+::\+Sensitivity\+Solver\+Factory\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the singleton instance of the solver factory. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a8575eb1361b73907b745f754cd732d5f}\label{classrr_1_1SensitivitySolverFactory_a8575eb1361b73907b745f754cd732d5f}} 
+\index{rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}!New@{New}}
+\index{New@{New}!rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}}
+\doxysubsubsection{\texorpdfstring{New()}{New()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Solver}} $\ast$ rr\+::\+Sensitivity\+Solver\+Factory\+::\+New (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption}) const}
+
+
+
+Constructs a new solver given the name (e.\+g. cvode, gillespie) 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1SensitivitySolverFactory_a9ec32e49ba4df9f9f967d6edf50e3ca7}\label{classrr_1_1SensitivitySolverFactory_a9ec32e49ba4df9f9f967d6edf50e3ca7}} 
+\index{rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}!registerSensitivitySolver@{registerSensitivitySolver}}
+\index{registerSensitivitySolver@{registerSensitivitySolver}!rr::SensitivitySolverFactory@{rr::SensitivitySolverFactory}}
+\doxysubsubsection{\texorpdfstring{registerSensitivitySolver()}{registerSensitivitySolver()}}
+{\footnotesize\ttfamily void rr\+::\+Sensitivity\+Solver\+Factory\+::register\+Sensitivity\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1SensitivitySolverRegistrar}{Sensitivity\+Solver\+Registrar}} $\ast$}]{i }\end{DoxyParamCaption})}
+
+
+
+Registers a new solver with the factory so that it can be constructed. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Should be called at startup for new solvers. 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sensitivity\+Solver.\+h\item 
+Sensitivity\+Solver.\+cpp\end{DoxyCompactItemize}

@@ -53,6 +53,10 @@ def passMsg (errorFlag, msg = ""):
     if not errorFlag:
         gPassedTests = gPassedTests+1
         return "PASS"
+    print("Traceback from failed test: ")
+    import traceback
+    for line in traceback.format_stack():
+        print(line.strip())
     gFailedTests = gFailedTests+1
     return "*****FAIL*****" + msg
 
@@ -569,6 +573,7 @@ def checkInitalFloatingSpeciesConcentations(rrInstance, testId):
 def checkReactionRates(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     ss = rrInstance.model.getReactionRates()
+    print("reaction rates: " , ss)
     compareUpcomingValuesWith(ss, 1E-4)
 
 

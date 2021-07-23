@@ -27,7 +27,7 @@ if (${BUILD_PYTHON} OR ${BUILD_JAVA})
     include(UseSWIG)
 endif ()
 
-set(RR_CAPI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/C)
+set(RR_CAPI_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/C")
 if (BUILD_RR_CAPI)
     add_subdirectory("C")
 endif ()

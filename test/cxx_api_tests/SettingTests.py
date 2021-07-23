@@ -7,8 +7,7 @@ thisDir = os.path.dirname(os.path.realpath(__file__))
 rr_site_packages = os.path.dirname(os.path.dirname(thisDir))
 
 sys.path += [
-    r"D:\roadrunner\roadrunner\cmake-build-release-visual-studio---with-python\lib\site-packages",
-    # rr_site_packages,
+    rr_site_packages,
 ]
 
 try:

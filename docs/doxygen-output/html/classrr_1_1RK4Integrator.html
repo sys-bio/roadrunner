@@ -314,7 +314,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 <p>Creates a new <a class="el" href="classrr_1_1RK4Integrator.html" title="A super basic 4&#39;th order fixed step integrator.">RK4Integrator</a>. </p>
 <p>The <a class="el" href="classrr_1_1IntegratorFactory.html" title="Constructs new integrators.">IntegratorFactory</a> is the ONLY object that creates integrators.</p>
-<p>Integrators are created when the <a class="el" href="classrr_1_1IntegratorFactory.html#ab7298b70afb06e1200181cf3981f739c" title="Constructs a new integrator given the name (e.g. cvode, gillespie)">IntegratorFactory::New</a> method is called, typically by the top level <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> object.</p>
+<p>Integrators are created when the <a class="el" href="classrr_1_1FactoryWithRegistration.html#a7c398ee43e2cc611cfdc9ba1598a1c64" title="Constructs a new integrator given the name (e.g. cvode, gillespie)">IntegratorFactory::New</a> method is called, typically by the top level <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> object.</p>
 <p>The integrator will hold onto the <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> pointer, m, and when the integrate method is called, will advance the model object forward in time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

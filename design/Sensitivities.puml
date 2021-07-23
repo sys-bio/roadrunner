@@ -1,0 +1,47 @@
+@startuml
+
+
+abstract class Sensitivities
+
+class AdjointSensitivities
+
+class ForwardSensitivities
+
+Sensitivities <|-- AdjointSensitivities
+Sensitivities <|-- ForwardSensitivities
+
+class Roadrunner
+
+note left of Roadrunner {
+    Roadrunner depends on
+    the Sensitivities
+    interface
+}
+
+
+class CVODEIntegrator
+class Solver
+class SteadyStateSolver
+class Integrator
+
+Solver <|-- Integrator
+Solver <|-- SteadyStateSolver
+Integrator <|-- CVODEIntegrator
+
+CVODEIntegrator <|-- Sensitivities
+
+Roadrunner *-- Sensitivities
+Roadrunner *-- Integrator
+Roadrunner *-- SteadyStateSolver
+
+
+note top of SensitivityResult {
+    Basically a container
+    of ls::DoubleMatrix
+     indexed by time
+}
+class SensitivityResult
+
+SensitivityResult *-- Sensitivities
+
+@enduml

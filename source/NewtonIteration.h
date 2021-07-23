@@ -16,6 +16,8 @@ namespace rr {
 
     public:
 
+        using KinsolSteadyStateSolver::KinsolSteadyStateSolver;
+
         ~NewtonIteration() override ;
 
         explicit NewtonIteration(ExecutableModel *executableModel);
@@ -34,21 +36,6 @@ namespace rr {
         * @brief Get a (user-readable) hint for this solver
         */
         std::string getHint() const override;
-
-        /**
-         * @brief static version of getName
-         */
-        static std::string getNewtonIterationName();
-
-        /**
-         * @brief static version of getDescription
-         */
-        static std::string getNewtonIterationDescription();
-
-        /**
-         * @brief static version of getHint
-         */
-        static std::string getNewtonIterationHint();
 
         /**
          * @brief reset settings back to default.

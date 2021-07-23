@@ -1,0 +1,1941 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace rr {
+	class AdjointSensitivityRegistrar {
+		+construct(ExecutableModel* model) : SensitivitySolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class AdjointSensitivitySolver {
+		+solve() : SensitivityResult
+		+{static} getAdjointSensitivitySolverDescription() : std::string
+		+{static} getAdjointSensitivitySolverHint() : std::string
+		+{static} getAdjointSensitivitySolverName() : std::string
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class ApproxSteadyStateDecorator {
+		+ApproxSteadyStateDecorator(SteadyStateSolver* solver)
+		+~ApproxSteadyStateDecorator()
+		+solve() : double
+		-decoratorName() : std::string {query}
+	}
+
+	class BasicNewtonIteration {
+		+BasicNewtonIteration(ExecutableModel* executableModel)
+		+~BasicNewtonIteration()
+		+solve() : double
+		+{static} getBasicNewtonIterationDescription() : std::string
+		+{static} getBasicNewtonIterationHint() : std::string
+		+{static} getBasicNewtonIterationName() : std::string
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class BasicNewtonIterationRegistrar {
+		+construct(ExecutableModel* model) : SteadyStateSolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class CVODEIntegrator {
+		+CVODEIntegrator(ExecutableModel* oModel)
+		+~CVODEIntegrator()
+		+getIntegrationMethod() : IntegrationMethod {query}
+		+getListener() : IntegratorListenerPtr
+		-listener : IntegratorListenerPtr
+		+getStateVector() : N_Vector {query}
+		-mStateVector : N_Vector
+		-linSolver : SUNLinearSolver
+		-jac : SUNMatrix
+		+getSolver() : SUNNonlinearSolver {query}
+		-nonLinSolver : SUNNonlinearSolver
+		-haveVariables() : bool {query}
+		-stateVectorVariables : bool
+		-variableStepPendingEvent : bool
+		-variableStepTimeEndEvent : bool
+		-applyVariableStepPendingEvents() : double
+		+integrate(double t0, double hstep) : double
+		-lastEventTime : double
+		-cvodeDyDtFcn(double t, N_Vector cv_y, N_Vector cv_ydot, void* f_data) : int
+		-cvodeRootFcn(double t, N_Vector y, double* gout, void* g_data) : int
+		-{static} mDefaultMaxAdamsOrder : static const int
+		-{static} mDefaultMaxBDFOrder : static const int
+		-{static} mDefaultMaxNumSteps : static const int
+		+ToString(int val) : std::string {query}
+		+ToString(size_t val) : std::string {query}
+		+cvodeDecodeError(int cvodeError, bool exInfo) : std::string
+		+{static} getCVODEIntegratorDescription() : std::string
+		+{static} getCVODEIntegratorHint() : std::string
+		+{static} getCVODEIntegratorName() : std::string
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+getConcentrationTolerance() : std::vector<double>
+		-variableStepPostEventState : std::vector<double>
+		-eventStatus : std::vector<unsigned char>
+		-typecode_ : unsigned long
+		-applyEvents(double timeEnd, std::vector<unsigned char>& previousEventStatus) : void
+		-applyPendingEvents(double timeEnd) : void
+		-assignResultsToModel() : void {query}
+		+checkIndex(int index, int size) : void {query}
+		+checkType() : void {query}
+		+checkVectorSize(int expected, size_t real) : void {query}
+		-createCVode() : void
+		-freeCVode() : void
+		+loadConfigSettings() : void
+		+loadSBMLSettings(const std::string& filename) : void
+		-reInit(double t0) : void
+		+resetSettings() : void
+		+restart(double timeStart) : void
+		-setCVODETolerances() : void
+		+setConcentrationTolerance(Setting value) : void
+		+setIndividualTolerance(std::string sid, double value) : void
+		+setListener(IntegratorListenerPtr) : void
+		+setValue(const std::string& setting, Setting value) : void
+		+syncWithModel(ExecutableModel* m) : void
+		-testRootsAtInitialTime() : void
+		+tweakTolerances() : void
+		-updateCVODE() : void
+		+getCvodeMemory() : void* {query}
+		-mCVODE_Memory : void*
+	}
+
+	class CVODEIntegratorRegistrar {
+		+construct(ExecutableModel* model) : Integrator* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class EulerIntegrator {
+		+EulerIntegrator(ExecutableModel* m)
+		+~EulerIntegrator()
+		+getIntegrationMethod() : IntegrationMethod {query}
+		+getListener() : IntegratorListenerPtr
+		-listener : IntegratorListenerPtr
+		+getItem(const std::string& key) : Setting {query}
+		+hasKey(const std::string& key) : bool {query}
+		-exampleParameter1 : double
+		+integrate(double t0, double h) : double
+		- : double*
+		-rateBuffer : double*
+		-stateBufferEnd : double*
+		- : double**
+		+deleteItem(const std::string& key) : int
+		-stateVectorSize : int
+		-exampleParameter2 : std::string
+		+getDescription() : std::string {query}
+		+{static} getEulerDescription() : std::string
+		+{static} getEulerHint() : std::string
+		+{static} getEulerName() : std::string
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+getKeys() : std::vector<std::string> {query}
+		-eventStatus : std::vector<unsigned char>
+		-previousEventStatus : std::vector<unsigned char>
+		+applyEvents(double timeEnd, std::vector<unsigned char>& previousEventStatus) : void
+		+resetSettings() : void
+		+restart(double t0) : void
+		+setItem(const std::string& key, const rr::Setting& value) : void
+		+setListener(IntegratorListenerPtr p) : void
+	}
+
+	class EulerIntegratorRegistrar {
+		+construct(ExecutableModel* model) : Integrator* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	abstract class EventListener {
+		#~EventListener()
+		+{abstract} onAssignment(ExecutableModel* model, size_t eventIndex, const std::string& eventId) : unsigned int
+		+{abstract} onTrigger(ExecutableModel* model, size_t eventIndex, const std::string& eventId) : unsigned int
+	}
+
+	class EventListenerException {
+		+EventListenerException(unsigned int resultCode)
+		+~EventListenerException()
+		+what() : char*
+		-msg : std::string
+		+getResultCode() : unsigned int {query}
+		-resultCode : unsigned int
+	}
+
+	class ForwardSensitivityRegistrar {
+		+construct(ExecutableModel* model) : SensitivitySolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class ForwardSensitivitySolver {
+		+solve() : SensitivityResult
+		+getDescription() : std::string {query}
+		+{static} getForwardSensitivitySolverDescription() : std::string
+		+{static} getForwardSensitivitySolverHint() : std::string
+		+{static} getForwardSensitivitySolverName() : std::string
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+resetSettings() : void
+	}
+
+	class GillespieIntegrator {
+		+GillespieIntegrator(ExecutableModel* model)
+		+~GillespieIntegrator()
+		+getIntegrationMethod() : IntegrationMethod {query}
+		+getListener() : IntegratorListenerPtr
+		-getStoich(unsigned int species, unsigned int reaction) : double
+		+integrate(double t0, double tf) : double
+		-stoichScale : double
+		-timeScale : double
+		-urand() : double
+		-reactionRates : double*
+		-reactionRatesBuffer : double*
+		-stateVector : double*
+		-stateVectorRate : double*
+		-stoichData : double*
+		-floatingSpeciesStart : int
+		-nReactions : int
+		-stateVectorSize : int
+		-stoichCols : int
+		-stoichRows : int
+		-engine : std::mt19937
+		+getDescription() : std::string {query}
+		+{static} getGillespieDescription() : std::string
+		+{static} getGillespieHint() : std::string
+		+{static} getGillespieName() : std::string
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		-eventStatus : std::vector<unsigned char>
+		-previousEventStatus : std::vector<unsigned char>
+		-getSeed() : unsigned long {query}
+		-applyEvents(double timeEnd, std::vector<unsigned char>& prevEventStatus) : void
+		-initializeFromModel() : void
+		+resetSettings() : void
+		+restart(double timeStart) : void
+		-setEngineSeed(unsigned long seed) : void
+		+setListener(IntegratorListenerPtr) : void
+		+setValue(const std::string& setting, Setting value) : void
+		+syncWithModel(ExecutableModel* m) : void
+		-testRootsAtInitialTime() : void
+	}
+
+	class GillespieIntegratorRegistrar {
+		+construct(ExecutableModel* model) : Integrator* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class IntegratorException {
+		+IntegratorException(const std::string& what)
+		+IntegratorException(const std::string& what, const std::string& where)
+	}
+
+	abstract class IntegratorListener {
+		+~IntegratorListener()
+		+{abstract} onEvent(Integrator* integrator, ExecutableModel* model, double time) : unsigned int
+		+{abstract} onTimeStep(Integrator* integrator, ExecutableModel* model, double time) : unsigned int
+	}
+
+	class KinsolSteadyStateSolver {
+		+KinsolSteadyStateSolver(ExecutableModel* executableModel)
+		+KinsolSteadyStateSolver()
+		+~KinsolSteadyStateSolver()
+		#constraints : N_Vector
+		#fscale : N_Vector
+		#mStateVector : N_Vector
+		#uscale : N_Vector
+		#funcNorm : double
+		+solveForSteadyState(KinsolSteadyStateSolver* solverInstance, int kinsolStrategy) : double
+		#stepLength : double
+		+{static} kinsolDyDtFcn(N_Vector stateVecIn, N_Vector stateVecOut, void* userData) : int
+		#nSolverIterations : long int
+		#numBacktrackOps : long int
+		#numBetaCondFails : long int
+		#numFuncEvals : long int
+		#numJacEvals : long int
+		#numJtimesEvals : long int
+		#numLinConvFails : long int
+		#numLinFuncEvals : long int
+		#numLinIters : long int
+		#numNolinSolvIters : long int
+		#numNonlinSolvIters : long int
+		#numPrecEvals : long int
+		#numPrecSolves : long int
+		+getSolverStats() : std::unordered_map<std::string , Setting>&
+		#solverStats : std::unordered_map<std::string, Setting>
+		#createKinsol() : void
+		#freeKinsol() : void
+		#getSolverStatsFromKinsol() : void
+		+printSolverStats() : void
+		#resetSettings() : void
+		+setFScale(double value) : void
+		+setFScale(const std::vector<double>& value) : void
+		+setUScale(double value) : void
+		+setUScale(std::vector<double> value) : void
+		+syncWithModel(ExecutableModel* m) : void
+		#updateKinsol() : void
+		+getKinsolMemory() : void* {query}
+		#mKinsol_Memory : void*
+	}
+
+	class LinesearchNewtonIteration {
+		+LinesearchNewtonIteration(ExecutableModel* executableModel)
+		+~LinesearchNewtonIteration()
+		+solve() : double
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+{static} getLinesearchNewtonIterationDescription() : std::string
+		+{static} getLinesearchNewtonIterationHint() : std::string
+		+{static} getLinesearchNewtonIterationName() : std::string
+		+getName() : std::string {query}
+	}
+
+	class LinesearchNewtonIterationRegistrar {
+		+construct(ExecutableModel* model) : SteadyStateSolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class NLEQ1SolverRegistrar {
+		+construct(ExecutableModel* model) : SteadyStateSolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class NLEQ2SolverRegistrar {
+		+construct(ExecutableModel* model) : SteadyStateSolver* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class PresimulationDecorator {
+		+PresimulationDecorator(SteadyStateSolver* solver)
+		+~PresimulationDecorator()
+		+solve() : double
+		-decoratorName() : std::string {query}
+	}
+
+	class PresimulationProgramDecorator {
+		+PresimulationProgramDecorator(SteadyStateSolver* solver)
+		+~PresimulationProgramDecorator()
+		+solve() : double
+		-decoratorName() : std::string {query}
+	}
+
+	class RK45Integrator {
+		+RK45Integrator(ExecutableModel* m)
+		+~RK45Integrator()
+		+getIntegrationMethod() : IntegrationMethod {query}
+		+getListener() : IntegratorListenerPtr
+		+getValue(std::string key) : Setting
+		-hCurrent : double
+		-hmax : double
+		-hmin : double
+		+integrate(double t, double h) : double
+		- : double*
+		- : double*
+		- : double*
+		-err : double*
+		-k1 : double*
+		-k3 : double*
+		-k5 : double*
+		-y : double*
+		- : double**
+		- : double**
+		- : double**
+		- : double**
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+{static} getRK45Description() : std::string
+		+{static} getRK45Hint() : std::string
+		+{static} getRK45Name() : std::string
+		-stateVectorSize : unsigned
+		-applyEvents(double timeEnd, std::vector<unsigned char>& previousEventStatus) : void
+		+resetSettings() : void
+		+restart(double t0) : void
+		+setListener(IntegratorListenerPtr) : void
+		+syncWithModel(ExecutableModel* m) : void
+		-testRootsAtInitialTime() : void
+	}
+
+	class RK45IntegratorRegistrar {
+		+construct(ExecutableModel* model) : Integrator* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class RK4Integrator {
+		+RK4Integrator(ExecutableModel* m)
+		+~RK4Integrator()
+		+getIntegrationMethod() : IntegrationMethod {query}
+		+getListener() : IntegratorListenerPtr
+		+getValue(std::string key) : Setting
+		+integrate(double t0, double tf) : double
+		- : double*
+		- : double*
+		-k1 : double*
+		-k3 : double*
+		-y : double*
+		- : double**
+		- : double**
+		- : double**
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+{static} getRK4Description() : std::string
+		+{static} getRK4Hint() : std::string
+		+{static} getRK4Name() : std::string
+		-stateVectorSize : unsigned
+		-applyEvents(double timeEnd, std::vector<unsigned char>& previousEventStatus) : void
+		+resetSettings() : void
+		+restart(double t0) : void
+		+setListener(IntegratorListenerPtr) : void
+		+syncWithModel(ExecutableModel* m) : void
+		-testRootsAtInitialTime() : void
+	}
+
+	class RK4IntegratorRegistrar {
+		+construct(ExecutableModel* model) : Integrator* {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+	}
+
+	class RR_DECLSPECBasicDictionary {
+		+BasicDictionary()
+		+~BasicDictionary()
+		+getItem(const std::string& key) : Setting {query}
+		#items : VariantMap
+		+hasKey(const std::string& key) : bool {query}
+		+deleteItem(const std::string& key) : size_t
+		+getKeys() : std::vector<std::string> {query}
+		+setItem(const std::string& key, const rr::Setting& value) : void
+	}
+
+	class RR_DECLSPECCVODEException {
+		+CVODEException(const std::string& msg)
+	}
+
+	abstract class RR_DECLSPECCompiler {
+		+~Compiler()
+		+{static} New() : Compiler*
+		+{abstract} setCompiler(const std::string& compiler) : bool
+		+{abstract} setCompilerLocation(const std::string& path) : bool
+		+{abstract} setSupportCodeFolder(const std::string& path) : bool
+		+{abstract} getCompiler() : std::string {query}
+		+{abstract} getCompilerLocation() : std::string {query}
+		+{static} getDefaultCompiler() : std::string
+		+{abstract} getDefaultTargetTriple() : std::string
+		+{abstract} getHostCPUName() : std::string
+		+{abstract} getProcessTriple() : std::string
+		+{abstract} getSupportCodeFolder() : std::string {query}
+		+{abstract} getVersion() : std::string
+	}
+
+	class RR_DECLSPECConfig {
+		+{static} getValue(Keys) : Setting
+		+{static} getBool(Keys) : bool
+		+{static} getDouble(Keys) : double
+		+{static} getInt(Keys) : int
+		+{static} stringToKey(const std::string& key) : int
+		+{static} getConfigFilePath() : std::string
+		+{static} getString(Keys) : std::string
+		+{static} getKeyList() : std::vector<std::string>
+		+{static} readConfigFile(const std::string& path) : void
+		+{static} setValue(Keys, Setting value) : void
+		+{static} writeConfigFile(const std::string& path) : void
+	}
+
+	class RR_DECLSPECCoreException {
+		+CoreException(const std::string& msg)
+		+CoreException(const std::string& msg1, const std::string& msg2)
+	}
+
+	abstract class RR_DECLSPECDictionary {
+		+~Dictionary()
+		+__contains__(const char* key) : PyObject*
+		+__getitem__(const char* key) : PyObject*
+		+__setitem__(const char* key, PyObject* value) : PyObject*
+		+items() : PyObject*
+		+keys() : PyObject*
+		+values() : PyObject*
+		+{abstract} getItem(const std::string& key) : Setting {query}
+		+{abstract} hasKey(const std::string& key) : bool {query}
+		+{abstract} deleteItem(const std::string& key) : size_t
+		+helloPython() : std::string
+		+{abstract} getKeys() : std::vector<std::string> {query}
+		+__delitem__(const char* key) : void
+		+{abstract} setItem(const std::string& key, const rr::Setting& value) : void
+	}
+
+	class RR_DECLSPECDidNotConvergeException {
+		+DidNotConvergeException(const std::string& msg)
+	}
+
+	class RR_DECLSPECException {
+		+Exception(const std::string& desc)
+		+~Exception()
+		+what() : char*
+		+Message() : std::string {query}
+		+getMessage() : std::string {query}
+		#mMessage : std::string
+	}
+
+	abstract class RR_DECLSPECExecutableModel {
+		+~ExecutableModel()
+		+{abstract} getEventListener(size_t index) : EventListenerPtr
+		+{abstract} getFloatingSpeciesAmountRate(size_t index, const double* reactionRates) : double
+		+{abstract} getNextPendingEventTime(bool pop) : double
+		+{abstract} getRandom() : double
+		+{abstract} getStoichiometry(int speciesIndex, int reactionIndex) : double
+		+{abstract} getTime() : double
+		+{abstract} getValue(const std::string& id) : double
+		+{abstract} applyEvents(double timeEnd, const unsigned char* previousEventStatus, const double* initialState, double* finalState) : int
+		+{abstract} getBoundarySpeciesAmounts(size_t len, int const* indx, double* values) : int
+		+{abstract} getBoundarySpeciesConcentrations(size_t len, int const* indx, double* values) : int
+		+{abstract} getBoundarySpeciesIndex(const std::string& eid) : int
+		+{abstract} getCompartmentIndex(const std::string& eid) : int
+		+{abstract} getCompartmentIndexForFloatingSpecies(size_t index) : int
+		+{abstract} getCompartmentInitVolumes(size_t len, int const* indx, double* values) : int
+		+{abstract} getCompartmentVolumes(size_t len, int const* indx, double* values) : int
+		+{abstract} getConservedMoietyIndex(const std::string& eid) : int
+		+{abstract} getConservedMoietyValues(size_t len, int const* indx, double* values) : int
+		+{abstract} getEventIndex(const std::string& eid) : int
+		+{abstract} getEventTriggers(size_t len, const int* indx, unsigned char* values) : int
+		+{abstract} getFloatingSpeciesAmountRates(size_t len, int const* indx, double* values) : int
+		+{abstract} getFloatingSpeciesAmounts(size_t len, int const* indx, double* values) : int
+		+{abstract} getFloatingSpeciesConcentrationRates(size_t len, int const* indx, double* values) : int
+		+{abstract} getFloatingSpeciesConcentrations(size_t len, int const* indx, double* values) : int
+		+{abstract} getFloatingSpeciesIndex(const std::string& eid) : int
+		+{abstract} getFloatingSpeciesInitAmounts(size_t len, int const* indx, double* values) : int
+		+{abstract} getFloatingSpeciesInitConcentrations(size_t len, int const* indx, double* values) : int
+		+{abstract} getGlobalParameterIndex(const std::string& eid) : int
+		+{abstract} getGlobalParameterInitValues(size_t len, int const* indx, double* values) : int
+		+{abstract} getGlobalParameterValues(size_t len, int const* indx, double* values) : int
+		+{abstract} getNumBoundarySpecies() : int
+		+{abstract} getNumCompartments() : int
+		+{abstract} getNumConservedMoieties() : int
+		+{abstract} getNumDepFloatingSpecies() : int
+		+{abstract} getNumEvents() : int
+		+{abstract} getNumFloatingSpecies() : int
+		+{abstract} getNumGlobalParameters() : int
+		+{abstract} getNumIndFloatingSpecies() : int
+		+{abstract} getNumRateRules() : int
+		+{abstract} getNumReactions() : int
+		+{abstract} getPendingEventSize() : int
+		+{abstract} getReactionIndex(const std::string& eid) : int
+		+{abstract} getReactionRates(size_t len, int const* indx, double* values) : int
+		+{abstract} getStateVector(double* stateVector) : int
+		+{abstract} getStoichiometryMatrix(int* rows, int* cols, double** data) : int
+		+{abstract} getSupportedIdTypes() : int
+		+{abstract} setBoundarySpeciesConcentrations(size_t len, int const* indx, double const* values) : int
+		+{abstract} setCompartmentInitVolumes(size_t len, int const* indx, double const* values) : int
+		+{abstract} setCompartmentVolumes(size_t len, int const* indx, const double* values) : int
+		+{abstract} setConservedMoietyValues(size_t len, int const* indx, const double* values) : int
+		+{abstract} setFloatingSpeciesAmounts(size_t len, int const* indx, const double* values) : int
+		+{abstract} setFloatingSpeciesConcentrations(size_t len, int const* indx, double const* values) : int
+		+{abstract} setFloatingSpeciesInitAmounts(size_t len, int const* indx, double const* values) : int
+		+{abstract} setFloatingSpeciesInitConcentrations(size_t len, int const* indx, double const* values) : int
+		+{abstract} setGlobalParameterInitValues(size_t len, int const* indx, double const* values) : int
+		+{abstract} setGlobalParameterValues(size_t len, int const* indx, const double* values) : int
+		+{abstract} setStateVector(const double* stateVector) : int
+		+{abstract} getRandomSeed() : int64_t
+		+{abstract} getBoundarySpeciesId(size_t index) : std::string
+		+{abstract} getCompartmentId(size_t index) : std::string
+		+{abstract} getConservedMoietyId(size_t index) : std::string
+		+{abstract} getEventId(size_t index) : std::string
+		+{abstract} getExecutableModelDesc() : std::string {query}
+		+{abstract} getFloatingSpeciesId(size_t index) : std::string
+		+{abstract} getGlobalParameterId(size_t index) : std::string
+		+{abstract} getInfo() : std::string
+		+{abstract} getModelName() : std::string
+		+{abstract} getReactionId(size_t index) : std::string
+		+{abstract} getStateVectorId(size_t index) : std::string
+		+{abstract} getRateRuleSymbols() : std::vector<std::string> {query}
+		+{abstract} getFlags() : uint32_t {query}
+		+computeAllRatesOfChange() : void
+		+{abstract} getEventIds(std::list<std::string> &) : void
+		+{abstract} getEventRoots(double time, const double* y, double* gdot) : void
+		+{abstract} getIds(int types, std::list<std::string>& ids) : void
+		+{abstract} getRateRuleValues(double* rateRuleValues) : void
+		+{abstract} getStateVectorRate(double time, const double* y, double* dydt) : void
+		+{abstract} print(std::ostream& stream) : void
+		+{abstract} reset() : void
+		+{abstract} reset(int options) : void
+		+{abstract} resetEvents() : void
+		+saveState(std::ostream& out) : void
+		+{abstract} setEventListener(size_t index, rr::EventListenerPtr eventHandler) : void
+		+{abstract} setFlags(uint32_t) : void
+		#setIntegration(bool value) : void
+		+{abstract} setRandomSeed(int64_t) : void
+		+{abstract} setTime(double _time) : void
+		+{abstract} setValue(const std::string& id, double value) : void
+		+{abstract} testConstraints() : void
+	}
+
+	class RR_DECLSPECExecutableModelFactory {
+		+{static} createModel(const std::string& sbml, const Dictionary* dict) : ExecutableModel*
+		+{static} createModel(std::istream& in, unsigned int modelGeneratorOpt) : ExecutableModel*
+		+{static} regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, unsigned int options) : ExecutableModel*
+	}
+
+	class RR_DECLSPECFactoryWithRegistration {
+		#FactoryWithRegistration()
+		+~FactoryWithRegistration()
+		+{static} getInstance(std::mutex& mutex) : FactoryType&
+		+New(const std::string& name, ExecutableModel* m) : Solver* {query}
+		#registrars : rr::RegistrarVector
+		+size() : std::size_t {query}
+		+description(std::size_t n) : std::string {query}
+		+hint(std::size_t n) : std::string {query}
+		+name(std::size_t n) : std::string {query}
+		+registerSolver(Registrar* i) : void
+	}
+
+	class RR_DECLSPECFileName {
+		+FileName(const std::string& name, const std::string& path)
+		+FileName(const FileName& fN)
+		+string()
+		+~FileName()
+		+operator=(const FileName& fN) : FileName&
+		+operator=(const std::string& fN) : FileName&
+		+operator=(const char* fN) : FileName&
+		+SetPath(const std::string& path) : bool
+		+operator!=(const char* fN) : bool
+		-mPathAndName : mutable std::string
+		+size() : size_t
+		+Get() : std::string
+		+GetFileName() : std::string {query}
+		+GetFileNameNoExtension() : std::string
+		+GetPath() : std::string {query}
+		+GetPathAndFileName() : std::string {query}
+		-mName : std::string
+		-mPath : std::string
+		-MakeFileString() : void
+		+SetFileName(const std::string& name) : void
+		+SetFileNameAndPath(const std::string& name) : void
+		+SetNameAndPath(const std::string& path, const std::string& name) : void
+	}
+
+	class RR_DECLSPECFixedPointIteration {
+		+FixedPointIteration(ExecutableModel* executableModel)
+		+~FixedPointIteration()
+		+solve() : double
+		+getDescription() : std::string {query}
+		+{static} getFixedPointIterationDescription() : std::string
+		+{static} getFixedPointIterationHint() : std::string
+		+{static} getFixedPointIterationName() : std::string
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+createKinsol() : void
+		+freeKinsol() : void
+		+resetSettings() : void
+		+updateKinsol() : void
+	}
+
+	class RR_DECLSPECIniFile {
+		+IniFile(const std::string& fName, bool autoLoad, bool autoSave)
+		+~IniFile()
+		#mIniFileName : FileName
+		+GetKey(const std::string& Key, const std::string& Section) : IniKey*
+		+GetSection(int i) : IniSection*
+		+GetSection(size_t i) : IniSection*
+		+GetSection(const std::string& Section, bool create) : IniSection*
+		+GetSection(const unsigned int secNr) : IniSection*
+		+LoadSection(const std::string& theSection) : IniSection*
+		+ClearSection(const std::string& section) : bool
+		+CreateKey(const std::string& Key, const std::string& Value, const std::string& Comment, const std::string& Section) : bool
+		+CreateSection(const std::string& Section, const std::string& Comment) : bool
+		+CreateSection(const std::string& Section, const std::string& Comment, rr::KeyList Keys) : bool
+		+DeleteKey(const std::string& Key, const std::string& FromSection) : bool
+		+DeleteSection(const std::string& Section) : bool
+		+DeleteSectionsWithKeyValue(const std::string& key, const std::string& value) : bool
+		+IsModified() : bool
+		+Load(const std::string& fName) : bool
+		+ReadBool(const std::string& Key, const std::string& Section, bool def_value) : bool
+		+Save(ios_base::openmode openMode) : bool
+		+SectionExists(const std::string& section) : bool
+		+SetFilePath(const std::string& path) : bool
+		+SetKeyComment(const std::string& Key, const std::string& Comment, const std::string& Section) : bool
+		+SetSectionComment(const std::string& Section, const std::string& Comment) : bool
+		+UnLoad() : bool
+		+WasItFound() : bool
+		+WriteBool(const std::string& Key, bool bValue, const std::string& Comment, const std::string& Section) : bool
+		+WriteFloat(const std::string& Key, double value, const std::string& Comment, const std::string& Section) : bool
+		+WriteInteger(const std::string& Key, int nValue, const std::string& Comment, const std::string& Section) : bool
+		+WriteNonKey(const std::string& nonKey, const std::string& Section) : bool
+		+WriteString(const std::string& Key, const std::string& Value, const std::string& Comment, const std::string& Section) : bool
+		+WriteValue(const std::string& Key, const std::string& Value, const std::string& Comment, const std::string& Section) : bool
+		#mAutoSave : bool
+		#mIsDirty : bool
+		#mWasFound : bool
+		-mAutoCreateKeys : const int
+		-mAutoCreateSections : const int
+		-mEqualIndicator : const std::string
+		-mWhiteSpace : const std::string
+		+ReadDouble(const std::string& Key, const std::string& Section, double def_value) : double
+		+ReadFloat(const std::string& Key, const std::string& Section, double def_value) : float
+		+ReadInteger(const std::string& Key, const std::string& Section, int def_value) : int
+		-WriteLine(std::fstream& stream, const char* fmt) : int
+		+mFlags : int
+		#mSections : rr::SectionList
+		+GetNumberOfSections() : size_t
+		+KeyCount() : size_t
+		+KeyCount(const std::string& section) : size_t
+		+SectionCount() : size_t
+		+CommentStr(std::string& Comment) : std::string
+		+GetFileName() : std::string
+		+GetFilePath() : std::string
+		+GetFullFileName() : std::string
+		-GetNextWord(std::string& CommandLine) : std::string
+		+ReadString(const std::string& Key, const std::string& Section, const std::string& def_val) : std::string
+		+ReadValue(const std::string& Key, const std::string& Section) : std::string
+		-Trim(std::string& Str) : std::string
+		-mCommentIndicators : std::string
+		+Clear() : void
+		+SetFileName(const std::string& fName) : void
+	}
+
+	class RR_DECLSPECIniKey {
+		+IniKey(const std::string& key)
+		+~IniKey()
+		+operator<<(std::ostream& stream, const IniKey& aKey) : RR_DECLSPEC std :: ostream&
+		+AsFloat() : double {query}
+		+AsBool() : int {query}
+		+AsInt() : int {query}
+		+AsComplex() : std::complex<double> {query}
+		+AsString() : std::string {query}
+		+mComment : std::string
+		+mKey : std::string
+		+mValue : std::string
+		+ReKey(const std::string& key) : void
+		#SetupKey(const std::string& key) : void
+	}
+
+	class RR_DECLSPECIniSection {
+		+IniSection()
+		+IniSection(const std::string& nameValueString, const char& sep)
+		+~IniSection()
+		+CreateKey(const std::string& _keyName, const std::string& Value, const std::string& Comment) : IniKey*
+		+GetKey(const int& i) : IniKey*
+		+GetKey(const std::string& keyName, bool create) : IniKey*
+		-mIsDirty : bool
+		+mIsUsed : bool
+		+mKeys : rr::KeyList
+		+mNonKeys : rr::NonKeyList
+		+KeyCount() : size_t
+		+NonKeyCount() : size_t
+		+AsString() : std::string
+		+GetNonKeysAsString() : std::string
+		+mComment : std::string
+		+mName : std::string
+		+Clear() : void
+	}
+
+	abstract class RR_DECLSPECIntegrator {
+		+Integrator(ExecutableModel* model)
+		+~Integrator()
+		+{abstract} getListener() : IntegratorListenerPtr
+		+{abstract} integrate(double t0, double hstep) : double
+		+{abstract} getIntegrationMethod() : int {query}
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+getConcentrationTolerance() : std::vector<double>
+		+loadConfigSettings() : void
+		+loadSBMLSettings(const std::string& filename) : void
+		+{abstract} restart(double t0) : void
+		+setConcentrationTolerance(Setting value) : void
+		+setIndividualTolerance(std::string sid, double value) : void
+		+{abstract} setListener(rr::IntegratorListenerPtr) : void
+		+syncWithModel(ExecutableModel* m) : void
+		+tweakTolerances() : void
+	}
+
+	class RR_DECLSPECIntegratorFactory {
+		+{static} getInstance() : IntegratorFactory&
+		+{static} Register() : void
+	}
+
+	class RR_DECLSPECInvalidKeyException {
+		+InvalidKeyException(const std::string& msg)
+	}
+
+	class RR_DECLSPECKinsolException {
+		+KinsolException(const std::string& msg)
+	}
+
+	class RR_DECLSPECLoadSBMLOptions {
+		+LoadSBMLOptions()
+		+LoadSBMLOptions(const Dictionary* dict)
+		+~LoadSBMLOptions()
+		+getItem(const std::string& key) : Setting {query}
+		+getConservedMoietyConversion() : bool {query}
+		+hasKey(const std::string& key) : bool {query}
+		+deleteItem(const std::string& key) : size_t
+		+size : std::uint16_t
+		+version : std::uint16_t
+		+loadFlags : std::uint32_t
+		+modelGeneratorOpt : std::uint32_t
+		+getKeys() : std::vector<std::string> {query}
+		-defaultInit() : void
+		+setConservedMoietyConversion(bool val) : void
+		+setItem(const std::string& key, const rr::Setting& value) : void
+		+setValidation(bool val) : void
+	}
+
+	class RR_DECLSPECLogger {
+		+{static} getColoredOutput() : bool
+		+{static} getLevel() : int
+		+{static} stringToLevel(const std::string& str) : int
+		+{static} getCurrentLevelAsString() : std::string
+		+{static} getFileName() : std::string
+		+{static} getFormattingPattern() : std::string
+		+{static} levelToString(int level) : std::string
+		+{static} disableConsoleLogging() : void
+		+{static} disableFileLogging() : void
+		+{static} disableLogging() : void
+		+{static} enableConsoleLogging(int level) : void
+		+{static} enableFileLogging(const std::string& fileName, int level) : void
+		+{static} log(Level level, const std::string& msg) : void
+		+{static} setColoredOutput(bool) : void
+		+{static} setConsoleStream(std::ostream* os) : void
+		+{static} setFormattingPattern(const std::string& format) : void
+		+{static} setLevel(int level) : void
+		+{static} setProperty(const std::string& name, const std::string& value) : void
+	}
+
+	class RR_DECLSPECLoggingBuffer {
+		+LoggingBuffer(int level, const char* file, int line)
+		+~LoggingBuffer()
+		-file : const char*
+		-level : int
+		-line : int
+		+stream() : std::ostream&
+		-buffer : std::stringstream
+	}
+
+	class RR_DECLSPECNLEQ1Interface {
+		+NLEQ1Interface(ExecutableModel* _model)
+		+~NLEQ1Interface()
+		+{static} getSteadyStateOptions() : Dictionary*
+		-model : ExecutableModel*
+		+getItem(const std::string& key) : Setting {query}
+		+allowApprox : bool
+		+allowPreSim : bool
+		+hasKey(const std::string& key) : bool {query}
+		-isAvailable() : bool
+		+approxTime : double
+		+approxTolerance : double
+		+computeSumsOfSquares() : double
+		+minDamping : double
+		+preSimTime : double
+		+preSimTolerance : double
+		+relativeTolerance : double
+		+solve() : double
+		-RWK : double*
+		-XScal : double*
+		+approxMaximumSteps : int
+		+broyden : int
+		+getNumberOfCorrectorSteps() : int
+		+getNumberOfJacobianEvaluations() : int
+		+getNumberOfModelEvaluations() : int
+		+getNumberOfModelEvaluationsForJacobian() : int
+		+getNumberOfNewtonIterations() : int
+		+linearity : int
+		+maxIterations : int
+		-nOpts : int
+		+preSimMaximumSteps : int
+		-LIWK : long
+		-LRWK : long
+		-ierr : long
+		-n : long
+		-IWK : long*
+		-iopt : long*
+		+deleteItem(const std::string& key) : size_t
+		+getKeys() : std::vector<std::string> {query}
+		+setItem(const std::string& key, const rr::Setting& value) : void
+		+setScalingFactors(const std::vector<double>& sx) : void
+		-setup() : void
+	}
+
+	class RR_DECLSPECNLEQ1Solver {
+		+NLEQ1Solver(ExecutableModel* _model)
+		+solve() : double
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+{static} getNLEQDescription() : std::string
+		+{static} getNLEQHint() : std::string
+		+{static} getNLEQName() : std::string
+		+getName() : std::string {query}
+	}
+
+	class RR_DECLSPECNLEQ2Interface {
+		+NLEQ2Interface(ExecutableModel* _model)
+		+~NLEQ2Interface()
+		+{static} getSteadyStateOptions() : Dictionary*
+		+model : ExecutableModel*
+		+getItem(const std::string& key) : Setting {query}
+		+allowApprox : bool
+		+allowPreSim : bool
+		+hasKey(const std::string& key) : bool {query}
+		+isAvailable() : bool
+		+approxTime : double
+		+approxTolerance : double
+		+computeSumsOfSquares() : double
+		+minDamping : double
+		+preSimTime : double
+		+preSimTolerance : double
+		+relativeTolerance : double
+		+solve() : double
+		+RWK : double*
+		+XScal : double*
+		+approxMaximumSteps : int
+		+broyden : int
+		+getNumberOfCorrectorSteps() : int
+		+getNumberOfJacobianEvaluations() : int
+		+getNumberOfModelEvaluations() : int
+		+getNumberOfModelEvaluationsForJacobian() : int
+		+getNumberOfNewtonIterations() : int
+		+linearity : int
+		+maxIterations : int
+		+nOpts : int
+		+preSimMaximumSteps : int
+		+LIWK : long
+		+LRWK : long
+		+ierr : long
+		+n : long
+		+IWK : long*
+		+iopt : long*
+		+deleteItem(const std::string& key) : size_t
+		+getKeys() : std::vector<std::string> {query}
+		+setItem(const std::string& key, const rr::Setting& value) : void
+		+setScalingFactors(const std::vector<double>& sx) : void
+		+setup() : void
+	}
+
+	class RR_DECLSPECNLEQ2Solver {
+		+solve() : double
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+{static} getNLEQDescription() : std::string
+		+{static} getNLEQHint() : std::string
+		+{static} getNLEQName() : std::string
+		+getName() : std::string {query}
+	}
+
+	class RR_DECLSPECNLEQException {
+		+NLEQException(const std::string& msg)
+	}
+
+	class RR_DECLSPECNLEQSolver {
+		+NLEQSolver(ExecutableModel* model)
+		+~NLEQSolver()
+		+solveNLEQ() : double
+		+loadConfigSettings() : void
+		+resetSettings() : void
+		+syncWithModel(ExecutableModel* m) : void
+	}
+
+	class RR_DECLSPECNOMException {
+		+NOMException(const std::string& msg)
+	}
+
+	class RR_DECLSPECNewtonIteration {
+		+NewtonIteration(ExecutableModel* executableModel)
+		+~NewtonIteration()
+		#linearSolver : SUNLinearSolver
+		#jac : SUNMatrix
+		#solveNewtonIteration(const std::string& strategy) : double
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+{static} getNewtonIterationDescription() : std::string
+		+{static} getNewtonIterationHint() : std::string
+		+{static} getNewtonIterationName() : std::string
+		#createKinsol() : void
+		#freeKinsol() : void
+		+getSolverStatsFromKinsol() : void
+		+resetSettings() : void
+		#updateKinsol() : void
+	}
+
+	class RR_DECLSPECNotImplementedException {
+		+NotImplementedException(const std::string& msg)
+	}
+
+	class RR_DECLSPECNullPointerException {
+		+NullPointerException(const std::string& msg)
+	}
+
+	abstract class RR_DECLSPECRegistrar {
+		+~Registrar()
+		+{abstract} construct(ExecutableModel* model) : Solver* {query}
+		+{abstract} getDescription() : std::string {query}
+		+{abstract} getHint() : std::string {query}
+		+{abstract} getName() : std::string {query}
+	}
+
+	class RR_DECLSPECRoadRunner {
+		+RR_DEPRECATED(int getNumberOfReactions ( ))
+		+RR_DEPRECATED(double getReactionRate ( const int& index ))
+		+RR_DEPRECATED(double getRateOfChange ( const int& index ))
+		+RR_DEPRECATED(std::vector<std::string>getRateOfChangeIds ( ))
+		+RR_DEPRECATED(int getNumberOfCompartments ( ))
+		+RR_DEPRECATED(void setCompartmentByIndex ( const int& index, const double& value ))
+		+RR_DEPRECATED(double getCompartmentByIndex ( const int& index ))
+		+RR_DEPRECATED(std::vector<std::string>getCompartmentIds ( ))
+		+RR_DEPRECATED(int getNumberOfBoundarySpecies ( ))
+		+RR_DEPRECATED(std::vector<double>getBoundarySpeciesConcentrations ( ))
+		+RR_DEPRECATED(void setBoundarySpeciesConcentrations ( const std::vector<double>& values ))
+		+RR_DEPRECATED(int getNumberOfFloatingSpecies ( ))
+		+RR_DEPRECATED(double getFloatingSpeciesByIndex ( int index ))
+		+RR_DEPRECATED(void setFloatingSpeciesByIndex ( int index, double value ))
+		+RR_DEPRECATED(std::vector<double>getFloatingSpeciesConcentrationsV ( ))
+		+RR_DEPRECATED(std::vector<double>getFloatingSpeciesAmountsV ( ))
+		+RR_DEPRECATED(std::vector<double>getBoundarySpeciesConcentrationsV ( ))
+		+RR_DEPRECATED(std::vector<double>getBoundarySpeciesAmountsV ( ))
+		+RR_DEPRECATED(std::vector<double>getFloatingSpeciesInitialConcentrations ( ))
+		+RR_DEPRECATED(void setFloatingSpeciesConcentrations ( const std::vector<double>& values ))
+		+RR_DEPRECATED(void setFloatingSpeciesInitialConcentrationByIndex ( const int& index, const double& value ))
+		+RR_DEPRECATED(void setFloatingSpeciesInitialConcentrations ( const std::vector<double>& values ))
+		+RR_DEPRECATED(std::vector<std::string>getFloatingSpeciesIds ( ))
+		+RR_DEPRECATED(std::vector<std::string>getFloatingSpeciesInitialConditionIds ( ))
+		+RR_DEPRECATED(size_t getNumberOfGlobalParameters ( ))
+		+RR_DEPRECATED(void setGlobalParameterByIndex ( const int index, const double value ))
+		+RR_DEPRECATED(std::vector<double>getGlobalParameterValues ( ))
+		+RR_DEPRECATED(int getNumberOfDependentSpecies ( ))
+		+RR_DEPRECATED(std::vector<double>getReactionRates ( ))
+		+RR_DEPRECATED(std::vector<std::string>getReactionIds ( ))
+		+RoadRunner(unsigned int level, unsigned int version)
+		+RoadRunner(const std::string& uriOrSBML, const Dictionary* options)
+		+RoadRunner(const std::string& compiler, const std::string& tempDir, const std::string& supportCodeDir)
+		+RoadRunner(const RoadRunner& rr)
+		+~RoadRunner()
+		+getModel() : ExecutableModel*
+		+getIntegrator() : Integrator*
+		+getIntegratorByName(const std::string& name) : Integrator*
+		+makeIntegrator(std::string name) : Integrator*
+		+getOptions() : RoadRunnerOptions&
+		+sensitivities(double start, double stop, double num) : SensitivityResult
+		+getSensitivitySolver() : SensitivitySolver*
+		+getSimulateOptions() : SimulateOptions&
+		+getSteadyStateSolver() : SteadyStateSolver*
+		+clearModel() : bool
+		-createDefaultSelectionLists() : bool
+		+getConservedMoietyAnalysis() : bool
+		-hasVariable(const libsbml::ASTNode* node, const std::string& sid) : bool
+		+integratorExists(std::string name) : bool
+		+isModelLoaded() : bool
+		-isParameterUsed(const std::string& sid) : bool
+		-populateResult() : bool
+		+steadyStateSolverExists(const std::string& name) : bool
+		+getCompiler() : class Compiler*
+		-impl : class RoadRunnerImpl*
+		-dataVersionNumber : const int
+		-fileMagicNumber : const int
+		+getBoundarySpeciesByIndex(const int& index) : double
+		+getCC(const std::string& variableName, const std::string& parameterName) : double
+		+getDiffStepSize() : double {query}
+		+getEE(const std::string& reactionName, const std::string& parameterName) : double
+		+getEE(const std::string& reactionName, const std::string& parameterName, bool computeSteadyState) : double
+		+getGlobalParameterByIndex(const int& index) : double
+		+getGlobalParameterByName(const std::string& param) : double
+		-getNthSelectedOutput(size_t index, double currentTime) : double
+		+getScaledFloatingSpeciesElasticity(const std::string& reactionName, const std::string& speciesName) : double
+		+getSteadyStateThreshold() : double {query}
+		+getUnscaledParameterElasticity(const std::string& reactionName, const std::string& parameterName) : double
+		+getUnscaledSpeciesElasticity(int reactionId, int speciesIndex) : double
+		+getValue(const std::string& sel) : double
+		+getValue(const SelectionRecord& record) : double
+		-getVariableValue(VariableType variableType, const int variableIndex) : double
+		+getuCC(const std::string& variableName, const std::string& parameterName) : double
+		+getuEE(const std::string& reactionName, const std::string& parameterName) : double
+		+getuEE(const std::string& reactionName, const std::string& parameterName, bool computeSteadystate) : double
+		+internalOneStep(double currentTime, double stepSize, bool reset) : double
+		+mcaSteadyState() : double
+		+oneStep(double currentTime, double stepSize, bool reset) : double
+		+steadyState(Dictionary* dict) : double
+		+getInstanceCount() : int
+		+getInstanceID() : int
+		+getNumberOfIndependentSpecies() : int
+		+getSupportedIdTypes() : int
+		-getTimeRowIndex() : int
+		+getBoundarySpeciesAmountsNamedArray() : ls::DoubleMatrix
+		+getBoundarySpeciesConcentrationsNamedArray() : ls::DoubleMatrix
+		+getConservationMatrix() : ls::DoubleMatrix
+		+getDependentRatesOfChangeNamedArray() : ls::DoubleMatrix
+		+getExtendedStoichiometryMatrix() : ls::DoubleMatrix
+		+getFloatingSpeciesAmountsNamedArray() : ls::DoubleMatrix
+		+getFloatingSpeciesConcentrationsNamedArray() : ls::DoubleMatrix
+		+getFrequencyResponse(double startFrequency, int numberOfDecades, int numberOfPoints, const std::string& parameterName, const std::string& variableName, bool useDB, bool useHz) : ls::DoubleMatrix
+		+getFullJacobian() : ls::DoubleMatrix
+		+getFullReorderedJacobian() : ls::DoubleMatrix
+		+getFullStoichiometryMatrix() : ls::DoubleMatrix
+		+getIndependentRatesOfChangeNamedArray() : ls::DoubleMatrix
+		+getKMatrix() : ls::DoubleMatrix
+		+getL0Matrix() : ls::DoubleMatrix
+		+getLinkMatrix() : ls::DoubleMatrix
+		+getNrMatrix() : ls::DoubleMatrix
+		+getRatesOfChangeNamedArray() : ls::DoubleMatrix
+		+getReducedJacobian(double h) : ls::DoubleMatrix
+		+getReducedStoichiometryMatrix() : ls::DoubleMatrix
+		+getScaledConcentrationControlCoefficientMatrix() : ls::DoubleMatrix
+		+getScaledElasticityMatrix() : ls::DoubleMatrix
+		+getScaledFluxControlCoefficientMatrix() : ls::DoubleMatrix
+		+getSteadyStateValuesNamedArray() : ls::DoubleMatrix
+		+getUnscaledConcentrationControlCoefficientMatrix() : ls::DoubleMatrix
+		+getUnscaledElasticityMatrix() : ls::DoubleMatrix
+		+getUnscaledFluxControlCoefficientMatrix() : ls::DoubleMatrix
+		+steadyStateNamedArray(const Dictionary* dict) : ls::DoubleMatrix
+		+getSimulationData() : ls::DoubleMatrix* {query}
+		+simulate(const Dictionary* options) : ls::DoubleMatrix*
+		+simulate(double start, double stop, int num) : ls::DoubleMatrix*
+		-getLibStruct() : ls::LibStructural*
+		+createSelection(const std::string& str) : rr::SelectionRecord
+		-createDefaultSteadyStateSelectionList() : size_t
+		-createDefaultTimeCourseSelectionList() : size_t
+		-createTimeCourseSelectionList() : size_t
+		+getCurrentSBML(int level, int version) : std::string
+		+{static} getExtendedVersionInfo() : std::string
+		+getInfo() : std::string
+		+getKineticLaw(const std::string& rid) : std::string
+		+getModelName() : std::string
+		+{static} getParamPromotedSBML(const std::string& sArg) : std::string
+		+getSBML(int level, int version) : std::string
+		+getTempDir() : std::string
+		-getSelectionList() : std::vector<SelectionRecord>
+		+getConservedMoietyValues() : std::vector<double>
+		+getDependentRatesOfChange() : std::vector<double>
+		+getIndependentRatesOfChange() : std::vector<double>
+		+getRatesOfChange() : std::vector<double>
+		+getSelectedValues() : std::vector<double>
+		+getSteadyStateValues() : std::vector<double>
+		+getFullEigenValues() : std::vector<ls::Complex>
+		+getReducedEigenValues() : std::vector<ls::Complex>
+		+getSelections() : std::vector<rr::SelectionRecord>&
+		+getSteadyStateSelections() : std::vector<rr::SelectionRecord>&
+		-getEigenValues(JacobianMode mode) : std::vector<std::complex<double>>
+		+getBoundarySpeciesConcentrationIds() : std::vector<std::string>
+		+getBoundarySpeciesIds() : std::vector<std::string>
+		+getConservedMoietyIds() : std::vector<std::string>
+		+getDependentFloatingSpeciesIds() : std::vector<std::string>
+		+getEigenValueIds() : std::vector<std::string>
+		+getExistingIntegratorNames() : std::vector<std::string>
+		+getFloatingSpeciesConcentrationIds() : std::vector<std::string>
+		+getFloatingSpeciesInitialConcentrationIds() : std::vector<std::string>
+		+getGlobalParameterIds() : std::vector<std::string>
+		+getIndependentFloatingSpeciesIds() : std::vector<std::string>
+		+{static} getRegisteredIntegratorNames() : std::vector<std::string>
+		+{static} getRegisteredSteadyStateSolverNames() : std::vector<std::string>
+		+getSteadyStateSelectionStrings() : std::vector<std::string> {query}
+		+addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate) : void
+		+addCompartment(const std::string& cid, double initVolume, bool forceRegenerate) : void
+		+addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate) : void
+		+addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate) : void
+		+addEventAssignment(const std::string& eid, const std::string& vid, const std::string& formula, bool forceRegenerate) : void
+		+addInitialAssignment(const std::string& vid, const std::string& formula, bool forceRegenerate) : void
+		+addParameter(const std::string& pid, double value, bool forceRegenerate) : void
+		+addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) : void
+		+addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate) : void
+		+addReaction(const std::string& sbmlRep, bool forceRegenerate) : void
+		+addReaction(const std::string& rid, std::vector<std::string> reactants, std::vector<std::string> products, const std::string& kineticLaw, bool forceRegenerate) : void
+		+addSpeciesAmount(const std::string& sid, const std::string& compartment, double initAmount, bool hasOnlySubstanceUnits, bool boundaryCondition, const std::string& substanceUnits, bool forceRegenerate) : void
+		+addSpeciesConcentration(const std::string& sid, const std::string& compartment, double initConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition, const std::string& substanceUnits, bool forceRegenerate) : void
+		+addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate) : void
+		-applySimulateOptions() : void
+		+changeInitialConditions(const std::vector<double>& ic) : void
+		-checkGlobalParameters() : void
+		-checkID(const std::string& functionName, const std::string& sid) : void
+		+{static} ensureSolversRegistered() : void
+		+evalModel() : void
+		-fixDependentSpeciesValues(int except, double* ref) : void
+		-getAllVariables(const libsbml::ASTNode* node, std::set<std::string>& ids) : void
+		+getIds(int types, std::list<std::string>& ids) : void
+		-getSelectedValues(ls::DoubleMatrix& results, int nRow, double currentTime) : void
+		-getSelectedValues(std::vector<double>& results, double currentTime) : void
+		-getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<std::string>& species) : void
+		-getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<std::string>& species, std::vector<std::string>& speciesNames) : void
+		+load(const std::string& uriOrSBML, const Dictionary* options) : void
+		-loadSelectionVector(std::istream &, std::vector<SelectionRecord> &) : void
+		+loadState(std::string filename) : void
+		-parseSpecies(const std::string& species, double* stoichiometry, char** sid) : void
+		+regenerateModel(bool forceRegenerate, bool reset) : void
+		+removeCompartment(const std::string& cid, bool forceRegenerate) : void
+		+removeEvent(const std::string& eid, bool forceRegenerate) : void
+		+removeEventAssignments(const std::string& eid, const std::string& vid, bool forceRegenerate) : void
+		+removeInitialAssignment(const std::string& vid, bool forceRegenerate) : void
+		+removeParameter(const std::string& pid, bool forceRegenerate) : void
+		+removeReaction(const std::string& rid, bool deleteUnusedParameters, bool forceRegenerate) : void
+		+removeRules(const std::string& vid, bool useInitialValue, bool forceRegenerate) : void
+		+removeSpecies(const std::string& sid, bool forceRegenerate) : void
+		-removeVariable(const std::string& sid) : void
+		+reset() : void
+		+reset(int options) : void
+		+resetSelectionLists() : void
+		-saveSelectionVector(std::ostream &, std::vector<SelectionRecord> &) : void
+		+saveState(std::string filename, char opt) : void
+		+setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate) : void
+		+setBoundarySpeciesByIndex(const int& index, const double& value) : void
+		+setCompiler(const std::string& compiler) : void
+		+setConservedMoietyAnalysis(bool value) : void
+		+setConstant(const std::string& sid, bool constant, bool forceRegenerate) : void
+		+setDiffStepSize(double val) : void
+		+setGlobalParameterByName(const std::string& param, double value) : void
+		+setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate) : void
+		+setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate) : void
+		+setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate) : void
+		+setIntegrator(const std::string& name) : void
+		+setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate) : void
+		+setOptions(const RoadRunnerOptions &) : void
+		+setPersistent(const std::string& eid, bool persistent, bool forceRegenerate) : void
+		+setReversible(const std::string& rid, bool reversible, bool forceRegenerate) : void
+		+setSelections(const std::vector<std::string>& selections) : void
+		+setSelections(const std::vector<rr::SelectionRecord>& selections) : void
+		+setSensitivitySolver(const std::string& name) : void
+		+setSimulateOptions(const SimulateOptions& settings) : void
+		+setSteadyStateSelections(const std::vector<std::string>& steadyStateSelections) : void
+		+setSteadyStateSelections(const std::vector<rr::SelectionRecord>& steadyStateSelections) : void
+		+setSteadyStateSolver(std::string name) : void
+		+setSteadyStateThreshold(double val) : void
+		+setTempDir(const std::string& folder) : void
+		+setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate) : void
+		+setValue(const std::string& id, double value) : void
+		+validateCurrentSBML() : void
+	}
+
+	class RR_DECLSPECRoadRunnerData {
+		+RoadRunnerData(const int& rSize, const int& cSize)
+		+RoadRunnerData(const std::vector<std::string>& colNames, const DoubleMatrix& data)
+		+RoadRunnerData(const RoadRunner* rr)
+		+~RoadRunnerData()
+		#mTheData : DoubleMatrix
+		#mWeights : DoubleMatrix
+		+getData() : DoubleMatrix& {query}
+		+getWeights() : DoubleMatrix& {query}
+		+operator>>(std::istream& ss, RoadRunnerData& data) : RR_DECLSPEC std :: istream&
+		+operator<<(std::ostream& ss, const RoadRunnerData& data) : RR_DECLSPEC std :: ostream&
+		+operator=(const RoadRunnerData& rhs) : RoadRunnerData&
+		+append(const RoadRunnerData& data) : bool
+		+check() : bool {query}
+		+hasWeights() : bool {query}
+		+loadSimpleFormat(const std::string& fileName) : bool
+		+readFrom(const std::string& fileName) : bool
+		+structuredResult : bool
+		+writeTo(const std::string& fileName) : bool {query}
+		+getDataElement(int row, int col) : double
+		+getTimeEnd() : double {query}
+		+getTimeStart() : double {query}
+		+getWeight(int row, int col) : double {query}
+		+operator()(const unsigned& row, const unsigned& col) : double {query}
+		+operator()(const unsigned& row, const unsigned& col) : double&
+		+cSize() : int {query}
+		#mDataPrecision : int
+		#mTimePrecision : int
+		+rSize() : int {query}
+		+dimension() : std::pair<int , int> {query}
+		+getColumnIndex(const std::string& colName) : std::ptrdiff_t {query}
+		+getColumnName(const int col) : std::string {query}
+		+getColumnNamesAsString() : std::string {query}
+		+getName() : std::string {query}
+		#mName : std::string
+		#mColumnNames : std::vector<std::string>
+		+getColumnNames() : std::vector<std::string>& {query}
+		+allocate(const size_t& cSize, const size_t& rSize) : void
+		+allocateWeights() : void
+		+clear() : void
+		+reSize(int rows, int cols) : void
+		+setColumnNames(const std::vector<std::string>& colNames) : void
+		+setData(const DoubleMatrix& theData) : void
+		+setDataElement(int row, int col, double value) : void
+		+setDataPrecision(const int& prec) : void
+		+setName(const std::string& name) : void
+		+setTimeDataPrecision(const int& prec) : void
+		+setWeight(int row, int col, double val) : void
+	}
+
+	class RR_DECLSPECSBMLModelSimulation {
+		+SBMLModelSimulation(std::filesystem::path dataOutputFolder, std::filesystem::path tempDataFilePath)
+		+~SBMLModelSimulation()
+		#mEngine : RoadRunner*
+		+GetResult() : RoadRunnerData
+		#mSettings : SimulateOptions
+		+CompileModel() : bool
+		+CreateModel() : bool
+		+DoCompileIfDllExists() : bool
+		+GenerateAndCompileModel() : bool
+		+GenerateModelCode() : bool
+		+LoadSBMLFromFile() : bool
+		+LoadSettings(const std::filesystem::path& fName) : bool
+		+SaveModelAsXML(std::filesystem::path& folder) : bool
+		+SaveResult() : bool
+		+SetDataOutputFolder(const std::filesystem::path& name) : bool
+		+SetModelFileName(const std::string& name) : bool
+		+SetModelFilePath(const std::filesystem::path& path) : bool
+		+SetNumberOfPoints(const int& pts) : bool
+		+SetSelectionList(const std::string& list) : bool
+		+SetTimeEnd(const double& tEnd) : bool
+		+SetTimeStart(const double& tStart) : bool
+		+Simulate() : bool
+		+UseEngine(RoadRunner* engine) : bool
+		#mCompileIfDllExists : bool
+		+mAbsolute : double
+		+mRelative : double
+		+GetDataOutputFolder() : std::filesystem::path
+		+GetModelsFullFilePath() : std::filesystem::path
+		+GetTempDataFolder() : std::filesystem::path
+		#mDataOutputFolder : std::filesystem::path
+		#mModelFilePath : std::filesystem::path
+		#mModelSettingsFileName : std::filesystem::path
+		#mSimulationLogFile : std::filesystem::path
+		#mTempDataFolder : std::filesystem::path
+		#mModelFileName : std::string
+		+ReCompileIfDllExists(const bool& doIt) : void
+		+loadSBMLTolerances(std::filesystem::path const& filename) : void
+	}
+
+	class RR_DECLSPECSBMLReader {
+		+{static} is_sbml(const std::string& str) : bool
+		+{static} read(const std::string& sbml_or_uri) : std::string
+	}
+
+	class RR_DECLSPECScannerException {
+		+ScannerException(const std::string& msg)
+	}
+
+	class RR_DECLSPECSelectionRecord {
+		+SelectionRecord(const int& index, SelectionType type, const std::string& p1, const std::string& p2)
+		+SelectionRecord(const std::string str)
+		+selectionType : SelectionType
+		+index : int
+		+p1 : std::string
+		+p2 : std::string
+		+to_repr() : std::string {query}
+		+to_string() : std::string {query}
+	}
+
+	class RR_DECLSPECSensitivitySolverFactory {
+		+{static} getInstance() : SensitivitySolverFactory&
+		+{static} Register() : void
+	}
+
+	class RR_DECLSPECSimulateOptions {
+		+SimulateOptions()
+		+copy_result : bool
+		+reset_model : bool
+		+structured_result : bool
+		+duration : double
+		+start : double
+		+steps : int
+		+output_file : std::string
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+amounts : std::vector<std::string>
+		+concentrations : std::vector<std::string>
+		+variables : std::vector<std::string>
+		+loadSBMLSettings(const std::string& filename) : void
+		+setItem(const std::string& key, const rr::Setting& value) : void
+	}
+
+	abstract class RR_DECLSPECSolver {
+		+Solver()
+		+Solver(ExecutableModel* model)
+		+~Solver()
+		+getModel() : ExecutableModel* {query}
+		#mModel : ExecutableModel*
+		+getValue(const std::string& key) : Setting {query}
+		+hasValue(const std::string& key) : Setting {query}
+		+getType(const std::string& key) : Setting::TypeId {query}
+		+getNumParams() : size_t {query}
+		+{abstract} getDescription() : std::string {query}
+		+{abstract} getHint() : std::string {query}
+		+{abstract} getName() : std::string {query}
+		+getParamDesc(int n) : std::string {query}
+		+getParamDisplayName(int n) : std::string {query}
+		+getParamHint(int n) : std::string {query}
+		+getParamName(size_t n) : std::string {query}
+		+getSettingsRepr() : std::string {query}
+		+getValueAsString(const std::string& key) : std::string
+		+settingsPyDictRepr() : std::string {query}
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+getDescription(const std::string& key) : std::string& {query}
+		+getDisplayName(const std::string& key) : std::string& {query}
+		+getHint(const std::string& key) : std::string& {query}
+		+getSettingsMap() : std::unordered_map<std::string , Setting>&
+		+getSettings() : std::vector<std::string> {query}
+		#settings : unordered_map<std::string, Setting>
+		#descriptions : unordered_map<std::string, std::string>
+		#display_names_ : unordered_map<std::string, std::string>
+		#hints : unordered_map<std::string, std::string>
+		#sorted_settings : vector<std::string>
+		#addSetting(const std::string& name, Setting val, std::string display_name, std::string hint, std::string description) : void
+		+resetSettings() : void
+		+setValue(const std::string& key, Setting value) : void
+		+updateSettings(Dictionary* inputSettings) : void
+	}
+
+	abstract class RR_DECLSPECSteadyStateSolver {
+		+~SteadyStateSolver()
+		+{abstract} solve() : double
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+loadConfigSettings() : void
+		+resetSettings() : void
+		+{abstract} syncWithModel(ExecutableModel* m) : void
+	}
+
+	class RR_DECLSPECSteadyStateSolverFactory {
+		+{static} getInstance() : SteadyStateSolverFactory&
+		+{static} Register() : void
+	}
+
+	class RR_DECLSPECTestSuiteModelSimulation {
+		+TestSuiteModelSimulation(const std::filesystem::path& dataOutputFolder, const std::filesystem::path& modelFilePath, const std::filesystem::path& modelFileName)
+		+~TestSuiteModelSimulation()
+		#mErrorData : RoadRunnerData
+		#mReferenceData : RoadRunnerData
+		#mResultData : RoadRunnerData
+		+CopyFilesToOutputFolder() : bool
+		+CreateErrorData() : bool
+		+LoadReferenceData(std::filesystem::path refDataFileName) : bool
+		+LoadSettings(const std::filesystem::path& fName) : bool
+		+LoadSettingsEx(const std::filesystem::path& settingsFName) : bool
+		+Pass() : bool
+		+SaveAllData() : bool
+		+LargestError() : double
+		#mLargestError : double
+		+NrOfFailingPoints() : int
+		#mCurrentCaseNumber : int
+		#mNrOfFailingPoints : int
+		#GetReferenceDataFileNameForCase(int caseNr) : std::filesystem::path
+		#GetSettingsFileNameForCase(int sim_case) : std::filesystem::path
+		#mModelSettingsFileName : std::filesystem::path
+		+SetCaseNumber(int cNr) : void
+	}
+
+	class RR_DECLSPECUninitializedValueException {
+		+UninitializedValueException(const std::string& msg)
+	}
+
+	class RR_DECLSPECVariant {
+		+VARIANT_IMPLICIT_CONVERT(std::string)
+		+VARIANT_IMPLICIT_CONVERT(long)
+		+VARIANT_IMPLICIT_CONVERT(bool)
+		+VARIANT_IMPLICIT_CONVERT(float)
+		+VARIANT_IMPLICIT_CONVERT(double)
+		+VARIANT_IMPLICIT_CONVERT(unsigned long)
+		+VARIANT_IMPLICIT_CONVERT(int)
+		+VARIANT_IMPLICIT_CONVERT(unsigned int)
+		+VARIANT_IMPLICIT_CONVERT(char)
+		+VARIANT_IMPLICIT_CONVERT(unsigned char)
+		+VARIANT_IMPLICIT_CONVERT(std::vector<double>)
+		+Variant()
+		+Variant(const T& val)
+		+Variant(const char* str)
+		+Variant(const Variant& other)
+		+~Variant()
+		+convert() : T {query}
+		+{static} parse(const std::string& val) : Variant
+		+operator=(const T& value) : Variant&
+		+operator=(const Variant& other) : Variant&
+		+isBool() : bool {query}
+		+isDoubleVector() : bool {query}
+		+isEmpty() : bool {query}
+		+isInteger() : bool {query}
+		+isNumeric() : bool {query}
+		+isSigned() : bool {query}
+		+isString() : bool {query}
+		+type() : int {query}
+		+pythonRepr() : std::string {query}
+		+toString() : std::string {query}
+		+typeInfo() : std::type_info& {query}
+		-self : struct VariantImpl*
+		-alloc() : void
+		-assign(const std::type_info& info, const void* value) : void
+		-convert_to(const std::type_info& info, void* value) : void {query}
+	}
+
+	class SVD {
+		+SVD(ls::DoubleMatrix& matrix)
+		+isSingular() : bool
+		+rank(double tol) : int {query}
+		-lda_ : integer
+		-ldu_ : integer
+		-ldvt_ : integer
+		-nCols_ : integer
+		-nRows_ : integer
+		-inputMatrix_ : ls::DoubleMatrix
+		-leftSingularVectors_ : ls::DoubleMatrix
+		-rightSingularVectors_ : ls::DoubleMatrix
+		-singularValues_ : ls::DoubleMatrix
+		+getLeftSingularVectors() : ls::DoubleMatrix& {query}
+		+getRightSingularVectors() : ls::DoubleMatrix& {query}
+		+getSingularValues() : ls::DoubleMatrix& {query}
+		-inputMatrixTranspose_ : std::unique_ptr<ls::DoubleMatrix>
+		-compute() : void
+	}
+
+	class SensitivityResult {
+	}
+
+	abstract class SensitivitySolver {
+		+{abstract} solve() : SensitivityResult
+		+{abstract} getDescription() : std::string {query}
+		+{abstract} getHint() : std::string {query}
+		+{abstract} getName() : std::string {query}
+		+toRepr() : std::string {query}
+		+toString() : std::string {query}
+		+loadConfigSettings() : void
+		+resetSettings() : void
+	}
+
+	class Setting {
+		+Setting(setting_t value)
+		+Setting(T settingValue)
+		+Setting(const char* settingValue)
+		+Setting(std::int64_t settingValue)
+		+Setting()
+		+Setting(const Setting& setting)
+		+Setting(Setting&& setting)
+		+decltype(auto ) visit ( Func function) {query}
+		+operatorT() {query}
+		+vector<double>()
+		+getAs() : As {query}
+		+{static} parse(std::string& val) : Setting
+		+operator=(const T& setting) : Setting&
+		+operator=(T&& setting) : Setting&
+		+operator=(const Setting& setting) : Setting&
+		+operator=(Setting&& setting) : Setting&
+		+get() : SettingType
+		+get() : SettingType {query}
+		+get_if() : T*
+		+isBool() : bool {query}
+		+isDouble() : bool {query}
+		+isDoubleVector() : bool {query}
+		+isEmpty() : bool {query}
+		+isInteger() : bool {query}
+		+isNumeric() : bool {query}
+		+isSigned() : bool {query}
+		+isString() : bool {query}
+		+isType() : bool
+		+{static} isValidType() : bool
+		+operator!=(const T& setting) : bool
+		+operator!=(const char* setting) : bool
+		+operator!=(const Setting& setting) : bool
+		+operator==(const T& otherSetting) : bool
+		+operator==(const Setting& setting) : bool
+		+operator==(const char* setting) : bool
+		+type() : int {query}
+		-value_ : setting_t
+		+getValue() : setting_t& {query}
+		+pythonRepr() : std::string {query}
+		+toString() : std::string
+		+typeInfo() : std::type_info& {query}
+		-checkValidType() : void
+	}
+
+	class SteadyStateSolverDecorator {
+		+SteadyStateSolverDecorator()
+		+SteadyStateSolverDecorator(SteadyStateSolver* solver)
+		+~SteadyStateSolverDecorator()
+		#solver_ : SteadyStateSolver*
+		+solve() : double
+		-decoratorName() : std::string {query}
+		+getDescription() : std::string {query}
+		+getHint() : std::string {query}
+		+getName() : std::string {query}
+		+resetSettings() : void
+		+syncWithModel(ExecutableModel* m) : void
+	}
+
+	enum EventListener::Result {
+		HALT_SIMULATION
+	}
+
+	enum LogLevel {
+		lAny
+		lDebug
+		lDebug1
+		lDebug2
+		lDebug3
+		lDebug4
+		lDebug5
+		lError
+		lInfo
+		lUser
+		lWarning
+	}
+
+	enum RR_DECLSPECConfig::Keys {
+		ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS
+		CONFIG_END
+		CVODE_MIN_ABSOLUTE
+		CVODE_MIN_RELATIVE
+		K_ROWS_PER_WRITE
+		LLVM_SYMBOL_CACHE
+		LOADSBMLOPTIONS_CONSERVED_MOIETIES
+		LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS
+		LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION
+		LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION
+		LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION
+		LOADSBMLOPTIONS_OPTIMIZE_GVN
+		LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING
+		LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER
+		LOADSBMLOPTIONS_PERMISSIVE
+		LOADSBMLOPTIONS_READ_ONLY
+		LOADSBMLOPTIONS_RECOMPILE
+		LOADSBMLOPTIONS_USE_MCJIT
+		LOGGER_LOG_FILE_PATH
+		MAX_OUTPUT_ROWS
+		MODEL_RESET
+		OPTIMIZE_REACTION_RATE_SELECTION
+		PYTHON_ENABLE_NAMED_MATRIX
+		RANDOM_SEED
+		ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES
+		ROADRUNNER_DISABLE_WARNINGS
+		ROADRUNNER_JACOBIAN_MODE
+		ROADRUNNER_JACOBIAN_STEP_SIZE
+		SBML_APPLICABLEVALIDATORS
+		SIMULATEOPTIONS_ABSOLUTE
+		SIMULATEOPTIONS_COPY_RESULT
+		SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP
+		SIMULATEOPTIONS_DURATION
+		SIMULATEOPTIONS_INITIAL_TIMESTEP
+		SIMULATEOPTIONS_INTEGRATOR
+		SIMULATEOPTIONS_MAXIMUM_NUM_STEPS
+		SIMULATEOPTIONS_MAXIMUM_TIMESTEP
+		SIMULATEOPTIONS_MINIMUM_TIMESTEP
+		SIMULATEOPTIONS_MULTI_STEP
+		SIMULATEOPTIONS_RELATIVE
+		SIMULATEOPTIONS_STEPS
+		SIMULATEOPTIONS_STIFF
+		SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP
+		SIMULATEOPTIONS_STRUCTURED_RESULT
+		STEADYSTATE_APPROX
+		STEADYSTATE_APPROX_MAX_STEPS
+		STEADYSTATE_APPROX_TIME
+		STEADYSTATE_APPROX_TOL
+		STEADYSTATE_BROYDEN
+		STEADYSTATE_LINEARITY
+		STEADYSTATE_MAXIMUM_NUM_STEPS
+		STEADYSTATE_MINIMUM_DAMPING
+		STEADYSTATE_PRESIMULATION
+		STEADYSTATE_PRESIMULATION_MAX_STEPS
+		STEADYSTATE_PRESIMULATION_TIME
+		STEADYSTATE_RELATIVE
+		TEMP_DIR_PATH
+		VALIDATION_IN_REGENERATION
+	}
+
+	enum RR_DECLSPECConfig::ROADRUNNER_DISABLE_WARNINGS_VALUES {
+		ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY
+		ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE
+	}
+
+	enum RR_DECLSPECConfig::ROADRUNNER_JACOBIAN_MODE_VALUES {
+		ROADRUNNER_JACOBIAN_MODE_AMOUNTS
+		ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS
+	}
+
+	enum RR_DECLSPECExecutableModel::ExecutableModelFlags {
+		INTEGRATION
+		OPTIMIZE_REACTION_RATE_SELECTION
+	}
+
+	enum RR_DECLSPECIntegrator::IntegrationMethod {
+		Deterministic
+		Hybrid
+		Other
+		Stochastic
+	}
+
+	enum RR_DECLSPECLoadSBMLOptions::LoadOpt {
+		NO_DEFAULT_SELECTIONS
+	}
+
+	enum RR_DECLSPECLoadSBMLOptions::ModelGeneratorOpt {
+		CONSERVED_MOIETIES
+		LLVM_SYMBOL_CACHE
+		MUTABLE_INITIAL_CONDITIONS
+		OPTIMIZE
+		OPTIMIZE_CFG_SIMPLIFICATION
+		OPTIMIZE_DEAD_CODE_ELIMINATION
+		OPTIMIZE_DEAD_INST_ELIMINATION
+		OPTIMIZE_GVN
+		OPTIMIZE_INSTRUCTION_COMBINING
+		OPTIMIZE_INSTRUCTION_SIMPLIFIER
+		READ_ONLY
+		RECOMPILE
+		TURN_ON_VALIDATION
+		USE_MCJIT
+	}
+
+	enum RR_DECLSPECLogger::Level {
+		LOG_CRITICAL
+		LOG_CURRENT
+		LOG_DEBUG
+		LOG_ERROR
+		LOG_FATAL
+		LOG_INFORMATION
+		LOG_NOTICE
+		LOG_TRACE
+		LOG_WARNING
+	}
+
+	enum RR_DECLSPECRoadRunner::JacobianMode {
+		JACOBIAN_FULL
+		JACOBIAN_REDUCED
+	}
+
+	enum RR_DECLSPECRoadRunner::VariableType {
+		vtFlux
+		vtSpecies
+	}
+
+	enum RR_DECLSPECRoadRunnerOptions::Options {
+		DISABLE_PYTHON_DYNAMIC_PROPERTIES
+	}
+
+	enum RR_DECLSPECSelectionRecord::SelectionType {
+		ALL
+		ALL_DEPENDENT
+		ALL_DEPENDENT_AMOUNT
+		ALL_DEPENDENT_CONCENTRATION
+		ALL_INDEPENDENT
+		ALL_INDEPENDENT_AMOUNT
+		ALL_INDEPENDENT_CONCENTRATION
+		AMOUNT
+		BOUNDARY
+		BOUNDARY_AMOUNT
+		BOUNDARY_CONCENTRATION
+		COMPARTMENT
+		CONCENTRATION
+		CONSERVED_MOIETY
+		CONTROL
+		CURRENT
+		DEPENDENT
+		DEPENDENT_FLOATING_AMOUNT
+		DEPENDENT_INITIAL_GLOBAL_PARAMETER
+		EIGENVALUE_COMPLEX
+		EIGENVALUE_IMAG
+		EIGENVALUE_REAL
+		ELASTICITY
+		ELEMENT
+		EVENT
+		FLOATING
+		FLOATING_AMOUNT
+		FLOATING_AMOUNT_RATE
+		FLOATING_CONCENTRATION
+		FLOATING_CONCENTRATION_RATE
+		GLOBAL_PARAMETER
+		GLOBAL_PARAMETER_RATE
+		INDEPENDENT
+		INDEPENDENT_FLOATING_AMOUNT
+		INITIAL
+		INITIAL_AMOUNT
+		INITIAL_COMPARTMENT
+		INITIAL_CONCENTRATION
+		INITIAL_FLOATING_AMOUNT
+		INITIAL_FLOATING_CONCENTRATION
+		INITIAL_GLOBAL_PARAMETER
+		MODEL_STATE
+		RATE
+		REACTION
+		REACTION_RATE
+		SBML_INITIALIZE
+		STATE_VECTOR
+		STOICHIOMETRY
+		TIME
+		UNKNOWN
+		UNKNOWN_CONCENTRATION
+		UNKNOWN_ELEMENT
+		UNSCALED
+		UNSCALED_CONTROL
+		UNSCALED_ELASTICITY
+		_COMPARTMENT
+		_GLOBAL_PARAMETER
+	}
+
+	enum RR_DECLSPECVariant::TypeId {
+		BOOL
+		CHAR
+		DOUBLE
+		DOUBLEVECTOR
+		EMPTY
+		FLOAT
+		INT32
+		INT64
+		STRING
+		UCHAR
+		UINT32
+		UINT64
+	}
+
+	enum SBMLType {
+		stCompartment
+		stParameter
+		stSpecies
+	}
+
+	enum Setting::TypeId {
+		BOOL
+		CHAR
+		DOUBLE
+		DOUBLEVECTOR
+		EMPTY
+		FLOAT
+		INT32
+		INT64
+		STRING
+		UCHAR
+		UINT32
+		UINT64
+	}
+
+	enum ValidateSBML {
+		VALIDATE_GENERAL
+		VALIDATE_IDENTIFIER
+		VALIDATE_MATHML
+		VALIDATE_MODELING_PRACTICE
+		VALIDATE_OVERDETERMINED
+		VALIDATE_SBO
+		VALIDATE_UNITS
+	}
+
+	class RR_DECLSPECRoadRunnerOptions {
+		+RoadRunnerOptions()
+		+jacobianStepSize : double
+		+flags : std::uint32_t
+	}
+
+	class csr_matrix {
+		+values : double*
+		+m : unsigned
+		+n : unsigned
+		+nnz : unsigned
+		+colidx : unsigned*
+		+rowptr : unsigned*
+	}
+
+	class isValidVariantTypeT,std::variantALL_T... <template<typename T, typename ... ALL_T>> {
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+rr.CVODEIntegrator <|-- rr.SensitivitySolver
+
+
+rr.KinsolSteadyStateSolver <|-- rr.RR_DECLSPECFixedPointIteration
+
+
+rr.KinsolSteadyStateSolver <|-- rr.RR_DECLSPECNewtonIteration
+
+
+rr.SensitivitySolver <|-- rr.AdjointSensitivitySolver
+
+
+rr.SensitivitySolver <|-- rr.ForwardSensitivitySolver
+
+
+rr.SteadyStateSolverDecorator <|-- rr.ApproxSteadyStateDecorator
+
+
+rr.SteadyStateSolverDecorator <|-- rr.PresimulationDecorator
+
+
+rr.SteadyStateSolverDecorator <|-- rr.PresimulationProgramDecorator
+
+
+
+
+
+/' Aggregation relationships '/
+
+rr.KinsolSteadyStateSolver *-- rr.Setting
+
+
+rr.RR_DECLSPECSolver *-- rr.Setting
+
+
+
+
+
+
+/' Nested objects '/
+
+rr.EventListener +-- rr.EventListener::Result
+
+
+rr.RR_DECLSPECConfig +-- rr.RR_DECLSPECConfig::Keys
+
+
+rr.RR_DECLSPECConfig +-- rr.RR_DECLSPECConfig::ROADRUNNER_DISABLE_WARNINGS_VALUES
+
+
+rr.RR_DECLSPECConfig +-- rr.RR_DECLSPECConfig::ROADRUNNER_JACOBIAN_MODE_VALUES
+
+
+rr.RR_DECLSPECExecutableModel +-- rr.RR_DECLSPECExecutableModel::ExecutableModelFlags
+
+
+rr.RR_DECLSPECIntegrator +-- rr.RR_DECLSPECIntegrator::IntegrationMethod
+
+
+rr.RR_DECLSPECLoadSBMLOptions +-- rr.RR_DECLSPECLoadSBMLOptions::LoadOpt
+
+
+rr.RR_DECLSPECLoadSBMLOptions +-- rr.RR_DECLSPECLoadSBMLOptions::ModelGeneratorOpt
+
+
+rr.RR_DECLSPECLogger +-- rr.RR_DECLSPECLogger::Level
+
+
+rr.RR_DECLSPECRoadRunner +-- rr.RR_DECLSPECRoadRunner::JacobianMode
+
+
+rr.RR_DECLSPECRoadRunner +-- rr.RR_DECLSPECRoadRunner::VariableType
+
+
+rr.RR_DECLSPECRoadRunnerOptions +-- rr.RR_DECLSPECRoadRunnerOptions::Options
+
+
+rr.RR_DECLSPECSelectionRecord +-- rr.RR_DECLSPECSelectionRecord::SelectionType
+
+
+rr.RR_DECLSPECVariant +-- rr.RR_DECLSPECVariant::TypeId
+
+
+rr.Setting +-- rr.Setting::TypeId
+
+
+
+
+@enduml

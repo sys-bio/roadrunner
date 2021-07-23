@@ -26,13 +26,15 @@ namespace rr
     Solver::Solver(ExecutableModel* model)
         : mModel(model){}
 
-    void Solver::addSetting(const std::string& name, Setting val, std::string display_name, std::string hint, std::string description)
-    {
-        sorted_settings.push_back(name);
-        settings[name] = val;
-        display_names_[name] = std::move(display_name);
-        hints[name] = std::move(hint);
-        descriptions[name] = std::move(description);
+    void Solver::addSetting(const std::string& name, Setting val, std::string display_name, std::string hint, std::string description) {
+        if (settings.find(name) == settings.end()) {
+            // only add the new setting if its not already present
+            sorted_settings.push_back(name);
+            settings[name] = std::move(val);
+            display_names_[name] = std::move(display_name);
+            hints[name] = std::move(hint);
+            descriptions[name] = std::move(description);
+        }
     }
 
     void Solver::updateSettings(Dictionary * inputSettings)
@@ -74,7 +76,7 @@ namespace rr
     {
         if (sorted_settings.size() != settings.size())
             throw std::runtime_error("Setting count inconsistency");
-        return sorted_settings.size();
+        return settings.size();
     }
 
     std::string Solver::getParamName(size_t n) const
@@ -122,9 +124,11 @@ namespace rr
 
     void Solver::setValue(const std::string& key, Setting value)
     {
-        if (settings.find(key) ==  settings.end())
-            throw std::invalid_argument(getName() + " invalid key: " + key);
-        settings[key] = std::move(value);
+        if (settings.find(key) ==  settings.end()){
+            std::string name = getName();
+            throw std::invalid_argument(name + " invalid key: " + key);
+        }
+        settings[key] =  std::move(value);
     }
 
 
@@ -166,7 +170,7 @@ namespace rr
     std::string Solver::getSettingsRepr() const
     {
         std::stringstream ss;
-        for(size_t n=0; n<getNumParams(); ++n){
+        for(size_t n=0; n < getNumParams(); ++n){
             ss << "    " << std::setw(20) << getParamName(n) << ": " << getValue(getParamName(n)).toString() << "\n";
         }
         return ss.str();
@@ -175,7 +179,7 @@ namespace rr
     std::string Solver::settingsPyDictRepr() const
     {
         std::stringstream ss;
-        for(size_t n=0; n<getNumParams(); ++n)
+        for(size_t n=0; n < getNumParams(); ++n)
             ss << (n ? ", " : "") << "'" << getParamName(n) << "': " << getValue(getParamName(n)).toString();
         return ss.str();
     }
