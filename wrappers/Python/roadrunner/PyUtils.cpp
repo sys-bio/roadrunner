@@ -29,6 +29,8 @@
 #include <numpy/arrayobject.h>
 #include "structmember.h"
 
+// note: useful https://pythonextensionpatterns.readthedocs.io/en/latest/cpp_and_numpy.html
+
 // python object.h
 #include "object.h"
 
@@ -42,12 +44,6 @@ typedef vector<string> str_vector;
 
 namespace rr {
 
-/// Imported from graphfab
-#define STRINGIFY(x) #x
-/// Imported from graphfab
-#define EXPAND_AND_STRINGIFY(x) STRINGIFY(x)
-
-/// Imported from graphfab
     char *rr_strclone(const char *src) {
         if (!src) {
             assert(0 && "rr_strclone passed null arg");
@@ -62,19 +58,17 @@ namespace rr {
         }
     }
 
-/// Imported from graphfab
     void rr_strfree(const char *str) {
         free((void *) str);
     }
 
-/**
- * @brief Get the UTF-8 encoded buffer for a Python string
- * @details Imported from graphfab
- * @note Caller must free the buffer using @ref rr_strfree
- */
+    /**
+     * @brief Get the UTF-8 encoded buffer for a Python string
+     * @details Imported from graphfab
+     * @note Caller must free the buffer using @ref rr_strfree
+     */
     char *rrPyString_getString(PyObject *uni) {
         char *str = NULL;
-//     #pragma message "PY_MAJOR_VERSION = " EXPAND_AND_STRINGIFY(PY_MAJOR_VERSION)
 #if PY_MAJOR_VERSION == 3
         PyObject *bytes = PyUnicode_AsUTF8String(uni);
         str = rr_strclone(PyBytes_AsString(bytes));
@@ -92,26 +86,17 @@ namespace rr {
         return str;
     }
 
-/// Imported from graphfab
     int rrPyCompareString(PyObject *uni, const char *str) {
-#if SAGITTARIUS_DEBUG_LEVEL >= 2
-        {
-            printf("PyCompareString started\n");
-        }
-#endif
-        {
-            char *s = rrPyString_getString(uni);
-            int cmp = !strcmp(s, str);
-            rr_strfree(s);
+        char *s = rrPyString_getString(uni);
+        int cmp = !strcmp(s, str);
+        rr_strfree(s);
 
-            if (cmp)
-                return 1;
-            else
-                return 0;
-        }
+        if (cmp)
+            return 1;
+        else
+            return 0;
     }
 
-/// Imported from graphfab
     PyObject *rrPyString_FromString(const char *s) {
 #if PY_MAJOR_VERSION == 3
         return PyUnicode_FromString(s);
@@ -120,7 +105,7 @@ namespace rr {
 #endif
     }
 
-/// Imported from graphfab
+
     PyObject *rrPyString_FromStringAndSize(const char *s, Py_ssize_t size) {
 #if PY_MAJOR_VERSION == 3
         return PyUnicode_FromStringAndSize(s, size);
@@ -401,9 +386,9 @@ namespace rr {
 
 
     PyObject *doublematrix_to_py(const ls::DoubleMatrix *m, bool structured_result, bool copy_result) {
-                ls::DoubleMatrix *mat = const_cast<ls::DoubleMatrix *>(m);
+        ls::DoubleMatrix *mat = const_cast<ls::DoubleMatrix *>(m);
 
-                // a valid array descriptor:
+        // a valid array descriptor:
         // In [87]: b = array(array([0,1,2,3]),
         //      dtype=[('r', 'f8'), ('g', 'f8'), ('b', 'f8'), ('a', 'f8')])
 
@@ -473,57 +458,57 @@ namespace rr {
             // standard array result.
             // this version just wraps the roadrunner owned data.
         else {
-                        int rows = mat->numRows();
+            int rows = mat->numRows();
             int cols = mat->numCols();
             PyObject *pArray = NULL;
-            
+
             if (copy_result) {
 
                 rrLog(rr::Logger::LOG_DEBUG) << "copying result data";
 
                 // passing a NULL for data tells numpy to allocate its own data
 
-                                // make a 1D array in this case
+                // make a 1D array in this case
                 if (cols == 1 && mat->getColNames().size() == 0) {
-                                        int nd = 1;
+                    int nd = 1;
                     npy_intp dims[1] = {rows};
                     pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE,
                                          NULL, NULL, 0, 0, NULL);
                 } else {
-                                        int nd = 2;
-                                        npy_intp dims[2] = {rows, cols};
-                                        pArray = NamedArray_New(nd, dims, NULL,
+                    int nd = 2;
+                    npy_intp dims[2] = {rows, cols};
+                    pArray = NamedArray_New(nd, dims, NULL,
                                             0, mat);
-                                    }
-                
+                }
+
 //                VERIFY_PYARRAY(pArray);
-                
+
                 // copy our data into the numpy array
                 double *data = static_cast<double *>(PyArray_DATA(pArray));
-                                memcpy(data, mat->getArray(), sizeof(double) * rows * cols);
-                
+                memcpy(data, mat->getArray(), sizeof(double) * rows * cols);
+
             } else {
-                
+
                 rrLog(rr::Logger::LOG_DEBUG) << "wraping existing data";
-                
+
                 double *data = mat->getArray();
-                
+
                 if (cols == 1 && mat->getColNames().size() == 0) {
-                                        int nd = 1;
-                                        npy_intp dims[1] = {rows};
-                                        pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE,
+                    int nd = 1;
+                    npy_intp dims[1] = {rows};
+                    pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE,
                                          NULL, data, 0, NPY_ARRAY_CARRAY, NULL);
-                                    } else {
+                } else {
                     int nd = 2;
-                                        npy_intp dims[2] = {rows, cols};
-                                        pArray = NamedArray_New(nd, dims, data,
+                    npy_intp dims[2] = {rows, cols};
+                    pArray = NamedArray_New(nd, dims, data,
                                             NPY_ARRAY_CARRAY, mat);
-                                    }
+                }
 
 //                                VERIFY_PYARRAY(pArray);
-                
+
             }
-                        return pArray;
+            return pArray;
         }
     }
 
@@ -532,7 +517,7 @@ namespace rr {
  * and reuses doublematrix_to_py
  */
     PyObject *rrDoubleMatrix_to_py(const rr::Matrix<double> *m, bool copy_result) {
-                rr::Matrix<double> *mat = const_cast<rr::Matrix<double> *>(m);
+        rr::Matrix<double> *mat = const_cast<rr::Matrix<double> *>(m);
         // this code doesn't work due to some bug in NamedArray stuff. No time to figure this out now
 //        bool structured_result = true;
 //        if (mat->rowNames.empty() && mat->colNames.empty()) {
@@ -564,7 +549,7 @@ namespace rr {
      * @brief Use the Python C API to convert a string vector to a Python list of
      * strings.
      */
-    PyObject *convertStringVectorToPython(const std::vector<std::string>& vec);
+    PyObject *convertStringVectorToPython(const std::vector<std::string> &vec);
 
 
     static void NamedArrayObject_dealloc(NamedArrayObject *self) {
@@ -862,31 +847,31 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
                              const ls::DoubleMatrix *mat) {
         bool named = Config::getValue(Config::PYTHON_ENABLE_NAMED_MATRIX);
 
-                if (named) {
-                        rrLog(Logger::LOG_INFORMATION) << "creating NEW style array";
+        if (named) {
+            rrLog(Logger::LOG_INFORMATION) << "creating NEW style array";
 
-                        //         (*(PyObject * (*)(PyTypeObject *, int, npy_intp const *, int, npy_intp const *, void *, int, int, PyObject *)) 
-            NamedArrayObject *array = (NamedArrayObject *) PyArray_New(
+            //         (*(PyObject * (*)(PyTypeObject *, int, npy_intp const *, int, npy_intp const *, void *, int, int, PyObject *))
+            NamedArrayObject *array = (NamedArrayObject * )PyArray_New(
                     &NamedArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
                     pyFlags, NULL);
-            
+
             if (array == NULL) {
-                                const char *error = rrGetPyErrMessage();
-                                rrLog(Logger::LOG_CRITICAL) << error;
-                                rr_strfree(error);
-                                return NULL;
+                const char *error = rrGetPyErrMessage();
+                rrLog(Logger::LOG_CRITICAL) << error;
+                rr_strfree(error);
+                return NULL;
             }
 
-                        array->rowNames = stringvector_to_py(mat->getRowNames());
-                        array->colNames = stringvector_to_py(mat->getColNames());
-                        array->test1 = 1;
-                        array->test2 = 2;
-                        array->test3 = 3;
-                        return (PyObject *) array;
+            array->rowNames = stringvector_to_py(mat->getRowNames());
+            array->colNames = stringvector_to_py(mat->getColNames());
+            array->test1 = 1;
+            array->test2 = 2;
+            array->test3 = 3;
+            return (PyObject *) array;
 
         } else {
-                        rrLog(Logger::LOG_INFORMATION) << "creating old style array";
-                        return PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
+            rrLog(Logger::LOG_INFORMATION) << "creating old style array";
+            return PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
                                pyFlags, NULL);
         }
     }
@@ -970,29 +955,29 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
     void pyutil_init(PyObject *module) {
         // set up the base class to be the numpy ndarray PyArray_Type
         NamedArray_Type.tp_base = &PyArray_Type;
-        
+
 
         // set up the pointers of the NamedArray_MappingMethods to point
         // to the numpy ones
         PyMappingMethods *numpyMappMethods = PyArray_Type.tp_as_mapping;
-        
+
         assert(numpyMappMethods && "Numpy PyMappingMethods is NULL");
 
-                NamedArray_MappingMethods = *numpyMappMethods;
-        
+        NamedArray_MappingMethods = *numpyMappMethods;
+
         // set our getitem pointer
         NamedArray_MappingMethods.mp_subscript = (binaryfunc) NammedArray_subscript;
-        
+
         int result;
-        
+
         if ((result = PyType_Ready(&NamedArray_Type)) < 0) {
-                        std::cout << "PyType_Ready(&NamedArray_Type)) Failed, error: " << result;
-                        return;
+            std::cout << "PyType_Ready(&NamedArray_Type)) Failed, error: " << result;
+            return;
         }
-        
+
         Py_INCREF(&NamedArray_Type);
-                result = PyModule_AddObject(module, "NamedArray", (PyObject *) (&NamedArray_Type));
-            }
+        result = PyModule_AddObject(module, "NamedArray", (PyObject *) (&NamedArray_Type));
+    }
 
 
 /*****************************************************************************************
@@ -1098,14 +1083,14 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
     }
 
 
-    PyObject *convertStringVectorToPython(const std::vector<std::string>& vec) {
-        long long size = (long long)vec.size();
+    PyObject *convertStringVectorToPython(const std::vector<std::string> &vec) {
+        long long size = (long long) vec.size();
 
         PyObject *pyList = PyList_New(size);
 
         unsigned j = 0;
 
-        for (const auto& item : vec){
+        for (const auto &item : vec) {
             PyObject *pyStr = rrPyString_FromString(item.c_str());
             PyList_SET_ITEM(pyList, j, pyStr);
             j++;
@@ -1114,13 +1099,13 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
         return pyList;
     }
 
-    std::vector<std::string> convertPythonListToStringVector(PyObject* pyList) {
-        int size = (int)PyList_Size(pyList);
+    std::vector<std::string> convertPythonListToStringVector(PyObject *pyList) {
+        int size = (int) PyList_Size(pyList);
         std::vector<std::string> vec(size);
-        for (Py_ssize_t i=0; i<size; i++){
-            PyObject* item =  PyList_GetItem(pyList, i);
-            const char* s = PyUnicode_AsUTF8(item);
-            vec[(int)i] = std::string(s);
+        for (Py_ssize_t i = 0; i < size; i++) {
+            PyObject *item = PyList_GetItem(pyList, i);
+            const char *s = PyUnicode_AsUTF8(item);
+            vec[(int) i] = std::string(s);
         }
 
         return vec;
@@ -1195,11 +1180,11 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
         return result;
     }
 
-    PyObject* Matrix3DToNumpy::convertRowNames(){
+    PyObject *Matrix3DToNumpy::convertRowNames() {
         return convertStringVectorToPython(matrix_.getRowNames());
     }
 
-    PyObject* Matrix3DToNumpy::convertColNames(){
+    PyObject *Matrix3DToNumpy::convertColNames() {
         return convertStringVectorToPython(matrix_.getColNames());
     }
 
