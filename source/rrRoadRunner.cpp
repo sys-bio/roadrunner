@@ -526,7 +526,7 @@ namespace rr {
 
         // enable building the model using editing methods
         // and allow simultion without loading SBML files
-        impl->document = std::make_unique<libsbml::SBMLDocument>(level, version);
+        impl->document = new libsbml::SBMLDocument(level, version);
         impl->document->createModel();
 
     }
