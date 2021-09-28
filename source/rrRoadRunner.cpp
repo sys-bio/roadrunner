@@ -234,7 +234,7 @@ namespace rr {
 
         std::vector<SelectionRecord> mSteadyStateSelection;
 
-        std::unique_ptr<ExecutableModel> model;
+        ExecutableModel* model;
 
         /**
          * here for compatiblity, will go.
@@ -269,57 +269,66 @@ namespace rr {
         */
         bool simulatedSinceReset = false;
 
-        std::unique_ptr<libsbml::SBMLDocument> document;
+        libsbml::SBMLDocument* document;
 
-        RoadRunnerImpl(const std::string &uriOrSBML, const Dictionary *dict) :
-                mDiffStepSize(0.05),
-                mSteadyStateThreshold(1.E-2),
-                simulationResult(),
-                integrator(0),
-                mSelectionList(),
-                mSteadyStateSelection(),
-                mLS(0),
-                simulateOpt(),
-                mInstanceID(0),
-                loadOpt(dict),
-                compiler(Compiler::New()) {
+        RoadRunnerImpl(const std::string &uriOrSBML, const Dictionary *dict) 
+            : mDiffStepSize(0.05)
+            , mSteadyStateThreshold(1.E-2)
+            , simulationResult()
+            , integrator(0)
+            , mSelectionList()
+            , mSteadyStateSelection()
+            , mLS(0)
+            , simulateOpt()
+            , mInstanceID(0)
+            , loadOpt(dict)
+            , model(NULL)
+            , compiler(Compiler::New())
+            , document(NULL)
+        {
             // have to init integrators the hard way in c++98
             //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
         }
 
-        RoadRunnerImpl(const std::istream &in) :
-                mDiffStepSize(0.05),
-                mSteadyStateThreshold(1.E-2),
-                simulationResult(),
-                integrator(NULL),
-                integrators(),
-                steady_state_solver(NULL),
-                steady_state_solvers(),
-                mSelectionList(),
-                mSteadyStateSelection(),
-                mLS(0),
-                simulateOpt(),
-                mInstanceID(0),
-                compiler(Compiler::New()) {
+        RoadRunnerImpl(const std::istream &in) 
+            : mDiffStepSize(0.05)
+            , mSteadyStateThreshold(1.E-2)
+            , simulationResult()
+            , integrator(NULL)
+            , integrators()
+            , steady_state_solver(NULL)
+            , steady_state_solvers()
+            , mSelectionList()
+            , mSteadyStateSelection()
+            , mLS(0)
+            , simulateOpt()
+            , mInstanceID(0)
+            , model(NULL)
+            , compiler(Compiler::New()) 
+            , document(NULL)
+        {
 
         }
 
 
         RoadRunnerImpl(const std::string &_compiler, const std::string &_tempDir,
-                       const std::string &_supportCodeDir) :
-                mDiffStepSize(0.05),
-                mSteadyStateThreshold(1.E-2),
-                simulationResult(),
-                integrator(NULL),
-                integrators(),
-                steady_state_solver(NULL),
-                steady_state_solvers(),
-                mSelectionList(),
-                mSteadyStateSelection(),
-                mLS(0),
-                simulateOpt(),
-                mInstanceID(0),
-                compiler(Compiler::New()) {
+                       const std::string &_supportCodeDir) 
+            : mDiffStepSize(0.05)
+            , mSteadyStateThreshold(1.E-2)
+            , simulationResult()
+            , integrator(NULL)
+            , integrators()
+            , steady_state_solver(NULL)
+            , steady_state_solvers()
+            , mSelectionList()
+            , mSteadyStateSelection()
+            , mLS(0)
+            , simulateOpt()
+            , mInstanceID(0)
+            , model(NULL)
+            , compiler(Compiler::New()) 
+            , document(NULL)
+        {
             loadOpt.setItem("compiler", Setting(_compiler));
             loadOpt.setItem("tempDir", Setting(_tempDir));
             loadOpt.setItem("supportCodeDir", Setting(_supportCodeDir));
@@ -328,26 +337,27 @@ namespace rr {
             //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
         }
 
-        RoadRunnerImpl(const RoadRunnerImpl &rri) :
-                mInstanceID(0),
-                mDiffStepSize(rri.mDiffStepSize),
-                mSteadyStateThreshold(rri.mSteadyStateThreshold),
-                simulationResult(rri.simulationResult),
-                integrator(NULL),
-                integrators(),
-                steady_state_solver(NULL),
-                steady_state_solvers(),
-                mSelectionList(rri.mSelectionList),
-                loadOpt(rri.loadOpt),
-                mSteadyStateSelection(rri.mSteadyStateSelection),
-                //model(NULL), //Create below instead.  Constructing with 'NULL' doesn't work.
-                compiler(Compiler::New()),
-                mLS(NULL), //Create only if asked.
-                simulateOpt(rri.simulateOpt),
-                roadRunnerOptions(rri.roadRunnerOptions),
-                configurationXML(rri.configurationXML),
-                simulatedSinceReset(false),
-                document(rri.document->clone()) {
+        RoadRunnerImpl(const RoadRunnerImpl &rri) 
+            : mInstanceID(0)
+            , mDiffStepSize(rri.mDiffStepSize)
+            , mSteadyStateThreshold(rri.mSteadyStateThreshold)
+            , simulationResult(rri.simulationResult)
+            , integrator(NULL)
+            , integrators()
+            , steady_state_solver(NULL)
+            , steady_state_solvers()
+            , mSelectionList(rri.mSelectionList)
+            , loadOpt(rri.loadOpt)
+            , mSteadyStateSelection(rri.mSteadyStateSelection)
+            , model(NULL) //Create below instead.  Constructing with 'NULL' doesn't work.
+            , compiler(Compiler::New())
+            , mLS(NULL) //Create only if asked.
+            , simulateOpt(rri.simulateOpt)
+            , roadRunnerOptions(rri.roadRunnerOptions)
+            , configurationXML(rri.configurationXML)
+            , simulatedSinceReset(false)
+            , document(rri.document->clone())
+        {
             //There may be an easier way to save and load the model state, but this
             // is at least straightforward.  We call 'saveState', convert it to an
             // input stream, and use that to create a new model.  -LS
@@ -357,9 +367,8 @@ namespace rr {
 
                 std::istringstream istr(ss.str());
 
-                model = std::unique_ptr<ExecutableModel>(
-                        ExecutableModelFactory::createModel(istr, loadOpt.modelGeneratorOpt));
-                syncAllSolversWithModel(model.get());
+                model = ExecutableModelFactory::createModel(istr, loadOpt.modelGeneratorOpt);
+                syncAllSolversWithModel(model);
             }
         }
 
@@ -594,7 +603,7 @@ namespace rr {
         setSteadyStateSolver("nleq2");
         // make forward the default steady state solver
         setSensitivitySolver("forward");
-        impl->document = std::make_unique<libsbml::SBMLDocument>(3, 2);
+        impl->document = new libsbml::SBMLDocument(3, 2);
         impl->document->createModel();
 
     }
@@ -660,7 +669,7 @@ namespace rr {
     }
 
     ExecutableModel *RoadRunner::getModel() {
-        return impl->model.get();
+        return impl->model;
     }
 
     void RoadRunner::setOptions(const RoadRunnerOptions &opt) {
@@ -807,7 +816,7 @@ namespace rr {
         }
         rrLog(Logger::LOG_DEBUG) << "Creating new integrator for " << name;
         Integrator *result = dynamic_cast<Integrator *>(
-                IntegratorFactory::getInstance().New(name, impl->model.get())
+                IntegratorFactory::getInstance().New(name, impl->model)
         );
         impl->integrators.push_back(result);
         return result;
@@ -821,7 +830,7 @@ namespace rr {
         }
         rrLog(Logger::LOG_DEBUG) << "Creating new SteadyStateSolver for " << name;
         SteadyStateSolver *result = dynamic_cast<SteadyStateSolver *>(
-                SteadyStateSolverFactory::getInstance().New(name, impl->model.get())
+                SteadyStateSolverFactory::getInstance().New(name, impl->model)
         );
         impl->steady_state_solvers.push_back(result);
         return result;
@@ -834,7 +843,7 @@ namespace rr {
         }
         rrLog(Logger::LOG_DEBUG) << "Creating new SensitivitySolver for " << name;
         SensitivitySolver *result = dynamic_cast<SensitivitySolver *>(
-                SensitivitySolverFactory::getInstance().New(name, impl->model.get())
+                SensitivitySolverFactory::getInstance().New(name, impl->model)
         );
         impl->sensitivity_solvers.push_back(result);
         return result;
@@ -921,7 +930,7 @@ namespace rr {
         else {
             rrLog(Logger::LOG_DEBUG) << "Creating new steady state solver for " << name;
             impl->steady_state_solver = dynamic_cast<SteadyStateSolver *>(
-                    SteadyStateSolverFactory::getInstance().New(name, impl->model.get())
+                    SteadyStateSolverFactory::getInstance().New(name, impl->model)
             );
             impl->steady_state_solvers.push_back(impl->steady_state_solver);
         }
@@ -942,7 +951,7 @@ namespace rr {
         else {
             rrLog(Logger::LOG_DEBUG) << "Creating new sensitivity solver for " << name;
             impl->sensitivity_solver = dynamic_cast<SensitivitySolver *>(
-                    SensitivitySolverFactory::getInstance().New(name, impl->model.get())
+                    SensitivitySolverFactory::getInstance().New(name, impl->model)
             );
             impl->sensitivity_solvers.push_back(impl->sensitivity_solver);
         }
@@ -1337,9 +1346,10 @@ namespace rr {
             // we validate the model to provide explicit details about where it
             // failed. Its *VERY* expensive to pre-validate the model.
             libsbml::SBMLReader reader;
-            impl->document = std::unique_ptr<libsbml::SBMLDocument>(reader.readSBMLFromString(mCurrentSBML));
-            impl->model = std::unique_ptr<ExecutableModel>(
-                    ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt));
+            delete impl->document;
+            delete impl->model;
+            impl->document = reader.readSBMLFromString(mCurrentSBML);
+            impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
         } catch (const rr::UninitializedValueException &e) {
             // catch specifically for UninitializedValueException, otherwise for some
             // reason the message is erased, and an 'unknown error' is displayed to the user.
@@ -1360,7 +1370,7 @@ namespace rr {
             throw e;
         }
 
-        impl->syncAllSolversWithModel(impl->model.get());
+        impl->syncAllSolversWithModel(impl->model);
 
         reset();
         if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0) {
@@ -1392,9 +1402,11 @@ namespace rr {
     bool RoadRunner::clearModel() {
         // The model owns the shared library (if it exists), when the model is deleted,
         // its dtor unloads the shared lib.
-        impl->document = std::unique_ptr<libsbml::SBMLDocument>(new libsbml::SBMLDocument());
+        delete impl->document;
+        impl->document = new libsbml::SBMLDocument();
         impl->document->createModel();
         if (impl->model) {
+            delete impl->model;
             impl->model = nullptr;
 
             delete impl->mLS;
@@ -1503,7 +1515,7 @@ namespace rr {
             }
         }
 
-        metabolicControlCheck(impl->model.get());
+        metabolicControlCheck(impl->model);
 
         if (!impl->steady_state_solver) {
             rrLog(Logger::LOG_ERROR) << "No steady state solver";
@@ -2459,27 +2471,27 @@ namespace rr {
                     // this causes a reset, so need to save the current amounts to set them back
                     // as init conditions.
                     std::vector<double> conc(self.model->getNumFloatingSpecies());
-                    (self.model.get()->*getValuePtr)(conc.size(), 0, &conc[0]);
+                    (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
 
                     // save the original init values
                     std::vector<double> initConc(self.model->getNumFloatingSpecies());
-                    (self.model.get()->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
+                    (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
                     // get the original value
-                    (self.model.get()->*getValuePtr)(1, &j, &originalConc);
+                    (self.model->*getValuePtr)(1, &j, &originalConc);
 
                     // now we start changing things
                     try {
                         // set init amounts to current amounts, restore them later.
                         // have to do this as this is only way to set conserved moiety values
-                        (self.model.get()->*setInitValuePtr)(conc.size(), 0, &conc[0]);
+                        (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
 
                         // sanity check
                         assert_similar(originalConc, conc[j]);
                         double tmp = 0;
-                        (self.model.get()->*getInitValuePtr)(1, &j, &tmp);
+                        (self.model->*getInitValuePtr)(1, &j, &tmp);
                         assert_similar(originalConc, tmp);
-                        (self.model.get()->*getValuePtr)(1, &j, &tmp);
+                        (self.model->*getValuePtr)(1, &j, &tmp);
                         assert_similar(originalConc, tmp);
 
                         // things check out, start fiddling...
@@ -2518,20 +2530,20 @@ namespace rr {
                     }
                     catch (const std::exception &) {
                         // What ever happens, make sure we restore the species level
-                        (self.model.get()->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
+                        (self.model->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
                         // only set the indep species, setting dep species is not permitted.
-                        (self.model.get()->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
+                        (self.model->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
 
                         // re-throw the exception.
                         throw;
                     }
 
                     // What ever happens, make sure we restore the species level
-                    (self.model.get()->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
+                    (self.model->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
                     // only set the indep species, setting dep species is not permitted.
-                    (self.model.get()->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
+                    (self.model->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
 
                     jac[i][j] = result;
                 }
@@ -2648,23 +2660,23 @@ namespace rr {
             double y = 0;
 
             // current value of species i
-            (self.model.get()->*getValuePtr)(1, &i, &savedVal);
+            (self.model->*getValuePtr)(1, &i, &savedVal);
 
             // get the entire rate of change for all the species with
             // species i being value(i) + h;
             y = savedVal + h;
-            (self.model.get()->*setValuePtr)(1, &i, &y);
-            (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy0);
+            (self.model->*setValuePtr)(1, &i, &y);
+            (self.model->*getRateValuePtr)(nIndSpecies, 0, dy0);
 
 
             // get the entire rate of change for all the species with
             // species i being value(i) - h;
             y = savedVal - h;
-            (self.model.get()->*setValuePtr)(1, &i, &y);
-            (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy1);
+            (self.model->*setValuePtr)(1, &i, &y);
+            (self.model->*getRateValuePtr)(nIndSpecies, 0, dy1);
 
             // restore original value
-            (self.model.get()->*setValuePtr)(1, &i, &savedVal);
+            (self.model->*setValuePtr)(1, &i, &savedVal);
 
             // matrix is row-major, so have to copy by elements
             for (int j = 0; j < nIndSpecies; ++j) {
@@ -3690,7 +3702,7 @@ namespace rr {
         // as init conditions.
         std::vector<double> conc(self.model->getNumFloatingSpecies());
 
-        (self.model.get()->*getValuePtr)(conc.size(), 0, &conc[0]);
+        (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
 
         // Dpon't try to compute any elasticiteis if there a numerically suspicious values
         for (int i = 0; i < conc.size() - 1; i++)
@@ -3701,23 +3713,23 @@ namespace rr {
 
         // save the original init values
         std::vector<double> initConc(self.model->getNumFloatingSpecies());
-        (self.model.get()->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
+        (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
         // get the original value
-        (self.model.get()->*getValuePtr)(1, &speciesIndex, &originalConc);
+        (self.model->*getValuePtr)(1, &speciesIndex, &originalConc);
 
         // now we start changing things
         try {
             // set init amounts to current amounts, restore them later.
             // have to do this as this is only way to set conserved moiety values
-            (self.model.get()->*setInitValuePtr)(conc.size(), 0, &conc[0]);
+            (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
 
             // sanity check
             assert_similar(originalConc, conc[speciesIndex]);
             double tmp = 0;
-            (self.model.get()->*getInitValuePtr)(1, &speciesIndex, &tmp);
+            (self.model->*getInitValuePtr)(1, &speciesIndex, &tmp);
             assert_similar(originalConc, tmp);
-            (self.model.get()->*getValuePtr)(1, &speciesIndex, &tmp);
+            (self.model->*getValuePtr)(1, &speciesIndex, &tmp);
             assert_similar(originalConc, tmp);
 
             // things check out, start fiddling...
@@ -3728,23 +3740,23 @@ namespace rr {
             }
 
             value = originalConc + hstep;
-            (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
+            (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
 
             double fi = 0;
             self.model->getReactionRates(1, &reactionId, &fi);
 
             value = originalConc + 2 * hstep;
-            (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
+            (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
             double fi2 = 0;
             self.model->getReactionRates(1, &reactionId, &fi2);
 
             value = originalConc - hstep;
-            (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
+            (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
             double fd = 0;
             self.model->getReactionRates(1, &reactionId, &fd);
 
             value = originalConc - 2 * hstep;
-            (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
+            (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
             double fd2 = 0;
             self.model->getReactionRates(1, &reactionId, &fd2);
 
@@ -3758,11 +3770,11 @@ namespace rr {
         }
         catch (const std::exception &) {
             // What ever happens, make sure we restore the species level
-            (self.model.get()->*setInitValuePtr)(
+            (self.model->*setInitValuePtr)(
                     initConc.size(), 0, &initConc[0]);
 
             // only set the indep species, setting dep species is not permitted.
-            (self.model.get()->*setValuePtr)(
+            (self.model->*setValuePtr)(
                     self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
             // re-throw the exception.
@@ -3770,11 +3782,11 @@ namespace rr {
         }
 
         // What ever happens, make sure we restore the species level
-        (self.model.get()->*setInitValuePtr)(
+        (self.model->*setInitValuePtr)(
                 initConc.size(), 0, &initConc[0]);
 
         // only set the indep species, setting dep species is not permitted.
-        (self.model.get()->*setValuePtr)(
+        (self.model->*setValuePtr)(
                 self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
         return result;
@@ -4036,7 +4048,7 @@ namespace rr {
         std::stringstream stream;
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(impl->document.get(), stream);
+        writer.writeSBML(impl->document, stream);
 
         if (level > 0) {
             return convertSBMLVersion(stream.str(), level, version);
@@ -4703,7 +4715,7 @@ namespace rr {
     }
 
     std::vector<std::string> RoadRunner::getConservedMoietyIds() {
-        return createModelStringList(impl->model.get(), &ExecutableModel::getNumConservedMoieties,
+        return createModelStringList(impl->model, &ExecutableModel::getNumConservedMoieties,
                                      &ExecutableModel::getConservedMoietyId);
     }
 
@@ -4985,7 +4997,7 @@ namespace rr {
                 out << impl->simulationResult;
                 out << std::endl;
 
-                out << std::dec << impl->model.get();
+                out << std::dec << impl->model;
 
                 //out << "configurationXML" << impl->configurationXML << std::endl;
                 //out << impl->mCurrentSBML;
@@ -5088,9 +5100,9 @@ namespace rr {
         rr::loadBinary(in, impl->configurationXML);
         //Create a new model from the stream
         //impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
-        impl->model = std::unique_ptr<ExecutableModel>(
-                ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt));
-        impl->syncAllSolversWithModel(impl->model.get());
+        delete impl->model;
+        impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
+        impl->syncAllSolversWithModel(impl->model);
         if (impl->mLS)
             delete impl->mLS;
 
@@ -5139,7 +5151,8 @@ namespace rr {
         std::string savedSBML;
         rr::loadBinary(in, savedSBML);
         libsbml::SBMLReader reader;
-        impl->document = std::unique_ptr<libsbml::SBMLDocument>(reader.readSBMLFromString(savedSBML));
+        delete impl->document;
+        impl->document = reader.readSBMLFromString(savedSBML);
 
         //Restart the integrator and reset the model time
         impl->integrator->restart(impl->model->getTime());
@@ -6408,19 +6421,20 @@ namespace rr {
             }
 
 
-            // regeneate the model
-            impl->model = std::unique_ptr<ExecutableModel>(
-                    ExecutableModelFactory::regenerateModel(
-                            impl->model.get(),
-                            impl->document.get(),
-                            impl->loadOpt.modelGeneratorOpt));
+            // regenerate the model
+            ExecutableModel* oldmodel = impl->model;
+            impl->model = ExecutableModelFactory::regenerateModel(
+                            impl->model,
+                            impl->document,
+                            impl->loadOpt.modelGeneratorOpt);
+            delete oldmodel;
 
             //Force setIndividualTolerance to construct a std::vector of the correct size
             // todo I don't know whether this is a bug or not. I can't work out why this is here (cw)
             if (absTol.get_if<std::vector<double>>())
                 impl->integrator->setValue("absolute_tolerance", Setting(1.0e-7));
 
-            impl->syncAllSolversWithModel(impl->model.get());
+            impl->syncAllSolversWithModel(impl->model);
 
             if (auto v1 = absTol.get_if<std::vector<double>>()) {
                 for (const auto &p : indTolerances) {
