@@ -22,116 +22,116 @@
 namespace rrllvm
 {
 
-typedef double (*GetInitialValueCodeGenBase_FunctionPtr)(LLVMModelData*, size_t);
+    typedef double (*GetInitialValueCodeGenBase_FunctionPtr)(LLVMModelData*, size_t);
 
-template <typename Derived, bool substanceUnits>
-class GetInitialValueCodeGenBase :
+    template <typename Derived, bool substanceUnits>
+    class GetInitialValueCodeGenBase :
         public CodeGenBase<GetInitialValueCodeGenBase_FunctionPtr>
-{
-public:
-    GetInitialValueCodeGenBase(const ModelGeneratorContext &mgc);
-    virtual ~GetInitialValueCodeGenBase();
+    {
+    public:
+        GetInitialValueCodeGenBase(const ModelGeneratorContext& mgc);
+        virtual ~GetInitialValueCodeGenBase();
 
-    llvm::Value *codeGen();
+        llvm::Value* codeGen();
 
-    typedef GetInitialValueCodeGenBase_FunctionPtr FunctionPtr;
+        typedef GetInitialValueCodeGenBase_FunctionPtr FunctionPtr;
 
-};
+    };
 
-template <typename Derived, bool substanceUnits>
-GetInitialValueCodeGenBase<Derived, substanceUnits>::GetInitialValueCodeGenBase(
-        const ModelGeneratorContext &mgc) :
+    template <typename Derived, bool substanceUnits>
+    GetInitialValueCodeGenBase<Derived, substanceUnits>::GetInitialValueCodeGenBase(
+        const ModelGeneratorContext& mgc) :
         CodeGenBase<GetInitialValueCodeGenBase_FunctionPtr>(mgc)
-{
-}
+    {
+    }
 
-template <typename Derived, bool substanceUnits>
-GetInitialValueCodeGenBase<Derived, substanceUnits>::~GetInitialValueCodeGenBase()
-{
-}
+    template <typename Derived, bool substanceUnits>
+    GetInitialValueCodeGenBase<Derived, substanceUnits>::~GetInitialValueCodeGenBase()
+    {
+    }
 
-template <typename Derived, bool substanceUnits>
-llvm::Value* GetInitialValueCodeGenBase<Derived, substanceUnits>::codeGen()
-{
-    // make the set init value function
-    llvm::Type *argTypes[] = {
-        llvm::PointerType::get(ModelDataIRBuilder::getStructType(this->module), 0),
-        llvm::Type::getInt32Ty(this->context)
-    };
+    template <typename Derived, bool substanceUnits>
+    llvm::Value* GetInitialValueCodeGenBase<Derived, substanceUnits>::codeGen()
+    {
+        // make the set init value function
+        llvm::Type* argTypes[] = {
+            llvm::PointerType::get(ModelDataIRBuilder::getStructType(this->module), 0),
+            llvm::Type::getInt32Ty(this->context)
+        };
 
-    const char *argNames[] = {
-        "modelData", Derived::IndexArgName
-    };
+        const char* argNames[] = {
+            "modelData", Derived::IndexArgName
+        };
 
-    llvm::Value *args[] = {0, 0};
+        llvm::Value* args[] = { 0, 0 };
 
-    llvm::BasicBlock *entry = this->codeGenHeader(Derived::FunctionName, llvm::Type::getDoubleTy(this->context),
+        llvm::BasicBlock* entry = this->codeGenHeader(Derived::FunctionName, llvm::Type::getDoubleTy(this->context),
             argTypes, argNames, args);
 
-    std::vector<std::string> ids = static_cast<Derived*>(this)->getIds();
+        std::vector<std::string> ids = static_cast<Derived*>(this)->getIds();
 
-    ModelInitialValueSymbolResolver resolver(args[0], this->modelGenContext);
+        ModelInitialValueSymbolResolver resolver(args[0], this->modelGenContext);
 
-    // default, return NaN
-    llvm::BasicBlock *def = llvm::BasicBlock::Create(this->context, "default", this->function);
-    this->builder.SetInsertPoint(def);
+        // default, return NaN
+        llvm::BasicBlock* def = llvm::BasicBlock::Create(this->context, "default", this->function);
+        this->builder.SetInsertPoint(def);
 
-    this->builder.CreateRet(llvm::ConstantFP::get(this->context,
+        this->builder.CreateRet(llvm::ConstantFP::get(this->context,
             llvm::APFloat::getQNaN(llvm::APFloat::IEEEdouble())));
 
-    // write the switch at the func entry point, the switch is also the
-    // entry block terminator
-    this->builder.SetInsertPoint(entry);
+        // write the switch at the func entry point, the switch is also the
+        // entry block terminator
+        this->builder.SetInsertPoint(entry);
 
-    llvm::SwitchInst *s = this->builder.CreateSwitch(args[1], def, static_cast<unsigned int>(ids.size()));
+        llvm::SwitchInst* s = this->builder.CreateSwitch(args[1], def, static_cast<unsigned int>(ids.size()));
 
-    for (int i = 0; i < ids.size(); ++i)
-    {
-        llvm::BasicBlock *block = llvm::BasicBlock::Create(this->context, ids[i] + "_block", this->function);
-        this->builder.SetInsertPoint(block);
-
-        // the requested value
-        llvm::Value *value = resolver.loadSymbolValue(ids[i]);
-
-        // need to check if we have an amount or concentration and check if we
-        // are asked for asked for an amount or concentration and convert accordingly
-        const libsbml::SBase* sbase = const_cast<libsbml::Model*>(model)->getElementBySId(ids[i]);
-        if (sbase && sbase->getTypeCode() == libsbml::SBML_SPECIES)
+        for (int i = 0; i < ids.size(); ++i)
         {
-            const libsbml::Species* species = static_cast<const libsbml::Species*>(sbase);
-            if (species->getHasOnlySubstanceUnits())
+            llvm::BasicBlock* block = llvm::BasicBlock::Create(this->context, ids[i] + "_block", this->function);
+            this->builder.SetInsertPoint(block);
+
+            // the requested value
+            llvm::Value* value = resolver.loadSymbolValue(ids[i]);
+
+            // need to check if we have an amount or concentration and check if we
+            // are asked for asked for an amount or concentration and convert accordingly
+            const libsbml::SBase* sbase = const_cast<libsbml::Model*>(model)->getElementBySId(ids[i]);
+            if (sbase && sbase->getTypeCode() == libsbml::SBML_SPECIES)
             {
-                value->setName(ids[i] + "_amt");
-                // species is treated as an amount
-                if (!substanceUnits)
+                const libsbml::Species* species = static_cast<const libsbml::Species*>(sbase);
+                if (species->getHasOnlySubstanceUnits())
                 {
-                    // convert to concentration
-                    llvm::Value *comp = resolver.loadSymbolValue(species->getCompartment());
-                    value = this->builder.CreateFDiv(value, comp, ids[i] + "_conc");
+                    value->setName(ids[i] + "_amt");
+                    // species is treated as an amount
+                    if (!substanceUnits)
+                    {
+                        // convert to concentration
+                        llvm::Value* comp = resolver.loadSymbolValue(species->getCompartment());
+                        value = this->builder.CreateFDiv(value, comp, ids[i] + "_conc");
+                    }
+                }
+                else
+                {
+                    value->setName(ids[i] + "_conc");
+                    // species is treated as a concentration
+                    if (substanceUnits)
+                    {
+                        // convert to amount
+                        llvm::Value* comp = resolver.loadSymbolValue(species->getCompartment());
+                        value = this->builder.CreateFMul(value, comp, ids[i] + "_amt");
+                    }
                 }
             }
             else
             {
-                value->setName(ids[i] + "_conc");
-                // species is treated as a concentration
-                if (substanceUnits)
-                {
-                    // convert to amount
-                    llvm::Value *comp = resolver.loadSymbolValue(species->getCompartment());
-                    value = this->builder.CreateFMul(value, comp, ids[i] + "_amt");
-                }
+                value->setName(ids[i] + "_value");
             }
+            this->builder.CreateRet(value);
+            s->addCase(llvm::ConstantInt::get(llvm::Type::getInt32Ty(this->context), i), block);
         }
-        else
-        {
-            value->setName(ids[i] + "_value");
-        }
-        this->builder.CreateRet(value);
-        s->addCase(llvm::ConstantInt::get(llvm::Type::getInt32Ty(this->context), i), block);
-    }
 
-    return this->verifyFunction();
-}
+        return this->verifyFunction();
+    }
 
 
 } /* namespace rr */

@@ -99,6 +99,16 @@ Value *ASTNodeCodeGen::binaryExprCodeGen(const ASTNode *ast)
     return result;
 }
 
+llvm::Value* ASTNodeCodeGen::codeGenDouble(const libsbml::ASTNode* ast)
+{
+    return toDouble(codeGen(ast));
+}
+
+llvm::Value* ASTNodeCodeGen::codeGenBoolean(const libsbml::ASTNode* ast)
+{
+    return toBoolean(codeGen(ast));
+}
+
 llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
 {
     Value *result = 0;
@@ -256,8 +266,12 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     default:
         {
             std::stringstream msg;
-            msg << "Unknown ASTNode type of " << ast->getType() << ", from " <<
-                    ast->getParentSBMLObject()->toSBML();
+            msg << "Unknown ASTNode type of " << ast->getType();
+            SBase* parent = ast->getParentSBMLObject();
+            if (parent)
+            {
+                msg << ", from " << parent->toSBML();
+            }
             throw_llvm_exception(msg.str());
         }
         break;

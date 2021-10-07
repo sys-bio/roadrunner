@@ -13,7 +13,9 @@ using rr::Logger;
 
 namespace rrtesting {
 
-    CXXBrusselatorExecutableModel::CXXBrusselatorExecutableModel(const rr::Dictionary *dict) {
+    CXXBrusselatorExecutableModel::CXXBrusselatorExecutableModel(const rr::Dictionary *dict)
+       : ExecutableModel()
+    {
         rrLog(Logger::LOG_NOTICE) << __FUNC__;
     }
 
@@ -357,6 +359,18 @@ namespace rrtesting {
     }
 
     void CXXBrusselatorExecutableModel::getEventIds(std::list<std::string>&)
+    {
+    }
+
+    void CXXBrusselatorExecutableModel::getAssignmentRuleIds(std::list<std::string>& out)
+    {
+    }
+
+    void CXXBrusselatorExecutableModel::getRateRuleIds(std::list<std::string>& out)
+    {
+    }
+
+    void CXXBrusselatorExecutableModel::getInitialAssignmentIds(std::list<std::string>& out)
     {
     }
 

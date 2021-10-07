@@ -204,7 +204,7 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
         // createCSRMatrixSetNZ(llvm::Value *csrPtr, llvm::Value *row,
         // llvm::Value *col, llvm::Value *value, const char* name = 0);
 
-        Value *stoichValue = astCodeGen.codeGen(node);
+        Value *stoichValue = astCodeGen.codeGenDouble(node);
 
         delete node;
 

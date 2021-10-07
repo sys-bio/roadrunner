@@ -60,7 +60,7 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
+            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
             recursiveSymbolPop();
             return result;
         }
@@ -75,7 +75,7 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
 
         if (i != modelSymbols.getInitialValues().end())
         {
-            return ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
+            return ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
         }
     }
 

@@ -109,7 +109,7 @@ RR_DECLSPEC std::string                 getFileContent(std::filesystem::path fNa
 RR_DECLSPEC void                        createTestSuiteFileNameParts(int caseNr, const std::string& postFixPart, std::string& FilePath, std::string& modelFileName, std::string& settingsFileName, std::string& descriptionFileName);
 RR_DECLSPEC std::string                 getTestSuiteSubFolderName(int caseNr);
 
-RR_DECLSPEC bool            hasUnimplementedTags(const std::string& descriptionFileName);
+RR_DECLSPEC bool            hasUnimplementedTags(const std::string& descriptionFileName, const std::string& integrator);
 
 RR_DECLSPEC bool            isSemiStochasticTest(const std::string& descriptionFileName);
 

@@ -63,19 +63,19 @@ namespace rr {
      * @brief removes both leading and trailing white
      * space characters from input string @param str
      */
-    RR_DECLSPEC std::string& trim(std::string &str);
+    RR_DECLSPEC std::string &trim(std::string &str);
 
     /**
      * @brief left trim. Removes leading white space characters
      * from string @param str
      */
-    RR_DECLSPEC std::string & ltrim(std::string & str);
+    RR_DECLSPEC std::string &ltrim(std::string &str);
 
     /**
      * @brief right trim. Removes trailing white space characters
      * from string @param str
      */
-    RR_DECLSPEC std::string & rtrim(std::string & str);
+    RR_DECLSPEC std::string &rtrim(std::string &str);
 
     RR_DECLSPEC bool startsWith(const std::string &src, const std::string &sub);
 
@@ -369,101 +369,69 @@ namespace rr {
 
     template<>
     inline void loadBinary<rr::Setting>(std::istream &in, rr::Setting &var) {
-    	Setting::TypeId type;
+        Setting::TypeId type;
         std::string strVal;
-    	std::vector<double> vectorVal;
-    	loadBinary(in, type); // what is this for?
+        std::vector<double> vectorVal;
+        loadBinary(in, type); // what is this for?
 
-    	// todo use visitor here
-	switch (type)
-	{
-	case Setting::BOOL:
-		bool boolVal;
-		loadBinary(in, boolVal);
-		var = Setting(boolVal);
-		break;
-	case Setting::CHAR:
-        char charVal;
-		loadBinary(in, charVal);
-		var = Setting(charVal);
-		break;
-	case Setting::DOUBLE:
-        double doubleVal;
-		loadBinary(in, doubleVal);
-		var = Setting(doubleVal);
-		break;
-	case Setting::FLOAT:
-        float floatVal;
-		loadBinary(in, floatVal);
-		var = Setting(floatVal);
-		break;
-	case Setting::INT32:
-        std::int32_t int32Val;
-		loadBinary(in, int32Val);
-		var = Setting(int32Val);
-		break;
-	case Setting::INT64:
-        std::int64_t int64Val;
-		loadBinary(in, int64Val);
-		var = Setting(int64Val);
-		break;
-	case Setting::STRING:
-		loadBinary(in, strVal);
-		var = Setting(strVal);
-		break;
-	case Setting::UCHAR:
-        unsigned char ucharVal;
-		loadBinary(in, ucharVal);
-		var = Setting(ucharVal);
-		break;
-	case Setting::UINT32:
-        std::uint32_t uint32Val;
-		loadBinary(in, uint32Val);
-		var = Setting(uint32Val);
-		break;
-	case Setting::UINT64:
-        std::uint64_t uint64Val;
-		loadBinary(in, uint64Val);
-		var = Setting(uint64Val);
-		break;
-	case Setting::DOUBLEVECTOR:
-		loadBinary(in, vectorVal);
-		var = Setting(vectorVal);
-		break;
-	default:
-		break;
-	}
-
-	// todo replace the above logic with something like the following.
-	// remember that get_if returns a pointer!!!
-//        if (auto monostateVal = var.get_if<std::monostate>()) {
-//            // std::monostate is an alias for void in a std::variant (which cannot have void types).
-//            // Therefore we just do nothing if var is a std::monostate
-//        } else if (auto strVal = var.get_if<std::string>()) {
-//            loadBinary(in, *strVal);
-//        } else if (auto boolVal = var.get_if<bool>()) {
-//            loadBinary(in, *boolVal);
-//        } else if (auto int32Val = var.get_if<std::int32_t>()) {
-//            loadBinary(in, *int32Val);
-//        } else if (auto uInt32Val = var.get_if<std::uint32_t>()) {
-//            loadBinary(in, *uInt32Val);
-//        } else if (auto int64Val = var.get_if<std::int64_t>()) {
-//            loadBinary(in, *int64Val);
-//        } else if (auto uInt64Val = var.get_if<std::uint64_t>()) {
-//            loadBinary(in, *uInt64Val);
-//        } else if (auto floatVal = var.get_if<float>()) {
-//            loadBinary(in, *floatVal);
-//        } else if (auto doubleVal = var.get_if<double>()) {
-//            loadBinary(in, *doubleVal);
-//        } else if (auto charVal = var.get_if<char>()) {
-//            loadBinary(in, *charVal);
-//        } else if (auto uChar = var.get_if<unsigned char>()) {
-//            loadBinary(in, *uChar);
-//        } else if (auto doubleVector = var.get_if<std::vector<double>>()) {
-//            loadBinary(in, *doubleVector);
-//        } else {
-//            throw std::invalid_argument("Setting is not a valid type");
-//        }
+        // todo use visitor here
+        switch (type) {
+            case Setting::BOOL:
+                bool boolVal;
+                loadBinary(in, boolVal);
+                var = Setting(boolVal);
+                break;
+            case Setting::CHAR:
+                char charVal;
+                loadBinary(in, charVal);
+                var = Setting(charVal);
+                break;
+            case Setting::DOUBLE:
+                double doubleVal;
+                loadBinary(in, doubleVal);
+                var = Setting(doubleVal);
+                break;
+            case Setting::FLOAT:
+                float floatVal;
+                loadBinary(in, floatVal);
+                var = Setting(floatVal);
+                break;
+            case Setting::INT32:
+                std::int32_t int32Val;
+                loadBinary(in, int32Val);
+                var = Setting(int32Val);
+                break;
+            case Setting::INT64:
+                std::int64_t int64Val;
+                loadBinary(in, int64Val);
+                var = Setting(int64Val);
+                break;
+            case Setting::STRING:
+                loadBinary(in, strVal);
+                var = Setting(strVal);
+                break;
+            case Setting::UCHAR:
+                unsigned char ucharVal;
+                loadBinary(in, ucharVal);
+                var = Setting(ucharVal);
+                break;
+            case Setting::UINT32:
+                std::uint32_t uint32Val;
+                loadBinary(in, uint32Val);
+                var = Setting(uint32Val);
+                break;
+            case Setting::UINT64:
+                std::uint64_t uint64Val;
+                loadBinary(in, uint64Val);
+                var = Setting(uint64Val);
+                break;
+            case Setting::DOUBLEVECTOR:
+                loadBinary(in, vectorVal);
+                var = Setting(vectorVal);
+                break;
+            default:
+                break;
+        }
     }
 
 }

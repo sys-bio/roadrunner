@@ -17,6 +17,7 @@ TestSuiteModelSimulation::TestSuiteModelSimulation(const path& dataOutputFolder,
 :
 SBMLModelSimulation(dataOutputFolder, dataOutputFolder),
 mCurrentCaseNumber(-1),
+mIntegratorName(""),
 mNrOfFailingPoints(0),
 mLargestError(0)
 {
@@ -32,6 +33,11 @@ TestSuiteModelSimulation::~TestSuiteModelSimulation()
 void TestSuiteModelSimulation::SetCaseNumber(int cNr)
 {
     mCurrentCaseNumber = cNr;
+}
+
+void TestSuiteModelSimulation::SetIntegrator(std::string integrator)
+{
+    mIntegratorName = integrator;
 }
 
 bool TestSuiteModelSimulation::CopyFilesToOutputFolder()
@@ -185,12 +191,18 @@ bool TestSuiteModelSimulation::SaveAllData()
     //First save the reference data to a file for comparison to result data
     path refDataFileName = mDataOutputFolder / GetReferenceDataFileNameForCase(mCurrentCaseNumber);
     std::ofstream fs(refDataFileName.c_str());
-    fs<<mReferenceData;
+    fs << mReferenceData;
     fs.close();
 
     std::string outputAllFileName;
     std::string dummy;
-    createTestSuiteFileNameParts(mCurrentCaseNumber, "-result-comparison.csv", dummy, outputAllFileName, dummy, dummy);
+    string resultComp = "-result-comparison.csv";
+    if (!mIntegratorName.empty())
+    {
+        resultComp = "-" + mIntegratorName + resultComp;
+    }
+
+    createTestSuiteFileNameParts(mCurrentCaseNumber, resultComp, dummy, outputAllFileName, dummy, dummy);
     fs.open(mDataOutputFolder / outputAllFileName.c_str());
 
     //Check matrices dimension, if they are not equal, bail..?

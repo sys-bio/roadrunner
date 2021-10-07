@@ -25,8 +25,6 @@ public:
     RRTestFilesOtherTests() = default;
 };
 
-string getListOfReactionsText(const string &fName);
-
 TEST_F(RRTestFilesOtherTests, EMPTY_EVENT_ASSIGNMENTS) {
     // Event assignments in L3v2 can be empty
     RRHandle aRR = createRRInstance();
@@ -34,9 +32,11 @@ TEST_F(RRTestFilesOtherTests, EMPTY_EVENT_ASSIGNMENTS) {
     EXPECT_TRUE(std::filesystem::exists(TestModelFileName));
 
     EXPECT_TRUE(loadSBMLFromFileE(aRR, TestModelFileName.string().c_str(), true));
-    EXPECT_TRUE(simulate(aRR));
+    RRCDataPtr results = simulate(aRR);
+    EXPECT_NE(results, nullptr);
 
-
+    freeRRCData(results);
+    freeRRInstance(aRR);
 }
 
 TEST_F(RRTestFilesOtherTests, SAVED_SPECIES_AMOUNT) {

@@ -34,98 +34,105 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
 namespace rr
 {
 
-std::ostream& operator <<(std::ostream &stream, ExecutableModel* model)
-{
-    model->print(stream);
+    ExecutableModel::ExecutableModel()
+        : mIntegrationStartTime(0.0)
+    {
+    }
 
-    double *tmp;
+    std::ostream& operator <<(std::ostream& stream, ExecutableModel* model)
+    {
+        model->print(stream);
 
-    int nFloat = model->getNumFloatingSpecies();
-    int nBound = model->getNumBoundarySpecies();
-    int nComp = model->getNumCompartments();
-    int nGlobalParam = model->getNumGlobalParameters();
-    int nEvents = model->getNumEvents();
-    int nReactions = model->getNumReactions();
+        double* tmp;
 
-    stream << "* Calculated Values *" << std::endl;
+        int nFloat = model->getNumFloatingSpecies();
+        int nBound = model->getNumBoundarySpecies();
+        int nComp = model->getNumCompartments();
+        int nGlobalParam = model->getNumGlobalParameters();
+        int nEvents = model->getNumEvents();
+        int nReactions = model->getNumReactions();
 
-    tmp = new double[nFloat];
-    model->getFloatingSpeciesAmounts(nFloat, 0, tmp);
-    stream << "FloatingSpeciesAmounts:" << std::endl;
-    dump_array(stream, nFloat, tmp);
+        stream << "* Calculated Values *" << std::endl;
 
-    model->getFloatingSpeciesConcentrations(nFloat, 0, tmp);
-    stream << "FloatingSpeciesConcentrations:" << std::endl;
-    dump_array(stream, nFloat, tmp);
+        tmp = new double[nFloat];
+        model->getFloatingSpeciesAmounts(nFloat, 0, tmp);
+        stream << "FloatingSpeciesAmounts:" << std::endl;
+        dump_array(stream, nFloat, tmp);
 
-    model->getFloatingSpeciesInitAmounts(nFloat, 0, tmp);
-    stream << "FloatingSpeciesInitAmounts:" << std::endl;
-    dump_array(stream, nFloat, tmp);
+        model->getFloatingSpeciesConcentrations(nFloat, 0, tmp);
+        stream << "FloatingSpeciesConcentrations:" << std::endl;
+        dump_array(stream, nFloat, tmp);
 
-    model->getFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
-    stream << "FloatingSpeciesInitConcentrations:" << std::endl;
-    dump_array(stream, nFloat, tmp);
-    delete[] tmp;
+        model->getFloatingSpeciesInitAmounts(nFloat, 0, tmp);
+        stream << "FloatingSpeciesInitAmounts:" << std::endl;
+        dump_array(stream, nFloat, tmp);
 
-    tmp = new double[nReactions];
-    model->getReactionRates(nReactions, 0, tmp);
-    stream << "Reaction Rates:" << std::endl;
-    dump_array(stream, nReactions, tmp);
-    delete [] tmp;
+        model->getFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
+        stream << "FloatingSpeciesInitConcentrations:" << std::endl;
+        dump_array(stream, nFloat, tmp);
+        delete[] tmp;
 
-    tmp = new double[nBound];
-    model->getBoundarySpeciesAmounts(nBound, 0, tmp);
-    stream << "BoundarySpeciesAmounts:" << std::endl;
-    dump_array(stream, nBound, tmp);
+        tmp = new double[nReactions];
+        model->getReactionRates(nReactions, 0, tmp);
+        stream << "Reaction Rates:" << std::endl;
+        dump_array(stream, nReactions, tmp);
+        delete[] tmp;
 
-    model->getBoundarySpeciesConcentrations(nBound, 0, tmp);
-    stream << "BoundarySpeciesConcentrations:" << std::endl;
-    dump_array(stream, nBound, tmp);
+        tmp = new double[nBound];
+        model->getBoundarySpeciesAmounts(nBound, 0, tmp);
+        stream << "BoundarySpeciesAmounts:" << std::endl;
+        dump_array(stream, nBound, tmp);
 
-    model->getBoundarySpeciesInitAmounts(nBound, 0, tmp);
-    stream << "BoundarySpeciesInitAmounts:" << std::endl;
-    dump_array(stream, nBound, tmp);
+        model->getBoundarySpeciesConcentrations(nBound, 0, tmp);
+        stream << "BoundarySpeciesConcentrations:" << std::endl;
+        dump_array(stream, nBound, tmp);
 
-    model->getBoundarySpeciesInitConcentrations(nBound, 0, tmp);
-    stream << "BoundarySpeciesInitConcentrations:" << std::endl;
-    dump_array(stream, nBound, tmp);
-    delete[] tmp;
+        model->getBoundarySpeciesInitAmounts(nBound, 0, tmp);
+        stream << "BoundarySpeciesInitAmounts:" << std::endl;
+        dump_array(stream, nBound, tmp);
 
-    tmp = new double[nComp];
-    model->getCompartmentVolumes(nComp, 0, tmp);
-    stream << "CompartmentVolumes:" << std::endl;
-    dump_array(stream, nComp, tmp);
-    delete [] tmp;
+        model->getBoundarySpeciesInitConcentrations(nBound, 0, tmp);
+        stream << "BoundarySpeciesInitConcentrations:" << std::endl;
+        dump_array(stream, nBound, tmp);
+        delete[] tmp;
 
-    tmp = new double[nComp];
-    model->getCompartmentInitVolumes(nComp, 0, tmp);
-    stream << "InitCompartmentVolumes:" << std::endl;
-    dump_array(stream, nComp, tmp);
-    delete[] tmp;
+        tmp = new double[nComp];
+        model->getCompartmentVolumes(nComp, 0, tmp);
+        stream << "CompartmentVolumes:" << std::endl;
+        dump_array(stream, nComp, tmp);
+        delete[] tmp;
 
-    tmp = new double[nGlobalParam];
-    model->getGlobalParameterValues(nGlobalParam, 0, tmp);
-    stream << "GlobalParameters:" << std::endl;
-    dump_array(stream, nGlobalParam, tmp);
+        tmp = new double[nComp];
+        model->getCompartmentInitVolumes(nComp, 0, tmp);
+        stream << "InitCompartmentVolumes:" << std::endl;
+        dump_array(stream, nComp, tmp);
+        delete[] tmp;
 
-    model->getGlobalParameterInitValues(nGlobalParam, 0, tmp);
-    stream << "Init GlobalParameters:" << std::endl;
-    dump_array(stream, nGlobalParam, tmp);
-    delete [] tmp;
+        tmp = new double[nGlobalParam];
+        model->getGlobalParameterValues(nGlobalParam, 0, tmp);
+        stream << "GlobalParameters:" << std::endl;
+        dump_array(stream, nGlobalParam, tmp);
 
-    unsigned char *tmpEvents = new unsigned char[nEvents];
-    model->getEventTriggers(nEvents, 0, tmpEvents);
-    stream << "Events Trigger Status:" << std::endl;
-    dump_array(stream, nEvents, (bool*)tmpEvents);
-    delete [] tmpEvents;
+        model->getGlobalParameterInitValues(nGlobalParam, 0, tmp);
+        stream << "Init GlobalParameters:" << std::endl;
+        dump_array(stream, nGlobalParam, tmp);
+        delete[] tmp;
 
-    stream << std::endl;
+        unsigned char* tmpEvents = new unsigned char[nEvents];
+        model->getEventTriggers(nEvents, 0, tmpEvents);
+        stream << "Events Trigger Status:" << std::endl;
+        dump_array(stream, nEvents, (bool*)tmpEvents);
+        delete[] tmpEvents;
 
-    return stream;
-}
+        stream << std::endl;
+
+        return stream;
+    }
 
 
-
-
+    void ExecutableModel::setIntegrationStartTime(double time)
+    {
+        mIntegrationStartTime = time;
+    }
 
 } // namespace rr

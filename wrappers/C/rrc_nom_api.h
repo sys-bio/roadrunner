@@ -73,6 +73,33 @@ C_DECL_SPEC int rrcCallConv getNumberOfRules(RRHandle handle);
 C_DECL_SPEC char* rrcCallConv getModelName(RRHandle handle);
 
 
+/*!
+ \brief Sets the name of currently loaded SBML model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[name] The new name to use
+ \ingroup NOM functions
+*/
+C_DECL_SPEC void rrcCallConv setModelName(RRHandle handle, char* name);
+
+
+/*!
+ \brief Returns the id of currently loaded SBML model
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns a char* containing the id if successful, NULL otherwise
+ \ingroup NOM functions
+*/
+C_DECL_SPEC char* rrcCallConv getModelId(RRHandle handle);
+
+
+/*!
+ \brief Sets the id of currently loaded SBML model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[id] The new id to use
+ \ingroup NOM functions
+*/
+C_DECL_SPEC void rrcCallConv setModelId(RRHandle handle, char* id);
+
+
 //---------------------------------------------------------------------------
 #if defined(__cplusplus)
 }	//Extern "C"

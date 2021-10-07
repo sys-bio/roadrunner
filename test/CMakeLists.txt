@@ -275,10 +275,10 @@ add_subdirectory(c_api_rrtests)
 add_subdirectory(model_analysis)
 add_subdirectory(model_editing)
 add_subdirectory(sbml_features)
-add_subdirectory(state_saving)
 add_subdirectory(sundials-tests)
 add_subdirectory(python)
 add_subdirectory(cxx_api_tests)
+add_subdirectory(serialization)
 
 if (WIN32 AND BUILD_RR_PLUGINS)
    set(
@@ -308,6 +308,7 @@ if (BUILD_PYTHON AND BUILD_TESTS)
 
     set(PyTestTests)
     macro(add_pytest_to_ctest TestName TestSourceFile)
+        # make sure file is up to date
         # run pytest with -rP to always capture stdout regardless of pass/fail
         add_test(
                 NAME ${TestName}
@@ -328,6 +329,8 @@ if (BUILD_PYTHON AND BUILD_TESTS)
     add_pytest_to_ctest(python_tests_StructuralAnalysisTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/StructuralAnalysisTests.py")
     add_pytest_to_ctest(python_tests_TestModelFactoryTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/TestModelFactoryTests.py")
     add_pytest_to_ctest(python_tests_RunRRTestsFromPython "${RR_PYTHON_TESTING_BUILD_PREFIX}/RunTesterWithUnitTest.py")
+    add_pytest_to_ctest(python_tests_NamedArrayTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/NamedArrayTests.py")
+    add_pytest_to_ctest(python_tests_PickleTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/pickle_tests.py")
 
     message(STATUS "PyTestTests ${PyTestTests}")
 
@@ -336,7 +339,6 @@ if (BUILD_PYTHON AND BUILD_TESTS)
             ctest --output-on-failure --verbose --extra-verbose --tests-regex python_tests*
     )
     #    add_dependencies(run-pytest-tests roadrunner_python TestModelFactory SettingTestsSwigAPI)
-
 endif ()
 
 #########################################################

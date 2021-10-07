@@ -267,7 +267,7 @@ namespace rr {
         SUNLinearSolver linSolver = nullptr;
 
         IntegratorListenerPtr listener;
-        double lastEventTime;
+        double mLastEventTime;
         bool variableStepPendingEvent;
         bool variableStepTimeEndEvent;
         std::vector<double> variableStepPostEventState;

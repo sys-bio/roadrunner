@@ -1524,3 +1524,33 @@ TEST_F(ModelEditingTests, CHECK_REGENERATE) {
 }
 
 
+TEST_F(ModelEditingTests, GET_SET_MODELNAME1) {
+    RoadRunner rri;
+    EXPECT_STREQ(rri.getModelName().c_str(), "");
+    rri.setModelName("test");
+    EXPECT_STREQ(rri.getModelName().c_str(), "test");
+}
+
+TEST_F(ModelEditingTests, GET_SET_MODELNAME2) {
+    RoadRunner rri("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\">\n  <model name=\"foo\"/>\n</sbml>\n");
+    EXPECT_STREQ(rri.getModelName().c_str(), "foo");
+    rri.setModelName("test");
+    EXPECT_STREQ(rri.getModelName().c_str(), "test");
+    EXPECT_STREQ(rri.getSBML().c_str(), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\">\n  <model name=\"test\"/>\n</sbml>\n");
+}
+
+TEST_F(ModelEditingTests, GET_SET_MODELID1) {
+    RoadRunner rri;
+    EXPECT_STREQ(rri.getModelId().c_str(), "");
+    rri.setModelId("test");
+    EXPECT_STREQ(rri.getModelId().c_str(), "test");
+}
+
+TEST_F(ModelEditingTests, GET_SET_MODELID2) {
+    RoadRunner rri("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\">\n  <model id=\"foo\"/>\n</sbml>\n");
+    EXPECT_STREQ(rri.getModelId().c_str(), "foo");
+    rri.setModelId("test");
+    EXPECT_STREQ(rri.getModelId().c_str(), "test");
+    EXPECT_STREQ(rri.getSBML().c_str(), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\">\n  <model id=\"test\"/>\n</sbml>\n");
+}
+

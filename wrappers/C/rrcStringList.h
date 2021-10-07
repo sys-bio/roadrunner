@@ -15,7 +15,6 @@ using std::ostream;
 
 /**
  * @internal
- * @deprecated
  */
 class C_DECL_SPEC StringList
 {

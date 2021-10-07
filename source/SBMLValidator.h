@@ -63,12 +63,11 @@ std::string validateSBML(const std::string src, unsigned opt
         = VALIDATE_IDENTIFIER | VALIDATE_GENERAL | VALIDATE_MATHML);
 
 /**
-* @author JKM
-* @brief Adds missing stoichiometry information.
+* @brief Adds missing stoichiometry information and removes elements with no math.
 * Assumes unit stoichiometry where not specified
 * @return SBML std::string with stoich fixed
 */
-std::string fixMissingStoich(const std::string sbml);
+std::string fixMissingStoichAndMath(const std::string sbml);
 
 } /* namespace rr */
 

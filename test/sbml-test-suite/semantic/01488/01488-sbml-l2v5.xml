@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
-  <model id="case01488" name="case01488">
+  <model metaid="case01488" id="case01488" name="case01488">
     <listOfFunctionDefinitions>
       <functionDefinition id="my_piecewise">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -430,7 +430,11 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <ci> my_arccot </ci>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.001 </cn>
+            </apply>
           </apply>
         </math>
       </assignmentRule>
@@ -440,7 +444,11 @@
             <ci> my_arccot </ci>
             <apply>
               <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <cn> 0.001 </cn>
             </apply>
           </apply>
         </math>

@@ -458,7 +458,7 @@ public:
     ...:      return m
     ...:
     ...:  r = ss("""
-    ...:  model x
+    ...:  model OpenLinearFlux
     ...:      S1 = 0;
     ...:      S2 = 0;
     ...:      => S1; kin
@@ -700,6 +700,17 @@ public:
     rr::Matrix<double> scaledElasticityMatrix() override;
 
     std::unordered_map<std::string, rr::Setting> mcaSettings() override;
+};
+
+/**
+ * @brief this is model number 00039 from the stochastic sbml test suite.
+ */
+class BatchImmigrationDeath03 : public TestModel {
+public:
+
+    std::string str() override;
+
+    std::string modelName() override;
 };
 
 

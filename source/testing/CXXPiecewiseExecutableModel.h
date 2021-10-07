@@ -570,6 +570,9 @@ public:
     virtual int getEventIndex(const std::string& eid);
     virtual std::string getEventId(int index);
     virtual void getEventIds(std::list<std::string> &out);
+    virtual void getAssignmentRuleIds(std::list<std::string>& out);
+    virtual void getRateRuleIds(std::list<std::string>& out);
+    virtual void getInitialAssignmentIds(std::list<std::string>& out);
     virtual void setEventListener(int index, rr::EventListenerPtr eventHandler);
     virtual rr::EventListenerPtr getEventListener(int index);
 

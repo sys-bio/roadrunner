@@ -331,7 +331,7 @@ int rrcCallConv freeStringArray(RRStringArrayPtr sl)
         }
         for(int i = 0; i < sl->Count; i++)
         {
-            delete [] sl->String[i];
+            free(sl->String[i]);
         }
         delete [] sl->String;
         delete sl;

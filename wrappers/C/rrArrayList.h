@@ -17,8 +17,7 @@ using std::string;
 
 /**
  * @internal
- * @deprecated
- * a proprietaty collection class that is massivly deprecated.
+ * a proprietaty collection class that is theoretically deprecated, but used extensively in rrc_api.cpp
  */
 class C_DECL_SPEC ArrayList
 {

@@ -31,8 +31,8 @@ There are 26 rules:
 | Assignment | P12 | $my_arcsec(-time - 1)$ |
 | Assignment | P13 | $my_arccsc(time + 1)$ |
 | Assignment | P14 | $my_arccsc(-time - 1)$ |
-| Assignment | P15 | $my_arccot(time)$ |
-| Assignment | P16 | $my_arccot(-time)$ |
+| Assignment | P15 | $my_arccot(time + 0.001)$ |
+| Assignment | P16 | $my_arccot(-time - 0.001)$ |
 | Assignment | P17 | $my_arcsinh(time)$ |
 | Assignment | P18 | $my_arcsinh(-time)$ |
 | Assignment | P19 | $my_arccosh(time + 1)$ |
@@ -82,8 +82,8 @@ The initial conditions are as follows:
 | Initial value of parameter P12 | $my_arcsec(-time - 1)$ | variable |
 | Initial value of parameter P13 | $my_arccsc(time + 1)$ | variable |
 | Initial value of parameter P14 | $my_arccsc(-time - 1)$ | variable |
-| Initial value of parameter P15 | $my_arccot(time)$ | variable |
-| Initial value of parameter P16 | $my_arccot(-time)$ | variable |
+| Initial value of parameter P15 | $my_arccot(time + 0.001)$ | variable |
+| Initial value of parameter P16 | $my_arccot(-time - 0.001)$ | variable |
 | Initial value of parameter P17 | $my_arcsinh(time)$ | variable |
 | Initial value of parameter P18 | $my_arcsinh(-time)$ | variable |
 | Initial value of parameter P19 | $my_arccosh(time + 1)$ | variable |

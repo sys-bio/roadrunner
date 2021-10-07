@@ -38,6 +38,9 @@ public:
     IniFile iniFile;
 
     CApiRRTests() = default;
+    ~CApiRRTests() {
+        freeRRInstance(gRR);
+    }
 
     void checkRRTest(const std::string &fname) {
 

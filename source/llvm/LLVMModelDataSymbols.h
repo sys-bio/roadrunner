@@ -573,6 +573,12 @@ public:
 
     std::vector<std::string> getEventIds() const;
 
+    std::vector<std::string> getAssignmentRuleIds() const;
+
+    std::vector<std::string> getRateRuleIds() const;
+
+    std::vector<std::string> getInitialAssignmentIds() const;
+
     std::string getEventId(size_t indx) const;
 
     int getEventIndex(const std::string& id) const;

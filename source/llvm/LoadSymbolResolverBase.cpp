@@ -57,7 +57,7 @@ llvm::Value* LoadSymbolResolverBase::loadReactionRate(
     ASTNodeCodeGen astCodeGen(builder, lpResolver, modelGenContext, modelData);
 
     ASTNodeCodeGenScalarTicket t(astCodeGen, true);
-    return astCodeGen.codeGen(math);
+    return astCodeGen.codeGenDouble(math);
 }
 
 void LoadSymbolResolverBase::recursiveSymbolPush(const std::string& symbol)

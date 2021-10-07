@@ -129,7 +129,7 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
                 math = rateRule->getMath();
             }
             assert(math);
-            Value *value = astCodeGen.codeGen(math);
+            Value *value = astCodeGen.codeGenDouble(math);
 
             mdbuilder.createRateRuleRateStore(rateRule->getVariable(), value);
         }

@@ -160,8 +160,7 @@ static std::string flatten_comp(const std::string& sbml, const std::string fname
         if (log->getNumFailsWithSeverity(libsbml::LIBSBML_SEV_ERROR) != 0)
         {
             std::stringstream msg;
-            msg << "Errors durring model flattening, model *MIGHT* contain errors:"
-                    << std::endl;
+            msg << "Errors durring model flattening, model not converted:" << std::endl;
 
             for (int i = 0; i < log->getNumErrors(); ++i)
             {
@@ -171,7 +170,7 @@ static std::string flatten_comp(const std::string& sbml, const std::string fname
                     msg << "SBMLError(" << i << "): " << error->getMessage();
                 }
             }
-            rrLog(rr::Logger::LOG_WARNING) << msg.str();
+            throw std::runtime_error(msg.str());
         }
     }
 

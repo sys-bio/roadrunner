@@ -120,20 +120,24 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
 }
 
 LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned options)
-    :   independentFloatingSpeciesSize(0),
-        independentBoundarySpeciesSize(0),
-        independentGlobalParameterSize(0),
-        independentCompartmentSize(0),
-        independentInitFloatingSpeciesSize(0),
-        independentInitBoundarySpeciesSize(0),
-        independentInitGlobalParameterSize(0),
-        independentInitCompartmentSize(0)
+    : independentFloatingSpeciesSize(0),
+    independentBoundarySpeciesSize(0),
+    independentGlobalParameterSize(0),
+    independentCompartmentSize(0),
+    independentInitFloatingSpeciesSize(0),
+    independentInitBoundarySpeciesSize(0),
+    independentInitGlobalParameterSize(0),
+    independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-            == NotSafe_FloatingSpeciesAmounts + 1
-            && "wrong number of items in modelDataFieldsNames");
+        == NotSafe_FloatingSpeciesAmounts + 1
+        && "wrong number of items in modelDataFieldsNames");
 
     modelName = model->getName();
+    if (modelName.empty())
+    {
+        modelName = model->getId();
+    }
 
     // first go through the rules, see if they determine other stuff
     {
@@ -1744,6 +1748,31 @@ size_t LLVMModelDataSymbols::getInitGlobalParameterSize() const
 std::vector<std::string> LLVMModelDataSymbols::getEventIds() const
 {
     return getIds(eventIds);
+}
+
+std::vector<std::string> LLVMModelDataSymbols::getAssignmentRuleIds() const
+{
+    std::vector<string> ret;
+    for (std::set<string>::iterator ar = assignmentRules.begin(); ar != assignmentRules.end(); ar++)
+    {
+        ret.push_back(*ar);
+    }
+    return ret;
+}
+
+std::vector<std::string> LLVMModelDataSymbols::getRateRuleIds() const
+{
+    return getIds(rateRules);
+}
+
+std::vector<std::string> LLVMModelDataSymbols::getInitialAssignmentIds() const
+{
+    std::vector<string> ret;
+    for (std::set<string>::iterator ia = initAssignmentRules.begin(); ia != initAssignmentRules.end(); ia++)
+    {
+        ret.push_back(*ia);
+    }
+    return ret;
 }
 
 std::string LLVMModelDataSymbols::getEventId(size_t indx) const

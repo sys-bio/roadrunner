@@ -149,11 +149,12 @@ TEST_F(RoadRunnerAPITests, DISABLED_CompilerTempDirSupportCodeDir) {
  * maximum adams order is too large. disable until fixed.
  */
 TEST_F(RoadRunnerAPITests, DISABLED_CopyConstructor) {
-    RoadRunner rr1(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr1(testModel->str());
     RoadRunner rr2 = rr1; // logs a error from cvode
     // todo, use equality operators once they are built
     ASSERT_STREQ(rr1.getSBML().c_str(), rr2.getSBML().c_str());
-
+    delete testModel;
 }
 
 /**
@@ -161,8 +162,10 @@ TEST_F(RoadRunnerAPITests, DISABLED_CopyConstructor) {
  * is something that we should add
  */
 TEST_F(RoadRunnerAPITests, DISABLED_EqualityOperators) {
-    RoadRunner rr1(TestModelFactory("SimpleFlux")->str());
-    RoadRunner rr2(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr1(testModel->str());
+    RoadRunner rr2(testModel->str());
+    delete testModel;
 //    ASSERT_TRUE(rr1 == rr2);
 }
 
@@ -171,26 +174,36 @@ TEST_F(RoadRunnerAPITests, DISABLED_EqualityOperators) {
  * is something that we should add
  */
 TEST_F(RoadRunnerAPITests, DISABLED_InequalityOperators) {
-    RoadRunner rr1(TestModelFactory("SimpleFlux")->str());
-    RoadRunner rr2(TestModelFactory("OpenLinearFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    TestModel* testModel2 = TestModelFactory("OpenLinearFlux");
+    RoadRunner rr1(testModel->str());
+    RoadRunner rr2(testModel2->str());
+    delete testModel;
+    delete testModel2;
 //    ASSERT_TRUE(rr1 != rr2);
 }
 
 TEST_F(RoadRunnerAPITests, getInstanceID) {
-    RoadRunner rr1(TestModelFactory("SimpleFlux")->str());
-    RoadRunner rr2(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr1(testModel->str());
+    RoadRunner rr2(testModel->str());
     ASSERT_EQ(1, rr1.getInstanceID());
     ASSERT_EQ(2, rr2.getInstanceID());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getInstanceCount) {
-    RoadRunner rr1(TestModelFactory("SimpleFlux")->str());
-    RoadRunner rr2(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr1(testModel->str());
+    RoadRunner rr2(testModel->str());
     ASSERT_EQ(2, rr2.getInstanceCount());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getParamPromotedSBML) {
-    std::string s = RoadRunner::getParamPromotedSBML(TestModelFactory("ModelWithLocalParameters")->str());
+    TestModel* testModel = TestModelFactory("ModelWithLocalParameters");
+    std::string s = RoadRunner::getParamPromotedSBML(testModel->str());
+    delete testModel;
     std::string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                            "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:layout=\"http://www.sbml.org/sbml/level3/version1/layout/version1\" xmlns:render=\"http://www.sbml.org/sbml/level3/version1/render/version1\" level=\"3\" version=\"1\" layout:required=\"false\" render:required=\"false\">\n"
                            "  <model id=\"ModelWithLocalParameters\" name=\"ModelWithLocalParameters\" substanceUnits=\"substance\" timeUnits=\"time\" volumeUnits=\"volume\" areaUnits=\"area\" lengthUnits=\"length\" extentUnits=\"substance\">\n"
@@ -254,7 +267,9 @@ TEST_F(RoadRunnerAPITests, getParamPromotedSBML) {
  * no sure even compiles anymore.
  */
 TEST_F(RoadRunnerAPITests, DISABLED_getCompiler) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, IsModelLoadedWhenFalse) {
@@ -263,56 +278,70 @@ TEST_F(RoadRunnerAPITests, IsModelLoadedWhenFalse) {
 }
 
 TEST_F(RoadRunnerAPITests, IsModelLoadedWhenTrue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     ASSERT_TRUE(rr.isModelLoaded());
+    delete testModel;
 }
 
 
 TEST_F(RoadRunnerAPITests, getConservedMoietyAnalysisWhenFalse) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     ASSERT_FALSE(rr.getConservedMoietyAnalysis());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getConservedMoietyAnalysisWhenTrue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setConservedMoietyAnalysis(true);
     ASSERT_TRUE(rr.getConservedMoietyAnalysis());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, tmpDir) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setTempDir(fs::current_path().string());
     ASSERT_STREQ(rr.getTempDir().c_str(), fs::current_path().string().c_str());
+    delete testModel;
 }
 
 /**
  * getModelName doesn't seem to work. But it should be tested
  * in LLVMExecutableModel
  */
-TEST_F(RoadRunnerAPITests, DISABLED_getModelName) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
-    ASSERT_STREQ(rr.getModelName().c_str(), "name");
+TEST_F(RoadRunnerAPITests, getModelName) {
+    RoadRunner rr(SimpleFlux().str());
+    ASSERT_STREQ(rr.getModelName().c_str(), "SimpleFlux");
 }
 
 TEST_F(RoadRunnerAPITests, clearModel) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.clearModel();
     ASSERT_FALSE(rr.isModelLoaded());
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, oneStep) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.oneStep(0, 10, true);
     ASSERT_EQ(rr.getModel()->getTime(), 10);
+    delete testModel;
 }
 
 /**
  * Difference between oneStep and internalOneStep
  */
 TEST_F(RoadRunnerAPITests, internalOneStep) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.internalOneStep(0, 10, true);
     ASSERT_LT(rr.getModel()->getTime(), 0.003);
+    delete testModel;
 }
 
 /**
@@ -322,15 +351,18 @@ TEST_F(RoadRunnerAPITests, internalOneStep) {
  * This is just a superficial test
  */
 TEST_F(RoadRunnerAPITests, saveState) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     fs::path fname = fs::current_path() / "testSaveState.rr";
     rr.saveState(fname.string());
     ASSERT_TRUE(fs::exists(fname));
     fs::remove(fname); // clear up written files
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, loadState) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     fs::path fname = fs::current_path() / "testSaveState.rr";
     rr.saveState(fname.string());
     ASSERT_TRUE(fs::exists(fname));
@@ -338,17 +370,21 @@ TEST_F(RoadRunnerAPITests, loadState) {
     loaded.loadState(fname.string());
     ASSERT_EQ(loaded.getNumberOfFloatingSpecies(), 2);
     fs::remove(fname); // clear up written files
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getSimulationData) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.simulate(0, 10, 11);
     auto x = rr.getSimulationData();
     ASSERT_EQ(11 * 3, x->size()); // 11 time steps, three variables (time, s1, s2)
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, setSimulateOptions) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     SimulateOptions options;
     options.steps = 101;
     options.duration = 100;
@@ -358,6 +394,7 @@ TEST_F(RoadRunnerAPITests, setSimulateOptions) {
     ASSERT_EQ(x.steps, 101);
     ASSERT_EQ(x.duration, 100);
     ASSERT_EQ(x.start, 0);
+    delete testModel;
 }
 
 /**
@@ -365,8 +402,10 @@ TEST_F(RoadRunnerAPITests, setSimulateOptions) {
  * This is a superficial API test
  */
 TEST_F(RoadRunnerAPITests, getSBML) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     ASSERT_EQ(typeid(std::string), typeid(rr.getSBML()));
+    delete testModel;
 }
 
 /**
@@ -374,37 +413,45 @@ TEST_F(RoadRunnerAPITests, getSBML) {
  * should be within the sbml generating code.
  */
 TEST_F(RoadRunnerAPITests, getCurrentSBML) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     ASSERT_EQ(typeid(std::string), typeid(rr.getCurrentSBML()));
-
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, reset) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.simulate(0, 100, 101);
     ASSERT_EQ(rr.getModel()->getTime(), 100);
     rr.reset();
     ASSERT_EQ(rr.getModel()->getTime(), 0);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getCurrentTime) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     ASSERT_EQ(rr.getCurrentTime(), 0);
     rr.simulate(0, 100, 101);
     ASSERT_EQ(rr.getCurrentTime(), 100);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, resetSelectionLists) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     SelectionRecord record = rr.createSelection("S1");
     ASSERT_STREQ(record.to_string().c_str(), "S1");
     rr.resetSelectionLists();
     ASSERT_STREQ(record.to_string().c_str(), "S1");
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getSelections) {
+    TestModel* testModel = TestModelFactory("SimpleFlux");
     std::vector<std::string> expected({"time", "[S1]", "[S2]"});
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    RoadRunner rr(testModel->str());
     auto x = rr.getSelections();
     std::vector<std::string> actual;
     actual.reserve(x.size());
@@ -412,71 +459,91 @@ TEST_F(RoadRunnerAPITests, getSelections) {
         actual.push_back(i.to_string());
     }
     ASSERT_EQ(expected, actual);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getValue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getValue("[S1]");
     ASSERT_EQ(x, 10);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, setSelections) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setSelections(std::vector<std::string>({"S1", "[S1]"}));
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getSelectedValues) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     std::vector<double> x = rr.getSelectedValues();
     std::vector<double> expected({0.0, 10.0, 1.0});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getIndependentFloatingSpeciesIds) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getIndependentFloatingSpeciesIds();
     std::vector<std::string> expected({"S1"});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getDependentFloatingSpeciesIds) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getDependentFloatingSpeciesIds();
     std::vector<std::string> expected({"S2"});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getFloatingSpeciesConcentrationIds) {
-    std::cout << TestModelFactory("SimpleFlux")->str() << std::endl;
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    std::cout << testModel->str() << std::endl;
+    RoadRunner rr(testModel->str());
     auto x = rr.getDependentFloatingSpeciesIds();
     std::vector<std::string> expected({"S2"});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getFloatingSpeciesInitialConcentrationIds) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getFloatingSpeciesInitialConcentrations();
     std::vector<double> expected({10.0, 1.0});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 /**
  * I don't understand what this is or how to test it.
  */
 TEST_F(RoadRunnerAPITests, DISABLED_getSupportedIdTypes) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getSupportedIdTypes();
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, setValue) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setValue("[S1]", 12.34);
     ASSERT_EQ(rr.getValue("[S1]"), 12.34);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getFloatingSpeciesAmountsNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getFloatingSpeciesAmountsNamedArray();
     std::cout << x << std::endl;
     ls::DoubleMatrix expected({
@@ -484,78 +551,97 @@ TEST_F(RoadRunnerAPITests, getFloatingSpeciesAmountsNamedArray) {
                               });
     checkMatrixEqual(expected, x);
     // why does DoubleMatrix not implement equality ops?
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getFloatingSpeciesConcentrationsNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getFloatingSpeciesConcentrationsNamedArray();
     std::cout << x << std::endl;
     ls::DoubleMatrix expected({
                                       {10, 1}
                               });
     checkMatrixEqual(expected, x);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getBoundarySpeciesAmountsNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setBoundary("S1", true, true);
     auto x = rr.getBoundarySpeciesAmountsNamedArray();
     std::cout << x << std::endl;
     ls::DoubleMatrix expected({{10}});
     checkMatrixEqual(expected, x);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getBoundarySpeciesConcentrationsNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     rr.setBoundary("S1", true, true);
     auto x = rr.getBoundarySpeciesConcentrationsNamedArray();
     std::cout << x << std::endl;
     ls::DoubleMatrix expected({{10}});
     checkMatrixEqual(expected, x);
+    delete testModel;
 }
 
 
 TEST_F(RoadRunnerAPITests, getRatesOfChange) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getRatesOfChange();
     std::vector<double> expected({-0.99, 0.99});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getRatesOfChangeNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getRatesOfChangeNamedArray();
     ls::DoubleMatrix expected({{-0.99, 0.99}});
     checkMatrixEqual(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getIndependentRatesOfChange) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getIndependentRatesOfChange();
     std::vector<double> expected({-0.99});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getIndependentRatesOfChangeNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getIndependentRatesOfChangeNamedArray();
     ls::DoubleMatrix expected({{-0.99}});
     checkMatrixEqual(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getDependentRatesOfChange) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getDependentRatesOfChange();
     std::vector<double> expected({0.99});
     ASSERT_EQ(x, expected);
+    delete testModel;
 }
 
 
 TEST_F(RoadRunnerAPITests, getDependentRatesOfChangeNamedArray) {
-    RoadRunner rr(TestModelFactory("SimpleFlux")->str());
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    RoadRunner rr(testModel->str());
     auto x = rr.getDependentRatesOfChangeNamedArray();
     ls::DoubleMatrix expected({{0.99}});
     checkMatrixEqual(x, expected);
+    delete testModel;
 }
 
 TEST_F(RoadRunnerAPITests, getFullJacobian) {
@@ -564,6 +650,7 @@ TEST_F(RoadRunnerAPITests, getFullJacobian) {
     auto x = rr.getFullJacobian();
     std::cout << x << std::endl;
     checkMatrixEqual(venk->fullJacobianConc(), x, 1e-3);
+    delete venk;
 }
 
 TEST_F(RoadRunnerAPITests, getReducedJacobian) {
@@ -978,51 +1065,55 @@ TEST_F(RoadRunnerAPITests, removeCompartment){
 
 }
 
-/**
- * How can we verify that we have a new assignment rule?
- */
-TEST_F(RoadRunnerAPITests, DISABLED_addAssignmentRule){
+TEST_F(RoadRunnerAPITests, addAssignmentRule){
     RoadRunner rr(SimpleFlux().str());
+    rr.addParameter("STotal", 0);
     rr.addAssignmentRule("STotal", "S1+S2", true);
+    vector<string> ruleids = rr.getAssignmentRuleIds();
+    ASSERT_TRUE(ruleids.size() == 1);
+    EXPECT_STREQ(ruleids[0].c_str(), "STotal");
 }
 
-/**
- * Works, but how to verify that we have a new rate rule?
- */
-TEST_F(RoadRunnerAPITests, DISABLED_addRateRule){
+TEST_F(RoadRunnerAPITests, addRateRule){
     RoadRunner rr(SimpleFlux().str());
     rr.setBoundary("S2", true);
     rr.addRateRule("S2", "(kf/kb)*S1", true);
-    std::cout << rr.getSBML() << std::endl;
-    std::cout << *rr.simulate(0, 100, 101) << std::endl;
-
+    vector<string> ruleids = rr.getRateRuleIds();
+    ASSERT_TRUE(ruleids.size() == 1);
+    EXPECT_STREQ(ruleids[0].c_str(), "S2");
 }
 
-/**
- * How to test?
- */
-TEST_F(RoadRunnerAPITests, DISABLED_removeRules){
+TEST_F(RoadRunnerAPITests, removeRules){
     RoadRunner rr(SimpleFlux().str());
     rr.setBoundary("S2", true);
     rr.addRateRule("S2", "(kf/kb)*S1", true);
+    vector<string> ruleids = rr.getRateRuleIds();
+    ASSERT_TRUE(ruleids.size() == 1);
+    EXPECT_STREQ(ruleids[0].c_str(), "S2");
+
     rr.removeRules("S2", false, true);
+    ruleids = rr.getRateRuleIds();
+    ASSERT_TRUE(ruleids.size() == 0);
 }
 
-/**
- * Works but cannot currently getInitialAssignments with
- * current API, so can't test.
- */
 TEST_F(RoadRunnerAPITests, addInitialAssignment){
     RoadRunner rr(SimpleFlux().str());
     rr.addInitialAssignment("S1", "0.5*S2", true);
+    vector<string> ruleids = rr.getInitialAssignmentIds();
+    ASSERT_TRUE(ruleids.size() == 1);
+    EXPECT_STREQ(ruleids[0].c_str(), "S1");
 }
 
-/**
- * Again, how to test?
- */
-TEST_F(RoadRunnerAPITests, DISABLED_removeInitialAssignment){
+TEST_F(RoadRunnerAPITests, removeInitialAssignment){
     RoadRunner rr(SimpleFlux().str());
     rr.addInitialAssignment("S1", "0.5*S2", true);
+    vector<string> ruleids = rr.getInitialAssignmentIds();
+    ASSERT_TRUE(ruleids.size() == 1);
+    EXPECT_STREQ(ruleids[0].c_str(), "S1");
+
+    rr.removeInitialAssignment("S1", true);
+    ruleids = rr.getInitialAssignmentIds();
+    ASSERT_TRUE(ruleids.size() == 0);
 }
 
 /**

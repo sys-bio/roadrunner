@@ -67,7 +67,7 @@ namespace rrllvm {
                         value = resolver.loadSymbolValue(p->getId());
                     } else if (p->isSetStoichiometryMath()) {
                         const StoichiometryMath *sm = p->getStoichiometryMath();
-                        value = astCodeGen.codeGen(sm->getMath());
+                        value = astCodeGen.codeGenDouble(sm->getMath());
                     } else {
                         rrLog(Logger::LOG_WARNING) << "species reference "
                                                  << p->getId() << " has been determined to be "
@@ -109,7 +109,7 @@ namespace rrllvm {
 
 //                    assert(sm && "SmoichiometryMath variable sm is nullptr");
 
-                    Value *value = astCodeGen.codeGen(sm->getMath());
+                    Value *value = astCodeGen.codeGenDouble(sm->getMath());
 
                     // reactants are consumed, so they get a negative stoichiometry
                     Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));

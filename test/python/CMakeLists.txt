@@ -30,8 +30,6 @@ if (BUILD_PYTHON)
 
     set_tests_properties(PythonTests PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH")
 
-
-
 endif ()
 
 

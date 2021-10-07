@@ -11,7 +11,7 @@ namespace rr
 
 /**
  * @internal
- * @deprecated
+ * Used in FileName.
  */
 class RR_DECLSPEC FileName
 {

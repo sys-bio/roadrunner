@@ -20,6 +20,7 @@ namespace rrtesting
 
 
 CXXEnzymeExecutableModel::CXXEnzymeExecutableModel(const rr::Dictionary* dict)
+       : ExecutableModel()
 {
     rrLog(Logger::LOG_NOTICE) << __FUNC__;
 
@@ -625,6 +626,18 @@ std::string CXXEnzymeExecutableModel::getEventId(size_t index)
 }
 
 void CXXEnzymeExecutableModel::getEventIds(std::list<std::string>&)
+{
+}
+
+void CXXEnzymeExecutableModel::getAssignmentRuleIds(std::list<std::string>& out)
+{
+}
+
+void CXXEnzymeExecutableModel::getRateRuleIds(std::list<std::string>& out)
+{
+}
+
+void CXXEnzymeExecutableModel::getInitialAssignmentIds(std::list<std::string>& out)
 {
 }
 

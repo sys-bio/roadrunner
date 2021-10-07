@@ -14,8 +14,7 @@ namespace rrc
 
 /**
  * @internal
- * @deprecated
- * a proprietaty collection class that is massivly deprecated.
+ * a proprietaty collection class that is theoretically deprecated, but used extensively in rrc_api.cpp
  */
 template <class T>
 class ArrayListItem : public ArrayListItemBase

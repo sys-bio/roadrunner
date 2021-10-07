@@ -493,20 +493,7 @@ public:
         return getEventPriorityPtr(modelData, event);
     }
 
-    inline bool getEventTrigger(size_t event)
-    {
-        assert(event < symbols->getEventAttributes().size()
-                        && "event out of bounds");
-        if (modelData->time >= 0.0)
-        {
-            return getEventTriggerPtr(modelData, event);
-        }
-        else
-        {
-            return symbols->getEventAttributes()[event] & EventInitialValue
-                    ? true : false;
-        }
-    }
+    bool getEventTrigger(size_t event);
 
     inline bool getEventUseValuesFromTriggerTime(size_t event)
     {
@@ -564,6 +551,9 @@ public:
     virtual int getEventIndex(const std::string& eid);
     virtual std::string getEventId(size_t index);
     virtual void getEventIds(std::list<std::string>& out);
+    virtual void getAssignmentRuleIds(std::list<std::string>& out);
+    virtual void getRateRuleIds(std::list<std::string>& out);
+    virtual void getInitialAssignmentIds(std::list<std::string>& out);
     virtual void setEventListener(size_t index, rr::EventListenerPtr eventHandler);
     virtual rr::EventListenerPtr getEventListener(size_t index);
 
@@ -632,7 +622,7 @@ private:
     /******************************************************************************/
 private:
     /**
-     * the model generator maintians a cached of generated models.
+     * the model generator maintians a cache of generated models.
      */
 
     LLVMModelData *modelData;

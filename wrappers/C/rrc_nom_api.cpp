@@ -22,6 +22,30 @@ char* rrcCallConv getModelName(RRHandle handle)
     catch_ptr_macro
 }
 
+void rrcCallConv setModelName(RRHandle handle, char* name)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        rri->setModelName(name);
+    catch_void_macro
+}
+
+char* rrcCallConv getModelId(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    return createText(rri->getModelId());
+    catch_ptr_macro
+}
+
+void rrcCallConv setModelId(RRHandle handle, char* id)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    rri->setModelId(id);
+    catch_void_macro
+}
+
 int rrcCallConv getNumberOfRules(RRHandle handle)
 {
     start_try

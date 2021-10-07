@@ -1,3 +1,7 @@
+include(ConfigurationSummaryPython)
+# sets a variable called PythonSummary
+ConfigurationSummaryPython()
+
 # A simple configuration summary for roadrunner.
 macro(ConfigurationSummary)
     message(STATUS "
@@ -89,21 +93,13 @@ rrplugins
       Bifurcation Auto2k                   ${RR_PLUGINS_BUILD_AUTO2000_PLUGIN}
       Demo Plugin                          ${RR_PLUGINS_BUILD_HELLO_PLUGIN}
 
-
 -------------------------------------------------------------------------------
 Python Variables
 -------------------------------------------------------------------------------
 Note: you can change these by setting the Python_ROOT_DIR variable
 
-    BUILD_PYTHON                               ${BUILD_PYTHON}
-    Python_ROOT_DIR                            ${Python_ROOT_DIR}
-    Python_VERSION                             ${Python_VERSION}
-    Python_EXECUTABLE                          ${Python_EXECUTABLE}
-    Python_LIBRARIES                           ${Python_LIBRARIES}
-    Python_INCLUDE_DIRS                        ${Python_INCLUDE_DIRS}
-    Python_NumPy_FOUND                         ${Python_NumPy_FOUND}
-    Python_NumPy_INCLUDE_DIRS                  ${Python_NumPy_INCLUDE_DIRS}
-    Python_NumPy_VERSION                       ${Python_NumPy_VERSION}
+${PythonSummary}
+
 End Summary
 ################################################################################
 ")

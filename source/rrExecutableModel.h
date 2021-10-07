@@ -123,6 +123,8 @@ namespace rr {
          * @brief Returns a human-readable description of the code generation backend,
          * e.g. LLVM, legacy C, etc.
          */
+        ExecutableModel();
+
         virtual std::string getExecutableModelDesc() const = 0;
 
         /**
@@ -722,6 +724,12 @@ namespace rr {
 
         virtual void getEventIds(std::list<std::string>&) = 0;
 
+        virtual void getAssignmentRuleIds(std::list<std::string>&) = 0;
+
+        virtual void getRateRuleIds(std::list<std::string>&) = 0;
+
+        virtual void getInitialAssignmentIds(std::list<std::string>&) = 0;
+
         virtual void setEventListener(size_t index, EventListenerPtr eventHandler) = 0;
 
         virtual EventListenerPtr getEventListener(size_t index) = 0;
@@ -805,9 +813,13 @@ namespace rr {
             out << "Saving state not implemented for this model type";
         }
 
+        virtual void setIntegrationStartTime(double time);
+
         friend class RoadRunner;
 
     protected:
+
+        double mIntegrationStartTime;
 
         /**
          * is integration is currently proceeding.

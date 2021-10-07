@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.13.0 on 2021-10-04 18:05 with libSBML version 5.18.3. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
   <model>
     <listOfCompartments>
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="comp" comp:submodelRef="A" />
-          <comp:replacedElement comp:idRef="comp" comp:submodelRef="B" />
+          <comp:replacedElement comp:idRef="comp" comp:submodelRef="A"/>
+          <comp:replacedElement comp:idRef="comp" comp:submodelRef="B"/>
         </comp:listOfReplacedElements>
       </compartment>
     </listOfCompartments>
     <listOfSpecies>
       <species id="S" compartment="comp" initialConcentration="11" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="S" comp:submodelRef="A" />
-          <comp:replacedElement comp:idRef="S" comp:submodelRef="B" />
+          <comp:replacedElement comp:idRef="S" comp:submodelRef="A"/>
+          <comp:replacedElement comp:idRef="S" comp:submodelRef="B"/>
         </comp:listOfReplacedElements>
       </species>
     </listOfSpecies>
@@ -23,6 +24,6 @@
     </comp:listOfSubmodels>
   </model>
   <comp:listOfExternalModelDefinitions>
-    <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model.xml" comp:modelRef="enzyme"/>
+    <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model-l3v1.xml" comp:modelRef="enzyme"/>
   </comp:listOfExternalModelDefinitions>
 </sbml>

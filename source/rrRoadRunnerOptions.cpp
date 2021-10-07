@@ -241,18 +241,12 @@ namespace rr {
                     throw std::invalid_argument(err.str());
                 }
             }
-            if (start < 0) {
-                std::stringstream err;
-                err << "The first entry in the 'times' vector must be zero or greater.  The current value is " << start << ".";
-                throw std::invalid_argument(err.str());
-
-            }
             double prev = start;
             for (size_t tv = 1; tv < times.size(); tv++) {
                 double hstep = times[tv] - prev;
                 if (hstep <= 0) {
                     std::stringstream err;
-                    err << "The 'times' setting must be a vector of time values that start at zero or more and increase along the vector.  The value " << times[tv] << " is less than or equal to the previous value of " << prev << ".";
+                    err << "The 'times' setting must be a vector of time values that start at the time value at the initial state of the model and increase along the vector.  The value " << times[tv] << " is less than or equal to the previous value of " << prev << ".";
                     throw std::invalid_argument(err.str());
                 }
                 prev = times[tv];

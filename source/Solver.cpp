@@ -26,14 +26,14 @@ namespace rr
     Solver::Solver(ExecutableModel* model)
         : mModel(model){}
 
-    void Solver::addSetting(const std::string& name, Setting val, std::string display_name, std::string hint, std::string description) {
+    void Solver::addSetting(const std::string& name, const Setting& val, const std::string& display_name, const std::string& hint, const std::string& description) {
         if (settings.find(name) == settings.end()) {
             // only add the new setting if its not already present
             sorted_settings.push_back(name);
-            settings[name] = std::move(val);
-            display_names_[name] = std::move(display_name);
-            hints[name] = std::move(hint);
-            descriptions[name] = std::move(description);
+            settings[name] = val;
+            display_names_[name] = display_name;
+            hints[name] = hint;
+            descriptions[name] = description;
         }
     }
 

@@ -103,7 +103,7 @@ llvm::Value* FunctionResolver::loadSymbolValue(const std::string& symbol,
 
         // the last child should be an apply node
         const ASTNode *apply = math->getChild(nchild - 1);
-        Value *result = astCodeGen.codeGen(apply);
+        Value *result = astCodeGen.codeGenDouble(apply);
 
         delete symbols;
         symbols = 0;

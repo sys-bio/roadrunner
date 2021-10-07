@@ -86,7 +86,7 @@ namespace rr {
             Integrator(aModel),
             mStateVector(nullptr),
             mCVODE_Memory(nullptr),
-            lastEventTime(0),
+            mLastEventTime(0),
             stateVectorVariables(false),
             variableStepPendingEvent(false),
             variableStepTimeEndEvent(false),
@@ -203,7 +203,7 @@ namespace rr {
 
         mModel = m;
 
-        lastEventTime = 0;
+        mLastEventTime = 0;
         stateVectorVariables = false;
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
@@ -212,7 +212,7 @@ namespace rr {
             create();
 
             // allocate space for the event status array
-            eventStatus = std::vector<unsigned char>(mModel->getEventTriggers(0, 0, 0), false);
+            eventStatus = std::vector<unsigned char>(mModel->getEventTriggers(0, nullptr, nullptr), false);
         }
 
         // Update parameter settings within CVODE.
@@ -705,7 +705,7 @@ namespace rr {
             return applyVariableStepPendingEvents() + roottol;
         }
 
-        double timeEnd = 0.0;
+        double timeEnd = timeStart-1; //Just to set it at a minimum; anything lower than timeStart should work.
         double tout = timeStart + hstep;
         int strikes = 3;
 
@@ -743,7 +743,7 @@ namespace rr {
             if (nResult == CV_ROOT_RETURN) {
                 rrLog(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
 
-                bool tooCloseToStart = fabs(timeEnd - lastEventTime) > relTol;
+                bool tooCloseToStart = fabs(timeEnd - mLastEventTime) > relTol;
 
                 if (tooCloseToStart) {
                     strikes = 3;
@@ -753,7 +753,7 @@ namespace rr {
 
                 // the condition that we are to evaluate and apply events
                 if (tooCloseToStart || strikes > 0) {
-                    lastEventTime = timeEnd;
+                    mLastEventTime = timeEnd;
 
                     if (varstep
                         && (timeEnd - timeStart > 2. * epsilon)) {
@@ -793,7 +793,7 @@ namespace rr {
                         mModel->setTime(timeEnd - epsilon);
                         assignResultsToModel();
                         variableStepTimeEndEvent = true;
-                        lastEventTime = timeEnd;
+                        mLastEventTime = timeEnd;
                         return timeEnd - epsilon;
                     }
                 } else {
@@ -1017,18 +1017,17 @@ namespace rr {
     }
 
     void CVODEIntegrator::testRootsAtInitialTime() {
-        std::vector<unsigned char> initialEventStatus(mModel->getEventTriggers(0, 0, 0), false);
-        mModel->getEventTriggers(initialEventStatus.size(), 0,
+        std::vector<unsigned char> initialEventStatus(mModel->getEventTriggers(0, nullptr, nullptr), false);
+        mModel->getEventTriggers(initialEventStatus.size(), nullptr,
                                  initialEventStatus.empty() ? nullptr : &initialEventStatus[0]);
-        applyEvents(0, initialEventStatus);
+        applyEvents(mIntegrationStartTime, initialEventStatus);
     }
 
     void CVODEIntegrator::applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
         double *stateVector = mStateVector ? NV_DATA_S(mStateVector) : nullptr;
-        mModel->applyEvents(timeEnd, previousEventStatus.empty() ? nullptr : &previousEventStatus[0], stateVector,
-                            stateVector);
+        mModel->applyEvents(timeEnd, previousEventStatus.empty() ? nullptr : &previousEventStatus[0], stateVector, stateVector);
 
-        if (timeEnd > 0.0) {
+        if (timeEnd > mIntegrationStartTime) {
             mModel->setTime(timeEnd);
 
             // copy state std::vector into cvode memory
@@ -1156,22 +1155,20 @@ namespace rr {
             return;
         }
 
-        lastEventTime = 0.0;
+        mLastEventTime = time;
 
-        // apply any events that trigger before or at time 0.
+        // apply any events that trigger before or at t0.
         // important NOT to set model time before we check get
         // the initial event state, initially time is < 0.
-        if (time <= 0.0) {
 
-            // copy state std::vector into cvode memory, need to do this before evaluating
-            // roots because the applyEvents method copies the cvode state std::vector
-            // into the model
-            if (mStateVector) {
-                mModel->getStateVector(NV_DATA_S(mStateVector));
-            }
-
-            testRootsAtInitialTime();
+        // copy state std::vector into cvode memory, need to do this before evaluating
+        // roots because the applyEvents method copies the cvode state std::vector
+        // into the model
+        if (mStateVector) {
+            mModel->getStateVector(NV_DATA_S(mStateVector));
         }
+
+        testRootsAtInitialTime();
 
         mModel->setTime(time);
 
@@ -1246,20 +1243,20 @@ namespace rr {
             if (mStateVector) {
                 mModel->getStateVector(NV_DATA_S(mStateVector));
             }
-            mModel->setTime(lastEventTime);
-            reInit(lastEventTime);
+            mModel->setTime(mLastEventTime);
+            reInit(mLastEventTime);
         } else {
             // apply events, copy post event status into integrator state std::vector.
-            applyEvents(lastEventTime, eventStatus);
+            applyEvents(mLastEventTime, eventStatus);
         }
 
         if (listener) {
-            listener->onEvent(this, mModel, lastEventTime);
+            listener->onEvent(this, mModel, mLastEventTime);
         }
 
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
-        return lastEventTime;
+        return mLastEventTime;
     }
 
     // int (*CVRootFn)(realtype t, N_Vector y, realtype *gout, void *user_data)

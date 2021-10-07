@@ -46,7 +46,7 @@ public:
 
     /**
      * default ret type is double, derived classes
-     * must override if usign non-default func sic
+     * must override if using non-default func sic
      */
     llvm::Type *getRetType()
     {
@@ -113,10 +113,7 @@ llvm::Value *GetEventValueCodeGenBase<Derived, FunctionPtrType>::codeGen()
 
         const libsbml::Event *event = events->get(i);
 
-        const libsbml::ASTNode *math = static_cast<Derived*>(this)->getMath(event);
-
-        // the requested value
-        llvm::Value *value = astCodeGen.codeGen(math);
+        llvm::Value* value = static_cast<Derived*>(this)->getMath(event, astCodeGen);
 
         // convert type to return type
         value = static_cast<Derived*>(this)->createRet(value);
@@ -138,7 +135,7 @@ public:
     GetEventTriggerCodeGen(const ModelGeneratorContext &mgc);
     ~GetEventTriggerCodeGen() {};
 
-    const libsbml::ASTNode *getMath(const libsbml::Event *);
+    llvm::Value* getMath(const libsbml::Event *, ASTNodeCodeGen& astCodeGen);
 
     static const char* FunctionName;
     static const char* IndexArgName;
@@ -155,7 +152,7 @@ public:
     GetEventPriorityCodeGen(const ModelGeneratorContext &mgc);
     ~GetEventPriorityCodeGen();
 
-    const libsbml::ASTNode *getMath(const libsbml::Event *);
+    llvm::Value* getMath(const libsbml::Event*, ASTNodeCodeGen& astCodeGen);
 
     static const char* FunctionName;
     static const char* IndexArgName;
@@ -171,7 +168,7 @@ public:
     GetEventDelayCodeGen(const ModelGeneratorContext &mgc);
     ~GetEventDelayCodeGen();
 
-    const libsbml::ASTNode *getMath(const libsbml::Event *);
+    llvm::Value* getMath(const libsbml::Event*, ASTNodeCodeGen& astCodeGen);
 
     llvm::Value *createRet(llvm::Value* value)
     {

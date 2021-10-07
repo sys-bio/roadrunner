@@ -270,6 +270,8 @@ namespace rr {
 //        using NVectorArrayPtr = std::unique_ptr<N_Vector*, decltype(&N_VDestroyVectorArray_Serial)>;
 //        NVectorArrayPtr mSensitivityMatrixUnique = std::make_unique<N_Vector*, decltype(&N_VDestroyVectorArray_Serial)>(nullptr);
 
+        int mSensitivityMatrixSize = 0;
+
         /**
          * @brief indicator for whether model has state vector variables or not
          * @details mirrors CVODEIntegrator

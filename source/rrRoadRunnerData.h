@@ -27,11 +27,6 @@ using std::stringstream;
 
 class RoadRunner;
 
-/**
- * @deprecated
- *
- * DO NOT USE THIS, IT IS DEPRECATED AND WILL BE REMOVED.
- */
 class RR_DECLSPEC RoadRunnerData
 {
 

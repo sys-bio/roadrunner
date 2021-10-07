@@ -172,6 +172,7 @@ int LLVMExecutableModel::setValues(bool (*funcPtr)(LLVMModelData*, int, double),
 }
 
 LLVMExecutableModel::LLVMExecutableModel() :
+    ExecutableModel(),
     symbols(0),
     modelData(0),
     conversionFactor(1.0),
@@ -217,6 +218,7 @@ LLVMExecutableModel::LLVMExecutableModel() :
 
 LLVMExecutableModel::LLVMExecutableModel(
     const std::shared_ptr<ModelResources>& rc, LLVMModelData* modelData) :
+    ExecutableModel(),
     resources(rc),
     symbols(rc->symbols),
     modelData(modelData),
@@ -260,7 +262,9 @@ LLVMExecutableModel::LLVMExecutableModel(
     flags(defaultFlags())
 {
 
-    modelData->time = -1.0; // time is initially before simulation starts
+    //The key here is that 'time' has to be less than 'mIntegrationStartTime' for events to work.  Not sure whether it actually has to be -inf, but it can't hurt?  See T0EventFiring tests, particularly 1120 in the SBML test suite (test_semantic_STS).  The actual integration start time is set in 'simulate'. --LS
+    modelData->time = -std::numeric_limits<double>::infinity(); // time is initially before simulation starts
+    // mIntegrationStartTime defaults to zero in constructor.
 
     std::srand((unsigned)std::time(0));
 
@@ -270,6 +274,7 @@ LLVMExecutableModel::LLVMExecutableModel(
 }
 
 LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOpt) :
+    ExecutableModel(),
 	resources(new ModelResources()),
 	dirty(0),
 	conversionFactor(1.0),
@@ -320,6 +325,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     pendingEvents.loadState(in, *this);
     rr::loadBinary(in, eventAssignTimes);
     rr::loadBinary(in, tieBreakMap);
+    rr::loadBinary(in, mIntegrationStartTime);
 }
 
 LLVMExecutableModel::~LLVMExecutableModel()
@@ -907,7 +913,7 @@ void LLVMExecutableModel::reset(int opt)
 
     // this sets up the event system to pull the initial value
     // before the simulation starts.
-    setTime(-1.0);
+    setTime(-std::numeric_limits<double>::infinity());
 
     // we've reset the species to their init values.
     dirty &= ~DIRTY_INIT_SPECIES;
@@ -1063,7 +1069,7 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
                 &rr::ExecutableModel::getGlobalParameterId, ids);
     }
 
-    // only get init values indepndent values, dep, with assignment rules
+    // only get init values independent values, dep, with assignment rules
     // always have the same value.
     //if (checkExact(SelectionRecord::_GLOBAL_PARAMETER | SelectionRecord::INITIAL, types)
     //        && (SelectionRecord::INDEPENDENT & types)) {
@@ -1616,6 +1622,24 @@ void LLVMExecutableModel::getEventIds(std::list<std::string>& out)
 {
     std::vector<std::string> eventIds = symbols->getEventIds();
     std::copy(eventIds.begin(), eventIds.end(), std::back_inserter(out));
+}
+
+void LLVMExecutableModel::getAssignmentRuleIds(std::list<std::string>& out)
+{
+    std::vector<std::string> arIds = symbols->getAssignmentRuleIds();
+    std::copy(arIds.begin(), arIds.end(), std::back_inserter(out));
+}
+
+void LLVMExecutableModel::getRateRuleIds(std::list<std::string>& out)
+{
+    std::vector<std::string> rrIds = symbols->getRateRuleIds();
+    std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
+}
+
+void LLVMExecutableModel::getInitialAssignmentIds(std::list<std::string>& out)
+{
+    std::vector<std::string> rrIds = symbols->getInitialAssignmentIds();
+    std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
 }
 
 void LLVMExecutableModel::setEventListener(size_t index,
@@ -2185,6 +2209,23 @@ void LLVMExecutableModel::resetEvents()
 {
 }
 
+bool LLVMExecutableModel::getEventTrigger(size_t event)
+{
+    {
+        assert(event < symbols->getEventAttributes().size()
+            && "event out of bounds");
+        if (modelData->time >= mIntegrationStartTime)
+        {
+            return getEventTriggerPtr(modelData, event);
+        }
+        else
+        {
+            return symbols->getEventAttributes()[event] & EventInitialValue
+                ? true : false;
+        }
+    }
+}
+
 bool LLVMExecutableModel::applyEvents(unsigned char* prevEventState,
         unsigned char* currEventState)
 {
@@ -2490,6 +2531,7 @@ void LLVMExecutableModel::saveState(std::ostream& out)
 	pendingEvents.saveState(out);
 	rr::saveBinary(out, eventAssignTimes);
 	rr::saveBinary(out, tieBreakMap);
+    rr::saveBinary(out, mIntegrationStartTime);
 }
 
 

@@ -30,6 +30,7 @@ public:
         std::cout << "actual" << std::endl;
         std::cout << actual << std::endl;
         checkMatrixEqual(expected, actual, tol);
+        delete testModel;
     }
 
     void checkScaledConcControlMatrix(const std::string& modelName, double tol){
@@ -45,6 +46,7 @@ public:
         std::cout << actual << std::endl;
 
         checkMatrixEqual(expected, actual, tol);
+        delete testModel;
     }
 
     void checkUnscaledFluxControlMatrix(const std::string& modelName, double tol){
@@ -59,6 +61,7 @@ public:
         std::cout << "actual" << std::endl;
         std::cout << actual << std::endl;
         checkMatrixEqual(expected, actual, tol);
+        delete testModel;
     }
 
     void checkScaledFluxControlMatrix(const std::string& modelName, double tol){
@@ -73,6 +76,7 @@ public:
         std::cout << "actual" << std::endl;
         std::cout << actual << std::endl;
         checkMatrixEqual(expected, actual, tol);
+        delete testModel;
     }
 };
 // unscaled conc

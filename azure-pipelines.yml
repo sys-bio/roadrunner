@@ -214,8 +214,8 @@ stages:
               echo "ls"
               ls
               $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              echo "running: $(PipExecutable) install numpy pytest"
-              $(PipExecutable) install numpy pytest
+              echo "running: $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt"
+              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
             displayName: InstallCondaEnv
           - script: |
               which conda
@@ -646,7 +646,7 @@ stages:
               echo "pip help:"
               $(PipExecutable) install --help
               echo "Installing nose and numpy: $(PipExecutable) install --yes nose numpy pytest"
-              $(PipExecutable) install -q nose numpy pytest
+              $(PipExecutable) install -q -r test-requirements.txt
               $ENV:PATH="$ENV:PATH;$(PythonScriptsDir)"
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
@@ -865,6 +865,7 @@ stages:
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
           PythonLibDir: '$(PythonRoot)/lib'
           PythonExecutable: '$(PythonRoot)/bin/python'
+          PipExecutable: '$(PythonRoot)/bin/pip'
           SWIG_CACHE: 'false'
           LLVM_CACHE: 'false'
         steps:
@@ -980,7 +981,8 @@ stages:
               eval "$(conda shell.bash hook)"
               conda create -y --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
-              conda install --yes --quiet nose numpy pytest
+              conda install --yes --quiet nose numpy pytest pandas
+              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
               echo "which python: $(which python)"
               echo "which conda: $(which conda)"
               python_exe="$(which python)"
@@ -1160,7 +1162,7 @@ stages:
               cd $(BUILD_DIRECTORY)
 
               echo "$(PipExecutable) install numpy pytest"
-              $(PipExecutable) install numpy pytest
+              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
 
               echo "sudo yum install -y ncurses-devel"
               sudo yum install -y ncurses-devel

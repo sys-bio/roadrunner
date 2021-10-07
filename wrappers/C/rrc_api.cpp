@@ -46,6 +46,7 @@
 #include <sstream>
 #include <fstream>
 #include "rrRoadRunner.h"
+#include "rrRoadRunnerData.h"
 #include "rrRoadRunnerOptions.h"
 #include "rrExecutableModel.h"
 #include "rrCompiler.h"

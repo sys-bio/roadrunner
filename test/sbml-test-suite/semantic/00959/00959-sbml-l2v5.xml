@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.13.0 with libSBML version 5.18.3. -->
 <sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
-  <model id="case000959" name="case000959">
-    <notes>
-      <body xmlns="http://www.w3.org/1999/xhtml">
-        <p> Originally created by libAntimony v1.4 (using libSBML 5.0.0-a1) </p>
-      </body>
-    </notes>
+  <model metaid="case000959" id="case000959" name="case000959">
     <listOfUnitDefinitions>
       <unitDefinition id="volume">
         <listOfUnits>
@@ -47,133 +43,37 @@
       <parameter id="P26" constant="false"/>
     </listOfParameters>
     <listOfRules>
-      <assignmentRule variable="P1">
+      <assignmentRule variable="P26">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <sec/>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <sec/>
-            <apply>
-              <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <csc/>
-            <apply>
-              <plus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn> 0.001 </cn>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P4">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <csc/>
+            <arccoth/>
             <apply>
               <minus/>
               <apply>
                 <minus/>
                 <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
               </apply>
-              <cn> 0.001 </cn>
+              <cn> 1.001 </cn>
             </apply>
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P5">
+      <assignmentRule variable="P25">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <cot/>
+            <arccoth/>
             <apply>
               <plus/>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn> 0.001 </cn>
+              <cn> 1.001 </cn>
             </apply>
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P6">
+      <assignmentRule variable="P24">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <cot/>
-            <apply>
-              <minus/>
-              <apply>
-                <minus/>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              </apply>
-              <cn> 0.001 </cn>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P7">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <sinh/>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P8">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <sinh/>
-            <apply>
-              <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P9">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <cosh/>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P10">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <cosh/>
-            <apply>
-              <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P11">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arcsec/>
-            <apply>
-              <plus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn type="integer"> 1 </cn>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P12">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arcsec/>
+            <arccsch/>
             <apply>
               <minus/>
               <apply>
@@ -185,124 +85,16 @@
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P13">
+      <assignmentRule variable="P23">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccsc/>
+            <arccsch/>
             <apply>
               <plus/>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
               <cn type="integer"> 1 </cn>
             </apply>
           </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P14">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arccsc/>
-            <apply>
-              <minus/>
-              <apply>
-                <minus/>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              </apply>
-              <cn type="integer"> 1 </cn>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P15">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arccot/>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P16">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arccot/>
-            <apply>
-              <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P17">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arcsinh/>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P18">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arcsinh/>
-            <apply>
-              <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P19">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <arccosh/>
-            <apply>
-              <plus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn type="integer"> 1 </cn>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P20">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <piecewise>
-            <piece>
-              <apply>
-                <arctanh/>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              </apply>
-              <apply>
-                <lt/>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                <cn type="integer"> 1 </cn>
-              </apply>
-            </piece>
-            <otherwise>
-              <cn type="integer"> 10 </cn>
-            </otherwise>
-          </piecewise>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="P21">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <piecewise>
-            <piece>
-              <apply>
-                <arctanh/>
-                <apply>
-                  <minus/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                </apply>
-              </apply>
-              <apply>
-                <lt/>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                <cn type="integer"> 1 </cn>
-              </apply>
-            </piece>
-            <otherwise>
-              <cn type="integer"> -10 </cn>
-            </otherwise>
-          </piecewise>
         </math>
       </assignmentRule>
       <assignmentRule variable="P22">
@@ -333,10 +125,53 @@
           </piecewise>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P23">
+      <assignmentRule variable="P21">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <apply>
+                <arctanh/>
+                <apply>
+                  <minus/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                </apply>
+              </apply>
+              <apply>
+                <lt/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> -10 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P20">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <apply>
+                <arctanh/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <apply>
+                <lt/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 10 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P19">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccsch/>
+            <arccosh/>
             <apply>
               <plus/>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
@@ -345,10 +180,56 @@
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P24">
+      <assignmentRule variable="P18">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccsch/>
+            <arcsinh/>
+            <apply>
+              <minus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P17">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <arcsinh/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P16">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <arccot/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P15">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <arccot/>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P14">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <arccsc/>
             <apply>
               <minus/>
               <apply>
@@ -360,30 +241,153 @@
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P25">
+      <assignmentRule variable="P13">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccoth/>
+            <arccsc/>
             <apply>
               <plus/>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-              <cn> 1.001 </cn>
+              <cn type="integer"> 1 </cn>
             </apply>
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="P26">
+      <assignmentRule variable="P12">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccoth/>
+            <arcsec/>
             <apply>
               <minus/>
               <apply>
                 <minus/>
                 <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
               </apply>
-              <cn> 1.001 </cn>
+              <cn type="integer"> 1 </cn>
             </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P11">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <arcsec/>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P10">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <cosh/>
+            <apply>
+              <minus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P9">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <cosh/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P8">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <sinh/>
+            <apply>
+              <minus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P7">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <sinh/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P6">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <cot/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <cot/>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csc/>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csc/>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.001 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <sec/>
+            <apply>
+              <minus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <sec/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
           </apply>
         </math>
       </assignmentRule>

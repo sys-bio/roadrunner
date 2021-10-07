@@ -27,9 +27,7 @@ rr::pyutil_init(m);
 %include "std_string.i"
 %include "std_pair.i"
 %include "std_unordered_map.i"
-%include "PyUtils.h"
-//%include "Matrix.h"
-//%include "Matrix3D.h"
+
 
 /**
  * Converts a C++ vector of strings to a Python list of strings
@@ -368,11 +366,5 @@ rr::pyutil_init(m);
 
 //#include "TestModelFactory.h"
 %include "TestModelFactory.h"
-
-
-
-
-
-
 
 

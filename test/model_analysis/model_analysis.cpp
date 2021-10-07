@@ -21,6 +21,351 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStartGeneral) {
+    //Event:  at S1 > 500: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    EXPECT_NEAR(result->Element(2, 1), 308.3, 1);
+    EXPECT_NEAR(result->Element(23, 1), 300.8, 1);
+    EXPECT_NEAR(result->Element(44, 1), 493.3, 1);
+    EXPECT_NEAR(result->Element(45, 1), 302.5, 1);
+    EXPECT_NEAR(result->Element(67, 1), 304.2, 1);
+    EXPECT_NEAR(result->Element(89, 1), 305.8, 1);
+
+}
+
+TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Time) {
+    //Event:  at time > -1.1: S1 = 0;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
+    EXPECT_NEAR(result->Element(11, 1), 1.8, 1);
+    EXPECT_NEAR(result->Element(24, 1), 121, 1);
+    EXPECT_NEAR(result->Element(120, 1), 1001, 1);
+}
+
+TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_TimeDelay) {
+    //Event:  at 0.5 after time > -1.1: S1 = 0;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time_delay.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
+    EXPECT_NEAR(result->Element(17, 1), 1.8, 1);
+    EXPECT_NEAR(result->Element(24, 1), 66, 1);
+    EXPECT_NEAR(result->Element(120, 1), 946, 1);
+}
+
+TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_T0fire) {
+    //Event:  at S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    EXPECT_EQ(result->Element(0, 1), 300);
+    EXPECT_NEAR(result->Element(21, 1), 492.5, 1);
+    EXPECT_NEAR(result->Element(22, 1), 301.7, 1);
+    EXPECT_NEAR(result->Element(44, 1), 303.3, 1);
+    EXPECT_NEAR(result->Element(120, 1), 400, 1);
+}
+
+TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Combo) {
+    //Events:  E0: at 0.3 after time > -1: S1 = 0;
+    //         E1: at time > 1: S1 = 100;
+    //         E2: at 0.5 after S1 > 500: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_combo.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
+    EXPECT_NEAR(result->Element(8, 1), 308.3, 1);
+    EXPECT_NEAR(result->Element(16, 1), 3.7, 1);
+    EXPECT_NEAR(result->Element(36, 1), 187.0, 1);
+    EXPECT_NEAR(result->Element(37, 1), 109.2, 1);
+    EXPECT_NEAR(result->Element(80, 1), 503.3, 1);
+    EXPECT_NEAR(result->Element(86, 1), 303.3, 1);
+    EXPECT_NEAR(result->Element(120, 1), 360, 1);
+}
+
+//T0 event firing when start != 0 is generally broken, not only for negative starts.  Disabling for now; will file separate issue.
+TEST_F(ModelAnalysisTests, DISABLED_SimulateCVODEFromNegativeStart_T0fireDelay) {
+    //Event:  at 0.5 after S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire_delay.xml").string());
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    ASSERT_EQ(result->CSize(), 2);
+    ASSERT_EQ(result->RSize(), 121);
+    //Spot checks for when the events fire.
+    //EXPECT_NEAR(result->Element(0, 1), 550, 1);
+    //EXPECT_NEAR(result->Element(21, 1), 492.5, 1);
+    //EXPECT_NEAR(result->Element(22, 1), 301.7, 1);
+    //EXPECT_NEAR(result->Element(44, 1), 303.3, 1);
+    //EXPECT_NEAR(result->Element(120, 1), 400, 1);
+    std::cout << *result;
+}
+
+TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_General) {
+    //Event:  at S1 > 500: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+
+    for (int i = 0; i <= opt.steps; i++)
+    {
+        EXPECT_LE(result->Element(i, 1), 500);
+        EXPECT_GE(result->Element(i, 1), 300);
+    }
+}
+
+TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Time) {
+    //Event:  at time > -1.1: S1 = 0;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+
+    EXPECT_LE(result->Element(11, 1), 20);
+    EXPECT_NEAR(result->Element(24, 1), 100, 50);
+}
+
+TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Time_Delay) {
+    //Event:  at 0.5 after time > -1.1: S1 = 0;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time_delay.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+
+    EXPECT_GE(result->Element(2, 1), 500);
+    EXPECT_LE(result->Element(17, 1), 20);
+    EXPECT_NEAR(result->Element(24, 1), 66, 30);
+    EXPECT_NEAR(result->Element(120, 1), 946, 50);
+}
+
+TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_T0fire) {
+    //Event:  at S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+
+    EXPECT_EQ(result->Element(0, 1), 300);
+    for (int i = 1; i <= opt.steps; i++)
+    {
+        EXPECT_LE(result->Element(i, 1), 500);
+        EXPECT_GE(result->Element(i, 1), 300);
+    }
+}
+
+TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Combo) {
+    //Events:  E0: at 0.3 after time > -1: S1 = 0;
+    //         E1: at time > 1: S1 = 100;
+    //         E2: at 0.5 after S1 > 500: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "negstart_event_combo.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = -2;
+    opt.duration = 10;
+    opt.steps = 120;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+
+    EXPECT_NEAR(result->Element(2, 1), 508, 10);
+    EXPECT_NEAR(result->Element(8, 1), 308, 10);
+    EXPECT_LE(result->Element(16, 1), 15);
+    EXPECT_NEAR(result->Element(36, 1), 187, 20);
+    EXPECT_NEAR(result->Element(37, 1), 110, 10);
+    EXPECT_NEAR(result->Element(80, 1), 503, 30);
+    EXPECT_NEAR(result->Element(86, 1), 304, 10);
+    EXPECT_NEAR(result->Element(120, 1), 360, 40);
+    for (int i = 1; i <= opt.steps; i++)
+    {
+        EXPECT_LE(result->Element(i, 1), 580);
+        EXPECT_GE(result->Element(i, 1), 0);
+    }
+}
+
+
+TEST_F(ModelAnalysisTests, NonZeroStarts_CVODE) {
+    //Event:  at S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
+    rr.setIntegrator("cvode");
+    //rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = 0;
+    opt.duration = 10;
+    opt.steps = 50;
+    ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = -2;
+    ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = 2;
+    ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
+
+
+    for (int i = 0; i <= opt.steps; i++)
+    {
+        EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
+        EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
+
+        for (int j = 1; j < s0result.CSize(); j++)
+        {
+            EXPECT_NEAR(s0result.Element(i, j), sneg2result.Element(i, j), 0.01);
+            EXPECT_NEAR(s0result.Element(i, j), s2result.Element(i, j), 0.01);
+        }
+    }
+}
+
+
+
+TEST_F(ModelAnalysisTests, NonZeroStarts_RK4) {
+    //Event:  at S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "threestep.xml").string());
+    rr.setIntegrator("rk4");
+    //rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = 0;
+    opt.duration = 10;
+    opt.steps = 50;
+    ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = -2;
+    ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = 2;
+    ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
+
+
+    for (int i = 0; i <= opt.steps; i++)
+    {
+        EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
+        EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
+
+        for (int j = 1; j < s0result.CSize(); j++)
+        {
+            EXPECT_NEAR(s0result.Element(i, j), sneg2result.Element(i, j), 0.01);
+            EXPECT_NEAR(s0result.Element(i, j), s2result.Element(i, j), 0.01);
+        }
+    }
+}
+
+
+
+TEST_F(ModelAnalysisTests, NonZeroStarts_RK45) {
+    //Event:  at S1 > 500, t0=false: S1 = 300;
+    RoadRunner rr((modelAnalysisModelsDir / "threestep.xml").string());
+    rr.setIntegrator("rk45");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    SimulateOptions opt;
+    opt.start = 0;
+    opt.duration = 10;
+    opt.steps = 50;
+    ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = -2;
+    ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = 2;
+    ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
+
+
+    for (int i = 0; i <= opt.steps; i++)
+    {
+        EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
+        EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
+
+        for (int j = 1; j < s0result.CSize(); j++)
+        {
+            EXPECT_NEAR(s0result.Element(i, j), sneg2result.Element(i, j), 0.01);
+            EXPECT_NEAR(s0result.Element(i, j), s2result.Element(i, j), 0.01);
+        }
+    }
+}
+
+
+//I don't think setting the seed is working for this one.
+TEST_F(ModelAnalysisTests, DISABLED_NonZeroStarts_Gillespie) {
+    RoadRunner rr((modelAnalysisModelsDir / "threestep.xml").string());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.getIntegrator()->setValue("seed", 1001);
+    SimulateOptions opt;
+    opt.start = 0;
+    opt.duration = 10;
+    opt.steps = 50;
+    ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = -2;
+    ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
+    rr.reset(SelectionRecord::SelectionType::ALL);
+    opt.start = 2;
+    ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
+
+
+    for (int i = 0; i <= opt.steps; i++)
+    {
+        EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
+        EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
+
+        for (int j = 1; j < s0result.CSize(); j++)
+        {
+            EXPECT_NEAR(s0result.Element(i, j), sneg2result.Element(i, j), 0.01);
+            EXPECT_NEAR(s0result.Element(i, j), s2result.Element(i, j), 0.01);
+        }
+    }
+}
+
+
+
 TEST_F(ModelAnalysisTests, GetRateOfConservedSpecies) {
     RoadRunner rr((modelAnalysisModelsDir / "conserved_cycle.xml").string());
     rr.setConservedMoietyAnalysis(true);

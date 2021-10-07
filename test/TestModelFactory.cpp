@@ -62,7 +62,7 @@ std::unordered_map<std::string, rr::Setting> TimeSeriesResult::timeSeriesSetting
 std::string SimpleFlux::str() {
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
            "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-           "  <model metaid=\"x\" id=\"x\">\n"
+           "  <model metaid=\"x\" id=\"x\" name=\"SimpleFlux\" >\n"
            "    <listOfCompartments>\n"
            "      <compartment sboTerm=\"SBO:0000410\" id=\"default_compartment\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
            "    </listOfCompartments>\n"
@@ -2832,6 +2832,54 @@ std::unordered_map<std::string, rr::Setting> BimolecularEnd::mcaSettings() {
     return std::unordered_map<std::string, rr::Setting>();
 }
 
+std::string BatchImmigrationDeath03::str() {
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+           "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\">\n"
+           "  <model id=\"BatchImmigrationDeath03\" name=\"Batch Immigration-Death (004), variant 03\" substanceUnits=\"item\" timeUnits=\"second\" volumeUnits=\"litre\">\n"
+           "    <listOfCompartments>\n"
+           "      <compartment id=\"Cell\" spatialDimensions=\"3\" constant=\"true\"/>\n"
+           "    </listOfCompartments>\n"
+           "    <listOfSpecies>\n"
+           "      <species id=\"X\" compartment=\"Cell\" initialAmount=\"0\" hasOnlySubstanceUnits=\"true\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+           "    </listOfSpecies>\n"
+           "    <listOfParameters>\n"
+           "      <parameter id=\"Alpha\" value=\"1\" constant=\"true\"/>\n"
+           "      <parameter id=\"Mu\" value=\"4\" constant=\"true\"/>\n"
+           "    </listOfParameters>\n"
+           "    <listOfReactions>\n"
+           "      <reaction id=\"Immigration\" reversible=\"false\">\n"
+           "        <listOfProducts>\n"
+           "          <speciesReference species=\"X\" stoichiometry=\"100\" constant=\"false\"/>\n"
+           "        </listOfProducts>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <ci> Alpha </ci>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "      <reaction id=\"Death\" reversible=\"false\">\n"
+           "        <listOfReactants>\n"
+           "          <speciesReference species=\"X\" stoichiometry=\"1\" constant=\"false\"/>\n"
+           "        </listOfReactants>\n"
+           "        <kineticLaw>\n"
+           "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+           "            <apply>\n"
+           "              <times/>\n"
+           "              <ci> Mu </ci>\n"
+           "              <ci> X </ci>\n"
+           "            </apply>\n"
+           "          </math>\n"
+           "        </kineticLaw>\n"
+           "      </reaction>\n"
+           "    </listOfReactions>\n"
+           "  </model>\n"
+           "</sbml>";
+}
+
+std::string BatchImmigrationDeath03::modelName(){
+    return "BatchImmigrationDeath03";
+}
+
 
 std::vector<std::string> getAvailableTestModels() {
     return std::vector<std::string>(
@@ -2847,8 +2895,8 @@ std::vector<std::string> getAvailableTestModels() {
                     "Brown2004",
                     "LayoutOnly",
                     "ModelWithLocalParameters",
-                    "BimolecularEnd"
-
+                    "BimolecularEnd",
+                    "BatchImmigrationDeath03"
             });
 }
 
@@ -2878,6 +2926,8 @@ TestModel *TestModelFactory(const std::string &modelName) {
         return new ModelWithLocalParameters();
     } else if (modelName == "BimolecularEnd") {
         return new BimolecularEnd();
+    } else if (modelName == "BatchImmigrationDeath03") {
+        return new BatchImmigrationDeath03();
     } else {
         std::ostringstream err;
         err << "TestModelFactory::TestModelFactory(): no model called \"" << modelName << "\" found. ";

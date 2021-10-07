@@ -16,7 +16,8 @@ namespace rr
 class RR_DECLSPEC TestSuiteModelSimulation : public SBMLModelSimulation
 {
     protected:
-        int                     mCurrentCaseNumber;                     //If simulating test suite cases...
+        int                     mCurrentCaseNumber;         //If simulating test suite cases.
+        std::string             mIntegratorName;            //If simulating test sutie cases.
         std::filesystem::path   mModelSettingsFileName;
         RoadRunnerData          mResultData;
         RoadRunnerData          mReferenceData;
@@ -30,6 +31,7 @@ class RR_DECLSPEC TestSuiteModelSimulation : public SBMLModelSimulation
                                 TestSuiteModelSimulation(const std::filesystem::path& dataOutputFolder = "", const std::filesystem::path& modelFilePath = "", const std::filesystem::path& modelFileName = "");
                                ~TestSuiteModelSimulation();
         void                    SetCaseNumber(int cNr);
+        void                    SetIntegrator(std::string integrator);
         bool                    LoadReferenceData(std::filesystem::path refDataFileName = "");
         bool                    CreateErrorData();
         bool                    SaveAllData();

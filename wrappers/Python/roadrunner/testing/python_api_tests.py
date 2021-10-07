@@ -801,6 +801,14 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertTrue(self.rr.isModelLoaded())
         os.remove(fname)
 
+    def test_loadStateS(self):
+        x = self.rr.saveStateS()
+        rr2 = RoadRunner()
+        rr2.loadStateS(x)
+        data = rr2.simulate(0, 10, 11)
+        print(data)
+        self.assertEqual((11, 3), data.shape)
+
     def test_makeIntegrator(self):
         integrator = self.rr.makeIntegrator("gillespie")
         self.assertIsInstance(

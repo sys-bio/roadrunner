@@ -74,6 +74,9 @@ write_git_info() # write the git branch and commit hash to console
 # load cmake_dependent_options
 include(CMakeDependentOption)
 
+include(ConfigurationSummary)
+include(ConfigurationSummaryPython)
+
 #############################################################
 #   Configuration Options
 #
@@ -103,9 +106,11 @@ option(BUILD_LEGACY_C "Build the legacy C code generating backend (deprecated)" 
 # should we build the swig python wrapper?
 option(BUILD_PYTHON "Build the SWIG generated python wrapper" OFF)
 if (BUILD_PYTHON)
-    find_package(Python COMPONENTS Interpreter Development NumPy REQUIRED)
+    find_package(Python COMPONENTS Interpreter Development NumPy)
     if (NOT ${Python_FOUND})
-        message(FATAL_ERROR "Could not find Python")
+        # sets a variable called PythonSummary
+        ConfigurationSummaryPython()
+        message(FATAL_ERROR "Could not find Python:\n ${PythonSummary}")
     endif ()
 
     if ("${Python_ROOT_DIR}" STREQUAL "")
@@ -557,8 +562,14 @@ configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
         "${CMAKE_BINARY_DIR}/requirements.txt" @ONLY
 )
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/test-requirements.txt"
+        "${CMAKE_BINARY_DIR}/test-requirements.txt" @ONLY
+)
 install(
-        FILES "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+        FILES
+            "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+            "${CMAKE_CURRENT_SOURCE_DIR}/test-requirements.txt"
         DESTINATION .
 )
 

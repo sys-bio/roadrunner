@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.9.1 with libSBML version 5.14.1. -->
+<!-- Created by libAntimony version v2.13.0 with libSBML version 5.18.3. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
-  <model id="case01488" name="case01488">
+  <model metaid="case01488" id="case01488" name="case01488">
     <listOfFunctionDefinitions>
       <functionDefinition id="my_piecewise">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -431,7 +431,11 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <ci> my_arccot </ci>
-            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            <apply>
+              <plus/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.001 </cn>
+            </apply>
           </apply>
         </math>
       </assignmentRule>
@@ -441,7 +445,11 @@
             <ci> my_arccot </ci>
             <apply>
               <minus/>
-              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              </apply>
+              <cn> 0.001 </cn>
             </apply>
           </apply>
         </math>

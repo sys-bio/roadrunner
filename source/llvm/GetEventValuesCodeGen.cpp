@@ -47,11 +47,12 @@ llvm::Value *GetEventTriggerCodeGen::createRet(llvm::Value *value)
     }
 }
 
-const libsbml::ASTNode* GetEventTriggerCodeGen::getMath(
-        const libsbml::Event* event)
+llvm::Value* GetEventTriggerCodeGen::getMath(
+        const libsbml::Event* event, ASTNodeCodeGen& astCodeGen)
 {
     const Trigger *trigger = event->getTrigger();
-    return trigger->getMath();
+    const ASTNode* node =  trigger->getMath();
+    return astCodeGen.codeGenBoolean(node);
 }
 
 
@@ -70,12 +71,13 @@ GetEventPriorityCodeGen::~GetEventPriorityCodeGen()
     delete node;
 }
 
-const libsbml::ASTNode* GetEventPriorityCodeGen::getMath(
-        const libsbml::Event* event)
+llvm::Value* GetEventPriorityCodeGen::getMath(
+    const libsbml::Event* event, ASTNodeCodeGen& astCodeGen)
 {
-    if (event->isSetPriority())
+    const ASTNode* ast = node;
+    if (event->isSetPriority() && event->getPriority()->isSetMath())
     {
-        return event->getPriority()->getMath();
+        ast = event->getPriority()->getMath();
     }
     else
     {
@@ -83,9 +85,10 @@ const libsbml::ASTNode* GetEventPriorityCodeGen::getMath(
         {
             node = new ASTNode(AST_REAL);
             node->setValue(0);
+            ast = node;
         }
-        return node;
     }
+    return astCodeGen.codeGenDouble(ast);
 }
 
 const char* GetEventDelayCodeGen::FunctionName = "getEventDelay";
@@ -103,13 +106,13 @@ GetEventDelayCodeGen::~GetEventDelayCodeGen()
     delete node;
 }
 
-const libsbml::ASTNode* GetEventDelayCodeGen::getMath(
-        const libsbml::Event* event)
+llvm::Value* GetEventDelayCodeGen::getMath(
+    const libsbml::Event* event, ASTNodeCodeGen& astCodeGen)
 {
-    if (event->isSetDelay())
+    const ASTNode* ast = node;
+    if (event->isSetDelay() && event->getDelay()->isSetMath())
     {
-        const Delay *delay = event->getDelay();
-        return delay->getMath();
+        ast = event->getDelay()->getMath();
     }
     else
     {
@@ -117,10 +120,12 @@ const libsbml::ASTNode* GetEventDelayCodeGen::getMath(
         {
             node = new ASTNode(AST_REAL);
             node->setValue(0);
+            ast = node;
         }
-        return node;
     }
+    return astCodeGen.codeGenDouble(ast);
 }
+
 
 
 

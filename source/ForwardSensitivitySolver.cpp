@@ -180,7 +180,7 @@ namespace rr {
         }
 
         if (mSensitivityMatrix) {
-            N_VDestroyVectorArray_Serial(mSensitivityMatrix, Ns);
+            N_VDestroyVectorArray_Serial(mSensitivityMatrix, mSensitivityMatrixSize);
             mSensitivityMatrix = nullptr;
         }
     }
@@ -326,6 +326,7 @@ namespace rr {
         if (numModelVariables > 0 && Np > 0) {
             // pointer to N_Vector - i.e. a matrix
             mSensitivityMatrix = N_VCloneVectorArray_Serial(Ns, cvodeIntegrator->mStateVector);
+            mSensitivityMatrixSize = Ns; //Need to keep the original--'Ns' may change.
 //            mSensitivityMatrixUnique = NVectorArrayPtr(N_VCloneVectorArray_Serial, [](N_Vector* nvec, int num){
 //                N_VDestroyVectorArray_Serial(nvec, num);
 //            });

@@ -164,6 +164,7 @@ Poco::Logger& getLogger()
 {
     if (pocoLogger == nullptr)
     {
+
         //Must put the lock here because other functions in this block call 'getLogger' themselves.
         Mutex::ScopedLock lock(loggerMutex);
 

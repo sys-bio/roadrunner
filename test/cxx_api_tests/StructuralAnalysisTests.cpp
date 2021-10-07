@@ -58,6 +58,7 @@ public:
         RoadRunner rr(testModel->str());
         ls::Matrix<double> actual = rr.getLinkMatrix();
         checkPassed(expected, actual);
+        delete testModel;
     }
 
     void checkNrMatrix(const std::string &modelName) {
@@ -68,6 +69,7 @@ public:
         rr.setConservedMoietyAnalysis(true);
         ls::Matrix<double> actual = rr.getNrMatrix();
         checkPassed(expected, actual);
+        delete testModel;
     }
 
     void checkKMatrix(const std::string &modelName, double tol) {
@@ -77,6 +79,7 @@ public:
         RoadRunner rr(testModel->str());
         ls::Matrix<double> actual = rr.getKMatrix();
         checkPassed(expected, actual);
+        delete testModel;
     }
 
     void checkReducedStoicMatrix(const std::string &modelName) {
@@ -87,6 +90,7 @@ public:
         rr.setConservedMoietyAnalysis(true);
         ls::Matrix<double> actual = rr.getReducedStoichiometryMatrix();
         checkPassed(expected, actual);
+        delete testModel;
     }
 
     void checkFullStoicMatrix(const std::string &modelName) {
@@ -97,6 +101,7 @@ public:
         rr.setConservedMoietyAnalysis(true);
         ls::Matrix<double> actual = rr.getFullStoichiometryMatrix();
         checkPassed(expected, actual);
+        delete testModel;
     }
 
     /**
@@ -112,6 +117,7 @@ public:
 //        rr.setConservedMoietyAnalysis(true); // breaks the test.
         ls::Matrix<double> actual = rr.getExtendedStoichiometryMatrix();
         checkPassed(expected, actual, tol);
+        delete testModel;
     }
 
     void checkL0Matrix(const std::string &modelName, double tol = 1e-7) {
@@ -121,6 +127,7 @@ public:
         RoadRunner rr(testModel->str());
         ls::Matrix<double> actual = rr.getL0Matrix();
         checkPassed(expected, actual, tol);
+        delete testModel;
     }
 
     void checkConservationMatrix(const std::string &modelName, double tol = 1e-7) {
@@ -131,6 +138,7 @@ public:
         rr.setConservedMoietyAnalysis(true);
         ls::Matrix<double> actual = rr.getConservationMatrix();
         checkPassed(expected, actual, tol);
+        delete testModel;
     }
 
 

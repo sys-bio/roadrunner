@@ -188,7 +188,7 @@ TEST_F(CAPICoreTest, GetMicroSeconds) {
 
     cout << "microseconds, start: " << start << ", end: " << end << ", diff: " << diff
          << ", expected sleep mu s: " << 1000 * millis
-         << ", diff between expeted and actual mu s: " << diff - (1000 * millis) << endl;
+         << ", diff between expected and actual mu s: " << diff - (1000 * millis) << endl;
 
     // timer varies from system to system, but should be semi-close, like say 20%
     // tolerance changed to 50% because
@@ -219,6 +219,7 @@ TEST_F(CAPICoreTest, CheckRegisteredIntegrators) {
     auto *rr = (RoadRunner *) createRRInstance();
     auto integratorNames = rr->getRegisteredIntegratorNames();
     ASSERT_EQ(integratorNames, std::vector<std::string>({"cvode", "gillespie", "rk4", "rk45", "euler"}));
+    delete rr;
 }
 
 TEST_F(CAPICoreTest, CheckRK4WorksFromC) {
@@ -227,7 +228,7 @@ TEST_F(CAPICoreTest, CheckRK4WorksFromC) {
     string rrInstallFolder(getParentFolder(capiLocation));
     free(capiLocation);
     std::filesystem::path supportCodeDir = std::filesystem::path(rrInstallFolder) /= "rr_support";
-    auto *rr = new RoadRunner("", getTempDir(), supportCodeDir.string());
+    RoadRunner rr("", getTempDir(), supportCodeDir.string());
     // end
 
     // This code is from the top of checkRRTest
@@ -254,17 +255,17 @@ TEST_F(CAPICoreTest, CheckRK4WorksFromC) {
         sbml = (rrTestDir_ / path("rrtest_files") / sbml).string();
         EXPECT_TRUE(std::filesystem::exists(sbml));
     }
-    if (!loadSBMLEx(rr, sbml.c_str(), true)) {
+    if (!loadSBMLEx(&rr, sbml.c_str(), true)) {
         EXPECT_TRUE(false);
     }
 
     SimulateOptions opt;
     opt.start = 0;
     opt.duration = 10;
-    auto *cvode = rr->simulate(&opt);
+    auto *cvode = rr.simulate(&opt);
 
-    rr->setIntegrator("rk4");
-    auto *rk4 = rr->simulate(&opt);
+    rr.setIntegrator("rk4");
+    auto *rk4 = rr.simulate(&opt);
     for (int k = 0; k < cvode->CSize(); k++) {
         EXPECT_NEAR((*cvode)(cvode->RSize() - 1, k), (*rk4)(rk4->RSize() - 1, k), 1e-6);
     }

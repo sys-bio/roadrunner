@@ -9,6 +9,7 @@
 #include "rrc_utilities.h"
 #include "rrStringUtils.h"
 #include "rrRoadRunner.h"
+#include "rrRoadRunnerData.h"
 
 namespace rrc
 {
@@ -19,7 +20,7 @@ void setError(const string& err)
 {
     if(gLastError)
     {
-        delete [] gLastError;
+        rr::freeText(gLastError);
     }
 
     gLastError = rr::createText(err);

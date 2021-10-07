@@ -59,7 +59,7 @@ TEST_F(CAPIExceptions, SET_COMPUTE_AND_ASSIGN_CONSERVATION_LAWS) {
     ASSERT_TRUE(gRR != NULL);
     bool res = setComputeAndAssignConservationLaws(gRR, true);
     EXPECT_TRUE(res);
-    clog << "\nConversation laws: " << res << endl;
+    clog << "\nConservation laws: " << res << endl;
 
 }
 

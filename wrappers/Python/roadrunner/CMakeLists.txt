@@ -81,6 +81,7 @@ set_target_properties(roadrunner_python PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${PYTHON_PACKAGE_BUILD_PREFIX}"
         OUTPUT_NAME roadrunner
         SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE # Needed for target_include_directories to have any effect on swig target
+        DEBUG_POSTFIX "" # prevent _roadrunnerd
         )
 # Move the roadrunner.py produced by swig in the binary tree to the site-pacakges/lib folder with the binaries
 add_custom_command(
@@ -134,6 +135,8 @@ elseif (APPLE)
 else ()
     message(STATIC "system not supported")
 endif ()
+
+add_dependencies(roadrunner_python TestModelFactory)
 
 install(
         TARGETS roadrunner_python

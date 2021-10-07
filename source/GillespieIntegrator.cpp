@@ -191,7 +191,7 @@ namespace rr
         // Set default integrator settings.
         addSetting("seed",                  std::uint64_t(defaultSeed()), "Seed", "Set the seed into the random engine. (ulong)", "(ulong) Set the seed into the random engine.");
         addSetting("variable_step_size",    Setting(true), "Variable Step Size", "Perform a variable time step simulation. (bool)", "(bool) Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.  The number of steps or points will be ignored, and the max number of output rows will be used instead.");
-        addSetting("initial_time_step",     Setting(0.0),   "Initial Time Step", "Specifies the initial time step size. (double)", "(double) Specifies the initial time step size.");
+        //addSetting("initial_time_step",     Setting(0.0),   "Initial Time Step", "Specifies the initial time step size. (double)", "(double) Specifies the initial time step size.");
         addSetting("minimum_time_step",     Setting(0.0),   "Minimum Time Step", "Specifies the minimum absolute value of step size allowed. (double)", "(double) The minimum absolute value of step size allowed.");
         addSetting("maximum_time_step",     Setting(0.0),   "Maximum Time Step", "Specifies the maximum absolute value of step size allowed. (double)", "(double) The maximum absolute value of step size allowed.");
         addSetting("nonnegative",           Setting(false), "Non-negative species only", "Prevents species amounts from going negative during a simulation. (bool)", "(bool) Enforce non-negative species constraint.");
@@ -204,6 +204,11 @@ namespace rr
 		bool singleStep;
 		bool varStep = getValue("variable_step_size").get<bool>();
 		auto minTimeStep = getValue("minimum_time_step").get<double>();
+		auto maxTimeStep = getValue("maximum_time_step").get<double>();
+		if (maxTimeStep > minTimeStep)
+		{
+			hstep = std::min(hstep, maxTimeStep);
+		}
 
 		if (varStep)
 		{
@@ -274,7 +279,7 @@ namespace rr
 			else
 			{
 				// no reaction occurs
-				return std::numeric_limits<double>::infinity();
+				return tf;
 			}
 			if (!singleStep && t + tau > tf)        // if time exhausted, don't allow reaction to proceed
 			{
@@ -371,7 +376,7 @@ namespace rr
     {
         std::vector<unsigned char> initialEventStatus(mModel->getEventTriggers(0, nullptr, nullptr), false);
         mModel->getEventTriggers(initialEventStatus.size(), nullptr, initialEventStatus.empty() ? nullptr : &initialEventStatus[0]);
-        applyEvents(0, initialEventStatus);
+        applyEvents(mIntegrationStartTime, initialEventStatus);
     }
 
     void GillespieIntegrator::applyEvents(double timeEnd, std::vector<unsigned char> &prevEventStatus)
@@ -385,14 +390,12 @@ namespace rr
             return;
         }
 
-        if (t0 <= 0.0) {
-            if (stateVector)
-            {
-                mModel->getStateVector(stateVector);
-            }
-
-            testRootsAtInitialTime();
+        if (stateVector)
+        {
+            mModel->getStateVector(stateVector);
         }
+
+        testRootsAtInitialTime();
 
         mModel->setTime(t0);
 

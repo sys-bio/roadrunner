@@ -78,6 +78,8 @@ namespace rr {
 
         explicit Integrator(ExecutableModel* model);
 
+        Integrator();
+
         virtual ~Integrator() {};
 
         virtual IntegrationMethod getIntegrationMethod() const = 0;
@@ -140,6 +142,12 @@ namespace rr {
         */
         virtual std::string toRepr() const;
         /* !-- END OF CARRYOVER METHODS */
+
+        void setIntegrationStartTime(double time);
+
+    protected:
+        double mIntegrationStartTime;
+
     };
 
 

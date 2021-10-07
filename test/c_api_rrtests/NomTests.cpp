@@ -23,9 +23,14 @@ using std::filesystem::path;
 
 class NomTests : public RoadRunnerTest {
 public:
-    RRHandle gRR = nullptr;
+    RRHandle gRR = createRRInstance();
+
     rr::IniFile iniFile;
     NomTests() = default;
+    ~NomTests() {
+        freeRRInstance(gRR);
+    }
+
 };
 
 TEST_F(NomTests, NOM_TEST_DATA_FILES)
@@ -35,7 +40,6 @@ TEST_F(NomTests, NOM_TEST_DATA_FILES)
 
     string NOMFileName = "NOM_Test.dat";
 
-    gRR = createRRInstance();
     NOMFileName = (rrTestDir_ / path("rrtest_files") / path(NOMFileName)).string();
     ASSERT_TRUE(std::filesystem::exists(NOMFileName));
     ASSERT_TRUE(iniFile.Load(NOMFileName));
@@ -98,5 +102,4 @@ TEST_F(NomTests, FREE_RR_INSTANCE)
 {
     RRHandle r = createRRInstance();
     EXPECT_TRUE(freeRRInstance(r));
-    gRR = nullptr;
 }

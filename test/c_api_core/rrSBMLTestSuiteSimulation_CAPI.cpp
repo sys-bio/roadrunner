@@ -2,7 +2,6 @@
 
 #include "rrException.h"
 #include "rrUtils.h"
-#include "rrRoadRunnerData.h"
 #include "rrSBMLTestSuiteSimulation_CAPI.h"
 #include "rrRoadRunner.h"
 #include "rrLogger.h"

@@ -82,7 +82,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
+            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
             recursiveSymbolPop();
             return cacheValue(symbol, args, result);
         }
@@ -156,7 +156,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
 
         if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
         {
-            std::string msg = "mutable stochiometry for species which appear "
+            std::string msg = "Mutable stochiometry for species which appear "
                     "multiple times in a single reaction is not currently "
                     "supported, species reference id: ";
             msg += symbol;
@@ -286,7 +286,7 @@ llvm::Value* ModelDataStoreSymbolResolver::storeSymbolValue(
 
         if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
         {
-            std::string msg = "mutable stochiometry for species which appear "
+            std::string msg = "Mutable stochiometry for species which appear "
                     "multiple times in a single reaction is not currently "
                     "supported, species reference id: ";
             msg += symbol;

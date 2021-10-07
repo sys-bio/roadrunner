@@ -1,12 +1,13 @@
 (*
 
-category:      Test
+category:        Test
 synopsis:      Several parameters with trigonometric assignment rules, testing various L2v1 built-in functions acting on parameters.
-componentTags: AssignmentRule, CSymbolTime, Parameter
-testTags:      NonConstantParameter, InitialValueReassigned, UncommonMathML
-testType:      TimeCourse
-levels:        2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2
+componentTags:   AssignmentRule, CSymbolTime, Parameter
+testTags:        InitialValueReassigned, NonConstantParameter, UncommonMathML
+testType:        TimeCourse
+levels:          2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2
 generatedBy:   Analytic
+packagesPresent: 
 
  The model tests the various trigonometrical constructs added in L2v1, as assignment rules with time.  Some functions with weird boundary conditions have been set up with the 'piecewise' function so that the results are never 'inf', or 'nan'.
 
@@ -30,8 +31,8 @@ There are 26 rules:
 | Assignment | P12 | $arcsec(-time - 1)$ |
 | Assignment | P13 | $arccsc(time + 1)$ |
 | Assignment | P14 | $arccsc(-time - 1)$ |
-| Assignment | P15 | $arccot(time)$ |
-| Assignment | P16 | $arccot(-time)$ |
+| Assignment | P15 | $arccot(time + 0.001)$ |
+| Assignment | P16 | $arccot(-time - 0.001)$ |
 | Assignment | P17 | $arcsinh(time)$ |
 | Assignment | P18 | $arcsinh(-time)$ |
 | Assignment | P19 | $arccosh(time + 1)$ |
@@ -60,14 +61,14 @@ The initial conditions are as follows:
 | Initial value of parameter P12 | $arcsec(-time - 1)$ | variable |
 | Initial value of parameter P13 | $arccsc(time + 1)$ | variable |
 | Initial value of parameter P14 | $arccsc(-time - 1)$ | variable |
-| Initial value of parameter P15 | $arccot(time)$ | variable |
-| Initial value of parameter P16 | $arccot(-time)$ | variable |
+| Initial value of parameter P15 | $arccot(time + 0.001)$ | variable |
+| Initial value of parameter P16 | $arccot(-time - 0.001)$ | variable |
 | Initial value of parameter P17 | $arcsinh(time)$ | variable |
 | Initial value of parameter P18 | $arcsinh(-time)$ | variable |
 | Initial value of parameter P19 | $arccosh(time + 1)$ | variable |
-| Initial value of parameter P20 | $piecewise(arctanh(time), lt(time, 1), 10)$ | variable |
-| Initial value of parameter P21 | $piecewise(arctanh(-time), lt(time, 1), -10)$ | variable |
-| Initial value of parameter P22 | $piecewise(0, or(leq(time, 0), geq(time, 1)), arcsech(time))$ | variable |
+| Initial value of parameter P20 | $piecewise(arctanh(time), time < 1, 10)$ | variable |
+| Initial value of parameter P21 | $piecewise(arctanh(-time), time < 1, -10)$ | variable |
+| Initial value of parameter P22 | $piecewise(0, (time <= 0) || (time >= 1), arcsech(time))$ | variable |
 | Initial value of parameter P23 | $arccsch(time + 1)$ | variable |
 | Initial value of parameter P24 | $arccsch(-time - 1)$ | variable |
 | Initial value of parameter P25 | $arccoth(time + 1.001)$ | variable |
@@ -77,4 +78,3 @@ Note: The test data for this model was generated from an analytical
 solution of the system of equations.
 
 *)
-

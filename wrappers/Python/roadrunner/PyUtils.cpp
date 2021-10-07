@@ -7,6 +7,41 @@
 
 // see discission on import array,
 // http://docs.scipy.org/doc/numpy/reference/c-api.array.html#miscellaneous
+
+/**
+ * @brief define some macro's to allow numpy api to be used
+ * in multiple compilation units.
+ *
+ * @details We need this because the swig generated roadrunnerPYTOHN_wrap.cxx
+ * and PyUtils.cpp both use the numpy C API.
+ *
+ * By default the numpy C API is stored as an
+ * array of pointers (void **) called PyArray_API. This
+ * is initialized when import_array() is called. What we'll get is
+ *
+ *  static void** PyArray_API;
+ *
+ * There could be problems with having a static PyArray_API when multiple
+ * compilations units are in effect. The PY_ARRAY_UNIQUE_SYMBOL macro
+ * is defined to deal with this problem. This renames the PyArray_API
+ * to whatever PY_ARRAY_UNIQUE_SYMBOL is defined to be, in our case
+ * RoadRunner_ARRAY_API (see numpy's __multiarray_api.h for
+ * macro definitions). PY_ARRAY_UNIQUE_SYMBOL also makes the
+ * declaration of the numpy api non-static.
+ *
+ * When combined with NO_IMPORT_ARRAY (or equally, NO_IMPORT) the declaration
+ * becomes
+ *  `extern void** RoadRunner_ARRAY_API;`
+ * making the API a global variable. Therefore we have access to the RoadRunner_ARRAY_API
+ * from other compilation units. The second consequence of NO_IMPORT_ARRAY
+ * is that it removes the definition of import_array, so that it cannot be called
+ * from within this compilation unit.
+ *
+ * So, since import_array() is called from the swig
+ * %init we define NO_IMPORT_ARRAY and PY_ARRAY_UNIQUE_SYMBOL
+ * to no reimport array and get a handle on the name of the api.
+ *
+ */
 #define NO_IMPORT_ARRAY
 #define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API
 //Still using some of deprecated wrappers
@@ -15,6 +50,7 @@
 #include <stdexcept>
 #include <string>
 #include <algorithm>
+#include "rrLogger.h"
 
 // wierdness on OSX clang, this needs to be included before python.h,
 // otherwise compile pukes with:
@@ -29,20 +65,28 @@
 #include <numpy/arrayobject.h>
 #include "structmember.h"
 
-// note: useful https://pythonextensionpatterns.readthedocs.io/en/latest/cpp_and_numpy.html
-
 // python object.h
 #include "object.h"
+#include "modsupport.h"
 
 #include <iostream>
 #include <iomanip>
 #include <Matrix.h>
+#include <filesystem>
+#include <fstream>
 
 using namespace std;
 
 typedef vector<string> str_vector;
 
 namespace rr {
+
+    //    https://pythonextensionpatterns.readthedocs.io/en/latest/pickle.html#implementing-getstate
+    static const char *PICKLE_VERSION_KEY = "_pickle_version";
+    static int PICKLE_VERSION = 5;
+
+#define STRINGIFY(x) #x
+#define EXPAND_AND_STRINGIFY(x) STRINGIFY(x)
 
     char *rr_strclone(const char *src) {
         if (!src) {
@@ -62,13 +106,14 @@ namespace rr {
         free((void *) str);
     }
 
-    /**
-     * @brief Get the UTF-8 encoded buffer for a Python string
-     * @details Imported from graphfab
-     * @note Caller must free the buffer using @ref rr_strfree
-     */
+/**
+ * @brief Get the UTF-8 encoded buffer for a Python string
+ * @details Imported from graphfab
+ * @note Caller must free the buffer using @ref rr_strfree
+ */
     char *rrPyString_getString(PyObject *uni) {
         char *str = NULL;
+//     #pragma message "PY_MAJOR_VERSION = " EXPAND_AND_STRINGIFY(PY_MAJOR_VERSION)
 #if PY_MAJOR_VERSION == 3
         PyObject *bytes = PyUnicode_AsUTF8String(uni);
         str = rr_strclone(PyBytes_AsString(bytes));
@@ -87,14 +132,21 @@ namespace rr {
     }
 
     int rrPyCompareString(PyObject *uni, const char *str) {
-        char *s = rrPyString_getString(uni);
-        int cmp = !strcmp(s, str);
-        rr_strfree(s);
+#if SAGITTARIUS_DEBUG_LEVEL >= 2
+        {
+            printf("PyCompareString started\n");
+        }
+#endif
+        {
+            char *s = rrPyString_getString(uni);
+            int cmp = !strcmp(s, str);
+            rr_strfree(s);
 
-        if (cmp)
-            return 1;
-        else
-            return 0;
+            if (cmp)
+                return 1;
+            else
+                return 0;
+        }
     }
 
     PyObject *rrPyString_FromString(const char *s) {
@@ -104,7 +156,6 @@ namespace rr {
         return PyString_FromString(s);
 #endif
     }
-
 
     PyObject *rrPyString_FromStringAndSize(const char *s, Py_ssize_t size) {
 #if PY_MAJOR_VERSION == 3
@@ -380,12 +431,8 @@ namespace rr {
     assert((PyArray_NBYTES(p) > 0 ? PyArray_ISCARRAY(p) : true) &&  "PyArray must be C format"); \
 }
 
-
-    static PyObject *NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags,
-                                    const ls::DoubleMatrix *mat);
-
-
     PyObject *doublematrix_to_py(const ls::DoubleMatrix *m, bool structured_result, bool copy_result) {
+        rrLogDebug << __FUNC__;
         ls::DoubleMatrix *mat = const_cast<ls::DoubleMatrix *>(m);
 
         // a valid array descriptor:
@@ -395,21 +442,18 @@ namespace rr {
 
         // are we returning a structured array?
         if (structured_result) {
-
-            // get the column names
-            //const std::vector<SelectionRecord>& sel = ($self)->getSelections();
-            //std::vector<string> names(sel.size());
-
-            //for(int i = 0; i < sel.size(); ++i) {
-            //    names[i] = sel[i].to_string();
-            //}
+            rrLogDebug << "Structured result path";
 
             std::vector<string> names = mat->getColNames();
 
             unsigned int rows = mat->numRows();
             unsigned int cols = mat->numCols();
 
+            std::cout << "num rows: " << rows;
+            std::cout << "num cols: " << cols;
+
             if (cols == 0) {
+                rrLogDebug << "No columns, returning None";
                 Py_RETURN_NONE;
             }
 
@@ -419,7 +463,7 @@ namespace rr {
 
             double *mData = mat->getArray();
 
-            PyObject *list = PyList_New(names.size());
+            PyObject *list = PyList_New((std::int64_t) names.size());
 
             for (int i = 0; i < names.size(); ++i) {
                 PyObject *col = rrPyString_FromString(names[i].c_str());
@@ -429,7 +473,7 @@ namespace rr {
                 Py_DECREF(col);
                 Py_DECREF(type);
 
-                // list takes ownershipt of tuple
+                // list takes ownership of tuple
                 void PyList_SET_ITEM(list, i, tup);
             }
 
@@ -470,18 +514,28 @@ namespace rr {
 
                 // make a 1D array in this case
                 if (cols == 1 && mat->getColNames().size() == 0) {
+                    rrLogDebug << "1 column and no column names";
                     int nd = 1;
                     npy_intp dims[1] = {rows};
-                    pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE,
-                                         NULL, NULL, 0, 0, NULL);
+                    pArray = PyArray_New(
+                            &PyArray_Type,       // PyTypeObject* subtype
+                            nd,                  // int nd
+                            dims,                // npy_intp const* dims
+                            NPY_DOUBLE,          // int type_num
+                            NULL,                // npy_intp const* strides
+                            nullptr,     // void* data
+                            0,                   // int itemsize
+                            0,                   // int flags
+                            NULL                 // PyObject* obj
+                    );
                 } else {
+                    rrLogDebug << "2D array";
                     int nd = 2;
                     npy_intp dims[2] = {rows, cols};
-                    pArray = NamedArray_New(nd, dims, NULL,
-                                            0, mat);
+                    pArray = NamedArray_New(nd, dims, nullptr, 0, mat);
                 }
 
-//                VERIFY_PYARRAY(pArray);
+                VERIFY_PYARRAY(pArray);
 
                 // copy our data into the numpy array
                 double *data = static_cast<double *>(PyArray_DATA(pArray));
@@ -505,44 +559,27 @@ namespace rr {
                                             NPY_ARRAY_CARRAY, mat);
                 }
 
-//                                VERIFY_PYARRAY(pArray);
+                VERIFY_PYARRAY(pArray);
 
             }
+            rrLogDebug << "Done" << std::endl;
             return pArray;
         }
     }
 
-/**
- * Casts a rr::Matrix<double> to its superclass ls::DoubleMatrix
- * and reuses doublematrix_to_py
- */
+    /**
+     * Casts a rr::Matrix<double> to its superclass ls::DoubleMatrix
+     * and reuses doublematrix_to_py
+     */
     PyObject *rrDoubleMatrix_to_py(const rr::Matrix<double> *m, bool copy_result) {
         rr::Matrix<double> *mat = const_cast<rr::Matrix<double> *>(m);
-        // this code doesn't work due to some bug in NamedArray stuff. No time to figure this out now
 //        bool structured_result = true;
 //        if (mat->rowNames.empty() && mat->colNames.empty()) {
 //            structured_result = false;
 //        }
-//        std::cout << __FILE__ << ":" << __LINE__ << "is structured? :" << structured_result << std::endl;
         auto superMat = ls::DoubleMatrix(mat->getValues());
         return doublematrix_to_py(&superMat, false, copy_result);
     }
-
-
-    struct NamedArrayObject {
-        PyArrayObject array;
-        PyObject *rowNames;
-        PyObject *colNames;
-        int test1;
-        int test2;
-        int test3;
-    };
-
-    static PyObject *NamedArrayObject_Finalize(NamedArrayObject *self, PyObject *parent);
-
-    static PyObject *NamedArray_repr(NamedArrayObject *self);
-
-    static PyObject *NamedArray_str(NamedArrayObject *self);
 
 
     /**
@@ -552,87 +589,63 @@ namespace rr {
     PyObject *convertStringVectorToPython(const std::vector<std::string> &vec);
 
 
-    static void NamedArrayObject_dealloc(NamedArrayObject *self) {
-        rrLog(Logger::LOG_INFORMATION) << __FUNC__;
-        Py_XDECREF(self->rowNames);
-        Py_XDECREF(self->colNames);
+#define rrPyNullCheck(object, errMsg)  if (object == nullptr){ \
+            std::cerr << (errMsg) << std::endl;                \
+            PyErr_Print();                                     \
+        }\
 
-        PyObject *pself = (PyObject *) self;
-
-        assert(pself->ob_type->tp_base == &PyArray_Type);
-        PyArray_Type.tp_dealloc(pself);
-
-        rrLog(Logger::LOG_INFORMATION) << __FUNC__ << ", Done";
-    }
-
-
-    static PyObject *NamedArrayObject_alloc(PyTypeObject *type, Py_ssize_t nitems) {
-        rrLog(Logger::LOG_INFORMATION) << __FUNC__;
-        PyObject *obj;
-
-        assert(type->tp_basicsize == sizeof(NamedArrayObject));
-
-        obj = (PyObject *) PyArray_malloc(type->tp_basicsize);
-        PyObject_Init(obj, type);
-        ((NamedArrayObject *) obj)->rowNames = NULL;
-        ((NamedArrayObject *) obj)->colNames = NULL;
-        ((NamedArrayObject *) obj)->test1 = 10;
-        ((NamedArrayObject *) obj)->test2 = 11;
-        ((NamedArrayObject *) obj)->test3 = 12;
-
-        rrLog(Logger::LOG_INFORMATION) << "created obj: " << obj;
-        return obj;
-    }
 
 #define CSTR(str) const_cast<char*>(str)
 
 
+    /**
+     * @brief Define the data members of the NamedArray type.
+     * @details Each entry of this array is a PyMemberDef
+     * with the following signature:
+     *    typedef struct PyMemberDef {
+     *         const char *name;
+     *         int         type;
+     *         int         offset;
+     *         int         flags;
+     *         const char *doc;
+     *     } PyMemberDef;
+     * Each entry of the NamedArray_members array links an attribute of the Python side NamedArray
+     * to the NamedArray C struct.
+     *
+     * The `(Py_ssize_t )offsetof(NamedArrayObject, x)` part returns the starting byte of data member x
+     *
+     * @see https://docs.python.org/3/extending/newtypes.html#generic-attribute-management
+     * @see https://en.cppreference.com/w/cpp/types/offsetof
+     * @see Python/include/structmember.h
+     */
     static PyMemberDef NamedArray_members[] = {
-            {CSTR("rownames"), T_OBJECT_EX, offsetof(NamedArrayObject, rowNames), 0, CSTR("row names")},
-            {CSTR("colnames"), T_OBJECT_EX, offsetof(NamedArrayObject, colNames), 0, CSTR("column names")},
-            {CSTR("test1"),    T_INT,       offsetof(NamedArrayObject, test1),    0, CSTR("test1 number")},
-            {CSTR("test2"),    T_INT,       offsetof(NamedArrayObject, test2),    0, CSTR("test2 number")},
-            {CSTR("test3"),    T_INT,       offsetof(NamedArrayObject, test3),    0, CSTR("test3 number")},
+            {CSTR("rownames"), T_OBJECT_EX, (Py_ssize_t) offsetof(NamedArrayObject, rowNames), 0, CSTR("row names")},
+            {CSTR("colnames"), T_OBJECT_EX, (Py_ssize_t) offsetof(NamedArrayObject, colNames), 0, CSTR("column names")},
             {NULL}  /* Sentinel */
     };
 
+    /**
+     * @brief Define methods of the NamedArray object.
+     * @details The struct PyMethodDef* tp_methods field
+     * in the PyTypeObject points to this array of PyMethodDef
+     * objects. Each entry in this array is an instance of PyMethodDef.
+     * and has the following type:
+     * typedef struct PyMethodDef {
+     *    const char  *ml_name;        method name
+     *    PyCFunction  ml_meth;        implementation function
+     *    int          ml_flags;       flags
+     *    const char  *ml_doc;         docstring
+     * } PyMethodDef;
+     * Note the deliberate sentinal entry at the end of the array.
+     * @see https://docs.python.org/3/extending/newtypes.html#generic-attribute-management
+     */
     static PyMethodDef NamedArray_methods[] = {
             {CSTR("__array_finalize__"), (PyCFunction) NamedArrayObject_Finalize, METH_VARARGS, CSTR("")},
-            {0}
+            {CSTR("__reduce_ex__"),      (PyCFunction) NamedArray___reduce_ex__,  METH_O,       CSTR("")},
+            {CSTR("__getstate__"),       (PyCFunction) NamedArray___getstate__,   METH_NOARGS,  CSTR("")},
+            {CSTR("__setstate__"),       (PyCFunction) NamedArray___setstate__,   METH_O,       CSTR("")},
+            {NULL}/* Sentinel */
     };
-
-/*
-static PyMethodDef DatetimeArray_methods[] = {
-    { "__array_finalize__", (PyCFunction)DatetimeArray_finalize, METH_VARARGS,
-      ""},
-//    {"__getitem__", (PyCFunction)DatetimeArray_getitem, METH_VARARGS, ""},
-    {"has_dups", (PyCFunction)DatetimeArray_has_dups, METH_VARARGS, ""},
-    {"has_missing", (PyCFunction)DatetimeArray_has_missing, METH_VARARGS, ""},
-    {"is_chrono", (PyCFunction)DatetimeArray_is_chrono, METH_VARARGS, ""},
-    {"is_full", (PyCFunction)DatetimeArray_is_full, METH_VARARGS, ""},
-    {"is_valid", (PyCFunction)DatetimeArray_is_valid, METH_VARARGS, ""},
-    {"date_to_index", (PyCFunction)DatetimeArray_date_to_index, METH_VARARGS, ""},
-    {"tovalues", (PyCFunction)DatetimeArray_tovalues, METH_VARARGS, ""},
-    {"toordinals", (PyCFunction)DatetimeArray_toordinals, METH_VARARGS, ""},
-    {"tolist", (PyCFunction)DatetimeArray_tolist, METH_VARARGS, ""},
-    {"fill_missing_dates", (PyCFunction)DatetimeArray_fill_missing_dates, METH_KEYWORDS, ""},
-    {"get_missing_dates_mask", (PyCFunction)DatetimeArray_get_missing_dates_mask, METH_VARARGS, ""},
-    {"convert", (PyCFunction)DatetimeArray_convert, METH_KEYWORDS, ""},
-    {0}
-};
-*/
-
-
-
-//static PyMappingMethods NamedArray_MappingMethods = {
-//#if PY_VERSION_HEX >= 0x02050000
-//    (lenfunc)array_length,              /*mp_length*/
-//#else
-//    (inquiry)array_length,              /*mp_length*/
-//#endif
-//    (binaryfunc)array_subscript_nice,       /*mp_subscript*/
-//    (objobjargproc)array_ass_sub,       /*mp_ass_subscript*/
-//};
 
 
 /**
@@ -730,6 +743,7 @@ static PyMethodDef DatetimeArray_methods[] = {
         return PyArray_subscript((PyObject *) self, op);
     }
 
+
     static PyMappingMethods NamedArray_MappingMethods = {
 #if PY_VERSION_HEX >= 0x02050000
             (lenfunc) 0,             /*mp_length*/
@@ -740,121 +754,456 @@ static PyMethodDef DatetimeArray_methods[] = {
             (objobjargproc) 0,       /*mp_ass_subscript*/
     };
 
-
     static PyTypeObject NamedArray_Type = {
-#if PY_MAJOR_VERSION == 3
             PyVarObject_HEAD_INIT(NULL, 0)
-#else
-            PyObject_HEAD_INIT(NULL)
-            0,                                        /* ob_size */
-#endif
-            "NamedArray",                             /* tp_name */
-            sizeof(NamedArrayObject),                 /* tp_basicsize */
-            0,                                        /* tp_itemsize */
-            (destructor) NamedArrayObject_dealloc,     /* tp_dealloc */
-            0,                                        /* tp_print */
-            0,                                        /* tp_getattr */
-            0,                                        /* tp_setattr */
-            0,                                        /* tp_compare */
-            (reprfunc) NamedArray_repr,                /* tp_repr */
-            0,                                        /* tp_as_number */
-            0,                                        /* tp_as_sequence */
-            &NamedArray_MappingMethods,               /* tp_as_mapping */
-            0,                                        /* tp_hash */
-            0,                                        /* tp_call */
-            (reprfunc) NamedArray_str,                 /* tp_str */
-            0,                                        /* tp_getattro */
-            0,                                        /* tp_setattro */
-            0,                                        /* tp_as_buffer */
-            Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /* tp_flags */
-            "NamedArray",                             /* tp_doc */
-            0,                                        /* tp_traverse */
-            0,                                        /* tp_clear */
-            0,                                        /* tp_richcompare */
-            0,                                        /* tp_weaklistoffset */
-            0,                                        /* tp_iter */
-            0,                                        /* tp_iternext */
-            NamedArray_methods,                       /* tp_methods */
-            NamedArray_members,                       /* tp_members */
-            0,                                        /* tp_getset */
-            0,                                        /* tp_base, this gets set to &PyArray_Type when module is initialized */
-            0,                                        /* tp_dict */
-            0,                                        /* tp_descr_get */
-            0,                                        /* tp_descr_set */
-            0,                                        /* tp_dictoffset */
-            0,                                        /* tp_init */
-            NamedArrayObject_alloc,                  /* tp_alloc */
-            0,                        /* tp_new */
+            "roadrunner._roadrunner.NamedArray",                              /* tp_name */
+            sizeof(NamedArrayObject),                              /* tp_basicsize */
+            0,                              /* tp_itemsize */
+            (destructor) NamedArrayObject_dealloc,                              /* tp_dealloc */
+            0,                              /* tp_vectorcall_offset */
+            0,                              /* tp_getattr */
+            0,                              /* tp_setattr */
+            0,                              /* tp_as_async */
+            (reprfunc) NamedArray_repr,                              /* tp_repr */
+            0,                              /* tp_as_number */
+            0,                              /* tp_as_sequence */
+            &NamedArray_MappingMethods,                              /* tp_as_mapping */
+            0,                              /* tp_hash */
+            0,                              /* tp_call */
+            (reprfunc) NamedArray_str,                              /* tp_str */
+            0,                              /* tp_getattro */
+            0,                              /* tp_setattro */
+            0,                              /* tp_as_buffer */
+            Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,                              /* tp_flags */
+            "NamedArray",                              /* tp_doc */
+            0,                              /* tp_traverse */
+            0,                              /* tp_clear */
+            0,                              /* tp_richcompare */
+            0,                              /* tp_weaklistoffset */
+            0,                              /* tp_iter */
+            0,                              /* tp_iternext */
+            NamedArray_methods,                              /* tp_methods */
+            NamedArray_members,                              /* tp_members */
+            0,                              /* tp_getset */
+            0,                              /* tp_base */
+            0,                              /* tp_dict */
+            0,                              /* tp_descr_get */
+            0,                              /* tp_descr_set */
+            0,                              /* tp_dictoffset */
+            0,                              /* tp_init : note we use numpy's ct'r*/
+            NamedArrayObject_alloc,                              /* tp_alloc */
+            0,                              /* tp_new */
+            0,                              /* tp_free */
+            0,                              /* tp_is_gc */
+            0,                              /* tp_bases */
+            0,                              /* tp_mro */
+            0,                              /* tp_cache */
+            0,                              /* tp_subclasses */
+            0,                              /* tp_weaklist */
+            0,                              /* tp_del */
+            0,                              /* tp_version_tag */
+            0,                              /* tp_finalize */
     };
 
+    // Module initialization
 
-    PyObject *NamedArrayObject_Finalize(NamedArrayObject *self, PyObject *parent) {
-        rrLog(Logger::LOG_INFORMATION) << __FUNC__;
-
-        if (parent != NULL && parent->ob_type == &NamedArray_Type) {
-            NamedArrayObject *p = (NamedArrayObject *) parent;
-            if (p->rowNames != NULL) {
-                Py_INCREF(p->rowNames);
-                self->rowNames = p->rowNames;
-            }
-
-            if (p->colNames != NULL) {
-                Py_INCREF(p->colNames);
-                self->colNames = p->colNames;
-            }
-
-            self->test1 = p->test1;
-            self->test2 = p->test2;
-            self->test3 = p->test3;
+    static PyObject *getItemFromDictWithErrChecking(PyObject *dict, const char *string) {
+        rrLogDebug << __FUNC__;
+        PyDict_CheckExact(dict);
+        PyObject *item = PyDict_GetItemString(dict, string);
+        if (!item) {
+            PyErr_Format(PyExc_KeyError, "Could not find key '%s' in dict", string);
+            return nullptr;
         }
+        rrLogDebug << "Done" << std::endl;
+        return item;
+    }
+
+    /* Pickle the object */
+    static PyObject *
+    NamedArray___getstate__(NamedArrayObject *self, PyObject *Py_UNUSED(ignored)) {
+        rrLogDebug << __FUNC__;
+        // see https://numpy.org/doc/stable/reference/c-api/array.html#c.PyArray_Dumps
+        PyObject *arrayBytes = self->saveToBytes();
+        if (!arrayBytes) {
+            PyErr_SetString(PyExc_ValueError, "Could not convert array to bytes");
+            return nullptr;
+        }
+        // number of dimensions
+        int nDims = PyArray_NDIM(self);
+        std::int64_t dim1 = 0;
+        std::int64_t dim2 = 0;
+
+        npy_intp *shape = PyArray_SHAPE((PyArrayObject *) self);
+        if (!shape) {
+            PyErr_SetString(PyExc_ValueError, "Could not extract shape from array");
+            return nullptr;
+        }
+        if (nDims > 0)
+            dim1 = shape[0];
+        if (nDims > 1)
+            dim2 = shape[1];
+
+        PyObject* rownames;
+        if (!self->rowNames){
+            Py_IncRef(Py_None);
+            rownames = Py_None;
+        } else {
+            rownames = self->rowNames;
+        }
+        PyObject* colnames;
+        if (!self->colNames){
+            Py_IncRef(Py_None);
+            colnames = Py_None;
+        } else {
+            colnames = self->colNames;
+        }
+
+        // string, bytes, string, object, string object string int
+        // note that this adds 1 to the ref counts of arrayBytes
+        // rownames and colnames
+        PyObject *dictObj = Py_BuildValue("{sSsisLsLsOsOsi}",
+                                          "array", arrayBytes,
+                                          "nDims", nDims,
+                                          "dim1", dim1,
+                                          "dim2", dim2,
+                                          "rownames", rownames,
+                                          "colnames", colnames,
+                                          PICKLE_VERSION_KEY, PICKLE_VERSION);
+
+        if (!dictObj) {
+            PyErr_SetString(PyExc_ValueError, "Could not create dict using Py_BuildValue "
+                                              "in NamedArray.__getstate__");
+            return nullptr;
+        }
+
+        // these references had a count of 1 when entering the function (the scope reference)
+        // and incremented 1 when they were inserted into the dictionary (the dict reference).
+        // we decerment the function scope reference.
+        Py_DECREF(self->rowNames);
+        Py_DECREF(self->colNames);
+        Py_DECREF(arrayBytes);
+        if (dictObj->ob_refcnt != 1) {
+            PyErr_Format(PyExc_MemoryError, "Expecting reference count to be equal to 1 not '%L", dictObj->ob_refcnt);
+        }
+
+        rrLogDebug << "Done" << std::endl;
+        return dictObj;
+    }
+
+    static PyObject *
+    NamedArray___reduce_ex__(NamedArrayObject *self, PyObject *args) {
+
+        rrLogDebug << __FUNC__;
+
+        PyObject *state = NamedArray___getstate__(self, nullptr);
+        if (!state) {
+            // do not set an error here as it will override the
+            // useful error from NamedArray___getstate__
+//            PyErr_SetString(PyExc_MemoryError, "state is nullptr");
+            return nullptr;
+        }
+
+        // verify we have a dict
+        PyDict_CheckExact(state);
+
+        // borrowed reference
+        PyObject *nDimsObj = getItemFromDictWithErrChecking(state, "nDims");
+        PyObject *dim1 = getItemFromDictWithErrChecking(state, "dim1");
+        PyObject *dim2 = getItemFromDictWithErrChecking(state, "dim2");
+
+        PyObject *dimensionsTuple = nullptr;
+        auto nDims = PyLong_AsLong(nDimsObj);
+        if (nDims == 2) {
+            dimensionsTuple = PyTuple_Pack(2, dim1, dim2);
+            if (!dimensionsTuple) {
+                PyErr_SetString(dimensionsTuple, "Could not create dimensions tuple");
+                return nullptr;
+            }
+        } else if (nDims == 1) {
+            dimensionsTuple = PyTuple_Pack(1, dim1);
+            if (!dimensionsTuple) {
+                PyErr_SetString(dimensionsTuple, "Could not create dimensions tuple");
+                return nullptr;
+            }
+        } else {
+            PyErr_Format(PyExc_ValueError, "Unexpected number of dimensions %i", nDims);
+        }
+        // import _roadrunner and grab the NamedArray object
+        // from the Python end (new reference)
+        PyObject *roadrunnerModule = PyImport_ImportModule("roadrunner._roadrunner");
+        if (!roadrunnerModule) {
+            PyErr_SetString(PyExc_ImportError, "Could not import roadrunner._roadrunner");
+            return nullptr;
+        }
+
+        // new reference:
+        PyObject *namedArrayConstructor = PyObject_GetAttrString(roadrunnerModule, "NamedArray");
+        if (!namedArrayConstructor) {
+            PyErr_SetString(PyExc_AttributeError, "Could not find NamedArray in the roadrunner._roadrunner module");
+            return nullptr;
+        }
+
+        PyObject *nestedDimensionsTuple = PyTuple_Pack(1, dimensionsTuple);
+
+        PyObject *tup = nullptr;
+        // Py_BuildValue adds 1 to ref counts of the objects we add to it.
+        tup = Py_BuildValue(
+                "(OOOOO)",
+                /**
+                 * A callable object that will be called to
+                 * create the initial version of the object.
+                 * Aka
+                 */
+                namedArrayConstructor,
+
+                /**
+                 * A tuple of arguments for the callable object.
+                 * An empty tuple must be given if the callable
+                 * does not accept any argument.
+                 *
+                 * This is a nested tuple for passing in the shape
+                 * of the array we need to namedArrayObj
+                 *  In python syntax --> ((3, 4))
+                 * where the outer tuple is an argument list passed to NamedArray
+                 *  NamedArray(*args)
+                 * which expands to the inner tuple being passed for the np.shape parameter.
+                 */
+                nestedDimensionsTuple,
+
+                /**
+                 * Optionally, the object’s state, which will be passed to
+                 * the object’s __setstate__() method as previously
+                 * described. If the object has no such method then,
+                 * the value must be a dictionary and it will be added
+                 * to the object’s __dict__ attribute.
+                 */
+                state,
+                Py_None,
+                Py_None
+        );
+        // we've used Py_None twice, so we need to increment its ref count twice
+        Py_IncRef(Py_None);
+        Py_IncRef(Py_None);
+        // the inside tuple does not get incremented by the call to Py_BuildValue
+        // (callable, ((3, 4),), state, None, None)
+        //              ^^^^<-- Needs incrementing
+        Py_IncRef(dimensionsTuple);
+
+        /**
+         * Creating a tuple with PyTuple or PyArgs correctly increments the ref count
+         * of objects you put into it. However they do not correctly
+         * increment the ref count for objects that are nested inside other
+         * containers. Therefore, we need to manually increment the contents of
+         * the state dictionary.
+         */
+//        Py_INCREF(PyDict_GetItemString(state, "array"));
+        Py_INCREF(PyDict_GetItemString(state, "nDims"));
+        Py_INCREF(PyDict_GetItemString(state, "dim1"));
+        Py_INCREF(PyDict_GetItemString(state, "dim2"));
+        Py_INCREF(PyDict_GetItemString(state, "rownames"));
+        Py_INCREF(PyDict_GetItemString(state, "colnames"));
+        Py_INCREF(PyDict_GetItemString(state, PICKLE_VERSION_KEY));
+
+        Py_DECREF(roadrunnerModule);
+        Py_DECREF(namedArrayConstructor);
+        Py_DECREF(nestedDimensionsTuple);
+        Py_DECREF(state);
+        rrLogDebug << "Done" << std::endl;
+        return tup;
+    }
+
+    void verifyPickleVersion(PyObject *state) {
+
+        // check serialization version. At the time of writing there is only one
+        // serialization version, but this helps to future proof this code
+        PyObject *pklVersionPyObj = PyDict_GetItemString(state, PICKLE_VERSION_KEY);
+        if (pklVersionPyObj == nullptr) {
+            /* PyDict_GetItemString does not set error, so we do it*/
+            PyErr_Format(PyExc_KeyError, "No '%s' in pickled data", PICKLE_VERSION_KEY);
+            return;
+        }
+        int pklVersion = (int) PyLong_AsLong(pklVersionPyObj);
+        if (pklVersion != PICKLE_VERSION) {
+            PyErr_Format(
+                    PyExc_ValueError,
+                    "Pickle version mismatch. Got version %d but expected version %d.",
+                    pklVersion, PICKLE_VERSION);
+        }
+        return;
+    }
+
+    PyObject *deepCopyPyList(PyObject *listObj) {
+        PyList_CheckExact(listObj);
+        Py_ssize_t N = PyList_Size(listObj);
+        PyObject *newList = PyList_New(N);
+        if (!newList) {
+            PyErr_SetString(PyExc_ValueError, "Could not create a new list "
+                                              "for deep copy");
+            return nullptr;
+        }
+        // When you copy.deepcopy a list in Python
+        // you create a new list but not new items
+        // for inside the list
+        // Validated in python console:
+        // >>> import copy
+        // >>> l = [1,2,3]
+        // >>> l2 = copy.deepcopy(l)
+        // >>> id(l)
+        // 140053629264384
+        // >>> id(l2)
+        // 140053629372992
+        // >>> id(l[0])
+        // 140053681346864
+        // >>> id(l2[0])
+        // >>> # item 0 of l2 is same reference as item 0 of l
+        // 140053681346864
+        for (int i = 0; i < N; i++) {
+            PyObject *item = PyList_GetItem(listObj, i); // borrowed ref
+            if (!item) {
+                PyErr_SetString(PyExc_ValueError, "Item collected from old list "
+                                                  "is nullptr. Cannot create a deep copy "
+                                                  "for nullptr");
+                return nullptr;
+            }
+            Py_INCREF(item);
+            if (PyList_SetItem(newList, i, item) < 0) {
+                PyErr_Format(PyExc_ValueError, "Could not set item '%i'", i);
+                return nullptr;
+            };
+        }
+        return newList;
+    }
+
+
+    static PyObject *
+    NamedArray___setstate__(NamedArrayObject *self, PyObject *state) {
+        /**
+         * self is a NamedArrayObject created with a call to
+         * the NamedArray constructor.
+         * >>> n = NamedArray((4, 5)) # it is the correct size already.
+         * We need to
+         *  1) read the binary dataFromBytesArray from within the state into a PyArray.
+         *     Use PyArray_FromBuffer which will create a 1D array.
+         *  2) We now have two arrays, self which is a conveniently shaped shell
+         *     but no numbers and the array built from binary containing our numbers
+         *     Change the pointer in self to point to the dataFromBytesArray from the other array.
+         */
+        rrLogDebug << __FUNC__;
+
+        // ensure we have a dict object, ruling out dict subclasses
+        if (!PyDict_CheckExact(state)) {
+            PyErr_SetString(PyExc_ValueError, "__setstate__ input object is not a dict");
+        }
+
+        verifyPickleVersion(state);
+
+        // Grab the bytes object.
+        PyObject *bytesObj = getItemFromDictWithErrChecking(state, "array");
+        PyObject *nDimsObj = getItemFromDictWithErrChecking(state, "nDims");
+        PyObject *dim1Obj = getItemFromDictWithErrChecking(state, "dim1");
+        PyObject *dim2Obj = getItemFromDictWithErrChecking(state, "dim2");
+        long nDims = PyLong_AsLong(nDimsObj);
+        long dim1 = PyLong_AsLong(dim1Obj);
+        long dim2 = PyLong_AsLong(dim2Obj);
+
+        // ndims is restricted to 1 and 2 only
+        if (nDims == 1)
+            self->loadFromBytes(bytesObj, &dim1, nullptr);
+        else
+            self->loadFromBytes(bytesObj, &dim1, &dim2);
+
+        // This is an alternative implementation that requires copying
+        //   PyObject* rowNames = getItemFromDictWithErrChecking(state, "rownames");
+        //   self->rowNames = deepCopyPyList(rowNames);
+        // and this is the implementation that we are using, but note
+        // its harder to trace the memory footprint and may contain bugs.
+        self->rowNames = getItemFromDictWithErrChecking(state, "rownames");
+        Py_IncRef(self->rowNames);
+        for (int i = 0; i < PyList_Size(self->rowNames); i++)
+            Py_IncRef(PyList_GetItem(self->rowNames, i));
+
+        self->colNames = getItemFromDictWithErrChecking(state, "colnames");
+        Py_IncRef(self->colNames);
+        for (int i = 0; i < PyList_Size(self->colNames); i++) {
+            Py_IncRef(PyList_GetItem(self->colNames, i));
+        }
+        rrLogDebug << "Done" << std::endl;
         Py_RETURN_NONE;
     }
 
 
-/*
-NPY_NO_EXPORT PyObject *
-PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
-            npy_intp *strides, void *data, int itemsize, int flags,
-            PyObject *obj)
-{
-    PyArray_Descr *descr;
-    PyObject *new;
+    void pyutil_init(PyObject *module) {
+        rrLogDebug << __FUNC__;
+        // note to developers: turn this to LOG_INFORMATION for details
+        // when running the tests
+        // Logger::setLevel(Logger::LOG_DEBUG);
+        // set up the base class to be the numpy ndarray PyArray_Type
+        NamedArray_Type.tp_base = &PyArray_Type;
 
-    descr = PyArray_DescrFromType(type_num);
-    if (descr == NULL) {
-        return NULL;
-    }
-    if (descr->elsize == 0) {
-        if (itemsize < 1) {
-            PyErr_SetString(PyExc_ValueError,
-                            "data type must provide an itemsize");
-            Py_DECREF(descr);
-            return NULL;
+
+        // set up the pointers of the NamedArray_MappingMethods to point
+        // to the numpy ones
+        PyMappingMethods *numpyMappMethods = PyArray_Type.tp_as_mapping;
+
+        assert(numpyMappMethods && "Numpy PyMappingMethods is NULL");
+
+        NamedArray_MappingMethods = *numpyMappMethods;
+
+        // set our getitem pointer
+        NamedArray_MappingMethods.mp_subscript = (binaryfunc) NammedArray_subscript;
+
+#if (PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 9)
+        // this if for python v3.9 and above. Remove
+        // old code when we drop support for py37 and py38
+        if (PyModule_AddType(module, &NamedArray_Type) < 0) {
+            PyErr_SetString(PyExc_ValueError, "Could not add NamedArray_Type to module roadrunner._roadrunner");
+            return;
         }
-        PyArray_DESCR_REPLACE(descr);
-        descr->elsize = itemsize;
-    }
-    new = PyArray_NewFromDescr(subtype, descr, nd, dims, strides,
-                               data, flags, obj);
-    return new;
-}
- */
+#else // python 3.9
+        int result;
 
+        if ((result = PyType_Ready(&NamedArray_Type)) < 0) {
+            std::cout << "PyType_Ready(&NamedArray_Type)) Failed, error: " << result;
+            return;
+        }
+
+        Py_INCREF(&NamedArray_Type);
+        result = PyModule_AddObject(module, "NamedArray", (PyObject *) (&NamedArray_Type));
+#endif // python 3.9
+    }
+
+
+/*
 /* PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
                                      NPY_CARRAY | NPY_OWNDATA, NULL);
  */
-    PyObject *NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags,
-                             const ls::DoubleMatrix *mat) {
+    PyObject *NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags, const ls::DoubleMatrix *mat) {
         bool named = Config::getValue(Config::PYTHON_ENABLE_NAMED_MATRIX);
+        rrLogDebug << __FUNC__;
 
         if (named) {
-            rrLog(Logger::LOG_INFORMATION) << "creating NEW style array";
+
+            rrLogInfo << "creating NEW style array";
 
             //         (*(PyObject * (*)(PyTypeObject *, int, npy_intp const *, int, npy_intp const *, void *, int, int, PyObject *))
-            NamedArrayObject *array = (NamedArrayObject * )PyArray_New(
-                    &NamedArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
-                    pyFlags, NULL);
-
+            /**
+             * calls the NamedArray_New which feeds into NamedArray_Alloc
+             * and then NamedArray_Finalize.
+             */
+            // PyArray_New calls finalize twice, once for the pyarray and
+            // again for the subtype
+            NamedArrayObject *array = (NamedArrayObject *) PyArray_New(
+                    &NamedArray_Type,   // PyTypeObject* subtype,
+                    nd,                 // int nd
+                    dims,               // npy_intp const* dims,
+                    NPY_DOUBLE,         // int type_num
+                    NULL,               // npy_intp const* strides,
+                    (void *) data,        // void* data,
+                    0,                  // int itemsize. If the type always has the same number of bytes, then itemsize is ignored. Otherwise, itemsize specifies the particular size of this array
+                    pyFlags,            // int flags,
+                    nullptr             // PyObject* obj
+            );
             if (array == NULL) {
                 const char *error = rrGetPyErrMessage();
                 rrLog(Logger::LOG_CRITICAL) << error;
@@ -862,67 +1211,101 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
                 return NULL;
             }
 
+            if (PyList_Size(array->rowNames) != 0) {
+                PyErr_SetString(PyExc_ValueError, "Expecting empty initialized list for array->rowNames.");
+                return nullptr;
+            }
+
+            if (PyList_Size(array->colNames) != 0) {
+                PyErr_SetString(PyExc_ValueError, "Expecting empty initialized list for array->colNames.");
+                return nullptr;
+            }
             array->rowNames = stringvector_to_py(mat->getRowNames());
             array->colNames = stringvector_to_py(mat->getColNames());
-            array->test1 = 1;
-            array->test2 = 2;
-            array->test3 = 3;
+
             return (PyObject *) array;
 
         } else {
-            rrLog(Logger::LOG_INFORMATION) << "creating old style array";
+            rrLogInfo << "creating old style array";
             return PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
                                pyFlags, NULL);
         }
     }
 
+
     PyObject *stringvector_to_py(const std::vector<std::string> &vec) {
+        rrLogDebug << __FUNC__;
         size_t size = vec.size();
 
         PyObject *pyList = PyList_New(size);
 
         unsigned j = 0;
 
-        for (std::vector<std::string>::const_iterator i = vec.begin(); i != vec.end(); ++i) {
+        for (auto i = vec.begin(); i != vec.end(); ++i) {
             const std::string &str = *i;
             PyObject *pyStr = rrPyString_FromString(str.c_str());
             PyList_SET_ITEM(pyList, j++, pyStr);
         }
-
         return pyList;
     }
 
-    std::vector<std::string> py_to_stringvector(PyObject *obj) {
-        str_vector result;
-        if (obj) {
-            PyObject *seq = PySequence_Fast(obj, "expected a sequence");
-            if (obj) {
-                Py_ssize_t len = PySequence_Size(obj);
-                if (PyList_Check(seq))
-                    for (unsigned i = 0; i < len; i++) {
-                        PyObject *item = PyList_GET_ITEM(seq, i);
-                        // Return value: New reference.
-                        PyObject *pystr = PyObject_Str(item);
-                        result.push_back(rrPyString_AsString(pystr));
-                        Py_XDECREF(pystr);
-                    }
-                else
-                    for (unsigned i = 0; i < len; i++) {
-                        PyObject *item = PyTuple_GET_ITEM(seq, i);
-                        // Return value: New reference.
-                        PyObject *pystr = PyObject_Str(item);
-                        result.push_back(rrPyString_AsString(pystr));
-                        Py_XDECREF(pystr);
-                    }
-                Py_XDECREF(seq);
-            }
-        }
+    PyObject *PyList_toPickle(PyObject *list) {
+        rrLogDebug << __FUNC__;
+        static PyObject *module = NULL;
+        PyObject *pickle;
 
+        if (module == NULL && (module = PyImport_ImportModule("serialization")) == NULL)
+            return NULL;
+
+        pickle = PyObject_CallMethodObjArgs(module,
+                                            PyUnicode_FromString("dumps"),
+                                            list,
+                                            NULL);
+        if (!pickle) {
+            std::cerr << "PyList_toPickle returned None";
+            Py_RETURN_NONE;
+        }
+        return pickle;
+    }
+
+    std::vector<std::string> py_to_stringvector(PyObject *obj) {
+        rrLogDebug << __FUNC__;
+        std::vector<std::string> result;
+        if (!obj)
+            return result;
+        PyObject *seq = PySequence_Fast(obj, "expected a sequence");
+        Py_ssize_t len = PySequence_Size(obj);
+        if (PyList_Check(seq))
+            for (unsigned i = 0; i < len; i++) {
+                PyObject *item = PyList_GetItem(seq, i);
+                if (!PyUnicode_CheckExact(item)) {
+                    PyErr_Format(PyExc_TypeError, "Expected a string but got '%s'", item->ob_type->tp_name);
+                    return {};
+                }
+                // Return value: New reference.
+                const char *pystr = PyUnicode_AsUTF8(item);
+                result.emplace_back(pystr);
+            }
+        else
+            for (unsigned i = 0; i < len; i++) {
+                PyObject *item = PyTuple_GetItem(seq, i);
+                if (!PyUnicode_CheckExact(item)) {
+                    PyErr_Format(PyExc_TypeError, "Expected a string but got '%s'", item->ob_type->tp_name);
+                    return {};
+                }
+                // Return value: New reference.
+                const char *pystr = PyUnicode_AsUTF8(item);
+                result.emplace_back(pystr);
+            }
+        Py_XDECREF(seq);
+
+        rrLogDebug << "Done" << std::endl;
         return result;
     }
 
 
     Dictionary *Dictionary_from_py(PyObject *py) {
+        rrLogDebug << __FUNC__;
         if (PyDict_Check(py) == 0) {
             throw invalid_argument("object is not a dictionary");
         }
@@ -947,38 +1330,300 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
                 throw invalid_argument("keys must be strings");
             }
         }
-
+        rrLogDebug << "Done" << std::endl;
         return dict;
     }
 
 
-    void pyutil_init(PyObject *module) {
-        // set up the base class to be the numpy ndarray PyArray_Type
-        NamedArray_Type.tp_base = &PyArray_Type;
-
-
-        // set up the pointers of the NamedArray_MappingMethods to point
-        // to the numpy ones
-        PyMappingMethods *numpyMappMethods = PyArray_Type.tp_as_mapping;
-
-        assert(numpyMappMethods && "Numpy PyMappingMethods is NULL");
-
-        NamedArray_MappingMethods = *numpyMappMethods;
-
-        // set our getitem pointer
-        NamedArray_MappingMethods.mp_subscript = (binaryfunc) NammedArray_subscript;
-
-        int result;
-
-        if ((result = PyType_Ready(&NamedArray_Type)) < 0) {
-            std::cout << "PyType_Ready(&NamedArray_Type)) Failed, error: " << result;
-            return;
+    static PyObject *NamedArrayObject_alloc(PyTypeObject *type, Py_ssize_t nitems) {
+        rrLogDebug << __FUNC__;
+        assert(type->tp_basicsize == sizeof(NamedArrayObject));
+        NamedArrayObject *namedArrayObject = PyObject_New(NamedArrayObject, type);
+        if (!namedArrayObject) {
+            PyErr_SetString(PyExc_MemoryError, "Could allocate object of type 'NamedArray'");
+            return nullptr;
         }
-
-        Py_INCREF(&NamedArray_Type);
-        result = PyModule_AddObject(module, "NamedArray", (PyObject *) (&NamedArray_Type));
+        namedArrayObject->rowNames = PyList_New(0);
+        namedArrayObject->colNames = PyList_New(0);
+        PyObject *obj = PyObject_Init((PyObject *) namedArrayObject, type);
+        if (!obj) {
+            PyErr_SetString(PyExc_MemoryError, "Could not initialize object of type 'NamedArray'");
+            return nullptr;
+        }
+        rrLogDebug << "namedArrayObject allocated:  " << namedArrayObject;
+        rrLogDebug << "Done" << std::endl;
+        return obj;
     }
 
+/**
+ * @brief the part of NamedArrayObject_Finalize that deals with the situation
+ * where the second argument PyObject* args evaluates to Py_None;
+ */
+    PyObject *NamedArrayObject_Finalize_FromConstructor(NamedArrayObject *self) {
+        rrLogDebug << __FUNC__;
+
+        if (!self->rowNames) {
+            rrLogDebug << "No rownames in self, using empty list instead";
+            PyObject *rows = PyList_New(0);
+            if (!rows) {
+                PyErr_SetString(PyExc_MemoryError, "Could not allocate a new list for rownames");
+                Py_RETURN_NONE;
+            }
+            self->rowNames = rows;
+        }
+        if (!self->colNames) {
+            rrLogDebug << "No colnames in self, using empty list instead";
+            PyObject *cols = PyList_New(0);
+            if (!cols) {
+                PyErr_SetString(PyExc_MemoryError, "Could not allocate a new list for colnames");
+                Py_RETURN_NONE;
+            }
+            self->colNames = cols;
+        }
+        // Note it seems that we do not need to increment the ref count
+        // for these new lists.
+
+        // and assign
+        rrLogDebug << "Done" << std::endl;
+        Py_RETURN_NONE;
+    }
+
+/**
+ * @brief the part of NamedArrayObject_Finalize that deals with the situation
+ * where the second argument PyObject* args evaluates to a PyArrayObject;
+ * @details since a PyArray does not have row/colnames then we can actually
+ * reuse the NamedArrayObject_Finalize_FromConstructor method.
+ */
+    PyObject *NamedArrayObject_Finalize_FromPyArray(NamedArrayObject *self) {
+        rrLogDebug << __FUNC__;
+        PyObject *obj = NamedArrayObject_Finalize_FromConstructor(self);
+        rrLogDebug << "done " << std::endl;
+        return obj;
+    }
+
+/**
+ * @brief the part of NamedArrayObject_Finalize that deals with the situation
+ * where the second argument PyObject* args evaluates to another NamedArray ;
+ * In this case rhs contains the original state of the array
+ * before any slicing or other modifications that
+ * count as "templating"
+ * @see https://numpy.org/devdocs/user/basics.subclassing.html
+ *
+ * The array inside "self" contains a copy of the state
+ * of the array after being manipulated by numpy.
+ * For instance
+ *  >>> n = NamedArray((3, 4))
+ *  >>> v = n[1:, :]
+ * invokes NamedArray_Finalize where
+ *  - `n` maps to `rhs` aka the first rhs of the 1-tuple input args.
+ *     Its state is the original
+ *  - `v` maps to the `self` arugment. Its a copy of the np array with
+ *  any changes implemented
+ *
+ * Its all very reminiscent of a copy constructor in c++
+ */
+    PyObject *NamedArrayObject_Finalize_FromNamedArray(NamedArrayObject *self, PyObject *rhs) {
+        rrLogDebug << __FUNC__;
+
+        if (self->rowNames == nullptr) {
+            PyErr_SetString(PyExc_MemoryError, "self->rownames is nullptr");
+            return nullptr;
+        }
+        if (self->colNames == nullptr) {
+            PyErr_SetString(PyExc_MemoryError, "self->colnames is nullptr");
+            return nullptr;
+        }
+        if (((NamedArrayObject *) rhs)->rowNames == nullptr) {
+            PyErr_SetString(PyExc_MemoryError, "rhs rownames is nullptr");
+            return nullptr;
+        }
+        if (((NamedArrayObject *) rhs)->colNames == nullptr) {
+            PyErr_SetString(PyExc_MemoryError, "rhs rownames is nullptr");
+            return nullptr;
+        }
+
+        unsigned selfNdim = PyArray_NDIM(&self->array);
+        npy_intp selfNRows = selfNdim > 0 ? PyArray_DIM(&self->array, 0) : -1;
+        npy_intp selfNCols = selfNdim > 1 ? PyArray_DIM(&self->array, 1) : -1;
+        unsigned rhsfNdim = PyArray_NDIM(rhs);
+        npy_intp rhsNRows = rhsfNdim > 0 ? PyArray_DIM(rhs, 0) : -1;
+        npy_intp rhsNCols = rhsfNdim > 1 ? PyArray_DIM(rhs, 1) : -1;
+
+        rrLogDebug << "Self address: " << self << " rhs addr : " << rhs;
+        rrLogDebug << "selfNdim: " << selfNdim;
+        rrLogDebug << "selfNRows: " << selfNRows;
+        rrLogDebug << "selfNCols: " << selfNCols;
+        rrLogDebug << "rhsfNdim: " << rhsfNdim;
+        rrLogDebug << "rhsNRows: " << rhsNRows;
+        rrLogDebug << "rhsNCols: " << rhsNCols;
+        rrLogDebug << "PyList_Size(self->rowNames): " << PyList_Size(self->rowNames);
+        rrLogDebug << "PyList_Size(rhs->rowNames): " << PyList_Size(((NamedArrayObject *) rhs)->rowNames);
+        rrLogDebug << "PyList_Size(self->colNames): " << PyList_Size(self->colNames);
+        rrLogDebug << "PyList_Size(rhs->colNames): " << PyList_Size(((NamedArrayObject *) rhs)->colNames);
+
+        /**
+         * This is a bit confusing. Sometimes we want to keep the rhs, and other we want to keep
+         * the self object and its not clear why. When using slicing operations from numpy, we are getting
+         * another array from a *template*. This method is called and we need
+         * to manually take the column/row names from rhs to self, and self
+         * is what we keep. However, when creating a NamedArray using
+         * the doublematrix_to_py function it seems that rhs contains
+         * what we need and self is a row vector (len(3) and no columns).
+         *
+         * Its not 100% clear whats going on and theres but I cannot get the
+         * slicing + row/colnames working at the same time as doublematrix_to_py.
+         * Given time constraints and doublematrix_to_py is more important,
+         * we settle for just supporting this operation. Will return to this sometime in the
+         * future so leave the commented out code intact.
+         *
+         *     - ciaran
+         */
+
+        Py_RETURN_NONE;
+
+        // note this is likley not the best indicator of how the NamedArray was invoked.
+//        if (selfNdim == 1) {
+//            rrLogDebug << "NamedArray invoked from doublematrix_to_py. "
+//                          "Doing nothing, rhs already contains the data,"
+//                          " rows and cols we need";
+//            Py_RETURN_NONE;
+//        } else {
+//            rrLogDebug << "NamedArray invoked from template. Collecting row and column"
+//                          " information from rhs for self. ";
+//            double *data = (double *) PyArray_DATA(self);
+//            rrLogDebug << "data[0]: " << data[0];
+//            double *selfData = (double *) PyArray_DATA(self);
+//            double *rhsData = (double *) PyArray_DATA(rhs);
+//            NamedArrayObject *rhsAsNamedArrayObj = (NamedArrayObject *) rhs;
+//            if (!rhsAsNamedArrayObj) {
+//                PyErr_SetString(PyExc_MemoryError,
+//                                "Could not cast argument to NamedArray_Finalize to a NamedArrayObject*");
+//                Py_RETURN_NONE;
+//            }
+//
+//            PyObject *selfRownames = self->rowNames;
+//            PyObject *selfColnames = self->colNames;
+//            PyObject *rhsRownames = self->rowNames;
+//            PyObject *rhsColnames = self->colNames;
+//
+//
+//            if (PyList_Size(rhsAsNamedArrayObj->rowNames) != 0) {
+//                std::vector<double> selfFirstColumn;
+//                for (std::int64_t i = 0; i < selfNCols * selfNRows; i += selfNCols) {
+//                    selfFirstColumn.push_back(selfData[i]);
+//                }
+//                std::vector<double> rhsFirstColumn;
+//                for (std::int64_t i = 0; i < rhsNCols * rhsNRows; i += rhsNCols) {
+//                    rhsFirstColumn.push_back(rhsData[i]);
+//                }
+//                std::int64_t firstIdxOfSelfInRhs = std::distance(
+//                        rhsFirstColumn.begin(),
+//                        std::find(rhsFirstColumn.begin(), rhsFirstColumn.end(), selfFirstColumn[0])
+//                );
+//                std::int64_t lastIdxOfSelfInRhs = firstIdxOfSelfInRhs + selfNRows;
+//                // then we need to slice the rownames list
+//                // self->rowNames is a new reference (Ref count = 1)
+//                self->rowNames = PyList_GetSlice(rhsAsNamedArrayObj->rowNames, firstIdxOfSelfInRhs, lastIdxOfSelfInRhs);
+//                // we therefore need to decrement the ref count of the original copy
+//                Py_DECREF(rhsAsNamedArrayObj->rowNames);
+//                if (!self->rowNames) {
+//                    PyErr_SetString(PyExc_IndexError, "Could not slice NamedArray rownames");
+//                    Py_RETURN_NONE;
+//                }
+//            }
+//            if (PyList_Size(rhsAsNamedArrayObj->colNames) != 0) {
+//                std::vector<double> selfFirstRow(selfNRows);
+//                for (std::int64_t i = 0; i < selfNRows; i++) {
+//                    selfFirstRow[i] = selfData[i];
+//                }
+//
+//                std::vector<double> rhsFirstRow(rhsNRows);
+//                for (std::int64_t i = 0; i < rhsNRows; i++) {
+//                    rhsFirstRow[i] = selfData[i];
+//                }
+//
+//                std::int64_t firstIdxOfSelfInRhs = std::distance(
+//                        rhsFirstRow.begin(),
+//                        std::find(rhsFirstRow.begin(), rhsFirstRow.end(), selfFirstRow[0])
+//                );
+//                std::int64_t lastIdxOfSelfInRhs = firstIdxOfSelfInRhs + selfNCols ;
+//                rrLogDebug << firstIdxOfSelfInRhs << " " << lastIdxOfSelfInRhs;
+//
+//                // then we need to slice the rownames list
+//                // self->colNames is a new reference (Ref count = 1)
+//                Py_DECREF(self->colNames);
+//                self->colNames = PyList_GetSlice(rhsAsNamedArrayObj->colNames, firstIdxOfSelfInRhs, lastIdxOfSelfInRhs);
+//                Py_INCREF(self->colNames);
+//                // we therefore need to decrement the ref count of the original copy
+//                Py_DECREF(rhsAsNamedArrayObj->colNames);
+//                if (!self->colNames) {
+//                    PyErr_SetString(PyExc_IndexError, "Could not slice NamedArray colNames");
+//                    return nullptr;
+//                }
+//            }
+//            rrLogDebug << "Done" << std::endl;
+//            Py_RETURN_NONE;
+//        }
+    }
+
+
+    PyObject *NamedArrayObject_Finalize(NamedArrayObject *self, PyObject *args) {
+        // Some docs on why this is needed: https://numpy.org/devdocs/user/basics.subclassing.html
+        // when self is passed, the ref count of array goes up.
+        rrLogDebug << __FUNC__;
+
+        PyObject *rhs;
+        if (PyArg_ParseTuple(args, "O", &rhs) < 0) {
+            PyErr_SetString(PyExc_ValueError, "Could not get rhs from tuple");
+            return nullptr;
+        }
+        rrLogDebug << "finalizing object self: " << self << "; args " << rhs;
+
+        // when NamedArray instantiated with constructor
+        //   >>> n = NamedArray((3, 4)) # 1
+        // or from view of np.array:
+        //   >>> n = np.ndarray((3, 4)).view(NamedArray) #2
+        // we are guarenteed to not have row or colnames because
+        //  #1 syntax is not supported at this time and
+        //  #2 np.ndarray does not have row/colnames
+        if (rhs == Py_None) {
+            rrLogDebug << "NamedArrayObject initialized from constructor. 'None' path taken";
+            return NamedArrayObject_Finalize_FromConstructor(self);
+        } else if (rhs->ob_type == &PyArray_Type) {
+            rrLogDebug << "Taking the PyArray_Type path";
+            return NamedArrayObject_Finalize_FromPyArray(self);
+        } else if (rhs->ob_type == &NamedArray_Type) {
+            rrLogDebug << "Taking the NamedArray_Type path";
+            return NamedArrayObject_Finalize_FromNamedArray(self, rhs);
+        } else {
+            rrLogErr << "Unexpected type passed to NamedArrayObject_Finalize for the args parameter";
+            PyErr_SetString(PyExc_ValueError,
+                            "Unexpected type passed to NamedArrayObject_Finalize for the args parameter");
+        }
+        // decrement the refcount as we're done with this scope
+        Py_DecRef((PyObject *) &self->array);
+        rrLogDebug << "Done" << std::endl;
+        Py_RETURN_NONE;
+    }
+
+
+    static void NamedArrayObject_dealloc(NamedArrayObject *self) {
+        rrLogDebug << __FUNC__;
+        // tp_dealloc is called by Py_DECREF and Py_XDECREF once the ref count
+        // gets to 0. Therefore, we expect to see the self ref count equal to 0.
+
+        rrLogWarn << "Remember you have commented out decrementing row/colnames";
+        // decrement the rownames, allowing for possibility of being null
+        Py_XDECREF(self->rowNames);
+        Py_XDECREF(self->colNames);
+
+        PyObject *pself = (PyObject *) self;
+
+        assert(pself->ob_type->tp_base == &PyArray_Type);
+        PyArray_Type.tp_dealloc(pself);
+
+        rrLogDebug << "Done" << std::endl;
+    }
 
 /*****************************************************************************************
  * Array Printing Stuff
@@ -994,9 +1639,8 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
         return static_cast<int>(longest);
     }
 
-    static std::string array_format(PyArrayObject *arr,
-                                    const str_vector &rowNames, const str_vector &colNames) {
-
+    static std::string array_format(
+            PyArrayObject *arr, const str_vector &rowNames, const str_vector &colNames) {
         unsigned ndim = PyArray_NDIM(arr);
         npy_intp rows = ndim > 0 ? PyArray_DIM(arr, 0) : 0;
         npy_intp cols = ndim > 1 ? PyArray_DIM(arr, 1) : 0;
@@ -1055,12 +1699,25 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
             ss << ((i < rows - 1) ? "]," : "]]");
             ss << endl;
         }
+        rrLogDebug << "Done" << std::endl;
         return ss.str();
 
 #undef GET_VAL
     }
 
     PyObject *NamedArray_repr(NamedArrayObject *self) {
+        rrLogDebug << __FUNC__;
+        const void * address = static_cast<const void*>(self);
+        std::stringstream ss;
+        ss << address;
+        std::string stringPtrVal = ss.str();
+        PyObject *s = PyUnicode_FromFormat("<NamedArray object at %s>", stringPtrVal.c_str());
+        rrLogDebug << "Done" << std::endl;
+        return s;
+    }
+
+    PyObject *NamedArray_str(NamedArrayObject *self) {
+        rrLogDebug << __FUNC__;
         PyArrayObject *array = (PyArrayObject *) self;
         str_vector rowNames = py_to_stringvector(self->rowNames);
         str_vector colNames = py_to_stringvector(self->colNames);
@@ -1075,15 +1732,13 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
 
         string str = array_format(array, rowNames, colNames);
 
+        rrLogDebug << "Done" << std::endl;
         return rrPyString_FromString(str.c_str());
-    }
-
-    PyObject *NamedArray_str(NamedArrayObject *self) {
-        return NamedArray_repr(self);
     }
 
 
     PyObject *convertStringVectorToPython(const std::vector<std::string> &vec) {
+        rrLogDebug << __FUNC__;
         long long size = (long long) vec.size();
 
         PyObject *pyList = PyList_New(size);
@@ -1096,10 +1751,12 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
             j++;
         }
 
+        rrLogDebug << "Done" << std::endl;
         return pyList;
     }
 
     std::vector<std::string> convertPythonListToStringVector(PyObject *pyList) {
+        rrLogDebug << __FUNC__;
         int size = (int) PyList_Size(pyList);
         std::vector<std::string> vec(size);
         for (Py_ssize_t i = 0; i < size; i++) {
@@ -1108,6 +1765,7 @@ PyArray_New(PyTypeObject *subtype, int nd, npy_intp *dims, int type_num,
             vec[(int) i] = std::string(s);
         }
 
+        rrLogDebug << "Done" << std::endl;
         return vec;
     }
 

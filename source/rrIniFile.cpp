@@ -17,15 +17,15 @@ namespace rr
 //const bool IniFile::mAutoCreateKeys		= true;
 
 IniFile::IniFile(const std::string& szFileName, bool autoLoad, bool autoSave)
-:
-mCommentIndicators(";#"),
-mEqualIndicator("="),
-mWhiteSpace(" \t\n\r"),
-mIniFileName(szFileName),
-mIsDirty(false),
-mAutoSave(autoSave),
-mAutoCreateKeys(1),
-mAutoCreateSections(1)
+: mCommentIndicators(";#")
+, mEqualIndicator("=")
+, mWhiteSpace(" \t\n\r")
+, mIniFileName(szFileName)
+, mIsDirty(false)
+, mAutoSave(autoSave)
+, mAutoCreateKeys(1)
+, mAutoCreateSections(1)
+, mFlags(0)
 {
 	//mFlags = (mAutoCreateSections | mAutoCreateKeys);
 	if(mIniFileName.size() > 2 && autoLoad == true)

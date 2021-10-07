@@ -96,6 +96,9 @@ public:
     MOCK_METHOD(int, getEventIndex, (const std::string &eid), (override));
     MOCK_METHOD(std::string, getEventId, (size_t index), (override));
     MOCK_METHOD(void, getEventIds, (std::list<std::string> & ), (override));
+    MOCK_METHOD(void, getAssignmentRuleIds, (std::list<std::string>&), (override));
+    MOCK_METHOD(void, getRateRuleIds, (std::list<std::string>&), (override));
+    MOCK_METHOD(void, getInitialAssignmentIds, (std::list<std::string>&), (override));
     MOCK_METHOD(void, setEventListener, (size_t index, EventListenerPtr eventHandler), (override));
     MOCK_METHOD(EventListenerPtr, getEventListener, (size_t index), (override));
     MOCK_METHOD(double, getFloatingSpeciesAmountRate, (size_t index,const double *reactionRates), (override));
