@@ -1403,10 +1403,10 @@ namespace rr {
     void RoadRunner::load(const std::string &uriOrSbml, const Dictionary *dict) {
         Mutex::ScopedLock lock(roadRunnerMutex);
 
-        std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
+        std::string currentSBML = SBMLReader::read(uriOrSbml);
 
         // chomp any leading or trailing whitespace
-        mCurrentSBML = trim(mCurrentSBML);
+        currentSBML = trim(currentSBML);
 
         impl->model.reset(nullptr);
 
@@ -1419,7 +1419,7 @@ namespace rr {
 
         // TODO: add documentation for validations
         if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) != 0) {
-            std::string errors = validateSBML(mCurrentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML |
+            std::string errors = validateSBML(currentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML |
                                                             VALIDATE_OVERDETERMINED);
             if (!errors.empty()) {
                 throw std::runtime_error(errors.c_str());
@@ -1431,11 +1431,13 @@ namespace rr {
             // we validate the model to provide explicit details about where it
             // failed. Its *VERY* expensive to pre-validate the model.
             libsbml::SBMLReader reader;
-            impl->document.reset(reader.readSBMLFromString(mCurrentSBML));
-            // Fix various problems that might occur in incomplete SBML models.
-            mCurrentSBML = fixMissingStoichAndMath(impl->document.get());
+            impl->document.reset(reader.readSBMLFromString(currentSBML));
+            //We're about to change the document, but use the currentSBML string to create the hash, since it'll be fixed just like this if used again, and writing to a string just to create a hash is too inefficient.
+            std::string md5 = rr::getSBMLMD5(currentSBML, impl->loadOpt.modelGeneratorOpt);
 
-            std::string md5 = rr::getSBMLMD5(mCurrentSBML, impl->loadOpt.modelGeneratorOpt);
+            // Fix various problems that might occur in incomplete SBML models.
+            fixMissingStoichAndMath(impl->document.get());
+
             impl->model.reset(ExecutableModelFactory::createModel(impl->document.get(), md5, &impl->loadOpt));
         } catch (const rr::UninitializedValueException &e) {
             // catch specifically for UninitializedValueException, otherwise for some
@@ -1450,7 +1452,7 @@ namespace rr {
             throw e;
         }
         catch (const std::exception &e) {
-            std::string errors = validateSBML(mCurrentSBML);
+            std::string errors = validateSBML(impl->document.get());
 
             if (!errors.empty()) {
                 rrLog(Logger::LOG_ERROR) << "Invalid SBML: " << std::endl << errors;
@@ -5206,7 +5208,7 @@ namespace rr {
                 *outPtr << std::dec << impl->model.get();
 
                 //*outPtr << "configurationXML" << impl->configurationXML << std::endl;
-                //*outPtr << impl->mCurrentSBML;
+                //*outPtr << impl->currentSBML;
                 return outPtr;
 
             }

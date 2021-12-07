@@ -59,6 +59,8 @@ enum ValidateSBML
 };
 
 
+std::string validateSBML(const libsbml::SBMLDocument* doc);
+
 std::string validateSBML(const std::string src, unsigned opt
         = VALIDATE_IDENTIFIER | VALIDATE_GENERAL | VALIDATE_MATHML);
 
@@ -67,7 +69,7 @@ std::string validateSBML(const std::string src, unsigned opt
 * Assumes unit stoichiometry where not specified
 * @return SBML std::string with stoich fixed
 */
-std::string fixMissingStoichAndMath(libsbml::SBMLDocument* sbml);
+void fixMissingStoichAndMath(libsbml::SBMLDocument* sbml);
 
 } /* namespace rr */
 
