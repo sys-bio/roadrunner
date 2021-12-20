@@ -1830,7 +1830,7 @@ namespace rr {
         void loadSelectionVector(std::istream &, std::vector<SelectionRecord> &);
 
         const int fileMagicNumber = 0xAD6F52;
-        const int dataVersionNumber = RR_VERSION_MAJOR*10 + RR_VERSION_MINOR;
+        const int dataVersionNumber;
     };
 
 }
