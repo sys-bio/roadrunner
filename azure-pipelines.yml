@@ -1065,18 +1065,18 @@ stages:
               rm -r $(Build.ArtifactStagingDirectory)/*
               ls $(Build.ArtifactStagingDirectory)
             displayName: Clear published artifacts
+          - script: |
+              cd $(INSTALL_DIR)/dist/
+              ls
+              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
+              ls
+            displayName: Rename wheel files
           - task: CopyFiles@2
             inputs:
               contents: '$(INSTALL_DIR)/dist/**'
               targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
               flattenFolders: true
             displayName: Copy Pip Wheels to Staging Area
-          - script: |
-              cd $(Build.ArtifactStagingDirectory)/pip-wheels/
-              ls
-              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
-              ls
-            displayName: Rename wheel files
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)/pip-wheels'
