@@ -1061,10 +1061,10 @@ stages:
               artifactName: roadrunner-ManyLinux2014-$(PythonName)-full
               Parallel: true
               ParallelCount: 8
-#          - script: |
-#              rm -r $(Build.ArtifactStagingDirectory)/*
-#              ls $(Build.ArtifactStagingDirectory)
-#            displayName: Clear published artifacts
+          - script: |
+              rm -r $(Build.ArtifactStagingDirectory)/*
+              ls $(Build.ArtifactStagingDirectory)
+            displayName: Clear published artifacts
 #          - task: CopyFiles@2
 #            inputs:
 #              contents: '$(INSTALL_DIR)/dist/**'
