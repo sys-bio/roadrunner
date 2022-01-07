@@ -79,6 +79,13 @@ protected:
 
     void saveOnceThenLoadTwice();
 
+    void simulateThenSaveLoadThenReset();
+
+    void simulateThenSaveUsingDifferentSimulateOptions();
+
+    void simulateThenSaveUsingDifferentSimulateOptions2();
+
+
     int case_id;
 };
 
@@ -460,6 +467,38 @@ void StateSavingTests::saveOnceThenLoadTwice() {
     }));
 }
 
+void StateSavingTests::simulateThenSaveLoadThenReset() {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
+        rri->simulate();
+        rri->saveState(fname);
+        rri->loadState(fname);
+        rri->reset();
+    }));
+}
+
+void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions() {
+    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
+        rri->getSimulateOptions().duration /= 2;
+        rri->getSimulateOptions().steps /= 2;
+        rri->simulate();
+        rri->saveState(fname);
+        rri->loadState(fname);
+        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+    }, "l3v1"));
+}
+void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions2() {
+    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
+        rri->getSimulateOptions().duration = 1.50492;
+        rri->getSimulateOptions().steps /= 2;
+        rri->simulate();
+        rri->saveState(fname);
+        rri->loadState(fname);
+        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+        rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
+        }, "l3v1"));
+}
+
+
 class StateSavingTestsWithCaseId00001 : public StateSavingTests{
 public:
     StateSavingTestsWithCaseId00001()
@@ -478,6 +517,14 @@ TEST_F(StateSavingTestsWithCaseId00001, SaveOnceThenLoadTwice){
     saveOnceThenLoadTwice();
 }
 
+TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions){
+    simulateThenSaveUsingDifferentSimulateOptions();
+}
+
+TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions2){
+    simulateThenSaveUsingDifferentSimulateOptions2();
+}
+
 class StateSavingTestsWithCaseId01121 : public StateSavingTests{
 public:
     StateSavingTestsWithCaseId01121()
@@ -494,6 +541,48 @@ TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoadThenSaveThenLoad){
 
 TEST_F(StateSavingTestsWithCaseId01121, SaveOnceThenLoadTwice){
     saveOnceThenLoadTwice();
+}
+
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveLoadThenReset){
+    simulateThenSaveLoadThenReset();
+}
+
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions){
+    simulateThenSaveUsingDifferentSimulateOptions();
+}
+
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions2){
+    simulateThenSaveUsingDifferentSimulateOptions2();
+}
+
+class StateSavingTestsWithCaseId01120 : public StateSavingTests{
+public:
+    StateSavingTestsWithCaseId01120()
+        : StateSavingTests(1120) {};
+};
+
+TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoad){
+    saveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoadThenSaveThenLoad){
+    saveThenLoadThenSaveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId01120, SaveOnceThenLoadTwice){
+    saveOnceThenLoadTwice();
+}
+
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveLoadThenReset){
+    simulateThenSaveLoadThenReset();
+}
+
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions){
+    simulateThenSaveUsingDifferentSimulateOptions();
+}
+
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions2){
+    simulateThenSaveUsingDifferentSimulateOptions2();
 }
 
 
@@ -549,94 +638,6 @@ TEST_F(StateSavingTests, SimulateThenSaveLoadThenReset) {
     }));
 }
 
-TEST_F(StateSavingTests, SimulateThenSaveLoadThenResetWithDifferentModel) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->reset((int)SelectionRecord::ALL);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadCase1120) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadTwiceCase1120) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_15) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_16) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_17) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadAndSimulateCase1120) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->reset((int)SelectionRecord::ALL);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SAVE_STATE_19) {
-    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
-        rri->getSimulateOptions().duration /= 2;
-        rri->getSimulateOptions().steps /= 2;
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SAVE_STATE_20) {
-    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
-        rri->getSimulateOptions().duration /= 2;
-        rri->getSimulateOptions().steps /= 2;
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-    }));
-}
-
-TEST_F(StateSavingTests, SAVE_STATE_21) {
-    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
-        rri->getSimulateOptions().duration = 1.50492;
-        rri->getSimulateOptions().steps /= 2;
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-        rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
-    }, "l3v1"));
-}
 
 TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     path f = rrTestSbmlTestSuiteDir_ / "semantic" / "00001" / "00001-sbml-l2v4.xml";
