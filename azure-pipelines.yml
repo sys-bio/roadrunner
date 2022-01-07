@@ -1061,23 +1061,23 @@ stages:
               artifactName: roadrunner-ManyLinux2014-$(PythonName)-full
               Parallel: true
               ParallelCount: 8
-          - script: |
-              rm -r $(Build.ArtifactStagingDirectory)/*
-              ls $(Build.ArtifactStagingDirectory)
-            displayName: Clear published artifacts
-          - task: CopyFiles@2
-            inputs:
-              contents: '$(INSTALL_DIR)/dist/**'
-              targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
-              flattenFolders: true
-            displayName: Copy Pip Wheels to Staging Area
-          - script: |
-              cd $(Build.ArtifactStagingDirectory)/pip-wheels/
-              ls
-              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
-              ls
-            displayName: Rename wheel files
-          - publish: $(Build.ArtifactStagingDirectory)
-              artifactName: roadrunner-ManyLinux2014-$(PythonName)-wheels
-            displayName: Publish Pip Wheels Artifacts
+#          - script: |
+#              rm -r $(Build.ArtifactStagingDirectory)/*
+#              ls $(Build.ArtifactStagingDirectory)
+#            displayName: Clear published artifacts
+#          - task: CopyFiles@2
+#            inputs:
+#              contents: '$(INSTALL_DIR)/dist/**'
+#              targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
+#              flattenFolders: true
+#            displayName: Copy Pip Wheels to Staging Area
+#          - script: |
+#              cd $(Build.ArtifactStagingDirectory)/pip-wheels/
+#              ls
+#              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
+#              ls
+#            displayName: Rename wheel files
+#          - publish: $(Build.ArtifactStagingDirectory)
+#              artifactName: roadrunner-ManyLinux2014-$(PythonName)-wheels
+#            displayName: Publish Pip Wheels Artifacts
 
