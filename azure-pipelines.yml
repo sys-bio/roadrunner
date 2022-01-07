@@ -1071,12 +1071,12 @@ stages:
               targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
               flattenFolders: true
             displayName: Copy Pip Wheels to Staging Area
-#          - script: |
-#              cd $(Build.ArtifactStagingDirectory)/pip-wheels/
-#              ls
-#              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
-#              ls
-#            displayName: Rename wheel files
+          - script: |
+              cd $(Build.ArtifactStagingDirectory)/pip-wheels/
+              ls
+              find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
+              ls
+            displayName: Rename wheel files
 #          - publish: $(Build.ArtifactStagingDirectory)
 #              artifactName: roadrunner-ManyLinux2014-$(PythonName)-wheels
 #            displayName: Publish Pip Wheels Artifacts
