@@ -49,7 +49,7 @@ public:
     path stateSavingOutputDir = rrTestDir_ / "StateSavingOutput";
     path fname_ = stateSavingOutputDir / "state-saving-test.rr";
     std::string fname;
-    StateSavingTests() {
+    StateSavingTests(int case_id) : case_id(case_id) {
         fname = fname_.string();
 //        Logger::setLevel(Logger::LOG_DEBUG);
     }
@@ -72,6 +72,14 @@ public:
 
     bool StateRunTestModelFromScratch(void(*generate)(RoadRunner *, std::string), std::string version = "l2v4");
 
+protected:
+    void saveThenLoad();
+
+    void saveThenLoadThenSaveThenLoad();
+
+    void saveOnceThenLoadTwice();
+
+    int case_id;
 };
 
 bool StateSavingTests::RunStateSavingTest(void(*modification)(RoadRunner *, std::string), std::string version) {
@@ -190,7 +198,6 @@ bool StateSavingTests::RunStateSavingTest(void(*modification)(RoadRunner *, std:
     delete doc;
     return result;
 }
-
 
 bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner *, std::string), std::string version) {
 //    Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
@@ -428,12 +435,67 @@ bool StateSavingTests::StateRunTestModelFromScratch(void(*generate)(RoadRunner *
     return result;
 }
 
+
+void StateSavingTests::saveThenLoad() {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
+        rri->saveState(fname);
+        rri->loadState(fname);
+    }));
+}
+
+void StateSavingTests::saveThenLoadThenSaveThenLoad() {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
+        rri->saveState(fname);
+        rri->loadState(fname);
+        rri->saveState(fname);
+        rri->loadState(fname);
+    }));
+}
+
+void StateSavingTests::saveOnceThenLoadTwice() {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
+        rri->saveState(fname);
+        rri->loadState(fname);
+        rri->loadState(fname);
+    }));
+}
+
 class StateSavingTestsWithCaseId00001 : public StateSavingTests{
 public:
-    StateSavingTestsWithCaseId00001() = default;
+    StateSavingTestsWithCaseId00001()
+        : StateSavingTests(1) {};
 };
 
-SaveThenLoad
+TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoad){
+    saveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoadThenSaveThenLoad){
+    saveThenLoadThenSaveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId00001, SaveOnceThenLoadTwice){
+    saveOnceThenLoadTwice();
+}
+
+class StateSavingTestsWithCaseId01121 : public StateSavingTests{
+public:
+    StateSavingTestsWithCaseId01121()
+        : StateSavingTests(1121) {};
+};
+
+TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoad){
+    saveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoadThenSaveThenLoad){
+    saveThenLoadThenSaveThenLoad();
+}
+
+TEST_F(StateSavingTestsWithCaseId01121, SaveOnceThenLoadTwice){
+    saveOnceThenLoadTwice();
+}
+
 
 // IN LLVM 6.0.1, this test can result, depending on the OS,
 //  in llvm calling *exit* instead of throwing.  We changed this
@@ -476,68 +538,6 @@ TEST_F(StateSavingTests, COPY_RR_TWICE2) {
     RoadRunner rr3(rr2);
     ASSERT_TRUE(rr.getInstanceID() != rr2.getInstanceID());
     ASSERT_TRUE(rr.getInstanceID() != rr3.getInstanceID());
-}
-
-
-TEST_F(StateSavingTests, SaveThenLoad) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadThenSaveThenLoad) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, SaveOnceThenLoadTwice) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadWithADifferentModel) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, SaveThenLoadWithADiffentModelTwice) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_8) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_9) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_10) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
 }
 
 TEST_F(StateSavingTests, SimulateThenSaveLoadThenReset) {
