@@ -1077,7 +1077,8 @@ stages:
               find . -type f | perl -pe 'print $_; s/linux/manylinux2014/' | xargs -d "\n" -n2 mv
               ls
             displayName: Rename wheel files
-#          - publish: $(Build.ArtifactStagingDirectory)
-#              artifactName: roadrunner-ManyLinux2014-$(PythonName)-wheels
-#            displayName: Publish Pip Wheels Artifacts
-
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/pip-wheels'
+              artifactName: roadrunner-ManyLinux2014-$(PythonName)-full
+            displayName: Publish wheel files.
