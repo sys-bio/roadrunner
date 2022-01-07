@@ -428,9 +428,12 @@ bool StateSavingTests::StateRunTestModelFromScratch(void(*generate)(RoadRunner *
     return result;
 }
 
+class StateSavingTestsWithCaseId00001 : public StateSavingTests{
+public:
+    StateSavingTestsWithCaseId00001() = default;
+};
 
-
-
+SaveThenLoad
 
 // IN LLVM 6.0.1, this test can result, depending on the OS,
 //  in llvm calling *exit* instead of throwing.  We changed this
@@ -483,7 +486,7 @@ TEST_F(StateSavingTests, SaveThenLoad) {
     }));
 }
 
-TEST_F(StateSavingTests, SaveThenLoadTwice) {
+TEST_F(StateSavingTests, SaveThenLoadThenSaveThenLoad) {
     ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
         rri->saveState(fname);
         rri->loadState(fname);
@@ -492,17 +495,10 @@ TEST_F(StateSavingTests, SaveThenLoadTwice) {
     }));
 }
 
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_4) {
+TEST_F(StateSavingTests, SaveOnceThenLoadTwice) {
     ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_5) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
         rri->saveState(fname);
+        rri->loadState(fname);
         rri->loadState(fname);
     }));
 }
