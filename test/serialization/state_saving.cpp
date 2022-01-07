@@ -49,6 +49,9 @@ public:
     path stateSavingOutputDir = rrTestDir_ / "StateSavingOutput";
     path fname_ = stateSavingOutputDir / "state-saving-test.rr";
     std::string fname;
+
+    StateSavingTests() = default;
+
     StateSavingTests(int case_id) : case_id(case_id) {
         fname = fname_.string();
 //        Logger::setLevel(Logger::LOG_DEBUG);
@@ -628,16 +631,6 @@ TEST_F(StateSavingTests, COPY_RR_TWICE2) {
     ASSERT_TRUE(rr.getInstanceID() != rr2.getInstanceID());
     ASSERT_TRUE(rr.getInstanceID() != rr3.getInstanceID());
 }
-
-TEST_F(StateSavingTests, SimulateThenSaveLoadThenReset) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->simulate();
-        rri->saveState(fname);
-        rri->loadState(fname);
-        rri->reset();
-    }));
-}
-
 
 TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     path f = rrTestSbmlTestSuiteDir_ / "semantic" / "00001" / "00001-sbml-l2v4.xml";
