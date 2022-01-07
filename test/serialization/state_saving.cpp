@@ -17,7 +17,7 @@
 #include "sbml/math/FormulaParser.h"
 #include "llvm/Config/llvm-config.h"
 #include "TestModelFactory.h"
-
+#include "STS.h"
 
 #include "test_util.h"
 #include <filesystem>
@@ -63,8 +63,8 @@ public:
             fs::remove_all(stateSavingOutputDir);
         }
 
-        // clean up fname between runs!!!
-        if (fs::exists(fname)){
+        // clean up fname between runs
+        if (fs::exists(fname)) {
             fs::remove(fname);
         }
 
@@ -211,7 +211,9 @@ bool StateSavingTests::RunStateSavingTest(void(*modification)(RoadRunner *, std:
 }
 
 bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner *, std::string), std::string version) {
-//    Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
+    Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
+    STS<SemanticSTSModel> sts;
+    auto stsCase = sts.getModelNFromSTS(caseNumber);
     bool result(false);
     std::unique_ptr<RoadRunner> rr, rr2, rr3;
 
@@ -219,9 +221,6 @@ bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(Ro
     rr = std::make_unique< RoadRunner>();
     string testName(UnitTest::GetInstance()->current_test_info()->name());
     string suiteName(UnitTest::GetInstance()->current_test_info()->test_suite_name());
-
-    //Setup environment
-    libsbml::SBMLDocument *doc;
 
     try {
         path dataOutputFolder = (stateSavingOutputDir / testName);
@@ -233,11 +232,6 @@ bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(Ro
 
         //Create a log file name
         createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName, dummy);
-        if (!createFolder(dataOutputFolder.string())) {
-            string msg("Failed creating output folder for data output: " + dataOutputFolder.string());
-            throw (rr::Exception(msg));
-        }
-
         if (!createFolder(dataOutputFolder.string())) {
             string msg("Failed creating output folder for data output: " + dataOutputFolder.string());
             throw (rr::Exception(msg));
@@ -263,19 +257,8 @@ bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(Ro
         //setTempFolder(gRR, simulation.GetDataOutputFolder().c_str());
         rr->setConservedMoietyAnalysis(false);
 
-        libsbml::SBMLReader reader;
-        std::string fullPath = modelFilePath + "/" + modelFileName;
-        doc = reader.readSBML(fullPath);
-
         if (!simulation.LoadSBMLFromFile()) {
             throw (Exception("Failed loading sbml from file"));
-        }
-
-
-        //Check first if file exists first
-        if (!std::filesystem::exists(fullPath)) {
-            rrLog(Logger::LOG_ERROR) << "sbml file " << fullPath << " not found";
-            throw (Exception("No such SBML file: " + fullPath));
         }
 
         LoadSBMLOptions opt;
@@ -287,13 +270,13 @@ bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(Ro
         opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_CFG_SIMPLIFICATION;
         opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_GVN;
 
-        rr->load(fullPath, &opt);
+        rr->load(stsCase.getNewestLevelAndVersion(), &opt);
 
         //Then read settings file if it exists..
-        string settingsOveride("");
-        if (!simulation.LoadSettings(settingsOveride)) {
+        if (!simulation.LoadSettings(stsCase.getSettingsFile())) {
             throw (Exception("Failed loading simulation settings"));
         }
+
         //Perform the model editing action
         rr2 = std::make_unique<RoadRunner>(*rr);
         int rr2id = rr2->getInstanceID();
@@ -334,7 +317,6 @@ bool StateSavingTests::RunStateSavingTest(int caseNumber, void(*modification)(Ro
         result = false;
     }
 
-    delete doc;
     return result;
 }
 
@@ -481,7 +463,7 @@ void StateSavingTests::simulateThenSaveLoadThenReset() {
 }
 
 void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions() {
-    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
         rri->getSimulateOptions().duration /= 2;
         rri->getSimulateOptions().steps /= 2;
         rri->simulate();
@@ -490,8 +472,9 @@ void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions() {
         rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
     }, "l3v1"));
 }
+
 void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions2() {
-    ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
+    ASSERT_TRUE(RunStateSavingTest(case_id, [](RoadRunner *rri, std::string fname) {
         rri->getSimulateOptions().duration = 1.50492;
         rri->getSimulateOptions().steps /= 2;
         rri->simulate();
@@ -506,86 +489,86 @@ void StateSavingTests::simulateThenSaveUsingDifferentSimulateOptions2() {
 class StateSavingTestsWithCaseId00001 : public StateSavingTests{
 public:
     StateSavingTestsWithCaseId00001()
-        : StateSavingTests(1) {};
+            : StateSavingTests(1) {};
 };
 
-TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoad) {
     saveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoadThenSaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId00001, SaveThenLoadThenSaveThenLoad) {
     saveThenLoadThenSaveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId00001, SaveOnceThenLoadTwice){
+TEST_F(StateSavingTestsWithCaseId00001, SaveOnceThenLoadTwice) {
     saveOnceThenLoadTwice();
 }
 
-TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions){
+TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions) {
     simulateThenSaveUsingDifferentSimulateOptions();
 }
 
-TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions2){
+TEST_F(StateSavingTestsWithCaseId00001, simulateThenSaveUsingDifferentSimulateOptions2) {
     simulateThenSaveUsingDifferentSimulateOptions2();
 }
 
-class StateSavingTestsWithCaseId01121 : public StateSavingTests{
+class StateSavingTestsWithCaseId01121 : public StateSavingTests {
 public:
     StateSavingTestsWithCaseId01121()
-        : StateSavingTests(1121) {};
+            : StateSavingTests(1121) {};
 };
 
-TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoad) {
     saveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoadThenSaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId01121, SaveThenLoadThenSaveThenLoad) {
     saveThenLoadThenSaveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId01121, SaveOnceThenLoadTwice){
+TEST_F(StateSavingTestsWithCaseId01121, SaveOnceThenLoadTwice) {
     saveOnceThenLoadTwice();
 }
 
-TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveLoadThenReset){
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveLoadThenReset) {
     simulateThenSaveLoadThenReset();
 }
 
-TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions){
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions) {
     simulateThenSaveUsingDifferentSimulateOptions();
 }
 
-TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions2){
+TEST_F(StateSavingTestsWithCaseId01121, simulateThenSaveUsingDifferentSimulateOptions2) {
     simulateThenSaveUsingDifferentSimulateOptions2();
 }
 
-class StateSavingTestsWithCaseId01120 : public StateSavingTests{
+class StateSavingTestsWithCaseId01120 : public StateSavingTests {
 public:
     StateSavingTestsWithCaseId01120()
-        : StateSavingTests(1120) {};
+            : StateSavingTests(1120) {};
 };
 
-TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoad) {
     saveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoadThenSaveThenLoad){
+TEST_F(StateSavingTestsWithCaseId01120, SaveThenLoadThenSaveThenLoad) {
     saveThenLoadThenSaveThenLoad();
 }
 
-TEST_F(StateSavingTestsWithCaseId01120, SaveOnceThenLoadTwice){
+TEST_F(StateSavingTestsWithCaseId01120, SaveOnceThenLoadTwice) {
     saveOnceThenLoadTwice();
 }
 
-TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveLoadThenReset){
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveLoadThenReset) {
     simulateThenSaveLoadThenReset();
 }
 
-TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions){
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions) {
     simulateThenSaveUsingDifferentSimulateOptions();
 }
 
-TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions2){
+TEST_F(StateSavingTestsWithCaseId01120, simulateThenSaveUsingDifferentSimulateOptions2) {
     simulateThenSaveUsingDifferentSimulateOptions2();
 }
 
@@ -644,7 +627,7 @@ TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     rri2.loadState(stateFname.string());
     EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[0], 5.0);
     EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[1], 3.0);
-    if (fs::exists(stateFname)){
+    if (fs::exists(stateFname)) {
         fs::remove(stateFname);
     }
 }
@@ -960,19 +943,19 @@ public:
     }
 };
 
-class StateSavingTestsBrown2004 : public StateSavingTestsModelData{
+class StateSavingTestsBrown2004 : public StateSavingTestsModelData {
 public:
     std::string sbml;
 
-    StateSavingTestsBrown2004():
-        StateSavingTestsModelData(),
-        sbml(Brown2004().str()){}
+    StateSavingTestsBrown2004() :
+            StateSavingTestsModelData(),
+            sbml(Brown2004().str()) {}
 };
 
-class StateSavingTestsBrown2004MCJit : public StateSavingTestsBrown2004{
+class StateSavingTestsBrown2004MCJit : public StateSavingTestsBrown2004 {
 public:
     StateSavingTestsBrown2004MCJit()
-        : StateSavingTestsBrown2004(){
+            : StateSavingTestsBrown2004() {
         Config::setValue(Config::LLVM_BACKEND, Config::MCJIT);
     }
 };
@@ -1048,12 +1031,10 @@ TEST_F(StateSavingTestsBrown2004MCJit, Brown2004CompareSimulationOutput) {
 }
 
 
-
-
-class StateSavingTestsBrown2004LLJit : public StateSavingTestsBrown2004{
+class StateSavingTestsBrown2004LLJit : public StateSavingTestsBrown2004 {
 public:
     StateSavingTestsBrown2004LLJit()
-        : StateSavingTestsBrown2004(){
+            : StateSavingTestsBrown2004() {
         Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
     }
 };
