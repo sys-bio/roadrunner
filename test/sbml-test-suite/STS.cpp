@@ -4,6 +4,7 @@
 
 #include "STS.h"
 #include <filesystem>
+#include <regex>
 
 class FileNotFound : public std::logic_error {
 public:
@@ -53,33 +54,33 @@ std::string STSModel::getLevelAndVersion(int level, int version) {
 }
 
 std::string STSModel::getNewestLevelAndVersion() {
+    try {
+        return getLevelAndVersion(3, 2);
+    } catch (std::exception &e) {
         try {
-            return getLevelAndVersion(3, 2);
+            return getLevelAndVersion(3, 1);
         } catch (std::exception &e) {
             try {
-                return getLevelAndVersion(3, 1);
+                return getLevelAndVersion(2, 4);
             } catch (std::exception &e) {
                 try {
-                    return getLevelAndVersion(2, 4);
+                    return getLevelAndVersion(2, 3);
                 } catch (std::exception &e) {
                     try {
-                        return getLevelAndVersion(2, 3);
+                        return getLevelAndVersion(2, 2);
                     } catch (std::exception &e) {
                         try {
-                            return getLevelAndVersion(2, 2);
+                            return getLevelAndVersion(2, 1);
                         } catch (std::exception &e) {
-                            try {
-                                return getLevelAndVersion(2, 1);
-                            } catch (std::exception &e) {
-                                rrLogErr << "Failed to find case l" << 2 << "v" << 1;
-                                throw std::logic_error("can't locate sbml file");
-                            }
+                            rrLogErr << "Failed to find case l" << 2 << "v" << 1;
+                            throw std::logic_error("can't locate sbml file");
                         }
                     }
                 }
             }
         }
-        return {};
+    }
+    return {};
 }
 
 std::string STSModel::getModelDescriptionFile() {
@@ -91,6 +92,17 @@ std::string STSModel::getModelDescriptionFile() {
     }
     return p.string();
 }
+
+std::string STSModel::readModelDescriptionFile() {
+    std::lock_guard<std::mutex> lock(STSMtx);
+    std::ifstream ifstream(getModelDescriptionFile());
+    std::ostringstream os;
+    for (std::string line; std::getline(ifstream, line);) {
+        os << line << std::endl;
+    }
+    return os.str();
+}
+
 
 std::string STSModel::getResultsFile() {
     std::ostringstream res;
@@ -114,6 +126,97 @@ std::string STSModel::getSettingsFile() {
 
 unsigned int STSModel::getCaseId() const {
     return caseId;
+}
+
+std::vector<std::string> STSModel::getComponentTags() {
+    if (modelDescriptionFileString.empty()) {
+        modelDescriptionFileString = readModelDescriptionFile();
+    }
+
+    std::regex component_tags_regex("componentTags:\\s*(.*)");
+    std::smatch regexResults;
+    if (!std::regex_search(modelDescriptionFileString, regexResults, component_tags_regex)) {
+        throw std::logic_error("Unable to locate component tags");
+    };
+
+    std::string componentTagsStr = regexResults.str(1);
+    std::vector<std::string> componentTags = splitString(componentTagsStr);
+
+    return componentTags;
+}
+
+std::vector<std::string> STSModel::getTestTags() {
+    if (modelDescriptionFileString.empty()) {
+        modelDescriptionFileString = readModelDescriptionFile();
+    }
+
+    std::regex testTagsRegex("testTags:\\s*(.*)");
+    std::smatch regexResults;
+    if (!std::regex_search(modelDescriptionFileString, regexResults, testTagsRegex)) {
+        throw std::logic_error("Unable to locate test tags");
+    };
+
+    std::string testTagsStr = regexResults.str(1);
+    std::vector<std::string> testTags = splitString(testTagsStr);
+
+    return testTags;
+}
+
+
+std::vector<std::string> STSModel::getTestType() {
+    if (modelDescriptionFileString.empty()) {
+        modelDescriptionFileString = readModelDescriptionFile();
+    }
+
+    std::regex testTypeRegex("testType:\\s*(.*)");
+    std::smatch regexResults;
+    if (!std::regex_search(modelDescriptionFileString, regexResults, testTypeRegex)) {
+        throw std::logic_error("Unable to locate test type");
+    };
+
+    std::string testTypesStr = regexResults.str(1);
+    std::vector<std::string> testTypes = splitString(testTypesStr);
+
+    return testTypes;
+
+
+}
+
+
+//std::vector<std::string> STSModel::splitString2(std::string stringToSplit){
+//    std::vector<std::string> out;
+//    auto it=stringToSplit.begin();
+//    while (it!= stringToSplit.end()){
+//        std::string s;
+//        while (it != stringToSplit.end() && *it != ',' && *it != ' '){
+//                s += *it;
+//                ++it;
+//        }
+//        if (!s.empty())
+//            out.push_back(s);
+//        ++it;
+//    }
+//    return out;
+//}
+std::vector<std::string> STSModel::splitString(const std::string& stringToSplit) {
+    std::stringstream ss;
+    ss << stringToSplit;
+    std::vector <std::string> result;
+
+    while (ss.good()) {
+        std::string substr;
+        getline(ss, substr, ',');
+        // remove begin white space
+        while (*(substr.begin()) == ' '){
+            substr.erase(substr.begin());
+        }
+        // remove end white space
+        while (*(substr.end()-1) == ' '){
+            substr.erase(substr.end()-1);
+        }
+        result.push_back(substr);
+    }
+    return result;
 }
 
 SemanticSTSModel::SemanticSTSModel(unsigned int caseId)
@@ -155,7 +258,7 @@ StochasticSTSModel::StochasticSTSModel(unsigned int caseId)
 
 std::filesystem::path StochasticSTSModel::getMeanFile() {
     // solution relies on fact that there is only 1 file with .mean.csv in the name
-    for (auto & curr : std::filesystem::directory_iterator(caseDir_)){
+    for (auto &curr: std::filesystem::directory_iterator(caseDir_)) {
         if (curr.path().string().find("-mean.csv") != std::string::npos) {
             return curr.path();
         }
@@ -180,7 +283,7 @@ std::filesystem::path StochasticSTSModel::getSDFile() {
 
 std::filesystem::path StochasticSTSModel::getModFile() {
     // solution relies on fact that there is only 1 file with .mean.csv in the name
-    for (auto & curr : std::filesystem::directory_iterator(caseDir_)){
+    for (auto &curr: std::filesystem::directory_iterator(caseDir_)) {
         if (curr.path().string().find(".mod") != std::string::npos) {
             return curr.path();
         }

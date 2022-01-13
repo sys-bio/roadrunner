@@ -27,6 +27,80 @@ TEST_F(SemanticSTSModelTests, getModelDescriptionFile) {
     ASSERT_TRUE(std::filesystem::exists(p));
 }
 
+TEST_F(SemanticSTSModelTests, readModelDescriptionFile) {
+    std::string expected = "(* \n"
+                           "\n"
+                           "category:      Test\n"
+                           "synopsis:      Basic single forward reaction with two species in one compartment\n"
+                           "componentTags: Compartment, Species, Reaction, Parameter \n"
+                           "testTags:      Amount\n"
+                           "testType:      TimeCourse\n"
+                           "levels:        1.2, 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2\n"
+                           "generatedBy:   Analytic\n"
+                           "\n"
+                           "The model contains one compartment called \"compartment\".  There are two\n"
+                           "species called S1 and S2 and one parameter called k1.  The model contains\n"
+                           "one reaction:\n"
+                           "\n"
+                           "[{width:30em,margin: 1em auto}|  *Reaction*  |  *Rate*  |\n"
+                           "| S1 -> S2 | $k1 * S1 * compartment$ |]\n"
+                           "\n"
+                           "The model does not contain any rules.\n"
+                           "\n"
+                           "The initial conditions are as follows:\n"
+                           "\n"
+                           "[{width:30em,margin: 1em auto}|       |*Value*          |*Units*        |\n"
+                           "|Initial amount of S1                |$1.5 \\x 10^-4$  |mole           |\n"
+                           "|Initial amount of S2                |$0$              |mole           |\n"
+                           "|Value of parameter k1               |$1$              |second^-1^     |\n"
+                           "|Volume of compartment \"compartment\" |$1$              |litre          |]\n"
+                           "\n"
+                           "The species' initial quantities are given in terms of substance units to\n"
+                           "make it easier to use the model in a discrete stochastic simulator, but (as\n"
+                           "per usual SBML principles) their symbols represent their values in\n"
+                           "concentration units where they appear in expressions.\n"
+                           "\n"
+                           "Note: The test data for this model was generated from an analytical\n"
+                           "solution of the system of equations.\n"
+                           "\n"
+                           "*)\n"
+                           "\n"
+                           "newcase[ \"00001\" ];\n"
+                           "\n"
+                           "addCompartment[ compartment, size -> 1 ];\n"
+                           "addSpecies[ S1, initialAmount -> 1.5 10^-4 ];\n"
+                           "addSpecies[ S2, initialAmount -> 0 ];\n"
+                           "addParameter[ k1, value -> 1 ];\n"
+                           "addReaction[ S1 -> S2, reversible -> False, \n"
+                           " kineticLaw -> k1 * S1 * compartment ];\n"
+                           "\n"
+                           "makemodel[]\n"
+                           "\n";
+    SemanticSTSModel s(1);
+    ASSERT_STREQ(s.readModelDescriptionFile().c_str(), expected.c_str());
+}
+
+TEST_F(SemanticSTSModelTests, getComponentTags){
+    SemanticSTSModel s(3);
+    std::vector<std::string> expected({"Compartment", "Species", "Reaction", "Parameter"});
+    auto actual = s.getComponentTags();
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_F(SemanticSTSModelTests, getTestTags){
+    SemanticSTSModel s(1);
+    std::vector<std::string> expected({"Amount"});
+    auto actual = s.getTestTags();
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_F(SemanticSTSModelTests, getTestTypes){
+    SemanticSTSModel s(3);
+    std::vector<std::string> expected({"TimeCourse"});
+    auto actual = s.getTestType();
+    ASSERT_EQ(expected, actual);
+}
+
 TEST_F(SemanticSTSModelTests, getResultsFile) {
     SemanticSTSModel s(3);
     std::filesystem::path p = s.getResultsFile();

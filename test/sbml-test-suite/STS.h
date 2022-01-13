@@ -11,8 +11,13 @@
 #include <filesystem>
 #include "fstream"
 #include <mutex>
+#include "parallel-hashmap-1.33/parallel_hashmap/phmap.h"
+#include "thread_pool.hpp"
+#include <mutex>
 
 using namespace rr;
+
+static std::mutex STSMutex;
 
 class STSModel {
 public:
@@ -28,21 +33,70 @@ public:
      */
     std::string getRootDirectory();
 
+    /**
+     * @brief returns the path to the model description file (*.m)
+     */
     std::string getModelDescriptionFile();
 
+    /**
+     * @brief returns the text inside the model description file.
+     * REading is locked via a mutex to enable multithreading.
+     */
+    std::string readModelDescriptionFile();
+
+    /**
+     * @brief returns path to expected results file
+     */
     std::string getResultsFile();
 
+    /**
+     * @brief returns path to settings file
+     */
     std::string getSettingsFile();
 
+    /**
+     * @brief returns path to sbml level and version file,
+     * if it exists. Throws otherwise.
+     */
     std::string getLevelAndVersion(int level, int version);
 
+    /**
+     * @brief get the path to the newest sbml file available
+     */
     std::string getNewestLevelAndVersion();
 
+    /**
+     * @brief get the component tags from model description file
+     */
+    std::vector<std::string> getComponentTags();
+
+    /**
+     * @brief get the test tags from model description file
+     */
+    std::vector<std::string> getTestTags();
+
+    /**
+     * @brief get the test type from model description file
+     */
+    std::vector<std::string> getTestType();
+
     unsigned int caseId = 1;
+
+    /**
+     * @brief string variable for caching the model description file stirng.
+     * @details multiple methods need access to this string. So instead of expensive
+     * reads, read only if this string is empty.
+     */
+    std::string modelDescriptionFileString = "";
 
 protected:
 
     std::string buildCaseDir();
+
+    /**
+     * @brief splits a string on commas. Returns values as vector of strings.
+     */
+    std::vector<std::string> splitString(const std::string& s);
 
     std::string caseIdStr_;
 
@@ -202,6 +256,8 @@ public:
     std::vector<SemanticSTSModel>::iterator end() {
         return data_.end();
     }
+
+    phmap::parallel_node_hash_map<std::string, unsigned int> searchTestTypes();
 
 private:
     std::vector<SemanticSTSModel> data_;

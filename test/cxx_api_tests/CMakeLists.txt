@@ -13,6 +13,7 @@ add_test_executable(test_cxx_api_JacobianTests test_targets JacobianTests.cpp ${
 add_test_executable(test_cxx_api_StructuralAnalysisTests test_targets StructuralAnalysisTests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_MCATests test_targets MCATests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_RoadRunnerMapTests test_targets RoadRunnerMapTests.cpp ${SharedTestFiles})
+add_test_executable(test_cxx_api_SteadyStateSolver test_targets SteadyStateSolver.cpp ${SharedTestFiles})
 
 if (BUILD_PYTHON AND BUILD_TESTS)
 
