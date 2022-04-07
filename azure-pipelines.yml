@@ -928,9 +928,12 @@ stages:
             py39:
               PythonVersion: 3.9
               PythonName: py39
-        pool:
+             py310:
+              PythonVersion: 3.10
+              PythonName: py310
+       pool:
           vmImage: 'ubuntu-18.04'
-        container: ciaranwelsh/roadrunner-manylinux2014-base:llvm-13.x
+        container: sysbiouw/roadrunner-manylinux2014-base:llvm-13.x
         variables:
           CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
           BUILD_DIRECTORY: '$(System.DefaultWorkingDirectory)/build'
