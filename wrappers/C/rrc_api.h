@@ -3048,8 +3048,8 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, doub
 C_DECL_SPEC bool rrcCallConv reset(RRHandle handle);
 
 /*!
- \brief Resets all variables of the model to their current initial values,
- and resets all parameters to their original values.
+ \brief Resets all variables of all types in the model to their 
+ current initial values.
 
  \param[in] handle Handle to a RoadRunner instance
  \return Boolean indicating success

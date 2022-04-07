@@ -4346,9 +4346,14 @@ namespace rr {
 
         SelectionRecord sel(sId);
 
-        if (sel.selectionType == SelectionRecord::INITIAL_AMOUNT ||
-            sel.selectionType == SelectionRecord::INITIAL_CONCENTRATION) {
-            reset();
+        if (sel.selectionType & SelectionRecord::INITIAL) {
+            reset(
+                SelectionRecord::TIME |
+                SelectionRecord::RATE |
+                SelectionRecord::FLOATING |
+                SelectionRecord::BOUNDARY |
+                SelectionRecord::COMPARTMENT |
+                SelectionRecord::GLOBAL_PARAMETER);
         }
     }
 

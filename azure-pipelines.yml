@@ -209,6 +209,9 @@ stages:
             py39:
               PythonVersion: 3.9
               PythonName: py39
+            py310:
+              PythonVersion: 3.10
+              PythonName: py310
         variables:
           MinicondaRoot : '/usr/local/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
@@ -485,10 +488,17 @@ stages:
           - script: |
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              echo "pip upgrade:"
+              $(PipExecutable) install --upgrade pip
               echo "pip help:"
               $(PipExecutable) install --help
               echo "$(PipExecutable) install requests"
               $(PipExecutable) install requests
+              echo "$(PipExecutable) install numpy"
+              $(PipExecutable) install numpy
+            displayName: "Setup conda and get NumPy"
+
+          - script: |
               echo "$(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)"
               $(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
             displayName: "Get LLVM"
@@ -565,6 +575,9 @@ stages:
             py39:
               PythonVersion: 3.9
               PythonName: py39
+            py310:
+              PythonVersion: 3.10
+              PythonName: py310
         variables:
           MinicondaRoot : 'C:\Miniconda'
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
@@ -587,12 +600,15 @@ stages:
           - powershell: |
               where.exe conda
               where.exe python
+              conda update conda -y
+              conda install numpy
+              conda --version
               echo "PythonVersion $(PythonVersion)"
               echo "PythonName $(PythonName)"
               echo "MinicondaRoot $(MinicondaRoot)"
               echo "PythonRoot $(PythonRoot)"
               echo "PythonLibDir $(PythonLibDir)"
-            displayName: PrintPythonVariables
+            displayName: "Update conda and print vars"
           - powershell: |
               mkdir -p $(LLVM_INSTALL_PREFIX)
               mkdir -p $(SWIG_INSTALL_PREFIX)
@@ -608,12 +624,16 @@ stages:
           - script: |
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              echo "pip help:"
-              $(PipExecutable) install --help
+#              echo "pip help:"
+#              $(PipExecutable) install --help
 
-              $(PipExecutable) install requests
+#              echo "pip install requests:"
+#              $(PipExecutable) install requests
+            displayName: "Setup conda"
+
+          - script: |
               $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-            displayName: "Get LLVM"
+            displayName: "Get LLVM and NumPy"
             condition: ne(variables.LLVM_CACHE, 'true')
 
           - task: DownloadPipelineArtifact@2
@@ -697,7 +717,9 @@ stages:
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
+              echo "cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) .."
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
+              echo "cmake --build . --target install --config Release -j 12"
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - powershell: |
@@ -953,6 +975,9 @@ stages:
             submodules: recursive
 
           - script: |
+              eval "$($(CondaExecutable) --version)"
+              eval "$($(CondaExecutable) update conda -y)"
+              eval "$($(CondaExecutable) --version)"
 
               echo "SOURCE_DIRECTORY   $(SOURCE_DIRECTORY)"
               if [ ! -d "$(SOURCE_DIRECTORY)" ]; then
@@ -1011,7 +1036,7 @@ stages:
             displayName: Print Azure Variables
 
           - script: |
-              echo "$(CondaExecutable) activate $(PythonName)"
+              echo "$(CondaExecutable) shell.bash hook"
               eval "$($(CondaExecutable) shell.bash hook)"
               $(CondaExecutable) init
 
