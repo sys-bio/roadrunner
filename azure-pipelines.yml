@@ -171,7 +171,7 @@ stages:
               echo "Building roadrunner"
               echo "cd to build dir"
               cd $(BUILD_DIR)
-              cmake --build . --target install --config $(BuildType) -j 12
+              cmake --build . --verbose --target install --config $(BuildType) -j 12
             displayName: Run CMake Build Command
           - script: |
               echo "cd to build dir $(BUILD_DIR)"
