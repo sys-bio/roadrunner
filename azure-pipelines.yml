@@ -1052,7 +1052,7 @@ stages:
 
               echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) .."
               cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) ..
-              cmake --build . --target install --config Release -j 12
+              cmake --build . --verbose --target install --config Release -j 12
 
             displayName: Build With Python
           - script: |
