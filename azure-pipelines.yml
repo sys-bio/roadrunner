@@ -173,7 +173,7 @@ stages:
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
 #              if [ "$(BuildType)" == "Release" ]; then
-                ctest --verbose --extra-verbose --progress
+              ctest --verbose --extra-verbose --progress
 #              fi
             displayName: RunCTest
           - task: CopyFiles@2
@@ -534,7 +534,7 @@ stages:
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
 #              if ('$(BuildType)' -eq "Release"){
-                ctest --verbose --extra-verbose --progress
+              ctest --verbose --extra-verbose --progress
 #              }
             displayName: RunCTest
           - task: CopyFiles@2
@@ -896,9 +896,9 @@ stages:
               export C=/usr/bin/gcc-10
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              if [ "$(BuildType)" == "Release" ]; then
-                ctest --verbose --extra-verbose --progress
-              fi
+#              if [ "$(BuildType)" == "Release" ]; then
+              ctest --verbose --extra-verbose --progress
+#              fi
             displayName: RunCTest
           - task: CopyFiles@2
             inputs:
