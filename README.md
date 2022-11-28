@@ -20,7 +20,7 @@
 
 # Summary
 
-libRoadRunner is a C/C++ library that supports simulation of SBML based models. It uses LLVM to generate extremely high performace code and is the fastest SBML based simulator currently avaialable. Its main purpose is for use as a resuable library that can be hosted by other applications, particularly on large compute clusters for doing parameter optimization where performance is critical. 
+libRoadRunner is a C/C++ library that supports simulation of SBML based models. It uses LLVM) to generate extremely high performance code and is the fastest SBML-based simulator currently available (ref). Its main purpose is for use as a reusable library that can be hosted by other applications, particularly on large compute clusters for doing parameter optimization where performance is critical. It also has a set of python bindings that allow it to be easily used from python. 
 
 We provide C/C++, Python and Julia bindings.
 
