@@ -172,9 +172,9 @@ stages:
           - script: |
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              if [ "$(BuildType)" == "Release" ]; then
+#              if [ "$(BuildType)" == "Release" ]; then
                 ctest --verbose --extra-verbose --progress
-              fi
+#              fi
             displayName: RunCTest
           - task: CopyFiles@2
             inputs:
@@ -533,9 +533,9 @@ stages:
           - powershell: |
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              if ('$(BuildType)' -eq "Release"){
+#              if ('$(BuildType)' -eq "Release"){
                 ctest --verbose --extra-verbose --progress
-              }
+#              }
             displayName: RunCTest
           - task: CopyFiles@2
             inputs:
