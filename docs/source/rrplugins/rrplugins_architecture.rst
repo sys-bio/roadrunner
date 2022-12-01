@@ -1,5 +1,5 @@
 ************************
-rrPlugins Documentation
+rrPlugins Architecture
 ************************
 
 The basic philosophy behind the design of the new architecture of rrplugins as compared to the old one

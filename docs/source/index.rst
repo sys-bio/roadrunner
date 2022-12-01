@@ -60,7 +60,7 @@ For instructions on how to install roadrunner please see the :ref:`installation 
     utility_functions
     accessing_model
     UsingRoadRunnerFromCxx/using_roadrunner_from_cxx
-    rrplugins/rrplugins_documentation
+    rrplugins/introduction
     PythonAPIReference/api_reference
     C++APIReference/index
     developers_docs/index

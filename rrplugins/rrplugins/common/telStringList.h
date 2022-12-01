@@ -2,6 +2,7 @@
 #define telStringListH
 #include <vector>
 #include <string>
+#include <stddef.h>
 #include "telConstants.h"
 #include "telCommonExporter.h"
 
