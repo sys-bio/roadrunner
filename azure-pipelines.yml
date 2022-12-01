@@ -38,10 +38,10 @@ stages:
           matrix:
             64-bit Mac Release:
               BuildType: Release
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macos11-rel.zip'
             64-bit Mac Debug:
               BuildType: Debug
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macos11-rel.zip'
         variables:
           LLVM_CACHE: 'false'
           PythonName: 'py39'
