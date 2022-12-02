@@ -13,13 +13,13 @@ set(ROADRUNNER_VERSION_PATCH 2)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
-if (APPLE AND NOT CMAKE_OSX_ARCHITECTURES)
+#if (APPLE AND NOT CMAKE_OSX_ARCHITECTURES)
     # Some CMake features like object libraries get confused if you don't
     # explicitly specify an architecture setting with the Xcode generator.
     #    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE INTERNAL "Compile for intel and M1 chips on apple" FORCE)
-    message(STATUS "building on mac with universal binaries")
-endif()
+#    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE INTERNAL "Compile for intel and M1 chips on apple" FORCE)
+#    message(STATUS "building on mac with universal binaries")
+#endif()
 
 project(
         roadrunner
