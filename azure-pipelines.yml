@@ -824,12 +824,22 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
 
-          - task: Cache@2
+          # - task: Cache@2
+            # inputs:
+              # key: "llvm | $(Agent.OS)"
+              # path: $(LLVM_INSTALL_PREFIX)
+              # cacheHitVar: LLVM_CACHE
+            # displayName: Cache llvm
+          - task: DownloadPipelineArtifact@2
             inputs:
-              key: "llvm | $(Agent.OS)"
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 9
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-$(BuildType)
               path: $(LLVM_INSTALL_PREFIX)
-              cacheHitVar: LLVM_CACHE
-            displayName: Cache llvm
+            displayName: Download LLVM-13.x install artifacts
           - script: |
               echo "gcc $(gcc --version)"
               echo "g++ $(g++ --version)"
@@ -837,18 +847,21 @@ stages:
               sudo apt-get update
               sudo apt-get install -y gcc-10 g++-10 doxygen dvipng texlive texlive-font-utils textlive-latex-extra
               sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 1
+              sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 1
+              echo "gcc $(gcc --version)"
+              echo "g++ $(g++ --version)"
             displayName: Install g++10 and doxygen
           - script: |
               eval "$(conda shell.bash hook)"
               conda create -y --name $(PythonName) python=$(PythonVersion)
               $(PipExecutable) install requests
             displayName: "Install Python via conda"
-          - script: |
-              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-              echo "give execute permissions to llvm-config using chmod 777"
-              chmod 777 $(LLVM_INSTALL_PREFIX)/bin/llvm-config
-            displayName: "Get LLVM"
-            condition: ne(variables.LLVM_CACHE, 'true')
+          # - script: |
+              # $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+              # echo "give execute permissions to llvm-config using chmod 777"
+              # chmod 777 $(LLVM_INSTALL_PREFIX)/bin/llvm-config
+            # displayName: "Get LLVM"
+            # condition: ne(variables.LLVM_CACHE, 'true')
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
