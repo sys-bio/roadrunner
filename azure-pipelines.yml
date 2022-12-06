@@ -882,6 +882,15 @@ stages:
               mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
               rm -r $(DEPS_INSTALL_PREFIX)/install-azure
               ls
+              echo "$(LLVM_INSTALL_PREFIX)"
+              echo "cd to $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release to  $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release/** .
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release
+              ls
             displayName: Move Dependencies
           - script: |
               export CC=/usr/bin/gcc-10
