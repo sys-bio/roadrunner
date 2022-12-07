@@ -177,6 +177,9 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
+              ls -ld "$(LLVM_INSTALL_PREFIX)/bin"
+              ls -l "$(LLVM_INSTALL_PREFIX)/bin/llvm-config"
+              chmod -R a+x "$(LLVM_INSTALL_PREFIX)/bin"
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
             displayName: Run CMake Configure Command
           - script: |
@@ -377,6 +380,9 @@ stages:
               cd $(BUILD_DIR)
               ls
               export LD_LIBRARY_PATH=$(PythonLibDir)
+              ls -ld "$(LLVM_INSTALL_PREFIX)/bin"
+              ls -l "$(LLVM_INSTALL_PREFIX)/bin/llvm-config"
+              chmod -R a+x "$(LLVM_INSTALL_PREFIX)/bin"
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
