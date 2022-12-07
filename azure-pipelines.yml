@@ -830,16 +830,6 @@ stages:
               # path: $(LLVM_INSTALL_PREFIX)
               # cacheHitVar: LLVM_CACHE
             # displayName: Cache llvm
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              source: 'specific'
-              project: 'llvm-13.x'
-              pipeline: 13
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/kiri_llvm_revise'
-              artifact: llvm-13.x-$(Agent.OS)-Release
-              path: $(LLVM_INSTALL_PREFIX)
-            displayName: Download LLVM-13.x install artifacts
           - script: |
               echo "gcc $(gcc --version)"
               echo "g++ $(g++ --version)"
@@ -862,6 +852,16 @@ stages:
               # chmod 777 $(LLVM_INSTALL_PREFIX)/bin/llvm-config
             # displayName: "Get LLVM"
             # condition: ne(variables.LLVM_CACHE, 'true')
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 13
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-Release
+              path: $(LLVM_INSTALL_PREFIX)
+            displayName: Download LLVM-13.x install artifacts
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -889,7 +889,7 @@ stages:
               ls
               echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release to  $(LLVM_INSTALL_PREFIX)"
               mv $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release/** .
-              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install
               ls
             displayName: Move Dependencies
           - script: |
