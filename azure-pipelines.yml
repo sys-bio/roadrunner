@@ -93,40 +93,49 @@ stages:
               echo "TF_BUILD $(TF_BUILD)"
             displayName: Print Variables
           - script: |
+              mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
 
-          - bash: echo "##vso[task.prependpath]$CONDA/bin"
-            displayName: Add conda to PATH
+          # - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            # displayName: Add conda to PATH
 
-          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
-          # We need to take ownership if we want to update conda or install packages globally
-          - bash: sudo chown -R $USER $CONDA
-            displayName: Take ownership of conda installation
-          - script: |
-              echo "cd to source dir: $(SOURCE_DIR)"
-              cd $(SOURCE_DIR)
-              echo "ls"
-              ls
-              echo "which conda"
-              which conda
-              echo "cd miniconda root: $(MinicondaRoot)"
-              cd $(MinicondaRoot)
-              echo "ls"
-              ls
-              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-            displayName: InstallCondaEnv
+          # # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+          # # We need to take ownership if we want to update conda or install packages globally
+          # - bash: sudo chown -R $USER $CONDA
+            # displayName: Take ownership of conda installation
+          # - script: |
+              # echo "cd to source dir: $(SOURCE_DIR)"
+              # cd $(SOURCE_DIR)
+              # echo "ls"
+              # ls
+              # echo "which conda"
+              # which conda
+              # echo "cd miniconda root: $(MinicondaRoot)"
+              # cd $(MinicondaRoot)
+              # echo "ls"
+              # ls
+              # $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+            # displayName: InstallCondaEnv
 
-          - script: |
-              $(PipExecutable) install requests
-              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-              echo "give execute permissions to llvm-config using chmod 777 *"
-              cd $(LLVM_INSTALL_PREFIX)/bin
-              chmod 777 llvm-config
-            displayName: "Get LLVM"
-#            condition: ne(variables.LLVM_CACHE, 'true')
-
-
+          # - script: |
+              # $(PipExecutable) install requests
+              # $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+              # echo "give execute permissions to llvm-config using chmod 777 *"
+              # cd $(LLVM_INSTALL_PREFIX)/bin
+              # chmod 777 llvm-config
+            # displayName: "Get LLVM"
+# #            condition: ne(variables.LLVM_CACHE, 'true')
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 13
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-Release
+              path: $(LLVM_INSTALL_PREFIX)
+            displayName: Download LLVM-13.x install artifacts
           - task: DownloadPipelineArtifact@2
             # In this task we go and grab the build artefacts from
             # the libroadrunner-dependencies package
@@ -151,6 +160,15 @@ stages:
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
               mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
               rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+              echo "$(LLVM_INSTALL_PREFIX)"
+              echo "cd to $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install/Release to $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install/Release/** .
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install
               ls
             displayName: Move Dependencies
           - script: |
@@ -252,18 +270,28 @@ stages:
               echo "CondaExecutable $(CondaExecutable)"
             displayName: PrintPythonVariables
           - script: |
+              mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
-          - script: |
-              $(PipExecutable) install requests
-              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-              echo "give execute permissions to llvm-config using chmod 777 *"
-              cd $(LLVM_INSTALL_PREFIX)/bin
-              chmod 777 llvm-config
-            displayName: "Get LLVM"
+          # - script: |
+              # $(PipExecutable) install requests
+              # $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+              # echo "give execute permissions to llvm-config using chmod 777 *"
+              # cd $(LLVM_INSTALL_PREFIX)/bin
+              # chmod 777 llvm-config
+            # displayName: "Get LLVM"
 #            condition: ne(variables.LLVM_CACHE, 'true')
 
-
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 13
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-Release
+              path: $(LLVM_INSTALL_PREFIX)
+            displayName: Download LLVM-13.x install artifacts
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -283,6 +311,15 @@ stages:
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
               mv $(DEPS_INSTALL_PREFIX)/install-azure/Release/** .
               rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+              echo "$(LLVM_INSTALL_PREFIX)"
+              echo "cd to $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install/Release to $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install/Release/** .
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-macos10.15-install
               ls
             displayName: Move Dependencies
 #          - task: Cache@2
@@ -458,17 +495,17 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
 
-          - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
-            displayName: Add conda to PATH
-          - powershell: |
-              where.exe conda
-              where.exe python
-              echo "PythonVersion $(PythonVersion)"
-              echo "PythonName $(PythonName)"
-              echo "MinicondaRoot $(MinicondaRoot)"
-              echo "PythonRoot $(PythonRoot)"
-              echo "PythonLibDir $(PythonLibDir)"
-            displayName: PrintPythonVariables
+          # - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+            # displayName: Add conda to PATH
+          # - powershell: |
+              # where.exe conda
+              # where.exe python
+              # echo "PythonVersion $(PythonVersion)"
+              # echo "PythonName $(PythonName)"
+              # echo "MinicondaRoot $(MinicondaRoot)"
+              # echo "PythonRoot $(PythonRoot)"
+              # echo "PythonLibDir $(PythonLibDir)"
+            # displayName: PrintPythonVariables
 
 #          - task: Cache@2
 #            inputs:
@@ -476,24 +513,34 @@ stages:
 #              path: $(LLVM_INSTALL_PREFIX)
 #              cacheHitVar: LLVM_CACHE
 
-          - script: |
-              echo "Creating new conda environment"
-              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              echo "pip upgrade:"
-              $(PipExecutable) install --upgrade pip
-              echo "pip help:"
-              $(PipExecutable) install --help
-              echo "$(PipExecutable) install requests"
-              $(PipExecutable) install requests
-              echo "$(PipExecutable) install numpy"
-              $(PipExecutable) install numpy
-            displayName: "Setup conda and get NumPy"
+          # - script: |
+              # echo "Creating new conda environment"
+              # conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              # echo "pip upgrade:"
+              # $(PipExecutable) install --upgrade pip
+              # echo "pip help:"
+              # $(PipExecutable) install --help
+              # echo "$(PipExecutable) install requests"
+              # $(PipExecutable) install requests
+              # echo "$(PipExecutable) install numpy"
+              # $(PipExecutable) install numpy
+            # displayName: "Setup conda and get NumPy"
 
-          - script: |
-              echo "$(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)"
-              $(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-            displayName: "Get LLVM"
-            condition: ne(variables.LLVM_CACHE, 'true')
+          # - script: |
+              # echo "$(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)"
+              # $(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+            # displayName: "Get LLVM"
+            # condition: ne(variables.LLVM_CACHE, 'true')
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 13
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-Release
+              path: $(LLVM_INSTALL_PREFIX)
+            displayName: Download LLVM-13.x install artifacts
 
           - task: DownloadPipelineArtifact@2
             inputs:
@@ -514,6 +561,15 @@ stages:
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
               mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
               rm -R $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+              echo "$(LLVM_INSTALL_PREFIX)"
+              echo "cd to $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release to $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release/** .
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install
               ls
             displayName: Move Dependencies
           - powershell: |
@@ -604,11 +660,11 @@ stages:
               mkdir -p $(INSTALL_DIR)
               mkdir -p $(BUILD_DIR)
             displayName: Make Directories
-          - task: Cache@2
-            inputs:
-              key: "llvm | $(Agent.OS)"
-              path: $(LLVM_INSTALL_PREFIX)
-              cacheHitVar: LLVM_CACHE
+          # - task: Cache@2
+            # inputs:
+              # key: "llvm | $(Agent.OS)"
+              # path: $(LLVM_INSTALL_PREFIX)
+              # cacheHitVar: LLVM_CACHE
           - script: |
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
@@ -620,11 +676,20 @@ stages:
               $(PipExecutable) install numpy
             displayName: "Setup conda"
 
-          - script: |
-              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-            displayName: "Get LLVM"
-            condition: ne(variables.LLVM_CACHE, 'true')
-
+          # - script: |
+              # $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+            # displayName: "Get LLVM"
+            # condition: ne(variables.LLVM_CACHE, 'true')
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'llvm-13.x'
+              pipeline: 13
+              runVersion: 'latestFromBranch'
+              runBranch: 'refs/heads/kiri_llvm_revise'
+              artifact: llvm-13.x-$(Agent.OS)-Release
+              path: $(LLVM_INSTALL_PREFIX)
+            displayName: Download LLVM-13.x install artifacts
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -644,6 +709,15 @@ stages:
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
               mv $(DEPS_INSTALL_PREFIX)/install-azure/Release/** .
               rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+              echo "$(LLVM_INSTALL_PREFIX)"
+              echo "cd to $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release to $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release/** .
+              rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install
               ls
             displayName: Move Dependencies
           - task: Cache@2
@@ -887,7 +961,7 @@ stages:
               cd $(LLVM_INSTALL_PREFIX)
               echo "ls: "
               ls
-              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release to  $(LLVM_INSTALL_PREFIX)"
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release to $(LLVM_INSTALL_PREFIX)"
               mv $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install/Release/** .
               rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-Ubuntu-gcc10-install
               ls
