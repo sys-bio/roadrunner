@@ -901,8 +901,9 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              ls -ld $(LLVM_INSTALL_PREFIX)
-              chmod -R a+x "$(LLVM_INSTALL_PREFIX)/*"
+              ls -ld "$(LLVM_INSTALL_PREFIX)/bin"
+              ls -l "$(LLVM_INSTALL_PREFIX)/bin/llvm-config"
+              chmod -R a+x "$(LLVM_INSTALL_PREFIX)/bin"
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DBUILD_DOCS=${BuildDocs} ..
             displayName: Run CMake Configure Command
           - script: |
