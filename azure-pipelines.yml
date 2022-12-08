@@ -501,17 +501,17 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
 
-          # - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
-            # displayName: Add conda to PATH
-          # - powershell: |
-              # where.exe conda
-              # where.exe python
-              # echo "PythonVersion $(PythonVersion)"
-              # echo "PythonName $(PythonName)"
-              # echo "MinicondaRoot $(MinicondaRoot)"
-              # echo "PythonRoot $(PythonRoot)"
-              # echo "PythonLibDir $(PythonLibDir)"
-            # displayName: PrintPythonVariables
+          - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+            displayName: Add conda to PATH
+          - powershell: |
+              where.exe conda
+              where.exe python
+              echo "PythonVersion $(PythonVersion)"
+              echo "PythonName $(PythonName)"
+              echo "MinicondaRoot $(MinicondaRoot)"
+              echo "PythonRoot $(PythonRoot)"
+              echo "PythonLibDir $(PythonLibDir)"
+            displayName: PrintPythonVariables
 
 #          - task: Cache@2
 #            inputs:
@@ -519,24 +519,24 @@ stages:
 #              path: $(LLVM_INSTALL_PREFIX)
 #              cacheHitVar: LLVM_CACHE
 
-          # - script: |
-              # echo "Creating new conda environment"
-              # conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              # echo "pip upgrade:"
-              # $(PipExecutable) install --upgrade pip
-              # echo "pip help:"
-              # $(PipExecutable) install --help
-              # echo "$(PipExecutable) install requests"
-              # $(PipExecutable) install requests
-              # echo "$(PipExecutable) install numpy"
-              # $(PipExecutable) install numpy
-            # displayName: "Setup conda and get NumPy"
-
-          # - script: |
-              # echo "$(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)"
-              # $(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-            # displayName: "Get LLVM"
-            # condition: ne(variables.LLVM_CACHE, 'true')
+          - script: |
+              echo "Creating new conda environment"
+              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              echo "pip upgrade:"
+              $(PipExecutable) install --upgrade pip
+              echo "pip help:"
+              $(PipExecutable) install --help
+              echo "$(PipExecutable) install requests"
+              $(PipExecutable) install requests
+              echo "$(PipExecutable) install numpy"
+              $(PipExecutable) install numpy
+            displayName: "Setup conda and get NumPy"
+            condition: eq(variables.BuildType, 'Debug')
+          - script: |
+              echo "$(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)"
+              $(PythonExecutable) .\.azurepipelines\getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+            displayName: "Get LLVM"
+            condition: eq(variables.BuildType, 'Debug')
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -544,10 +544,10 @@ stages:
               pipeline: 13
               runVersion: 'latestFromBranch'
               runBranch: 'refs/heads/kiri_llvm_revise'
-              artifact: llvm-13.x-$(Agent.OS)-Release
+              artifact: llvm-13.x-$(Agent.OS)-$(BuildType)
               path: $(LLVM_INSTALL_PREFIX)
             displayName: Download LLVM-13.x install artifacts
-
+            condition: eq(variables.BuildType, 'Release')
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -568,16 +568,19 @@ stages:
               mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
               rm -R $(DEPS_INSTALL_PREFIX)/install-azure
               ls
+            displayName: Move libroadrunner-deps
+          - powershell: |
               echo "$(LLVM_INSTALL_PREFIX)"
               echo "cd to $(LLVM_INSTALL_PREFIX)"
               cd $(LLVM_INSTALL_PREFIX)
               echo "ls: "
               ls
-              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release to $(LLVM_INSTALL_PREFIX)"
-              mv $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/Release/** .
+              echo "moving contents of $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/$(BuildType) to $(LLVM_INSTALL_PREFIX)"
+              mv $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install/$(BuildType)/** .
               rm -r $(LLVM_INSTALL_PREFIX)/llvm-13-win32-mscv2019-install
               ls
-            displayName: Move Dependencies
+            displayName: Move LLVM
+            condition: eq(variables.BuildType, 'Release')
           - powershell: |
               echo "Configuring roadrunner"
               echo "mkdir build directory: $(BUILD_DIR)"
