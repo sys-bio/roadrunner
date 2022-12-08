@@ -653,8 +653,9 @@ stages:
           - powershell: |
               where.exe conda
               where.exe python
+              conda --version
+              conda activate
               conda update conda -y
-              conda install numpy
               conda --version
               echo "PythonVersion $(PythonVersion)"
               echo "PythonName $(PythonName)"
@@ -677,10 +678,8 @@ stages:
           - script: |
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              echo "pip help:"
-              $(PipExecutable) install --help
 
-              echo "pip install requests:"
+              echo "pip install packages:"
               $(PipExecutable) install requests
               $(PipExecutable) install numpy
             displayName: "Setup conda"
@@ -778,10 +777,6 @@ stages:
               cd $(SOURCE_DIR)
               echo "ls"
               ls
-              echo "Creating new conda environment"
-              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              echo "pip help:"
-              $(PipExecutable) install --help
               echo "$(PipExecutable) install -q -r $(SOURCE_DIR)/test-requirements.txt and requirements.txt"
               $(PipExecutable) install -q -r $(SOURCE_DIR)/test-requirements.txt
               $(PipExecutable) install -q -r $(SOURCE_DIR)/requirements.txt
@@ -789,9 +784,7 @@ stages:
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
-              echo "cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) .."
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
-              echo "cmake --build . --target install --config Release -j 12"
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - powershell: |
@@ -804,7 +797,6 @@ stages:
 
               echo "Switching to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              echo "ctest --output-on-failure --verbose --extra-verbose --tests-regex python_tests*"
               ctest -C Release --output-on-failure --verbose --extra-verbose --tests-regex python_tests*
             displayName: RunPythonTests
           - powershell: |
