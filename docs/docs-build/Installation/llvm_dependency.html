@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -75,7 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
@@ -94,9 +95,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="installation.html">Installing RoadRunner</a> &raquo;</li>
-      <li>LLVM-13.x dependency</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="installation.html">Installing RoadRunner</a></li>
+      <li class="breadcrumb-item active">LLVM-13.x dependency</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/Installation/llvm_dependency.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -128,12 +129,12 @@
 </section>
 <section id="build-from-source">
 <h2>Build from source<a class="headerlink" href="#build-from-source" title="Permalink to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/sys-bio/llvm-13.x.git
-$ <span class="nb">cd</span> llvm-13.x
-$ mkdir build
-$ <span class="nb">cd</span> build
-$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\llvm-13.x\install-msvc2019&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span> ../llvm
-$ cmake --build . --target install --config Release
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sys-bio/llvm-13.x.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>llvm-13.x
+$<span class="w"> </span>mkdir<span class="w"> </span>build
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\llvm-13.x\install-msvc2019&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span>../llvm
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release
 </pre></div>
 </div>
 </section>

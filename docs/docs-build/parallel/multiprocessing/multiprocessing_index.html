@@ -17,6 +17,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -66,7 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
@@ -85,9 +86,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../parallel_index.html">Parallel RoadRunner</a> &raquo;</li>
-      <li>RoadRunner with Multiprocessing</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../parallel_index.html">Parallel RoadRunner</a></li>
+      <li class="breadcrumb-item active">RoadRunner with Multiprocessing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/parallel/multiprocessing/multiprocessing_index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -163,7 +164,7 @@ of using parallel code.</p>
 <span class="linenos">54</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
 <span class="linenos">55</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
 <span class="linenos">56</span>
-<span class="linenos">57</span>    <span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">57</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="linenos">58</span><span class="sd">    Output:</span>
 <span class="linenos">59</span><span class="sd">        Took 64.92753291130066 seconds to run 1000000 stochastic simulations on 1 core</span>
 <span class="linenos">60</span>
@@ -233,7 +234,7 @@ to about a x3 speed up for this example.</p>
 <span class="linenos">51</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
 <span class="linenos">52</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
 <span class="linenos">53</span>
-<span class="linenos">54</span>    <span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">54</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="linenos">55</span><span class="sd">    Output: </span>
 <span class="linenos">56</span><span class="sd">        Took 19.231333017349243 seconds to run 1000000 stochastic simulations on 16 cores</span>
 <span class="linenos">57</span><span class="sd">        Speed up is 3.3761327336346008</span>
@@ -264,7 +265,7 @@ to about a x3 speed up for this example.</p>
 <span class="linenos">16</span>
 <span class="linenos">17</span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
 <span class="linenos">18</span><span class="k">class</span> <span class="nc">SimulatorActorPath</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="linenos">19</span>    <span class="sd">&quot;&quot;&quot;Ray actor to execute simulations.&quot;&quot;&quot;</span>
+<span class="linenos">19</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ray actor to execute simulations.&quot;&quot;&quot;</span>
 <span class="linenos">20</span>
 <span class="linenos">21</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rr</span><span class="p">:</span> <span class="n">RoadRunner</span><span class="p">):</span>
 <span class="linenos">22</span>        <span class="bp">self</span><span class="o">.</span><span class="n">rr</span><span class="p">:</span> <span class="n">RoadRunner</span> <span class="o">=</span> <span class="n">rr</span>
@@ -320,7 +321,7 @@ to about a x3 speed up for this example.</p>
 <span class="linenos">72</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
 <span class="linenos">73</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
 <span class="linenos">74</span>
-<span class="linenos">75</span>    <span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">75</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="linenos">76</span><span class="sd">    Output: </span>
 <span class="linenos">77</span><span class="sd">        Took 99.32935857772827 seconds to run 1000000 stochastic simulations on 16 cores</span>
 <span class="linenos">78</span><span class="sd">        Speed up is 0.6536590373780867</span>

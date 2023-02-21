@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,11 +58,46 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Solver Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Solver Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.Solver"><code class="docutils literal notranslate"><span class="pre">roadrunner.Solver</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getDescription"><code class="docutils literal notranslate"><span class="pre">Solver.getDescription()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getDisplayName"><code class="docutils literal notranslate"><span class="pre">Solver.getDisplayName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getHint"><code class="docutils literal notranslate"><span class="pre">Solver.getHint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getName"><code class="docutils literal notranslate"><span class="pre">Solver.getName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getNumParams"><code class="docutils literal notranslate"><span class="pre">Solver.getNumParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getParamDesc"><code class="docutils literal notranslate"><span class="pre">Solver.getParamDesc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getParamDisplayName"><code class="docutils literal notranslate"><span class="pre">Solver.getParamDisplayName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getParamHint"><code class="docutils literal notranslate"><span class="pre">Solver.getParamHint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getParamName"><code class="docutils literal notranslate"><span class="pre">Solver.getParamName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getSetting"><code class="docutils literal notranslate"><span class="pre">Solver.getSetting()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getSettings"><code class="docutils literal notranslate"><span class="pre">Solver.getSettings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getSettingsRepr"><code class="docutils literal notranslate"><span class="pre">Solver.getSettingsRepr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getType"><code class="docutils literal notranslate"><span class="pre">Solver.getType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValue"><code class="docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsBool"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsBool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsChar"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsChar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsDouble"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsDouble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsFloat"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsFloat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsInt"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsInt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsLong"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsLong()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsString"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsUChar"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsUChar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsUInt"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsUInt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.getValueAsULong"><code class="docutils literal notranslate"><span class="pre">Solver.getValueAsULong()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.hasValue"><code class="docutils literal notranslate"><span class="pre">Solver.hasValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.resetSettings"><code class="docutils literal notranslate"><span class="pre">Solver.resetSettings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.setSetting"><code class="docutils literal notranslate"><span class="pre">Solver.setSetting()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.setValue"><code class="docutils literal notranslate"><span class="pre">Solver.setValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.settingsPyDictRepr"><code class="docutils literal notranslate"><span class="pre">Solver.settingsPyDictRepr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.syncWithModel"><code class="docutils literal notranslate"><span class="pre">Solver.syncWithModel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.toRepr"><code class="docutils literal notranslate"><span class="pre">Solver.toRepr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Solver.toString"><code class="docutils literal notranslate"><span class="pre">Solver.toString()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Integrator.html">Integrator Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_SelectionRecord.html">SelectionRecord</a></li>
@@ -90,9 +126,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Solver Class</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Solver Class</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_Solver.rst.txt" rel="nofollow"> View page source</a>
       </li>

@@ -114,7 +114,7 @@ stages:
               cd $(MinicondaRoot)
               echo "ls"
               ls
-              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
             displayName: InstallCondaEnv
 
           - script: |
@@ -203,6 +203,9 @@ stages:
             py310:
               PythonVersion: 3.10
               PythonName: py310
+            py311:
+              PythonVersion: 3.11
+              PythonName: py311
         variables:
           MinicondaRoot : '/usr/local/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
@@ -235,7 +238,7 @@ stages:
               cd $(MinicondaRoot)
               echo "ls"
               ls
-              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
               echo "running: $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt"
               $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
             displayName: InstallCondaEnv
@@ -562,6 +565,9 @@ stages:
             py310:
               PythonVersion: 3.10
               PythonName: py310
+            py311:
+              PythonVersion: 3.11
+              PythonName: py311
         variables:
           MinicondaRoot : 'C:\Miniconda'
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
@@ -584,8 +590,9 @@ stages:
           - powershell: |
               where.exe conda
               where.exe python
-              conda update conda -y
+              conda update conda -y -c conda-forge
               conda install numpy
+              conda install python=3.11 -c conda-forge
               conda --version
               echo "PythonVersion $(PythonVersion)"
               echo "PythonName $(PythonName)"
@@ -607,7 +614,7 @@ stages:
               cacheHitVar: LLVM_CACHE
           - script: |
               echo "Creating new conda environment"
-              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
               echo "pip help:"
               $(PipExecutable) install --help
 
@@ -692,7 +699,7 @@ stages:
               echo "ls"
               ls
               echo "Creating new conda environment"
-              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
               echo "pip help:"
               $(PipExecutable) install --help
               echo "$(PipExecutable) install -q -r $(SOURCE_DIR)/test-requirements.txt and requirements.txt"
@@ -955,9 +962,12 @@ stages:
             py310:
               PythonVersion: 3.10
               PythonName: py310
+            py311:
+              PythonVersion: 3.11
+              PythonName: py311
         pool:
           vmImage: 'ubuntu-20.04'
-        container: sysbiouw/roadrunner-manylinux2014-base:latest
+        container: sysbiouw/roadrunner-manylinux2014:latest
         variables:
           CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
           BUILD_DIRECTORY: '$(System.DefaultWorkingDirectory)/build'
@@ -1052,8 +1062,8 @@ stages:
               $(PipExecutable) install -r $(SOURCE_DIR)/requirements.txt
               $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
 
-              echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
-              cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/libroadrunner-deps/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
+              echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
+              cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
               cmake --build . --target install --config Release -j 12
 
             displayName: Build With Python

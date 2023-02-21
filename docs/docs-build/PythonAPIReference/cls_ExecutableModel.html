@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
@@ -67,17 +68,91 @@
 <li class="toctree-l2"><a class="reference internal" href="cls_SelectionRecord.html">SelectionRecord</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Accessing the SBML Model Variables</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#floating-species">Floating Species</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#floating-species-initial-conditions">Floating Species Initial Conditions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boundary-species">Boundary Species</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#compartments">Compartments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#global-parameters">Global Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rate-rules">Rate Rules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stoichiometry">Stoichiometry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#conserved-moieties">Conserved Moieties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#misc">Misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.ExecutableModel.keys"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.ExecutableModel.items"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.items()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.ExecutableModel.__getitem__"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.__getitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.ExecutableModel.__setitem__"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.__setitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#floating-species">Floating Species</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getDependentFloatingSpeciesIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getDependentFloatingSpeciesIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getIndependentFloatingSpeciesIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getIndependentFloatingSpeciesIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesConcentrationIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesConcentrationIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumFloatingSpecies"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumFloatingSpecies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesAmounts"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesAmounts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setFloatingSpeciesAmounts"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesAmounts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesConcentrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setFloatingSpeciesConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesConcentrations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#floating-species-initial-conditions">Floating Species Initial Conditions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitAmountIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitConcentrationIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitConcentrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setFloatingSpeciesInitConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesInitConcentrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmounts"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitAmounts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setFloatingSpeciesInitAmounts"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesInitAmounts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-species">Boundary Species</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getBoundarySpeciesAmounts"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesAmounts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getBoundarySpeciesConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesConcentrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getBoundarySpeciesIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getBoundarySpeciesConcentrationIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesConcentrationIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumBoundarySpecies"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumBoundarySpecies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setBoundarySpeciesConcentrations"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setBoundarySpeciesConcentrations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#compartments">Compartments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getCompartmentIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getCompartmentIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getCompartmentVolumes"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getCompartmentVolumes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumCompartments"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumCompartments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setCompartmentVolumes"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setCompartmentVolumes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#global-parameters">Global Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getGlobalParameterIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getGlobalParameterIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getGlobalParameterValues"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getGlobalParameterValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumGlobalParameters"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumGlobalParameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setGlobalParameterValues"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setGlobalParameterValues()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reactions">Reactions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumReactions"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumReactions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getReactionIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getReactionIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getReactionRates"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getReactionRates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#events">Events</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumEvents"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumEvents()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rate-rules">Rate Rules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumRateRules"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumRateRules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getEventIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getEventIds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#stoichiometry">Stoichiometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getStoichiometry"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getStoichiometry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conserved-moieties">Conserved Moieties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getNumConservedMoieties"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getNumConservedMoieties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getConservedMoietyIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getConservedMoietyIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getConservedMoietyValues"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getConservedMoietyValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setConservedMoietyValues"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setConservedMoietyValues()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#misc">Misc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getAllTimeCourseComponentIds"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getAllTimeCourseComponentIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getInfo"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getInfo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getModelName"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getModelName()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.getTime"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.getTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.setTime"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.setTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.reset"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.resetAll"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.resetAll()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.ExecutableModel.resetToOrigin"><code class="docutils literal notranslate"><span class="pre">ExecutableModel.resetToOrigin()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
@@ -103,9 +178,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Accessing the SBML Model Variables</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Accessing the SBML Model Variables</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_ExecutableModel.rst.txt" rel="nofollow"> View page source</a>
       </li>

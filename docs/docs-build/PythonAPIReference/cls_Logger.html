@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
@@ -68,8 +69,38 @@
 <li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Logging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#logging-levels">Logging Levels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#logging-methods">Logging Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-levels">Logging Levels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_CURRENT"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_CURRENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_FATAL"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_FATAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_CRITICAL"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_CRITICAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_ERROR"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_WARNING"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_WARNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_NOTICE"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_NOTICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_INFORMATION"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_INFORMATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_DEBUG"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_DEBUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.LOG_TRACE"><code class="docutils literal notranslate"><span class="pre">Logger.LOG_TRACE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-methods">Logging Methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.setLevel"><code class="docutils literal notranslate"><span class="pre">Logger.setLevel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.getLevel"><code class="docutils literal notranslate"><span class="pre">Logger.getLevel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.disableLogging"><code class="docutils literal notranslate"><span class="pre">Logger.disableLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.disableConsoleLogging"><code class="docutils literal notranslate"><span class="pre">Logger.disableConsoleLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.enableConsoleLogging"><code class="docutils literal notranslate"><span class="pre">Logger.enableConsoleLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.enableFileLogging"><code class="docutils literal notranslate"><span class="pre">Logger.enableFileLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.disableFileLogging"><code class="docutils literal notranslate"><span class="pre">Logger.disableFileLogging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.getCurrentLevelAsString"><code class="docutils literal notranslate"><span class="pre">Logger.getCurrentLevelAsString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.getFileName"><code class="docutils literal notranslate"><span class="pre">Logger.getFileName()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.setFormattingPattern"><code class="docutils literal notranslate"><span class="pre">Logger.setFormattingPattern()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.getFormattingPattern"><code class="docutils literal notranslate"><span class="pre">Logger.getFormattingPattern()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.levelToString"><code class="docutils literal notranslate"><span class="pre">Logger.levelToString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.stringToLevel"><code class="docutils literal notranslate"><span class="pre">Logger.stringToLevel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.getColoredOutput"><code class="docutils literal notranslate"><span class="pre">Logger.getColoredOutput()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.setColoredOutput"><code class="docutils literal notranslate"><span class="pre">Logger.setColoredOutput()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.setProperty"><code class="docutils literal notranslate"><span class="pre">Logger.setProperty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Logger.log"><code class="docutils literal notranslate"><span class="pre">Logger.log()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
@@ -94,9 +125,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Logging</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Logging</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_Logger.rst.txt" rel="nofollow"> View page source</a>
       </li>

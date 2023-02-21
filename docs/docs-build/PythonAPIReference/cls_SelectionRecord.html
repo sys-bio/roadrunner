@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,14 +58,64 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Integrator.html">Integrator Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">SelectionRecord</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SelectionRecord</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.SelectionRecord"><code class="docutils literal notranslate"><span class="pre">SelectionRecord</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord._COMPARTMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord._COMPARTMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.COMPARTMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.COMPARTMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONSREVED_MOIETY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONSREVED_MOIETY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONTROL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CURRENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CURRENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.DEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.DEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.EIGENVALUE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.EIGENVALUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.EIGENVALUE_COMPLEX"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.EIGENVALUE_COMPLEX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ELASTICITY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ELASTICITY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ELEMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ELEMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_AMOUNT_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_AMOUNT_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_CONCENTRATION_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_CONCENTRATION_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.GLOBAL_PARAMETER"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.GLOBAL_PARAMETER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INDEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INDEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL_FLOATING_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL_FLOATING_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL_FLOATING_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL_FLOATING_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.REACTION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.REACTION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.REACTION_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.REACTION_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.STOICHIOMETRY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.STOICHIOMETRY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.TIME"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN_ELEMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN_ELEMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED_CONTROL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED_CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED_ELASTICITY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED_ELASTICITY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.index"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.p1"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.p1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.p2"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.p2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.selectionType"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.selectionType</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
@@ -90,9 +141,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>SelectionRecord</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">SelectionRecord</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_SelectionRecord.rst.txt" rel="nofollow"> View page source</a>
       </li>

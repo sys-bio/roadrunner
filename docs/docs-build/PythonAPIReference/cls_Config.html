@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,11 +58,35 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#configuration-functions">Configuration Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#available-configuration-parameters">Available Configuration Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-functions">Configuration Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.setValue"><code class="docutils literal notranslate"><span class="pre">Config.setValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.getConfigFilePath"><code class="docutils literal notranslate"><span class="pre">Config.getConfigFilePath()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.readConfigFile"><code class="docutils literal notranslate"><span class="pre">Config.readConfigFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.writeConfigFile"><code class="docutils literal notranslate"><span class="pre">Config.writeConfigFile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#available-configuration-parameters">Available Configuration Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_RECOMPILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_READ_ONLY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_GVN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_USE_MCJIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES"><code class="docutils literal notranslate"><span class="pre">Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS"><code class="docutils literal notranslate"><span class="pre">Config.ROADRUNNER_DISABLE_WARNINGS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE"><code class="docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_PERMISSIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.MAX_OUTPUT_ROWS"><code class="docutils literal notranslate"><span class="pre">Config.MAX_OUTPUT_ROWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS"><code class="docutils literal notranslate"><span class="pre">Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
@@ -94,9 +119,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Configuration</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Configuration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_Config.rst.txt" rel="nofollow"> View page source</a>
       </li>

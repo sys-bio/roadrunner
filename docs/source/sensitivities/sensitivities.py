@@ -1,6 +1,6 @@
 import roadrunner
 from roadrunner import RoadRunner
-from roadrunner.testing.TestModelFactory import TestModelFactory, getAvailableTestModels
+from roadrunner.tests.TestModelFactory import TestModelFactory, getAvailableTestModels
 from os.path import join, dirname
 
 # note: use getAvailableTestModels() to see options for test models.

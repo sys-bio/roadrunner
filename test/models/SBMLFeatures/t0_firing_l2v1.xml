@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.13.3 with libSBML version 5.19.5. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="__main" id="__main">
+    <listOfCompartments>
+      <compartment id="default_compartment" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="a" compartment="default_compartment" initialConcentration="3" boundaryCondition="true"/>
+      <species id="b" compartment="default_compartment" initialConcentration="4" boundaryCondition="true"/>
+      <species id="d" compartment="default_compartment" initialConcentration="6"/>
+    </listOfSpecies>
+    <listOfEvents>
+      <event id="_E0">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <eq/>
+              <ci> a </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="d">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 7 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="_E1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <eq/>
+              <ci> b </ci>
+              <cn type="integer"> 4 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="d">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 8 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

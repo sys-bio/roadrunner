@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,18 +58,139 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">The Main RoadRunner Class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#selections">Selections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#model-access">Model Access</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#model-editing">Model Editing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulation">Simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#steady-state">Steady State</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#metabolic-control-analysis">Metabolic control analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stoichiometric-analysis">Stoichiometric Analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#analysis">Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner"><code class="docutils literal notranslate"><span class="pre">RoadRunner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.__init__"><code class="docutils literal notranslate"><span class="pre">RoadRunner.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.getCompiler"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getCompiler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.load"><code class="docutils literal notranslate"><span class="pre">RoadRunner.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.saveState"><code class="docutils literal notranslate"><span class="pre">RoadRunner.saveState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.loadState"><code class="docutils literal notranslate"><span class="pre">RoadRunner.loadState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getConfigurationXML"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getConfigurationXML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getExtendedVersionInfo"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getExtendedVersionInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getInfo"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getInstanceCount"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getInstanceCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getInstanceID"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getInstanceID()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getIntegrator"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getIntegrator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getIntegratorByName"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getIntegratorByName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getAvailableIntegrators"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getAvailableIntegrators()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getExistingIntegratorNames"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getExistingIntegratorNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getParamPromotedSBML"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getParamPromotedSBML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getCurrentSBML"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getCurrentSBML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.getSBML"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSBML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.setIntegrator"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setIntegrator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.RoadRunner.setIntegratorSetting"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setIntegratorSetting()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selections">Selections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.getIds"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.getValue"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSelectedValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSelectedValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.timeCourseSelections"><code class="docutils literal notranslate"><span class="pre">RoadRunner.timeCourseSelections</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.createSelection"><code class="docutils literal notranslate"><span class="pre">RoadRunner.createSelection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.resetSelectionLists"><code class="docutils literal notranslate"><span class="pre">RoadRunner.resetSelectionLists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-access">Model Access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.isModelLoaded"><code class="docutils literal notranslate"><span class="pre">RoadRunner.isModelLoaded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.model"><code class="docutils literal notranslate"><span class="pre">RoadRunner.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.clearModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.clearModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.oneStep"><code class="docutils literal notranslate"><span class="pre">RoadRunner.oneStep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.internalOneStep"><code class="docutils literal notranslate"><span class="pre">RoadRunner.internalOneStep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.reset"><code class="docutils literal notranslate"><span class="pre">RoadRunner.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.resetAll"><code class="docutils literal notranslate"><span class="pre">RoadRunner.resetAll()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.resetParameter"><code class="docutils literal notranslate"><span class="pre">RoadRunner.resetParameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.resetToOrigin"><code class="docutils literal notranslate"><span class="pre">RoadRunner.resetToOrigin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.setConfigurationXML"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setConfigurationXML()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.conservedMoietyAnalysis"><code class="docutils literal notranslate"><span class="pre">RoadRunner.conservedMoietyAnalysis</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-editing">Model Editing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addSpeciesConcentration"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addSpeciesConcentration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeSpecies"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeSpecies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addReaction"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addReaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addReaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeReaction"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeReaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addParameter"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addParameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeParameter"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeParameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addCompartment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addCompartment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeCompartment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeCompartment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.setKineticLaw"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setKineticLaw()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addAssignmentRule"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addAssignmentRule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addRateRule"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addRateRule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeRules"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeRules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addEvent"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addTrigger"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addTrigger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addPriority"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addPriority()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addDelay"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addDelay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addEventAssignment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addEventAssignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeEventAssignment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeEventAssignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.removeEvent"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadrUNNER.regenerateModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.RoadrUNNER.regenerateModel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation">Simulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.simulate"><code class="docutils literal notranslate"><span class="pre">RoadRunner.simulate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.gillespie"><code class="docutils literal notranslate"><span class="pre">RoadRunner.gillespie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.plot"><code class="docutils literal notranslate"><span class="pre">RoadRunner.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.Roadrunner.getSimulationData"><code class="docutils literal notranslate"><span class="pre">Roadrunner.getSimulationData()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#steady-state">Steady State</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.SteadyStateSolver"><code class="docutils literal notranslate"><span class="pre">RoadRunner.SteadyStateSolver</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.steadyStateSelections"><code class="docutils literal notranslate"><span class="pre">RoadRunner.steadyStateSelections</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.steadyState"><code class="docutils literal notranslate"><span class="pre">RoadRunner.steadyState()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSteadyStateValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSteadyStateValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSteadyStateValuesNamedArray"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSteadyStateValuesNamedArray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSteadyStateSolver"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSteadyStateSolver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.steadyStateSolverExists"><code class="docutils literal notranslate"><span class="pre">RoadRunner.steadyStateSolverExists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#metabolic-control-analysis">Metabolic control analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getCC"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getCC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getuCC"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getuCC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getEE"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getEE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getuEE"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getuEE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getEigenValueIds"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getEigenValueIds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getFullEigenValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getFullEigenValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getReducedEigenValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getReducedEigenValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getFullJacobian"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getFullJacobian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getReducedJacobian"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getReducedJacobian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getScaledConcentrationControlCoefficientMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getScaledFloatingSpeciesElasticity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getUnscaledParameterElasticity"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledParameterElasticity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledConcentrationControlCoefficientMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getUnscaledElasticityMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledElasticityMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledFluxControlCoefficientMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getUnscaledSpeciesElasticity"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledSpeciesElasticity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getScaledFluxControlCoefficientMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getScaledElasticityMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getScaledElasticityMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getDiffStepSize"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getDiffStepSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.setDiffStepSize"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setDiffStepSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSteadyStateThreshold"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSteadyStateThreshold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.setSteadyStateThreshold"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setSteadyStateThreshold()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#stoichiometric-analysis">Stoichiometric Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getFullStoichiometryMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getFullStoichiometryMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getReducedStoichiometryMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getReducedStoichiometryMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getConservationMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getConservationMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getL0Matrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getL0Matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getLinkMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getLinkMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getNrMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getNrMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getKMatrix"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getKMatrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis">Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getFrequencyResponse"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getFrequencyResponse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getRatesOfChange"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getRatesOfChange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getIndependentRatesOfChange"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getIndependentRatesOfChange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getDependentRatesOfChange"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getDependentRatesOfChange()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
@@ -100,9 +222,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>The Main RoadRunner Class</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">The Main RoadRunner Class</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_RoadRunner.rst.txt" rel="nofollow"> View page source</a>
       </li>

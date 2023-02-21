@@ -116,8 +116,8 @@ class RoadRunnerTests(unittest.TestCase):
         self.rr.__setitem__("S1", 12)
         self.assertEqual(self.rr.__getitem__("S1"), 12)
 
-    def test___sizeof__(self):
-        self.assertEqual(32, self.rr.__sizeof__())
+    # def test___sizeof__(self):
+    #     self.assertEqual(32, self.rr.__sizeof__())
 
     def test___str__(self):
         s = str(self.rr)

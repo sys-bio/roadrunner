@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,17 +58,56 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Integrator Class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cvode">CVODE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gillespie">Gillespie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.Integrator"><code class="docutils literal notranslate"><span class="pre">roadrunner.Integrator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.getIntegrationMethod"><code class="docutils literal notranslate"><span class="pre">Integrator.getIntegrationMethod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.getListener"><code class="docutils literal notranslate"><span class="pre">Integrator.getListener()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.integrate"><code class="docutils literal notranslate"><span class="pre">Integrator.integrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.loadSBMLSettings"><code class="docutils literal notranslate"><span class="pre">Integrator.loadSBMLSettings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.restart"><code class="docutils literal notranslate"><span class="pre">Integrator.restart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.setListener"><code class="docutils literal notranslate"><span class="pre">Integrator.setListener()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.tweakTolerances"><code class="docutils literal notranslate"><span class="pre">Integrator.tweakTolerances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.setIndividualTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.setIndividualTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.setConcentrationTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.setConcentrationTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.getConcentrationTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.getConcentrationTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cvode">CVODE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.absolute_tolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.absolute_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.initial_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.initial_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.maximum_adams_order"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_adams_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.maximum_bdf_order"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_bdf_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.maximum_num_steps"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_num_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.maximum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.minimum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.multiple_steps"><code class="docutils literal notranslate"><span class="pre">Integrator.multiple_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.relative_tolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.relative_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.stiff"><code class="docutils literal notranslate"><span class="pre">Integrator.stiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.variable_step_size"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gillespie">Gillespie</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Integrator.initial_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.nonnegative"><code class="docutils literal notranslate"><span class="pre">Integrator.nonnegative</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.seed"><code class="docutils literal notranslate"><span class="pre">Integrator.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.max_output_rows"><code class="docutils literal notranslate"><span class="pre">Integrator.max_output_rows</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#euler">Euler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rk4">RK4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rk45">RK45</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rk45">RK45</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Integrator.epsilon"><code class="docutils literal notranslate"><span class="pre">Integrator.epsilon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
@@ -97,9 +137,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Integrator Class</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Integrator Class</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_Integrator.rst.txt" rel="nofollow"> View page source</a>
       </li>

@@ -4,6 +4,7 @@ add_test_executable(
         boolean_delay.cpp
         invalid_sbml.cpp
         valid_sbml.cpp
+        events.cpp
 )
 
 # make test_targets list global to all tests

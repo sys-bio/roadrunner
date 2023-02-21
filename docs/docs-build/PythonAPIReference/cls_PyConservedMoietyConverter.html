@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
@@ -70,7 +71,15 @@
 <li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cls_Misc.html">Miscellaneous Functions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Conserved Moiety Conversion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Conserved Moiety Conversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.PyConservedMoietyConverter"><code class="docutils literal notranslate"><span class="pre">PyConservedMoietyConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.PyConservedMoietyConverter.setDocument"><code class="docutils literal notranslate"><span class="pre">PyConservedMoietyConverter.setDocument()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.PyConservedMoietyConverter.convert"><code class="docutils literal notranslate"><span class="pre">PyConservedMoietyConverter.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.PyConservedMoietyConverter.getDocument"><code class="docutils literal notranslate"><span class="pre">PyConservedMoietyConverter.getDocument()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
@@ -90,9 +99,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api_reference.html">Python RoadRunner API Reference</a> &raquo;</li>
-      <li>Conserved Moiety Conversion</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Conserved Moiety Conversion</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/PythonAPIReference/cls_PyConservedMoietyConverter.rst.txt" rel="nofollow"> View page source</a>
       </li>
