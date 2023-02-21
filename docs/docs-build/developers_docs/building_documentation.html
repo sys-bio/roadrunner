@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers Documentation</a><ul class="current">
@@ -89,9 +90,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Developers Documentation</a> &raquo;</li>
-      <li>Building the Documentation</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developers Documentation</a></li>
+      <li class="breadcrumb-item active">Building the Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/developers_docs/building_documentation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -127,16 +128,16 @@ contain</p>
 </ol>
 <p>This basically will run the commands needed for running doxygen and sphinx.</p>
 <p>For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>../install-mac-rel <span class="se">\</span>
-    -DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/libroadrunner-deps/install-clang13-rel <span class="se">\</span>
-    -DLLVM_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/llvm-13.x/llvm-13.x-clang11.0.3-x64-release <span class="se">\</span>
-    -DBUILD_TESTS<span class="o">=</span>ON <span class="se">\</span>
-    -DPython_ROOT_DIR<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39 <span class="se">\</span>
-    -DBUILD_PYTHON<span class="o">=</span>ON <span class="se">\</span>
-    -DSWIG_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/Documents/swig-4.0.2/swig <span class="se">\</span>
-    -DBUILD_DOCS<span class="o">=</span>ON <span class="se">\</span>
-    -DSPHINX_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39/bin/sphinx-build
-cmake --build . --target roadrunner-docs-sphinx --config Release
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>../install-mac-rel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/libroadrunner-deps/install-clang13-rel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLLVM_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/llvm-13.x/llvm-13.x-clang11.0.3-x64-release<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_TESTS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPython_ROOT_DIR<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYTHON<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DSWIG_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/Documents/swig-4.0.2/swig<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_DOCS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DSPHINX_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39/bin/sphinx-build
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>roadrunner-docs-sphinx<span class="w"> </span>--config<span class="w"> </span>Release
 </pre></div>
 </div>
 </section>

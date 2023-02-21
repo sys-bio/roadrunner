@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers Documentation</a><ul class="current">
@@ -83,9 +84,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Developers Documentation</a> &raquo;</li>
-      <li>Git Workflow</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developers Documentation</a></li>
+      <li class="breadcrumb-item active">Git Workflow</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/developers_docs/git_workflow.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,8 +102,8 @@
 a develop branch (which is the default branch), an experimental release branch and a release
 branch. All new features, bug fixes, small changes etc. are conducted on a new branch from the
 develop branch.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git checkout develop <span class="c1"># make sure were on develop</span>
-git checkout -b feature-branch
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>develop<span class="w"> </span><span class="c1"># make sure were on develop</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature-branch
 </pre></div>
 </div>
 <div class="admonition note">
@@ -114,11 +115,11 @@ branch without committing. Do <code class="docutils literal notranslate"><span c
 from the main <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch, thus minimizing inclusion of accidental
 bugs into roadrunner. To push this new <a href="#id1"><span class="problematic" id="id2">``</span></a>feature-branch` to github do</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ensure changes are committed</span>
-git add -A
-git commit -m <span class="s2">&quot;awesome new feature - tests pass&quot;</span>
+git<span class="w"> </span>add<span class="w"> </span>-A
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;awesome new feature - tests pass&quot;</span>
 
 <span class="c1"># push to github. The ``feature-branch`` does not yet exist on github (the remote) so we need to create it</span>
-git push -u origin feature-branch
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature-branch
 </pre></div>
 </div>
 <p>Whilst developing your feature on the <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> consider committing often, preferably at

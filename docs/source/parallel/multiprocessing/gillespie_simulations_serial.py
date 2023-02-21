@@ -8,7 +8,7 @@ import roadrunner
 assert "llvm6" in roadrunner.__file__, roadrunner.__file__
 
 from roadrunner import RoadRunner
-from roadrunner.testing import TestModelFactory as tmf
+from roadrunner.tests import TestModelFactory as tmf
 import time
 import numpy as np
 from platform import platform

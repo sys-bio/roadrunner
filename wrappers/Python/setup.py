@@ -21,7 +21,7 @@ class BinaryDistribution(Distribution):
 # when true, the pip package will have the name libroadrunner[experimental]
 # and will be downloadable via pip from the experimental namespace:
 #   pip install libroadrunner[experimental]
-EXPERIMENTAL = True
+EXPERIMENTAL = False
 
 setup(
     name='libroadrunner-experimental' if EXPERIMENTAL else "libroadrunner",

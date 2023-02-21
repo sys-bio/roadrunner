@@ -12,7 +12,7 @@ derivative of the sensitivity matrix.
 
 import roadrunner
 from roadrunner import RoadRunner
-from roadrunner.testing.TestModelFactory import TestModelFactory, getAvailableTestModels
+from roadrunner.tests.TestModelFactory import TestModelFactory, getAvailableTestModels
 
 # For this demonstration we use a toy sbml model prepackaged with roadrunner
 

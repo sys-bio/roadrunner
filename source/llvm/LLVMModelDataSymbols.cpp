@@ -1577,7 +1577,7 @@ void LLVMModelDataSymbols::initEvents(const libsbml::Model* model)
 
             const Trigger *trigger = event->getTrigger();
             assert(trigger && "must have trigger");
-            if (trigger->isSetInitialValue() && trigger->getInitialValue())
+            if (trigger->getInitialValue() || !trigger->isSetInitialValue())
             {
                 attr = attr | EventInitialValue;
             }

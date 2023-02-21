@@ -50,14 +50,14 @@ Transcript from an Python session to demonstrate libRoadRunner use on this inter
 **Import** roardrunner and numpy::
 
    import roadrunner
-   import roadrunner.testing
+   import roadrunner.tests
    import numpy as n
    import numpy.linalg as lin
 
 **Load** an SBML model::
 
    >>>  rr = roadrunner.RoadRunner()
-   >>>  rr.load(roadrunner.testing.get_data('Test_1.xml'))
+   >>>  rr.load(roadrunner.tests.get_data('Test_1.xml'))
    True
 
 Get the **model**, the model object has all the accessors sbml elements, names, values::

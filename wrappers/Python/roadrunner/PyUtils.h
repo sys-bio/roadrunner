@@ -123,6 +123,10 @@ namespace rr {
 
     Dictionary *Dictionary_from_py(PyObject *py);
 
+    struct numpy_space {
+        void* future_space_reserved_for_numpy[2];
+    };
+
     // docs: https://numpy.org/devdocs/user/c-info.beyond-basics.html#subtyping-the-ndarray-in-c
     struct NamedArrayObject {
         /**
@@ -130,6 +134,7 @@ namespace rr {
          * See PyArrayObject_fields in numpy ndarraytypes.h
          */
         PyArrayObject array;
+        numpy_space reserved_for_numpy;
         PyObject *rowNames = nullptr;
         PyObject *colNames = nullptr;
 

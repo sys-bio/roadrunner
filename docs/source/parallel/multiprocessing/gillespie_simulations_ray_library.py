@@ -1,7 +1,7 @@
 import numpy as np
 
 from roadrunner import RoadRunner
-from roadrunner.testing import TestModelFactory as tmf
+from roadrunner.tests import TestModelFactory as tmf
 from multiprocessing import cpu_count
 import ray
 import time

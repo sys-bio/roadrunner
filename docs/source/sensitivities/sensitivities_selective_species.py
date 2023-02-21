@@ -1,5 +1,5 @@
 from roadrunner import RoadRunner
-from roadrunner.testing.TestModelFactory import TestModelFactory, getAvailableTestModels
+from roadrunner.tests.TestModelFactory import TestModelFactory, getAvailableTestModels
 
 
 # note: use getAvailableTestModels() to see options for test models.

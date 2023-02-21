@@ -17,6 +17,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">The LibRoadRunner C++ Library</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="llvm/index.html">LLVM Docs</a></li>
@@ -119,8 +120,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>The LibRoadRunner C++ Library</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">The LibRoadRunner C++ Library</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/C++APIReference/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -154,9 +155,9 @@ are automatically available to any code (including any Python code) that needs t
 the RoadRunner::simulate method is called, a different integrator may be specified. In Python, this is
 done with the &lt;TT&gt;integrator&lt;/TT&gt; keyword, i.e.</p>
 <p>Or, in C++:</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">BasicDictionary</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"></span>
-<span class="n">d</span><span class="p">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&quot;integrator&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyIntegratorName&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="n">rr</span><span class="p">.</span><span class="n">simulate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">BasicDictionary</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&quot;integrator&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyIntegratorName&quot;</span><span class="p">)</span>
+<span class="n">rr</span><span class="p">.</span><span class="n">simulate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>To create a new integrator, one first needs to create an object that implments the Integrator interface,

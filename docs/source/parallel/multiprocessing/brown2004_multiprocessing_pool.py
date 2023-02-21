@@ -1,5 +1,5 @@
 from roadrunner import RoadRunner
-from roadrunner.testing import TestModelFactory as tmf
+from roadrunner.tests import TestModelFactory as tmf
 from multiprocessing import Pool, cpu_count
 import time
 from platform import platform

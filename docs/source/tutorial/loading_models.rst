@@ -35,9 +35,9 @@ This is useful when one wishes to create a new roadrunner instance from an exist
    rrnew = roadrunner.RoadRunner (sbmlStr)
 
 Additionally, there are a couple models **included with libRoadRunner**. The models  ``feedback.xml``
-and ``Test_1.xml`` are available in the ``roadrunner.testing`` module. To access these use::
+and ``Test_1.xml`` are available in the ``roadrunner.tests`` module. To access these use::
 
-   import roadrunner.testing as test
+   import roadrunner.tests as test
    rr = test.getRoadRunner('feedback.xml')
 
 There are a few additional models in the ``models/`` directory of the distribution, where you installed libRoadRunner.

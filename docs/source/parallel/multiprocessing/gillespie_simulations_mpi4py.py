@@ -1,6 +1,6 @@
 import numpy as np
 from roadrunner import RoadRunner
-from roadrunner.testing import TestModelFactory as tmf
+from roadrunner.tests import TestModelFactory as tmf
 from threading import Thread
 from multiprocessing import Queue
 import time
