@@ -395,3 +395,9 @@ and the columns of the jacobian.";
 
 }
 
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(lmfit::LM)
+POCO_END_MANIFEST
+
+
+
