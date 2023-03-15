@@ -38,5 +38,9 @@ namespace hello
     #endif
 }
 
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(hello::Hello)
+POCO_END_MANIFEST
+
 
 
