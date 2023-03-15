@@ -376,3 +376,10 @@ Model data can only be generated for selections present in the experimental data
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(nmfit::NelderMead)
+POCO_END_MANIFEST
+
+
+
