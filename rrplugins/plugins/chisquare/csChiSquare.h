@@ -4,6 +4,7 @@
 #include "telProperty.h"
 #include "rrplugins/pluginBaseClass/telCPPPlugin.h"
 #include "csChiWorker.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace cs_ChiSquare {
