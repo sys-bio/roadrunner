@@ -233,3 +233,10 @@ Internally this data is used to calcualte residual data.";
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(bsmc::MonteCarlo)
+POCO_END_MANIFEST
+
+
+
