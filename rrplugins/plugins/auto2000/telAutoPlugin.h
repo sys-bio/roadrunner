@@ -7,6 +7,7 @@
 #include "telAutoWorker.h"
 #include "telAutoConstants.h"
 #include "telAutoTelluriumInterface.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 using telauto::AutoTellurimInterface;

@@ -489,3 +489,10 @@ points if IPS=0, 1";
 
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(AutoPlugin)
+POCO_END_MANIFEST 
+
+
+
