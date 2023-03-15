@@ -116,5 +116,9 @@ The AddNoise plugin was developed at the University of Washington by Totte Karls
 
 }
 
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(addNoise::AddNoise)
+POCO_END_MANIFEST
+
 
 

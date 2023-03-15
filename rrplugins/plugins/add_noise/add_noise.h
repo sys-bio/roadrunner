@@ -5,6 +5,7 @@
 #include "telTelluriumData.h"
 #include "add_noise_worker.h"
 #include "rrplugins/core/tel_api.h"
+#include "Poco/ClassLibrary.h"
 
 //---------------------------------------------------------------------------
 namespace addNoise
