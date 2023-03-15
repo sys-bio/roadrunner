@@ -223,3 +223,9 @@ string  theModel =
 </sbml>\n\
 ";
 
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(testModel::TestModel)
+POCO_END_MANIFEST
+
+
+

@@ -5,6 +5,7 @@
 #include "telTelluriumData.h"
 #include "rrplugins/core/tel_api.h"
 #include "telplugins_types.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 
