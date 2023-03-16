@@ -38,10 +38,10 @@ stages:
           matrix:
             64-bit Mac Release:
               BuildType: Release
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
             64-bit Mac Debug:
               BuildType: Debug
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         variables:
           LLVM_CACHE: 'false'
           PythonName: 'py39'
@@ -218,7 +218,7 @@ stages:
           SWIG_CACHE: 'false'
           MINICONDA_CACHE: 'false'
           LLVM_CACHE: 'false'
-          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         steps:
           - checkout: self
             submodules: recursive
