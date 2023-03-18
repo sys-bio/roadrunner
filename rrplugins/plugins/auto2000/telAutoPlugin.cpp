@@ -487,5 +487,9 @@ points if IPS=0, 1";
     s << "The maximum number of columns that the auto library can write out at one time";
     assignDescription(mMaxColumns, s);
 
+}POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(AutoPlugin)
+POCO_END_MANIFEST 
 
-}
+
+
