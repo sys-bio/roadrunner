@@ -280,7 +280,7 @@ add_subdirectory(serialization)
 add_subdirectory(PerformanceTests)
 add_subdirectory(python)
 
-if (WIN32 AND BUILD_RR_PLUGINS)
+if (BUILD_RR_PLUGINS)
    set(
         SharedPluginTestFiles
         # path *must* be absolute to work in cmake functions/macros
