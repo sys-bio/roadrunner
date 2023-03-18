@@ -5,6 +5,7 @@
 #include "lmWorker.h"
 #include "lib/lmmin.h"
 #include "telplugins_types.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace lmfit
