@@ -142,3 +142,10 @@ namespace cs_ChiSquare {
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(cs_ChiSquare::ChiSquare)
+POCO_END_MANIFEST
+
+
+
