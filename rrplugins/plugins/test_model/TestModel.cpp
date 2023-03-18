@@ -185,6 +185,7 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
 
 }
+
 string  theModel =
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
 <sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\">\n\
@@ -222,4 +223,10 @@ string  theModel =
   </model>\n\
 </sbml>\n\
 ";
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(testModel::TestModel)
+POCO_END_MANIFEST
+
+
 
