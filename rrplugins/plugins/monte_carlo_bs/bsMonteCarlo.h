@@ -5,6 +5,7 @@
 #include "telCPPPlugin.h"
 #include "telTelluriumData.h"
 #include "bsWorker.h"
+#include "Poco/ClassLibrary.h"
 
 namespace bsmc
 {
