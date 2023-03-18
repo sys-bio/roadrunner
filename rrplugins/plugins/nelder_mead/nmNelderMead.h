@@ -7,6 +7,7 @@
 #include "telCPPPlugin.h"
 #include "telplugins_types.h"
 #include "nmWorker.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace nmfit
