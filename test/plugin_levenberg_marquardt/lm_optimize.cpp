@@ -78,7 +78,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     PropertyBase* red_chi_property = lmplugin->getProperty("ReducedChiSquare");
     ASSERT_TRUE(red_chi_property != NULL);
     double* reduced_chi = static_cast<double*>(red_chi_property->getValueHandle());
-    EXPECT_NEAR(*reduced_chi, 2.8, 2.4); //Determined empirically.
+    EXPECT_NEAR(*reduced_chi, 1.0, 0.8); //Determined empirically.
 
     PropertyBase* outparam_property = lmplugin->getProperty("OutputParameterList");
     ASSERT_TRUE(outparam_property != NULL);
