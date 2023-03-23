@@ -58,7 +58,7 @@ namespace lmfit
         gtol(LM_USERTOL, "gtol", "Orthogonality desired between fvec and its derivs. "),
         epsilon(LM_USERTOL, "epsilon", "Step used to calculate the jacobian. "),
         stepbound(100., "stepbound", "Initial bound to steps in the outer loop. "),
-        patience(100, "patience", "Maximum number of iterations as patience*(nr_of_parameters +1). "),
+        patience(200, "patience", "Maximum number of iterations as patience*(nr_of_parameters +1). "),
         mWorker(*this),
         mLMData(mWorker.mLMData),
         rNormsData(mNorms.getValueReference())
