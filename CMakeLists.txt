@@ -260,9 +260,9 @@ set(CXX_STANDARD 17 CACHE STRING "set the cmake standard to use")
 set(CMAKE_MACOSX_RPATH TRUE)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
-if (APPLE AND NOT UNIX)
+if (APPLE)
     set(RPATH_BASE @loader_path)
-else ()
+elseif  (UNIX)
     set(RPATH_BASE $ORIGIN)
 endif ()
 file(RELATIVE_PATH relDir
