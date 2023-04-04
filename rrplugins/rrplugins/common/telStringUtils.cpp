@@ -44,6 +44,8 @@ char* createText(const int& count)
 
 size_t indexOf(const string& text, char checkFor)
 {
+    if (text.empty())
+        return 0;
     return text.find(checkFor);
 }
 
