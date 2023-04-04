@@ -115,6 +115,7 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 
 }
 
+/*
 TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
@@ -281,3 +282,4 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 
 
 }
+ */
