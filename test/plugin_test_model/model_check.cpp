@@ -43,7 +43,7 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
     EXPECT_EQ(sim->cSize(), 3);
     EXPECT_EQ(sim->rSize(), 14);
-    /*
+    
     double sumdiff = 0;
     for (int r = 0; r < sim->rSize(); r++)
     {
@@ -65,7 +65,6 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     PropertyBase* seedprop = tmplugin->getProperty("Seed");
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 0);
-    */
 }
 
 TEST_F(PluginTestModelTests, CHECK_SEED)
