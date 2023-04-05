@@ -29,7 +29,7 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
     tmplugin->execute();
-    /*
+
     PropertyBase* sbml = tmplugin->getProperty("Model");
     EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
     EXPECT_TRUE(sbml->getValueAsString().find("k1") != string::npos);
@@ -43,7 +43,7 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
     EXPECT_EQ(sim->cSize(), 3);
     EXPECT_EQ(sim->rSize(), 14);
-
+    /*
     double sumdiff = 0;
     for (int r = 0; r < sim->rSize(); r++)
     {
