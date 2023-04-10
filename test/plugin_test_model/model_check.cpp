@@ -24,13 +24,12 @@ public:
 
 TEST_F(PluginTestModelTests, STANDARD_RUN)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
     tmplugin->execute();
-
+    /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
     EXPECT_TRUE(sbml->getValueAsString().find("k1") != string::npos);
@@ -71,7 +70,6 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
 
 TEST_F(PluginTestModelTests, CHECK_SEED)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -79,7 +77,7 @@ TEST_F(PluginTestModelTests, CHECK_SEED)
 
     tmplugin->setPropertyByString("Seed", "1001");
     tmplugin->execute();
-
+    /*
     PropertyBase* seedprop = tmplugin->getProperty("Seed");
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 1001);
@@ -120,14 +118,13 @@ TEST_F(PluginTestModelTests, CHECK_SEED)
 
 TEST_F(PluginTestModelTests, CHECK_SIGMA)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
     tmplugin->execute();
-
+    /*
     PropertyBase* testdata = tmplugin->getProperty("TestData");
     TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
 
@@ -163,7 +160,6 @@ TEST_F(PluginTestModelTests, CHECK_SIGMA)
 
 TEST_F(PluginTestModelTests, NEW_MODEL)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -228,7 +224,7 @@ TEST_F(PluginTestModelTests, NEW_MODEL)
 
     tmplugin->setPropertyByString("Model", newModel.c_str());
     tmplugin->execute();
-
+    /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     EXPECT_EQ(sbml->getValueAsString(), newModel);
 

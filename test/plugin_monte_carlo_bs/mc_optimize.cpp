@@ -24,7 +24,6 @@ public:
 
 TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -36,7 +35,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
     mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
-
+    /*
     PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
     mcplugin->setPropertyValue("ExperimentalData", exdata);
@@ -49,7 +48,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
     mcplugin->setPropertyByString("NrOfMCRuns", "100");
     mcplugin->setPropertyByString("FittedDataSelectionList", "[S1] [S2]");
     mcplugin->setPropertyByString("ExperimentalDataSelectionList", "[S1] [S2]");
-    
+
     mcplugin->execute();
     //EXPECT_EQ(mcplugin->getPropertyValueAsString("StatusMessage").find("converged"), 0);
 
@@ -113,7 +112,6 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 
 TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -122,7 +120,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
-
+    /*
     mcplugin->setPropertyByString("MinimizerPlugin", "tel_nelder_mead");
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -203,7 +201,6 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 
 TEST_F(PluginMonteCarloTests, CHECK_SEED)
 {
-    /*
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -212,7 +209,7 @@ TEST_F(PluginMonteCarloTests, CHECK_SEED)
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
-
+    /*
     mcplugin->setPropertyByString("Seed", "2001");
 
     PropertyBase* sbml = tmplugin->getProperty("Model");

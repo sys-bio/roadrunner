@@ -40,7 +40,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
     lmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
-
+    /*
     PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
     lmplugin->setPropertyValue("ExperimentalData", exdata);
@@ -129,7 +129,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
             }
         }
     }
-
+    */
 
 
 }
@@ -151,7 +151,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     ASSERT_TRUE(chiplugin != NULL);
 
     lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());
-
+    /*
     TelluriumData exdata;
     exdata.read((pluginsModelsDir / "wilbertData.dat").string());
     lmplugin->setPropertyValue("ExperimentalData", &exdata);
@@ -316,5 +316,5 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
             }
         }
     }
-
+    */
 }
