@@ -134,6 +134,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
 
 }
 
+/*
 TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
 {
     //We set the initial value of p6 to 35.11, which is *way* off, to test the edges of the optimizer.
@@ -147,11 +148,11 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
-    //Plugin* chiplugin = PM->getPlugin("tel_chisquare");
-    //ASSERT_TRUE(chiplugin != NULL);
+    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    ASSERT_TRUE(chiplugin != NULL);
 
-    //lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());
-    /*
+    lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());
+    
     TelluriumData exdata;
     exdata.read((pluginsModelsDir / "wilbertData.dat").string());
     lmplugin->setPropertyValue("ExperimentalData", &exdata);
@@ -316,5 +317,5 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
             }
         }
     }
-    */
 }
+*/

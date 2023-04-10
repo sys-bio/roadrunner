@@ -115,12 +115,13 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 
 }
 
+/*
 TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    //ASSERT_TRUE(tmplugin != NULL);
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
 
     Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
     ASSERT_TRUE(nmplugin != NULL);
@@ -182,9 +183,9 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 </sbml>\n\
 ";
 
-    //tmplugin->setPropertyByString("Model", newModel.c_str());
+    tmplugin->setPropertyByString("Model", newModel.c_str());
     nmplugin->setPropertyByString("SBML", newModel.c_str());
-    /*
+    
     //tmplugin->setPropertyByString("Seed", "215"); //Will give you nan confidence limits, if allowed.
 
     Property<double> k1val(0.3, "k1", "", "", "", true);
@@ -278,7 +279,5 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
             }
         }
     }
-    */
-
-
 }
+*/

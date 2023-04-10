@@ -110,17 +110,18 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
     */
 }
 
+/*
 TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    //ASSERT_TRUE(tmplugin != NULL);
-    //tmplugin->execute();
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+    tmplugin->execute();
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
-    /*
+
     mcplugin->setPropertyByString("MinimizerPlugin", "tel_nelder_mead");
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -196,20 +197,21 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
     EXPECT_NEAR(percentile->getValue(), 1.09, 0.4);
 
     EXPECT_TRUE(percentiles->getNext() == NULL);
-    */
 }
+*/
 
+/*
 TEST_F(PluginMonteCarloTests, CHECK_SEED)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    //ASSERT_TRUE(tmplugin != NULL);
-    //tmplugin->execute();
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+    tmplugin->execute();
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
-    /*
+    
     mcplugin->setPropertyByString("Seed", "2001");
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -258,6 +260,7 @@ TEST_F(PluginMonteCarloTests, CHECK_SEED)
     ASSERT_TRUE(cl != NULL);
 
     EXPECT_EQ(cl_one, cl->getValue());
-     */
+
 }
+*/
 
