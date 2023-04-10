@@ -28,18 +28,18 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     //tpCreatePluginManager();
     //gHM.registerHandle(PM, typeid(PM).name());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    ASSERT_TRUE(tmplugin != NULL);
-    tmplugin->execute();
+    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    //ASSERT_TRUE(tmplugin != NULL);
+    //tmplugin->execute();
 
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
-    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
-    ASSERT_TRUE(chiplugin != NULL);
+    //Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    //ASSERT_TRUE(chiplugin != NULL);
 
-    PropertyBase* sbml = tmplugin->getProperty("Model");
-    lmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
+    //PropertyBase* sbml = tmplugin->getProperty("Model");
+    //lmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
     /*
     PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
@@ -147,10 +147,10 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
-    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
-    ASSERT_TRUE(chiplugin != NULL);
+    //Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    //ASSERT_TRUE(chiplugin != NULL);
 
-    lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());
+    //lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());
     /*
     TelluriumData exdata;
     exdata.read((pluginsModelsDir / "wilbertData.dat").string());

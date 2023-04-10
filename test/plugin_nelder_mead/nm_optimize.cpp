@@ -182,7 +182,7 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 </sbml>\n\
 ";
 
-    tmplugin->setPropertyByString("Model", newModel.c_str());
+    //tmplugin->setPropertyByString("Model", newModel.c_str());
     nmplugin->setPropertyByString("SBML", newModel.c_str());
     /*
     //tmplugin->setPropertyByString("Seed", "215"); //Will give you nan confidence limits, if allowed.

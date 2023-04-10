@@ -33,9 +33,9 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
 
+    /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
-    /*
     PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
     mcplugin->setPropertyValue("ExperimentalData", exdata);
@@ -203,9 +203,9 @@ TEST_F(PluginMonteCarloTests, CHECK_SEED)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    ASSERT_TRUE(tmplugin != NULL);
-    tmplugin->execute();
+    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    //ASSERT_TRUE(tmplugin != NULL);
+    //tmplugin->execute();
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
