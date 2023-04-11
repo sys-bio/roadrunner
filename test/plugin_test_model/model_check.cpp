@@ -29,7 +29,7 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
     tmplugin->execute();
-    /*
+
     PropertyBase* sbml = tmplugin->getProperty("Model");
     EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
     EXPECT_TRUE(sbml->getValueAsString().find("k1") != string::npos);
@@ -65,7 +65,6 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     PropertyBase* seedprop = tmplugin->getProperty("Seed");
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 0);
-     */
 }
 /*
 TEST_F(PluginTestModelTests, CHECK_SEED)
