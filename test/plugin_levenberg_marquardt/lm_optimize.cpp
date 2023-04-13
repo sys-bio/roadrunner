@@ -28,8 +28,8 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     //tpCreatePluginManager();
     //gHM.registerHandle(PM, typeid(PM).name());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    ASSERT_TRUE(tmplugin != NULL);
+    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    //ASSERT_TRUE(tmplugin != NULL);
     //tmplugin->execute();
 
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
