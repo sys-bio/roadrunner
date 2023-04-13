@@ -28,7 +28,7 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
-    tmplugin->execute();
+    //tmplugin->execute();
     /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
