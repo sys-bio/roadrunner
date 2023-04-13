@@ -28,7 +28,7 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
-    tmplugin->execute();
+    //tmplugin->execute();
 
     Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
     ASSERT_TRUE(nmplugin != NULL);

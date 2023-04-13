@@ -28,7 +28,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
-    tmplugin->execute();
+    //tmplugin->execute();
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
