@@ -30,7 +30,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
-    //tmplugin->execute();
+    tmplugin->execute();
 
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
