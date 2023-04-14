@@ -42,6 +42,7 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     a2kplugin->execute();
      */
 
+    delete PM;
 }
 /*
 TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)

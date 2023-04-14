@@ -130,6 +130,8 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
         }
     }
      */
+
+    delete PM;
 }
 
 /*
