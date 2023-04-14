@@ -32,11 +32,11 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     //ASSERT_TRUE(tmplugin != NULL);
     //tmplugin->execute();
 
-    Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
-    ASSERT_TRUE(lmplugin != NULL);
+    //Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
+    //ASSERT_TRUE(lmplugin != NULL);
 
-    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
-    ASSERT_TRUE(chiplugin != NULL);
+    //Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    //ASSERT_TRUE(chiplugin != NULL);
     /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     lmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());

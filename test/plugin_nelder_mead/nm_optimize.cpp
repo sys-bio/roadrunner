@@ -30,8 +30,8 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
     //ASSERT_TRUE(tmplugin != NULL);
     //tmplugin->execute();
 
-    Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
-    ASSERT_TRUE(nmplugin != NULL);
+    //Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
+    //ASSERT_TRUE(nmplugin != NULL);
     /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     nmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());

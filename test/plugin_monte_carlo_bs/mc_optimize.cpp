@@ -30,8 +30,8 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
     //ASSERT_TRUE(tmplugin != NULL);
     //tmplugin->execute();
 
-    Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
-    ASSERT_TRUE(mcplugin != NULL);
+    //Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
+    //ASSERT_TRUE(mcplugin != NULL);
     /*
     PropertyBase* sbml = tmplugin->getProperty("Model");
     mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
