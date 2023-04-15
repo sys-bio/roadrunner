@@ -6899,13 +6899,12 @@ namespace rr {
                     impl->document.get(),
                     impl->loadOpt.modelGeneratorOpt));
 
-            //Force setIndividualTolerance to construct a std::vector of the correct size
-            if (absTol.get_if<std::vector<double>>())
-                impl->integrator->setValue("absolute_tolerance", Setting(1.0e-7));
 
             impl->syncAllSolversWithModel(impl->model.get());
 
             if (auto v1 = absTol.get_if<std::vector<double>>()) {
+                //Force setIndividualTolerance to construct a std::vector of the correct size
+                impl->integrator->setValue("absolute_tolerance", Setting(Config::CVODE_MIN_ABSOLUTE));
                 for (const auto &p: indTolerances) {
                     auto ids = getFloatingSpeciesIds();
                     if (std::find(ids.begin(), ids.end(), p.first) != ids.end())

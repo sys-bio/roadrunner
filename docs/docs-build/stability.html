@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -95,12 +94,12 @@
   <section id="stability-analysis">
 <h1>Stability Analysis<a class="headerlink" href="#stability-analysis" title="Permalink to this heading"></a></h1>
 <p>The stability of a biochemical system is determined by the eigenvalues of the Jacobian matrix. Given
-<span class="math">m</span> floating species and <span class="math">n</span> reactions, the Jacobian matrix is defined as follows:</p>
+<img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> floating species and <img class="math" src="_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> reactions, the Jacobian matrix is defined as follows:</p>
 <div class="math">
-<p><span class="math">J=\begin{bmatrix} \dfrac{\partial F_1}{\partial S_1} &amp; \cdots &amp; \dfrac{\partial F_1}{\partial S_m} \\
+<p><img src="_images/math/42aa9b3e5961e8ef47f28cde7e2011ea9fb47e16.png" alt="J=\begin{bmatrix} \dfrac{\partial F_1}{\partial S_1} &amp; \cdots &amp; \dfrac{\partial F_1}{\partial S_m} \\
 \vdots &amp; \ddots &amp; \vdots \\ \dfrac{\partial F_n}{\partial S_1} &amp; \cdots &amp; \dfrac{\partial F_n}{\partial S_m}
-\end{bmatrix}</span></p>
-</div><p>where <span class="math">F_i</span> is the ith differential equation and <span class="math">S_i</span> the ith floating species. From RoadRunner it is easy to obtain the Jacobian matrix using :cpp:<code class="xref py py-class docutils literal notranslate"><span class="pre">rr::RoadRunner::getFullJacobian</span></code>, i.e.:</p>
+\end{bmatrix}"/></p>
+</div><p>where <img class="math" src="_images/math/d907a3c4e1257ec91ba2b8475cc048392650b648.png" alt="F_i"/> is the ith differential equation and <img class="math" src="_images/math/f18bf639d8e5490eec40c8a4a6a7a1389c3dd6a5.png" alt="S_i"/> the ith floating species. From RoadRunner it is easy to obtain the Jacobian matrix using :cpp:<code class="xref py py-class docutils literal notranslate"><span class="pre">rr::RoadRunner::getFullJacobian</span></code>, i.e.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Jac</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getFullJacobian</span><span class="p">()</span>
 </pre></div>
 </div>

@@ -209,6 +209,7 @@ class RoadRunnerTests(unittest.TestCase):
                 sim = rr.simulate(self.start, self.duration, self.steps + 1)
             elif self.testType == "StatisticalDistribution":
                 rr.setIntegrator('cvode')
+                rr.getIntegrator().setValue("absolute_tolerance", 1e-9)
                 sim = rr.simulate(self.start, self.duration, self.steps + 1)
             else:
                 self.fail("Unknown stochastic test type " + self.testType + " in test " + tnum + ".")

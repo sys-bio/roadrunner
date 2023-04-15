@@ -169,12 +169,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gab5089a45b969672e2a0ca51348237ba9"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC int rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__simopts.html#gab5089a45b969672e2a0ca51348237ba9">setCurrentIntegratorParameterDoubleArray</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, char *parameterName, double *value, int len)</td></tr>
 <tr class="memdesc:gab5089a45b969672e2a0ca51348237ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.  <a href="group__simopts.html#gab5089a45b969672e2a0ca51348237ba9">More...</a><br /></td></tr>
 <tr class="separator:gab5089a45b969672e2a0ca51348237ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ea249ef0760354eb2bffa0e98596c26"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC int rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__simopts.html#ga5ea249ef0760354eb2bffa0e98596c26">setCurrentIntegratorScalarConcentrationTolerance</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, double value)</td></tr>
-<tr class="memdesc:ga5ea249ef0760354eb2bffa0e98596c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the scalar tolerance based on concentration for the current integrator.  <a href="group__simopts.html#ga5ea249ef0760354eb2bffa0e98596c26">More...</a><br /></td></tr>
-<tr class="separator:ga5ea249ef0760354eb2bffa0e98596c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68ffbd48262e343aa1c451141d6a0dc5"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC int rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__simopts.html#ga68ffbd48262e343aa1c451141d6a0dc5">setCurrentIntegratorVectorConcentrationTolerance</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, double *value, int len)</td></tr>
-<tr class="memdesc:ga68ffbd48262e343aa1c451141d6a0dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the vector tolerance based on concentration for the current integrator.  <a href="group__simopts.html#ga68ffbd48262e343aa1c451141d6a0dc5">More...</a><br /></td></tr>
-<tr class="separator:ga68ffbd48262e343aa1c451141d6a0dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0dbe4658b99745662cecf1cef214a3b9"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC int rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__simopts.html#ga0dbe4658b99745662cecf1cef214a3b9">setCurrentIntegratorIndividualTolerance</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, char *sid, double value)</td></tr>
 <tr class="memdesc:ga0dbe4658b99745662cecf1cef214a3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.  <a href="group__simopts.html#ga0dbe4658b99745662cecf1cef214a3b9">More...</a><br /></td></tr>
 <tr class="separator:ga0dbe4658b99745662cecf1cef214a3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2216,76 +2210,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga5ea249ef0760354eb2bffa0e98596c26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5ea249ef0760354eb2bffa0e98596c26">&#9670;&nbsp;</a></span>setCurrentIntegratorScalarConcentrationTolerance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">C_DECL_SPEC int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
-          <td class="paramname"><em>handle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the scalar tolerance based on concentration for the current integrator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>Handle to a RoadRunner instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>The double value for the integrator setting. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns True if successful. </dd></dl>
-
-</div>
-</div>
-<a id="ga68ffbd48262e343aa1c451141d6a0dc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga68ffbd48262e343aa1c451141d6a0dc5">&#9670;&nbsp;</a></span>setCurrentIntegratorVectorConcentrationTolerance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">C_DECL_SPEC int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
-          <td class="paramname"><em>handle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 <p>Set the vector tolerance based on concentration for the current integrator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

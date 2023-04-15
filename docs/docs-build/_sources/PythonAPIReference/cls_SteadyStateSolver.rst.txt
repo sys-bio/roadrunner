@@ -17,29 +17,21 @@ NLEQ2
 
     To enable, type:
 
-    >>> rr.getSteadyStateSolver().allow_presimulation = True
-
-
-.. attribute:: SteadyStateSolver.presimulation_tolerance
-
-
-    Tolerance for presimulation before steady state analysis. Absolute tolerance used by presimulation routine. Only used when allow_presimulation is True. Default value is 1e-3.
-
-    >>> rr.getSteadyStateSolver().presimulation_tolerance = 1e-2
+    >>> rr.getSteadyStateSolver().setValue("allow_presimulation", True)
 
 
 .. attribute:: SteadyStateSolver.presimulation_maximum_steps
 
     Maximum number of steps that can be taken for presimulation before steady state analysis. Takes priority over presimulation_time. Only used when allow_presimulation is True. Default value is 100.
 
-    >>> rr.getSteadyStateSolver().presimulation_maximum_steps = 50
+    >>> rr.getSteadyStateSolver().setValue("presimulation_maximum_steps", 50)
 
 
 .. attribute:: SteadyStateSolver.presimulation_time
 
     End time for presimulation steady state analysis. Only used when allow_presimulation is True. Default value is 100.
 
-    >>> rr.getSteadyStateSolver().presimulation_time = 50
+    >>> rr.getSteadyStateSolver().setValue("presimulation_time", 50)
 
 
 .. attribute:: SteadyStateSolver.allow_approx
@@ -48,28 +40,28 @@ NLEQ2
 
     To disable, type:
 
-    >>> rr.getSteadyStateSolver().allow_approx = False
+    >>> rr.getSteadyStateSolver().setValue("allow_approx", False)
 
 
 .. attribute:: SteadyStateSolver.approx_tolerance
 
     Tolerance for steady state approximation routine. Absolute tolerance used by steady state approximation routine. Only used when steady state approximation routine is used. Default value is 1e-12.
 
-    >>> rr.getSteadyStateSolver().approx_tolerance = 1e-6
+    >>> rr.getSteadyStateSolver().setValue("approx_tolerance", 1e-6)
 
 
 .. attribute:: SteadyStateSolver.approx_maximum_steps
 
     Maximum number of steps that can be taken for steady state approximation routine. Takes priority over approx_time. Only used when steady state approximation routine is used. Default value is 10000.
 
-    >>> rr.getSteadyStateSolver().approx_maximum_steps = 5000
+    >>> rr.getSteadyStateSolver().setValue("approx_maximum_steps", 5000)
 
 
 .. attribute:: SteadyStateSolver.approx_time
 
     End time for steady state approximation routine. approx_maximum_steps takes priority. Only used when steady state approximation routine is used. Default value is 10000.
 
-    >>> rr.getSteadyStateSolver().approx_time = 5000
+    >>> rr.getSteadyStateSolver().setValue("approx_time", 5000)
 
 
 .. attribute:: SteadyStateSolver.broyden_method
@@ -78,35 +70,35 @@ NLEQ2
 
     To enable, type:
    
-   >>> rr.getSteadyStateSolver().broyden_method = 1
+   >>> rr.getSteadyStateSolver().setValue("broyden_method", 1)
 
 
 .. attribute:: SteadyStateSolver.linearity
 
     Specifies linearity of the problem. 1 is for linear problem and 4 is for extremly nonlinear problem. Default value is 3.
 
-    >>> rr.getSteadyStateSolver().linearity = 1
+    >>> rr.getSteadyStateSolver().setValue("linearity", 1)
 
 
 .. attribute:: SteadyStateSolver.maximum_iterations
 
     The maximum number of iterations the solver is allowed to use. Iteration caps off at the maximum, regardless of whether a solution has been reached. Default value is 100.
 
-    >>> rr.getSteadyStateSolver().maximum_iterations = 50
+    >>> rr.getSteadyStateSolver().setValue("maximum_iterations", 50)
 
 
 .. attribute:: SteadyStateSolver.minimum_damping
 
     The minimum damping factor used by the algorithm. Default value is 1e-4.
 
-    >>> rr.getSteadyStateSolver().minimum_damping = 1e-20
+    >>> rr.getSteadyStateSolver().setValue("minimum_damping", 1e-20)
 
 
 .. attribute:: SteadyStateSolver.relative_tolerance
 
     Specifies the relative tolerance used by the solver. Default value is 1e-16.
 
-    >>> rr.getSteadyStateSolver().relative_tolerance = 1e-15
+    >>> rr.getSteadyStateSolver().setValue("relative_tolerance", 1e-15)
 
 
 .. method:: SteadyStateSolver.solve()

@@ -117,16 +117,11 @@ namespace rr {
 
 
         /**
-        * @author FY
-        * @brief Set tolerance based on concentration of species, will only be used in CVODEIntegrator
-        */
-        virtual void setConcentrationTolerance(Setting value);
-
-        /**
-        * @author FY
-        * @brief Get tolerance based on concentration of species, will only be used in CVODEIntegrator
-        */
-        virtual std::vector<double> getConcentrationTolerance();
+         * @brief Get the absolute tolerance vector for the solver.
+         *
+         * Most solvers do not have absolute tolerances; this retrieves the vector for the ones (like CVODE) that do.
+         */
+        virtual std::vector<double> getAbsoluteToleranceVector();
 
 
         /* CARRYOVER METHODS */

@@ -25,8 +25,6 @@ var searchData=
   ['setcurrentintegratorparameterint_779',['setCurrentIntegratorParameterInt',['../group__simopts.html#ga25d21c24c1eb4d1d29788ec580606a77',1,'rrc_api.h']]],
   ['setcurrentintegratorparameterstring_780',['setCurrentIntegratorParameterString',['../group__simopts.html#gafeac5c5521cb5b7d4b802e74a93442f5',1,'rrc_api.h']]],
   ['setcurrentintegratorparameteruint_781',['setCurrentIntegratorParameterUInt',['../group__simopts.html#ga71301c1d8fde82ebbe0c191346995dd7',1,'rrc_api.h']]],
-  ['setcurrentintegratorscalarconcentrationtolerance_782',['setCurrentIntegratorScalarConcentrationTolerance',['../group__simopts.html#ga5ea249ef0760354eb2bffa0e98596c26',1,'rrc_api.h']]],
-  ['setcurrentintegratorvectorconcentrationtolerance_783',['setCurrentIntegratorVectorConcentrationTolerance',['../group__simopts.html#ga68ffbd48262e343aa1c451141d6a0dc5',1,'rrc_api.h']]],
   ['setcurrentsteadystatesolver_784',['setCurrentSteadyStateSolver',['../group__simopts.html#ga95a0ded174b2cc08d1d3201fd02c3f1f',1,'rrc_api.h']]],
   ['setcurrentsteadystatesolverparameterboolean_785',['setCurrentSteadyStateSolverParameterBoolean',['../group__simopts.html#gaadbc5f4c7bfede9a3ca5ae76d4b85896',1,'rrc_api.h']]],
   ['setcurrentsteadystatesolverparameterdouble_786',['setCurrentSteadyStateSolverParameterDouble',['../group__simopts.html#ga698d05810c3fa5f94c50d43b90638239',1,'rrc_api.h']]],

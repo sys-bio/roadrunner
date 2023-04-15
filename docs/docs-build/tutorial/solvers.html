@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -146,9 +145,9 @@ To see a list of these settings, use <code class="xref py py-meth docutils liter
 <span class="go">&#39;variable_step_size&#39;)</span>
 </pre></div>
 </div>
-<p>To set a parameter, you can use both methods described below:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">relative_tolerance</span> <span class="o">=</span> <span class="mf">1e-10</span>
-<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+<p>To set or get a parameter, you can use the methods described below:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s1">&#39;initial_time_step&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Be sure to set the parameter to the correct type, which can be obtained from
@@ -166,7 +165,7 @@ the parameter’s hint or description:</p>
 </div>
 <p>If you prefer to change settings on integrators without switching the current integrator,
 you can use <code class="xref py py-meth docutils literal notranslate"><span class="pre">getIntegratorByName()</span></code> as follows:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegratorByName</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">12345</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegratorByName</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Also, if you find yourself switching back and forth between integrators a lot, you can use

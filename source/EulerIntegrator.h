@@ -31,23 +31,15 @@ namespace rr {
     * forward Euler algorithm is highly unstable and will seldomly
     * yield numerically correct values.
     *
-    * This class also has two dummy variables, exampleParameter1 and
-    * exampleParameter2. These serve as examples of how to use the Dictionary
-    * interface to get/set various tuning paramters that an Integrator
-    * might have. These values will be displayed when the toString method
-    * is called, typically by Python.
-    *
-    * An example of calling simulate in Python, and the results of specifying
-    * the parameters as keyword arguments is
+    * An example of calling simulate in Python is
     *
     * @code
-    * rr.simulate(integrator='euler', exampleParameter1=123456, exampleParameter2='some value');
+    * rr.setIntegrator('euler')
+    * rr.simulate();
     *
     * print(rr.integrator)
     * < roadrunner.EulerIntegrator()
     * { 'this' : 0x101f28350
-    * 'exampleParameter1' : 123456
-    * 'exampleParameter2' : some value
     * }>
     * @endcode
     *

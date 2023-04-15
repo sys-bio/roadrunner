@@ -145,21 +145,6 @@ namespace rr {
         void setIndividualTolerance(std::string sid, double value) override;
 
         /**
-         * @author FY
-         * @brief Sets tolerance based on concentration of species
-         * @details First converts the concentration tolerances to amount tolerances
-         * by multiplying the compartment volume of species. Whichever is smaller
-         * will be stored as absolute_tolerance and used in the integration process.
-         */
-        void setConcentrationTolerance(Setting value) override;
-
-        /**
-         * @author FY
-         * @brief Gets tolerance based on concentration of species
-         */
-        std::vector<double> getConcentrationTolerance() override;
-
-        /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */
@@ -253,6 +238,14 @@ namespace rr {
          */
         void *getCvodeMemory() const;
 
+        /**
+         * @brief Get the absolute tolerance vector for the solver.
+         * 
+         * The absolute tolerance vector is either set directly by the user as a vector, or is generated from the single absolute tolerance value (either default or set by the user) multiplied by the initial value of every element in the state vector (independent floating species, and elements controlled by rate rules).  If that initial value is zero, the corresponding element of the absolute tolerance vector is the single value multiplied by the compartment volume for species, or by one for all other values.
+         */
+        virtual std::vector<double> getAbsoluteToleranceVector();
+
+
     private:
         // defaults directly from CVODE docs
         static const int mDefaultMaxNumSteps;
@@ -278,6 +271,7 @@ namespace rr {
         bool haveVariables() const;
 
         void assignResultsToModel() const;
+
 
         /**
          * @author WBC, ETS, JKM

@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -101,30 +100,30 @@
 <h1>Stoichiometric Analysis<a class="headerlink" href="#stoichiometric-analysis" title="Permalink to this heading"></a></h1>
 <section id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this heading"></a></h2>
-<p>A network of <span class="math">m</span> chemical species and <span class="math">n</span> reactions can be described by the
-<span class="math">m</span> by <span class="math">n</span> stochiometry matrix <span class="math">\mathbf{N}</span>. <span class="math">\mathbf{N}_{i,j}</span> is the net number of
-species <span class="math">i</span> produced or consumed in reaction <span class="math">j</span>.  The dynamics of the network are
+<p>A network of <img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> chemical species and <img class="math" src="_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> reactions can be described by the
+<img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> by <img class="math" src="_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> stochiometry matrix <img class="math" src="_images/math/ea18548ce92f7f30b06ad9b72a157be42ff2ca44.png" alt="\mathbf{N}"/>. <img class="math" src="_images/math/eee64e36e8aaf0b2ee7f8771812575247e7f248c.png" alt="\mathbf{N}_{i,j}"/> is the net number of
+species <img class="math" src="_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.png" alt="i"/> produced or consumed in reaction <img class="math" src="_images/math/e3fc28292267f066fee7718c64f4bbfece521f24.png" alt="j"/>.  The dynamics of the network are
 described by</p>
 <div class="math">
-<p><span class="math">\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),</span></p>
-</div><p>where <span class="math">\mathbf{s}</span> is the vector of species concentrations, <span class="math">\mathbf{p}</span>
-is a vector of time independent parameters, and <span class="math">t</span> is time.</p>
+<p><img src="_images/math/1a419a6a6e05433235913e605955c489f0260a02.png" alt="\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),"/></p>
+</div><p>where <img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> is the vector of species concentrations, <img class="math" src="_images/math/c11f55e4a25377e79397d43a2cb7ec0365799d59.png" alt="\mathbf{p}"/>
+is a vector of time independent parameters, and <img class="math" src="_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> is time.</p>
 <p>Each structural conservation, or interchangably, <em>conserved sum</em> (e.g. conserved moiety) in
-the network coresponds to a lineraly dependent row in the stoichiometry matrix <span class="math">\mathbf{N}</span>.</p>
-<p>If there are conserved sums, then the row rank, <span class="math">r</span> of <span class="math">N</span> is <span class="math">&lt; m</span>, and
-the stochiometry matrix <span class="math">N</span> may first be re-ordered such that the first <span class="math">r</span> are linearly
-independent, and the remaining <span class="math">m-r</span> rows are linear combinations of the first <span class="math">r</span>
-rows. The <em>reduced stochiometry matrix</em> <span class="math">\mathbf{N_R}</span> is then formed from the first
-<span class="math">r</span> rows of <span class="math">N</span>. Finally, <span class="math">N</span> may be expressed as a product of the <span class="math">m \times r</span>
-<em>link matrix</em> <span class="math">\mathbf{L}</span> and the <span class="math">r \times n</span> <span class="math">\mathbf{N_R}</span> matrix:</p>
+the network coresponds to a lineraly dependent row in the stoichiometry matrix <img class="math" src="_images/math/ea18548ce92f7f30b06ad9b72a157be42ff2ca44.png" alt="\mathbf{N}"/>.</p>
+<p>If there are conserved sums, then the row rank, <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> of <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> is <img class="math" src="_images/math/db27e81b5043871690d5a4931735c1956e2ec546.png" alt="&lt; m"/>, and
+the stochiometry matrix <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> may first be re-ordered such that the first <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> are linearly
+independent, and the remaining <img class="math" src="_images/math/086cd74c9904c93b79178f3ba70e62ccdd15b965.png" alt="m-r"/> rows are linear combinations of the first <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/>
+rows. The <em>reduced stochiometry matrix</em> <img class="math" src="_images/math/2c72c1075a2c3832027d935c6eb8309244b4e719.png" alt="\mathbf{N_R}"/> is then formed from the first
+<img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> rows of <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/>. Finally, <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> may be expressed as a product of the <img class="math" src="_images/math/06507d0275a183f9e76fa928f5fa8267c3d9a560.png" alt="m \times r"/>
+<em>link matrix</em> <img class="math" src="_images/math/6ee4d528434e9cc050483bee7faf289b37f2e009.png" alt="\mathbf{L}"/> and the <img class="math" src="_images/math/206aaa090beda7a9f021e91e89168008c395fd70.png" alt="r \times n"/> <img class="math" src="_images/math/2c72c1075a2c3832027d935c6eb8309244b4e719.png" alt="\mathbf{N_R}"/> matrix:</p>
 <div class="math">
-<p><span class="math">\mathbf{N} = \mathbf{L}\mathbf{N_R}.</span></p>
-</div><p>The link matrix <span class="math">\mathbf{L}</span> has the form</p>
+<p><img src="_images/math/ae61aad36fddef879163eab34799d66db6e93b19.png" alt="\mathbf{N} = \mathbf{L}\mathbf{N_R}."/></p>
+</div><p>The link matrix <img class="math" src="_images/math/6ee4d528434e9cc050483bee7faf289b37f2e009.png" alt="\mathbf{L}"/> has the form</p>
 <div class="math">
-<p><span class="math">\mathbf{L} = \left[ \begin{array}{c}
+<p><img src="_images/math/c6977eac5c8c4130105d582c2ef1d2f666ac533a.png" alt="\mathbf{L} = \left[ \begin{array}{c}
                     \mathbf{I}_{r} \\
-                    \mathbf{L}_0    \end{array} \right],</span></p>
-</div><p>where <span class="math">\mathbf{I}_{r}</span> is the <span class="math">r \times r</span> identity matrix and <span class="math">\mathbf{L}_0</span> is a <span class="math">(m-r) \times r</span>
+                    \mathbf{L}_0    \end{array} \right],"/></p>
+</div><p>where <img class="math" src="_images/math/6936cef5cd163fc7a980484698867c3d74316594.png" alt="\mathbf{I}_{r}"/> is the <img class="math" src="_images/math/624d5b647a5e5e2a9043877f387cbb9632637dfe.png" alt="r \times r"/> identity matrix and <img class="math" src="_images/math/3276c0da6ae1d98d129fdbc0336f66156e0d5db1.png" alt="\mathbf{L}_0"/> is a <img class="math" src="_images/math/b70ca4b8e6bef577623306f53b72e08fbbcd7843.png" alt="(m-r) \times r"/>
 matrix.</p>
 </section>
 <section id="full-vs-extended-stoichiometry-matrix">

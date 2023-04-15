@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -1750,8 +1749,8 @@ this is the matrix that coresponds to the independent species.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="RoadRunner.RoadRunner.getConservationMatrix">
 <span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getConservationMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConservationMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a conservation matrix <span class="math">\Gamma</span> which is a <span class="math">c \times m</span> matrix
-where <span class="math">c</span> is the number of conservation laws and <span class="math">m</span> the number of species.</p>
+<dd><p>Returns a conservation matrix <img class="math" src="../_images/math/e7003fd3463f843ee1e53385878369f078d362ad.png" alt="\Gamma"/> which is a <img class="math" src="../_images/math/0bcf53c61f33b169107655d4c7a4243e94a4227f.png" alt="c \times m"/> matrix
+where <img class="math" src="../_images/math/d520a12f1579170834c32ad5f656de081bbb36fe.png" alt="c"/> is the number of conservation laws and <img class="math" src="../_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> the number of species.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1782,8 +1781,8 @@ is the number of floating species and r the rank of the stoichiometric matrix, N
 <dl class="py method">
 <dt class="sig sig-object py" id="RoadRunner.RoadRunner.getNrMatrix">
 <span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getNrMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getNrMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the reduced stoichiometry matrix, <span class="math">N_R</span>, which will have only r rows where r is the rank of
-the full stoichiometry matrix. The matrix will be reordered such that the rows of <span class="math">N_R</span> are independent.</p>
+<dd><p>Returns the reduced stoichiometry matrix, <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/>, which will have only r rows where r is the rank of
+the full stoichiometry matrix. The matrix will be reordered such that the rows of <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/> are independent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -1794,8 +1793,8 @@ the full stoichiometry matrix. The matrix will be reordered such that the rows o
 <dl class="py method">
 <dt class="sig sig-object py" id="RoadRunner.RoadRunner.getKMatrix">
 <span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getKMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getKMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the K matrix, <span class="math">ker(N_R)</span>, (right nullspace of Nr)
-The K matrix has the structure, <span class="math">[I K0]'</span></p>
+<dd><p>Returns the K matrix, <img class="math" src="../_images/math/2f2d393903a4dca6ea8baac0db8535dc80345434.png" alt="ker(N_R)"/>, (right nullspace of Nr)
+The K matrix has the structure, <img class="math" src="../_images/math/adc2c97900ab88829eb36ff8437d7283b0f8a30c.png" alt="[I K0]'"/></p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
