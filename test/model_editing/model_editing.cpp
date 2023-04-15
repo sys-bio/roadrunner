@@ -1435,12 +1435,12 @@ TEST_F(ModelEditingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     rri->getIntegrator()->setIndividualTolerance("S1", 5.0);
     rri->getIntegrator()->setIndividualTolerance("S2", 3.0);
     rri->removeSpecies("S2");
-    EXPECT_TRUE(rri->getIntegrator()->getConcentrationTolerance().size() == 1)
-                        << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1"
+    EXPECT_TRUE(rri->getIntegrator()->getAbsoluteToleranceVector().size() == 1)
+                        << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getAbsoluteToleranceVector().size() != 1"
                         << endl;
 
-    EXPECT_TRUE(rri->getIntegrator()->getConcentrationTolerance()[0] == 5.0)
-                        << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 5.0"
+    EXPECT_TRUE(rri->getIntegrator()->getAbsoluteToleranceVector()[0] == 5.0)
+                        << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getAbsoluteToleranceVector()[0] == 5.0"
                         << endl;
     delete rri;
 }
@@ -1450,12 +1450,12 @@ TEST_F(ModelEditingTests, RETAIN_ABSOLUTE_TOLERANCES_2) {
     rri->getIntegrator()->setIndividualTolerance("S1", 5.0);
     rri->getIntegrator()->setIndividualTolerance("S2", 3.0);
     rri->removeSpecies("S1");
-    EXPECT_TRUE(rri->getIntegrator()->getConcentrationTolerance().size() == 1)
-                        << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1"
+    EXPECT_TRUE(rri->getIntegrator()->getAbsoluteToleranceVector().size() == 1)
+                        << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getAbsoluteToleranceVector().size() != 1"
                         << endl;
 
-    EXPECT_TRUE(rri->getIntegrator()->getConcentrationTolerance()[0] == 3.0)
-                        << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 3.0"
+    EXPECT_TRUE(rri->getIntegrator()->getAbsoluteToleranceVector()[0] == 3.0)
+                        << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getAbsoluteToleranceVector()[0] == 3.0"
                         << endl;
     delete rri;
 }

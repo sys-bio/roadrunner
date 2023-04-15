@@ -196,7 +196,10 @@ namespace rr
         addSetting("maximum_time_step",     Setting(0.0),   "Maximum Time Step", "Specifies the maximum absolute value of step size allowed. (double)", "(double) The maximum absolute value of step size allowed.");
         addSetting("nonnegative",           Setting(false), "Non-negative species only", "Prevents species amounts from going negative during a simulation. (bool)", "(bool) Enforce non-negative species constraint.");
         addSetting("max_output_rows",       Setting(Config::getInt(Config::MAX_OUTPUT_ROWS)), "Maximum Output Rows", "For variable step size simulations, the maximum number of output rows produced (int).", "(int) This will set the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents massive output for simulations where the variable step size ends up decreasing too much.  This setting is ignored when the variable_step_size is false, and is also ignored when the output is being written directly to a file.");
-    }
+		addSetting("maximum_num_steps", Setting(0), "Maximum Number of Steps",
+			"Specifies the maximum number of steps to be taken by the Gillespie solver before reaching the next reporting time. (int)",
+			"(int) Maximum number of steps to be taken by the Gillespie solver before reaching the next reporting time.");
+	}
 
 	double GillespieIntegrator::integrate(double t, double hstep)
 	{
@@ -205,6 +208,7 @@ namespace rr
 		bool varStep = getValue("variable_step_size").get<bool>();
 		auto minTimeStep = getValue("minimum_time_step").get<double>();
 		auto maxTimeStep = getValue("maximum_time_step").get<double>();
+		int maxNumSteps = getValue("maximum_num_steps").get<int>();
 		if (maxTimeStep > minTimeStep)
 		{
 			hstep = std::min(hstep, maxTimeStep);
@@ -240,9 +244,11 @@ namespace rr
 		// get the initial state std::vector
 		mModel->setTime(t);
 		mModel->getStateVector(stateVector);
+		int step = 0;
 
-		while (singleStep || t < tf)
+		while (singleStep || (t < tf && (maxNumSteps == 0 || step < maxNumSteps)))
 		{
+			step++;
 			// random uniform numbers
 			double r1 = urand();
 			double r2 = urand();
@@ -368,7 +374,13 @@ namespace rr
 				return t;
 			}
 		}
-
+		if (t < tf && maxNumSteps > 0 && step >= maxNumSteps)
+		{
+			std::stringstream msg;
+			msg << "GillespieIntegrator::integrate failed:  max number of steps (" 
+				<< maxNumSteps << ") reached before desired output at time " << tf << ".";
+			throw std::runtime_error(msg.str());
+		}
 		return t;
 	}
 

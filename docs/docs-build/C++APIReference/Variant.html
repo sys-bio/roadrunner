@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -156,7 +155,7 @@
 </div>
 </p>
 <p>Extraction: To retrieve the stored data, uses the convert function, this is templated so it can convert and extract to any type:</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">getSomeVariant</span><span class="p">();</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">getSomeVariant</span><span class="p">();</span>
 
 <span class="o">//</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">integer</span><span class="p">:</span>
 <span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">();</span>
@@ -165,7 +164,6 @@
 <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">();</span>
 </pre></div>
 </div>
-</p>
 <p>Rationale: C++ does not have a built in variant type. Other variant types exist such as boost::any and Poco dynamic var. However including the one of these as part of our public wrappers would forever tie us to that particular library, and would impose yet another dependency.</p>
 <p>Only very basic variant type support is needed and this class exposes the absolute minimum possible wrappers to support such features, and provides just two methods of getting and storing native C++ types in it.</p>
 <p>This is <em>currently</em> implemented by Poco but the implementation is fully opaque and may change in the future. </p>
@@ -261,7 +259,7 @@
 <span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;a std::string&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
- </p>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -299,7 +297,7 @@
 <span id="_CPPv3NK2rr7Variant8typeInfoEv"></span><span id="_CPPv2NK2rr7Variant8typeInfoEv"></span><span id="rr::Variant::typeInfoC"></span><span class="target" id="classrr_1_1Variant_1ab221d80ddd0d06174c61d90e25ebb0d2"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type_info</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">typeInfo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant8typeInfoEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>get the type id of the stored data type. </p>
 <p>This will let you check what kind of data is strored in this variant.</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">to</span> <span class="n">check</span> <span class="k">if</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">integer</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">to</span> <span class="n">check</span> <span class="k">if</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">integer</span><span class="p">:</span>
 <span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="o">...</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">typeid</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
     <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;its an int&quot;</span><span class="p">;</span>
@@ -309,7 +307,6 @@
     <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;ints a std::string&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
- </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -317,11 +314,10 @@
 <span id="_CPPv3I0ENK2rr7Variant7convertEv"></span><span id="_CPPv2I0ENK2rr7Variant7convertEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classrr_1_1Variant_1a7bb371be936601754f61d5285f834352"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="rr::Variant::convert::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">convert</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Convert this variant to a supported data type. </p>
 <p>This method will try to perform type coercion, i.e. if this variant contains a std::string, and it is asked to convert to a int, the std::string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">convert</span> <span class="n">to</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">convert</span> <span class="n">to</span> <span class="nb">int</span><span class="p">:</span>
 <span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">();</span>
 </pre></div>
 </div>
- </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -447,7 +443,7 @@
 <p>This is a common way to read a <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> from a file or create a new one from a std::string: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">::</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;0.123&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
- </p>
+</p>
 </dd></dl>
 
 </div>

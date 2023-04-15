@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rrPlugins &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="rrPlugins Architecture" href="rrplugins_architecture.html" />
+    <link rel="prev" title="Using RoadRunner from C++" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">rrPlugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_add_noise_plugin.html">Add Noise Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_auto_plugin.html">AUTO2000 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_chisquare_plugin.html">Chi Square Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dataseries">DataSeries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">rrPlugins</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rrplugins/introduction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rrplugins">
+<h1>rrPlugins<a class="headerlink" href="#rrplugins" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The plugin API allows users to easily access roadrunner plugins. Only three concepts need to be understood:</p>
+<ol class="arabic simple">
+<li><p>Loading a plugin</p></li>
+<li><p>Setting and Getting plugin properties</p></li>
+<li><p>Executing the plugin</p></li>
+</ol>
+<p>Before using the plugin system the plugin library must be imported using the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rrplugins</span> <span class="k">as</span> <span class="nn">tel</span>
+</pre></div>
+</div>
+<p>To load a plugin called “add_noise” use the Python command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;tel_add_noise&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The variable p now represents the plugin. Plugins expose a number of properties, these are variables that can be inspected or set. For example the add noise plugin has a property called Sigma. To set this to a particular value we would use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">Sigma</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>Likewise, properties can be inspected:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Sigma</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To list all propreties in a plugin use the method listOfProperties. The following uses call together with pprint to make the output more understandable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">listOfProperties</span><span class="p">()</span>
+<span class="p">[[</span><span class="s1">&#39;NoiseType&#39;</span><span class="p">,</span> <span class="s1">&#39;Type of noise (Gaussian = 0).&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;Size of applied noise&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;InputData&#39;</span><span class="p">,</span> <span class="s1">&#39;Data on which noise will be applied to&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;AssumeTime&#39;</span><span class="p">,</span> <span class="s2">&quot;Assume the first column in the input data is time, and don&#39;t add noise to it.&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Progress&#39;</span><span class="p">,</span> <span class="s1">&#39;Indicate progress in (0-100%)&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Seed&#39;</span><span class="p">,</span> <span class="s2">&quot;Seed to use for each use of &#39;execute&#39; (0 to ignore)&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>To run a plugin so that it carries out its function, use the execute method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The results from an execute call will either be saved to a file or more likely via properties of the plugin. As a trivial example, consider a plugin called “test” that has three properties, x, y and z. When the execute() method is called the plugin will take the values stored in x and y, add them together and store the result in z. The following script illustrates how the plugin would be used from Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rrplugins</span> <span class="k">as</span> <span class="nn">tel</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">4.5</span>
+<span class="n">p</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following script illustrates a more substantial example using the add_noise plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="kn">import</span> <span class="nn">rrplugins</span> <span class="k">as</span> <span class="nn">tel</span>
+
+<span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">()</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path to any model. Eg. some models are provided in source code, like, sbml_test_0001&quot;</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="n">noisePlugin</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;tel_add_noise&quot;</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">getDataSeries</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">noisePlugin</span><span class="o">.</span><span class="n">InputData</span> <span class="o">=</span> <span class="n">d</span>
+
+<span class="n">noisePlugin</span><span class="o">.</span><span class="n">Sigma</span> <span class="o">=</span> <span class="mf">5.e-6</span>
+
+<span class="n">noisePlugin</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="n">noisePlugin</span><span class="o">.</span><span class="n">InputData</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="dataseries">
+<h2>DataSeries<a class="headerlink" href="#dataseries" title="Permalink to this heading"></a></h2>
+<p>The plugin system supports a special data type called a Data Series. This is a convenient way to represent rows and colums of data. The data type also has the ability to label columns with a text string and to associate each value in the data series with an additional value called a weight. In practice the data series will usually store experimental data and the weights will represent a measure of undertaintly, perhaps a standard deviation, of the data point. A Data Series can be created using the call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rrplugins</span> <span class="k">as</span> <span class="nn">tel</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">DataSeries</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Data can be entered into a data series either by loading the data from a specially formated file or from a Python NumPy array. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">readDataSeries</span> <span class="p">(</span><span class="s2">&quot;mydata.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To read numpy arrays into a data series use the code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],{</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">]])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">DataSeries</span><span class="o">.</span><span class="n">fromNumPy</span> <span class="p">(</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The number of rows and columns in a Data Series can be obtained using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Currently individual values in a data series can be accessed using the set and get methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">setElement</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">4.567</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">getElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Data series can be plotted using the plot method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following script is an example of using the add_noise plugin. This plugin takes a data series and add a given amount of Guassian noise to all data except the data in the first column.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rrplugins</span> <span class="k">as</span> <span class="nn">tel</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tel</span><span class="o">.</span><span class="n">Plugin</span> <span class="p">(</span><span class="s2">&quot;tel_add_noise&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">viewManual</span><span class="p">()</span>
+<span class="n">pl</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">listOfProperties</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pl</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">Sigma</span> <span class="o">=</span> <span class="mf">0.00005</span>
+<span class="n">series</span> <span class="o">=</span> <span class="n">DataSeries</span><span class="o">.</span><span class="n">loadDataSeries</span><span class="p">(</span><span class="s2">&quot;..</span><span class="se">\\</span><span class="s2">Examples</span><span class="se">\\</span><span class="s2">testData.dat&quot;</span><span class="p">)</span>
+<span class="n">series</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">InputData</span> <span class="o">=</span> <span class="n">series</span>
+<span class="n">p</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">InputData</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Finished&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading"></a></h2>
+<p>Plugin objects are instanciated using Plugin class. For example to instanciate a plugin called myplugin, we would use the code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All interactions with plugins are via plugin properties. Values can be set and retrieved via plugin properties. For example, if a plugin has a property sigma, we can assign or access the value using the code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">sigma</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plugins have a single method that can be used to excecute the plugin’s functionality:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Once a plugin has been executed, any output from the plugin can be retrieved via properties. Let’s suppose for example there is a plugin all “test”, which has three properties called, x, y and result. When executed the plugin will take the values in x and y, compute the sum and assign it to result. The plugin can therefore be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">3.4</span>
+<span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">5.6</span>
+<span class="n">p</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html" class="btn btn-neutral float-left" title="Using RoadRunner from C++" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rrplugins_architecture.html" class="btn btn-neutral float-right" title="rrPlugins Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -146,7 +145,7 @@
 <p>This integrator should not really be used in practice as the forward Euler algorithm is highly unstable and will seldomly yield numerically correct values.</p>
 <p>This class also has two dummy variables, exampleParameter1 and exampleParameter2. These serve as examples of how to use the <a class="reference internal" href="Dictionary.html#classrr_1_1Dictionary"><span class="std std-ref">Dictionary</span></a> interface to get/set various tuning paramters that an <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> might have. These values will be displayed when the toString method is called, typically by Python.</p>
 <p>An example of calling simulate in Python, and the results of specifying the parameters as keyword arguments is</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">integrator</span><span class="o">=</span><span class="s1">&#39;euler&#39;</span><span class="p">,</span> <span class="n">exampleParameter1</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">exampleParameter2</span><span class="o">=</span><span class="s1">&#39;some value&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">integrator</span><span class="o">=</span><span class="s1">&#39;euler&#39;</span><span class="p">,</span> <span class="n">exampleParameter1</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">exampleParameter2</span><span class="o">=</span><span class="s1">&#39;some value&#39;</span><span class="p">);</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="p">)</span>
 <span class="o">&lt;</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">EulerIntegrator</span><span class="p">()</span>
@@ -156,7 +155,6 @@
 <span class="p">}</span><span class="o">&gt;</span>
 </pre></div>
 </div>
- </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -220,7 +218,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator8toStringEv">
 <span id="_CPPv3NK2rr15EulerIntegrator8toStringEv"></span><span id="_CPPv2NK2rr15EulerIntegrator8toStringEv"></span><span id="rr::EulerIntegrator::toStringC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a65fed1a29701ddcfb6d0d3f023550bc8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator8toStringEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>get a description of this object, compatable with python <strong>str</strong> </p>
+<dd><p>get a description of this object, compatable with python <strong>str</strong></p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -246,7 +244,7 @@
 </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a5c3fe76e2ab79a6bf9dfa5b1f382308a"><span class="std std-ref">getDescription</span></a> </p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a5c3fe76e2ab79a6bf9dfa5b1f382308a"><span class="std std-ref">getDescription</span></a></p>
 </div>
 </dd></dl>
 
@@ -261,7 +259,7 @@
 </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a915c7662fbab3e2c39a67826f70495fa"><span class="std std-ref">getHint</span></a> </p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a915c7662fbab3e2c39a67826f70495fa"><span class="std std-ref">getHint</span></a></p>
 </div>
 </dd></dl>
 

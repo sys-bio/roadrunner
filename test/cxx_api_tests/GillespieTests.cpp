@@ -77,3 +77,48 @@ TEST_F(GillespieTests, MaxStepSize) {
     EXPECT_NEAR(results->Element(1, 0), 55, 0.001);
 }
 
+TEST_F(GillespieTests, MaxNumSteps) {
+    RoadRunner rr(openLinearFlux.str());
+    rr.setIntegrator("gillespie");
+    //First check if properly stops with fixed step sizes
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.getIntegrator()->setValue("maximum_num_steps", 3);
+    EXPECT_TRUE(rr.getIntegrator()->getValue("maximum_num_steps") == 3);
+    try
+    {
+        const ls::DoubleMatrix* results = rr.simulate(0, 500, 3);
+        EXPECT_TRUE(false);
+    }
+    catch (exception& e)
+    {
+        EXPECT_STREQ(e.what(), "GillespieIntegrator::integrate failed:  max number of steps (3) reached before desired output at time 250.");
+    }
+
+    //Now check if properly stops with variable step sizes, but a minimum time step
+    rr.reset();
+    rr.getIntegrator()->setValue("variable_step_size", true);
+    rr.getIntegrator()->setValue("minimum_time_step", 20.0);
+    try
+    {
+        const ls::DoubleMatrix* results = rr.simulate(0, 500, 3);
+        EXPECT_TRUE(false);
+    }
+    catch (exception& e)
+    {
+        EXPECT_STREQ(e.what(), "GillespieIntegrator::integrate failed:  max number of steps (3) reached before desired output at time 20.");
+    }
+
+    //Check to make sure if max_steps is large enough, things work.
+    rr.reset();
+    rr.getIntegrator()->setValue("maximum_num_steps", 100000000);
+    EXPECT_TRUE(rr.getIntegrator()->getValue("maximum_num_steps") == 100000000);
+    const ls::DoubleMatrix* results = rr.simulate(0, 50, 11);
+
+    //Check to make sure max steps is effectively ignored if we have no minimum time step and variable step sizes
+    rr.reset();
+    rr.getIntegrator()->setValue("variable_step_size", true);
+    rr.getIntegrator()->setValue("minimum_time_step", 0.0);
+    rr.getIntegrator()->setValue("maximum_num_steps", 1);
+    results = rr.simulate(0, 50, 11);
+}
+

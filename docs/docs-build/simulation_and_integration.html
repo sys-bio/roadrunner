@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -102,7 +101,7 @@
 <p>At the highest level, RoadRunner generates and solves ODE (ordinary differential equation) problem
 of the form</p>
 <div class="math">
-<p><span class="math">y(t) = \int_0^t f(t, y) dt</span></p>
+<p><img src="_images/math/396da1500a83ba9a565344100cb23bd344f32215.png" alt="y(t) = \int_0^t f(t, y) dt"/></p>
 </div><p>where the function :math: f(t) is generated from the SBML document.</p>
 <p>As this is numerically integrated, it is impossible to specify a time step and other integration
 parameters that are ideal for all functions. As a general rule for numeric stability, if you have a

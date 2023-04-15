@@ -38,10 +38,10 @@ stages:
           matrix:
             64-bit Mac Release:
               BuildType: Release
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
             64-bit Mac Debug:
               BuildType: Debug
-              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         variables:
           LLVM_CACHE: 'false'
           PythonName: 'py39'
@@ -159,7 +159,7 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
             displayName: Run CMake Configure Command
           - script: |
               echo "less -N $(BUILD_DIR)/source/CMakeFiles/roadrunner.dir/build.make"
@@ -218,7 +218,7 @@ stages:
           SWIG_CACHE: 'false'
           MINICONDA_CACHE: 'false'
           LLVM_CACHE: 'false'
-          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-clang13-universal-binaries-rel.zip'
+          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         steps:
           - checkout: self
             submodules: recursive
@@ -343,7 +343,7 @@ stages:
               cd $(BUILD_DIR)
               ls
               export LD_LIBRARY_PATH=$(PythonLibDir)
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - script: |
@@ -842,7 +842,7 @@ stages:
               echo "g++ $(g++ --version)"
               sudo add-apt-repository ppa:ubuntu-toolchain-r/test
               sudo apt-get update
-              sudo apt-get install -y gcc-10 g++-10 doxygen dvipng texlive texlive-font-utils textlive-latex-extra
+              sudo apt-get install -y gcc-10 g++-10 doxygen dvipng texlive texlive-font-utils texlive-latex-extra
               sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 1
             displayName: Install g++10 and doxygen
           - script: |
@@ -1089,7 +1089,7 @@ stages:
 
               echo "cd'ing to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              ctest --tests-regex python_tests_RunStochasticTestSuite .
+              ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
             displayName: Run Stochastic test suite
 
           - script: |

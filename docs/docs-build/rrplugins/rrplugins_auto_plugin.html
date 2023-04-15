@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUTO2000 Plugin &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chi Square Plugin" href="rrplugins_chisquare_plugin.html" />
+    <link rel="prev" title="Add Noise Plugin" href="rrplugins_add_noise_plugin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="introduction.html">rrPlugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_add_noise_plugin.html">Add Noise Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AUTO2000 Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_chisquare_plugin.html">Chi Square Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="introduction.html">rrPlugins</a></li>
+      <li class="breadcrumb-item active">AUTO2000 Plugin</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rrplugins/rrplugins_auto_plugin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="auto2000-plugin">
+<h1>AUTO2000 Plugin<a class="headerlink" href="#auto2000-plugin" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The AUTO2000 plugin serves as a front-end for the AUTO2000 library, which is a library for continuation and bifurcation problems in ordinary differential equations <sup>1</sup>.</p>
+<p>Current limitations: Multiple continuation parameters are not supported, i.e. only one parameter can be selected for any continuation problem.</p>
+<p>Available properties in the auto2000 plugin are documented in the next section.</p>
+<p><sup>1</sup> AUTO2000 by Eusebius J. Doedel , Randy C. Paffenroth, Alan R. Champneys, Thomas F. Fairgrieve, Yuri A. Kuznetsov, Bart E. Oldeman, Bj�rn Sandstede and Xianjun Wang. See <a class="reference external" href="http://www.dam.brown.edu/people/sandsted/publications/auto2000.pdf">http://www.dam.brown.edu/people/sandsted/publications/auto2000.pdf</a>.</p>
+</section>
+<section id="plugin-properties">
+<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<p>The AUTO library has numerous properties that have been wrapped and made available to a plugin client. Each property is listed below with its data type, default value and a short description. For the exact usage and a more in detail description please consult the main AUTO2000 manual.</p>
+<p>The following properties are used internally by the auto library. Depending on the problem at hand, they may need to be tweaked.</p>
+<ol class="arabic simple">
+<li><p>SBML: SBML document as a string. Model to be used by AUTO</p></li>
+<li><p>TempFolder: Folder used by auto and the plugin for saving temporary files. Takes a string</p></li>
+<li><p>KeepTempFiles: Boolean indicating if temporary files should be deleted after an AUTO session or not. Default is ‘False’</p></li>
+<li><p>ScanDirection: Parameter instructing AUTO how to sweep its principal continuation parameter. Either ‘Positive’ or ‘Negative’. Default is ‘Positive’</p></li>
+<li><p>PrincipalContinuationParameter: The principal continuation parameter (PCP) is the first parameter that AUTO will sweep. Currently only one parameter is  supported, which by default is the PCP. Takes a string</p></li>
+<li><p>BifurcationPoints: This integer vector holds the exact point number (in the sequence of all output data) for an AUTO solution point. It can be used together with the labels in the bifurcationlabels property to assist in plotting a bifurcation diagram.</p></li>
+<li><p>BifurcationLabels: The string list holds the AUTO designated solution type label for a solution point, as found in the bifurcationpoints property. Consult the AUTO documentation for possible label types and their meaning</p></li>
+<li><p>BifurcationData: The BifurcationData property holds the bifurcation diagram after a session. The first column contains the values of the selected parameter, and successive columns are selected species</p></li>
+<li><p>fort2: Property containing the content of the AUTO temporary file, fort.2. Fort.2 is the input file for AUTO and created by the plugin</p></li>
+<li><p>fort3: Property containing the content of the AUTO temporary file, fort.3. The content of fort.3 file is undocumented in AUTO’s documentation</p></li>
+<li><p>fort6: Property containing the content of the AUTO temporary file, fort.6. The content of fort.6 file is a bifurcation session summary</p></li>
+<li><p>fort7: Property containing the content of the AUTO temporary file, fort.7. The content of fort.7 file is a bifurcation diagram on success</p></li>
+<li><p>fort8: Property containing the content of the AUTO temporary file, fort.8. The content of fort.8 file contain various statistics from the session</p></li>
+<li><p>fort9: Property containing the content of the AUTO temporary file, fort.8. Diagnostic messages, convergence history, eigenvalues, and Floquet multipliers are written in fort.9</p></li>
+<li><p>NDIM: The NDIM property correspond to the dimension of the system of equations</p></li>
+<li><p>IPS: Constant defining the problem type</p></li>
+<li><p>IRS: This constant sets the label of the solution where the computation is to be restarted.</p></li>
+<li><p>ILP: Fold detection; 1=ON, 0=OFF</p></li>
+<li><p>NICP: Property denoting the number of free parameters</p></li>
+<li><p>ICP: Free parameters</p></li>
+<li><p>NTST: The number of mesh intervals</p></li>
+<li><p>NCOL: The number of collocation points per mesh interval</p></li>
+<li><p>IAD: Mesh adaption every IAD steps; 0=OFF</p></li>
+<li><p>ISP: Bifurcation detection; 0=OFF, 1=BP(FP), 3=BP(PO,BVP), 2=all</p></li>
+<li><p>ISW: Branch switching: 1=normal, -1=switch branch (BP, HB, PD), 2=switch to two-parameter continuation (LP, BP, HB, TR) 3=switch to three-parameter continuation (BP)</p></li>
+<li><p>IPLT: This constant allows redefinition of the principal solution measure, which is printed as the second (real) column in the fort.7 output-file. See AUTO manual for possible settings</p></li>
+<li><p>NBC: Number of boundary conditions</p></li>
+<li><p>NINT: Number of integral conditions</p></li>
+<li><p>NMX: Maximum number of steps</p></li>
+<li><p>RL0: The lower bound on the principal continuation parameter</p></li>
+<li><p>RL1: The upper bound on the principal continuation parameter</p></li>
+<li><p>A0: The lower bound on the principal solution measure</p></li>
+<li><p>A1: The upper bound on the principal solution measure</p></li>
+<li><p>NPR: Save the solution in the solution file every NPR continuation steps</p></li>
+<li><p>MXBF: Automatic branch switching for the first MXBF bifurcation  points if IPS=0, 1</p></li>
+<li><p>IID: Control diagnostic output; 0=none, 1=little, 2=normal, 4=extensive</p></li>
+<li><p>ITMX: Maximum number of iterations for locating special solutions/points</p></li>
+<li><p>ITNW: Maximum number of correction steps</p></li>
+<li><p>NWTN: Corrector uses full newton for NWTN steps</p></li>
+<li><p>JAC: User defines derivatives; 0=no, 1=yes</p></li>
+<li><p>EPSL: Property setting the convergence criterion for parameters</p></li>
+<li><p>EPSU: Property setting the convergence criterion for solution components</p></li>
+<li><p>EPSS: Property setting the convergence criterion for special points</p></li>
+<li><p>DS: Session start step size</p></li>
+<li><p>DSMIN: Minimum continuation step size</p></li>
+<li><p>DSMAX: Maximum continuation step size</p></li>
+<li><p>IADS: Step size adaption every IADS steps; 0=OFF</p></li>
+<li><p>NTHL: The number of modified parameter weights (for BVP)</p></li>
+<li><p>THL: List of parameter weights</p></li>
+<li><p>NTHU: The number of modified solution component weights (for BVP)</p></li>
+<li><p>THU: List of solution weights</p></li>
+<li><p>NUZR: The number of user output points specified</p></li>
+<li><p>UZR: List of values for user defined output</p></li>
+</ol>
+</section>
+<section id="the-execute-function">
+<h2>The execute Function<a class="headerlink" href="#the-execute-function" title="Permalink to this heading"></a></h2>
+<p>The execute() function will start a bifurcation session. Depending on the problem at hand, the algorithm may run for a long time.
+The execute() method supports a boolean argument indicating if the execution of the plugin work will be done in a thread, or not. If set to false, i.e. executing execute(false), the function will be a blocking function and will not return until the plugin work is done. If it is set to true, the execute(true) will return immediately and the plugin work will be executed in a thread. The user can use the isPluginDone(plugin) to query the status of the plugin progression.
+The inThread argument defaults to false.</p>
+</section>
+<section id="plugin-events">
+<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<p>The auto2000 plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
+The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugins execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
+<ol class="arabic simple">
+<li><p>PluginStarted: Signals to application that the plugin has started applying noise on data. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginProgress: Communicates progress of noise generation. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginFinished: Signals to application that execution of the plugin has finished. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+</ol>
+</section>
+<section id="python-examples">
+<h2>Python examples<a class="headerlink" href="#python-examples" title="Permalink to this heading"></a></h2>
+<p>The following Python script illustrates how the auto plugin can be invoked, how to set its properties and finally how to plot a bifurcation diagram.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>from rrplugins import *
+
+try:
+    sbmlModel =&quot;BIOMD0000000203.xml&quot;
+    auto = Plugin(&quot;tel_auto2000&quot;)
+
+    #Setup Auto Propertys
+    auto.setProperty(&quot;SBML&quot;, readAllText(sbmlModel))
+
+    #Auto specific properties
+    auto.setProperty(&quot;ScanDirection&quot;, &quot;Positive&quot;)
+    auto.setProperty(&quot;PrincipalContinuationParameter&quot;, &quot;A&quot;)
+    auto.setProperty(&quot;PCPLowerBound&quot;, 10)
+    auto.setProperty(&quot;PCPUpperBound&quot;, 200)
+
+    #Max numberof points
+    auto.setProperty(&quot;NMX&quot;, 5000)
+
+    #Execute the plugin
+    auto.execute()
+
+    # Bifurcation summary
+    print(&quot;Summary: &quot; + auto.BifurcationSummary)
+
+    #Plot Bifurcation diagram
+    pts     = auto.BifurcationPoints
+    lbls    = auto.BifurcationLabels
+    biData  = auto.BifurcationData
+
+    biData.plotBifurcationDiagram(pts, lbls)
+
+    print(&quot;Done&quot;)
+
+except Exception as e:
+    print(&quot;There was a problem: &quot; + `e`)
+</pre></div>
+</div>
+<img alt="../_images/AutoOutput.png" src="../_images/AutoOutput.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rrplugins_add_noise_plugin.html" class="btn btn-neutral float-left" title="Add Noise Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rrplugins_chisquare_plugin.html" class="btn btn-neutral float-right" title="Chi Square Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

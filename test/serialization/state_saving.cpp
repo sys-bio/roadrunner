@@ -460,8 +460,8 @@ TEST_F(StateSavingTests, COPY_RR_WITH_ASSIGNMENT) {
     RoadRunner rri2(3, 1);
     rri2 = rri;
     EXPECT_TRUE(rri.getInstanceID() != rri2.getInstanceID());
-    EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[0], 5.0);
-    EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[1], 3.0);
+    EXPECT_EQ(rri2.getIntegrator()->getAbsoluteToleranceVector()[0], 5.0);
+    EXPECT_EQ(rri2.getIntegrator()->getAbsoluteToleranceVector()[1], 3.0);
 }
 
 TEST_F(StateSavingTests, COPY_RR_TWICE) {
@@ -737,8 +737,8 @@ TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     rri.saveState(stateFname.string());
     RoadRunner rri2;
     rri2.loadState(stateFname.string());
-    EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[0], 5.0);
-    EXPECT_EQ(rri2.getIntegrator()->getConcentrationTolerance()[1], 3.0);
+    EXPECT_EQ(rri2.getIntegrator()->getAbsoluteToleranceVector()[0], 5.0);
+    EXPECT_EQ(rri2.getIntegrator()->getAbsoluteToleranceVector()[1], 3.0);
     if (fs::exists(stateFname)){
         fs::remove(stateFname);
     }

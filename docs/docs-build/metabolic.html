@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -104,26 +103,26 @@
 progagate through the network. Two kinds of sensitivity are defined, system and local. The local sensitivities are
 described by the elasticities. These are defined as follows:</p>
 <div class="math">
-<p><span class="math">\varepsilon^v_S = \frac{\partial v}{\partial S} \frac{S}{v} = \frac{\partial \ln v}{\partial \ln S}</span></p>
-</div><p>Given a reaction rate <span class="math">v_i</span>, the elasticity describes how a given effector of the reaction step affects
+<p><img src="_images/math/e63962441d5dd8a9a866eb7e3def06cca1d95758.png" alt="\varepsilon^v_S = \frac{\partial v}{\partial S} \frac{S}{v} = \frac{\partial \ln v}{\partial \ln S}"/></p>
+</div><p>Given a reaction rate <img class="math" src="_images/math/5bd39cc00b680a56dad487c2aa31394db3e90140.png" alt="v_i"/>, the elasticity describes how a given effector of the reaction step affects
 the reaction rate. Because the definition is in terms of partial deriviatives, any effector that is perturbed assumes
 that all other potential effectors are unchanged.</p>
 <p>The system sensitivities are described by the control and response coefficients. These come in two forms, flux
 and concentration. The flux control coefficients measures how senstive a given flux is to a perturbation in the
 local rate of a reaction step. Often the local rate is perturbed by changing the enzyme concentration at the step.
-In this siutation the flux control coefficicent with respect to enzyme <span class="math">E_i</span> is defined as follow:</p>
+In this siutation the flux control coefficicent with respect to enzyme <img class="math" src="_images/math/9c58f0e8b0fe372667bf1fad2943133f3a2b4370.png" alt="E_i"/> is defined as follow:</p>
 <div class="math">
-<p><span class="math">C^J_{E_i} = \frac{dJ}{dE_i} \frac{E_1}{J} = \frac{d\ln J}{d\ln E_i}</span></p>
+<p><img src="_images/math/7cff1fb3a4e17883b36bd4cf446b3bd8f72a0dd6.png" alt="C^J_{E_i} = \frac{dJ}{dE_i} \frac{E_1}{J} = \frac{d\ln J}{d\ln E_i}"/></p>
 </div><p>Likewise the concentration control coefficient is defined by:</p>
 <div class="math">
-<p><span class="math">C^S_{E_i} = \frac{dS}{d E_i} \frac{E_1}{S} = \frac{d\ln S}{d\ln E_i}</span></p>
-</div><p>where <span class="math">S</span> is a given species. The response coefficients measure the sensitivity of a flux or species concentration
+<p><img src="_images/math/91ae9e829cccc56293bed54d54c13b51ae3af087.png" alt="C^S_{E_i} = \frac{dS}{d E_i} \frac{E_1}{S} = \frac{d\ln S}{d\ln E_i}"/></p>
+</div><p>where <img class="math" src="_images/math/b988975be41fd13b4d091c10202ba19374643586.png" alt="S"/> is a given species. The response coefficients measure the sensitivity of a flux or species concentration
 to a perturbation in some external effector. These are defined by:</p>
 <div class="math">
-<p><span class="math">R^J_{X} = \frac{dJ}{dX} \frac{X}{J} = \frac{d\ln J}{d\ln X}</span></p>
+<p><img src="_images/math/ee87ddf656c7e0d3511e97b47f80b6d675a77eb3.png" alt="R^J_{X} = \frac{dJ}{dX} \frac{X}{J} = \frac{d\ln J}{d\ln X}"/></p>
 </div><div class="math">
-<p><span class="math">R^S_{X} = \frac{dJ}{dX} \frac{X}{S} = \frac{d\ln S}{d\ln X}</span></p>
-</div><p>where <span class="math">X</span> is the external effector.</p>
+<p><img src="_images/math/0fded292aa273bcbe6be7682a9744195bc343bd1.png" alt="R^S_{X} = \frac{dJ}{dX} \frac{X}{S} = \frac{d\ln S}{d\ln X}"/></p>
+</div><p>where <img class="math" src="_images/math/ed38fa24f1c94891bd312012aab3f6673be3eb83.png" alt="X"/> is the external effector.</p>
 </section>
 <section id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h2>

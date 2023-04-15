@@ -39,10 +39,10 @@ To see a list of these settings, use :meth:`~roadrunner.Solver.getSettings()` on
   'multiple_steps',
   'variable_step_size')
 
-To set a parameter, you can use both methods described below:
+To set or get a parameter, you can use the methods described below:
 
-  >>>  rr.getIntegrator().relative_tolerance = 1e-10
   >>>  rr.getIntegrator().setValue('relative_tolerance', 1e-10)
+  >>>  rr.getIntegrator().getValue('initial_time_step')
 
 Be sure to set the parameter to the correct type, which can be obtained from
 the parameter's hint or description:
@@ -60,7 +60,7 @@ Parameters also have a display name:
 If you prefer to change settings on integrators without switching the current integrator,
 you can use :meth:`~RoadRunner.getIntegratorByName()` as follows:
 
-  >>>  rr.getIntegratorByName('gillespie').seed = 12345
+  >>>  rr.getIntegratorByName('gillespie').setValue("seed", 12345)
 
 Also, if you find yourself switching back and forth between integrators a lot, you can use
 :meth:`~RoadRunner.setIntegratorSetting()`.

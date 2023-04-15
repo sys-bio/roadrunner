@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -151,13 +150,12 @@
 <span id="_CPPv3N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="_CPPv2N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="rr::Dictionary::setItem__ssCR.rr::SettingCR"></span><span class="target" id="classrr_1_1Dictionary_1a4708fee12ec4cd5e879df9bf5570c02a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Set the value for an arbitrary key. </p>
 <p>The Setting object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">);</span>
 <span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someIntKey&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 <span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someStrKey&quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;some std::string&quot;</span><span class="p">));</span>
 <span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someFloatVal, 0.123);</span>
 </pre></div>
 </div>
- </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -166,13 +164,12 @@
 <dd><p>Get a value. </p>
 <p>Variants are POD. If the key does not exist, an std::exception will be thrown.</p>
 <p>The Setting object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the Setting can not be converted, it will raise an exception, i.e.</p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someIntKey&quot;</span><span class="p">);</span>
 <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someStrVal&quot;</span><span class="p">);</span>
 <span class="n">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someDoubleVal&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
- </p>
 </dd></dl>
 
 <dl class="cpp function">

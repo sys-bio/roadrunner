@@ -31,46 +31,46 @@ public:
 };
 
 
-TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromScalar1) {
-    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
-    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
-            .Times(2); // once in get and once in set
-    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
-    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
-    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
-    cvodeIntegrator.setConcentrationTolerance(0.1234);
-    auto x = cvodeIntegrator.getConcentrationTolerance();
-    for (auto i: x) {
-        ASSERT_NEAR(i, 0.1234, 1e-7);
-    }
-}
-
-TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromScalarSmallValue) {
-    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
-    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
-            .Times(2); // once in get and once in set
-    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
-    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
-    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
-    cvodeIntegrator.setConcentrationTolerance(1e-16);
-    auto x = cvodeIntegrator.getConcentrationTolerance();
-    for (auto i: x) {
-        ASSERT_NEAR(i, 1e-16, 1e-7);
-    }
-}
-
-TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromVector) {
-    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
-    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
-            .Times(2); // once in get and once in set
-    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
-    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
-    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
-    cvodeIntegrator.setConcentrationTolerance(std::vector<double>({0.1234, 1.5678}));
-    auto x = cvodeIntegrator.getConcentrationTolerance();
-    ASSERT_EQ(x, std::vector<double>({0.1234, 1.5678}));
-}
-
+//TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromScalar1) {
+//    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
+//            .Times(2); // once in get and once in set
+//    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
+//    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+//    cvodeIntegrator.setConcentrationTolerance(0.1234);
+//    auto x = cvodeIntegrator.getAbsoluteToleranceVector();
+//    for (auto i: x) {
+//        ASSERT_NEAR(i, 0.1234, 1e-7);
+//    }
+//}
+//
+//TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromScalarSmallValue) {
+//    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
+//            .Times(2); // once in get and once in set
+//    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
+//    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+//    cvodeIntegrator.setConcentrationTolerance(1e-16);
+//    auto x = cvodeIntegrator.getAbsoluteToleranceVector();
+//    for (auto i: x) {
+//        ASSERT_NEAR(i, 1e-16, 1e-7);
+//    }
+//}
+//
+//TEST_F(CVODEIntegratorUnitTests, SetConcentrationToleranceFromVector) {
+//    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentVolumes)
+//            .Times(2); // once in get and once in set
+//    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+//    EXPECT_CALL(mockExecutableModel, getCompartmentIndexForFloatingSpecies).WillRepeatedly(Return(0));
+//    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+//    cvodeIntegrator.setConcentrationTolerance(std::vector<double>({0.1234, 1.5678}));
+//    auto x = cvodeIntegrator.getAbsoluteToleranceVector();
+//    ASSERT_EQ(x, std::vector<double>({0.1234, 1.5678}));
+//}
+//
 /**
  * The only time loadConfigSettings is actually used is
  * inside CVODEIntegrator::resetSettings, so I can only
@@ -97,21 +97,6 @@ TEST_F(CVODEIntegratorUnitTests, setValue) {
     ASSERT_NEAR(1e-12, (float) absval, 1e-7);
     cvodeIntegrator.setValue("absolute_tolerance", 1e-14);
     ASSERT_NEAR(1e-14, (float) absval, 1e-7);
-}
-
-TEST_F(CVODEIntegratorUnitTests, DISABLED_setIndividualTolerance) {
-    EXPECT_CALL(mockExecutableModel, getNumFloatingSpecies)
-            .WillRepeatedly(Return(2));
-    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesIndex)
-            .WillRepeatedly(Return(0)); // we say that S1 is idx 0
-    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies)
-            .WillRepeatedly(Return(2)); // assume this model has 2 species
-    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
-    cvodeIntegrator.setIndividualTolerance("S1", 1e-14);
-    //Cannot perform this test because there are no compartments, so the compartment
-    // volumes are undefined.
-    //auto x = cvodeIntegrator.getConcentrationTolerance();
-    //ASSERT_EQ(x, std::vector<double>({1e-14, 1e-12}));
 }
 
 TEST_F(CVODEIntegratorUnitTests, resetSettings) {

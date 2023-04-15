@@ -59,20 +59,6 @@ ________________
     :param double value: tolerance value to set
  
     
-.. method:: Integrator.setConcentrationTolerance(value)
-
-    Sets the tolerance based on concentration of species. Only used for CVODE Integrator.
-    First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored in absolute_tolerance and used in the integration process.
-    Note that if a double list is given, the size of list must be equal to numIndFloatingSpecies+numRateRule, including tolerances for each independent floating species that doesn't have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list. 
-
-    :param double/double list value: tolerance value to set
-    
-.. method:: Integrator.getConcentrationTolerance()
-
-    Gets the tolerance vector based on concentration of species. Only used for CVODE Integrator.
-    The vector includes tolerances for each independent floating species that doesn't have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list. 
-
-
 CVODE
 -----
 
@@ -81,23 +67,32 @@ CVODE
 
 .. attribute:: Integrator.absolute_tolerance
 
-    Specifies the scalar or vector absolute tolerance based on amount of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
+    Specifies the scalar or vector absolute tolerance. As of roadrunner version 2.4.0, if a scalar absolute tolerance is used, it is multiplied by the value of every element in the state vector before being used.  If an element of the state vector is zero, the scalar is multiplied by 1.0 for non-species values, and by the size of the species compartment for species values (i.e. the amount of species present if its concentration was 1.0).
+
+    If desired, the full absolute tolerance vector may be used instead of a scalar.  In this case, it is assumed that the user has already done any appropriate scaling for individual state vector levels, and no additional scaling is performed: the values are used in Sundials as-is.  Calling 'getValue('absolute_tolerance') will return the scalar or vector set by the user, or the default Config::CVODE_MIN_ABSOLUTE value.  To obtain the full vector obtained from the scalar, use 'getAbsoluteToleranceVector'.
+
+    In Sundials, the CVODE algorithm calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE (a scalar).
     
-    >>> rr.integrator.absolute_tolerance = 1
-    >>> rr.integrator.absolute_tolerance = [1, 0.1, 0.01, 0.001] // setting vairous tolerance for each species
+    >>> rr.integrator.setValue("absolute_tolerance", 1e-10)
+    >>> rr.integrator.setValue("absolute_tolerance", [1, 0.1, 0.01, 0.001] // setting various tolerances for each species.
+
+    >>> rr.integrator.getValue("absolute_tolerance") //Gets the scalar or vector absolute tolerance, as set by the user or the default value.
+    >>> rr.integrator.getAbsoluteToleranceVector()   //Gets the absolute tolerance vector, as derived from the scalar value, or as set by the user directly.
     
 
 .. attribute:: Integrator.initial_time_step
 
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
 
-    >>> rr.integrator.initial_time_step = 1
+    >>> rr.integrator.setValue("initial_time_step", 1)
+    >>> rr.integrator.getValue("initial_time_step")
 
 .. attribute:: Integrator.maximum_adams_order
 
     Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.
 
-    >>> rr.integrator.maximum_adams_order = 20
+    >>> rr.integrator.setValue("maximum_adams_order", 20)
+    >>> rr.integrator.getValue("maximum_adams_order")
 
 .. attribute:: Integrator.maximum_bdf_order
 
@@ -123,7 +118,8 @@ CVODE
 
     Perform a multiple time step simulation. Default value is false.
 
-    >>> rr.integrator.multiple_steps = True
+    >>> rr.integrator.setValue("multiple_steps", True)
+    >>> rr.integrator.getValue("multiple_steps")
 
 .. attribute:: Integrator.relative_tolerance
 
@@ -152,7 +148,7 @@ Gillespie
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
 
     >>> rr.setIntegrator('gillespie') # set integrator first
-    >>> rr.integrator.initial_time_step = 2
+    >>> rr.integrator.setValue("initial_time_step", 2)
 
 
 .. attribute:: Integrator.maximum_time_step
@@ -210,7 +206,7 @@ RK45
     Specifies the maximum error tolerance allowed. Default value is 1e-12.
 
     >>> rr.setIntegrator('rk45') # set integrator first
-    >>> rr.integrator.epsilon = 1e-10
+    >>> rr.integrator.setValue("epsilon", 1e-10)
 
 .. attribute:: Integrator.maximum_time_step
 

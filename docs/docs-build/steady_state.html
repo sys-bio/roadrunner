@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -96,21 +95,21 @@
 <h1>Steady State Analysis<a class="headerlink" href="#steady-state-analysis" title="Permalink to this heading"></a></h1>
 <p>The dynamics of a biochemical network is described by the system equation</p>
 <div class="math">
-<p><span class="math">\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),</span></p>
+<p><img src="_images/math/1a419a6a6e05433235913e605955c489f0260a02.png" alt="\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),"/></p>
 </div><dl class="simple">
 <dt>where</dt><dd><ul class="simple">
-<li><p><span class="math">\mathbf{s}</span> is the vector of species concentrations</p></li>
-<li><p><span class="math">mathbf{N}</span> is the stoichiometry matrix</p></li>
-<li><p><span class="math">\mathbf{p}</span> is a vector of time independent parameters</p></li>
-<li><p><span class="math">t</span> is time.</p></li>
-<li><p><span class="math">mathbf{v}</span> is a matrix of reaction fluxes dependent on <span class="math">\mathbf{s}(t)</span>, <span class="math">\mathbf{p}</span> and time <span class="math">t</span></p></li>
+<li><p><img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> is the vector of species concentrations</p></li>
+<li><p><img class="math" src="_images/math/0cbf153880291e6d797f438c02d7d9823eaecc5a.png" alt="mathbf{N}"/> is the stoichiometry matrix</p></li>
+<li><p><img class="math" src="_images/math/c11f55e4a25377e79397d43a2cb7ec0365799d59.png" alt="\mathbf{p}"/> is a vector of time independent parameters</p></li>
+<li><p><img class="math" src="_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> is time.</p></li>
+<li><p><img class="math" src="_images/math/ac7e8b4fa4e0112568520980350793d46ad2257f.png" alt="mathbf{v}"/> is a matrix of reaction fluxes dependent on <img class="math" src="_images/math/6e0a7371bec827f5ecc2a6538cbbcd40edbd114f.png" alt="\mathbf{s}(t)"/>, <img class="math" src="_images/math/c11f55e4a25377e79397d43a2cb7ec0365799d59.png" alt="\mathbf{p}"/> and time <img class="math" src="_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/></p></li>
 </ul>
 </dd>
 </dl>
 <p>The steady state is the solution to the network equations when all the rates of change are zero. That is the concentrations of the floating
-species, <span class="math">\mathbf{s}</span> that satisfy:</p>
+species, <img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> that satisfy:</p>
 <div class="math">
-<p><span class="math">\mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t) = 0</span></p>
+<p><img src="_images/math/7412940a3b325f587db4dba17dbbedb5ec652197.png" alt="\mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t) = 0"/></p>
 </div><p>The steady state is easily calculated using the steady state method:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">steadyState</span><span class="p">()</span>
 <span class="go">1.234567E-9</span>

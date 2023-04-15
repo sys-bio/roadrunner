@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -77,8 +76,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#Integrator.setListener"><code class="docutils literal notranslate"><span class="pre">Integrator.setListener()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Integrator.tweakTolerances"><code class="docutils literal notranslate"><span class="pre">Integrator.tweakTolerances()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Integrator.setIndividualTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.setIndividualTolerance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Integrator.setConcentrationTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.setConcentrationTolerance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Integrator.getConcentrationTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.getConcentrationTolerance()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cvode">CVODE</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Integrator.absolute_tolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.absolute_tolerance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Integrator.initial_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.initial_time_step</span></code></a></li>
@@ -242,26 +239,6 @@ Note that this tolerance is based on the amount of species, and will be stored i
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="Integrator.setConcentrationTolerance">
-<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setConcentrationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setConcentrationTolerance" title="Permalink to this definition"></a></dt>
-<dd><p>Sets the tolerance based on concentration of species. Only used for CVODE Integrator.
-First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored in absolute_tolerance and used in the integration process.
-Note that if a double list is given, the size of list must be equal to numIndFloatingSpecies+numRateRule, including tolerances for each independent floating species that doesn’t have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>double/double list</em>) – tolerance value to set</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Integrator.getConcentrationTolerance">
-<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getConcentrationTolerance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getConcentrationTolerance" title="Permalink to this definition"></a></dt>
-<dd><p>Gets the tolerance vector based on concentration of species. Only used for CVODE Integrator.
-The vector includes tolerances for each independent floating species that doesn’t have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list.</p>
-</dd></dl>
-
 <section id="cvode">
 <h2>CVODE<a class="headerlink" href="#cvode" title="Permalink to this heading"></a></h2>
 <blockquote>
@@ -270,9 +247,15 @@ The vector includes tolerances for each independent floating species that doesn�
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Integrator.absolute_tolerance">
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">absolute_tolerance</span></span><a class="headerlink" href="#Integrator.absolute_tolerance" title="Permalink to this definition"></a></dt>
-<dd><p>Specifies the scalar or vector absolute tolerance based on amount of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]</span> <span class="o">//</span> <span class="n">setting</span> <span class="n">vairous</span> <span class="n">tolerance</span> <span class="k">for</span> <span class="n">each</span> <span class="n">species</span>
+<dd><p>Specifies the scalar or vector absolute tolerance. As of roadrunner version 2.4.0, if a scalar absolute tolerance is used, it is multiplied by the value of every element in the state vector before being used.  If an element of the state vector is zero, the scalar is multiplied by 1.0 for non-species values, and by the size of the species compartment for species values (i.e. the amount of species present if its concentration was 1.0).</p>
+<p>If desired, the full absolute tolerance vector may be used instead of a scalar.  In this case, it is assumed that the user has already done any appropriate scaling for individual state vector levels, and no additional scaling is performed: the values are used in Sundials as-is.  Calling ‘getValue(‘absolute_tolerance’) will return the scalar or vector set by the user, or the default Config::CVODE_MIN_ABSOLUTE value.  To obtain the full vector obtained from the scalar, use ‘getAbsoluteToleranceVector’.</p>
+<p>In Sundials, the CVODE algorithm calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE (a scalar).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;absolute_tolerance&quot;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;absolute_tolerance&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]</span> <span class="o">//</span> <span class="n">setting</span> <span class="n">various</span> <span class="n">tolerances</span> <span class="k">for</span> <span class="n">each</span> <span class="n">species</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;absolute_tolerance&quot;</span><span class="p">)</span> <span class="o">//</span><span class="n">Gets</span> <span class="n">the</span> <span class="n">scalar</span> <span class="ow">or</span> <span class="n">vector</span> <span class="n">absolute</span> <span class="n">tolerance</span><span class="p">,</span> <span class="k">as</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">default</span> <span class="n">value</span><span class="o">.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getAbsoluteToleranceVector</span><span class="p">()</span>   <span class="o">//</span><span class="n">Gets</span> <span class="n">the</span> <span class="n">absolute</span> <span class="n">tolerance</span> <span class="n">vector</span><span class="p">,</span> <span class="k">as</span> <span class="n">derived</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">scalar</span> <span class="n">value</span><span class="p">,</span> <span class="ow">or</span> <span class="k">as</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span> <span class="n">directly</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -281,7 +264,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <dt class="sig sig-object py" id="Integrator.initial_time_step">
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#Integrator.initial_time_step" title="Permalink to this definition"></a></dt>
 <dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mi">1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;initial_time_step&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;initial_time_step&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -290,7 +274,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <dt class="sig sig-object py" id="Integrator.maximum_adams_order">
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_adams_order</span></span><a class="headerlink" href="#Integrator.maximum_adams_order" title="Permalink to this definition"></a></dt>
 <dd><p>Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">maximum_adams_order</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;maximum_adams_order&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;maximum_adams_order&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -323,7 +308,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <dt class="sig sig-object py" id="Integrator.multiple_steps">
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">multiple_steps</span></span><a class="headerlink" href="#Integrator.multiple_steps" title="Permalink to this definition"></a></dt>
 <dd><p>Perform a multiple time step simulation. Default value is false.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">multiple_steps</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;multiple_steps&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;multiple_steps&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -358,7 +344,7 @@ The vector includes tolerances for each independent floating species that doesn�
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
 <dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;initial_time_step&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -428,7 +414,7 @@ The vector includes tolerances for each independent floating species that doesn�
 <span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">epsilon</span></span><a class="headerlink" href="#Integrator.epsilon" title="Permalink to this definition"></a></dt>
 <dd><p>Specifies the maximum error tolerance allowed. Default value is 1e-12.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk45&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;epsilon&quot;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

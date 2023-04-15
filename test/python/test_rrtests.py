@@ -1448,34 +1448,6 @@ def setVectorAmountAbsoluteTolerance(rrInstance, testId):
     print(passMsg (errorFlag))
 
 
-def setScalarConcentrationAbsoluteTolerance(rrInstance, testId):
-    errorFlag = False
-    value = float(readLine())
-    rrInstance.getIntegrator().setConcentrationTolerance(value)
-    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
-    expected = divide(readLine())
-    if not (len(tolerance) == len(expected)):
-        errorFlag = True
-    for i in range(len(expected)):
-        if not (tolerance[i] == float(expected[i])):
-            errorFlag = True
-    print(passMsg (errorFlag))
-
-def setVectorConcentrationAbsoluteTolerance(rrInstance, testId):
-    errorFlag = False
-    value = divide(readLine())
-    floatValue = [float(i) for i in value]
-    rrInstance.getIntegrator().setConcentrationTolerance(floatValue)
-    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
-    expected = divide(readLine())
-    if not (len(tolerance) == len(expected)):
-        errorFlag = True
-    for i in range(len(expected)):
-        if not (tolerance[i] == float(expected[i])):
-            errorFlag = True
-    print(passMsg (errorFlag))
-
-
 def setIndividualTolerance(rrInstance, testId):
     errorFlag = False
     value = float(readLine())
@@ -1578,8 +1550,6 @@ functions = {'[Add Species]' : addSpeciesConcentration,
              '[Set Steady State Selection List 2]': checkSetSteadyStateSelectionList,
              '[Set Time Course Selection List]': checkSetTimeCourseSelectionList,
              '[Set Vector Amount Absolute Tolerance]': setVectorAmountAbsoluteTolerance,
-             '[Set Scalar Concentration Absolute Tolerance]': setScalarConcentrationAbsoluteTolerance,
-             '[Set Vector Concentration Absolute Tolerance]': setVectorConcentrationAbsoluteTolerance,
              '[Set Individual Tolerance]': setIndividualTolerance,
              '[Species Concentrations]': checkSpeciesConcentrations,
              '[Species Initial Concentration Ids]': checkFloatingSpeciesInitialConcentrationIds,

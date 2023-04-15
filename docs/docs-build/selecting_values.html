@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -125,7 +124,7 @@ Note that if the identifier is a chemical species, it is interpreted as the spec
 a pair of squared brackets, <code class="docutils literal notranslate"><span class="pre">[]</span></code> is interpreted as a concentration, i.e. <code class="docutils literal notranslate"><span class="pre">[S1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[S2]</span></code>, etc.
 The identifier must be a valid SBML species, otherwise an exception is raised.</p>
 </dd>
-<dt>Rates of Change: <code class="docutils literal notranslate"><span class="pre">'</span></code></dt><dd><p>Represents the rate of change, <span class="math">\frac{dy}{dt}</span> of a species amount. Rates of change
+<dt>Rates of Change: <code class="docutils literal notranslate"><span class="pre">'</span></code></dt><dd><p>Represents the rate of change, <img class="math" src="_images/math/1cb096fbb13f00dedce2e4f91ab965ae954827d8.png" alt="\frac{dy}{dt}"/> of a species amount. Rates of change
 selections follow generally accepted mathematical convention of using the single quote, <code class="docutils literal notranslate"><span class="pre">'</span></code>
 to represent a time derivative. A rate of change selection is any identifier followed by a
 single quote, i.e. <code class="docutils literal notranslate"><span class="pre">S1'</span></code>, <code class="docutils literal notranslate"><span class="pre">S2'</span></code>, <code class="docutils literal notranslate"><span class="pre">P1'</span></code>, etc. A rates of change selection
