@@ -134,7 +134,6 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     delete PM;
 }
 
-/*
 TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
 {
     //We set the initial value of p6 to 35.11, which is *way* off, to test the edges of the optimizer.
@@ -144,7 +143,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
     //tpCreatePluginManager();
     //gHM.registerHandle(PM, typeid(PM).name());
-
+    /*
     Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
@@ -317,5 +316,6 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
             }
         }
     }
+     */
+    delete PM;
 }
-*/

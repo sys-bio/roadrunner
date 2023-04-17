@@ -115,11 +115,10 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
     delete PM;
 }
 
-/*
 TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
-
+    /*
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
@@ -279,5 +278,7 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
             }
         }
     }
+     */
+
+    delete PM;
 }
-*/

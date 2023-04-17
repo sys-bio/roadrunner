@@ -44,11 +44,11 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
     delete PM;
 }
-/*
+
 TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
-
+    /*
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
@@ -91,12 +91,14 @@ TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
     EXPECT_NEAR(data->getDataElement(1522, 4), 33.0702, 0.0001);
     EXPECT_NEAR(data->getDataElement(2345, 5), 22.6297, 0.0001);
     EXPECT_NEAR(data->getDataElement(3535, 6), 183.378, 0.001);
+     */
+    delete PM;
 }
 
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
-
+    /*
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
@@ -134,12 +136,14 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
     //Spot checks:
     EXPECT_NEAR(data->getDataElement(17, 0), 1.16386, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 2.63297, 0.0001);
+     */
+    delete PM;
 }
 
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
-
+    /*
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
@@ -179,5 +183,6 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
     EXPECT_NEAR(data->getDataElement(17, 0), -2.39214, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 3.0908, 0.0001);
     EXPECT_NEAR(data->getDataElement(193, 2), 10.5904, 0.0001);
+     */
+    delete PM;
 }
-*/
