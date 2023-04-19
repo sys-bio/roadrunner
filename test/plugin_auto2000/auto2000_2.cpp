@@ -55,5 +55,4 @@ EXPECT_NEAR(data->getDataElement(1522, 4), 33.0702, 0.0001);
 EXPECT_NEAR(data->getDataElement(2345, 5), 22.6297, 0.0001);
 EXPECT_NEAR(data->getDataElement(3535, 6), 183.378, 0.001);
  */
-delete PM;
 }

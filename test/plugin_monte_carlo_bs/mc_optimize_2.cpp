@@ -95,5 +95,4 @@ EXPECT_NEAR(percentile->getValue(), 1.09, 0.4);
 
 EXPECT_TRUE(percentiles->getNext() == NULL);
  */
-delete PM;
 }

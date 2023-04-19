@@ -48,5 +48,4 @@ PropertyBase* sig = tmplugin->getProperty("Sigma");
 double* sigma = static_cast<double*>(sig->getValueHandle());
 EXPECT_EQ(*sigma, 10);
  */
-delete PM;
 }

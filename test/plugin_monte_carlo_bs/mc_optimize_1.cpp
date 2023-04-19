@@ -92,6 +92,4 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 
     EXPECT_TRUE(percentiles->getNext() == NULL);
     */
-
-    delete PM;
 }

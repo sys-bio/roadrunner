@@ -68,6 +68,5 @@ ASSERT_TRUE(cl != NULL);
 
 EXPECT_EQ(cl_one, cl->getValue());
  */
-delete PM;
 }
 

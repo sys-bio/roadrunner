@@ -97,6 +97,4 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
         }
     }
     */
-
-    delete PM;
 }

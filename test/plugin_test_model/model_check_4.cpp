@@ -88,6 +88,5 @@ TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
 EXPECT_EQ(sim->cSize(), 4);
 EXPECT_EQ(sim->rSize(), 14);
  */
-delete PM;
 }
 

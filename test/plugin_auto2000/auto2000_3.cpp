@@ -50,5 +50,4 @@ EXPECT_EQ(data->getColumnNamesAsString(), "k3,[x]");
 EXPECT_NEAR(data->getDataElement(17, 0), 1.16386, 0.0001);
 EXPECT_NEAR(data->getDataElement(93, 1), 2.63297, 0.0001);
  */
-delete PM;
 }

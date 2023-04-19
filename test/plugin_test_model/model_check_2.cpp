@@ -55,5 +55,4 @@ for (int r = 0; r < s1001a.rSize(); r++)
 EXPECT_NEAR(sumdiff, 3.e-6 * 2 * 28, 1e-4);
 EXPECT_GT(sumdiff, 0);
  */
-delete PM;
 }

@@ -190,5 +190,4 @@ for (int c = 0; c < fit->cSize(); c++)
     }
 }
  */
-delete PM;
 }
