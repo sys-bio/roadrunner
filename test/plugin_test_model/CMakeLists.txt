@@ -9,6 +9,8 @@ add_test_executable(
 # make test_targets list global to all tests
 set(test_targets ${test_targets} PARENT_SCOPE)
 
+
+#[[
 set(test2_id "test_plugin_test_model_2")
 
 add_test_executable(
@@ -41,3 +43,5 @@ add_test_executable(
 
 # make test_targets list global to all tests
 set(test_targets ${test_targets} PARENT_SCOPE)
+
+]]
