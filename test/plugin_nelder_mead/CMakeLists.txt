@@ -1,3 +1,5 @@
+#[[
+
 set(test1_id "test_plugin_nelder_mead_1")
 
 add_test_executable(
@@ -10,7 +12,6 @@ add_test_executable(
 set(test_targets ${test_targets} PARENT_SCOPE)
 
 
-#[[
 set(test2_id "test_plugin_nelder_mead_2")
 
 add_test_executable(
