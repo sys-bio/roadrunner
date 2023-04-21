@@ -51,4 +51,6 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     PropertyBase* seedprop = tmplugin->getProperty("Seed");
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 0);
+
+    delete PM;
 }
