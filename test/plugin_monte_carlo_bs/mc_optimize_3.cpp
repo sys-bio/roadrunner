@@ -10,63 +10,62 @@ using namespace tlp;
 
 TEST_F(PluginMonteCarloTests, CHECK_SEED)
 {
-PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
-/*
-Plugin* tmplugin = PM->getPlugin("tel_test_model");
-ASSERT_TRUE(tmplugin != NULL);
-tmplugin->execute();
+    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
-ASSERT_TRUE(mcplugin != NULL);
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+    tmplugin->execute();
 
-mcplugin->setPropertyByString("Seed", "2001");
+    Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
+    ASSERT_TRUE(mcplugin != NULL);
 
-PropertyBase* sbml = tmplugin->getProperty("Model");
-mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
+    mcplugin->setPropertyByString("Seed", "2001");
 
-PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
-TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
-mcplugin->setPropertyValue("ExperimentalData", exdata);
+    PropertyBase* sbml = tmplugin->getProperty("Model");
+    mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
 
-Property<double> k1val(0.3, "k1", "", "", "", true);
-Properties ipl;
-ipl.add(&k1val);
-//tlp::Property tpcre();
-mcplugin->setPropertyValue("InputParameterList", &ipl);
-mcplugin->setPropertyByString("NrOfMCRuns", "40");
-mcplugin->setPropertyByString("FittedDataSelectionList", "[S1] [S2]");
-mcplugin->setPropertyByString("ExperimentalDataSelectionList", "[S1] [S2]");
+    PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
+    TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
+    mcplugin->setPropertyValue("ExperimentalData", exdata);
 
-mcplugin->execute();
-//EXPECT_EQ(mcplugin->getPropertyValueAsString("StatusMessage").find("converged"), 0);
+    Property<double> k1val(0.3, "k1", "", "", "", true);
+    Properties ipl;
+    ipl.add(&k1val);
+    //tlp::Property tpcre();
+    mcplugin->setPropertyValue("InputParameterList", &ipl);
+    mcplugin->setPropertyByString("NrOfMCRuns", "40");
+    mcplugin->setPropertyByString("FittedDataSelectionList", "[S1] [S2]");
+    mcplugin->setPropertyByString("ExperimentalDataSelectionList", "[S1] [S2]");
 
-TelluriumData* params = static_cast<TelluriumData*>(mcplugin->getPropertyValueHandle("MonteCarloParameters"));
-ASSERT_TRUE(params != NULL);
-TelluriumData copy(*params);
+    mcplugin->execute();
+    //EXPECT_EQ(mcplugin->getPropertyValueAsString("StatusMessage").find("converged"), 0);
 
-Properties* conf_intervals = static_cast<Properties*>(mcplugin->getPropertyValueHandle("ConfidenceIntervals"));
-ASSERT_TRUE(conf_intervals != NULL);
-Property<double>* cl = static_cast<Property<double>*>(conf_intervals->getFirst());
-ASSERT_TRUE(cl != NULL);
-double cl_one = cl->getValue();
+    TelluriumData* params = static_cast<TelluriumData*>(mcplugin->getPropertyValueHandle("MonteCarloParameters"));
+    ASSERT_TRUE(params != NULL);
+    TelluriumData copy(*params);
 
-mcplugin->execute();
-params = static_cast<TelluriumData*>(mcplugin->getPropertyValueHandle("MonteCarloParameters"));
-ASSERT_TRUE(params != NULL);
+    Properties* conf_intervals = static_cast<Properties*>(mcplugin->getPropertyValueHandle("ConfidenceIntervals"));
+    ASSERT_TRUE(conf_intervals != NULL);
+    Property<double>* cl = static_cast<Property<double>*>(conf_intervals->getFirst());
+    ASSERT_TRUE(cl != NULL);
+    double cl_one = cl->getValue();
 
-EXPECT_EQ(params->rSize(), 40);
-EXPECT_EQ(params->cSize(), 1);
-for (int r = 0; r < params->rSize(); r++)
-{
-    EXPECT_EQ(params->getDataElement(r, 0), copy.getDataElement(r, 0));
-}
+    mcplugin->execute();
+    params = static_cast<TelluriumData*>(mcplugin->getPropertyValueHandle("MonteCarloParameters"));
+    ASSERT_TRUE(params != NULL);
 
-conf_intervals = static_cast<Properties*>(mcplugin->getPropertyValueHandle("ConfidenceIntervals"));
-ASSERT_TRUE(conf_intervals != NULL);
-cl = static_cast<Property<double>*>(conf_intervals->getFirst());
-ASSERT_TRUE(cl != NULL);
+    EXPECT_EQ(params->rSize(), 40);
+    EXPECT_EQ(params->cSize(), 1);
+    for (int r = 0; r < params->rSize(); r++)
+    {
+        EXPECT_EQ(params->getDataElement(r, 0), copy.getDataElement(r, 0));
+    }
 
-EXPECT_EQ(cl_one, cl->getValue());
- */
+    conf_intervals = static_cast<Properties*>(mcplugin->getPropertyValueHandle("ConfidenceIntervals"));
+    ASSERT_TRUE(conf_intervals != NULL);
+    cl = static_cast<Property<double>*>(conf_intervals->getFirst());
+    ASSERT_TRUE(cl != NULL);
+
+    EXPECT_EQ(cl_one, cl->getValue());
 }
 

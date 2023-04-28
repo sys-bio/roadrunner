@@ -12,13 +12,13 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    //ASSERT_TRUE(tmplugin != NULL);
-    //tmplugin->execute();
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+    tmplugin->execute();
 
-    //Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
-    //ASSERT_TRUE(mcplugin != NULL);
-    /*
+    Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
+    ASSERT_TRUE(mcplugin != NULL);
+
     PropertyBase* sbml = tmplugin->getProperty("Model");
     mcplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
     PropertyBase* testdata = tmplugin->getProperty("TestDataWithNoise");
@@ -91,5 +91,4 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_TEST_MODEL)
     EXPECT_NEAR(percentile->getValue(), 1.05, 0.14);
 
     EXPECT_TRUE(percentiles->getNext() == NULL);
-    */
 }

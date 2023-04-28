@@ -24,6 +24,4 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     a2kplugin->setPropertyByString("RL1", "5");
 
     a2kplugin->execute();
-
-    PM->unloadAll();
 }

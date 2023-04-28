@@ -12,13 +12,13 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
-    //Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    //ASSERT_TRUE(tmplugin != NULL);
-    //tmplugin->execute();
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+    tmplugin->execute();
 
-    //Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
-    //ASSERT_TRUE(nmplugin != NULL);
-    /*
+    Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
+    ASSERT_TRUE(nmplugin != NULL);
+
     PropertyBase* sbml = tmplugin->getProperty("Model");
     nmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
 
@@ -96,5 +96,4 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
             }
         }
     }
-    */
 }
