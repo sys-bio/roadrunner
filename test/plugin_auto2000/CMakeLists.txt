@@ -1,9 +1,9 @@
-set(test1_id "test_plugin_auto2000_1")
+set(test_id "test_plugin_auto2000")
 
 add_test_executable(
-        ${test1_id} ${plugin_auto2000_test} test_targets
+        ${test_id} ${plugin_auto2000_test} test_targets
         ${SharedTestFiles}
-        auto2000_1.cpp PluginAuto2000Tests.cpp
+        auto2000.cpp
 )
 
 # make test_targets list global to all tests
