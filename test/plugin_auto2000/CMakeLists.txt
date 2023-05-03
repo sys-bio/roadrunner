@@ -1,14 +1,15 @@
-set(test_id "test_plugin_auto2000")
+#[[
+set(test1_id "test_plugin_auto2000_1")
 
 add_test_executable(
-        ${test_id} ${plugin_auto2000_test} test_targets
+        ${test1_id} test_targets
         ${SharedTestFiles}
-        auto2000.cpp
+        auto2000_1.cpp PluginAuto2000Tests.cpp
 )
 
 # make test_targets list global to all tests
 set(test_targets ${test_targets} PARENT_SCOPE)
-#[[
+
 set(test2_id "test_plugin_auto2000_2")
 
 add_test_executable(
