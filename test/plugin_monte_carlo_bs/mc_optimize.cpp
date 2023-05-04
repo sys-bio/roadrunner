@@ -32,7 +32,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 
     Plugin* mcplugin = PM->getPlugin("tel_monte_carlo_bs");
     ASSERT_TRUE(mcplugin != NULL);
-    /*
+
     mcplugin->setPropertyByString("MinimizerPlugin", "tel_nelder_mead");
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -53,7 +53,7 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 
     mcplugin->execute();
     //EXPECT_EQ(mcplugin->getPropertyValueAsString("StatusMessage").find("converged"), 0);
-
+    /*
     TelluriumData* params = static_cast<TelluriumData*>(mcplugin->getPropertyValueHandle("MonteCarloParameters"));
     ASSERT_TRUE(params != NULL);
     EXPECT_EQ(params->rSize(), 100);
