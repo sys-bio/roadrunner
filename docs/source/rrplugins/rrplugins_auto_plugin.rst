@@ -2,8 +2,8 @@
 AUTO2000 Plugin
 ************************
 
-Introduction
-============
+AUTO2000 Introduction
+=====================
 
 The AUTO2000 plugin serves as a front-end for the AUTO2000 library, which is a library for continuation and bifurcation problems in ordinary differential equations :sup:`1`.
 
@@ -13,8 +13,8 @@ Available properties in the auto2000 plugin are documented in the next section.
 
 :sup:`1` AUTO2000 by Eusebius J. Doedel , Randy C. Paffenroth, Alan R. Champneys, Thomas F. Fairgrieve, Yuri A. Kuznetsov, Bart E. Oldeman, Bj�rn Sandstede and Xianjun Wang. See http://www.dam.brown.edu/people/sandsted/publications/auto2000.pdf. 
 
-Plugin Properties
-=================
+AUTO2000 Plugin Properties
+==========================
 
 The AUTO library has numerous properties that have been wrapped and made available to a plugin client. Each property is listed below with its data type, default value and a short description. For the exact usage and a more in detail description please consult the main AUTO2000 manual. 
 
@@ -82,8 +82,8 @@ The execute() function will start a bifurcation session. Depending on the proble
 The execute() method supports a boolean argument indicating if the execution of the plugin work will be done in a thread, or not. If set to false, i.e. executing execute(false), the function will be a blocking function and will not return until the plugin work is done. If it is set to true, the execute(true) will return immediately and the plugin work will be executed in a thread. The user can use the isPluginDone(plugin) to query the status of the plugin progression.
 The inThread argument defaults to false. 
 
-Plugin Events
-=============
+AUTO2000 Plugin Events
+======================
 
 The auto2000 plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugins execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function. 

@@ -1,7 +1,7 @@
-IntegratorRegistration
+IntegratorFactory
 =======================================================
 
-.. doxygenclass:: rr::IntegratorRegistrationMgr
+.. doxygenclass:: rr::IntegratorFactory
     :members:
     :protected-members:
     :private-members:

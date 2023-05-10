@@ -7,7 +7,6 @@ rrPlugins
     :hidden:
 
     rrplugins_architecture
-    rrplugins_documentation
     rrplugins_add_noise_plugin
     rrplugins_auto_plugin
     rrplugins_chisquare_plugin

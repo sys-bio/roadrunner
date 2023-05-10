@@ -1,9 +1,9 @@
-************************
+**************************************
 Monte Carlo bootstrap algorithm Plugin
-************************
+**************************************
 
-Introduction
-============
+Monte Carlo Introduction
+========================
 
 The Monte Carlo plugin is used to obtain estimates of the confidence limits for a model’s parameters. This is in the context where experimental data exists and a parameter minimization method, such as Levenberg-Marquardt or Nelder-Mead has already been used in order to find a parameter minimum.
 
@@ -14,8 +14,8 @@ The plugin has properties such as the size of the Monte Carlo population, minimi
 Plugin properties are documented in more detail in the next section. 
 
 
-Plugin Properties
-=================
+Monte Carlo Plugin Properties
+=============================
 
 Available properties in the Monte Carlo plugin are listed in the table below. 
 
@@ -30,8 +30,8 @@ Available properties in the Monte Carlo plugin are listed in the table below.
 9. MinimizerPlugin: Minimizer used by the Monte Carlo Engine, e.g. ”Levenberg_Marquardt”. 
 
 
-Plugin Events
-=============
+Monte Carlo Plugin Events
+=========================
 
 The Monte Carlo plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugins execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function. 

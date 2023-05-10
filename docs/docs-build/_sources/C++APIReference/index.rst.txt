@@ -13,14 +13,14 @@ The LibRoadRunner C++ Library
     ExecutableModelFactory.rst
     GillespieIntegrator.rst
     Integrator.rst
-    IntegratorRegistration.rst
+    IntegratorFactory.rst
     NLEQ1Solver.rst
     NLEQ2Solver.rst
     RK45Integrator.rst
     RK4Integrator.rst
     SBMLValidator.rst
     Solver.rst
-    SolverRegistration.rst
+    SolverFactory.rst
     SteadyStateSolver.rst
     Variant.rst
     rrCompiler.rst
@@ -41,7 +41,7 @@ The LibRoadRunner C++ Library
     rrSBMLReader.rst
     rrSelectionRecord.rst
     rrSparse.rst
-    rrSteadyStateSolver.rst
+    RoadRunnerMap.rst
 
 
 Introduction

@@ -69,10 +69,10 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Test Model  Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Test Model Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test-model-introduction">Test Model Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-model-plugin-properties">Test Model Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-model-plugin-events">Test Model Plugin Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
 </ul>
@@ -102,7 +102,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="introduction.html">rrPlugins</a></li>
-      <li class="breadcrumb-item active">Test Model  Plugin</li>
+      <li class="breadcrumb-item active">Test Model Plugin</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/rrplugins/rrplugins_testmodel_plugin.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -113,23 +113,23 @@
            <div itemprop="articleBody">
              
   <section id="test-model-plugin">
-<h1>Test Model  Plugin<a class="headerlink" href="#test-model-plugin" title="Permalink to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h1>Test Model Plugin<a class="headerlink" href="#test-model-plugin" title="Permalink to this heading"></a></h1>
+<section id="test-model-introduction">
+<h2>Test Model Introduction<a class="headerlink" href="#test-model-introduction" title="Permalink to this heading"></a></h2>
 <p>The purpose of the TestModel plugin is to conveniently embed a SBML test model in a plugin. In addition, the plugin provides the user with simulated data, with and without applied artificial Gaussian noise.</p>
 <p>Currently no settings are exposed for the actual simulation of the test model.</p>
 <p>The TestModel plugin depends on the AddNoise plugin.</p>
 </section>
-<section id="plugin-properties">
-<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<section id="test-model-plugin-properties">
+<h2>Test Model Plugin Properties<a class="headerlink" href="#test-model-plugin-properties" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Model: The actual test model, in XML format.</p></li>
 <li><p>TestData: Simulated data, using the TestModel as input and default RoadRunner Simulation values.</p></li>
 <li><p>TestDataWithNoise: NumberSimulated data, with applied noise.</p></li>
 </ol>
 </section>
-<section id="plugin-events">
-<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<section id="test-model-plugin-events">
+<h2>Test Model Plugin Events<a class="headerlink" href="#test-model-plugin-events" title="Permalink to this heading"></a></h2>
 <p>This plugin does not use any plugin events.</p>
 </section>
 <section id="the-execute-function">

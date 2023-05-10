@@ -71,14 +71,14 @@
 <li class="toctree-l2"><a class="reference internal" href="ExecutableModelFactory.html">ExecutableModelFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GillespieIntegrator.html">GillespieIntegrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Integrator.html">Integrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="IntegratorRegistration.html">IntegratorRegistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IntegratorFactory.html">IntegratorFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NLEQ1Solver.html">NLEQ1Solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NLEQ2Solver.html">NLEQ2Solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RK45Integrator.html">RK45Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RK4Integrator.html">RK4Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SBMLValidator.html">SBMLValidator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Solver.html">Solver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SolverRegistration.html">SolverRegistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SolverFactory.html">SolverFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SteadyStateSolver.html">SteadyStateSolver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Variant.html">Variant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrCompiler.html">rrCompiler</a></li>
@@ -99,7 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rrSBMLReader.html">rrSBMLReader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrSelectionRecord.html">rrSelectionRecord</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrSparse.html">rrSparse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrSteadyStateSolver.html">rrSteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoadRunnerMap.html">RoadRunnerMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-new-integrator">Creating a new Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
@@ -259,7 +259,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr10RoadRunner26getSteadyStateSolverByNameERKNSt6stringE">
 <span id="_CPPv3N2rr10RoadRunner26getSteadyStateSolverByNameERKNSt6stringE"></span><span id="_CPPv2N2rr10RoadRunner26getSteadyStateSolverByNameERKNSt6stringE"></span><span id="rr::RoadRunner::getSteadyStateSolverByName__ssCR"></span><span class="target" id="classrr_1_1RoadRunner_1a588a2b17f736b4830f0327bf18bf455d"></span><a class="reference internal" href="SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolverE" title="rr::SteadyStateSolver"><span class="n"><span class="pre">SteadyStateSolver</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getSteadyStateSolverByName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10RoadRunner26getSteadyStateSolverByNameERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Get an <a class="reference internal" href="rrSteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> by name without switching the current solver. </p>
+<dd><p>Get an <a class="reference internal" href="SteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> by name without switching the current solver. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -318,7 +318,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr10RoadRunner20setSteadyStateSolverERKNSt6stringE">
 <span id="_CPPv3N2rr10RoadRunner20setSteadyStateSolverERKNSt6stringE"></span><span id="_CPPv2N2rr10RoadRunner20setSteadyStateSolverERKNSt6stringE"></span><span id="rr::RoadRunner::setSteadyStateSolver__ssCR"></span><span class="target" id="classrr_1_1RoadRunner_1a8bfdd74d62dfebda90f01d183c8f4201"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setSteadyStateSolver</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10RoadRunner20setSteadyStateSolverERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>set the current <a class="reference internal" href="rrSteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> to </p>
+<dd><p>set the current <a class="reference internal" href="SteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> to </p>
 <p>
 use getRegisteredSteadyStateSolverNames to get a list of available names </p>
 <dl class="field-list simple">
@@ -357,7 +357,7 @@ Use getRegisteredIntegratorNames to get a list of available integrator solver na
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr10RoadRunner23steadyStateSolverExistsERKNSt6stringE">
 <span id="_CPPv3N2rr10RoadRunner23steadyStateSolverExistsERKNSt6stringE"></span><span id="_CPPv2N2rr10RoadRunner23steadyStateSolverExistsERKNSt6stringE"></span><span id="rr::RoadRunner::steadyStateSolverExists__ssCR"></span><span class="target" id="classrr_1_1RoadRunner_1a079cff347871871d192c2db5c02cbdf5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">steadyStateSolverExists</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10RoadRunner23steadyStateSolverExistsERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>returns true if <a class="reference internal" href="rrSteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a></p>
+<dd><p>returns true if <a class="reference internal" href="SteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> – exists. </p>
@@ -464,7 +464,7 @@ Use getRegisteredIntegratorNames to get a list of available integrator solver na
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>IntegratorFactory, </p>
+<p><a class="reference internal" href="IntegratorFactory.html#classrr_1_1IntegratorFactory"><span class="std std-ref">IntegratorFactory</span></a>, </p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -1549,7 +1549,7 @@ In the MCA routines, <a class="reference internal" href="#classrr_1_1RoadRunner"
 <dd><p>Compute the steady state of the model, returns the sum of squares of the solution. </p>
 <p>The steady state solver and whatever options it needs may be specified via the given dictionary. For a list of all available steady state solvers, <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>SteadyStateSolverFactory.</p>
+<p><a class="reference internal" href="SolverFactory.html#classrr_1_1SteadyStateSolverFactory"><span class="std std-ref">SteadyStateSolverFactory</span></a>.</p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -1941,7 +1941,7 @@ In the MCA routines, <a class="reference internal" href="#classrr_1_1RoadRunner"
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr10RoadRunner35getRegisteredSteadyStateSolverNamesEv">
 <span id="_CPPv3N2rr10RoadRunner35getRegisteredSteadyStateSolverNamesEv"></span><span id="_CPPv2N2rr10RoadRunner35getRegisteredSteadyStateSolverNamesEv"></span><span id="rr::RoadRunner::getRegisteredSteadyStateSolverNames"></span><span class="target" id="classrr_1_1RoadRunner_1a4064f1dba1c7342c6e81987bfc61d2f7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRegisteredSteadyStateSolverNames</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10RoadRunner35getRegisteredSteadyStateSolverNamesEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Return a std::vector of the names of all registered <a class="reference internal" href="rrSteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> names. </p>
+<dd><p>Return a std::vector of the names of all registered <a class="reference internal" href="SteadyStateSolver.html#classrr_1_1SteadyStateSolver"><span class="std std-ref">SteadyStateSolver</span></a> names. </p>
 </dd></dl>
 
 <dl class="cpp function">

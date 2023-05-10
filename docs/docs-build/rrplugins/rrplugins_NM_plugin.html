@@ -69,13 +69,13 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Nelder-Mead algorithm Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nelder-mead-introduction">Nelder-Mead Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nelder-mead-plugin-properties">Nelder-Mead Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nelder-mead-plugin-events">Nelder-Mead Plugin Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
@@ -113,15 +113,15 @@
              
   <section id="nelder-mead-algorithm-plugin">
 <h1>Nelder-Mead algorithm Plugin<a class="headerlink" href="#nelder-mead-algorithm-plugin" title="Permalink to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<section id="nelder-mead-introduction">
+<h2>Nelder-Mead Introduction<a class="headerlink" href="#nelder-mead-introduction" title="Permalink to this heading"></a></h2>
 <p>The Nelder-Mead plugin is used to fit an SBML model’s parameters to experimental data.</p>
 <p>The plugin has numerous properties to allow the user full control over the internal fitting engine, as well as access to generated fitted data after a minimization session. In addition, various statistical properties, such as standardized residuals, Q-Q data, ChiSquare and reduced ChiSquare are made accessible to the user. The resulting parameter values also come with estimated confidence limits.</p>
 <p>The current implementation is based on the Nelder-Mead C implementation by Michael F. Hutt <sup>1</sup>.</p>
 <p><sup>1</sup>  An implementation of the Nelder-Mead simplex method. Copyright (c) 1997-2011 Michael F. Hutt</p>
 </section>
-<section id="plugin-properties">
-<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<section id="nelder-mead-plugin-properties">
+<h2>Nelder-Mead Plugin Properties<a class="headerlink" href="#nelder-mead-plugin-properties" title="Permalink to this heading"></a></h2>
 <p>Available properties in the Nelder-Mead plugin are listed in the table below.
 The following properties are used internally by the fitting engine. They are pre-set with default values. Depending on the minimization problem at hand, they may need to be tweaked.</p>
 <ol class="arabic simple">
@@ -153,8 +153,8 @@ The following properties are used internally by the fitting engine. They are pre
 <li><p>Gamma: Expansion coefficient. Default is 1.</p></li>
 </ol>
 </section>
-<section id="plugin-events">
-<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<section id="nelder-mead-plugin-events">
+<h2>Nelder-Mead Plugin Events<a class="headerlink" href="#nelder-mead-plugin-events" title="Permalink to this heading"></a></h2>
 <p>The Nelder-Mead plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
 <ol class="arabic simple">

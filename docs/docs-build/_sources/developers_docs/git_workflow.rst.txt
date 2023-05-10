@@ -18,7 +18,7 @@ develop branch.
 
 Now that you are in a new branch ``feature-branch`` any changes are completely isolated
 from the main ``develop`` branch, thus minimizing inclusion of accidental
-bugs into roadrunner. To push this new ``feature-branch` to github do
+bugs into roadrunner. To push this new ``feature-branch`` to github do
 
 .. code-block:: bash
 

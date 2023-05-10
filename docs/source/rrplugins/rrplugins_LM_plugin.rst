@@ -1,19 +1,19 @@
-************************
+************************************
 Levenberg-Marquardt algorithm Plugin
-************************
+************************************
 
-Introduction
-============
+Levenberg-Marquardt Introduction
+================================
 
-The Levenberg-Marquardt plugin is used to fit an SBML model’s parameters to experimental data.
+The Levenberg-Marquardt plugin is used to fit an SBML model's parameters to experimental data.
 
 The plugin has numerous properties to allow the user full control over the internal fitting engine, as well as access to generated fitted data after a minimization session. In addition, various statistical properties, such as standardized residuals, Q-Q data, ChiSquare and reduced ChiSquare are made accessible to the user. The resulting parameter values also come with estimated confidence limits.
 
 The current implementation is based on the lmfit C library by Joachim Wuttke1.
 
 
-Plugin Properties
-=================
+Levenberg-Marquardt Plugin Properties
+=====================================
 
 Available properties in the Levenberg-Marquardt plugin are listed in the table below.
 The following properties are used internally by the fitting engine. They are pre-set with default values. Depending on the minimization problem at hand, they may need to be tweaked. 
@@ -45,8 +45,8 @@ The following properties are used internally by the fitting engine. They are pre
 25. patience: Used for setting maximum number of iterations, calculated as patience*(nr_of_parameters +1). Default is 100.
 
 
-Plugin Events
-=============
+Levenberg-Marquardt Plugin Events
+=================================
 
 The Levenberg-Marquardt plugin are using all of a plugins available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events. The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.  
 

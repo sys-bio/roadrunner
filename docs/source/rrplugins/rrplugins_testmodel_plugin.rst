@@ -1,9 +1,9 @@
 ************************
-Test Model  Plugin
+Test Model Plugin
 ************************
 
-Introduction
-============
+Test Model Introduction
+=======================
 
 The purpose of the TestModel plugin is to conveniently embed a SBML test model in a plugin. In addition, the plugin provides the user with simulated data, with and without applied artificial Gaussian noise.
 
@@ -11,15 +11,15 @@ Currently no settings are exposed for the actual simulation of the test model.
 
 The TestModel plugin depends on the AddNoise plugin. 
 
-Plugin Properties
-=================
+Test Model Plugin Properties
+============================
 
 1. Model: The actual test model, in XML format. 
 2. TestData: Simulated data, using the TestModel as input and default RoadRunner Simulation values. 
 3. TestDataWithNoise: NumberSimulated data, with applied noise. 
 
-Plugin Events
-=============
+Test Model Plugin Events
+========================
 
 This plugin does not use any plugin events. 
 

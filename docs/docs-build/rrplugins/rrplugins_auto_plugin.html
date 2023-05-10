@@ -65,10 +65,10 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_add_noise_plugin.html">Add Noise Plugin</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">AUTO2000 Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto2000-introduction">AUTO2000 Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto2000-plugin-properties">AUTO2000 Plugin Properties</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto2000-plugin-events">AUTO2000 Plugin Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
 </ul>
 </li>
@@ -76,7 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
@@ -114,15 +114,15 @@
              
   <section id="auto2000-plugin">
 <h1>AUTO2000 Plugin<a class="headerlink" href="#auto2000-plugin" title="Permalink to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<section id="auto2000-introduction">
+<h2>AUTO2000 Introduction<a class="headerlink" href="#auto2000-introduction" title="Permalink to this heading"></a></h2>
 <p>The AUTO2000 plugin serves as a front-end for the AUTO2000 library, which is a library for continuation and bifurcation problems in ordinary differential equations <sup>1</sup>.</p>
 <p>Current limitations: Multiple continuation parameters are not supported, i.e. only one parameter can be selected for any continuation problem.</p>
 <p>Available properties in the auto2000 plugin are documented in the next section.</p>
 <p><sup>1</sup> AUTO2000 by Eusebius J. Doedel , Randy C. Paffenroth, Alan R. Champneys, Thomas F. Fairgrieve, Yuri A. Kuznetsov, Bart E. Oldeman, Bj�rn Sandstede and Xianjun Wang. See <a class="reference external" href="http://www.dam.brown.edu/people/sandsted/publications/auto2000.pdf">http://www.dam.brown.edu/people/sandsted/publications/auto2000.pdf</a>.</p>
 </section>
-<section id="plugin-properties">
-<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<section id="auto2000-plugin-properties">
+<h2>AUTO2000 Plugin Properties<a class="headerlink" href="#auto2000-plugin-properties" title="Permalink to this heading"></a></h2>
 <p>The AUTO library has numerous properties that have been wrapped and made available to a plugin client. Each property is listed below with its data type, default value and a short description. For the exact usage and a more in detail description please consult the main AUTO2000 manual.</p>
 <p>The following properties are used internally by the auto library. Depending on the problem at hand, they may need to be tweaked.</p>
 <ol class="arabic simple">
@@ -187,8 +187,8 @@
 The execute() method supports a boolean argument indicating if the execution of the plugin work will be done in a thread, or not. If set to false, i.e. executing execute(false), the function will be a blocking function and will not return until the plugin work is done. If it is set to true, the execute(true) will return immediately and the plugin work will be executed in a thread. The user can use the isPluginDone(plugin) to query the status of the plugin progression.
 The inThread argument defaults to false.</p>
 </section>
-<section id="plugin-events">
-<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<section id="auto2000-plugin-events">
+<h2>AUTO2000 Plugin Events<a class="headerlink" href="#auto2000-plugin-events" title="Permalink to this heading"></a></h2>
 <p>The auto2000 plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugins execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
 <ol class="arabic simple">

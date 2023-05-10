@@ -67,16 +67,16 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_auto_plugin.html">AUTO2000 Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_chisquare_plugin.html">Chi Square Plugin</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Levenberg-Marquardt algorithm Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#levenberg-marquardt-introduction">Levenberg-Marquardt Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#levenberg-marquardt-plugin-properties">Levenberg-Marquardt Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#levenberg-marquardt-plugin-events">Levenberg-Marquardt Plugin Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
@@ -114,14 +114,14 @@
              
   <section id="levenberg-marquardt-algorithm-plugin">
 <h1>Levenberg-Marquardt algorithm Plugin<a class="headerlink" href="#levenberg-marquardt-algorithm-plugin" title="Permalink to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<section id="levenberg-marquardt-introduction">
+<h2>Levenberg-Marquardt Introduction<a class="headerlink" href="#levenberg-marquardt-introduction" title="Permalink to this heading"></a></h2>
 <p>The Levenberg-Marquardt plugin is used to fit an SBML model’s parameters to experimental data.</p>
 <p>The plugin has numerous properties to allow the user full control over the internal fitting engine, as well as access to generated fitted data after a minimization session. In addition, various statistical properties, such as standardized residuals, Q-Q data, ChiSquare and reduced ChiSquare are made accessible to the user. The resulting parameter values also come with estimated confidence limits.</p>
 <p>The current implementation is based on the lmfit C library by Joachim Wuttke1.</p>
 </section>
-<section id="plugin-properties">
-<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<section id="levenberg-marquardt-plugin-properties">
+<h2>Levenberg-Marquardt Plugin Properties<a class="headerlink" href="#levenberg-marquardt-plugin-properties" title="Permalink to this heading"></a></h2>
 <p>Available properties in the Levenberg-Marquardt plugin are listed in the table below.
 The following properties are used internally by the fitting engine. They are pre-set with default values. Depending on the minimization problem at hand, they may need to be tweaked.</p>
 <ol class="arabic simple">
@@ -152,8 +152,8 @@ The following properties are used internally by the fitting engine. They are pre
 <li><p>patience: Used for setting maximum number of iterations, calculated as patience*(nr_of_parameters +1). Default is 100.</p></li>
 </ol>
 </section>
-<section id="plugin-events">
-<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<section id="levenberg-marquardt-plugin-events">
+<h2>Levenberg-Marquardt Plugin Events<a class="headerlink" href="#levenberg-marquardt-plugin-events" title="Permalink to this heading"></a></h2>
 <p>The Levenberg-Marquardt plugin are using all of a plugins available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events. The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
 <ol class="arabic simple">
 <li><p>PluginStarted: Signals to application that the plugin has started applying noise on data. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>

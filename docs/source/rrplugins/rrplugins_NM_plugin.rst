@@ -1,9 +1,9 @@
-************************
+****************************
 Nelder-Mead algorithm Plugin
-************************
+****************************
 
-Introduction
-============
+Nelder-Mead Introduction
+========================
 
 The Nelder-Mead plugin is used to fit an SBML model’s parameters to experimental data.
 
@@ -14,8 +14,8 @@ The current implementation is based on the Nelder-Mead C implementation by Micha
 :sup:`1`  An implementation of the Nelder-Mead simplex method. Copyright (c) 1997-2011 Michael F. Hutt 
 
 
-Plugin Properties
-=================
+Nelder-Mead Plugin Properties
+=============================
 
 Available properties in the Nelder-Mead plugin are listed in the table below.
 The following properties are used internally by the fitting engine. They are pre-set with default values. Depending on the minimization problem at hand, they may need to be tweaked. 
@@ -48,8 +48,8 @@ The following properties are used internally by the fitting engine. They are pre
 26. Gamma: Expansion coefficient. Default is 1.
 
 
-Plugin Events
-=============
+Nelder-Mead Plugin Events
+=========================
 
 The Nelder-Mead plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function. 

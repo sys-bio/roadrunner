@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx_tabs.tabs",
     "sphinx_rtd_theme",
+    "myst_parser",
 ]
 
 # make todo items show in docs

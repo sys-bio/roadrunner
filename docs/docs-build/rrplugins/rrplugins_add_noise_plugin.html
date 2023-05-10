@@ -64,9 +64,9 @@
 <li class="toctree-l1 current"><a class="reference internal" href="introduction.html">rrPlugins</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Add Noise Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-properties">Plugin Properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plugin-events">Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-introduction">Add Noise Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-plugin-properties">Add Noise Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-plugin-events">Add Noise Plugin Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#add-noise-to-data-acquired-from-roadrunner">Add noise to data acquired from RoadRunner</a></li>
@@ -80,7 +80,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model  Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
@@ -118,15 +118,15 @@
              
   <section id="add-noise-plugin">
 <h1>Add Noise Plugin<a class="headerlink" href="#add-noise-plugin" title="Permalink to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<section id="add-noise-introduction">
+<h2>Add Noise Introduction<a class="headerlink" href="#add-noise-introduction" title="Permalink to this heading"></a></h2>
 <p>The purpose of the AddNoise plugin is to introduce random noise to Tellurium data.</p>
 <p>Noise generation uses the fact that a Rayleigh-distributed random variable R, with the probability distribution <img class="math" src="../_images/math/cd5eaf8919081ea1051f328e1c2458bbbd713080.png" alt="F(R) = 0"/> if <img class="math" src="../_images/math/78b0896f7dd696474ca1d9c5e0578fbaf2d16ec1.png" alt="R &lt; 0"/> and <img class="math" src="../_images/math/a48bdeec6d7aebb502232fd3f67c6de03ec4cca4.png" alt="F(R) = 1 - exp(-R^2/2*\sigma^2)"/> if <img class="math" src="../_images/math/de27ce448868ab161a971fb2560b02f53bcc0184.png" alt="R &gt;= 0"/>, is related to a pair of Gaussian variables C and D through the transformation <img class="math" src="../_images/math/7420eb585f270769b58715147abf7edb1cbaf089.png" alt="C = R * cos(\theta)"/> and <img class="math" src="../_images/math/3dfef11551d45cc3e8e644dbd99faa2a0acabe27.png" alt="D = R * sin(\theta)"/>, where <img class="math" src="../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.png" alt="\theta"/> is a uniformly distributed variable in the interval <img class="math" src="../_images/math/7dcffabbe16496c77ca9c2c166fac53f515eda87.png" alt="(0, 2 * \pi)"/><sup>1</sup>.</p>
 <p>Currently only Gaussian noise is implemented.</p>
 <p><sup>1</sup> From Contemporary Communication Systems USING MATLAB(R), by John G. Proakis and Masoud Salehi, published by PWS Publishing Company, 1998, pp 49-50.</p>
 </section>
-<section id="plugin-properties">
-<h2>Plugin Properties<a class="headerlink" href="#plugin-properties" title="Permalink to this heading"></a></h2>
+<section id="add-noise-plugin-properties">
+<h2>Add Noise Plugin Properties<a class="headerlink" href="#add-noise-plugin-properties" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>InputData: Data on which noise will be applied to.</p></li>
 <li><p>Sigma: Size of applied noise. Noise is generated for each single data value, with a probability corresponding to a Gaussian distribution, centered around the value, and with a variance equal to <img class="math" src="../_images/math/7d8e0e60117d2760d1d0215b43423c1d74070ec7.png" alt="\sigma^{2}"/>.</p></li>
@@ -134,8 +134,8 @@
 <li><p>Progress: The progress property communicates the progress (in percent) of Noise application.</p></li>
 </ol>
 </section>
-<section id="plugin-events">
-<h2>Plugin Events<a class="headerlink" href="#plugin-events" title="Permalink to this heading"></a></h2>
+<section id="add-noise-plugin-events">
+<h2>Add Noise Plugin Events<a class="headerlink" href="#add-noise-plugin-events" title="Permalink to this heading"></a></h2>
 <p>The AddNoiseplugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
 The available data variables for each event are internally treated as pass trough variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
 <ol class="arabic simple">

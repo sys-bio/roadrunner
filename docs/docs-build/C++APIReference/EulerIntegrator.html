@@ -71,14 +71,14 @@
 <li class="toctree-l2"><a class="reference internal" href="ExecutableModelFactory.html">ExecutableModelFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GillespieIntegrator.html">GillespieIntegrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Integrator.html">Integrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="IntegratorRegistration.html">IntegratorRegistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IntegratorFactory.html">IntegratorFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NLEQ1Solver.html">NLEQ1Solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NLEQ2Solver.html">NLEQ2Solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RK45Integrator.html">RK45Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RK4Integrator.html">RK4Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SBMLValidator.html">SBMLValidator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Solver.html">Solver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SolverRegistration.html">SolverRegistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SolverFactory.html">SolverFactory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SteadyStateSolver.html">SteadyStateSolver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Variant.html">Variant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrCompiler.html">rrCompiler</a></li>
@@ -99,7 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rrSBMLReader.html">rrSBMLReader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrSelectionRecord.html">rrSelectionRecord</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rrSparse.html">rrSparse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrSteadyStateSolver.html">rrSteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoadRunnerMap.html">RoadRunnerMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-new-integrator">Creating a new Integrator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
@@ -161,7 +161,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel">
 <span id="_CPPv3N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="_CPPv2N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="rr::EulerIntegrator::EulerIntegrator__ExecutableModelP"></span><span class="target" id="classrr_1_1EulerIntegrator_1afc90e9a20043ba1a05db9adba8d53cfe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EulerIntegrator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">m</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Creates a new <a class="reference internal" href="#classrr_1_1EulerIntegrator"><span class="std std-ref">EulerIntegrator</span></a>. </p>
-<p>The IntegratorFactory is the ONLY object that creates integrators.</p>
+<p>The <a class="reference internal" href="IntegratorFactory.html#classrr_1_1IntegratorFactory"><span class="std std-ref">IntegratorFactory</span></a> is the ONLY object that creates integrators.</p>
 <p>Integrators are created when the IntegratorFactory::New method is called, typically by the top level <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> object.</p>
 <p>The integrator will hold onto the <a class="reference internal" href="rrExecutableModel.html#classrr_1_1ExecutableModel"><span class="std std-ref">ExecutableModel</span></a> pointer, m, and when the integrate method is called, will advance the model object forward in time.</p>
 <dl class="field-list simple">

@@ -1,7 +1,7 @@
 ModelDataSymbolResolver
 =======================================================
 
-.. doxygenclass:: rrllvm::ModelDataSymbolResolver
+.. doxygenclass:: rr::llvm::ModelDataSymbolResolver
     :members:
     :protected-members:
     :private-members:

@@ -45,7 +45,6 @@ For instructions on how to install roadrunner please see the :ref:`installation 
     self
     Installation/installation
     tutorial/tutorial
-    Examples/examples_index
     read_write_functions
     selecting_values
     steady_state
