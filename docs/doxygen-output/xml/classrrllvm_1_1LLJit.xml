@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1LLJit" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::LLJit</compoundname>
     <basecompoundref refid="classrrllvm_1_1Jit" prot="public" virt="non-virtual">rrllvm::Jit</basecompoundref>
@@ -10,21 +10,19 @@
         <definition>std::unique_ptr&lt;llvm::orc::LLJIT&gt; rrllvm::LLJit::llJit</definition>
         <argsstring></argsstring>
         <name>llJit</name>
-        <qualifiedname>rrllvm::LLJit::llJit</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="87" column="25" bodyfile="llvm/LLJit.h" bodystart="87" bodyend="-1"/>
+        <location file="llvm/LLJit.h" line="101" column="25" bodyfile="llvm/LLJit.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLJit_1abeb1fa89cc908fbd1b7e710e701ae87d" prot="private" static="no" mutable="no">
         <type>llvm::TargetMachine *</type>
         <definition>llvm::TargetMachine* rrllvm::LLJit::targetMachineNonOwning</definition>
         <argsstring></argsstring>
         <name>targetMachineNonOwning</name>
-        <qualifiedname>rrllvm::LLJit::targetMachineNonOwning</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -32,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="88" column="29" bodyfile="llvm/LLJit.h" bodystart="88" bodyend="-1"/>
+        <location file="llvm/LLJit.h" line="102" column="29" bodyfile="llvm/LLJit.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -41,35 +39,32 @@
         <definition>rrllvm::LLJit::LLJit</definition>
         <argsstring>()=default</argsstring>
         <name>LLJit</name>
-        <qualifiedname>rrllvm::LLJit::LLJit</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="31" column="9"/>
+        <location file="llvm/LLJit.h" line="45" column="9"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a6f945bb56759ef498096d326827a3091" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::LLJit::~LLJit</definition>
         <argsstring>() override=default</argsstring>
         <name>~LLJit</name>
-        <qualifiedname>rrllvm::LLJit::~LLJit</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="33" column="9"/>
+        <location file="llvm/LLJit.h" line="47" column="9"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a88bb307456fc1c38e25cb031e604c430" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::LLJit::mangleName</definition>
         <argsstring>(const std::string &amp;unmangledName) const override</argsstring>
         <name>mangleName</name>
-        <qualifiedname>rrllvm::LLJit::mangleName</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a3c1a1cf489bb7c8a965a2dfbfabddeec">mangleName</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -81,14 +76,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="35" column="21" bodyfile="llvm/LLJit.cpp" bodystart="53" bodyend="58"/>
+        <location file="llvm/LLJit.h" line="49" column="21" bodyfile="llvm/LLJit.cpp" bodystart="68" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a33665b939c76efb7849ac0c55ddffdbb" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::LLJit::LLJit</definition>
         <argsstring>(std::uint32_t options)</argsstring>
         <name>LLJit</name>
-        <qualifiedname>rrllvm::LLJit::LLJit</qualifiedname>
         <param>
           <type>std::uint32_t</type>
           <declname>options</declname>
@@ -104,32 +98,30 @@
 <para>todo expose as option to user</para>
 <para>Set a custom compile function that 1) caches objects and 2) stores a pointer to the targetMachine for access later. The targetMachine pointer is owned by the JITTargetMachineBuilder.</para>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="37" column="18" bodyfile="llvm/LLJit.cpp" bodystart="60" bodyend="183"/>
+        <location file="llvm/LLJit.h" line="51" column="18" bodyfile="llvm/LLJit.cpp" bodystart="75" bodyend="198"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a996945de22420bc5951594d75d80a591" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::mapFunctionsToJitSymbols</definition>
         <argsstring>() override</argsstring>
         <name>mapFunctionsToJitSymbols</name>
-        <qualifiedname>rrllvm::LLJit::mapFunctionsToJitSymbols</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66">mapFunctionsToJitSymbols</reimplements>
         <briefdescription>
 <para>adds functions that are declared and defined in C++ to the jit engine. </para>
         </briefdescription>
         <detaileddescription>
-<para>unlike most functions that are created directly in the llvm IR language these functions are just C++ i.e. tan, arccsh, quotient. In <ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> (llvm 6) these were &quot;mapped&quot; to sbml support functions in addGlobalMappings. </para>
+<para>unlike most functions that are created directly in the llvm IR language these functions are just C++ i.e. tan, arccsh, quotient. In MCJit (llvm 6) these were &quot;mapped&quot; to sbml support functions in addGlobalMappings. </para>
         </detaileddescription>
         <inbodydescription>
 <para>A note on name mangling. LLVM docs, tutorials and examples all use name mangling for function names. We can do this here by using the mangleName functor and then pass this as input to Function::Create (3rd arg). However, if we want to do this, we need to mangle the names at the time these functions are needed (<ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>), or we wont be able to locate them. This is easily doable but currently I don&apos;t see much point, as we&apos;re not likely to have many name clashes.</para>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="39" column="14" bodyfile="llvm/LLJit.cpp" bodystart="186" bodyend="221"/>
+        <location file="llvm/LLJit.h" line="53" column="14" bodyfile="llvm/LLJit.cpp" bodystart="201" bodyend="236"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a7c19af88fe0dc1ad16bf809a78e4dec6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::uint64_t</type>
         <definition>std::uint64_t rrllvm::LLJit::lookupFunctionAddress</definition>
         <argsstring>(const std::string &amp;name) override</argsstring>
         <name>lookupFunctionAddress</name>
-        <qualifiedname>rrllvm::LLJit::lookupFunctionAddress</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a71b51482a5d3ed6e773494138358e317">lookupFunctionAddress</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -141,14 +133,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="41" column="23" bodyfile="llvm/LLJit.cpp" bodystart="224" bodyend="239"/>
+        <location file="llvm/LLJit.h" line="55" column="23" bodyfile="llvm/LLJit.cpp" bodystart="239" bodyend="254"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1ad38295e9143c288d11c0313686b66d11" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addObjectFile</definition>
         <argsstring>(rrOwningBinary owningObject) override</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::LLJit::addObjectFile</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344">addObjectFile</reimplements>
         <param>
           <type>rrOwningBinary</type>
@@ -162,15 +153,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="43" column="14" bodyfile="llvm/LLJit.cpp" bodystart="242" bodyend="249"/>
+        <location file="llvm/LLJit.h" line="57" column="14" bodyfile="llvm/LLJit.cpp" bodystart="257" bodyend="264"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1ab27afc739dd1466259b0b5168b3c89a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>const llvm::DataLayout &amp;</type>
         <definition>const llvm::DataLayout &amp; rrllvm::LLJit::getDataLayout</definition>
         <argsstring>() const override</argsstring>
         <name>getDataLayout</name>
-        <qualifiedname>rrllvm::LLJit::getDataLayout</qualifiedname>
-        <reimplements refid="classrrllvm_1_1Jit_1aa12a437ad699812ffcb49839dbd74e4e">getDataLayout</reimplements>
+        <reimplements refid="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5">getDataLayout</reimplements>
         <briefdescription>
 <para>get the DataLayout currently in use in the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> </para>
         </briefdescription>
@@ -178,14 +168,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="45" column="32" bodyfile="llvm/LLJit.cpp" bodystart="251" bodyend="253"/>
+        <location file="llvm/LLJit.h" line="59" column="32" bodyfile="llvm/LLJit.cpp" bodystart="266" bodyend="268"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a3d4b7271b8af2f550a909c127b4ccf49" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addModule</definition>
         <argsstring>(llvm::Module *M) override</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::LLJit::addModule</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1ad2784cc3b1431f2315d3c7b3b63759af">addModule</reimplements>
         <param>
           <type>llvm::Module *</type>
@@ -208,14 +197,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="47" column="14" bodyfile="llvm/LLJit.cpp" bodystart="275" bodyend="277"/>
+        <location file="llvm/LLJit.h" line="61" column="14" bodyfile="llvm/LLJit.cpp" bodystart="290" bodyend="292"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addModule</definition>
         <argsstring>() override</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::LLJit::addModule</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0">addModule</reimplements>
         <briefdescription>
 <para>add the module and context which are member variables of the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> instance to the current <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> engine. </para>
@@ -225,14 +213,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="49" column="14" bodyfile="llvm/LLJit.cpp" bodystart="293" bodyend="301"/>
+        <location file="llvm/LLJit.h" line="63" column="14" bodyfile="llvm/LLJit.cpp" bodystart="308" bodyend="316"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1ac6718157487c3ff6b8b7ab0bd8dc61cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addObjectFile</definition>
         <argsstring>(std::unique_ptr&lt; llvm::MemoryBuffer &gt; obj) override</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::LLJit::addObjectFile</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a33e40a54eb3ece2598f47e09c86b211e">addObjectFile</reimplements>
         <param>
           <type>std::unique_ptr&lt; llvm::MemoryBuffer &gt;</type>
@@ -245,14 +232,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="51" column="14" bodyfile="llvm/LLJit.cpp" bodystart="279" bodyend="286"/>
+        <location file="llvm/LLJit.h" line="65" column="14" bodyfile="llvm/LLJit.cpp" bodystart="294" bodyend="301"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1af6987a4dfe7045ab102c27d943e9dd00" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addObjectFile</definition>
         <argsstring>(std::unique_ptr&lt; llvm::object::ObjectFile &gt; objectFile) override</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::LLJit::addObjectFile</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a0914537453011b9acd33baabe5585453">addObjectFile</reimplements>
         <param>
           <type>std::unique_ptr&lt; llvm::object::ObjectFile &gt;</type>
@@ -265,14 +251,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="53" column="14" bodyfile="llvm/LLJit.cpp" bodystart="288" bodyend="290"/>
+        <location file="llvm/LLJit.h" line="67" column="14" bodyfile="llvm/LLJit.cpp" bodystart="303" bodyend="305"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a93e0766dabe3ce1f142ea4356f58c72e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addModule</definition>
         <argsstring>(llvm::orc::ThreadSafeModule tsm)</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::LLJit::addModule</qualifiedname>
         <param>
           <type>llvm::orc::ThreadSafeModule</type>
           <declname>tsm</declname>
@@ -283,14 +268,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="55" column="14" bodyfile="llvm/LLJit.cpp" bodystart="255" bodyend="263"/>
+        <location file="llvm/LLJit.h" line="69" column="14" bodyfile="llvm/LLJit.cpp" bodystart="270" bodyend="278"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a896e1f6a4c0087c1cfec2271c018cdfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addModule</definition>
         <argsstring>(std::unique_ptr&lt; llvm::Module &gt; M, std::unique_ptr&lt; llvm::LLVMContext &gt; ctx) override</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::LLJit::addModule</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1add4b53cfec0eff51d41dc19d733914cc">addModule</reimplements>
         <param>
           <type>std::unique_ptr&lt; llvm::Module &gt;</type>
@@ -325,15 +309,14 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="57" column="14" bodyfile="llvm/LLJit.cpp" bodystart="265" bodyend="272"/>
+        <location file="llvm/LLJit.h" line="71" column="14" bodyfile="llvm/LLJit.cpp" bodystart="280" bodyend="287"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1ae81a46694d77eba74473d015b42e01f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::unique_ptr&lt; llvm::MemoryBuffer &gt;</type>
         <definition>std::unique_ptr&lt; llvm::MemoryBuffer &gt; rrllvm::LLJit::getCompiledModelFromCache</definition>
         <argsstring>(const std::string &amp;sbmlMD5) override</argsstring>
         <name>getCompiledModelFromCache</name>
-        <qualifiedname>rrllvm::LLJit::getCompiledModelFromCache</qualifiedname>
-        <reimplements refid="classrrllvm_1_1Jit_1a38c60da63a6915853ee06bfc2de5e76c">getCompiledModelFromCache</reimplements>
+        <reimplements refid="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9">getCompiledModelFromCache</reimplements>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbmlMD5</declname>
@@ -346,42 +329,39 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="67" column="25" bodyfile="llvm/LLJit.cpp" bodystart="303" bodyend="310"/>
+        <location file="llvm/LLJit.h" line="81" column="25" bodyfile="llvm/LLJit.cpp" bodystart="318" bodyend="325"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1af6a5d9a5fa0640691c208f46a6d2f2d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>llvm::orc::LLJIT *</type>
         <definition>llvm::orc::LLJIT * rrllvm::LLJit::getLLJitNonOwning</definition>
         <argsstring>()</argsstring>
         <name>getLLJitNonOwning</name>
-        <qualifiedname>rrllvm::LLJit::getLLJitNonOwning</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="69" column="26" bodyfile="llvm/LLJit.cpp" bodystart="312" bodyend="314"/>
+        <location file="llvm/LLJit.h" line="83" column="26" bodyfile="llvm/LLJit.cpp" bodystart="327" bodyend="329"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a6c284e6f88dab77ad8ded71ee3efe558" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::LLJit::addIRModule</definition>
         <argsstring>()</argsstring>
         <name>addIRModule</name>
-        <qualifiedname>rrllvm::LLJit::addIRModule</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="71" column="14" bodyfile="llvm/LLJit.cpp" bodystart="329" bodyend="337"/>
+        <location file="llvm/LLJit.h" line="85" column="14" bodyfile="llvm/LLJit.cpp" bodystart="344" bodyend="352"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1a8e45940e3838ff80b89aa29f34ba1e29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::LLJit::dump</definition>
         <argsstring>()</argsstring>
         <name>dump</name>
-        <qualifiedname>rrllvm::LLJit::dump</qualifiedname>
         <briefdescription>
 <para>prints the symbol tables currently in the jit. </para>
         </briefdescription>
@@ -389,14 +369,13 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="76" column="21" bodyfile="llvm/LLJit.cpp" bodystart="316" bodyend="321"/>
+        <location file="llvm/LLJit.h" line="90" column="21" bodyfile="llvm/LLJit.cpp" bodystart="331" bodyend="336"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLJit_1ab7a58cc6be141daf6141498dace4f837" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::LLJit::getModuleAsString</definition>
         <argsstring>(std::string sbmlMD5) override</argsstring>
         <name>getModuleAsString</name>
-        <qualifiedname>rrllvm::LLJit::getModuleAsString</qualifiedname>
         <reimplements refid="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140">getModuleAsString</reimplements>
         <param>
           <type>std::string</type>
@@ -407,21 +386,20 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </briefdescription>
         <detaileddescription>
 <para>This must be called after the module is added to the jit engine. Throws if string is empty.</para>
-<para>This interface is moderate abuse of interface design <ndash/> the parameter sbmlMD5 is only required for the <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old <ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> class.</para>
+<para>This interface is moderate abuse of interface design <ndash/> the parameter sbmlMD5 is only required for the <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old MCJit class.</para>
 <para>Regardless of the bad design, it works, so lets not spend any more time on it. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="80" column="21" bodyfile="llvm/LLJit.cpp" bodystart="339" bodyend="349"/>
+        <location file="llvm/LLJit.h" line="94" column="21" bodyfile="llvm/LLJit.cpp" bodystart="354" bodyend="364"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
-      <memberdef kind="friend" id="classrrllvm_1_1LLJit_1a26f054167cb868b224b4d10f0344c953" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::ostream &amp;</type>
-        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+      <memberdef kind="friend" id="classrrllvm_1_1LLJit_1aa27c3e02283e2b16b791c3f51b6dcf79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
         <argsstring>(std::ostream &amp;os, LLJit *llJit)</argsstring>
         <name>operator&lt;&lt;</name>
-        <qualifiedname>rrllvm::LLJit::operator&lt;&lt;</qualifiedname>
         <param>
           <type>std::ostream &amp;</type>
           <declname>os</declname>
@@ -436,7 +414,7 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLJit.h" line="78" column="16" bodyfile="llvm/LLJit.cpp" bodystart="323" bodyend="326"/>
+        <location file="llvm/LLJit.h" line="92" column="16" bodyfile="llvm/LLJit.cpp" bodystart="338" bodyend="341"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -469,7 +447,7 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="llvm/LLJit.h" line="28" column="5" bodyfile="llvm/LLJit.h" bodystart="28" bodyend="89"/>
+    <location file="llvm/LLJit.h" line="42" column="27" bodyfile="llvm/LLJit.h" bodystart="42" bodyend="103"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1LLJit_1a6c284e6f88dab77ad8ded71ee3efe558" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>addIRModule</name></member>
       <member refid="classrrllvm_1_1LLJit_1a3d4b7271b8af2f550a909c127b4ccf49" prot="public" virt="virtual"><scope>rrllvm::LLJit</scope><name>addModule</name></member>
@@ -487,7 +465,7 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
       <member refid="classrrllvm_1_1Jit_1aa25373cc3dc5ac1bd2f7c162a4e044df" prot="protected" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>externalFunctionSignatures</name></member>
       <member refid="classrrllvm_1_1Jit_1afb8cf53b3bde8eaa539b14cc685cb200" prot="public" virt="virtual"><scope>rrllvm::LLJit</scope><name>getBuilderNonOwning</name></member>
       <member refid="classrrllvm_1_1LLJit_1ae81a46694d77eba74473d015b42e01f7" prot="public" virt="virtual"><scope>rrllvm::LLJit</scope><name>getCompiledModelFromCache</name></member>
-      <member refid="classrrllvm_1_1Jit_1a9e57b4ba546eb03eab6bc5e537da8d88" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>getCompiledModuleStream</name></member>
+      <member refid="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>getCompiledModuleStream</name></member>
       <member refid="classrrllvm_1_1Jit_1a1e2112dbdce27e06228eb49e5c8a3f47" prot="public" virt="virtual"><scope>rrllvm::LLJit</scope><name>getContextNonOwning</name></member>
       <member refid="classrrllvm_1_1LLJit_1ab27afc739dd1466259b0b5168b3c89a2" prot="public" virt="virtual"><scope>rrllvm::LLJit</scope><name>getDataLayout</name></member>
       <member refid="classrrllvm_1_1Jit_1ae135808ab2a9ab0466cc1cc54715ad93" prot="protected" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>getDefaultTargetMachine</name></member>
@@ -508,7 +486,7 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
       <member refid="classrrllvm_1_1Jit_1a78943fba79d6b4aa5a3d2e19b60de8e7" prot="protected" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>module</name></member>
       <member refid="classrrllvm_1_1Jit_1a1487ca6247ee86b6dab2020d4659d064" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>moduleBuffer</name></member>
       <member refid="classrrllvm_1_1Jit_1a5bf6d8132e7cdc6fadd635d39ee3f0a3" prot="protected" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>moduleNonOwning</name></member>
-      <member refid="classrrllvm_1_1LLJit_1a26f054167cb868b224b4d10f0344c953" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrrllvm_1_1LLJit_1aa27c3e02283e2b16b791c3f51b6dcf79" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>operator&lt;&lt;</name></member>
       <member refid="classrrllvm_1_1Jit_1a3cd9de39bf57162c328bdaca2b0edede" prot="protected" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>options</name></member>
       <member refid="classrrllvm_1_1Jit_1a2010d675d46f131db29d7b43b07454b1" prot="public" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>setModuleIdentifier</name></member>
       <member refid="classrrllvm_1_1LLJit_1abeb1fa89cc908fbd1b7e710e701ae87d" prot="private" virt="non-virtual"><scope>rrllvm::LLJit</scope><name>targetMachineNonOwning</name></member>

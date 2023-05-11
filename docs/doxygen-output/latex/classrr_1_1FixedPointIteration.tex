@@ -1,5 +1,14 @@
 \hypertarget{classrr_1_1FixedPointIteration}{}\doxysection{rr\+::Fixed\+Point\+Iteration Class Reference}
 \label{classrr_1_1FixedPointIteration}\index{rr::FixedPointIteration@{rr::FixedPointIteration}}
+
+
+Implementation of the fixed point iteration form of the kinsol steady state solver.  
+
+
+
+
+{\ttfamily \#include $<$Fixed\+Point\+Iteration.\+h$>$}
+
 Inheritance diagram for rr\+::Fixed\+Point\+Iteration\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -12,13 +21,17 @@ Inheritance diagram for rr\+::Fixed\+Point\+Iteration\+:\begin{figure}[H]
 \mbox{\Hypertarget{classrr_1_1FixedPointIteration_aa9a1e110f67cfcd6cebb8a16b26196f7}\label{classrr_1_1FixedPointIteration_aa9a1e110f67cfcd6cebb8a16b26196f7}} 
 {\bfseries Fixed\+Point\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
 \item 
+\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a9e1334eebd535c642abb8593d4e46824}\label{classrr_1_1FixedPointIteration_a9e1334eebd535c642abb8593d4e46824}} 
 std\+::string \mbox{\hyperlink{classrr_1_1FixedPointIteration_a9e1334eebd535c642abb8593d4e46824}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a4f8a179c87378739262b858a4e279642}\label{classrr_1_1FixedPointIteration_a4f8a179c87378739262b858a4e279642}} 
 std\+::string \mbox{\hyperlink{classrr_1_1FixedPointIteration_a4f8a179c87378739262b858a4e279642}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a694db68c3021fcbceec701335dffd2ee}\label{classrr_1_1FixedPointIteration_a694db68c3021fcbceec701335dffd2ee}} 
 std\+::string \mbox{\hyperlink{classrr_1_1FixedPointIteration_a694db68c3021fcbceec701335dffd2ee}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classrr_1_1FixedPointIteration_abb61d5ae308e15d2bfd5eec47270269e}{solve}} () override
+\mbox{\Hypertarget{classrr_1_1FixedPointIteration_abb61d5ae308e15d2bfd5eec47270269e}\label{classrr_1_1FixedPointIteration_abb61d5ae308e15d2bfd5eec47270269e}} 
+double {\bfseries solve} () override
 \item 
 void \mbox{\hyperlink{classrr_1_1FixedPointIteration_a9228e46a342accb7defbccd76e674b9d}{create\+Kinsol}} () override
 \begin{DoxyCompactList}\small\item\em Initialize kinsol objects. \end{DoxyCompactList}\item 
@@ -26,6 +39,7 @@ void \mbox{\hyperlink{classrr_1_1FixedPointIteration_aaabbfb6ff1bc59dd9cc4371368
 \begin{DoxyCompactList}\small\item\em Destory kinsol objects. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1FixedPointIteration_abc9ebf35d6ea07b7a6d8a8798eb3d68d}{update\+Kinsol}} () override
 \begin{DoxyCompactList}\small\item\em Calls methods for updating options in kinsol. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1FixedPointIteration_ab7451909f822f8642b7555248493371d}\label{classrr_1_1FixedPointIteration_ab7451909f822f8642b7555248493371d}} 
 void \mbox{\hyperlink{classrr_1_1FixedPointIteration_ab7451909f822f8642b7555248493371d}{reset\+Settings}} () override
 \begin{DoxyCompactList}\small\item\em Reset all settings to their respective default values. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1FixedPointIteration_a493e4b60babe10d121bd4d960cede006}{Kinsol\+Steady\+State\+Solver}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
@@ -34,6 +48,9 @@ void \mbox{\hyperlink{classrr_1_1FixedPointIteration_ab7451909f822f8642b75552484
 \begin{DoxyCompactList}\small\item\em The default constructor for constructing without a model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+Implementation of the fixed point iteration form of the kinsol steady state solver. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1FixedPointIteration_a9228e46a342accb7defbccd76e674b9d}\label{classrr_1_1FixedPointIteration_a9228e46a342accb7defbccd76e674b9d}} 
@@ -46,7 +63,7 @@ void \mbox{\hyperlink{classrr_1_1FixedPointIteration_ab7451909f822f8642b75552484
 
 Initialize kinsol objects. 
 
-All subclasses require some of the same initial calls (such as N\+\_\+\+VNew\+\_\+\+Serial and KINCreate). 
+All subclasses require some of the same initial calls (such as N\+\_\+\+V\+New\+\_\+\+Serial and K\+I\+N\+Create). 
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a7c7a941fbf27c7a3a5326b254ee2f1b1}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 
@@ -64,53 +81,11 @@ Destroys the kinsol objects that are shared among Kinsol\+Steady\+State\+Solvers
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a9ddc7acd14dad905333c11667363de66}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a4f8a179c87378739262b858a4e279642}\label{classrr_1_1FixedPointIteration_a4f8a179c87378739262b858a4e279642}} 
-\index{rr::FixedPointIteration@{rr::FixedPointIteration}!getDescription@{getDescription}}
-\index{getDescription@{getDescription}!rr::FixedPointIteration@{rr::FixedPointIteration}}
-\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Fixed\+Point\+Iteration\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the description of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917e5d4}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a694db68c3021fcbceec701335dffd2ee}\label{classrr_1_1FixedPointIteration_a694db68c3021fcbceec701335dffd2ee}} 
-\index{rr::FixedPointIteration@{rr::FixedPointIteration}!getHint@{getHint}}
-\index{getHint@{getHint}!rr::FixedPointIteration@{rr::FixedPointIteration}}
-\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Fixed\+Point\+Iteration\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get a (user-\/readable) hint for this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f401d9}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1FixedPointIteration_a9e1334eebd535c642abb8593d4e46824}\label{classrr_1_1FixedPointIteration_a9e1334eebd535c642abb8593d4e46824}} 
-\index{rr::FixedPointIteration@{rr::FixedPointIteration}!getName@{getName}}
-\index{getName@{getName}!rr::FixedPointIteration@{rr::FixedPointIteration}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Fixed\+Point\+Iteration\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the name of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa339d6}{rr\+::\+Registrable}}.
-
 \mbox{\Hypertarget{classrr_1_1FixedPointIteration_a7cc99b1d285e7e1afae54f217135d0b5}\label{classrr_1_1FixedPointIteration_a7cc99b1d285e7e1afae54f217135d0b5}} 
 \index{rr::FixedPointIteration@{rr::FixedPointIteration}!KinsolSteadyStateSolver@{KinsolSteadyStateSolver}}
 \index{KinsolSteadyStateSolver@{KinsolSteadyStateSolver}!rr::FixedPointIteration@{rr::FixedPointIteration}}
 \doxysubsubsection{\texorpdfstring{KinsolSteadyStateSolver()}{KinsolSteadyStateSolver()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily rr\+::\+Kinsol\+Steady\+State\+Solver\+::\+Kinsol\+Steady\+State\+Solver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+{\footnotesize\ttfamily rr\+::\+Kinsol\+Steady\+State\+Solver\+::\+Kinsol\+Steady\+State\+Solver\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
@@ -120,37 +95,13 @@ useful only for testing. \mbox{\Hypertarget{classrr_1_1FixedPointIteration_a493e
 \index{rr::FixedPointIteration@{rr::FixedPointIteration}!KinsolSteadyStateSolver@{KinsolSteadyStateSolver}}
 \index{KinsolSteadyStateSolver@{KinsolSteadyStateSolver}!rr::FixedPointIteration@{rr::FixedPointIteration}}
 \doxysubsubsection{\texorpdfstring{KinsolSteadyStateSolver()}{KinsolSteadyStateSolver()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily rr\+::\+Kinsol\+Steady\+State\+Solver\+::\+Kinsol\+Steady\+State\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{executable\+Model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily rr\+::\+Kinsol\+Steady\+State\+Solver\+::\+Kinsol\+Steady\+State\+Solver\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 
 constructor for creating \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver}{Kinsol\+Steady\+State\+Solver}} from an executable model only. 
 
-This constructor should be inherited by subclasses \mbox{\Hypertarget{classrr_1_1FixedPointIteration_ab7451909f822f8642b7555248493371d}\label{classrr_1_1FixedPointIteration_ab7451909f822f8642b7555248493371d}} 
-\index{rr::FixedPointIteration@{rr::FixedPointIteration}!resetSettings@{resetSettings}}
-\index{resetSettings@{resetSettings}!rr::FixedPointIteration@{rr::FixedPointIteration}}
-\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+Fixed\+Point\+Iteration\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Reset all settings to their respective default values. 
-
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
-
-\mbox{\Hypertarget{classrr_1_1FixedPointIteration_abb61d5ae308e15d2bfd5eec47270269e}\label{classrr_1_1FixedPointIteration_abb61d5ae308e15d2bfd5eec47270269e}} 
-\index{rr::FixedPointIteration@{rr::FixedPointIteration}!solve@{solve}}
-\index{solve@{solve}!rr::FixedPointIteration@{rr::FixedPointIteration}}
-\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily double rr\+::\+Fixed\+Point\+Iteration\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{rr\+::\+Steady\+State\+Solver}}.
-
-\mbox{\Hypertarget{classrr_1_1FixedPointIteration_abc9ebf35d6ea07b7a6d8a8798eb3d68d}\label{classrr_1_1FixedPointIteration_abc9ebf35d6ea07b7a6d8a8798eb3d68d}} 
+This constructor should be inherited by subclasses \mbox{\Hypertarget{classrr_1_1FixedPointIteration_abc9ebf35d6ea07b7a6d8a8798eb3d68d}\label{classrr_1_1FixedPointIteration_abc9ebf35d6ea07b7a6d8a8798eb3d68d}} 
 \index{rr::FixedPointIteration@{rr::FixedPointIteration}!updateKinsol@{updateKinsol}}
 \index{updateKinsol@{updateKinsol}!rr::FixedPointIteration@{rr::FixedPointIteration}}
 \doxysubsubsection{\texorpdfstring{updateKinsol()}{updateKinsol()}}
@@ -164,7 +115,7 @@ The settings configuration system in roadrunner make this particular aspect of i
 
 User passes in arguments like u\+Scale and they are stored at the class level. This method passed them on to kinsol.
 
-When a user updates a setting with set\+Value, they are only updating the value in roadrunner. The change doesn\textquotesingle{}t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular \char`\"{}setters\char`\"{} because they won\textquotesingle{}t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call KIN\+\_\+\+Solve. 
+When a user updates a setting with set\+Value, they are only updating the value in roadrunner. The change doesn\textquotesingle{}t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular \char`\"{}setters\char`\"{} because they won\textquotesingle{}t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call K\+I\+N\+\_\+\+Solve. 
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a46e1ca358f9d1a8bbfe1150a1f6cf8ed}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 

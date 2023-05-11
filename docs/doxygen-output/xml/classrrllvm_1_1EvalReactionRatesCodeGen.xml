@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1EvalReactionRatesCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::EvalReactionRatesCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; EvalReactionRates_FunctionPtr &gt;</basecompoundref>
@@ -10,7 +10,6 @@
         <definition>typedef EvalReactionRates_FunctionPtr rrllvm::EvalReactionRatesCodeGen::FunctionPtr</definition>
         <argsstring></argsstring>
         <name>FunctionPtr</name>
-        <qualifiedname>rrllvm::EvalReactionRatesCodeGen::FunctionPtr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -26,7 +25,6 @@
         <definition>const char * rrllvm::EvalReactionRatesCodeGen::FunctionName</definition>
         <argsstring></argsstring>
         <name>FunctionName</name>
-        <qualifiedname>rrllvm::EvalReactionRatesCodeGen::FunctionName</qualifiedname>
         <initializer>= &quot;evalReactionRates&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -43,7 +41,6 @@
         <definition>rrllvm::EvalReactionRatesCodeGen::EvalReactionRatesCodeGen</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>EvalReactionRatesCodeGen</name>
-        <qualifiedname>rrllvm::EvalReactionRatesCodeGen::EvalReactionRatesCodeGen</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -61,7 +58,6 @@
         <definition>rrllvm::EvalReactionRatesCodeGen::~EvalReactionRatesCodeGen</definition>
         <argsstring>()</argsstring>
         <name>~EvalReactionRatesCodeGen</name>
-        <qualifiedname>rrllvm::EvalReactionRatesCodeGen::~EvalReactionRatesCodeGen</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -75,8 +71,7 @@
         <definition>Value * rrllvm::EvalReactionRatesCodeGen::codeGen</definition>
         <argsstring>()</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::EvalReactionRatesCodeGen::codeGen</qualifiedname>
-        <reimplements refid="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75">codeGen</reimplements>
+        <reimplements refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6">codeGen</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -104,25 +99,48 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="5">
+        <label>rrllvm::ASTNodeFactory</label>
+        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="3">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
+      </node>
       <node id="2">
         <label>rrllvm::CodeGenBase&lt; EvalReactionRates_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-      </node>
-      <node id="6">
-        <label>libsbml::SBMLVisitor</label>
+        <childnode refid="7" relation="usage">
+          <edgelabel>dataSymbols</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>modelGenContext</edgelabel>
+        </childnode>
       </node>
       <node id="8">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+        <label>rrllvm::ModelGeneratorContext</label>
+        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
+      </node>
+      <node id="7">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="4">
+        <label>SBMLVisitor</label>
       </node>
       <node id="1">
         <label>rrllvm::EvalReactionRatesCodeGen</label>
@@ -130,43 +148,20 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="6" relation="private-inheritance">
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="7">
+      <node id="6">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/EvalReactionRatesCodeGen.h" line="28" column="1" bodyfile="llvm/EvalReactionRatesCodeGen.h" bodystart="30" bodyend="40"/>
+    <location file="llvm/EvalReactionRatesCodeGen.h" line="30" column="1" bodyfile="llvm/EvalReactionRatesCodeGen.h" bodystart="28" bodyend="40"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1EvalReactionRatesCodeGen_1ab1b834329359a692acc7124f57d2279b" prot="public" virt="virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>createFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1EvalReactionRatesCodeGen_1abac9c583576783881244bf1d3f5dcbba" prot="public" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>EvalReactionRatesCodeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>function</name></member>
@@ -178,7 +173,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1EvalReactionRatesCodeGen_1aa29db4447ac050b8c069e439641ce387" prot="public" virt="virtual"><scope>rrllvm::EvalReactionRatesCodeGen</scope><name>~EvalReactionRatesCodeGen</name></member>
     </listofallmembers>

@@ -1,18 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1StoreSymbolResolver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rrllvm::StoreSymbolResolver</compoundname>
-    <derivedcompoundref refid="classrrllvm_1_1ModelDataStoreSymbolResolver" prot="public" virt="non-virtual">rrllvm::ModelDataStoreSymbolResolver</derivedcompoundref>
-    <derivedcompoundref refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" prot="public" virt="non-virtual">rrllvm::ModelInitialValueStoreSymbolResolver</derivedcompoundref>
+    <includes refid="CodeGen_8h" local="no">CodeGen.h</includes>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrrllvm_1_1StoreSymbolResolver_1ac8481e0e12fb88d58af4b3e8b96f9f44" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1StoreSymbolResolver_1a7e1a7be9b79a35adb67ac8e9aff9cfa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>llvm::Value *</type>
-        <definition>virtual llvm::Value * rrllvm::StoreSymbolResolver::storeSymbolValue</definition>
+        <definition>virtual llvm::Value* rrllvm::StoreSymbolResolver::storeSymbolValue</definition>
         <argsstring>(const std::string &amp;symbol, llvm::Value *value)=0</argsstring>
         <name>storeSymbolValue</name>
-        <qualifiedname>rrllvm::StoreSymbolResolver::storeSymbolValue</qualifiedname>
-        <reimplementedby refid="classrrllvm_1_1ModelDataStoreSymbolResolver_1a7b25169399d1e528e3a9340b191ad967">storeSymbolValue</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver_1a2e9378a961d830307bff426659d771c6">storeSymbolValue</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>symbol</declname>
@@ -27,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="71" column="25"/>
+        <location file="llvm/CodeGen.h" line="79" column="29"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -36,41 +32,23 @@
         <definition>rrllvm::StoreSymbolResolver::~StoreSymbolResolver</definition>
         <argsstring>()</argsstring>
         <name>~StoreSymbolResolver</name>
-        <qualifiedname>rrllvm::StoreSymbolResolver::~StoreSymbolResolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="75" column="5" bodyfile="llvm/CodeGen.h" bodystart="75" bodyend="75"/>
+        <location file="llvm/CodeGen.h" line="83" column="9" bodyfile="llvm/CodeGen.h" bodystart="83" bodyend="83"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>LLVM store symbol class </para>
     </detaileddescription>
-    <inheritancegraph>
-      <node id="2">
-        <label>rrllvm::ModelDataStoreSymbolResolver</label>
-        <link refid="classrrllvm_1_1ModelDataStoreSymbolResolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rrllvm::ModelInitialValueStoreSymbolResolver</label>
-        <link refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>rrllvm::StoreSymbolResolver</label>
-        <link refid="classrrllvm_1_1StoreSymbolResolver"/>
-      </node>
-    </inheritancegraph>
-    <location file="llvm/CodeGen.h" line="68" column="1" bodyfile="llvm/CodeGen.h" bodystart="69" bodyend="76"/>
+    <location file="llvm/CodeGen.h" line="77" column="1" bodyfile="llvm/CodeGen.h" bodystart="76" bodyend="84"/>
     <listofallmembers>
-      <member refid="classrrllvm_1_1StoreSymbolResolver_1ac8481e0e12fb88d58af4b3e8b96f9f44" prot="public" virt="pure-virtual"><scope>rrllvm::StoreSymbolResolver</scope><name>storeSymbolValue</name></member>
+      <member refid="classrrllvm_1_1StoreSymbolResolver_1a7e1a7be9b79a35adb67ac8e9aff9cfa7" prot="public" virt="pure-virtual"><scope>rrllvm::StoreSymbolResolver</scope><name>storeSymbolValue</name></member>
       <member refid="classrrllvm_1_1StoreSymbolResolver_1a2ec6a076a55e3516cc5f2374edf06cb5" prot="protected" virt="non-virtual"><scope>rrllvm::StoreSymbolResolver</scope><name>~StoreSymbolResolver</name></member>
     </listofallmembers>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CodeBuilder" kind="class" language="C++" prot="public">
     <compoundname>rr::CodeBuilder</compoundname>
     <basecompoundref refid="classrr_1_1StringBuilder" prot="public" virt="non-virtual">rr::StringBuilder</basecompoundref>
@@ -9,7 +9,6 @@
         <definition>int rr::CodeBuilder::mSizeOfVarField1</definition>
         <argsstring></argsstring>
         <name>mSizeOfVarField1</name>
-        <qualifiedname>rr::CodeBuilder::mSizeOfVarField1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>int rr::CodeBuilder::mSizeOfVarField2</definition>
         <argsstring></argsstring>
         <name>mSizeOfVarField2</name>
-        <qualifiedname>rr::CodeBuilder::mSizeOfVarField2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>int rr::CodeBuilder::mSizeOfVarField3</definition>
         <argsstring></argsstring>
         <name>mSizeOfVarField3</name>
-        <qualifiedname>rr::CodeBuilder::mSizeOfVarField3</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>std::string rr::CodeBuilder::mDeclSpec</definition>
         <argsstring></argsstring>
         <name>mDeclSpec</name>
-        <qualifiedname>rr::CodeBuilder::mDeclSpec</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>std::string rr::CodeBuilder::mCallingConvention</definition>
         <argsstring></argsstring>
         <name>mCallingConvention</name>
-        <qualifiedname>rr::CodeBuilder::mCallingConvention</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -81,7 +76,6 @@
         <definition>rr::CodeBuilder::CodeBuilder</definition>
         <argsstring>(const std::string &amp;aStr=&quot;&quot;, const std::string &amp;decl_spec=&quot;D_S&quot;, const std::string &amp;call_conv=&quot;__cdecl&quot;)</argsstring>
         <name>CodeBuilder</name>
-        <qualifiedname>rr::CodeBuilder::CodeBuilder</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>aStr</declname>
@@ -110,7 +104,6 @@
         <definition>void rr::CodeBuilder::FormatVariable</definition>
         <argsstring>(const std::string &amp;type, const std::string &amp;varName, const std::string &amp;comment=&quot;&quot;)</argsstring>
         <name>FormatVariable</name>
-        <qualifiedname>rr::CodeBuilder::FormatVariable</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>type</declname>
@@ -137,7 +130,6 @@
         <definition>void rr::CodeBuilder::AddFunctionExport</definition>
         <argsstring>(const std::string &amp;retValue, const std::string &amp;funcProto)</argsstring>
         <name>AddFunctionExport</name>
-        <qualifiedname>rr::CodeBuilder::AddFunctionExport</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>retValue</declname>
@@ -159,7 +151,6 @@
         <definition>void rr::CodeBuilder::AddFunctionProto</definition>
         <argsstring>(const std::string &amp;retValue, const std::string &amp;funcProto)</argsstring>
         <name>AddFunctionProto</name>
-        <qualifiedname>rr::CodeBuilder::AddFunctionProto</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>retValue</declname>
@@ -181,7 +172,6 @@
         <definition>void rr::CodeBuilder::FormatArray</definition>
         <argsstring>(const std::string &amp;type, const std::string &amp;varName, const int &amp;arraySize, const std::string &amp;comment=&quot;&quot;)</argsstring>
         <name>FormatArray</name>
-        <qualifiedname>rr::CodeBuilder::FormatArray</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>type</declname>
@@ -225,6 +215,12 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="3">
+        <label>stringstream</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
       <node id="1">
         <label>rr::CodeBuilder</label>
         <link refid="classrr_1_1CodeBuilder"/>
@@ -242,14 +238,8 @@
           <edgelabel>mStringing</edgelabel>
         </childnode>
       </node>
-      <node id="4">
-        <label>string</label>
-      </node>
-      <node id="3">
-        <label>stringstream</label>
-      </node>
     </collaborationgraph>
-    <location file="c/rrCodeBuilder.h" line="8" column="1" bodyfile="c/rrCodeBuilder.h" bodystart="9" bodyend="23"/>
+    <location file="c/rrCodeBuilder.h" line="9" column="1" bodyfile="c/rrCodeBuilder.h" bodystart="8" bodyend="23"/>
     <listofallmembers>
       <member refid="classrr_1_1CodeBuilder_1a67aefa71e70157028fcd8e145bcba874" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionExport</name></member>
       <member refid="classrr_1_1CodeBuilder_1a24cd135b043b79fd3e35df6a59a13b61" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionProto</name></member>

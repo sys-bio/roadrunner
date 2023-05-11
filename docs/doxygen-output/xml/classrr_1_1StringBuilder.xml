@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1StringBuilder" kind="class" language="C++" prot="public">
     <compoundname>rr::StringBuilder</compoundname>
     <derivedcompoundref refid="classrr_1_1CodeBuilder" prot="public" virt="non-virtual">rr::CodeBuilder</derivedcompoundref>
@@ -9,7 +9,6 @@
         <definition>std::stringstream rr::StringBuilder::mStringing</definition>
         <argsstring></argsstring>
         <name>mStringing</name>
-        <qualifiedname>rr::StringBuilder::mStringing</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -25,7 +24,6 @@
         <definition>rr::StringBuilder::StringBuilder</definition>
         <argsstring>(const std::string &amp;aStr=&quot;&quot;)</argsstring>
         <name>StringBuilder</name>
-        <qualifiedname>rr::StringBuilder::StringBuilder</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>aStr</declname>
@@ -44,7 +42,6 @@
         <definition>std::stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
         <argsstring>(const std::string &amp;str)</argsstring>
         <name>operator&lt;&lt;</name>
-        <qualifiedname>rr::StringBuilder::operator&lt;&lt;</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>str</declname>
@@ -62,7 +59,6 @@
         <definition>std::stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
         <argsstring>(const char &amp;ch)</argsstring>
         <name>operator&lt;&lt;</name>
-        <qualifiedname>rr::StringBuilder::operator&lt;&lt;</qualifiedname>
         <param>
           <type>const char &amp;</type>
           <declname>ch</declname>
@@ -80,7 +76,6 @@
         <definition>std::string rr::StringBuilder::ToString</definition>
         <argsstring>()</argsstring>
         <name>ToString</name>
-        <qualifiedname>rr::StringBuilder::ToString</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -94,7 +89,6 @@
         <definition>void rr::StringBuilder::NewLine</definition>
         <argsstring>(const std::string &amp;line=&quot;&quot;)</argsstring>
         <name>NewLine</name>
-        <qualifiedname>rr::StringBuilder::NewLine</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>line</declname>
@@ -113,7 +107,6 @@
         <definition>void rr::StringBuilder::Line</definition>
         <argsstring>(const std::string &amp;line)</argsstring>
         <name>Line</name>
-        <qualifiedname>rr::StringBuilder::Line</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>line</declname>
@@ -131,7 +124,6 @@
         <definition>void rr::StringBuilder::TLine</definition>
         <argsstring>(const std::string &amp;line, const int &amp;tabs=1)</argsstring>
         <name>TLine</name>
-        <qualifiedname>rr::StringBuilder::TLine</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>line</declname>
@@ -154,7 +146,6 @@
         <definition>void rr::StringBuilder::Clear</definition>
         <argsstring>()</argsstring>
         <name>Clear</name>
-        <qualifiedname>rr::StringBuilder::Clear</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -181,6 +172,9 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="2">
+        <label>stringstream</label>
+      </node>
       <node id="1">
         <label>rr::StringBuilder</label>
         <link refid="classrr_1_1StringBuilder"/>
@@ -188,11 +182,8 @@
           <edgelabel>mStringing</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>stringstream</label>
-      </node>
     </collaborationgraph>
-    <location file="c/rrStringBuilder.h" line="17" column="1" bodyfile="c/rrStringBuilder.h" bodystart="18" bodyend="32"/>
+    <location file="c/rrStringBuilder.h" line="18" column="1" bodyfile="c/rrStringBuilder.h" bodystart="17" bodyend="32"/>
     <listofallmembers>
       <member refid="classrr_1_1StringBuilder_1a3a466c3f18ad159fa14d41e7c842c59d" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>Clear</name></member>
       <member refid="classrr_1_1StringBuilder_1a28f654fa1abac5d97077ca70068230fe" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>Line</name></member>

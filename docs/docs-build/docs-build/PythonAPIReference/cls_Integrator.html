@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrator Class &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Steady State Solver Class" href="cls_SteadyStateSolver.html" />
+    <link rel="prev" title="Solver Class" href="cls_Solver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Integrator Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.Integrator"><code class="docutils literal notranslate"><span class="pre">roadrunner.Integrator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.getIntegrationMethod"><code class="docutils literal notranslate"><span class="pre">Integrator.getIntegrationMethod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.getListener"><code class="docutils literal notranslate"><span class="pre">Integrator.getListener()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.integrate"><code class="docutils literal notranslate"><span class="pre">Integrator.integrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.loadSBMLSettings"><code class="docutils literal notranslate"><span class="pre">Integrator.loadSBMLSettings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.restart"><code class="docutils literal notranslate"><span class="pre">Integrator.restart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.setListener"><code class="docutils literal notranslate"><span class="pre">Integrator.setListener()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.tweakTolerances"><code class="docutils literal notranslate"><span class="pre">Integrator.tweakTolerances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Integrator.setIndividualTolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.setIndividualTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cvode">CVODE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.absolute_tolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.absolute_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.initial_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.initial_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.maximum_adams_order"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_adams_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.maximum_bdf_order"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_bdf_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.maximum_num_steps"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_num_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.maximum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.minimum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.multiple_steps"><code class="docutils literal notranslate"><span class="pre">Integrator.multiple_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.relative_tolerance"><code class="docutils literal notranslate"><span class="pre">Integrator.relative_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.stiff"><code class="docutils literal notranslate"><span class="pre">Integrator.stiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CVODE.Integrator.variable_step_size"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gillespie">Gillespie</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.initial_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.initial_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.maximum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.minimum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.nonnegative"><code class="docutils literal notranslate"><span class="pre">Integrator.nonnegative</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.seed"><code class="docutils literal notranslate"><span class="pre">Integrator.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.variable_step_size"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gillespie.Integrator.max_output_rows"><code class="docutils literal notranslate"><span class="pre">Integrator.max_output_rows</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#euler">Euler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rk4">RK4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rk45">RK45</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Euler-and-Runge-Kutta.Integrator.epsilon"><code class="docutils literal notranslate"><span class="pre">Integrator.epsilon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Euler-and-Runge-Kutta.Integrator.maximum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.maximum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Euler-and-Runge-Kutta.Integrator.minimum_time_step"><code class="docutils literal notranslate"><span class="pre">Integrator.minimum_time_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Euler-and-Runge-Kutta.Integrator.variable_step_size"><code class="docutils literal notranslate"><span class="pre">Integrator.variable_step_size</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SelectionRecord.html">SelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Misc.html">Miscellaneous Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_PyConservedMoietyConverter.html">Conserved Moiety Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Integrator Class</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/PythonAPIReference/cls_Integrator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="integrator-class">
+<h1>Integrator Class<a class="headerlink" href="#integrator-class" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="roadrunner.Integrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><a class="headerlink" href="#roadrunner.Integrator" title="Permalink to this definition"></a></dt>
+<dd><p>An integrator is used to describe the method of carrying out a mathematical integration. Currently, libRoadRunner supports cvode, gillespie, rk4 and rk45 solvers. For solver related methods, refer to <a class="reference external" href="http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class">http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class</a>. The following methods are supported by all the Integrators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.getIntegrationMethod">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getIntegrationMethod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getIntegrationMethod" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the method of integration as an integer. (0-Deterministic, 1-Stochastic, 2-Hybrid, 3-Other).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.getListener">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getListener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getListener" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the integrator listener.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.integrate">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hstep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.integrate" title="Permalink to this definition"></a></dt>
+<dd><p>Main integration routine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t0</strong> (<em>double</em>) – start time</p></li>
+<li><p><strong>hstep</strong> (<em>double</em>) – time step size</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.loadSBMLSettings">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">loadSBMLSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.loadSBMLSettings" title="Permalink to this definition"></a></dt>
+<dd><p>Load an SBML settings file and apply the configuration options.
+Note: Can assign relative and absolute tolerances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – A string which may be a local path, URI or contents of an SBML document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.restart">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">restart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.restart" title="Permalink to this definition"></a></dt>
+<dd><p>Reset time to zero and reinitialize model. Applies events which occur before time zero. Reinitializes CVODE and the executable model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>t0</strong> (<em>double</em>) – start time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.setListener">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">listener</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setListener" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the integrator listener.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>listener</strong> – Swig Object of type ‘rr::PyIntegratorListenerPtr* ‘</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.tweakTolerances">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">tweakTolerances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.tweakTolerances" title="Permalink to this definition"></a></dt>
+<dd><p>Fix tolerances for SBML tests. In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE respectively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Integrator.setIndividualTolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setIndividualTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setIndividualTolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Sets absolute tolerance for individual floating species or variable that has a rate rule. Only used for CVODE Integrator.
+Note that this tolerance is based on the amount of species, and will be stored in absolute_tolerance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sid</strong> (<em>str</em>) – identifier of individual species or varible that has a rate rule</p></li>
+<li><p><strong>value</strong> (<em>double</em>) – tolerance value to set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="cvode">
+<h2>CVODE<a class="headerlink" href="#cvode" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>CVODE is a deterministic ODE solver from the SUNDIALS suite of timecourse integrators. It implements an Adams-Moulton solver for non-stiff problems and a backward differentiation formula (BDF) solver for stiff problems.</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.absolute_tolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">absolute_tolerance</span></span><a class="headerlink" href="#CVODE.Integrator.absolute_tolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the scalar or vector absolute tolerance. As of roadrunner version 2.4.0, if a scalar absolute tolerance is used, it is multiplied by the value of every element in the state vector before being used.  If an element of the state vector is zero, the scalar is multiplied by 1.0 for non-species values, and by the size of the species compartment for species values (i.e. the amount of species present if its concentration was 1.0).</p>
+<p>If desired, the full absolute tolerance vector may be used instead of a scalar.  In this case, it is assumed that the user has already done any appropriate scaling for individual state vector levels, and no additional scaling is performed: the values are used in Sundials as-is.  Calling ‘getValue(‘absolute_tolerance’) will return the scalar or vector set by the user, or the default Config::CVODE_MIN_ABSOLUTE value.  To obtain the full vector obtained from the scalar, use ‘getAbsoluteToleranceVector’.</p>
+<p>In Sundials, the CVODE algorithm calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE (a scalar).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]</span> <span class="o">//</span> <span class="n">setting</span> <span class="n">various</span> <span class="n">tolerances</span> <span class="k">for</span> <span class="n">each</span> <span class="n">species</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">//</span><span class="n">Gets</span> <span class="n">the</span> <span class="n">scalar</span> <span class="ow">or</span> <span class="n">vector</span> <span class="n">absolute</span> <span class="n">tolerance</span><span class="p">,</span> <span class="k">as</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">default</span> <span class="n">value</span><span class="o">.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">getAbsoluteToleranceVector</span><span class="p">()</span>   <span class="o">//</span><span class="n">Gets</span> <span class="n">the</span> <span class="n">absolute</span> <span class="n">tolerance</span> <span class="n">vector</span><span class="p">,</span> <span class="k">as</span> <span class="n">derived</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">scalar</span> <span class="n">value</span><span class="p">,</span> <span class="ow">or</span> <span class="k">as</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span> <span class="n">directly</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.initial_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#CVODE.Integrator.initial_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.maximum_adams_order">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_adams_order</span></span><a class="headerlink" href="#CVODE.Integrator.maximum_adams_order" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">maximum_adams_order</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="s2">&quot;maximum_adams_order</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.maximum_bdf_order">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_bdf_order</span></span><a class="headerlink" href="#CVODE.Integrator.maximum_bdf_order" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum order for Backward Differentiation Formula integration. This integration method is used for stiff problems. Default value is 5.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.maximum_num_steps">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_num_steps</span></span><a class="headerlink" href="#CVODE.Integrator.maximum_num_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum number of steps to be taken by the CVODE solver in its attempt to reach tout. Default value is 20000.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.maximum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#CVODE.Integrator.maximum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.minimum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#CVODE.Integrator.minimum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.multiple_steps">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">multiple_steps</span></span><a class="headerlink" href="#CVODE.Integrator.multiple_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a multiple time step simulation. Default value is false.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">multiple_steps</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">multiple_steps</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.relative_tolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">relative_tolerance</span></span><a class="headerlink" href="#CVODE.Integrator.relative_tolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the scalar relative tolerance. CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_RELATIVE.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.stiff">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">stiff</span></span><a class="headerlink" href="#CVODE.Integrator.stiff" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true. Default value is true.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CVODE.Integrator.variable_step_size">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#CVODE.Integrator.variable_step_size" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is false.</p>
+</dd></dl>
+
+</section>
+<section id="gillespie">
+<h2>Gillespie<a class="headerlink" href="#gillespie" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>RoadRunner’s implementation of the standard Gillespie Direct Method SSA. The granularity of this simulator is individual molecules and kinetic processes are stochastic. Results will, in general, be different in each run, but a sufficiently large ensemble of runs should be statistically correct.</p>
+<p>Can be used with the <a class="reference external" href="https://libroadrunner.readthedocs.io/en/latest/PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.gillespie">rr.gillespie function</a> or by setting integrator to gillespie (see below)</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.initial_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#Gillespie.Integrator.initial_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;initial_time_step&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.maximum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#Gillespie.Integrator.maximum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.minimum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#Gillespie.Integrator.minimum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.nonnegative">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">nonnegative</span></span><a class="headerlink" href="#Gillespie.Integrator.nonnegative" title="Permalink to this definition"></a></dt>
+<dd><p>Prevents species amounts from going negative during a simulation. Default value is false.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.seed">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">seed</span></span><a class="headerlink" href="#Gillespie.Integrator.seed" title="Permalink to this definition"></a></dt>
+<dd><p>Set the seed into the random engine.  By default, this value is set by the system clock in microseconds.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.variable_step_size">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#Gillespie.Integrator.variable_step_size" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is true.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Gillespie.Integrator.max_output_rows">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">max_output_rows</span></span><a class="headerlink" href="#Gillespie.Integrator.max_output_rows" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents massive output for simulations where the variable step size ends up decreasing too much.  This setting is ignored when the variable_step_size is false, and is also ignored when the output is being written directly to a file.  Default value is 100,000.</p>
+</dd></dl>
+
+</section>
+<section id="euler">
+<h2>Euler<a class="headerlink" href="#euler" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>The Euler method is one of the simplest approaches to solving a first order ODE. Given the rate of change of function f at time t, it computes the new value of f as <code class="docutils literal notranslate"><span class="pre">f(t+h)</span> <span class="pre">=</span> <span class="pre">f(t)</span> <span class="pre">+</span> <span class="pre">h*f'(t)</span></code>, where h is the time step. Euler’s method is rarely used in practice due to poor numerical robustness. Can be used with:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;euler&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="rk4">
+<h2>RK4<a class="headerlink" href="#rk4" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>Runge-Kutta methods are a family of algorithms for solving ODEs. They have considerably better accuracy than the Euler method. This integrator is a standard 4th order Runge-Kutta solver. Can be used with:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="rk45">
+<h2>RK45<a class="headerlink" href="#rk45" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>The Runge-Kutte-Fehlberg algorithm (RK45) is a variant of the Runge-Kutta method that estimates the values using a fourth-order method, and estimtes the error using a fifth-order method, allowing adaptive step sizes to be calculated automaticaly.  It can be chosen with:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk45&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Euler-and-Runge-Kutta.Integrator.epsilon">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">epsilon</span></span><a class="headerlink" href="#Euler-and-Runge-Kutta.Integrator.epsilon" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum error tolerance allowed. Default value is 1e-12.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk45&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;epsilon&quot;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Euler-and-Runge-Kutta.Integrator.maximum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#Euler-and-Runge-Kutta.Integrator.maximum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Euler-and-Runge-Kutta.Integrator.minimum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#Euler-and-Runge-Kutta.Integrator.minimum_time_step" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Euler-and-Runge-Kutta.Integrator.variable_step_size">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#Euler-and-Runge-Kutta.Integrator.variable_step_size" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is false.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cls_Solver.html" class="btn btn-neutral float-left" title="Solver Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cls_SteadyStateSolver.html" class="btn btn-neutral float-right" title="Steady State Solver Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

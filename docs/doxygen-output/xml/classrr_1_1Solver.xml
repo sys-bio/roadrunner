@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Solver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::Solver</compoundname>
     <basecompoundref refid="classrr_1_1Registrable" prot="public" virt="non-virtual">rr::Registrable</basecompoundref>
@@ -13,7 +13,6 @@
         <definition>using rr::Solver::SettingsList =  std::vector&lt;std::string&gt;</definition>
         <argsstring></argsstring>
         <name>SettingsList</name>
-        <qualifiedname>rr::Solver::SettingsList</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -27,7 +26,6 @@
         <definition>using rr::Solver::SettingsMap =  std::unordered_map&lt;std::string, Setting&gt;</definition>
         <argsstring></argsstring>
         <name>SettingsMap</name>
-        <qualifiedname>rr::Solver::SettingsMap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -41,7 +39,6 @@
         <definition>using rr::Solver::DisplayNameMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>DisplayNameMap</name>
-        <qualifiedname>rr::Solver::DisplayNameMap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -55,7 +52,6 @@
         <definition>using rr::Solver::HintMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>HintMap</name>
-        <qualifiedname>rr::Solver::HintMap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -69,7 +65,6 @@
         <definition>using rr::Solver::DescriptionMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>DescriptionMap</name>
-        <qualifiedname>rr::Solver::DescriptionMap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -85,7 +80,6 @@
         <definition>SettingsList rr::Solver::sorted_settings</definition>
         <argsstring></argsstring>
         <name>sorted_settings</name>
-        <qualifiedname>rr::Solver::sorted_settings</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -99,7 +93,6 @@
         <definition>SettingsMap rr::Solver::settings</definition>
         <argsstring></argsstring>
         <name>settings</name>
-        <qualifiedname>rr::Solver::settings</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,7 +106,6 @@
         <definition>DisplayNameMap rr::Solver::display_names_</definition>
         <argsstring></argsstring>
         <name>display_names_</name>
-        <qualifiedname>rr::Solver::display_names_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -127,7 +119,6 @@
         <definition>HintMap rr::Solver::hints</definition>
         <argsstring></argsstring>
         <name>hints</name>
-        <qualifiedname>rr::Solver::hints</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -141,7 +132,6 @@
         <definition>DescriptionMap rr::Solver::descriptions</definition>
         <argsstring></argsstring>
         <name>descriptions</name>
-        <qualifiedname>rr::Solver::descriptions</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -157,7 +147,6 @@
         <definition>ExecutableModel* rr::Solver::mModel</definition>
         <argsstring></argsstring>
         <name>mModel</name>
-        <qualifiedname>rr::Solver::mModel</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>non-owning pointer to model </para>
@@ -175,7 +164,6 @@
         <definition>rr::Solver::Solver</definition>
         <argsstring>()=default</argsstring>
         <name>Solver</name>
-        <qualifiedname>rr::Solver::Solver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -189,7 +177,6 @@
         <definition>rr::Solver::Solver</definition>
         <argsstring>(ExecutableModel *model)</argsstring>
         <name>Solver</name>
-        <qualifiedname>rr::Solver::Solver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>model</declname>
@@ -207,7 +194,6 @@
         <definition>rr::Solver::~Solver</definition>
         <argsstring>() override=default</argsstring>
         <name>~Solver</name>
-        <qualifiedname>rr::Solver::~Solver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -221,7 +207,6 @@
         <definition>void rr::Solver::updateSettings</definition>
         <argsstring>(Dictionary *inputSettings)</argsstring>
         <name>updateSettings</name>
-        <qualifiedname>rr::Solver::updateSettings</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> *</type>
           <declname>inputSettings</declname>
@@ -250,7 +235,6 @@
         <definition>std::vector&lt; std::string &gt; rr::Solver::getSettings</definition>
         <argsstring>() const</argsstring>
         <name>getSettings</name>
-        <qualifiedname>rr::Solver::getSettings</qualifiedname>
         <briefdescription>
 <para>Get a list of all settings for this solver. </para>
         </briefdescription>
@@ -268,7 +252,6 @@
         <definition>std::unordered_map&lt; std::string, Setting &gt; &amp; rr::Solver::getSettingsMap</definition>
         <argsstring>()</argsstring>
         <name>getSettingsMap</name>
-        <qualifiedname>rr::Solver::getSettingsMap</qualifiedname>
         <briefdescription>
 <para>get settings for this solver </para>
         </briefdescription>
@@ -288,19 +271,18 @@
         <definition>void rr::Solver::resetSettings</definition>
         <argsstring>()</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::Solver::resetSettings</qualifiedname>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a68cd9b39288762b25f1410aa743f703c">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1a345df1be0ad82f14a56273b89a26828a">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1FixedPointIteration_1ab7451909f822f8642b7555248493371d">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a66033d9628dea4a1e2ffc2158087a2e1">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1ac72e6b148def07a53c79e83441b380cd">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a1eb6cfa0ea863c828fc8b25ec2cfd389">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1a345df1be0ad82f14a56273b89a26828a">resetSettings</reimplementedby>
         <briefdescription>
 <para>Reset all settings to their respective default values. </para>
         </briefdescription>
@@ -315,7 +297,6 @@
         <definition>Setting rr::Solver::getValue</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getValue</name>
-        <qualifiedname>rr::Solver::getValue</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -339,7 +320,6 @@
         <definition>Setting rr::Solver::hasValue</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>hasValue</name>
-        <qualifiedname>rr::Solver::hasValue</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -361,7 +341,6 @@
         <definition>size_t rr::Solver::getNumParams</definition>
         <argsstring>() const</argsstring>
         <name>getNumParams</name>
-        <qualifiedname>rr::Solver::getNumParams</qualifiedname>
         <briefdescription>
 <para>Get the number of parameters. </para>
         </briefdescription>
@@ -379,7 +358,6 @@
         <definition>std::string rr::Solver::getParamName</definition>
         <argsstring>(size_t n) const</argsstring>
         <name>getParamName</name>
-        <qualifiedname>rr::Solver::getParamName</qualifiedname>
         <param>
           <type>size_t</type>
           <declname>n</declname>
@@ -401,7 +379,6 @@
         <definition>std::string rr::Solver::getParamDisplayName</definition>
         <argsstring>(int n) const</argsstring>
         <name>getParamDisplayName</name>
-        <qualifiedname>rr::Solver::getParamDisplayName</qualifiedname>
         <param>
           <type>int</type>
           <declname>n</declname>
@@ -423,7 +400,6 @@
         <definition>std::string rr::Solver::getParamHint</definition>
         <argsstring>(int n) const</argsstring>
         <name>getParamHint</name>
-        <qualifiedname>rr::Solver::getParamHint</qualifiedname>
         <param>
           <type>int</type>
           <declname>n</declname>
@@ -445,7 +421,6 @@
         <definition>std::string rr::Solver::getParamDesc</definition>
         <argsstring>(int n) const</argsstring>
         <name>getParamDesc</name>
-        <qualifiedname>rr::Solver::getParamDesc</qualifiedname>
         <param>
           <type>int</type>
           <declname>n</declname>
@@ -467,7 +442,6 @@
         <definition>std::string rr::Solver::getValueAsString</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>getValueAsString</name>
-        <qualifiedname>rr::Solver::getValueAsString</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -489,11 +463,9 @@
         <definition>void rr::Solver::setValue</definition>
         <argsstring>(const std::string &amp;key, Setting value)</argsstring>
         <name>setValue</name>
-        <qualifiedname>rr::Solver::setValue</qualifiedname>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1ae0b99769434152ba1fbd775f32f3aa22">setValue</reimplementedby>
-        <reimplementedby refid="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6">setValue</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc">setValue</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1aa21499e410b057552054665291618348">setValue</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc">setValue</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -515,7 +487,6 @@
         <definition>std::string rr::Solver::getSettingsRepr</definition>
         <argsstring>() const</argsstring>
         <name>getSettingsRepr</name>
-        <qualifiedname>rr::Solver::getSettingsRepr</qualifiedname>
         <briefdescription>
 <para>Get the solver settings as a std::string. </para>
         </briefdescription>
@@ -533,7 +504,6 @@
         <definition>std::string rr::Solver::settingsPyDictRepr</definition>
         <argsstring>() const</argsstring>
         <name>settingsPyDictRepr</name>
-        <qualifiedname>rr::Solver::settingsPyDictRepr</qualifiedname>
         <briefdescription>
 <para>Python dictionary-style std::string representation of settings. </para>
         </briefdescription>
@@ -551,11 +521,10 @@
         <definition>std::string rr::Solver::toString</definition>
         <argsstring>() const</argsstring>
         <name>toString</name>
-        <qualifiedname>rr::Solver::toString</qualifiedname>
         <reimplementedby refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1a65fed1a29701ddcfb6d0d3f023550bc8">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a3d626fc6eb7f2698840a4d2a94da5720">toString</reimplementedby>
         <reimplementedby refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a3d626fc6eb7f2698840a4d2a94da5720">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1a65fed1a29701ddcfb6d0d3f023550bc8">toString</reimplementedby>
         <briefdescription>
 <para>Return a std::string representation of the solver. </para>
         </briefdescription>
@@ -573,11 +542,10 @@
         <definition>std::string rr::Solver::toRepr</definition>
         <argsstring>() const</argsstring>
         <name>toRepr</name>
-        <qualifiedname>rr::Solver::toRepr</qualifiedname>
         <reimplementedby refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1abc775885d87bf9afa1b5616fe28d1de3">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1acd883d6f972f3735251d363a69ae9da1">toRepr</reimplementedby>
         <reimplementedby refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1acd883d6f972f3735251d363a69ae9da1">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1abc775885d87bf9afa1b5616fe28d1de3">toRepr</reimplementedby>
         <briefdescription>
 <para>Return std::string representation a la Python <bold>repr</bold> method. </para>
         </briefdescription>
@@ -595,7 +563,6 @@
         <definition>const std::string &amp; rr::Solver::getDisplayName</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getDisplayName</name>
-        <qualifiedname>rr::Solver::getDisplayName</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -617,7 +584,6 @@
         <definition>const std::string &amp; rr::Solver::getHint</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getHint</name>
-        <qualifiedname>rr::Solver::getHint</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -639,7 +605,6 @@
         <definition>const std::string &amp; rr::Solver::getDescription</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getDescription</name>
-        <qualifiedname>rr::Solver::getDescription</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -661,7 +626,6 @@
         <definition>Setting::TypeId rr::Solver::getType</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getType</name>
-        <qualifiedname>rr::Solver::getType</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -683,16 +647,15 @@
         <definition>virtual void rr::Solver::syncWithModel</definition>
         <argsstring>(ExecutableModel *m)=0</argsstring>
         <name>syncWithModel</name>
-        <qualifiedname>rr::Solver::syncWithModel</qualifiedname>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1aa0560086789464708c95896272e1b5ce">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad928d3d4e5efbe04dcc2ab503119c745">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1a11c9feeea50fcf52a453f374c1152535">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a3d28cd898cf997dbc2243b0fc2ae3856">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad928d3d4e5efbe04dcc2ab503119c745">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1a11c9feeea50fcf52a453f374c1152535">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d">syncWithModel</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>m</declname>
@@ -714,7 +677,6 @@
         <definition>ExecutableModel * rr::Solver::getModel</definition>
         <argsstring>() const</argsstring>
         <name>getModel</name>
-        <qualifiedname>rr::Solver::getModel</qualifiedname>
         <briefdescription>
 <para>returns the pointer to the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> </para>
         </briefdescription>
@@ -724,13 +686,11 @@
         </inbodydescription>
         <location file="Solver.h" line="189" column="33" bodyfile="Solver.cpp" bodystart="204" bodyend="209"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Registrable::getName</definition>
         <argsstring>() const=0</argsstring>
         <name>getName</name>
-        <qualifiedname>rr::Solver::getName</qualifiedname>
-        <reimplements refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6">getName</reimplements>
         <briefdescription>
 <para>Gets the name associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
         </briefdescription>
@@ -743,13 +703,11 @@
         </inbodydescription>
         <location file="Solver.h" line="42" column="9"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Registrable::getHint</definition>
         <argsstring>() const=0</argsstring>
         <name>getHint</name>
-        <qualifiedname>rr::Solver::getHint</qualifiedname>
-        <reimplements refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9">getHint</reimplements>
         <briefdescription>
 <para>Gets the hint associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
         </briefdescription>
@@ -762,13 +720,11 @@
         </inbodydescription>
         <location file="Solver.h" line="43" column="9"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Registrable::getDescription</definition>
         <argsstring>() const=0</argsstring>
         <name>getDescription</name>
-        <qualifiedname>rr::Solver::getDescription</qualifiedname>
-        <reimplements refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4">getDescription</reimplements>
         <briefdescription>
 <para>Gets the description associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
         </briefdescription>
@@ -788,7 +744,6 @@
         <definition>void rr::Solver::addSetting</definition>
         <argsstring>(const std::string &amp;name, const Setting &amp;val, const std::string &amp;display_name, const std::string &amp;hint, const std::string &amp;description)</argsstring>
         <name>addSetting</name>
-        <qualifiedname>rr::Solver::addSetting</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>name</declname>
@@ -827,16 +782,56 @@
 </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="23">
-        <label>rr::ApproxSteadyStateDecorator</label>
-        <link refid="classrr_1_1ApproxSteadyStateDecorator"/>
-        <childnode refid="22" relation="public-inheritance">
+      <node id="7">
+        <label>rr::RK45Integrator</label>
+        <link refid="classrr_1_1RK45Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="17">
-        <label>rr::BasicNewtonIteration</label>
-        <link refid="classrr_1_1BasicNewtonIteration"/>
+      <node id="18">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
         <childnode refid="16" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::EulerIntegrator</label>
+        <link refid="classrr_1_1EulerIntegrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>rr::PresimulationDecorator</label>
+        <link refid="classrr_1_1PresimulationDecorator"/>
+        <childnode refid="20" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::GillespieIntegrator</label>
+        <link refid="classrr_1_1GillespieIntegrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="20">
+        <label>rr::SteadyStateSolverDecorator</label>
+        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
+        <childnode refid="13" relation="public-inheritance">
         </childnode>
       </node>
       <node id="4">
@@ -845,10 +840,64 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
-        <label>rr::EulerIntegrator</label>
-        <link refid="classrr_1_1EulerIntegrator"/>
+      <node id="19">
+        <label>rr::NLEQSolver</label>
+        <link refid="classrr_1_1NLEQSolver"/>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rr::TimeSeriesSensitivitySolver</label>
+        <link refid="classrr_1_1TimeSeriesSensitivitySolver"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>rr::RK4Integrator</label>
+        <link refid="classrr_1_1RK4Integrator"/>
         <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>rr::PresimulationProgramDecorator</label>
+        <link refid="classrr_1_1PresimulationProgramDecorator"/>
+        <childnode refid="20" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>rr::BasicNewtonIteration</label>
+        <link refid="classrr_1_1BasicNewtonIteration"/>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>rr::SteadyStateSensitivitySolver</label>
+        <link refid="classrr_1_1SteadyStateSensitivitySolver"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rr::SensitivitySolver</label>
+        <link refid="classrr_1_1SensitivitySolver"/>
+        <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
       <node id="15">
@@ -863,124 +912,8 @@
         <childnode refid="11" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
-        <label>rr::GillespieIntegrator</label>
-        <link refid="classrr_1_1GillespieIntegrator"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rr::Integrator</label>
-        <link refid="classrr_1_1Integrator"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>rr::KinsolSteadyStateSolver</label>
-        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
-        <childnode refid="13" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>rr::LinesearchNewtonIteration</label>
-        <link refid="classrr_1_1LinesearchNewtonIteration"/>
-        <childnode refid="16" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="20">
-        <label>rr::NLEQ1Solver</label>
-        <link refid="classrr_1_1NLEQ1Solver"/>
-        <childnode refid="19" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>rr::NLEQ2Solver</label>
-        <link refid="classrr_1_1NLEQ2Solver"/>
-        <childnode refid="19" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="19">
-        <label>rr::NLEQSolver</label>
-        <link refid="classrr_1_1NLEQSolver"/>
-        <childnode refid="13" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>rr::NewtonIteration</label>
-        <link refid="classrr_1_1NewtonIteration"/>
-        <childnode refid="14" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>rr::PresimulationDecorator</label>
-        <link refid="classrr_1_1PresimulationDecorator"/>
-        <childnode refid="22" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>rr::PresimulationProgramDecorator</label>
-        <link refid="classrr_1_1PresimulationProgramDecorator"/>
-        <childnode refid="22" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>rr::RK45Integrator</label>
-        <link refid="classrr_1_1RK45Integrator"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>rr::RK4Integrator</label>
-        <link refid="classrr_1_1RK4Integrator"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="9">
-        <label>rr::SensitivitySolver</label>
-        <link refid="classrr_1_1SensitivitySolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>rr::SteadyStateSensitivitySolver</label>
-        <link refid="classrr_1_1SteadyStateSensitivitySolver"/>
-        <childnode refid="9" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>rr::SteadyStateSolverDecorator</label>
-        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
-        <childnode refid="13" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>rr::TimeSeriesSensitivitySolver</label>
-        <link refid="classrr_1_1TimeSeriesSensitivitySolver"/>
-        <childnode refid="9" relation="public-inheritance">
-        </childnode>
-      </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="3">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
       <node id="2">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
@@ -994,22 +927,29 @@
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
+      <node id="3">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
     </collaborationgraph>
-    <location file="Solver.h" line="38" column="5" bodyfile="Solver.h" bodystart="39" bodyend="212"/>
+    <location file="Solver.h" line="39" column="1" bodyfile="Solver.h" bodystart="38" bodyend="212"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>construct</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>display_names_</name></member>
       <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::Solver</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::Solver</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getModel</name></member>
-      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::Solver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamDisplayName</name></member>

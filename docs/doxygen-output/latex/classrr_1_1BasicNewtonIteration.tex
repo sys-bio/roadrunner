@@ -21,14 +21,18 @@ Inheritance diagram for rr\+::Basic\+Newton\+Iteration\+:\begin{figure}[H]
 \mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a311a152d727b2dcd865cbb882408b7f3}\label{classrr_1_1BasicNewtonIteration_a311a152d727b2dcd865cbb882408b7f3}} 
 {\bfseries Basic\+Newton\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
 \item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}\label{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}} 
 std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}\label{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}} 
 std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}\label{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}} 
 std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a9900814f49410af9534862070de4c9e5}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model) const override
 \begin{DoxyCompactList}\small\item\em construct a new Basic\+Newton\+Iterator \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}\label{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}} 
 double \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}{solve}} () override
 \begin{DoxyCompactList}\small\item\em solve the currently defined problem \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}\label{classrr_1_1BasicNewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}} 
@@ -58,63 +62,7 @@ construct a new Basic\+Newton\+Iterator
 
 caller is responsible for deleting memory returned. 
 
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a4380db83a3a2b122fe58fc3bbbb32a69}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}\label{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}} 
-\index{rr::BasicNewtonIteration@{rr::BasicNewtonIteration}!getDescription@{getDescription}}
-\index{getDescription@{getDescription}!rr::BasicNewtonIteration@{rr::BasicNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Basic\+Newton\+Iteration\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the description of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917e5d4}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}\label{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}} 
-\index{rr::BasicNewtonIteration@{rr::BasicNewtonIteration}!getHint@{getHint}}
-\index{getHint@{getHint}!rr::BasicNewtonIteration@{rr::BasicNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Basic\+Newton\+Iteration\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get a (user-\/readable) hint for this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f401d9}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}\label{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}} 
-\index{rr::BasicNewtonIteration@{rr::BasicNewtonIteration}!getName@{getName}}
-\index{getName@{getName}!rr::BasicNewtonIteration@{rr::BasicNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Basic\+Newton\+Iteration\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the name of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa339d6}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}\label{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}} 
-\index{rr::BasicNewtonIteration@{rr::BasicNewtonIteration}!solve@{solve}}
-\index{solve@{solve}!rr::BasicNewtonIteration@{rr::BasicNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily double rr\+::\+Basic\+Newton\+Iteration\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-solve the currently defined problem 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{rr\+::\+Steady\+State\+Solver}}.
+Implements \mbox{\hyperlink{classrr_1_1Registrable_a3f529e138fa0288622525bc13cd73c5f}{rr\+::\+Registrable}}.
 
 
 

@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1SteadyStateSolverDecorator" kind="class" language="C++" prot="public">
     <compoundname>rr::SteadyStateSolverDecorator</compoundname>
     <basecompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</basecompoundref>
-    <derivedcompoundref refid="classrr_1_1ApproxSteadyStateDecorator" prot="public" virt="non-virtual">rr::ApproxSteadyStateDecorator</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1PresimulationDecorator" prot="public" virt="non-virtual">rr::PresimulationDecorator</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1PresimulationProgramDecorator" prot="public" virt="non-virtual">rr::PresimulationProgramDecorator</derivedcompoundref>
     <includes refid="SteadyStateSolverDecorator_8h" local="no">SteadyStateSolverDecorator.h</includes>
@@ -13,7 +12,6 @@
         <definition>SteadyStateSolver* rr::SteadyStateSolverDecorator::solver_</definition>
         <argsstring></argsstring>
         <name>solver_</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::solver_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -29,7 +27,6 @@
         <definition>rr::SteadyStateSolverDecorator::~SteadyStateSolverDecorator</definition>
         <argsstring>() override=default</argsstring>
         <name>~SteadyStateSolverDecorator</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::~SteadyStateSolverDecorator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -43,7 +40,6 @@
         <definition>rr::SteadyStateSolverDecorator::SteadyStateSolverDecorator</definition>
         <argsstring>()=default</argsstring>
         <name>SteadyStateSolverDecorator</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::SteadyStateSolverDecorator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -57,7 +53,6 @@
         <definition>rr::SteadyStateSolverDecorator::SteadyStateSolverDecorator</definition>
         <argsstring>(SteadyStateSolver *solver)</argsstring>
         <name>SteadyStateSolverDecorator</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::SteadyStateSolverDecorator</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
           <declname>solver</declname>
@@ -75,7 +70,6 @@
         <definition>void rr::SteadyStateSolverDecorator::syncWithModel</definition>
         <argsstring>(ExecutableModel *m) override</argsstring>
         <name>syncWithModel</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::syncWithModel</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158">syncWithModel</reimplements>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
@@ -96,7 +90,6 @@
         <definition>double rr::SteadyStateSolverDecorator::solve</definition>
         <argsstring>() override</argsstring>
         <name>solve</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::solve</qualifiedname>
         <reimplements refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2">solve</reimplements>
         <briefdescription>
         </briefdescription>
@@ -111,7 +104,6 @@
         <definition>std::string rr::SteadyStateSolverDecorator::getName</definition>
         <argsstring>() const override</argsstring>
         <name>getName</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::getName</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6">getName</reimplements>
         <briefdescription>
 <para>Gets the name associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
@@ -130,7 +122,6 @@
         <definition>std::string rr::SteadyStateSolverDecorator::getDescription</definition>
         <argsstring>() const override</argsstring>
         <name>getDescription</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::getDescription</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4">getDescription</reimplements>
         <briefdescription>
 <para>Gets the description associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
@@ -149,7 +140,6 @@
         <definition>std::string rr::SteadyStateSolverDecorator::getHint</definition>
         <argsstring>() const override</argsstring>
         <name>getHint</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::getHint</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9">getHint</reimplements>
         <briefdescription>
 <para>Gets the hint associated with this <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> type. </para>
@@ -168,7 +158,6 @@
         <definition>void rr::SteadyStateSolverDecorator::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplements>
         <briefdescription>
 <para>Implements settings shared by all steady state solvers. </para>
@@ -186,10 +175,8 @@
         <definition>std::string rr::SteadyStateSolverDecorator::decoratorName</definition>
         <argsstring>() const</argsstring>
         <name>decoratorName</name>
-        <qualifiedname>rr::SteadyStateSolverDecorator::decoratorName</qualifiedname>
-        <reimplementedby refid="classrr_1_1ApproxSteadyStateDecorator_1a3e7916ba27fe782a310df7415cb714bf">decoratorName</reimplementedby>
-        <reimplementedby refid="classrr_1_1PresimulationDecorator_1ac72c5ef5c3e84174337f1be9894193eb">decoratorName</reimplementedby>
         <reimplementedby refid="classrr_1_1PresimulationProgramDecorator_1a47f69e50f68a1a83012d454440ddaca4">decoratorName</reimplementedby>
+        <reimplementedby refid="classrr_1_1PresimulationDecorator_1ac72c5ef5c3e84174337f1be9894193eb">decoratorName</reimplementedby>
         <briefdescription>
 <para>get the name of this decorator. </para>
         </briefdescription>
@@ -209,38 +196,14 @@
     </detaileddescription>
     <inheritancegraph>
       <node id="5">
-        <label>rr::ApproxSteadyStateDecorator</label>
-        <link refid="classrr_1_1ApproxSteadyStateDecorator"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="6">
         <label>rr::PresimulationDecorator</label>
         <link refid="classrr_1_1PresimulationDecorator"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>rr::PresimulationProgramDecorator</label>
-        <link refid="classrr_1_1PresimulationProgramDecorator"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
       <node id="4">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="3">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="1">
         <label>rr::SteadyStateSolverDecorator</label>
@@ -248,30 +211,29 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="5">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
-      <node id="4">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="3">
         <label>rr::Solver</label>
         <link refid="classrr_1_1Solver"/>
         <childnode refid="4" relation="public-inheritance">
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>mModel</edgelabel>
+      </node>
+      <node id="6">
+        <label>rr::PresimulationProgramDecorator</label>
+        <link refid="classrr_1_1PresimulationProgramDecorator"/>
+        <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="1">
         <label>rr::SteadyStateSolverDecorator</label>
@@ -282,11 +244,30 @@
           <edgelabel>solver_</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
     </collaborationgraph>
-    <location file="SteadyStateSolverDecorator.h" line="20" column="5" bodyfile="SteadyStateSolverDecorator.h" bodystart="20" bodyend="59"/>
+    <location file="SteadyStateSolverDecorator.h" line="20" column="62" bodyfile="SteadyStateSolverDecorator.h" bodystart="20" bodyend="59"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>construct</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1a665732d0647ee9d077fad0fef5f10b55" prot="private" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>decoratorName</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>descriptions</name></member>
@@ -294,11 +275,14 @@
       <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1aeee54937d2c9bc9959e7be1ed217831c" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::SteadyStateSolverDecorator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::SteadyStateSolverDecorator</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1a010d1f84529bbcc1177f35ee646e8b6c" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::SteadyStateSolverDecorator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::SteadyStateSolverDecorator</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getModel</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1ab40943abac1972772212fb7fad42afa3" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::SteadyStateSolverDecorator</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>getParamDisplayName</name></member>
@@ -324,6 +308,7 @@
       <member refid="classrr_1_1SteadyStateSolverDecorator_1af8245130dad6e050fd0bacdddc6cbec6" prot="public" virt="virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>solve</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::SteadyStateSolverDecorator</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1a03e7c058ba9134cb97366f34bade46f8" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>solver_</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1SteadyStateSolverDecorator_1a3458067f3ee8c6d02989298d63e1d4b0" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverDecorator</scope><name>SteadyStateSolverDecorator</name></member>

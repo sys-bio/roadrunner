@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1CodeGenBase" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rrllvm::CodeGenBase</compoundname>
     <includes refid="CodeGenBase_8h" local="no">CodeGenBase.h</includes>
@@ -14,14 +14,13 @@
         <definition>typedef FunctionPtrType rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::FunctionPtr</definition>
         <argsstring></argsstring>
         <name>FunctionPtr</name>
-        <qualifiedname>rrllvm::CodeGenBase::FunctionPtr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="52" column="29" bodyfile="llvm/CodeGenBase.h" bodystart="52" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="68" column="29" bodyfile="llvm/CodeGenBase.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -30,21 +29,19 @@
         <definition>const ModelGeneratorContext&amp; rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::modelGenContext</definition>
         <argsstring></argsstring>
         <name>modelGenContext</name>
-        <qualifiedname>rrllvm::CodeGenBase::modelGenContext</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="70" column="33" bodyfile="llvm/CodeGenBase.h" bodystart="68" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="86" column="33" bodyfile="llvm/CodeGenBase.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" static="no" mutable="no">
         <type>const libsbml::Model *</type>
         <definition>const libsbml::Model* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::model</definition>
         <argsstring></argsstring>
         <name>model</name>
-        <qualifiedname>rrllvm::CodeGenBase::model</qualifiedname>
         <briefdescription>
 <para>could potentially be null, everything else is guaranteed to be valid </para>
         </briefdescription>
@@ -52,98 +49,91 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="75" column="26" bodyfile="llvm/CodeGenBase.h" bodystart="75" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="91" column="26" bodyfile="llvm/CodeGenBase.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" static="no" mutable="no">
         <type>const <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref> &amp;</type>
         <definition>const LLVMModelDataSymbols&amp; rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::dataSymbols</definition>
         <argsstring></argsstring>
         <name>dataSymbols</name>
-        <qualifiedname>rrllvm::CodeGenBase::dataSymbols</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="77" column="32" bodyfile="llvm/CodeGenBase.h" bodystart="77" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="93" column="32" bodyfile="llvm/CodeGenBase.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" static="no" mutable="no">
         <type>const <ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref> &amp;</type>
         <definition>const LLVMModelSymbols&amp; rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::modelSymbols</definition>
         <argsstring></argsstring>
         <name>modelSymbols</name>
-        <qualifiedname>rrllvm::CodeGenBase::modelSymbols</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="78" column="28" bodyfile="llvm/CodeGenBase.h" bodystart="78" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="94" column="28" bodyfile="llvm/CodeGenBase.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" static="no" mutable="no">
         <type>llvm::LLVMContext &amp;</type>
         <definition>llvm::LLVMContext&amp; rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::context</definition>
         <argsstring></argsstring>
         <name>context</name>
-        <qualifiedname>rrllvm::CodeGenBase::context</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="80" column="23" bodyfile="llvm/CodeGenBase.h" bodystart="80" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="96" column="23" bodyfile="llvm/CodeGenBase.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" static="no" mutable="no">
         <type>llvm::Module *</type>
         <definition>llvm::Module* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::module</definition>
         <argsstring></argsstring>
         <name>module</name>
-        <qualifiedname>rrllvm::CodeGenBase::module</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="81" column="18" bodyfile="llvm/CodeGenBase.h" bodystart="81" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="97" column="18" bodyfile="llvm/CodeGenBase.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" static="no" mutable="no">
         <type>llvm::IRBuilder &amp;</type>
         <definition>llvm::IRBuilder&amp; rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::builder</definition>
         <argsstring></argsstring>
         <name>builder</name>
-        <qualifiedname>rrllvm::CodeGenBase::builder</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="82" column="6" bodyfile="llvm/CodeGenBase.h" bodystart="82" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="98" column="6" bodyfile="llvm/CodeGenBase.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" static="no" mutable="no">
         <type>llvm::Function *</type>
         <definition>llvm::Function* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::function</definition>
         <argsstring></argsstring>
         <name>function</name>
-        <qualifiedname>rrllvm::CodeGenBase::function</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="83" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="83" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="99" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" static="no" mutable="no">
         <type>llvm::legacy::FunctionPassManager *</type>
         <definition>llvm::legacy::FunctionPassManager* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::functionPassManager</definition>
         <argsstring></argsstring>
         <name>functionPassManager</name>
-        <qualifiedname>rrllvm::CodeGenBase::functionPassManager</qualifiedname>
         <briefdescription>
 <para>function pass manager. </para>
         </briefdescription>
@@ -152,14 +142,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="88" column="39" bodyfile="llvm/CodeGenBase.h" bodystart="88" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="104" column="39" bodyfile="llvm/CodeGenBase.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" static="no" mutable="no">
         <type>const unsigned</type>
         <definition>const unsigned rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::options</definition>
         <argsstring></argsstring>
         <name>options</name>
-        <qualifiedname>rrllvm::CodeGenBase::options</qualifiedname>
         <briefdescription>
 <para>the options bit field that was passed into the top level load method. </para>
         </briefdescription>
@@ -167,23 +156,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="93" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="93" bodyend="-1"/>
+        <location file="llvm/CodeGenBase.h" line="109" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::Function *</type>
-        <definition>llvm::Function * rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::createFunction</definition>
+        <definition>llvm::Function* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::createFunction</definition>
         <argsstring>()</argsstring>
         <name>createFunction</name>
-        <qualifiedname>rrllvm::CodeGenBase::createFunction</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="40" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="40" bodyend="50"/>
+        <location file="llvm/CodeGenBase.h" line="56" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="56" bodyend="66"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -192,7 +180,6 @@
         <definition>rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::CodeGenBase</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>CodeGenBase</name>
-        <qualifiedname>rrllvm::CodeGenBase::CodeGenBase</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -203,19 +190,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="55" column="5" bodyfile="llvm/CodeGenBase.h" bodystart="55" bodyend="68"/>
+        <location file="llvm/CodeGenBase.h" line="71" column="5" bodyfile="llvm/CodeGenBase.h" bodystart="71" bodyend="84"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>llvm::Value *</type>
-        <definition>virtual llvm::Value * rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGen</definition>
+        <definition>virtual llvm::Value* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGen</definition>
         <argsstring>()=0</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::CodeGenBase::codeGen</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1EvalConversionFactorCodeGen_1aa6535e6389e0e5bd10d03d224b6806f2">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1EvalInitialConditionsCodeGen_1a2d19d6c49aa02ac8245ec69b561f18c0">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1EvalRateRuleRatesCodeGen_1a69f9d71ac15e8644043024c7190732f4">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1EvalReactionRatesCodeGen_1ab1b834329359a692acc7124f57d2279b">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1EvalVolatileStoichCodeGen_1a5e26d4f400905d317c4309c353de7ad1">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1EvalReactionRatesCodeGen_1ab1b834329359a692acc7124f57d2279b">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1EvalInitialConditionsCodeGen_1a2d19d6c49aa02ac8245ec69b561f18c0">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1EventCodeGenBase_1ae018dbfc799823bf8e10807b7537e343">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1EventCodeGenBase_1ae018dbfc799823bf8e10807b7537e343">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1EventCodeGenBase_1ae018dbfc799823bf8e10807b7537e343">codeGen</reimplementedby>
@@ -223,43 +224,15 @@
         <reimplementedby refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05">codeGen</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ab289240b6d53d7f0f1943eb30a6615f0">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetInitialValueCodeGenBase_1a296c8e1ff3f0ecfbb24ccdde2ac8fe1a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a">codeGen</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="95" column="25"/>
+        <location file="llvm/CodeGenBase.h" line="111" column="25"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>size_t</type>
@@ -268,10 +241,9 @@
           </param>
         </templateparamlist>
         <type>llvm::BasicBlock *</type>
-        <definition>llvm::BasicBlock * rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGenHeader</definition>
+        <definition>llvm::BasicBlock* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGenHeader</definition>
         <argsstring>(const char *functionName, llvm::Type *retType, llvm::Type *(&amp;argTypes)[N], const char *(&amp;argNames)[N], llvm::Value *(&amp;args)[N])</argsstring>
         <name>codeGenHeader</name>
-        <qualifiedname>rrllvm::CodeGenBase::codeGenHeader</qualifiedname>
         <param>
           <type>const char *</type>
           <declname>functionName</declname>
@@ -301,14 +273,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="98" column="22" bodyfile="llvm/CodeGenBase.h" bodystart="98" bodyend="127"/>
+        <location file="llvm/CodeGenBase.h" line="114" column="22" bodyfile="llvm/CodeGenBase.h" bodystart="114" bodyend="143"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::BasicBlock *</type>
-        <definition>llvm::BasicBlock * rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGenVoidModelDataHeader</definition>
+        <definition>llvm::BasicBlock* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::codeGenVoidModelDataHeader</definition>
         <argsstring>(const char *functionName, llvm::Value *&amp;modelData)</argsstring>
         <name>codeGenVoidModelDataHeader</name>
-        <qualifiedname>rrllvm::CodeGenBase::codeGenVoidModelDataHeader</qualifiedname>
         <param>
           <type>const char *</type>
           <declname>functionName</declname>
@@ -324,14 +295,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="133" column="22" bodyfile="llvm/CodeGenBase.h" bodystart="133" bodyend="150"/>
+        <location file="llvm/CodeGenBase.h" line="149" column="22" bodyfile="llvm/CodeGenBase.h" bodystart="149" bodyend="166"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::Function *</type>
-        <definition>llvm::Function * rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::verifyFunction</definition>
+        <definition>llvm::Function* rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::verifyFunction</definition>
         <argsstring>()</argsstring>
         <name>verifyFunction</name>
-        <qualifiedname>rrllvm::CodeGenBase::verifyFunction</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -339,21 +309,20 @@
         <inbodydescription>
 <para>verifyFunction - Check a function for errors, printing messages on stderr. Return true if the function is corrupt.</para>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="152" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="152" bodyend="167"/>
+        <location file="llvm/CodeGenBase.h" line="168" column="20" bodyfile="llvm/CodeGenBase.h" bodystart="168" bodyend="183"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
         <definition>virtual rrllvm::CodeGenBase&lt; FunctionPtrType &gt;::~CodeGenBase</definition>
         <argsstring>()</argsstring>
         <name>~CodeGenBase</name>
-        <qualifiedname>rrllvm::CodeGenBase::~CodeGenBase</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGenBase.h" line="170" column="13" bodyfile="llvm/CodeGenBase.h" bodystart="170" bodyend="170"/>
+        <location file="llvm/CodeGenBase.h" line="186" column="13" bodyfile="llvm/CodeGenBase.h" bodystart="186" bodyend="186"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -363,63 +332,63 @@
 <para>It can get tedious alwasy typing mgc.getThis and mgc.getThat. Furthermore, its faster to access them as ivars as it does not incur a func call each time. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="5">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="7">
+      <node id="4">
         <label>rrllvm::ASTNodeFactory</label>
         <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="2">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="3" relation="private-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
       </node>
       <node id="1">
         <label>rrllvm::CodeGenBase&lt; FunctionPtrType &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="5" relation="private-inheritance">
-        </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
+          <edgelabel>dataSymbols</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>nodes</edgelabel>
+          <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
-      <node id="2">
+      <node id="7">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
       <node id="6">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="3">
+        <label>SBMLVisitor</label>
+      </node>
+      <node id="5">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/CodeGenBase.h" line="37" column="1" bodyfile="llvm/CodeGenBase.h" bodystart="38" bodyend="173"/>
+    <location file="llvm/CodeGenBase.h" line="54" column="1" bodyfile="llvm/CodeGenBase.h" bodystart="53" bodyend="189"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>builder</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75" prot="protected" virt="pure-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGen</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6" prot="protected" virt="pure-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>createFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>function</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>functionPassManager</name></member>
@@ -429,7 +398,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::CodeGenBase</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::CodeGenBase</scope><name>~CodeGenBase</name></member>
     </listofallmembers>
   </compounddef>

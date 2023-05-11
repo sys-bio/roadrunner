@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rrLogger &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="rrNLEQ1Interface" href="rrNLEQ1Interface.html" />
+    <link rel="prev" title="rrIniSection" href="rrIniSection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The LibRoadRunner C++ Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="llvm/index.html">LLVM Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CVODEIntegrator.html">CVODEIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dictionary.html">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerIntegrator.html">EulerIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutableModelFactory.html">ExecutableModelFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GillespieIntegrator.html">GillespieIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Integrator.html">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IntegratorFactory.html">IntegratorFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ1Solver.html">NLEQ1Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ2Solver.html">NLEQ2Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK45Integrator.html">RK45Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK4Integrator.html">RK4Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SBMLValidator.html">SBMLValidator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solver.html">Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SolverFactory.html">SolverFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SteadyStateSolver.html">SteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Variant.html">Variant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrCompiler.html">rrCompiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrConfig.html">rrConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrException.html">rrException</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrExecutableModel.html">rrExecutableModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrFileName.html">rrFileName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniFile.html">rrIniFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniKey.html">rrIniKey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniSection.html">rrIniSection</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">rrLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ1Interface.html">rrNLEQ1Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ2Interface.html">rrNLEQ2Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunner.html">rrRoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerData.html">rrRoadRunnerData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerOptions.html">rrRoadRunnerOptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLModelSimulation.html">rrSBMLModelSimulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLReader.html">rrSBMLReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSelectionRecord.html">rrSelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSparse.html">rrSparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoadRunnerMap.html">RoadRunnerMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-new-integrator">Creating a new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#telling-roadrunner-about-the-new-integrator">Telling RoadRunner about the new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">The LibRoadRunner C++ Library</a></li>
+      <li class="breadcrumb-item active">rrLogger</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/C++APIReference/rrLogger.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rrlogger">
+<h1>rrLogger<a class="headerlink" href="#rrlogger" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6LoggerE">
+<span id="_CPPv3N2rr6LoggerE"></span><span id="_CPPv2N2rr6LoggerE"></span><span id="rr::Logger"></span><span class="target" id="classrr_1_1Logger"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Logger</span></span></span><a class="headerlink" href="#_CPPv4N2rr6LoggerE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The roadrunner logger. </p>
+<p>A set of static method for setting the logging level. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5LevelE">
+<span id="_CPPv3N2rr6Logger5LevelE"></span><span id="_CPPv2N2rr6Logger5LevelE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Level</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5LevelE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked statically so third parties would not need to have Poco installed. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level11LOG_CURRENTE">
+<span id="_CPPv3N2rr6Logger5Level11LOG_CURRENTE"></span><span id="_CPPv2N2rr6Logger5Level11LOG_CURRENTE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_CURRENT</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level11LOG_CURRENTE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>LOG_CURRENT: Use the current level &amp;#8212; don’t change the level from what it is. </p>
+<p>LOG_FATAL: A fatal error. The application will most likely terminate. This is the highest priority. LOG_CRITICAL: A critical error. The application might not be able to continue running successfully. LOG_ERROR: An error. An operation did not complete successfully, but the application as a whole is not affected. LOG_WARNING: A warning. An operation completed with an unexpected result. LOG_NOTICE: A notice, which is an information with just a higher priority. LOG_INFORMATION: An informational message, usually denoting the successful completion of an operation. LOG_DEBUG: A debugging message. LOG_TRACE: A tracing message. This is the lowest priority. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level9LOG_FATALE">
+<span id="_CPPv3N2rr6Logger5Level9LOG_FATALE"></span><span id="_CPPv2N2rr6Logger5Level9LOG_FATALE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_FATAL</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level9LOG_FATALE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level12LOG_CRITICALE">
+<span id="_CPPv3N2rr6Logger5Level12LOG_CRITICALE"></span><span id="_CPPv2N2rr6Logger5Level12LOG_CRITICALE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_CRITICAL</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level12LOG_CRITICALE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level9LOG_ERRORE">
+<span id="_CPPv3N2rr6Logger5Level9LOG_ERRORE"></span><span id="_CPPv2N2rr6Logger5Level9LOG_ERRORE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_ERROR</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level9LOG_ERRORE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level11LOG_WARNINGE">
+<span id="_CPPv3N2rr6Logger5Level11LOG_WARNINGE"></span><span id="_CPPv2N2rr6Logger5Level11LOG_WARNINGE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_WARNING</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level11LOG_WARNINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level10LOG_NOTICEE">
+<span id="_CPPv3N2rr6Logger5Level10LOG_NOTICEE"></span><span id="_CPPv2N2rr6Logger5Level10LOG_NOTICEE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_NOTICE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level10LOG_NOTICEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level15LOG_INFORMATIONE">
+<span id="_CPPv3N2rr6Logger5Level15LOG_INFORMATIONE"></span><span id="_CPPv2N2rr6Logger5Level15LOG_INFORMATIONE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_INFORMATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level15LOG_INFORMATIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level9LOG_DEBUGE">
+<span id="_CPPv3N2rr6Logger5Level9LOG_DEBUGE"></span><span id="_CPPv2N2rr6Logger5Level9LOG_DEBUGE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_DEBUG</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level9LOG_DEBUGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger5Level9LOG_TRACEE">
+<span id="_CPPv3N2rr6Logger5Level9LOG_TRACEE"></span><span id="_CPPv2N2rr6Logger5Level9LOG_TRACEE"></span><span class="target" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOG_TRACE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Logger5Level9LOG_TRACEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger8setLevelEi">
+<span id="_CPPv3N2rr6Logger8setLevelEi"></span><span id="_CPPv2N2rr6Logger8setLevelEi"></span><span id="rr::Logger::setLevel__i"></span><span class="target" id="classrr_1_1Logger_1a932fba9c85c6a5eb806851e06b02e957"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setLevel</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr6Logger5Level11LOG_CURRENTE" title="rr::Logger::LOG_CURRENT"><span class="n"><span class="pre">LOG_CURRENT</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger8setLevelEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>sets the logging level to one a value from <a class="reference internal" href="#classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa"><span class="std std-ref">Logger::Level</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger8getLevelEv">
+<span id="_CPPv3N2rr6Logger8getLevelEv"></span><span id="_CPPv2N2rr6Logger8getLevelEv"></span><span id="rr::Logger::getLevel"></span><span class="target" id="classrr_1_1Logger_1ad6b48d767c766eeb3db7505a59631b6b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLevel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger8getLevelEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>get the current logging level. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger14disableLoggingEv">
+<span id="_CPPv3N2rr6Logger14disableLoggingEv"></span><span id="_CPPv2N2rr6Logger14disableLoggingEv"></span><span id="rr::Logger::disableLogging"></span><span class="target" id="classrr_1_1Logger_1adb9e082ec2b6d896fe4f8f3158cf8dbc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disableLogging</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger14disableLoggingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Suppresses all logging output. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger21disableConsoleLoggingEv">
+<span id="_CPPv3N2rr6Logger21disableConsoleLoggingEv"></span><span id="_CPPv2N2rr6Logger21disableConsoleLoggingEv"></span><span id="rr::Logger::disableConsoleLogging"></span><span class="target" id="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disableConsoleLogging</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger21disableConsoleLoggingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>stops logging to the console, but file logging may continue. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger20enableConsoleLoggingEi">
+<span id="_CPPv3N2rr6Logger20enableConsoleLoggingEi"></span><span id="_CPPv2N2rr6Logger20enableConsoleLoggingEi"></span><span id="rr::Logger::enableConsoleLogging__i"></span><span class="target" id="classrr_1_1Logger_1a859a9358480196476351e5e2a3466b71"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enableConsoleLogging</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr6Logger5Level11LOG_CURRENTE" title="rr::Logger::LOG_CURRENT"><span class="n"><span class="pre">LOG_CURRENT</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger20enableConsoleLoggingEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>turns on console logging at the given level. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger17enableFileLoggingERKNSt6stringEi">
+<span id="_CPPv3N2rr6Logger17enableFileLoggingERKNSt6stringEi"></span><span id="_CPPv2N2rr6Logger17enableFileLoggingERKNSt6stringEi"></span><span id="rr::Logger::enableFileLogging__ssCR.i"></span><span class="target" id="classrr_1_1Logger_1a2353c535f4e74dead4f0f1267556a906"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enableFileLogging</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fileName</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr6Logger5Level11LOG_CURRENTE" title="rr::Logger::LOG_CURRENT"><span class="n"><span class="pre">LOG_CURRENT</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger17enableFileLoggingERKNSt6stringEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>turns on file logging to the given file as the given level. </p>
+<p>If fileName is an empty std::string, then this will use the file specified in the <a class="reference internal" href="rrConfig.html#classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f"><span class="std std-ref">Config::LOGGER_LOG_FILE_PATH</span></a>. If this is empty, a file called “roadrunner.log” will be created in the temp directory.</p>
+<p>The temp directory may be specified via <a class="reference internal" href="rrConfig.html#classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710"><span class="std std-ref">Config::TEMP_DIR_PATH</span></a>. If this is empty, then the system spefified temp dir is used. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger18disableFileLoggingEv">
+<span id="_CPPv3N2rr6Logger18disableFileLoggingEv"></span><span id="_CPPv2N2rr6Logger18disableFileLoggingEv"></span><span id="rr::Logger::disableFileLogging"></span><span class="target" id="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disableFileLogging</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger18disableFileLoggingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>turns off file logging, but has no effect on console logging. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger23getCurrentLevelAsStringEv">
+<span id="_CPPv3N2rr6Logger23getCurrentLevelAsStringEv"></span><span id="_CPPv2N2rr6Logger23getCurrentLevelAsStringEv"></span><span id="rr::Logger::getCurrentLevelAsString"></span><span class="target" id="classrr_1_1Logger_1adc95de06b2cfb00d95b327329893e767"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCurrentLevelAsString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger23getCurrentLevelAsStringEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>get the textural form of the current logging level. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger11getFileNameEv">
+<span id="_CPPv3N2rr6Logger11getFileNameEv"></span><span id="_CPPv2N2rr6Logger11getFileNameEv"></span><span id="rr::Logger::getFileName"></span><span class="target" id="classrr_1_1Logger_1a40f208d7bf2af73894ba3872296dbe9c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getFileName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger11getFileNameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>get the name of the currently used log file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger20setFormattingPatternERKNSt6stringE">
+<span id="_CPPv3N2rr6Logger20setFormattingPatternERKNSt6stringE"></span><span id="_CPPv2N2rr6Logger20setFormattingPatternERKNSt6stringE"></span><span id="rr::Logger::setFormattingPattern__ssCR"></span><span class="target" id="classrr_1_1Logger_1a3a660978ecbd144b2c2c3aee17b5950b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setFormattingPattern</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">format</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger20setFormattingPatternERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Internally, <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> uses the Poco logging framework, so we can custom format logging output based on a formatting pattern std::string. </p>
+<p>The format pattern is used as a template to format the message and is copied character by character except for the following special characters, which are replaced by the corresponding value.</p>
+<p>An example pattern of “%Y-%m-%d %H:%M:%S %p: %t”</p>
+<p>would produce the following output:</p>
+<p>2013-10-25 14:12:45 Fatal: console and file: A fatal error 2013-10-25 14:12:45 Critical: console and file: A critical error 2013-10-25 14:12:45 Error: console and file: An error 2013-10-25 14:12:45 Warning: console and file: A warning. 2013-10-25 14:12:45 Notice: console and file: A notice.</p>
+<p>The following formatting pattern descriptions is copied from the Poco documentation:</p>
+<p><ul class="simple">
+<li><p>s - message source</p></li>
+<li><p>t - message text</p></li>
+<li><p>l - message priority level (1 .. 7)</p></li>
+<li><p>p - message priority (Fatal, Critical, Error, Warning, Notice, Information, Debug, Trace)</p></li>
+<li><p>q - abbreviated message priority (F, C, E, W, N, I, D, T)</p></li>
+<li><p>P - message process identifier</p></li>
+<li><p>T - message thread name</p></li>
+<li><p>I - message thread identifier (numeric)</p></li>
+<li><p>N - node or host name</p></li>
+<li><p>U - message source file path (empty std::string if not set)</p></li>
+<li><p>u - message source line number (0 if not set)</p></li>
+<li><p>w - message date/time abbreviated weekday (Mon, Tue, …)</p></li>
+<li><p>W - message date/time full weekday (Monday, Tuesday, …)</p></li>
+<li><p>b - message date/time abbreviated month (Jan, Feb, …)</p></li>
+<li><p>B - message date/time full month (January, February, …)</p></li>
+<li><p>d - message date/time zero-padded day of month (01 .. 31)</p></li>
+<li><p>e - message date/time day of month (1 .. 31)</p></li>
+<li><p>f - message date/time space-padded day of month ( 1 .. 31)</p></li>
+<li><p>m - message date/time zero-padded month (01 .. 12)</p></li>
+<li><p>n - message date/time month (1 .. 12)</p></li>
+<li><p>o - message date/time space-padded month ( 1 .. 12)</p></li>
+<li><p>y - message date/time year without century (70)</p></li>
+<li><p>Y - message date/time year with century (1970)</p></li>
+<li><p>H - message date/time hour (00 .. 23)</p></li>
+<li><p>h - message date/time hour (00 .. 12)</p></li>
+<li><p>a - message date/time am/pm</p></li>
+<li><p>A - message date/time AM/PM</p></li>
+<li><p>M - message date/time minute (00 .. 59)</p></li>
+<li><p>S - message date/time second (00 .. 59)</p></li>
+<li><p>i - message date/time millisecond (000 .. 999)</p></li>
+<li><p>c - message date/time centisecond (0 .. 9)</p></li>
+<li><p>F - message date/time fractional seconds/microseconds (000000 - 999999)</p></li>
+<li><p>z - time zone differential in ISO 8601 format (Z or +NN.NN)</p></li>
+<li><p>Z - time zone differential in RFC format (GMT or +NNNN)</p></li>
+<li><p>E - epoch time (UTC, seconds since midnight, January 1, 1970)</p></li>
+<li><p>%[name] - the value of the message parameter with the given name</p></li>
+<li><p>%% - percent sign </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger20getFormattingPatternEv">
+<span id="_CPPv3N2rr6Logger20getFormattingPatternEv"></span><span id="_CPPv2N2rr6Logger20getFormattingPatternEv"></span><span id="rr::Logger::getFormattingPattern"></span><span class="target" id="classrr_1_1Logger_1a7b4e8ed1391f383f27ff6f12d951beff"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getFormattingPattern</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger20getFormattingPatternEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>get the currently set formatting pattern. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger13levelToStringEi">
+<span id="_CPPv3N2rr6Logger13levelToStringEi"></span><span id="_CPPv2N2rr6Logger13levelToStringEi"></span><span id="rr::Logger::levelToString__i"></span><span class="target" id="classrr_1_1Logger_1abd7799fdcd8848cabd146bedd8b7d12a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">levelToString</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger13levelToStringEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>gets the textual form of a logging level Enum for a given value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger13stringToLevelERKNSt6stringE">
+<span id="_CPPv3N2rr6Logger13stringToLevelERKNSt6stringE"></span><span id="_CPPv2N2rr6Logger13stringToLevelERKNSt6stringE"></span><span id="rr::Logger::stringToLevel__ssCR"></span><span class="target" id="classrr_1_1Logger_1a04c2fb0c06b2d55f2405c394153cbe30"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr6Logger5LevelE" title="rr::Logger::Level"><span class="n"><span class="pre">Level</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stringToLevel</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger13stringToLevelERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>parses a std::string and returns a <a class="reference internal" href="#classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa"><span class="std std-ref">Logger::Level</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger16getColoredOutputEv">
+<span id="_CPPv3N2rr6Logger16getColoredOutputEv"></span><span id="_CPPv2N2rr6Logger16getColoredOutputEv"></span><span id="rr::Logger::getColoredOutput"></span><span class="target" id="classrr_1_1Logger_1a0f01c4474b91e705040db1ba59eccd07"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getColoredOutput</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger16getColoredOutputEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>check if we have colored logging enabled. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger16setColoredOutputEb">
+<span id="_CPPv3N2rr6Logger16setColoredOutputEb"></span><span id="_CPPv2N2rr6Logger16setColoredOutputEb"></span><span id="rr::Logger::setColoredOutput__b"></span><span class="target" id="classrr_1_1Logger_1ad194c06ed29a531c8cb00c9ada412b99"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setColoredOutput</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger16setColoredOutputEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>enable / disable colored output </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger11setPropertyERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N2rr6Logger11setPropertyERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N2rr6Logger11setPropertyERKNSt6stringERKNSt6stringE"></span><span id="rr::Logger::setProperty__ssCR.ssCR"></span><span class="target" id="classrr_1_1Logger_1a64831026de073177180ec72ad894ea29"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger11setPropertyERKNSt6stringERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set the color of the output logging messages. </p>
+<p>In the future, we may add additional properties her.</p>
+<p>The following properties are supported: enableColors: Enable or disable colors. traceColor: Specify color for trace messages. debugColor: Specify color for debug messages. informationColor: Specify color for information messages. noticeColor: Specify color for notice messages. warningColor: Specify color for warning messages. errorColor: Specify color for error messages. criticalColor: Specify color for critical messages. fatalColor: Specify color for fatal messages.</p>
+<p>The following color values are supported:</p>
+<p>default black red green brown blue magenta cyan gray darkgray lightRed lightGreen yellow lightBlue lightMagenta lightCyan white </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger3logE5LevelRKNSt6stringE">
+<span id="_CPPv3N2rr6Logger3logE5LevelRKNSt6stringE"></span><span id="_CPPv2N2rr6Logger3logE5LevelRKNSt6stringE"></span><span id="rr::Logger::log__Level.ssCR"></span><span class="target" id="classrr_1_1Logger_1a7d54a49c5245cf78fbcd9445d4872e41"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">log</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Logger5LevelE" title="rr::Logger::Level"><span class="n"><span class="pre">Level</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">msg</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger3logE5LevelRKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>logs a message to the log. </p>
+<p>This is most useful from Python as C++ code will typically call the LoggingBuffer via the Log macro. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Logger16setConsoleStreamEPNSt7ostreamE">
+<span id="_CPPv3N2rr6Logger16setConsoleStreamEPNSt7ostreamE"></span><span id="_CPPv2N2rr6Logger16setConsoleStreamEPNSt7ostreamE"></span><span id="rr::Logger::setConsoleStream__osP"></span><span class="target" id="classrr_1_1Logger_1aaa118623cb0a11d39321cb6ecebf704a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setConsoleStream</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">os</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Logger16setConsoleStreamEPNSt7ostreamE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set a pointer to an std::ostream object where the console logger should log to. </p>
+<p>Normally, this points to std::clog.</p>
+<p>This is here so that the <a class="reference internal" href="#classrr_1_1Logger"><span class="std std-ref">Logger</span></a> can properly re-direct to the Python sys.stderr object as the QT IPython console only reads output from the python sys.stdout and sys.stderr file objects and not the C++ file streams. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rrIniSection.html" class="btn btn-neutral float-left" title="rrIniSection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rrNLEQ1Interface.html" class="btn btn-neutral float-right" title="rrNLEQ1Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

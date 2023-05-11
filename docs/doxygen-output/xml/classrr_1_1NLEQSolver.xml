@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1NLEQSolver" kind="class" language="C++" prot="public">
     <compoundname>rr::NLEQSolver</compoundname>
     <basecompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</basecompoundref>
-    <derivedcompoundref refid="classrr_1_1NLEQ1Solver" prot="public" virt="non-virtual">rr::NLEQ1Solver</derivedcompoundref>
-    <derivedcompoundref refid="classrr_1_1NLEQ2Solver" prot="public" virt="non-virtual">rr::NLEQ2Solver</derivedcompoundref>
     <includes refid="NLEQSolver_8h" local="no">NLEQSolver.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1NLEQSolver_1a285280e71f68f3bebf39eca43e4b16c5" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
@@ -12,7 +10,6 @@
         <definition>rr::NLEQSolver::NLEQSolver</definition>
         <argsstring>(ExecutableModel *model)</argsstring>
         <name>NLEQSolver</name>
-        <qualifiedname>rr::NLEQSolver::NLEQSolver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>model</declname>
@@ -31,7 +28,6 @@
         <definition>rr::NLEQSolver::~NLEQSolver</definition>
         <argsstring>() override</argsstring>
         <name>~NLEQSolver</name>
-        <qualifiedname>rr::NLEQSolver::~NLEQSolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -45,7 +41,6 @@
         <definition>void rr::NLEQSolver::syncWithModel</definition>
         <argsstring>(ExecutableModel *m) override</argsstring>
         <name>syncWithModel</name>
-        <qualifiedname>rr::NLEQSolver::syncWithModel</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158">syncWithModel</reimplements>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
@@ -65,7 +60,6 @@
         <definition>void rr::NLEQSolver::loadConfigSettings</definition>
         <argsstring>() override</argsstring>
         <name>loadConfigSettings</name>
-        <qualifiedname>rr::NLEQSolver::loadConfigSettings</qualifiedname>
         <reimplements refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd">loadConfigSettings</reimplements>
         <briefdescription>
         </briefdescription>
@@ -80,7 +74,6 @@
         <definition>void rr::NLEQSolver::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::NLEQSolver::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
         <briefdescription>
 <para>Reset all integrator settings to their respective default values. </para>
@@ -101,7 +94,6 @@
         <definition>double rr::NLEQSolver::solveNLEQ</definition>
         <argsstring>()</argsstring>
         <name>solveNLEQ</name>
-        <qualifiedname>rr::NLEQSolver::solveNLEQ</qualifiedname>
         <briefdescription>
 <para>main solver method. </para>
         </briefdescription>
@@ -128,32 +120,14 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="5">
-        <label>rr::NLEQ1Solver</label>
-        <link refid="classrr_1_1NLEQ1Solver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>rr::NLEQ2Solver</label>
-        <link refid="classrr_1_1NLEQ2Solver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
+      <node id="4">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="1">
         <label>rr::NLEQSolver</label>
         <link refid="classrr_1_1NLEQSolver"/>
         <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="3">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
       <node id="2">
@@ -162,11 +136,17 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="5">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
+      <node id="4">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="1">
         <label>rr::NLEQSolver</label>
@@ -174,9 +154,11 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="3">
         <label>rr::Solver</label>
@@ -187,28 +169,29 @@
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="NLEQSolver.h" line="17" column="5" bodyfile="NLEQSolver.h" bodystart="17" bodyend="77"/>
+    <location file="NLEQSolver.h" line="17" column="47" bodyfile="NLEQSolver.h" bodystart="17" bodyend="77"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>construct</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>display_names_</name></member>
       <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getModel</name></member>
-      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::NLEQSolver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamDisplayName</name></member>
@@ -236,6 +219,7 @@
       <member refid="classrr_1_1NLEQSolver_1ae8deaaf0ce433690e1facc32d00b6e91" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>solveNLEQ</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>syncWithModel</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>toRepr</name></member>

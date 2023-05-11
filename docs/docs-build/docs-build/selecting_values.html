@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selecting Values &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Steady State Analysis" href="steady_state.html" />
+    <link rel="prev" title="SBML Read/Write Functions" href="read_write_functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Selecting Values</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#selection-syntax">Selection syntax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-setting-the-amount-concentration-of-a-species">Getting/Setting the Amount/Concentration of a Species</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experimenting-with-selections">Experimenting With Selections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecting-simulation-results">Selecting Simulation Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Selecting Values</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/selecting_values.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="selecting-values">
+<span id="id1"></span><h1>Selecting Values<a class="headerlink" href="#selecting-values" title="Permalink to this heading"></a></h1>
+<p>RoadRunner supports wide range of options for selecting SBML and derivative values. Selections can
+be used to either retrieve or store values. We define SBML values as any element
+specified in the original SBML document, whereas derivative values are a function of one or more
+SBML values. As these functions typically have no inverse, these are read only selections.</p>
+<p>Selections are used a number of RoadRunner methods. They are used to determine what columns are
+selected in a simulation result and can also be used to directly select model values.</p>
+<section id="selection-syntax">
+<h2>Selection syntax<a class="headerlink" href="#selection-syntax" title="Permalink to this heading"></a></h2>
+<p>The selection syntax is case sensitive (SBML elements are case sensitive), however it ignores all
+white space.</p>
+<p>Selection Types:</p>
+<dl>
+<dt>Time: <code class="docutils literal notranslate"><span class="pre">time</span></code></dt><dd><p>The string <code class="docutils literal notranslate"><span class="pre">time</span></code> is interpreted as the current model time.</p>
+</dd>
+<dt>Identifier</dt><dd><p>Any continuous sequence of printing characters is treated as an SBML identifier with
+the exception of <code class="docutils literal notranslate"><span class="pre">time</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">S1</span></code>, <code class="docutils literal notranslate"><span class="pre">P1</span></code>, <code class="docutils literal notranslate"><span class="pre">J0_Keq1</span></code>, <code class="docutils literal notranslate"><span class="pre">compartment</span></code>, etc.
+These have to be valid SBML identifiers. If no SBML identifier is found, an exception is raised.
+Note that if the identifier is a chemical species, it is interpreted as the species amount.</p>
+</dd>
+<dt>Concentration<span class="classifier"><code class="docutils literal notranslate"><span class="pre">[]</span></code></span></dt><dd><p>Following generally accepted chemical nomenclature, any continuous sequence of characters inside
+a pair of squared brackets, <code class="docutils literal notranslate"><span class="pre">[]</span></code> is interpreted as a concentration, i.e. <code class="docutils literal notranslate"><span class="pre">[S1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[S2]</span></code>, etc.
+The identifier must be a valid SBML species, otherwise an exception is raised.</p>
+</dd>
+<dt>Rates of Change: <code class="docutils literal notranslate"><span class="pre">'</span></code></dt><dd><p>Represents the rate of change, <img class="math" src="_images/math/1cb096fbb13f00dedce2e4f91ab965ae954827d8.png" alt="\frac{dy}{dt}"/> of a species amount. Rates of change
+selections follow generally accepted mathematical convention of using the single quote, <code class="docutils literal notranslate"><span class="pre">'</span></code>
+to represent a time derivative. A rate of change selection is any identifier followed by a
+single quote, i.e. <code class="docutils literal notranslate"><span class="pre">S1'</span></code>, <code class="docutils literal notranslate"><span class="pre">S2'</span></code>, <code class="docutils literal notranslate"><span class="pre">P1'</span></code>, etc. A rates of change selection
+is also valid for SBML elements which are defined by rate rules. In Python, use mixture of
+single and double quote to specify the rates of change as string, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;S1'&quot;</span></code></p>
+</dd>
+<dt>Elasticity: <code class="docutils literal notranslate"><span class="pre">ee(ReactionId,</span> <span class="pre">ParameterId)</span></code></dt><dd><p>Represents elasticity slection in the form of <code class="docutils literal notranslate"><span class="pre">ee(ReactionId,</span> <span class="pre">ParameterId)</span></code> where <code class="docutils literal notranslate"><span class="pre">ReactionId</span></code> is a reaction name
+and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code> is a global parameter id. This selection intentionally has a function form, it
+selects the elasticity control coefficient, <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5getEEERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getEE"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getEE()</span></code></a></p>
+</dd>
+<dt>Unscaled Elasticity: <code class="docutils literal notranslate"><span class="pre">uee(ReactionId,</span> <span class="pre">ParameterId)</span></code></dt><dd><p>Represents unscaled elasticity slection in the form of <code class="docutils literal notranslate"><span class="pre">uee(ReactionId,</span> <span class="pre">ParameterId)</span></code> where <code class="docutils literal notranslate"><span class="pre">ReactionId</span></code>
+is a reaction name and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code> is a global parameter id. This selection intentionally has a function form, it
+selects the elasticity control coefficient, <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner6getuEEERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getuEE"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getuEE()</span></code></a></p>
+</dd>
+<dt>Control Coefficient: <code class="docutils literal notranslate"><span class="pre">cc(Id,</span> <span class="pre">ParameterId)</span></code></dt><dd><p>Represents control coefficient selection in the form of <code class="docutils literal notranslate"><span class="pre">cc(Id,</span> <span class="pre">ParameterId)</span></code> where <code class="docutils literal notranslate"><span class="pre">Id</span></code> is
+a flux or species name and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code> is a global parameter id. The string <code class="docutils literal notranslate"><span class="pre">Id</span></code> and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code>
+must be valid arguments     for <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5getCCERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getCC"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getCC()</span></code></a>. This selection intentionally has a function form, it
+selects the elasticity control coefficient, <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5getCCERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getCC"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getCC()</span></code></a></p>
+</dd>
+<dt>Unscaled Control Coefficient: <code class="docutils literal notranslate"><span class="pre">ucc(Id,</span> <span class="pre">ParameterId)</span></code></dt><dd><p>Represents unscaled control coefficient selections in the form of <code class="docutils literal notranslate"><span class="pre">ucc(Id,</span> <span class="pre">ParameterId)</span></code> where <cite>Id`</cite> is
+a flux or species name and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code> is a global parameter id. The string <code class="docutils literal notranslate"><span class="pre">Id</span></code> and <code class="docutils literal notranslate"><span class="pre">ParameterId</span></code>
+must be valid arguments for <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner6getuCCERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getuCC"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getuCC()</span></code></a>. This selection intentionally has a function form, it
+selects the unscaled elasticity control coefficient, <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner6getuCCERKNSt6stringERKNSt6stringE" title="rr::RoadRunner::getuCC"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getuCC()</span></code></a></p>
+</dd>
+<dt>Eigenvalue: <code class="docutils literal notranslate"><span class="pre">eigen()</span></code>, <code class="docutils literal notranslate"><span class="pre">eigenReal()</span></code>, <code class="docutils literal notranslate"><span class="pre">eigenImag()</span></code></dt><dd><p>Represents the eigenvalue of a floating species. <code class="docutils literal notranslate"><span class="pre">eigen(identifier)</span></code> is complex number whereas <code class="docutils literal notranslate"><span class="pre">eigenReal(identifier)</span></code> is the real part of eigenvalue and
+<code class="docutils literal notranslate"><span class="pre">eigenImag(identifier)</span></code> is the imaginary part of eigenvalue.</p>
+</dd>
+<dt>Initial Value: <code class="docutils literal notranslate"><span class="pre">init()</span></code></dt><dd><p>Represents the initial value of an identifier (species or global parameter) specified in the SBML document, i.e. <code class="docutils literal notranslate"><span class="pre">init(S1)</span></code>.
+Setting this value does not reset the <em>current</em> value of the quantity. When <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rr::RoadRunner::resetAll</span></code> is
+called, the current values of all quantities will be reset to the designated initial values, including any changes
+made to the initial values via this syntax. This is in contrast to <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rr::RoadRunner::resetToOrigin</span></code>,
+which resets all current and initial values to the values specified in the SBML document.</p>
+</dd>
+<dt>Stoichiometry: <code class="docutils literal notranslate"><span class="pre">stoich(ParameterId,</span> <span class="pre">ReactionId)</span></code></dt><dd><p>Represents the stoichiometric coefficient for a given species and reaction.</p>
+</dd>
+</dl>
+<section id="getting-setting-the-amount-concentration-of-a-species">
+<h3>Getting/Setting the Amount/Concentration of a Species<a class="headerlink" href="#getting-setting-the-amount-concentration-of-a-species" title="Permalink to this heading"></a></h3>
+<p>To retrieve the <em>amount</em> of a species “S1”, one may do any one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">S1_amt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="p">[</span><span class="s2">&quot;S1&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To retrive the <em>concentration</em> of a species “S1”, one may do any one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">S1_conc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="p">[</span><span class="s2">&quot;[S1]&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;[S1]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that for backwards-compatibility reasons, the following gets the <em>concentration</em> of a species:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">S1</span>  <span class="c1"># gets concentration</span>
+</pre></div>
+</div>
+<p>Finally, the syntax for setting the value of a species is analogous to above, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">S1_amt</span> <span class="o">=</span> <span class="mi">42</span>  <span class="c1"># sets amount</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="p">[</span><span class="s2">&quot;[S1]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.4</span>  <span class="c1"># sets concentration</span>
+</pre></div>
+</div>
+</section>
+<section id="experimenting-with-selections">
+<h3>Experimenting With Selections<a class="headerlink" href="#experimenting-with-selections" title="Permalink to this heading"></a></h3>
+<p>One might try individual selection string using the <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner8getValueERKNSt6stringE" title="rr::RoadRunner::getValue"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::getValue()</span></code></a> method. This
+takes a selection string, determines if it is valid, and returns the value it selects. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s2">&quot;cc(S1, J4_KS4)&quot;</span><span class="p">)</span>
+<span class="go">-0.42955738179207886</span>
+</pre></div>
+</div>
+<p>Even though they are almost always specified by a string, RoadRunner selections are actually
+objects. One can create a selection object using <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner15createSelectionERKNSt6stringE" title="rr::RoadRunner::createSelection"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::createSelection()</span></code></a>. In
+order to see extended information about the selection, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">createSelection</span><span class="p">(</span><span class="s2">&quot;cc(S1, J4_KS4)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span>
+<span class="go">SelectionRecord({&#39;index&#39; : -1, &#39;p1&#39; : &#39;S1&#39;, &#39;p2&#39; : &#39;J4_KS4&#39;, &#39;selectionType&#39; : CONTROL})</span>
+</pre></div>
+</div>
+<p>We can see that this is a CONTROL record.</p>
+<p>It is also possible to modify the simulation selection list by deleting existing items and adding
+new ones created with <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner15createSelectionERKNSt6stringE" title="rr::RoadRunner::createSelection"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::createSelection()</span></code></a>. If someone has does not want to display
+the concentration of species <code class="docutils literal notranslate"><span class="pre">S2</span></code> and instead wants to display the rate of change of species
+<code class="docutils literal notranslate"><span class="pre">S1</span></code>, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span>
+<span class="go">[&quot;time&quot;, &quot;[S1]&quot;, &quot;[S2]&quot;, &quot;[S3]&quot;, &quot;[S4]&quot;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">createSelection</span><span class="p">(</span><span class="s2">&quot;S1&#39;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span>
+<span class="go">[&quot;time&quot;, &quot;[S1]&quot;, &quot;S1&#39;&quot;, &quot;[S3]&quot;, &quot;[S4]&quot;]</span>
+</pre></div>
+</div>
+<p>Even though the selection list intentionally appears as a list of strings, it is actually a list of
+selection objects. So, elements that are inserted or appended to this list must be selection objects
+created by <a class="reference internal" href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner15createSelectionERKNSt6stringE" title="rr::RoadRunner::createSelection"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">rr::RoadRunner::createSelection()</span></code></a>.</p>
+</section>
+<section id="selecting-simulation-results">
+<h3>Selecting Simulation Results<a class="headerlink" href="#selecting-simulation-results" title="Permalink to this heading"></a></h3>
+<p>The columns of the RoadRunner simulation results are determined by the <a class="reference internal" href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.timeCourseSelections" title="RoadRunner.RoadRunner.timeCourseSelections"><code class="xref py py-attr docutils literal notranslate"><span class="pre">timeCourseSelections</span></code></a>
+property. This is a list of what values will be displayed in the result, and can be set simply by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;[S1]&#39;</span><span class="p">,</span> <span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s2">&quot;S1&#39;&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This example selects the columns <code class="docutils literal notranslate"><span class="pre">time</span></code>, concentration of <code class="docutils literal notranslate"><span class="pre">S1</span></code>, amount of <code class="docutils literal notranslate"><span class="pre">S1</span></code>, and rate of change
+of <code class="docutils literal notranslate"><span class="pre">S1</span></code>. One may also have derivative values in the simulation selection, for example, if one
+wanted to plot the elasticity of a particular reaction <code class="docutils literal notranslate"><span class="pre">J1</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;[S1]&#39;</span><span class="p">,</span> <span class="s2">&quot;ee(J1, P1)&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="read_write_functions.html" class="btn btn-neutral float-left" title="SBML Read/Write Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="steady_state.html" class="btn btn-neutral float-right" title="Steady State Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

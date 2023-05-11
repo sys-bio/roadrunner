@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASTNodeCodeGen &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ASTNodeFactory" href="ASTNodeFactory.html" />
+    <link rel="prev" title="LLVM Docs" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The LibRoadRunner C++ Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">LLVM Docs</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ASTNodeCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ASTNodeFactory.html">ASTNodeFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AssignmentRuleEvaluator.html">AssignmentRuleEvaluator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CodeGen.html">CodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CodeGenBase.html">CodeGenBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvalConversionFactorCodeGen.html">EvalConversionFactorCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvalRateRuleRatesCodeGen.html">EvalRateRuleRatesCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvalReactionRatesCodeGen.html">EvalReactionRatesCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvalVolatileStoichCodeGen.html">EvalVolatileStoichCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventAssignCodeGen.html">EventAssignCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventCodeGenBase.html">EventCodeGenBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventQueue.html">EventQueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventTriggerCodeGen.html">EventTriggerCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FunctionResolver.html">FunctionResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="KineticLawParameterResolver.html">KineticLawParameterResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMCompiler.html">LLVMCompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMException.html">LLVMException</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMExecutableModel.html">LLVMExecutableModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMModelData.html">LLVMModelData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMModelDataSymbols.html">LLVMModelDataSymbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMModelGenerator.html">LLVMModelGenerator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LLVMModelSymbols.html">LLVMModelSymbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LoadSymbolResolverBase.html">LoadSymbolResolverBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ModelDataIRBuilder.html">ModelDataIRBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ModelDataSymbolResolver.html">ModelDataSymbolResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ModelGeneratorContext.html">ModelGeneratorContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ModelInitialValueSymbolResolver.html">ModelInitialValueSymbolResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ModelResources.html">ModelResources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Random.html">Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SBMLInitialValueSymbolResolver.html">SBMLInitialValueSymbolResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SetInitialValueCodeGenBase.html">SetInitialValueCodeGenBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SetInitialValuesCodeGen.html">SetInitialValuesCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SetValueCodeGenBase.html">SetValueCodeGenBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SetValuesCodeGen.html">SetValuesCodeGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SymbolForest.html">SymbolForest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../CVODEIntegrator.html">CVODEIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dictionary.html">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EulerIntegrator.html">EulerIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ExecutableModelFactory.html">ExecutableModelFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GillespieIntegrator.html">GillespieIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Integrator.html">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../IntegratorFactory.html">IntegratorFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NLEQ1Solver.html">NLEQ1Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NLEQ2Solver.html">NLEQ2Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RK45Integrator.html">RK45Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RK4Integrator.html">RK4Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBMLValidator.html">SBMLValidator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Solver.html">Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SolverFactory.html">SolverFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SteadyStateSolver.html">SteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Variant.html">Variant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrCompiler.html">rrCompiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrConfig.html">rrConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrException.html">rrException</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrExecutableModel.html">rrExecutableModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrFileName.html">rrFileName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrIniFile.html">rrIniFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrIniKey.html">rrIniKey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrIniSection.html">rrIniSection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrLogger.html">rrLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrNLEQ1Interface.html">rrNLEQ1Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrNLEQ2Interface.html">rrNLEQ2Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrRoadRunner.html">rrRoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrRoadRunnerData.html">rrRoadRunnerData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrRoadRunnerOptions.html">rrRoadRunnerOptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrSBMLModelSimulation.html">rrSBMLModelSimulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrSBMLReader.html">rrSBMLReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrSelectionRecord.html">rrSelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rrSparse.html">rrSparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RoadRunnerMap.html">RoadRunnerMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#creating-a-new-integrator">Creating a new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#telling-roadrunner-about-the-new-integrator">Telling RoadRunner about the new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">The LibRoadRunner C++ Library</a></li>
+          <li class="breadcrumb-item"><a href="index.html">LLVM Docs</a></li>
+      <li class="breadcrumb-item active">ASTNodeCodeGen</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/C++APIReference/llvm/ASTNodeCodeGen.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="astnodecodegen">
+<h1>ASTNodeCodeGen<a class="headerlink" href="#astnodecodegen" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGenE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGenE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGenE"></span><span id="rrllvm::ASTNodeCodeGen"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ASTNodeCodeGen</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGenE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>All of the LLVM IR generation is handled here. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen14ASTNodeCodeGenERN4llvm9IRBuilderIEER18LoadSymbolResolverRK21ModelGeneratorContextPN4llvm5ValueE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen14ASTNodeCodeGenERN4llvm9IRBuilderIEER18LoadSymbolResolverRK21ModelGeneratorContextPN4llvm5ValueE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen14ASTNodeCodeGenERN4llvm9IRBuilderIEER18LoadSymbolResolverRK21ModelGeneratorContextPN4llvm5ValueE"></span><span id="rrllvm::ASTNodeCodeGen::ASTNodeCodeGen__llvm::IRBuilder::R.LoadSymbolResolverR.ModelGeneratorContextCR.llvm::ValueP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a8f27a81bbe9fbdf8f29dd2d9a54870de"></span><span class="sig-name descname"><span class="n"><span class="pre">ASTNodeCodeGen</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IRBuilder</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">builder</span></span>, <span class="n"><span class="pre">LoadSymbolResolver</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">resolver</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext"><span class="n"><span class="pre">ModelGeneratorContext</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">modelData</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen14ASTNodeCodeGenERN4llvm9IRBuilderIEER18LoadSymbolResolverRK21ModelGeneratorContextPN4llvm5ValueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGenD0Ev">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGenD0Ev"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGenD0Ev"></span><span id="rrllvm::ASTNodeCodeGen::~ASTNodeCodeGen"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a03807b2850f8e7818ad64bf145aa76db"></span><span class="sig-name descname"><span class="n"><span class="pre">~ASTNodeCodeGen</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGenD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen13codeGenDoubleEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen13codeGenDoubleEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen13codeGenDoubleEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::codeGenDouble__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a5926bbdb90c85ecadb92aeb6ac8628d1"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">codeGenDouble</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen13codeGenDoubleEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen14codeGenBooleanEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen14codeGenBooleanEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen14codeGenBooleanEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::codeGenBoolean__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a09eac51c79e1f2509072f10615c09631"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">codeGenBoolean</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen14codeGenBooleanEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen7codeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen7codeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen7codeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::codeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a30dc7f36cc8d412257bf2806dd190af7"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">codeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen7codeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen17binaryExprCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen17binaryExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen17binaryExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::binaryExprCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a95b42193cf9062cc9d38e6a230f38347"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">binaryExprCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen17binaryExprCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>sbml ASTNode does not contain as assigment ‘=’ type, assigment is handled by other sbml elements such as initialAssigment. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen14notImplementedEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen14notImplementedEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen14notImplementedEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::notImplemented__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1adff4f1fb164220bc04dbc10a3425ff75"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">notImplemented</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen14notImplementedEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen16delayExprCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen16delayExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen16delayExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::delayExprCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a5cb7ae45512704e083760ed8111332b0"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">delayExprCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen16delayExprCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen15nameExprCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen15nameExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen15nameExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::nameExprCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a87ce24ef5b9f79e74abf28459876902c"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nameExprCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen15nameExprCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen15realExprCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen15realExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen15realExprCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::realExprCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a61d7251f945d6ac5612b091a5e3ec297"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">realExprCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen15realExprCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen14distribCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen14distribCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen14distribCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::distribCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a2a17f73c0a8fdd785ea7c5de825bec68"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">distribCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen14distribCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Support new AST nodes for distributions. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen14integerCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen14integerCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen14integerCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::integerCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a8bcb5dcb7f725bf8c72ddc4f5bde0320"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">integerCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen14integerCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>for now, just convert to double, </p>
+<p>TODO: is this right??? </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen22applyArithmeticCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen22applyArithmeticCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen22applyArithmeticCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::applyArithmeticCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a681fc8799226d89d97104eae6996808f"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">applyArithmeticCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen22applyArithmeticCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>would have made the most sense using templated pointer to a IRBuilder member function, but many compilers seem to have trouble with such templates. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen13minmaxCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen13minmaxCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen13minmaxCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::minmaxCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1ad010d78c15bc13949234d08d86f91f35"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">minmaxCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen13minmaxCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen28applyBinaryRelationalCodeGenEPKN7libsbml7ASTNodeEPN4llvm5ValueEPN4llvm5ValueE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen28applyBinaryRelationalCodeGenEPKN7libsbml7ASTNodeEPN4llvm5ValueEPN4llvm5ValueE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen28applyBinaryRelationalCodeGenEPKN7libsbml7ASTNodeEPN4llvm5ValueEPN4llvm5ValueE"></span><span id="rrllvm::ASTNodeCodeGen::applyBinaryRelationalCodeGen__libsbml::ASTNodeCP.llvm::ValueP.llvm::ValueP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a89ceff7379d990bbfc1656bbb757753a"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">applyBinaryRelationalCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span>, <span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">left</span></span>, <span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">right</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen28applyBinaryRelationalCodeGenEPKN7libsbml7ASTNodeEPN4llvm5ValueEPN4llvm5ValueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen28applyScalarRelationalCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen28applyScalarRelationalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen28applyScalarRelationalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::applyScalarRelationalCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a391a06f9557390fb1450766e45323228"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">applyScalarRelationalCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen28applyScalarRelationalCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen22applyRelationalCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen22applyRelationalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen22applyRelationalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::applyRelationalCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1aaa976c4998b2b1c31c83eb89ffe8a2f8"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">applyRelationalCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen22applyRelationalCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen19applyLogicalCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen19applyLogicalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen19applyLogicalCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::applyLogicalCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a49a3797a32d3fda940f264afe998a505"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">applyLogicalCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen19applyLogicalCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen19functionCallCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen19functionCallCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen19functionCallCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::functionCallCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a2d066d9dc08d7d51d28c242cddbb35ba"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">functionCallCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen19functionCallCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen20intrinsicCallCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen20intrinsicCallCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen20intrinsicCallCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::intrinsicCallCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1aaa8b94321e1447e3d088981b65c49442"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">intrinsicCallCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen20intrinsicCallCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen16piecewiseCodeGenEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen16piecewiseCodeGenEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen16piecewiseCodeGenEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeCodeGen::piecewiseCodeGen__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a0e467aa87ee3ba4f978df29a48209505"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">piecewiseCodeGen</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ast</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen16piecewiseCodeGenEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen9toBooleanEPN4llvm5ValueE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen9toBooleanEPN4llvm5ValueE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen9toBooleanEPN4llvm5ValueE"></span><span id="rrllvm::ASTNodeCodeGen::toBoolean__llvm::ValueP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1af33c73725b9b13f8ba14ea522f7063cd"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">toBoolean</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen9toBooleanEPN4llvm5ValueE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>coerces a value to a boolean single bit. </p>
+<p>If value is already a boolean, it is unchanged. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen8toDoubleEPN4llvm5ValueE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen8toDoubleEPN4llvm5ValueE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen8toDoubleEPN4llvm5ValueE"></span><span id="rrllvm::ASTNodeCodeGen::toDouble__llvm::ValueP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1af1f068a416c4f3d0942f793d63134519"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">toDouble</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen8toDoubleEPN4llvm5ValueE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>coerces a value to a double </p>
+<p>If value is already a double, it is unchanged. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen9getModuleEv">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen9getModuleEv"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen9getModuleEv"></span><span id="rrllvm::ASTNodeCodeGen::getModule"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a468ae1044d08bc88dc2a5d4d0d561ab4"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Module</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getModule</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen9getModuleEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>get the module, only valid whilst a BasicBlock is being filled. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fname</strong> – name of the calling function, used for generating exception on failure.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a module on success, throws exeption on failure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen7builderE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen7builderE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen7builderE"></span><span id="rrllvm::ASTNodeCodeGen::builder__llvm::IRBuilderR"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a29dd23efee764653bedf1ffd9dae6e9a"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IRBuilder</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">builder</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen7builderE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen8resolverE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen8resolverE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen8resolverE"></span><span id="rrllvm::ASTNodeCodeGen::resolver__LoadSymbolResolverR"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1ac3995a66e952a275642758b42b137373"></span><span class="n"><span class="pre">LoadSymbolResolver</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">resolver</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen8resolverE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen3ctxE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen3ctxE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen3ctxE"></span><span id="rrllvm::ASTNodeCodeGen::ctx__ModelGeneratorContextCR"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1acd765b81f322b76d6d89f08d1008bd6b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext"><span class="n"><span class="pre">ModelGeneratorContext</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">ctx</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen3ctxE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen9modelDataE">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen9modelDataE"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen9modelDataE"></span><span id="rrllvm::ASTNodeCodeGen::modelData__llvm::ValueP"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1a683ddd86336c88f64b01a06372b9424f"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">modelData</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen9modelDataE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeCodeGen12scalar_mode_E">
+<span id="_CPPv3N6rrllvm14ASTNodeCodeGen12scalar_mode_E"></span><span id="_CPPv2N6rrllvm14ASTNodeCodeGen12scalar_mode_E"></span><span id="rrllvm::ASTNodeCodeGen::scalar_mode___b"></span><span class="target" id="classrrllvm_1_1ASTNodeCodeGen_1aeb0da48ae8c1726f1e579a7c0af55e63"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalar_mode_</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeCodeGen12scalar_mode_E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">ASTNodeCodeGenScalarTicket</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="LLVM Docs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ASTNodeFactory.html" class="btn btn-neutral float-right" title="ASTNodeFactory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,5 +1,9 @@
 \hypertarget{classrrllvm_1_1KineticLawParameterResolver}{}\doxysection{rrllvm\+::Kinetic\+Law\+Parameter\+Resolver Class Reference}
 \label{classrrllvm_1_1KineticLawParameterResolver}\index{rrllvm::KineticLawParameterResolver@{rrllvm::KineticLawParameterResolver}}
+
+
+{\ttfamily \#include $<$Kinetic\+Law\+Parameter\+Resolver.\+h$>$}
+
 Inheritance diagram for rrllvm\+::Kinetic\+Law\+Parameter\+Resolver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -10,15 +14,20 @@ Inheritance diagram for rrllvm\+::Kinetic\+Law\+Parameter\+Resolver\+:\begin{fig
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_a95573b8de0eebac9335ef204cae39a2f}\label{classrrllvm_1_1KineticLawParameterResolver_a95573b8de0eebac9335ef204cae39a2f}} 
-{\bfseries Kinetic\+Law\+Parameter\+Resolver} (\mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{Load\+Symbol\+Resolver}} \&parent\+Resolver, const libsbml\+::\+Kinetic\+Law \&kinetic\+Law, llvm\+::\+IRBuilder$<$$>$ \&builder)
+{\bfseries Kinetic\+Law\+Parameter\+Resolver} (\mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{Load\+Symbol\+Resolver}} \&parent\+Resolver, const libsbml\+::\+Kinetic\+Law \&kinetic\+Law, llvm\+::\+I\+R\+Builder$<$$>$ \&builder)
 \item 
 virtual llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_ac04cd2cdb1aebcbb28dc7c59325d604d}{load\+Symbol\+Value}} (const std\+::string \&symbol, const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&args=llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$())
-\begin{DoxyCompactList}\small\item\em generate an LLVM load instruction. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_aea67c8b5d643ae2fc1fd29ccbad2c0cd}{recursive\+Symbol\+Push}} (const std\+::string \&symbol)
+\begin{DoxyCompactList}\small\item\em generate an L\+L\+VM load instruction. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_aea67c8b5d643ae2fc1fd29ccbad2c0cd}\label{classrrllvm_1_1KineticLawParameterResolver_aea67c8b5d643ae2fc1fd29ccbad2c0cd}} 
+virtual void {\bfseries recursive\+Symbol\+Push} (const std\+::string \&symbol)
 \item 
-virtual void \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_a1083e93635d2154a8a50a0d0064ba98b}{recursive\+Symbol\+Pop}} ()
+\mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_a1083e93635d2154a8a50a0d0064ba98b}\label{classrrllvm_1_1KineticLawParameterResolver_a1083e93635d2154a8a50a0d0064ba98b}} 
+virtual void {\bfseries recursive\+Symbol\+Pop} ()
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Sorts out local parameters in a kinetic law. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_ac04cd2cdb1aebcbb28dc7c59325d604d}\label{classrrllvm_1_1KineticLawParameterResolver_ac04cd2cdb1aebcbb28dc7c59325d604d}} 
@@ -29,7 +38,7 @@ virtual void \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_a1083e9
 
 
 
-generate an LLVM load instruction. 
+generate an L\+L\+VM load instruction. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -40,27 +49,7 @@ generate an LLVM load instruction.
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_a832a8d0b229eb12271e58db3e20ebe98}{rrllvm\+::\+Load\+Symbol\+Resolver}}.
-
-\mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_a1083e93635d2154a8a50a0d0064ba98b}\label{classrrllvm_1_1KineticLawParameterResolver_a1083e93635d2154a8a50a0d0064ba98b}} 
-\index{rrllvm::KineticLawParameterResolver@{rrllvm::KineticLawParameterResolver}!recursiveSymbolPop@{recursiveSymbolPop}}
-\index{recursiveSymbolPop@{recursiveSymbolPop}!rrllvm::KineticLawParameterResolver@{rrllvm::KineticLawParameterResolver}}
-\doxysubsubsection{\texorpdfstring{recursiveSymbolPop()}{recursiveSymbolPop()}}
-{\footnotesize\ttfamily void rrllvm\+::\+Kinetic\+Law\+Parameter\+Resolver\+::recursive\+Symbol\+Pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{rrllvm\+::\+Load\+Symbol\+Resolver}}.
-
-\mbox{\Hypertarget{classrrllvm_1_1KineticLawParameterResolver_aea67c8b5d643ae2fc1fd29ccbad2c0cd}\label{classrrllvm_1_1KineticLawParameterResolver_aea67c8b5d643ae2fc1fd29ccbad2c0cd}} 
-\index{rrllvm::KineticLawParameterResolver@{rrllvm::KineticLawParameterResolver}!recursiveSymbolPush@{recursiveSymbolPush}}
-\index{recursiveSymbolPush@{recursiveSymbolPush}!rrllvm::KineticLawParameterResolver@{rrllvm::KineticLawParameterResolver}}
-\doxysubsubsection{\texorpdfstring{recursiveSymbolPush()}{recursiveSymbolPush()}}
-{\footnotesize\ttfamily void rrllvm\+::\+Kinetic\+Law\+Parameter\+Resolver\+::recursive\+Symbol\+Push (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{rrllvm\+::\+Load\+Symbol\+Resolver}}.
+Implements \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_af0c62fdd0c913e2410596d3f785f21db}{rrllvm\+::\+Load\+Symbol\+Resolver}}.
 
 
 

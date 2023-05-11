@@ -2,7 +2,7 @@
 \label{classrrllvm_1_1JitFactory}\index{rrllvm::JitFactory@{rrllvm::JitFactory}}
 
 
-Use the options in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{Load\+SBMLOptions.\+Model\+Generator\+Opt}} or fall back on the global Config settings to create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}.  
+Use the options in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{Load\+S\+B\+M\+L\+Options.\+Model\+Generator\+Opt}} or fall back on the global Config settings to create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}.  
 
 
 
@@ -13,15 +13,30 @@ Use the options in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1JitFactory_a919d7c4b81f1c66b3dbf5f62faea2c7f}\label{classrrllvm_1_1JitFactory_a919d7c4b81f1c66b3dbf5f62faea2c7f}} 
-static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ {\bfseries make\+Jit\+Engine} (std\+::uint32\+\_\+t opt)
-\item 
-\mbox{\Hypertarget{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}\label{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}} 
-static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ {\bfseries make\+Jit\+Engine} ()
-\end{DoxyCompactItemize}
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ \mbox{\hyperlink{classrrllvm_1_1JitFactory_a919d7c4b81f1c66b3dbf5f62faea2c7f}{make\+Jit\+Engine}} (std\+::uint32\+\_\+t opt)
+\begin{DoxyCompactList}\small\item\em Create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} engine using local options provided by the user. \end{DoxyCompactList}\item 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ \mbox{\hyperlink{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}{make\+Jit\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} engine using the global options in Config. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Use the options in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{Load\+SBMLOptions.\+Model\+Generator\+Opt}} or fall back on the global Config settings to create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}. 
+Use the options in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{Load\+S\+B\+M\+L\+Options.\+Model\+Generator\+Opt}} or fall back on the global Config settings to create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}\label{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}} 
+\index{rrllvm::JitFactory@{rrllvm::JitFactory}!makeJitEngine@{makeJitEngine}}
+\index{makeJitEngine@{makeJitEngine}!rrllvm::JitFactory@{rrllvm::JitFactory}}
+\doxysubsubsection{\texorpdfstring{makeJitEngine()}{makeJitEngine()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ rrllvm\+::\+Jit\+Factory\+::make\+Jit\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} engine using the global options in Config. 
+
+Load\+S\+B\+M\+L\+Options is populated based on the global Config values. This function instantiates the Load\+S\+B\+M\+L\+Options and provides the default model\+Generator\+Opt to Jit\+Factory\+::make\+Jit\+Engine(opt); \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2JitFactory_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit\+Factory.\+h}}.\end{Desc}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

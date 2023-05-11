@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Matrix3D" kind="class" language="C++" prot="public">
     <compoundname>rr::Matrix3D</compoundname>
+    <includes refid="Matrix3D_8h" local="no">Matrix3D.h</includes>
     <templateparamlist>
       <param>
         <type>typename IndexType</type>
@@ -12,18 +13,17 @@
     </templateparamlist>
       <sectiondef kind="private-type">
       <memberdef kind="typedef" id="classrr_1_1Matrix3D_1a10e9f9a773f4744b268844ee58da6bf5" prot="private" static="no">
-        <type>std::initializer_list&lt; std::initializer_list&lt; std::initializer_list&lt; DataType &gt; &gt; &gt;</type>
+        <type>std::initializer_list&lt; std::initializer_list&lt; std::initializer_list&lt; DataType &gt; &gt;&gt;</type>
         <definition>using rr::Matrix3D&lt; IndexType, DataType &gt;::Matrix3DInitializer =  std::initializer_list&lt;std::initializer_list&lt;std::initializer_list&lt;DataType&gt; &gt;&gt;</definition>
         <argsstring></argsstring>
         <name>Matrix3DInitializer</name>
-        <qualifiedname>rr::Matrix3D::Matrix3DInitializer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="14" column="9" bodyfile="Matrix3D.h" bodystart="14" bodyend="-1"/>
+        <location file="Matrix3D.h" line="18" column="9" bodyfile="Matrix3D.h" bodystart="18" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -32,35 +32,32 @@
         <definition>std::vector&lt;IndexType&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::index_</definition>
         <argsstring></argsstring>
         <name>index_</name>
-        <qualifiedname>rr::Matrix3D::index_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="385" column="21" bodyfile="Matrix3D.h" bodystart="385" bodyend="-1"/>
+        <location file="Matrix3D.h" line="389" column="21" bodyfile="Matrix3D.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Matrix3D_1a26db981b1f5f13aa35a8e3c605067b9b" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; DataType &gt; &gt;</type>
         <definition>std::vector&lt;Matrix &lt; DataType&gt; &gt; rr::Matrix3D&lt; IndexType, DataType &gt;::data_</definition>
         <argsstring></argsstring>
         <name>data_</name>
-        <qualifiedname>rr::Matrix3D::data_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="386" column="21" bodyfile="Matrix3D.h" bodystart="386" bodyend="-1"/>
+        <location file="Matrix3D.h" line="390" column="21" bodyfile="Matrix3D.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Matrix3D_1ad86d016dc68ed798ec13ed75b920c797" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::string &gt;</type>
         <definition>std::vector&lt;std::string&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::rowNames_</definition>
         <argsstring></argsstring>
         <name>rowNames_</name>
-        <qualifiedname>rr::Matrix3D::rowNames_</qualifiedname>
         <initializer>{}</initializer>
         <briefdescription>
         </briefdescription>
@@ -68,14 +65,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="387" column="21" bodyfile="Matrix3D.h" bodystart="387" bodyend="-1"/>
+        <location file="Matrix3D.h" line="391" column="21" bodyfile="Matrix3D.h" bodystart="391" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Matrix3D_1aafc6249a38be368693fb2e2ab0f2aee8" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::string &gt;</type>
         <definition>std::vector&lt;std::string&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::colNames_</definition>
         <argsstring></argsstring>
         <name>colNames_</name>
-        <qualifiedname>rr::Matrix3D::colNames_</qualifiedname>
         <initializer>{}</initializer>
         <briefdescription>
         </briefdescription>
@@ -83,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="388" column="21" bodyfile="Matrix3D.h" bodystart="388" bodyend="-1"/>
+        <location file="Matrix3D.h" line="392" column="21" bodyfile="Matrix3D.h" bodystart="392" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -92,7 +88,6 @@
         <definition>rr::Matrix3D&lt; IndexType, DataType &gt;::Matrix3D</definition>
         <argsstring>()=default</argsstring>
         <name>Matrix3D</name>
-        <qualifiedname>rr::Matrix3D::Matrix3D</qualifiedname>
         <briefdescription>
 <para>default construct a 3D matrix </para>
         </briefdescription>
@@ -100,14 +95,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="20" column="9"/>
+        <location file="Matrix3D.h" line="24" column="9"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ac8734a9a680930e98361be461808ddde" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>rr::Matrix3D&lt; IndexType, DataType &gt;::Matrix3D</definition>
         <argsstring>(int numRows, int numCols, int numZ)</argsstring>
         <name>Matrix3D</name>
-        <qualifiedname>rr::Matrix3D::Matrix3D</qualifiedname>
         <param>
           <type>int</type>
           <declname>numRows</declname>
@@ -127,14 +121,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="25" column="9" bodyfile="Matrix3D.h" bodystart="25" bodyend="31"/>
+        <location file="Matrix3D.h" line="29" column="9" bodyfile="Matrix3D.h" bodystart="29" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ae6f876b4499e0f9f964e75f1a8a575c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>rr::Matrix3D&lt; IndexType, DataType &gt;::Matrix3D</definition>
         <argsstring>(std::initializer_list&lt; IndexType &gt; idx, Matrix3DInitializer data)</argsstring>
         <name>Matrix3D</name>
-        <qualifiedname>rr::Matrix3D::Matrix3D</qualifiedname>
         <param>
           <type>std::initializer_list&lt; IndexType &gt;</type>
           <declname>idx</declname>
@@ -149,14 +142,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="33" column="9" bodyfile="Matrix3D.h" bodystart="33" bodyend="38"/>
+        <location file="Matrix3D.h" line="37" column="9" bodyfile="Matrix3D.h" bodystart="37" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ae1ca2ca9e845c7de358cef2db83b8b91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::insert</definition>
         <argsstring>(IndexType idx, Matrix&lt; DataType &gt; mat)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::Matrix3D::insert</qualifiedname>
         <param>
           <type>IndexType</type>
           <declname>idx</declname>
@@ -171,14 +163,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="40" column="14" bodyfile="Matrix3D.h" bodystart="40" bodyend="67"/>
+        <location file="Matrix3D.h" line="44" column="14" bodyfile="Matrix3D.h" bodystart="44" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1af348e449bfba28a9c62799bdb268cda0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::pushBack</definition>
         <argsstring>(IndexType idx, Matrix&lt; DataType &gt; mat)</argsstring>
         <name>pushBack</name>
-        <qualifiedname>rr::Matrix3D::pushBack</qualifiedname>
         <param>
           <type>IndexType</type>
           <declname>idx</declname>
@@ -193,14 +184,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="69" column="14" bodyfile="Matrix3D.h" bodystart="69" bodyend="78"/>
+        <location file="Matrix3D.h" line="73" column="14" bodyfile="Matrix3D.h" bodystart="73" bodyend="82"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1a420dfc0b4a5a0fffa7d6939aeb6099ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1adf344bfa17d5a94157c9944bfabce492" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; DataType &gt; &amp;</type>
-        <definition>Matrix&lt; DataType &gt; &amp; rr::Matrix3D&lt; IndexType, DataType &gt;::operator[]</definition>
+        <definition>Matrix&lt;DataType&gt;&amp; rr::Matrix3D&lt; IndexType, DataType &gt;::operator[]</definition>
         <argsstring>(int idx)</argsstring>
         <name>operator[]</name>
-        <qualifiedname>rr::Matrix3D::operator[]</qualifiedname>
         <param>
           <type>int</type>
           <declname>idx</declname>
@@ -215,14 +205,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="84" column="17" bodyfile="Matrix3D.h" bodystart="84" bodyend="91"/>
+        <location file="Matrix3D.h" line="88" column="17" bodyfile="Matrix3D.h" bodystart="88" bodyend="95"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1a3d233fae57bab6e3022dca4893707e23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a0e6ccf3c0c6a740ca12af375fca03a99" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classrr_1_1Matrix" kindref="compound">rr::Matrix</ref>&lt; DataType &gt; &amp;</type>
-        <definition>rr::Matrix&lt; DataType &gt; &amp; rr::Matrix3D&lt; IndexType, DataType &gt;::slice</definition>
+        <definition>rr::Matrix&lt;DataType&gt;&amp; rr::Matrix3D&lt; IndexType, DataType &gt;::slice</definition>
         <argsstring>(int k)</argsstring>
         <name>slice</name>
-        <qualifiedname>rr::Matrix3D::slice</qualifiedname>
         <param>
           <type>int</type>
           <declname>k</declname>
@@ -231,7 +220,7 @@
 <para>1D <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref> slicer. </para>
         </briefdescription>
         <detaileddescription>
-<para>Convert a 3D matrix to a 2D rr::Matrix&lt;DataType&gt; by slicing the Z direction using numerical indices. Equivalent to <ref refid="classrr_1_1Matrix3D_1a420dfc0b4a5a0fffa7d6939aeb6099ca" kindref="member">Matrix3D&lt;DataType&gt;::operator[]</ref> <parameterlist kind="param"><parameteritem>
+<para>Convert a 3D matrix to a 2D rr::Matrix&lt;DataType&gt; by slicing the Z direction using numerical indices. Equivalent to <ref refid="classrr_1_1Matrix3D_1adf344bfa17d5a94157c9944bfabce492" kindref="member">Matrix3D&lt;DataType&gt;::operator[]</ref> <parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>k</parametername>
 </parameternamelist>
@@ -246,14 +235,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="101" column="20" bodyfile="Matrix3D.h" bodystart="101" bodyend="109"/>
+        <location file="Matrix3D.h" line="105" column="20" bodyfile="Matrix3D.h" bodystart="105" bodyend="113"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1aedf37b75f9258d04deecf44725c13554" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a170fe788694b075b5509915831750bf9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classrr_1_1Matrix3D" kindref="compound">rr::Matrix3D</ref>&lt; DataType, IndexType &gt; &amp;</type>
-        <definition>rr::Matrix3D&lt; DataType, IndexType &gt; &amp; rr::Matrix3D&lt; IndexType, DataType &gt;::colSliceByName</definition>
+        <definition>rr::Matrix3D&lt;DataType, IndexType&gt;&amp; rr::Matrix3D&lt; IndexType, DataType &gt;::colSliceByName</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;rowNames)</argsstring>
         <name>colSliceByName</name>
-        <qualifiedname>rr::Matrix3D::colSliceByName</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>rowNames</declname>
@@ -275,14 +263,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="116" column="22" bodyfile="Matrix3D.h" bodystart="116" bodyend="118"/>
+        <location file="Matrix3D.h" line="120" column="22" bodyfile="Matrix3D.h" bodystart="120" bodyend="122"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1a3423be3aa48493af2fe53394a4e54ac6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a3d3e20638dd709df478c6dab345585a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::vector&lt; DataType &gt;</type>
-        <definition>std::vector&lt; DataType &gt; rr::Matrix3D&lt; IndexType, DataType &gt;::slice</definition>
+        <definition>std::vector&lt;DataType&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::slice</definition>
         <argsstring>(int k, int j)</argsstring>
         <name>slice</name>
-        <qualifiedname>rr::Matrix3D::slice</qualifiedname>
         <param>
           <type>int</type>
           <declname>k</declname>
@@ -300,7 +287,7 @@
 <parametername>k</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indexes the number of sub matrices, k \in 0, 1, ..., zMax. </para>
+<para>indexes the number of sub matrices, k in 0, 1, ..., zMax. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -308,7 +295,7 @@
 <parametername>j</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indexes the number of row vectors in submatrix k for j \in 0, 1, ..., yMax </para>
+<para>indexes the number of row vectors in submatrix k for j in 0, 1, ..., yMax </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -318,14 +305,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="129" column="21" bodyfile="Matrix3D.h" bodystart="129" bodyend="144"/>
+        <location file="Matrix3D.h" line="133" column="21" bodyfile="Matrix3D.h" bodystart="133" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a210b05755e38bd590c84cae997afba59" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>DataType</type>
         <definition>DataType rr::Matrix3D&lt; IndexType, DataType &gt;::slice</definition>
         <argsstring>(int k, int j, int i)</argsstring>
         <name>slice</name>
-        <qualifiedname>rr::Matrix3D::slice</qualifiedname>
         <param>
           <type>int</type>
           <declname>k</declname>
@@ -355,7 +341,7 @@
 <parametername>j</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indexes the number of row vectors in submatrix k for j \in 0, 1, ..., yMax </para>
+<para>indexes the number of row vectors in submatrix k for j in 0, 1, ..., yMax </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -363,7 +349,7 @@
 <parametername>i</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indexes the number of elements in each row vector j; i \in 0, 1, ..., xMax </para>
+<para>indexes the number of elements in each row vector j; i in 0, 1, ..., xMax </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -373,14 +359,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="155" column="18" bodyfile="Matrix3D.h" bodystart="155" bodyend="177"/>
+        <location file="Matrix3D.h" line="159" column="18" bodyfile="Matrix3D.h" bodystart="159" bodyend="181"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1a33cd475dccdaea17701501e49526b91b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1ae8a33b146d067035a4fc45a791d6680a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; DataType &gt; &amp;</type>
-        <definition>Matrix&lt; DataType &gt; &amp; rr::Matrix3D&lt; IndexType, DataType &gt;::getItem</definition>
+        <definition>Matrix&lt;DataType&gt;&amp; rr::Matrix3D&lt; IndexType, DataType &gt;::getItem</definition>
         <argsstring>(IndexType idx)</argsstring>
         <name>getItem</name>
-        <qualifiedname>rr::Matrix3D::getItem</qualifiedname>
         <param>
           <type>IndexType</type>
           <declname>idx</declname>
@@ -404,14 +389,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="184" column="17" bodyfile="Matrix3D.h" bodystart="184" bodyend="194"/>
+        <location file="Matrix3D.h" line="188" column="17" bodyfile="Matrix3D.h" bodystart="188" bodyend="198"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1a5dd0744b45f6515866043732d65eab3f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a4a9b332443cffbf149576fe023175b65" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const std::vector&lt; IndexType &gt; &amp;</type>
-        <definition>const std::vector&lt; IndexType &gt; &amp; rr::Matrix3D&lt; IndexType, DataType &gt;::getIndex</definition>
+        <definition>const std::vector&lt;IndexType&gt;&amp; rr::Matrix3D&lt; IndexType, DataType &gt;::getIndex</definition>
         <argsstring>() const</argsstring>
         <name>getIndex</name>
-        <qualifiedname>rr::Matrix3D::getIndex</qualifiedname>
         <briefdescription>
 <para>getter for the index data field of the <ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref>. </para>
         </briefdescription>
@@ -422,14 +406,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="200" column="27" bodyfile="Matrix3D.h" bodystart="200" bodyend="202"/>
+        <location file="Matrix3D.h" line="204" column="27" bodyfile="Matrix3D.h" bodystart="204" bodyend="206"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a3e804631687f3f5ae9d0109e1819b596" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::setKthMatrix</definition>
         <argsstring>(int k, IndexType idx, Matrix&lt; DataType &gt; data)</argsstring>
         <name>setKthMatrix</name>
-        <qualifiedname>rr::Matrix3D::setKthMatrix</qualifiedname>
         <param>
           <type>int</type>
           <declname>k</declname>
@@ -448,14 +431,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="204" column="14" bodyfile="Matrix3D.h" bodystart="204" bodyend="214"/>
+        <location file="Matrix3D.h" line="208" column="14" bodyfile="Matrix3D.h" bodystart="208" bodyend="218"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a7d78cb9ba8631d469ffc27c4f69b4627" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
         <definition>int rr::Matrix3D&lt; IndexType, DataType &gt;::numRows</definition>
         <argsstring>()</argsstring>
         <name>numRows</name>
-        <qualifiedname>rr::Matrix3D::numRows</qualifiedname>
         <briefdescription>
 <para>get number of rows in this 3D matrix </para>
         </briefdescription>
@@ -464,14 +446,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="220" column="13" bodyfile="Matrix3D.h" bodystart="220" bodyend="224"/>
+        <location file="Matrix3D.h" line="224" column="13" bodyfile="Matrix3D.h" bodystart="224" bodyend="228"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a0bbc297939977e79bf29699cc91db35b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
         <definition>int rr::Matrix3D&lt; IndexType, DataType &gt;::numCols</definition>
         <argsstring>()</argsstring>
         <name>numCols</name>
-        <qualifiedname>rr::Matrix3D::numCols</qualifiedname>
         <briefdescription>
 <para>get number of columns in this 3D matrix </para>
         </briefdescription>
@@ -480,14 +461,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="230" column="13" bodyfile="Matrix3D.h" bodystart="230" bodyend="234"/>
+        <location file="Matrix3D.h" line="234" column="13" bodyfile="Matrix3D.h" bodystart="234" bodyend="238"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a97e450bd370dc45a47b1aeafeed562ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
         <definition>int rr::Matrix3D&lt; IndexType, DataType &gt;::numZ</definition>
         <argsstring>()</argsstring>
         <name>numZ</name>
-        <qualifiedname>rr::Matrix3D::numZ</qualifiedname>
         <briefdescription>
 <para>get number of matrices in this 3D matrix </para>
         </briefdescription>
@@ -496,14 +476,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="240" column="13" bodyfile="Matrix3D.h" bodystart="240" bodyend="244"/>
+        <location file="Matrix3D.h" line="244" column="13" bodyfile="Matrix3D.h" bodystart="244" bodyend="248"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1accfa6abdaeb734ceaad06098cca8a6df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::setRowNames</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;rowNames)</argsstring>
         <name>setRowNames</name>
-        <qualifiedname>rr::Matrix3D::setRowNames</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>rowNames</declname>
@@ -515,14 +494,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="249" column="14" bodyfile="Matrix3D.h" bodystart="249" bodyend="254"/>
+        <location file="Matrix3D.h" line="253" column="14" bodyfile="Matrix3D.h" bodystart="253" bodyend="258"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a75c92af16993dba38c3a2b15d0c65b84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::setColNames</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;colNames)</argsstring>
         <name>setColNames</name>
-        <qualifiedname>rr::Matrix3D::setColNames</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>colNames</declname>
@@ -534,14 +512,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="259" column="14" bodyfile="Matrix3D.h" bodystart="259" bodyend="264"/>
+        <location file="Matrix3D.h" line="263" column="14" bodyfile="Matrix3D.h" bodystart="263" bodyend="268"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1aac93524a42c81121d2736560144e1e8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a87927a275352b6925024580ffa7870b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>std::vector&lt; std::string &gt; rr::Matrix3D&lt; IndexType, DataType &gt;::getRowNames</definition>
+        <definition>std::vector&lt;std::string&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::getRowNames</definition>
         <argsstring>()</argsstring>
         <name>getRowNames</name>
-        <qualifiedname>rr::Matrix3D::getRowNames</qualifiedname>
         <briefdescription>
 <para>return the row names for this <ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref> </para>
         </briefdescription>
@@ -549,14 +526,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="269" column="21" bodyfile="Matrix3D.h" bodystart="269" bodyend="271"/>
+        <location file="Matrix3D.h" line="273" column="21" bodyfile="Matrix3D.h" bodystart="273" bodyend="275"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Matrix3D_1abeb0f3f248125bfd202adfbb6f1e65de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Matrix3D_1a5bc22ee391622eb7a1d0f1aad991a38a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>std::vector&lt; std::string &gt; rr::Matrix3D&lt; IndexType, DataType &gt;::getColNames</definition>
+        <definition>std::vector&lt;std::string&gt; rr::Matrix3D&lt; IndexType, DataType &gt;::getColNames</definition>
         <argsstring>()</argsstring>
         <name>getColNames</name>
-        <qualifiedname>rr::Matrix3D::getColNames</qualifiedname>
         <briefdescription>
 <para>return the column names for this <ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref> </para>
         </briefdescription>
@@ -564,14 +540,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="276" column="21" bodyfile="Matrix3D.h" bodystart="276" bodyend="278"/>
+        <location file="Matrix3D.h" line="280" column="21" bodyfile="Matrix3D.h" bodystart="280" bodyend="282"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ac6964e5fab09e336189a817c8480307e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix3D&lt; IndexType, DataType &gt;::operator==</definition>
         <argsstring>(Matrix3D&lt; IndexType, DataType &gt; &amp;other)</argsstring>
         <name>operator==</name>
-        <qualifiedname>rr::Matrix3D::operator==</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref>&lt; IndexType, DataType &gt; &amp;</type>
           <declname>other</declname>
@@ -583,14 +558,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="283" column="14" bodyfile="Matrix3D.h" bodystart="283" bodyend="299"/>
+        <location file="Matrix3D.h" line="287" column="14" bodyfile="Matrix3D.h" bodystart="287" bodyend="303"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a8438b3dd5262ce21e26a3e6c2e21d9e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix3D&lt; IndexType, DataType &gt;::operator!=</definition>
         <argsstring>(Matrix3D&lt; IndexType, DataType &gt; &amp;other)</argsstring>
         <name>operator!=</name>
-        <qualifiedname>rr::Matrix3D::operator!=</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref>&lt; IndexType, DataType &gt; &amp;</type>
           <declname>other</declname>
@@ -602,14 +576,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="304" column="14" bodyfile="Matrix3D.h" bodystart="304" bodyend="306"/>
+        <location file="Matrix3D.h" line="308" column="14" bodyfile="Matrix3D.h" bodystart="308" bodyend="310"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ac3204e01ccc855bab8f8959da10d63d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix3D&lt; IndexType, DataType &gt;::almostEquals</definition>
         <argsstring>(Matrix3D&lt; double, double &gt; &amp;other, double tol)</argsstring>
         <name>almostEquals</name>
-        <qualifiedname>rr::Matrix3D::almostEquals</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix3D" kindref="compound">Matrix3D</ref>&lt; double, double &gt; &amp;</type>
           <declname>other</declname>
@@ -625,14 +598,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="311" column="14" bodyfile="Matrix3D.h" bodystart="311" bodyend="327"/>
+        <location file="Matrix3D.h" line="315" column="14" bodyfile="Matrix3D.h" bodystart="315" bodyend="331"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1aff7a78da2a0c7854bf269d0b24ef7bbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::deleteRow</definition>
         <argsstring>(const int &amp;which)</argsstring>
         <name>deleteRow</name>
-        <qualifiedname>rr::Matrix3D::deleteRow</qualifiedname>
         <param>
           <type>const int &amp;</type>
           <declname>which</declname>
@@ -656,14 +628,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="337" column="14" bodyfile="Matrix3D.h" bodystart="337" bodyend="343"/>
+        <location file="Matrix3D.h" line="341" column="14" bodyfile="Matrix3D.h" bodystart="341" bodyend="347"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ae2421bdde10d8ae3cc10b7705320b890" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::deleteRow</definition>
         <argsstring>(const std::string &amp;which)</argsstring>
         <name>deleteRow</name>
-        <qualifiedname>rr::Matrix3D::deleteRow</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>which</declname>
@@ -687,14 +658,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="350" column="14" bodyfile="Matrix3D.h" bodystart="350" bodyend="356"/>
+        <location file="Matrix3D.h" line="354" column="14" bodyfile="Matrix3D.h" bodystart="354" bodyend="360"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1ae6ae35f37769d51b3c5c3900e5724a2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::deleteCol</definition>
         <argsstring>(const int &amp;which)</argsstring>
         <name>deleteCol</name>
-        <qualifiedname>rr::Matrix3D::deleteCol</qualifiedname>
         <param>
           <type>const int &amp;</type>
           <declname>which</declname>
@@ -718,14 +688,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="363" column="14" bodyfile="Matrix3D.h" bodystart="363" bodyend="369"/>
+        <location file="Matrix3D.h" line="367" column="14" bodyfile="Matrix3D.h" bodystart="367" bodyend="373"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix3D_1a50b7689814b9c3d99fceaa3e7111aa4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix3D&lt; IndexType, DataType &gt;::deleteCol</definition>
         <argsstring>(const std::string &amp;which)</argsstring>
         <name>deleteCol</name>
-        <qualifiedname>rr::Matrix3D::deleteCol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>which</declname>
@@ -749,11 +718,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="376" column="14" bodyfile="Matrix3D.h" bodystart="376" bodyend="382"/>
+        <location file="Matrix3D.h" line="380" column="14" bodyfile="Matrix3D.h" bodystart="380" bodyend="386"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
-      <memberdef kind="friend" id="classrr_1_1Matrix3D_1a089be12029253568f892ffbc70c8ed56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="classrr_1_1Matrix3D_1a02a8abe7d89e94fa4523faa7ecf7bafc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename IndexType_</type>
@@ -762,11 +731,10 @@
             <type>typename DataType_</type>
           </param>
         </templateparamlist>
-        <type>std::ostream &amp;</type>
-        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
         <argsstring>(std::ostream &amp;os, Matrix3D&lt; IndexType_, DataType_ &gt; &amp;matrix3D)</argsstring>
         <name>operator&lt;&lt;</name>
-        <qualifiedname>rr::Matrix3D::operator&lt;&lt;</qualifiedname>
         <param>
           <type>std::ostream &amp;</type>
           <declname>os</declname>
@@ -781,27 +749,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix3D.h" line="330" column="16" bodyfile="Matrix3D.h" bodystart="392" bodyend="398"/>
+        <location file="Matrix3D.h" line="334" column="16" bodyfile="Matrix3D.h" bodystart="396" bodyend="402"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>A basic local 3D version of the <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref> class, based on initializer_list. </para>
     </detaileddescription>
-    <location file="Matrix3D.h" line="13" column="5" bodyfile="Matrix3D.h" bodystart="13" bodyend="389"/>
+    <location file="Matrix3D.h" line="17" column="19" bodyfile="Matrix3D.h" bodystart="17" bodyend="393"/>
     <listofallmembers>
       <member refid="classrr_1_1Matrix3D_1ac3204e01ccc855bab8f8959da10d63d5" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>almostEquals</name></member>
       <member refid="classrr_1_1Matrix3D_1aafc6249a38be368693fb2e2ab0f2aee8" prot="private" virt="non-virtual"><scope>rr::Matrix3D</scope><name>colNames_</name></member>
-      <member refid="classrr_1_1Matrix3D_1aedf37b75f9258d04deecf44725c13554" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>colSliceByName</name></member>
+      <member refid="classrr_1_1Matrix3D_1a170fe788694b075b5509915831750bf9" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>colSliceByName</name></member>
       <member refid="classrr_1_1Matrix3D_1a26db981b1f5f13aa35a8e3c605067b9b" prot="private" virt="non-virtual"><scope>rr::Matrix3D</scope><name>data_</name></member>
       <member refid="classrr_1_1Matrix3D_1ae6ae35f37769d51b3c5c3900e5724a2e" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>deleteCol</name></member>
       <member refid="classrr_1_1Matrix3D_1a50b7689814b9c3d99fceaa3e7111aa4b" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>deleteCol</name></member>
       <member refid="classrr_1_1Matrix3D_1aff7a78da2a0c7854bf269d0b24ef7bbd" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>deleteRow</name></member>
       <member refid="classrr_1_1Matrix3D_1ae2421bdde10d8ae3cc10b7705320b890" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>deleteRow</name></member>
-      <member refid="classrr_1_1Matrix3D_1abeb0f3f248125bfd202adfbb6f1e65de" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getColNames</name></member>
-      <member refid="classrr_1_1Matrix3D_1a5dd0744b45f6515866043732d65eab3f" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getIndex</name></member>
-      <member refid="classrr_1_1Matrix3D_1a33cd475dccdaea17701501e49526b91b" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getItem</name></member>
-      <member refid="classrr_1_1Matrix3D_1aac93524a42c81121d2736560144e1e8e" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getRowNames</name></member>
+      <member refid="classrr_1_1Matrix3D_1a5bc22ee391622eb7a1d0f1aad991a38a" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getColNames</name></member>
+      <member refid="classrr_1_1Matrix3D_1a4a9b332443cffbf149576fe023175b65" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getIndex</name></member>
+      <member refid="classrr_1_1Matrix3D_1ae8a33b146d067035a4fc45a791d6680a" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getItem</name></member>
+      <member refid="classrr_1_1Matrix3D_1a87927a275352b6925024580ffa7870b0" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>getRowNames</name></member>
       <member refid="classrr_1_1Matrix3D_1ae451ae4b426815e455538247fb06f19b" prot="private" virt="non-virtual"><scope>rr::Matrix3D</scope><name>index_</name></member>
       <member refid="classrr_1_1Matrix3D_1ae1ca2ca9e845c7de358cef2db83b8b91" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>insert</name></member>
       <member refid="classrr_1_1Matrix3D_1a8336951dc875f560c5841f5c70fe36a1" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>Matrix3D</name></member>
@@ -812,16 +781,16 @@
       <member refid="classrr_1_1Matrix3D_1a7d78cb9ba8631d469ffc27c4f69b4627" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>numRows</name></member>
       <member refid="classrr_1_1Matrix3D_1a97e450bd370dc45a47b1aeafeed562ba" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>numZ</name></member>
       <member refid="classrr_1_1Matrix3D_1a8438b3dd5262ce21e26a3e6c2e21d9e5" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator!=</name></member>
-      <member refid="classrr_1_1Matrix3D_1a089be12029253568f892ffbc70c8ed56" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrr_1_1Matrix3D_1a02a8abe7d89e94fa4523faa7ecf7bafc" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator&lt;&lt;</name></member>
       <member refid="classrr_1_1Matrix3D_1ac6964e5fab09e336189a817c8480307e" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator==</name></member>
-      <member refid="classrr_1_1Matrix3D_1a420dfc0b4a5a0fffa7d6939aeb6099ca" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator[]</name></member>
+      <member refid="classrr_1_1Matrix3D_1adf344bfa17d5a94157c9944bfabce492" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>operator[]</name></member>
       <member refid="classrr_1_1Matrix3D_1af348e449bfba28a9c62799bdb268cda0" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>pushBack</name></member>
       <member refid="classrr_1_1Matrix3D_1ad86d016dc68ed798ec13ed75b920c797" prot="private" virt="non-virtual"><scope>rr::Matrix3D</scope><name>rowNames_</name></member>
       <member refid="classrr_1_1Matrix3D_1a75c92af16993dba38c3a2b15d0c65b84" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>setColNames</name></member>
       <member refid="classrr_1_1Matrix3D_1a3e804631687f3f5ae9d0109e1819b596" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>setKthMatrix</name></member>
       <member refid="classrr_1_1Matrix3D_1accfa6abdaeb734ceaad06098cca8a6df" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>setRowNames</name></member>
-      <member refid="classrr_1_1Matrix3D_1a3d233fae57bab6e3022dca4893707e23" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>slice</name></member>
-      <member refid="classrr_1_1Matrix3D_1a3423be3aa48493af2fe53394a4e54ac6" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>slice</name></member>
+      <member refid="classrr_1_1Matrix3D_1a0e6ccf3c0c6a740ca12af375fca03a99" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>slice</name></member>
+      <member refid="classrr_1_1Matrix3D_1a3d3e20638dd709df478c6dab345585a3" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>slice</name></member>
       <member refid="classrr_1_1Matrix3D_1a210b05755e38bd590c84cae997afba59" prot="public" virt="non-virtual"><scope>rr::Matrix3D</scope><name>slice</name></member>
     </listofallmembers>
   </compounddef>

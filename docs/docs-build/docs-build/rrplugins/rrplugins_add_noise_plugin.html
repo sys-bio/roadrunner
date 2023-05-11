@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Noise Plugin &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AUTO2000 Plugin" href="rrplugins_auto_plugin.html" />
+    <link rel="prev" title="rrPlugins Architecture" href="rrplugins_architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="introduction.html">rrPlugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Add Noise Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-introduction">Add Noise Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-plugin-properties">Add Noise Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-noise-plugin-events">Add Noise Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-noise-to-data-acquired-from-roadrunner">Add noise to data acquired from RoadRunner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualization-of-the-noise-distribution-used-in-the-addnoise-plugin">Visualization of the noise distribution used in the AddNoise plugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_auto_plugin.html">AUTO2000 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_chisquare_plugin.html">Chi Square Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_monte_carlo_plugin.html">Monte Carlo bootstrap algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="introduction.html">rrPlugins</a></li>
+      <li class="breadcrumb-item active">Add Noise Plugin</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rrplugins/rrplugins_add_noise_plugin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="add-noise-plugin">
+<h1>Add Noise Plugin<a class="headerlink" href="#add-noise-plugin" title="Permalink to this heading"></a></h1>
+<section id="add-noise-introduction">
+<h2>Add Noise Introduction<a class="headerlink" href="#add-noise-introduction" title="Permalink to this heading"></a></h2>
+<p>The purpose of the AddNoise plugin is to introduce random noise to Tellurium data.</p>
+<p>Noise generation uses the fact that a Rayleigh-distributed random variable R, with the probability distribution <img class="math" src="../_images/math/cd5eaf8919081ea1051f328e1c2458bbbd713080.png" alt="F(R) = 0"/> if <img class="math" src="../_images/math/78b0896f7dd696474ca1d9c5e0578fbaf2d16ec1.png" alt="R &lt; 0"/> and <img class="math" src="../_images/math/a48bdeec6d7aebb502232fd3f67c6de03ec4cca4.png" alt="F(R) = 1 - exp(-R^2/2*\sigma^2)"/> if <img class="math" src="../_images/math/de27ce448868ab161a971fb2560b02f53bcc0184.png" alt="R &gt;= 0"/>, is related to a pair of Gaussian variables C and D through the transformation <img class="math" src="../_images/math/7420eb585f270769b58715147abf7edb1cbaf089.png" alt="C = R * cos(\theta)"/> and <img class="math" src="../_images/math/3dfef11551d45cc3e8e644dbd99faa2a0acabe27.png" alt="D = R * sin(\theta)"/>, where <img class="math" src="../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.png" alt="\theta"/> is a uniformly distributed variable in the interval <img class="math" src="../_images/math/7dcffabbe16496c77ca9c2c166fac53f515eda87.png" alt="(0, 2 * \pi)"/><sup>1</sup>.</p>
+<p>Currently only Gaussian noise is implemented.</p>
+<p><sup>1</sup> From Contemporary Communication Systems USING MATLAB(R), by John G. Proakis and Masoud Salehi, published by PWS Publishing Company, 1998, pp 49-50.</p>
+</section>
+<section id="add-noise-plugin-properties">
+<h2>Add Noise Plugin Properties<a class="headerlink" href="#add-noise-plugin-properties" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>InputData: Data on which noise will be applied to.</p></li>
+<li><p>Sigma: Size of applied noise. Noise is generated for each single data value, with a probability corresponding to a Gaussian distribution, centered around the value, and with a variance equal to <img class="math" src="../_images/math/7d8e0e60117d2760d1d0215b43423c1d74070ec7.png" alt="\sigma^{2}"/>.</p></li>
+<li><p>NoiseType: Type of noise applied on data. Only Gaussian noise is currently supported.</p></li>
+<li><p>Progress: The progress property communicates the progress (in percent) of Noise application.</p></li>
+</ol>
+</section>
+<section id="add-noise-plugin-events">
+<h2>Add Noise Plugin Events<a class="headerlink" href="#add-noise-plugin-events" title="Permalink to this heading"></a></h2>
+<p>The AddNoiseplugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
+The available data variables for each event are internally treated as pass trough variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
+<ol class="arabic simple">
+<li><p>PluginStarted: Signals to application that the plugin has started applying noise on data. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginProgress: Communicates progress of noise generation. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginFinished: Signals to application that execution of the plugin has finished. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+</ol>
+</section>
+<section id="the-execute-function">
+<h2>The execute Function<a class="headerlink" href="#the-execute-function" title="Permalink to this heading"></a></h2>
+<p>The execute() function will apply noise to all rows and columns of the assigned data, with one exception. Data not affected are data in the first column, and if, and only if, its column header equals ”time” (case insensitive).
+The execute method supports a boolean argument indicating if the execution of the plugin work will be done in a thread, or not. Threading is fully implemented in the AddNoise plugin.
+The inThread argument defaults to false.</p>
+</section>
+<section id="python-examples">
+<h2>Python examples<a class="headerlink" href="#python-examples" title="Permalink to this heading"></a></h2>
+<section id="add-noise-to-data-acquired-from-roadrunner">
+<h3>Add noise to data acquired from RoadRunner<a class="headerlink" href="#add-noise-to-data-acquired-from-roadrunner" title="Permalink to this heading"></a></h3>
+<p>The python script below shows how to acquire simulation data from RoadRunner and pass it to the noise plugin. The format of this data, which is obtained from the simulate() function, is not directly compatible with the Noise plugin’s InputData property. This incompatibility is handled by an intermediate data structure in Python, called DataSeries.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import roadrunner
+import rrplugins as tel
+
+try:
+    # Create a roadrunner instance and create some data
+    rr = roadrunner.RoadRunner()
+    rr.load(&quot;sbml_test_0001.xml&quot;)
+    data = rr.simulate(0, 10, 511) # Want 512 points
+
+    #Add noise to the data
+    noisePlugin = tel.Plugin(&quot;tel_add_noise&quot;)
+
+    # Get the dataseries from data returned by roadrunner
+    d = tel.getDataSeries(data)
+
+    # Assign the dataseries to the plugin inputdata
+    noisePlugin.InputData = d
+
+    # Set parameter for the ’size’ of the noise
+    noisePlugin.Sigma = 3.e-6
+
+    # Add the noise
+    noisePlugin.execute()
+
+    # Get the data to plot
+    noisePlugin.InputData.plot()
+
+except Exception as e:
+    print(&#39;Problem: &#39; + `e`)
+</pre></div>
+</div>
+<img alt="../_images/AddNoise.png" src="../_images/AddNoise.png" />
+</section>
+<section id="visualization-of-the-noise-distribution-used-in-the-addnoise-plugin">
+<h3>Visualization of the noise distribution used in the AddNoise plugin<a class="headerlink" href="#visualization-of-the-noise-distribution-used-in-the-addnoise-plugin" title="Permalink to this heading"></a></h3>
+<p>The Python script below demonstrates how to obtain and visualize the actual distribution (Gaussian) of noise that is applied on data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import roadrunner
+import rrplugins as tel
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+
+p = tel.Plugin (&quot;tel_add_noise&quot;)
+
+value = 2.34    #This will be the mean
+n = 80000
+inputData  = np.zeros (shape=(1,2))
+inputData[0] = [0, value]
+
+data = tel.DataSeries.fromNumPy (inputData)
+p.Sigma = 0.25
+
+outArray = []
+for i in range(n):
+    p.InputData = data
+    p.execute()
+    outValues = p.InputData.toNumpy
+    outArray.append(outValues[0][1])
+
+plt.hist(outArray, 200, normed=True)
+
+# Overlay analytical solution
+aRange = np.arange(min(outArray), max(outArray), 0.001)
+plt.plot(aRange, stats.norm.pdf(aRange, value, p.Sigma), linestyle=’--’, linewidth=’2’, color=’red’)
+
+plt.show()
+</pre></div>
+</div>
+<img alt="../_images/AddNoise2.png" src="../_images/AddNoise2.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rrplugins_architecture.html" class="btn btn-neutral float-left" title="rrPlugins Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rrplugins_auto_plugin.html" class="btn btn-neutral float-right" title="AUTO2000 Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

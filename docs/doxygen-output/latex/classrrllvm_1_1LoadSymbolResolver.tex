@@ -1,16 +1,20 @@
 \hypertarget{classrrllvm_1_1LoadSymbolResolver}{}\doxysection{rrllvm\+::Load\+Symbol\+Resolver Class Reference}
 \label{classrrllvm_1_1LoadSymbolResolver}\index{rrllvm::LoadSymbolResolver@{rrllvm::LoadSymbolResolver}}
+
+
+{\ttfamily \#include $<$Code\+Gen.\+h$>$}
+
 Inheritance diagram for rrllvm\+::Load\+Symbol\+Resolver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.707317cm]{classrrllvm_1_1LoadSymbolResolver}
+\includegraphics[height=2.285714cm]{classrrllvm_1_1LoadSymbolResolver}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_a832a8d0b229eb12271e58db3e20ebe98}{load\+Symbol\+Value}} (const std\+::string \&symbol, const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&args=llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$())=0
-\begin{DoxyCompactList}\small\item\em generate an LLVM load instruction. \end{DoxyCompactList}\item 
+virtual llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_af0c62fdd0c913e2410596d3f785f21db}{load\+Symbol\+Value}} (const std\+::string \&symbol, const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&args=llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$())=0
+\begin{DoxyCompactList}\small\item\em generate an L\+L\+VM load instruction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolver_ae76af01bea67ddc67ca14112ef117867}\label{classrrllvm_1_1LoadSymbolResolver_ae76af01bea67ddc67ca14112ef117867}} 
 virtual void {\bfseries recursive\+Symbol\+Push} (const std\+::string \&symbol)=0
 \item 
@@ -23,16 +27,19 @@ virtual size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_a64c0e7ee
 \begin{DoxyCompactList}\small\item\em Pop a scoped cache block, this clears these values, and any subsequent reads re-\/evaluate the requested symbol. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+L\+L\+VM load instruction class 
+
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolver_a832a8d0b229eb12271e58db3e20ebe98}\label{classrrllvm_1_1LoadSymbolResolver_a832a8d0b229eb12271e58db3e20ebe98}} 
+\mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolver_af0c62fdd0c913e2410596d3f785f21db}\label{classrrllvm_1_1LoadSymbolResolver_af0c62fdd0c913e2410596d3f785f21db}} 
 \index{rrllvm::LoadSymbolResolver@{rrllvm::LoadSymbolResolver}!loadSymbolValue@{loadSymbolValue}}
 \index{loadSymbolValue@{loadSymbolValue}!rrllvm::LoadSymbolResolver@{rrllvm::LoadSymbolResolver}}
 \doxysubsubsection{\texorpdfstring{loadSymbolValue()}{loadSymbolValue()}}
-{\footnotesize\ttfamily virtual llvm\+::\+Value $\ast$ rrllvm\+::\+Load\+Symbol\+Resolver\+::load\+Symbol\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol,  }\item[{const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&}]{args = {\ttfamily llvm\+:\+:ArrayRef$<$~llvm\+:\+:Value~$\ast$~$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual llvm\+::\+Value$\ast$ rrllvm\+::\+Load\+Symbol\+Resolver\+::load\+Symbol\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol,  }\item[{const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&}]{args = {\ttfamily llvm\+:\+:ArrayRef$<$~llvm\+:\+:Value~$\ast$~$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
-generate an LLVM load instruction. 
+generate an L\+L\+VM load instruction. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -43,7 +50,7 @@ generate an LLVM load instruction.
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1FunctionResolver_a3cb392b698b4a6bcfca2bb56312d3809}{rrllvm\+::\+Function\+Resolver}}, \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_ac04cd2cdb1aebcbb28dc7c59325d604d}{rrllvm\+::\+Kinetic\+Law\+Parameter\+Resolver}}, \mbox{\hyperlink{classrrllvm_1_1ModelInitialValueSymbolResolver_a290a08a89dbed631cd62729c9ee72871}{rrllvm\+::\+Model\+Initial\+Value\+Symbol\+Resolver}}, \mbox{\hyperlink{classrrllvm_1_1SBMLInitialValueSymbolResolver_ab7c1e8fae4c828db8ddf0147d2c105b4}{rrllvm\+::\+SBMLInitial\+Value\+Symbol\+Resolver}}, and \mbox{\hyperlink{classrrllvm_1_1ModelDataLoadSymbolResolver_a8f7aa9bf76a44c3cb2f7c91b788d17b5}{rrllvm\+::\+Model\+Data\+Load\+Symbol\+Resolver}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1SBMLInitialValueSymbolResolver_ab7c1e8fae4c828db8ddf0147d2c105b4}{rrllvm\+::\+S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver}}, \mbox{\hyperlink{classrrllvm_1_1FunctionResolver_a3cb392b698b4a6bcfca2bb56312d3809}{rrllvm\+::\+Function\+Resolver}}, and \mbox{\hyperlink{classrrllvm_1_1KineticLawParameterResolver_ac04cd2cdb1aebcbb28dc7c59325d604d}{rrllvm\+::\+Kinetic\+Law\+Parameter\+Resolver}}.
 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolver_a64c0e7ee5311a610d252dc603e20a94f}\label{classrrllvm_1_1LoadSymbolResolver_a64c0e7ee5311a610d252dc603e20a94f}} 
 \index{rrllvm::LoadSymbolResolver@{rrllvm::LoadSymbolResolver}!popCacheBlock@{popCacheBlock}}

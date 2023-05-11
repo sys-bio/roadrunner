@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Setting" kind="class" language="C++" prot="public">
     <compoundname>rr::Setting</compoundname>
     <includes refid="Setting_8h" local="no">Setting.h</includes>
@@ -7,7 +7,6 @@
       <memberdef kind="enum" id="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40" prot="public" static="no" strong="no">
         <type></type>
         <name>TypeId</name>
-        <qualifiedname>rr::Setting::TypeId</qualifiedname>
         <enumvalue id="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40a8bec612d048217db0cea10fea5a23076" prot="public">
           <name>EMPTY</name>
           <initializer>= 0</initializer>
@@ -112,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Setting.h" line="132" column="9" bodyfile="Setting.h" bodystart="132" bodyend="145"/>
+        <location file="Setting.h" line="132" column="20" bodyfile="Setting.h" bodystart="132" bodyend="145"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -121,7 +120,6 @@
         <definition>setting_t rr::Setting::value_</definition>
         <argsstring></argsstring>
         <name>value_</name>
-        <qualifiedname>rr::Setting::value_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -137,7 +135,6 @@
         <definition>rr::Setting::Setting</definition>
         <argsstring>(setting_t value)</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type>setting_t</type>
           <declname>value</declname>
@@ -161,7 +158,6 @@
         <definition>rr::Setting::Setting</definition>
         <argsstring>(T settingValue)</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type>T</type>
           <declname>settingValue</declname>
@@ -183,7 +179,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::Setting</definition>
         <argsstring>(const char *settingValue)</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type>const char *</type>
           <declname>settingValue</declname>
@@ -192,7 +187,7 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
 <para>constructor for enabling creation of a <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> from a string literal. </para>
         </briefdescription>
         <detaileddescription>
-<para>The literal gets converted into a std::string <programlisting><codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>s(</highlight><highlight class="stringliteral">&quot;a<sp/>string&quot;</highlight><highlight class="normal">);<sp/></highlight><highlight class="comment">//interpreted<sp/>as<sp/>string,<sp/>not<sp/>const<sp/>char*</highlight></codeline>
+<para>The literal gets converted into a std::string <programlisting><codeline><highlight class="normal">Setting<sp/>s(&quot;a<sp/>string&quot;);<sp/>//interpreted<sp/>as<sp/>string,<sp/>not<sp/>const<sp/>char*</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -204,7 +199,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::Setting</definition>
         <argsstring>(std::int64_t settingValue)</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type>std::int64_t</type>
           <declname>settingValue</declname>
@@ -224,7 +218,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::Setting</definition>
         <argsstring>()=default</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <briefdescription>
 <para>default constructor. </para>
         </briefdescription>
@@ -240,7 +233,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>Setting::TypeId rr::Setting::type</definition>
         <argsstring>() const</argsstring>
         <name>type</name>
-        <qualifiedname>rr::Setting::type</qualifiedname>
         <briefdescription>
 <para>returns the type of std::variant contained within this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref>. </para>
         </briefdescription>
@@ -263,7 +255,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isType</definition>
         <argsstring>()</argsstring>
         <name>isType</name>
-        <qualifiedname>rr::Setting::isType</qualifiedname>
         <briefdescription>
 <para>determines whether the current value of <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> is of type T. </para>
         </briefdescription>
@@ -276,17 +267,16 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         </inbodydescription>
         <location file="Setting.h" line="163" column="14" bodyfile="Setting.h" bodystart="163" bodyend="165"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Setting_1aab0c3dd0b0a5bb7f68c9c6dc25945463" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Setting_1a44ebea12f30b1b3e84bf2ebd35c18d06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class T</type>
           </param>
         </templateparamlist>
         <type>T *</type>
-        <definition>T * rr::Setting::get_if</definition>
+        <definition>T* rr::Setting::get_if</definition>
         <argsstring>()</argsstring>
         <name>get_if</name>
-        <qualifiedname>rr::Setting::get_if</qualifiedname>
         <briefdescription>
 <para>get the value of this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> as type T if the value in this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> is of type T. </para>
         </briefdescription>
@@ -307,7 +297,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>SettingType rr::Setting::get</definition>
         <argsstring>()</argsstring>
         <name>get</name>
-        <qualifiedname>rr::Setting::get</qualifiedname>
         <briefdescription>
 <para>return the value held by this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> as a type SettingType. </para>
         </briefdescription>
@@ -330,15 +319,14 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>As rr::Setting::getAs</definition>
         <argsstring>() const</argsstring>
         <name>getAs</name>
-        <qualifiedname>rr::Setting::getAs</qualifiedname>
         <briefdescription>
 <para>explicitly convert this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> to type As. </para>
         </briefdescription>
         <detaileddescription>
-<para>type contained by this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> must be readily convertible to type As and throws std::invalid_argument if not. <programlisting><codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting(5);</highlight></codeline>
-<codeline><highlight class="normal">ASSERT_EQ(setting.get&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;(),<sp/>5);<sp/></highlight><highlight class="comment">//<sp/>fails<sp/>if<sp/>setting<sp/>is<sp/>not<sp/>int</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">ASSERT_THROW(setting.get&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;();,<sp/>std::bad_variant_access);<sp/></highlight><highlight class="comment">//<sp/>bad,<sp/>setting<sp/>contains<sp/>an<sp/>int</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">ASSERT_EQ(setting.getAs&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;(),<sp/>5);<sp/></highlight><highlight class="comment">//<sp/>Okay,<sp/>we<sp/>can<sp/>convert<sp/>from<sp/>int<sp/>to<sp/>unsigned<sp/>(when<sp/>int<sp/>&gt;<sp/>0)</highlight></codeline>
+<para>type contained by this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> must be readily convertible to type As and throws std::invalid_argument if not. <programlisting><codeline><highlight class="normal">Setting<sp/>setting(5);</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_EQ(setting.get&lt;int&gt;(),<sp/>5);<sp/>//<sp/>fails<sp/>if<sp/>setting<sp/>is<sp/>not<sp/>int</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_THROW(setting.get&lt;unsigned<sp/>int&gt;();,<sp/>std::bad_variant_access);<sp/>//<sp/>bad,<sp/>setting<sp/>contains<sp/>an<sp/>int</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_EQ(setting.getAs&lt;unsigned<sp/>int&gt;(),<sp/>5);<sp/>//<sp/>Okay,<sp/>we<sp/>can<sp/>convert<sp/>from<sp/>int<sp/>to<sp/>unsigned<sp/>(when<sp/>int<sp/>&gt;<sp/>0)</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -355,7 +343,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>SettingType rr::Setting::get</definition>
         <argsstring>() const</argsstring>
         <name>get</name>
-        <qualifiedname>rr::Setting::get</qualifiedname>
         <briefdescription>
 <para>return the value held by this setting as type SettingType. </para>
         </briefdescription>
@@ -378,7 +365,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::operator T</definition>
         <argsstring>() const</argsstring>
         <name>operator T</name>
-        <qualifiedname>rr::Setting::operator T</qualifiedname>
         <briefdescription>
 <para>implicit type conversion support for the <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> class. </para>
         </briefdescription>
@@ -402,7 +388,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::operator std::vector&lt; double &gt;</definition>
         <argsstring>()</argsstring>
         <name>operator std::vector&lt; double &gt;</name>
-        <qualifiedname>rr::Setting::vector&lt; double &gt;</qualifiedname>
         <briefdescription>
 <para>implicit cast this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> to a std::vector&lt;double&gt;. </para>
         </briefdescription>
@@ -424,7 +409,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>decltype(auto) rr::Setting::visit</definition>
         <argsstring>(Func function) const</argsstring>
         <name>visit</name>
-        <qualifiedname>rr::Setting::visit</qualifiedname>
         <param>
           <type>Func</type>
           <declname>function</declname>
@@ -433,58 +417,107 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
 <para>equality operator for comparing object otherSetting of type T against the <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> contained within this Setting.value_. </para>
         </briefdescription>
         <detaileddescription>
-<para>Enables the following types of comparisons <programlisting><codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>s1(</highlight><highlight class="stringliteral">&quot;string&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>s2<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;string&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s1<sp/>==<sp/>s2;<sp/></highlight><highlight class="comment">//<sp/>true</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>or</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>s3(1234);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>s4<sp/>=<sp/>1234;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s3<sp/>==<sp/>s4;<sp/></highlight><highlight class="comment">//<sp/>true</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/>@details<sp/>Implemented<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>SFINAE<sp/>-<sp/>substitute<sp/>failure<sp/>is<sp/>not<sp/>an<sp/>error.</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/>The<sp/>seconds<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>argument<sp/>is<sp/>only<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal"><sp/>when<sp/><ref refid="classrr_1_1Setting_1a479708abc63de00aca3d56b7e28bee04" kindref="member">type</ref><sp/>T<sp/>is<sp/>a<sp/>valid<sp/>variant</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/>and<sp/>when<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>argument<sp/>evaluates<sp/>to<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>the<sp/>compiler<sp/>will<sp/>not<sp/>generate</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/>a<sp/>code<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>types.<sp/>Thus,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>is<sp/>only<sp/>defined<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"></highlight></codeline>
+<para>Enables the following types of comparisons <programlisting><codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Setting<sp/>s1(&quot;string&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>s2<sp/>=<sp/>&quot;string&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s1<sp/>==<sp/>s2;<sp/>//<sp/>true</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>or</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Setting<sp/>s3(1234);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>int<sp/>s4<sp/>=<sp/>1234;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s3<sp/>==<sp/>s4;<sp/>//<sp/>true</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>@details<sp/>Implemented<sp/>using<sp/>SFINAE<sp/>-<sp/>substitute<sp/>failure<sp/>is<sp/>not<sp/>an<sp/>error.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>The<sp/>seconds<sp/>template<sp/>argument<sp/>is<sp/>only<sp/>true<sp/>when<sp/>type<sp/>T<sp/>is<sp/>a<sp/>valid<sp/>variant</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>and<sp/>when<sp/>this<sp/>argument<sp/>evaluates<sp/>to<sp/>false,<sp/>the<sp/>compiler<sp/>will<sp/>not<sp/>generate</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>a<sp/>code<sp/>for<sp/>the<sp/>template<sp/>types.<sp/>Thus,<sp/>this<sp/>template<sp/>is<sp/>only<sp/>defined<sp/>for</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/>types<sp/>that<sp/>are<sp/>a<sp/>part<sp/>of<sp/>setting_t.</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>/</highlight></codeline>
-<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;<ref refid="classrr_1_1Setting_1a479708abc63de00aca3d56b7e28bee04" kindref="member">::type</ref>&gt;</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;otherSetting)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>settingValue<sp/>=<sp/>get_if&lt;T&gt;())<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*settingValue<sp/>==<sp/>otherSetting;</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;::type&gt;</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator==(const<sp/>T<sp/>&amp;otherSetting)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(auto<sp/>settingValue<sp/>=<sp/>get_if&lt;T&gt;())<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>*settingValue<sp/>==<sp/>otherSetting;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>false;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;<ref refid="classrr_1_1Setting_1a479708abc63de00aca3d56b7e28bee04" kindref="member">::type</ref>&gt;</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator!=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;setting)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>==<sp/>setting);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Inequality<sp/>operator,<sp/>counter<sp/>part<sp/>to<sp/>equality<sp/>operator</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@see<sp/>operator==(const<sp/>T&amp;otherSetting);</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;::type&gt;</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator!=(const<sp/>T<sp/>&amp;setting)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>!(*this<sp/>==<sp/>setting);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>&amp;setting);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*setting);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator!=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*setting);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator!=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>&amp;setting);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;<ref refid="classrr_1_1Setting_1a479708abc63de00aca3d56b7e28bee04" kindref="member">::type</ref>&gt;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>&amp;<ref refid="classrr_1_1Setting_1adcf3783161d25aa1082673116eb44df0" kindref="member">operator=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;setting)<sp/>{</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Equality<sp/>operator,<sp/>enabling<sp/>the<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>of<sp/>this<sp/>Setting<sp/>with<sp/>the<sp/>other<sp/>Setting</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator==(const<sp/>Setting<sp/>&amp;setting);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Equality<sp/>operator,<sp/>enabling<sp/>the<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>of<sp/>this<sp/>Setting<sp/>with<sp/>string<sp/>literals</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@details<sp/>since<sp/>our<sp/>Setting<sp/>does<sp/>not<sp/>store</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>const<sp/>char*,<sp/>the<sp/>main<sp/>templated<sp/>`operated==(const<sp/>T&amp;)`</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>is<sp/>not<sp/>used.<sp/>We<sp/>therefore<sp/>define<sp/>this<sp/>separately</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator==(const<sp/>char<sp/>*setting);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Equality<sp/>operator,<sp/>enabling<sp/>the<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>of<sp/>this<sp/>Setting<sp/>with<sp/>string<sp/>literals</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@details<sp/>since<sp/>our<sp/>Setting<sp/>does<sp/>not<sp/>store</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>const<sp/>char*,<sp/>the<sp/>main<sp/>templated<sp/>`operated==(const<sp/>T&amp;)`</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>is<sp/>not<sp/>used.<sp/>We<sp/>therefore<sp/>define<sp/>this<sp/>separately.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator!=(const<sp/>char<sp/>*setting);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Inequality<sp/>operator,<sp/>enabling<sp/>the<sp/>comparison</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>of<sp/>this<sp/>Setting<sp/>with<sp/>the<sp/>other<sp/>Setting</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>operator!=(const<sp/>Setting<sp/>&amp;setting);</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>assignment<sp/>operator<sp/>for<sp/>objects<sp/>that<sp/>are<sp/>not</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>a<sp/>setting.<sp/>T<sp/>must<sp/>be<sp/>a<sp/>member<sp/>of<sp/>setting_t<sp/>or<sp/>this</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>template<sp/>will<sp/>fail<sp/>without<sp/>error<sp/>(SFINAE)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;::type&gt;</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>&amp;operator=(const<sp/>T<sp/>&amp;setting)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>checkValidType&lt;T&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>no<sp/>need<sp/>to<sp/>check<sp/>self<sp/>assignment<sp/>with<sp/>variant</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>no<sp/>need<sp/>to<sp/>check<sp/>self<sp/>assignment<sp/>with<sp/>variant</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>value_<sp/>=<sp/>setting_t(setting);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>*this;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;<ref refid="classrr_1_1Setting_1a479708abc63de00aca3d56b7e28bee04" kindref="member">::type</ref>&gt;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>&amp;<ref refid="classrr_1_1Setting_1adcf3783161d25aa1082673116eb44df0" kindref="member">operator=</ref>(T<sp/>&amp;&amp;setting)<sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>move<sp/>assignment<sp/>operator</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>for<sp/>types<sp/>T<sp/>that<sp/>are<sp/>members<sp/>of<sp/>setting_t.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@see<sp/>setting_t</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T,<sp/>class<sp/>=<sp/>typename<sp/>std::enable_if&lt;isValidVariantType&lt;T,<sp/>setting_t&gt;::value&gt;::type&gt;</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>&amp;operator=(T<sp/>&amp;&amp;setting)<sp/>noexcept<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>checkValidType&lt;T&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>no<sp/>need<sp/>to<sp/>check<sp/>self<sp/>assignment<sp/>with<sp/>variant</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>no<sp/>need<sp/>to<sp/>check<sp/>self<sp/>assignment<sp/>with<sp/>variant</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>value_<sp/>=<sp/>std::move(setting_t(setting));</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>*this;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>wrapper<sp/>around<sp/>std::visitor<sp/>for</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>&quot;visiting&quot;<sp/>each<sp/>of<sp/>the<sp/>possible<sp/>types<sp/>in</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>the<sp/>setting_t.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@details<sp/>instead<sp/>of<sp/>using<sp/>an<sp/>if-else<sp/>block</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>you<sp/>can<sp/>use<sp/>a<sp/>visitor.<sp/>For<sp/>instance,</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@param<sp/>function:<sp/>callable<sp/>type,<sp/>such<sp/>as<sp/>lambda<sp/>expression.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@code</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/><sp/><sp/><sp/><sp/>Setting<sp/>s(1234);</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/><sp/><sp/><sp/><sp/>std::string<sp/>typeString;</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/><sp/><sp/><sp/><sp/>s.visit([&amp;](auto<sp/>t)<sp/>-&gt;<sp/>decltype(auto){typeString<sp/>=<sp/>typeid(t).name();});</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>typeString<sp/>&lt;&lt;<sp/>std::endl;<sp/>//<sp/>prints<sp/>out<sp/>&quot;int&quot;<sp/>to<sp/>console</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/></highlight></codeline>
 </programlisting> <simplesect kind="see"><para>docs on std::visit </para>
 </simplesect>
 </para>
@@ -498,7 +531,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>const std::type_info &amp; rr::Setting::typeInfo</definition>
         <argsstring>() const</argsstring>
         <name>typeInfo</name>
-        <qualifiedname>rr::Setting::typeInfo</qualifiedname>
         <briefdescription>
 <para>returns the std::type_info for the object type contained within this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref>. </para>
         </briefdescription>
@@ -514,7 +546,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>Setting &amp; rr::Setting::operator=</definition>
         <argsstring>(const Setting &amp;setting)</argsstring>
         <name>operator=</name>
-        <qualifiedname>rr::Setting::operator=</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &amp;</type>
           <declname>setting</declname>
@@ -536,7 +567,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>Setting &amp; rr::Setting::operator=</definition>
         <argsstring>(Setting &amp;&amp;setting) noexcept</argsstring>
         <name>operator=</name>
-        <qualifiedname>rr::Setting::operator=</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &amp;&amp;</type>
           <declname>setting</declname>
@@ -555,7 +585,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::Setting</definition>
         <argsstring>(const Setting &amp;setting)</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &amp;</type>
           <declname>setting</declname>
@@ -574,7 +603,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>rr::Setting::Setting</definition>
         <argsstring>(Setting &amp;&amp;setting) noexcept</argsstring>
         <name>Setting</name>
-        <qualifiedname>rr::Setting::Setting</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &amp;&amp;</type>
           <declname>setting</declname>
@@ -593,7 +621,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>const setting_t &amp; rr::Setting::getValue</definition>
         <argsstring>() const</argsstring>
         <name>getValue</name>
-        <qualifiedname>rr::Setting::getValue</qualifiedname>
         <briefdescription>
 <para>getter for the std::variant_t underlying this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref>. </para>
         </briefdescription>
@@ -608,7 +635,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>std::string rr::Setting::pythonRepr</definition>
         <argsstring>() const</argsstring>
         <name>pythonRepr</name>
-        <qualifiedname>rr::Setting::pythonRepr</qualifiedname>
         <briefdescription>
 <para>Convert to Python-compatible representation. </para>
         </briefdescription>
@@ -626,7 +652,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isString</definition>
         <argsstring>() const</argsstring>
         <name>isString</name>
-        <qualifiedname>rr::Setting::isString</qualifiedname>
         <briefdescription>
 <para>is this variant a std::string. </para>
         </briefdescription>
@@ -641,7 +666,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isInteger</definition>
         <argsstring>() const</argsstring>
         <name>isInteger</name>
-        <qualifiedname>rr::Setting::isInteger</qualifiedname>
         <briefdescription>
 <para>was an integer stored here. </para>
         </briefdescription>
@@ -656,7 +680,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isNumeric</definition>
         <argsstring>() const</argsstring>
         <name>isNumeric</name>
-        <qualifiedname>rr::Setting::isNumeric</qualifiedname>
         <briefdescription>
 <para>is this a numeric type. </para>
         </briefdescription>
@@ -671,7 +694,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isBool</definition>
         <argsstring>() const</argsstring>
         <name>isBool</name>
-        <qualifiedname>rr::Setting::isBool</qualifiedname>
         <briefdescription>
 <para>is this a boolean type. </para>
         </briefdescription>
@@ -686,7 +708,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isEmpty</definition>
         <argsstring>() const</argsstring>
         <name>isEmpty</name>
-        <qualifiedname>rr::Setting::isEmpty</qualifiedname>
         <briefdescription>
 <para>true if empty. </para>
         </briefdescription>
@@ -701,7 +722,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isSigned</definition>
         <argsstring>() const</argsstring>
         <name>isSigned</name>
-        <qualifiedname>rr::Setting::isSigned</qualifiedname>
         <briefdescription>
 <para>true if this is a signed number. </para>
         </briefdescription>
@@ -716,7 +736,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isDoubleVector</definition>
         <argsstring>() const</argsstring>
         <name>isDoubleVector</name>
-        <qualifiedname>rr::Setting::isDoubleVector</qualifiedname>
         <briefdescription>
 <para>true if this is a std::vector of doubles </para>
         </briefdescription>
@@ -731,7 +750,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>bool rr::Setting::isDouble</definition>
         <argsstring>() const</argsstring>
         <name>isDouble</name>
-        <qualifiedname>rr::Setting::isDouble</qualifiedname>
         <briefdescription>
 <para>true if this is a double </para>
         </briefdescription>
@@ -746,7 +764,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>std::string rr::Setting::toString</definition>
         <argsstring>()</argsstring>
         <name>toString</name>
-        <qualifiedname>rr::Setting::toString</qualifiedname>
         <briefdescription>
 <para>gets a string representation of the type stored in this <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref>. </para>
         </briefdescription>
@@ -768,7 +785,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>static bool rr::Setting::isValidType</definition>
         <argsstring>()</argsstring>
         <name>isValidType</name>
-        <qualifiedname>rr::Setting::isValidType</qualifiedname>
         <briefdescription>
 <para>test for membership of type T in setting_t, aka supported types </para>
         </briefdescription>
@@ -783,7 +799,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>Setting rr::Setting::parse</definition>
         <argsstring>(std::string &amp;val)</argsstring>
         <name>parse</name>
-        <qualifiedname>rr::Setting::parse</qualifiedname>
         <param>
           <type>std::string &amp;</type>
           <declname>val</declname>
@@ -792,7 +807,7 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
 <para>Parses the std::string which must be in JSON format. </para>
         </briefdescription>
         <detaileddescription>
-<para>This is a common way to read a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> from a file or create a new one from a std::string: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/><ref refid="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082" kindref="member">Variant::parse</ref>(</highlight><highlight class="stringliteral">&quot;0.123&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<para>This is a common way to read a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> from a file or create a new one from a std::string: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>Variant::parse(&quot;0.123&quot;);</highlight></codeline>
 </programlisting> <simplesect kind="note"><para>this function is a tangent to the main <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> class. We should instead have a JSON parser, is that&apos;s the function we need. </para>
 </simplesect>
 </para>
@@ -813,7 +828,6 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
         <definition>void rr::Setting::checkValidType</definition>
         <argsstring>()</argsstring>
         <name>checkValidType</name>
-        <qualifiedname>rr::Setting::checkValidType</qualifiedname>
         <briefdescription>
 <para>throws std::invalid_argument if type T is not supported by <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref>. </para>
         </briefdescription>
@@ -835,50 +849,50 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
 </simplesect>
 <simplesect kind="note"><para>The function of this class used to be performed by <ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref>. Since C++17 we have replaced this with a standard type.</para>
 </simplesect>
-<programlisting><codeline><highlight class="comment">//<sp/>implicit<sp/>type<sp/>conversions</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting(4);<sp/></highlight><highlight class="comment">//<sp/>is<sp/>an<sp/>int</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>s<sp/>=<sp/>setting.get&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;();<sp/></highlight><highlight class="comment">//<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>setting.get&lt;std::string&gt;();<sp/></highlight><highlight class="comment">//<sp/>not<sp/>okay,<sp/>setting<sp/>contains<sp/>an<sp/>int</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>u<sp/>=<sp/>setting.get_if&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;();<sp/></highlight><highlight class="comment">//<sp/>u<sp/>is<sp/>pointer<sp/>to<sp/>int<sp/>if<sp/>setting<sp/>is<sp/>int<sp/>else<sp/>nullptr</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>v<sp/>=<sp/>setting.get_if&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;()){</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>do<sp/>something<sp/>in<sp/>context<sp/>where<sp/>`setting`<sp/>is<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<programlisting><codeline><highlight class="normal">//<sp/>implicit<sp/>type<sp/>conversions</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting(4);<sp/>//<sp/>is<sp/>an<sp/>int</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>s<sp/>=<sp/>setting.get&lt;int&gt;();<sp/>//<sp/>okay</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>t<sp/>=<sp/>setting.get&lt;std::string&gt;();<sp/>//<sp/>not<sp/>okay,<sp/>setting<sp/>contains<sp/>an<sp/>int</highlight></codeline>
+<codeline><highlight class="normal">auto<sp/>u<sp/>=<sp/>setting.get_if&lt;int&gt;();<sp/>//<sp/>u<sp/>is<sp/>pointer<sp/>to<sp/>int<sp/>if<sp/>setting<sp/>is<sp/>int<sp/>else<sp/>nullptr</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(auto<sp/>v<sp/>=<sp/>setting.get_if&lt;int&gt;()){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>do<sp/>something<sp/>in<sp/>context<sp/>where<sp/>`setting`<sp/>is<sp/>int</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting2(-4);<sp/></highlight><highlight class="comment">//<sp/>contains<sp/>an<sp/>int<sp/>with<sp/>negative<sp/>value</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>q<sp/>=<sp/>setting2;<sp/></highlight><highlight class="comment">//<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>setting2;<sp/></highlight><highlight class="comment">//<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>setting2;<sp/></highlight><highlight class="comment">//<sp/>error,<sp/>setting2<sp/>contains<sp/>negative<sp/>value</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>setting2;<sp/></highlight><highlight class="comment">//<sp/>error,<sp/>setting2<sp/>contains<sp/>negative<sp/>value</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>biggest_int<sp/>=<sp/>std::numeric_limits&lt;int&gt;::max();</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>out_of_range<sp/>=<sp/>biggest_int<sp/>*<sp/>10;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting(out_of_range);</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>setting;<sp/></highlight><highlight class="comment">//<sp/>error,<sp/>int<sp/>isn&apos;t<sp/>big<sp/>enough<sp/>to<sp/>hold<sp/>`out_out_range`</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>equality<sp/>works<sp/>as<sp/>expected</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting3(std::int64_t(12345678912345));</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting4(std::int64_t(12345678912345));</highlight></codeline>
-<codeline><highlight class="normal">ASSERT_TRUE(setting3<sp/>==<sp/>setting4);<sp/></highlight><highlight class="comment">//<sp/>pass</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">ASSERT_TRUE(setting3<sp/>==<sp/>12345678912345);<sp/></highlight><highlight class="comment">//<sp/>also<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>reassign<sp/>a<sp/>setting<sp/>to<sp/>different<sp/>type</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting5(123);</highlight></codeline>
-<codeline><highlight class="normal">setting5<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Now<sp/>a<sp/>string&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">std::string<sp/>expected<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Now<sp/>a<sp/>string&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal">ASSERT_TRUE(setting5<sp/>==<sp/>expected);<sp/></highlight><highlight class="comment">//<sp/>pass</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>instantiating<sp/>a<sp/>setting<sp/>from<sp/>other<sp/>objects</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">std::string<sp/>st<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;A<sp/>String&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting6(st);<sp/></highlight><highlight class="comment">//okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting7<sp/>=<sp/>st<sp/>;<sp/></highlight><highlight class="comment">//<sp/>not<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Setting_1a2f3f6beff36ad237ca6493dfaa19741f" kindref="member">Setting</ref><sp/>setting8<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;A<sp/>string&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>not<sp/>okay</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>check<sp/>if<sp/>Setting<sp/>supports<sp/>a<sp/>type</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>supported<sp/>=<sp/>Setting::isValidType&lt;int&gt;();<sp/></highlight><highlight class="comment">//<sp/>true</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">supported<sp/>=<sp/>Setting::isValidType&lt;std::string&gt;();<sp/></highlight><highlight class="comment">//<sp/>true</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal">supported<sp/>=<sp/>Setting::isValidType&lt;const<sp/>char*&gt;();<sp/></highlight><highlight class="comment">//<sp/>false</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting2(-4);<sp/>//<sp/>contains<sp/>an<sp/>int<sp/>with<sp/>negative<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>q<sp/>=<sp/>setting2;<sp/>//<sp/>okay</highlight></codeline>
+<codeline><highlight class="normal">long<sp/>r<sp/>=<sp/>setting2;<sp/>//<sp/>okay</highlight></codeline>
+<codeline><highlight class="normal">unsigned<sp/>int<sp/>w<sp/>=<sp/>setting2;<sp/>//<sp/>error,<sp/>setting2<sp/>contains<sp/>negative<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">unsigned<sp/>long<sp/>x<sp/>=<sp/>setting2;<sp/>//<sp/>error,<sp/>setting2<sp/>contains<sp/>negative<sp/>value</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">long<sp/>biggest_int<sp/>=<sp/>std::numeric_limits&lt;int&gt;::max();</highlight></codeline>
+<codeline><highlight class="normal">long<sp/>out_of_range<sp/>=<sp/>biggest_int<sp/>*<sp/>10;</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting(out_of_range);</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>x<sp/>=<sp/>setting;<sp/>//<sp/>error,<sp/>int<sp/>isn&apos;t<sp/>big<sp/>enough<sp/>to<sp/>hold<sp/>`out_out_range`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>equality<sp/>works<sp/>as<sp/>expected</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting3(std::int64_t(12345678912345));</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting4(std::int64_t(12345678912345));</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_TRUE(setting3<sp/>==<sp/>setting4);<sp/>//<sp/>pass</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_TRUE(setting3<sp/>==<sp/>12345678912345);<sp/>//<sp/>also<sp/>okay</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>reassign<sp/>a<sp/>setting<sp/>to<sp/>different<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting5(123);</highlight></codeline>
+<codeline><highlight class="normal">setting5<sp/>=<sp/>&quot;Now<sp/>a<sp/>string&quot;;<sp/>//<sp/>okay</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>expected<sp/>=<sp/>&quot;Now<sp/>a<sp/>string&quot;;</highlight></codeline>
+<codeline><highlight class="normal">ASSERT_TRUE(setting5<sp/>==<sp/>expected);<sp/>//<sp/>pass</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>instantiating<sp/>a<sp/>setting<sp/>from<sp/>other<sp/>objects</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>st<sp/>=<sp/>&quot;A<sp/>String&quot;;</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting6(st);<sp/>//okay</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting7<sp/>=<sp/>st<sp/>;<sp/>//<sp/>not<sp/>okay</highlight></codeline>
+<codeline><highlight class="normal">Setting<sp/>setting8<sp/>=<sp/>&quot;A<sp/>string&quot;;<sp/>//<sp/>not<sp/>okay</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>check<sp/>if<sp/>Setting<sp/>supports<sp/>a<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>supported<sp/>=<sp/>Setting::isValidType&lt;int&gt;();<sp/>//<sp/>true</highlight></codeline>
+<codeline><highlight class="normal">supported<sp/>=<sp/>Setting::isValidType&lt;std::string&gt;();<sp/>//<sp/>true</highlight></codeline>
+<codeline><highlight class="normal">supported<sp/>=<sp/>Setting::isValidType&lt;const<sp/>char*&gt;();<sp/>//<sp/>false</highlight></codeline>
 </programlisting> </para>
     </detaileddescription>
-    <location file="Setting.h" line="78" column="5" bodyfile="Setting.h" bodystart="78" bodyend="570"/>
+    <location file="Setting.h" line="78" column="18" bodyfile="Setting.h" bodystart="78" bodyend="570"/>
     <listofallmembers>
       <member refid="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40a11844ec161871ca0e925169745e701ac" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>BOOL</name></member>
       <member refid="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40aa335b652c80ae1c67db1b681371dab91" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>CHAR</name></member>
@@ -889,7 +903,7 @@ for developers: clang-tidy will want you to make this constructor explicit. Howe
       <member refid="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40a41ac399df0179cb4b1eea21c45f6fca4" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>FLOAT</name></member>
       <member refid="classrr_1_1Setting_1a7b66c72a2cf9b9215733f554b6cd466e" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>get</name></member>
       <member refid="classrr_1_1Setting_1afc84a4c084c67e19d37327aa6ebfa61c" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>get</name></member>
-      <member refid="classrr_1_1Setting_1aab0c3dd0b0a5bb7f68c9c6dc25945463" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>get_if</name></member>
+      <member refid="classrr_1_1Setting_1a44ebea12f30b1b3e84bf2ebd35c18d06" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>get_if</name></member>
       <member refid="classrr_1_1Setting_1ab029a70cdac39e82fba2a7857de00679" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>getAs</name></member>
       <member refid="classrr_1_1Setting_1a861cc76edbf64525ccf1c1f5c6e7a553" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>getValue</name></member>
       <member refid="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40a28f0f8b78dff8e83397475b648821e48" prot="public" virt="non-virtual"><scope>rr::Setting</scope><name>INT32</name></member>

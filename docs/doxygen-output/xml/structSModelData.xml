@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="structSModelData" kind="struct" language="C++" prot="public">
     <compoundname>SModelData</compoundname>
     <includes refid="rrModelData_8h" local="no">rrModelData.h</includes>
@@ -9,7 +9,6 @@
         <definition>double SModelData::time</definition>
         <argsstring></argsstring>
         <name>time</name>
-        <qualifiedname>SModelData::time</qualifiedname>
         <briefdescription>
 <para>current time. </para>
         </briefdescription>
@@ -24,7 +23,6 @@
         <definition>unsigned SModelData::numIndependentSpecies</definition>
         <argsstring></argsstring>
         <name>numIndependentSpecies</name>
-        <qualifiedname>SModelData::numIndependentSpecies</qualifiedname>
         <briefdescription>
 <para>number of linearly independent rows in the stochiometry matrix. </para>
         </briefdescription>
@@ -39,7 +37,6 @@
         <definition>unsigned SModelData::numDependentSpecies</definition>
         <argsstring></argsstring>
         <name>numDependentSpecies</name>
-        <qualifiedname>SModelData::numDependentSpecies</qualifiedname>
         <briefdescription>
 <para>number of linerly dependent rows in the stoichiometry matrix. </para>
         </briefdescription>
@@ -55,7 +52,6 @@
         <definition>double* SModelData::dependentSpeciesConservedSums</definition>
         <argsstring></argsstring>
         <name>dependentSpeciesConservedSums</name>
-        <qualifiedname>SModelData::dependentSpeciesConservedSums</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -69,7 +65,6 @@
         <definition>unsigned SModelData::numGlobalParameters</definition>
         <argsstring></argsstring>
         <name>numGlobalParameters</name>
-        <qualifiedname>SModelData::numGlobalParameters</qualifiedname>
         <briefdescription>
 <para>number of global parameters </para>
         </briefdescription>
@@ -84,7 +79,6 @@
         <definition>double* SModelData::globalParameters</definition>
         <argsstring></argsstring>
         <name>globalParameters</name>
-        <qualifiedname>SModelData::globalParameters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -98,7 +92,6 @@
         <definition>unsigned SModelData::numReactions</definition>
         <argsstring></argsstring>
         <name>numReactions</name>
-        <qualifiedname>SModelData::numReactions</qualifiedname>
         <briefdescription>
 <para>number of reactions, same as ratesSize. </para>
         </briefdescription>
@@ -114,7 +107,6 @@
         <definition>double* SModelData::reactionRates</definition>
         <argsstring></argsstring>
         <name>reactionRates</name>
-        <qualifiedname>SModelData::reactionRates</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -128,7 +120,6 @@
         <definition>unsigned SModelData::numRateRules</definition>
         <argsstring></argsstring>
         <name>numRateRules</name>
-        <qualifiedname>SModelData::numRateRules</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -142,7 +133,6 @@
         <definition>double* SModelData::rateRuleValues</definition>
         <argsstring></argsstring>
         <name>rateRuleValues</name>
-        <qualifiedname>SModelData::rateRuleValues</qualifiedname>
         <briefdescription>
 <para>All of the elelments which have a rate rule are stored here. </para>
         </briefdescription>
@@ -159,7 +149,6 @@
         <definition>double* SModelData::rateRuleRates</definition>
         <argsstring></argsstring>
         <name>rateRuleRates</name>
-        <qualifiedname>SModelData::rateRuleRates</qualifiedname>
         <briefdescription>
 <para>the rate of change of all elements who&apos;s dynamics are determined by rate rules. </para>
         </briefdescription>
@@ -175,7 +164,6 @@
         <definition>unsigned* SModelData::localParametersOffsets</definition>
         <argsstring></argsstring>
         <name>localParametersOffsets</name>
-        <qualifiedname>SModelData::localParametersOffsets</qualifiedname>
         <briefdescription>
 <para>LLVM specific C version does not support local parameters This is the offset, or starting index of the local parameters for reaction i. </para>
         </briefdescription>
@@ -192,7 +180,6 @@
         <definition>unsigned* SModelData::localParametersNum</definition>
         <argsstring></argsstring>
         <name>localParametersNum</name>
-        <qualifiedname>SModelData::localParametersNum</qualifiedname>
         <briefdescription>
 <para>the number of local parameters for each reaction, so legnth is numReactions. </para>
         </briefdescription>
@@ -208,7 +195,6 @@
         <definition>double* SModelData::localParameters</definition>
         <argsstring></argsstring>
         <name>localParameters</name>
-        <qualifiedname>SModelData::localParameters</qualifiedname>
         <briefdescription>
 <para>All local parameters are stored in this array. </para>
         </briefdescription>
@@ -224,7 +210,6 @@
         <definition>unsigned SModelData::numFloatingSpecies</definition>
         <argsstring></argsstring>
         <name>numFloatingSpecies</name>
-        <qualifiedname>SModelData::numFloatingSpecies</qualifiedname>
         <briefdescription>
 <para>The total ammounts of the floating species, i.e. </para>
         </briefdescription>
@@ -241,7 +226,6 @@
         <definition>double* SModelData::floatingSpeciesConcentrations</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesConcentrations</name>
-        <qualifiedname>SModelData::floatingSpeciesConcentrations</qualifiedname>
         <briefdescription>
 <para>number of floating species and floating species concentrations. </para>
         </briefdescription>
@@ -256,7 +240,6 @@
         <definition>double* SModelData::floatingSpeciesInitConcentrations</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesInitConcentrations</name>
-        <qualifiedname>SModelData::floatingSpeciesInitConcentrations</qualifiedname>
         <briefdescription>
 <para>initial concentration values for floating species. </para>
         </briefdescription>
@@ -271,7 +254,6 @@
         <definition>double* SModelData::floatingSpeciesAmountRates</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesAmountRates</name>
-        <qualifiedname>SModelData::floatingSpeciesAmountRates</qualifiedname>
         <briefdescription>
 <para>amount rates of change for floating species. </para>
         </briefdescription>
@@ -286,7 +268,6 @@
         <definition>double* SModelData::floatingSpeciesAmounts</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesAmounts</name>
-        <qualifiedname>SModelData::floatingSpeciesAmounts</qualifiedname>
         <briefdescription>
 <para>The total amount of a species in a compartment. </para>
         </briefdescription>
@@ -301,7 +282,6 @@
         <definition>unsigned* SModelData::floatingSpeciesCompartments</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesCompartments</name>
-        <qualifiedname>SModelData::floatingSpeciesCompartments</qualifiedname>
         <briefdescription>
 <para>compartment index for each floating species, e.g. </para>
         </briefdescription>
@@ -317,7 +297,6 @@
         <definition>unsigned SModelData::numBoundarySpecies</definition>
         <argsstring></argsstring>
         <name>numBoundarySpecies</name>
-        <qualifiedname>SModelData::numBoundarySpecies</qualifiedname>
         <briefdescription>
 <para>number of boundary species and boundary species concentrations. </para>
         </briefdescription>
@@ -333,7 +312,6 @@
         <definition>double* SModelData::boundarySpeciesConcentrations</definition>
         <argsstring></argsstring>
         <name>boundarySpeciesConcentrations</name>
-        <qualifiedname>SModelData::boundarySpeciesConcentrations</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -347,7 +325,6 @@
         <definition>double* SModelData::boundarySpeciesAmounts</definition>
         <argsstring></argsstring>
         <name>boundarySpeciesAmounts</name>
-        <qualifiedname>SModelData::boundarySpeciesAmounts</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -361,7 +338,6 @@
         <definition>unsigned* SModelData::boundarySpeciesCompartments</definition>
         <argsstring></argsstring>
         <name>boundarySpeciesCompartments</name>
-        <qualifiedname>SModelData::boundarySpeciesCompartments</qualifiedname>
         <briefdescription>
 <para>compartment index for each boundary species, e.g. </para>
         </briefdescription>
@@ -377,7 +353,6 @@
         <definition>unsigned SModelData::numCompartments</definition>
         <argsstring></argsstring>
         <name>numCompartments</name>
-        <qualifiedname>SModelData::numCompartments</qualifiedname>
         <briefdescription>
 <para>number of compartments, and compartment volumes. </para>
         </briefdescription>
@@ -393,7 +368,6 @@
         <definition>double* SModelData::compartmentVolumes</definition>
         <argsstring></argsstring>
         <name>compartmentVolumes</name>
-        <qualifiedname>SModelData::compartmentVolumes</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -407,7 +381,6 @@
         <definition>unsigned SModelData::numEvents</definition>
         <argsstring></argsstring>
         <name>numEvents</name>
-        <qualifiedname>SModelData::numEvents</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -421,7 +394,6 @@
         <definition>unsigned SModelData::eventTypeSize</definition>
         <argsstring></argsstring>
         <name>eventTypeSize</name>
-        <qualifiedname>SModelData::eventTypeSize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -435,7 +407,6 @@
         <definition>bool* SModelData::eventType</definition>
         <argsstring></argsstring>
         <name>eventType</name>
-        <qualifiedname>SModelData::eventType</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -449,7 +420,6 @@
         <definition>unsigned SModelData::eventPersistentTypeSize</definition>
         <argsstring></argsstring>
         <name>eventPersistentTypeSize</name>
-        <qualifiedname>SModelData::eventPersistentTypeSize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -463,7 +433,6 @@
         <definition>bool* SModelData::eventPersistentType</definition>
         <argsstring></argsstring>
         <name>eventPersistentType</name>
-        <qualifiedname>SModelData::eventPersistentType</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -477,7 +446,6 @@
         <definition>unsigned SModelData::eventTestsSize</definition>
         <argsstring></argsstring>
         <name>eventTestsSize</name>
-        <qualifiedname>SModelData::eventTestsSize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -491,7 +459,6 @@
         <definition>double* SModelData::eventTests</definition>
         <argsstring></argsstring>
         <name>eventTests</name>
-        <qualifiedname>SModelData::eventTests</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -505,7 +472,6 @@
         <definition>unsigned SModelData::eventPrioritiesSize</definition>
         <argsstring></argsstring>
         <name>eventPrioritiesSize</name>
-        <qualifiedname>SModelData::eventPrioritiesSize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -519,7 +485,6 @@
         <definition>double* SModelData::eventPriorities</definition>
         <argsstring></argsstring>
         <name>eventPriorities</name>
-        <qualifiedname>SModelData::eventPriorities</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -533,7 +498,6 @@
         <definition>unsigned SModelData::eventStatusArraySize</definition>
         <argsstring></argsstring>
         <name>eventStatusArraySize</name>
-        <qualifiedname>SModelData::eventStatusArraySize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -547,7 +511,6 @@
         <definition>bool* SModelData::eventStatusArray</definition>
         <argsstring></argsstring>
         <name>eventStatusArray</name>
-        <qualifiedname>SModelData::eventStatusArray</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -561,7 +524,6 @@
         <definition>unsigned SModelData::previousEventStatusArraySize</definition>
         <argsstring></argsstring>
         <name>previousEventStatusArraySize</name>
-        <qualifiedname>SModelData::previousEventStatusArraySize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -575,7 +537,6 @@
         <definition>bool* SModelData::previousEventStatusArray</definition>
         <argsstring></argsstring>
         <name>previousEventStatusArray</name>
-        <qualifiedname>SModelData::previousEventStatusArray</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -589,7 +550,6 @@
         <definition>EventDelayHandler* SModelData::eventDelays</definition>
         <argsstring></argsstring>
         <name>eventDelays</name>
-        <qualifiedname>SModelData::eventDelays</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -603,7 +563,6 @@
         <definition>EventAssignmentHandler* SModelData::eventAssignments</definition>
         <argsstring></argsstring>
         <name>eventAssignments</name>
-        <qualifiedname>SModelData::eventAssignments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -617,7 +576,6 @@
         <definition>ComputeEventAssignmentHandler* SModelData::computeEventAssignments</definition>
         <argsstring></argsstring>
         <name>computeEventAssignments</name>
-        <qualifiedname>SModelData::computeEventAssignments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -631,7 +589,6 @@
         <definition>PerformEventAssignmentHandler* SModelData::performEventAssignments</definition>
         <argsstring></argsstring>
         <name>performEventAssignments</name>
-        <qualifiedname>SModelData::performEventAssignments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -645,7 +602,6 @@
         <definition>char* SModelData::modelName</definition>
         <argsstring></argsstring>
         <name>modelName</name>
-        <qualifiedname>SModelData::modelName</qualifiedname>
         <briefdescription>
 <para>model name </para>
         </briefdescription>
@@ -660,7 +616,6 @@
         <definition>unsigned SModelData::srSize</definition>
         <argsstring></argsstring>
         <name>srSize</name>
-        <qualifiedname>SModelData::srSize</qualifiedname>
         <briefdescription>
 <para>C species references, not working correctly... </para>
         </briefdescription>
@@ -675,7 +630,6 @@
         <definition>double* SModelData::sr</definition>
         <argsstring></argsstring>
         <name>sr</name>
-        <qualifiedname>SModelData::sr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -698,7 +652,7 @@
 </simplesect>
 </para>
     </detaileddescription>
-    <location file="c/rrModelData.h" line="48" column="1" bodyfile="c/rrModelData.h" bodystart="49" bodyend="237"/>
+    <location file="c/rrModelData.h" line="49" column="1" bodyfile="c/rrModelData.h" bodystart="48" bodyend="237"/>
     <listofallmembers>
       <member refid="structSModelData_1a3496526c8f632f0755fca00b73c4c451" prot="public" virt="non-virtual"><scope>SModelData</scope><name>boundarySpeciesAmounts</name></member>
       <member refid="structSModelData_1a202df87d3245e913265d3bb09fab77b0" prot="public" virt="non-virtual"><scope>SModelData</scope><name>boundarySpeciesCompartments</name></member>

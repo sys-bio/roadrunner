@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1RegistrationFactory" kind="class" language="C++" prot="public">
     <compoundname>rr::RegistrationFactory</compoundname>
     <derivedcompoundref refid="classrr_1_1IntegratorFactory" prot="public" virt="non-virtual">rr::IntegratorFactory</derivedcompoundref>
@@ -12,7 +12,6 @@
         <definition>RegistrableVector rr::RegistrationFactory::registrars</definition>
         <argsstring></argsstring>
         <name>registrars</name>
-        <qualifiedname>rr::RegistrationFactory::registrars</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -28,7 +27,6 @@
         <definition>rr::RegistrationFactory::~RegistrationFactory</definition>
         <argsstring>()</argsstring>
         <name>~RegistrationFactory</name>
-        <qualifiedname>rr::RegistrationFactory::~RegistrationFactory</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -42,7 +40,6 @@
         <definition>Solver * rr::RegistrationFactory::New</definition>
         <argsstring>(const std::string &amp;name, ExecutableModel *m) const</argsstring>
         <name>New</name>
-        <qualifiedname>rr::RegistrationFactory::New</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>name</declname>
@@ -68,7 +65,6 @@
         <definition>void rr::RegistrationFactory::registerSolver</definition>
         <argsstring>(Registrable *i)</argsstring>
         <name>registerSolver</name>
-        <qualifiedname>rr::RegistrationFactory::registerSolver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Registrable" kindref="compound">Registrable</ref> *</type>
           <declname>i</declname>
@@ -90,7 +86,6 @@ Should be called at startup for new integrators. </para>
         <definition>std::size_t rr::RegistrationFactory::size</definition>
         <argsstring>() const</argsstring>
         <name>size</name>
-        <qualifiedname>rr::RegistrationFactory::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -104,7 +99,6 @@ Should be called at startup for new integrators. </para>
         <definition>std::string rr::RegistrationFactory::name</definition>
         <argsstring>(std::size_t n) const</argsstring>
         <name>name</name>
-        <qualifiedname>rr::RegistrationFactory::name</qualifiedname>
         <param>
           <type>std::size_t</type>
           <declname>n</declname>
@@ -122,7 +116,6 @@ Should be called at startup for new integrators. </para>
         <definition>std::string rr::RegistrationFactory::hint</definition>
         <argsstring>(std::size_t n) const</argsstring>
         <name>hint</name>
-        <qualifiedname>rr::RegistrationFactory::hint</qualifiedname>
         <param>
           <type>std::size_t</type>
           <declname>n</declname>
@@ -140,7 +133,6 @@ Should be called at startup for new integrators. </para>
         <definition>std::string rr::RegistrationFactory::description</definition>
         <argsstring>(std::size_t n) const</argsstring>
         <name>description</name>
-        <qualifiedname>rr::RegistrationFactory::description</qualifiedname>
         <param>
           <type>std::size_t</type>
           <declname>n</declname>
@@ -155,17 +147,16 @@ Should be called at startup for new integrators. </para>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classrr_1_1RegistrationFactory_1a6954cabeba404df4ca10dd5b43259967" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1RegistrationFactory_1ae45f4f0ee24b8eed1481ff11cac5822c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class FactoryType</type>
           </param>
         </templateparamlist>
         <type>FactoryType &amp;</type>
-        <definition>static FactoryType &amp; rr::RegistrationFactory::getInstance</definition>
+        <definition>static FactoryType&amp; rr::RegistrationFactory::getInstance</definition>
         <argsstring>(std::mutex &amp;mutex)</argsstring>
         <name>getInstance</name>
-        <qualifiedname>rr::RegistrationFactory::getInstance</qualifiedname>
         <param>
           <type>std::mutex &amp;</type>
           <declname>mutex</declname>
@@ -189,7 +180,6 @@ Should be called at startup for new integrators. </para>
         <definition>rr::RegistrationFactory::RegistrationFactory</definition>
         <argsstring>()=default</argsstring>
         <name>RegistrationFactory</name>
-        <qualifiedname>rr::RegistrationFactory::RegistrationFactory</qualifiedname>
         <briefdescription>
 <para>Prevents external instantiation. </para>
         </briefdescription>
@@ -212,19 +202,15 @@ Should be called at startup for new integrators. </para>
 Implements the factory and singleton patterns. Constructs a new integrator given the name (e.g. cvode, gillespie) and returns a base pointer to <ref refid="classrr_1_1Integrator" kindref="compound">rr::Integrator</ref>. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rr::IntegratorFactory</label>
-        <link refid="classrr_1_1IntegratorFactory"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>rr::RegistrationFactory</label>
-        <link refid="classrr_1_1RegistrationFactory"/>
-      </node>
       <node id="3">
         <label>rr::SensitivitySolverFactory</label>
         <link refid="classrr_1_1SensitivitySolverFactory"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::IntegratorFactory</label>
+        <link refid="classrr_1_1IntegratorFactory"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
@@ -234,11 +220,15 @@ Implements the factory and singleton patterns. Constructs a new integrator given
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="1">
+        <label>rr::RegistrationFactory</label>
+        <link refid="classrr_1_1RegistrationFactory"/>
+      </node>
     </inheritancegraph>
-    <location file="RegistrationFactory.h" line="29" column="5" bodyfile="RegistrationFactory.h" bodystart="29" bodyend="76"/>
+    <location file="RegistrationFactory.h" line="29" column="22" bodyfile="RegistrationFactory.h" bodystart="29" bodyend="76"/>
     <listofallmembers>
       <member refid="classrr_1_1RegistrationFactory_1aab8247a922fa2b4d8d2293b129fa5582" prot="public" virt="virtual"><scope>rr::RegistrationFactory</scope><name>description</name></member>
-      <member refid="classrr_1_1RegistrationFactory_1a6954cabeba404df4ca10dd5b43259967" prot="public" virt="non-virtual"><scope>rr::RegistrationFactory</scope><name>getInstance</name></member>
+      <member refid="classrr_1_1RegistrationFactory_1ae45f4f0ee24b8eed1481ff11cac5822c" prot="public" virt="non-virtual"><scope>rr::RegistrationFactory</scope><name>getInstance</name></member>
       <member refid="classrr_1_1RegistrationFactory_1ac5a37f51c2af354b527ac1a3e4d36554" prot="public" virt="virtual"><scope>rr::RegistrationFactory</scope><name>hint</name></member>
       <member refid="classrr_1_1RegistrationFactory_1ab5399075e167b9af65a5cf0f52106594" prot="public" virt="virtual"><scope>rr::RegistrationFactory</scope><name>name</name></member>
       <member refid="classrr_1_1RegistrationFactory_1af6a9a68a5895f4da2bf3f57872b09bd4" prot="public" virt="non-virtual"><scope>rr::RegistrationFactory</scope><name>New</name></member>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The LibRoadRunner C++ Library &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LLVM Docs" href="llvm/index.html" />
+    <link rel="prev" title="Conserved Moiety Conversion" href="../PythonAPIReference/cls_PyConservedMoietyConverter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The LibRoadRunner C++ Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="llvm/index.html">LLVM Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CVODEIntegrator.html">CVODEIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dictionary.html">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerIntegrator.html">EulerIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutableModelFactory.html">ExecutableModelFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GillespieIntegrator.html">GillespieIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Integrator.html">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IntegratorFactory.html">IntegratorFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ1Solver.html">NLEQ1Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ2Solver.html">NLEQ2Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK45Integrator.html">RK45Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK4Integrator.html">RK4Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SBMLValidator.html">SBMLValidator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solver.html">Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SolverFactory.html">SolverFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SteadyStateSolver.html">SteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Variant.html">Variant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrCompiler.html">rrCompiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrConfig.html">rrConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrException.html">rrException</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrExecutableModel.html">rrExecutableModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrFileName.html">rrFileName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniFile.html">rrIniFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniKey.html">rrIniKey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniSection.html">rrIniSection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrLogger.html">rrLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ1Interface.html">rrNLEQ1Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ2Interface.html">rrNLEQ2Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunner.html">rrRoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerData.html">rrRoadRunnerData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerOptions.html">rrRoadRunnerOptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLModelSimulation.html">rrSBMLModelSimulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLReader.html">rrSBMLReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSelectionRecord.html">rrSelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSparse.html">rrSparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoadRunnerMap.html">RoadRunnerMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-new-integrator">Creating a new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#telling-roadrunner-about-the-new-integrator">Telling RoadRunner about the new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">The LibRoadRunner C++ Library</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/C++APIReference/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-libroadrunner-c-library">
+<h1>The LibRoadRunner C++ Library<a class="headerlink" href="#the-libroadrunner-c-library" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>This document describes the application programming interface (wrappers) of RoadRunner,
+an open source (BSD) library for computing structural characteristics of cellular networks.</p>
+</section>
+<section id="creating-a-new-integrator">
+<h2>Creating a new Integrator<a class="headerlink" href="#creating-a-new-integrator" title="Permalink to this heading"></a></h2>
+<p>One of the key design goals of the LibRoadRunner library is extensibility. This means that the
+library is designed with the idea that most internal components are loosely coupled and that
+it is simple to add new solvers such as new steady state solvers or integrators. This section
+will give a tutorial on creating a new integrator using the EulerIntegrator as an example.</p>
+<p>At its simplest, an Integrator is a class which implements the Integrator interface and
+is responsible for advanding a model (an object which implements the ExecutableModel interface)
+forward in time.</p>
+<p>All Integrators are created by the IntegratorFactory class, this is the only class that knows
+about the existence of any Integrator objects. All integrators that the IntegratorFactory knows about
+are automatically available to any code (including any Python code) that needs to create one. Each time
+the RoadRunner::simulate method is called, a different integrator may be specified. In Python, this is
+done with the &lt;TT&gt;integrator&lt;/TT&gt; keyword, i.e.</p>
+<p>Or, in C++:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">BasicDictionary</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setItem</span><span class="p">(</span><span class="s">&quot;integrator&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyIntegratorName&quot;</span><span class="p">)</span>
+<span class="n">rr</span><span class="p">.</span><span class="n">simulate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To create a new integrator, one first needs to create an object that implments the Integrator interface,
+tell RoadRunner about it.</p>
+</section>
+<section id="implementing-the-integrator-interface">
+<h2>Implementing the Integrator interface<a class="headerlink" href="#implementing-the-integrator-interface" title="Permalink to this heading"></a></h2>
+<p>The IntegratorFactory is the ONLY object that creates integrators.</p>
+<p>Integrators are created when the IntegratorFactory::New method is called,
+typically by the top level RoadRunner object. New Integrators are given a pointer to an
+existing ExecutableModel object which the Integrator is responsible for advancing forward in time,
+and pointer to a SimulateOptions object which contains the initial set of parameters that the
+Integrator may configure itself with.</p>
+<p>The integrator will hold onto the ExecutableModel pointer, m, and when the
+Integrator::integrate method is called, will advance the model object forward in time.</p>
+<p>There are three key members of the Integrator interface that an integrator needs be implement:</p>
+<ul class="simple">
+<li><p>Integrator::setSimulateOptions</p></li>
+</ul>
+<p>This method is called whenever the simulation parameters are changed via calls to the
+RoadRunner::simulate method, the setSimulateOptions method is
+called by RoadRunner object to inform the Integrator of any new parameter changes.
+This method should be used to read any updated tuning parameters.</p>
+<ul class="simple">
+<li><p>Integrator::integrate</p></li>
+</ul>
+<p>This is the actual method that should perform the time integration.</p>
+<ul class="simple">
+<li><p>Integrator::restart</p></li>
+</ul>
+<p>This method is called whenever the RoadRunner object is re-started. This gives the
+integrator an option to reload any internal solvers. Simple integrators like the EulerIntegrator does not
+really do anything in the EulerIntegrator::restart method, but more sophisticated ones like the CVODE integrator
+perform a number of tasks such as re-calclating the tollerances and so forth.</p>
+<p>The other key thing that an Integrator needs to do is provide a</p>
+<p>method, as in the EulerIntegrator::getIntegratorOptions. This method is used by the IntegratorFactory
+to build a list of all the available tuning parameters that any integrator supports. The returned
+Dictionary pointer should be statically created inside the implementation file, and should contain the
+following keys / values</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>integrator</p></td>
+<td><p>The name of your new integrator</p></td>
+</tr>
+<tr class="row-odd"><td><p>integrator.description</p></td>
+<td><p>A description of your new integrator</p></td>
+</tr>
+<tr class="row-even"><td><p>integrator.hint</p></td>
+<td><p>A short hint for your new integrator</p></td>
+</tr>
+</tbody>
+</table>
+<p>Any additional tuning parameters should be listed in this dictionary, where each tuning parameter
+should have three key/value pairs.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>parameterName</p></td>
+<td><p>The default value of this tuning parmeter</p></td>
+</tr>
+<tr class="row-odd"><td><p>parameterName.description</p></td>
+<td><p>A description of this tuning parameter</p></td>
+</tr>
+<tr class="row-even"><td><p>parameterName.hint</p></td>
+<td><p>A short hint for this tuning parameter</p></td>
+</tr>
+</tbody>
+</table>
+<p>When the Integrator::setSimulateOptions method is called, the integrator should read any
+parameters it expects out of the given dictionary.</p>
+</section>
+<section id="telling-roadrunner-about-the-new-integrator">
+<h2>Telling RoadRunner about the new Integrator<a class="headerlink" href="#telling-roadrunner-about-the-new-integrator" title="Permalink to this heading"></a></h2>
+<p>In order for the RoadRunner::simulate method use the new integrator, it needs to know about it.
+The IntegratorFactory is the only object that knows about all the integrators, and a few lines of
+code need to be added in the implementation of this object so that it can construct one.</p>
+<p>First, a new enum value needs to be added to the Integrator::IntegratorId enum. This is numeric
+index of the integrator. Then the textual name of the integrator needs to be added to the
+&lt;tt&gt;integratorNames&lt;/tt&gt; static array in the Integrator.cpp file. Then a line needs to be added inside
+the IntegratorFactory::New method which will create the new integrator, e.g. this is a series
+of &lt;tt&gt;if&lt;/tt&gt; statements, and a new statment needs to be created which creates an instance of the
+new kind of integrator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">opt</span><span class="o">-&gt;</span><span class="n">integrator</span> <span class="o">==</span> <span class="n">Integrator</span><span class="p">::</span><span class="n">GILLESPIE</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GillespieIntegrator</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">opt</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">opt</span><span class="o">-&gt;</span><span class="n">integrator</span> <span class="o">==</span> <span class="n">Integrator</span><span class="p">::</span><span class="n">RK4</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RK4Integrator</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">opt</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">opt</span><span class="o">-&gt;</span><span class="n">integrator</span> <span class="o">==</span> <span class="n">Integrator</span><span class="p">::</span><span class="n">EULER</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">new</span> <span class="n">EulerIntegrator</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">opt</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">new</span> <span class="n">CVODEIntegrator</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">opt</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, the IntegratorFactory::getIntegratorOptions() method needs to be updated to also return
+the dictionary that was created in the getIntegratorOptions method, e.g.</p>
+<p>Once the IntegratorFactory is made aware of your new integrator, it is available for full introspection and
+can be used by just adding the &lt;tt&gt;integrator=”myNewIntegrator”&lt;/tt&gt; argument whenever the
+RoadRunner.simulate method is called. The EulerIntegrator was created as an example of how to create and add
+a new integrator, have a look at it.</p>
+</section>
+<section id="a-complete-example-of-creating-an-integrator">
+<h2>A complete example of creating an integrator<a class="headerlink" href="#a-complete-example-of-creating-an-integrator" title="Permalink to this heading"></a></h2>
+<p>This section includes the complete Euler integrator implemented in EulerIntegrator.h as an example of
+creating a new integrator.
+This class has two demo paramters which may be set via the keyword arguments to RoadRunner.simulate
+in Python, or set via the Dictionary::setItem method on the dictionary that is given to the
+RoadRunner::simulate method in C++. In Python, this would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">integrator</span><span class="o">=</span><span class="s1">&#39;euler&#39;</span><span class="p">,</span> <span class="n">exampleParameter1</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">exampleParameter2</span><span class="o">=</span><span class="s1">&#39;some value&#39;</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">integrator</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python, all the keyword arguments to the simulate method are packaged up and added to the
+dictionary which is passed into the RoadRunner::simulate method. In C++, the equivalent code
+would be:</p>
+<p>The EulerIntegrator.h file serves as a complete example of creating an new integrator.
+This example was written entierly in the header file for clarity, but a real integrator
+should separate the code and header files.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../PythonAPIReference/cls_PyConservedMoietyConverter.html" class="btn btn-neutral float-left" title="Conserved Moiety Conversion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="llvm/index.html" class="btn btn-neutral float-right" title="LLVM Docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

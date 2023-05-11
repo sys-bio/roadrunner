@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1KinsolSteadyStateSolver" kind="class" language="C++" prot="public">
     <compoundname>rr::KinsolSteadyStateSolver</compoundname>
     <basecompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</basecompoundref>
@@ -12,7 +12,6 @@
         <definition>void* rr::KinsolSteadyStateSolver::mKinsol_Memory</definition>
         <argsstring></argsstring>
         <name>mKinsol_Memory</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::mKinsol_Memory</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>Pointer to the kinsol memory block. </para>
@@ -28,7 +27,6 @@
         <definition>N_Vector rr::KinsolSteadyStateSolver::mStateVector</definition>
         <argsstring></argsstring>
         <name>mStateVector</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::mStateVector</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>a sundials N_Vector for storing system state variables </para>
@@ -44,7 +42,6 @@
         <definition>N_Vector rr::KinsolSteadyStateSolver::fscale</definition>
         <argsstring></argsstring>
         <name>fscale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::fscale</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>std::vector containing diagonal elements of scaling matrix DF for F(u) chosen so that the components of D_F*F(u) (as a matrix multiplication) all have roughly the same magnitude when u is not too near a root of F(u). </para>
@@ -63,7 +60,6 @@
         <definition>N_Vector rr::KinsolSteadyStateSolver::uscale</definition>
         <argsstring></argsstring>
         <name>uscale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::uscale</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>std::vector containing diagonal elements of scaling matrix Du for std::vector u chosen so that the components of D_u*u (as a matrix multiplication) all have roughly the same magnitude when u is close to a root of F(u). </para>
@@ -82,7 +78,6 @@
         <definition>N_Vector rr::KinsolSteadyStateSolver::constraints</definition>
         <argsstring></argsstring>
         <name>constraints</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::constraints</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>vector of constraints used to ensure positive solution. </para>
@@ -99,7 +94,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numFuncEvals</definition>
         <argsstring></argsstring>
         <name>numFuncEvals</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numFuncEvals</qualifiedname>
         <briefdescription>
 <para>kinsol output variables. </para>
         </briefdescription>
@@ -115,7 +109,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numNolinSolvIters</definition>
         <argsstring></argsstring>
         <name>numNolinSolvIters</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numNolinSolvIters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -129,7 +122,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numBetaCondFails</definition>
         <argsstring></argsstring>
         <name>numBetaCondFails</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numBetaCondFails</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -143,7 +135,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numBacktrackOps</definition>
         <argsstring></argsstring>
         <name>numBacktrackOps</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numBacktrackOps</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -157,7 +148,6 @@
         <definition>double rr::KinsolSteadyStateSolver::funcNorm</definition>
         <argsstring></argsstring>
         <name>funcNorm</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::funcNorm</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -171,7 +161,6 @@
         <definition>double rr::KinsolSteadyStateSolver::stepLength</definition>
         <argsstring></argsstring>
         <name>stepLength</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::stepLength</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -185,7 +174,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numJacEvals</definition>
         <argsstring></argsstring>
         <name>numJacEvals</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numJacEvals</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -199,7 +187,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numJtimesEvals</definition>
         <argsstring></argsstring>
         <name>numJtimesEvals</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numJtimesEvals</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -213,7 +200,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numLinConvFails</definition>
         <argsstring></argsstring>
         <name>numLinConvFails</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numLinConvFails</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -227,7 +213,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numLinFuncEvals</definition>
         <argsstring></argsstring>
         <name>numLinFuncEvals</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numLinFuncEvals</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -241,7 +226,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numLinIters</definition>
         <argsstring></argsstring>
         <name>numLinIters</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numLinIters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -255,7 +239,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numNonlinSolvIters</definition>
         <argsstring></argsstring>
         <name>numNonlinSolvIters</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numNonlinSolvIters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -269,7 +252,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numPrecEvals</definition>
         <argsstring></argsstring>
         <name>numPrecEvals</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numPrecEvals</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -283,7 +265,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::numPrecSolves</definition>
         <argsstring></argsstring>
         <name>numPrecSolves</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::numPrecSolves</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -297,7 +278,6 @@
         <definition>long int rr::KinsolSteadyStateSolver::nSolverIterations</definition>
         <argsstring></argsstring>
         <name>nSolverIterations</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::nSolverIterations</qualifiedname>
         <initializer>= 0</initializer>
         <briefdescription>
 <para>stores the number of iterations required by the solver to converge. </para>
@@ -314,7 +294,6 @@
         <definition>std::unordered_map&lt;std::string, Setting&gt; rr::KinsolSteadyStateSolver::solverStats</definition>
         <argsstring></argsstring>
         <name>solverStats</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::solverStats</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -330,7 +309,6 @@
         <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
         <argsstring>(ExecutableModel *executableModel)</argsstring>
         <name>KinsolSteadyStateSolver</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>executableModel</declname>
@@ -350,7 +328,6 @@
         <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
         <argsstring>()=default</argsstring>
         <name>KinsolSteadyStateSolver</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</qualifiedname>
         <briefdescription>
 <para>The default constructor for constructing without a model. </para>
         </briefdescription>
@@ -366,7 +343,6 @@
         <definition>rr::KinsolSteadyStateSolver::~KinsolSteadyStateSolver</definition>
         <argsstring>() override=default</argsstring>
         <name>~KinsolSteadyStateSolver</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::~KinsolSteadyStateSolver</qualifiedname>
         <briefdescription>
 <para>virtual destructor </para>
         </briefdescription>
@@ -381,7 +357,6 @@
         <definition>void rr::KinsolSteadyStateSolver::syncWithModel</definition>
         <argsstring>(ExecutableModel *m) override</argsstring>
         <name>syncWithModel</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::syncWithModel</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158">syncWithModel</reimplements>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
@@ -402,7 +377,6 @@
         <definition>void rr::KinsolSteadyStateSolver::setFScale</definition>
         <argsstring>(double value)</argsstring>
         <name>setFScale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::setFScale</qualifiedname>
         <param>
           <type>double</type>
           <declname>value</declname>
@@ -413,10 +387,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>value.</parametername>
+<parametername>value</parametername>
 </parameternamelist>
 <parameterdescription>
-<para></para>
+<para>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -431,7 +405,6 @@
         <definition>void rr::KinsolSteadyStateSolver::setFScale</definition>
         <argsstring>(const std::vector&lt; double &gt; &amp;value)</argsstring>
         <name>setFScale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::setFScale</qualifiedname>
         <param>
           <type>const std::vector&lt; double &gt; &amp;</type>
           <declname>value</declname>
@@ -442,10 +415,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>value.</parametername>
+<parametername>value</parametername>
 </parameternamelist>
 <parameterdescription>
-<para></para>
+<para>. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -468,7 +441,6 @@
         <definition>void rr::KinsolSteadyStateSolver::setUScale</definition>
         <argsstring>(double value)</argsstring>
         <name>setUScale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::setUScale</qualifiedname>
         <param>
           <type>double</type>
           <declname>value</declname>
@@ -479,10 +451,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>value.</parametername>
+<parametername>value</parametername>
 </parameternamelist>
 <parameterdescription>
-<para></para>
+<para>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -497,24 +469,15 @@
         <definition>void rr::KinsolSteadyStateSolver::setUScale</definition>
         <argsstring>(std::vector&lt; double &gt; value)</argsstring>
         <name>setUScale</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::setUScale</qualifiedname>
         <param>
           <type>std::vector&lt; double &gt;</type>
           <declname>value</declname>
         </param>
         <briefdescription>
-<para>set elements of the uscale variable to </para>
+<para>set elements of the uscale variable to value. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>value.</parametername>
-</parameternamelist>
-<parameterdescription>
-<para></para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>value</parametername>
 </parameternamelist>
@@ -534,7 +497,6 @@
         <definition>double rr::KinsolSteadyStateSolver::solveForSteadyState</definition>
         <argsstring>(KinsolSteadyStateSolver *solverInstance, int kinsolStrategy)</argsstring>
         <name>solveForSteadyState</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::solveForSteadyState</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1KinsolSteadyStateSolver" kindref="compound">KinsolSteadyStateSolver</ref> *</type>
           <declname>solverInstance</declname>
@@ -582,7 +544,6 @@
         <definition>void * rr::KinsolSteadyStateSolver::getKinsolMemory</definition>
         <argsstring>() const</argsstring>
         <name>getKinsolMemory</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::getKinsolMemory</qualifiedname>
         <briefdescription>
 <para>getter for the underlying memory block that is used by kinsol. </para>
         </briefdescription>
@@ -598,7 +559,6 @@
         <definition>std::unordered_map&lt; std::string, Setting &gt; &amp; rr::KinsolSteadyStateSolver::getSolverStats</definition>
         <argsstring>()</argsstring>
         <name>getSolverStats</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::getSolverStats</qualifiedname>
         <briefdescription>
 <para>return a mapping containing solver statistics. </para>
         </briefdescription>
@@ -616,7 +576,6 @@
         <definition>void rr::KinsolSteadyStateSolver::printSolverStats</definition>
         <argsstring>()</argsstring>
         <name>printSolverStats</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::printSolverStats</qualifiedname>
         <briefdescription>
 <para>display solver stats to console </para>
         </briefdescription>
@@ -638,7 +597,6 @@
         <definition>static int rr::KinsolSteadyStateSolver::kinsolDyDtFcn</definition>
         <argsstring>(N_Vector stateVecIn, N_Vector stateVecOut, void *userData)</argsstring>
         <name>kinsolDyDtFcn</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::kinsolDyDtFcn</qualifiedname>
         <param>
           <type>N_Vector</type>
           <declname>stateVecIn</declname>
@@ -670,7 +628,6 @@
         <definition>void rr::KinsolSteadyStateSolver::freeKinsol</definition>
         <argsstring>()</argsstring>
         <name>freeKinsol</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::freeKinsol</qualifiedname>
         <reimplementedby refid="classrr_1_1FixedPointIteration_1aaabbfb6ff1bc59dd9cc4371368dc9348">freeKinsol</reimplementedby>
         <reimplementedby refid="classrr_1_1NewtonIteration_1ae27ea4ad5e78a6fb781bb1d8272f0756">freeKinsol</reimplementedby>
         <briefdescription>
@@ -688,7 +645,6 @@
         <definition>void rr::KinsolSteadyStateSolver::updateKinsol</definition>
         <argsstring>()</argsstring>
         <name>updateKinsol</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::updateKinsol</qualifiedname>
         <reimplementedby refid="classrr_1_1FixedPointIteration_1abc9ebf35d6ea07b7a6d8a8798eb3d68d">updateKinsol</reimplementedby>
         <reimplementedby refid="classrr_1_1NewtonIteration_1a6d10c08312d90016647826dd1c824ad2">updateKinsol</reimplementedby>
         <briefdescription>
@@ -708,7 +664,6 @@
         <definition>void rr::KinsolSteadyStateSolver::createKinsol</definition>
         <argsstring>()</argsstring>
         <name>createKinsol</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::createKinsol</qualifiedname>
         <reimplementedby refid="classrr_1_1FixedPointIteration_1a9228e46a342accb7defbccd76e674b9d">createKinsol</reimplementedby>
         <reimplementedby refid="classrr_1_1NewtonIteration_1a17436ae1ae76642be8f525addd8e2834">createKinsol</reimplementedby>
         <briefdescription>
@@ -726,7 +681,6 @@
         <definition>void rr::KinsolSteadyStateSolver::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
         <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
         <briefdescription>
@@ -743,7 +697,6 @@
         <definition>void rr::KinsolSteadyStateSolver::getSolverStatsFromKinsol</definition>
         <argsstring>()</argsstring>
         <name>getSolverStatsFromKinsol</name>
-        <qualifiedname>rr::KinsolSteadyStateSolver::getSolverStatsFromKinsol</qualifiedname>
         <reimplementedby refid="classrr_1_1NewtonIteration_1a46d2940bc5e23fa377be239f5cc21e4a">getSolverStatsFromKinsol</reimplementedby>
         <briefdescription>
 <para>after solve() has been called, this method collects some details such as number of function evals </para>
@@ -762,6 +715,40 @@
 <para>The steady state solver in Sundials is called Kinsol. They have multiple different strategies some which require model integration, and some that do not. </para>
     </detaileddescription>
     <inheritancegraph>
+      <node id="8">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="7">
         <label>rr::BasicNewtonIteration</label>
         <link refid="classrr_1_1BasicNewtonIteration"/>
@@ -774,55 +761,23 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="1">
         <label>rr::KinsolSteadyStateSolver</label>
         <link refid="classrr_1_1KinsolSteadyStateSolver"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="8">
-        <label>rr::LinesearchNewtonIteration</label>
-        <link refid="classrr_1_1LinesearchNewtonIteration"/>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>rr::NewtonIteration</label>
-        <link refid="classrr_1_1NewtonIteration"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="4">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="3">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="2">
         <label>rr::SteadyStateSolver</label>
         <link refid="classrr_1_1SteadyStateSolver"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
-      </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="5">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
-      <node id="1">
-        <label>rr::KinsolSteadyStateSolver</label>
-        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="3">
         <label>rr::Solver</label>
@@ -833,18 +788,16 @@
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="KinsolSteadyStateSolver.h" line="44" column="5" bodyfile="KinsolSteadyStateSolver.h" bodystart="44" bodyend="296"/>
+    <location file="KinsolSteadyStateSolver.h" line="44" column="59" bodyfile="KinsolSteadyStateSolver.h" bodystart="44" bodyend="296"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>addSetting</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a80807be1f440f524769e55568a3abcf2" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>constraints</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>construct</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a7c7a941fbf27c7a3a5326b254ee2f1b1" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>createKinsol</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>descriptions</name></member>
@@ -854,13 +807,16 @@
       <member refid="classrr_1_1KinsolSteadyStateSolver_1ad3bc465ff768913724631e8d4daf62c1" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>fscale</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a6152af9e64fe79d7af756df58dcd0e5e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>funcNorm</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a5ebba0ecca346216d982d9533d32d811" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getKinsolMemory</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getModel</name></member>
-      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::KinsolSteadyStateSolver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamDisplayName</name></member>
@@ -912,6 +868,7 @@
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>solveForSteadyState</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a1a51e6de634532f7e73051a6129940ae" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>solverStats</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1aed41325ac8469d5b24fcd55df1eeb52f" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>stepLength</name></member>

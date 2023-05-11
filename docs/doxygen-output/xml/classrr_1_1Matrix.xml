@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Matrix" kind="class" language="C++" prot="public">
     <compoundname>rr::Matrix</compoundname>
     <basecompoundref prot="public" virt="non-virtual">ls::Matrix&lt; T &gt;</basecompoundref>
+    <includes refid="Matrix_8h" local="no">Matrix.h</includes>
     <templateparamlist>
       <param>
         <type>typename T</type>
@@ -14,7 +15,6 @@
         <definition>rr::Matrix&lt; T &gt;::Matrix</definition>
         <argsstring>(ls::Matrix&lt; T &gt; &amp;matrix)</argsstring>
         <name>Matrix</name>
-        <qualifiedname>rr::Matrix::Matrix</qualifiedname>
         <param>
           <type>ls::Matrix&lt; T &gt; &amp;</type>
           <declname>matrix</declname>
@@ -26,32 +26,31 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="396" column="17" bodyfile="Matrix.h" bodystart="130" bodyend="140"/>
+        <location file="Matrix.h" line="405" column="17" bodyfile="Matrix.h" bodystart="138" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1acc820653bbfb9578443b2ea8ebdaac4e" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Matrix&lt; T &gt;::Matrix</definition>
         <argsstring>(ls::Matrix&lt; T &gt; *matrix)</argsstring>
         <name>Matrix</name>
-        <qualifiedname>rr::Matrix::Matrix</qualifiedname>
         <param>
           <type>ls::Matrix&lt; T &gt; *</type>
           <declname>matrix</declname>
         </param>
         <briefdescription>
+<para>Constructor for creating a Matrix&lt;T&gt; from a ls::Matrix&lt;T&gt; </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="396" column="17" bodyfile="Matrix.h" bodystart="143" bodyend="144"/>
+        <location file="Matrix.h" line="405" column="17" bodyfile="Matrix.h" bodystart="151" bodyend="152"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1a15848a37cb50e749fb8f7f00ae0a6b22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix&lt; T &gt;::operator==</definition>
         <argsstring>(Matrix&lt; T &gt; &amp;other)</argsstring>
         <name>operator==</name>
-        <qualifiedname>rr::Matrix::operator==</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; T &gt; &amp;</type>
           <declname>other</declname>
@@ -66,14 +65,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="44" column="14" bodyfile="Matrix.h" bodystart="152" bodyend="174"/>
+        <location file="Matrix.h" line="52" column="14" bodyfile="Matrix.h" bodystart="160" bodyend="182"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1a4a1a8c0eada3c2c680cb5383fbd8e0e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix&lt; T &gt;::operator!=</definition>
         <argsstring>(Matrix&lt; T &gt; &amp;other)</argsstring>
         <name>operator!=</name>
-        <qualifiedname>rr::Matrix::operator!=</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; T &gt; &amp;</type>
           <declname>other</declname>
@@ -85,14 +83,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="49" column="14" bodyfile="Matrix.h" bodystart="180" bodyend="182"/>
+        <location file="Matrix.h" line="57" column="14" bodyfile="Matrix.h" bodystart="188" bodyend="190"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1ad2be619ba028bf0f0b5c229c13f64063" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix&lt; T &gt;::almostEquals</definition>
         <argsstring>(Matrix&lt; double &gt; &amp;other, const double &amp;tolerance)</argsstring>
         <name>almostEquals</name>
-        <qualifiedname>rr::Matrix::almostEquals</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; double &gt; &amp;</type>
           <declname>other</declname>
@@ -111,7 +108,23 @@
 <parametername>other</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>Matrix&lt;double&gt;</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>other</parametername>
+</parameternamelist>
+<parameterdescription>
 <para>Matrix&lt;double&gt; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the tolerance to use between the real and expected values. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -119,14 +132,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="55" column="14" bodyfile="Matrix.h" bodystart="189" bodyend="210"/>
+        <location file="Matrix.h" line="63" column="14" bodyfile="Matrix.h" bodystart="198" bodyend="219"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1adbdc267bb90e3e9c752758126e161791" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; T &gt;</type>
         <definition>Matrix&lt; T &gt; rr::Matrix&lt; T &gt;::mult</definition>
         <argsstring>(Matrix&lt; T &gt; matrix)</argsstring>
         <name>mult</name>
-        <qualifiedname>rr::Matrix::mult</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>&lt; T &gt;</type>
           <declname>matrix</declname>
@@ -138,14 +150,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="60" column="16" bodyfile="Matrix.h" bodystart="213" bodyend="216"/>
+        <location file="Matrix.h" line="68" column="16" bodyfile="Matrix.h" bodystart="222" bodyend="225"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1a481abe78869b481e1b825734bb8a51a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::Matrix&lt; T &gt;::empty</definition>
         <argsstring>()</argsstring>
         <name>empty</name>
-        <qualifiedname>rr::Matrix::empty</qualifiedname>
         <briefdescription>
 <para>indicator method for empty <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref>. </para>
         </briefdescription>
@@ -156,14 +167,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="66" column="14" bodyfile="Matrix.h" bodystart="223" bodyend="227"/>
+        <location file="Matrix.h" line="74" column="14" bodyfile="Matrix.h" bodystart="232" bodyend="236"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1adaa546e9e056dbe943d43418653a123f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::sortRowsByLabels</definition>
         <argsstring>()</argsstring>
         <name>sortRowsByLabels</name>
-        <qualifiedname>rr::Matrix::sortRowsByLabels</qualifiedname>
         <briefdescription>
 <para>Reorder <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref> rows such that row names are in alphabetical order. </para>
         </briefdescription>
@@ -171,14 +181,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="72" column="14" bodyfile="Matrix.h" bodystart="234" bodyend="264"/>
+        <location file="Matrix.h" line="80" column="14" bodyfile="Matrix.h" bodystart="243" bodyend="273"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1af564bfd45b879ba4244021846cd1f4f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::sortColsByLabels</definition>
         <argsstring>()</argsstring>
         <name>sortColsByLabels</name>
-        <qualifiedname>rr::Matrix::sortColsByLabels</qualifiedname>
         <briefdescription>
 <para>Reorder <ref refid="classrr_1_1Matrix" kindref="compound">Matrix</ref> cols such that col names are in alphabetical order. </para>
         </briefdescription>
@@ -186,14 +195,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="78" column="14" bodyfile="Matrix.h" bodystart="271" bodyend="301"/>
+        <location file="Matrix.h" line="86" column="14" bodyfile="Matrix.h" bodystart="280" bodyend="310"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1ad75ae4a4b1772808706dece01a3f241d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::deleteRow</definition>
         <argsstring>(int which)</argsstring>
         <name>deleteRow</name>
-        <qualifiedname>rr::Matrix::deleteRow</qualifiedname>
         <param>
           <type>int</type>
           <declname>which</declname>
@@ -216,14 +224,13 @@ memory isn&apos;t actually reclaimed nor the array resized. Instead the elements
         <inbodydescription>
 <para>If row is the last row, there&apos;s no need to actually do any deleting. Instead we just keep the items there, but reduce the size of the row. Users are only exposed to the correct set of rows.</para>
         </inbodydescription>
-        <location file="Matrix.h" line="89" column="14" bodyfile="Matrix.h" bodystart="305" bodyend="342"/>
+        <location file="Matrix.h" line="97" column="14" bodyfile="Matrix.h" bodystart="314" bodyend="351"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1ac1424ae3b932865405a9fe4c90ae3054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::deleteRow</definition>
         <argsstring>(const std::string &amp;which)</argsstring>
         <name>deleteRow</name>
-        <qualifiedname>rr::Matrix::deleteRow</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>which</declname>
@@ -234,9 +241,10 @@ memory isn&apos;t actually reclaimed nor the array resized. Instead the elements
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>which.</parametername>
+<parametername>which</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -255,14 +263,13 @@ interally uses <ref refid="classrr_1_1Matrix_1ad75ae4a4b1772808706dece01a3f241d"
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="100" column="14" bodyfile="Matrix.h" bodystart="345" bodyend="352"/>
+        <location file="Matrix.h" line="108" column="14" bodyfile="Matrix.h" bodystart="354" bodyend="361"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1a0d367c7df1fa56958b30182c5e2cd352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::deleteCol</definition>
         <argsstring>(int which)</argsstring>
         <name>deleteCol</name>
-        <qualifiedname>rr::Matrix::deleteCol</qualifiedname>
         <param>
           <type>int</type>
           <declname>which</declname>
@@ -284,14 +291,13 @@ memory isn&apos;t actually reclaimed nor the array resized. Instead the elements
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="111" column="14" bodyfile="Matrix.h" bodystart="355" bodyend="392"/>
+        <location file="Matrix.h" line="119" column="14" bodyfile="Matrix.h" bodystart="364" bodyend="401"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Matrix_1abbdb193ce0a0bc3581f0d27695bce695" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Matrix&lt; T &gt;::deleteCol</definition>
         <argsstring>(const std::string &amp;which)</argsstring>
         <name>deleteCol</name>
-        <qualifiedname>rr::Matrix::deleteCol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>which</declname>
@@ -302,9 +308,10 @@ memory isn&apos;t actually reclaimed nor the array resized. Instead the elements
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>which.</parametername>
+<parametername>which</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -323,36 +330,37 @@ interally uses <ref refid="classrr_1_1Matrix_1a0d367c7df1fa56958b30182c5e2cd352"
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Matrix.h" line="122" column="14" bodyfile="Matrix.h" bodystart="396" bodyend="403"/>
+        <location file="Matrix.h" line="130" column="14" bodyfile="Matrix.h" bodystart="405" bodyend="412"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>A basic local matrix class, based on the libstruct version. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>ls::Matrix&lt; T &gt;</label>
-      </node>
       <node id="1">
         <label>rr::Matrix&lt; T &gt;</label>
         <link refid="classrr_1_1Matrix"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="2">
+        <label>ls::Matrix&lt; T &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>ls::Matrix&lt; T &gt;</label>
-      </node>
       <node id="1">
         <label>rr::Matrix&lt; T &gt;</label>
         <link refid="classrr_1_1Matrix"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>ls::Matrix&lt; T &gt;</label>
+      </node>
     </collaborationgraph>
-    <location file="Matrix.h" line="14" column="5" bodyfile="Matrix.h" bodystart="14" bodyend="123"/>
+    <location file="Matrix.h" line="18" column="36" bodyfile="Matrix.h" bodystart="18" bodyend="131"/>
     <listofallmembers>
       <member refid="classrr_1_1Matrix_1ad2be619ba028bf0f0b5c229c13f64063" prot="public" virt="non-virtual"><scope>rr::Matrix</scope><name>almostEquals</name></member>
       <member refid="classrr_1_1Matrix_1a0d367c7df1fa56958b30182c5e2cd352" prot="public" virt="non-virtual"><scope>rr::Matrix</scope><name>deleteCol</name></member>

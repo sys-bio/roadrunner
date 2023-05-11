@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miscellaneous Functions &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Conserved Moiety Conversion" href="cls_PyConservedMoietyConverter.html" />
+    <link rel="prev" title="JIT Compilation" href="cls_Compiler.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Integrator.html">Integrator Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SelectionRecord.html">SelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Miscellaneous Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.getCopyrightStr"><code class="docutils literal notranslate"><span class="pre">getCopyrightStr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.getVersionStr"><code class="docutils literal notranslate"><span class="pre">getVersionStr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.RoadRunner_getExtendedVersionInfo"><code class="docutils literal notranslate"><span class="pre">RoadRunner_getExtendedVersionInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.RoadRunner_getParamPromotedSBML"><code class="docutils literal notranslate"><span class="pre">RoadRunner_getParamPromotedSBML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.validateSBML"><code class="docutils literal notranslate"><span class="pre">validateSBML()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.listTestModels"><code class="docutils literal notranslate"><span class="pre">listTestModels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.loadTestModel"><code class="docutils literal notranslate"><span class="pre">loadTestModel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cls_PyConservedMoietyConverter.html">Conserved Moiety Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Miscellaneous Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/PythonAPIReference/cls_Misc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="miscellaneous-functions">
+<h1>Miscellaneous Functions<a class="headerlink" href="#miscellaneous-functions" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="roadrunner.getCopyrightStr">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">getCopyrightStr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getCopyrightStr" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the copyright string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="roadrunner.getVersionStr">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">getVersionStr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getVersionStr" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the version string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="roadrunner.RoadRunner_getExtendedVersionInfo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">RoadRunner_getExtendedVersionInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getExtendedVersionInfo" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#roadrunner.getVersionStr" title="roadrunner.getVersionStr"><code class="xref py py-func docutils literal notranslate"><span class="pre">getVersionStr()</span></code></a> with infomation about dependent libs versions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="roadrunner.RoadRunner_getParamPromotedSBML">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">RoadRunner_getParamPromotedSBML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getParamPromotedSBML" title="Permalink to this definition"></a></dt>
+<dd><p>Takes an SBML document (in textual form) and changes all of the local parameters
+to be global parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SBML</strong> (<em>str</em>) – the contents of an SBML document</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="roadrunner.validateSBML">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">validateSBML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.validateSBML" title="Permalink to this definition"></a></dt>
+<dd><p>Given a string, check whether the string is a valid SBML string.
+Raises exception if the string is not a valid SBML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SBML</strong> (<em>str</em>) – the contents of an SBML document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="roadrunner.listTestModels">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">listTestModels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.listTestModels" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all the test models.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="roadrunner.loadTestModel">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">loadTestModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.loadTestModel" title="Permalink to this definition"></a></dt>
+<dd><p>Load a test model given a name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the test model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cls_Compiler.html" class="btn btn-neutral float-left" title="JIT Compilation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cls_PyConservedMoietyConverter.html" class="btn btn-neutral float-right" title="Conserved Moiety Conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

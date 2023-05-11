@@ -27,18 +27,22 @@ using {\bfseries item} = std\+::pair$<$ std\+::string, \mbox{\hyperlink{classrr_
 \mbox{\Hypertarget{classrr_1_1BasicDictionary_a34bcac2f544c1a4971270e097e4e57ac}\label{classrr_1_1BasicDictionary_a34bcac2f544c1a4971270e097e4e57ac}} 
 {\bfseries Basic\+Dictionary} (std\+::initializer\+\_\+list$<$ item $>$ initializer\+List)
 \item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}\label{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}} 
 void \mbox{\hyperlink{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&value) override
 \begin{DoxyCompactList}\small\item\em sets an item in the internal unordered std\+::map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}\label{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}} 
 \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}{get\+Item}} (const std\+::string \&key) const override
 \begin{DoxyCompactList}\small\item\em gets an item from the internal unordered std\+::map. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}{has\+Key}} (const std\+::string \&key) const override
 \begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}\label{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}} 
 size\+\_\+t \mbox{\hyperlink{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}{delete\+Item}} (const std\+::string \&key) override
 \begin{DoxyCompactList}\small\item\em remove a value \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}\label{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}} 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}{get\+Keys}} () const override
 \begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}\label{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}} 
-{\bfseries $\sim$\+Basic\+Dictionary} () override=default
+\mbox{\hyperlink{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}{$\sim$\+Basic\+Dictionary}} () override=default
 \begin{DoxyCompactList}\small\item\em Pure virtual interface, you should never have to delete an instance of this type directly. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
@@ -58,60 +62,6 @@ Variant\+Map {\bfseries items}
 This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered std\+::map to store the values. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}\label{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}} 
-\index{rr::BasicDictionary@{rr::BasicDictionary}!deleteItem@{deleteItem}}
-\index{deleteItem@{deleteItem}!rr::BasicDictionary@{rr::BasicDictionary}}
-\doxysubsubsection{\texorpdfstring{deleteItem()}{deleteItem()}}
-{\footnotesize\ttfamily size\+\_\+t rr\+::\+Basic\+Dictionary\+::delete\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-remove a value 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_aafd395297acc9cb73ea1e244b3f02d5c}{rr\+::\+Dictionary}}.
-
-
-
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a23be92b85c9e3eb38805fa63cf112085}{rr\+::\+Load\+SBMLOptions}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}\label{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}} 
-\index{rr::BasicDictionary@{rr::BasicDictionary}!getItem@{getItem}}
-\index{getItem@{getItem}!rr::BasicDictionary@{rr::BasicDictionary}}
-\doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Setting}{Setting}} rr\+::\+Basic\+Dictionary\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-gets an item from the internal unordered std\+::map. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_a0fcdd3d9089af14e49e8713c254c9b67}{rr\+::\+Dictionary}}.
-
-
-
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_ae4dd5db25b55f9561e231c23c53ae941}{rr\+::\+Load\+SBMLOptions}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}\label{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}} 
-\index{rr::BasicDictionary@{rr::BasicDictionary}!getKeys@{getKeys}}
-\index{getKeys@{getKeys}!rr::BasicDictionary@{rr::BasicDictionary}}
-\doxysubsubsection{\texorpdfstring{getKeys()}{getKeys()}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Basic\+Dictionary\+::get\+Keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-list of keys in this object. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_a378b4142bc6b038465b375d36350b51e}{rr\+::\+Dictionary}}.
-
-
-
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a793d753189e642242ff31e0897124c85}{rr\+::\+Load\+SBMLOptions}}.
-
 \mbox{\Hypertarget{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}\label{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}} 
 \index{rr::BasicDictionary@{rr::BasicDictionary}!hasKey@{hasKey}}
 \index{hasKey@{hasKey}!rr::BasicDictionary@{rr::BasicDictionary}}
@@ -128,25 +78,7 @@ Implements \mbox{\hyperlink{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb945705
 
 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a117c4f6440ac36541ec57ceae06d4770}{rr\+::\+Load\+SBMLOptions}}.
-
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}\label{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}} 
-\index{rr::BasicDictionary@{rr::BasicDictionary}!setItem@{setItem}}
-\index{setItem@{setItem}!rr::BasicDictionary@{rr::BasicDictionary}}
-\doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
-{\footnotesize\ttfamily void rr\+::\+Basic\+Dictionary\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-sets an item in the internal unordered std\+::map. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_a4708fee12ec4cd5e879df9bf5570c02a}{rr\+::\+Dictionary}}.
-
-
-
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}{rr\+::\+Load\+SBMLOptions}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a117c4f6440ac36541ec57ceae06d4770}{rr\+::\+Load\+S\+B\+M\+L\+Options}}.
 
 
 

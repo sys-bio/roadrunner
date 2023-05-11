@@ -1,0 +1,46 @@
+\hypertarget{_2home_2vsts_2work_21_2s_2source_2llvm_2JitFactory_8h-example}{}\doxysection{/home/vsts/work/1/s/source/llvm/\+Jit\+Factory.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{LoadSBMLOptions opt;}
+\DoxyCodeLine{opt.setLLVMBackend(LoadSBMLOptions::MCJIT); \textcolor{comment}{// or LoadSBMLOptions::LLJit;}}
+\DoxyCodeLine{std::unique\_ptr<Jit> j = JitFactory::makeJitEngine(opt.modelGeneratorOpt);}
+\DoxyCodeLine{\textcolor{comment}{// OR}}
+\DoxyCodeLine{\mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{Config::setValue}}(LLVM\_BACKEND, Config::LLVM\_BACKEND\_VALUES::MCJIT); \textcolor{comment}{// default}}
+\DoxyCodeLine{\textcolor{comment}{// OR}}
+\DoxyCodeLine{\mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{Config::setValue}}(LLVM\_BACKEND, Config::LLVM\_BACKEND\_VALUES::LLJIT); \textcolor{comment}{// alternative}}
+\DoxyCodeLine{std::unique\_ptr<Jit> j = makeJitEngine();}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// Created by Ciaran on 15/11/2021.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef ROADRUNNER\_JITFACTORY\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define ROADRUNNER\_JITFACTORY\_H}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "rrConfig.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "MCJit.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "LLJit.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "Jit.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }rrllvm \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{class }JitFactory \{}
+\DoxyCodeLine{    \textcolor{keyword}{public}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{        JitFactory() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{static} std::unique\_ptr<Jit> \mbox{\hyperlink{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}{makeJitEngine}}(std::uint32\_t opt);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{static} std::unique\_ptr<Jit> \mbox{\hyperlink{classrrllvm_1_1JitFactory_af80242fa2a71b5e365cd216ef6136b94}{makeJitEngine}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif //ROADRUNNER\_JITFACTORY\_H}}
+\end{DoxyCodeInclude}
+ 

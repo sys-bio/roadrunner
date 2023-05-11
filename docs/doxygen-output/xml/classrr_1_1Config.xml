@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Config" kind="class" language="C++" prot="public">
     <compoundname>rr::Config</compoundname>
     <includes refid="rrConfig_8h" local="no">rrConfig.h</includes>
@@ -7,7 +7,6 @@
       <memberdef kind="enum" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" prot="public" static="no" strong="no">
         <type></type>
         <name>Keys</name>
-        <qualifiedname>rr::Config::Keys</qualifiedname>
         <enumvalue id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a008f3c1e8cf4803a4e028a109c5baa62" prot="public">
           <name>LOADSBMLOPTIONS_CONSERVED_MOIETIES</name>
           <initializer>= 0</initializer>
@@ -547,12 +546,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="65" column="9" bodyfile="rrConfig.h" bodystart="65" bodyend="560"/>
+        <location file="rrConfig.h" line="65" column="18" bodyfile="rrConfig.h" bodystart="65" bodyend="560"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1ad98ce1bcc53eb2ee1692d6d0e925fce7" prot="public" static="no" strong="no">
         <type></type>
         <name>LLVM_BACKEND_VALUES</name>
-        <qualifiedname>rr::Config::LLVM_BACKEND_VALUES</qualifiedname>
         <enumvalue id="classrr_1_1Config_1ad98ce1bcc53eb2ee1692d6d0e925fce7a26dc249ed4183648a6673d4b08cb4ebd" prot="public">
           <name>MCJIT</name>
           <initializer>= 0</initializer>
@@ -574,12 +572,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="562" column="9" bodyfile="rrConfig.h" bodystart="562" bodyend="566"/>
+        <location file="rrConfig.h" line="562" column="33" bodyfile="rrConfig.h" bodystart="562" bodyend="566"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1aa03db1d4ada92224647fa41a3b82a8dc" prot="public" static="no" strong="no">
         <type></type>
         <name>LLJIT_OPTIMIZATION_LEVELS</name>
-        <qualifiedname>rr::Config::LLJIT_OPTIMIZATION_LEVELS</qualifiedname>
         <enumvalue id="classrr_1_1Config_1aa03db1d4ada92224647fa41a3b82a8dca523f94309fb7f1b8ca732e705ce1f251" prot="public">
           <name>NONE</name>
           <initializer>= 0</initializer>
@@ -615,12 +612,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="569" column="9" bodyfile="rrConfig.h" bodystart="569" bodyend="574"/>
+        <location file="rrConfig.h" line="569" column="39" bodyfile="rrConfig.h" bodystart="569" bodyend="574"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71ae" prot="public" static="no" strong="no">
         <type></type>
         <name>ROADRUNNER_DISABLE_WARNINGS_VALUES</name>
-        <qualifiedname>rr::Config::ROADRUNNER_DISABLE_WARNINGS_VALUES</qualifiedname>
         <enumvalue id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71aead0c00bc63505c9f9497e634e1383c7fd" prot="public">
           <name>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE</name>
           <initializer>= (0x1 &lt;&lt; 0)</initializer>
@@ -643,12 +639,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="576" column="9" bodyfile="rrConfig.h" bodystart="576" bodyend="579"/>
+        <location file="rrConfig.h" line="576" column="48" bodyfile="rrConfig.h" bodystart="576" bodyend="579"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938" prot="public" static="no" strong="no">
         <type></type>
         <name>ROADRUNNER_JACOBIAN_MODE_VALUES</name>
-        <qualifiedname>rr::Config::ROADRUNNER_JACOBIAN_MODE_VALUES</qualifiedname>
         <enumvalue id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938ade157842f89bea5f519dab49470b1b69" prot="public">
           <name>ROADRUNNER_JACOBIAN_MODE_AMOUNTS</name>
           <initializer>= 0</initializer>
@@ -670,7 +665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="582" column="9" bodyfile="rrConfig.h" bodystart="582" bodyend="585"/>
+        <location file="rrConfig.h" line="582" column="45" bodyfile="rrConfig.h" bodystart="582" bodyend="585"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -679,7 +674,6 @@
         <definition>std::string rr::Config::getString</definition>
         <argsstring>(Keys)</argsstring>
         <name>getString</name>
-        <qualifiedname>rr::Config::getString</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -698,7 +692,6 @@
         <definition>int rr::Config::getInt</definition>
         <argsstring>(Keys)</argsstring>
         <name>getInt</name>
-        <qualifiedname>rr::Config::getInt</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -717,7 +710,6 @@
         <definition>bool rr::Config::getBool</definition>
         <argsstring>(Keys)</argsstring>
         <name>getBool</name>
-        <qualifiedname>rr::Config::getBool</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -735,7 +727,6 @@
         <definition>double rr::Config::getDouble</definition>
         <argsstring>(Keys)</argsstring>
         <name>getDouble</name>
-        <qualifiedname>rr::Config::getDouble</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -754,7 +745,6 @@
         <definition>std::string rr::Config::getConfigFilePath</definition>
         <argsstring>()</argsstring>
         <name>getConfigFilePath</name>
-        <qualifiedname>rr::Config::getConfigFilePath</qualifiedname>
         <briefdescription>
 <para>If a config file was found in one of the above locations, its full path is returned here. </para>
         </briefdescription>
@@ -770,7 +760,6 @@
         <definition>void rr::Config::setValue</definition>
         <argsstring>(Keys, Setting value)</argsstring>
         <name>setValue</name>
-        <qualifiedname>rr::Config::setValue</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -794,7 +783,6 @@
         <definition>Setting rr::Config::getValue</definition>
         <argsstring>(Keys)</argsstring>
         <name>getValue</name>
-        <qualifiedname>rr::Config::getValue</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
@@ -812,7 +800,6 @@
         <definition>void rr::Config::readConfigFile</definition>
         <argsstring>(const std::string &amp;path)</argsstring>
         <name>readConfigFile</name>
-        <qualifiedname>rr::Config::readConfigFile</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>path</declname>
@@ -831,7 +818,6 @@
         <definition>void rr::Config::writeConfigFile</definition>
         <argsstring>(const std::string &amp;path)</argsstring>
         <name>writeConfigFile</name>
-        <qualifiedname>rr::Config::writeConfigFile</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>path</declname>
@@ -851,7 +837,6 @@
         <definition>Config::Keys rr::Config::stringToKey</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>stringToKey</name>
-        <qualifiedname>rr::Config::stringToKey</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -869,7 +854,6 @@
         <definition>std::vector&lt; std::string &gt; rr::Config::getKeyList</definition>
         <argsstring>()</argsstring>
         <name>getKeyList</name>
-        <qualifiedname>rr::Config::getKeyList</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -899,7 +883,7 @@
 <para>All of the configuration managment functions are static method of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class, and all of the configuration keys are static attributes * of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class, these are documented in the Configuration Functions section.</para>
 <para>As all of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class methods are static, one never instantiates the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class. </para>
     </detaileddescription>
-    <location file="rrConfig.h" line="62" column="5" bodyfile="rrConfig.h" bodystart="62" bodyend="637"/>
+    <location file="rrConfig.h" line="62" column="22" bodyfile="rrConfig.h" bodystart="62" bodyend="637"/>
     <listofallmembers>
       <member refid="classrr_1_1Config_1aa03db1d4ada92224647fa41a3b82a8dcae245bf5adc0e37586b30bf3e9472ef49" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>AGGRESSIVE</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae344943000e085c6891d49ccd8286fa4" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</name></member>

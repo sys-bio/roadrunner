@@ -1,4 +1,4 @@
-\hypertarget{classrrllvm_1_1LLVMModelDataSymbols}{}\doxysection{rrllvm\+::LLVMModel\+Data\+Symbols Class Reference}
+\hypertarget{classrrllvm_1_1LLVMModelDataSymbols}{}\doxysection{rrllvm\+::L\+L\+V\+M\+Model\+Data\+Symbols Class Reference}
 \label{classrrllvm_1_1LLVMModelDataSymbols}\index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 
 
@@ -7,7 +7,7 @@ stores the names of all the symbols in the sbml model and thier indexes in the M
 
 
 
-{\ttfamily \#include $<$LLVMModel\+Data\+Symbols.\+h$>$}
+{\ttfamily \#include $<$L\+L\+V\+M\+Model\+Data\+Symbols.\+h$>$}
 
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -18,43 +18,43 @@ struct \mbox{\hyperlink{structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReference
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_aa5fe1d1312587483ae09898afee84e61}\label{classrrllvm_1_1LLVMModelDataSymbols_aa5fe1d1312587483ae09898afee84e61}} 
-enum {\bfseries Species\+Reference\+Type} \{ {\bfseries Reactant}
-, {\bfseries Product}
-, {\bfseries Modifier}
-, {\bfseries Multi\+Reactant\+Product}
+enum {\bfseries Species\+Reference\+Type} \{ {\bfseries Reactant}, 
+{\bfseries Product}, 
+{\bfseries Modifier}, 
+{\bfseries Multi\+Reactant\+Product}
  \}
 \item 
 enum \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{Symbol\+Index\+Type}} \{ \newline
-{\bfseries FLOATING\+\_\+\+SPECIES}
-, {\bfseries BOUNDARY\+\_\+\+SPECIES}
-, {\bfseries COMPARTMENT}
-, {\bfseries GLOBAL\+\_\+\+PARAMETER}
-, \newline
-{\bfseries REACTION}
-, {\bfseries EVENT}
-, {\bfseries INVALID\+\_\+\+SYMBOL}
+{\bfseries F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+S\+P\+E\+C\+I\+ES}, 
+{\bfseries B\+O\+U\+N\+D\+A\+R\+Y\+\_\+\+S\+P\+E\+C\+I\+ES}, 
+{\bfseries C\+O\+M\+P\+A\+R\+T\+M\+E\+NT}, 
+{\bfseries G\+L\+O\+B\+A\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+ER}, 
+\newline
+{\bfseries R\+E\+A\+C\+T\+I\+ON}, 
+{\bfseries E\+V\+E\+NT}, 
+{\bfseries I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+Y\+M\+B\+OL}
  \}
 \begin{DoxyCompactList}\small\item\em The model frequently looks for indices to sbml symbols. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ab4534ab9e1b1dc198812208f11960702}\label{classrrllvm_1_1LLVMModelDataSymbols_ab4534ab9e1b1dc198812208f11960702}} 
-typedef std\+::map$<$ std\+::string, uint $>$ {\bfseries String\+UInt\+Map}
+typedef std\+::map$<$ std\+::string, uint $>$ {\bfseries String\+U\+Int\+Map}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a2cbc1c062773ded9fabbd5e9bffdab0b}\label{classrrllvm_1_1LLVMModelDataSymbols_a2cbc1c062773ded9fabbd5e9bffdab0b}} 
-typedef std\+::map$<$ std\+::string, std\+::vector$<$ uint $>$ $>$ {\bfseries String\+UInt\+Vector\+Map}
+typedef std\+::map$<$ std\+::string, std\+::vector$<$ uint $>$ $>$ {\bfseries String\+U\+Int\+Vector\+Map}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4bf890563731b1fe296dca200ce1ef98}\label{classrrllvm_1_1LLVMModelDataSymbols_a4bf890563731b1fe296dca200ce1ef98}} 
-typedef std\+::pair$<$ std\+::string, uint $>$ {\bfseries String\+UInt\+Pair}
+typedef std\+::pair$<$ std\+::string, uint $>$ {\bfseries String\+U\+Int\+Pair}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a85c8a143119e26f1536a0c20d2925822}\label{classrrllvm_1_1LLVMModelDataSymbols_a85c8a143119e26f1536a0c20d2925822}} 
-typedef std\+::unordered\+\_\+map$<$ uint, uint $>$ {\bfseries UInt\+UInt\+Map}
+typedef std\+::unordered\+\_\+map$<$ uint, uint $>$ {\bfseries U\+Int\+U\+Int\+Map}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a9e721ce6fe3fe2074a958948f30ed923}\label{classrrllvm_1_1LLVMModelDataSymbols_a9e721ce6fe3fe2074a958948f30ed923}} 
-{\bfseries LLVMModel\+Data\+Symbols} (libsbml\+::\+Model const $\ast$model, unsigned options)
+{\bfseries L\+L\+V\+M\+Model\+Data\+Symbols} (libsbml\+::\+Model const $\ast$model, unsigned options)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ae1abf97dc1fed101bee0ee84eaec7765}\label{classrrllvm_1_1LLVMModelDataSymbols_ae1abf97dc1fed101bee0ee84eaec7765}} 
-{\bfseries LLVMModel\+Data\+Symbols} (std\+::istream \&in)
+{\bfseries L\+L\+V\+M\+Model\+Data\+Symbols} (std\+::istream \&in)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a80dfffdf5f2ee467df1a8597ce158ab1}\label{classrrllvm_1_1LLVMModelDataSymbols_a80dfffdf5f2ee467df1a8597ce158ab1}} 
 const std\+::string \& {\bfseries get\+Model\+Name} () const
@@ -64,16 +64,15 @@ int {\bfseries get\+Compartment\+Index} (std\+::string const \&) const
 \item 
 \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{Symbol\+Index\+Type}} \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a2e17c59cadacce94bb68f93bcb7431bb}{get\+Symbol\+Index}} (const std\+::string \&name, int \&result) const
 \begin{DoxyCompactList}\small\item\em checks to see if we have the given symbol in the sbml. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a4686047d567ae2d05491afc81514c4e1}{get\+Floating\+Species\+Index}} (std\+::string const \&, bool require\+Independent=true) const
-\begin{DoxyCompactList}\small\item\em get the index of a floating species. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_aaa19ecfa680f9c6e0fd683bbfd3f8e03}\label{classrrllvm_1_1LLVMModelDataSymbols_aaa19ecfa680f9c6e0fd683bbfd3f8e03}} 
-int {\bfseries get\+Boundary\+Species\+Index} (std\+::string const \&) const
-\item 
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_aa91c4843982178be1a8e0aceaddc815b}{get\+Floating\+Species\+Index}} (std\+::string const \&id, bool require\+Independent=true) const
+\begin{DoxyCompactList}\small\item\em Get the index of a floating species. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a0ac0e91674a03cfbf83521155f4bde3a}{get\+Boundary\+Species\+Index}} (std\+::string const \&id) const
+\begin{DoxyCompactList}\small\item\em Get the index of a boundary species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_abb28706ff4c68035973b79779cd932c2}\label{classrrllvm_1_1LLVMModelDataSymbols_abb28706ff4c68035973b79779cd932c2}} 
-size\+\_\+t {\bfseries get\+Independent\+Boundary\+Species\+Size} () const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_abb28706ff4c68035973b79779cd932c2}{get\+Independent\+Boundary\+Species\+Size}} () const
 \begin{DoxyCompactList}\small\item\em number of boundary species not defined by rules. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a262c5cc26d6bd5fc7c3b4efdf49a76b9}{get\+Independent\+Floating\+Species\+Size}} () const
-\begin{DoxyCompactList}\small\item\em number of fully indenpendent species, these are species that have thier dynamics fully determined by the reaction rates / stoichiometric matrix -- these DO NOT have any rules determining their dynamics. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em number of fully indenpendent species, these are species that have thier dynamics fully determined by the reaction rates / stoichiometric matrix -- these DO N\+OT have any rules determining their dynamics. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a76465828770aec3ce22b2de0e7e569f2}{get\+Global\+Parameter\+Index}} (std\+::string const \&) const
 \begin{DoxyCompactList}\small\item\em index of a global param given its name. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a500d6e30fcb2a773c760b0951e627b02}\label{classrrllvm_1_1LLVMModelDataSymbols_a500d6e30fcb2a773c760b0951e627b02}} 
@@ -83,10 +82,10 @@ int {\bfseries get\+Rate\+Rule\+Index} (std\+::string const \&) const
 size\+\_\+t {\bfseries get\+Rate\+Rule\+Size} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ae1b9fb86d935f840f8ad9e60585ac8a4}\label{classrrllvm_1_1LLVMModelDataSymbols_ae1b9fb86d935f840f8ad9e60585ac8a4}} 
-std\+::string {\bfseries get\+Rate\+Rule\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ae1b9fb86d935f840f8ad9e60585ac8a4}{get\+Rate\+Rule\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em get the symbolic id of the i\textquotesingle{}th rate rule \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_aeace8ad2fe12479179b7b882270e92f5}\label{classrrllvm_1_1LLVMModelDataSymbols_aeace8ad2fe12479179b7b882270e92f5}} 
-size\+\_\+t {\bfseries get\+Independent\+Global\+Parameter\+Size} () const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_aeace8ad2fe12479179b7b882270e92f5}{get\+Independent\+Global\+Parameter\+Size}} () const
 \begin{DoxyCompactList}\small\item\em number of global parameters which are not determined by rules. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ac46efa4d9e3dbc0aa6224a9324263b32}\label{classrrllvm_1_1LLVMModelDataSymbols_ac46efa4d9e3dbc0aa6224a9324263b32}} 
 int {\bfseries get\+Reaction\+Index} (std\+::string const \&) const
@@ -101,25 +100,25 @@ size\+\_\+t {\bfseries get\+Reaction\+Size} () const
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Global\+Parameter\+Ids} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a574e97b63fdb6098718d7f86bf0fab12}\label{classrrllvm_1_1LLVMModelDataSymbols_a574e97b63fdb6098718d7f86bf0fab12}} 
-bool {\bfseries is\+Rate\+Rule\+Global\+Parameter} (uint gid) const
+bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a574e97b63fdb6098718d7f86bf0fab12}{is\+Rate\+Rule\+Global\+Parameter}} (uint gid) const
 \begin{DoxyCompactList}\small\item\em is the global parameter index defined by a rate rule. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a330dc333f5b9116091f8f79c10f4db46}\label{classrrllvm_1_1LLVMModelDataSymbols_a330dc333f5b9116091f8f79c10f4db46}} 
-std\+::vector$<$ std\+::string $>$ {\bfseries get\+Floating\+Species\+Ids} () const
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a330dc333f5b9116091f8f79c10f4db46}{get\+Floating\+Species\+Ids}} () const
 \begin{DoxyCompactList}\small\item\em the list that is returned by Executable\+Model, so order must remain constant. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a87b3733f8993e9654c1385256a370685}\label{classrrllvm_1_1LLVMModelDataSymbols_a87b3733f8993e9654c1385256a370685}} 
-std\+::string {\bfseries get\+Floating\+Species\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a87b3733f8993e9654c1385256a370685}{get\+Floating\+Species\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em get the symbolic id of the i\textquotesingle{}th floating species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a5a64c6fcd5f052994c12908e4cce9110}\label{classrrllvm_1_1LLVMModelDataSymbols_a5a64c6fcd5f052994c12908e4cce9110}} 
-std\+::string {\bfseries get\+Boundary\+Species\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a5a64c6fcd5f052994c12908e4cce9110}{get\+Boundary\+Species\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em get the symbolic id of the i\textquotesingle{}th boundary species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a5b7b5828e4b4a125811ffe22dd2d883d}\label{classrrllvm_1_1LLVMModelDataSymbols_a5b7b5828e4b4a125811ffe22dd2d883d}} 
-std\+::string {\bfseries get\+Compartment\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a5b7b5828e4b4a125811ffe22dd2d883d}{get\+Compartment\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em get the symbolic id of the i\textquotesingle{}th compartment. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_af4ff843ba9adeebe28e935a7a20e4c1c}\label{classrrllvm_1_1LLVMModelDataSymbols_af4ff843ba9adeebe28e935a7a20e4c1c}} 
-std\+::string {\bfseries get\+Global\+Parameter\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af4ff843ba9adeebe28e935a7a20e4c1c}{get\+Global\+Parameter\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em find the id of the given global parameter index. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_af008f3b08eec501c2a338403cd33ef07}\label{classrrllvm_1_1LLVMModelDataSymbols_af008f3b08eec501c2a338403cd33ef07}} 
-size\+\_\+t {\bfseries get\+Floating\+Species\+Size} () const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af008f3b08eec501c2a338403cd33ef07}{get\+Floating\+Species\+Size}} () const
 \begin{DoxyCompactList}\small\item\em total size of all floating species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a141bc08ae5e8c6a2f27889179a8c05e8}\label{classrrllvm_1_1LLVMModelDataSymbols_a141bc08ae5e8c6a2f27889179a8c05e8}} 
 size\+\_\+t {\bfseries get\+Boundary\+Species\+Size} () const
@@ -134,7 +133,7 @@ size\+\_\+t {\bfseries get\+Global\+Parameters\+Size} () const
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Compartment\+Ids} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_af15296d2d5be06122ee753e6d13f61e1}\label{classrrllvm_1_1LLVMModelDataSymbols_af15296d2d5be06122ee753e6d13f61e1}} 
-size\+\_\+t {\bfseries get\+Independent\+Compartment\+Size} () const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af15296d2d5be06122ee753e6d13f61e1}{get\+Independent\+Compartment\+Size}} () const
 \begin{DoxyCompactList}\small\item\em number of compartments which are not determined by rules. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a293abc94dbd65d23e12295885c883bd6}\label{classrrllvm_1_1LLVMModelDataSymbols_a293abc94dbd65d23e12295885c883bd6}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Boundary\+Species\+Ids} () const
@@ -142,7 +141,7 @@ std\+::vector$<$ std\+::string $>$ {\bfseries get\+Boundary\+Species\+Ids} () co
 std\+::list$<$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReferenceInfo}{Species\+Reference\+Info}} $>$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ace13c6c788427ff65704820837096248}{get\+Stoichiometry\+Indx}} () const
 \begin{DoxyCompactList}\small\item\em get a list of all the non-\/zero entries in the stoichiometry matrix. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a10947a4f97f82f04320462c1508fdbb1}\label{classrrllvm_1_1LLVMModelDataSymbols_a10947a4f97f82f04320462c1508fdbb1}} 
-void {\bfseries print} () const
+void \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a10947a4f97f82f04320462c1508fdbb1}{print}} () const
 \begin{DoxyCompactList}\small\item\em initialize and allocate the buffers (including the stoich matrix) for an existing Model\+Data struct. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a704d4971c8a1d8f0a5021cacb6a1c4f3}{is\+Independent\+Element}} (const std\+::string \&id) const
 \begin{DoxyCompactList}\small\item\em if there are no rules for an element, then they are considered independent. \end{DoxyCompactList}\item 
@@ -181,37 +180,37 @@ bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a55a42e526c9ae39fe0a7a
 bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ae43de59bdc21713da5ce118e627a3146}{is\+Conserved\+Moiety\+Species}} (uint id, uint \&result) const
 \begin{DoxyCompactList}\small\item\em checks if the given floating species id corresponds to to a conserved moiety species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a9e49129c6b005685104b5870624e9b42}\label{classrrllvm_1_1LLVMModelDataSymbols_a9e49129c6b005685104b5870624e9b42}} 
-bool {\bfseries is\+Conserved\+Moiety\+Parameter} (uint id) const
+bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9e49129c6b005685104b5870624e9b42}{is\+Conserved\+Moiety\+Parameter}} (uint id) const
 \begin{DoxyCompactList}\small\item\em check if the global parameter with the given id is a conserved moiety. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a9270500be0ded95f93647ae6ef84f16e}\label{classrrllvm_1_1LLVMModelDataSymbols_a9270500be0ded95f93647ae6ef84f16e}} 
-size\+\_\+t {\bfseries get\+Conserved\+Moiety\+Size} () const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9270500be0ded95f93647ae6ef84f16e}{get\+Conserved\+Moiety\+Size}} () const
 \begin{DoxyCompactList}\small\item\em get the number of conserved moieties. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ad61a2037d76721bade273a24383870d2}\label{classrrllvm_1_1LLVMModelDataSymbols_ad61a2037d76721bade273a24383870d2}} 
-int {\bfseries get\+Dep\+Species\+Index\+For\+Conserved\+Moiety\+Id} (std\+::string id) const
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ad61a2037d76721bade273a24383870d2}{get\+Dep\+Species\+Index\+For\+Conserved\+Moiety\+Id}} (std\+::string id) const
 \begin{DoxyCompactList}\small\item\em get the dependent species for a given conserved moiety id \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a60afb2eed41a8fed24efdc44306bb23f}\label{classrrllvm_1_1LLVMModelDataSymbols_a60afb2eed41a8fed24efdc44306bb23f}} 
-const std\+::vector$<$ uint $>$ \& {\bfseries get\+Ind\+Species\+Index\+For\+Conserved\+Moiety\+Id} (std\+::string id) const
+const std\+::vector$<$ uint $>$ \& \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a60afb2eed41a8fed24efdc44306bb23f}{get\+Ind\+Species\+Index\+For\+Conserved\+Moiety\+Id}} (std\+::string id) const
 \begin{DoxyCompactList}\small\item\em get all the independent species for a given conserved moiety id \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4cb1789b52faa73f68f50cd1dd8d7705}\label{classrrllvm_1_1LLVMModelDataSymbols_a4cb1789b52faa73f68f50cd1dd8d7705}} 
-int {\bfseries get\+Conserved\+Moiety\+Global\+Parameter\+Index} (uint cm\+Index) const
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a4cb1789b52faa73f68f50cd1dd8d7705}{get\+Conserved\+Moiety\+Global\+Parameter\+Index}} (uint cm\+Index) const
 \begin{DoxyCompactList}\small\item\em get the index of a global parameter given a conserved moiety index. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_adfa3954a853a482b31714be8d7e16280}\label{classrrllvm_1_1LLVMModelDataSymbols_adfa3954a853a482b31714be8d7e16280}} 
-std\+::string {\bfseries get\+Conserved\+Moiety\+Id} (size\+\_\+t indx) const
+std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_adfa3954a853a482b31714be8d7e16280}{get\+Conserved\+Moiety\+Id}} (size\+\_\+t indx) const
 \begin{DoxyCompactList}\small\item\em find the id of the given conserved moiety index. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a7236921758c3602ce5d77acd73aa61b2}\label{classrrllvm_1_1LLVMModelDataSymbols_a7236921758c3602ce5d77acd73aa61b2}} 
-int {\bfseries get\+Conserved\+Moiety\+Index} (const std\+::string \&name) const
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a7236921758c3602ce5d77acd73aa61b2}{get\+Conserved\+Moiety\+Index}} (const std\+::string \&name) const
 \begin{DoxyCompactList}\small\item\em get the id of a conserved moiety given its name. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a673f85f4bfe115781be2090428b800b3}\label{classrrllvm_1_1LLVMModelDataSymbols_a673f85f4bfe115781be2090428b800b3}} 
 const std\+::vector$<$ unsigned char $>$ \& {\bfseries get\+Event\+Attributes} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_aaa8a9bca324a06ec19edbc2c50b3f262}\label{classrrllvm_1_1LLVMModelDataSymbols_aaa8a9bca324a06ec19edbc2c50b3f262}} 
-size\+\_\+t {\bfseries get\+Event\+Buffer\+Size} (size\+\_\+t event\+Id) const
+size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_aaa8a9bca324a06ec19edbc2c50b3f262}{get\+Event\+Buffer\+Size}} (size\+\_\+t event\+Id) const
 \begin{DoxyCompactList}\small\item\em get the size (in number of doubles) of the buffer that events need to save the event data to. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a32e0b4d1aa32145bc261775d323e67b0}\label{classrrllvm_1_1LLVMModelDataSymbols_a32e0b4d1aa32145bc261775d323e67b0}} 
-const std\+::vector$<$ uint $>$ \& {\bfseries get\+Stoich\+Row\+Indx} () const
+const std\+::vector$<$ uint $>$ \& \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a32e0b4d1aa32145bc261775d323e67b0}{get\+Stoich\+Row\+Indx}} () const
 \begin{DoxyCompactList}\small\item\em the the row indices of non-\/zero stoichiometry values \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a2c749029ee8a4a5f3dcfa3e49ee54824}\label{classrrllvm_1_1LLVMModelDataSymbols_a2c749029ee8a4a5f3dcfa3e49ee54824}} 
-const std\+::vector$<$ uint $>$ \& {\bfseries get\+Stoich\+Col\+Indx} () const
+const std\+::vector$<$ uint $>$ \& \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a2c749029ee8a4a5f3dcfa3e49ee54824}{get\+Stoich\+Col\+Indx}} () const
 \begin{DoxyCompactList}\small\item\em the the column indices of non-\/zero stoichiometry values \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af242d61196597833aa9e1c5c1850910d}{is\+Independent\+Init\+Floating\+Species}} (const std\+::string \&symbol) const
 \begin{DoxyCompactList}\small\item\em checks if the given symbol is an init value for an independent floating species. \end{DoxyCompactList}\item 
@@ -223,10 +222,10 @@ bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a775dc49eff5e65aa7e7e8
 bool {\bfseries is\+Independent\+Init\+Compartment} (const std\+::string \&symbol) const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}\label{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}} 
-bool {\bfseries is\+Independent\+Init\+Global\+Parameter} (const std\+::string \&symbol) const
+bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}{is\+Independent\+Init\+Global\+Parameter}} (const std\+::string \&symbol) const
 \begin{DoxyCompactList}\small\item\em has this std\+::string been found to be an independent init global param-- is a global param and not having an assignment or init assignment rule. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}\label{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}} 
-bool {\bfseries is\+Independent\+Init\+Global\+Parameter} (size\+\_\+t id) const
+bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}{is\+Independent\+Init\+Global\+Parameter}} (size\+\_\+t id) const
 \begin{DoxyCompactList}\small\item\em is this global parameter id an independent init param -- a global param without an init assignment rule. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ac7d78cdbadcc805571ab7ce9ff8870be}{get\+Floating\+Species\+Init\+Index}} (const std\+::string \&symbol) const
 \begin{DoxyCompactList}\small\item\em get the index of a floating species initial value. \end{DoxyCompactList}\item 
@@ -235,10 +234,10 @@ int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af6553b393cc60475e6555f
 int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_af08014c2f00c6f8721f5ec253e9af2a2}{get\+Compartment\+Init\+Index}} (const std\+::string \&symbol) const
 \begin{DoxyCompactList}\small\item\em get the index of a compartment initial value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ac8c9d2e8c243bcbfc4b524dcee460be0}\label{classrrllvm_1_1LLVMModelDataSymbols_ac8c9d2e8c243bcbfc4b524dcee460be0}} 
-int {\bfseries get\+Compartment\+Index\+For\+Floating\+Species} (size\+\_\+t float\+Index) const
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ac8c9d2e8c243bcbfc4b524dcee460be0}{get\+Compartment\+Index\+For\+Floating\+Species}} (size\+\_\+t float\+Index) const
 \begin{DoxyCompactList}\small\item\em get the index of a compartment for a float species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ae926b204cd5a9536f6c74260582951e2}\label{classrrllvm_1_1LLVMModelDataSymbols_ae926b204cd5a9536f6c74260582951e2}} 
-int {\bfseries get\+Compartment\+Index\+For\+Boundary\+Species} (size\+\_\+t float\+Index) const
+int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ae926b204cd5a9536f6c74260582951e2}{get\+Compartment\+Index\+For\+Boundary\+Species}} (size\+\_\+t float\+Index) const
 \begin{DoxyCompactList}\small\item\em get the index of a compartment for a boundary species. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_ade8b52affdb741d79c538f14c0813acf}{get\+Global\+Parameter\+Init\+Index}} (const std\+::string \&symbol) const
 \begin{DoxyCompactList}\small\item\em get the index of a global parameter initial value \end{DoxyCompactList}\item 
@@ -282,7 +281,7 @@ void {\bfseries load\+State} (std\+::istream \&)
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a32e6b447a358eb4a0aa22723cc7ea2e6}\label{classrrllvm_1_1LLVMModelDataSymbols_a32e6b447a358eb4a0aa22723cc7ea2e6}} 
-static const char $\ast$ {\bfseries get\+Field\+Name} (Model\+Data\+Fields field)
+static const char $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a32e6b447a358eb4a0aa22723cc7ea2e6}{get\+Field\+Name}} (Model\+Data\+Fields field)
 \begin{DoxyCompactList}\small\item\em get the textual form of the field names. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -291,7 +290,7 @@ stores the names of all the symbols in the sbml model and thier indexes in the M
 
 This class essentially maps symbol names into Model\+Data indexes.
 
-The logic behind splitting up \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} and \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{LLVMModel\+Symbols}} is that \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{LLVMModel\+Symbols}} contains all the ASTs from the model, and this contains only Model\+Data indices -- once the all the model functions are generated, there is no need to keep AST information around, but we still need to know what symbol is at what index for the various Model accessor functions.
+The logic behind splitting up \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} and \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{L\+L\+V\+M\+Model\+Symbols}} is that \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{L\+L\+V\+M\+Model\+Symbols}} contains all the A\+S\+Ts from the model, and this contains only Model\+Data indices -- once the all the model functions are generated, there is no need to keep A\+ST information around, but we still need to know what symbol is at what index for the various Model accessor functions.
 
 
 \begin{DoxyItemize}
@@ -308,7 +307,7 @@ The logic behind splitting up \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbo
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!SymbolIndexType@{SymbolIndexType}}
 \index{SymbolIndexType@{SymbolIndexType}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{SymbolIndexType}{SymbolIndexType}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{rrllvm\+::\+LLVMModel\+Data\+Symbols\+::\+Symbol\+Index\+Type}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::\+Symbol\+Index\+Type}}}
 
 
 
@@ -317,11 +316,26 @@ The model frequently looks for indices to sbml symbols.
 This is a list of the types of sbml symbols that this class keeps track of. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a0ac0e91674a03cfbf83521155f4bde3a}\label{classrrllvm_1_1LLVMModelDataSymbols_a0ac0e91674a03cfbf83521155f4bde3a}} 
+\index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getBoundarySpeciesIndex@{getBoundarySpeciesIndex}}
+\index{getBoundarySpeciesIndex@{getBoundarySpeciesIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
+\doxysubsubsection{\texorpdfstring{getBoundarySpeciesIndex()}{getBoundarySpeciesIndex()}}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Boundary\+Species\+Index (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{id }\end{DoxyParamCaption}) const}
+
+
+
+Get the index of a boundary species. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the species to retrieve. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_af6553b393cc60475e6555fa82ede5495}\label{classrrllvm_1_1LLVMModelDataSymbols_af6553b393cc60475e6555fa82ede5495}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getBoundarySpeciesInitIndex@{getBoundarySpeciesInitIndex}}
 \index{getBoundarySpeciesInitIndex@{getBoundarySpeciesInitIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getBoundarySpeciesInitIndex()}{getBoundarySpeciesInitIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Boundary\+Species\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Boundary\+Species\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
@@ -331,24 +345,26 @@ has the same index as the run time boundary species. \mbox{\Hypertarget{classrrl
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getCompartmentInitIndex@{getCompartmentInitIndex}}
 \index{getCompartmentInitIndex@{getCompartmentInitIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getCompartmentInitIndex()}{getCompartmentInitIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Compartment\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Compartment\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
 get the index of a compartment initial value 
 
-has the same index as the run time compartment. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4686047d567ae2d05491afc81514c4e1}\label{classrrllvm_1_1LLVMModelDataSymbols_a4686047d567ae2d05491afc81514c4e1}} 
+has the same index as the run time compartment. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_aa91c4843982178be1a8e0aceaddc815b}\label{classrrllvm_1_1LLVMModelDataSymbols_aa91c4843982178be1a8e0aceaddc815b}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getFloatingSpeciesIndex@{getFloatingSpeciesIndex}}
 \index{getFloatingSpeciesIndex@{getFloatingSpeciesIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesIndex()}{getFloatingSpeciesIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Floating\+Species\+Index (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{id,  }\item[{bool}]{require\+Independent = {\ttfamily true} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Floating\+Species\+Index (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{id,  }\item[{bool}]{require\+Independent = {\ttfamily true} }\end{DoxyParamCaption}) const}
 
 
 
-get the index of a floating species. 
+Get the index of a floating species. 
 
 
 \begin{DoxyParams}{Parameters}
+{\em id} & the id of the species to retrieve. \\
+\hline
 {\em require\+Independent} & if true, the float species must be independent -- not defined by a rule. \\
 \hline
 \end{DoxyParams}
@@ -356,7 +372,7 @@ get the index of a floating species.
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getFloatingSpeciesInitIndex@{getFloatingSpeciesInitIndex}}
 \index{getFloatingSpeciesInitIndex@{getFloatingSpeciesInitIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesInitIndex()}{getFloatingSpeciesInitIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Floating\+Species\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Floating\+Species\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
@@ -366,7 +382,7 @@ has the same index as the run time floating species. \mbox{\Hypertarget{classrrl
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getGlobalParameterIndex@{getGlobalParameterIndex}}
 \index{getGlobalParameterIndex@{getGlobalParameterIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterIndex()}{getGlobalParameterIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Global\+Parameter\+Index (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{id }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Global\+Parameter\+Index (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{id }\end{DoxyParamCaption}) const}
 
 
 
@@ -381,7 +397,7 @@ index of a global param given its name.
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getGlobalParameterInitIndex@{getGlobalParameterInitIndex}}
 \index{getGlobalParameterInitIndex@{getGlobalParameterInitIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterInitIndex()}{getGlobalParameterInitIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Global\+Parameter\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Global\+Parameter\+Init\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
@@ -391,17 +407,17 @@ has the same index as the run time global parameter. \mbox{\Hypertarget{classrrl
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getIndependentFloatingSpeciesSize@{getIndependentFloatingSpeciesSize}}
 \index{getIndependentFloatingSpeciesSize@{getIndependentFloatingSpeciesSize}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getIndependentFloatingSpeciesSize()}{getIndependentFloatingSpeciesSize()}}
-{\footnotesize\ttfamily size\+\_\+t rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Independent\+Floating\+Species\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily size\+\_\+t rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Independent\+Floating\+Species\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-number of fully indenpendent species, these are species that have thier dynamics fully determined by the reaction rates / stoichiometric matrix -- these DO NOT have any rules determining their dynamics. 
+number of fully indenpendent species, these are species that have thier dynamics fully determined by the reaction rates / stoichiometric matrix -- these DO N\+OT have any rules determining their dynamics. 
 
 This is size of the allocated array in the Model\+Data struct. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_ace13c6c788427ff65704820837096248}\label{classrrllvm_1_1LLVMModelDataSymbols_ace13c6c788427ff65704820837096248}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getStoichiometryIndx@{getStoichiometryIndx}}
 \index{getStoichiometryIndx@{getStoichiometryIndx}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getStoichiometryIndx()}{getStoichiometryIndx()}}
-{\footnotesize\ttfamily std\+::list$<$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReferenceInfo}{LLVMModel\+Data\+Symbols\+::\+Species\+Reference\+Info}} $>$ rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Stoichiometry\+Indx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily std\+::list$<$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReferenceInfo}{L\+L\+V\+M\+Model\+Data\+Symbols\+::\+Species\+Reference\+Info}} $>$ rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Stoichiometry\+Indx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -411,7 +427,7 @@ in the list of pairs, first is the row (species) index, and second is the column
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!getSymbolIndex@{getSymbolIndex}}
 \index{getSymbolIndex@{getSymbolIndex}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{getSymbolIndex()}{getSymbolIndex()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{LLVMModel\+Data\+Symbols\+::\+Symbol\+Index\+Type}} rrllvm\+::\+LLVMModel\+Data\+Symbols\+::get\+Symbol\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int \&}]{result }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9f08fb79670d8c19151880a628a63ced}{L\+L\+V\+M\+Model\+Data\+Symbols\+::\+Symbol\+Index\+Type}} rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::get\+Symbol\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int \&}]{result }\end{DoxyParamCaption}) const}
 
 
 
@@ -425,13 +441,13 @@ checks to see if we have the given symbol in the sbml.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the type of symbol, if no symbol is found, then INVALID\+\_\+\+SYMBOL is returned. 
+the type of symbol, if no symbol is found, then I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+Y\+M\+B\+OL is returned. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a55a42e526c9ae39fe0a7a3c4befe7630}\label{classrrllvm_1_1LLVMModelDataSymbols_a55a42e526c9ae39fe0a7a3c4befe7630}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isConservedMoietySpecies@{isConservedMoietySpecies}}
 \index{isConservedMoietySpecies@{isConservedMoietySpecies}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isConservedMoietySpecies()}{isConservedMoietySpecies()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Conserved\+Moiety\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Conserved\+Moiety\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
@@ -449,7 +465,7 @@ It can however have independent initial conditions defined either by intial valu
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isConservedMoietySpecies@{isConservedMoietySpecies}}
 \index{isConservedMoietySpecies@{isConservedMoietySpecies}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isConservedMoietySpecies()}{isConservedMoietySpecies()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Conserved\+Moiety\+Species (\begin{DoxyParamCaption}\item[{uint}]{id,  }\item[{uint \&}]{result }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Conserved\+Moiety\+Species (\begin{DoxyParamCaption}\item[{uint}]{id,  }\item[{uint \&}]{result }\end{DoxyParamCaption}) const}
 
 
 
@@ -469,7 +485,7 @@ true or false if this is a cm species or not.
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isIndependentElement@{isIndependentElement}}
 \index{isIndependentElement@{isIndependentElement}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isIndependentElement()}{isIndependentElement()}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Independent\+Element (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Independent\+Element (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id }\end{DoxyParamCaption}) const}
 
 
 
@@ -481,37 +497,37 @@ Only valid after class has been constructed. \mbox{\Hypertarget{classrrllvm_1_1L
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isIndependentInitBoundarySpecies@{isIndependentInitBoundarySpecies}}
 \index{isIndependentInitBoundarySpecies@{isIndependentInitBoundarySpecies}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isIndependentInitBoundarySpecies()}{isIndependentInitBoundarySpecies()}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Independent\+Init\+Boundary\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Independent\+Init\+Boundary\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
 checks if the given symbol is an init value for an independent boundary species. 
 
-Conserved Moiety species are considered to have independent initial condtions as in this case, the assignment rule only applies at time t \texorpdfstring{$>$}{>} 0. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a775dc49eff5e65aa7e7e88d3a7485976}\label{classrrllvm_1_1LLVMModelDataSymbols_a775dc49eff5e65aa7e7e88d3a7485976}} 
+Conserved Moiety species are considered to have independent initial condtions as in this case, the assignment rule only applies at time t $>$ 0. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a775dc49eff5e65aa7e7e88d3a7485976}\label{classrrllvm_1_1LLVMModelDataSymbols_a775dc49eff5e65aa7e7e88d3a7485976}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isIndependentInitElement@{isIndependentInitElement}}
 \index{isIndependentInitElement@{isIndependentInitElement}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isIndependentInitElement()}{isIndependentInitElement()}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Independent\+Init\+Element (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Independent\+Init\+Element (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
 Is this sbml element an independent initial value. 
 
-True if this value does NOT have an assignment or initial assignment rule.
+True if this value does N\+OT have an assignment or initial assignment rule.
 
 Independent initial values do not have assignment or initial assigment rules, but may have rate rules. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_af242d61196597833aa9e1c5c1850910d}\label{classrrllvm_1_1LLVMModelDataSymbols_af242d61196597833aa9e1c5c1850910d}} 
 \index{rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}!isIndependentInitFloatingSpecies@{isIndependentInitFloatingSpecies}}
 \index{isIndependentInitFloatingSpecies@{isIndependentInitFloatingSpecies}!rrllvm::LLVMModelDataSymbols@{rrllvm::LLVMModelDataSymbols}}
 \doxysubsubsection{\texorpdfstring{isIndependentInitFloatingSpecies()}{isIndependentInitFloatingSpecies()}}
-{\footnotesize\ttfamily bool rrllvm\+::\+LLVMModel\+Data\+Symbols\+::is\+Independent\+Init\+Floating\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool rrllvm\+::\+L\+L\+V\+M\+Model\+Data\+Symbols\+::is\+Independent\+Init\+Floating\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol }\end{DoxyParamCaption}) const}
 
 
 
 checks if the given symbol is an init value for an independent floating species. 
 
-Conserved Moiety species are considered to have independent initial condtions as in this case, the assignment rule only applies at time t \texorpdfstring{$>$}{>} 0. 
+Conserved Moiety species are considered to have independent initial condtions as in this case, the assignment rule only applies at time t $>$ 0. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/LLVMModel\+Data\+Symbols.\+h\item 
-llvm/LLVMModel\+Data\+Symbols.\+cpp\end{DoxyCompactItemize}
+llvm/L\+L\+V\+M\+Model\+Data\+Symbols.\+h\item 
+llvm/L\+L\+V\+M\+Model\+Data\+Symbols.\+cpp\end{DoxyCompactItemize}

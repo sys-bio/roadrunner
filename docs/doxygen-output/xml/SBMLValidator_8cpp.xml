@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="SBMLValidator_8cpp" kind="file" language="C++">
     <compoundname>SBMLValidator.cpp</compoundname>
     <includes refid="SBMLValidator_8h" local="yes">SBMLValidator.h</includes>
@@ -7,6 +7,20 @@
     <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
     <includes local="no">sstream</includes>
     <incdepgraph>
+      <node id="3">
+        <label>sbml/SBMLDocument.h</label>
+      </node>
+      <node id="2">
+        <label>SBMLValidator.h</label>
+        <link refid="SBMLValidator_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
       <node id="1">
         <label>SBMLValidator.cpp</label>
         <link refid="SBMLValidator_8cpp"/>
@@ -19,25 +33,12 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>SBMLValidator.h</label>
-        <link refid="SBMLValidator_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="6">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
       </node>
-      <node id="7">
-        <label>rrLogger.h</label>
-        <link refid="rrLogger_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
+      <node id="8">
+        <label>sstream</label>
       </node>
       <node id="5">
         <label>rrSBMLReader.h</label>
@@ -47,14 +48,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>sbml/SBMLDocument.h</label>
-      </node>
-      <node id="8">
-        <label>sstream</label>
-      </node>
-      <node id="4">
-        <label>string</label>
+      <node id="7">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacerr">rr</innernamespace>
@@ -87,7 +87,7 @@
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>validateSBML(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>src,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>opt)</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sbml<sp/>=<sp/><ref refid="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c" kindref="member">SBMLReader::read</ref>(src);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sbml<sp/>=<sp/>SBMLReader::read(src);</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBMLDocument*<sp/>doc<sp/>=<sp/>readSBMLFromString(sbml.c_str());</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>validateSBML(doc,<sp/>opt);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>

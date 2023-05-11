@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CVODEException" kind="class" language="C++" prot="public">
     <compoundname>rr::CVODEException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+    <includes refid="rrException_8h" local="no">rrException.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1CVODEException_1a5e3454a9d72e3a4fe2e9737629bd48a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::CVODEException::CVODEException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>CVODEException</name>
-        <qualifiedname>rr::CVODEException::CVODEException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -20,12 +20,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="74" column="9" bodyfile="rrException.cpp" bodystart="35" bodyend="35"/>
+        <location file="rrException.h" line="93" column="9" bodyfile="rrException.cpp" bodystart="35" bodyend="35"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1Exception" kindref="compound">Exception</ref> class for scanners. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -34,14 +35,14 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
       <node id="2">
         <label>rr::Exception</label>
         <link refid="classrr_1_1Exception"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="3">
-        <label>std::exception</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -50,6 +51,12 @@
         <link refid="classrr_1_1CVODEException"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
       </node>
       <node id="2">
         <label>rr::Exception</label>
@@ -60,14 +67,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="71" column="1" bodyfile="rrException.h" bodystart="72" bodyend="75"/>
+    <location file="rrException.h" line="91" column="1" bodyfile="rrException.h" bodystart="90" bodyend="94"/>
     <listofallmembers>
       <member refid="classrr_1_1CVODEException_1a5e3454a9d72e3a4fe2e9737629bd48a8" prot="public" virt="non-virtual"><scope>rr::CVODEException</scope><name>CVODEException</name></member>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::CVODEException</scope><name>Exception</name></member>

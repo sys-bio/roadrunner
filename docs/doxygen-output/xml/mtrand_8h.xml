@@ -1,39 +1,39 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="mtrand_8h" kind="file" language="C++">
     <compoundname>mtrand.h</compoundname>
     <includes refid="rrExporter_8h" local="yes">rrExporter.h</includes>
     <includedby refid="mtrand_8cpp" local="yes">c/mtrand.cpp</includedby>
     <includedby refid="mttest_8cpp" local="yes">c/mttest.cpp</includedby>
-    <includedby refid="rrRandom_8cpp" local="yes">c/rrRandom.cpp</includedby>
     <includedby refid="rrRandom_8h" local="yes">c/rrRandom.h</includedby>
+    <includedby refid="rrRandom_8cpp" local="yes">c/rrRandom.cpp</includedby>
     <incdepgraph>
+      <node id="2">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
       <node id="1">
         <label>c/mtrand.h</label>
         <link refid="mtrand_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1">
-        <label>c/mtrand.h</label>
-        <link refid="mtrand_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="3">
+        <label>c/rrEvent.h</label>
+        <link refid="rrEvent_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>c/rrCompiledExecutableModel.h</label>
         <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
-      <node id="3">
-        <label>c/rrEvent.h</label>
-        <link refid="rrEvent_8h_source"/>
-        <childnode refid="4" relation="include">
+      <node id="1">
+        <label>c/mtrand.h</label>
+        <link refid="mtrand_8h"/>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -117,7 +117,7 @@
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>overload<sp/>operator()<sp/>to<sp/>make<sp/>this<sp/>a<sp/>generator<sp/>(functor)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>operator()()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rand_int32();<sp/>}</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>2007-02-11:<sp/>made<sp/>the<sp/>destructor<sp/>virtual;<sp/>thanks<sp/>&quot;double<sp/>more&quot;<sp/>for<sp/>pointing<sp/>this<sp/>out</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classMTRand__int32" kindref="compound">~MTRand_int32</ref>()<sp/>{}<sp/></highlight><highlight class="comment">//<sp/>destructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>()<sp/>{}<sp/></highlight><highlight class="comment">//<sp/>destructor</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>used<sp/>by<sp/>derived<sp/>classes,<sp/>otherwise<sp/>not<sp/>accessible;<sp/>use<sp/>the<sp/>()-operator</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>rand_int32()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>generate<sp/>32<sp/>bit<sp/>random<sp/>integer</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
@@ -158,7 +158,7 @@
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><ref refid="classMTRand" kindref="compound">MTRand</ref>()<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="classMTRand" kindref="compound">MTRand</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>seed)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed)<sp/>{}</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="classMTRand" kindref="compound">MTRand</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal">*<sp/>seed,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed,<sp/>size)<sp/>{}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="classMTRand" kindref="compound">~MTRand</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>~<ref refid="classMTRand" kindref="compound">MTRand</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>operator()()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rand_int32())<sp/>*<sp/>(1.<sp/>/<sp/>4294967296.);<sp/>}<sp/></highlight><highlight class="comment">//<sp/>divided<sp/>by<sp/>2^32</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
@@ -172,7 +172,7 @@
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__closed" kindref="compound">MTRand_closed</ref>()<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__closed" kindref="compound">MTRand_closed</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>seed)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed)<sp/>{}</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__closed" kindref="compound">MTRand_closed</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal">*<sp/>seed,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed,<sp/>size)<sp/>{}</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__closed" kindref="compound">~MTRand_closed</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>~<ref refid="classMTRand__closed" kindref="compound">MTRand_closed</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>operator()()<sp/>{</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rand_int32())<sp/>*<sp/>(1.<sp/>/<sp/>4294967295.);<sp/>}<sp/></highlight><highlight class="comment">//<sp/>divided<sp/>by<sp/>2^32<sp/>-<sp/>1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
@@ -186,7 +186,7 @@
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__open" kindref="compound">MTRand_open</ref>()<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__open" kindref="compound">MTRand_open</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>seed)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed)<sp/>{}</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__open" kindref="compound">MTRand_open</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal">*<sp/>seed,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed,<sp/>size)<sp/>{}</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="classMTRand__open" kindref="compound">~MTRand_open</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>~<ref refid="classMTRand__open" kindref="compound">MTRand_open</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>operator()()<sp/>{</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rand_int32())<sp/>+<sp/>.5)<sp/>*<sp/>(1.<sp/>/<sp/>4294967296.);<sp/>}<sp/></highlight><highlight class="comment">//<sp/>divided<sp/>by<sp/>2^32</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
@@ -200,7 +200,7 @@
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="classMTRand53" kindref="compound">MTRand53</ref>()<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="classMTRand53" kindref="compound">MTRand53</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>seed)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed)<sp/>{}</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="classMTRand53" kindref="compound">MTRand53</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal">*<sp/>seed,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size)<sp/>:<sp/><ref refid="classMTRand__int32" kindref="compound">MTRand_int32</ref>(seed,<sp/>size)<sp/>{}</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="classMTRand53" kindref="compound">~MTRand53</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>~<ref refid="classMTRand53" kindref="compound">MTRand53</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>operator()()<sp/>{</highlight></codeline>
 <codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rand_int32()<sp/>&gt;&gt;<sp/>5)<sp/>*<sp/>67108864.<sp/>+</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rand_int32()<sp/>&gt;&gt;<sp/>6))<sp/>*<sp/>(1.<sp/>/<sp/>9007199254740992.);<sp/>}</highlight></codeline>
@@ -209,7 +209,7 @@
 <codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classMTRand53" kindref="compound">MTRand53</ref>&amp;);<sp/></highlight><highlight class="comment">//<sp/>assignment<sp/>operator<sp/>not<sp/>defined</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="155"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>MTRAND_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>MTRAND_H</highlight></codeline>
     </programlisting>
     <location file="c/mtrand.h"/>
   </compounddef>

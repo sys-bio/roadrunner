@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Symbol" kind="class" language="C++" prot="public">
     <compoundname>rr::Symbol</compoundname>
     <includes refid="rrSymbol_8h" local="no">rrSymbol.h</includes>
@@ -9,7 +9,6 @@
         <definition>bool rr::Symbol::rateRule</definition>
         <argsstring></argsstring>
         <name>rateRule</name>
-        <qualifiedname>rr::Symbol::rateRule</qualifiedname>
         <briefdescription>
 <para>Set if species also has a rate rule. </para>
         </briefdescription>
@@ -25,7 +24,6 @@
         <definition>double rr::Symbol::value</definition>
         <argsstring></argsstring>
         <name>value</name>
-        <qualifiedname>rr::Symbol::value</qualifiedname>
         <briefdescription>
 <para>set to initial concentration. </para>
         </briefdescription>
@@ -41,7 +39,6 @@
         <definition>bool rr::Symbol::constant</definition>
         <argsstring></argsstring>
         <name>constant</name>
-        <qualifiedname>rr::Symbol::constant</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -55,7 +52,6 @@
         <definition>std::string rr::Symbol::compartmentName</definition>
         <argsstring></argsstring>
         <name>compartmentName</name>
-        <qualifiedname>rr::Symbol::compartmentName</qualifiedname>
         <briefdescription>
 <para>Used when symbol is a species. </para>
         </briefdescription>
@@ -70,7 +66,6 @@
         <definition>bool rr::Symbol::hasOnlySubstance</definition>
         <argsstring></argsstring>
         <name>hasOnlySubstance</name>
-        <qualifiedname>rr::Symbol::hasOnlySubstance</qualifiedname>
         <briefdescription>
 <para>used when symbol is a species </para>
         </briefdescription>
@@ -85,7 +80,6 @@
         <definition>std::string rr::Symbol::formula</definition>
         <argsstring></argsstring>
         <name>formula</name>
-        <qualifiedname>rr::Symbol::formula</qualifiedname>
         <briefdescription>
 <para>There are only two places where formula was created, in rrModelSymbols.cpp, readBoundarySpecies and readFloatingSpeciesConcentrationList In both cases, formula was formated as the exact same C language std::string of formula &lt; &lt;toString(dValue, ModelSymbols::mDoubleFormat)&lt;&lt; &quot;/ md-&gt;c[&quot; &lt;&lt; nCompartmentIndex &lt;&lt; &quot;]&quot;;,. </para>
         </briefdescription>
@@ -103,7 +97,6 @@
         <definition>std::string rr::Symbol::keyName</definition>
         <argsstring></argsstring>
         <name>keyName</name>
-        <qualifiedname>rr::Symbol::keyName</qualifiedname>
         <briefdescription>
 <para>Used when storing local parameters, keyName is the reaction name. </para>
         </briefdescription>
@@ -118,7 +111,6 @@
         <definition>std::string rr::Symbol::name</definition>
         <argsstring></argsstring>
         <name>name</name>
-        <qualifiedname>rr::Symbol::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -134,7 +126,6 @@
         <definition>rr::Symbol::Symbol</definition>
         <argsstring>(const std::string &amp;_name=&quot;&quot;, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
         <name>Symbol</name>
-        <qualifiedname>rr::Symbol::Symbol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>_name</declname>
@@ -158,7 +149,6 @@
         <definition>rr::Symbol::Symbol</definition>
         <argsstring>(const std::string &amp;_keyName, const std::string &amp;_name, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
         <name>Symbol</name>
-        <qualifiedname>rr::Symbol::Symbol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>_keyName</declname>
@@ -185,7 +175,6 @@
         <definition>rr::Symbol::Symbol</definition>
         <argsstring>(const std::string &amp;_name, const double &amp;_value, const std::string &amp;_compartmentName)</argsstring>
         <name>Symbol</name>
-        <qualifiedname>rr::Symbol::Symbol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>_name</declname>
@@ -211,7 +200,6 @@
         <definition>rr::Symbol::Symbol</definition>
         <argsstring>(const std::string &amp;_name, const double &amp;_value, const std::string &amp;_compartmentName, const std::string &amp;_formula)</argsstring>
         <name>Symbol</name>
-        <qualifiedname>rr::Symbol::Symbol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>_name</declname>
@@ -244,21 +232,21 @@
 <para>TODO: should this be named something better than &apos;<ref refid="classrr_1_1Symbol" kindref="compound">Symbol</ref>&apos;, say SpeciesDefinition or something??? TODO: Why do we even have this? Shoud&apos;nt this just be a sbml::Species ??? </para>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>string</label>
+      </node>
       <node id="1">
         <label>rr::Symbol</label>
         <link refid="classrr_1_1Symbol"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>compartmentName</edgelabel>
           <edgelabel>formula</edgelabel>
           <edgelabel>keyName</edgelabel>
+          <edgelabel>compartmentName</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="c/rrSymbol.h" line="17" column="1" bodyfile="c/rrSymbol.h" bodystart="18" bodyend="77"/>
+    <location file="c/rrSymbol.h" line="18" column="1" bodyfile="c/rrSymbol.h" bodystart="17" bodyend="77"/>
     <listofallmembers>
       <member refid="classrr_1_1Symbol_1aa7c4ca162218cc6c0babcc0423c8a42a" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>compartmentName</name></member>
       <member refid="classrr_1_1Symbol_1a3eea02180a917e9edec0a5db22422d78" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>constant</name></member>

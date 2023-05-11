@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1RoadRunnerMap" kind="class" language="C++" prot="public">
     <compoundname>rr::RoadRunnerMap</compoundname>
     <includes refid="rrRoadRunnerMap_8h" local="no">rrRoadRunnerMap.h</includes>
@@ -9,7 +9,6 @@
         <definition>unsigned int rr::RoadRunnerMap::numThreads_</definition>
         <argsstring></argsstring>
         <name>numThreads_</name>
-        <qualifiedname>rr::RoadRunnerMap::numThreads_</qualifiedname>
         <initializer>= 1</initializer>
         <briefdescription>
 <para>Variable to hold the number of threads int the pool. </para>
@@ -30,7 +29,6 @@
         <definition>ThreadSafeUnorderedMap rr::RoadRunnerMap::rrMap_</definition>
         <argsstring></argsstring>
         <name>rrMap_</name>
-        <qualifiedname>rr::RoadRunnerMap::rrMap_</qualifiedname>
         <initializer>{}</initializer>
         <briefdescription>
 <para>a map type that does all the heavy lifting in this class. </para>
@@ -46,7 +44,6 @@
         <definition>std::unique_ptr&lt;thread_pool&gt; rr::RoadRunnerMap::pool</definition>
         <argsstring></argsstring>
         <name>pool</name>
-        <qualifiedname>rr::RoadRunnerMap::pool</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
 <para>manages workloads using numThreads_ threads. </para>
@@ -64,7 +61,6 @@
         <definition>rr::RoadRunnerMap::RoadRunnerMap</definition>
         <argsstring>()=default</argsstring>
         <name>RoadRunnerMap</name>
-        <qualifiedname>rr::RoadRunnerMap::RoadRunnerMap</qualifiedname>
         <briefdescription>
 <para>Default construct a <ref refid="classrr_1_1RoadRunnerMap" kindref="compound">RoadRunnerMap</ref>. </para>
         </briefdescription>
@@ -80,7 +76,6 @@
         <definition>rr::RoadRunnerMap::RoadRunnerMap</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;sbmlStringsOrFiles, unsigned int numThreads)</argsstring>
         <name>RoadRunnerMap</name>
-        <qualifiedname>rr::RoadRunnerMap::RoadRunnerMap</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>sbmlStringsOrFiles</declname>
@@ -121,7 +116,6 @@
         <definition>std::vector&lt; std::string &gt; rr::RoadRunnerMap::getKeys</definition>
         <argsstring>() const</argsstring>
         <name>getKeys</name>
-        <qualifiedname>rr::RoadRunnerMap::getKeys</qualifiedname>
         <briefdescription>
 <para>Returns the keys of the map in order of insertion. </para>
         </briefdescription>
@@ -137,7 +131,6 @@
         <definition>std::vector&lt; RoadRunner * &gt; rr::RoadRunnerMap::getValues</definition>
         <argsstring>() const</argsstring>
         <name>getValues</name>
-        <qualifiedname>rr::RoadRunnerMap::getValues</qualifiedname>
         <briefdescription>
 <para>return values of the map as a RoadRunnervector. </para>
         </briefdescription>
@@ -153,7 +146,6 @@
         <definition>std::vector&lt; std::pair&lt; std::string, RoadRunner * &gt; &gt; rr::RoadRunnerMap::getItems</definition>
         <argsstring>() const</argsstring>
         <name>getItems</name>
-        <qualifiedname>rr::RoadRunnerMap::getItems</qualifiedname>
         <briefdescription>
 <para>get items of this map as vector of std::pair&lt;std::string, RoadRuner*&gt; types. </para>
         </briefdescription>
@@ -169,7 +161,6 @@
         <definition>void rr::RoadRunnerMap::insert</definition>
         <argsstring>(std::unique_ptr&lt; RoadRunner &gt; roadRunner)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::RoadRunnerMap::insert</qualifiedname>
         <param>
           <type>std::unique_ptr&lt; <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> &gt;</type>
           <declname>roadRunner</declname>
@@ -206,7 +197,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::insert</definition>
         <argsstring>(const std::string &amp;key, std::unique_ptr&lt; RoadRunner &gt; roadRunner)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::RoadRunnerMap::insert</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -238,7 +228,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::insert</definition>
         <argsstring>(const std::string &amp;sbmlOrFile)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::RoadRunnerMap::insert</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbmlOrFile</declname>
@@ -275,7 +264,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::insert</definition>
         <argsstring>(const std::string &amp;key, const std::string &amp;sbmlOrFile)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::RoadRunnerMap::insert</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -324,7 +312,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::insert</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;sbmlStringsOrFiles)</argsstring>
         <name>insert</name>
-        <qualifiedname>rr::RoadRunnerMap::insert</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>sbmlStringsOrFiles</declname>
@@ -352,7 +339,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::erase</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>erase</name>
-        <qualifiedname>rr::RoadRunnerMap::erase</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -376,21 +362,20 @@ The model must already be a unique pointer. The key for accessing the map will b
         </inbodydescription>
         <location file="rrRoadRunnerMap.h" line="129" column="14" bodyfile="rrRoadRunnerMap.cpp" bodystart="107" bodyend="110"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a34903c378ab7ac40ccc656bf4d0dac9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a6cc2faaac1c5ee045a5a42ea9aa17394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
-        <definition>ThreadSafeUnorderedMap::iterator rr::RoadRunnerMap::begin</definition>
+        <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::begin</definition>
         <argsstring>()</argsstring>
         <name>begin</name>
-        <qualifiedname>rr::RoadRunnerMap::begin</qualifiedname>
         <briefdescription>
 <para>map iterator </para>
         </briefdescription>
         <detaileddescription>
-<para><programlisting><codeline><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;[modelName,<sp/>rr]:<sp/>rrm)<sp/>{</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">for<sp/>(auto&amp;[modelName,<sp/>rr]:<sp/>rrm)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/>...</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
-<para>or <programlisting><codeline><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>[modelName,<sp/>rr]<sp/>:<sp/>rrm)<sp/>{</highlight></codeline>
+<para>or <programlisting><codeline><highlight class="normal">for<sp/>(auto&amp;<sp/>[modelName,<sp/>rr]<sp/>:<sp/>rrm)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>actual[i]<sp/>=<sp/>rr-&gt;getInstanceID();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>i++;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
@@ -405,26 +390,24 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::begin</definition>
         <argsstring>() const</argsstring>
         <name>begin</name>
-        <qualifiedname>rr::RoadRunnerMap::begin</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrRoadRunnerMap.h" line="148" column="48" bodyfile="rrRoadRunnerMap.cpp" bodystart="194" bodyend="196"/>
+        <location file="rrRoadRunnerMap.h" line="148" column="48"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a32cd8895262727088f335c25ae813e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a6807a3ec91489b43298a17ea0f117e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
-        <definition>ThreadSafeUnorderedMap::iterator rr::RoadRunnerMap::end</definition>
+        <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::end</definition>
         <argsstring>()</argsstring>
         <name>end</name>
-        <qualifiedname>rr::RoadRunnerMap::end</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para><programlisting><codeline><highlight class="normal"><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>it<sp/>=<sp/>rrm.begin();<sp/>it<sp/>!=<sp/>rrm.end();<sp/>++it)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;[modelName,<sp/>rr]<sp/>=<sp/>*it;</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal"><sp/>for<sp/>(auto<sp/>it<sp/>=<sp/>rrm.begin();<sp/>it<sp/>!=<sp/>rrm.end();<sp/>++it)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto&amp;[modelName,<sp/>rr]<sp/>=<sp/>*it;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>i++;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting> </para>
@@ -438,21 +421,19 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::end</definition>
         <argsstring>() const</argsstring>
         <name>end</name>
-        <qualifiedname>rr::RoadRunnerMap::end</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrRoadRunnerMap.h" line="160" column="48" bodyfile="rrRoadRunnerMap.cpp" bodystart="202" bodyend="204"/>
+        <location file="rrRoadRunnerMap.h" line="160" column="48"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a1de37edd3f1822e61c98c200b1b4832a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
         <definition>ThreadSafeUnorderedMap::iterator rr::RoadRunnerMap::find</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>find</name>
-        <qualifiedname>rr::RoadRunnerMap::find</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -463,10 +444,10 @@ The model must already be a unique pointer. The key for accessing the map will b
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>key.</parametername>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
-<para></para>
+<para>. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -483,7 +464,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::find</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>find</name>
-        <qualifiedname>rr::RoadRunnerMap::find</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -494,10 +474,10 @@ The model must already be a unique pointer. The key for accessing the map will b
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>key.</parametername>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Const version. </para>
+<para>. Const version. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -514,7 +494,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>bool rr::RoadRunnerMap::empty</definition>
         <argsstring>() const</argsstring>
         <name>empty</name>
-        <qualifiedname>rr::RoadRunnerMap::empty</qualifiedname>
         <briefdescription>
 <para>return true if the map is empty </para>
         </briefdescription>
@@ -529,7 +508,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>unsigned int rr::RoadRunnerMap::size</definition>
         <argsstring>() const</argsstring>
         <name>size</name>
-        <qualifiedname>rr::RoadRunnerMap::size</qualifiedname>
         <briefdescription>
 <para>returns the number of elements in the map </para>
         </briefdescription>
@@ -544,7 +522,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>void rr::RoadRunnerMap::clear</definition>
         <argsstring>()</argsstring>
         <name>clear</name>
-        <qualifiedname>rr::RoadRunnerMap::clear</qualifiedname>
         <briefdescription>
 <para>empty the map so that there are 0 elements left </para>
         </briefdescription>
@@ -559,7 +536,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>RoadRunner * rr::RoadRunnerMap::operator[]</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>operator[]</name>
-        <qualifiedname>rr::RoadRunnerMap::operator[]</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -579,7 +555,6 @@ The model must already be a unique pointer. The key for accessing the map will b
         <definition>RoadRunner * rr::RoadRunnerMap::at</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>at</name>
-        <qualifiedname>rr::RoadRunnerMap::at</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -590,9 +565,10 @@ The model must already be a unique pointer. The key for accessing the map will b
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>key.</parametername>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -607,7 +583,6 @@ returned pointer is owned by the <ref refid="classrr_1_1RoadRunnerMap" kindref="
         <definition>RoadRunner * rr::RoadRunnerMap::at</definition>
         <argsstring>(const std::string &amp;key) const</argsstring>
         <name>at</name>
-        <qualifiedname>rr::RoadRunnerMap::at</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -625,7 +600,6 @@ returned pointer is owned by the <ref refid="classrr_1_1RoadRunnerMap" kindref="
         <definition>void rr::RoadRunnerMap::wait_for_tasks</definition>
         <argsstring>()</argsstring>
         <name>wait_for_tasks</name>
-        <qualifiedname>rr::RoadRunnerMap::wait_for_tasks</qualifiedname>
         <briefdescription>
 <para>wait for all tasks to finish before allowing program execution to continue </para>
         </briefdescription>
@@ -640,7 +614,6 @@ returned pointer is owned by the <ref refid="classrr_1_1RoadRunnerMap" kindref="
         <definition>size_t rr::RoadRunnerMap::count</definition>
         <argsstring>(const std::string &amp;key)</argsstring>
         <name>count</name>
-        <qualifiedname>rr::RoadRunnerMap::count</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -651,9 +624,10 @@ returned pointer is owned by the <ref refid="classrr_1_1RoadRunnerMap" kindref="
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>key.</parametername>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -668,7 +642,6 @@ Because there can be only 1 element with a particular key in the map, the return
         <definition>void rr::RoadRunnerMap::setNumThreads</definition>
         <argsstring>(unsigned int n)</argsstring>
         <name>setNumThreads</name>
-        <qualifiedname>rr::RoadRunnerMap::setNumThreads</qualifiedname>
         <param>
           <type>unsigned int</type>
           <declname>n</declname>
@@ -694,7 +667,6 @@ Because there can be only 1 element with a particular key in the map, the return
         <definition>unsigned int rr::RoadRunnerMap::getNumThreads</definition>
         <argsstring>() const</argsstring>
         <name>getNumThreads</name>
-        <qualifiedname>rr::RoadRunnerMap::getNumThreads</qualifiedname>
         <briefdescription>
 <para>get the number of threds in the thread_pool </para>
         </briefdescription>
@@ -711,7 +683,6 @@ Because there can be only 1 element with a particular key in the map, the return
         <definition>void rr::RoadRunnerMap::loadParallel</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;sbmlFilesOrStrings)</argsstring>
         <name>loadParallel</name>
-        <qualifiedname>rr::RoadRunnerMap::loadParallel</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>sbmlFilesOrStrings</declname>
@@ -733,7 +704,6 @@ Because there can be only 1 element with a particular key in the map, the return
         <definition>void rr::RoadRunnerMap::loadSerial</definition>
         <argsstring>(const std::vector&lt; std::string &gt; &amp;sbmlFilesOrStrings)</argsstring>
         <name>loadSerial</name>
-        <qualifiedname>rr::RoadRunnerMap::loadSerial</qualifiedname>
         <param>
           <type>const std::vector&lt; std::string &gt; &amp;</type>
           <declname>sbmlFilesOrStrings</declname>
@@ -755,16 +725,16 @@ Because there can be only 1 element with a particular key in the map, the return
 <para>Expensive operations like building models are done in parallel.</para>
 <para>Loading <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> models requires expensive builds, which can be prohibitive when loading many models. <ref refid="classrr_1_1RoadRunnerMap" kindref="compound">RoadRunnerMap</ref> is a container for <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> objects which abstracts the process of loading or simulating in parallel. </para>
     </detaileddescription>
-    <location file="rrRoadRunnerMap.h" line="39" column="5" bodyfile="rrRoadRunnerMap.h" bodystart="39" bodyend="260"/>
+    <location file="rrRoadRunnerMap.h" line="39" column="24" bodyfile="rrRoadRunnerMap.h" bodystart="39" bodyend="260"/>
     <listofallmembers>
       <member refid="classrr_1_1RoadRunnerMap_1ad3859547479a3df5e699b6ea054f85d7" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>at</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a2664990c32cf86d3bfb4c659cf805b55" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>at</name></member>
-      <member refid="classrr_1_1RoadRunnerMap_1a34903c378ab7ac40ccc656bf4d0dac9d" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
+      <member refid="classrr_1_1RoadRunnerMap_1a6cc2faaac1c5ee045a5a42ea9aa17394" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a0fda87a87041ffddf67c427dd16f3254" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a03349e67a3093ab5fbd86c10df56953f" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>clear</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a1af8de359ac7fbca433c3e249a2d9496" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>count</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1ab6b731d13f9c513083d4ed3ad3daef37" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>empty</name></member>
-      <member refid="classrr_1_1RoadRunnerMap_1a32cd8895262727088f335c25ae813e98" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
+      <member refid="classrr_1_1RoadRunnerMap_1a6807a3ec91489b43298a17ea0f117e0c" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a07ad39be64cd0c4a2c6b54f6f3183bf2" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a6d384b01fbf98397a0d475838ac5fd75" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>erase</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a1de37edd3f1822e61c98c200b1b4832a" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>find</name></member>

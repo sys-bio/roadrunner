@@ -1,7 +1,7 @@
 ##################################################################
 # Usage
 # -----
-# Build the roadrunner-docs-sphinx target
+# Build the roadrunner-docs-doxygen and roadrunner-docs-sphinx targets
 #
 
 ##################################################################
@@ -17,15 +17,14 @@
 # when you configure the cmake project. This defines two cmake targets
 #    1) roadrunner-docs-doxygen
 #    2) roadrunner-docs-sphinx
-# Building the roadrunner-docs-sphinx target will execute all commands necessary, since it depends
-# on roadruner-docs-doxygen target.
+# You need to build the first and then build the second.  At one point, the second was dependent on the first, but that seems to have broken at some point, but building them both explicitly does work.
 #
 
 ##################################################################
 # Dependencies
 # ------------
-# You will need Sphinx and some python packages
-#   - pip install sphinx breathe sphinxcontrib-bibtex sphinx-tabs sphinx_rtd_theme
+# You will need Sphinx and some python packages, all listed in docs/requirements.txt
+#   - pip install -r docs/requirements.txt
 # and doxygen. Make sure you either install doxygen in a default location, so that
 # cmake can find it or add the path to the doxygen executable to the PATH environment
 # variable so cmake can find it.

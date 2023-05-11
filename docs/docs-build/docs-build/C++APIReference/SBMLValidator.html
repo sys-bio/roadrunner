@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SBMLValidator &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Solver" href="Solver.html" />
+    <link rel="prev" title="RK4Integrator" href="RK4Integrator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The LibRoadRunner C++ Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="llvm/index.html">LLVM Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CVODEIntegrator.html">CVODEIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dictionary.html">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerIntegrator.html">EulerIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutableModelFactory.html">ExecutableModelFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GillespieIntegrator.html">GillespieIntegrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Integrator.html">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IntegratorFactory.html">IntegratorFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ1Solver.html">NLEQ1Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NLEQ2Solver.html">NLEQ2Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK45Integrator.html">RK45Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RK4Integrator.html">RK4Integrator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SBMLValidator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solver.html">Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SolverFactory.html">SolverFactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SteadyStateSolver.html">SteadyStateSolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Variant.html">Variant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrCompiler.html">rrCompiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrConfig.html">rrConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrException.html">rrException</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrExecutableModel.html">rrExecutableModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrFileName.html">rrFileName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniFile.html">rrIniFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniKey.html">rrIniKey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrIniSection.html">rrIniSection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrLogger.html">rrLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ1Interface.html">rrNLEQ1Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrNLEQ2Interface.html">rrNLEQ2Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunner.html">rrRoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerData.html">rrRoadRunnerData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrRoadRunnerOptions.html">rrRoadRunnerOptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLModelSimulation.html">rrSBMLModelSimulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSBMLReader.html">rrSBMLReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSelectionRecord.html">rrSelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrSparse.html">rrSparse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoadRunnerMap.html">RoadRunnerMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-new-integrator">Creating a new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#implementing-the-integrator-interface">Implementing the Integrator interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#telling-roadrunner-about-the-new-integrator">Telling RoadRunner about the new Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">The LibRoadRunner C++ Library</a></li>
+      <li class="breadcrumb-item active">SBMLValidator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/C++APIReference/SBMLValidator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sbmlvalidator">
+<h1>SBMLValidator<a class="headerlink" href="#sbmlvalidator" title="Permalink to this heading"></a></h1>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBMLE">
+<span id="_CPPv3N2rr12ValidateSBMLE"></span><span id="_CPPv2N2rr12ValidateSBMLE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ValidateSBML</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBMLE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML14VALIDATE_UNITSE">
+<span id="_CPPv3N2rr12ValidateSBML14VALIDATE_UNITSE"></span><span id="_CPPv2N2rr12ValidateSBML14VALIDATE_UNITSE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409a91e73467ba3dbd6a274dab8e7fac52c9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_UNITS</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML14VALIDATE_UNITSE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check consistency of measurement units associated with quantities (SBML L2V4 rules 105nn) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML19VALIDATE_IDENTIFIERE">
+<span id="_CPPv3N2rr12ValidateSBML19VALIDATE_IDENTIFIERE"></span><span id="_CPPv2N2rr12ValidateSBML19VALIDATE_IDENTIFIERE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409a7f2f9396276f61dfd45f1f142724e219"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_IDENTIFIER</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML19VALIDATE_IDENTIFIERE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check correctness and consistency of identifiers used for model entities (SBML L2V4 rules 103nn) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML15VALIDATE_MATHMLE">
+<span id="_CPPv3N2rr12ValidateSBML15VALIDATE_MATHMLE"></span><span id="_CPPv2N2rr12ValidateSBML15VALIDATE_MATHMLE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409a6cc0cf10536bed22698c42fd731774a6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_MATHML</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML15VALIDATE_MATHMLE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check syntax of MathML mathematical expressions (SBML L2V4 rules 102nn) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML12VALIDATE_SBOE">
+<span id="_CPPv3N2rr12ValidateSBML12VALIDATE_SBOE"></span><span id="_CPPv2N2rr12ValidateSBML12VALIDATE_SBOE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409a093b0b6c543098c99ad94fcd33ff4057"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_SBO</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML12VALIDATE_SBOE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check validity of SBO identifiers (if any) used in the model (SBML L2V4 rules 107nn) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML23VALIDATE_OVERDETERMINEDE">
+<span id="_CPPv3N2rr12ValidateSBML23VALIDATE_OVERDETERMINEDE"></span><span id="_CPPv2N2rr12ValidateSBML23VALIDATE_OVERDETERMINEDE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409ae6252f4c7f8ed6da606a0a9d18bd5d32"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_OVERDETERMINED</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML23VALIDATE_OVERDETERMINEDE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Perform static analysis of whether the model is overdetermined. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML26VALIDATE_MODELING_PRACTICEE">
+<span id="_CPPv3N2rr12ValidateSBML26VALIDATE_MODELING_PRACTICEE"></span><span id="_CPPv2N2rr12ValidateSBML26VALIDATE_MODELING_PRACTICEE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409acb352e2696534ae296172f6bc0a28a7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_MODELING_PRACTICE</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML26VALIDATE_MODELING_PRACTICEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Perform additional checks for recommended good modeling practices. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr12ValidateSBML16VALIDATE_GENERALE">
+<span id="_CPPv3N2rr12ValidateSBML16VALIDATE_GENERALE"></span><span id="_CPPv2N2rr12ValidateSBML16VALIDATE_GENERALE"></span><span class="target" id="SBMLValidator_8h_1ae9b68e1552acb4d494177d09c229a409aab5e037fc089b392bd806c27b1499268"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATE_GENERAL</span></span></span><a class="headerlink" href="#_CPPv4N2rr12ValidateSBML16VALIDATE_GENERALE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Perform all other general SBML consistency checks (SBML L2V4 rules 2nnnn; highly recommended) </p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="RK4Integrator.html" class="btn btn-neutral float-left" title="RK4Integrator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Solver.html" class="btn btn-neutral float-right" title="Solver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

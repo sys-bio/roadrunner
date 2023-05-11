@@ -1,16 +1,20 @@
-\hypertarget{classrr_1_1Matrix3D}{}\doxysection{rr\+::Matrix3D\texorpdfstring{$<$}{<} Index\+Type, Data\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrr_1_1Matrix3D}{}\doxysection{rr\+::Matrix3D$<$ Index\+Type, Data\+Type $>$ Class Template Reference}
 \label{classrr_1_1Matrix3D}\index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
+
+
+{\ttfamily \#include $<$Matrix3\+D.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_a8336951dc875f560c5841f5c70fe36a1}\label{classrr_1_1Matrix3D_a8336951dc875f560c5841f5c70fe36a1}} 
-{\bfseries Matrix3D} ()=default
+\mbox{\hyperlink{classrr_1_1Matrix3D_a8336951dc875f560c5841f5c70fe36a1}{Matrix3D}} ()=default
 \begin{DoxyCompactList}\small\item\em default construct a 3D matrix \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_ac8734a9a680930e98361be461808ddde}\label{classrr_1_1Matrix3D_ac8734a9a680930e98361be461808ddde}} 
-{\bfseries Matrix3D} (int \mbox{\hyperlink{classrr_1_1Matrix3D_a7d78cb9ba8631d469ffc27c4f69b4627}{num\+Rows}}, int \mbox{\hyperlink{classrr_1_1Matrix3D_a0bbc297939977e79bf29699cc91db35b}{num\+Cols}}, int \mbox{\hyperlink{classrr_1_1Matrix3D_a97e450bd370dc45a47b1aeafeed562ba}{numZ}})
+\mbox{\hyperlink{classrr_1_1Matrix3D_ac8734a9a680930e98361be461808ddde}{Matrix3D}} (int \mbox{\hyperlink{classrr_1_1Matrix3D_a7d78cb9ba8631d469ffc27c4f69b4627}{num\+Rows}}, int \mbox{\hyperlink{classrr_1_1Matrix3D_a0bbc297939977e79bf29699cc91db35b}{num\+Cols}}, int \mbox{\hyperlink{classrr_1_1Matrix3D_a97e450bd370dc45a47b1aeafeed562ba}{numZ}})
 \begin{DoxyCompactList}\small\item\em construct an empty 3D matrix with num\+Rows x num\+Cols x numZ dimensions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_ae6f876b4499e0f9f964e75f1a8a575c6}\label{classrr_1_1Matrix3D_ae6f876b4499e0f9f964e75f1a8a575c6}} 
-{\bfseries Matrix3D} (std\+::initializer\+\_\+list$<$ Index\+Type $>$ idx, Matrix3\+DInitializer data)
+{\bfseries Matrix3D} (std\+::initializer\+\_\+list$<$ Index\+Type $>$ idx, Matrix3\+D\+Initializer data)
 \item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_ae1ca2ca9e845c7de358cef2db83b8b91}\label{classrr_1_1Matrix3D_ae1ca2ca9e845c7de358cef2db83b8b91}} 
 void {\bfseries insert} (Index\+Type idx, \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ mat)
@@ -18,19 +22,19 @@ void {\bfseries insert} (Index\+Type idx, \mbox{\hyperlink{classrr_1_1Matrix}{Ma
 \mbox{\Hypertarget{classrr_1_1Matrix3D_af348e449bfba28a9c62799bdb268cda0}\label{classrr_1_1Matrix3D_af348e449bfba28a9c62799bdb268cda0}} 
 void {\bfseries push\+Back} (Index\+Type idx, \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ mat)
 \item 
-\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a420dfc0b4a5a0fffa7d6939aeb6099ca}{operator\mbox{[}$\,$\mbox{]}}} (int idx)
+\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_adf344bfa17d5a94157c9944bfabce492}{operator\mbox{[}$\,$\mbox{]}}} (int idx)
 \begin{DoxyCompactList}\small\item\em Indexer to slice a \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}} and index value and data at idx. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1Matrix}{rr\+::\+Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a3d233fae57bab6e3022dca4893707e23}{slice}} (int k)
+\mbox{\hyperlink{classrr_1_1Matrix}{rr\+::\+Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a0e6ccf3c0c6a740ca12af375fca03a99}{slice}} (int k)
 \begin{DoxyCompactList}\small\item\em 1D \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}} slicer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Data\+Type, Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_aedf37b75f9258d04deecf44725c13554}{col\+Slice\+By\+Name}} (const std\+::vector$<$ std\+::string $>$ \&row\+Names)
+\mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Data\+Type, Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a170fe788694b075b5509915831750bf9}{col\+Slice\+By\+Name}} (const std\+::vector$<$ std\+::string $>$ \&row\+Names)
 \begin{DoxyCompactList}\small\item\em slice a \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}} by colnames. \end{DoxyCompactList}\item 
-std\+::vector$<$ Data\+Type $>$ \mbox{\hyperlink{classrr_1_1Matrix3D_a3423be3aa48493af2fe53394a4e54ac6}{slice}} (int k, int j)
+std\+::vector$<$ Data\+Type $>$ \mbox{\hyperlink{classrr_1_1Matrix3D_a3d3e20638dd709df478c6dab345585a3}{slice}} (int k, int j)
 \begin{DoxyCompactList}\small\item\em 2D \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}} slicer. \end{DoxyCompactList}\item 
 Data\+Type \mbox{\hyperlink{classrr_1_1Matrix3D_a210b05755e38bd590c84cae997afba59}{slice}} (int k, int j, int i)
 \begin{DoxyCompactList}\small\item\em 3D \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}} slicer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a33cd475dccdaea17701501e49526b91b}{get\+Item}} (Index\+Type idx)
+\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_ae8a33b146d067035a4fc45a791d6680a}{get\+Item}} (Index\+Type idx)
 \begin{DoxyCompactList}\small\item\em slicing operator that uses the user provided index. \end{DoxyCompactList}\item 
-const std\+::vector$<$ Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a5dd0744b45f6515866043732d65eab3f}{get\+Index}} () const
+const std\+::vector$<$ Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D_a4a9b332443cffbf149576fe023175b65}{get\+Index}} () const
 \begin{DoxyCompactList}\small\item\em getter for the index data field of the \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_a3e804631687f3f5ae9d0109e1819b596}\label{classrr_1_1Matrix3D_a3e804631687f3f5ae9d0109e1819b596}} 
 void {\bfseries set\+Kth\+Matrix} (int k, Index\+Type idx, \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ data)
@@ -42,25 +46,25 @@ int \mbox{\hyperlink{classrr_1_1Matrix3D_a0bbc297939977e79bf29699cc91db35b}{num\
 int \mbox{\hyperlink{classrr_1_1Matrix3D_a97e450bd370dc45a47b1aeafeed562ba}{numZ}} ()
 \begin{DoxyCompactList}\small\item\em get number of matrices in this 3D matrix \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_accfa6abdaeb734ceaad06098cca8a6df}\label{classrr_1_1Matrix3D_accfa6abdaeb734ceaad06098cca8a6df}} 
-void {\bfseries set\+Row\+Names} (const std\+::vector$<$ std\+::string $>$ \&row\+Names)
+void \mbox{\hyperlink{classrr_1_1Matrix3D_accfa6abdaeb734ceaad06098cca8a6df}{set\+Row\+Names}} (const std\+::vector$<$ std\+::string $>$ \&row\+Names)
 \begin{DoxyCompactList}\small\item\em set row names for each of the z matrices \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_a75c92af16993dba38c3a2b15d0c65b84}\label{classrr_1_1Matrix3D_a75c92af16993dba38c3a2b15d0c65b84}} 
-void {\bfseries set\+Col\+Names} (const std\+::vector$<$ std\+::string $>$ \&col\+Names)
+void \mbox{\hyperlink{classrr_1_1Matrix3D_a75c92af16993dba38c3a2b15d0c65b84}{set\+Col\+Names}} (const std\+::vector$<$ std\+::string $>$ \&col\+Names)
 \begin{DoxyCompactList}\small\item\em set col names for each of the z matrices \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1Matrix3D_aac93524a42c81121d2736560144e1e8e}\label{classrr_1_1Matrix3D_aac93524a42c81121d2736560144e1e8e}} 
-std\+::vector$<$ std\+::string $>$ {\bfseries get\+Row\+Names} ()
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a87927a275352b6925024580ffa7870b0}\label{classrr_1_1Matrix3D_a87927a275352b6925024580ffa7870b0}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1Matrix3D_a87927a275352b6925024580ffa7870b0}{get\+Row\+Names}} ()
 \begin{DoxyCompactList}\small\item\em return the row names for this \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1Matrix3D_abeb0f3f248125bfd202adfbb6f1e65de}\label{classrr_1_1Matrix3D_abeb0f3f248125bfd202adfbb6f1e65de}} 
-std\+::vector$<$ std\+::string $>$ {\bfseries get\+Col\+Names} ()
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a5bc22ee391622eb7a1d0f1aad991a38a}\label{classrr_1_1Matrix3D_a5bc22ee391622eb7a1d0f1aad991a38a}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1Matrix3D_a5bc22ee391622eb7a1d0f1aad991a38a}{get\+Col\+Names}} ()
 \begin{DoxyCompactList}\small\item\em return the column names for this \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}} \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_ac6964e5fab09e336189a817c8480307e}\label{classrr_1_1Matrix3D_ac6964e5fab09e336189a817c8480307e}} 
-bool {\bfseries operator==} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ Index\+Type, Data\+Type $>$ \&other)
+bool \mbox{\hyperlink{classrr_1_1Matrix3D_ac6964e5fab09e336189a817c8480307e}{operator==}} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ Index\+Type, Data\+Type $>$ \&other)
 \begin{DoxyCompactList}\small\item\em equality operator \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_a8438b3dd5262ce21e26a3e6c2e21d9e5}\label{classrr_1_1Matrix3D_a8438b3dd5262ce21e26a3e6c2e21d9e5}} 
-bool {\bfseries operator!=} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ Index\+Type, Data\+Type $>$ \&other)
+bool \mbox{\hyperlink{classrr_1_1Matrix3D_a8438b3dd5262ce21e26a3e6c2e21d9e5}{operator!=}} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ Index\+Type, Data\+Type $>$ \&other)
 \begin{DoxyCompactList}\small\item\em inequality operator \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Matrix3D_ac3204e01ccc855bab8f8959da10d63d5}\label{classrr_1_1Matrix3D_ac3204e01ccc855bab8f8959da10d63d5}} 
-bool {\bfseries almost\+Equals} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ double, double $>$ \&other, double tol)
+bool \mbox{\hyperlink{classrr_1_1Matrix3D_ac3204e01ccc855bab8f8959da10d63d5}{almost\+Equals}} (\mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ double, double $>$ \&other, double tol)
 \begin{DoxyCompactList}\small\item\em equality operator for double Index\+Type and Data\+Type types only \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1Matrix3D_aff7a78da2a0c7854bf269d0b24ef7bbd}{delete\+Row}} (const int \&which)
 \begin{DoxyCompactList}\small\item\em delete the row indexed by \end{DoxyCompactList}\item 
@@ -73,18 +77,24 @@ void \mbox{\hyperlink{classrr_1_1Matrix3D_a50b7689814b9c3d99fceaa3e7111aa4b}{del
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1Matrix3D_a089be12029253568f892ffbc70c8ed56}\label{classrr_1_1Matrix3D_a089be12029253568f892ffbc70c8ed56}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a02a8abe7d89e94fa4523faa7ecf7bafc}\label{classrr_1_1Matrix3D_a02a8abe7d89e94fa4523faa7ecf7bafc}} 
 {\footnotesize template$<$typename Index\+Type\+\_\+ , typename Data\+Type\+\_\+ $>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ Index\+Type\+\_\+, Data\+Type\+\_\+ $>$ \&matrix3D)
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Index\+Type, typename Data\+Type$>$\newline
+class rr\+::\+Matrix3\+D$<$ Index\+Type, Data\+Type $>$}
+
+A basic local 3D version of the \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}} class, based on initializer\+\_\+list. 
+
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1Matrix3D_aedf37b75f9258d04deecf44725c13554}\label{classrr_1_1Matrix3D_aedf37b75f9258d04deecf44725c13554}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a170fe788694b075b5509915831750bf9}\label{classrr_1_1Matrix3D_a170fe788694b075b5509915831750bf9}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!colSliceByName@{colSliceByName}}
 \index{colSliceByName@{colSliceByName}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{colSliceByName()}{colSliceByName()}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-\mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Data\+Type, Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::col\+Slice\+By\+Name (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{row\+Names }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$Data\+Type, Index\+Type$>$\& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::col\+Slice\+By\+Name (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{row\+Names }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -171,12 +181,12 @@ delete the row indexed by
 \begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classrr_1_1Matrix_ad75ae4a4b1772808706dece01a3f241d}{rr\+::\+Matrix\+::delete\+Row}}. 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{classrr_1_1Matrix3D_a5dd0744b45f6515866043732d65eab3f}\label{classrr_1_1Matrix3D_a5dd0744b45f6515866043732d65eab3f}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a4a9b332443cffbf149576fe023175b65}\label{classrr_1_1Matrix3D_a4a9b332443cffbf149576fe023175b65}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!getIndex@{getIndex}}
 \index{getIndex@{getIndex}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{getIndex()}{getIndex()}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-const std\+::vector$<$ Index\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::get\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+const std\+::vector$<$Index\+Type$>$\& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::get\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -185,12 +195,12 @@ getter for the index data field of the \mbox{\hyperlink{classrr_1_1Matrix3D}{Mat
 \begin{DoxyReturn}{Returns}
 a std\+::vector$<$\+Index\+Type$>$ 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrr_1_1Matrix3D_a33cd475dccdaea17701501e49526b91b}\label{classrr_1_1Matrix3D_a33cd475dccdaea17701501e49526b91b}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_ae8a33b146d067035a4fc45a791d6680a}\label{classrr_1_1Matrix3D_ae8a33b146d067035a4fc45a791d6680a}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!getItem@{getItem}}
 \index{getItem@{getItem}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::get\+Item (\begin{DoxyParamCaption}\item[{Index\+Type}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$Data\+Type$>$\& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::get\+Item (\begin{DoxyParamCaption}\item[{Index\+Type}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -237,12 +247,12 @@ int \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Dat
 
 get number of matrices in this 3D matrix 
 
-if x is rows, y is columns, z is depth. \mbox{\Hypertarget{classrr_1_1Matrix3D_a420dfc0b4a5a0fffa7d6939aeb6099ca}\label{classrr_1_1Matrix3D_a420dfc0b4a5a0fffa7d6939aeb6099ca}} 
+if x is rows, y is columns, z is depth. \mbox{\Hypertarget{classrr_1_1Matrix3D_adf344bfa17d5a94157c9944bfabce492}\label{classrr_1_1Matrix3D_adf344bfa17d5a94157c9944bfabce492}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classrr_1_1Matrix}{Matrix}}$<$Data\+Type$>$\& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -251,18 +261,18 @@ Indexer to slice a \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}} and index va
 \begin{DoxyReturn}{Returns}
 the k\textquotesingle{}th 2D matrix, indexed by Z dimension 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrr_1_1Matrix3D_a3d233fae57bab6e3022dca4893707e23}\label{classrr_1_1Matrix3D_a3d233fae57bab6e3022dca4893707e23}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a0e6ccf3c0c6a740ca12af375fca03a99}\label{classrr_1_1Matrix3D_a0e6ccf3c0c6a740ca12af375fca03a99}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!slice@{slice}}
 \index{slice@{slice}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{slice()}{slice()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-\mbox{\hyperlink{classrr_1_1Matrix}{rr\+::\+Matrix}}$<$ Data\+Type $>$ \& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::slice (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classrr_1_1Matrix}{rr\+::\+Matrix}}$<$Data\+Type$>$\& \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::slice (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 1D \mbox{\hyperlink{classrr_1_1Matrix}{Matrix}} slicer. 
 
-Convert a 3D matrix to a 2D rr\+::\+Matrix$<$\+Data\+Type$>$ by slicing the Z direction using numerical indices. Equivalent to \mbox{\hyperlink{classrr_1_1Matrix3D_a420dfc0b4a5a0fffa7d6939aeb6099ca}{Matrix3\+D$<$\+Data\+Type$>$\+::operator\mbox{[}$\,$\mbox{]}}} 
+Convert a 3D matrix to a 2D rr\+::\+Matrix$<$\+Data\+Type$>$ by slicing the Z direction using numerical indices. Equivalent to \mbox{\hyperlink{classrr_1_1Matrix3D_adf344bfa17d5a94157c9944bfabce492}{Matrix3\+D$<$\+Data\+Type$>$\+::operator\mbox{[}$\,$\mbox{]}}} 
 \begin{DoxyParams}{Parameters}
 {\em k} & corresponds to the number of sub matrices, indexed by k in the set 0, 1, ..., z\+Max. \\
 \hline
@@ -270,12 +280,12 @@ Convert a 3D matrix to a 2D rr\+::\+Matrix$<$\+Data\+Type$>$ by slicing the Z di
 \begin{DoxyReturn}{Returns}
 A single 2D rr\+::\+Matrix$<$\+Data\+Type$>$ object at index k of this Matrix3\+D$<$\+Data\+Type$>$ with dimensions (x\+Max, y\+Max) (width by height) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrr_1_1Matrix3D_a3423be3aa48493af2fe53394a4e54ac6}\label{classrr_1_1Matrix3D_a3423be3aa48493af2fe53394a4e54ac6}} 
+\mbox{\Hypertarget{classrr_1_1Matrix3D_a3d3e20638dd709df478c6dab345585a3}\label{classrr_1_1Matrix3D_a3d3e20638dd709df478c6dab345585a3}} 
 \index{rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}!slice@{slice}}
 \index{slice@{slice}!rr::Matrix3D$<$ IndexType, DataType $>$@{rr::Matrix3D$<$ IndexType, DataType $>$}}
 \doxysubsubsection{\texorpdfstring{slice()}{slice()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$typename Index\+Type , typename Data\+Type $>$ \\
-std\+::vector$<$ Data\+Type $>$ \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::slice (\begin{DoxyParamCaption}\item[{int}]{k,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::vector$<$Data\+Type$>$ \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Matrix3D}}$<$ Index\+Type, Data\+Type $>$\+::slice (\begin{DoxyParamCaption}\item[{int}]{k,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -283,9 +293,9 @@ std\+::vector$<$ Data\+Type $>$ \mbox{\hyperlink{classrr_1_1Matrix3D}{rr\+::\+Ma
 
 Convert a 3D matrix to a 1D std\+::vector$<$\+Data\+Type$>$ by slicing the Z (depth) and then the y (height) direction using numerical indices. 
 \begin{DoxyParams}{Parameters}
-{\em k} & indexes the number of sub matrices, k \textbackslash{}in 0, 1, ..., z\+Max. \\
+{\em k} & indexes the number of sub matrices, k in 0, 1, ..., z\+Max. \\
 \hline
-{\em j} & indexes the number of row vectors in submatrix k for j \textbackslash{}in 0, 1, ..., y\+Max \\
+{\em j} & indexes the number of row vectors in submatrix k for j in 0, 1, ..., y\+Max \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -306,9 +316,9 @@ Convert a 3D matrix to a scalar Data\+Type by slicing the (k, j, i) (depth, heig
 \begin{DoxyParams}{Parameters}
 {\em k} & corresponds to the number of sub matrices, indexed by k in the set 0, 1, ..., z\+Max. \\
 \hline
-{\em j} & indexes the number of row vectors in submatrix k for j \textbackslash{}in 0, 1, ..., y\+Max \\
+{\em j} & indexes the number of row vectors in submatrix k for j in 0, 1, ..., y\+Max \\
 \hline
-{\em i} & indexes the number of elements in each row vector j; i \textbackslash{}in 0, 1, ..., x\+Max \\
+{\em i} & indexes the number of elements in each row vector j; i in 0, 1, ..., x\+Max \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

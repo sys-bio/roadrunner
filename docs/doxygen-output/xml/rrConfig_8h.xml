@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="rrConfig_8h" kind="file" language="C++">
     <compoundname>rrConfig.h</compoundname>
     <includes local="no">string</includes>
@@ -7,12 +7,18 @@
     <includes refid="Setting_8h" local="yes">Setting.h</includes>
     <includes local="no">vector</includes>
     <includedby refid="CVODEIntegrator_8cpp" local="yes">CVODEIntegrator.cpp</includedby>
-    <includedby refid="rrc__api_8cpp" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</includedby>
     <includedby refid="GillespieIntegrator_8cpp" local="yes">GillespieIntegrator.cpp</includedby>
     <includedby refid="Integrator_8cpp" local="yes">Integrator.cpp</includedby>
     <includedby refid="KinsolSteadyStateSolver_8cpp" local="yes">KinsolSteadyStateSolver.cpp</includedby>
     <includedby refid="NLEQSolver_8cpp" local="yes">NLEQSolver.cpp</includedby>
     <includedby refid="RK45Integrator_8cpp" local="yes">RK45Integrator.cpp</includedby>
+    <includedby refid="rrConfig_8cpp" local="yes">rrConfig.cpp</includedby>
+    <includedby refid="rrLogger_8cpp" local="yes">rrLogger.cpp</includedby>
+    <includedby refid="rrNLEQ1Interface_8cpp" local="yes">rrNLEQ1Interface.cpp</includedby>
+    <includedby refid="rrNLEQ2Interface_8cpp" local="yes">rrNLEQ2Interface.cpp</includedby>
+    <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
+    <includedby refid="rrRoadRunnerOptions_8cpp" local="yes">rrRoadRunnerOptions.cpp</includedby>
+    <includedby refid="rrUtils_8cpp" local="yes">rrUtils.cpp</includedby>
     <includedby refid="Solver_8cpp" local="yes">Solver.cpp</includedby>
     <includedby refid="SteadyStateSolver_8cpp" local="yes">SteadyStateSolver.cpp</includedby>
     <includedby refid="ASTNodeCodeGen_8cpp" local="yes">llvm/ASTNodeCodeGen.cpp</includedby>
@@ -21,14 +27,64 @@
     <includedby refid="LLVMExecutableModel_8cpp" local="yes">llvm/LLVMExecutableModel.cpp</includedby>
     <includedby refid="ModelGeneratorContext_8cpp" local="yes">llvm/ModelGeneratorContext.cpp</includedby>
     <includedby refid="Random_8cpp" local="yes">llvm/Random.cpp</includedby>
-    <includedby refid="rrConfig_8cpp" local="yes">rrConfig.cpp</includedby>
-    <includedby refid="rrLogger_8cpp" local="yes">rrLogger.cpp</includedby>
-    <includedby refid="rrNLEQ1Interface_8cpp" local="yes">rrNLEQ1Interface.cpp</includedby>
-    <includedby refid="rrNLEQ2Interface_8cpp" local="yes">rrNLEQ2Interface.cpp</includedby>
-    <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
-    <includedby refid="rrRoadRunnerOptions_8cpp" local="yes">rrRoadRunnerOptions.cpp</includedby>
-    <includedby refid="rrUtils_8cpp" local="yes">rrUtils.cpp</includedby>
+    <includedby refid="rrc__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</includedby>
     <incdepgraph>
+      <node id="11">
+        <label>functional</label>
+      </node>
+      <node id="9">
+        <label>limits</label>
+      </node>
+      <node id="5">
+        <label>variant</label>
+      </node>
+      <node id="13">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="15">
+        <label>exception</label>
+      </node>
+      <node id="3">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="1">
+        <label>rrConfig.h</label>
+        <link refid="rrConfig_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>typeinfo</label>
+      </node>
+      <node id="14">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+      <node id="8">
+        <label>sstream</label>
+      </node>
       <node id="4">
         <label>Setting.h</label>
         <link refid="Setting_8h_source"/>
@@ -53,81 +109,29 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>rrConfig.h</label>
-        <link refid="rrConfig_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="13">
-        <label>setting_t.h</label>
-        <link refid="setting__t_8h_source"/>
-      </node>
-      <node id="15">
-        <label>exception</label>
-      </node>
-      <node id="11">
-        <label>functional</label>
-      </node>
       <node id="6">
         <label>iostream</label>
-      </node>
-      <node id="9">
-        <label>limits</label>
-      </node>
-      <node id="8">
-        <label>sstream</label>
-      </node>
-      <node id="2">
-        <label>string</label>
       </node>
       <node id="10">
         <label>type_traits</label>
       </node>
-      <node id="12">
-        <label>typeinfo</label>
-      </node>
-      <node id="5">
-        <label>variant</label>
-      </node>
-      <node id="7">
-        <label>vector</label>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
+      <node id="5">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
       </node>
       <node id="4">
+        <label>llvm/JitFactory.h</label>
+        <link refid="JitFactory_8h_source"/>
+      </node>
+      <node id="3">
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
-      <node id="5">
-        <label>llvm/JitFactory.h</label>
-        <link refid="JitFactory_8h_source"/>
+      <node id="2">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
       </node>
       <node id="1">
         <label>rrConfig.h</label>
@@ -140,10 +144,6 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-      </node>
-      <node id="2">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classrr_1_1Config" prot="public">rr::Config</innerclass>
@@ -312,8 +312,8 @@
 <codeline lineno="546"><highlight class="normal"></highlight></codeline>
 <codeline lineno="552" refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a1401d17f41f488b559117af515863cba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a1401d17f41f488b559117af515863cba" kindref="member">LLJIT_NUM_THREADS</ref>,</highlight></codeline>
 <codeline lineno="553"><highlight class="normal"></highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONFIG_END</highlight></codeline>
-<codeline lineno="560" refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae173224855af72a1643cb740c724f377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="559" refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae173224855af72a1643cb740c724f377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONFIG_END</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="561"><highlight class="normal"></highlight></codeline>
 <codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>LLVM_BACKEND_VALUES<sp/>{</highlight></codeline>
 <codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MCJIT<sp/>=<sp/>0,</highlight></codeline>

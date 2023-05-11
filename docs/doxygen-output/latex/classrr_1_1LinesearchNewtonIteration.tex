@@ -21,14 +21,18 @@ Inheritance diagram for rr\+::Linesearch\+Newton\+Iteration\+:\begin{figure}[H]
 \mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_ae0b74f23771dac1de3aa9decb03dfd14}\label{classrr_1_1LinesearchNewtonIteration_ae0b74f23771dac1de3aa9decb03dfd14}} 
 {\bfseries Linesearch\+Newton\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
 \item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}\label{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}} 
 std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}\label{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}} 
 std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}\label{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}} 
 std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_adf4975f6b1cdb5952950400f9f183497}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model) const override
 \begin{DoxyCompactList}\small\item\em construct a new \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration}{Linesearch\+Newton\+Iteration}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}\label{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}} 
 double \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}{solve}} () override
 \begin{DoxyCompactList}\small\item\em solve the currently defined problem \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}\label{classrr_1_1LinesearchNewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}} 
@@ -44,9 +48,8 @@ Solve for steady state using Kinsol\textquotesingle{}s implementation of Newton 
 \mbox{\hyperlink{classrr_1_1BasicNewtonIteration}{Basic\+Newton\+Iteration}} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{RoadRunner rr(sbml);}
-\DoxyCodeLine{rr.setSteadyStateSolver(\textcolor{stringliteral}{"{}newton\_linesearch"{}});}
+\DoxyCodeLine{rr.setSteadyStateSolver(\textcolor{stringliteral}{"newton\_linesearch"});}
 \DoxyCodeLine{rr.solve();}
-
 \end{DoxyCode}
  
 \end{DoxySeeAlso}
@@ -65,63 +68,7 @@ construct a new \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration}{Linesearc
 
 caller is responsible for deleting memory returned. 
 
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a4380db83a3a2b122fe58fc3bbbb32a69}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}\label{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}} 
-\index{rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}!getDescription@{getDescription}}
-\index{getDescription@{getDescription}!rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Linesearch\+Newton\+Iteration\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the description of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917e5d4}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}\label{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}} 
-\index{rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}!getHint@{getHint}}
-\index{getHint@{getHint}!rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Linesearch\+Newton\+Iteration\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get a (user-\/readable) hint for this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f401d9}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}\label{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}} 
-\index{rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}!getName@{getName}}
-\index{getName@{getName}!rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Linesearch\+Newton\+Iteration\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Get the name of this solver. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa339d6}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}\label{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}} 
-\index{rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}!solve@{solve}}
-\index{solve@{solve}!rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}}
-\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily double rr\+::\+Linesearch\+Newton\+Iteration\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-solve the currently defined problem 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{rr\+::\+Steady\+State\+Solver}}.
+Implements \mbox{\hyperlink{classrr_1_1Registrable_a3f529e138fa0288622525bc13cd73c5f}{rr\+::\+Registrable}}.
 
 
 

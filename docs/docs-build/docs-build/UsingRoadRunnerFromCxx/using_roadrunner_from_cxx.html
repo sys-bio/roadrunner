@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using RoadRunner from C++ &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="rrPlugins" href="../rrplugins/introduction.html" />
+    <link rel="prev" title="Accessing the SBML Model Variables" href="../accessing_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using RoadRunner from C++</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-roadrunner-from-c">
+<h1>Using RoadRunner from C++<a class="headerlink" href="#using-roadrunner-from-c" title="Permalink to this heading"></a></h1>
+<p>Despite RoadRunner’s user interface being primarily in Python,
+RoadRunner is first and foremost a C++ library. It is therefore is possible to
+link roadrunner into an executable or library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to have already installed RoadRunner into a directory on your system.
+See <a class="reference internal" href="../Installation/installation.html#installing-roadrunner"><span class="std std-ref">Installing RoadRunner</span></a> section.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will also need to install <a class="reference external" href="https://cmake.org/download/">cmake</a> and add its
+“bin” directory to the PATH environment variable. You will know this is done
+if the command <cite>cmake –help</cite> works on the terminal/powershell.</p>
+</div>
+<p>The following is a very simple example of how to link
+roadrunner into an executable and run a simulation from C++.
+Create a new folder with whatever name seems appropriate and
+create the following files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├──<span class="w"> </span>CMakeLists.txt
+└──<span class="w"> </span>main.cpp
+</pre></div>
+</div>
+<p>The <cite>CMakeLists.txt</cite> file should contain the following:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.22</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="nb">project</span><span class="p">(</span><span class="s">UseRoadRunnerFromC</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c"># could be command line variables (-DROADRUNNER_INSTALL_PREFIX=...)</span>
+<span class="linenos"> 7</span><span class="nb">set</span><span class="p">(</span><span class="s">ROADRUNNER_INSTALL_PREFIX</span><span class="w"> </span><span class="s2">&quot;D:/roadrunner/roadrunner/roadrunner-install-rel&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="nb">set</span><span class="p">(</span><span class="s">LLVM_INSTALL_PREFIX</span><span class="w"> </span><span class="s2">&quot;D:/roadrunner/llvm-13.x/llvm-13.x-msvc2022-x64-rel&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_PREFIX_PATH</span>
+<span class="linenos">10</span><span class="w">        </span><span class="s2">&quot;${ROADRUNNER_INSTALL_PREFIX}/cmake&quot;</span><span class="w"> </span><span class="c"># needed because this is where poco installs config files to</span>
+<span class="linenos">11</span><span class="w">        </span><span class="s2">&quot;${ROADRUNNER_INSTALL_PREFIX}/lib/cmake&quot;</span><span class="w"> </span><span class="c"># all other normal packages install config files to here</span>
+<span class="linenos">12</span><span class="w">        </span><span class="p">)</span>
+<span class="linenos">13</span><span class="c"># for registering location of ImportRoadRunnerAndDependencies</span>
+<span class="linenos">14</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span><span class="w"> </span><span class="s2">&quot;${ROADRUNNER_INSTALL_PREFIX}/lib/cmake&quot;</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c"># Import roadrunner and all necessary dependencies for linking roadrunner.</span>
+<span class="linenos">17</span><span class="c"># This command is a roadrunner convenience cmake script which does all of the</span>
+<span class="linenos">18</span><span class="c"># calls to find_package(xxx, CONFIG) for us. If we didn&#39;t include this</span>
+<span class="linenos">19</span><span class="c"># script, we would manually need to call find_package for roadrunner-static</span>
+<span class="linenos">20</span><span class="c"># as well as roadrunner dependencies. Checkout The script</span>
+<span class="linenos">21</span><span class="c"># under &lt;rr_install_prefix&gt;/lib/cmake.</span>
+<span class="linenos">22</span><span class="nb">include</span><span class="p">(</span><span class="s">ImportRoadRunnerAndDependencies</span><span class="p">)</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="c"># add an executable</span>
+<span class="linenos">25</span><span class="nb">add_executable</span><span class="p">(</span><span class="s">UseRoadRunnerFromCxx</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="c"># link roadrunner-static. Note that we have configured roadrunner-static target (which is imported</span>
+<span class="linenos">28</span><span class="c"># under the alias roadrunner-static::roadrunner-static) with PUBLIC visibility, which means</span>
+<span class="linenos">29</span><span class="c"># all includes and transitive linked libraries are automatically handled by cmake.</span>
+<span class="linenos">30</span><span class="c"># without this, you would have to manually link roadrunner dependencies and manually</span>
+<span class="linenos">31</span><span class="c"># include roadrunner include directories with something like:</span>
+<span class="linenos">32</span><span class="c">#   - target_include_directories(UseRoadRunnerFromCxx PRIVATE &quot;${ROADRUNNER_INSTALL_PREFIX}/include&quot;)</span>
+<span class="linenos">33</span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">UseRoadRunnerFromCxx</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">roadrunner-static::roadrunner-static</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now you can use RoadRunner from C++.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rr/rrRoadRunner.h&quot;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">rr</span><span class="p">;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">getSBMLString</span><span class="p">(){</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&lt;?xml version=</span><span class="se">\&quot;</span><span class="s">1.0</span><span class="se">\&quot;</span><span class="s"> encoding=</span><span class="se">\&quot;</span><span class="s">UTF-8</span><span class="se">\&quot;</span><span class="s">?&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos"> 8</span><span class="w">           </span><span class="s">&quot;&lt;sbml xmlns=</span><span class="se">\&quot;</span><span class="s">http://www.sbml.org/sbml/level3/version2/core</span><span class="se">\&quot;</span><span class="s"> level=</span><span class="se">\&quot;</span><span class="s">3</span><span class="se">\&quot;</span><span class="s"> version=</span><span class="se">\&quot;</span><span class="s">2</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos"> 9</span><span class="w">           </span><span class="s">&quot;  &lt;model metaid=</span><span class="se">\&quot;</span><span class="s">_case00001</span><span class="se">\&quot;</span><span class="s"> id=</span><span class="se">\&quot;</span><span class="s">case00001</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">case00001</span><span class="se">\&quot;</span><span class="s"> timeUnits=</span><span class="se">\&quot;</span><span class="s">time</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">10</span><span class="w">           </span><span class="s">&quot;    &lt;listOfUnitDefinitions&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">11</span><span class="w">           </span><span class="s">&quot;      &lt;unitDefinition id=</span><span class="se">\&quot;</span><span class="s">volume</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">12</span><span class="w">           </span><span class="s">&quot;        &lt;listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">13</span><span class="w">           </span><span class="s">&quot;          &lt;unit kind=</span><span class="se">\&quot;</span><span class="s">litre</span><span class="se">\&quot;</span><span class="s"> exponent=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> scale=</span><span class="se">\&quot;</span><span class="s">0</span><span class="se">\&quot;</span><span class="s"> multiplier=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">14</span><span class="w">           </span><span class="s">&quot;        &lt;/listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">15</span><span class="w">           </span><span class="s">&quot;      &lt;/unitDefinition&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">16</span><span class="w">           </span><span class="s">&quot;      &lt;unitDefinition id=</span><span class="se">\&quot;</span><span class="s">substance</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">17</span><span class="w">           </span><span class="s">&quot;        &lt;listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">18</span><span class="w">           </span><span class="s">&quot;          &lt;unit kind=</span><span class="se">\&quot;</span><span class="s">mole</span><span class="se">\&quot;</span><span class="s"> exponent=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> scale=</span><span class="se">\&quot;</span><span class="s">0</span><span class="se">\&quot;</span><span class="s"> multiplier=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">19</span><span class="w">           </span><span class="s">&quot;        &lt;/listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">20</span><span class="w">           </span><span class="s">&quot;      &lt;/unitDefinition&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">21</span><span class="w">           </span><span class="s">&quot;      &lt;unitDefinition id=</span><span class="se">\&quot;</span><span class="s">time</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">22</span><span class="w">           </span><span class="s">&quot;        &lt;listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">23</span><span class="w">           </span><span class="s">&quot;          &lt;unit kind=</span><span class="se">\&quot;</span><span class="s">second</span><span class="se">\&quot;</span><span class="s"> exponent=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> scale=</span><span class="se">\&quot;</span><span class="s">0</span><span class="se">\&quot;</span><span class="s"> multiplier=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">24</span><span class="w">           </span><span class="s">&quot;        &lt;/listOfUnits&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">25</span><span class="w">           </span><span class="s">&quot;      &lt;/unitDefinition&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">26</span><span class="w">           </span><span class="s">&quot;    &lt;/listOfUnitDefinitions&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">27</span><span class="w">           </span><span class="s">&quot;    &lt;listOfCompartments&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">28</span><span class="w">           </span><span class="s">&quot;      &lt;compartment id=</span><span class="se">\&quot;</span><span class="s">compartment</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">compartment</span><span class="se">\&quot;</span><span class="s"> spatialDimensions=</span><span class="se">\&quot;</span><span class="s">3</span><span class="se">\&quot;</span><span class="s"> size=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> units=</span><span class="se">\&quot;</span><span class="s">volume</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">true</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">29</span><span class="w">           </span><span class="s">&quot;    &lt;/listOfCompartments&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">30</span><span class="w">           </span><span class="s">&quot;    &lt;listOfSpecies&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">31</span><span class="w">           </span><span class="s">&quot;      &lt;species id=</span><span class="se">\&quot;</span><span class="s">S1</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">S1</span><span class="se">\&quot;</span><span class="s"> compartment=</span><span class="se">\&quot;</span><span class="s">compartment</span><span class="se">\&quot;</span><span class="s"> initialAmount=</span><span class="se">\&quot;</span><span class="s">0.00015</span><span class="se">\&quot;</span><span class="s"> substanceUnits=</span><span class="se">\&quot;</span><span class="s">substance</span><span class="se">\&quot;</span><span class="s"> hasOnlySubstanceUnits=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s"> boundaryCondition=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">32</span><span class="w">           </span><span class="s">&quot;      &lt;species id=</span><span class="se">\&quot;</span><span class="s">S2</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">S2</span><span class="se">\&quot;</span><span class="s"> compartment=</span><span class="se">\&quot;</span><span class="s">compartment</span><span class="se">\&quot;</span><span class="s"> initialAmount=</span><span class="se">\&quot;</span><span class="s">0</span><span class="se">\&quot;</span><span class="s"> substanceUnits=</span><span class="se">\&quot;</span><span class="s">substance</span><span class="se">\&quot;</span><span class="s"> hasOnlySubstanceUnits=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s"> boundaryCondition=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">33</span><span class="w">           </span><span class="s">&quot;    &lt;/listOfSpecies&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">34</span><span class="w">           </span><span class="s">&quot;    &lt;listOfParameters&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">35</span><span class="w">           </span><span class="s">&quot;      &lt;parameter id=</span><span class="se">\&quot;</span><span class="s">k1</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">k1</span><span class="se">\&quot;</span><span class="s"> value=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">true</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">36</span><span class="w">           </span><span class="s">&quot;    &lt;/listOfParameters&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">37</span><span class="w">           </span><span class="s">&quot;    &lt;listOfReactions&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">38</span><span class="w">           </span><span class="s">&quot;      &lt;reaction id=</span><span class="se">\&quot;</span><span class="s">reaction1</span><span class="se">\&quot;</span><span class="s"> name=</span><span class="se">\&quot;</span><span class="s">reaction1</span><span class="se">\&quot;</span><span class="s"> reversible=</span><span class="se">\&quot;</span><span class="s">false</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">39</span><span class="w">           </span><span class="s">&quot;        &lt;listOfReactants&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">40</span><span class="w">           </span><span class="s">&quot;          &lt;speciesReference species=</span><span class="se">\&quot;</span><span class="s">S1</span><span class="se">\&quot;</span><span class="s"> stoichiometry=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">true</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">41</span><span class="w">           </span><span class="s">&quot;        &lt;/listOfReactants&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">42</span><span class="w">           </span><span class="s">&quot;        &lt;listOfProducts&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">43</span><span class="w">           </span><span class="s">&quot;          &lt;speciesReference species=</span><span class="se">\&quot;</span><span class="s">S2</span><span class="se">\&quot;</span><span class="s"> stoichiometry=</span><span class="se">\&quot;</span><span class="s">1</span><span class="se">\&quot;</span><span class="s"> constant=</span><span class="se">\&quot;</span><span class="s">true</span><span class="se">\&quot;</span><span class="s">/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">44</span><span class="w">           </span><span class="s">&quot;        &lt;/listOfProducts&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">45</span><span class="w">           </span><span class="s">&quot;        &lt;kineticLaw&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">46</span><span class="w">           </span><span class="s">&quot;          &lt;math xmlns=</span><span class="se">\&quot;</span><span class="s">http://www.w3.org/1998/Math/MathML</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">47</span><span class="w">           </span><span class="s">&quot;            &lt;apply&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">48</span><span class="w">           </span><span class="s">&quot;              &lt;times/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">49</span><span class="w">           </span><span class="s">&quot;              &lt;ci&gt; compartment &lt;/ci&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">50</span><span class="w">           </span><span class="s">&quot;              &lt;ci&gt; k1 &lt;/ci&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">51</span><span class="w">           </span><span class="s">&quot;              &lt;ci&gt; S1 &lt;/ci&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">52</span><span class="w">           </span><span class="s">&quot;            &lt;/apply&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">53</span><span class="w">           </span><span class="s">&quot;          &lt;/math&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">54</span><span class="w">           </span><span class="s">&quot;        &lt;/kineticLaw&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">55</span><span class="w">           </span><span class="s">&quot;      &lt;/reaction&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">56</span><span class="w">           </span><span class="s">&quot;    &lt;/listOfReactions&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">57</span><span class="w">           </span><span class="s">&quot;  &lt;/model&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="linenos">58</span><span class="w">           </span><span class="s">&quot;&lt;/sbml&gt;&quot;</span><span class="p">;</span>
+<span class="linenos">59</span><span class="p">}</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">62</span><span class="w">    </span><span class="n">RoadRunner</span><span class="w"> </span><span class="n">roadRunner</span><span class="p">(</span><span class="n">getSBMLString</span><span class="p">());</span>
+<span class="linenos">63</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">roadRunner</span><span class="p">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">64</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">65</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../accessing_model.html" class="btn btn-neutral float-left" title="Accessing the SBML Model Variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../rrplugins/introduction.html" class="btn btn-neutral float-right" title="rrPlugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

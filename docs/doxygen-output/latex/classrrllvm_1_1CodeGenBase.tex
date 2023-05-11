@@ -1,4 +1,4 @@
-\hypertarget{classrrllvm_1_1CodeGenBase}{}\doxysection{rrllvm\+::Code\+Gen\+Base\texorpdfstring{$<$}{<} Function\+Ptr\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrrllvm_1_1CodeGenBase}{}\doxysection{rrllvm\+::Code\+Gen\+Base$<$ Function\+Ptr\+Type $>$ Class Template Reference}
 \label{classrrllvm_1_1CodeGenBase}\index{rrllvm::CodeGenBase$<$ FunctionPtrType $>$@{rrllvm::CodeGenBase$<$ FunctionPtrType $>$}}
 
 
@@ -18,7 +18,7 @@ typedef Function\+Ptr\+Type {\bfseries Function\+Ptr}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a1c1b041c97065adb07f106341a248bfc}\label{classrrllvm_1_1CodeGenBase_a1c1b041c97065adb07f106341a248bfc}} 
+\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_aa1851ab17329f6a7854d4c7f9e230af9}\label{classrrllvm_1_1CodeGenBase_aa1851ab17329f6a7854d4c7f9e230af9}} 
 llvm\+::\+Function $\ast$ {\bfseries create\+Function} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
@@ -27,16 +27,16 @@ llvm\+::\+Function $\ast$ {\bfseries create\+Function} ()
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a1c131daf92705152a6cf09d08c107c9a}\label{classrrllvm_1_1CodeGenBase_a1c131daf92705152a6cf09d08c107c9a}} 
 {\bfseries Code\+Gen\+Base} (const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&mgc)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a86b8f0607cf199bfbcedd4d68a96ae75}\label{classrrllvm_1_1CodeGenBase_a86b8f0607cf199bfbcedd4d68a96ae75}} 
+\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_ac59757fb9d9fdb2f2d964a572c3bcae6}\label{classrrllvm_1_1CodeGenBase_ac59757fb9d9fdb2f2d964a572c3bcae6}} 
 virtual llvm\+::\+Value $\ast$ {\bfseries code\+Gen} ()=0
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a13efaf2abf3be680c16cc13b77e6cc86}\label{classrrllvm_1_1CodeGenBase_a13efaf2abf3be680c16cc13b77e6cc86}} 
+\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a3a0717caee609a520643ae7c9a7e7d5d}\label{classrrllvm_1_1CodeGenBase_a3a0717caee609a520643ae7c9a7e7d5d}} 
 {\footnotesize template$<$size\+\_\+t N$>$ }\\llvm\+::\+Basic\+Block $\ast$ {\bfseries code\+Gen\+Header} (const char $\ast$function\+Name, llvm\+::\+Type $\ast$ret\+Type, llvm\+::\+Type $\ast$(\&arg\+Types)\mbox{[}N\mbox{]}, const char $\ast$(\&arg\+Names)\mbox{[}N\mbox{]}, llvm\+::\+Value $\ast$(\&args)\mbox{[}N\mbox{]})
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_aad34a1df81ff99ee0c20e7de8cba89f2}\label{classrrllvm_1_1CodeGenBase_aad34a1df81ff99ee0c20e7de8cba89f2}} 
-llvm\+::\+Basic\+Block $\ast$ {\bfseries code\+Gen\+Void\+Model\+Data\+Header} (const char $\ast$function\+Name, llvm\+::\+Value $\ast$\&model\+Data)
+\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a3fcef26eb9a2eecf5f7cf332f2b41d8b}\label{classrrllvm_1_1CodeGenBase_a3fcef26eb9a2eecf5f7cf332f2b41d8b}} 
+llvm\+::\+Basic\+Block $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_a3fcef26eb9a2eecf5f7cf332f2b41d8b}{code\+Gen\+Void\+Model\+Data\+Header}} (const char $\ast$function\+Name, llvm\+::\+Value $\ast$\&model\+Data)
 \begin{DoxyCompactList}\small\item\em the most common type of generated function takes a Model\+Data$\ast$, and returns void. \end{DoxyCompactList}\item 
-llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_a85538605d4b0d3dc1f6e1a69afe6eb8e}{verify\+Function}} ()
+llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_ae2c5677c9b195984feb6c3a06aa801bd}{verify\+Function}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -45,22 +45,22 @@ llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_a85538605d
 const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \& {\bfseries model\+Gen\+Context}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_afb6ef03ee896534cde79895141a8a666}\label{classrrllvm_1_1CodeGenBase_afb6ef03ee896534cde79895141a8a666}} 
-const libsbml\+::\+Model $\ast$ {\bfseries model}
+const libsbml\+::\+Model $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_afb6ef03ee896534cde79895141a8a666}{model}}
 \begin{DoxyCompactList}\small\item\em could potentially be null, everything else is guaranteed to be valid \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_ae3d653d51c1ca5840b48d2ebcecbcbd5}\label{classrrllvm_1_1CodeGenBase_ae3d653d51c1ca5840b48d2ebcecbcbd5}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} \& {\bfseries data\+Symbols}
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} \& {\bfseries data\+Symbols}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a76bc0630ead4ce14f0d09bad805da8e4}\label{classrrllvm_1_1CodeGenBase_a76bc0630ead4ce14f0d09bad805da8e4}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{LLVMModel\+Symbols}} \& {\bfseries model\+Symbols}
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{L\+L\+V\+M\+Model\+Symbols}} \& {\bfseries model\+Symbols}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a3eba81738ceb5e5fa7542b0862fac5d3}\label{classrrllvm_1_1CodeGenBase_a3eba81738ceb5e5fa7542b0862fac5d3}} 
-llvm\+::\+LLVMContext \& {\bfseries context}
+llvm\+::\+L\+L\+V\+M\+Context \& {\bfseries context}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a9b4d2847b012317dd134feac72211b5c}\label{classrrllvm_1_1CodeGenBase_a9b4d2847b012317dd134feac72211b5c}} 
 llvm\+::\+Module $\ast$ {\bfseries module}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a36a54f70488b5dc597b63d51b6339793}\label{classrrllvm_1_1CodeGenBase_a36a54f70488b5dc597b63d51b6339793}} 
-llvm\+::\+IRBuilder \& {\bfseries builder}
+llvm\+::\+I\+R\+Builder \& {\bfseries builder}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a0020335232a3ac90dd100aea8a014291}\label{classrrllvm_1_1CodeGenBase_a0020335232a3ac90dd100aea8a014291}} 
 llvm\+::\+Function $\ast$ {\bfseries function}
@@ -68,24 +68,25 @@ llvm\+::\+Function $\ast$ {\bfseries function}
 llvm\+::legacy\+::\+Function\+Pass\+Manager $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_addedde72248fde005bff3060843de531}{function\+Pass\+Manager}}
 \begin{DoxyCompactList}\small\item\em function pass manager. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a747be8f3c35284547ad6f31b36736471}\label{classrrllvm_1_1CodeGenBase_a747be8f3c35284547ad6f31b36736471}} 
-const unsigned {\bfseries options}
+const unsigned \mbox{\hyperlink{classrrllvm_1_1CodeGenBase_a747be8f3c35284547ad6f31b36736471}{options}}
 \begin{DoxyCompactList}\small\item\em the options bit field that was passed into the top level load method. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$typename Function\+Ptr\+Type$>$\newline
 class rrllvm\+::\+Code\+Gen\+Base$<$ Function\+Ptr\+Type $>$}
+
 a convenience class to pull the vars out of a context, and store them as ivars. 
 
 It can get tedious alwasy typing mgc.\+get\+This and mgc.\+get\+That. Furthermore, its faster to access them as ivars as it does not incur a func call each time. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_a85538605d4b0d3dc1f6e1a69afe6eb8e}\label{classrrllvm_1_1CodeGenBase_a85538605d4b0d3dc1f6e1a69afe6eb8e}} 
+\mbox{\Hypertarget{classrrllvm_1_1CodeGenBase_ae2c5677c9b195984feb6c3a06aa801bd}\label{classrrllvm_1_1CodeGenBase_ae2c5677c9b195984feb6c3a06aa801bd}} 
 \index{rrllvm::CodeGenBase$<$ FunctionPtrType $>$@{rrllvm::CodeGenBase$<$ FunctionPtrType $>$}!verifyFunction@{verifyFunction}}
 \index{verifyFunction@{verifyFunction}!rrllvm::CodeGenBase$<$ FunctionPtrType $>$@{rrllvm::CodeGenBase$<$ FunctionPtrType $>$}}
 \doxysubsubsection{\texorpdfstring{verifyFunction()}{verifyFunction()}}
 {\footnotesize\ttfamily template$<$typename Function\+Ptr\+Type $>$ \\
-llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase}{rrllvm\+::\+Code\+Gen\+Base}}$<$ Function\+Ptr\+Type $>$\+::verify\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+llvm\+::\+Function$\ast$ \mbox{\hyperlink{classrrllvm_1_1CodeGenBase}{rrllvm\+::\+Code\+Gen\+Base}}$<$ Function\+Ptr\+Type $>$\+::verify\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
 verify\+Function -\/ Check a function for errors, printing messages on stderr. Return true if the function is corrupt.
 

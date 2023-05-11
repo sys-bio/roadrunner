@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monte Carlo bootstrap algorithm Plugin &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Nelder-Mead algorithm Plugin" href="rrplugins_NM_plugin.html" />
+    <link rel="prev" title="Levenberg-Marquardt algorithm Plugin" href="rrplugins_LM_plugin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="introduction.html">rrPlugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_architecture.html">rrPlugins Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_add_noise_plugin.html">Add Noise Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_auto_plugin.html">AUTO2000 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_chisquare_plugin.html">Chi Square Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_LM_plugin.html">Levenberg-Marquardt algorithm Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Monte Carlo bootstrap algorithm Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monte-carlo-introduction">Monte Carlo Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monte-carlo-plugin-properties">Monte Carlo Plugin Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monte-carlo-plugin-events">Monte Carlo Plugin Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-execute-function">The execute Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_NM_plugin.html">Nelder-Mead algorithm Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrplugins_testmodel_plugin.html">Test Model Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#dataseries">DataSeries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="introduction.html">rrPlugins</a></li>
+      <li class="breadcrumb-item active">Monte Carlo bootstrap algorithm Plugin</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rrplugins/rrplugins_monte_carlo_plugin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="monte-carlo-bootstrap-algorithm-plugin">
+<h1>Monte Carlo bootstrap algorithm Plugin<a class="headerlink" href="#monte-carlo-bootstrap-algorithm-plugin" title="Permalink to this heading"></a></h1>
+<section id="monte-carlo-introduction">
+<h2>Monte Carlo Introduction<a class="headerlink" href="#monte-carlo-introduction" title="Permalink to this heading"></a></h2>
+<p>The Monte Carlo plugin is used to obtain estimates of the confidence limits for a model’s parameters. This is in the context where experimental data exists and a parameter minimization method, such as Levenberg-Marquardt or Nelder-Mead has already been used in order to find a parameter minimum.</p>
+<p>The Monte Carlo algorithm is used subsequently at this minimum and will give an estimate of parameter confidence limits corresponding to the variance in the original experimental data.</p>
+<p>The plugin has properties such as the size of the Monte Carlo population, minimization algorithm to use (e.g. Nelder-Mead or Levenberg-Marquardt), and on output, confidence limits for each involved parameter.</p>
+<p>Plugin properties are documented in more detail in the next section.</p>
+</section>
+<section id="monte-carlo-plugin-properties">
+<h2>Monte Carlo Plugin Properties<a class="headerlink" href="#monte-carlo-plugin-properties" title="Permalink to this heading"></a></h2>
+<p>Available properties in the Monte Carlo plugin are listed in the table below.</p>
+<ol class="arabic simple">
+<li><p>SBML: SBML document as a string. Model to be used by the Monte Carlo plugin.</p></li>
+<li><p>ExperimentalData: Input data.</p></li>
+<li><p>InputParameterList: Parameters to estimate confidence limits for.</p></li>
+<li><p>MonteCarloParameters: Parameters obtained from a Monte Carlo session.</p></li>
+<li><p>ConfidenceLimits: Confidence limits for each fitted parameter. The confidence limits are calculated at a 95% confidence level.</p></li>
+<li><p>ExperimentalDataSelectionList: Selection list for experimental data.</p></li>
+<li><p>FittedDataSelectionList: Selection list for model data.</p></li>
+<li><p>NrOfMCRuns: Number of Monte Carlo data sets to generate and use.</p></li>
+<li><p>MinimizerPlugin: Minimizer used by the Monte Carlo Engine, e.g. ”Levenberg_Marquardt”.</p></li>
+</ol>
+</section>
+<section id="monte-carlo-plugin-events">
+<h2>Monte Carlo Plugin Events<a class="headerlink" href="#monte-carlo-plugin-events" title="Permalink to this heading"></a></h2>
+<p>The Monte Carlo plugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events.
+The available data variables for each event are internally treated as pass through variables, so any data, for any of the events, assigned prior to the plugins execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function.</p>
+<ol class="arabic simple">
+<li><p>PluginStarted: Signals to application that the plugin has started applying noise on data. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginProgress: Communicates progress of noise generation. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+<li><p>PluginFinished: Signals to application that execution of the plugin has finished. Both parameters are pass through parameters and are unused internally by the plugin.</p></li>
+</ol>
+</section>
+<section id="the-execute-function">
+<h2>The execute Function<a class="headerlink" href="#the-execute-function" title="Permalink to this heading"></a></h2>
+<p>The execute() function will start the Monte Carlo algorithm. Depending on the problem at hand, the algorithm may run for a long time.
+The execute(), method supports a boolean argument indicating if the execution of the plugin work will be done in a thread, or not. Threading is fully implemented in the Monte Carlo plugin.
+The inThread argument defaults to false.
+Each generated Monte Carlo dataset is available in a file named, MCDataSets.dat (saved in current working directory).</p>
+</section>
+<section id="python-examples">
+<h2>Python examples<a class="headerlink" href="#python-examples" title="Permalink to this heading"></a></h2>
+<p>The following Python script illustrates how the plugin can be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>from rrplugins import *
+import matplotlib.pyplot as plt
+
+try:
+    #Load plugins
+    modelP      = Plugin(&quot;tel_test_model&quot;)
+    nP          = Plugin(&quot;tel_add_noise&quot;)
+    chiP        = Plugin(&quot;tel_chisquare&quot;)
+    lmP         = Plugin(&quot;tel_levenberg_marquardt&quot;)
+    nmP         = Plugin(&quot;tel_nelder_mead&quot;)
+    mcP         = Plugin(&quot;tel_monte_carlo_bs&quot;)
+
+    #========== EVENT FUNCTION SETUP ===========================
+    def myEventFunction(ignore):
+        # Get the fitted and residual data
+        experimentalData    = lmP.getProperty (&quot;ExperimentalData&quot;).toNumpy
+        fittedData          = lmP.getProperty (&quot;FittedData&quot;).toNumpy
+        residuals           = lmP.getProperty (&quot;Residuals&quot;).toNumpy
+
+        telplugins.plot(fittedData         [:,[0,1]], &quot;blue&quot;, &quot;-&quot;,    &quot;&quot;,    &quot;S1 Fitted&quot;)
+        telplugins.plot(fittedData         [:,[0,2]], &quot;blue&quot;, &quot;-&quot;,    &quot;&quot;,    &quot;S2 Fitted&quot;)
+        telplugins.plot(residuals          [:,[0,1]], &quot;blue&quot;, &quot;None&quot;, &quot;x&quot;,   &quot;S1 Residual&quot;)
+        telplugins.plot(residuals          [:,[0,2]], &quot;red&quot;,  &quot;None&quot;, &quot;x&quot;,   &quot;S2 Residual&quot;)
+        telplugins.plot(experimentalData   [:,[0,1]], &quot;red&quot;,  &quot;&quot;,     &quot;*&quot;,   &quot;S1 Data&quot;)
+        telplugins.plot(experimentalData   [:,[0,2]], &quot;blue&quot;, &quot;&quot;,     &quot;*&quot;,   &quot;S2 Data&quot;)
+
+        print &#39;Minimization finished. \n==== Result ====&#39;
+        print getPluginResult(lmP.plugin)
+        telplugins.plt.show()
+
+    #Communicating event
+    myEvent =  NotifyEventEx(myEventFunction)
+
+    #Uncomment the event assignment below to plot each monte carlo data set
+    #assignOnFinishedEvent(lmP.plugin, myEvent, None)
+
+    #This will create test data with noise. We will use that as &#39;experimental&#39; data
+    modelP.execute()
+
+    #Setup Monte Carlo properties.
+    mcP.SBML                             = modelP.Model
+    mcP.ExperimentalData                 = modelP.TestDataWithNoise
+
+    #Select what minimization plugin to use
+    #mcP.MinimizerPlugin                  = &quot;Nelder-Mead&quot;
+    mcP.MinimizerPlugin                  = &quot;Levenberg-Marquardt&quot;
+    mcP.NrOfMCRuns                       = 100
+    mcP.InputParameterList               = [&quot;k1&quot;, 1.5]
+    mcP.FittedDataSelectionList          = &quot;[S1] [S2]&quot;
+    mcP.ExperimentalDataSelectionList    = &quot;[S1] [S2]&quot;
+
+    # Start Monte Carlo
+    mcP.execute()
+
+    print &#39;Monte Carlo Finished. \n==== Result ====&#39;
+    print mcP.MonteCarloParameters.getColumnHeaders()
+    paras = mcP.MonteCarloParameters.toNumpy
+    print paras
+
+    #Get mean (assuming normal distribution).
+    print &quot;The mean: k1= &quot; + `np.mean(paras)`
+
+
+    PropertyOfTypeListHandle = getPluginProperty(mcP.plugin, &quot;ConfidenceLimits&quot;)
+    print `getNamesFromPropertyList(PropertyOfTypeListHandle)`
+    aProperty = getFirstProperty(PropertyOfTypeListHandle)
+    if aProperty:
+        print getPropertyValueAsString(aProperty)
+
+    #Show MOnte Carlo parameters as a histogram
+    plt.hist(paras, 50, normed=True)
+    plt.show()
+
+    #Plot Monte Carlo data sets
+    #dataSeries =  DataSeries.readDataSeries(&quot;MCDataSets.dat&quot;)
+    #dataSeries.plot()
+
+    #Finally, view the manual and version
+    mcP.viewManual()
+    print &#39;Plugin version: &#39; + `mcP.getVersion()`
+
+
+except Exception as e:
+    print &#39;Problem.. &#39; + `e`
+</pre></div>
+</div>
+<img alt="../_images/MonteCarloOutput.png" src="../_images/MonteCarloOutput.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rrplugins_LM_plugin.html" class="btn btn-neutral float-left" title="Levenberg-Marquardt algorithm Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rrplugins_NM_plugin.html" class="btn btn-neutral float-right" title="Nelder-Mead algorithm Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

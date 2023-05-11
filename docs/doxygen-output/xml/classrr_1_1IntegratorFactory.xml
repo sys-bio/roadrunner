@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1IntegratorFactory" kind="class" language="C++" prot="public">
     <compoundname>rr::IntegratorFactory</compoundname>
     <basecompoundref refid="classrr_1_1RegistrationFactory" prot="public" virt="non-virtual">rr::RegistrationFactory</basecompoundref>
@@ -10,7 +10,6 @@
         <definition>IntegratorFactory &amp; rr::IntegratorFactory::getInstance</definition>
         <argsstring>()</argsstring>
         <name>getInstance</name>
-        <qualifiedname>rr::IntegratorFactory::getInstance</qualifiedname>
         <briefdescription>
 <para>get an instance of this <ref refid="classrr_1_1IntegratorFactory" kindref="compound">IntegratorFactory</ref>. </para>
         </briefdescription>
@@ -26,7 +25,6 @@
         <definition>void rr::IntegratorFactory::Register</definition>
         <argsstring>()</argsstring>
         <name>Register</name>
-        <qualifiedname>rr::IntegratorFactory::Register</qualifiedname>
         <briefdescription>
 <para>Registers all integrators at startup. </para>
         </briefdescription>
@@ -44,9 +42,7 @@ Is run at first instantiation of <ref refid="classrr_1_1RoadRunner" kindref="com
 <para>Constructs new integrators. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>JKM, WBC</para>
-</simplesect>
-This is a singleton class. All methods except for getInstance are fully determined by superclass FactoryWithRegistration. </para>
+<para>This is a singleton class. All methods except for getInstance are fully determined by superclass FactoryWithRegistration. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -72,11 +68,11 @@ This is a singleton class. All methods except for getInstance are fully determin
         <link refid="classrr_1_1RegistrationFactory"/>
       </node>
     </collaborationgraph>
-    <location file="IntegratorFactory.h" line="20" column="5" bodyfile="IntegratorFactory.h" bodystart="20" bodyend="38"/>
+    <location file="IntegratorFactory.h" line="20" column="49" bodyfile="IntegratorFactory.h" bodystart="20" bodyend="38"/>
     <listofallmembers>
       <member refid="classrr_1_1RegistrationFactory_1aab8247a922fa2b4d8d2293b129fa5582" prot="public" virt="virtual"><scope>rr::IntegratorFactory</scope><name>description</name></member>
       <member refid="classrr_1_1IntegratorFactory_1a3bd934950b0c1523d8c1b482bb85ab15" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getInstance</name></member>
-      <member refid="classrr_1_1RegistrationFactory_1a6954cabeba404df4ca10dd5b43259967" prot="public" virt="non-virtual" ambiguityscope="rr::RegistrationFactory::"><scope>rr::IntegratorFactory</scope><name>getInstance</name></member>
+      <member refid="classrr_1_1RegistrationFactory_1ae45f4f0ee24b8eed1481ff11cac5822c" prot="public" virt="non-virtual" ambiguityscope="rr::RegistrationFactory::"><scope>rr::IntegratorFactory</scope><name>getInstance</name></member>
       <member refid="classrr_1_1RegistrationFactory_1ac5a37f51c2af354b527ac1a3e4d36554" prot="public" virt="virtual"><scope>rr::IntegratorFactory</scope><name>hint</name></member>
       <member refid="classrr_1_1RegistrationFactory_1ab5399075e167b9af65a5cf0f52106594" prot="public" virt="virtual"><scope>rr::IntegratorFactory</scope><name>name</name></member>
       <member refid="classrr_1_1RegistrationFactory_1af6a9a68a5895f4da2bf3f57872b09bd4" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>New</name></member>

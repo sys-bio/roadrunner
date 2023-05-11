@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steady State Solver Class &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SelectionRecord" href="cls_SelectionRecord.html" />
+    <link rel="prev" title="Integrator Class" href="cls_Integrator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Integrator.html">Integrator Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Steady State Solver Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.SteadyStateSolver"><code class="docutils literal notranslate"><span class="pre">roadrunner.SteadyStateSolver</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nleq2">NLEQ2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.allow_presimulation"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.allow_presimulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.presimulation_maximum_steps"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.presimulation_maximum_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.presimulation_time"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.presimulation_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.allow_approx"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.allow_approx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.approx_tolerance"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.approx_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.approx_maximum_steps"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.approx_maximum_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.approx_time"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.approx_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.broyden_method"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.broyden_method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.linearity"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.linearity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.maximum_iterations"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.maximum_iterations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.minimum_damping"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.minimum_damping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.relative_tolerance"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.relative_tolerance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#SteadyStateSolver.solve"><code class="docutils literal notranslate"><span class="pre">SteadyStateSolver.solve()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SelectionRecord.html">SelectionRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Misc.html">Miscellaneous Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_PyConservedMoietyConverter.html">Conserved Moiety Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">Steady State Solver Class</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/PythonAPIReference/cls_SteadyStateSolver.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="steady-state-solver-class">
+<h1>Steady State Solver Class<a class="headerlink" href="#steady-state-solver-class" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="roadrunner.SteadyStateSolver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">SteadyStateSolver</span></span><a class="headerlink" href="#roadrunner.SteadyStateSolver" title="Permalink to this definition"></a></dt>
+<dd><p>A Steady State Solver gives the steady states of involved species. Currently, libRoadRunner supports NLEQ2 solver. For solver related methods, refer to <a class="reference external" href="http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class">http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class</a>.</p>
+</dd></dl>
+
+<section id="nleq2">
+<h2>NLEQ2<a class="headerlink" href="#nleq2" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><p>NLEQ2 is a non-linear equation solver which uses a global Newton method with adaptive damping strategies (see <a class="reference external" href="http://www.zib.de/weimann/NewtonLib/index.html">http://www.zib.de/weimann/NewtonLib/index.html</a>).</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.allow_presimulation">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">allow_presimulation</span></span><a class="headerlink" href="#SteadyStateSolver.allow_presimulation" title="Permalink to this definition"></a></dt>
+<dd><p>Flag for starting steady state analysis with simulation. This flag does not affect the usage of approximation routine when the default steaty state solver fails. Default value is false.</p>
+<p>To enable, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;allow_presimulation&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.presimulation_maximum_steps">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">presimulation_maximum_steps</span></span><a class="headerlink" href="#SteadyStateSolver.presimulation_maximum_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of steps that can be taken for presimulation before steady state analysis. Takes priority over presimulation_time. Only used when allow_presimulation is True. Default value is 100.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;presimulation_maximum_steps&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.presimulation_time">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">presimulation_time</span></span><a class="headerlink" href="#SteadyStateSolver.presimulation_time" title="Permalink to this definition"></a></dt>
+<dd><p>End time for presimulation steady state analysis. Only used when allow_presimulation is True. Default value is 100.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;presimulation_time&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.allow_approx">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">allow_approx</span></span><a class="headerlink" href="#SteadyStateSolver.allow_approx" title="Permalink to this definition"></a></dt>
+<dd><p>Flag for using steady state approximation routine when steady state solver fails. Approximation routine will run only when the default solver fails to fine a solution. This flag does not affect usage of approximation routine for pre-simulation. Default is True.</p>
+<p>To disable, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;allow_approx&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.approx_tolerance">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">approx_tolerance</span></span><a class="headerlink" href="#SteadyStateSolver.approx_tolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Tolerance for steady state approximation routine. Absolute tolerance used by steady state approximation routine. Only used when steady state approximation routine is used. Default value is 1e-12.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;approx_tolerance&quot;</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.approx_maximum_steps">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">approx_maximum_steps</span></span><a class="headerlink" href="#SteadyStateSolver.approx_maximum_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of steps that can be taken for steady state approximation routine. Takes priority over approx_time. Only used when steady state approximation routine is used. Default value is 10000.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;approx_maximum_steps&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.approx_time">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">approx_time</span></span><a class="headerlink" href="#SteadyStateSolver.approx_time" title="Permalink to this definition"></a></dt>
+<dd><p>End time for steady state approximation routine. approx_maximum_steps takes priority. Only used when steady state approximation routine is used. Default value is 10000.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;approx_time&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.broyden_method">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">broyden_method</span></span><a class="headerlink" href="#SteadyStateSolver.broyden_method" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Switches on Broyden method, which is a quasi-Newton approximation for rank-1 updates. Default value is 0.</p>
+<p>To enable, type:</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;broyden_method&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.linearity">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">linearity</span></span><a class="headerlink" href="#SteadyStateSolver.linearity" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies linearity of the problem. 1 is for linear problem and 4 is for extremly nonlinear problem. Default value is 3.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;linearity&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.maximum_iterations">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">maximum_iterations</span></span><a class="headerlink" href="#SteadyStateSolver.maximum_iterations" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum number of iterations the solver is allowed to use. Iteration caps off at the maximum, regardless of whether a solution has been reached. Default value is 100.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;maximum_iterations&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.minimum_damping">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">minimum_damping</span></span><a class="headerlink" href="#SteadyStateSolver.minimum_damping" title="Permalink to this definition"></a></dt>
+<dd><p>The minimum damping factor used by the algorithm. Default value is 1e-4.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;minimum_damping&quot;</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SteadyStateSolver.relative_tolerance">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">relative_tolerance</span></span><a class="headerlink" href="#SteadyStateSolver.relative_tolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Specifies the relative tolerance used by the solver. Default value is 1e-16.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;relative_tolerance&quot;</span><span class="p">,</span> <span class="mf">1e-15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SteadyStateSolver.solve">
+<span class="sig-prename descclassname"><span class="pre">SteadyStateSolver.</span></span><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SteadyStateSolver.solve" title="Permalink to this definition"></a></dt>
+<dd><p>Main solver routine</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cls_Integrator.html" class="btn btn-neutral float-left" title="Integrator Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cls_SelectionRecord.html" class="btn btn-neutral float-right" title="SelectionRecord" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

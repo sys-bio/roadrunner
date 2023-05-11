@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CompiledModelGenerator" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::CompiledModelGenerator</compoundname>
     <derivedcompoundref refid="classrr_1_1CModelGenerator" prot="public" virt="non-virtual">rr::CModelGenerator</derivedcompoundref>
@@ -10,7 +10,6 @@
         <definition>ls::LibStructural* rr::CompiledModelGenerator::mLibStruct</definition>
         <argsstring></argsstring>
         <name>mLibStruct</name>
-        <qualifiedname>rr::CompiledModelGenerator::mLibStruct</qualifiedname>
         <briefdescription>
 <para>Refernce to libstruct library this are set by createModel, and for the time being remain after createModel completes. </para>
         </briefdescription>
@@ -25,7 +24,6 @@
         <definition>NOMSupport* rr::CompiledModelGenerator::mNOM</definition>
         <argsstring></argsstring>
         <name>mNOM</name>
-        <qualifiedname>rr::CompiledModelGenerator::mNOM</qualifiedname>
         <briefdescription>
 <para>Object that provide some wrappers and new &quot;NOM&quot; functions. </para>
         </briefdescription>
@@ -41,7 +39,6 @@
         <definition>bool rr::CompiledModelGenerator::mComputeAndAssignConsevationLaws</definition>
         <argsstring></argsstring>
         <name>mComputeAndAssignConsevationLaws</name>
-        <qualifiedname>rr::CompiledModelGenerator::mComputeAndAssignConsevationLaws</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -55,7 +52,6 @@
         <definition>const std::string rr::CompiledModelGenerator::mFixAmountCompartments</definition>
         <argsstring></argsstring>
         <name>mFixAmountCompartments</name>
-        <qualifiedname>rr::CompiledModelGenerator::mFixAmountCompartments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -69,7 +65,6 @@
         <definition>StringList rr::CompiledModelGenerator::mWarnings</definition>
         <argsstring></argsstring>
         <name>mWarnings</name>
-        <qualifiedname>rr::CompiledModelGenerator::mWarnings</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -83,7 +78,6 @@
         <definition>ModelSymbols rr::CompiledModelGenerator::ms</definition>
         <argsstring></argsstring>
         <name>ms</name>
-        <qualifiedname>rr::CompiledModelGenerator::ms</qualifiedname>
         <briefdescription>
 <para>hold all the symbolic (AKA metadata) information in the model The idea is that all the memebers of this class will be const, and the entire thing will be created anew each time createModel is called. </para>
         </briefdescription>
@@ -101,7 +95,6 @@
         <definition>rr::CompiledModelGenerator::CompiledModelGenerator</definition>
         <argsstring>()</argsstring>
         <name>CompiledModelGenerator</name>
-        <qualifiedname>rr::CompiledModelGenerator::CompiledModelGenerator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -115,7 +108,6 @@
         <definition>rr::CompiledModelGenerator::~CompiledModelGenerator</definition>
         <argsstring>()</argsstring>
         <name>~CompiledModelGenerator</name>
-        <qualifiedname>rr::CompiledModelGenerator::~CompiledModelGenerator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -129,7 +121,6 @@
         <definition>std::string rr::CompiledModelGenerator::substituteTerms</definition>
         <argsstring>(const std::string &amp;reactionName, const std::string &amp;inputEquation, bool bFixAmounts)</argsstring>
         <name>substituteTerms</name>
-        <qualifiedname>rr::CompiledModelGenerator::substituteTerms</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>reactionName</declname>
@@ -155,7 +146,6 @@
         <definition>std::string rr::CompiledModelGenerator::substituteTerms</definition>
         <argsstring>(const int &amp;numReactions, const std::string &amp;reactionName, const std::string &amp;equation)</argsstring>
         <name>substituteTerms</name>
-        <qualifiedname>rr::CompiledModelGenerator::substituteTerms</qualifiedname>
         <param>
           <type>const int &amp;</type>
           <declname>numReactions</declname>
@@ -181,7 +171,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertUserFunctionExpression</definition>
         <argsstring>(const std::string &amp;equation)=0</argsstring>
         <name>convertUserFunctionExpression</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertUserFunctionExpression</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a483fbc5e4649d323ce37297b50ab5ae6">convertUserFunctionExpression</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -200,7 +189,6 @@
         <definition>virtual void rr::CompiledModelGenerator::substituteEquation</definition>
         <argsstring>(const std::string &amp;reactionName, Scanner &amp;s, CodeBuilder &amp;sb)=0</argsstring>
         <name>substituteEquation</name>
-        <qualifiedname>rr::CompiledModelGenerator::substituteEquation</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a42ccf7a1941fcda9ccdd8e6f42b29367">substituteEquation</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -227,7 +215,6 @@
         <definition>virtual void rr::CompiledModelGenerator::substituteWords</definition>
         <argsstring>(const std::string &amp;reactionName, bool bFixAmounts, Scanner &amp;s, CodeBuilder &amp;sb)=0</argsstring>
         <name>substituteWords</name>
-        <qualifiedname>rr::CompiledModelGenerator::substituteWords</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ac9bed9df26da336b438a5f3bb1c3071b">substituteWords</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -258,7 +245,6 @@
         <definition>virtual void rr::CompiledModelGenerator::substituteToken</definition>
         <argsstring>(const std::string &amp;reactionName, bool bFixAmounts, Scanner &amp;s, CodeBuilder &amp;sb)=0</argsstring>
         <name>substituteToken</name>
-        <qualifiedname>rr::CompiledModelGenerator::substituteToken</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a6ab5030d3438b9eb8bace074feb2b804">substituteToken</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -289,7 +275,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::findSymbol</definition>
         <argsstring>(const std::string &amp;varName)=0</argsstring>
         <name>findSymbol</name>
-        <qualifiedname>rr::CompiledModelGenerator::findSymbol</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1aedfe74e73de81cfce5be8442c47d9f0c">findSymbol</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -308,7 +293,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeComputeAllRatesOfChange</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numIndependentSpecies, const int &amp;numDependentSpecies, ls::DoubleMatrix &amp;L0)=0</argsstring>
         <name>writeComputeAllRatesOfChange</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeComputeAllRatesOfChange</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sb</declname>
@@ -338,7 +322,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeComputeConservedTotals</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numFloatingSpecies, const int &amp;numDependentSpecies)=0</argsstring>
         <name>writeComputeConservedTotals</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeComputeConservedTotals</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a25f27c7ae55177925122ef6fbf1e97e2">writeComputeConservedTotals</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -365,7 +348,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeUpdateDependentSpecies</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numIndependentSpecies, const int &amp;numDependentSpecies, ls::DoubleMatrix &amp;L0)=0</argsstring>
         <name>writeUpdateDependentSpecies</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeUpdateDependentSpecies</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sb</declname>
@@ -395,7 +377,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeUserDefinedFunctions</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeUserDefinedFunctions</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeUserDefinedFunctions</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a7ac36662ed5955b92207b8e5fcea2cc9">writeUserDefinedFunctions</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -414,7 +395,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeResetEvents</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numEvents)=0</argsstring>
         <name>writeResetEvents</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeResetEvents</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1af2cff64b274e3e4f96dfa5d237b0a1a9">writeResetEvents</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -437,7 +417,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeSetConcentration</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeSetConcentration</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeSetConcentration</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a419bd7c6e71dcca3bcedac846cdb9010">writeSetConcentration</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -456,7 +435,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeGetConcentration</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeGetConcentration</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeGetConcentration</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ac3def860efdaddce98a2d8e851c7b7f5">writeGetConcentration</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -475,7 +453,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeConvertToAmounts</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeConvertToAmounts</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeConvertToAmounts</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a96f805ae9c0bfdbbabe7f5c49e3b64c8">writeConvertToAmounts</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -494,7 +471,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeConvertToConcentrations</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeConvertToConcentrations</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeConvertToConcentrations</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a3c4adef7181079d076482fa1b2c2649c">writeConvertToConcentrations</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -513,7 +489,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeProperties</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeProperties</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeProperties</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1adb815adcc488c88dd8344f38757b7583">writeProperties</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -532,7 +507,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeAccessors</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeAccessors</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeAccessors</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ad7f67f8b36645aa4a45efa2b070fdee5">writeAccessors</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -551,7 +525,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeOutVariables</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeOutVariables</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeOutVariables</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ad422de27ae0f1bb98b3fac4979ff1d0c">writeOutVariables</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -570,7 +543,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeClassHeader</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeClassHeader</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeClassHeader</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a438c961e2ccc982f70add0042dfa5d4a">writeClassHeader</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -589,7 +561,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeTestConstraints</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeTestConstraints</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeTestConstraints</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1aa5e0e8cf7e7d5585ac2ad50b0178a9ce">writeTestConstraints</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -608,7 +579,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeEvalInitialAssignments</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)=0</argsstring>
         <name>writeEvalInitialAssignments</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeEvalInitialAssignments</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a6a987a5b2c6d9d96bba717cb799b2590">writeEvalInitialAssignments</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -631,7 +601,6 @@
         <definition>virtual int rr::CompiledModelGenerator::writeComputeRules</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)=0</argsstring>
         <name>writeComputeRules</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeComputeRules</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a54f7296aa81ec8d507d294f00762a94d">writeComputeRules</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -654,7 +623,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeComputeReactionRates</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)=0</argsstring>
         <name>writeComputeReactionRates</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeComputeReactionRates</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a2ecd298a0590bc4a627927dfe2a6c764">writeComputeReactionRates</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -677,7 +645,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeEvalEvents</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numEvents, const int &amp;numFloatingSpecies)=0</argsstring>
         <name>writeEvalEvents</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeEvalEvents</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ac3ffbba366e5e0227dd4dd1163cb2e59">writeEvalEvents</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -704,7 +671,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeEvalModel</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions, const int &amp;numIndependentSpecies, const int &amp;numFloatingSpecies, const int &amp;numOfRules)=0</argsstring>
         <name>writeEvalModel</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeEvalModel</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a2bbf6198f45838bc787bf337e4f72215">writeEvalModel</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -739,7 +705,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeEventAssignments</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions, const int &amp;numEvents)=0</argsstring>
         <name>writeEventAssignments</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeEventAssignments</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a1176724f1f2f2e3fd6331f7a61e16624">writeEventAssignments</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -766,7 +731,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeSetParameterValues</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)=0</argsstring>
         <name>writeSetParameterValues</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeSetParameterValues</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1aeebf25492388e79854a78951c570ee50">writeSetParameterValues</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -789,7 +753,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeSetCompartmentVolumes</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeSetCompartmentVolumes</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeSetCompartmentVolumes</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a735c55bc1c82c62b427c5b5327337595">writeSetCompartmentVolumes</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -808,7 +771,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeSetBoundaryConditions</definition>
         <argsstring>(CodeBuilder &amp;sb)=0</argsstring>
         <name>writeSetBoundaryConditions</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeSetBoundaryConditions</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a5fd8e060e80d575ff6af35ce36c3f19e">writeSetBoundaryConditions</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -827,7 +789,6 @@
         <definition>virtual void rr::CompiledModelGenerator::writeSetInitialConditions</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numFloatingSpecies)=0</argsstring>
         <name>writeSetInitialConditions</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeSetInitialConditions</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a1969434759671f515c749e227b51fcf1">writeSetInitialConditions</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -850,7 +811,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertCompartmentToC</definition>
         <argsstring>(const std::string &amp;compartmentName)=0</argsstring>
         <name>convertCompartmentToC</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertCompartmentToC</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ae9167c028846f7c0ea7df0168b9c189f">convertCompartmentToC</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -869,7 +829,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertSpeciesToBc</definition>
         <argsstring>(const std::string &amp;speciesName)=0</argsstring>
         <name>convertSpeciesToBc</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertSpeciesToBc</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a0d027e1541f8d79b86da572dcce0b423">convertSpeciesToBc</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -888,7 +847,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertSpeciesToY</definition>
         <argsstring>(const std::string &amp;speciesName)=0</argsstring>
         <name>convertSpeciesToY</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertSpeciesToY</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1a995f517ee547e1b41876b349ac659da5">convertSpeciesToY</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -907,7 +865,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertSymbolToC</definition>
         <argsstring>(const std::string &amp;compartmentName)=0</argsstring>
         <name>convertSymbolToC</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertSymbolToC</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1ad67c07e198d113ca60e4a2b0d0e7c335">convertSymbolToC</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -926,7 +883,6 @@
         <definition>virtual std::string rr::CompiledModelGenerator::convertSymbolToGP</definition>
         <argsstring>(const std::string &amp;parameterName)=0</argsstring>
         <name>convertSymbolToGP</name>
-        <qualifiedname>rr::CompiledModelGenerator::convertSymbolToGP</qualifiedname>
         <reimplementedby refid="classrr_1_1CModelGenerator_1aa5572fadedda65e17ffead73df74c266">convertSymbolToGP</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -945,7 +901,6 @@
         <definition>void rr::CompiledModelGenerator::reset</definition>
         <argsstring>()</argsstring>
         <name>reset</name>
-        <qualifiedname>rr::CompiledModelGenerator::reset</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -959,7 +914,6 @@
         <definition>int rr::CompiledModelGenerator::numAdditionalRates</definition>
         <argsstring>()</argsstring>
         <name>numAdditionalRates</name>
-        <qualifiedname>rr::CompiledModelGenerator::numAdditionalRates</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -973,7 +927,6 @@
         <definition>std::string rr::CompiledModelGenerator::getInfo</definition>
         <argsstring>()</argsstring>
         <name>getInfo</name>
-        <qualifiedname>rr::CompiledModelGenerator::getInfo</qualifiedname>
         <briefdescription>
 <para>get various information about the model in a user displayable format. </para>
         </briefdescription>
@@ -988,7 +941,6 @@
         <definition>ls::DoubleMatrix * rr::CompiledModelGenerator::initializeL0</definition>
         <argsstring>(int &amp;nrRows, int &amp;nrCols)</argsstring>
         <name>initializeL0</name>
-        <qualifiedname>rr::CompiledModelGenerator::initializeL0</qualifiedname>
         <param>
           <type>int &amp;</type>
           <declname>nrRows</declname>
@@ -1010,7 +962,6 @@
         <definition>bool rr::CompiledModelGenerator::expressionContainsSymbol</definition>
         <argsstring>(ASTNode *ast, const std::string &amp;symbol)</argsstring>
         <name>expressionContainsSymbol</name>
-        <qualifiedname>rr::CompiledModelGenerator::expressionContainsSymbol</qualifiedname>
         <param>
           <type>ASTNode *</type>
           <declname>ast</declname>
@@ -1032,7 +983,6 @@
         <definition>bool rr::CompiledModelGenerator::expressionContainsSymbol</definition>
         <argsstring>(const std::string &amp;expression, const std::string &amp;symbol)</argsstring>
         <name>expressionContainsSymbol</name>
-        <qualifiedname>rr::CompiledModelGenerator::expressionContainsSymbol</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>expression</declname>
@@ -1054,7 +1004,6 @@
         <definition>const Symbol * rr::CompiledModelGenerator::getSpecies</definition>
         <argsstring>(const std::string &amp;id)</argsstring>
         <name>getSpecies</name>
-        <qualifiedname>rr::CompiledModelGenerator::getSpecies</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>id</declname>
@@ -1072,7 +1021,6 @@
         <definition>int rr::CompiledModelGenerator::readGlobalParameters</definition>
         <argsstring>()</argsstring>
         <name>readGlobalParameters</name>
-        <qualifiedname>rr::CompiledModelGenerator::readGlobalParameters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1086,7 +1034,6 @@
         <definition>void rr::CompiledModelGenerator::readLocalParameters</definition>
         <argsstring>(const int &amp;numReactions, std::vector&lt; int &gt; &amp;localParameterDimensions, int &amp;totalLocalParmeters)</argsstring>
         <name>readLocalParameters</name>
-        <qualifiedname>rr::CompiledModelGenerator::readLocalParameters</qualifiedname>
         <param>
           <type>const int &amp;</type>
           <declname>numReactions</declname>
@@ -1112,7 +1059,6 @@
         <definition>int rr::CompiledModelGenerator::readCompartments</definition>
         <argsstring>()</argsstring>
         <name>readCompartments</name>
-        <qualifiedname>rr::CompiledModelGenerator::readCompartments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1126,7 +1072,6 @@
         <definition>std::string rr::CompiledModelGenerator::writeDouble</definition>
         <argsstring>(const double &amp;value, const std::string &amp;format=&quot;%G&quot;)</argsstring>
         <name>writeDouble</name>
-        <qualifiedname>rr::CompiledModelGenerator::writeDouble</qualifiedname>
         <param>
           <type>const double &amp;</type>
           <declname>value</declname>
@@ -1151,7 +1096,6 @@
         <definition>ASTNode * rr::CompiledModelGenerator::cleanEquation</definition>
         <argsstring>(ASTNode *ast)</argsstring>
         <name>cleanEquation</name>
-        <qualifiedname>rr::CompiledModelGenerator::cleanEquation</qualifiedname>
         <param>
           <type>ASTNode *</type>
           <declname>ast</declname>
@@ -1170,7 +1114,6 @@
         <definition>std::string rr::CompiledModelGenerator::cleanEquation</definition>
         <argsstring>(const std::string &amp;equation)</argsstring>
         <name>cleanEquation</name>
-        <qualifiedname>rr::CompiledModelGenerator::cleanEquation</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>equation</declname>
@@ -1202,69 +1145,69 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="1">
-        <label>rr::CompiledModelGenerator</label>
-        <link refid="classrr_1_1CompiledModelGenerator"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>mNOM</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>mWarnings</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>ms</edgelabel>
-        </childnode>
-      </node>
       <node id="7">
-        <label>rr::IntStringHashTable</label>
-        <link refid="classrr_1_1IntStringHashTable"/>
+        <label>rr::SymbolList</label>
+        <link refid="classrr_1_1SymbolList"/>
         <childnode refid="8" relation="public-inheritance">
         </childnode>
       </node>
       <node id="4">
         <label>rr::ModelSymbols</label>
         <link refid="classrr_1_1ModelSymbols"/>
-        <childnode refid="3" relation="usage">
+        <childnode refid="2" relation="usage">
           <edgelabel>mDependentSpeciesList</edgelabel>
+          <edgelabel>mIndependentSpeciesList</edgelabel>
           <edgelabel>mFunctionNames</edgelabel>
           <edgelabel>mFunctionParameters</edgelabel>
-          <edgelabel>mIndependentSpeciesList</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>mBoundarySpeciesList</edgelabel>
-          <edgelabel>mCompartmentList</edgelabel>
-          <edgelabel>mConservationList</edgelabel>
-          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
-          <edgelabel>mGlobalParameterList</edgelabel>
-          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
-          <edgelabel>mReactionList</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
           <edgelabel>mRateRules</edgelabel>
         </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>mGlobalParameterList</edgelabel>
+          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
+          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
+          <edgelabel>mCompartmentList</edgelabel>
+          <edgelabel>mConservationList</edgelabel>
+          <edgelabel>mReactionList</edgelabel>
+          <edgelabel>mBoundarySpeciesList</edgelabel>
+        </childnode>
       </node>
-      <node id="2">
-        <label>rr::NOMSupport</label>
-        <link refid="classrr_1_1NOMSupport"/>
-      </node>
-      <node id="3">
-        <label>rr::StringList</label>
-        <link refid="classrr_1_1StringList"/>
+      <node id="6">
+        <label>std::map&lt; int, std::string &gt;</label>
       </node>
       <node id="5">
-        <label>rr::SymbolList</label>
-        <link refid="classrr_1_1SymbolList"/>
+        <label>rr::IntStringHashTable</label>
+        <link refid="classrr_1_1IntStringHashTable"/>
         <childnode refid="6" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="8">
-        <label>std::map&lt; int, std::string &gt;</label>
+      <node id="3">
+        <label>rr::NOMSupport</label>
+        <link refid="classrr_1_1NOMSupport"/>
       </node>
-      <node id="6">
+      <node id="8">
         <label>std::vector&lt; Symbol &gt;</label>
       </node>
+      <node id="2">
+        <label>rr::StringList</label>
+        <link refid="classrr_1_1StringList"/>
+      </node>
+      <node id="1">
+        <label>rr::CompiledModelGenerator</label>
+        <link refid="classrr_1_1CompiledModelGenerator"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mWarnings</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mNOM</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ms</edgelabel>
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="c/rrCompiledModelGenerator.h" line="31" column="1" bodyfile="c/rrCompiledModelGenerator.h" bodystart="32" bodyend="134"/>
+    <location file="c/rrCompiledModelGenerator.h" line="32" column="1" bodyfile="c/rrCompiledModelGenerator.h" bodystart="31" bodyend="134"/>
     <listofallmembers>
       <member refid="classrr_1_1CompiledModelGenerator_1ab26b2d6a05b3432f1b07b8bcdd4aa791" prot="protected" virt="non-virtual"><scope>rr::CompiledModelGenerator</scope><name>cleanEquation</name></member>
       <member refid="classrr_1_1CompiledModelGenerator_1ab5464d101e4cecb3d1d9e91fe079d58b" prot="protected" virt="non-virtual"><scope>rr::CompiledModelGenerator</scope><name>cleanEquation</name></member>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troubleshooting the Build &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial" href="../tutorial/tutorial.html" />
+    <link rel="prev" title="LLVM-13.x dependency" href="llvm_dependency.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="installation.html">Installing RoadRunner</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-front-end">Python Front End</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="installation.html#building-roadrunner-from-source">Building Roadrunner from Source</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="windows_warning.html">A warning for windows users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="llvm_dependency.html">LLVM-13.x dependency</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Troubleshooting the Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#where-to-put-everything">1) Where to put Everything</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#install-llvm">2) Install LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#install-the-roadrunner-dependency-package">3) Install the Roadrunner Dependency Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#install-roadrunner">4) Install Roadrunner</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#roadrunner-optional-features">Roadrunner Optional Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="installation.html">Installing RoadRunner</a></li>
+      <li class="breadcrumb-item active">Troubleshooting the Build</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Installation/troubleshooting_the_build.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="troubleshooting-the-build">
+<h1>Troubleshooting the Build<a class="headerlink" href="#troubleshooting-the-build" title="Permalink to this heading"></a></h1>
+<ol class="arabic simple">
+<li><p>Cannot find CMake</p></li>
+</ol>
+<p>If you have downloaded or installed cmake but cmake doesn’t run in the terminal/powershell it probably means that
+you have not configured your <cite>PATH</cite> environment variables correctly. The PATH variable exists on all three major
+operating systems. Do a google search for “Add to path &lt;operating system&gt;” replacing the contents of “&lt;operating system&gt;”
+with your operating system and follow the instructions of the first hit you find to add the cmake
+<cite>bin</cite> directory to the PATH environment variable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├──<span class="w"> </span>bin<span class="w">                 </span>&lt;---------------<span class="w"> </span>You<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>this<span class="w"> </span>directory<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>PATH<span class="w"> </span>environment<span class="w"> </span>variable.
+│<span class="w">       </span>├──<span class="w"> </span>cmake-gui.exe
+│<span class="w">       </span>├──<span class="w"> </span>cmake.exe
+│<span class="w">       </span>├──<span class="w"> </span>cmcldeps.exe
+│<span class="w">       </span>├──<span class="w"> </span>cpack.exe
+│<span class="w">       </span>└──<span class="w"> </span>ctest.exe
+├──<span class="w"> </span>doc
+│<span class="w">       </span>└──<span class="w"> </span>cmake
+├──<span class="w"> </span>man
+│<span class="w">       </span>├──<span class="w"> </span>man1
+│<span class="w">       </span>└──<span class="w"> </span>man7
+└──<span class="w"> </span>share
+<span class="w">    </span>├──<span class="w"> </span>aclocal
+<span class="w">    </span>└──<span class="w"> </span>cmake-3.17
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="llvm_dependency.html" class="btn btn-neutral float-left" title="LLVM-13.x dependency" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorial/tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

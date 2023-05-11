@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="group__floating" kind="group">
     <compoundname>floating</compoundname>
     <title>Floating species group</title>
@@ -17,7 +17,7 @@
 <para>Retrieve in a vector the concentrations for all the floating species. </para>
         </briefdescription>
         <detaileddescription>
-<para>Example: <programlisting><codeline><highlight class="normal">RRVectorPtr<sp/>values<sp/>=<sp/>getFloatingSpeciesConcentrations<sp/>(void);<sp/></highlight></codeline>
+<para>Example:<programlisting><codeline><highlight class="normal">RRVectorPtr<sp/>values<sp/>=<sp/>getFloatingSpeciesConcentrations<sp/>(void);<sp/></highlight></codeline>
 </programlisting></para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -34,7 +34,159 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2108" column="37" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2108" declcolumn="37"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2091" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1096" bodyend="1104" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2091" declcolumn="37"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1ga2ff2c4bb6d0ddd59ed3509e7c97c1d43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesAmounts</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getFloatingSpeciesAmounts</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve in a vector the amounts for all the floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Example:<programlisting><codeline><highlight class="normal">RRVectorPtr<sp/>values<sp/>=<sp/>getFloatingSpeciesAmounts<sp/>(void);<sp/></highlight></codeline>
+</programlisting></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the vector of floating species amounts or null if an error occurred </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2102" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1106" bodyend="1114" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2102" declcolumn="37"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1gaae615fabbce13e12e0d9ea7819058258" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRVectorPtr rrcCallConv getIndependentFloatingSpeciesConcentrations</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getIndependentFloatingSpeciesConcentrations</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve in a vector the concentrations of all the independent floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the vector of independent floating species concentrations or null if an error occurred </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2111" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1116" bodyend="1124" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2111" declcolumn="37"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1ga905515a94795a8e28cb40c449af7f768" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRVectorPtr rrcCallConv getDependentFloatingSpeciesConcentrations</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getDependentFloatingSpeciesConcentrations</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve in a vector the concentrations of all the dependent floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the vector of dependent floating species concentrations or null if an error occurred </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2120" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1126" bodyend="1134" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2120" declcolumn="37"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1ga1f04e7b81463fbdbc33ca28766fbfeda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRVectorPtr rrcCallConv getIndependentFloatingSpeciesAmounts</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getIndependentFloatingSpeciesAmounts</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve in a vector the amounts of all the independent floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the vector of independent floating species amounts or null if an error occurred </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2129" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1136" bodyend="1144" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2129" declcolumn="37"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1ga6339401a2e44739bef33c332b38fc15a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRVectorPtr rrcCallConv getDependentFloatingSpeciesAmounts</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getDependentFloatingSpeciesAmounts</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve in a vector the amounts of all the dependent floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the vector of dependent floating species amounts or null if an error occurred </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2138" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1146" bodyend="1154" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2138" declcolumn="37"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1ga1a86710f9772e7a7072aa7de264b0c45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -88,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2161" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2161" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2198" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1213" bodyend="1220" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2198" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1ga7dcf8267460ec9fec7559194ed7e7e1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -142,7 +294,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2172" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2172" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2209" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1082" bodyend="1094" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2209" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1ga892e70470a45d8be4e443c6048064c0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -196,7 +348,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2183" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2183" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2220" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1186" bodyend="1193" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2220" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gaa5ab4c688801aa88c60bea9c745a8d7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -250,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2215" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2215" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2252" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1304" bodyend="1311" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2252" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gab6bde54c81fa570ab09da91b65e92327" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -299,7 +451,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2269" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2269" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2306" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1233" bodyend="1245" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2306" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gab520e3bf495d490a96c5ee19870e7691" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -327,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2544" column="29" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2544" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2581" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="988" bodyend="994" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2581" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1ga284f3c15160144a2639f1d3379f7766b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -355,7 +507,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2563" column="29" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2563" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2600" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1377" bodyend="1383" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2600" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gaf41fdcb9fb98b278742bb5269a317741" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -383,7 +535,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2572" column="29" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2572" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2609" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1385" bodyend="1391" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2609" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gadfa89aaae617d977977469f3c8e0efae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a7c9475df6c7337d99482b13a365e7596" kindref="member">RRStringArrayPtr</ref> rrcCallConv</type>
@@ -413,7 +565,67 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2613" column="42" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2613" declcolumn="42"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2650" column="42" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="996" bodyend="1009" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2650" declcolumn="42"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1ga304ece1521b22d92207a21f2fdbec762" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a7c9475df6c7337d99482b13a365e7596" kindref="member">RRStringArrayPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRStringArrayPtr rrcCallConv getDependentFloatingSpeciesIds</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getDependentFloatingSpeciesIds</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the list of dependent floating species Id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2658" column="42" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1011" bodyend="1024" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2658" declcolumn="42"/>
+      </memberdef>
+      <memberdef kind="function" id="group__floating_1gaee454ea04ad28c0ada4cbf0ecd36e1cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a7c9475df6c7337d99482b13a365e7596" kindref="member">RRStringArrayPtr</ref> rrcCallConv</type>
+        <definition>C_DECL_SPEC RRStringArrayPtr rrcCallConv getIndependentFloatingSpeciesIds</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>getIndependentFloatingSpeciesIds</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the list of independent floating species Id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2667" column="42" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1027" bodyend="1040" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2667" declcolumn="42"/>
       </memberdef>
       <memberdef kind="function" id="group__floating_1gaefe22d500854d4fe991c0435f80c3b35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a7c9475df6c7337d99482b13a365e7596" kindref="member">RRStringArrayPtr</ref> rrcCallConv</type>
@@ -443,7 +655,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="2627" column="42" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="2627" declcolumn="42"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2677" column="42" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="1043" bodyend="1056" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2677" declcolumn="42"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

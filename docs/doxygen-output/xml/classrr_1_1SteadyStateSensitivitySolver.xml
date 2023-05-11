@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1SteadyStateSensitivitySolver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::SteadyStateSensitivitySolver</compoundname>
     <basecompoundref refid="classrr_1_1SensitivitySolver" prot="public" virt="non-virtual">rr::SensitivitySolver</basecompoundref>
@@ -10,7 +10,6 @@
         <definition>rr::SteadyStateSensitivitySolver::~SteadyStateSensitivitySolver</definition>
         <argsstring>() override=default</argsstring>
         <name>~SteadyStateSensitivitySolver</name>
-        <qualifiedname>rr::SteadyStateSensitivitySolver::~SteadyStateSensitivitySolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -24,7 +23,6 @@
         <definition>virtual double rr::SteadyStateSensitivitySolver::solveSteadyState</definition>
         <argsstring>()=0</argsstring>
         <name>solveSteadyState</name>
-        <qualifiedname>rr::SteadyStateSensitivitySolver::solveSteadyState</qualifiedname>
         <briefdescription>
 <para>solves the model for steady state. </para>
         </briefdescription>
@@ -35,12 +33,11 @@
         </inbodydescription>
         <location file="SensitivitySolver.h" line="98" column="24"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1SteadyStateSensitivitySolver_1a632e684d7f07691313922c5ca1bebcb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSensitivitySolver_1a9bc29aa9469aa0a64beed8c9eeac55d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type><ref refid="classrr_1_1Matrix" kindref="compound">rr::Matrix</ref>&lt; double &gt;</type>
-        <definition>virtual rr::Matrix&lt; double &gt; rr::SteadyStateSensitivitySolver::solveSensitivities</definition>
+        <definition>virtual rr::Matrix&lt;double&gt; rr::SteadyStateSensitivitySolver::solveSensitivities</definition>
         <argsstring>(std::vector&lt; std::string &gt; params=std::vector&lt; std::string &gt;(), int k=0)=0</argsstring>
         <name>solveSensitivities</name>
-        <qualifiedname>rr::SteadyStateSensitivitySolver::solveSensitivities</qualifiedname>
         <param>
           <type>std::vector&lt; std::string &gt;</type>
           <declname>params</declname>
@@ -91,12 +88,6 @@
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
       </node>
-      <node id="2">
-        <label>rr::SensitivitySolver</label>
-        <link refid="classrr_1_1SensitivitySolver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="3">
         <label>rr::Solver</label>
         <link refid="classrr_1_1Solver"/>
@@ -109,21 +100,17 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="5">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
-      <node id="4">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
-      </node>
       <node id="2">
         <label>rr::SensitivitySolver</label>
         <link refid="classrr_1_1SensitivitySolver"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="3">
         <label>rr::Solver</label>
@@ -140,28 +127,41 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>rr::SensitivitySolver</label>
+        <link refid="classrr_1_1SensitivitySolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
     </collaborationgraph>
-    <location file="SensitivitySolver.h" line="87" column="5" bodyfile="SensitivitySolver.h" bodystart="87" bodyend="115"/>
+    <location file="SensitivitySolver.h" line="87" column="64" bodyfile="SensitivitySolver.h" bodystart="87" bodyend="115"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>construct</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>display_names_</name></member>
       <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSensitivitySolver</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSensitivitySolver</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getModel</name></member>
-      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSensitivitySolver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getParamDisplayName</name></member>
       <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getParamHint</name></member>
       <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getParamName</name></member>
-      <member refid="classrr_1_1SensitivitySolver_1a93193ace495af4f03d3845fcafcc5bf7" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getSensitivityMatrix</name></member>
+      <member refid="classrr_1_1SensitivitySolver_1ab6bc2c2f138c4983a244d36108f8af5e" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getSensitivityMatrix</name></member>
       <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getSettings</name></member>
       <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getSettingsMap</name></member>
       <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>getSettingsRepr</name></member>
@@ -180,7 +180,8 @@
       <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>setValue</name></member>
       <member refid="classrr_1_1SensitivitySolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1SensitivitySolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>Solver</name></member>
-      <member refid="classrr_1_1SteadyStateSensitivitySolver_1a632e684d7f07691313922c5ca1bebcb2" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>solveSensitivities</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::SteadyStateSensitivitySolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSensitivitySolver_1a9bc29aa9469aa0a64beed8c9eeac55d8" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>solveSensitivities</name></member>
       <member refid="classrr_1_1SteadyStateSensitivitySolver_1a07e7a0c87c30a99fd58dd53c1ed63475" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>solveSteadyState</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSensitivitySolver</scope><name>syncWithModel</name></member>

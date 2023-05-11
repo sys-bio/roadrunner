@@ -1,5 +1,9 @@
 \hypertarget{classrrllvm_1_1EventQueue}{}\doxysection{rrllvm\+::Event\+Queue Class Reference}
 \label{classrrllvm_1_1EventQueue}\index{rrllvm::EventQueue@{rrllvm::EventQueue}}
+
+
+{\ttfamily \#include $<$Event\+Queue.\+h$>$}
+
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,37 +26,40 @@ typedef \+\_\+\+Sequence\+::const\+\_\+reference {\bfseries const\+\_\+reference
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_ae8910363f048acba859cdff811a5cbdb}\label{classrrllvm_1_1EventQueue_ae8910363f048acba859cdff811a5cbdb}} 
-bool {\bfseries erase\+Expired\+Events} ()
+bool \mbox{\hyperlink{classrrllvm_1_1EventQueue_ae8910363f048acba859cdff811a5cbdb}{erase\+Expired\+Events}} ()
 \begin{DoxyCompactList}\small\item\em remove expired events from the queue. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_a274f786186af2ad05569802de810a120}\label{classrrllvm_1_1EventQueue_a274f786186af2ad05569802de810a120}} 
-bool {\bfseries has\+Current\+Events} ()
+bool \mbox{\hyperlink{classrrllvm_1_1EventQueue_a274f786186af2ad05569802de810a120}{has\+Current\+Events}} ()
 \begin{DoxyCompactList}\small\item\em are any events current (delay == 0 and triggered or persistant) \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrrllvm_1_1EventQueue_aba1c38087a2d466d482c5d9f6a01ca01}{apply\+Events}} ()
 \begin{DoxyCompactList}\small\item\em assign all of the top most events with the same priority and remove them from the queue. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_a639037276939cc81ad348fcc71ee1738}\label{classrrllvm_1_1EventQueue_a639037276939cc81ad348fcc71ee1738}} 
-uint {\bfseries size} () const
+uint \mbox{\hyperlink{classrrllvm_1_1EventQueue_a639037276939cc81ad348fcc71ee1738}{size}} () const
 \begin{DoxyCompactList}\small\item\em number of events in the queue \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_a67e5ac59c13761bc1e27dcb8a34bd2b6}\label{classrrllvm_1_1EventQueue_a67e5ac59c13761bc1e27dcb8a34bd2b6}} 
-const\+\_\+reference {\bfseries top} ()
+const\+\_\+reference \mbox{\hyperlink{classrrllvm_1_1EventQueue_a67e5ac59c13761bc1e27dcb8a34bd2b6}{top}} ()
 \begin{DoxyCompactList}\small\item\em event with lowest time to assignment and highest priority. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrrllvm_1_1EventQueue_a3b2a8094722201ba8afdb49924790dea}{push}} (const \mbox{\hyperlink{classrr_1_1Event}{Event}} \&e)
 \begin{DoxyCompactList}\small\item\em insert a new event into the queue. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_ae48e013f7f46e5affcb6d23ab5e9b261}\label{classrrllvm_1_1EventQueue_ae48e013f7f46e5affcb6d23ab5e9b261}} 
-double {\bfseries get\+Next\+Pending\+Event\+Time} ()
+double \mbox{\hyperlink{classrrllvm_1_1EventQueue_ae48e013f7f46e5affcb6d23ab5e9b261}{get\+Next\+Pending\+Event\+Time}} ()
 \begin{DoxyCompactList}\small\item\em the time the next event is sceduled to be assigned. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_aaf915d38184861eaae2c7401f0bac298}\label{classrrllvm_1_1EventQueue_aaf915d38184861eaae2c7401f0bac298}} 
 void {\bfseries save\+State} (std\+::ostream \&out)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_a0ae274da53a26ae056663c3937761ce9}\label{classrrllvm_1_1EventQueue_a0ae274da53a26ae056663c3937761ce9}} 
-void {\bfseries load\+State} (std\+::istream \&in, \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{LLVMExecutable\+Model}} \&model)
+void {\bfseries load\+State} (std\+::istream \&in, \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{L\+L\+V\+M\+Executable\+Model}} \&model)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1EventQueue_a4b33aa69cd6bd97bb0e2b1e8042edaa0}\label{classrrllvm_1_1EventQueue_a4b33aa69cd6bd97bb0e2b1e8042edaa0}} 
+\mbox{\Hypertarget{classrrllvm_1_1EventQueue_a843845d2c309fb550991f2548ddc8703}\label{classrrllvm_1_1EventQueue_a843845d2c309fb550991f2548ddc8703}} 
 std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&stream, const \mbox{\hyperlink{classrrllvm_1_1EventQueue}{Event\+Queue}} \&queue)
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classrrllvm_1_1EventQueue}{Event\+Queue}} class is when events are queued to execute, but have not yet executed. Some events may be \textquotesingle{}de-\/listed\textquotesingle{} from the \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} Queue if thier trigger changes back to \textquotesingle{}false\textquotesingle{}, if they are set persistent=False. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_aba1c38087a2d466d482c5d9f6a01ca01}\label{classrrllvm_1_1EventQueue_aba1c38087a2d466d482c5d9f6a01ca01}} 

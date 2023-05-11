@@ -20,7 +20,7 @@ Inheritance diagram for rr\+::Time\+Series\+Sensitivity\+Solver\+:\begin{figure}
 \item 
 virtual double \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver_a9f070078f416a3cfb2c6fbb397b238c6}{integrate}} (double t0, double hstep)=0
 \begin{DoxyCompactList}\small\item\em integrate the model from t0 to t0 + hstep. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ double, double $>$ \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver_ad9e2121e7250fc7336934bd5e5f776a8}{solve\+Sensitivities}} (double start, double stop, int num, std\+::vector$<$ std\+::string $>$ params, std\+::vector$<$ std\+::string $>$ species, int k)=0
+virtual \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ double, double $>$ \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver_a1f0c8cb09f7f29b6557943bc905d42fd}{solve\+Sensitivities}} (double start, double stop, int num, std\+::vector$<$ std\+::string $>$ params, std\+::vector$<$ std\+::string $>$ species, int k)=0
 \begin{DoxyCompactList}\small\item\em simulate a timeseries with sensitivities from start to step with num data points. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -46,11 +46,11 @@ integrating the model should update the sensitivities, which are available from 
 
 Implemented in \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_a5617f1a29c1b3394a5bbf1bef36a3ab3}{rr\+::\+Forward\+Sensitivity\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1TimeSeriesSensitivitySolver_ad9e2121e7250fc7336934bd5e5f776a8}\label{classrr_1_1TimeSeriesSensitivitySolver_ad9e2121e7250fc7336934bd5e5f776a8}} 
+\mbox{\Hypertarget{classrr_1_1TimeSeriesSensitivitySolver_a1f0c8cb09f7f29b6557943bc905d42fd}\label{classrr_1_1TimeSeriesSensitivitySolver_a1f0c8cb09f7f29b6557943bc905d42fd}} 
 \index{rr::TimeSeriesSensitivitySolver@{rr::TimeSeriesSensitivitySolver}!solveSensitivities@{solveSensitivities}}
 \index{solveSensitivities@{solveSensitivities}!rr::TimeSeriesSensitivitySolver@{rr::TimeSeriesSensitivitySolver}}
 \doxysubsubsection{\texorpdfstring{solveSensitivities()}{solveSensitivities()}}
-{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$ double, double $>$ rr\+::\+Time\+Series\+Sensitivity\+Solver\+::solve\+Sensitivities (\begin{DoxyParamCaption}\item[{double}]{start,  }\item[{double}]{stop,  }\item[{int}]{num,  }\item[{std\+::vector$<$ std\+::string $>$}]{params,  }\item[{std\+::vector$<$ std\+::string $>$}]{species,  }\item[{int}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1Matrix3D}{Matrix3D}}$<$double, double$>$ rr\+::\+Time\+Series\+Sensitivity\+Solver\+::solve\+Sensitivities (\begin{DoxyParamCaption}\item[{double}]{start,  }\item[{double}]{stop,  }\item[{int}]{num,  }\item[{std\+::vector$<$ std\+::string $>$}]{params,  }\item[{std\+::vector$<$ std\+::string $>$}]{species,  }\item[{int}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -66,9 +66,7 @@ simulate a timeseries with sensitivities from start to step with num data points
 \hline
 {\em params} & vector of parameters that you want sensitivity for. When empty (default), compute sensitivities for all parameters vs all variables. \\
 \hline
-{\em species} & vector of species to include in the results. Note that unlike for\\
-\hline
-{\em params,reducing} & the number of species does not solve faster because the matrix slicing only occurs at the end. When empty (default) all species are returned. \\
+{\em species} & vector of species to include in the results. Note that unlike for params, reducing the number of species does not solve faster because the matrix slicing only occurs at the end. When empty (default) all species are returned. \\
 \hline
 {\em k} & (default 0) return the kth other derivative of the sensitivity data. \\
 \hline

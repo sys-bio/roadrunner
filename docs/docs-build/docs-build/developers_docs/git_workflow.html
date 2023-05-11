@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git Workflow &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building the Documentation" href="building_documentation.html" />
+    <link rel="prev" title="Developers Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_documentation.html">Building the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making_releases.html">Making roadrunner releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_with_python_debug.html">Build roadrunner using Python’s debug build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_with_python_debug.html#windows">Windows</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developers Documentation</a></li>
+      <li class="breadcrumb-item active">Git Workflow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/developers_docs/git_workflow.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="git-workflow">
+<h1>Git Workflow<a class="headerlink" href="#git-workflow" title="Permalink to this heading"></a></h1>
+<p>In roadrunner we use a github workflow that makes use of feature branches,
+a develop branch (which is the default branch), an experimental release branch and a release
+branch. All new features, bug fixes, small changes etc. are conducted on a new branch from the
+develop branch.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>develop<span class="w"> </span><span class="c1"># make sure were on develop</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature-branch
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have accidentally made changes to the develop branch, move them to a feature
+branch without committing. Do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">switch</span> <span class="pre">-c</span> <span class="pre">feature-branch</span></code>.</p>
+</div>
+<p>Now that you are in a new branch <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> any changes are completely isolated
+from the main <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch, thus minimizing inclusion of accidental
+bugs into roadrunner. To push this new <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> to github do</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ensure changes are committed</span>
+git<span class="w"> </span>add<span class="w"> </span>-A
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;awesome new feature - tests pass&quot;</span>
+
+<span class="c1"># push to github. The ``feature-branch`` does not yet exist on github (the remote) so we need to create it</span>
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature-branch
+</pre></div>
+</div>
+<p>Whilst developing your feature on the <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> consider committing often, preferably at
+useful milestones, such as when you complete a class or even a set of methods. Be sure to
+use useful commit messages to aid yourself and others in understanding your commit.</p>
+<p>Once complete - i.e. all your tests pass locally, you need to integrate these changes
+back into the develop branch. In roadrunner, we have disabled direct pushes to the develop,
+experimental-release and release branches, even for administrators. We do this because it is
+very easy to accidentally incorporate changes that break roadrunner. Even when all tests pass
+locally on your system, its possible that you’ve unintentionally broken something for another
+operating system. For this reason, we force all changes to be pulled through our azure-pipelines
+CI system before they can be merged.</p>
+<p>To integrate your changes from <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> into develop, push your most recent changes
+and then create a pull request using the github browser. In depth instructions for creating
+a pull request can be found <a class="reference external" href="https://opensource.com/article/19/7/create-pull-request-github">here</a>.
+You should select <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> on the right and <code class="docutils literal notranslate"><span class="pre">develop</span></code> on the left in order to request
+that the contents of <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code> be merged into <code class="docutils literal notranslate"><span class="pre">develop</span></code>.</p>
+<p>This will automatically push your changes to azure-pipelines and begin building roadrunner on all
+systems in the cloud. If something breaks, you will not be given the option to merge <code class="docutils literal notranslate"><span class="pre">feature-branch</span></code>
+into <code class="docutils literal notranslate"><span class="pre">develop</span></code>. Instead you should follow the links to the roadrunner azure-pipelines interface
+to find out what broke your build. Fix the problems locally and commit and push them, like before.
+You do not need to do anything with the pull request, the changes will automatically be
+pulled once again through the azure-pipeline CI system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is critical that your code is tested. If you do not test your code, then the azure pipelines
+build will not break even when roadrunner is broken. The integrity of roadrunner depends on
+your ability to test your code.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Developers Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="building_documentation.html" class="btn btn-neutral float-right" title="Building the Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
