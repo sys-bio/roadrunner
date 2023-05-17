@@ -22,6 +22,7 @@ class AutoPlugin : public tlp::CPPPlugin
         //Data input
         void                                    setScanDirection(telauto::ScanDirection dir);
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         string                                  getResult();
         string                                  getConstants();
         bool                                    resetPlugin();
@@ -199,6 +200,7 @@ class AutoPlugin : public tlp::CPPPlugin
         string                                  getTempFolder();
         string                                  getSBML();
 
+        void                                    setPropertiesDefaultValues();
         void                                    addProperties();
         void                                    assignPropertyDescriptions();
 };

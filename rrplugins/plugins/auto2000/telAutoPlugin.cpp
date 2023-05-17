@@ -90,6 +90,7 @@ mUZR(                               vector<int>(0),         "UZR",              
 mMaxColumns(                        7,         "MaxColumns",                           "The maximum number of columns that the auto library can write out at one time",                                "",         "")
 {
     mVersion = "1.0.0";
+
     //Setup the plugin properties
     addProperties();
     
@@ -197,6 +198,133 @@ bool AutoPlugin::execute(bool inThread)
     return true;
 }
 
+void AutoPlugin::resetPropertiesValues() {
+    setPropertyByString("SBML", "<none>");
+    setPropertyByString("TempFolder", ".");
+    setPropertyByString("KeepTempFiles", "false");
+    setPropertyByString("ScanDirection", "Negative");
+    setPropertyByString("PreSimulation", "false");
+    setPropertyByString("PreSimulationDuration", "5.0");
+    setPropertyByString("PreSimulationStart", "0.0");
+    setPropertyByString("PreSimulationSteps", "100");
+    setPropertyByString("PrincipalContinuationParameter", "<none>");
+    setPropertyByString("BifurcationData", ""); // needs to be checked
+    setPropertyByString("BifurcationPoints", "{}");
+    setPropertyByString("BifurcationLabels", "");
+    setPropertyByString("CaptureOutputFiles", "false");
+    setPropertyByString("AllowConservedMoiety", "true");
+    setPropertyByString("fort2", "<none>");
+    setPropertyByString("fort3", "<none>");
+    setPropertyByString("BifurcationSummary", "<none>");
+    setPropertyByString("BifurcationDiagram", "<none>");
+    setPropertyByString("fort8", "<none>");
+    setPropertyByString("fort9", "<none>");
+    setPropertyByString("NDIM", "1");
+    setPropertyByString("IPS", "1");
+    setPropertyByString("IRS", "0");
+    setPropertyByString("ILP", "1");
+    setPropertyByString("NICP", "1");
+    setPropertyByString("ICP", "{}");
+    setPropertyByString("NTST", "15");
+    setPropertyByString("NCOL", "3");
+    setPropertyByString("IAD", "3");
+    setPropertyByString("ISP", "1");
+    setPropertyByString("ISW", "1");
+    setPropertyByString("IPLT", "0");
+    setPropertyByString("NBC", "0");
+    setPropertyByString("NINT", "0");
+    setPropertyByString("NMX", "1000");
+    setPropertyByString("RL0", "0.01");
+    setPropertyByString("RL1", "30");
+    setPropertyByString("A0", "0");
+    setPropertyByString("A1", "10000");
+    setPropertyByString("NPR", "50");
+    setPropertyByString("MXBF", "-1");
+    setPropertyByString("IID", "0");
+    setPropertyByString("ITMX", "8");
+    setPropertyByString("ITNW", "5");
+    setPropertyByString("NWTN", "3");
+    setPropertyByString("JAC", "0");
+    setPropertyByString("EPSL", "1e-8");
+    setPropertyByString("EPSU", "1e-8");
+    setPropertyByString("EPSS", "1e-6");
+    setPropertyByString("DS", "0.001");
+    setPropertyByString("DSMIN", "1e-5");
+    setPropertyByString("DSMAX", "0.1");
+    setPropertyByString("IADS", "1");
+    setPropertyByString("NTHL", "0");
+    setPropertyByString("THL", "{}");
+    setPropertyByString("NTHU", "0");
+    setPropertyByString("THU", "{}");
+    setPropertyByString("NUZR", "0");
+    setPropertyByString("UZR", "{}");
+    setPropertyByString("MaxColumns", "7");
+
+
+
+
+    //mSBML = Property<string>("<none>");
+    //mTempFolder = Property<string>(".");
+    //mKeepTempFiles = Property<bool>(false);
+    //mScanDirection = Property<string>("Negative");
+    //mPreSimulation = Property<bool>(false);
+    //mPreSimulationDuration = Property<double>(5.0);
+    //mPreSimulationStart = Property<double>(0.0);
+    //mPreSimulationSteps = Property<int>(100);
+    //mPrincipalContinuationParameter = Property<string>("<none>");
+    //mBifurcationData = Property< TelluriumData >(TelluriumData());
+    //mBifurcationPoints = Property< vector<int> >(vector<int>(0));
+    //mBifurcationLabels = Property< StringList >(StringList(""));
+    //mCaptureOutputFiles = Property<bool>(false);
+    //mAllowConservedMoiety = Property<bool>(false);
+    //mFort2 = Property<string>("<none>");
+    //mFort3 = Property<string>("<none>");
+    //mFort6 = Property<string>("<none>");
+    //mFort7 = Property<string>("<none>");
+    //mFort8 = Property<string>("<none>");
+    //mFort9 = Property<string>("<none>");
+    //mNDIM = Property<int>(1);
+    //mIPS = Property<int>(1);
+    //mIRS = Property<int>(0);
+    //mILP = Property<int>(1);
+    //mNICP = Property<int>(1);
+    //mICP = Property< vector<int> >(vector<int>(0));
+    //mNTST = Property<int>(15);
+    //mNCOL = Property<int>(3);
+    //mIAD = Property<int>(3);
+    //mISP = Property<int>(1);
+    //mISW = Property<int>(1);
+    //mIPLT = Property<int>(0);
+    //mNBC = Property<int>(0);
+    //mNINT = Property<int>(0);
+    //mNMX = Property<int>(1000);
+    //mRL0 = Property<double>(0.01);
+    //mRL1 = Property<double>(30);
+    //mA0 = Property<double>(0);
+    //mA1 = Property<double>(10000);
+    //mNPR = Property<int>(50);
+    //mMXBF = Property<int>(-1);
+    //mIID = Property<int>(0);
+    //mITMX = Property<int>(8);
+    //mITNW = Property<int>(5);
+    //mNWTN = Property<int>(3);
+    //mJAC = Property<int>(0);
+    //mEPSL = Property<double>(1e-8);
+    //mEPSU = Property<double>(1e-8);
+    //mEPSS = Property<double>(1e-6);
+    //mDS = Property<double>(0.001);
+    //mDSMIN = Property<double>(1e-5);
+    //mDSMAX = Property<double>(0.1);
+    //mIADS = Property<int>(1);
+    //mNTHL = Property<int>(0);
+    //mTHL = Property< vector<int> >(vector<int>(0));
+    //mNTHU = Property<int>(0);
+    //mTHU = Property< vector<int> >(vector<int>(0));
+    //mNUZR = Property<int>(0);
+    //mUZR = Property< vector<int> >(vector<int>(0));
+    //mMaxColumns = Property< int >(7);
+}
+
 void AutoPlugin::addProperties()
 {
     mProperties.add(&mTempFolder);
@@ -208,6 +336,7 @@ void AutoPlugin::addProperties()
 	mProperties.add(&mPreSimulationStart);
 	mProperties.add(&mPreSimulationSteps);
     mProperties.add(&mPrincipalContinuationParameter);
+    mProperties.add(&mCaptureOutputFiles);
     mProperties.add(&mFort2);
     mProperties.add(&mFort3);
     mProperties.add(&mFort6);
