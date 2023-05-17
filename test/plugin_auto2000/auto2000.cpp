@@ -21,7 +21,14 @@ public:
 
     PluginAuto2000Tests() {
         pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
+    }
+
+    virtual void SetUp() {
         PM = new PluginManager(rrPluginsBuildDir_.string());
+    }
+
+    virtual void TearDown() {
+        delete PM;
     }
 
 protected:
