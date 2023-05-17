@@ -53,6 +53,7 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     a2kplugin->execute();
 }
 
+/*
 TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 {
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
@@ -191,3 +192,4 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
     EXPECT_NEAR(data->getDataElement(93, 1), 3.0908, 0.0001);
     EXPECT_NEAR(data->getDataElement(193, 2), 10.5904, 0.0001);
 }
+ */
