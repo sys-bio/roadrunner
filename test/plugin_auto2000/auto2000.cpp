@@ -21,19 +21,20 @@ public:
 
     PluginAuto2000Tests() {
         pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
+        PM = new PluginManager(rrPluginsBuildDir_.string());
     }
-};
 
+protected:
+    PluginManager* PM;
+};
 
 TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 {
-    //This just tests to make sure we don't crash if there's no boundary species.
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
-    // test #1
+    // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "auto2000_2rxn.xml").string().c_str());
@@ -43,8 +44,14 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     a2kplugin->setPropertyByString("RL1", "5");
 
     a2kplugin->execute();
+}
 
-    // test #2
+TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
+
+    // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000203.xml").string().c_str());
@@ -86,8 +93,16 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     EXPECT_NEAR(data->getDataElement(1522, 4), 33.0702, 0.0001);
     EXPECT_NEAR(data->getDataElement(2345, 5), 22.6297, 0.0001);
     EXPECT_NEAR(data->getDataElement(3535, 6), 183.378, 0.001);
+}
 
-    // test #3
+TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
+
+    // reset the value of plugin properties
+    a2kplugin->resetPropertiesValues();
+
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "bistable.xml").string().c_str());
     a2kplugin->setPropertyByString("ScanDirection", "Negative");
     a2kplugin->setPropertyByString("PrincipalContinuationParameter", "k3");
@@ -97,11 +112,11 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
     a2kplugin->execute();
 
-    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
+    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -109,12 +124,12 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     EXPECT_EQ(points->at(2), 67);
     EXPECT_EQ(points->at(3), 97);
 
-    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 2);
     EXPECT_EQ(data->rSize(), 97);
@@ -122,8 +137,16 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     //Spot checks:
     EXPECT_NEAR(data->getDataElement(17, 0), 1.16386, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 2.63297, 0.0001);
+}
 
-    // test #4
+TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
+
+    // reset the value of plugin properties
+    a2kplugin->resetPropertiesValues();
+
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "irreversible_bistability.xml").string().c_str());
     a2kplugin->setPropertyByString("ScanDirection", "Positive");
     a2kplugin->setPropertyByString("PrincipalContinuationParameter", "Signal");
@@ -134,11 +157,11 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
     a2kplugin->execute();
 
-    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
+    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -146,12 +169,12 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
     EXPECT_EQ(points->at(2), 255);
     EXPECT_EQ(points->at(3), 361);
 
-    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 3);
     EXPECT_EQ(data->rSize(), 361);
