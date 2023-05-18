@@ -34,10 +34,9 @@ public:
 protected:
     PluginManager* PM;
 };
-/*
+
 TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 {
-
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
@@ -52,7 +51,7 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
     a2kplugin->execute();
 }
-*/
+
 TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 {
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
