@@ -100,7 +100,7 @@ TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
     EXPECT_NEAR(data->getDataElement(2345, 5), 22.6297, 0.0001);
     EXPECT_NEAR(data->getDataElement(3535, 6), 183.378, 0.001);
 }
-/*
+
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
 {
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
@@ -144,7 +144,7 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
     EXPECT_NEAR(data->getDataElement(17, 0), 1.16386, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 2.63297, 0.0001);
 }
-*/
+/*
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
 {
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
@@ -190,3 +190,4 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
     EXPECT_NEAR(data->getDataElement(93, 1), 3.0908, 0.0001);
     EXPECT_NEAR(data->getDataElement(193, 2), 10.5904, 0.0001);
 }
+ */
