@@ -19,6 +19,7 @@ namespace testModel {
         TestModel();
         ~TestModel();
         bool                        execute(bool);
+        void                        resetPropertiesValues();
         unsigned char*              getManualAsPDF() const;
         size_t                      getPDFManualByteSize();
 
