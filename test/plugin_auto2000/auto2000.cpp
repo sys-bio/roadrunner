@@ -22,21 +22,12 @@ public:
     PluginAuto2000Tests() {
         pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
     }
-
-    virtual void SetUp() {
-        PM = new PluginManager(rrPluginsBuildDir_.string());
-    }
-
-    virtual void TearDown() {
-        delete PM;
-    }
-
-protected:
-    PluginManager* PM;
 };
 
 TEST_F(PluginAuto2000Tests, All_Tests)
 {
+    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
@@ -109,11 +100,11 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
-    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
+    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -121,12 +112,12 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_EQ(points->at(2), 67);
     EXPECT_EQ(points->at(3), 97);
 
-    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 2);
     EXPECT_EQ(data->rSize(), 97);
@@ -149,11 +140,11 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
-    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
+    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -161,12 +152,12 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_EQ(points->at(2), 255);
     EXPECT_EQ(points->at(3), 361);
 
-    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 3);
     EXPECT_EQ(data->rSize(), 361);
