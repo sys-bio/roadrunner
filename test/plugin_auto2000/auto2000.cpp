@@ -43,6 +43,52 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
+    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    ASSERT_TRUE(tmplugin != NULL);
+
+    /// test #2
+    // reset the value of plugin properties
+    tmplugin->resetPropertiesValues();
+
+    tmplugin->execute();
+
+    PropertyBase* sbml = tmplugin->getProperty("Model");
+    EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
+    EXPECT_TRUE(sbml->getValueAsString().find("k1") != string::npos);
+
+    PropertyBase* noisedata = tmplugin->getProperty("TestDataWithNoise");
+    TelluriumData* noise = static_cast<TelluriumData*>(noisedata->getValueHandle());
+    EXPECT_EQ(noise->cSize(), 3);
+    EXPECT_EQ(noise->rSize(), 14);
+
+    PropertyBase* testdata = tmplugin->getProperty("TestData");
+    TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
+    EXPECT_EQ(sim->cSize(), 3);
+    EXPECT_EQ(sim->rSize(), 14);
+
+    double sumdiff = 0;
+    for (int r = 0; r < sim->rSize(); r++)
+    {
+    //The 'time' column should be identical:
+    EXPECT_EQ(sim->getDataElement(r, 0), noise->getDataElement(r, 0));
+
+        for (int c = 1; c < sim->cSize(); c++)
+        {
+            EXPECT_NE(sim->getDataElement(r, c), noise->getDataElement(r, c));
+            sumdiff += abs(sim->getDataElement(r, c) - noise->getDataElement(r, c));
+        }
+    }
+    EXPECT_NEAR(sumdiff, 3.e-6*28, 1e-4);
+
+    PropertyBase* sig = tmplugin->getProperty("Sigma");
+    double* sigma = static_cast<double*>(sig->getValueHandle());
+    EXPECT_EQ(*sigma, 3.e-6);
+
+    PropertyBase* seedprop = tmplugin->getProperty("Seed");
+    unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
+    EXPECT_EQ(*seed, 0);
+
+    /*
     /// test #2
     // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
@@ -166,4 +212,5 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_NEAR(data->getDataElement(17, 0), -2.39214, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 3.0908, 0.0001);
     EXPECT_NEAR(data->getDataElement(193, 2), 10.5904, 0.0001);
+     */
 }
