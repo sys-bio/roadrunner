@@ -43,13 +43,13 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
+    /// test #2
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
-    /// test #2
     // reset the value of plugin properties
     tmplugin->resetPropertiesValues();
-    /*
+
     tmplugin->execute();
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -87,7 +87,6 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     PropertyBase* seedprop = tmplugin->getProperty("Seed");
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 0);
-     */
 
     /*
     /// test #2
