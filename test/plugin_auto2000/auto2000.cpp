@@ -43,50 +43,52 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
-    /// test #2
+    /// test #4
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
     // reset the value of plugin properties
     tmplugin->resetPropertiesValues();
 
+    tmplugin->setPropertyByString("Seed", "1001");
     tmplugin->execute();
 
-    PropertyBase* sbml = tmplugin->getProperty("Model");
-    EXPECT_TRUE(sbml->getValueAsString().find("<sbml") != string::npos);
-    EXPECT_TRUE(sbml->getValueAsString().find("k1") != string::npos);
+    PropertyBase* seedprop = tmplugin->getProperty("Seed");
+    unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
+    EXPECT_EQ(*seed, 1001);
 
     PropertyBase* noisedata = tmplugin->getProperty("TestDataWithNoise");
     TelluriumData* noise = static_cast<TelluriumData*>(noisedata->getValueHandle());
     EXPECT_EQ(noise->cSize(), 3);
     EXPECT_EQ(noise->rSize(), 14);
 
-    PropertyBase* testdata = tmplugin->getProperty("TestData");
-    TelluriumData* sim = static_cast<TelluriumData*>(testdata->getValueHandle());
-    EXPECT_EQ(sim->cSize(), 3);
-    EXPECT_EQ(sim->rSize(), 14);
+    TelluriumData s1001a(*noise);
+
+    tmplugin->execute();
+
+    TelluriumData s1001b(*noise);
+
+    tmplugin->setPropertyByString("Seed", "1004");
+    tmplugin->execute();
+
+    TelluriumData s1004(*noise);
 
     double sumdiff = 0;
-    for (int r = 0; r < sim->rSize(); r++)
+    for (int r = 0; r < s1001a.rSize(); r++)
     {
     //The 'time' column should be identical:
-    EXPECT_EQ(sim->getDataElement(r, 0), noise->getDataElement(r, 0));
+    EXPECT_EQ(s1001a.getDataElement(r, 0), s1001b.getDataElement(r, 0));
+    EXPECT_EQ(s1001a.getDataElement(r, 0), s1004.getDataElement(r, 0));
 
-        for (int c = 1; c < sim->cSize(); c++)
+        for (int c = 1; c < s1001a.cSize(); c++)
         {
-            EXPECT_NE(sim->getDataElement(r, c), noise->getDataElement(r, c));
-            sumdiff += abs(sim->getDataElement(r, c) - noise->getDataElement(r, c));
+            EXPECT_EQ(s1001a.getDataElement(r, c), s1001b.getDataElement(r, c));
+            sumdiff += abs(s1001a.getDataElement(r, c) - s1004.getDataElement(r, c));
         }
     }
-    EXPECT_NEAR(sumdiff, 3.e-6*28, 1e-4);
+    EXPECT_NEAR(sumdiff, 3.e-6 * 2 * 28, 1e-4);
+    EXPECT_GT(sumdiff, 0);
 
-    PropertyBase* sig = tmplugin->getProperty("Sigma");
-    double* sigma = static_cast<double*>(sig->getValueHandle());
-    EXPECT_EQ(*sigma, 3.e-6);
-
-    PropertyBase* seedprop = tmplugin->getProperty("Seed");
-    unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
-    EXPECT_EQ(*seed, 0);
 
     /*
     /// test #2
