@@ -39,7 +39,6 @@ namespace testModel {
 as well as data to test with. \
 The TestModel plugin was developed at the University of Washington by Totte Karlsson, 2012-2014.";
 
-        resetPropertiesValues();
         //Load the model from file here..
         try
         {
@@ -114,7 +113,6 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
     }
 
     void TestModel::resetPropertiesValues() {
-        setPropertyByString("Model", "");
         setPropertyByString("TestData", "");
         setPropertyByString("TestDataWithNoise", "");
         setPropertyByString("Sigma", "3.e-6");
