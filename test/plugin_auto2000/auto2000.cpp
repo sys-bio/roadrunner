@@ -22,16 +22,23 @@ public:
     PluginAuto2000Tests() {
         pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
     }
+
+    static void SetUpTestSuite() {
+        if (PM == NULL)
+            PM = new PluginManager(getRoadRunnerPluginBuildDirectory().string());
+    }
+
+protected:
+    static PluginManager* PM;
 };
 
-TEST_F(PluginAuto2000Tests, All_Tests)
-{
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+PluginManager* PluginAuto2000Tests::PM = NULL;
 
+TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
+{
     Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
-    /// test #1
     // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
@@ -42,56 +49,13 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     a2kplugin->setPropertyByString("RL1", "5");
 
     a2kplugin->execute();
+}
 
-    /// test #4
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
-    ASSERT_TRUE(tmplugin != NULL);
+TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
 
-    // reset the value of plugin properties
-    tmplugin->resetPropertiesValues();
-
-    tmplugin->setPropertyByString("Seed", "1001");
-    tmplugin->execute();
-
-    PropertyBase* seedprop = tmplugin->getProperty("Seed");
-    unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
-    EXPECT_EQ(*seed, 1001);
-
-    PropertyBase* noisedata = tmplugin->getProperty("TestDataWithNoise");
-    TelluriumData* noise = static_cast<TelluriumData*>(noisedata->getValueHandle());
-    EXPECT_EQ(noise->cSize(), 3);
-    EXPECT_EQ(noise->rSize(), 14);
-
-    TelluriumData s1001a(*noise);
-
-    tmplugin->execute();
-
-    TelluriumData s1001b(*noise);
-
-    tmplugin->setPropertyByString("Seed", "1004");
-    tmplugin->execute();
-
-    TelluriumData s1004(*noise);
-
-    double sumdiff = 0;
-    for (int r = 0; r < s1001a.rSize(); r++)
-    {
-    //The 'time' column should be identical:
-    EXPECT_EQ(s1001a.getDataElement(r, 0), s1001b.getDataElement(r, 0));
-    EXPECT_EQ(s1001a.getDataElement(r, 0), s1004.getDataElement(r, 0));
-
-        for (int c = 1; c < s1001a.cSize(); c++)
-        {
-            EXPECT_EQ(s1001a.getDataElement(r, c), s1001b.getDataElement(r, c));
-            sumdiff += abs(s1001a.getDataElement(r, c) - s1004.getDataElement(r, c));
-        }
-    }
-    EXPECT_NEAR(sumdiff, 3.e-6 * 2 * 28, 1e-4);
-    EXPECT_GT(sumdiff, 0);
-
-
-    /*
-    /// test #2
     // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
@@ -134,8 +98,13 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_NEAR(data->getDataElement(1522, 4), 33.0702, 0.0001);
     EXPECT_NEAR(data->getDataElement(2345, 5), 22.6297, 0.0001);
     EXPECT_NEAR(data->getDataElement(3535, 6), 183.378, 0.001);
+}
 
-    /// test #3
+TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
+
     // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
@@ -148,11 +117,11 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
-    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
+    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -160,12 +129,12 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_EQ(points->at(2), 67);
     EXPECT_EQ(points->at(3), 97);
 
-    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 2);
     EXPECT_EQ(data->rSize(), 97);
@@ -173,8 +142,13 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     //Spot checks:
     EXPECT_NEAR(data->getDataElement(17, 0), 1.16386, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 2.63297, 0.0001);
+}
 
-    /// test #4
+TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
+{
+    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    ASSERT_TRUE(a2kplugin != NULL);
+
     // reset the value of plugin properties
     a2kplugin->resetPropertiesValues();
 
@@ -188,11 +162,11 @@ TEST_F(PluginAuto2000Tests, All_Tests)
 
     a2kplugin->execute();
 
-    summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
-    headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
+    string summary = a2kplugin->getPropertyValueAsString("BifurcationSummary");
+    string headers = "BR    PT  TY LAB    PAR(0)        L2-NORM         U(1)          U(2)";
     EXPECT_EQ(summary.find(headers), 4);
 
-    points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
+    vector<int>* points = (vector<int>*)a2kplugin->getPropertyValueHandle("BifurcationPoints");
     ASSERT_TRUE(points != NULL);
     ASSERT_EQ(points->size(), 4);
     EXPECT_EQ(points->at(0), 1);
@@ -200,12 +174,12 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_EQ(points->at(2), 255);
     EXPECT_EQ(points->at(3), 361);
 
-    labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
+    StringList* labels = (StringList*)a2kplugin->getPropertyValueHandle("BifurcationLabels");
     ASSERT_TRUE(labels != NULL);
     ASSERT_EQ(labels->size(), 4);
     EXPECT_EQ(labels->asString(), "EP,LP,LP,EP");
 
-    data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
+    TelluriumData* data = (TelluriumData*)a2kplugin->getPropertyValueHandle("BifurcationData");
     ASSERT_TRUE(data != NULL);
     EXPECT_EQ(data->cSize(), 3);
     EXPECT_EQ(data->rSize(), 361);
@@ -214,5 +188,4 @@ TEST_F(PluginAuto2000Tests, All_Tests)
     EXPECT_NEAR(data->getDataElement(17, 0), -2.39214, 0.0001);
     EXPECT_NEAR(data->getDataElement(93, 1), 3.0908, 0.0001);
     EXPECT_NEAR(data->getDataElement(193, 2), 10.5904, 0.0001);
-     */
 }
