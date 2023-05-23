@@ -330,7 +330,6 @@ TEST_F(PluginTests, TEST_MODEL_CHECK_SIGMA)
     double* sigma = static_cast<double*>(sig->getValueHandle());
     EXPECT_EQ(*sigma, 10);
 }
-*/
 
 TEST_F(PluginTests, TEST_MODEL_NEW_MODEL)
 {
@@ -413,3 +412,4 @@ TEST_F(PluginTests, TEST_MODEL_NEW_MODEL)
     EXPECT_EQ(sim->cSize(), 4);
     EXPECT_EQ(sim->rSize(), 14);
 }
+ */
