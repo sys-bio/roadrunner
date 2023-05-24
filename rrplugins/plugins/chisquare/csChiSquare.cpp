@@ -96,6 +96,14 @@ namespace cs_ChiSquare {
         }
     }
 
+    void ChiSquare::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("ModelData", "");
+        setPropertyByString("NrOfModelParameters", "0");
+        setPropertyByString("ChiSquare", "0");
+        setPropertyByString("ReducedChiSquare", "0");
+    }
+
 
     #ifdef EXPORT_CHI_SQUARE
     // Plugin factory function

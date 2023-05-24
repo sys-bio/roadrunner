@@ -69,6 +69,7 @@ namespace lmfit
         ~LM();
 
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         string                                  getResult();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();

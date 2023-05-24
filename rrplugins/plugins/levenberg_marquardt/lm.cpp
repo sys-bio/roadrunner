@@ -234,6 +234,26 @@ The Plugin has numerous parameters for fine tuning the algorithm. See the embedd
         return false;
     }
 
+    void LM::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("FittedData", "");
+        setPropertyByString("Residuals", "");
+        setPropertyByString("ExperimentalDataSelectionList", "");
+        setPropertyByString("FittedDataSelectionList", "");
+        setPropertyByString("Norm", "0");
+        setPropertyByString("Norms", "");
+        setPropertyByString("NrOfIter", "0");
+        setPropertyByString("Hessian", "");
+        setPropertyByString("CovarianceMatrix", "");
+        setPropertyByString("StandardizedResiduals", "");
+        setPropertyByString("NormalProbabilityOfResiduals", "");
+        setPropertyByString("ChiSquare", "0");
+        setPropertyByString("ReducedChiSquare", "0");
+        setPropertyByString("StatusMessage", "<none>");
+        setPropertyByString("stepbound", "100.0");
+        setPropertyByString("patience", "400");
+    }
+
 #ifdef EXPORT_LEVENBERG_MARQUARDT
     // Plugin factory function
     TLP_DS LM* plugins_cc createPlugin()

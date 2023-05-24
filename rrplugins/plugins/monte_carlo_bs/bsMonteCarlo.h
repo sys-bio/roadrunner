@@ -45,6 +45,7 @@ namespace bsmc
         ~MonteCarlo();
 
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         string                                  getResult();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();

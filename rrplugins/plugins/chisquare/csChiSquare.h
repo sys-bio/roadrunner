@@ -33,6 +33,7 @@ namespace cs_ChiSquare {
                                                 ChiSquare();
                                                 ~ChiSquare();
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();
         bool                                    isWorking() const;

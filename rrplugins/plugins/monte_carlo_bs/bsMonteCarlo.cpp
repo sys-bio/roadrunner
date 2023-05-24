@@ -157,6 +157,16 @@ namespace bsmc
         }
     }
 
+    void MonteCarlo::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("MonteCarloParameters", "");
+        setPropertyByString("ExperimentalDataSelectionList", "");
+        setPropertyByString("FittedDataSelectionList", "");
+        setPropertyByString("NrOfMCRuns", "5");
+        setPropertyByString("MinimizerPlugin", "tel_levenberg_marquardt");
+        setPropertyByString("Seed", "0");
+    }
+
 #ifdef EXPORT_MONTE_CARLO_BS
     // Plugin factory function
     TLP_DS MonteCarlo* plugins_cc createPlugin()

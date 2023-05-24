@@ -34,6 +34,7 @@ namespace addNoise
 
 
         bool                        execute(bool inThread = false);
+        void                        resetPropertiesValues();
         bool                        isWorking() const; //Returns true as long the thread is active..
         unsigned char* getManualAsPDF() const;
         size_t                      getPDFManualByteSize();

@@ -73,6 +73,14 @@ The AddNoise plugin was developed at the University of Washington by Totte Karls
         return mAddNoiseWorker.start(inThread);
     }
 
+    void AddNoise::resetPropertiesValues() {
+        setPropertyByString("Sigma", "1");
+        setPropertyByString("InputData", "");
+        setPropertyByString("Seed", "0");
+        setPropertyByString("Progress", "0");
+        setPropertyByString("AssumeTime", "false");
+    }
+
     void AddNoise::assignPropertyDescriptions()
     {
         stringstream s;
