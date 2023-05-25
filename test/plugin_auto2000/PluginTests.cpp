@@ -962,7 +962,6 @@ TEST_F(PluginTests, MONTE_CARLO_CHECK_SEED)
     EXPECT_EQ(cl_one, cl->getValue());
 }
 
-/*
 TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_TEST_MODEL)
 {
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -977,7 +976,7 @@ TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_TEST_MODEL)
     ASSERT_TRUE(nmplugin != NULL);
 
     // reset the value of plugin properties
-    nmplugin->resetPropertiesValues();
+    //nmplugin->resetPropertiesValues();
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
     nmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
@@ -1057,7 +1056,6 @@ TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_TEST_MODEL)
         }
     }
 }
-*/
 /*
 TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_NEW_MODEL)
 {
