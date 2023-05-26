@@ -238,8 +238,7 @@ The Plugin has a number of parameters for fine tuning the algorithm. See the emb
         setPropertyByString("ExperimentalData", "");
         setPropertyByString("FittedData", "");
         setPropertyByString("Residuals", "");
-        setPropertyByString("ExperimentalDataSelectionList", "{}");
-        setPropertyByString("FittedDataSelectionList", "{}");
+        setPropertyByString("ExperimentalDataSelectionList", "");
         setPropertyByString("Norm", "0");
         setPropertyByString("Norms", "");
         setPropertyByString("NrOfIter", "0");
