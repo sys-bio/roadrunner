@@ -976,7 +976,7 @@ TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_TEST_MODEL)
     ASSERT_TRUE(nmplugin != NULL);
 
     // reset the value of plugin properties
-    //nmplugin->resetPropertiesValues();
+    nmplugin->resetPropertiesValues();
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
     nmplugin->setPropertyByString("SBML", sbml->getValueAsString().c_str());
