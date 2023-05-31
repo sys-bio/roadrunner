@@ -1057,9 +1057,9 @@ TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_TEST_MODEL)
     }
 }
 
+/*
 TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_NEW_MODEL)
 {
-    /*
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
@@ -1225,5 +1225,5 @@ TEST_F(PluginTests, NELDER_MEAD_OPTIMIZE_NEW_MODEL)
                 }
         }
     }
-     */
 }
+ */
