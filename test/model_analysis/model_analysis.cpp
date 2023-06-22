@@ -39,6 +39,13 @@ TEST_F(ModelAnalysisTests, issue1031) {
 
 }
 
+TEST_F(ModelAnalysisTests, issue1132) {
+    rr::RoadRunner rr((modelAnalysisModelsDir / "simple_model_with_initial_assignments.xml").string());
+
+    rr.steadyState();
+    ls::DoubleMatrix sfcc = rr.getScaledFluxControlCoefficientMatrix();
+}
+
 
 TEST_F(ModelAnalysisTests, issue1020_full) {
     //Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::LLJIT);
