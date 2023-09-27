@@ -1361,6 +1361,10 @@ namespace rr {
                 return impl->model->getStoichiometry(speciesIndex, reactionIndex);
             }
                 break;
+            case SelectionRecord::TIME: {
+                dResult = getCurrentTime();
+                break;
+            }
 
             default:
                 dResult = 0.0;
