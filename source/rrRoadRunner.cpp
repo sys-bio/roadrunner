@@ -1598,7 +1598,7 @@ namespace rr {
         // automatic detection of requirement for conserved moiety analysis
         if (getSteadyStateSolver()->getValue("auto_moiety_analysis")) {
             rrLog(Logger::LOG_DEBUG) << "Checking whether moiety conservation analysis is needed" << std::endl;
-            if (!impl->loadOpt.getConservedMoietyConversion()) {
+            if (!impl->loadOpt.getConservedMoietyConversion() && !isConservedMoietyConversionSetByUser) {
                 /*
                  * Note this is an expensive operation. The other way
                  * of determining need for moiety conservation is to
@@ -1615,6 +1615,7 @@ namespace rr {
                                                   "because this model has " << numConservedMoieties
                                                << "conserved moieties";
                 }
+                isConservedMoietyConversionSetByUser = false;
             }
         }
 
@@ -1687,6 +1688,7 @@ namespace rr {
         }
 
         self.loadOpt.setConservedMoietyConversion(value);
+        isConservedMoietyConversionSetByUser = true;
 
         if (self.model != NULL) {
             uint32_t savedOpt = self.loadOpt.modelGeneratorOpt;
