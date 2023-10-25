@@ -1703,10 +1703,9 @@ namespace rr {
             self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
             //load(getSBML());
-            // to reset CSUMs
-            reset(SelectionRecord::GLOBAL_PARAMETER);
-
             regenerateModel(true);
+            // to reset CSUMs
+            reset(SelectionRecord::CONSERVED_MOIETY);
 
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
