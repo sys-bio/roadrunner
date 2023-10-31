@@ -172,10 +172,10 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
             else if (rule->getTypeCode() == SBML_ALGEBRAIC_RULE)
             {
                 char* formula = SBML_formulaToL3String(rule->getMath());
-                rrLog(Logger::LOG_WARNING)
-                    << "Unable to handle algebraic rules. Formula '0 = "
-                    << formula << "' ignored.";
+                std::stringstream err;
+                err << "Unable to support algebraic rules.  The formula '0 = " << formula << "' is not supported.";
                 free(formula);
+                throw_llvm_exception(err.str())
             }
         }
     }

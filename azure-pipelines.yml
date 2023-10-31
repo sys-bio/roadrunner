@@ -137,8 +137,7 @@ stages:
               # for example, it looks like this:
               # - https://dev.azure.com/TheRoadrunnerProject/libroadrunner-deps/_build?definitionId=9
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -272,8 +271,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-Release
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -503,8 +501,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -594,7 +591,7 @@ stages:
           - powershell: |
               where.exe conda
               where.exe python
-              conda update conda -y -c conda-forge
+              # conda update conda -y -c conda-forge
               conda install numpy
               conda install python=3.11 -c conda-forge
               conda --version
@@ -637,8 +634,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-Release
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -776,13 +772,13 @@ stages:
               BuildDocs: OFF
         variables:
           MinicondaRoot : '/usr/share/miniconda'
-          PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
+          PythonRoot: '$(MinicondaRoot)/'
           PythonLibDir: '$(PythonRoot)/lib'
           PythonExecutable: '$(PythonRoot)/bin/python'
           PipExecutable: '$(PythonRoot)/bin/pip'
           SphinxExecutable: '$(PythonRoot)/bin/sphinx-build'
-          PythonName: 'py39'
-          PythonVersion: '3.9'
+          PythonName: 'py311'
+          PythonVersion: '3.11'
           LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm13-ubuntu-gcc10-rel.tar.gz'
         steps:
           - checkout: self
@@ -849,7 +845,7 @@ stages:
             displayName: Install g++10 and doxygen
           - script: |
               eval "$(conda shell.bash hook)"
-              conda create -y --name $(PythonName) python=$(PythonVersion)
+              # conda create -y --name $(PythonName) python=$(PythonVersion)
               $(PipExecutable) install requests
             displayName: "Install Python via conda"
           - script: |
@@ -867,8 +863,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
