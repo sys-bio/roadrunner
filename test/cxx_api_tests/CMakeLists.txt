@@ -14,6 +14,8 @@ add_test_executable(test_cxx_api_StructuralAnalysisTests test_targets Structural
 add_test_executable(test_cxx_api_MCATests test_targets MCATests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_RoadRunnerMapTests test_targets RoadRunnerMapTests.cpp ${SharedTestFiles})
 
+set(test_targets ${test_targets} PARENT_SCOPE)
+
 if (BUILD_PYTHON AND BUILD_TESTS)
 
     ###################################################################################
