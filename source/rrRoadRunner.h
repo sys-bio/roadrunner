@@ -1787,6 +1787,8 @@ namespace rr {
 
     private:
 
+        bool isConservedMoietyConversionSetByUser = false;
+
         /**
          * True once the llvm initialization routines have been run.
          * This is necessary because they are not threadsafe.
