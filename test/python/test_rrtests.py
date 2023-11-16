@@ -729,7 +729,7 @@ def checkRK45Output(rrInstance, testId):
     rrInstance.setIntegrator('rk45')
     rk45 = rrInstance.simulate(0, 10)
     rrInstance.setIntegrator('cvode')
-    if not expectArrayApproximately(cvode[-1], rk45[-1], 1E-5):
+    if not expectArrayApproximately(cvode[-1], rk45[-1], 1E-6):
         errorFlag = True
     print(passMsg (errorFlag))
     

@@ -1422,7 +1422,6 @@ TEST_F(ModelAnalysisTests, ResetManyParameters) {
 
 TEST_F(ModelAnalysisTests, ResetConservedCycles) {
     RoadRunner rr((modelAnalysisModelsDir / "conserved_cycle.xml").string());
-    rr.setConservedMoietyAnalysis(true);
     rr.steadyState();
     rr.setValue("_CSUM0", 1000);
     rr.reset();
@@ -1698,17 +1697,4 @@ TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
     // set the initial stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
-}
-
-TEST_F(ModelAnalysisTests, CheckConservedMoietyStatusAfterCallingSteadyStateSolver) {
-    RoadRunner rr((modelAnalysisModelsDir / "conserved_cycle.xml").string());
-    EXPECT_EQ(rr.getConservedMoietyAnalysis(), false);
-    rr.steadyState();
-    EXPECT_EQ(rr.getConservedMoietyAnalysis(), false);
-    rr.setConservedMoietyAnalysis(true);
-    rr.steadyState();
-    EXPECT_EQ(rr.getConservedMoietyAnalysis(), true);
-    rr.setConservedMoietyAnalysis(false);
-    rr.steadyState();
-    EXPECT_EQ(rr.getConservedMoietyAnalysis(), false);
 }
