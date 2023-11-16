@@ -1704,8 +1704,6 @@ namespace rr {
 
             //load(getSBML());
             regenerateModel(true);
-            // to reset CSUMs
-            reset(SelectionRecord::CONSERVED_MOIETY);
 
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
