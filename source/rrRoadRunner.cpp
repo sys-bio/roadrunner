@@ -1600,6 +1600,7 @@ namespace rr {
         const std::string &solverName = impl->steady_state_solver->getName();
 
         // automatic detection of requirement for conserved moiety analysis
+        bool currentConservedMoietyAnalysisStatus = getConservedMoietyAnalysis();
         if (getSteadyStateSolver()->getValue("auto_moiety_analysis")) {
             rrLog(Logger::LOG_DEBUG) << "Checking whether moiety conservation analysis is needed" << std::endl;
 
@@ -1673,6 +1674,7 @@ namespace rr {
         // so the next call to steadyState starts
         // without any decorators.
         setSteadyStateSolver(solverName);
+        setConservedMoietyAnalysis(currentConservedMoietyAnalysisStatus);
 
         return ss;
     }
