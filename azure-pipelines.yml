@@ -22,14 +22,18 @@ variables:
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
-#########################################################################
-# Many Linux Build
-#
-  - stage: ManyLinux
-    displayName: ManyLinux2014
+  ########################################################################
+  # MacOS Build
+  #
+  - stage: MacBuildRoadrunnerPython
     dependsOn: []
     jobs:
-      - job:
+      - job: MacBuildRoadrunnerPython
+        timeoutInMinutes: "0"
+        displayName: MacBuildRoadrunnerPython
+        continueOnError: "false"
+        pool:
+          vmImage: 'macOS-11'
         strategy:
           matrix:
             py38:
@@ -44,154 +48,184 @@ stages:
             py311:
               PythonVersion: 3.11
               PythonName: py311
-        pool:
-          vmImage: 'ubuntu-20.04'
-        container: sysbiouw/roadrunner-manylinux2014:latest
         variables:
-          CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
-          BUILD_DIRECTORY: '$(System.DefaultWorkingDirectory)/build'
-          SOURCE_DIRECTORY: '$(System.DefaultWorkingDirectory)'
-          INSTALL_DIRECTORY: '$(System.DefaultWorkingDirectory)/install-azure'
-          MinicondaRoot: '/Miniconda3'
+          MinicondaRoot : '/usr/local/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
-          CondaExecutable: '$(MinicondaRoot)/bin/conda'
-          PythonExecutable: '$(PythonRoot)/bin/python'
           PythonLibDir: '$(PythonRoot)/lib'
-          PythonIncludeDir: '$(PythonRoot)/include'
+          PythonExecutable: '$(PythonRoot)/bin/python'
+          CondaExecutable: '$(MinicondaRoot)/condabin/conda'
           PipExecutable: '$(PythonRoot)/bin/pip'
-          SwigExecutable: '/swig-4.0.2/install-swig-4.0.2/bin/swig'
-
+          SWIG_CACHE: 'false'
+          MINICONDA_CACHE: 'false'
+          LLVM_CACHE: 'false'
+          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         steps:
           - checkout: self
             submodules: recursive
+          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            displayName: Add conda to PATH
 
+          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+          # We need to take ownership if we want to update conda or install packages globally
+          - bash: sudo chown -R $USER $CONDA
+            displayName: Take ownership of conda installation
           - script: |
-
-              echo "SOURCE_DIRECTORY   $(SOURCE_DIRECTORY)"
-              if [ ! -d "$(SOURCE_DIRECTORY)" ]; then
-                echo "Can't find SOURCE_DIRECTORY at $(SOURCE_DIRECTORY)"
-                exit 1
-              fi
-
-              echo "MinicondaRoot      $(MinicondaRoot)"
-              if [ ! -d "$(MinicondaRoot)" ]; then
-                echo "Can't find MinicondaRoot at $(MinicondaRoot)"
-                exit 1
-              fi
-
-              echo "PythonRoot         $(PythonRoot)"
-              if [ ! -d "$(PythonRoot)" ]; then
-                echo "Can't find PythonRoot at $(PythonRoot)"
-                exit 1
-              fi
-
-              echo "CondaExecutable    $(CondaExecutable)"
-              if [ ! -f "$(CondaExecutable)" ]; then
-                echo "Can't find CondaExecutable at $(CondaExecutable)"
-                exit 1
-              fi
-
-              echo "PythonExecutable   $(PythonExecutable)"
-              if [ ! -f "$(PythonExecutable)" ]; then
-                echo "Can't find PythonExecutable at $(PythonExecutable)"
-                exit 1
-              fi
-
-              echo "PythonLibDir       $(PythonLibDir)"
-              if [ ! -d "$(PythonLibDir)" ]; then
-                echo "Can't find PythonLibDir at $(PythonLibDir)"
-                exit 1
-              fi
-
-              echo "PythonIncludeDir   $(PythonIncludeDir)"
-              if [ ! -d "$(PythonIncludeDir)" ]; then
-                echo "Can't find PythonIncludeDir at $(PythonIncludeDir)"
-                exit 1
-              fi
-
-              echo "PipExecutable      $(PipExecutable)"
-              if [ ! -f "$(PipExecutable)" ]; then
-                echo "Can't find PipExecutable at $(PipExecutable)"
-                exit 1
-              fi
-
-              echo "SwigExecutable     $(SwigExecutable)"
-              if [ ! -f "$(SwigExecutable)" ]; then
-                echo "Can't find SwigExecutable at $(SwigExecutable)"
-                exit 1
-              fi
-
-            displayName: Print Azure Variables
-
-          - script: |
-              echo "$(CondaExecutable) shell.bash hook"
-              eval "$($(CondaExecutable) shell.bash hook)"
-              $(CondaExecutable) init
-
-              echo ". ~/.bashrc"
-              . ~/.bashrc
-              $(CondaExecutable) activate $(PythonName)
-
-              echo "mkdir $(BUILD_DIRECTORY)"
-              mkdir $(BUILD_DIRECTORY)
-
-              echo "cd $(BUILD_DIRECTORY)"
-              cd $(BUILD_DIRECTORY)
-
-              $(PipExecutable) install -r $(SOURCE_DIR)/requirements.txt
-              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
-
-              echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
-              cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
-              cmake --build . --target install --config Release -j 12
-
-            displayName: Build With Python
-          - script: |
-              echo ". ~/.bashrc"
-              . ~/.bashrc
-              $(CondaExecutable) activate $(PythonName)
-
-              echo "cd'ing to build dir $(BUILD_DIR)"
-              cd $(BUILD_DIR)
-              ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
-            displayName: Run Tests
-          - script: |
-              echo ". ~/.bashrc"
-              . ~/.bashrc
-              $(CondaExecutable) activate $(PythonName)
-
-              echo "cd'ing to build dir $(BUILD_DIR)"
-              cd $(BUILD_DIR)
-              ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-            displayName: Run Stochastic test suite
-
-          - script: |
-              echo "cd to $(INSTALL_DIRECTORY)"
-              cd $(INSTALL_DIRECTORY)
-
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
               echo "ls"
               ls
+              echo "which conda"
+              which conda
+              echo "cd miniconda root: $(MinicondaRoot)"
+              cd $(MinicondaRoot)
+              echo "ls"
+              ls
+              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
+              echo "running: $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt"
+              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
+            displayName: InstallCondaEnv
+          - script: |
+              which conda
+              which python
+              echo "PythonVersion $(PythonVersion)"
+              echo "PythonName $(PythonName)"
+              echo "MinicondaRoot $(MinicondaRoot)"
+              echo "PythonRoot $(PythonRoot)"
+              echo "PythonLibDir $(PythonLibDir)"
+              echo "CondaExecutable $(CondaExecutable)"
+            displayName: PrintPythonVariables
+          - script: |
+              mkdir $(DEPS_INSTALL_PREFIX)
+            displayName: Make Directories
+          - script: |
+              $(PipExecutable) install requests
+              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+              echo "give execute permissions to llvm-config using chmod 777 *"
+              cd $(LLVM_INSTALL_PREFIX)/bin
+              chmod 777 llvm-config
+            displayName: "Get LLVM"
+          #            condition: ne(variables.LLVM_CACHE, 'true')
 
-              $(PipExecutable) install numpy pytest
-              echo "$(PythonExecutable) ./setup.py bdist_wheel"
-              $(PythonExecutable) ./setup.py bdist_wheel
-              $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
 
-              # cd dist
-              # wheel=$(realpath $(ls))
-              # echo "wheel is: $wheel"
-              # $(PipExecutable) install $wheel
-            displayName: Build Pip Wheel
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'libroadrunner-deps'
+              pipeline: 9
+              runVersion: 'latest'
+              artifact: libroadrunner-deps-$(Agent.OS)-Release
+              path: $(DEPS_INSTALL_PREFIX)
+            displayName: Download libroadrunner-deps install artifacts
+          - script: |
+              echo "$(DEPS_INSTALL_PREFIX)"
+              echo "cd to $(DEPS_INSTALL_PREFIX)"
+              cd $(DEPS_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
+              mv $(DEPS_INSTALL_PREFIX)/install-azure/Release/** .
+              rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+            displayName: Move Dependencies
+          #          - task: Cache@2
+          #            inputs:
+          #              key: "Swig | $(Agent.OS)"
+          #              path: $(SWIG_INSTALL_PREFIX)
+          #              cacheHitVar: SWIG_CACHE
+          #            displayName: Cache Swig-4.0.2
+          - script: |
+              echo "installing pcre"
+              brew install pcre pcre2
+              mkdir -p $(SWIG_SOURCE_DIR)
+              echo "cd to swig source dir: $(SWIG_SOURCE_DIR)"
+              cd $(SWIG_SOURCE_DIR)
+              echo "ls"
+              ls -lh
+              wget -q https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz $(SWIG_SOURCE_DIR)
+              tar -xf swig-4.0.2.tar.gz
+              ls -lh
+              echo "Copying swig content from swig-4.0.2 to SWIG_SOURCE_DIR"
+              mv swig-4.0.2/** $(SWIG_SOURCE_DIR)
+              echo "ls"
+              ls -lh
+              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
+              ls -lh
+              ./configure --prefix=$(SWIG_INSTALL_PREFIX)
+              make -j 12
+              make install
+              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
+              ls
+              echo "cd to swig install dir: $(SWIG_INSTALL_PREFIX)"
+              cd $(SWIG_INSTALL_PREFIX)
+              echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
+              ls
+              if [ ! -f "$(SWIG_EXECUTABLE)" ]; then
+                echo "did not locate swig executable, exiting"
+                exit
+              fi
+            displayName: Install Swig
+            condition: ne(variables.SWIG_CACHE, 'true')
+          - script: |
+              mkdir -p $(SOURCE_DIR)
+              mkdir -p $(BUILD_DIR)
+              mkdir -p $(INSTALL_DIR)
+            displayName: Make directories
+          - script: |
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "ls"
+              ls
+              echo "Variable PythonRoot set to $(PythonRoot)"
+              echo "Checking to see whether I can CD to PythonRoot"
+              cd $(PythonRoot)
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              ls
+              export LD_LIBRARY_PATH=$(PythonLibDir)
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
+              cmake --build . --target install --config Release -j 12
+            displayName: BuildRoadrunnerWithPython
+          - script: |
+              echo "LD_LIBRARY_PATH $LD_LIBRARY_PATH"
+              export LD_LIBRARY_PATH=$(PythonLibDir)
+              echo "cd to isntall dir: $(INSTALL_DIR)"
+              cd $(INSTALL_DIR)
+              echo "ls in install dir"
+              ls
+              #$(PythonExecutable) site-packages/roadrunner/testing/__main__.py
+              echo "Switching to build dir: $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              echo "ctest --output-on-failure --verbose --extra-verbose --tests-regex python_tests*"
+              ctest --output-on-failure --verbose --extra-verbose --tests-regex python_tests*
+            displayName: RunPythonTests
+          - script: |
+              # todo workout whether the top few lines are needed now I'm using $(PythonExecutable)
+              #eval "$(conda shell.bash hook)"
+              #source activate $(PythonName)
+              #echo "which python: $(which python)"
+              #echo "which conda: $(which conda)"
+              #python_exe="$(which python)"
+              echo "cd to isntall dir: $(INSTALL_DIR)"
+              cd $(INSTALL_DIR)
+              echo "ls in install dir"
+              ls
+              echo "$(PythonExecutable) setup.py bdist_wheel"
+              $(PythonExecutable) setup.py bdist_wheel
+              echo "$(PythonExecutable) setup_rrplugins.py bdist_wheel"
+              $(PythonExecutable) setup_rrplugins.py bdist_wheel
+            displayName: Generate pip wheel
+
           - task: CopyFiles@2
             inputs:
-              sourceFolder: '$(INSTALL_DIRECTORY)'
-              contents: '**'
-              targetFolder: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
-            displayName: Copy install to artifact staging area
-          - task: PublishBuildArtifacts@1
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)/roadrunner-MacOS11-$(PythonName)
+            displayName: Copy Install Tree to Staging Area
+          - task: CopyFiles@2
             inputs:
-              pathToPublish: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
-              artifactName: roadrunner-ManyLinux2014-$(PythonName)
-              Parallel: true
-              ParallelCount: 8
+              contents: '$(INSTALL_DIR)/dist/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
+            displayName: Copy Pip Wheels to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: roadrunner-MacOS11-$(PythonName)
+            displayName: Publish Pip Wheels Artifacts
 
