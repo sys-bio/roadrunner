@@ -724,7 +724,7 @@ def checkRK45Output(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     rrInstance.reset(roadrunner.SelectionRecord.ALL)
-    rrInstance.setConservedMoietyAnalysis(True)
+    rrInstance._setConservedMoietyAnalysis(True)
     cvode = rrInstance.simulate(0, 10)
     rrInstance.reset()
     rrInstance.setIntegrator('rk45')
