@@ -728,6 +728,7 @@ def checkRK45Output(rrInstance, testId):
     cvode = rrInstance.simulate(0, 10)
     rrInstance.reset()
     rrInstance.setIntegrator('rk45')
+    rrInstance._setConservedMoietyAnalysis(True)
     rk45 = rrInstance.simulate(0, 10)
     rrInstance.setIntegrator('cvode')
     if not expectArrayApproximately(cvode[-1], rk45[-1], 1E-6):
