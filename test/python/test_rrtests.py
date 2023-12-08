@@ -724,12 +724,13 @@ def checkRK45Output(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     rrInstance.reset(roadrunner.SelectionRecord.ALL)
-    rrInstance.conservedMoietyAnalysis = True
     cvode = rrInstance.simulate(0, 10)
     rrInstance.reset()
     rrInstance.setIntegrator('rk45')
     rk45 = rrInstance.simulate(0, 10)
     rrInstance.setIntegrator('cvode')
+    print("cvode Value: ", cvode[-1])
+    print("rk45 Value: ", rk45[-1])
     if not expectArrayApproximately(cvode[-1], rk45[-1], 1E-6):
         errorFlag = True
     print(passMsg (errorFlag))
