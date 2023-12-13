@@ -29,14 +29,13 @@ public:
 
     IniKey(const std::string& key = "");
     ~IniKey(){}
-    void                       ReKey(const std::string& key);
-    std::string                       AsString() const;
-    int                       AsBool() const;
-    int                       AsInt() const;
-    double                       AsFloat() const;
-    std::complex<double>         AsComplex() const;
-    RR_DECLSPEC
-    friend std::ostream&         operator<<(std::ostream& stream, const IniKey& aKey);
+    void                             ReKey(const std::string& key);
+    std::string                      AsString() const;
+    int                              AsBool() const;
+    int                              AsInt() const;
+    double                           AsFloat() const;
+    std::complex<double>             AsComplex() const;
+    friend std::ostream& operator<<(std::ostream& stream, const IniKey& aKey);
 };
 /** @endcond PRIVATE */
 }

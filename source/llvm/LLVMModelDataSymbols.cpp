@@ -172,10 +172,10 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
             else if (rule->getTypeCode() == SBML_ALGEBRAIC_RULE)
             {
                 char* formula = SBML_formulaToL3String(rule->getMath());
-                rrLog(Logger::LOG_WARNING)
-                    << "Unable to handle algebraic rules. Formula '0 = "
-                    << formula << "' ignored.";
+                std::stringstream err;
+                err << "Unable to support algebraic rules.  The formula '0 = " << formula << "' is not supported.";
                 free(formula);
+                throw_llvm_exception(err.str())
             }
         }
     }
@@ -265,6 +265,15 @@ LLVMModelDataSymbols::SymbolIndexType LLVMModelDataSymbols::getSymbolIndex(
     {
         result = i->second;
         return EVENT;
+    }
+    else
+    {
+        for (int stoichIndex = 0 ; stoichIndex < stoichIds.size(); ++stoichIndex) {
+            if (stoichIds.at(stoichIndex) == name) {
+                result = stoichIndex;
+                return STOICHIOMETRY;
+            }
+        }
     }
 
     result = -1;
@@ -405,13 +414,51 @@ size_t LLVMModelDataSymbols::getReactionSize() const
     return reactionsMap.size();
 }
 
+int LLVMModelDataSymbols::getStoichiometryIndex(const std::string& id) const
+{
+    for (int i = 0; i < stoichIds.size(); ++i)
+    {
+        if (stoichIds.at(i) == id)
+            return i;
+    }
+
+    return -1;
+}
+
+int LLVMModelDataSymbols::getStoichiometryIndex(const std::string& speciesId, const std::string& reactionId) const
+{
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = getStoichiometryList();
+    int speciesIndex = getFloatingSpeciesIndex(speciesId);
+    int reactionIndex = getReactionIndex(reactionId);
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
+    int stoichiometryIndex = 0;
+    while (stoichiometry != stoichiometryIndx.end()) {
+        if (stoichiometry->row == speciesIndex && stoichiometry->column == reactionIndex)
+            return stoichiometryIndex;
+        ++stoichiometry;
+        ++stoichiometryIndex;
+    }
+
+    return -1;
+}
+
+std::vector<std::string> LLVMModelDataSymbols::getStoichiometryIds() const
+{
+    return stoichIds;
+}
+
+size_t LLVMModelDataSymbols::getStoichiometrySize() const
+{
+    return getStoichiometryList().size();
+}
+
 size_t  LLVMModelDataSymbols::getFloatingSpeciesSize() const
 {
     return floatingSpeciesMap.size();
 }
 
 std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>
-    LLVMModelDataSymbols::getStoichiometryIndx() const
+    LLVMModelDataSymbols::getStoichiometryList() const
 {
     std::list<SpeciesReferenceInfo> result;
 
@@ -1436,6 +1483,10 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     stoichIds.push_back(p->isSetId() ? p->getId() : "");
                     stoichTypes.push_back(Product);
 
+                    // in case this species is both a product and reactant, can look up
+                    // index of the just added Reactant
+                    speciesMap[speciesIdx] = stoichTypes.size() - 1;
+
                     if (p->isSetId() && p->getId().length() > 0)
                     {
                         if (namedSpeciesReferenceInfo.find(p->getId())
@@ -1881,6 +1932,13 @@ int LLVMModelDataSymbols::getConservedMoietyIndex(
     }
 
     return -1;
+}
+
+bool LLVMModelDataSymbols::isConservedMoietyAnalysis() const {
+    if (conservedMoietyGlobalParameter.size())
+        return true;
+
+    return false;
 }
 
 void LLVMModelDataSymbols::saveState(std::ostream& out) const

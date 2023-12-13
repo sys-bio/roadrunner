@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.16)
 # Version information and include modules
 
 set(ROADRUNNER_VERSION_MAJOR 2)
-set(ROADRUNNER_VERSION_MINOR 4)
+set(ROADRUNNER_VERSION_MINOR 5)
 set(ROADRUNNER_VERSION_PATCH 0)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
@@ -472,9 +472,9 @@ find_package(SUNDIALS CONFIG REQUIRED)
 # not for windows. So not required, but we throw error if not win and not found.
 find_package(Curses)
 
-if (NOT WIN32 AND NOT ${CURSES_FOUND})
-    message(FATAL_ERROR "ncurses library not found. Please install it with your native package manager")
-endif ()
+#if (NOT WIN32 AND NOT ${CURSES_FOUND})
+#    message(FATAL_ERROR "ncurses library not found. Please install it with your native package manager")
+#endif ()
 
 
 set(BUILD_SHARED_LIBS OFF)

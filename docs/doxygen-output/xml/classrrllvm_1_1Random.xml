@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1Random" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::Random</compoundname>
+    <includes refid="Random_8h" local="no">Random.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1Random_1a387019519efe43d4fba138881519818f" prot="public" static="no" mutable="no">
         <type>cxx11_ns::mt19937</type>
         <definition>cxx11_ns::mt19937 rrllvm::Random::engine</definition>
         <argsstring></argsstring>
         <name>engine</name>
-        <qualifiedname>rrllvm::Random::engine</qualifiedname>
         <briefdescription>
 <para>RNG engine. </para>
         </briefdescription>
@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="100" column="27" bodyfile="llvm/Random.h" bodystart="100" bodyend="-1"/>
+        <location file="llvm/Random.h" line="105" column="27" bodyfile="llvm/Random.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -25,35 +25,32 @@
         <definition>int64_t rrllvm::Random::randomSeed</definition>
         <argsstring></argsstring>
         <name>randomSeed</name>
-        <qualifiedname>rrllvm::Random::randomSeed</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="104" column="17" bodyfile="llvm/Random.h" bodystart="104" bodyend="-1"/>
+        <location file="llvm/Random.h" line="109" column="17" bodyfile="llvm/Random.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Random_1a7b6d7cd37bb46ffb1a318aa902bd5365" prot="private" static="no" mutable="no">
         <type>cxx11_ns::uniform_real&lt; double &gt;</type>
         <definition>cxx11_ns::uniform_real&lt;double&gt; rrllvm::Random::normalized_uniform_dist</definition>
         <argsstring></argsstring>
         <name>normalized_uniform_dist</name>
-        <qualifiedname>rrllvm::Random::normalized_uniform_dist</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="110" column="32" bodyfile="llvm/Random.h" bodystart="110" bodyend="-1"/>
+        <location file="llvm/Random.h" line="115" column="32" bodyfile="llvm/Random.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Random_1aebd1ccf422f268198a10659974c128b0" prot="private" static="no" mutable="no">
         <type>int</type>
         <definition>int rrllvm::Random::mMaxTries</definition>
         <argsstring></argsstring>
         <name>mMaxTries</name>
-        <qualifiedname>rrllvm::Random::mMaxTries</qualifiedname>
         <briefdescription>
 <para>The maximum number of tries to find a value inside a truncated range. </para>
         </briefdescription>
@@ -61,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="116" column="13" bodyfile="llvm/Random.h" bodystart="116" bodyend="-1"/>
+        <location file="llvm/Random.h" line="121" column="13" bodyfile="llvm/Random.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -70,7 +67,6 @@
         <definition>rrllvm::Random::Random</definition>
         <argsstring>(class ModelGeneratorContext &amp;ctx)</argsstring>
         <name>Random</name>
-        <qualifiedname>rrllvm::Random::Random</qualifiedname>
         <param>
           <type>class <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>ctx</declname>
@@ -82,14 +78,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="22" column="9"/>
+        <location file="llvm/Random.h" line="27" column="9"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a921b6e5e3b55c17e8ccc59840ebb7e08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::Random::Random</definition>
         <argsstring>(const Random &amp;other)</argsstring>
         <name>Random</name>
-        <qualifiedname>rrllvm::Random::Random</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Random" kindref="compound">Random</ref> &amp;</type>
           <declname>other</declname>
@@ -101,14 +96,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="28" column="9" bodyfile="llvm/Random.cpp" bodystart="80" bodyend="87"/>
+        <location file="llvm/Random.h" line="33" column="9" bodyfile="llvm/Random.cpp" bodystart="80" bodyend="87"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a897db0dcdeacdef5caac7087e4875616" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1Random" kindref="compound">Random</ref> &amp;</type>
         <definition>Random &amp; rrllvm::Random::operator=</definition>
         <argsstring>(const Random &amp;rhs)</argsstring>
         <name>operator=</name>
-        <qualifiedname>rrllvm::Random::operator=</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Random" kindref="compound">Random</ref> &amp;</type>
           <declname>rhs</declname>
@@ -120,14 +114,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="34" column="16" bodyfile="llvm/Random.cpp" bodystart="97" bodyend="102"/>
+        <location file="llvm/Random.h" line="39" column="16" bodyfile="llvm/Random.cpp" bodystart="97" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a72e84ec8e83847899adfb999bbee6bbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::Random::Random</definition>
         <argsstring>()</argsstring>
         <name>Random</name>
-        <qualifiedname>rrllvm::Random::Random</qualifiedname>
         <briefdescription>
 <para>default ctor, this obviously does not add any mappings to a <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>. </para>
         </briefdescription>
@@ -136,28 +129,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="41" column="9"/>
+        <location file="llvm/Random.h" line="46" column="9"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a136a5f26c55a8160bc522d1a0cdab2e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::Random::~Random</definition>
         <argsstring>()</argsstring>
         <name>~Random</name>
-        <qualifiedname>rrllvm::Random::~Random</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="43" column="9" bodyfile="llvm/Random.cpp" bodystart="563" bodyend="567"/>
+        <location file="llvm/Random.h" line="48" column="9" bodyfile="llvm/Random.cpp" bodystart="563" bodyend="567"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a71acc6461e87790ee45f7f5da635eb8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
         <definition>double rrllvm::Random::operator()</definition>
         <argsstring>()</argsstring>
         <name>operator()</name>
-        <qualifiedname>rrllvm::Random::operator()</qualifiedname>
         <briefdescription>
 <para>return a normalized random number between 0 and 1 using the RNG engine. </para>
         </briefdescription>
@@ -165,14 +156,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="49" column="16" bodyfile="llvm/Random.cpp" bodystart="569" bodyend="574"/>
+        <location file="llvm/Random.h" line="54" column="16" bodyfile="llvm/Random.cpp" bodystart="569" bodyend="574"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1ad009ff45cd685be754370b668e99f6f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int rrllvm::Random::getMaxTries</definition>
         <argsstring>() const</argsstring>
         <name>getMaxTries</name>
-        <qualifiedname>rrllvm::Random::getMaxTries</qualifiedname>
         <briefdescription>
 <para>Returns the maximum number of tries to find a value inside a truncated range. </para>
         </briefdescription>
@@ -180,14 +170,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="54" column="13" bodyfile="llvm/Random.cpp" bodystart="576" bodyend="579"/>
+        <location file="llvm/Random.h" line="59" column="13" bodyfile="llvm/Random.cpp" bodystart="576" bodyend="579"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1af329339a71a07a79969e35de5881a4d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::Random::setMaxTries</definition>
         <argsstring>(int maxTries)</argsstring>
         <name>setMaxTries</name>
-        <qualifiedname>rrllvm::Random::setMaxTries</qualifiedname>
         <param>
           <type>int</type>
           <declname>maxTries</declname>
@@ -199,14 +188,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="59" column="14" bodyfile="llvm/Random.cpp" bodystart="581" bodyend="584"/>
+        <location file="llvm/Random.h" line="64" column="14" bodyfile="llvm/Random.cpp" bodystart="581" bodyend="584"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a5bfaae233b2805b56c2b9ac9c084c12d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
         <definition>double rrllvm::Random::min</definition>
         <argsstring>()</argsstring>
         <name>min</name>
-        <qualifiedname>rrllvm::Random::min</qualifiedname>
         <briefdescription>
 <para>min random number. </para>
         </briefdescription>
@@ -215,14 +203,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="76" column="16" bodyfile="llvm/Random.h" bodystart="76" bodyend="76"/>
+        <location file="llvm/Random.h" line="81" column="16" bodyfile="llvm/Random.h" bodystart="81" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a4cb7608f39fe6bf46935025168007e71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
         <definition>double rrllvm::Random::max</definition>
         <argsstring>()</argsstring>
         <name>max</name>
-        <qualifiedname>rrllvm::Random::max</qualifiedname>
         <briefdescription>
 <para>max random number. </para>
         </briefdescription>
@@ -231,14 +218,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="81" column="16" bodyfile="llvm/Random.h" bodystart="81" bodyend="81"/>
+        <location file="llvm/Random.h" line="86" column="16" bodyfile="llvm/Random.h" bodystart="86" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1a5eab5fabaad44ed2245d63b03a3475eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::Random::setRandomSeed</definition>
         <argsstring>(int64_t)</argsstring>
         <name>setRandomSeed</name>
-        <qualifiedname>rrllvm::Random::setRandomSeed</qualifiedname>
         <param>
           <type>int64_t</type>
           <defname>val</defname>
@@ -251,14 +237,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="89" column="14" bodyfile="llvm/Random.cpp" bodystart="586" bodyend="597"/>
+        <location file="llvm/Random.h" line="94" column="14" bodyfile="llvm/Random.cpp" bodystart="586" bodyend="597"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Random_1ada656438a7c126e74d0263fcbea6e058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
         <definition>int64_t rrllvm::Random::getRandomSeed</definition>
         <argsstring>()</argsstring>
         <name>getRandomSeed</name>
-        <qualifiedname>rrllvm::Random::getRandomSeed</qualifiedname>
         <briefdescription>
 <para>Try to hide the RNG so we can used different RNGs in the future. </para>
         </briefdescription>
@@ -267,14 +252,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.h" line="95" column="17" bodyfile="llvm/Random.cpp" bodystart="599" bodyend="602"/>
+        <location file="llvm/Random.h" line="100" column="17" bodyfile="llvm/Random.cpp" bodystart="599" bodyend="602"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Define and collect ways to generate random values and values from random distributions. </para>
     </briefdescription>
     <detaileddescription>
+<para>Of particular use when encountering MathML defined by the &apos;Distributions&apos; SBML L3 package. </para>
     </detaileddescription>
-    <location file="llvm/Random.h" line="16" column="5" bodyfile="llvm/Random.h" bodystart="16" bodyend="118"/>
+    <location file="llvm/Random.h" line="21" column="17" bodyfile="llvm/Random.h" bodystart="21" bodyend="123"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1Random_1a387019519efe43d4fba138881519818f" prot="public" virt="non-virtual"><scope>rrllvm::Random</scope><name>engine</name></member>
       <member refid="classrrllvm_1_1Random_1ad009ff45cd685be754370b668e99f6f2" prot="public" virt="non-virtual"><scope>rrllvm::Random</scope><name>getMaxTries</name></member>

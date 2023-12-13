@@ -43,7 +43,7 @@ ________________
 
     Sets the integrator listener.
 
-    :param listener: Swig Object of type 'rr::PyIntegratorListenerPtr *'
+    :param listener: Swig Object of type 'rr::PyIntegratorListenerPtr* '
 
 
 .. method:: Integrator.tweakTolerances()
@@ -64,6 +64,7 @@ CVODE
 
    CVODE is a deterministic ODE solver from the SUNDIALS suite of timecourse integrators. It implements an Adams-Moulton solver for non-stiff problems and a backward differentiation formula (BDF) solver for stiff problems.
 
+.. currentmodule:: CVODE
 
 .. attribute:: Integrator.absolute_tolerance
 
@@ -73,10 +74,10 @@ CVODE
 
     In Sundials, the CVODE algorithm calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE (a scalar).
     
-    >>> rr.integrator.setValue("absolute_tolerance", 1e-10)
-    >>> rr.integrator.setValue("absolute_tolerance", [1, 0.1, 0.01, 0.001] // setting various tolerances for each species.
+    >>> rr.integrator.absolute_tolerance = 1e-10
+    >>> rr.integrator.absolute_tolerance = [1, 0.1, 0.01, 0.001] // setting various tolerances for each species.
 
-    >>> rr.integrator.getValue("absolute_tolerance") //Gets the scalar or vector absolute tolerance, as set by the user or the default value.
+    >>> rr.integrator.absolute_tolerance //Gets the scalar or vector absolute tolerance, as set by the user or the default value.
     >>> rr.integrator.getAbsoluteToleranceVector()   //Gets the absolute tolerance vector, as derived from the scalar value, or as set by the user directly.
     
 
@@ -84,15 +85,15 @@ CVODE
 
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
 
-    >>> rr.integrator.setValue("initial_time_step", 1)
-    >>> rr.integrator.getValue("initial_time_step")
+    >>> rr.integrator.initial_time_step = 1
+    >>> rr.integrator.initial_time_step
 
 .. attribute:: Integrator.maximum_adams_order
 
     Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.
 
-    >>> rr.integrator.setValue("maximum_adams_order", 20)
-    >>> rr.integrator.getValue("maximum_adams_order")
+    >>> rr.integrator.maximum_adams_order = 20
+    >>> rr.integrator."maximum_adams_order
 
 .. attribute:: Integrator.maximum_bdf_order
 
@@ -118,8 +119,8 @@ CVODE
 
     Perform a multiple time step simulation. Default value is false.
 
-    >>> rr.integrator.setValue("multiple_steps", True)
-    >>> rr.integrator.getValue("multiple_steps")
+    >>> rr.integrator.multiple_steps = True
+    >>> rr.integrator.multiple_steps
 
 .. attribute:: Integrator.relative_tolerance
 
@@ -143,6 +144,7 @@ Gillespie
 
     Can be used with the `rr.gillespie function <https://libroadrunner.readthedocs.io/en/latest/PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.gillespie>`_ or by setting integrator to gillespie (see below)
 
+.. currentmodule:: Gillespie
 .. attribute:: Integrator.initial_time_step
 
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
@@ -198,9 +200,12 @@ RK4
 RK45
 ----
 
-    RoadRunner's implementation of the standard Gillespie Direct Method SSA. The granularity of this simulator is individual molecules and kinetic processes are stochastic. Results will, in general, be different in each run, but a sufficiently large ensemble of runs should be statistically correct.
+    The Runge-Kutte-Fehlberg algorithm (RK45) is a variant of the Runge-Kutta method that estimates the values using a fourth-order method, and estimtes the error using a fifth-order method, allowing adaptive step sizes to be calculated automaticaly.  It can be chosen with:
+
+    >>> rr.setIntegrator('rk45')
 
 
+.. currentmodule:: Euler-and-Runge-Kutta
 .. attribute:: Integrator.epsilon
 
     Specifies the maximum error tolerance allowed. Default value is 1e-12.

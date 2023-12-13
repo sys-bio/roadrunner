@@ -1,0 +1,4 @@
+LLVMModelData
+=======================================================
+
+.. doxygenstruct:: rrllvm::LLVMModelData

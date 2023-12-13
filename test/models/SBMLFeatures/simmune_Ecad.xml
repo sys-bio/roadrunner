@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" multi:required="true">
+    
+   <!-- Note: this model has been validated against multi validation rules without errors -->
+    
+   <model name="E-cadherin_mediated_adhesion">
+
+      <!-- Definitions -->
+      <listOfUnitDefinitions>
+         <unitDefinition id="litre_per_mole_per_sec">
+            <listOfUnits>
+               <unit kind="litre" exponent="1" scale="0" multiplier="1" />
+               <unit kind="mole" exponent="-1" scale="0" multiplier="1" />
+               <unit kind="second" exponent="-1" scale="0" multiplier="1" />
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="micron_square_per_sec">
+            <listOfUnits>
+               <unit kind="metre" exponent="2" scale="-6" multiplier="1" />
+               <unit kind="second" exponent="-1" scale="0" multiplier="1" />
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="micrometre_per_sec">
+            <listOfUnits>
+               <unit kind="metre" exponent="1" scale="-6" multiplier="1" />
+               <unit kind="second" exponent="-1" scale="0" multiplier="1" />
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="per_sec">
+            <listOfUnits>
+               <unit kind="second" exponent="-1" scale="0" multiplier="1" />
+            </listOfUnits>
+         </unitDefinition>
+      </listOfUnitDefinitions>
+
+      <!-- Compartments -->
+      <listOfCompartments>
+         <compartment id="membrane" constant="true" multi:isType="true" />
+         <compartment id="inter_membrane" constant="true" multi:isType="true">
+            <multi:listOfCompartmentReferences>
+               <multi:compartmentReference multi:id="m1" multi:compartment="membrane" />
+               <multi:compartmentReference multi:id="m2" multi:compartment="membrane" />
+            </multi:listOfCompartmentReferences>
+         </compartment>
+      </listOfCompartments>
+
+      <!-- SpeciesTypes -->
+      <multi:listOfSpeciesTypes>
+
+         <!-- Ecad with cis-binding site and trans-binding site: -->
+         <multi:bindingSiteSpeciesType multi:id="st_Cis_Interface" />
+         <multi:bindingSiteSpeciesType multi:id="st_Trans_Interface" />
+         <multi:speciesType multi:id="st_Ecad" multi:compartment="membrane">
+            <multi:listOfSpeciesTypeInstances>
+               <multi:speciesTypeInstance multi:id="cis" multi:speciesType="st_Cis_Interface" />
+               <multi:speciesTypeInstance multi:id="trans" multi:speciesType="st_Trans_Interface" />
+            </multi:listOfSpeciesTypeInstances>
+         </multi:speciesType>
+
+         <!-- cis dimer: -->
+         <multi:speciesType multi:id="st_Ecad_cis_dimer" multi:compartment="membrane">
+            <multi:listOfSpeciesTypeInstances>
+               <multi:speciesTypeInstance multi:id="Ecad1" multi:speciesType="st_Ecad" />
+               <multi:speciesTypeInstance multi:id="Ecad_2" multi:speciesType="st_Ecad" />
+            </multi:listOfSpeciesTypeInstances>
+            <multi:listOfSpeciesTypeComponentIndexes>
+               <multi:speciesTypeComponentIndex multi:id="Ecad1cis"
+                  multi:component="cis" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2cis"
+                  multi:component="cis" multi:identifyingParent="Ecad2" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad1trans"
+                  multi:component="trans" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2trans"
+                  multi:component="trans" multi:identifyingParent="Ecad2" />
+            </multi:listOfSpeciesTypeComponentIndexes>
+            <multi:listOfInSpeciesTypeBonds>
+               <multi:inSpeciesTypeBond multi:bindingSite1="Ecad1cis"
+                  multi:bindingSite2="Ecad2cis" />
+            </multi:listOfInSpeciesTypeBonds>
+         </multi:speciesType>
+
+         <!-- trans dimer: -->
+         <multi:speciesType multi:id="st_Ecad_trans_dimer" multi:compartment="inter_membrane">
+            <multi:listOfSpeciesTypeInstances>
+               <multi:speciesTypeInstance multi:id="Ecad1" multi:speciesType="st_Ecad"
+                  multi:compartmentReference="m1" />
+               <multi:speciesTypeInstance multi:id="Ecad2" multi:speciesType="st_Ecad"
+                  multi:compartmentReference="m2" />
+            </multi:listOfSpeciesTypeInstances>
+            <multi:listOfSpeciesTypeComponentIndexes>
+               <multi:speciesTypeComponentIndex multi:id="Ecad1trans"
+                  multi:component="trans" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2trans"
+                  multi:component="trans" multi:identifyingParent="Ecad2" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad1cis"
+                  multi:component="cis" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2cis"
+                  multi:component="cis" multi:identifyingParent="Ecad2" />
+            </multi:listOfSpeciesTypeComponentIndexes>
+            <multi:listOfInSpeciesTypeBonds>
+               <multi:inSpeciesTypeBond multi:bindingSite1="Ecad1trans"
+                  multi:bindingSite2="Ecad2trans" />
+            </multi:listOfInSpeciesTypeBonds>
+         </multi:speciesType>
+
+         <!-- trimer: -->
+         <multi:speciesType multi:id="st_Ecad_trimer" multi:compartment="inter_membrane">
+            <multi:listOfSpeciesTypeInstances>
+               <multi:speciesTypeInstance multi:id="Ecad1" multi:speciesType="st_Ecad"
+                  multi:compartmentReference="m1" />
+               <multi:speciesTypeInstance multi:id="Ecad2" multi:speciesType="st_Ecad"
+                  multi:compartmentReference="m1" />
+               <multi:speciesTypeInstance multi:id="Ecad3" multi:speciesType="st_Ecad"
+                  multi:compartmentReference="m2" />
+            </multi:listOfSpeciesTypeInstances>
+            <multi:listOfSpeciesTypeComponentIndexes>
+               <multi:speciesTypeComponentIndex multi:id="Ecad1cis"
+                  multi:component="cis" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad1trans"
+                  multi:component="trans" multi:identifyingParent="Ecad1" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2cis"
+                  multi:component="cis" multi:identifyingParent="Ecad2" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad2trans"
+                  multi:component="trans" multi:identifyingParent="Ecad2" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad3cis"
+                  multi:component="cis" multi:identifyingParent="Ecad3" />
+               <multi:speciesTypeComponentIndex multi:id="Ecad3trans"
+                  multi:component="trans" multi:identifyingParent="Ecad3" />
+            </multi:listOfSpeciesTypeComponentIndexes>
+            <multi:listOfInSpeciesTypeBonds>
+               <multi:inSpeciesTypeBond multi:bindingSite1="Ecad1cis"
+                  multi:bindingSite2="Ecad2cis" />
+               <multi:inSpeciesTypeBond multi:bindingSite1="Ecad1trans"
+                  multi:bindingSite2="Ecad3trans" />
+            </multi:listOfInSpeciesTypeBonds>
+         </multi:speciesType>
+      </multi:listOfSpeciesTypes>
+
+      <!-- Species -->
+      <listOfSpecies>
+
+         <!-- free Ecad -->
+         <species id="sp_Ecad_unbound" name="Ecad_unbound" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="cis"
+                  multi:bindingStatus="unbound" />
+               <multi:outwardBindingSite multi:component="trans"
+                  multi:bindingStatus="unbound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad trans unbnd -->
+         <species id="sp_Ecad_trans_unbnd" name="Ecad_trans_unbnd" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="trans"
+                  multi:bindingStatus="unbound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad trans bnd -->
+         <species id="sp_Ecad_trans_bnd" name="Ecad_trans_bnd" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="trans"
+                  multi:bindingStatus="bound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad all -->
+         <species id="sp_Ecad_all" name="Ecad_all" compartment="membrane" 
+            hasOnlySubstanceUnits="false"
+            boundaryCondition="false" constant="false" multi:speciesType="st_Ecad" />
+
+         <!-- Pattern species: Ecad cis unbnd -->
+         <species id="sp_Ecad_cis_unbnd" name="Ecad_cis_unbnd" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="cis"
+                  multi:bindingStatus="unbound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad cis unbnd, trans bnd -->
+         <species id="sp_Ecad_6" name="Ecad_6" compartment="membrane" hasOnlySubstanceUnits="false"
+            boundaryCondition="false" constant="false" multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="cis"
+                  multi:bindingStatus="unbound" />
+               <multi:outwardBindingSite multi:component="trans"
+                  multi:bindingStatus="bound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad cis bnd, trans unbnd -->
+         <species id="sp_Ecad_7" name="Ecad_7" compartment="membrane" hasOnlySubstanceUnits="false"
+            boundaryCondition="false" constant="false" multi:speciesType="st_Ecad">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="cis"
+                  multi:bindingStatus="bound" />
+               <multi:outwardBindingSite multi:component="trans"
+                  multi:bindingStatus="unbound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad cis dimer -->
+         <species id="sp_Ecad_cis_dimer" name="Ecad_cis_dimer" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad_cis_dimer" />
+
+         <!-- Pattern species: Ecad cis dimer: all trans bnd -->
+         <species id="sp_EcadEcad_2" name="Ecad.Ecad_2" compartment="membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad_cis_dimer">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="Ecad1trans"
+                  multi:bindingStatus="bound" />
+               <multi:outwardBindingSite multi:component="Ecad2trans"
+                  multi:bindingStatus="bound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad trans dimer -->
+         <species id="sp_EcadEcad_1" name="Ecad.Ecad_1" compartment="inter_membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad_trans_dimer" />
+
+         <!-- Pattern species: Ecad trans dimer: all cis bnd -->
+         <species id="sp_Ecad_trans_dimer_2" name="Ecad_trans_dimer_2" compartment="inter_membrane"
+            hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" 
+            multi:speciesType="st_Ecad_trans_dimer">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="Ecad1cis"
+                  multi:bindingStatus="bound" />
+               <multi:outwardBindingSite multi:component="Ecad2cis"
+                  multi:bindingStatus="bound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad True Trimer -->
+         <species id="sp_Ecad_True_Trimer" compartment="inter_membrane" hasOnlySubstanceUnits="false"
+            boundaryCondition="false" constant="false" multi:speciesType="st_Ecad_trimer">
+            <multi:listOfOutwardBindingSites>
+               <multi:outwardBindingSite multi:component="Ecad2trans"
+                  multi:bindingStatus="unbound" />
+               <multi:outwardBindingSite multi:component="Ecad3cis"
+                  multi:bindingStatus="unbound" />
+            </multi:listOfOutwardBindingSites>
+         </species>
+
+         <!-- Pattern species: Ecad All Trimer -->
+         <species id="sp_Ecad_All_Trimer" compartment="inter_membrane" hasOnlySubstanceUnits="false"
+            boundaryCondition="false" constant="false" multi:speciesType="st_Ecad_trimer" />
+      </listOfSpecies>
+
+      <!-- Reactions -->
+      <listOfReactions>
+
+         <!-- cis association: -->
+         <reaction id="rc_Cis_Association" name="Cis_Association" reversible="false" fast="false"
+            compartment="membrane">
+            <listOfReactants>
+               <speciesReference id="Cis_Association_r1" species="sp_Ecad_6"
+                  stoichiometry="1" constant="false" />
+               <speciesReference id="Cis_Association_r2" species="sp_Ecad_6"
+                  stoichiometry="1" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species="sp_EcadEcad_2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> kon </ci>
+                     <ci multi:speciesReference="Cis_Association_r1"> sp_Ecad_6 </ci>
+                     <ci multi:speciesReference="Cis_Association_r2"> sp_Ecad_6 </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="kon" value="9000" units="litre_per_mole_per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </reaction>
+
+         <!-- In species cis association: Here the model requires that the two interacting molecules 
+            are part of one connected complex already prior to the association. Since the necessary 
+            connectivity can only be mediated by the trans binding sites here, these sites must be 
+            bound to the subcomplex (not shown) linking the two interacting molecules. 
+            -->
+         <multi:intraSpeciesReaction id="rc_Intra_Complex_Cis_Association" 
+	        name="Intra-Complex_Cis_Association"
+            reversible="false" fast="false" compartment="membrane">
+            <listOfReactants>
+               <speciesReference id="Intra_Complex_Cis_Association_r1" species="sp_Ecad_6"
+                  stoichiometry="1" constant="false" />
+               <speciesReference id="Intra_Complex_Cis_Association_r2" species="sp_Ecad_6"
+                  stoichiometry="1" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species="sp_EcadEcad_2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> kon </ci>
+                     <ci multi:speciesReference="Intra_Complex_Cis_Association_r1"> sp_Ecad_6 </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="kon" value="100" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </multi:intraSpeciesReaction>
+
+         <!-- trans association: -->
+         <reaction id="rc_Trans_Association" name="Trans_Association" reversible="false" fast="false"
+            compartment="inter_membrane">
+            <listOfReactants>
+               <speciesReference id="Trans_Association_r1" species="sp_Ecad_trans_unbnd"
+                  multi:compartmentReference="m1" constant="false" />
+               <speciesReference id="Trans_Association_r2" species="sp_Ecad_trans_unbnd"
+                  multi:compartmentReference="m2" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species="sp_EcadEcad_1" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> kon </ci>
+                     <ci multi:speciesReference="Trans_Association_r1"> sp_Ecad_trans_unbnd </ci>
+                     <ci multi:speciesReference="Trans_Association_r2"> sp_Ecad_trans_unbnd </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="kon" value="90000" units="litre_per_mole_per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </reaction>
+
+         <!-- In complex trans association: Here the model requires that the two interacting molecules 
+            are part of one connected complex already prior to the association. Since the necessary 
+            connectivity can only be mediated by the cis binding sites here, these sites must be bound 
+            to the subcomplex (not shown) linking the two interacting molecules. 
+            -->
+         <multi:intraSpeciesReaction id="rc_Intra_Complex_Trans_Association" 
+	        name="Intra-Complex_Trans_Association"
+            reversible="false" fast="false" compartment="inter_membrane" >
+            <listOfReactants>
+               <speciesReference id="Intra_Complex_Trans_Association_r1" species="sp_Ecad_7"
+                  multi:compartmentReference="m1" constant="false" />
+               <speciesReference id="Intra_Complex_Trans_Association_r2" species="sp_Ecad_7"
+                  multi:compartmentReference="m2" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species="sp_Ecad_trans_dimer_2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> kon </ci>
+                     <ci multi:speciesReference="Intra_Complex_Trans_Association_r1"> sp_Ecad_7 </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="kon" value="100" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </multi:intraSpeciesReaction>
+
+         <!-- cis dissociation: -->
+         <reaction id="rc_Cis_dissociation" name="Cis_dissociation" reversible="false" fast="false"
+            compartment="membrane">
+            <listOfReactants>
+               <speciesReference species="sp_Ecad_cis_dimer" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference id="Cis_dissociation_p1" species="sp_Ecad_cis_unbnd"
+                  stoichiometry="1" constant="false" />
+               <speciesReference id="Cis_dissociation_p2" species="sp_Ecad_cis_unbnd"
+                  stoichiometry="1" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> koff </ci>
+                     <ci> sp_Ecad_cis_unbnd </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="koff" value="1" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </reaction>
+
+         <!-- In-species cis dissociation: By specifying that this reaction breaks only an inner bond, 
+            the model limits the application of this reaction to dissociations that result in only one 
+            reaction product. The complex is still connected through a subcomplex that is not shown 
+            here but that links the two molecules involved in the reaction at their trans binding 
+            sites. Note that the modeler application has to ensure the correct application of this 
+            rule and its consistent definition. For instance, specifying the one or both of the trans 
+            binding sites to be unbound would lead to a rule that could never be applied because the 
+            trans bindings are required for the connectivity of the result complex. 
+            -->
+         <multi:intraSpeciesReaction id="rc_Intra_Complex_Cis_dissociation" 
+	        name="Intra-Complex_Cis_dissociation"
+            reversible="false" fast="false" compartment="membrane" >
+            <listOfReactants>
+               <speciesReference species="sp_EcadEcad_2" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference id="Intra_Complex_Cis_dissociation_p1" species="sp_Ecad_6"
+                  stoichiometry="2" constant="false" />
+               <speciesReference id="Intra_Complex_Cis_dissociation_p2" species="sp_Ecad_6"
+                  stoichiometry="2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> koff </ci>
+                     <ci> sp_Ecad_6 </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="koff" value="0.01" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </multi:intraSpeciesReaction>
+
+         <!-- trans dissociation: -->
+         <reaction id="rc_Trans_dissociation" name="Trans_dissociation" reversible="false" 
+            fast="false" compartment="inter_membrane">
+            <listOfReactants>
+               <speciesReference species="sp_EcadEcad_1" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference id="Trans_dissociation_p1" species="sp_Ecad_trans_unbnd"
+                  multi:compartmentReference="m1" constant="false" />
+               <speciesReference id="Trans_dissociation_p2" species="sp_Ecad_trans_unbnd"
+                  multi:compartmentReference="m2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> koff </ci>
+                     <ci> sp_Ecad_trans_unbnd </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="koff" value="1" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </reaction>
+
+         <!-- In species trans dissociation: By specifying that this reaction breaks only an inner 
+            bond, the model limits the application of this reaction to dissociations that result in 
+            only one reaction product. The complex is still connected through a subcomplex that is 
+            not shown here but that links the two molecules involved in the reaction at their cis 
+            binding sites. Note that the modeler application has to ensure the correct application 
+            of this rule and its consistent definition. For instance, specifying the one or both of 
+            the cis binding sites to be unbound would lead to a rule that could never be applied 
+            because the cis bindings are required for the connectivity of the result complex. 
+            -->
+         <multi:intraSpeciesReaction id="rc_Intra_Complex_Trans_dissociation" 
+	        name="Intra-Complex_Trans_dissociation"
+            reversible="false" fast="false" compartment="inter_membrane" >
+            <listOfReactants>
+               <speciesReference species="sp_Ecad_trans_dimer_2" constant="false" />
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference id="Intra_Complex_Trans_dissociation_p1" species="sp_Ecad_7"
+                  multi:compartmentReference="m1" constant="false" />
+               <speciesReference id="Intra_Complex_Trans_dissociation_p2" species="sp_Ecad_7"
+                  multi:compartmentReference="m2" constant="false" />
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times />
+                     <ci> koff </ci>
+                     <ci> sp_Ecad_7 </ci>
+                  </apply>
+               </math>
+               <listOfLocalParameters>
+                  <localParameter id="koff" value="0.01" units="per_sec" />
+               </listOfLocalParameters>
+            </kineticLaw>
+         </multi:intraSpeciesReaction>
+      </listOfReactions>
+   </model>
+</sbml>

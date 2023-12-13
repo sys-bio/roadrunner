@@ -1,16 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="ModelInitialValueSymbolResolver_8h" kind="file" language="C++">
     <compoundname>ModelInitialValueSymbolResolver.h</compoundname>
     <includes refid="LoadSymbolResolverBase_8h" local="yes">LoadSymbolResolverBase.h</includes>
     <includes refid="LLVMIncludes_8h" local="yes">LLVMIncludes.h</includes>
     <includes refid="LLVMModelDataSymbols_8h" local="yes">LLVMModelDataSymbols.h</includes>
     <includes refid="LLVMModelSymbols_8h" local="yes">LLVMModelSymbols.h</includes>
-    <includedby refid="EvalInitialConditionsCodeGen_8cpp" local="yes">llvm/EvalInitialConditionsCodeGen.cpp</includedby>
     <includedby refid="GetInitialValueCodeGenBase_8h" local="yes">llvm/GetInitialValueCodeGenBase.h</includedby>
-    <includedby refid="ModelInitialValueSymbolResolver_8cpp" local="yes">llvm/ModelInitialValueSymbolResolver.cpp</includedby>
     <includedby refid="SetInitialValueCodeGenBase_8h" local="yes">llvm/SetInitialValueCodeGenBase.h</includedby>
+    <includedby refid="EvalInitialConditionsCodeGen_8cpp" local="yes">llvm/EvalInitialConditionsCodeGen.cpp</includedby>
+    <includedby refid="ModelInitialValueSymbolResolver_8cpp" local="yes">llvm/ModelInitialValueSymbolResolver.cpp</includedby>
     <incdepgraph>
+      <node id="30">
+        <label>list</label>
+      </node>
       <node id="39">
         <label>ASTNodeFactory.h</label>
         <link refid="ASTNodeFactory_8h_source"/>
@@ -19,47 +22,19 @@
         <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>CodeGen.h</label>
-        <link refid="CodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+      <node id="55">
+        <label>llvm/IR/IRBuilder.h</label>
+      </node>
+      <node id="45">
+        <label>Random.h</label>
+        <link refid="Random_8h_source"/>
+        <childnode refid="46" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="49">
-        <label>Jit.h</label>
-        <link refid="Jit_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-        <childnode refid="58" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
-      </node>
-      <node id="51">
-        <label>LLVMException.h</label>
-        <link refid="LLVMException_8h_source"/>
-        <childnode refid="52" relation="include">
-        </childnode>
-        <childnode refid="53" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
+      <node id="28">
+        <label>sbml/SBMLDocument.h</label>
       </node>
       <node id="4">
         <label>LLVMIncludes.h</label>
@@ -85,6 +60,36 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="46">
+        <label>tr1proxy/rr_random.h</label>
+      </node>
+      <node id="12">
+        <label>llvm/Support/raw_ostream.h</label>
+      </node>
+      <node id="29">
+        <label>stdint.h</label>
+      </node>
+      <node id="27">
+        <label>variant</label>
+      </node>
+      <node id="7">
+        <label>llvm/ExecutionEngine/ExecutionEngine.h</label>
+      </node>
+      <node id="8">
+        <label>llvm/ExecutionEngine/MCJIT.h</label>
+      </node>
+      <node id="10">
+        <label>llvm/Support/TargetSelect.h</label>
+      </node>
+      <node id="38">
+        <label>cassert</label>
+      </node>
+      <node id="20">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
       <node id="18">
         <label>LLVMModelData.h</label>
         <link refid="LLVMModelData_8h_source"/>
@@ -95,23 +100,112 @@
         <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>LLVMModelDataSymbols.h</label>
-        <link refid="LLVMModelDataSymbols_8h_source"/>
-        <childnode refid="18" relation="include">
+      <node id="51">
+        <label>stdexcept</label>
+      </node>
+      <node id="37">
+        <label>sbml/math/ASTNode.h</label>
+      </node>
+      <node id="16">
+        <label>string</label>
+      </node>
+      <node id="32">
+        <label>tr1proxy/rr_unordered_map.h</label>
+      </node>
+      <node id="33">
+        <label>map</label>
+      </node>
+      <node id="49">
+        <label>Jit.h</label>
+        <link refid="Jit_8h_source"/>
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="54" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>LLVMException.h</label>
+        <link refid="LLVMException_8h_source"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CodeGen.h</label>
+        <link refid="CodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>sbml/Model.h</label>
+      </node>
+      <node id="26">
+        <label>exception</label>
+      </node>
+      <node id="59">
+        <label>llvm/IR/Mangler.h</label>
+      </node>
+      <node id="23">
+        <label>ostream</label>
+      </node>
+      <node id="24">
+        <label>rrExecutableModel.h</label>
+        <link refid="rrExecutableModel_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>llvm/Transforms/Scalar.h</label>
+      </node>
+      <node id="43">
+        <label>sbml/SBMLVisitor.h</label>
+      </node>
+      <node id="13">
+        <label>llvm/Analysis/TargetLibraryInfo.h</label>
+      </node>
+      <node id="41">
+        <label>llvm/IR/DataLayout.h</label>
+      </node>
+      <node id="21">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
       </node>
       <node id="35">
         <label>LLVMModelSymbols.h</label>
@@ -125,6 +219,21 @@
         <childnode refid="42" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>rr_unordered_map</label>
+      </node>
+      <node id="25">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -143,6 +252,12 @@
         <childnode refid="60" relation="include">
         </childnode>
       </node>
+      <node id="22">
+        <label>vector</label>
+      </node>
+      <node id="15">
+        <label>stack</label>
+      </node>
       <node id="40">
         <label>ModelDataIRBuilder.h</label>
         <link refid="ModelDataIRBuilder_8h_source"/>
@@ -153,6 +268,16 @@
         <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>rrSparse.h</label>
+        <link refid="rrSparse_8h_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
       <node id="44">
@@ -179,6 +304,24 @@
         <childnode refid="49" relation="include">
         </childnode>
       </node>
+      <node id="53">
+        <label>sstream</label>
+      </node>
+      <node id="14">
+        <label>llvm/Support/Host.h</label>
+      </node>
+      <node id="5">
+        <label>llvm/Config/llvm-config.h</label>
+      </node>
+      <node id="57">
+        <label>llvm/Target/TargetMachine.h</label>
+      </node>
+      <node id="6">
+        <label>llvm/Analysis/Passes.h</label>
+      </node>
+      <node id="54">
+        <label>unordered_map</label>
+      </node>
       <node id="1">
         <label>llvm/ModelInitialValueSymbolResolver.h</label>
         <link refid="ModelInitialValueSymbolResolver_8h"/>
@@ -191,13 +334,19 @@
         <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>Random.h</label>
-        <link refid="Random_8h_source"/>
-        <childnode refid="46" relation="include">
+      <node id="31">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
+      <node id="52">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="53" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
+      </node>
+      <node id="58">
+        <label>llvm/Object/ObjectFile.h</label>
       </node>
       <node id="36">
         <label>SymbolForest.h</label>
@@ -209,197 +358,48 @@
         <childnode refid="38" relation="include">
         </childnode>
       </node>
-      <node id="25">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
+      <node id="34">
+        <label>set</label>
       </node>
-      <node id="24">
-        <label>rrExecutableModel.h</label>
-        <link refid="rrExecutableModel_8h"/>
-        <childnode refid="20" relation="include">
+      <node id="17">
+        <label>LLVMModelDataSymbols.h</label>
+        <link refid="LLVMModelDataSymbols_8h_source"/>
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-      </node>
-      <node id="21">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="53">
-        <label>rrLogger.h</label>
-        <link refid="rrLogger_8h_source"/>
-        <childnode refid="54" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="20">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-      </node>
-      <node id="19">
-        <label>rrSparse.h</label>
-        <link refid="rrSparse_8h_source"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>cassert</label>
-      </node>
-      <node id="26">
-        <label>exception</label>
-      </node>
-      <node id="30">
-        <label>list</label>
-      </node>
-      <node id="6">
-        <label>llvm/Analysis/Passes.h</label>
-      </node>
-      <node id="13">
-        <label>llvm/Analysis/TargetLibraryInfo.h</label>
-      </node>
-      <node id="5">
-        <label>llvm/Config/llvm-config.h</label>
-      </node>
-      <node id="7">
-        <label>llvm/ExecutionEngine/ExecutionEngine.h</label>
-      </node>
-      <node id="8">
-        <label>llvm/ExecutionEngine/MCJIT.h</label>
-      </node>
-      <node id="57">
-        <label>llvm/ExecutionEngine/ObjectCache.h</label>
-      </node>
-      <node id="41">
-        <label>llvm/IR/DataLayout.h</label>
-      </node>
-      <node id="50">
-        <label>llvm/IR/IRBuilder.h</label>
       </node>
       <node id="48">
         <label>llvm/IR/LegacyPassManager.h</label>
       </node>
-      <node id="58">
-        <label>llvm/IR/Mangler.h</label>
-      </node>
-      <node id="9">
-        <label>llvm/IR/PassManager.h</label>
-      </node>
       <node id="56">
-        <label>llvm/Object/ObjectFile.h</label>
-      </node>
-      <node id="14">
-        <label>llvm/Support/Host.h</label>
-      </node>
-      <node id="10">
-        <label>llvm/Support/TargetSelect.h</label>
-      </node>
-      <node id="12">
-        <label>llvm/Support/raw_ostream.h</label>
-      </node>
-      <node id="55">
-        <label>llvm/Target/TargetMachine.h</label>
-      </node>
-      <node id="11">
-        <label>llvm/Transforms/Scalar.h</label>
-      </node>
-      <node id="33">
-        <label>map</label>
+        <label>llvm/ExecutionEngine/ObjectCache.h</label>
       </node>
       <node id="47">
         <label>memory</label>
       </node>
-      <node id="23">
-        <label>ostream</label>
-      </node>
-      <node id="60">
-        <label>rr_unordered_map</label>
-      </node>
-      <node id="42">
-        <label>sbml/Model.h</label>
-      </node>
-      <node id="28">
-        <label>sbml/SBMLDocument.h</label>
-      </node>
-      <node id="43">
-        <label>sbml/SBMLVisitor.h</label>
-      </node>
-      <node id="37">
-        <label>sbml/math/ASTNode.h</label>
-      </node>
-      <node id="34">
-        <label>set</label>
-      </node>
-      <node id="54">
-        <label>sstream</label>
-      </node>
-      <node id="15">
-        <label>stack</label>
-      </node>
-      <node id="52">
-        <label>stdexcept</label>
-      </node>
-      <node id="29">
-        <label>stdint.h</label>
-      </node>
-      <node id="16">
-        <label>string</label>
-      </node>
-      <node id="31">
-        <label>tr1proxy/rr_memory.h</label>
-      </node>
-      <node id="46">
-        <label>tr1proxy/rr_random.h</label>
-      </node>
-      <node id="32">
-        <label>tr1proxy/rr_unordered_map.h</label>
-      </node>
-      <node id="59">
-        <label>unordered_map</label>
-      </node>
-      <node id="27">
-        <label>variant</label>
-      </node>
-      <node id="22">
-        <label>vector</label>
+      <node id="9">
+        <label>llvm/IR/PassManager.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6">
-        <label>CVODEIntegrator.h</label>
-        <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
+      <node id="9">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
+      </node>
+      <node id="15">
+        <label>llvm/LLVMModelGenerator.h</label>
+        <link refid="LLVMModelGenerator_8h_source"/>
       </node>
       <node id="5">
         <label>ForwardSensitivitySolver.h</label>
@@ -409,20 +409,24 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="11">
-        <label>NLEQ1Solver.h</label>
-        <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="12" relation="include">
+      <node id="6">
+        <label>CVODEIntegrator.h</label>
+        <link refid="CVODEIntegrator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="13">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
-        <childnode refid="12" relation="include">
+      <node id="16">
+        <label>llvm/SetInitialValueCodeGenBase.h</label>
+        <link refid="SetInitialValueCodeGenBase_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>llvm/GetInitialValueCodeGenBase.h</label>
+        <link refid="GetInitialValueCodeGenBase_8h_source"/>
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="10">
@@ -433,26 +437,30 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="8">
-        <label>SensitivitySolverFactory.h</label>
-        <link refid="SensitivitySolverFactory_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
       <node id="12">
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
-      <node id="2">
-        <label>llvm/GetInitialValueCodeGenBase.h</label>
-        <link refid="GetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="7">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
       </node>
       <node id="3">
         <label>llvm/GetInitialValuesCodeGen.h</label>
         <link refid="GetInitialValuesCodeGen_8h_source"/>
         <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>SensitivitySolverFactory.h</label>
+        <link refid="SensitivitySolverFactory_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -467,9 +475,17 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>llvm/LLVMModelGenerator.h</label>
-        <link refid="LLVMModelGenerator_8h_source"/>
+      <node id="11">
+        <label>NLEQ1Solver.h</label>
+        <link refid="NLEQ1Solver_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>llvm/SetInitialValuesCodeGen.h</label>
+        <link refid="SetInitialValuesCodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>llvm/ModelInitialValueSymbolResolver.h</label>
@@ -479,29 +495,11 @@
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="14">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
-      <node id="16">
-        <label>llvm/SetInitialValueCodeGenBase.h</label>
-        <link refid="SetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>llvm/SetInitialValuesCodeGen.h</label>
-        <link refid="SetInitialValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
-      </node>
     </invincdepgraph>
-    <innerclass refid="classrrllvm_1_1ModelInitialValueSymbolResolver" prot="public">rrllvm::ModelInitialValueSymbolResolver</innerclass>
-    <innerclass refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" prot="public">rrllvm::ModelInitialValueStoreSymbolResolver</innerclass>
     <innernamespace refid="namespacelibsbml">libsbml</innernamespace>
     <innernamespace refid="namespacerrllvm">rrllvm</innernamespace>
     <briefdescription>
@@ -531,51 +529,49 @@
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rrllvm</highlight></codeline>
 <codeline lineno="22"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27" refid="classrrllvm_1_1ModelInitialValueSymbolResolver" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ModelInitialValueSymbolResolver" kindref="compound">ModelInitialValueSymbolResolver</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase" kindref="compound">LoadSymbolResolverBase</ref></highlight></codeline>
-<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelInitialValueSymbolResolver" kindref="compound">ModelInitialValueSymbolResolver</ref>(llvm::Value<sp/>*modelData,</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>&amp;<sp/>ctx);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelInitialValueSymbolResolver" kindref="compound">~ModelInitialValueSymbolResolver</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value<sp/>*<ref refid="classrrllvm_1_1ModelInitialValueSymbolResolver_1a290a08a89dbed631cd62729c9ee72871" kindref="member">loadSymbolValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;&amp;<sp/>args<sp/>=</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;());</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">ModelInitialValueSymbolResolver<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>LoadSymbolResolverBase</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelInitialValueSymbolResolver(llvm::Value*<sp/>modelData,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>ctx);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~ModelInitialValueSymbolResolver()<sp/>{};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value*<sp/>loadSymbolValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;&amp;<sp/>args<sp/>=</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;());</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>modelData;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45" refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" kindref="compound">ModelInitialValueStoreSymbolResolver</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1StoreSymbolResolver" kindref="compound">StoreSymbolResolver</ref></highlight></codeline>
-<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" kindref="compound">ModelInitialValueStoreSymbolResolver</ref>(llvm::Value<sp/>*modelData,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;modelDataSymbols,</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder,</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref><sp/>&amp;resolver);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelInitialValueStoreSymbolResolver" kindref="compound">~ModelInitialValueStoreSymbolResolver</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value<sp/>*storeSymbolValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value<sp/>*value);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*model;</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;modelDataSymbols;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref><sp/>&amp;resolver;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ModelInitialValueSymbolResolver_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">ModelInitialValueStoreSymbolResolver<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>StoreSymbolResolver</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelInitialValueStoreSymbolResolver(llvm::Value*<sp/>modelData,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model*<sp/>model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LLVMModelSymbols&amp;<sp/>modelSymbols,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LLVMModelDataSymbols&amp;<sp/>modelDataSymbols,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;&amp;<sp/>builder,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoadSymbolResolver&amp;<sp/>resolver);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~ModelInitialValueStoreSymbolResolver()<sp/>{};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value*<sp/>storeSymbolValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>value);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>modelData;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model*<sp/>model;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LLVMModelSymbols&amp;<sp/>modelSymbols;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LLVMModelDataSymbols&amp;<sp/>modelDataSymbols;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;&amp;<sp/>builder;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoadSymbolResolver&amp;<sp/>resolver;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ModelInitialValueSymbolResolver_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/ModelInitialValueSymbolResolver.h"/>
   </compounddef>

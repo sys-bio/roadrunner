@@ -426,6 +426,7 @@ public:
 };
 
 std::ostream& operator<< (std::ostream& stream, const SelectionRecord& rec);
+
 }
 
 

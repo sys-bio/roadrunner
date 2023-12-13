@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1EvalConversionFactorCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::EvalConversionFactorCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; EvalConversionFactorCodeGen_FunctionPtr &gt;</basecompoundref>
+    <includes refid="EvalConversionFactorCodeGen_8h" local="no">EvalConversionFactorCodeGen.h</includes>
       <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1EvalConversionFactorCodeGen_1a08d00f0fd1eac93930f9235d79f679c3" prot="public" static="yes" mutable="no">
         <type>const char *</type>
         <definition>const char * rrllvm::EvalConversionFactorCodeGen::FunctionName</definition>
         <argsstring></argsstring>
         <name>FunctionName</name>
-        <qualifiedname>rrllvm::EvalConversionFactorCodeGen::FunctionName</qualifiedname>
         <initializer>= &quot;evalConversionFactor&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalConversionFactorCodeGen.h" line="32" column="23" bodyfile="llvm/EvalConversionFactorCodeGen.h" bodystart="32" bodyend="-1"/>
+        <location file="llvm/EvalConversionFactorCodeGen.h" line="35" column="27" bodyfile="llvm/EvalConversionFactorCodeGen.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -26,7 +26,6 @@
         <definition>rrllvm::EvalConversionFactorCodeGen::EvalConversionFactorCodeGen</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>EvalConversionFactorCodeGen</name>
-        <qualifiedname>rrllvm::EvalConversionFactorCodeGen::EvalConversionFactorCodeGen</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -37,41 +36,40 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalConversionFactorCodeGen.h" line="27" column="5" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="30" bodyend="34"/>
+        <location file="llvm/EvalConversionFactorCodeGen.h" line="30" column="9" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="30" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EvalConversionFactorCodeGen_1a6dd46ff3268a26a7518067fabbddd5ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
         <definition>rrllvm::EvalConversionFactorCodeGen::~EvalConversionFactorCodeGen</definition>
         <argsstring>()</argsstring>
         <name>~EvalConversionFactorCodeGen</name>
-        <qualifiedname>rrllvm::EvalConversionFactorCodeGen::~EvalConversionFactorCodeGen</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalConversionFactorCodeGen.h" line="28" column="13" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="36" bodyend="38"/>
+        <location file="llvm/EvalConversionFactorCodeGen.h" line="31" column="17" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="36" bodyend="38"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EvalConversionFactorCodeGen_1aa6535e6389e0e5bd10d03d224b6806f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::Value *</type>
         <definition>Value * rrllvm::EvalConversionFactorCodeGen::codeGen</definition>
         <argsstring>()</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::EvalConversionFactorCodeGen::codeGen</qualifiedname>
-        <reimplements refid="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75">codeGen</reimplements>
+        <reimplements refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6">codeGen</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalConversionFactorCodeGen.h" line="30" column="17" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="40" bodyend="85"/>
+        <location file="llvm/EvalConversionFactorCodeGen.h" line="33" column="21" bodyfile="llvm/EvalConversionFactorCodeGen.cpp" bodystart="40" bodyend="85"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Evaluate conversion factors, which change the units of species objects in SBML. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -86,25 +84,48 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="5">
+        <label>rrllvm::ASTNodeFactory</label>
+        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="3">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
+      </node>
       <node id="2">
         <label>rrllvm::CodeGenBase&lt; EvalConversionFactorCodeGen_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-      </node>
-      <node id="6">
-        <label>libsbml::SBMLVisitor</label>
+        <childnode refid="7" relation="usage">
+          <edgelabel>dataSymbols</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>modelGenContext</edgelabel>
+        </childnode>
       </node>
       <node id="8">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+        <label>rrllvm::ModelGeneratorContext</label>
+        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
+      </node>
+      <node id="7">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="4">
+        <label>SBMLVisitor</label>
       </node>
       <node id="1">
         <label>rrllvm::EvalConversionFactorCodeGen</label>
@@ -112,43 +133,20 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="6" relation="private-inheritance">
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="7">
+      <node id="6">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/EvalConversionFactorCodeGen.h" line="23" column="1" bodyfile="llvm/EvalConversionFactorCodeGen.h" bodystart="25" bodyend="34"/>
+    <location file="llvm/EvalConversionFactorCodeGen.h" line="28" column="1" bodyfile="llvm/EvalConversionFactorCodeGen.h" bodystart="26" bodyend="37"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1EvalConversionFactorCodeGen_1aa6535e6389e0e5bd10d03d224b6806f2" prot="public" virt="virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>createFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1EvalConversionFactorCodeGen_1ac8bafe0c33d9a1b383bdeb2bad4839fd" prot="public" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>EvalConversionFactorCodeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>function</name></member>
@@ -160,7 +158,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1EvalConversionFactorCodeGen_1a6dd46ff3268a26a7518067fabbddd5ab" prot="public" virt="virtual"><scope>rrllvm::EvalConversionFactorCodeGen</scope><name>~EvalConversionFactorCodeGen</name></member>
     </listofallmembers>

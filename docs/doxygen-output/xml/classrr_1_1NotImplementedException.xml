@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1NotImplementedException" kind="class" language="C++" prot="public">
     <compoundname>rr::NotImplementedException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+    <includes refid="rrException_8h" local="no">rrException.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1NotImplementedException_1a9482f9f7e6f4d3458aa5b516414afece" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::NotImplementedException::NotImplementedException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>NotImplementedException</name>
-        <qualifiedname>rr::NotImplementedException::NotImplementedException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -20,20 +20,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="98" column="9" bodyfile="rrException.cpp" bodystart="43" bodyend="43"/>
+        <location file="rrException.h" line="129" column="9" bodyfile="rrException.cpp" bodystart="43" bodyend="43"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1Exception" kindref="compound">Exception</ref> class for scanners. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rr::Exception</label>
-        <link refid="classrr_1_1Exception"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="1">
         <label>rr::NotImplementedException</label>
         <link refid="classrr_1_1NotImplementedException"/>
@@ -41,10 +36,28 @@
         </childnode>
       </node>
       <node id="3">
-        <label>std::exception</label>
+        <label>exception</label>
+      </node>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="1">
+        <label>rr::NotImplementedException</label>
+        <link refid="classrr_1_1NotImplementedException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
       <node id="2">
         <label>rr::Exception</label>
         <link refid="classrr_1_1Exception"/>
@@ -54,20 +67,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>rr::NotImplementedException</label>
-        <link refid="classrr_1_1NotImplementedException"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="95" column="1" bodyfile="rrException.h" bodystart="96" bodyend="99"/>
+    <location file="rrException.h" line="127" column="1" bodyfile="rrException.h" bodystart="126" bodyend="130"/>
     <listofallmembers>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::NotImplementedException</scope><name>Exception</name></member>
       <member refid="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de" prot="public" virt="non-virtual"><scope>rr::NotImplementedException</scope><name>getMessage</name></member>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parallel RoadRunnerMap &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Utility Functions" href="../../utility_functions.html" />
+    <link rel="prev" title="RoadRunner with Multiprocessing" href="../multiprocessing/multiprocessing_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../parallel_index.html">Parallel RoadRunner</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multiprocessing/multiprocessing_index.html">RoadRunner with Multiprocessing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parallel RoadRunnerMap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-models-1-thread">Loading Models: 1 Thread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-models-multithreading">Loading Models: Multithreading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunnermap-has-a-dict-like-interface">RoadRunnerMap has a dict-like interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inserting-new-models">Inserting new models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../parallel_index.html">Parallel RoadRunner</a></li>
+      <li class="breadcrumb-item active">Parallel RoadRunnerMap</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/parallel/roadrunner_map/roadrunner_map_index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parallel-roadrunnermap">
+<h1>Parallel RoadRunnerMap<a class="headerlink" href="#parallel-roadrunnermap" title="Permalink to this heading"></a></h1>
+<p>RoadRunner compiles sbml code into machine code for fast execution of
+model simulations. However model compilation takes time and can be prohibitory
+if users need to simulate a large variety of models at once. To alleviate
+some of this burden, we provide a <cite>RoadRunnerMap</cite> object, which is a container
+for roadrunner objects. The <cite>RoadRunnerMap</cite> has a <cite>dict</cite>-like interface and is intended
+to be a drop in replacement for a python dictionary specifically for use with
+roadrunner models. The major difference is that <cite>RoadRunnerMap</cite> thread-safe
+and uses a threadpool for building and storing models. The interested reader
+can refer to the open source <a class="reference external" href="https://github.com/greg7mdp/parallel-hashmap">parallel hashmap</a>
+for the thread-safe hash map and <a class="reference external" href="https://github.com/bshoshany/thread-pool">thread-pool</a>
+for the multithreading capabilities used by <cite>RoadRunnerMap</cite>.</p>
+<p>For these demonstrations, we require some sbml models to load. To simplify
+this process we provide a function that will download the curated section
+of biomodels locally for you to use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Windows likes to hang on to open files, meaning we cannot clean up
+all trace files used in the download process. You can delete any residual
+manually.</p>
+</div>
+<p>Here is the code for downloading the curated section of biomodels. It is imported
+in the following examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">glob</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span><span class="p">,</span> <span class="n">RoadRunnerMap</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">roadrunner.tests.download_biomodels</span> <span class="kn">import</span> <span class="n">download_biomodels</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">current_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">biomodels_zip</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_directory</span><span class="p">,</span> <span class="s2">&quot;biomodels.zip&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">biomodels_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_directory</span><span class="p">,</span> <span class="s2">&quot;biomodels&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="k">def</span> <span class="nf">get_biomodels_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;download curated section of biomodels, if not already exists and</span>
+<span class="linenos">13</span><span class="sd">    extract to a folder called biomodels&quot;&quot;&quot;</span>
+<span class="linenos">14</span>    <span class="c1"># don&#39;t do work more than once</span>
+<span class="linenos">15</span>    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">biomodels_directory</span><span class="p">):</span>
+<span class="linenos">16</span>        <span class="k">return</span> <span class="n">biomodels_directory</span>
+<span class="linenos">17</span>    <span class="c1"># downloads models if not exist</span>
+<span class="linenos">18</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading the curated section from biomodels&quot;</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">models_zip</span> <span class="o">=</span> <span class="n">download_biomodels</span><span class="p">(</span><span class="n">current_directory</span><span class="p">)</span>
+<span class="linenos">20</span>    <span class="k">assert</span> <span class="n">biomodels_zip</span> <span class="o">==</span> <span class="n">models_zip</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">biomodels_zip</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">models_zip</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>    <span class="c1"># extract models.</span>
+<span class="linenos">23</span>    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">models_zip</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+<span class="linenos">24</span>        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">biomodels_directory</span><span class="p">)</span>
+<span class="linenos">25</span>    <span class="k">return</span> <span class="n">biomodels_directory</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="linenos">30</span>    <span class="c1"># get some local sbml files for use with the example</span>
+<span class="linenos">31</span>    <span class="n">get_biomodels_folder</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="loading-models-1-thread">
+<h2>Loading Models: 1 Thread<a class="headerlink" href="#loading-models-1-thread" title="Permalink to this heading"></a></h2>
+<p>When a single thread is requested, serial algorithms take over from the parallel ones.
+This avoids some of the overhead required to set up multiple threads and
+is useful when you only have a few models to manage.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">glob</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span><span class="p">,</span> <span class="n">RoadRunnerMap</span><span class="p">,</span> <span class="n">Config</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">get_biomodels</span> <span class="kn">import</span> <span class="n">get_biomodels_folder</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># get curated section of biomodels locally.</span>
+<span class="linenos"> 7</span><span class="n">biomodels_folder</span> <span class="o">=</span> <span class="n">get_biomodels_folder</span><span class="p">()</span>
+<span class="linenos"> 8</span><span class="n">biomodels_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">biomodels_folder</span><span class="p">,</span> <span class="s2">&quot;*.xml&quot;</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># disable model caching to compare model load times</span>
+<span class="linenos">11</span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_RECOMPILE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">number_of_threads</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">14</span><span class="n">number_of_models</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># build the first `number_of_models` models using `number_of_threads` threads</span>
+<span class="linenos">17</span><span class="c1"># When the number of threads is 1, multithreading is disabled and</span>
+<span class="linenos">18</span><span class="c1"># serial algorithms take over</span>
+<span class="linenos">19</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">20</span><span class="n">rrm</span> <span class="o">=</span> <span class="n">RoadRunnerMap</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[:</span><span class="mi">20</span><span class="p">],</span> <span class="n">number_of_threads</span><span class="p">)</span>
+<span class="linenos">21</span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span> <span class="o">==</span> <span class="n">number_of_models</span>
+<span class="linenos">22</span><span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="linenos">23</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">number_of_models</span><span class="si">}</span><span class="s2"> models loaded in </span><span class="si">{</span><span class="n">duration</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds using </span><span class="si">{</span><span class="n">number_of_threads</span><span class="si">}</span><span class="s2"> threads&quot;</span><span class="p">)</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">27</span><span class="sd">Script output</span>
+<span class="linenos">28</span><span class="sd">=============</span>
+<span class="linenos">29</span><span class="sd">20 models loaded in 1.7368 seconds using 1 threads</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="loading-models-multithreading">
+<h2>Loading Models: Multithreading<a class="headerlink" href="#loading-models-multithreading" title="Permalink to this heading"></a></h2>
+<p>To use multithreading, pass the number of threads you want to use
+in to the <cite>RoadRunnerMap</cite> constructor.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">glob</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span><span class="p">,</span> <span class="n">RoadRunnerMap</span><span class="p">,</span> <span class="n">Config</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">get_biomodels</span> <span class="kn">import</span> <span class="n">get_biomodels_folder</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># get curated section of biomodels locally.</span>
+<span class="linenos"> 7</span><span class="n">biomodels_folder</span> <span class="o">=</span> <span class="n">get_biomodels_folder</span><span class="p">()</span>
+<span class="linenos"> 8</span><span class="n">biomodels_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">biomodels_folder</span><span class="p">,</span> <span class="s2">&quot;*.xml&quot;</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># disable model caching to compare model load times</span>
+<span class="linenos">11</span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_RECOMPILE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">number_of_threads</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">14</span><span class="n">number_of_models</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># build the first `number_of_models` models using `number_of_threads` threads</span>
+<span class="linenos">17</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">18</span><span class="n">rrm</span> <span class="o">=</span> <span class="n">RoadRunnerMap</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[:</span><span class="n">number_of_models</span><span class="p">],</span> <span class="n">number_of_threads</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">number_of_models</span><span class="si">}</span><span class="s2"> models loaded in </span><span class="si">{</span><span class="n">duration</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds using </span><span class="si">{</span><span class="n">number_of_threads</span><span class="si">}</span><span class="s2"> threads&quot;</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">24</span><span class="sd">Script output</span>
+<span class="linenos">25</span><span class="sd">=============</span>
+<span class="linenos">26</span><span class="sd">20 models loaded in 0.7088 seconds using 3 threads</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="roadrunnermap-has-a-dict-like-interface">
+<h2>RoadRunnerMap has a dict-like interface<a class="headerlink" href="#roadrunnermap-has-a-dict-like-interface" title="Permalink to this heading"></a></h2>
+<p>Many of the functions you are used to from Python’s <cite>dict</cite> object
+are also available in <cite>RoadRunnerMap</cite>. The
+<cite>RoadRunnerMap.keys()</cite>, <cite>RoadRunnerMap.values()</cite> and
+<cite>RoadRunnerMap.items()</cite> functions all have linear complexity
+O(N) as the map is iterated over to construct lists at runt time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">glob</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span><span class="p">,</span> <span class="n">RoadRunnerMap</span><span class="p">,</span> <span class="n">Config</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">get_biomodels</span> <span class="kn">import</span> <span class="n">get_biomodels_folder</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># get curated section of biomodels locally.</span>
+<span class="linenos"> 7</span><span class="n">biomodels_folder</span> <span class="o">=</span> <span class="n">get_biomodels_folder</span><span class="p">()</span>
+<span class="linenos"> 8</span><span class="n">biomodels_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">biomodels_folder</span><span class="p">,</span> <span class="s2">&quot;*.xml&quot;</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># disable model caching to compare model load times</span>
+<span class="linenos">11</span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_RECOMPILE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">number_of_threads</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">14</span><span class="n">number_of_models</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># build the first `number_of_models` models using `number_of_threads` threads</span>
+<span class="linenos">17</span><span class="n">rrm</span> <span class="o">=</span> <span class="n">RoadRunnerMap</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[:</span><span class="n">number_of_models</span><span class="p">],</span> <span class="n">number_of_threads</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># keys, values and items work as expected</span>
+<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;keys:&quot;</span><span class="p">,</span> <span class="n">rrm</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="linenos">21</span><span class="c1"># print(&quot;values&quot;, rrm.values()) # prints out list of roadrunner models</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="k">for</span> <span class="n">modelName</span><span class="p">,</span> <span class="n">rrModel</span> <span class="ow">in</span> <span class="n">rrm</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">24</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;model </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">modelName</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> has </span><span class="si">{</span><span class="n">rrModel</span><span class="o">.</span><span class="n">getModel</span><span class="p">()</span><span class="o">.</span><span class="n">getNumReactions</span><span class="p">()</span><span class="si">}</span><span class="s2"> reactions&quot;</span><span class="p">)</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="c1"># delete an item</span>
+<span class="linenos">27</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number of models before deletion: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">28</span><span class="k">del</span> <span class="n">rrm</span><span class="p">[</span><span class="n">rrm</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="linenos">29</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number of models after deletion: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">32</span><span class="sd">Script output</span>
+<span class="linenos">33</span><span class="sd">=============</span>
+<span class="linenos">34</span><span class="sd">keys: (&#39;Goldbeter1995_CircClock&#39;, &#39;Tyson1991 - Cell Cycle 6 var&#39;, &#39;Novak1997 - Cell Cycle&#39;, &#39;Elowitz2000 - Repressilator&#39;, &#39;Levchenko2000_MAPK_noScaffold&#39;, &#39;Gardner1998 - Cell Cycle Goldbeter&#39;, &#39;Goldbeter1991 - Min Mit Oscil&#39;, &#39;Schoeberl2002 - EGF MAPK&#39;, &#39;Huang1996 - Ultrasensitivity in MAPK cascade&#39;, &#39;Goldbeter1991 - Min Mit Oscil, Expl Inact&#39;, &#39;Edelstein1996 - EPSP ACh species&#39;, &#39;hodgkin-huxley squid-axon 1952&#39;, &#39;Kholodenko2000 - Ultrasensitivity and negative feedback bring oscillations in MAPK cascade&#39;, &#39;Hoefnagel2002_PyruvateBranches&#39;, &#39;Tyson1991 - Cell Cycle 2 var&#39;, &#39;Curto1998 - purine metabolism&#39;, &#39;Edelstein1996 - EPSP ACh event&#39;, &#39;Morrison1989 - Folate Cycle&#39;, &#39;Levchenko2000_MAPK_Scaffold&#39;, &#39;Poolman2004_CalvinCycle&#39;)</span>
+<span class="linenos">35</span><span class="sd">model &quot;Goldbeter1995_CircClock&quot; has 10 reactions</span>
+<span class="linenos">36</span><span class="sd">model &quot;Tyson1991 - Cell Cycle 6 var&quot; has 9 reactions</span>
+<span class="linenos">37</span><span class="sd">model &quot;Novak1997 - Cell Cycle&quot; has 25 reactions</span>
+<span class="linenos">38</span><span class="sd">model &quot;Elowitz2000 - Repressilator&quot; has 12 reactions</span>
+<span class="linenos">39</span><span class="sd">model &quot;Levchenko2000_MAPK_noScaffold&quot; has 30 reactions</span>
+<span class="linenos">40</span><span class="sd">model &quot;Gardner1998 - Cell Cycle Goldbeter&quot; has 13 reactions</span>
+<span class="linenos">41</span><span class="sd">model &quot;Goldbeter1991 - Min Mit Oscil&quot; has 7 reactions</span>
+<span class="linenos">42</span><span class="sd">model &quot;Schoeberl2002 - EGF MAPK&quot; has 125 reactions</span>
+<span class="linenos">43</span><span class="sd">model &quot;Huang1996 - Ultrasensitivity in MAPK cascade&quot; has 20 reactions</span>
+<span class="linenos">44</span><span class="sd">model &quot;Goldbeter1991 - Min Mit Oscil, Expl Inact&quot; has 7 reactions</span>
+<span class="linenos">45</span><span class="sd">model &quot;Edelstein1996 - EPSP ACh species&quot; has 17 reactions</span>
+<span class="linenos">46</span><span class="sd">model &quot;hodgkin-huxley squid-axon 1952&quot; has 0 reactions</span>
+<span class="linenos">47</span><span class="sd">model &quot;Kholodenko2000 - Ultrasensitivity and negative feedback bring oscillations in MAPK cascade&quot; has 10 reactions</span>
+<span class="linenos">48</span><span class="sd">model &quot;Hoefnagel2002_PyruvateBranches&quot; has 14 reactions</span>
+<span class="linenos">49</span><span class="sd">model &quot;Tyson1991 - Cell Cycle 2 var&quot; has 3 reactions</span>
+<span class="linenos">50</span><span class="sd">model &quot;Curto1998 - purine metabolism&quot; has 37 reactions</span>
+<span class="linenos">51</span><span class="sd">model &quot;Edelstein1996 - EPSP ACh event&quot; has 17 reactions</span>
+<span class="linenos">52</span><span class="sd">model &quot;Morrison1989 - Folate Cycle&quot; has 47 reactions</span>
+<span class="linenos">53</span><span class="sd">model &quot;Levchenko2000_MAPK_Scaffold&quot; has 300 reactions</span>
+<span class="linenos">54</span><span class="sd">model &quot;Poolman2004_CalvinCycle&quot; has 21 reactions</span>
+<span class="linenos">55</span><span class="sd">number of models before deletion: 20</span>
+<span class="linenos">56</span><span class="sd">number of models after deletion: 19</span>
+<span class="linenos">57</span><span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="inserting-new-models">
+<h2>Inserting new models<a class="headerlink" href="#inserting-new-models" title="Permalink to this heading"></a></h2>
+<p>Insertion of a new model into the dictionary works much like you might expect,
+except that instead of passing in a fully constructed RoadRunner model,
+you instead pass in the sbml string or the path to sbml file. Much like Python’s
+<cite>dict</cite> object, keys are unique, so inserting another model with the same key
+as an existing model will overwrite the old model.</p>
+<p>At present, the sbml model name is used as the default key for the model.
+We have implemented this as a “first pass” for simplicity but can foresee
+problems with model names not being unique. We therefore anticipate improvements
+in future releases once user feedback has been generated. For now, users
+may specify their own key manually.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">glob</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span><span class="p">,</span> <span class="n">RoadRunnerMap</span><span class="p">,</span> <span class="n">Config</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">get_biomodels</span> <span class="kn">import</span> <span class="n">get_biomodels_folder</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># get curated section of biomodels locally.</span>
+<span class="linenos"> 7</span><span class="n">biomodels_folder</span> <span class="o">=</span> <span class="n">get_biomodels_folder</span><span class="p">()</span>
+<span class="linenos"> 8</span><span class="n">biomodels_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">biomodels_folder</span><span class="p">,</span> <span class="s2">&quot;*.xml&quot;</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># disable model caching to compare model load times</span>
+<span class="linenos">11</span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_RECOMPILE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">number_of_threads</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">14</span><span class="n">number_of_models</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># build the first `number_of_models` models using `number_of_threads` threads</span>
+<span class="linenos">17</span><span class="n">rrm</span> <span class="o">=</span> <span class="n">RoadRunnerMap</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[:</span><span class="n">number_of_models</span><span class="p">],</span> <span class="n">number_of_threads</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RoadRunnerMap size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># insert a single model with a custom key</span>
+<span class="linenos">22</span><span class="n">rrm</span><span class="p">[</span><span class="s2">&quot;newModel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">biomodels_files</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span>
+<span class="linenos">23</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RoadRunnerMap size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="c1"># or equivalently</span>
+<span class="linenos">26</span><span class="n">rrm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;newModel&quot;</span><span class="p">,</span> <span class="n">biomodels_files</span><span class="p">[</span><span class="mi">50</span><span class="p">])</span>
+<span class="linenos">27</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RoadRunnerMap size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="c1"># Insert using the model name as key, which is the default behaviour</span>
+<span class="linenos">30</span><span class="n">rrm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[</span><span class="mi">50</span><span class="p">])</span>
+<span class="linenos">31</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RoadRunnerMap size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="c1"># Insert another set of models into the map in parallel</span>
+<span class="linenos">34</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number of threads being used: </span><span class="si">{</span><span class="n">rrm</span><span class="o">.</span><span class="n">getNumThreads</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span><span class="c1"># change the number of threads</span>
+<span class="linenos">37</span><span class="n">number_of_threads</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="linenos">38</span><span class="n">rrm</span><span class="o">.</span><span class="n">setNumThreads</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="linenos">39</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number of threads being used: </span><span class="si">{</span><span class="n">rrm</span><span class="o">.</span><span class="n">getNumThreads</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">42</span><span class="n">rrm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">biomodels_files</span><span class="p">[</span><span class="mi">500</span><span class="p">:</span><span class="mi">600</span><span class="p">])</span>
+<span class="linenos">43</span><span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Another 100 models loaded in </span><span class="si">{</span><span class="n">duration</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RoadRunnerMap size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rrm</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">51</span><span class="sd">Script output</span>
+<span class="linenos">52</span><span class="sd">=============</span>
+<span class="linenos">53</span><span class="sd">RoadRunnerMap size: 20</span>
+<span class="linenos">54</span><span class="sd">RoadRunnerMap size: 21</span>
+<span class="linenos">55</span><span class="sd">RoadRunnerMap size: 21</span>
+<span class="linenos">56</span><span class="sd">RoadRunnerMap size: 22</span>
+<span class="linenos">57</span><span class="sd">number of threads being used: 3</span>
+<span class="linenos">58</span><span class="sd">number of threads being used: 5</span>
+<span class="linenos">59</span><span class="sd">Another 100 models loaded in 6.34 seconds</span>
+<span class="linenos">60</span><span class="sd">RoadRunnerMap size: 122</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">63</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../multiprocessing/multiprocessing_index.html" class="btn btn-neutral float-left" title="RoadRunner with Multiprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../utility_functions.html" class="btn btn-neutral float-right" title="Utility Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,50 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1KineticLawParameterResolver" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::KineticLawParameterResolver</compoundname>
     <basecompoundref refid="classrrllvm_1_1LoadSymbolResolver" prot="public" virt="non-virtual">rrllvm::LoadSymbolResolver</basecompoundref>
+    <includes refid="KineticLawParameterResolver_8h" local="no">KineticLawParameterResolver.h</includes>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1KineticLawParameterResolver_1a62575a943e56292120e90bfc1ee5e5de" prot="private" static="no" mutable="no">
         <type><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref> &amp;</type>
         <definition>LoadSymbolResolver&amp; rrllvm::KineticLawParameterResolver::parentResolver</definition>
         <argsstring></argsstring>
         <name>parentResolver</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::parentResolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="34" column="24" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="34" bodyend="-1"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="37" column="28" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1KineticLawParameterResolver_1ae90e663a745783f757a20064bb408e06" prot="private" static="no" mutable="no">
         <type>const libsbml::KineticLaw &amp;</type>
         <definition>const libsbml::KineticLaw&amp; rrllvm::KineticLawParameterResolver::kineticLaw</definition>
         <argsstring></argsstring>
         <name>kineticLaw</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::kineticLaw</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="35" column="31" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="35" bodyend="-1"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="38" column="35" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1KineticLawParameterResolver_1aea28856094e05544c11d144be09ecae5" prot="private" static="no" mutable="no">
         <type>llvm::IRBuilder &amp;</type>
         <definition>llvm::IRBuilder&amp; rrllvm::KineticLawParameterResolver::builder</definition>
         <argsstring></argsstring>
         <name>builder</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::builder</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="36" column="6" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="36" bodyend="-1"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="39" column="10" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -53,7 +51,6 @@
         <definition>rrllvm::KineticLawParameterResolver::KineticLawParameterResolver</definition>
         <argsstring>(LoadSymbolResolver &amp;parentResolver, const libsbml::KineticLaw &amp;kineticLaw, llvm::IRBuilder&lt;&gt; &amp;builder)</argsstring>
         <name>KineticLawParameterResolver</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::KineticLawParameterResolver</qualifiedname>
         <param>
           <type><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref> &amp;</type>
           <declname>parentResolver</declname>
@@ -72,29 +69,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="20" column="5" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="22" bodyend="29"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="23" column="9" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="22" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1KineticLawParameterResolver_1acc03d93766e494c72dbf306bb4e5d3b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
         <definition>virtual rrllvm::KineticLawParameterResolver::~KineticLawParameterResolver</definition>
         <argsstring>()</argsstring>
         <name>~KineticLawParameterResolver</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::~KineticLawParameterResolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="23" column="13" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="23" bodyend="23"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="26" column="17" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="26" bodyend="26"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1KineticLawParameterResolver_1ac04cd2cdb1aebcbb28dc7c59325d604d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::Value *</type>
         <definition>llvm::Value * rrllvm::KineticLawParameterResolver::loadSymbolValue</definition>
         <argsstring>(const std::string &amp;symbol, const llvm::ArrayRef&lt; llvm::Value * &gt; &amp;args=llvm::ArrayRef&lt; llvm::Value * &gt;())</argsstring>
         <name>loadSymbolValue</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::loadSymbolValue</qualifiedname>
-        <reimplements refid="classrrllvm_1_1LoadSymbolResolver_1a832a8d0b229eb12271e58db3e20ebe98">loadSymbolValue</reimplements>
+        <reimplements refid="classrrllvm_1_1LoadSymbolResolver_1af0c62fdd0c913e2410596d3f785f21db">loadSymbolValue</reimplements>
         <param>
           <type>const std::string &amp;</type>
           <declname>symbol</declname>
@@ -129,14 +124,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="25" column="25" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="32" bodyend="58"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="28" column="29" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="32" bodyend="58"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1KineticLawParameterResolver_1aea67c8b5d643ae2fc1fd29ccbad2c0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::KineticLawParameterResolver::recursiveSymbolPush</definition>
         <argsstring>(const std::string &amp;symbol)</argsstring>
         <name>recursiveSymbolPush</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::recursiveSymbolPush</qualifiedname>
         <reimplements refid="classrrllvm_1_1LoadSymbolResolver_1ae76af01bea67ddc67ca14112ef117867">recursiveSymbolPush</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -148,14 +142,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="29" column="18" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="60" bodyend="63"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="32" column="22" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="60" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1KineticLawParameterResolver_1a1083e93635d2154a8a50a0d0064ba98b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::KineticLawParameterResolver::recursiveSymbolPop</definition>
         <argsstring>()</argsstring>
         <name>recursiveSymbolPop</name>
-        <qualifiedname>rrllvm::KineticLawParameterResolver::recursiveSymbolPop</qualifiedname>
         <reimplements refid="classrrllvm_1_1LoadSymbolResolver_1a0c192e55ced93b4f06d5cf9bc2579d4d">recursiveSymbolPop</reimplements>
         <briefdescription>
         </briefdescription>
@@ -163,12 +156,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/KineticLawParameterResolver.h" line="31" column="18" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="65" bodyend="68"/>
+        <location file="llvm/KineticLawParameterResolver.h" line="34" column="22" bodyfile="llvm/KineticLawParameterResolver.cpp" bodystart="65" bodyend="68"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Sorts out local parameters in a kinetic law. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -194,7 +188,7 @@
         <link refid="classrrllvm_1_1LoadSymbolResolver"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/KineticLawParameterResolver.h" line="17" column="1" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="18" bodyend="37"/>
+    <location file="llvm/KineticLawParameterResolver.h" line="21" column="1" bodyfile="llvm/KineticLawParameterResolver.h" bodystart="20" bodyend="40"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1KineticLawParameterResolver_1aea28856094e05544c11d144be09ecae5" prot="private" virt="non-virtual"><scope>rrllvm::KineticLawParameterResolver</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1KineticLawParameterResolver_1ae90e663a745783f757a20064bb408e06" prot="private" virt="non-virtual"><scope>rrllvm::KineticLawParameterResolver</scope><name>kineticLaw</name></member>

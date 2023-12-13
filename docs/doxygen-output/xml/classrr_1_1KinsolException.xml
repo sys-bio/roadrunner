@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1KinsolException" kind="class" language="C++" prot="public">
     <compoundname>rr::KinsolException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+    <includes refid="rrException_8h" local="no">rrException.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1KinsolException_1a5083f1ba038b2df64c3de78c5301927b" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::KinsolException::KinsolException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>KinsolException</name>
-        <qualifiedname>rr::KinsolException::KinsolException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -20,19 +20,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="80" column="18" bodyfile="rrException.cpp" bodystart="37" bodyend="37"/>
+        <location file="rrException.h" line="102" column="18" bodyfile="rrException.cpp" bodystart="37" bodyend="37"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1Exception" kindref="compound">Exception</ref> class for scanners. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rr::Exception</label>
-        <link refid="classrr_1_1Exception"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
+      <node id="3">
+        <label>exception</label>
       </node>
       <node id="1">
         <label>rr::KinsolException</label>
@@ -40,11 +38,26 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>std::exception</label>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
+      <node id="1">
+        <label>rr::KinsolException</label>
+        <link refid="classrr_1_1KinsolException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="2">
         <label>rr::Exception</label>
         <link refid="classrr_1_1Exception"/>
@@ -54,20 +67,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>rr::KinsolException</label>
-        <link refid="classrr_1_1KinsolException"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="77" column="1" bodyfile="rrException.h" bodystart="78" bodyend="81"/>
+    <location file="rrException.h" line="100" column="1" bodyfile="rrException.h" bodystart="99" bodyend="103"/>
     <listofallmembers>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::KinsolException</scope><name>Exception</name></member>
       <member refid="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de" prot="public" virt="non-virtual"><scope>rr::KinsolException</scope><name>getMessage</name></member>

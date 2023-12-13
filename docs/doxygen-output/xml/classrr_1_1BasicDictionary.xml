@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1BasicDictionary" kind="class" language="C++" prot="public">
     <compoundname>rr::BasicDictionary</compoundname>
     <basecompoundref refid="classrr_1_1Dictionary" prot="public" virt="non-virtual">rr::Dictionary</basecompoundref>
@@ -11,7 +11,6 @@
         <definition>using rr::BasicDictionary::item =  std::pair&lt;std::string, Setting&gt;</definition>
         <argsstring></argsstring>
         <name>item</name>
-        <qualifiedname>rr::BasicDictionary::item</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -27,7 +26,6 @@
         <definition>typedef std::unordered_map&lt;std::string, Setting&gt; rr::BasicDictionary::VariantMap</definition>
         <argsstring></argsstring>
         <name>VariantMap</name>
-        <qualifiedname>rr::BasicDictionary::VariantMap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -43,7 +41,6 @@
         <definition>VariantMap rr::BasicDictionary::items</definition>
         <argsstring></argsstring>
         <name>items</name>
-        <qualifiedname>rr::BasicDictionary::items</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -59,7 +56,6 @@
         <definition>rr::BasicDictionary::BasicDictionary</definition>
         <argsstring>()=default</argsstring>
         <name>BasicDictionary</name>
-        <qualifiedname>rr::BasicDictionary::BasicDictionary</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -73,7 +69,6 @@
         <definition>rr::BasicDictionary::BasicDictionary</definition>
         <argsstring>(std::initializer_list&lt; item &gt; initializerList)</argsstring>
         <name>BasicDictionary</name>
-        <qualifiedname>rr::BasicDictionary::BasicDictionary</qualifiedname>
         <param>
           <type>std::initializer_list&lt; item &gt;</type>
           <declname>initializerList</declname>
@@ -91,7 +86,6 @@
         <definition>void rr::BasicDictionary::setItem</definition>
         <argsstring>(const std::string &amp;key, const rr::Setting &amp;value) override</argsstring>
         <name>setItem</name>
-        <qualifiedname>rr::BasicDictionary::setItem</qualifiedname>
         <reimplements refid="classrr_1_1Dictionary_1a4708fee12ec4cd5e879df9bf5570c02a">setItem</reimplements>
         <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a5c681de2711ebbc2591d11a280b9db94">setItem</reimplementedby>
         <param>
@@ -116,7 +110,6 @@
         <definition>Setting rr::BasicDictionary::getItem</definition>
         <argsstring>(const std::string &amp;key) const override</argsstring>
         <name>getItem</name>
-        <qualifiedname>rr::BasicDictionary::getItem</qualifiedname>
         <reimplements refid="classrr_1_1Dictionary_1a0fcdd3d9089af14e49e8713c254c9b67">getItem</reimplements>
         <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ae4dd5db25b55f9561e231c23c53ae941">getItem</reimplementedby>
         <param>
@@ -137,7 +130,6 @@
         <definition>bool rr::BasicDictionary::hasKey</definition>
         <argsstring>(const std::string &amp;key) const override</argsstring>
         <name>hasKey</name>
-        <qualifiedname>rr::BasicDictionary::hasKey</qualifiedname>
         <reimplements refid="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed">hasKey</reimplements>
         <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a117c4f6440ac36541ec57ceae06d4770">hasKey</reimplementedby>
         <param>
@@ -159,7 +151,6 @@
         <definition>size_t rr::BasicDictionary::deleteItem</definition>
         <argsstring>(const std::string &amp;key) override</argsstring>
         <name>deleteItem</name>
-        <qualifiedname>rr::BasicDictionary::deleteItem</qualifiedname>
         <reimplements refid="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c">deleteItem</reimplements>
         <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a23be92b85c9e3eb38805fa63cf112085">deleteItem</reimplementedby>
         <param>
@@ -180,8 +171,7 @@
         <definition>std::vector&lt; std::string &gt; rr::BasicDictionary::getKeys</definition>
         <argsstring>() const override</argsstring>
         <name>getKeys</name>
-        <qualifiedname>rr::BasicDictionary::getKeys</qualifiedname>
-        <reimplements refid="classrr_1_1Dictionary_1a378b4142bc6b038465b375d36350b51e">getKeys</reimplements>
+        <reimplements refid="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47">getKeys</reimplements>
         <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a793d753189e642242ff31e0897124c85">getKeys</reimplementedby>
         <briefdescription>
 <para>list of keys in this object. </para>
@@ -197,7 +187,6 @@
         <definition>rr::BasicDictionary::~BasicDictionary</definition>
         <argsstring>() override=default</argsstring>
         <name>~BasicDictionary</name>
-        <qualifiedname>rr::BasicDictionary::~BasicDictionary</qualifiedname>
         <briefdescription>
 <para>Pure virtual interface, you should never have to delete an instance of this type directly. </para>
         </briefdescription>
@@ -214,6 +203,12 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
+      <node id="3">
+        <label>rr::LoadSBMLOptions</label>
+        <link refid="classrr_1_1LoadSBMLOptions"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="1">
         <label>rr::BasicDictionary</label>
         <link refid="classrr_1_1BasicDictionary"/>
@@ -223,12 +218,6 @@
       <node id="2">
         <label>rr::Dictionary</label>
         <link refid="classrr_1_1Dictionary"/>
-      </node>
-      <node id="3">
-        <label>rr::LoadSBMLOptions</label>
-        <link refid="classrr_1_1LoadSBMLOptions"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -243,7 +232,7 @@
         <link refid="classrr_1_1Dictionary"/>
       </node>
     </collaborationgraph>
-    <location file="Dictionary.h" line="139" column="1" bodyfile="Dictionary.h" bodystart="140" bodyend="183"/>
+    <location file="Dictionary.h" line="140" column="1" bodyfile="Dictionary.h" bodystart="139" bodyend="183"/>
     <listofallmembers>
       <member refid="classrr_1_1BasicDictionary_1ac10aa5eba2ee4ba618cfc959db7dffc6" prot="public" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>BasicDictionary</name></member>
       <member refid="classrr_1_1BasicDictionary_1a34bcac2f544c1a4971270e097e4e57ac" prot="public" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>BasicDictionary</name></member>

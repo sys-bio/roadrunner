@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Series Sensitivities &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parallel RoadRunner" href="../parallel/parallel_index.html" />
+    <link rel="prev" title="Simulation and Integration" href="../simulation_and_integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Time Series Sensitivities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-time-series-sensitivities">Using time series sensitivities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selecting-parameters">Selecting parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selecting-species">Selecting Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensitivity-method">Sensitivity Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensitivity-difference-quotient-method">Sensitivity Difference Quotient Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensitivity-solver-type">Sensitivity Solver Type</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Time Series Sensitivities</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sensitivities/sensitivities_index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="time-series-sensitivities">
+<h1>Time Series Sensitivities<a class="headerlink" href="#time-series-sensitivities" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For these demonstrations we use a toy
+sbml model prepackaged with roadrunner</p>
+</div>
+<section id="using-time-series-sensitivities">
+<h2>Using time series sensitivities<a class="headerlink" href="#using-time-series-sensitivities" title="Permalink to this heading"></a></h2>
+<p>In this example we show you how to use roadrunners time series sensitivities
+feature. Roadrunner will integrate the model and compute sensitivities at
+each time step.</p>
+<p>Start integration with sensitivities at 0, end at 10 and collect 11 data points
+The return type is a 4-Tuple, a time vector and a 3D sensitivity matrix with
+dimensions time x parameters x variables - that is, an array of matrices corresponding
+to the time points in the time vector with parameters down the rows and model variables (species)
+accross the columns. The third and forth elements are row and column names respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 7</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">12</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">19</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="n">fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;OpenLinearFluxSensitivities.png&quot;</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">plotTimeSeriesSens</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+<span class="linenos">24</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plot image saved to </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">25</span>
+</pre></div>
+</div>
+</section>
+<section id="selecting-parameters">
+<h2>Selecting parameters<a class="headerlink" href="#selecting-parameters" title="Permalink to this heading"></a></h2>
+<p>By default, all model parameters are automatically selected.
+You can be more selective about which parameters to compute sensitivities for.
+This will have a performance advantage, because sensitivities are only computed
+for the parameters specified here.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 6</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">11</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;kin&quot;</span><span class="p">])</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">19</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+<span class="linenos">20</span>
+</pre></div>
+</div>
+</section>
+<section id="selecting-species">
+<h2>Selecting Species<a class="headerlink" href="#selecting-species" title="Permalink to this heading"></a></h2>
+<p>By default, all model species are returned in the results matrix. We can
+be more selective by using the species argument. This does not have
+any additional performance advantage and in fact cost additional resources
+because the full results matrix is sliced to select the selected columns.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 6</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">11</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;S1&quot;</span><span class="p">])</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">19</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sensitivity-method">
+<h2>Sensitivity Method<a class="headerlink" href="#sensitivity-method" title="Permalink to this heading"></a></h2>
+<p>RoadRunner time series sensitivities uses cvodes under the hood. By default,
+we use the “simultaneous” method, whereby sensitivity equations are solved at the same
+time as the variables in the ODE’s. This can be changed so that the variables
+are solved first followed by the sensitivity equations; aka in a staggered approach.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 6</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">11</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">sensSolver</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;sensitivity_method&quot;</span><span class="p">,</span> <span class="s2">&quot;staggered&quot;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using a staggered approach&quot;</span><span class="p">)</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">19</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+<span class="linenos">22</span><span class="n">sensSolver</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;sensitivity_method&quot;</span><span class="p">,</span> <span class="s2">&quot;simultaneous&quot;</span><span class="p">)</span> <span class="c1"># return to simultaneous mode</span>
+</pre></div>
+</div>
+</section>
+<section id="sensitivity-difference-quotient-method">
+<h2>Sensitivity Difference Quotient Method<a class="headerlink" href="#sensitivity-difference-quotient-method" title="Permalink to this heading"></a></h2>
+<p>RoadRunner via cvodes uses finite differences for approximating gradients.
+By default we use the “centered” method, while the alternative is the “forward” method
+Both methods are implemented in cvodes and automatically figure out the best value of delta
+(perturbation amount) to use. Moreover, there is an adaptive switching mechanism in use
+that makes it unlikely that users should need to modify this setting.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 6</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">11</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">sensSolver</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;DQ_method&quot;</span><span class="p">,</span> <span class="s2">&quot;forward&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using forward method of finite different approximation&quot;</span><span class="p">)</span>
+<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">22</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">23</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">24</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">sensSolver</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;DQ_method&quot;</span><span class="p">,</span> <span class="s2">&quot;centered&quot;</span><span class="p">)</span> <span class="c1"># put back the default value</span>
+</pre></div>
+</div>
+</section>
+<section id="sensitivity-solver-type">
+<h2>Sensitivity Solver Type<a class="headerlink" href="#sensitivity-solver-type" title="Permalink to this heading"></a></h2>
+<p>By default, RoadRunner uses the sundials “newton” nonlinear solver.
+This can be changed to the “fixed_point” nonlinear solver</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests.TestModelFactory</span> <span class="kn">import</span> <span class="n">TestModelFactory</span><span class="p">,</span> <span class="n">getAvailableTestModels</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># note: use getAvailableTestModels() to see options for test models.</span>
+<span class="linenos"> 6</span><span class="n">sbml</span> <span class="o">=</span> <span class="n">TestModelFactory</span><span class="p">(</span><span class="s2">&quot;OpenLinearFlux&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="c1"># get the test model&#39;s sbml string</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># print(sbml) # uncomment if you want to see the sbml</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Create a RoadRunner instance</span>
+<span class="linenos">11</span><span class="n">model</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">sensSolver</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getSensitivitySolver</span><span class="p">()</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># By default, RoadRunner uses the sundials &quot;newton&quot; nonlinear solver.</span>
+<span class="linenos">17</span><span class="c1"># This can be changed to the fixed_point nonlinear solver</span>
+<span class="linenos">18</span><span class="n">sensSolver</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;nonlinear_solver&quot;</span><span class="p">,</span> <span class="s2">&quot;fixed_point&quot;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">time</span><span class="p">,</span> <span class="n">sens</span><span class="p">,</span> <span class="n">rownames</span><span class="p">,</span> <span class="n">colnames</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">timeSeriesSensitivities</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using the fixed point nonlinear solver&quot;</span><span class="p">)</span>
+<span class="linenos">22</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time: &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="linenos">23</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rownames: &quot;</span><span class="p">,</span> <span class="n">rownames</span><span class="p">)</span>
+<span class="linenos">24</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;colnames: &quot;</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+<span class="linenos">25</span><span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../simulation_and_integration.html" class="btn btn-neutral float-left" title="Simulation and Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../parallel/parallel_index.html" class="btn btn-neutral float-right" title="Parallel RoadRunner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

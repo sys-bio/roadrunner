@@ -1,15 +1,22 @@
 \hypertarget{classrr_1_1IntegratorListener}{}\doxysection{rr\+::Integrator\+Listener Class Reference}
 \label{classrr_1_1IntegratorListener}\index{rr::IntegratorListener@{rr::IntegratorListener}}
+
+
+{\ttfamily \#include $<$Integrator.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1IntegratorListener_a78bcb1c840e549d0d18f60ef010fd5e2}\label{classrr_1_1IntegratorListener_a78bcb1c840e549d0d18f60ef010fd5e2}} 
-virtual uint {\bfseries on\+Time\+Step} (\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$integrator, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model, double time)=0
+virtual uint \mbox{\hyperlink{classrr_1_1IntegratorListener_a78bcb1c840e549d0d18f60ef010fd5e2}{on\+Time\+Step}} (\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$integrator, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model, double time)=0
 \begin{DoxyCompactList}\small\item\em is called after the internal integrator completes each internal time step. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1IntegratorListener_a4ff64f8bf4a208d25b37b7e99560d82e}\label{classrr_1_1IntegratorListener_a4ff64f8bf4a208d25b37b7e99560d82e}} 
-virtual uint {\bfseries on\+Event} (\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$integrator, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model, double time)=0
+virtual uint \mbox{\hyperlink{classrr_1_1IntegratorListener_a4ff64f8bf4a208d25b37b7e99560d82e}{on\+Event}} (\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$integrator, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model, double time)=0
 \begin{DoxyCompactList}\small\item\em whenever model event occurs and after it is procesed. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classrr_1_1IntegratorListener}{Integrator\+Listener}} listens for integrator events. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,22 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1LoadSymbolResolver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rrllvm::LoadSymbolResolver</compoundname>
     <derivedcompoundref refid="classrrllvm_1_1FunctionResolver" prot="public" virt="non-virtual">rrllvm::FunctionResolver</derivedcompoundref>
     <derivedcompoundref refid="classrrllvm_1_1KineticLawParameterResolver" prot="public" virt="non-virtual">rrllvm::KineticLawParameterResolver</derivedcompoundref>
     <derivedcompoundref refid="classrrllvm_1_1LoadSymbolResolverBase" prot="public" virt="non-virtual">rrllvm::LoadSymbolResolverBase</derivedcompoundref>
+    <includes refid="CodeGen_8h" local="no">CodeGen.h</includes>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1a832a8d0b229eb12271e58db3e20ebe98" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1af0c62fdd0c913e2410596d3f785f21db" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>llvm::Value *</type>
-        <definition>virtual llvm::Value * rrllvm::LoadSymbolResolver::loadSymbolValue</definition>
+        <definition>virtual llvm::Value* rrllvm::LoadSymbolResolver::loadSymbolValue</definition>
         <argsstring>(const std::string &amp;symbol, const llvm::ArrayRef&lt; llvm::Value * &gt; &amp;args=llvm::ArrayRef&lt; llvm::Value * &gt;())=0</argsstring>
         <name>loadSymbolValue</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::loadSymbolValue</qualifiedname>
-        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1a3cb392b698b4a6bcfca2bb56312d3809">loadSymbolValue</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1KineticLawParameterResolver_1ac04cd2cdb1aebcbb28dc7c59325d604d">loadSymbolValue</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1ModelInitialValueSymbolResolver_1a290a08a89dbed631cd62729c9ee72871">loadSymbolValue</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1a3cb392b698b4a6bcfca2bb56312d3809">loadSymbolValue</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1SBMLInitialValueSymbolResolver_1ab7c1e8fae4c828db8ddf0147d2c105b4">loadSymbolValue</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1ModelDataLoadSymbolResolver_1a8f7aa9bf76a44c3cb2f7c91b788d17b5">loadSymbolValue</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>symbol</declname>
@@ -51,16 +49,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="40" column="25"/>
+        <location file="llvm/CodeGen.h" line="45" column="29"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1ae76af01bea67ddc67ca14112ef117867" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::LoadSymbolResolver::recursiveSymbolPush</definition>
         <argsstring>(const std::string &amp;symbol)=0</argsstring>
         <name>recursiveSymbolPush</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::recursiveSymbolPush</qualifiedname>
-        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1aac4263c431a3bd9df828802906896833">recursiveSymbolPush</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1KineticLawParameterResolver_1aea67c8b5d643ae2fc1fd29ccbad2c0cd">recursiveSymbolPush</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1aac4263c431a3bd9df828802906896833">recursiveSymbolPush</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LoadSymbolResolverBase_1ac57b0b51ada7500192177fe56f783c66">recursiveSymbolPush</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -72,16 +69,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="44" column="18"/>
+        <location file="llvm/CodeGen.h" line="49" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1a0c192e55ced93b4f06d5cf9bc2579d4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::LoadSymbolResolver::recursiveSymbolPop</definition>
         <argsstring>()=0</argsstring>
         <name>recursiveSymbolPop</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::recursiveSymbolPop</qualifiedname>
-        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1a6503ab9a9628fb08b38ac6b1401c17bd">recursiveSymbolPop</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1KineticLawParameterResolver_1a1083e93635d2154a8a50a0d0064ba98b">recursiveSymbolPop</reimplementedby>
+        <reimplementedby refid="classrrllvm_1_1FunctionResolver_1a6503ab9a9628fb08b38ac6b1401c17bd">recursiveSymbolPop</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LoadSymbolResolverBase_1aa0fc1373dd80036307a6da734c44639a">recursiveSymbolPop</reimplementedby>
         <briefdescription>
         </briefdescription>
@@ -89,14 +85,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="46" column="18"/>
+        <location file="llvm/CodeGen.h" line="51" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1ab388d2fa6565e68437798bc1d566b29b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>size_t</type>
         <definition>virtual size_t rrllvm::LoadSymbolResolver::pushCacheBlock</definition>
         <argsstring>()</argsstring>
         <name>pushCacheBlock</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::pushCacheBlock</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LoadSymbolResolverBase_1a7e60c19319e7c69ce40893709590c5b6">pushCacheBlock</reimplementedby>
         <briefdescription>
 <para>nested conditionals (or functions?) can push a local cache block, where symbols would be chached. </para>
@@ -106,14 +101,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="53" column="20" bodyfile="llvm/CodeGen.h" bodystart="53" bodyend="53"/>
+        <location file="llvm/CodeGen.h" line="58" column="24" bodyfile="llvm/CodeGen.h" bodystart="58" bodyend="58"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LoadSymbolResolver_1a64c0e7ee5311a610d252dc603e20a94f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>size_t</type>
         <definition>virtual size_t rrllvm::LoadSymbolResolver::popCacheBlock</definition>
         <argsstring>()</argsstring>
         <name>popCacheBlock</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::popCacheBlock</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LoadSymbolResolverBase_1af789e2e8265aa79b6452f521df9f234e">popCacheBlock</reimplementedby>
         <briefdescription>
 <para>Pop a scoped cache block, this clears these values, and any subsequent reads re-evaluate the requested symbol. </para>
@@ -123,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="61" column="20" bodyfile="llvm/CodeGen.h" bodystart="61" bodyend="61"/>
+        <location file="llvm/CodeGen.h" line="66" column="24" bodyfile="llvm/CodeGen.h" bodystart="66" bodyend="66"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -132,25 +126,31 @@
         <definition>virtual rrllvm::LoadSymbolResolver::~LoadSymbolResolver</definition>
         <argsstring>()</argsstring>
         <name>~LoadSymbolResolver</name>
-        <qualifiedname>rrllvm::LoadSymbolResolver::~LoadSymbolResolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/CodeGen.h" line="65" column="13" bodyfile="llvm/CodeGen.h" bodystart="65" bodyend="65"/>
+        <location file="llvm/CodeGen.h" line="70" column="17" bodyfile="llvm/CodeGen.h" bodystart="70" bodyend="70"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>LLVM load instruction class </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
         <label>rrllvm::FunctionResolver</label>
         <link refid="classrrllvm_1_1FunctionResolver"/>
         <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rrllvm::SBMLInitialValueSymbolResolver</label>
+        <link refid="classrrllvm_1_1SBMLInitialValueSymbolResolver"/>
+        <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
       <node id="3">
@@ -169,28 +169,10 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
-        <label>rrllvm::ModelDataLoadSymbolResolver</label>
-        <link refid="classrrllvm_1_1ModelDataLoadSymbolResolver"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>rrllvm::ModelInitialValueSymbolResolver</label>
-        <link refid="classrrllvm_1_1ModelInitialValueSymbolResolver"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>rrllvm::SBMLInitialValueSymbolResolver</label>
-        <link refid="classrrllvm_1_1SBMLInitialValueSymbolResolver"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
     </inheritancegraph>
-    <location file="llvm/CodeGen.h" line="31" column="1" bodyfile="llvm/CodeGen.h" bodystart="32" bodyend="66"/>
+    <location file="llvm/CodeGen.h" line="37" column="1" bodyfile="llvm/CodeGen.h" bodystart="36" bodyend="71"/>
     <listofallmembers>
-      <member refid="classrrllvm_1_1LoadSymbolResolver_1a832a8d0b229eb12271e58db3e20ebe98" prot="public" virt="pure-virtual"><scope>rrllvm::LoadSymbolResolver</scope><name>loadSymbolValue</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolver_1af0c62fdd0c913e2410596d3f785f21db" prot="public" virt="pure-virtual"><scope>rrllvm::LoadSymbolResolver</scope><name>loadSymbolValue</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolver_1a64c0e7ee5311a610d252dc603e20a94f" prot="public" virt="virtual"><scope>rrllvm::LoadSymbolResolver</scope><name>popCacheBlock</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolver_1ab388d2fa6565e68437798bc1d566b29b" prot="public" virt="virtual"><scope>rrllvm::LoadSymbolResolver</scope><name>pushCacheBlock</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolver_1a0c192e55ced93b4f06d5cf9bc2579d4d" prot="public" virt="pure-virtual"><scope>rrllvm::LoadSymbolResolver</scope><name>recursiveSymbolPop</name></member>

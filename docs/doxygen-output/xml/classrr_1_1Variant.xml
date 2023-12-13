@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Variant" kind="class" language="C++" prot="public">
     <compoundname>rr::Variant</compoundname>
     <includes refid="__Variant_8h" local="no">_Variant.h</includes>
@@ -7,7 +7,6 @@
       <memberdef kind="enum" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8" prot="public" static="no" strong="no">
         <type></type>
         <name>TypeId</name>
-        <qualifiedname>rr::Variant::TypeId</qualifiedname>
         <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ab7bc9a0e4b0d7a0d2f3a9ab926745e2a" prot="public">
           <name>STRING</name>
           <briefdescription>
@@ -99,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="_Variant.h" line="81" column="5" bodyfile="_Variant.h" bodystart="82" bodyend="84"/>
+        <location file="_Variant.h" line="82" column="1" bodyfile="_Variant.h" bodystart="81" bodyend="84"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -108,9 +107,7 @@
         <definition>struct VariantImpl* rr::Variant::self</definition>
         <argsstring></argsstring>
         <name>self</name>
-        <qualifiedname>rr::Variant::self</qualifiedname>
         <briefdescription>
-<para>private implementation, this gives us the flexibility to use different implementations in the future and maintain binary compatability. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -125,7 +122,6 @@
         <definition>Variant::TypeId rr::Variant::type</definition>
         <argsstring>() const</argsstring>
         <name>type</name>
-        <qualifiedname>rr::Variant::type</qualifiedname>
         <briefdescription>
 <para>the current type that this <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> is. </para>
         </briefdescription>
@@ -140,7 +136,6 @@
         <definition>rr::Variant::Variant</definition>
         <argsstring>()</argsstring>
         <name>Variant</name>
-        <qualifiedname>rr::Variant::Variant</qualifiedname>
         <briefdescription>
 <para>creates an emtpy variant </para>
         </briefdescription>
@@ -160,7 +155,6 @@
         <definition>rr::Variant::Variant</definition>
         <argsstring>(const T &amp;val)</argsstring>
         <name>Variant</name>
-        <qualifiedname>rr::Variant::Variant</qualifiedname>
         <param>
           <type>const T &amp;</type>
           <declname>val</declname>
@@ -169,8 +163,8 @@
 <para>create a new variant from an existing supported data type. </para>
         </briefdescription>
         <detaileddescription>
-<para>This templated constructor can assign any primitive type: <programlisting><codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>(int)1;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>std::string(</highlight><highlight class="stringliteral">&quot;a<sp/>std::string&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<para>This templated constructor can assign any primitive type: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>(int)1;</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>std::string(&quot;a<sp/>std::string&quot;);</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -182,7 +176,6 @@
         <definition>rr::Variant::Variant</definition>
         <argsstring>(const char *str)</argsstring>
         <name>Variant</name>
-        <qualifiedname>rr::Variant::Variant</qualifiedname>
         <param>
           <type>const char *</type>
           <declname>str</declname>
@@ -200,7 +193,6 @@
         <definition>rr::Variant::Variant</definition>
         <argsstring>(const Variant &amp;other)</argsstring>
         <name>Variant</name>
-        <qualifiedname>rr::Variant::Variant</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
           <declname>other</declname>
@@ -214,17 +206,16 @@
         </inbodydescription>
         <location file="_Variant.h" line="123" column="5" bodyfile="_Variant.cpp" bodystart="39" bodyend="44"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Variant_1a4f276868e91394b494daab09d60f48fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename T</type>
           </param>
         </templateparamlist>
         <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
-        <definition>Variant &amp; rr::Variant::operator=</definition>
+        <definition>Variant&amp; rr::Variant::operator=</definition>
         <argsstring>(const T &amp;value)</argsstring>
         <name>operator=</name>
-        <qualifiedname>rr::Variant::operator=</qualifiedname>
         <param>
           <type>const T &amp;</type>
           <declname>value</declname>
@@ -243,7 +234,6 @@
         <definition>Variant &amp; rr::Variant::operator=</definition>
         <argsstring>(const Variant &amp;other)</argsstring>
         <name>operator=</name>
-        <qualifiedname>rr::Variant::operator=</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
           <declname>other</declname>
@@ -263,7 +253,6 @@
         <definition>rr::Variant::~Variant</definition>
         <argsstring>()</argsstring>
         <name>~Variant</name>
-        <qualifiedname>rr::Variant::~Variant</qualifiedname>
         <briefdescription>
 <para>clean up any data owned by this object. </para>
         </briefdescription>
@@ -278,20 +267,19 @@
         <definition>const std::type_info &amp; rr::Variant::typeInfo</definition>
         <argsstring>() const</argsstring>
         <name>typeInfo</name>
-        <qualifiedname>rr::Variant::typeInfo</qualifiedname>
         <briefdescription>
 <para>get the type id of the stored data type. </para>
         </briefdescription>
         <detaileddescription>
 <para>This will let you check what kind of data is strored in this variant.</para>
-<para><programlisting><codeline><highlight class="comment">//<sp/>to<sp/>check<sp/>if<sp/>this<sp/>is<sp/>an<sp/>integer:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>...</highlight></codeline>
-<codeline><highlight class="normal">if<sp/>(v.type()<sp/>==<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">))</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;its<sp/>an<sp/>int&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>to<sp/>check<sp/>if<sp/>its<sp/>a<sp/>std::string:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(v.type()<sp/>==<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(std::string))</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;ints<sp/>a<sp/>std::string&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">//<sp/>to<sp/>check<sp/>if<sp/>this<sp/>is<sp/>an<sp/>integer:</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(v.type()<sp/>==<sp/>typeid(int))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;its<sp/>an<sp/>int&quot;;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>check<sp/>if<sp/>its<sp/>a<sp/>std::string:</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(v.type()<sp/>==<sp/>typeid(std::string))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;ints<sp/>a<sp/>std::string&quot;;</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -308,14 +296,13 @@
         <definition>T rr::Variant::convert</definition>
         <argsstring>() const</argsstring>
         <name>convert</name>
-        <qualifiedname>rr::Variant::convert</qualifiedname>
         <briefdescription>
 <para>Convert this variant to a supported data type. </para>
         </briefdescription>
         <detaileddescription>
 <para>This method will try to perform type coercion, i.e. if this variant contains a std::string, and it is asked to convert to a int, the std::string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</para>
-<para><programlisting><codeline><highlight class="comment">//<sp/>convert<sp/>to<sp/>int:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>v.convert&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;();</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">//<sp/>convert<sp/>to<sp/>int:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>v.convert&lt;int&gt;();</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -327,7 +314,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(std::string)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>std::string</type>
         </param>
@@ -344,7 +330,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(long)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>long</type>
         </param>
@@ -361,7 +346,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(bool)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>bool</type>
         </param>
@@ -378,7 +362,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(float)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>float</type>
         </param>
@@ -395,7 +378,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(double)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>double</type>
         </param>
@@ -412,7 +394,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(unsigned long)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>unsigned long</type>
         </param>
@@ -429,7 +410,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(int)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>int</type>
         </param>
@@ -446,7 +426,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(unsigned int)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>unsigned int</type>
         </param>
@@ -463,7 +442,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(char)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>char</type>
         </param>
@@ -480,7 +458,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(unsigned char)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>unsigned char</type>
         </param>
@@ -497,7 +474,6 @@
         <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
         <argsstring>(std::vector&lt; double &gt;)</argsstring>
         <name>VARIANT_IMPLICIT_CONVERT</name>
-        <qualifiedname>rr::Variant::VARIANT_IMPLICIT_CONVERT</qualifiedname>
         <param>
           <type>std::vector&lt; double &gt;</type>
         </param>
@@ -514,7 +490,6 @@
         <definition>std::string rr::Variant::toString</definition>
         <argsstring>() const</argsstring>
         <name>toString</name>
-        <qualifiedname>rr::Variant::toString</qualifiedname>
         <briefdescription>
 <para>Converts the <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> to a std::string in JSON format. </para>
         </briefdescription>
@@ -529,7 +504,6 @@
         <definition>std::string rr::Variant::pythonRepr</definition>
         <argsstring>() const</argsstring>
         <name>pythonRepr</name>
-        <qualifiedname>rr::Variant::pythonRepr</qualifiedname>
         <briefdescription>
 <para>Convert to Python-compatible representation. </para>
         </briefdescription>
@@ -547,7 +521,6 @@
         <definition>bool rr::Variant::isString</definition>
         <argsstring>() const</argsstring>
         <name>isString</name>
-        <qualifiedname>rr::Variant::isString</qualifiedname>
         <briefdescription>
 <para>is this variant a std::string. </para>
         </briefdescription>
@@ -562,7 +535,6 @@
         <definition>bool rr::Variant::isInteger</definition>
         <argsstring>() const</argsstring>
         <name>isInteger</name>
-        <qualifiedname>rr::Variant::isInteger</qualifiedname>
         <briefdescription>
 <para>was an integer stored here. </para>
         </briefdescription>
@@ -577,7 +549,6 @@
         <definition>bool rr::Variant::isNumeric</definition>
         <argsstring>() const</argsstring>
         <name>isNumeric</name>
-        <qualifiedname>rr::Variant::isNumeric</qualifiedname>
         <briefdescription>
 <para>is this a numeric type. </para>
         </briefdescription>
@@ -592,7 +563,6 @@
         <definition>bool rr::Variant::isBool</definition>
         <argsstring>() const</argsstring>
         <name>isBool</name>
-        <qualifiedname>rr::Variant::isBool</qualifiedname>
         <briefdescription>
 <para>is this a boolean type. </para>
         </briefdescription>
@@ -607,7 +577,6 @@
         <definition>bool rr::Variant::isEmpty</definition>
         <argsstring>() const</argsstring>
         <name>isEmpty</name>
-        <qualifiedname>rr::Variant::isEmpty</qualifiedname>
         <briefdescription>
 <para>true if empty. </para>
         </briefdescription>
@@ -622,7 +591,6 @@
         <definition>bool rr::Variant::isSigned</definition>
         <argsstring>() const</argsstring>
         <name>isSigned</name>
-        <qualifiedname>rr::Variant::isSigned</qualifiedname>
         <briefdescription>
 <para>true if this is a signed number. </para>
         </briefdescription>
@@ -637,7 +605,6 @@
         <definition>bool rr::Variant::isDoubleVector</definition>
         <argsstring>() const</argsstring>
         <name>isDoubleVector</name>
-        <qualifiedname>rr::Variant::isDoubleVector</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -653,7 +620,6 @@
         <definition>Variant rr::Variant::parse</definition>
         <argsstring>(const std::string &amp;val)</argsstring>
         <name>parse</name>
-        <qualifiedname>rr::Variant::parse</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>val</declname>
@@ -662,7 +628,7 @@
 <para>Parses the std::string which must be in JSON format. </para>
         </briefdescription>
         <detaileddescription>
-<para>This is a common way to read a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> from a file or create a new one from a std::string: <programlisting><codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/><ref refid="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082" kindref="member">Variant::parse</ref>(</highlight><highlight class="stringliteral">&quot;0.123&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<para>This is a common way to read a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> from a file or create a new one from a std::string: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>Variant::parse(&quot;0.123&quot;);</highlight></codeline>
 </programlisting> </para>
         </detaileddescription>
         <inbodydescription>
@@ -676,7 +642,6 @@
         <definition>void rr::Variant::alloc</definition>
         <argsstring>()</argsstring>
         <name>alloc</name>
-        <qualifiedname>rr::Variant::alloc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -690,7 +655,6 @@
         <definition>void rr::Variant::assign</definition>
         <argsstring>(const std::type_info &amp;info, const void *value)</argsstring>
         <name>assign</name>
-        <qualifiedname>rr::Variant::assign</qualifiedname>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>info</declname>
@@ -712,7 +676,6 @@
         <definition>void rr::Variant::convert_to</definition>
         <argsstring>(const std::type_info &amp;info, void *value) const</argsstring>
         <name>convert_to</name>
-        <qualifiedname>rr::Variant::convert_to</qualifiedname>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>info</declname>
@@ -731,34 +694,34 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>A basic type to hold a variety of data types. </para>
     </briefdescription>
     <detaileddescription>
+<para>A basic type to hold a variety of data types.</para>
 <para>Unfourtunatly C++ does not have a standard variant type so we have to create one here.</para>
 <para>This is a fairly low performance class and is intended soley for infrequent operations such as <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> configuration parameters.</para>
 <para>If Python support is enabled, this class can convert to and from a Python object.</para>
 <para>Usage: This class can convert to and from any primitive data type, and some collections types. More type conversions will be added as needed.</para>
-<para>To store a value, just assign it, the assignment operator automatically takes care of everything for you: <programlisting><codeline><highlight class="comment">//<sp/>store<sp/>an<sp/>int:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>23;</highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>i;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>store<sp/>a<sp/>double:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>(double)0.123;</highlight></codeline>
+<para>To store a value, just assign it, the assignment operator automatically takes care of everything for you: <programlisting><codeline><highlight class="normal">//<sp/>store<sp/>an<sp/>int:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>23;</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>i;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>store<sp/>a<sp/>double:</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>(double)0.123;</highlight></codeline>
 </programlisting></para>
 <para>Extraction: To retrieve the stored data, uses the convert function, this is templated so it can convert and extract to any type:</para>
-<para><programlisting><codeline><highlight class="normal"><ref refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" kindref="member">Variant</ref><sp/>v<sp/>=<sp/>getSomeVariant();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>to<sp/>convert<sp/>to<sp/>integer:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>v.convert&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>to<sp/>convert<sp/>to<sp/>std::string:</highlight><highlight class="normal"></highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>getSomeVariant();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>convert<sp/>to<sp/>integer:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>v.convert&lt;int&gt;();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>convert<sp/>to<sp/>std::string:</highlight></codeline>
 <codeline><highlight class="normal">std::string<sp/>s<sp/>=<sp/>v.convert&lt;std::string&gt;();</highlight></codeline>
 </programlisting></para>
 <para>Rationale: C++ does not have a built in variant type. Other variant types exist such as boost::any and Poco dynamic var. However including the one of these as part of our public wrappers would forever tie us to that particular library, and would impose yet another dependency.</para>
 <para>Only very basic variant type support is needed and this class exposes the absolute minimum possible wrappers to support such features, and provides just two methods of getting and storing native C++ types in it.</para>
 <para>This is <emphasis>currently</emphasis> implemented by Poco but the implementation is fully opaque and may change in the future. </para>
     </detaileddescription>
-    <location file="_Variant.h" line="74" column="1" bodyfile="_Variant.h" bodystart="75" bodyend="307"/>
+    <location file="_Variant.h" line="75" column="1" bodyfile="_Variant.h" bodystart="74" bodyend="307"/>
     <listofallmembers>
       <member refid="classrr_1_1Variant_1a3a86aef3e40907e3759b8e0ed1658cdd" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>alloc</name></member>
       <member refid="classrr_1_1Variant_1af22522667e6ac08a37038fd07586dd90" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>assign</name></member>
@@ -779,7 +742,7 @@
       <member refid="classrr_1_1Variant_1ae92df0ebd531b0d0103202676beabfe3" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isNumeric</name></member>
       <member refid="classrr_1_1Variant_1a6b61a4ca6b375886c7cb145ffd910b20" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isSigned</name></member>
       <member refid="classrr_1_1Variant_1a287a173e395dafe75f1631c69f00551a" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isString</name></member>
-      <member refid="classrr_1_1Variant_1a4f276868e91394b494daab09d60f48fb" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>operator=</name></member>
+      <member refid="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>operator=</name></member>
       <member refid="classrr_1_1Variant_1ac04cac2d0b4d939f789658bebbb05f21" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>operator=</name></member>
       <member refid="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>parse</name></member>
       <member refid="classrr_1_1Variant_1aae71df98365e03148ca33a3d3f354115" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>pythonRepr</name></member>

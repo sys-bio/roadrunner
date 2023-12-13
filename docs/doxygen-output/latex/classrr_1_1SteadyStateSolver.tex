@@ -1,15 +1,20 @@
 \hypertarget{classrr_1_1SteadyStateSolver}{}\doxysection{rr\+::Steady\+State\+Solver Class Reference}
 \label{classrr_1_1SteadyStateSolver}\index{rr::SteadyStateSolver@{rr::SteadyStateSolver}}
+
+
+{\ttfamily \#include $<$Steady\+State\+Solver.\+h$>$}
+
 Inheritance diagram for rr\+::Steady\+State\+Solver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.222222cm]{classrr_1_1SteadyStateSolver}
+\includegraphics[height=3.888889cm]{classrr_1_1SteadyStateSolver}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual double \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ae7ef6c028ac70664cb37c2cb69e546a2}{solve}} ()=0
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ae7ef6c028ac70664cb37c2cb69e546a2}\label{classrr_1_1SteadyStateSolver_ae7ef6c028ac70664cb37c2cb69e546a2}} 
+virtual double {\bfseries solve} ()=0
 \item 
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a613605d22b7da35a526473d107ca65bd}\label{classrr_1_1SteadyStateSolver_a613605d22b7da35a526473d107ca65bd}} 
 virtual void {\bfseries load\+Config\+Settings} ()
@@ -18,6 +23,7 @@ std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_aaf40e2ae58d2f4fef80
 \begin{DoxyCompactList}\small\item\em Return a std\+::string representation of the solver. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}{to\+Repr}} () const override
 \begin{DoxyCompactList}\small\item\em Return std\+::string representation a la Python {\bfseries{repr}} method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}\label{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}} 
 void \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}{reset\+Settings}} () override
 \begin{DoxyCompactList}\small\item\em Implements settings shared by all steady state solvers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a04bba4a342cc7197750f080d41d439e5}\label{classrr_1_1SteadyStateSolver_a04bba4a342cc7197750f080d41d439e5}} 
@@ -29,35 +35,10 @@ void \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} is an abstract base class that provides an interface to specific steady-\/state solver class implementations. 
+
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}\label{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}} 
-\index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!resetSettings@{resetSettings}}
-\index{resetSettings@{resetSettings}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
-\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+Steady\+State\+Solver\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Implements settings shared by all steady state solvers. 
-
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
-
-
-
-Reimplemented in \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_a6978cebc1cf1ac984be2051491170443}{rr\+::\+Steady\+State\+Solver\+Decorator}}.
-
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ae7ef6c028ac70664cb37c2cb69e546a2}\label{classrr_1_1SteadyStateSolver_ae7ef6c028ac70664cb37c2cb69e546a2}} 
-\index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!solve@{solve}}
-\index{solve@{solve}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
-\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily virtual double rr\+::\+Steady\+State\+Solver\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-Implemented in \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}{rr\+::\+Basic\+Newton\+Iteration}}, and \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}{rr\+::\+Linesearch\+Newton\+Iteration}}.
-
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}\label{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}} 
 \index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!toRepr@{toRepr}}
 \index{toRepr@{toRepr}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}

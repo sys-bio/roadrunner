@@ -1,33 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CVODEIntegrator" kind="class" language="C++" prot="public">
     <compoundname>rr::CVODEIntegrator</compoundname>
     <basecompoundref refid="classrr_1_1Integrator" prot="public" virt="non-virtual">rr::Integrator</basecompoundref>
     <includes refid="CVODEIntegrator_8h" local="no">CVODEIntegrator.h</includes>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="classrr_1_1CVODEIntegrator_1a78971e3612b877951d2fc1f62ce97dff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>class</type>
+        <type>friend class</type>
         <definition>friend class ForwardSensitivitySolver</definition>
         <argsstring></argsstring>
         <name>ForwardSensitivitySolver</name>
-        <qualifiedname>rr::CVODEIntegrator::ForwardSensitivitySolver</qualifiedname>
-        <param>
-          <type><ref refid="classrr_1_1ForwardSensitivitySolver" kindref="compound">ForwardSensitivitySolver</ref></type>
-        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="50" column="22" bodyfile="CVODEIntegrator.h" bodystart="50" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="50" column="9" bodyfile="CVODEIntegrator.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="classrr_1_1CVODEIntegrator_1af47c8797c6cb49cdd45add5f5f63c993" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>int</type>
+        <type>friend int</type>
         <definition>int cvodeDyDtFcn</definition>
         <argsstring>(double t, N_Vector cv_y, N_Vector cv_ydot, void *f_data)</argsstring>
         <name>cvodeDyDtFcn</name>
-        <qualifiedname>rr::CVODEIntegrator::cvodeDyDtFcn</qualifiedname>
         <param>
           <type>double</type>
           <declname>t</declname>
@@ -50,14 +45,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="320" column="20"/>
+        <location file="CVODEIntegrator.h" line="314" column="20"/>
       </memberdef>
       <memberdef kind="friend" id="classrr_1_1CVODEIntegrator_1a00e587898c84d96c26d10292fd820975" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>int</type>
+        <type>friend int</type>
         <definition>int cvodeRootFcn</definition>
         <argsstring>(double t, N_Vector y, double *gout, void *g_data)</argsstring>
         <name>cvodeRootFcn</name>
-        <qualifiedname>rr::CVODEIntegrator::cvodeRootFcn</qualifiedname>
         <param>
           <type>double</type>
           <declname>t</declname>
@@ -80,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="322" column="20"/>
+        <location file="CVODEIntegrator.h" line="316" column="20"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
@@ -89,7 +83,6 @@
         <definition>const int rr::CVODEIntegrator::mDefaultMaxNumSteps</definition>
         <argsstring></argsstring>
         <name>mDefaultMaxNumSteps</name>
-        <qualifiedname>rr::CVODEIntegrator::mDefaultMaxNumSteps</qualifiedname>
         <initializer>= 20000</initializer>
         <briefdescription>
         </briefdescription>
@@ -97,14 +90,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="258" column="26" bodyfile="CVODEIntegrator.h" bodystart="258" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="251" column="26" bodyfile="CVODEIntegrator.h" bodystart="251" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a9cd24b548b466a5ff1bd04891a5bdf45" prot="private" static="yes" mutable="no">
         <type>const int</type>
         <definition>const int rr::CVODEIntegrator::mDefaultMaxAdamsOrder</definition>
         <argsstring></argsstring>
         <name>mDefaultMaxAdamsOrder</name>
-        <qualifiedname>rr::CVODEIntegrator::mDefaultMaxAdamsOrder</qualifiedname>
         <initializer>= 12</initializer>
         <briefdescription>
         </briefdescription>
@@ -112,14 +104,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="259" column="26" bodyfile="CVODEIntegrator.h" bodystart="259" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="252" column="26" bodyfile="CVODEIntegrator.h" bodystart="252" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1aa00ed2d3b97fca9c31eae4f74bb992c7" prot="private" static="yes" mutable="no">
         <type>const int</type>
         <definition>const int rr::CVODEIntegrator::mDefaultMaxBDFOrder</definition>
         <argsstring></argsstring>
         <name>mDefaultMaxBDFOrder</name>
-        <qualifiedname>rr::CVODEIntegrator::mDefaultMaxBDFOrder</qualifiedname>
         <initializer>= 5</initializer>
         <briefdescription>
         </briefdescription>
@@ -127,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="260" column="26" bodyfile="CVODEIntegrator.h" bodystart="260" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="253" column="26" bodyfile="CVODEIntegrator.h" bodystart="253" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -136,7 +127,6 @@
         <definition>void* rr::CVODEIntegrator::mCVODE_Memory</definition>
         <argsstring></argsstring>
         <name>mCVODE_Memory</name>
-        <qualifiedname>rr::CVODEIntegrator::mCVODE_Memory</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -144,14 +134,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="263" column="14" bodyfile="CVODEIntegrator.h" bodystart="263" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="256" column="14" bodyfile="CVODEIntegrator.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a4f3d2d70093be98ab5835afd8ccba80c" prot="private" static="no" mutable="no">
         <type>N_Vector</type>
         <definition>N_Vector rr::CVODEIntegrator::mStateVector</definition>
         <argsstring></argsstring>
         <name>mStateVector</name>
-        <qualifiedname>rr::CVODEIntegrator::mStateVector</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -159,14 +148,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="264" column="18" bodyfile="CVODEIntegrator.h" bodystart="264" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="257" column="18" bodyfile="CVODEIntegrator.h" bodystart="257" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1ab7cd7e9346284872234cd6f4a351e9d0" prot="private" static="no" mutable="no">
         <type>SUNMatrix</type>
         <definition>SUNMatrix rr::CVODEIntegrator::jac</definition>
         <argsstring></argsstring>
         <name>jac</name>
-        <qualifiedname>rr::CVODEIntegrator::jac</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -174,14 +162,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="265" column="19" bodyfile="CVODEIntegrator.h" bodystart="265" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="258" column="19" bodyfile="CVODEIntegrator.h" bodystart="258" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1aa4049dfcb3f5086f84e439ee1c37d883" prot="private" static="no" mutable="no">
         <type>SUNNonlinearSolver</type>
         <definition>SUNNonlinearSolver rr::CVODEIntegrator::nonLinSolver</definition>
         <argsstring></argsstring>
         <name>nonLinSolver</name>
-        <qualifiedname>rr::CVODEIntegrator::nonLinSolver</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -189,14 +176,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="266" column="28" bodyfile="CVODEIntegrator.h" bodystart="266" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="259" column="28" bodyfile="CVODEIntegrator.h" bodystart="259" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a6674ab1e9dfc6c4627e820eb5c1e8852" prot="private" static="no" mutable="no">
         <type>SUNLinearSolver</type>
         <definition>SUNLinearSolver rr::CVODEIntegrator::linSolver</definition>
         <argsstring></argsstring>
         <name>linSolver</name>
-        <qualifiedname>rr::CVODEIntegrator::linSolver</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -204,119 +190,111 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="267" column="25" bodyfile="CVODEIntegrator.h" bodystart="267" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="260" column="25" bodyfile="CVODEIntegrator.h" bodystart="260" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1ad0df731f78f1abae32e8d3043ab2db70" prot="private" static="no" mutable="no">
         <type>IntegratorListenerPtr</type>
         <definition>IntegratorListenerPtr rr::CVODEIntegrator::listener</definition>
         <argsstring></argsstring>
         <name>listener</name>
-        <qualifiedname>rr::CVODEIntegrator::listener</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="269" column="31" bodyfile="CVODEIntegrator.h" bodystart="269" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="262" column="31" bodyfile="CVODEIntegrator.h" bodystart="262" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1ab5bf8441f20d1b47b88d6433f6e4bd8f" prot="private" static="no" mutable="no">
         <type>double</type>
         <definition>double rr::CVODEIntegrator::mLastEventTime</definition>
         <argsstring></argsstring>
         <name>mLastEventTime</name>
-        <qualifiedname>rr::CVODEIntegrator::mLastEventTime</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="270" column="16" bodyfile="CVODEIntegrator.h" bodystart="270" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="263" column="16" bodyfile="CVODEIntegrator.h" bodystart="263" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1ac19023ee4585263faebe4bb4e0198616" prot="private" static="no" mutable="no">
         <type>bool</type>
         <definition>bool rr::CVODEIntegrator::variableStepPendingEvent</definition>
         <argsstring></argsstring>
         <name>variableStepPendingEvent</name>
-        <qualifiedname>rr::CVODEIntegrator::variableStepPendingEvent</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="271" column="14" bodyfile="CVODEIntegrator.h" bodystart="271" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="264" column="14" bodyfile="CVODEIntegrator.h" bodystart="264" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a12e09d64dccc0997fda74582da507f76" prot="private" static="no" mutable="no">
         <type>bool</type>
         <definition>bool rr::CVODEIntegrator::variableStepTimeEndEvent</definition>
         <argsstring></argsstring>
         <name>variableStepTimeEndEvent</name>
-        <qualifiedname>rr::CVODEIntegrator::variableStepTimeEndEvent</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="272" column="14" bodyfile="CVODEIntegrator.h" bodystart="272" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="265" column="14" bodyfile="CVODEIntegrator.h" bodystart="265" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a3dfccc67478b9e66206c104c20b03c7f" prot="private" static="no" mutable="no">
         <type>std::vector&lt; double &gt;</type>
         <definition>std::vector&lt;double&gt; rr::CVODEIntegrator::variableStepPostEventState</definition>
         <argsstring></argsstring>
         <name>variableStepPostEventState</name>
-        <qualifiedname>rr::CVODEIntegrator::variableStepPostEventState</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="273" column="21" bodyfile="CVODEIntegrator.h" bodystart="273" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="266" column="21" bodyfile="CVODEIntegrator.h" bodystart="266" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a52f7d8566aba9f20884934472f281722" prot="private" static="no" mutable="no">
         <type>std::vector&lt; unsigned char &gt;</type>
         <definition>std::vector&lt;unsigned char&gt; rr::CVODEIntegrator::eventStatus</definition>
         <argsstring></argsstring>
         <name>eventStatus</name>
-        <qualifiedname>rr::CVODEIntegrator::eventStatus</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="274" column="21" bodyfile="CVODEIntegrator.h" bodystart="274" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="267" column="21" bodyfile="CVODEIntegrator.h" bodystart="267" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1aa8c803132331206f8b9e6cc6d54394d1" prot="private" static="no" mutable="no">
         <type>bool</type>
         <definition>bool rr::CVODEIntegrator::stateVectorVariables</definition>
         <argsstring></argsstring>
         <name>stateVectorVariables</name>
-        <qualifiedname>rr::CVODEIntegrator::stateVectorVariables</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="316" column="14" bodyfile="CVODEIntegrator.h" bodystart="316" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="310" column="14" bodyfile="CVODEIntegrator.h" bodystart="310" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CVODEIntegrator_1a8fd248801ecbd71ea19611e9927f6d36" prot="private" static="no" mutable="no">
         <type>unsigned long</type>
         <definition>unsigned long rr::CVODEIntegrator::typecode_</definition>
         <argsstring></argsstring>
         <name>typecode_</name>
-        <qualifiedname>rr::CVODEIntegrator::typecode_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="318" column="23" bodyfile="CVODEIntegrator.h" bodystart="318" bodyend="-1"/>
+        <location file="CVODEIntegrator.h" line="312" column="23" bodyfile="CVODEIntegrator.h" bodystart="312" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -325,7 +303,6 @@
         <definition>rr::CVODEIntegrator::CVODEIntegrator</definition>
         <argsstring>(ExecutableModel *oModel)</argsstring>
         <name>CVODEIntegrator</name>
-        <qualifiedname>rr::CVODEIntegrator::CVODEIntegrator</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>oModel</declname>
@@ -347,7 +324,6 @@
         <definition>rr::CVODEIntegrator::~CVODEIntegrator</definition>
         <argsstring>() override</argsstring>
         <name>~CVODEIntegrator</name>
-        <qualifiedname>rr::CVODEIntegrator::~CVODEIntegrator</qualifiedname>
         <briefdescription>
 <para>Destructor. </para>
         </briefdescription>
@@ -365,7 +341,6 @@
         <definition>void rr::CVODEIntegrator::syncWithModel</definition>
         <argsstring>(ExecutableModel *m) override</argsstring>
         <name>syncWithModel</name>
-        <qualifiedname>rr::CVODEIntegrator::syncWithModel</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplements>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
@@ -388,7 +363,6 @@
         <definition>void rr::CVODEIntegrator::loadConfigSettings</definition>
         <argsstring>() override</argsstring>
         <name>loadConfigSettings</name>
-        <qualifiedname>rr::CVODEIntegrator::loadConfigSettings</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f">loadConfigSettings</reimplements>
         <briefdescription>
 <para>It looks like this method only get used inside resetSettings. </para>
@@ -404,7 +378,6 @@
         <definition>void rr::CVODEIntegrator::loadSBMLSettings</definition>
         <argsstring>(const std::string &amp;filename) override</argsstring>
         <name>loadSBMLSettings</name>
-        <qualifiedname>rr::CVODEIntegrator::loadSBMLSettings</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd">loadSBMLSettings</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -429,7 +402,6 @@
         <definition>std::string rr::CVODEIntegrator::getName</definition>
         <argsstring>() const override</argsstring>
         <name>getName</name>
-        <qualifiedname>rr::CVODEIntegrator::getName</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6">getName</reimplements>
         <briefdescription>
 <para>Get the name for this integrator. </para>
@@ -450,7 +422,6 @@
         <definition>std::string rr::CVODEIntegrator::getDescription</definition>
         <argsstring>() const override</argsstring>
         <name>getDescription</name>
-        <qualifiedname>rr::CVODEIntegrator::getDescription</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4">getDescription</reimplements>
         <briefdescription>
 <para>Get the description for this integrator. </para>
@@ -471,7 +442,6 @@
         <definition>std::string rr::CVODEIntegrator::getHint</definition>
         <argsstring>() const override</argsstring>
         <name>getHint</name>
-        <qualifiedname>rr::CVODEIntegrator::getHint</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9">getHint</reimplements>
         <briefdescription>
 <para>Get the hint for this integrator. </para>
@@ -492,8 +462,7 @@
         <definition>Solver * rr::CVODEIntegrator::construct</definition>
         <argsstring>(ExecutableModel *executableModel) const override</argsstring>
         <name>construct</name>
-        <qualifiedname>rr::CVODEIntegrator::construct</qualifiedname>
-        <reimplements refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69">construct</reimplements>
+        <reimplements refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f">construct</reimplements>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>executableModel</declname>
@@ -513,7 +482,6 @@
         <definition>Integrator::IntegrationMethod rr::CVODEIntegrator::getIntegrationMethod</definition>
         <argsstring>() const override</argsstring>
         <name>getIntegrationMethod</name>
-        <qualifiedname>rr::CVODEIntegrator::getIntegrationMethod</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c">getIntegrationMethod</reimplements>
         <briefdescription>
 <para>Always deterministic for CVODE. </para>
@@ -532,7 +500,6 @@
         <definition>void rr::CVODEIntegrator::setValue</definition>
         <argsstring>(const std::string &amp;setting, Setting value) override</argsstring>
         <name>setValue</name>
-        <qualifiedname>rr::CVODEIntegrator::setValue</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6">setValue</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -554,14 +521,13 @@
 <para>Values and keys are stored in the settings std::map, which is updated in every call to <ref refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc" kindref="member">setValue</ref>. In addition, changing CVODE-specific parameters requires a call into the CVODE library to synchronize CVODE&apos;s internal memory with the settings std::map.</para>
 <para>The default value is ADAMS Q MAX = 12 for the Adams-Moulton method and BDF Q MAX = 5 for the BDF method. Since maxord affects the memory requirements for the internal cvodes memory block, its value cannot be increased past its previous value.</para>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="130" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="615" bodyend="661"/>
+        <location file="CVODEIntegrator.h" line="130" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="357" bodyend="402"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a6b9189a5d39d8c33541ea82ad9a382a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::setMaxOrder</definition>
         <argsstring>(int newValue)</argsstring>
         <name>setMaxOrder</name>
-        <qualifiedname>rr::CVODEIntegrator::setMaxOrder</qualifiedname>
         <param>
           <type>int</type>
           <declname>newValue</declname>
@@ -574,14 +540,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="139" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="605" bodyend="613"/>
+        <location file="CVODEIntegrator.h" line="139" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="347" bodyend="355"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a57e9e604b2c2ba388a3fe219e87c326c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::setIndividualTolerance</definition>
         <argsstring>(std::string sid, double value) override</argsstring>
         <name>setIndividualTolerance</name>
-        <qualifiedname>rr::CVODEIntegrator::setIndividualTolerance</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a53099879e74aa5bea1139453db9b5732">setIndividualTolerance</reimplements>
         <param>
           <type>std::string</type>
@@ -601,56 +566,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="145" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="315" bodyend="377"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a386a755bab0c72a5d93a7e09ba95fafe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>void</type>
-        <definition>void rr::CVODEIntegrator::setConcentrationTolerance</definition>
-        <argsstring>(Setting value) override</argsstring>
-        <name>setConcentrationTolerance</name>
-        <qualifiedname>rr::CVODEIntegrator::setConcentrationTolerance</qualifiedname>
-        <reimplements refid="classrr_1_1Integrator_1a21645210737f35264504c3125c4679fe">setConcentrationTolerance</reimplements>
-        <param>
-          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
-          <declname>value</declname>
-        </param>
-        <briefdescription>
-<para>Sets tolerance based on concentration of species. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>FY</para>
-</simplesect>
-First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored as absolute_tolerance and used in the integration process. </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="CVODEIntegrator.h" line="154" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="380" bodyend="490"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a7f68228148cf04688881f636a34deb48" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>std::vector&lt; double &gt;</type>
-        <definition>std::vector&lt; double &gt; rr::CVODEIntegrator::getConcentrationTolerance</definition>
-        <argsstring>() override</argsstring>
-        <name>getConcentrationTolerance</name>
-        <qualifiedname>rr::CVODEIntegrator::getConcentrationTolerance</qualifiedname>
-        <reimplements refid="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629">getConcentrationTolerance</reimplements>
-        <briefdescription>
-<para>Gets tolerance based on concentration of species. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>FY </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="CVODEIntegrator.h" line="160" column="21" bodyfile="CVODEIntegrator.cpp" bodystart="492" bodyend="603"/>
+        <location file="CVODEIntegrator.h" line="145" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="315" bodyend="343"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::CVODEIntegrator::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
         <briefdescription>
 <para>Reset all integrator settings to their respective default values. </para>
@@ -662,14 +584,13 @@ First converts the concentration tolerances to amount tolerances by multiplying 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="166" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="155" bodyend="196"/>
+        <location file="CVODEIntegrator.h" line="151" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="155" bodyend="196"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a137ada502a737819ca3ad78d0573c35d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::tweakTolerances</definition>
         <argsstring>() override</argsstring>
         <name>tweakTolerances</name>
-        <qualifiedname>rr::CVODEIntegrator::tweakTolerances</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4">tweakTolerances</reimplements>
         <briefdescription>
 <para>Fix tolerances for SBML tests. </para>
@@ -681,14 +602,13 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="177" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="838" bodyend="879"/>
+        <location file="CVODEIntegrator.h" line="162" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="579" bodyend="620"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a1e29429af0ec90aa2f47be15bbe8856c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
         <definition>double rr::CVODEIntegrator::integrate</definition>
         <argsstring>(double t0, double hstep) override</argsstring>
         <name>integrate</name>
-        <qualifiedname>rr::CVODEIntegrator::integrate</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf">integrate</reimplements>
         <param>
           <type>double</type>
@@ -708,14 +628,13 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="186" column="16" bodyfile="CVODEIntegrator.cpp" bodystart="696" bodyend="835"/>
+        <location file="CVODEIntegrator.h" line="171" column="16" bodyfile="CVODEIntegrator.cpp" bodystart="437" bodyend="576"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1acde5e92ec049c105b7d22b0f125d94a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::restart</definition>
         <argsstring>(double timeStart) override</argsstring>
         <name>restart</name>
-        <qualifiedname>rr::CVODEIntegrator::restart</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9">restart</reimplements>
         <param>
           <type>double</type>
@@ -731,14 +650,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="194" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1153" bodyend="1184"/>
+        <location file="CVODEIntegrator.h" line="179" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="926" bodyend="957"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a480b8dad2e4dabcdb8fec1439ab7c5f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>IntegratorListenerPtr</type>
         <definition>IntegratorListenerPtr rr::CVODEIntegrator::getListener</definition>
         <argsstring>() override</argsstring>
         <name>getListener</name>
-        <qualifiedname>rr::CVODEIntegrator::getListener</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d">getListener</reimplements>
         <briefdescription>
 <para>Gets the integrator listener. </para>
@@ -750,14 +668,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="202" column="31" bodyfile="CVODEIntegrator.cpp" bodystart="119" bodyend="121"/>
+        <location file="CVODEIntegrator.h" line="187" column="31" bodyfile="CVODEIntegrator.cpp" bodystart="119" bodyend="121"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1aca2901ed7b5a503e054fd18e8f0392ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::setListener</definition>
         <argsstring>(IntegratorListenerPtr) override</argsstring>
         <name>setListener</name>
-        <qualifiedname>rr::CVODEIntegrator::setListener</qualifiedname>
         <reimplements refid="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7">setListener</reimplements>
         <param>
           <type>IntegratorListenerPtr</type>
@@ -773,14 +690,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="208" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="115" bodyend="117"/>
+        <location file="CVODEIntegrator.h" line="193" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="115" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a7f67f51344e7a63ac6a84f67046dfbc5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::checkType</definition>
         <argsstring>() const</argsstring>
         <name>checkType</name>
-        <qualifiedname>rr::CVODEIntegrator::checkType</qualifiedname>
         <briefdescription>
 <para>Does a RT type check which throws if it fails, EVEN IF RTTI IS DISABLED. </para>
         </briefdescription>
@@ -791,14 +707,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="214" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="123" bodyend="126"/>
+        <location file="CVODEIntegrator.h" line="199" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="123" bodyend="126"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1afdbcc5be9fb361ffdedf2364118b87f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::checkVectorSize</definition>
         <argsstring>(int expected, size_t real) const</argsstring>
         <name>checkVectorSize</name>
-        <qualifiedname>rr::CVODEIntegrator::checkVectorSize</qualifiedname>
         <param>
           <type>int</type>
           <declname>expected</declname>
@@ -817,14 +732,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="221" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="128" bodyend="133"/>
+        <location file="CVODEIntegrator.h" line="206" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="128" bodyend="133"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a8f2a01ce70a6aa67e652b9d9dde9be08" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::checkIndex</definition>
         <argsstring>(int index, int size) const</argsstring>
         <name>checkIndex</name>
-        <qualifiedname>rr::CVODEIntegrator::checkIndex</qualifiedname>
         <param>
           <type>int</type>
           <declname>index</declname>
@@ -843,14 +757,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="227" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="135" bodyend="140"/>
+        <location file="CVODEIntegrator.h" line="212" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="135" bodyend="140"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a38290b6c0c66556fed4a9e673c6ddd69" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>std::string rr::CVODEIntegrator::ToString</definition>
         <argsstring>(int val) const</argsstring>
         <name>ToString</name>
-        <qualifiedname>rr::CVODEIntegrator::ToString</qualifiedname>
         <param>
           <type>int</type>
           <declname>val</declname>
@@ -865,14 +778,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="233" column="21" bodyfile="CVODEIntegrator.cpp" bodystart="142" bodyend="146"/>
+        <location file="CVODEIntegrator.h" line="218" column="21" bodyfile="CVODEIntegrator.cpp" bodystart="142" bodyend="146"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a5f7253ee990e699dbc5affe54097fe5a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>std::string rr::CVODEIntegrator::ToString</definition>
         <argsstring>(size_t val) const</argsstring>
         <name>ToString</name>
-        <qualifiedname>rr::CVODEIntegrator::ToString</qualifiedname>
         <param>
           <type>size_t</type>
           <declname>val</declname>
@@ -887,14 +799,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="239" column="21" bodyfile="CVODEIntegrator.cpp" bodystart="148" bodyend="152"/>
+        <location file="CVODEIntegrator.h" line="224" column="21" bodyfile="CVODEIntegrator.cpp" bodystart="148" bodyend="152"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a20f0ef30d096122a556f8690b81d7ef0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>N_Vector</type>
         <definition>N_Vector rr::CVODEIntegrator::getStateVector</definition>
         <argsstring>() const</argsstring>
         <name>getStateVector</name>
-        <qualifiedname>rr::CVODEIntegrator::getStateVector</qualifiedname>
         <briefdescription>
 <para>getter for the internal state std::vector </para>
         </briefdescription>
@@ -902,14 +813,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="244" column="18" bodyfile="CVODEIntegrator.cpp" bodystart="1319" bodyend="1321"/>
+        <location file="CVODEIntegrator.h" line="229" column="18" bodyfile="CVODEIntegrator.cpp" bodystart="1092" bodyend="1094"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a72452ef342616919777874ba32dcd1c3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>SUNNonlinearSolver</type>
         <definition>SUNNonlinearSolver rr::CVODEIntegrator::getSolver</definition>
         <argsstring>() const</argsstring>
         <name>getSolver</name>
-        <qualifiedname>rr::CVODEIntegrator::getSolver</qualifiedname>
         <briefdescription>
 <para>getter for the internal Sundials linear solver object </para>
         </briefdescription>
@@ -917,14 +827,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="249" column="28" bodyfile="CVODEIntegrator.cpp" bodystart="1323" bodyend="1325"/>
+        <location file="CVODEIntegrator.h" line="234" column="28" bodyfile="CVODEIntegrator.cpp" bodystart="1096" bodyend="1098"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1ad3ad4d2d9d49bce33f8d34d177ff703a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
         <definition>void * rr::CVODEIntegrator::getCvodeMemory</definition>
         <argsstring>() const</argsstring>
         <name>getCvodeMemory</name>
-        <qualifiedname>rr::CVODEIntegrator::getCvodeMemory</qualifiedname>
         <briefdescription>
 <para>getter for the internal CVode memory buffer </para>
         </briefdescription>
@@ -932,14 +841,29 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="254" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1315" bodyend="1317"/>
+        <location file="CVODEIntegrator.h" line="239" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1088" bodyend="1090"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a623435278b083018cc05780ace8922f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>vector&lt; double &gt; rr::CVODEIntegrator::getAbsoluteToleranceVector</definition>
+        <argsstring>()</argsstring>
+        <name>getAbsoluteToleranceVector</name>
+        <reimplements refid="classrr_1_1Integrator_1aa554e9d1232a24c66b280e79f12c6d6b">getAbsoluteToleranceVector</reimplements>
+        <briefdescription>
+<para>Get the absolute tolerance vector for the solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The absolute tolerance vector is either set directly by the user as a vector, or is generated from the single absolute tolerance value (either default or set by the user) multiplied by the initial value of every element in the state vector (independent floating species, and elements controlled by rate rules). If that initial value is zero, the corresponding element of the absolute tolerance vector is the single value multiplied by the compartment volume for species, or by one for all other values. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CVODEIntegrator.h" line="246" column="29" bodyfile="CVODEIntegrator.cpp" bodystart="803" bodyend="888"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a8a79e9633a25767a1683a0334fd1d917" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Integrator::Integrator</definition>
         <argsstring>(ExecutableModel *model)</argsstring>
         <name>Integrator</name>
-        <qualifiedname>rr::CVODEIntegrator::Integrator</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>model</declname>
@@ -957,7 +881,6 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         <definition>rr::Integrator::Integrator</definition>
         <argsstring>()</argsstring>
         <name>Integrator</name>
-        <qualifiedname>rr::CVODEIntegrator::Integrator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -973,49 +896,45 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         <definition>void rr::CVODEIntegrator::testRootsAtInitialTime</definition>
         <argsstring>()</argsstring>
         <name>testRootsAtInitialTime</name>
-        <qualifiedname>rr::CVODEIntegrator::testRootsAtInitialTime</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="276" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1019" bodyend="1024"/>
+        <location file="CVODEIntegrator.h" line="269" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="760" bodyend="765"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a967747f26f15a184a0258a06b2d54048" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CVODEIntegrator::haveVariables</definition>
         <argsstring>() const</argsstring>
         <name>haveVariables</name>
-        <qualifiedname>rr::CVODEIntegrator::haveVariables</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="278" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="882" bodyend="884"/>
+        <location file="CVODEIntegrator.h" line="271" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="623" bodyend="625"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a97bd5d99beb0d80b16ea0aded9f5f896" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::assignResultsToModel</definition>
         <argsstring>() const</argsstring>
         <name>assignResultsToModel</name>
-        <qualifiedname>rr::CVODEIntegrator::assignResultsToModel</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="280" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1056" bodyend="1060"/>
+        <location file="CVODEIntegrator.h" line="273" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="797" bodyend="801"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a2fef2a09f880bd81756c7f340ff6f59b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::setCVODETolerances</definition>
         <argsstring>()</argsstring>
         <name>setCVODETolerances</name>
-        <qualifiedname>rr::CVODEIntegrator::setCVODETolerances</qualifiedname>
         <briefdescription>
 <para>Propagates changes in the &quot;absolute_tolerance&quot; and &quot;relative_tolerance&quot; settings to the CVODE library. </para>
         </briefdescription>
@@ -1026,14 +945,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="287" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1062" bodyend="1151"/>
+        <location file="CVODEIntegrator.h" line="281" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="890" bodyend="924"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a080f29643479a2bc2c2754afae933e38" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::reInit</definition>
         <argsstring>(double t0)</argsstring>
         <name>reInit</name>
-        <qualifiedname>rr::CVODEIntegrator::reInit</qualifiedname>
         <param>
           <type>double</type>
           <declname>t0</declname>
@@ -1045,14 +963,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="292" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="680" bodyend="694"/>
+        <location file="CVODEIntegrator.h" line="286" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="421" bodyend="435"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1ab2441240687226249eeeeb145ea77cfb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::updateCVODE</definition>
         <argsstring>()</argsstring>
         <name>updateCVODE</name>
-        <qualifiedname>rr::CVODEIntegrator::updateCVODE</qualifiedname>
         <briefdescription>
 <para>Propagates changes in the following settings to CVODE:<linebreak/>
 . </para>
@@ -1078,14 +995,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="304" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="663" bodyend="678"/>
+        <location file="CVODEIntegrator.h" line="298" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="404" bodyend="419"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1aa6d5984e94ec3fda3f6e49fd5df699ce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::applyPendingEvents</definition>
         <argsstring>(double timeEnd)</argsstring>
         <name>applyPendingEvents</name>
-        <qualifiedname>rr::CVODEIntegrator::applyPendingEvents</qualifiedname>
         <param>
           <type>double</type>
           <declname>timeEnd</declname>
@@ -1096,14 +1012,13 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="306" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1044" bodyend="1054"/>
+        <location file="CVODEIntegrator.h" line="300" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="785" bodyend="795"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1ace9ddb81bda2240ae00cfb94a7422a60" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::applyEvents</definition>
         <argsstring>(double timeEnd, std::vector&lt; unsigned char &gt; &amp;previousEventStatus)</argsstring>
         <name>applyEvents</name>
-        <qualifiedname>rr::CVODEIntegrator::applyEvents</qualifiedname>
         <param>
           <type>double</type>
           <declname>timeEnd</declname>
@@ -1118,28 +1033,26 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="308" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1026" bodyend="1041"/>
+        <location file="CVODEIntegrator.h" line="302" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="767" bodyend="782"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a99a45c90764259a71f81dd78c596cda9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
         <definition>double rr::CVODEIntegrator::applyVariableStepPendingEvents</definition>
         <argsstring>()</argsstring>
         <name>applyVariableStepPendingEvents</name>
-        <qualifiedname>rr::CVODEIntegrator::applyVariableStepPendingEvents</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="310" column="16" bodyfile="CVODEIntegrator.cpp" bodystart="1238" bodyend="1260"/>
+        <location file="CVODEIntegrator.h" line="304" column="16" bodyfile="CVODEIntegrator.cpp" bodystart="1011" bodyend="1033"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1aaa4182b9d6e4bee97541d22d0f9959fc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::create</definition>
         <argsstring>()</argsstring>
         <name>create</name>
-        <qualifiedname>rr::CVODEIntegrator::create</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1147,21 +1060,20 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
         <inbodydescription>
 <para>note the cvDirectDemo.c example from sundials is useful to see the different cvode options in action</para>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="312" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="886" bodyend="1017"/>
+        <location file="CVODEIntegrator.h" line="306" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="627" bodyend="758"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CVODEIntegrator_1a6a5e67c06e7be1b8af7bd5bbec9825c9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CVODEIntegrator::freeSundialsMemory</definition>
         <argsstring>()</argsstring>
         <name>freeSundialsMemory</name>
-        <qualifiedname>rr::CVODEIntegrator::freeSundialsMemory</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="314" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="1209" bodyend="1236"/>
+        <location file="CVODEIntegrator.h" line="308" column="14" bodyfile="CVODEIntegrator.cpp" bodystart="982" bodyend="1009"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1173,12 +1085,6 @@ Applies events which occur before time zero. Reinitializes CVODE and the executa
 Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solvers: an Adams-Moulton solver for non-stiff problems, and a backward differentiation formula (BDF) solver for stiff problems. See: <ulink url="https://computation.llnl.gov/casc/sundials/documentation/toms_sundials.pdf">https://computation.llnl.gov/casc/sundials/documentation/toms_sundials.pdf</ulink> </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="1">
-        <label>rr::CVODEIntegrator</label>
-        <link refid="classrr_1_1CVODEIntegrator"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="2">
         <label>rr::Integrator</label>
         <link refid="classrr_1_1Integrator"/>
@@ -1188,6 +1094,12 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <node id="4">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="1">
+        <label>rr::CVODEIntegrator</label>
+        <link refid="classrr_1_1CVODEIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="3">
         <label>rr::Solver</label>
@@ -1197,16 +1109,6 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="1">
-        <label>rr::CVODEIntegrator</label>
-        <link refid="classrr_1_1CVODEIntegrator"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
       <node id="2">
         <label>rr::Integrator</label>
         <link refid="classrr_1_1Integrator"/>
@@ -1216,6 +1118,12 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <node id="4">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="1">
+        <label>rr::CVODEIntegrator</label>
+        <link refid="classrr_1_1CVODEIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="3">
         <label>rr::Solver</label>
@@ -1226,8 +1134,12 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
     </collaborationgraph>
-    <location file="CVODEIntegrator.h" line="46" column="5" bodyfile="CVODEIntegrator.h" bodystart="46" bodyend="324"/>
+    <location file="CVODEIntegrator.h" line="46" column="44" bodyfile="CVODEIntegrator.h" bodystart="46" bodyend="318"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>addSetting</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1ace9ddb81bda2240ae00cfb94a7422a60" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>applyEvents</name></member>
@@ -1250,17 +1162,20 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <member refid="classrr_1_1CVODEIntegrator_1a52f7d8566aba9f20884934472f281722" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>eventStatus</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a78971e3612b877951d2fc1f62ce97dff" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>ForwardSensitivitySolver</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a6a5e67c06e7be1b8af7bd5bbec9825c9" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>freeSundialsMemory</name></member>
-      <member refid="classrr_1_1CVODEIntegrator_1a7f68228148cf04688881f636a34deb48" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getConcentrationTolerance</name></member>
+      <member refid="classrr_1_1CVODEIntegrator_1a623435278b083018cc05780ace8922f1" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getAbsoluteToleranceVector</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1ad3ad4d2d9d49bce33f8d34d177ff703a" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>getCvodeMemory</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a1c6a393504cc85f2dc236abd0cb5577a" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1addde67b3639fe1347efc2a37bbfdd60e" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>getHint</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a7cc1f774e58f179fb2e69c515c9f2a1f" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getIntegrationMethod</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a480b8dad2e4dabcdb8fec1439ab7c5f7" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getListener</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getModel</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1aa889b08549036792918c41e88e2097f4" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>getParamDisplayName</name></member>
@@ -1283,6 +1198,7 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>IntegrationMethod</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a8a79e9633a25767a1683a0334fd1d917" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>Integrator</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a661048f976364d39626d24e4745aa416" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>Integrator</name></member>
+      <member refid="classrr_1_1Integrator_1a8a79e9633a25767a1683a0334fd1d917" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>Integrator</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1ab7cd7e9346284872234cd6f4a351e9d0" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>jac</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a6674ab1e9dfc6c4627e820eb5c1e8852" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>linSolver</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1ad0df731f78f1abae32e8d3043ab2db70" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>listener</name></member>
@@ -1301,7 +1217,6 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <member refid="classrr_1_1CVODEIntegrator_1a080f29643479a2bc2c2754afae933e38" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>reInit</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>resetSettings</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1acde5e92ec049c105b7d22b0f125d94a9" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>restart</name></member>
-      <member refid="classrr_1_1CVODEIntegrator_1a386a755bab0c72a5d93a7e09ba95fafe" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>setConcentrationTolerance</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a2fef2a09f880bd81756c7f340ff6f59b" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>setCVODETolerances</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a57e9e604b2c2ba388a3fe219e87c326c" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>setIndividualTolerance</name></member>
       <member refid="classrr_1_1Integrator_1a8b39797408013aaf5fa2d09cb71f8a17" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>setIntegrationStartTime</name></member>
@@ -1312,8 +1227,10 @@ Provides a wrapper around CVODE from the SUNDIALS suite. CVODE has two main solv
       <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>SettingsMap</name></member>
       <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>settingsPyDictRepr</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc" prot="public" virt="virtual"><scope>rr::CVODEIntegrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::CVODEIntegrator</scope><name>setValue</name></member>
       <member refid="classrr_1_1Integrator_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>Solver</name></member>
       <member refid="classrr_1_1Integrator_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::CVODEIntegrator</scope><name>Solver</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1CVODEIntegrator_1aa8c803132331206f8b9e6cc6d54394d1" prot="private" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>stateVectorVariables</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27" prot="public" virt="non-virtual"><scope>rr::CVODEIntegrator</scope><name>Stochastic</name></member>

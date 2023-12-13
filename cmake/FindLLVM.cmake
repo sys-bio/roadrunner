@@ -210,13 +210,13 @@ correct location. ")
         #message("UNIX true")
         #        message("LLVM VERSION >= 3.4, looking for curses library")
         # sudo apt-get install libncurses5-dev libncursesw5-dev
-        find_package(Curses REQUIRED)
+        #find_package(Curses REQUIRED)
         #        message(STATUS "curses: ${CURSES_FOUND}")
         #        message(STATUS "curdir: ${CURSES_INCLUDE_DIR}")
         #        message(STATUS "curlib: ${CURSES_LIBRARIES}")
         #        message(STATUS "LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
 
-        set(LLVM_LIBRARIES "${LLVM_LIBRARIES};${CURSES_LIBRARIES}")
+        #set(LLVM_LIBRARIES "${LLVM_LIBRARIES};${CURSES_LIBRARIES}")
 
 
         # LLVM 3.5 seems to require zlib, at least on OSX 10.9.

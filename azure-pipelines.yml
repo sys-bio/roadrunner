@@ -137,8 +137,7 @@ stages:
               # for example, it looks like this:
               # - https://dev.azure.com/TheRoadrunnerProject/libroadrunner-deps/_build?definitionId=9
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -272,8 +271,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-Release
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -503,8 +501,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -594,7 +591,7 @@ stages:
           - powershell: |
               where.exe conda
               where.exe python
-              conda update conda -y -c conda-forge
+              # conda update conda -y -c conda-forge
               conda install numpy
               conda install python=3.11 -c conda-forge
               conda --version
@@ -637,8 +634,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-Release
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -776,13 +772,13 @@ stages:
               BuildDocs: OFF
         variables:
           MinicondaRoot : '/usr/share/miniconda'
-          PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
+          PythonRoot: '$(MinicondaRoot)/'
           PythonLibDir: '$(PythonRoot)/lib'
           PythonExecutable: '$(PythonRoot)/bin/python'
           PipExecutable: '$(PythonRoot)/bin/pip'
           SphinxExecutable: '$(PythonRoot)/bin/sphinx-build'
-          PythonName: 'py39'
-          PythonVersion: '3.9'
+          PythonName: 'py311'
+          PythonVersion: '3.11'
           LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm13-ubuntu-gcc10-rel.tar.gz'
         steps:
           - checkout: self
@@ -792,6 +788,8 @@ stages:
           - script: |
               echo "SOURCE_DIR $(SOURCE_DIR)"
               echo "BUILD_DIR $(BUILD_DIR)"
+              echo "BuildType $(BuildType)"
+              echo "BuildDocs $(BuildDocs)"
               echo "INSTALL_DIR $(INSTALL_DIR)"
               echo "LLVM_INSTALL_PREFIX $(LLVM_INSTALL_PREFIX)"
               echo "DEPS_INSTALL_PREFIX $(DEPS_INSTALL_PREFIX)"
@@ -842,14 +840,18 @@ stages:
               echo "g++ $(g++ --version)"
               sudo add-apt-repository ppa:ubuntu-toolchain-r/test
               sudo apt-get update
-              sudo apt-get install -y gcc-10 g++-10 doxygen dvipng texlive texlive-font-utils texlive-latex-extra
+              sudo apt-get install -y gcc-10 g++-10 doxygen dvipng texlive texlive-font-utils texlive-latex-extra graphviz
               sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 1
             displayName: Install g++10 and doxygen
           - script: |
               eval "$(conda shell.bash hook)"
-              conda create -y --name $(PythonName) python=$(PythonVersion)
+              # conda create -y --name $(PythonName) python=$(PythonVersion)
               $(PipExecutable) install requests
             displayName: "Install Python via conda"
+          - script: |
+              echo "pip install dependencies"
+              $(PipExecutable) install -r $(SOURCE_DIR)/docs/requirements.txt
+            displayName: "Install doc requirements"
           - script: |
               $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
               echo "give execute permissions to llvm-config using chmod 777"
@@ -861,8 +863,7 @@ stages:
               source: 'specific'
               project: 'libroadrunner-deps'
               pipeline: 9
-              runVersion: 'latestFromBranch'
-              runBranch: 'refs/heads/release'
+              runVersion: 'latest'
               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
@@ -886,8 +887,22 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DBUILD_DOCS=${BuildDocs} ..
+              echo "cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DBUILD_DOCS=$(BuildDocs) -DCMAKE_BUILD_TYPE=$(BuildType) -DSPHINX_EXECUTABLE=$(SphinxExecutable) .."
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DBUILD_DOCS=$(BuildDocs) -DCMAKE_BUILD_TYPE=$(BuildType) -DSPHINX_EXECUTABLE=$(SphinxExecutable) ..
             displayName: Run CMake Configure Command
+          - script: |
+              echo "cd to docs dir"
+              cd $(SOURCE_DIR)/docs/
+              rm -r -f docs-build doxygen-output
+            displayName: Remove roadrunner docs before re-building
+            condition: eq(variables.BuildType, 'Release')
+          - script: |
+              echo "cd to build dir"
+              cd $(BUILD_DIR)
+              make roadrunner-docs-doxygen
+              make roadrunner-docs-sphinx
+            displayName: Build roadrunner docs
+            condition: eq(variables.BuildType, 'Release')
           - script: |
               export CC=/usr/bin/gcc-10
               export CXX=/usr/bin/g++-10
@@ -920,20 +935,9 @@ stages:
             displayName: Clear staging area
             condition: eq(variables.BuildType, 'Release')
           - script: |
-              echo "cd to docs dir"
-              cd $(SOURCE_DIR)/docs/
-              echo "pip install dependencies"
-              $(PipExecutable) install -r requirements.txt
-              export SPHINXBUILD=$(SphinxExecutable)
-              echo "make html"
-              make html
-              echo "list build/html"
-              ls build/html
               echo "move docs to installation"
-              cd
-              pwd
               mkdir $(INSTALL_DIR)/docs
-              mv $(SOURCE_DIR)/docs/build/html '$(INSTALL_DIR)/docs/docs-build'
+              mv $(SOURCE_DIR)/docs/docs-build '$(INSTALL_DIR)/docs/docs-build'
               mv $(SOURCE_DIR)/docs/doxygen-output '$(INSTALL_DIR)/docs/doxygen-output'
               ls '$(INSTALL_DIR)/docs'
             displayName: Make Docs

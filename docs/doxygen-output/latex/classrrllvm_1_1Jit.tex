@@ -31,38 +31,42 @@ virtual std\+::uint64\+\_\+t {\bfseries lookup\+Function\+Address} (const std\+:
 \item 
 virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}{add\+Object\+File}} (rr\+Owning\+Binary owning\+Object)=0
 \begin{DoxyCompactList}\small\item\em add an in-\/memory representation of an object file to the current jit module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1Jit_a0914537453011b9acd33baabe5585453}\label{classrrllvm_1_1Jit_a0914537453011b9acd33baabe5585453}} 
 virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_a0914537453011b9acd33baabe5585453}{add\+Object\+File}} (std\+::unique\+\_\+ptr$<$ llvm\+::object\+::\+Object\+File $>$ object\+File)=0
 \begin{DoxyCompactList}\small\item\em add an in-\/memory representation of an object file to the current jit module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1Jit_a33e40a54eb3ece2598f47e09c86b211e}\label{classrrllvm_1_1Jit_a33e40a54eb3ece2598f47e09c86b211e}} 
 virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_a33e40a54eb3ece2598f47e09c86b211e}{add\+Object\+File}} (std\+::unique\+\_\+ptr$<$ llvm\+::\+Memory\+Buffer $>$ obj)=0
 \begin{DoxyCompactList}\small\item\em add an in-\/memory representation of an object file to the current jit module. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_ad2784cc3b1431f2315d3c7b3b63759af}{add\+Module}} (llvm\+::\+Module $\ast$M)=0
 \begin{DoxyCompactList}\small\item\em add a module \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}{add\+Module}} (std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$ M, std\+::unique\+\_\+ptr$<$ llvm\+::\+LLVMContext $>$ ctx)=0
+virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}{add\+Module}} (std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$ M, std\+::unique\+\_\+ptr$<$ llvm\+::\+L\+L\+V\+M\+Context $>$ ctx)=0
 \begin{DoxyCompactList}\small\item\em add a module \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_af1bd1151bcdb23b228581e378eff5be0}{add\+Module}} ()=0
 \begin{DoxyCompactList}\small\item\em add the module and context which are member variables of the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} instance to the current \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} engine. \end{DoxyCompactList}\item 
-virtual const llvm\+::\+Data\+Layout \& \mbox{\hyperlink{classrrllvm_1_1Jit_aa12a437ad699812ffcb49839dbd74e4e}{get\+Data\+Layout}} () const =0
+\mbox{\Hypertarget{classrrllvm_1_1Jit_ab1b79c72c48252a9da789480ab876db5}\label{classrrllvm_1_1Jit_ab1b79c72c48252a9da789480ab876db5}} 
+virtual const llvm\+::\+Data\+Layout \& \mbox{\hyperlink{classrrllvm_1_1Jit_ab1b79c72c48252a9da789480ab876db5}{get\+Data\+Layout}} () const =0
 \begin{DoxyCompactList}\small\item\em get the Data\+Layout currently in use in the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} \end{DoxyCompactList}\item 
-virtual std\+::unique\+\_\+ptr$<$ llvm\+::\+Memory\+Buffer $>$ \mbox{\hyperlink{classrrllvm_1_1Jit_a38c60da63a6915853ee06bfc2de5e76c}{get\+Compiled\+Model\+From\+Cache}} (const std\+::string \&sbml\+MD5)=0
+virtual std\+::unique\+\_\+ptr$<$ llvm\+::\+Memory\+Buffer $>$ \mbox{\hyperlink{classrrllvm_1_1Jit_ac8b2944cf579635496c62e2ec0fc12b9}{get\+Compiled\+Model\+From\+Cache}} (const std\+::string \&sbml\+M\+D5)=0
 \begin{DoxyCompactList}\small\item\em lookup the sbml with the md5 \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}{transfer\+Objects\+To\+Resources}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1ModelResources}{rrllvm\+::\+Model\+Resources}} $>$ model\+Resources)
-\begin{DoxyCompactList}\small\item\em {\itshape Moves} objects over to \mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} ptr \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_a126ca0f75646887926342ef4ee8ea034}{map\+LLVMGenerated\+Functions\+To\+Symbols}} (\mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} $\ast$model\+Resources, std\+::uint32\+\_\+t options)
-\begin{DoxyCompactList}\small\item\em Map the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}\textquotesingle{}d functions that collectively represent a roadrunner compiled sbml model to symbols in. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}\label{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}} 
+virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}{transfer\+Objects\+To\+Resources}} (std\+::shared\+\_\+ptr$<$ rrllvm\+::\+Model\+Resources $>$ model\+Resources)
+\begin{DoxyCompactList}\small\item\em {\itshape Moves} objects over to Model\+Resources ptr \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrrllvm_1_1Jit_a126ca0f75646887926342ef4ee8ea034}{map\+L\+L\+V\+M\+Generated\+Functions\+To\+Symbols}} (Model\+Resources $\ast$model\+Resources, std\+::uint32\+\_\+t options)
+\begin{DoxyCompactList}\small\item\em Map the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}\textquotesingle{}d functions that collectively represent a roadrunner compiled sbml model to symbols in the Model\+Resources. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a92e5c8af5539c0e790328d66ed325d26}\label{classrrllvm_1_1Jit_a92e5c8af5539c0e790328d66ed325d26}} 
-virtual llvm\+::\+Module $\ast$ {\bfseries get\+Module\+Non\+Owning} ()
+virtual llvm\+::\+Module $\ast$ \mbox{\hyperlink{classrrllvm_1_1Jit_a92e5c8af5539c0e790328d66ed325d26}{get\+Module\+Non\+Owning}} ()
 \begin{DoxyCompactList}\small\item\em returns a non owning pointer to the llvm\+::\+Module instance \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a1e2112dbdce27e06228eb49e5c8a3f47}\label{classrrllvm_1_1Jit_a1e2112dbdce27e06228eb49e5c8a3f47}} 
-virtual llvm\+::\+LLVMContext $\ast$ {\bfseries get\+Context\+Non\+Owning} ()
-\begin{DoxyCompactList}\small\item\em returns a non owning pointer to the llvm\+::\+LLVMContext instance \end{DoxyCompactList}\item 
+virtual llvm\+::\+L\+L\+V\+M\+Context $\ast$ \mbox{\hyperlink{classrrllvm_1_1Jit_a1e2112dbdce27e06228eb49e5c8a3f47}{get\+Context\+Non\+Owning}} ()
+\begin{DoxyCompactList}\small\item\em returns a non owning pointer to the llvm\+::\+L\+L\+V\+M\+Context instance \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_afb8cf53b3bde8eaa539b14cc685cb200}\label{classrrllvm_1_1Jit_afb8cf53b3bde8eaa539b14cc685cb200}} 
-virtual llvm\+::\+IRBuilder $\ast$ {\bfseries get\+Builder\+Non\+Owning} ()
-\begin{DoxyCompactList}\small\item\em returns a non owning pointer to the llvm\+::\+LLVMContext instance \end{DoxyCompactList}\item 
+virtual llvm\+::\+I\+R\+Builder $\ast$ \mbox{\hyperlink{classrrllvm_1_1Jit_afb8cf53b3bde8eaa539b14cc685cb200}{get\+Builder\+Non\+Owning}} ()
+\begin{DoxyCompactList}\small\item\em returns a non owning pointer to the llvm\+::\+L\+L\+V\+M\+Context instance \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_ab316cce1cd3f402e678fb3534da19b3d}\label{classrrllvm_1_1Jit_ab316cce1cd3f402e678fb3534da19b3d}} 
-virtual std\+::string {\bfseries emit\+To\+String} ()
-\begin{DoxyCompactList}\small\item\em Write the Jit\+::module in its current state to string as LLVM IR. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrrllvm_1_1Jit_a9e57b4ba546eb03eab6bc5e537da8d88}\label{classrrllvm_1_1Jit_a9e57b4ba546eb03eab6bc5e537da8d88}} 
-llvm\+::raw\+\_\+svector\+\_\+ostream \& {\bfseries get\+Compiled\+Module\+Stream} ()
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1Jit_ab316cce1cd3f402e678fb3534da19b3d}{emit\+To\+String}} ()
+\begin{DoxyCompactList}\small\item\em Write the Jit\+::module in its current state to string as L\+L\+VM IR. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1Jit_a32be1d696e7e200582353bf4c33c3bfb}\label{classrrllvm_1_1Jit_a32be1d696e7e200582353bf4c33c3bfb}} 
+llvm\+::raw\+\_\+svector\+\_\+ostream \& \mbox{\hyperlink{classrrllvm_1_1Jit_a32be1d696e7e200582353bf4c33c3bfb}{get\+Compiled\+Module\+Stream}} ()
 \begin{DoxyCompactList}\small\item\em get the stream that stores a compiled module as binary. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a36e531717dce312189fd41dccf81140e}\label{classrrllvm_1_1Jit_a36e531717dce312189fd41dccf81140e}} 
 std\+::string {\bfseries get\+Default\+Target\+Triple} () const
@@ -73,15 +77,15 @@ void {\bfseries set\+Module\+Identifier} (const std\+::string \&id)
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a3c1a1cf489bb7c8a965a2dfbfabddeec}\label{classrrllvm_1_1Jit_a3c1a1cf489bb7c8a965a2dfbfabddeec}} 
 virtual std\+::string {\bfseries mangle\+Name} (const std\+::string \&unmangled\+Name) const
 \item 
-virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1Jit_a49579ba0e6ce122894ec6def38f8e140}{get\+Module\+As\+String}} (std\+::string sbml\+MD5)=0
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1Jit_a49579ba0e6ce122894ec6def38f8e140}{get\+Module\+As\+String}} (std\+::string sbml\+M\+D5)=0
 \begin{DoxyCompactList}\small\item\em get a binary string representation of the current module. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::unique\+\_\+ptr$<$ llvm\+::raw\+\_\+svector\+\_\+ostream $>$ \mbox{\hyperlink{classrrllvm_1_1Jit_aa71f25762a7483cc342a3674881c44d1}{compiled\+Module\+Binary\+Stream}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrrllvm_1_1MCJit}{MCJit}} compiles the generated LLVM IR to this binary stream which is then used both for adding to the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} as a module and for save\+State. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em M\+C\+Jit compiles the generated L\+L\+VM IR to this binary stream which is then used both for adding to the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} as a module and for save\+State. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a1487ca6247ee86b6dab2020d4659d064}\label{classrrllvm_1_1Jit_a1487ca6247ee86b6dab2020d4659d064}} 
-llvm\+::\+Small\+Vector$<$ char, 10 $>$ {\bfseries module\+Buffer}
+llvm\+::\+Small\+Vector$<$ char, 10 $>$ \mbox{\hyperlink{classrrllvm_1_1Jit_a1487ca6247ee86b6dab2020d4659d064}{module\+Buffer}}
 \begin{DoxyCompactList}\small\item\em The buffer used by compiled\+Module\+Binary\+Stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -89,16 +93,16 @@ llvm\+::\+Small\+Vector$<$ char, 10 $>$ {\bfseries module\+Buffer}
 std\+::string \mbox{\hyperlink{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}{get\+Process\+Triple}} () const
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_ae135808ab2a9ab0466cc1cc54715ad93}\label{classrrllvm_1_1Jit_ae135808ab2a9ab0466cc1cc54715ad93}} 
-const llvm\+::\+Target $\ast$ {\bfseries get\+Default\+Target\+Machine} () const
+const llvm\+::\+Target $\ast$ \mbox{\hyperlink{classrrllvm_1_1Jit_ae135808ab2a9ab0466cc1cc54715ad93}{get\+Default\+Target\+Machine}} () const
 \begin{DoxyCompactList}\small\item\em use llvm calls to work out which Target\+Machine is currently being used. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_aa25373cc3dc5ac1bd2f7c162a4e044df}\label{classrrllvm_1_1Jit_aa25373cc3dc5ac1bd2f7c162a4e044df}} 
-Fn\+Map {\bfseries external\+Function\+Signatures} () const
+Fn\+Map \mbox{\hyperlink{classrrllvm_1_1Jit_aa25373cc3dc5ac1bd2f7c162a4e044df}{external\+Function\+Signatures}} () const
 \begin{DoxyCompactList}\small\item\em returns a mapping between function names and function signatures \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a004af13f555d2c7fdaf088bd6f2c037c}\label{classrrllvm_1_1Jit_a004af13f555d2c7fdaf088bd6f2c037c}} 
-std\+::unique\+\_\+ptr$<$ llvm\+::\+LLVMContext $>$ {\bfseries context}
+std\+::unique\+\_\+ptr$<$ llvm\+::\+L\+L\+V\+M\+Context $>$ {\bfseries context}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a78943fba79d6b4aa5a3d2e19b60de8e7}\label{classrrllvm_1_1Jit_a78943fba79d6b4aa5a3d2e19b60de8e7}} 
 std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$ {\bfseries module}
@@ -107,7 +111,7 @@ std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$ {\bfseries module}
 llvm\+::\+Module $\ast$ {\bfseries module\+Non\+Owning} = nullptr
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a130a9033f5e553542db7dccbbc91dbe2}\label{classrrllvm_1_1Jit_a130a9033f5e553542db7dccbbc91dbe2}} 
-std\+::unique\+\_\+ptr$<$ llvm\+::\+IRBuilder$<$$>$ $>$ {\bfseries builder}
+std\+::unique\+\_\+ptr$<$ llvm\+::\+I\+R\+Builder$<$$>$ $>$ {\bfseries builder}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a3cd9de39bf57162c328bdaca2b0edede}\label{classrrllvm_1_1Jit_a3cd9de39bf57162c328bdaca2b0edede}} 
 std\+::uint32\+\_\+t {\bfseries options}
@@ -132,7 +136,7 @@ instantiate a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} object with some option
 
 
 \begin{DoxyParams}{Parameters}
-{\em options} & Load\+SBMLOptions\+::model\+Generator\+Opt. The options are stored by bit masks and can be manipulated by either modifying Load\+SBMLOptions or Config. \\
+{\em options} & Load\+S\+B\+M\+L\+Options\+::model\+Generator\+Opt. The options are stored by bit masks and can be manipulated by either modifying Load\+S\+B\+M\+L\+Options or Config. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_ac9bfb0045cd3a21ecd4b48d7fb4683f8}\label{classrrllvm_1_1Jit_ac9bfb0045cd3a21ecd4b48d7fb4683f8}} 
@@ -145,9 +149,9 @@ instantiate a \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} object with some option
 
 default constructor. 
 
-delegates to \mbox{\hyperlink{classrrllvm_1_1Jit_af895c58cbe99d0e5dda02f689b80074d}{Jit(std\+::uint32\+\_\+t options)}}. The options argument is the default constructed from Load\+SBMLOptions.\+model\+Generator\+Opt. Note, that Load\+SBMLOptions is influenced by the global Config. \begin{Desc}
+delegates to \mbox{\hyperlink{classrrllvm_1_1Jit_af895c58cbe99d0e5dda02f689b80074d}{Jit(std\+::uint32\+\_\+t options)}}. The options argument is the default constructed from Load\+S\+B\+M\+L\+Options.\+model\+Generator\+Opt. Note, that Load\+S\+B\+M\+L\+Options is influenced by the global Config. \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a3b8ed0a6c863013898f33f7bb9be650d}\label{classrrllvm_1_1Jit_a3b8ed0a6c863013898f33f7bb9be650d}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!````~Jit@{$\sim$Jit}}
 \index{````~Jit@{$\sim$Jit}!rrllvm::Jit@{rrllvm::Jit}}
@@ -162,7 +166,7 @@ similar to \mbox{\hyperlink{classrrllvm_1_1Jit_a639f90099cf9faf011209586a9023a66
 
 defaulted virtual destructor \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 
 
 \doxysubsection{Member Function Documentation}
@@ -176,13 +180,13 @@ defaulted virtual destructor \begin{Desc}
 
 add the module and context which are member variables of the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} instance to the current \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} engine. 
 
-similar to \mbox{\hyperlink{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}{add\+Module(std\+::unique\+\_\+ptr$<$llvm\+::\+Module$>$ M, std\+::unique\+\_\+ptr$<$llvm\+::\+LLVMContext$>$ ctx)}} the references are stolen by the call to construct a Thread\+Safe\+Module which then takes ownership of the module and context. 
+similar to \mbox{\hyperlink{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}{add\+Module(std\+::unique\+\_\+ptr$<$llvm\+::\+Module$>$ M, std\+::unique\+\_\+ptr$<$llvm\+::\+L\+L\+V\+M\+Context$>$ ctx)}} the references are stolen by the call to construct a Thread\+Safe\+Module which then takes ownership of the module and context. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a9996b44cdcaffab0ad6b5dba722bba68}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_ac2d4943094676d1cae9d39fa52618b1f}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a9996b44cdcaffab0ad6b5dba722bba68}{rrllvm\+::\+L\+L\+Jit}}.
 
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_ad2784cc3b1431f2315d3c7b3b63759af}\label{classrrllvm_1_1Jit_ad2784cc3b1431f2315d3c7b3b63759af}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!addModule@{addModule}}
 \index{addModule@{addModule}!rrllvm::Jit@{rrllvm::Jit}}
@@ -200,13 +204,13 @@ add a module
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a3d4b7271b8af2f550a909c127b4ccf49}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a34a4ef86cfce934a493ed67fa8714dd3}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a3d4b7271b8af2f550a909c127b4ccf49}{rrllvm\+::\+L\+L\+Jit}}.
 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}\label{classrrllvm_1_1Jit_add4b53cfec0eff51d41dc19d733914cc}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!addModule@{addModule}}
 \index{addModule@{addModule}!rrllvm::Jit@{rrllvm::Jit}}
 \doxysubsubsection{\texorpdfstring{addModule()}{addModule()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily virtual void rrllvm\+::\+Jit\+::add\+Module (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$}]{M,  }\item[{std\+::unique\+\_\+ptr$<$ llvm\+::\+LLVMContext $>$}]{ctx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void rrllvm\+::\+Jit\+::add\+Module (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ llvm\+::\+Module $>$}]{M,  }\item[{std\+::unique\+\_\+ptr$<$ llvm\+::\+L\+L\+V\+M\+Context $>$}]{ctx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -221,12 +225,12 @@ add a module
 \end{DoxyParams}
 the parameters M and cts are unique pointers and therefore must be moved, not copied into the module. An llvm Thread\+Safe\+Module is created internalls, which steals the references. For this reason, any code to be added to the module must happen before the call to add\+Module. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a896e1f6a4c0087c1cfec2271c018cdfd}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a4bc8ec62262063d3a2ad50fe68ee10c7}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a896e1f6a4c0087c1cfec2271c018cdfd}{rrllvm\+::\+L\+L\+Jit}}.
 
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}\label{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!addObjectFile@{addObjectFile}}
 \index{addObjectFile@{addObjectFile}!rrllvm::Jit@{rrllvm::Jit}}
-\doxysubsubsection{\texorpdfstring{addObjectFile()}{addObjectFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{addObjectFile()}{addObjectFile()}}
 {\footnotesize\ttfamily virtual void rrllvm\+::\+Jit\+::add\+Object\+File (\begin{DoxyParamCaption}\item[{rr\+Owning\+Binary}]{owning\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -235,44 +239,16 @@ add an in-\/memory representation of an object file to the current jit module.
 
 the rr\+Owning\+Binary is a typedef\textquotesingle{}d llvm\+::object\+::\+Owning\+Binary$<$llvm\+::object\+::\+Object\+File$>$ 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ad38295e9143c288d11c0313686b66d11}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_ac9d5a99c6f5a888d3d403995873ec3a4}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ad38295e9143c288d11c0313686b66d11}{rrllvm\+::\+L\+L\+Jit}}.
 
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
-\mbox{\Hypertarget{classrrllvm_1_1Jit_a33e40a54eb3ece2598f47e09c86b211e}\label{classrrllvm_1_1Jit_a33e40a54eb3ece2598f47e09c86b211e}} 
-\index{rrllvm::Jit@{rrllvm::Jit}!addObjectFile@{addObjectFile}}
-\index{addObjectFile@{addObjectFile}!rrllvm::Jit@{rrllvm::Jit}}
-\doxysubsubsection{\texorpdfstring{addObjectFile()}{addObjectFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily virtual void rrllvm\+::\+Jit\+::add\+Object\+File (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ llvm\+::\+Memory\+Buffer $>$}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-add an in-\/memory representation of an object file to the current jit module. 
-
-
-
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ac6718157487c3ff6b8b7ab0bd8dc61cc}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a54678279d720f8517a5c130a9c80e6f8}{rrllvm\+::\+MCJit}}.
-
-\mbox{\Hypertarget{classrrllvm_1_1Jit_a0914537453011b9acd33baabe5585453}\label{classrrllvm_1_1Jit_a0914537453011b9acd33baabe5585453}} 
-\index{rrllvm::Jit@{rrllvm::Jit}!addObjectFile@{addObjectFile}}
-\index{addObjectFile@{addObjectFile}!rrllvm::Jit@{rrllvm::Jit}}
-\doxysubsubsection{\texorpdfstring{addObjectFile()}{addObjectFile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily virtual void rrllvm\+::\+Jit\+::add\+Object\+File (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ llvm\+::object\+::\+Object\+File $>$}]{object\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-add an in-\/memory representation of an object file to the current jit module. 
-
-
-
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_af6987a4dfe7045ab102c27d943e9dd00}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a1a86ef74cd562bd951bd3570cd823097}{rrllvm\+::\+MCJit}}.
-
-\mbox{\Hypertarget{classrrllvm_1_1Jit_a38c60da63a6915853ee06bfc2de5e76c}\label{classrrllvm_1_1Jit_a38c60da63a6915853ee06bfc2de5e76c}} 
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\Hypertarget{classrrllvm_1_1Jit_ac8b2944cf579635496c62e2ec0fc12b9}\label{classrrllvm_1_1Jit_ac8b2944cf579635496c62e2ec0fc12b9}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!getCompiledModelFromCache@{getCompiledModelFromCache}}
 \index{getCompiledModelFromCache@{getCompiledModelFromCache}!rrllvm::Jit@{rrllvm::Jit}}
 \doxysubsubsection{\texorpdfstring{getCompiledModelFromCache()}{getCompiledModelFromCache()}}
-{\footnotesize\ttfamily virtual std\+::unique\+\_\+ptr$<$ llvm\+::\+Memory\+Buffer $>$ rrllvm\+::\+Jit\+::get\+Compiled\+Model\+From\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sbml\+MD5 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual std\+::unique\+\_\+ptr$<$llvm\+::\+Memory\+Buffer$>$ rrllvm\+::\+Jit\+::get\+Compiled\+Model\+From\+Cache (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sbml\+M\+D5 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -280,41 +256,24 @@ lookup the sbml with the md5
 
 
 \begin{DoxyParams}{Parameters}
-{\em sbml\+MD5} & in the compiled object cache. If it is there, return a memory buffer containing it (which you can turn into an object file). Returns empty (null) unique\+\_\+ptr if not found. \\
+{\em sbml\+M\+D5} & in the compiled object cache. If it is there, return a memory buffer containing it (which you can turn into an object file). Returns empty (null) unique\+\_\+ptr if not found. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-at present this only works with \mbox{\hyperlink{classrrllvm_1_1LLJit}{LLJit}}. 
+at present this only works with \mbox{\hyperlink{classrrllvm_1_1LLJit}{L\+L\+Jit}}. 
 \end{DoxyNote}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ae81a46694d77eba74473d015b42e01f7}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a9b07118c9077e486bb5393cd7c536fb7}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ae81a46694d77eba74473d015b42e01f7}{rrllvm\+::\+L\+L\+Jit}}.
 
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
-\mbox{\Hypertarget{classrrllvm_1_1Jit_aa12a437ad699812ffcb49839dbd74e4e}\label{classrrllvm_1_1Jit_aa12a437ad699812ffcb49839dbd74e4e}} 
-\index{rrllvm::Jit@{rrllvm::Jit}!getDataLayout@{getDataLayout}}
-\index{getDataLayout@{getDataLayout}!rrllvm::Jit@{rrllvm::Jit}}
-\doxysubsubsection{\texorpdfstring{getDataLayout()}{getDataLayout()}}
-{\footnotesize\ttfamily virtual const llvm\+::\+Data\+Layout \& rrllvm\+::\+Jit\+::get\+Data\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-get the Data\+Layout currently in use in the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} 
-
-
-
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ab27afc739dd1466259b0b5168b3c89a2}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a9a77adef72b42870b30e2c8fc0a6db58}{rrllvm\+::\+MCJit}}.
-
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a49579ba0e6ce122894ec6def38f8e140}\label{classrrllvm_1_1Jit_a49579ba0e6ce122894ec6def38f8e140}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!getModuleAsString@{getModuleAsString}}
 \index{getModuleAsString@{getModuleAsString}!rrllvm::Jit@{rrllvm::Jit}}
 \doxysubsubsection{\texorpdfstring{getModuleAsString()}{getModuleAsString()}}
-{\footnotesize\ttfamily virtual std\+::string rrllvm\+::\+Jit\+::get\+Module\+As\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{sbml\+MD5 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual std\+::string rrllvm\+::\+Jit\+::get\+Module\+As\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{sbml\+M\+D5 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -322,15 +281,15 @@ get a binary string representation of the current module.
 
 This must be called after the module is added to the jit engine. Throws if string is empty.
 
-This interface is moderate abuse of interface design -- the parameter sbml\+MD5 is only required for the \mbox{\hyperlink{classrrllvm_1_1LLJit}{LLJit}} subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old \mbox{\hyperlink{classrrllvm_1_1MCJit}{MCJit}} class.
+This interface is moderate abuse of interface design -- the parameter sbml\+M\+D5 is only required for the \mbox{\hyperlink{classrrllvm_1_1LLJit}{L\+L\+Jit}} subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old M\+C\+Jit class.
 
 Regardless of the bad design, it works, so lets not spend any more time on it. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ab7a58cc6be141daf6141498dace4f837}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_ac3b90702092cb6082b57ebea939b83ad}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ab7a58cc6be141daf6141498dace4f837}{rrllvm\+::\+L\+L\+Jit}}.
 
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}\label{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!getProcessTriple@{getProcessTriple}}
 \index{getProcessTriple@{getProcessTriple}!rrllvm::Jit@{rrllvm::Jit}}
@@ -341,9 +300,9 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_ab7a58cc6be141daf6141498dac
 
 \mbox{\hyperlink{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. 
 
-when using the JIT. \begin{Desc}
+when using the J\+IT. \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a639f90099cf9faf011209586a9023a66}\label{classrrllvm_1_1Jit_a639f90099cf9faf011209586a9023a66}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!mapFunctionsToJitSymbols@{mapFunctionsToJitSymbols}}
 \index{mapFunctionsToJitSymbols@{mapFunctionsToJitSymbols}!rrllvm::Jit@{rrllvm::Jit}}
@@ -354,48 +313,33 @@ when using the JIT. \begin{Desc}
 
 adds functions that are declared and defined in C++ to the jit engine. 
 
-unlike most functions that are created directly in the llvm IR language these functions are just C++ i.\+e. tan, arccsh, quotient. In \mbox{\hyperlink{classrrllvm_1_1MCJit}{MCJit}} (llvm 6) these were \char`\"{}mapped\char`\"{} to sbml support functions in add\+Global\+Mappings. 
+unlike most functions that are created directly in the llvm IR language these functions are just C++ i.\+e. tan, arccsh, quotient. In M\+C\+Jit (llvm 6) these were \char`\"{}mapped\char`\"{} to sbml support functions in add\+Global\+Mappings. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a996945de22420bc5951594d75d80a591}{rrllvm\+::\+LLJit}}, and \mbox{\hyperlink{classrrllvm_1_1MCJit_a91eae38be659b79c86b536fd06da7a85}{rrllvm\+::\+MCJit}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLJit_a996945de22420bc5951594d75d80a591}{rrllvm\+::\+L\+L\+Jit}}.
 
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 \mbox{\Hypertarget{classrrllvm_1_1Jit_a126ca0f75646887926342ef4ee8ea034}\label{classrrllvm_1_1Jit_a126ca0f75646887926342ef4ee8ea034}} 
 \index{rrllvm::Jit@{rrllvm::Jit}!mapLLVMGeneratedFunctionsToSymbols@{mapLLVMGeneratedFunctionsToSymbols}}
 \index{mapLLVMGeneratedFunctionsToSymbols@{mapLLVMGeneratedFunctionsToSymbols}!rrllvm::Jit@{rrllvm::Jit}}
 \doxysubsubsection{\texorpdfstring{mapLLVMGeneratedFunctionsToSymbols()}{mapLLVMGeneratedFunctionsToSymbols()}}
-{\footnotesize\ttfamily void rrllvm\+::\+Jit\+::map\+LLVMGenerated\+Functions\+To\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} $\ast$}]{model\+Resources,  }\item[{std\+::uint32\+\_\+t}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rrllvm\+::\+Jit\+::map\+L\+L\+V\+M\+Generated\+Functions\+To\+Symbols (\begin{DoxyParamCaption}\item[{Model\+Resources $\ast$}]{model\+Resources,  }\item[{std\+::uint32\+\_\+t}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-Map the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}\textquotesingle{}d functions that collectively represent a roadrunner compiled sbml model to symbols in. 
+Map the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}}\textquotesingle{}d functions that collectively represent a roadrunner compiled sbml model to symbols in the Model\+Resources. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em model\+Resources} & \\
+{\em model\+Resources} & the Model\+Resources to which to map. \\
+\hline
+{\em options} & bitfield options to use.\\
 \hline
 \end{DoxyParams}
 this must be called after a the main roadrunner module has been added to the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} -- otherwise the lookup will fail. \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
-\mbox{\Hypertarget{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}\label{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}} 
-\index{rrllvm::Jit@{rrllvm::Jit}!transferObjectsToResources@{transferObjectsToResources}}
-\index{transferObjectsToResources@{transferObjectsToResources}!rrllvm::Jit@{rrllvm::Jit}}
-\doxysubsubsection{\texorpdfstring{transferObjectsToResources()}{transferObjectsToResources()}}
-{\footnotesize\ttfamily void rrllvm\+::\+Jit\+::transfer\+Objects\+To\+Resources (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1ModelResources}{rrllvm\+::\+Model\+Resources}} $>$}]{model\+Resources }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-{\itshape Moves} objects over to \mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} ptr 
-
-
-
-Reimplemented in \mbox{\hyperlink{classrrllvm_1_1MCJit_a11a02de74df8e811b98172f36a878cd7}{rrllvm\+::\+MCJit}}.
-
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 
 
 \doxysubsection{Member Data Documentation}
@@ -407,11 +351,11 @@ Reimplemented in \mbox{\hyperlink{classrrllvm_1_1MCJit_a11a02de74df8e811b98172f3
 
 
 
-\mbox{\hyperlink{classrrllvm_1_1MCJit}{MCJit}} compiles the generated LLVM IR to this binary stream which is then used both for adding to the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} as a module and for save\+State. 
+M\+C\+Jit compiles the generated L\+L\+VM IR to this binary stream which is then used both for adding to the \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} as a module and for save\+State. 
 
-\mbox{\hyperlink{classrrllvm_1_1MCJit}{MCJit}} is the only \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} that uses this. (Its bad interface design but works at least.). \mbox{\hyperlink{classrrllvm_1_1LLJit}{LLJit}} uses a caching mechanism which allows us to retrieve object files directly, foregoing the need for this variable. \begin{Desc}
+M\+C\+Jit is the only \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} that uses this. (Its bad interface design but works at least.). \mbox{\hyperlink{classrrllvm_1_1LLJit}{L\+L\+Jit}} uses a caching mechanism which allows us to retrieve object files directly, foregoing the need for this variable. \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{D_1_2roadrunner_2roadrunner_2source_2llvm_2Jit_8h-example}{D\+:/roadrunner/roadrunner/source/llvm/\+Jit.\+h}}.\end{Desc}
+\mbox{\hyperlink{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}}.\end{Desc}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

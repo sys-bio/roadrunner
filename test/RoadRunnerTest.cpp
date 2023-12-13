@@ -69,8 +69,8 @@ void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::Doubl
 
     for (int i = 0; i < expectedMatrix.numRows(); i++) {
         for (int j = 0; j < expectedMatrix.numCols(); j++) {
-            std::cout << "Comparing expected result: " << expectedMatrix[i][j]
-                      << " with actual result: " << actualMatrix[i][j] << std::endl;
+            //std::cout << "Comparing expected result: " << expectedMatrix[i][j]
+            //          << " with actual result: " << actualMatrix[i][j] << std::endl;
             EXPECT_NEAR(expectedMatrix[i][j], actualMatrix[i][j], absError);
         }
     }

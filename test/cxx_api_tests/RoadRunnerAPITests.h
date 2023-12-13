@@ -27,7 +27,7 @@ public:
 
     RoadRunnerAPITests() {
         Logger::setFormattingPattern("%U:%u:%l: %t");
-        Logger::setLevel(Logger::LOG_DEBUG);
+        //Logger::setLevel(Logger::LOG_DEBUG);
     };
 
     void DefaultJacobianMode() {
@@ -161,10 +161,10 @@ public:
         expected.sort();
         l.sort();
         auto it = l.begin();
-        while (it != l.end()) {
-            std::cout << *it << std::endl;
-            it++;
-        }
+        //while (it != l.end()) {
+        //    std::cout << *it << std::endl;
+        //    it++;
+        //}
 
         ASSERT_EQ(expected, l);
     }
@@ -183,10 +183,31 @@ public:
      * It appears that support for various SBML versions is not a functional
      * feature at the moment.
      */
-    void DISABLED_RoadRunnerConstructorVersion() {
-        RoadRunner rr(3, 2);
-        rr.load(sbml);
-        std::cout << rr.getSBML(3, 2) << std::endl;
+    void RoadRunnerConstructorVersion() {
+        RoadRunner rr(1, 2);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(2, 1);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(2, 2);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(2, 3);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(2, 4);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(2, 5);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(3, 1);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
+        rr = RoadRunner(3, 2);
+        rr.addCompartment("C1", 1.0);
+        std::cout << rr.getSBML() << std::endl;
     }
 
     /**
@@ -195,7 +216,7 @@ public:
      *  C++ exception with description "Could not open stream: HTTPS transport not supported" thrown in the test body.
      */
     void DISABLED_RoadRunnerConstructorFromURL() {
-        std::string url = "https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000373.3?filename=BIOMD0000000373_url.xml";
+        std::string url = "https://raw.githubusercontent.com/sys-bio/roadrunner/develop/test/models/CAPICore/Test_1.xml";
         RoadRunner rr(url);
         std::cout << rr.getSBML(3, 2) << std::endl;
 
@@ -212,14 +233,10 @@ public:
 
     }
 
-    /**
-     * The copy constructor errors out on CVODE, for somereason the
-     * maximum adams order is too large. disable until fixed.
-     */
-    void DISABLED_CopyConstructor() {
+    void CopyConstructor() {
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr1(testModel->str());
-        RoadRunner rr2 = rr1; // logs a error from cvode
+        RoadRunner rr2 = rr1;
         // todo, use equality operators once they are built
         ASSERT_STREQ(rr1.getSBML().c_str(), rr2.getSBML().c_str());
         delete testModel;
@@ -437,7 +454,7 @@ public:
         RoadRunner loaded;
         loaded.loadState(fname.string());
         ASSERT_EQ(loaded.getNumberOfFloatingSpecies(), 2);
-        std::cout << *loaded.simulate(0, 10, 11) << std::endl;
+        //std::cout << *loaded.simulate(0, 10, 11) << std::endl;
         fs::remove(fname); // clear up written files
         delete testModel;
     }
@@ -452,7 +469,7 @@ public:
         RoadRunner loaded;
         loaded.loadState(fname.string());
         ASSERT_EQ(loaded.getNumberOfFloatingSpecies(), 2);
-        std::cout << *loaded.simulate(0, 10, 11) << std::endl;
+        //std::cout << *loaded.simulate(0, 10, 11) << std::endl;
         fs::remove(fname); // clear up written files
         delete testModel;
     }
@@ -627,7 +644,7 @@ public:
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
         auto x = rr.getFloatingSpeciesAmountsNamedArray();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         ls::DoubleMatrix expected({
                                           {10, 1}
                                   });
@@ -640,7 +657,7 @@ public:
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
         auto x = rr.getFloatingSpeciesConcentrationsNamedArray();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         ls::DoubleMatrix expected({
                                           {10, 1}
                                   });
@@ -770,7 +787,7 @@ public:
         rr.regenerateModel();
         rr.setBoundary("S1", true, true);
         auto x = rr.getBoundarySpeciesAmountsNamedArray();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         ls::DoubleMatrix expected({{10}});
         checkMatrixEqual(expected, x);
         delete testModel;
@@ -781,7 +798,7 @@ public:
         RoadRunner rr(testModel->str());
         rr.setBoundary("S1", true, true);
         auto x = rr.getBoundarySpeciesConcentrationsNamedArray();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         ls::DoubleMatrix expected({{10}});
         checkMatrixEqual(expected, x);
         delete testModel;
@@ -847,7 +864,7 @@ public:
         auto *venk = dynamic_cast<Venkatraman2010 *>(TestModelFactory("Venkatraman2010"));
         RoadRunner rr(venk->str());
         auto x = rr.getFullJacobian();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         checkMatrixEqual(venk->fullJacobianConc(), x, 1e-3);
         delete venk;
     }
@@ -857,7 +874,7 @@ public:
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
         auto x = rr.getReducedJacobian();
-        std::cout << x << std::endl;
+        //std::cout << x << std::endl;
         checkMatrixEqual(simpleFlux.reducedJacobianConc(), x, 1e-3);
     }
 
@@ -879,7 +896,7 @@ public:
         rr.setConservedMoietyAnalysis(true);
         std::vector<std::complex<double>> expected = rr.getReducedEigenValues();
         auto eig = rr.getReducedEigenValues();
-        std::cout << "eig: " << eig.size() << std::endl;
+        //std::cout << "eig: " << eig.size() << std::endl;
         for (int i = 0; i < expected.size(); i++) {
             ASSERT_EQ(expected[i], eig[i]);
         }
@@ -889,21 +906,21 @@ public:
     void getLinkMatrix() {
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
-        std::cout << rr.getLinkMatrix() << std::endl;
+        //std::cout << rr.getLinkMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.linkMatrix(), rr.getLinkMatrix());
     }
 
     void getNrMatrix() {
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
-        std::cout << rr.getNrMatrix() << std::endl;
+        //std::cout << rr.getNrMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.NrMatrix(), rr.getNrMatrix());
     }
 
     void getKMatrix() {
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
-        std::cout << rr.getKMatrix() << std::endl;
+        //std::cout << rr.getKMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.KMatrix(), rr.getKMatrix());
     }
 
@@ -911,7 +928,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getReducedStoichiometryMatrix() << std::endl;
+        //std::cout << rr.getReducedStoichiometryMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.reducedStoicMatrix(), rr.getReducedStoichiometryMatrix());
     }
 
@@ -919,7 +936,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getFullStoichiometryMatrix() << std::endl;
+        //std::cout << rr.getFullStoichiometryMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.fullStoicMatrix(), rr.getFullStoichiometryMatrix());
     }
 
@@ -927,7 +944,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getExtendedStoichiometryMatrix() << std::endl;
+        //std::cout << rr.getExtendedStoichiometryMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.extendedStoicMatrix(), rr.getExtendedStoichiometryMatrix());
     }
 
@@ -935,7 +952,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getL0Matrix() << std::endl;
+        //std::cout << rr.getL0Matrix() << std::endl;
         checkMatrixEqual(simpleFlux.L0Matrix(), rr.getL0Matrix());
     }
 
@@ -943,7 +960,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getConservationMatrix() << std::endl;
+        //std::cout << rr.getConservationMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.conservationMatrix(), rr.getConservationMatrix());
     }
 
@@ -951,7 +968,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getUnscaledConcentrationControlCoefficientMatrix() << std::endl;
+        //std::cout << rr.getUnscaledConcentrationControlCoefficientMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.unscaledConcentrationControlCoefficientMatrix(),
                          rr.getUnscaledConcentrationControlCoefficientMatrix());
     }
@@ -960,7 +977,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getScaledConcentrationControlCoefficientMatrix() << std::endl;
+        //std::cout << rr.getScaledConcentrationControlCoefficientMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.scaledConcentrationControlCoefficientMatrix(),
                          rr.getScaledConcentrationControlCoefficientMatrix());
 
@@ -970,7 +987,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getUnscaledFluxControlCoefficientMatrix() << std::endl;
+        //std::cout << rr.getUnscaledFluxControlCoefficientMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.unscaledFluxControlCoefficientMatrix(),
                          rr.getUnscaledFluxControlCoefficientMatrix());
 
@@ -980,7 +997,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getScaledFluxControlCoefficientMatrix() << std::endl;
+        //std::cout << rr.getScaledFluxControlCoefficientMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.scaledFluxControlCoefficientMatrix(),
                          rr.getScaledFluxControlCoefficientMatrix());
 
@@ -1063,7 +1080,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getUnscaledElasticityMatrix() << std::endl;
+        //std::cout << rr.getUnscaledElasticityMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.unscaledElasticityMatrix(),
                          rr.getUnscaledElasticityMatrix());
     }
@@ -1072,7 +1089,7 @@ public:
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
         rr.setConservedMoietyAnalysis(true);
-        std::cout << rr.getScaledElasticityMatrix() << std::endl;
+        //std::cout << rr.getScaledElasticityMatrix() << std::endl;
         checkMatrixEqual(simpleFlux.scaledElasticityMatrix(),
                          rr.getScaledElasticityMatrix());
     }
@@ -1133,19 +1150,16 @@ public:
 
     }
 
-    /**
-     * There is no "getHasOnlySubstanceUnits" and the flag doesn't appear to
-     * do anything so I'm not sure how to test this.
-     */
-    void DISABLED_setHasOnlySubstanceUnits() {
-        RoadRunner rr(SimpleFlux().str());
+    void setHasOnlySubstanceUnits() {
+        RoadRunner rr((rrTestModelsDir_ / "CAPICore" / "decay.xml").string());
         rr.setHasOnlySubstanceUnits("S1", true, true);
+        ASSERT_NEAR(rr.getValue("J0"), 10.0, 0.0000001);
     }
 
     void setInitAmount() {
         RoadRunner rr(SimpleFlux().str());
         rr.setInitAmount("S1", 1234.5);
-        std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
+        //std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesAmountsNamedArray();
         checkMatrixEqual(expected, actual);
@@ -1154,7 +1168,7 @@ public:
     void setInitConcentration() {
         RoadRunner rr(SimpleFlux().str());
         rr.setInitConcentration("S1", 1234.5);
-        std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
+        //std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesConcentrationsNamedArray();
         checkMatrixEqual(expected, actual);
@@ -1163,6 +1177,10 @@ public:
     /**
      * We can set something to constant, but how can
      * we verify that something *is* constant?
+     *
+     * LS:  The answer is that you can't; it's just a validation thing.  I suppose you could invalidate a model?
+     * Another option is to implement support for algebraic rules, which rely on the 'constant' flags, but
+     * that seems unlikely to happen any time soon.
      */
     void DISABLED_setConstant() {
         RoadRunner rr(SimpleFlux().str());
@@ -1203,18 +1221,14 @@ public:
         ASSERT_EQ(3, rr.getFullStoichiometryMatrix().numCols());
     }
 
-    /*
-     * this test fails with
-     *  unknown file: error: C++ exception with description "Roadrunner::removeParameter failed, no parameter with ID S2 existed in the model" thrown in the test body.
-     */
-    void DISABLED_removeReactionWithUnusedParameters() {
+    void removeReactionAndUnusedParameters() {
         RoadRunner rr(SimpleFlux().str());
         rr.removeReaction("_J1", true, true);
-        ASSERT_EQ(1, rr.getFullStoichiometryMatrix().numCols());
-        ASSERT_EQ(1, rr.getGlobalParameterIds().size());
+        EXPECT_EQ(1, rr.getFullStoichiometryMatrix().numCols());
+        EXPECT_EQ(1, rr.getGlobalParameterIds().size());
     }
 
-    void removeReactionWithoutUnusedParameters() {
+    void removeReactionButNotUnusedParameters() {
         RoadRunner rr(SimpleFlux().str());
         rr.removeReaction("_J1", false, true);
         ASSERT_EQ(1, rr.getFullStoichiometryMatrix().numCols());
@@ -1223,6 +1237,7 @@ public:
 
     /**
      * We cannot "getReversible" with current API
+     * (Also, it doesn't affect the modeling at all.)
      */
     void DISABLED_setReversible() {
         RoadRunner rr(SimpleFlux().str());
@@ -1328,67 +1343,108 @@ public:
         ASSERT_EQ(expected, out);
     }
 
-    /**
-     * How to verify that the trigger has changed?
-     */
-    void DISABLED_addTrigger() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
+    void addTrigger() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addEvent("E1", true, "time > 2.0", false);
+        rr.addEventAssignment("E1", "p1", "5", false);
         rr.addTrigger("E1", "time > 5.0", true);
+        rr.simulate(0, 3, 2);
+        EXPECT_EQ(rr.getValue("p1"), 3.0);
+        rr.simulate(0, 6, 2);
+        EXPECT_EQ(rr.getValue("p1"), 5.0);
     }
 
-    /**
-     * How to verify that setPersistant is true with current API?
-     */
-    void DISABLED_setPersistent() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
-        rr.setPersistent("E1", true, true);
+    void setPersistent() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addParameter("p2", 2.0, false);
+        rr.addEvent("E1", true, "time > 2.0", false);
+        rr.addEventAssignment("E1", "p1", "6", false);
+        rr.addEvent("E2", true, "p1 > 5.0", false);
+        rr.addEventAssignment("E2", "p1", "2", false);
+        rr.addEvent("E3", true, "p1 > 5.0", false);
+        rr.addEventAssignment("E3", "p2", "5", false);
+        rr.addDelay("E3", "2.0");
+        rr.setPersistent("E3", false, true);
+        rr.simulate(0, 5, 2);
+        EXPECT_EQ(rr.getValue("p2"), 2.0);
+        rr.setPersistent("E3", true, true);
+        rr.reset(rr::SelectionRecord::GLOBAL_PARAMETER);
+        rr.simulate(0, 5, 2);
+        EXPECT_EQ(rr.getValue("p2"), 5.0);
     }
 
-    /**
-     * How to test using current API?
-     */
-    void DISABLED_setTriggerInitialValue() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
+    void setTriggerInitialValue() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addEvent("E1", true, "p1 > 2.0", false);
+        rr.addEventAssignment("E1", "p1", "6", false);
         rr.setTriggerInitialValue("E1", true, true);
+        EXPECT_EQ(rr.getValue("p1"), 3.0);
+        rr.setTriggerInitialValue("E1", false, true);
+        rr.reset(rr::SelectionRecord::GLOBAL_PARAMETER);
+        //rr.simulate(0, 5, 2);
+        EXPECT_EQ(rr.getValue("p1"), 6.0);
     }
 
-    /**
-     * Not sure what this is. Docs?
-     */
-    void DISABLED_addPriority() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
-        //    rr.addPriority("E1")
+    void addPriority() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addEvent("E1", true, "time > 2.0", false);
+        rr.addEventAssignment("E1", "p1", "6", false);
+        rr.addPriority("E1", "10", false);
+        rr.addEvent("E2", true, "time > 2.0", false);
+        rr.addEventAssignment("E2", "p1", "12", false);
+        rr.addPriority("E2", "15", true);
+        rr.simulate(0, 3, 2);
+        EXPECT_EQ(rr.getValue("p1"), 6.0);
+        rr.addPriority("E2", "5", true);
+        rr.reset(rr::SelectionRecord::GLOBAL_PARAMETER);
+        rr.simulate(0, 3, 2);
+        EXPECT_EQ(rr.getValue("p1"), 12.0);
     }
 
-    /*
-     * What is the math formula of event delay?
-     */
-    void DISABLED_addDelay() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
-        //    rr.addDelay("E1", )
+    void addDelay() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addEvent("E3", true, "time > 1.0", false);
+        rr.addEventAssignment("E3", "p1", "5", false);
+        rr.addDelay("E3", "2.0");
+        rr.simulate(0, 2, 2);
+        EXPECT_EQ(rr.getValue("p1"), 3.0);
+        rr.simulate(0, 4, 2);
+        EXPECT_EQ(rr.getValue("p1"), 5.0);
     }
 
-    /**
-     * What is the math formula of the event assignment?
-     */
-    void DISABLED_addEventAssignment() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
-        //    rr.addEventAssignment()
+    void addEventAssignment() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addParameter("p2", 5.0, false);
+        rr.addEvent("E3", true, "time > 1.0", false);
+        rr.addEventAssignment("E3", "p1", "5", true);
+        rr.simulate(0, 2, 2);
+        EXPECT_EQ(rr.getValue("p2"), 5.0);
+        rr.addEventAssignment("E3", "p2", "15", true);
+        rr.reset(rr::SelectionRecord::GLOBAL_PARAMETER);
+        rr.simulate(0, 2, 2);
+        EXPECT_EQ(rr.getValue("p2"), 15.0);
 
     }
 
-    /**
-     * What is the math formula of event assignment?
-     */
-    void DISABLED_removeEventAssignments() {
-        RoadRunner rr(SimpleFlux().str());
-        rr.addEvent("E1", true, "time > 4.0", true);
+    void removeEventAssignments() {
+        RoadRunner rr;
+        rr.addParameter("p1", 3.0, false);
+        rr.addParameter("p2", 5.0, false);
+        rr.addEvent("E3", true, "time > 1.0", false);
+        rr.addEventAssignment("E3", "p1", "5", false);
+        rr.addEventAssignment("E3", "p2", "15", true);
+        rr.simulate(0, 2, 2);
+        EXPECT_EQ(rr.getValue("p2"), 15.0);
+        rr.removeEventAssignments("E3", "p2", true);
+        rr.reset(rr::SelectionRecord::GLOBAL_PARAMETER);
+        rr.simulate(0, 2, 2);
+        EXPECT_EQ(rr.getValue("p2"), 5.0);
     }
 
     void removeEvent() {
@@ -1527,7 +1583,7 @@ public:
     }
 
     /**
-     * Disabled test - only 1 sensitivity sovler exsits right now
+     * Disabled test - only 1 sensitivity solver exsits right now
      */
     void DISABLED_getSensitivitySolverByName() {
         RoadRunner rr(SimpleFlux().str());

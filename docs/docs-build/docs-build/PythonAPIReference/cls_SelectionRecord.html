@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SelectionRecord &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SBML Compile Options" href="cls_LoadSBMLOptions.html" />
+    <link rel="prev" title="Steady State Solver Class" href="cls_SteadyStateSolver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">Python RoadRunner API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cls_Config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_RoadRunner.html">The Main RoadRunner Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Solver.html">Solver Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Integrator.html">Integrator Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_SteadyStateSolver.html">Steady State Solver Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SelectionRecord</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roadrunner.SelectionRecord"><code class="docutils literal notranslate"><span class="pre">SelectionRecord</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_DEPENDENT_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_DEPENDENT_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ALL_INDEPENDENT_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ALL_INDEPENDENT_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.BOUNDARY_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.BOUNDARY_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord._COMPARTMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord._COMPARTMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.COMPARTMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.COMPARTMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONSREVED_MOIETY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONSREVED_MOIETY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CONTROL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.CURRENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.CURRENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.DEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.DEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.EIGENVALUE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.EIGENVALUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.EIGENVALUE_COMPLEX"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.EIGENVALUE_COMPLEX</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ELASTICITY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ELASTICITY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.ELEMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.ELEMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_AMOUNT_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_AMOUNT_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.FLOATING_CONCENTRATION_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.FLOATING_CONCENTRATION_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.GLOBAL_PARAMETER"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.GLOBAL_PARAMETER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INDEPENDENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INDEPENDENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL_FLOATING_AMOUNT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL_FLOATING_AMOUNT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.INITIAL_FLOATING_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.INITIAL_FLOATING_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.REACTION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.REACTION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.REACTION_RATE"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.REACTION_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.STOICHIOMETRY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.STOICHIOMETRY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.TIME"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN_CONCENTRATION"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN_CONCENTRATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNKNOWN_ELEMENT"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNKNOWN_ELEMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED_CONTROL"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED_CONTROL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SelectionRecord.UNSCALED_ELASTICITY"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.UNSCALED_ELASTICITY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.index"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.p1"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.p1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.p2"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.p2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#RoadRunner.SelectionRecord.selectionType"><code class="docutils literal notranslate"><span class="pre">SelectionRecord.selectionType</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cls_LoadSBMLOptions.html">SBML Compile Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_ExecutableModel.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Logger.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Compiler.html">JIT Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_Misc.html">Miscellaneous Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cls_PyConservedMoietyConverter.html">Conserved Moiety Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">Python RoadRunner API Reference</a></li>
+      <li class="breadcrumb-item active">SelectionRecord</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/PythonAPIReference/cls_SelectionRecord.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="selectionrecord">
+<h1>SelectionRecord<a class="headerlink" href="#selectionrecord" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="roadrunner.SelectionRecord">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">SelectionRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.SelectionRecord" title="Permalink to this definition"></a></dt>
+<dd><p>RoadRunner provides a range of flexible ways of selecting values from
+a simulation. These values can not only be calculated directly via
+RoadRunner.getSelectionValue, but any of these selections can be
+used as columns in the simulate result matrix.</p>
+<p>The SectionRecord.selectionType should be one of the constants listed
+here.</p>
+<p>p1 and p2 may be required along with the attribute to set certain selection types that use one or more arguments.</p>
+<p>Below is the list of attributes which are FOR ADVANCED USERS ONLY. For simplified usage, refer to <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL</span></span><a class="headerlink" href="#SelectionRecord.ALL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_DEPENDENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_DEPENDENT</span></span><a class="headerlink" href="#SelectionRecord.ALL_DEPENDENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_DEPENDENT_AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_DEPENDENT_AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.ALL_DEPENDENT_AMOUNT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_DEPENDENT_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_DEPENDENT_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.ALL_DEPENDENT_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_INDEPENDENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_INDEPENDENT</span></span><a class="headerlink" href="#SelectionRecord.ALL_INDEPENDENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_INDEPENDENT_AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_INDEPENDENT_AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.ALL_INDEPENDENT_AMOUNT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ALL_INDEPENDENT_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ALL_INDEPENDENT_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.ALL_INDEPENDENT_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.AMOUNT" title="Permalink to this definition"></a></dt>
+<dd><p>species must have either a CONCENTRATION or AMOUNT
+modifer to distinguish it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.BOUNDARY">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">BOUNDARY</span></span><a class="headerlink" href="#SelectionRecord.BOUNDARY" title="Permalink to this definition"></a></dt>
+<dd><p>species must have either a BOUNDARY or FLOATING modifiers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.BOUNDARY_AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">BOUNDARY_AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.BOUNDARY_AMOUNT" title="Permalink to this definition"></a></dt>
+<dd><p>boundary species amount</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.BOUNDARY_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">BOUNDARY_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.BOUNDARY_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd><p>boundary species concentration</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord._COMPARTMENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">_COMPARTMENT</span></span><a class="headerlink" href="#SelectionRecord._COMPARTMENT" title="Permalink to this definition"></a></dt>
+<dd><p>Compartments and parameters can be either current or initial values. These values with and underscore, ‘_’ are intended to be used with either an CURRENT or INITIAL value modifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.COMPARTMENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">COMPARTMENT</span></span><a class="headerlink" href="#SelectionRecord.COMPARTMENT" title="Permalink to this definition"></a></dt>
+<dd><p>the current compartment value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd><p>species must have either a CONCENTRATION or AMOUNT
+modifer to distinguish it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.CONSREVED_MOIETY">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">CONSREVED_MOIETY</span></span><a class="headerlink" href="#SelectionRecord.CONSREVED_MOIETY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.CONTROL">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">CONTROL</span></span><a class="headerlink" href="#SelectionRecord.CONTROL" title="Permalink to this definition"></a></dt>
+<dd><p>scaled control coefficient of designated arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.CURRENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">CURRENT</span></span><a class="headerlink" href="#SelectionRecord.CURRENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.DEPENDENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">DEPENDENT</span></span><a class="headerlink" href="#SelectionRecord.DEPENDENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.EIGENVALUE">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">EIGENVALUE</span></span><a class="headerlink" href="#SelectionRecord.EIGENVALUE" title="Permalink to this definition"></a></dt>
+<dd><p>real part of eigenvalue of designated identifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.EIGENVALUE_COMPLEX">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">EIGENVALUE_COMPLEX</span></span><a class="headerlink" href="#SelectionRecord.EIGENVALUE_COMPLEX" title="Permalink to this definition"></a></dt>
+<dd><p>complex part of eigenvalue of designated identifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ELASTICITY">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ELASTICITY</span></span><a class="headerlink" href="#SelectionRecord.ELASTICITY" title="Permalink to this definition"></a></dt>
+<dd><p>scaled elasticity coefficient of designated arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.ELEMENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">ELEMENT</span></span><a class="headerlink" href="#SelectionRecord.ELEMENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.FLOATING">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">FLOATING</span></span><a class="headerlink" href="#SelectionRecord.FLOATING" title="Permalink to this definition"></a></dt>
+<dd><p>species must have either a BOUNDARY or FLOATING modifiers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.FLOATING_AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">FLOATING_AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.FLOATING_AMOUNT" title="Permalink to this definition"></a></dt>
+<dd><p>floating species current amounts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.FLOATING_AMOUNT_RATE">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">FLOATING_AMOUNT_RATE</span></span><a class="headerlink" href="#SelectionRecord.FLOATING_AMOUNT_RATE" title="Permalink to this definition"></a></dt>
+<dd><p>floating species amount rates (value, not reaction rates)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.FLOATING_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">FLOATING_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.FLOATING_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd><p>floating species current concentrations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.FLOATING_CONCENTRATION_RATE">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">FLOATING_CONCENTRATION_RATE</span></span><a class="headerlink" href="#SelectionRecord.FLOATING_CONCENTRATION_RATE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.GLOBAL_PARAMETER">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">GLOBAL_PARAMETER</span></span><a class="headerlink" href="#SelectionRecord.GLOBAL_PARAMETER" title="Permalink to this definition"></a></dt>
+<dd><p>the current global parameter value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.INDEPENDENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">INDEPENDENT</span></span><a class="headerlink" href="#SelectionRecord.INDEPENDENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.INITIAL">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">INITIAL</span></span><a class="headerlink" href="#SelectionRecord.INITIAL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.INITIAL_FLOATING_AMOUNT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">INITIAL_FLOATING_AMOUNT</span></span><a class="headerlink" href="#SelectionRecord.INITIAL_FLOATING_AMOUNT" title="Permalink to this definition"></a></dt>
+<dd><p>initial amount of designated identifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.INITIAL_FLOATING_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">INITIAL_FLOATING_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.INITIAL_FLOATING_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd><p>initial concentration of designated identifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.RATE">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">RATE</span></span><a class="headerlink" href="#SelectionRecord.RATE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.REACTION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">REACTION</span></span><a class="headerlink" href="#SelectionRecord.REACTION" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.REACTION_RATE">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">REACTION_RATE</span></span><a class="headerlink" href="#SelectionRecord.REACTION_RATE" title="Permalink to this definition"></a></dt>
+<dd><p>current reaction rate</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.STOICHIOMETRY">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">STOICHIOMETRY</span></span><a class="headerlink" href="#SelectionRecord.STOICHIOMETRY" title="Permalink to this definition"></a></dt>
+<dd><p>stoichiometric coefficient of designated identifier and reaction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.TIME">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">TIME</span></span><a class="headerlink" href="#SelectionRecord.TIME" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNKNOWN">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNKNOWN</span></span><a class="headerlink" href="#SelectionRecord.UNKNOWN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNKNOWN_CONCENTRATION">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNKNOWN_CONCENTRATION</span></span><a class="headerlink" href="#SelectionRecord.UNKNOWN_CONCENTRATION" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNKNOWN_ELEMENT">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNKNOWN_ELEMENT</span></span><a class="headerlink" href="#SelectionRecord.UNKNOWN_ELEMENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNSCALED">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNSCALED</span></span><a class="headerlink" href="#SelectionRecord.UNSCALED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNSCALED_CONTROL">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNSCALED_CONTROL</span></span><a class="headerlink" href="#SelectionRecord.UNSCALED_CONTROL" title="Permalink to this definition"></a></dt>
+<dd><p>unscaled control coefficient of designated arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SelectionRecord.UNSCALED_ELASTICITY">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">UNSCALED_ELASTICITY</span></span><a class="headerlink" href="#SelectionRecord.UNSCALED_ELASTICITY" title="Permalink to this definition"></a></dt>
+<dd><p>unscaled elasticity coefficient of designated arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="RoadRunner.SelectionRecord.index">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.SelectionRecord.index" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="RoadRunner.SelectionRecord.p1">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">p1</span></span><em class="property"><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#RoadRunner.SelectionRecord.p1" title="Permalink to this definition"></a></dt>
+<dd><p>first of the arguments</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="RoadRunner.SelectionRecord.p2">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">p2</span></span><em class="property"><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#RoadRunner.SelectionRecord.p2" title="Permalink to this definition"></a></dt>
+<dd><p>second of the arguments</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="RoadRunner.SelectionRecord.selectionType">
+<span class="sig-prename descclassname"><span class="pre">SelectionRecord.</span></span><span class="sig-name descname"><span class="pre">selectionType</span></span><em class="property"><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.SelectionRecord.selectionType" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cls_SteadyStateSolver.html" class="btn btn-neutral float-left" title="Steady State Solver Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cls_LoadSBMLOptions.html" class="btn btn-neutral float-right" title="SBML Compile Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

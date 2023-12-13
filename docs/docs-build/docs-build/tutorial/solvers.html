@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadrunner Solvers &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Jit Engines" href="jit_engines.html" />
+    <link rel="prev" title="Changing Initial Conditions" href="changing_initial_conditions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="what_is_sbml.html">What Is SBML?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="what_is_rr.html">What is libRoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import_roadrunner.html">Import RoadRunner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading_models.html">Loading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html">Running Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changing_parameters.html">Changing Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selecting_output.html">Selecting Simulation Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting_data.html">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changing_initial_conditions.html">Changing Initial Conditions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Roadrunner Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jit_engines.html">Jit Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#quickstart">Quickstart</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="tutorial.html">Tutorial</a></li>
+      <li class="breadcrumb-item active">Roadrunner Solvers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorial/solvers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="roadrunner-solvers">
+<h1>Roadrunner Solvers<a class="headerlink" href="#roadrunner-solvers" title="Permalink to this heading"></a></h1>
+<p>RoadRunner has multiple types of solvers including integrators and steady-state solvers.
+Integrators control numerical timecourse integration via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code> method.
+By default, RoadRunner uses CVODE, a real differential equation solver from the
+SUNDIALS suite. Internally, CVODE features an adaptive timestep. However, unless <cite>variableStep</cite>
+is specified in the call to <code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code>, the output will contain evenly spaced intervals.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go"># Output will contain evenly spaced intervals</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">variableStep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go"># Intervals will vary according to CVODE step size</span>
+</pre></div>
+</div>
+<p>To use basic 4th-order Runge-Kutta integrator (‘rk4’), call <code class="xref py py-meth docutils literal notranslate"><span class="pre">setIntegrator()</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Runge-Kutta always uses a fixed step size, and does not support events.
+RoadRunner supports Runge-Kutta-Fehlberg Method (‘rkf45’) as well as a stochastic integrator based on Gillespie algorithm (‘gilliespie’). To get a list of all available integrators, run:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">integrators</span>
+<span class="go">[&#39;cvode&#39;, &#39;gillespie&#39;, &#39;rk4&#39;, &#39;rk45&#39;]</span>
+</pre></div>
+</div>
+<p>Some integrators, such as CVODE, have parameters which can be set by the user.
+To see a list of these settings, use <code class="xref py py-meth docutils literal notranslate"><span class="pre">getSettings()</span></code> on an integrator instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getSettings</span><span class="p">()</span>
+<span class="go">(&#39;relative_tolerance&#39;,</span>
+<span class="go">&#39;absolute_tolerance&#39;,</span>
+<span class="go">&#39;stiff&#39;,</span>
+<span class="go">&#39;maximum_bdf_order&#39;,</span>
+<span class="go">&#39;maximum_adams_order&#39;,</span>
+<span class="go">&#39;maximum_num_steps&#39;,</span>
+<span class="go">&#39;maximum_time_step&#39;,</span>
+<span class="go">&#39;minimum_time_step&#39;,</span>
+<span class="go">&#39;initial_time_step&#39;,</span>
+<span class="go">&#39;multiple_steps&#39;,</span>
+<span class="go">&#39;variable_step_size&#39;)</span>
+</pre></div>
+</div>
+<p>To set or get a parameter, you can use the methods described below:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="s1">&#39;initial_time_step&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Be sure to set the parameter to the correct type, which can be obtained from
+the parameter’s hint or description:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getHint</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;Specifies the scalar relative tolerance (double).&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.&#39;</span>
+</pre></div>
+</div>
+<p>Parameters also have a display name:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getDisplayName</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;Relative Tolerance&#39;</span>
+</pre></div>
+</div>
+<p>If you prefer to change settings on integrators without switching the current integrator,
+you can use <code class="xref py py-meth docutils literal notranslate"><span class="pre">getIntegratorByName()</span></code> as follows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegratorByName</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Also, if you find yourself switching back and forth between integrators a lot, you can use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">setIntegratorSetting()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">setIntegratorSetting</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">,</span> <span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The other type of solver is a steady-state solver, which works in essentially the same way:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getSettings</span><span class="p">()</span>
+<span class="go">(&#39;maximum_iterations&#39;,</span>
+<span class="go">&#39;minimum_damping&#39;,</span>
+<span class="go">&#39;relative_tolerance&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getHint</span><span class="p">(</span><span class="s1">&#39;maximum_iterations&#39;</span><span class="p">)</span>
+<span class="go">&#39;The maximum number of iterations the solver is allowed to use (int)&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="s1">&#39;maximum_iterations&#39;</span><span class="p">)</span>
+<span class="go">&#39;(int) Iteration caps off at the maximum, regardless of whether a solution has been reached&#39;</span>
+</pre></div>
+</div>
+<p>The steady state solver is invoked by a call to <code class="xref py py-meth docutils literal notranslate"><span class="pre">steadyState()</span></code>.
+Currently, RoadRunner only has a single steady state solver (NLEQ).</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="changing_initial_conditions.html" class="btn btn-neutral float-left" title="Changing Initial Conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="jit_engines.html" class="btn btn-neutral float-right" title="Jit Engines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -21,30 +21,36 @@ Inheritance diagram for rr\+::Euler\+Integrator\+:\begin{figure}[H]
 \mbox{\hyperlink{classrr_1_1EulerIntegrator_afc90e9a20043ba1a05db9adba8d53cfe}{Euler\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
 \begin{DoxyCompactList}\small\item\em Creates a new \mbox{\hyperlink{classrr_1_1EulerIntegrator}{Euler\+Integrator}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_ae67944a6230da902b4a4e0e5aa59a82d}\label{classrr_1_1EulerIntegrator_ae67944a6230da902b4a4e0e5aa59a82d}} 
-{\bfseries $\sim$\+Euler\+Integrator} () override
+\mbox{\hyperlink{classrr_1_1EulerIntegrator_ae67944a6230da902b4a4e0e5aa59a82d}{$\sim$\+Euler\+Integrator}} () override
 \begin{DoxyCompactList}\small\item\em delete any memory we allocated \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5b94124e1efbca3f0fd151f736912276}{integrate}} (double t0, double h) override
 \begin{DoxyCompactList}\small\item\em integrates the model from t0 to t0 + hstep \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_af348d85b0fbf92f117623d61bb8e5240}\label{classrr_1_1EulerIntegrator_af348d85b0fbf92f117623d61bb8e5240}} 
 void {\bfseries apply\+Events} (double time\+End, std\+::vector$<$ unsigned char $>$ \&previous\+Event\+Status)
 \item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}\label{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}} 
 virtual void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}{restart}} (double t0) override
 \begin{DoxyCompactList}\small\item\em This simple integrator has nothing to reset, so do nothing here. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5e291108e3a53b921a90450ee2efbe48}\label{classrr_1_1EulerIntegrator_a5e291108e3a53b921a90450ee2efbe48}} 
 virtual void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5e291108e3a53b921a90450ee2efbe48}{set\+Listener}} (Integrator\+Listener\+Ptr p) override
 \begin{DoxyCompactList}\small\item\em Clients may register a listener to listen for sbml events and time step events. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a446b4802e6e5a7db2f2f60cbac430d4a}\label{classrr_1_1EulerIntegrator_a446b4802e6e5a7db2f2f60cbac430d4a}} 
 virtual Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1EulerIntegrator_a446b4802e6e5a7db2f2f60cbac430d4a}{get\+Listener}} () override
 \begin{DoxyCompactList}\small\item\em get the integrator listener \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a65fed1a29701ddcfb6d0d3f023550bc8}\label{classrr_1_1EulerIntegrator_a65fed1a29701ddcfb6d0d3f023550bc8}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_a65fed1a29701ddcfb6d0d3f023550bc8}{to\+String}} () const override
 \begin{DoxyCompactList}\small\item\em get a description of this object, compatable with python {\bfseries{str}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_abc775885d87bf9afa1b5616fe28d1de3}\label{classrr_1_1EulerIntegrator_abc775885d87bf9afa1b5616fe28d1de3}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_abc775885d87bf9afa1b5616fe28d1de3}{to\+Repr}} () const override
 \begin{DoxyCompactList}\small\item\em get a short descriptions of this object, compatable with python {\bfseries{repr}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a00bf9001b752eb56da29bb1d0ff4ea68}\label{classrr_1_1EulerIntegrator_a00bf9001b752eb56da29bb1d0ff4ea68}} 
 std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_a00bf9001b752eb56da29bb1d0ff4ea68}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em get the name of this integrator \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5c3fe76e2ab79a6bf9dfa5b1f382308a}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_a915c7662fbab3e2c39a67826f70495fa}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1EulerIntegrator_a1271f2648559c9f491d38ce60d92654f}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model) const override
+\mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1EulerIntegrator_a2ed0f48b82ffde15df20776e63c99a8d}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model) const override
 \begin{DoxyCompactList}\small\item\em Constructs a new \mbox{\hyperlink{classrr_1_1Solver}{Solver}} of a given type. \end{DoxyCompactList}\item 
 Integration\+Method \mbox{\hyperlink{classrr_1_1EulerIntegrator_a8c70add8b8867dadd74af16da2209cf6}{get\+Integration\+Method}} () const override
 \begin{DoxyCompactList}\small\item\em Always deterministic for Euler. \end{DoxyCompactList}\item 
@@ -53,14 +59,15 @@ virtual void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a023226258950d8437b7a27
 virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1EulerIntegrator_a243b2296bfee9540f967a73968cc66f6}{get\+Item}} (const std\+::string \&key) const
 \begin{DoxyCompactList}\small\item\em Get a value. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}\label{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}} 
-virtual bool {\bfseries has\+Key} (const std\+::string \&key) const
+virtual bool \mbox{\hyperlink{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}{has\+Key}} (const std\+::string \&key) const
 \begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a370a0145394d1a9ed17a798565651369}\label{classrr_1_1EulerIntegrator_a370a0145394d1a9ed17a798565651369}} 
-virtual int {\bfseries delete\+Item} (const std\+::string \&key)
+virtual int \mbox{\hyperlink{classrr_1_1EulerIntegrator_a370a0145394d1a9ed17a798565651369}{delete\+Item}} (const std\+::string \&key)
 \begin{DoxyCompactList}\small\item\em remove a value, this example class does not support deleting keys, so just raise an exception if someone tries to do so. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_adbd7505a537ad01b03802435f24776c4}\label{classrr_1_1EulerIntegrator_adbd7505a537ad01b03802435f24776c4}} 
-virtual std\+::vector$<$ std\+::string $>$ {\bfseries get\+Keys} () const
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}\label{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}} 
+virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}{get\+Keys}} () const
 \begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a345df1be0ad82f14a56273b89a26828a}\label{classrr_1_1EulerIntegrator_a345df1be0ad82f14a56273b89a26828a}} 
 void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a345df1be0ad82f14a56273b89a26828a}{reset\+Settings}} () override
 \begin{DoxyCompactList}\small\item\em Reset all settings to their respective default values. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a8a79e9633a25767a1683a0334fd1d917}\label{classrr_1_1EulerIntegrator_a8a79e9633a25767a1683a0334fd1d917}} 
@@ -79,21 +86,17 @@ This class implements the most basic possible integration algorithm\+: the forwa
 
 This integrator should not really be used in practice as the forward Euler algorithm is highly unstable and will seldomly yield numerically correct values.
 
-This class also has two dummy variables, example\+Parameter1 and example\+Parameter2. These serve as examples of how to use the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface to get/set various tuning paramters that an \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} might have. These values will be displayed when the to\+String method is called, typically by Python.
-
-An example of calling simulate in Python, and the results of specifying the parameters as keyword arguments is
+An example of calling simulate in Python is
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{r.simulate(integrator=\textcolor{stringliteral}{'euler'}, exampleParameter1=123456, exampleParameter2=\textcolor{stringliteral}{'some value'});}
+\DoxyCodeLine{rr.setIntegrator(\textcolor{stringliteral}{'euler'})}
+\DoxyCodeLine{rr.simulate();}
 \DoxyCodeLine{}
-\DoxyCodeLine{print(r.integrator)}
+\DoxyCodeLine{print(rr.integrator)}
 \DoxyCodeLine{< roadrunner.EulerIntegrator()}
 \DoxyCodeLine{\{ \textcolor{stringliteral}{'this'} : 0x101f28350}
-\DoxyCodeLine{\textcolor{stringliteral}{'exampleParameter1'} : 123456}
-\DoxyCodeLine{\textcolor{stringliteral}{'exampleParameter2'} : some value}
 \DoxyCodeLine{\}>}
-
 \end{DoxyCode}
  
 
@@ -108,7 +111,7 @@ An example of calling simulate in Python, and the results of specifying the para
 
 Creates a new \mbox{\hyperlink{classrr_1_1EulerIntegrator}{Euler\+Integrator}}. 
 
-The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the ONLY object that creates integrators.
+The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the O\+N\+LY object that creates integrators.
 
 Integrators are created when the \mbox{\hyperlink{classrr_1_1RegistrationFactory_af6a9a68a5895f4da2bf3f57872b09bd4}{Integrator\+Factory\+::\+New}} method is called, typically by the top level \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object.
 
@@ -118,28 +121,26 @@ The integrator will hold onto the \mbox{\hyperlink{classrr_1_1ExecutableModel}{E
 \begin{DoxyParams}{Parameters}
 {\em m} & a borrowed reference to an existing \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} object. \\
 \hline
-{\em o} & a reference to a Simulat\+Options object where the configuration parameters will be read from. \\
-\hline
 \end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a1271f2648559c9f491d38ce60d92654f}\label{classrr_1_1EulerIntegrator_a1271f2648559c9f491d38ce60d92654f}} 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a2ed0f48b82ffde15df20776e63c99a8d}\label{classrr_1_1EulerIntegrator_a2ed0f48b82ffde15df20776e63c99a8d}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!construct@{construct}}
 \index{construct@{construct}!rr::EulerIntegrator@{rr::EulerIntegrator}}
 \doxysubsubsection{\texorpdfstring{construct()}{construct()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ rr\+::\+Euler\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}}$\ast$ rr\+::\+Euler\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Constructs a new \mbox{\hyperlink{classrr_1_1Solver}{Solver}} of a given type. 
 
 \begin{DoxyAuthor}{Author}
-JKM, WBC
+J\+KM, W\+BC
 \end{DoxyAuthor}
 the caller is responsible for deleting memory associated with the returned Solver$\ast$. 
 
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a4380db83a3a2b122fe58fc3bbbb32a69}{rr\+::\+Registrable}}.
+Implements \mbox{\hyperlink{classrr_1_1Registrable_a3f529e138fa0288622525bc13cd73c5f}{rr\+::\+Registrable}}.
 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5c3fe76e2ab79a6bf9dfa5b1f382308a}\label{classrr_1_1EulerIntegrator_a5c3fe76e2ab79a6bf9dfa5b1f382308a}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!getDescription@{getDescription}}
@@ -152,7 +153,7 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a4380db83a3a2b122fe58fc3bbbb3
 Get the description for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-JKM 
+J\+KM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5c3fe76e2ab79a6bf9dfa5b1f382308a}{get\+Description}} 
@@ -172,7 +173,7 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917
 Get the hint for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-JKM 
+J\+KM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1EulerIntegrator_a915c7662fbab3e2c39a67826f70495fa}{get\+Hint}} 
@@ -192,7 +193,7 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f4
 Always deterministic for Euler. 
 
 \begin{DoxyAuthor}{Author}
-JKM 
+J\+KM 
 \end{DoxyAuthor}
 
 
@@ -208,35 +209,7 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
 Get a value. 
 
-This integrator only supports two parameters, those are the only valid ones to get. \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a446b4802e6e5a7db2f2f60cbac430d4a}\label{classrr_1_1EulerIntegrator_a446b4802e6e5a7db2f2f60cbac430d4a}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!getListener@{getListener}}
-\index{getListener@{getListener}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{getListener()}{getListener()}}
-{\footnotesize\ttfamily virtual Integrator\+Listener\+Ptr rr\+::\+Euler\+Integrator\+::get\+Listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-get the integrator listener 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a00bf9001b752eb56da29bb1d0ff4ea68}\label{classrr_1_1EulerIntegrator_a00bf9001b752eb56da29bb1d0ff4ea68}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!getName@{getName}}
-\index{getName@{getName}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Euler\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-get the name of this integrator 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa339d6}{rr\+::\+Registrable}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5b94124e1efbca3f0fd151f736912276}\label{classrr_1_1EulerIntegrator_a5b94124e1efbca3f0fd151f736912276}} 
+This integrator only supports two parameters, those are the only valid ones to get. \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5b94124e1efbca3f0fd151f736912276}\label{classrr_1_1EulerIntegrator_a5b94124e1efbca3f0fd151f736912276}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!integrate@{integrate}}
 \index{integrate@{integrate}!rr::EulerIntegrator@{rr::EulerIntegrator}}
 \doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
@@ -255,34 +228,6 @@ the end time.
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a345df1be0ad82f14a56273b89a26828a}\label{classrr_1_1EulerIntegrator_a345df1be0ad82f14a56273b89a26828a}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!resetSettings@{resetSettings}}
-\index{resetSettings@{resetSettings}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+Euler\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Reset all settings to their respective default values. 
-
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}\label{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!restart@{restart}}
-\index{restart@{restart}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{restart()}{restart()}}
-{\footnotesize\ttfamily virtual void rr\+::\+Euler\+Integrator\+::restart (\begin{DoxyParamCaption}\item[{double}]{t0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-This simple integrator has nothing to reset, so do nothing here. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
-
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a023226258950d8437b7a27c077b693b3}\label{classrr_1_1EulerIntegrator_a023226258950d8437b7a27c077b693b3}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!setItem@{setItem}}
 \index{setItem@{setItem}!rr::EulerIntegrator@{rr::EulerIntegrator}}
@@ -293,49 +238,7 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
 sets the value for a key. 
 
-This integrator only supports 2 values, so those are the only two valid items to set. \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5e291108e3a53b921a90450ee2efbe48}\label{classrr_1_1EulerIntegrator_a5e291108e3a53b921a90450ee2efbe48}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!setListener@{setListener}}
-\index{setListener@{setListener}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
-{\footnotesize\ttfamily virtual void rr\+::\+Euler\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-Clients may register a listener to listen for sbml events and time step events. 
-
-
-
-Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_abc775885d87bf9afa1b5616fe28d1de3}\label{classrr_1_1EulerIntegrator_abc775885d87bf9afa1b5616fe28d1de3}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!toRepr@{toRepr}}
-\index{toRepr@{toRepr}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{toRepr()}{toRepr()}}
-{\footnotesize\ttfamily virtual std\+::string rr\+::\+Euler\+Integrator\+::to\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-get a short descriptions of this object, compatable with python {\bfseries{repr}}. 
-
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}{rr\+::\+Integrator}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a65fed1a29701ddcfb6d0d3f023550bc8}\label{classrr_1_1EulerIntegrator_a65fed1a29701ddcfb6d0d3f023550bc8}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!toString@{toString}}
-\index{toString@{toString}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
-{\footnotesize\ttfamily virtual std\+::string rr\+::\+Euler\+Integrator\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
-
-
-
-get a description of this object, compatable with python {\bfseries{str}} 
-
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_af08f448f7eea26415a47caaae161de02}{rr\+::\+Solver}}.
-
-
+This integrator only supports 2 values, so those are the only two valid items to set. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -597,17 +597,52 @@ namespace rr {
         /***********************************************************************/
         /******************************************************************************/
 
-        /**
-         * allocate a block of memory and copy the stochiometric values into it,
-         * and return it.
+        /*
+         * Set stoichiometries.
          *
-         * The caller is responsible for freeing the memory that is referenced by data.
-         *
-         * @param[out] rows will hold the number of rows in the matrix.
-         * @param[out] cols will hold the number of columns in the matrix.
-         * @param[out] data a pointer which will hold a newly allocated memory block.
+         * @param[in] len the length of the indx and values arrays.
+         * @param[in] indx an array of length len of stoichiometries.
+         * @param[in] values an array of at least length len which store the
+         *                stoichiometries.
          */
-        virtual int getStoichiometryMatrix(int *rows, int *cols, double **data) = 0;
+        virtual int setStoichiometries(size_t len, int const *indx,
+                                          const double *values) = 0;
+
+        /*
+         * Set the stoichiometries.
+         *
+         * @param[in] len the length of the indx and values arrays.
+         * @param[in] indx an array of length len of stoichiometries.
+         * @param[in] values an array of at least length len which store the
+         *                stoichiometries.
+         * @param[in] strict whether to throw if the value cannot be set.
+         */
+        virtual int setStoichiometries(size_t len, int const* indx,
+                                          const double* values, bool strict) = 0;
+
+        /*
+         * Set the setStoichiometry.
+         *
+         * @param[in] index the index of the stoichiometry.
+         * @param[in] value of stoichiometry to be set.
+         */
+        virtual int setStoichiometry(int index, double value) = 0;
+
+        /*
+         * Set the setStoichiometry.
+         *
+         * @param[in] the speciesIndex of stoichiometry.
+         * @param[in] the reactionIndex of stoichiometry.
+         * @param[in] value of stoichiometry to be set.
+         */
+        virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value) = 0;
+
+        /**
+         * Get the current stiochiometry value with the given index
+         *
+         * If either are not valid, NaN is returned.
+         */
+        virtual double getStoichiometry(int index) = 0;
 
         /**
          * Get the current stiochiometry value for the given species / reaction.
@@ -654,6 +689,23 @@ namespace rr {
          * get the name of the specified reaction
          */
         virtual std::string getReactionId(size_t index) = 0;
+
+        /**
+         * get the index of a named stoichiometry
+         * @returns >= 0 on success, < 0 on failure.
+         */
+        virtual int getStoichiometryIndex(const std::string&) = 0;
+
+        /**
+         * get the index of a named stoichiometry
+         * @returns >= 0 on success, < 0 on failure.
+         */
+        virtual int getStoichiometryIndex(const std::string&, const std::string&) = 0;
+
+        /**
+         * get the name of the specified stoichiometry
+         */
+        virtual std::string getStoichiometryId(size_t index) = 0 ;
 
         /**
          * get the std::vector of reaction rates.

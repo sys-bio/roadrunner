@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1SetValueCodeGenBase" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::SetValueCodeGenBase</compoundname>
     <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; SetValueCodeGenBase_FunctionPtr &gt;</basecompoundref>
+    <includes refid="SetValueCodeGenBase_8h" local="no">SetValueCodeGenBase.h</includes>
     <templateparamlist>
       <param>
         <type>typename Derived</type>
@@ -19,14 +20,13 @@
         <definition>typedef SetValueCodeGenBase_FunctionPtr rrllvm::SetValueCodeGenBase&lt; Derived, substanceUnits &gt;::FunctionPtr</definition>
         <argsstring></argsstring>
         <name>FunctionPtr</name>
-        <qualifiedname>rrllvm::SetValueCodeGenBase::FunctionPtr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SetValueCodeGenBase.h" line="37" column="45" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="37" bodyend="-1"/>
+        <location file="llvm/SetValueCodeGenBase.h" line="41" column="49" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -35,7 +35,6 @@
         <definition>rrllvm::SetValueCodeGenBase&lt; Derived, substanceUnits &gt;::SetValueCodeGenBase</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>SetValueCodeGenBase</name>
-        <qualifiedname>rrllvm::SetValueCodeGenBase::SetValueCodeGenBase</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -46,41 +45,40 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SetValueCodeGenBase.h" line="32" column="5" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="41" bodyend="45"/>
+        <location file="llvm/SetValueCodeGenBase.h" line="36" column="9" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="45" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1SetValueCodeGenBase_1a6b903ba874b1434de2c16ff1a5ec7ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
         <definition>rrllvm::SetValueCodeGenBase&lt; Derived, substanceUnits &gt;::~SetValueCodeGenBase</definition>
         <argsstring>()</argsstring>
         <name>~SetValueCodeGenBase</name>
-        <qualifiedname>rrllvm::SetValueCodeGenBase::~SetValueCodeGenBase</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SetValueCodeGenBase.h" line="33" column="13" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="48" bodyend="50"/>
+        <location file="llvm/SetValueCodeGenBase.h" line="37" column="17" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="52" bodyend="54"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::Value *</type>
         <definition>llvm::Value * rrllvm::SetValueCodeGenBase&lt; Derived, substanceUnits &gt;::codeGen</definition>
         <argsstring>()</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::SetValueCodeGenBase::codeGen</qualifiedname>
-        <reimplements refid="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75">codeGen</reimplements>
+        <reimplements refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6">codeGen</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SetValueCodeGenBase.h" line="35" column="17" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="53" bodyend="138"/>
+        <location file="llvm/SetValueCodeGenBase.h" line="39" column="21" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="57" bodyend="142"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>base class for setting values. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -95,48 +93,37 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="5">
+        <label>rrllvm::ASTNodeFactory</label>
+        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="3">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
+      </node>
       <node id="2">
         <label>rrllvm::CodeGenBase&lt; SetValueCodeGenBase_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-      </node>
-      <node id="6">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="8">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
-      </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="6" relation="private-inheritance">
-        </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
+          <edgelabel>dataSymbols</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
-          <edgelabel>nodes</edgelabel>
+          <edgelabel>modelGenContext</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
       <node id="1">
         <label>rrllvm::SetValueCodeGenBase&lt; Derived, substanceUnits &gt;</label>
@@ -144,20 +131,31 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="8">
+        <label>rrllvm::ModelGeneratorContext</label>
+        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
+      </node>
       <node id="7">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="4">
+        <label>SBMLVisitor</label>
+      </node>
+      <node id="6">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/SetValueCodeGenBase.h" line="28" column="1" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="30" bodyend="38"/>
+    <location file="llvm/SetValueCodeGenBase.h" line="34" column="1" bodyfile="llvm/SetValueCodeGenBase.h" bodystart="32" bodyend="42"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1SetValueCodeGenBase_1ad8af1f4cc878d0bba7010e2a62b1384a" prot="public" virt="virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>createFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>function</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>functionPassManager</name></member>
@@ -168,7 +166,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>options</name></member>
       <member refid="classrrllvm_1_1SetValueCodeGenBase_1a3da66e3ef679927901169ef7698e7edb" prot="public" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>SetValueCodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1SetValueCodeGenBase_1a6b903ba874b1434de2c16ff1a5ec7ca6" prot="public" virt="virtual"><scope>rrllvm::SetValueCodeGenBase</scope><name>~SetValueCodeGenBase</name></member>
     </listofallmembers>

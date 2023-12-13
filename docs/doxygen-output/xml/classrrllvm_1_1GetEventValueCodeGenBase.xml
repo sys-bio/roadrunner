@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1GetEventValueCodeGenBase" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::GetEventValueCodeGenBase</compoundname>
     <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</basecompoundref>
+    <includes refid="GetEventValuesCodeGen_8h" local="no">GetEventValuesCodeGen.h</includes>
     <templateparamlist>
       <param>
         <type>typename Derived</type>
@@ -18,14 +19,13 @@
         <definition>typedef FunctionPtrType rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::FunctionPtr</definition>
         <argsstring></argsstring>
         <name>FunctionPtr</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::FunctionPtr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="45" column="29" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="45" bodyend="-1"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="48" column="33" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -34,7 +34,6 @@
         <definition>rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::GetEventValueCodeGenBase</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>GetEventValueCodeGenBase</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::GetEventValueCodeGenBase</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -45,43 +44,40 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="36" column="5" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="36" bodyend="39"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="39" column="9" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="39" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1afdea0bb224b7e2c1d01cda3505830da2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
         <definition>virtual rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::~GetEventValueCodeGenBase</definition>
         <argsstring>()</argsstring>
         <name>~GetEventValueCodeGenBase</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::~GetEventValueCodeGenBase</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="41" column="13" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="41" bodyend="41"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="44" column="17" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="44" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::Value *</type>
         <definition>llvm::Value * rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::codeGen</definition>
         <argsstring>()</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::codeGen</qualifiedname>
-        <reimplements refid="classrrllvm_1_1CodeGenBase_1a86b8f0607cf199bfbcedd4d68a96ae75">codeGen</reimplements>
+        <reimplements refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6">codeGen</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="43" column="17" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="68" bodyend="126"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="46" column="21" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="71" bodyend="129"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1a4518cb7f4fa4d8f92aa83eaba7d720d4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1a72911128b80b0ab3b23257750de4497d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::Type *</type>
-        <definition>llvm::Type * rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::getRetType</definition>
+        <definition>llvm::Type* rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::getRetType</definition>
         <argsstring>()</argsstring>
         <name>getRetType</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::getRetType</qualifiedname>
         <briefdescription>
 <para>default ret type is double, derived classes must override if using non-default func sic </para>
         </briefdescription>
@@ -89,14 +85,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="51" column="16" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="51" bodyend="54"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="54" column="20" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="54" bodyend="57"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1aab4acc031a26b1142bbc073f123fe331" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1GetEventValueCodeGenBase_1aa197681d25a12aa27979fbc8dc8e936c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::Value *</type>
-        <definition>llvm::Value * rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::createRet</definition>
+        <definition>llvm::Value* rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;::createRet</definition>
         <argsstring>(llvm::Value *value)</argsstring>
         <name>createRet</name>
-        <qualifiedname>rrllvm::GetEventValueCodeGenBase::createRet</qualifiedname>
         <param>
           <type>llvm::Value *</type>
           <declname>value</declname>
@@ -108,45 +103,45 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="59" column="17" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="59" bodyend="63"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="62" column="21" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="62" bodyend="66"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Base class for getting event values. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
-        <link refid="classrrllvm_1_1CodeGenBase"/>
-      </node>
       <node id="1">
         <label>rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;</label>
         <link refid="classrrllvm_1_1GetEventValueCodeGenBase"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="2">
+        <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
+        <link refid="classrrllvm_1_1CodeGenBase"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
-        <link refid="classrrllvm_1_1CodeGenBase"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>modelSymbols</edgelabel>
-        </childnode>
-      </node>
-      <node id="6">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="8">
+      <node id="5">
         <label>rrllvm::ASTNodeFactory</label>
         <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="3">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="4" relation="private-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
       </node>
       <node id="1">
         <label>rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;</label>
@@ -154,56 +149,57 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="6" relation="private-inheritance">
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
+      <node id="8">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
       <node id="7">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="4">
+        <label>SBMLVisitor</label>
+      </node>
+      <node id="2">
+        <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
+        <link refid="classrrllvm_1_1CodeGenBase"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>modelSymbols</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>dataSymbols</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>modelGenContext</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/GetEventValuesCodeGen.h" line="32" column="1" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="34" bodyend="65"/>
+    <location file="llvm/GetEventValuesCodeGen.h" line="37" column="1" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="35" bodyend="68"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05" prot="public" virt="virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>createFunction</name></member>
-      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1aab4acc031a26b1142bbc073f123fe331" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>createRet</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1aa197681d25a12aa27979fbc8dc8e936c" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>createRet</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>function</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>functionPassManager</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1aaa3521df50919fe09fc2683ccd5cd815" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>FunctionPtr</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1af0c91ca79583f5b3b05824a01a6963b4" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>GetEventValueCodeGenBase</name></member>
-      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1a4518cb7f4fa4d8f92aa83eaba7d720d4" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>getRetType</name></member>
+      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1a72911128b80b0ab3b23257750de4497d" prot="public" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>getRetType</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>model</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ab15bd110eca7b61396290deb400df94a" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>modelGenContext</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1afdea0bb224b7e2c1d01cda3505830da2" prot="public" virt="virtual"><scope>rrllvm::GetEventValueCodeGenBase</scope><name>~GetEventValueCodeGenBase</name></member>
     </listofallmembers>

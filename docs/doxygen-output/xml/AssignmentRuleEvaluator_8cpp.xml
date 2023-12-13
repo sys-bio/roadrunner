@@ -1,11 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="AssignmentRuleEvaluator_8cpp" kind="file" language="C++">
     <compoundname>AssignmentRuleEvaluator.cpp</compoundname>
     <includes refid="AssignmentRuleEvaluator_8h" local="yes">AssignmentRuleEvaluator.h</includes>
     <includes refid="rrOSSpecifics_8h" local="yes">rrOSSpecifics.h</includes>
     <includes local="no">iostream</includes>
     <incdepgraph>
+      <node id="11">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>cassert</label>
+      </node>
+      <node id="4">
+        <label>sbml/math/ASTNode.h</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
       <node id="1">
         <label>llvm/AssignmentRuleEvaluator.cpp</label>
         <link refid="AssignmentRuleEvaluator_8cpp"/>
@@ -15,6 +30,9 @@
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
+      </node>
+      <node id="7">
+        <label>sbml/Model.h</label>
       </node>
       <node id="2">
         <label>AssignmentRuleEvaluator.h</label>
@@ -30,6 +48,22 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
+      <node id="9">
+        <label>sbml/AlgebraicRule.h</label>
+      </node>
+      <node id="8">
+        <label>sbml/SBMLVisitor.h</label>
+      </node>
+      <node id="12">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="10">
+        <label>sbml/AssignmentRule.h</label>
+      </node>
+      <node id="13">
+        <label>iostream</label>
+      </node>
       <node id="3">
         <label>SymbolForest.h</label>
         <link refid="SymbolForest_8h_source"/>
@@ -39,40 +73,6 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-      </node>
-      <node id="12">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="11">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>cassert</label>
-      </node>
-      <node id="13">
-        <label>iostream</label>
-      </node>
-      <node id="5">
-        <label>map</label>
-      </node>
-      <node id="9">
-        <label>sbml/AlgebraicRule.h</label>
-      </node>
-      <node id="10">
-        <label>sbml/AssignmentRule.h</label>
-      </node>
-      <node id="7">
-        <label>sbml/Model.h</label>
-      </node>
-      <node id="8">
-        <label>sbml/SBMLVisitor.h</label>
-      </node>
-      <node id="4">
-        <label>sbml/math/ASTNode.h</label>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacerrllvm">rrllvm</innernamespace>

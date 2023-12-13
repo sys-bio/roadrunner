@@ -2645,25 +2645,6 @@ namespace std { class ostream{}; }
     }
 
 
-    PyObject* getCurrentStoichiometryMatrix() {
-        int rows = 0;
-        int cols = 0;
-        double* data = 0;
-
-        $self->getStoichiometryMatrix(&rows, &cols, &data);
-
-        int nd = 2;
-        npy_intp dims[2] = {rows, cols};
-
-        PyObject *pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE, NULL, data, 0,
-                NPY_ARRAY_CARRAY | NPY_ARRAY_OWNDATA, NULL);
-
-//        VERIFY_PYARRAY(pArray);
-
-        return pArray;
-    }
-
-
     /**
      * get values.
      */

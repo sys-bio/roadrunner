@@ -67,7 +67,11 @@ public:
     MOCK_METHOD(int, getSupportedIdTypes, (), (override));
     MOCK_METHOD(double, getValue, (const std::string &id), (override));
     MOCK_METHOD(void, setValue, (const std::string &id, double value), (override));
-    MOCK_METHOD(int, getStoichiometryMatrix, (int * rows, int * cols, double * *data), (override));
+    MOCK_METHOD(int, setStoichiometries, (size_t len, int const *indx, const double *values), (override));
+    MOCK_METHOD(int, setStoichiometries, (size_t len, int const* indx, const double* values, bool strict), (override));
+    MOCK_METHOD(int, setStoichiometry, (int index, double value), (override));
+    MOCK_METHOD(int, setStoichiometry, (int speciesIndex, int reactionIndex, double value), (override));
+    MOCK_METHOD(double, getStoichiometry, (int index), (override));
     MOCK_METHOD(double, getStoichiometry, (int speciesIndex, int reactionIndex), (override));
     MOCK_METHOD(int, getNumConservedMoieties, (), (override));
     MOCK_METHOD(int, getConservedMoietyIndex, (const std::string &eid), (override));
@@ -79,6 +83,9 @@ public:
     MOCK_METHOD(int, getNumReactions, (), (override));
     MOCK_METHOD(int, getReactionIndex, (const std::string &eid), (override));
     MOCK_METHOD(std::string, getReactionId, (size_t index), (override));
+    MOCK_METHOD(int, getStoichiometryIndex, (const std::string &eid), (override));
+    MOCK_METHOD(int, getStoichiometryIndex, (const std::string &sid, const std::string &rid), (override));
+    MOCK_METHOD(std::string, getStoichiometryId, (size_t index), (override));
     MOCK_METHOD(int, getReactionRates, (size_t len, int const *indx, double *values), (override));
     MOCK_METHOD(void, getRateRuleValues, (double * rateRuleValues), (override));
     MOCK_METHOD(std::string, getStateVectorId, (size_t index), (override));

@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1SteadyStateSolver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::SteadyStateSolver</compoundname>
     <basecompoundref refid="classrr_1_1Solver" prot="public" virt="non-virtual">rr::Solver</basecompoundref>
     <derivedcompoundref refid="classrr_1_1KinsolSteadyStateSolver" prot="public" virt="non-virtual">rr::KinsolSteadyStateSolver</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1NLEQSolver" prot="public" virt="non-virtual">rr::NLEQSolver</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1SteadyStateSolverDecorator" prot="public" virt="non-virtual">rr::SteadyStateSolverDecorator</derivedcompoundref>
+    <includes refid="SteadyStateSolver_8h" local="no">SteadyStateSolver.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1aaa617ea8e7cbbd464dd9ff44220c65d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::SteadyStateSolver::~SteadyStateSolver</definition>
         <argsstring>() override=default</argsstring>
         <name>~SteadyStateSolver</name>
-        <qualifiedname>rr::SteadyStateSolver::~SteadyStateSolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -26,16 +26,12 @@
         <definition>virtual double rr::SteadyStateSolver::solve</definition>
         <argsstring>()=0</argsstring>
         <name>solve</name>
-        <qualifiedname>rr::SteadyStateSolver::solve</qualifiedname>
-        <reimplementedby refid="classrr_1_1ApproxSteadyStateDecorator_1a9c057974a3015b2aeb955cafb8a30654">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1BasicNewtonIteration_1a4e322271d2eac9740271623abdcb4051">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1FixedPointIteration_1abb61d5ae308e15d2bfd5eec47270269e">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ1Solver_1aa5e244f2572653e60352eba8e8ec591a">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ2Solver_1ad4f39478cb347dc156023de3578dfb3c">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d">solve</reimplementedby>
         <reimplementedby refid="classrr_1_1PresimulationProgramDecorator_1a335d316de985285bd3d6086430bdc258">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d">solve</reimplementedby>
         <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1af8245130dad6e050fd0bacdddc6cbec6">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1abb61d5ae308e15d2bfd5eec47270269e">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicNewtonIteration_1a4e322271d2eac9740271623abdcb4051">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604">solve</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,7 +45,6 @@
         <definition>void rr::SteadyStateSolver::loadConfigSettings</definition>
         <argsstring>()</argsstring>
         <name>loadConfigSettings</name>
-        <qualifiedname>rr::SteadyStateSolver::loadConfigSettings</qualifiedname>
         <reimplementedby refid="classrr_1_1NLEQSolver_1af791dc24c5517ddd9c0684dbc17c43d2">loadConfigSettings</reimplementedby>
         <briefdescription>
         </briefdescription>
@@ -64,7 +59,6 @@
         <definition>std::string rr::SteadyStateSolver::toString</definition>
         <argsstring>() const override</argsstring>
         <name>toString</name>
-        <qualifiedname>rr::SteadyStateSolver::toString</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02">toString</reimplements>
         <briefdescription>
 <para>Return a std::string representation of the solver. </para>
@@ -83,7 +77,6 @@
         <definition>std::string rr::SteadyStateSolver::toRepr</definition>
         <argsstring>() const override</argsstring>
         <name>toRepr</name>
-        <qualifiedname>rr::SteadyStateSolver::toRepr</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550">toRepr</reimplements>
         <briefdescription>
 <para>Return std::string representation a la Python <bold>repr</bold> method. </para>
@@ -102,7 +95,6 @@
         <definition>void rr::SteadyStateSolver::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::SteadyStateSolver::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
         <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
         <briefdescription>
@@ -119,7 +111,6 @@
         <definition>rr::Solver::Solver</definition>
         <argsstring>()=default</argsstring>
         <name>Solver</name>
-        <qualifiedname>rr::SteadyStateSolver::Solver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -133,7 +124,6 @@
         <definition>rr::Solver::Solver</definition>
         <argsstring>(ExecutableModel *model)</argsstring>
         <name>Solver</name>
-        <qualifiedname>rr::SteadyStateSolver::Solver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>model</declname>
@@ -150,12 +140,65 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> is an abstract base class that provides an interface to specific steady-state solver class implementations. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="13">
-        <label>rr::ApproxSteadyStateDecorator</label>
-        <link refid="classrr_1_1ApproxSteadyStateDecorator"/>
-        <childnode refid="12" relation="public-inheritance">
+      <node id="8">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rr::PresimulationDecorator</label>
+        <link refid="classrr_1_1PresimulationDecorator"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Registrable</label>
+        <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="10">
+        <label>rr::SteadyStateSolverDecorator</label>
+        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rr::NLEQSolver</label>
+        <link refid="classrr_1_1NLEQSolver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>rr::PresimulationProgramDecorator</label>
+        <link refid="classrr_1_1PresimulationProgramDecorator"/>
+        <childnode refid="10" relation="public-inheritance">
         </childnode>
       </node>
       <node id="7">
@@ -170,85 +213,17 @@
         <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
-        <label>rr::KinsolSteadyStateSolver</label>
-        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>rr::LinesearchNewtonIteration</label>
-        <link refid="classrr_1_1LinesearchNewtonIteration"/>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>rr::NLEQ1Solver</label>
-        <link refid="classrr_1_1NLEQ1Solver"/>
-        <childnode refid="9" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>rr::NLEQ2Solver</label>
-        <link refid="classrr_1_1NLEQ2Solver"/>
-        <childnode refid="9" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>rr::NLEQSolver</label>
-        <link refid="classrr_1_1NLEQSolver"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>rr::NewtonIteration</label>
-        <link refid="classrr_1_1NewtonIteration"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>rr::PresimulationDecorator</label>
-        <link refid="classrr_1_1PresimulationDecorator"/>
-        <childnode refid="12" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>rr::PresimulationProgramDecorator</label>
-        <link refid="classrr_1_1PresimulationProgramDecorator"/>
-        <childnode refid="12" relation="public-inheritance">
-        </childnode>
-      </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="3">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="2">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="1">
         <label>rr::SteadyStateSolver</label>
         <link refid="classrr_1_1SteadyStateSolver"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="12">
-        <label>rr::SteadyStateSolverDecorator</label>
-        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="4">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
-      </node>
-      <node id="3">
-        <label>rr::Registrable</label>
-        <link refid="classrr_1_1Registrable"/>
       </node>
       <node id="2">
         <label>rr::Solver</label>
@@ -259,28 +234,29 @@
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
+      <node id="4">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="SteadyStateSolver.h" line="37" column="5" bodyfile="SteadyStateSolver.h" bodystart="38" bodyend="67"/>
+    <location file="SteadyStateSolver.h" line="38" column="1" bodyfile="SteadyStateSolver.h" bodystart="37" bodyend="67"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>construct</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>display_names_</name></member>
       <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getModel</name></member>
-      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6" prot="public" virt="pure-virtual" ambiguityscope="rr::Registrable::"><scope>rr::SteadyStateSolver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamDisplayName</name></member>
@@ -306,6 +282,7 @@
       <member refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>solve</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::SteadyStateSolver</scope><name>Solver</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>syncWithModel</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>toRepr</name></member>

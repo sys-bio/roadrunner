@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installing RoadRunner &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="A warning for windows users" href="windows_warning.html" />
+    <link rel="prev" title="RoadRunner Documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing RoadRunner</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-front-end">Python Front End</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-roadrunner-from-source">Building Roadrunner from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="windows_warning.html">A warning for windows users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="llvm_dependency.html">LLVM-13.x dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting_the_build.html">Troubleshooting the Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-to-put-everything">1) Where to put Everything</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-llvm">2) Install LLVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-roadrunner-dependency-package">3) Install the Roadrunner Dependency Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-roadrunner">4) Install Roadrunner</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#roadrunner-optional-features">Roadrunner Optional Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-python-bindings">Build the Python Bindings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-roadrunner-plugins">Building the Roadrunner Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-roadrunner-tests">Building roadrunner tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packaging-roadrunner">Packaging Roadrunner</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/parallel_index.html">Parallel RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installing RoadRunner</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Installation/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installing-roadrunner">
+<h1>Installing RoadRunner<a class="headerlink" href="#installing-roadrunner" title="Permalink to this heading"></a></h1>
+<section id="python-front-end">
+<h2>Python Front End<a class="headerlink" href="#python-front-end" title="Permalink to this heading"></a></h2>
+<p>The recommended way to use roadrunner is by installing the Python front end and writing Python scripts.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>libroadrunner
+</pre></div>
+</div>
+</section>
+<section id="building-roadrunner-from-source">
+<h2>Building Roadrunner from Source<a class="headerlink" href="#building-roadrunner-from-source" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="windows_warning.html">A warning for windows users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="llvm_dependency.html">LLVM-13.x dependency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting_the_build.html">Troubleshooting the Build</a></li>
+</ul>
+</div>
+<p>You will need:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cmake.org/download/">CMake</a> version &gt; 3.14. The build system was developed with version 3.18.4.</p></li>
+<li><p><a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Visual studio</a> (windows only) with the C++ package installed.</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a></p></li>
+</ul>
+<p>If you are new to CMake, we recommend you read the <a class="reference external" href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html">cmake tutorial</a> to get the basics before continuing.</p>
+<p>The following instructions apply to Windwos, Mac OS and Linux. Where they diverge we will provide the specfic platform instruction.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If at any point you get stuck or encounter an error please first read the <a class="reference internal" href="troubleshooting_the_build.html#troubleshooting-the-build"><span class="std std-ref">Troubleshooting the build</span></a>
+page and then if the problem is not resolved, submit a github issue and we’ll be more than willing to help.</p>
+</div>
+<p>On windows, you should use the “x64 Native Tools Command Prompt for VS 2019” shell which you can find by opening the start menu and begin typing “x64 Native Tools Command Prompt for VS 2019”. This will ensure you are building x64 bit application.</p>
+<p>If you want to use new <a class="reference external" href="https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab">Windows Terminal</a> you can set up the same environment by editing the windows terminal settings file: <a class="reference external" href="https://stackoverflow.com/questions/57925428/add-developer-command-prompt-for-visual-studio-to-windows-terminal">Add Developer Command Prompt</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Failure to use the “X64 Native Tools Command Prompt for VS 2019” shell may result in 32-bit binaries.</p>
+</div>
+<section id="where-to-put-everything">
+<h3>1) Where to put Everything<a class="headerlink" href="#where-to-put-everything" title="Permalink to this heading"></a></h3>
+<p>On Windows it is recommended that you place all the files as close to a root on a drive as possible. This is because Windows has a 260 char limit on the length of a path which can be easily exceeded if you have a deep folder structure. One possibility is this. If for example you have a D drive (works equally well with the C drive), create a folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>d:/
+mkdir<span class="w"> </span>buildroadrunner<span class="w">  </span><span class="c1"># You can call this whatever you like</span>
+<span class="nb">cd</span><span class="w"> </span>buildroadrunner
+</pre></div>
+</div>
+<p>Everything we need will go into buildroadrunner.</p>
+</section>
+<section id="install-llvm">
+<h3>2) Install LLVM<a class="headerlink" href="#install-llvm" title="Permalink to this heading"></a></h3>
+<p>Install the <a class="reference internal" href="llvm_dependency.html#llvm-13-x-dependency"><span class="std std-ref">llvm-13.x dependency</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For those wanting to build roadrunner in Debug mode, remember that you will need to download or build the llvm debug binaries, not release.</p>
+</div>
+<p>If you download the precompiled binaries for LLVM you get a top level folder called something
+like llvm-13.x-msvc2022-x64-release or llvm-13.x-msvc2022-x64-debug.</p>
+<p>Place this folder (which contains all the LLVM code) into your top level directory we crated in step 1) called buildroadrunner.</p>
+</section>
+<section id="install-the-roadrunner-dependency-package">
+<h3>3) Install the Roadrunner Dependency Package<a class="headerlink" href="#install-the-roadrunner-dependency-package" title="Permalink to this heading"></a></h3>
+<p>Install the <a class="reference external" href="https://github.com/sys-bio/libroadrunner-deps">roadrunner dependency package</a></p>
+<p>See below for the script to use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the following set of instructions you can replace every instance of the word “Release” with the word “Debug”
+(<a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html">or another configuration</a>) to build
+roadrunner in Debug mode.</p>
+</div>
+<p>Execute these commands in a windows/linux/mac shell.</p>
+<p>Note that the first thing we do is
+cd to the root folder we created in Step 1, namely buildroadrunner.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>d:/buildroadrunner
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sys-bio/libroadrunner-deps.git<span class="w"> </span>--recurse-submodules<span class="w">    </span><span class="c1"># get the dependency package using git</span>
+<span class="nb">cd</span><span class="w"> </span>libroadrunner-deps
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../install-Release&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span>..<span class="w"> </span><span class="c1"># configure the dependency package</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span><span class="c1"># build the install target</span>
+<span class="nb">cd</span><span class="w"> </span>../../<span class="w"> </span><span class="c1"># return to directory containing libroadrunner-deps</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Take note of where you put the roadrunner deps install tree (<cite>../install-Release</cite> here). It is required as
+argument to <cite>-DRR_DEPENDENCIES_INSTALL_PREFIX</cite> below.</p>
+</div>
+<p>At this point you will have a folder called buildroadrunner and inside that you’ll have
+at least two folders, one for the LLVM binaries (two of these if you downloaded the release and debug versions) and the folder libroadrunner-deps. This is shown below.</p>
+<p>buildroadrunner
+|  — llvm-13.x-msvc2022-x64-debug
+|  — llvm-13.x-msvc2022-x64-debug
+|  — libroadrunner-deps</p>
+</section>
+<section id="install-roadrunner">
+<h3>4) Install Roadrunner<a class="headerlink" href="#install-roadrunner" title="Permalink to this heading"></a></h3>
+<p>Install roadrunner using the following commands from a windows/linux/mac shell.</p>
+<p>If you have not done so already, <a class="reference internal" href="llvm_dependency.html#llvm-13-x-dependency"><span class="std std-ref">download or build llvm-13.x</span></a>. The folder containing llvm’s <cite>bin</cite>, <cite>include</cite> and <cite>lib</cite> directories is the argument to <cite>LLVM_INSTALL_PREFIX</cite> below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>..<span class="w"> </span>note::
+
+<span class="w">    </span>The<span class="w"> </span>following<span class="w"> </span><span class="sb">`</span>cmake<span class="sb">`</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>assumes<span class="w"> </span>that<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>following<span class="w"> </span>these<span class="w"> </span>instruction<span class="w"> </span>exactly<span class="w"> </span>so<span class="w"> </span>the<span class="w"> </span>relative
+<span class="w">    </span>path<span class="w"> </span><span class="sb">`</span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../../libroadrunner-deps/install-Release&quot;</span><span class="sb">`</span><span class="w"> </span>will<span class="w"> </span>point<span class="w"> </span>to
+<span class="w">    </span>the<span class="w"> </span><span class="sb">`</span>-DCMAKE_INSTALL_PREFIX<span class="sb">`</span><span class="w"> </span>argument<span class="w"> </span>from<span class="w"> </span>step<span class="w"> </span><span class="m">2</span>,<span class="w"> </span>i.e.<span class="w"> </span>the<span class="w"> </span>libroadrunner-deps<span class="w"> </span>cmake<span class="w"> </span>command.
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sys-bio/roadrunner.git<span class="w"> </span><span class="c1"># get roadrunner</span>
+<span class="nb">cd</span><span class="w"> </span>roadrunner
+mkdir<span class="w"> </span>build-release
+<span class="nb">cd</span><span class="w"> </span>build-release
+cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../install-Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLLVM_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/full/path/to/where/you/put/llvm-13.x-release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../../libroadrunner-deps/install-Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span>..
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+<p>The first cmake line above is quite long and you won’t be able to copy and paste it directly into the windows terminal. To avoid this, copy the long cmake line into an editor (such as notepad) and make it one line long. Then copy and paste into the Windows terminal.</p>
+<p>Note: if you want to create a debug version, just swap instances of the phrase Release (or release) for Debug (or debug).</p>
+</section>
+</section>
+<section id="roadrunner-optional-features">
+<h2>Roadrunner Optional Features<a class="headerlink" href="#roadrunner-optional-features" title="Permalink to this heading"></a></h2>
+<p>These are controlled by turning on or off desired options in cmake.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Generally speaking, the <a class="reference external" href="https://cmake.org/cmake/help/latest/manual/cmake-gui.1.html">cmake-gui</a>  tool
+is the best way to get a good oversight of the available options.</p>
+</div>
+<section id="build-the-python-bindings">
+<h3>Build the Python Bindings<a class="headerlink" href="#build-the-python-bindings" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Download <a class="reference external" href="https://sourceforge.net/projects/swig/files/">SWIG version 3.0.0</a> for linux, macos or windows. It is just a zip file - decompress it and put it where you want it. SWIG is now installed and the swig executable is under the top level swig directory.</p></li>
+</ol>
+<p>2) Configure or reconfigure cmake using the <cite>-DBUILD_PYTHON=ON</cite> option. If you installed swig
+globally or add the swig directory to the PATH environment variable, you will <em>not</em> need
+the <cite>-DSWIG_EXECUTABLE</cite> argument as <cite>swig.exe</cite> will be found
+automatically. However in most circumstances you will need to provide the path to the <cite>swig.exe</cite> using
+<cite>-DSWIG_EXECUTABLE</cite>. As per the instructions for [FindPython](<a class="reference external" href="https://cmake.org/cmake/help/git-stage/module/FindPython.html">https://cmake.org/cmake/help/git-stage/module/FindPython.html</a>)
+you can build for specific Python environments by pointing -DPython_ROOT_DIR to the root of your Python installation. Using Conda
+environments and this variable makes it easy to build Python wheels for different Python versions.</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner\install-msvc2019&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLLVM_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/full/path/to/where/you/put/llvm-13.x-release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\libroadrunner-deps\libroadrunner-deps-install&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYTHON<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPython_ROOT_DIR<span class="o">=</span><span class="s2">&quot;/path/to/miniconda/env/root&quot;</span>
+<span class="w">    </span>-DSWIG_EXECUTABLE<span class="o">=</span><span class="s2">&quot;path/to/swig3.0.0/executable/swig.exe&quot;</span><span class="w"> </span>..
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+</section>
+<section id="building-the-roadrunner-plugins">
+<h3>Building the Roadrunner Plugins<a class="headerlink" href="#building-the-roadrunner-plugins" title="Permalink to this heading"></a></h3>
+<p>To build the plugins use the <cite>-DBUILD_RR_PLUGINS=ON</cite>. When set to on, the <cite>BUILD_RR_PLUGINS</cite>
+option automatically turns on a set of variables. These include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>RR_PLUGINS_BUILD_SHARED_LIB</p></li>
+<li><p>RR_PLUGINS_BUILD_C_API</p></li>
+<li><p>RR_PLUGINS_BUILD_PYTHON_API</p></li>
+<li><p>RR_PLUGINS_BUILD_TEST_MODEL_PLUGIN</p></li>
+<li><p>RR_PLUGINS_BUILD_ADD_NOISE_PLUGIN</p></li>
+<li><p>RR_PLUGINS_BUILD_CHISQUARE_PLUGIN</p></li>
+<li><p>RR_PLUGINS_BUILD_AUTO2000_PLUGIN</p></li>
+<li><p>RR_PLUGINS_BUILD_HELLO_PLUGIN</p></li>
+</ul>
+</div></blockquote>
+<p>while the <cite>RR_PLUGINS_BUILD_STATIC_LIB</cite> option remains OFF.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner\install-msvc2019&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLLVM_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/full/path/to/where/you/put/llvm-13.x-release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\libroadrunner-deps\libroadrunner-deps-install&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_RR_PLUGINS<span class="o">=</span>ON
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+</section>
+<section id="building-roadrunner-tests">
+<h3>Building roadrunner tests<a class="headerlink" href="#building-roadrunner-tests" title="Permalink to this heading"></a></h3>
+<p>I you want the tests compiled you need to add an extra option to the cmake command that was used in step 4 but is repeated here for convenience.</p>
+<p>Use the <cite>-DBUILD_TESTS=ON</cite> option. Remember that in the following script to change Release to Debug is you are creating the debug version.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../install-Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLLVM_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/full/path/to/where/you/put/llvm-13.x-release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;../../libroadrunner-deps/install-Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>..
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+<p>You can run the tests using ctest on the command line, ensuring you are in the top level
+of your build tree (e.g D`:\buildroadrunner\roadrunner\build-debug` here).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ctest<span class="w"> </span>.
+</pre></div>
+</div>
+<p>This will give you a short summary of the results of the tests. If you want detailed information you need to enter instead:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ctest<span class="w"> </span>--verbose<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Alternatively you can build the <cite>ctest-run</cite> target, which is more convenient
+when you want to run the test from within an IDE since you use the mouse to
+build the <cite>ctest-run</cite> target. In the background, this will run the following
+command, which you may also run manually.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>ctest-run
+</pre></div>
+</div>
+</section>
+<section id="packaging-roadrunner">
+<h3>Packaging Roadrunner<a class="headerlink" href="#packaging-roadrunner" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Windows: produces a zip file.</p></li>
+<li><p>Linux: produces tar.gz and a debian package.</p></li>
+<li><p>Macos: produces a tar.gz file.</p></li>
+</ul>
+<p>First follow the instructions for installing roadrunner, including options for
+any other desired options such as tests, plugins or language bindings. Then rerun
+cmake using using the <cite>-DBUILD_PACKAGING=ON</cite> option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cmake -DCMAKE_INSTALL_PREFIX=&quot;D:\roadrunner\install-msvc2019&quot; \
+    -DLLVM_INSTALL_PREFIX=&quot;/full/path/to/where/you/put/llvm-13.x-release&quot; \
+    -DRR_DEPENDENCIES_INSTALL_PREFIX=&quot;D:\libroadrunner-deps\libroadrunner-deps-install&quot; \
+    -DCMAKE_BUILD_TYPE=&quot;Release&quot; \
+    -DBUILD_PACKAGING=ON
+$ cmake --build . --target install --config Release
+$ cmake --build . --target packaging --config Release
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="RoadRunner Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="windows_warning.html" class="btn btn-neutral float-right" title="A warning for windows users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

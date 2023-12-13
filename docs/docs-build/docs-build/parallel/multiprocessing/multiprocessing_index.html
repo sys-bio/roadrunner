@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoadRunner with Multiprocessing &mdash; libRoadRunner 1.1.16 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Parallel RoadRunnerMap" href="../roadrunner_map/roadrunner_map_index.html" />
+    <link rel="prev" title="Parallel RoadRunner" href="../parallel_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            libRoadRunner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sensitivities/sensitivities_index.html">Time Series Sensitivities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../parallel_index.html">Parallel RoadRunner</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RoadRunner with Multiprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serial-code">Serial code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiprocessing-library">Multiprocessing library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ray-library">Ray library</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../roadrunner_map/roadrunner_map_index.html">Parallel RoadRunnerMap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../UsingRoadRunnerFromCxx/using_roadrunner_from_cxx.html">Using RoadRunner from C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rrplugins/introduction.html">rrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libRoadRunner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../parallel_index.html">Parallel RoadRunner</a></li>
+      <li class="breadcrumb-item active">RoadRunner with Multiprocessing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/parallel/multiprocessing/multiprocessing_index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="roadrunner-with-multiprocessing">
+<h1>RoadRunner with Multiprocessing<a class="headerlink" href="#roadrunner-with-multiprocessing" title="Permalink to this heading"></a></h1>
+<p>For these simulations we use a simple model that we can access easily from one of RoadRunners
+test suites. Its called <code class="docutils literal notranslate"><span class="pre">BatchImmigrationDeath03</span></code> and is model number <code class="docutils literal notranslate"><span class="pre">00039</span></code> from the
+stochastic sbml test suite.</p>
+<p>In each of the following sections we use RoadRunner to generate 1e6 stochastic simulations.</p>
+<section id="serial-code">
+<h2>Serial code<a class="headerlink" href="#serial-code" title="Permalink to this heading"></a></h2>
+<p>Performing the simulations in serial gives us a way to measure the performance enhancements
+of using parallel code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="linenos"> 2</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos"> 3</span>    <span class="sa">r</span><span class="s1">&#39;D:\roadrunner\roadrunner\roadrunner-install-rel-llvm6\site-packages&#39;</span><span class="p">,</span>
+<span class="linenos"> 4</span>    <span class="c1"># r&#39;D:\roadrunner\roadrunner\roadrunner-install-rel-llvm12\site-packages&#39;</span>
+<span class="linenos"> 5</span><span class="p">]</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="linenos"> 8</span><span class="k">assert</span> <span class="s2">&quot;llvm6&quot;</span> <span class="ow">in</span> <span class="n">roadrunner</span><span class="o">.</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">roadrunner</span><span class="o">.</span><span class="vm">__file__</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos">11</span><span class="kn">from</span> <span class="nn">roadrunner.tests</span> <span class="kn">import</span> <span class="n">TestModelFactory</span> <span class="k">as</span> <span class="n">tmf</span>
+<span class="linenos">12</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos">13</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos">14</span><span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">platform</span>
+<span class="linenos">15</span><span class="kn">import</span> <span class="nn">cpuinfo</span> <span class="c1"># pip install py-cpuinfo</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="n">NSIMS</span> <span class="o">=</span> <span class="mi">1000000</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">22</span>    <span class="c1"># setup timing</span>
+<span class="linenos">23</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>    <span class="c1"># get sbml to work with from one of our test modules</span>
+<span class="linenos">26</span>    <span class="n">sbml</span> <span class="o">=</span> <span class="n">tmf</span><span class="o">.</span><span class="n">BatchImmigrationDeath03</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="p">()</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="c1"># create our roadrunner instance</span>
+<span class="linenos">29</span>    <span class="n">rr</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span>    <span class="c1"># set up a stochastic simulation</span>
+<span class="linenos">32</span>    <span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>    <span class="c1"># set the seed for reproducible example</span>
+<span class="linenos">35</span>    <span class="n">gillespie_integrator</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span>
+<span class="linenos">36</span>    <span class="n">gillespie_integrator</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span>    <span class="n">start_time</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">39</span>    <span class="n">end_time</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="linenos">40</span>    <span class="n">num_points</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="linenos">41</span>
+<span class="linenos">42</span>    <span class="c1"># preallocate for efficiency</span>
+<span class="linenos">43</span>    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">NSIMS</span><span class="p">,</span> <span class="n">num_points</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos">44</span>    <span class="k">for</span> <span class="n">simulation_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NSIMS</span><span class="p">):</span>
+<span class="linenos">45</span>        <span class="n">rr</span><span class="o">.</span><span class="n">resetAll</span><span class="p">()</span>
+<span class="linenos">46</span>        <span class="n">data</span><span class="p">[</span><span class="n">simulation_number</span><span class="p">]</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span>    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="linenos">49</span>    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Took&#39;</span><span class="p">,</span>  <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="s1">&#39;seconds to run&#39;</span><span class="p">,</span> <span class="n">NSIMS</span><span class="p">,</span> <span class="s1">&#39;stochastic simulations on 1 core&#39;</span><span class="p">)</span>
+<span class="linenos">52</span>    <span class="n">cpu_info</span> <span class="o">=</span> <span class="n">cpuinfo</span><span class="o">.</span><span class="n">get_cpu_info</span><span class="p">()</span>
+<span class="linenos">53</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Platform: </span><span class="si">{</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">54</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
+<span class="linenos">55</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">58</span><span class="sd">    Output:</span>
+<span class="linenos">59</span><span class="sd">        Took 64.92753291130066 seconds to run 1000000 stochastic simulations on 1 core</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span><span class="sd">        Platform: Windows-10-10.0.22000-SP0</span>
+<span class="linenos">62</span><span class="sd">        python_version: 3.9.5.final.0 (64 bit)</span>
+<span class="linenos">63</span><span class="sd">        Processor: 11th Gen Intel(R) Core(TM) i9-11980HK @ 2.60GHz</span>
+<span class="linenos">64</span><span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="multiprocessing-library">
+<h2>Multiprocessing library<a class="headerlink" href="#multiprocessing-library" title="Permalink to this heading"></a></h2>
+<p>The simplest way in Python to use multiple cores simultaneously for running RoadRunner simulations
+is to use the <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a> library.
+Further, the simplest multiprocessing tool that one can use is a <cite>multiprocessing.Pool</cite>. This leads
+to about a x3 speed up for this example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">roadrunner.tests</span> <span class="kn">import</span> <span class="n">TestModelFactory</span> <span class="k">as</span> <span class="n">tmf</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">platform</span>
+<span class="linenos"> 6</span><span class="kn">import</span> <span class="nn">cpuinfo</span> <span class="c1"># pip install py-cpuinfo</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="n">NCORES</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
+<span class="linenos"> 9</span><span class="n">NSIMS</span> <span class="o">=</span> <span class="mi">1000000</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="k">def</span> <span class="nf">simulate_worker</span><span class="p">(</span><span class="n">rr</span><span class="p">:</span> <span class="n">RoadRunner</span><span class="p">):</span>
+<span class="linenos">12</span>    <span class="n">rr</span><span class="o">.</span><span class="n">resetAll</span><span class="p">()</span>
+<span class="linenos">13</span>    <span class="k">return</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">17</span>    <span class="c1"># setup timing</span>
+<span class="linenos">18</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="c1"># get sbml to work with from one of our test modules</span>
+<span class="linenos">21</span>    <span class="n">sbml</span> <span class="o">=</span> <span class="n">tmf</span><span class="o">.</span><span class="n">BatchImmigrationDeath03</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="p">()</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>    <span class="c1"># create our roadrunner instance</span>
+<span class="linenos">24</span>    <span class="n">rr</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span>    <span class="c1"># set up a stochastic simulation</span>
+<span class="linenos">27</span>    <span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span>    <span class="c1"># set the seed for reproducuble example</span>
+<span class="linenos">30</span>    <span class="n">gillespie_integrator</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span>
+<span class="linenos">31</span>    <span class="n">gillespie_integrator</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>    <span class="c1"># create a processing pool</span>
+<span class="linenos">34</span>    <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">NCORES</span><span class="p">)</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span>    <span class="c1"># perform the simulations</span>
+<span class="linenos">37</span>    <span class="n">arrays</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">simulate_worker</span><span class="p">,</span> <span class="p">[</span><span class="n">rr</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NSIMS</span><span class="p">)])</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span>    <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span>    <span class="c1"># the time it took in serial</span>
+<span class="linenos">42</span>    <span class="n">serial_time</span> <span class="o">=</span> <span class="mf">64.92753291130066</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span>    <span class="c1"># compute speedup</span>
+<span class="linenos">45</span>    <span class="n">speedup</span> <span class="o">=</span> <span class="n">serial_time</span> <span class="o">/</span> <span class="n">duration</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Took </span><span class="si">{</span><span class="n">duration</span><span class="si">}</span><span class="s1"> seconds to run&#39;</span><span class="p">,</span> <span class="n">NSIMS</span><span class="p">,</span> <span class="s1">&#39;stochastic simulations on&#39;</span><span class="p">,</span> <span class="n">NCORES</span><span class="p">,</span> <span class="s1">&#39;cores&#39;</span><span class="p">)</span>
+<span class="linenos">48</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Speed up is </span><span class="si">{</span><span class="n">speedup</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">49</span>    <span class="n">cpu_info</span> <span class="o">=</span> <span class="n">cpuinfo</span><span class="o">.</span><span class="n">get_cpu_info</span><span class="p">()</span>
+<span class="linenos">50</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Platform: </span><span class="si">{</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">51</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
+<span class="linenos">52</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">55</span><span class="sd">    Output: </span>
+<span class="linenos">56</span><span class="sd">        Took 19.231333017349243 seconds to run 1000000 stochastic simulations on 16 cores</span>
+<span class="linenos">57</span><span class="sd">        Speed up is 3.3761327336346008</span>
+<span class="linenos">58</span><span class="sd">        Platform: Windows-10-10.0.22000-SP0</span>
+<span class="linenos">59</span><span class="sd">        python_version: 3.9.5.final.0 (64 bit)</span>
+<span class="linenos">60</span><span class="sd">        Processor: 11th Gen Intel(R) Core(TM) i9-11980HK @ 2.60GHz</span>
+<span class="linenos">61</span><span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="ray-library">
+<h2>Ray library<a class="headerlink" href="#ray-library" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">RoadRunner</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">roadrunner.tests</span> <span class="kn">import</span> <span class="n">TestModelFactory</span> <span class="k">as</span> <span class="n">tmf</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="linenos"> 6</span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="linenos"> 7</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 8</span><span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">platform</span>
+<span class="linenos"> 9</span><span class="kn">import</span> <span class="nn">cpuinfo</span>  <span class="c1"># pip install py-cpuinfo</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">NCORES</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
+<span class="linenos">12</span><span class="n">NSIMS</span> <span class="o">=</span> <span class="mi">1000000</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="linenos">18</span><span class="k">class</span> <span class="nc">SimulatorActorPath</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="linenos">19</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ray actor to execute simulations.&quot;&quot;&quot;</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rr</span><span class="p">:</span> <span class="n">RoadRunner</span><span class="p">):</span>
+<span class="linenos">22</span>        <span class="bp">self</span><span class="o">.</span><span class="n">rr</span><span class="p">:</span> <span class="n">RoadRunner</span> <span class="o">=</span> <span class="n">rr</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">25</span>        <span class="n">num_points</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="linenos">26</span>        <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">num_points</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 2 for 1 model species and time</span>
+<span class="linenos">27</span>        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<span class="linenos">28</span>            <span class="bp">self</span><span class="o">.</span><span class="n">rr</span><span class="o">.</span><span class="n">resetAll</span><span class="p">()</span>
+<span class="linenos">29</span>            <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+<span class="linenos">30</span>        <span class="k">return</span> <span class="n">results</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="linenos">34</span>    <span class="c1"># setup timing</span>
+<span class="linenos">35</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span>    <span class="c1"># get sbml to work with from one of our test modules</span>
+<span class="linenos">38</span>    <span class="n">sbml</span> <span class="o">=</span> <span class="n">tmf</span><span class="o">.</span><span class="n">BatchImmigrationDeath03</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="p">()</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span>    <span class="c1"># create our roadrunner instance</span>
+<span class="linenos">41</span>    <span class="n">rr</span> <span class="o">=</span> <span class="n">RoadRunner</span><span class="p">(</span><span class="n">sbml</span><span class="p">)</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span>    <span class="c1"># set up a stochastic simulation</span>
+<span class="linenos">44</span>    <span class="n">rr</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span>    <span class="c1"># set the seed for reproducuble example</span>
+<span class="linenos">47</span>    <span class="n">gillespie_integrator</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span>
+<span class="linenos">48</span>    <span class="n">gillespie_integrator</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span>    <span class="n">simulators</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimulatorActorPath</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">rr</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NCORES</span><span class="p">)]</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span>    <span class="c1"># run simulations</span>
+<span class="linenos">53</span>    <span class="n">tc_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">54</span>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">simulator</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">simulators</span><span class="p">):</span>
+<span class="linenos">55</span>        <span class="n">tcs_id</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">simulate</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">NSIMS</span> <span class="o">/</span> <span class="n">NCORES</span><span class="p">)))</span>
+<span class="linenos">56</span>        <span class="n">tc_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tcs_id</span><span class="p">)</span>
+<span class="linenos">57</span>    <span class="n">results</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tc_ids</span><span class="p">)</span>
+<span class="linenos">58</span>    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="linenos">59</span>
+<span class="linenos">60</span>    <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span>    <span class="c1"># the time it took in serial</span>
+<span class="linenos">63</span>    <span class="n">serial_time</span> <span class="o">=</span> <span class="mf">64.92753291130066</span>
+<span class="linenos">64</span>
+<span class="linenos">65</span>    <span class="c1"># compute speedup</span>
+<span class="linenos">66</span>    <span class="n">speedup</span> <span class="o">=</span> <span class="n">serial_time</span> <span class="o">/</span> <span class="n">duration</span>
+<span class="linenos">67</span>
+<span class="linenos">68</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Took </span><span class="si">{</span><span class="n">duration</span><span class="si">}</span><span class="s1"> seconds to run&#39;</span><span class="p">,</span> <span class="n">NSIMS</span><span class="p">,</span> <span class="s1">&#39;stochastic simulations on&#39;</span><span class="p">,</span> <span class="n">NCORES</span><span class="p">,</span> <span class="s1">&#39;cores&#39;</span><span class="p">)</span>
+<span class="linenos">69</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Speed up is </span><span class="si">{</span><span class="n">speedup</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">70</span>    <span class="n">cpu_info</span> <span class="o">=</span> <span class="n">cpuinfo</span><span class="o">.</span><span class="n">get_cpu_info</span><span class="p">()</span>
+<span class="linenos">71</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Platform: </span><span class="si">{</span><span class="n">platform</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">72</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;python_version:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;python_version&#39;</span><span class="p">])</span>
+<span class="linenos">73</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Processor:&#39;</span><span class="p">,</span> <span class="n">cpu_info</span><span class="p">[</span><span class="s1">&#39;brand_raw&#39;</span><span class="p">])</span>
+<span class="linenos">74</span>
+<span class="linenos">75</span><span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="linenos">76</span><span class="sd">    Output: </span>
+<span class="linenos">77</span><span class="sd">        Took 99.32935857772827 seconds to run 1000000 stochastic simulations on 16 cores</span>
+<span class="linenos">78</span><span class="sd">        Speed up is 0.6536590373780867</span>
+<span class="linenos">79</span><span class="sd">        Platform: Windows-10-10.0.22000-SP0</span>
+<span class="linenos">80</span><span class="sd">        python_version: 3.9.5.final.0 (64 bit)</span>
+<span class="linenos">81</span><span class="sd">        Processor: 11th Gen Intel(R) Core(TM) i9-11980HK @ 2.60GHz</span>
+<span class="linenos">82</span><span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../parallel_index.html" class="btn btn-neutral float-left" title="Parallel RoadRunner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../roadrunner_map/roadrunner_map_index.html" class="btn btn-neutral float-right" title="Parallel RoadRunnerMap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2021, Andy Somogyi, J Kyle Medley, Kiri Choi, Ciaran Welsh, Lucian Smith, Herbert Sauro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

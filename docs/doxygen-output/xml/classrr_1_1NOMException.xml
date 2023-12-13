@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1NOMException" kind="class" language="C++" prot="public">
     <compoundname>rr::NOMException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+    <includes refid="rrException_8h" local="no">rrException.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1NOMException_1a680bd9cd194bac7b001ccc22a60d06e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::NOMException::NOMException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>NOMException</name>
-        <qualifiedname>rr::NOMException::NOMException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -20,19 +20,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="68" column="9" bodyfile="rrException.cpp" bodystart="33" bodyend="33"/>
+        <location file="rrException.h" line="84" column="9" bodyfile="rrException.cpp" bodystart="33" bodyend="33"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1Exception" kindref="compound">Exception</ref> class for scanners. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rr::Exception</label>
-        <link refid="classrr_1_1Exception"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
+      <node id="3">
+        <label>exception</label>
       </node>
       <node id="1">
         <label>rr::NOMException</label>
@@ -40,11 +38,26 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>std::exception</label>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
+      <node id="1">
+        <label>rr::NOMException</label>
+        <link refid="classrr_1_1NOMException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="2">
         <label>rr::Exception</label>
         <link refid="classrr_1_1Exception"/>
@@ -54,20 +67,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>rr::NOMException</label>
-        <link refid="classrr_1_1NOMException"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="65" column="1" bodyfile="rrException.h" bodystart="66" bodyend="69"/>
+    <location file="rrException.h" line="82" column="1" bodyfile="rrException.h" bodystart="81" bodyend="85"/>
     <listofallmembers>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::NOMException</scope><name>Exception</name></member>
       <member refid="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de" prot="public" virt="non-virtual"><scope>rr::NOMException</scope><name>getMessage</name></member>

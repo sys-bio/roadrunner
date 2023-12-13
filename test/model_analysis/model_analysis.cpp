@@ -1422,6 +1422,7 @@ TEST_F(ModelAnalysisTests, ResetManyParameters) {
 
 TEST_F(ModelAnalysisTests, ResetConservedCycles) {
     RoadRunner rr((modelAnalysisModelsDir / "conserved_cycle.xml").string());
+    rr.setConservedMoietyAnalysis(true);
     rr.steadyState();
     rr.setValue("_CSUM0", 1000);
     rr.reset();
@@ -1519,6 +1520,19 @@ TEST_F(ModelAnalysisTests, SimulateGillespieMaxRows) {
     delete rr;
 }
 
+TEST_F(ModelAnalysisTests, SimulateAndCheckTime) {
+    RoadRunner* rr = new RoadRunner((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
+    rr->simulate(0, 5, 10);
+    EXPECT_NEAR(rr->getValue("time"), 5.0, 0.00001);
+
+    rr->reset();
+    rr->setIntegrator("gillespie");
+    rr->simulate(0, 5, 10);
+    EXPECT_NEAR(rr->getValue("time"), 5.0, 0.001);
+
+    delete rr;
+}
+
 TEST_F(ModelAnalysisTests, SimulateGillespieZeroDuration) {
     RoadRunner *rr = new RoadRunner((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     rr->setIntegrator("gillespie");
@@ -1602,4 +1616,86 @@ TEST_F(ModelAnalysisTests, ResetAfterControlCalc) {
     double post = rr.getValue("S1");
 
     EXPECT_EQ(pre, post);
+}
+
+TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product) {
+    RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
+
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_EQ(rr.getValue("m"), 2);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 2);
+
+    // set and get with parameter
+    rr.setValue("m", 3);
+    EXPECT_EQ(rr.getValue("m"), 3);
+
+    // set and get with stoich(Species,Reaction)
+    rr.setValue("stoich(S2,_J0)", 4);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 4);
+
+    // set with parameter and get with stoich(Species,Reaction)
+    rr.setValue("m", 5);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 5);
+
+    // set with stoich(Species,Reaction) and get with parameter
+    rr.setValue("stoich(S2,_J0)", 6);
+    EXPECT_EQ(rr.getValue("m"), 6);
+}
+
+TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Conserved_Moiety_ON_And_Off) {
+    RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
+
+    rr.setConservedMoietyAnalysis(true);
+
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
+    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+
+    // set the stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
+    EXPECT_THROW(rr.setValue("stoich(S2,_J0)", 3), rrllvm::LLVMException);
+
+    rr.setConservedMoietyAnalysis(false);
+
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_EQ(rr.getValue("m"), 2);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 2);
+
+    // set and get with parameter
+    rr.setValue("m", 3);
+    EXPECT_EQ(rr.getValue("m"), 3);
+
+    // set and get with stoich(Species,Reaction)
+    rr.setValue("stoich(S2,_J0)", 4);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 4);
+
+    // set with parameter and get with stoich(Species,Reaction)
+    rr.setValue("m", 5);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 5);
+
+    // set with stoich(Species,Reaction) and get with parameter
+    rr.setValue("stoich(S2,_J0)", 6);
+    EXPECT_EQ(rr.getValue("m"), 6);
+
+    rr.setConservedMoietyAnalysis(true);
+
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
+    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+
+    // set the stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
+    EXPECT_THROW(rr.setValue("stoich(S2,_J0)", 3), rrllvm::LLVMException);
+}
+
+TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
+    RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
+
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.getValue("n"), rrllvm::LLVMException);
+    EXPECT_THROW(rr.getValue("stoich(S1,_J0)"), rrllvm::LLVMException);
+
+    // set the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
+    EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }

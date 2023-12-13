@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1ASTNodeCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::ASTNodeCodeGen</compoundname>
     <includes refid="ASTNodeCodeGen_8h" local="no">ASTNodeCodeGen.h</includes>
@@ -9,7 +9,6 @@
         <definition>llvm::IRBuilder&amp; rrllvm::ASTNodeCodeGen::builder</definition>
         <argsstring></argsstring>
         <name>builder</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::builder</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>LoadSymbolResolver&amp; rrllvm::ASTNodeCodeGen::resolver</definition>
         <argsstring></argsstring>
         <name>resolver</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::resolver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>const ModelGeneratorContext&amp; rrllvm::ASTNodeCodeGen::ctx</definition>
         <argsstring></argsstring>
         <name>ctx</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::ctx</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>llvm::Value* rrllvm::ASTNodeCodeGen::modelData</definition>
         <argsstring></argsstring>
         <name>modelData</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::modelData</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>bool rrllvm::ASTNodeCodeGen::scalar_mode_</definition>
         <argsstring></argsstring>
         <name>scalar_mode_</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::scalar_mode_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -77,21 +72,17 @@
       </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="classrrllvm_1_1ASTNodeCodeGen_1a69559ab4b8ff63c2ff123cc8f3f5593b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>class</type>
+        <type>friend class</type>
         <definition>friend class ASTNodeCodeGenScalarTicket</definition>
         <argsstring></argsstring>
         <name>ASTNodeCodeGenScalarTicket</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::ASTNodeCodeGenScalarTicket</qualifiedname>
-        <param>
-          <type><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref></type>
-        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ASTNodeCodeGen.h" line="132" column="18" bodyfile="llvm/ASTNodeCodeGen.h" bodystart="132" bodyend="-1"/>
+        <location file="llvm/ASTNodeCodeGen.h" line="132" column="5" bodyfile="llvm/ASTNodeCodeGen.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -100,7 +91,6 @@
         <definition>rrllvm::ASTNodeCodeGen::ASTNodeCodeGen</definition>
         <argsstring>(llvm::IRBuilder&lt;&gt; &amp;builder, LoadSymbolResolver &amp;resolver, const ModelGeneratorContext &amp;ctx, llvm::Value *modelData)</argsstring>
         <name>ASTNodeCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::ASTNodeCodeGen</qualifiedname>
         <param>
           <type>llvm::IRBuilder&lt;&gt; &amp;</type>
           <declname>builder</declname>
@@ -130,7 +120,6 @@
         <definition>rrllvm::ASTNodeCodeGen::~ASTNodeCodeGen</definition>
         <argsstring>()</argsstring>
         <name>~ASTNodeCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::~ASTNodeCodeGen</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -144,7 +133,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::codeGenDouble</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>codeGenDouble</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::codeGenDouble</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -162,7 +150,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::codeGenBoolean</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>codeGenBoolean</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::codeGenBoolean</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -182,7 +169,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::codeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>codeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::codeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -200,7 +186,6 @@
         <definition>Value * rrllvm::ASTNodeCodeGen::binaryExprCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>binaryExprCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::binaryExprCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -219,7 +204,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::notImplemented</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>notImplemented</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::notImplemented</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -237,7 +221,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::delayExprCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>delayExprCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::delayExprCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -255,7 +238,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::nameExprCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>nameExprCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::nameExprCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -273,7 +255,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::realExprCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>realExprCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::realExprCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -291,7 +272,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::distribCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>distribCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::distribCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -310,7 +290,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::integerCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>integerCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::integerCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -330,7 +309,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::applyArithmeticCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>applyArithmeticCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::applyArithmeticCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -349,7 +327,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::minmaxCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>minmaxCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::minmaxCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -367,7 +344,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::applyBinaryRelationalCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast, llvm::Value *left, llvm::Value *right)</argsstring>
         <name>applyBinaryRelationalCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::applyBinaryRelationalCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -393,7 +369,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::applyScalarRelationalCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>applyScalarRelationalCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::applyScalarRelationalCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -411,7 +386,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::applyRelationalCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>applyRelationalCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::applyRelationalCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -429,7 +403,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::applyLogicalCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>applyLogicalCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::applyLogicalCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -447,7 +420,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::functionCallCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>functionCallCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::functionCallCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -465,7 +437,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::intrinsicCallCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>intrinsicCallCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::intrinsicCallCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -483,7 +454,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::piecewiseCodeGen</definition>
         <argsstring>(const libsbml::ASTNode *ast)</argsstring>
         <name>piecewiseCodeGen</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::piecewiseCodeGen</qualifiedname>
         <param>
           <type>const libsbml::ASTNode *</type>
           <declname>ast</declname>
@@ -501,7 +471,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::toBoolean</definition>
         <argsstring>(llvm::Value *value)</argsstring>
         <name>toBoolean</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::toBoolean</qualifiedname>
         <param>
           <type>llvm::Value *</type>
           <declname>value</declname>
@@ -521,7 +490,6 @@
         <definition>llvm::Value * rrllvm::ASTNodeCodeGen::toDouble</definition>
         <argsstring>(llvm::Value *value)</argsstring>
         <name>toDouble</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::toDouble</qualifiedname>
         <param>
           <type>llvm::Value *</type>
           <declname>value</declname>
@@ -541,7 +509,6 @@
         <definition>llvm::Module * rrllvm::ASTNodeCodeGen::getModule</definition>
         <argsstring>()</argsstring>
         <name>getModule</name>
-        <qualifiedname>rrllvm::ASTNodeCodeGen::getModule</qualifiedname>
         <briefdescription>
 <para>get the module, only valid whilst a BasicBlock is being filled. </para>
         </briefdescription>
@@ -565,11 +532,11 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>All of the LLVM IR generation is handled here. </para>
     </briefdescription>
     <detaileddescription>
+<para>All of the LLVM IR generation is handled here. </para>
     </detaileddescription>
-    <location file="llvm/ASTNodeCodeGen.h" line="30" column="1" bodyfile="llvm/ASTNodeCodeGen.h" bodystart="31" bodyend="133"/>
+    <location file="llvm/ASTNodeCodeGen.h" line="31" column="1" bodyfile="llvm/ASTNodeCodeGen.h" bodystart="30" bodyend="133"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1ASTNodeCodeGen_1a681fc8799226d89d97104eae6996808f" prot="private" virt="non-virtual"><scope>rrllvm::ASTNodeCodeGen</scope><name>applyArithmeticCodeGen</name></member>
       <member refid="classrrllvm_1_1ASTNodeCodeGen_1a89ceff7379d990bbfc1656bbb757753a" prot="private" virt="non-virtual"><scope>rrllvm::ASTNodeCodeGen</scope><name>applyBinaryRelationalCodeGen</name></member>

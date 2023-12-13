@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="KinsolSteadyStateSolver_8h" kind="file" language="C++">
     <compoundname>KinsolSteadyStateSolver.h</compoundname>
     <includes local="no">nvector/nvector_serial.h</includes>
@@ -9,10 +9,38 @@
     <includes refid="rrExecutableModel_8h" local="yes">rrExecutableModel.h</includes>
     <includes refid="rrException_8h" local="yes">rrException.h</includes>
     <includes refid="KinsolErrHandler_8h" local="yes">KinsolErrHandler.h</includes>
+    <includedby refid="NewtonIteration_8h" local="yes">NewtonIteration.h</includedby>
     <includedby refid="FixedPointIteration_8h" local="yes">FixedPointIteration.h</includedby>
     <includedby refid="KinsolSteadyStateSolver_8cpp" local="yes">KinsolSteadyStateSolver.cpp</includedby>
-    <includedby refid="NewtonIteration_8h" local="yes">NewtonIteration.h</includedby>
     <incdepgraph>
+      <node id="35">
+        <label>list</label>
+      </node>
+      <node id="17">
+        <label>functional</label>
+      </node>
+      <node id="15">
+        <label>limits</label>
+      </node>
+      <node id="33">
+        <label>sbml/SBMLDocument.h</label>
+      </node>
+      <node id="37">
+        <label>KinsolErrHandler.h</label>
+        <link refid="KinsolErrHandler_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>stdint.h</label>
+      </node>
+      <node id="12">
+        <label>variant</label>
+      </node>
       <node id="10">
         <label>Dictionary.h</label>
         <link refid="Dictionary_8h_source"/>
@@ -27,33 +55,27 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="37">
-        <label>KinsolErrHandler.h</label>
-        <link refid="KinsolErrHandler_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
+      <node id="9">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>KinsolSteadyStateSolver.h</label>
-        <link refid="KinsolSteadyStateSolver_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
+      <node id="28">
+        <label>stdexcept</label>
+      </node>
+      <node id="19">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="22">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>sundials/sundials_types.h</label>
+      </node>
+      <node id="27">
+        <label>tr1proxy/rr_unordered_map.h</label>
       </node>
       <node id="25">
         <label>Registrable.h</label>
@@ -65,99 +87,11 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="29">
-        <label>RegistrationFactory.h</label>
-        <link refid="RegistrationFactory_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
+      <node id="21">
+        <label>exception</label>
       </node>
-      <node id="11">
-        <label>Setting.h</label>
-        <link refid="Setting_8h_source"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>Solver.h</label>
-        <link refid="Solver_8h"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>SteadyStateSolver.h</label>
-        <link refid="SteadyStateSolver_8h"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="20">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
+      <node id="36">
+        <label>ostream</label>
       </node>
       <node id="32">
         <label>rrExecutableModel.h</label>
@@ -185,6 +119,101 @@
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
       </node>
+      <node id="29">
+        <label>RegistrationFactory.h</label>
+        <link refid="RegistrationFactory_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>typeinfo</label>
+      </node>
+      <node id="20">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>SteadyStateSolver.h</label>
+        <link refid="SteadyStateSolver_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>vector</label>
+      </node>
+      <node id="7">
+        <label>sstream</label>
+      </node>
+      <node id="4">
+        <label>kinsol/kinsol.h</label>
+      </node>
+      <node id="11">
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>iostream</label>
+      </node>
+      <node id="23">
+        <label>unordered_map</label>
+      </node>
+      <node id="26">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
       <node id="6">
         <label>rrLogger.h</label>
         <link refid="rrLogger_8h_source"/>
@@ -193,96 +222,37 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
-        <label>setting_t.h</label>
-        <link refid="setting__t_8h_source"/>
-      </node>
-      <node id="21">
-        <label>exception</label>
-      </node>
-      <node id="17">
-        <label>functional</label>
-      </node>
-      <node id="13">
-        <label>iostream</label>
-      </node>
-      <node id="4">
-        <label>kinsol/kinsol.h</label>
-      </node>
-      <node id="15">
-        <label>limits</label>
-      </node>
-      <node id="35">
-        <label>list</label>
-      </node>
-      <node id="31">
-        <label>memory</label>
-      </node>
       <node id="30">
         <label>mutex</label>
+      </node>
+      <node id="24">
+        <label>Solver.h</label>
+        <link refid="Solver_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>nvector/nvector_serial.h</label>
       </node>
-      <node id="36">
-        <label>ostream</label>
-      </node>
-      <node id="33">
-        <label>sbml/SBMLDocument.h</label>
-      </node>
-      <node id="7">
-        <label>sstream</label>
-      </node>
-      <node id="28">
-        <label>stdexcept</label>
-      </node>
-      <node id="34">
-        <label>stdint.h</label>
-      </node>
-      <node id="22">
-        <label>string</label>
-      </node>
-      <node id="3">
-        <label>sundials/sundials_types.h</label>
-      </node>
-      <node id="26">
-        <label>tr1proxy/rr_memory.h</label>
-      </node>
-      <node id="27">
-        <label>tr1proxy/rr_unordered_map.h</label>
-      </node>
       <node id="16">
         <label>type_traits</label>
       </node>
-      <node id="18">
-        <label>typeinfo</label>
-      </node>
-      <node id="23">
-        <label>unordered_map</label>
-      </node>
-      <node id="12">
-        <label>variant</label>
-      </node>
-      <node id="14">
-        <label>vector</label>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="4">
-        <label>BasicNewtonIteration.h</label>
-        <link refid="BasicNewtonIteration_8h_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>FixedPointIteration.h</label>
-        <link refid="FixedPointIteration_8h_source"/>
+      <node id="31">
+        <label>memory</label>
       </node>
       <node id="1">
         <label>KinsolSteadyStateSolver.h</label>
@@ -291,24 +261,54 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
       </node>
-      <node id="6">
-        <label>LinesearchNewtonIteration.h</label>
-        <link refid="LinesearchNewtonIteration_8h_source"/>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>NewtonIteration.h</label>
+        <link refid="NewtonIteration_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
+      <node id="6">
+        <label>FixedPointIteration.h</label>
+        <link refid="FixedPointIteration_8h_source"/>
+      </node>
+      <node id="4">
+        <label>SteadyStateSolver.cpp</label>
+        <link refid="SteadyStateSolver_8cpp"/>
+      </node>
       <node id="3">
-        <label>NewtonIteration.h</label>
-        <link refid="NewtonIteration_8h_source"/>
+        <label>BasicNewtonIteration.h</label>
+        <link refid="BasicNewtonIteration_8h_source"/>
         <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
         </childnode>
       </node>
       <node id="5">
-        <label>SteadyStateSolver.cpp</label>
-        <link refid="SteadyStateSolver_8cpp"/>
+        <label>LinesearchNewtonIteration.h</label>
+        <link refid="LinesearchNewtonIteration_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>KinsolSteadyStateSolver.h</label>
+        <link refid="KinsolSteadyStateSolver_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classrr_1_1KinsolSteadyStateSolver" prot="public">rr::KinsolSteadyStateSolver</innerclass>
@@ -347,18 +347,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>the</parametername>
+<parametername>type</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>return type for</para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>fcn</parametername>
-</parameternamelist>
-<parameterdescription>
-<para></para>
+<para>the return type for fcn </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -394,14 +386,14 @@
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RoadRunner;</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KinsolCheckForNull(x,<sp/>fcn,<sp/>type)<sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#define<sp/>KinsolCheckForNull(x,<sp/>fcn,<sp/>type)<sp/>\</highlight></codeline>
 <codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>if<sp/>(x<sp/>==<sp/>nullptr){<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
 <codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostringstream<sp/>err_;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err_<sp/>&lt;&lt;<sp/>&quot;The<sp/>value<sp/>of<sp/>object<sp/>with<sp/>type:<sp/>\&quot;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>type<sp/>&lt;&lt;<sp/>&quot;\&quot;<sp/>&quot;<sp/>\</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;which<sp/>is<sp/>the<sp/>output<sp/>of<sp/>sundials<sp/>function<sp/>&quot;<sp/>&lt;&lt;<sp/>fcn<sp/>&lt;&lt;<sp/>&quot;<sp/>is<sp/>nullptr&quot;<sp/>&lt;&lt;<sp/>std::endl;\</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw<sp/><sp/>NullPointerException(err_.str());<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err_<sp/>&lt;&lt;<sp/>&quot;The<sp/>value<sp/>of<sp/>object<sp/>with<sp/>type:<sp/>\&quot;&quot;<sp/>&lt;&lt;<sp/>type<sp/>&lt;&lt;<sp/>&quot;\&quot;<sp/>&quot;<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;which<sp/>is<sp/>the<sp/>output<sp/>of<sp/>sundials<sp/>function<sp/>&quot;<sp/>&lt;&lt;<sp/>fcn<sp/>&lt;&lt;<sp/>&quot;<sp/>is<sp/>nullptr&quot;<sp/>&lt;&lt;<sp/>std::endl;\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw<sp/><sp/>NullPointerException(err_.str());<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44" refid="classrr_1_1KinsolSteadyStateSolver" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrr_1_1KinsolSteadyStateSolver" kindref="compound">KinsolSteadyStateSolver</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref><sp/>{</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
@@ -409,9 +401,9 @@
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" kindref="member">KinsolSteadyStateSolver</ref>(<ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*executableModel);</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59" refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" kindref="member">KinsolSteadyStateSolver</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" kindref="member">KinsolSteadyStateSolver</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64" refid="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" kindref="member">~KinsolSteadyStateSolver</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" kindref="member">~KinsolSteadyStateSolver</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d" kindref="member">syncWithModel</ref>(<ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*m)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
@@ -523,7 +515,7 @@
 <codeline lineno="299"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"></highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//ROADRUNNER_KINSOLSTEADYSTATESOLVER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_KINSOLSTEADYSTATESOLVER_H</highlight></codeline>
     </programlisting>
     <location file="KinsolSteadyStateSolver.h"/>
   </compounddef>

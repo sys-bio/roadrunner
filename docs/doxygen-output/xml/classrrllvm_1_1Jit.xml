@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1Jit" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rrllvm::Jit</compoundname>
     <derivedcompoundref refid="classrrllvm_1_1LLJit" prot="public" virt="non-virtual">rrllvm::LLJit</derivedcompoundref>
-    <derivedcompoundref refid="classrrllvm_1_1MCJit" prot="public" virt="non-virtual">rrllvm::MCJit</derivedcompoundref>
     <includes refid="Jit_8h" local="no">Jit.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1aa71f25762a7483cc342a3674881c44d1" prot="public" static="no" mutable="no">
@@ -11,23 +10,21 @@
         <definition>std::unique_ptr&lt;llvm::raw_svector_ostream&gt; rrllvm::Jit::compiledModuleBinaryStream</definition>
         <argsstring></argsstring>
         <name>compiledModuleBinaryStream</name>
-        <qualifiedname>rrllvm::Jit::compiledModuleBinaryStream</qualifiedname>
         <briefdescription>
-<para><ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> compiles the generated LLVM IR to this binary stream which is then used both for adding to the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> as a module and for saveState. </para>
+<para>MCJit compiles the generated LLVM IR to this binary stream which is then used both for adding to the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> as a module and for saveState. </para>
         </briefdescription>
         <detaileddescription>
-<para><ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> is the only <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> that uses this. (Its bad interface design but works at least.). <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> uses a caching mechanism which allows us to retrieve object files directly, foregoing the need for this variable. </para>
+<para>MCJit is the only <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> that uses this. (Its bad interface design but works at least.). <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> uses a caching mechanism which allows us to retrieve object files directly, foregoing the need for this variable. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="322" column="25" bodyfile="llvm/Jit.h" bodystart="322" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="339" column="25" bodyfile="llvm/Jit.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1a1487ca6247ee86b6dab2020d4659d064" prot="public" static="no" mutable="no">
         <type>llvm::SmallVector&lt; char, 10 &gt;</type>
         <definition>llvm::SmallVector&lt;char, 10&gt; rrllvm::Jit::moduleBuffer</definition>
         <argsstring></argsstring>
         <name>moduleBuffer</name>
-        <qualifiedname>rrllvm::Jit::moduleBuffer</qualifiedname>
         <briefdescription>
 <para>The buffer used by compiledModuleBinaryStream. </para>
         </briefdescription>
@@ -35,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="327" column="27" bodyfile="llvm/Jit.h" bodystart="327" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="344" column="27" bodyfile="llvm/Jit.h" bodystart="344" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -44,35 +41,32 @@
         <definition>std::unique_ptr&lt;llvm::LLVMContext&gt; rrllvm::Jit::context</definition>
         <argsstring></argsstring>
         <name>context</name>
-        <qualifiedname>rrllvm::Jit::context</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="347" column="25" bodyfile="llvm/Jit.h" bodystart="347" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="364" column="25" bodyfile="llvm/Jit.h" bodystart="364" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1a78943fba79d6b4aa5a3d2e19b60de8e7" prot="protected" static="no" mutable="no">
         <type>std::unique_ptr&lt; llvm::Module &gt;</type>
         <definition>std::unique_ptr&lt;llvm::Module&gt; rrllvm::Jit::module</definition>
         <argsstring></argsstring>
         <name>module</name>
-        <qualifiedname>rrllvm::Jit::module</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="348" column="25" bodyfile="llvm/Jit.h" bodystart="348" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="365" column="25" bodyfile="llvm/Jit.h" bodystart="365" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1a5bf6d8132e7cdc6fadd635d39ee3f0a3" prot="protected" static="no" mutable="no">
         <type>llvm::Module *</type>
         <definition>llvm::Module* rrllvm::Jit::moduleNonOwning</definition>
         <argsstring></argsstring>
         <name>moduleNonOwning</name>
-        <qualifiedname>rrllvm::Jit::moduleNonOwning</qualifiedname>
         <initializer>= nullptr</initializer>
         <briefdescription>
         </briefdescription>
@@ -80,35 +74,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="349" column="22" bodyfile="llvm/Jit.h" bodystart="349" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="366" column="22" bodyfile="llvm/Jit.h" bodystart="366" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1a130a9033f5e553542db7dccbbc91dbe2" prot="protected" static="no" mutable="no">
         <type>std::unique_ptr&lt; llvm::IRBuilder&lt;&gt; &gt;</type>
         <definition>std::unique_ptr&lt;llvm::IRBuilder&lt;&gt; &gt; rrllvm::Jit::builder</definition>
         <argsstring></argsstring>
         <name>builder</name>
-        <qualifiedname>rrllvm::Jit::builder</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="350" column="25" bodyfile="llvm/Jit.h" bodystart="350" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="367" column="25" bodyfile="llvm/Jit.h" bodystart="367" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1Jit_1a3cd9de39bf57162c328bdaca2b0edede" prot="protected" static="no" mutable="no">
         <type>std::uint32_t</type>
         <definition>std::uint32_t rrllvm::Jit::options</definition>
         <argsstring></argsstring>
         <name>options</name>
-        <qualifiedname>rrllvm::Jit::options</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="351" column="23" bodyfile="llvm/Jit.h" bodystart="351" bodyend="-1"/>
+        <location file="llvm/Jit.h" line="368" column="23" bodyfile="llvm/Jit.h" bodystart="368" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -117,7 +109,6 @@
         <definition>rrllvm::Jit::Jit</definition>
         <argsstring>(std::uint32_t options)</argsstring>
         <name>Jit</name>
-        <qualifiedname>rrllvm::Jit::Jit</qualifiedname>
         <param>
           <type>std::uint32_t</type>
           <declname>options</declname>
@@ -139,14 +130,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="144" column="18" bodyfile="llvm/Jit.cpp" bodystart="21" bodyend="52"/>
+        <location file="llvm/Jit.h" line="159" column="18" bodyfile="llvm/Jit.cpp" bodystart="36" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1ac9bfb0045cd3a21ecd4b48d7fb4683f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::Jit::Jit</definition>
         <argsstring>()</argsstring>
         <name>Jit</name>
-        <qualifiedname>rrllvm::Jit::Jit</qualifiedname>
         <briefdescription>
 <para>default constructor. </para>
         </briefdescription>
@@ -155,32 +145,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="152" column="9" bodyfile="llvm/Jit.cpp" bodystart="54" bodyend="55"/>
+        <location file="llvm/Jit.h" line="167" column="9" bodyfile="llvm/Jit.cpp" bodystart="69" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::mapFunctionsToJitSymbols</definition>
         <argsstring>()=0</argsstring>
         <name>mapFunctionsToJitSymbols</name>
-        <qualifiedname>rrllvm::Jit::mapFunctionsToJitSymbols</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a996945de22420bc5951594d75d80a591">mapFunctionsToJitSymbols</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a91eae38be659b79c86b536fd06da7a85">mapFunctionsToJitSymbols</reimplementedby>
         <briefdescription>
 <para>adds functions that are declared and defined in C++ to the jit engine. </para>
         </briefdescription>
         <detaileddescription>
-<para>unlike most functions that are created directly in the llvm IR language these functions are just C++ i.e. tan, arccsh, quotient. In <ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> (llvm 6) these were &quot;mapped&quot; to sbml support functions in addGlobalMappings. </para>
+<para>unlike most functions that are created directly in the llvm IR language these functions are just C++ i.e. tan, arccsh, quotient. In MCJit (llvm 6) these were &quot;mapped&quot; to sbml support functions in addGlobalMappings. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="160" column="22"/>
+        <location file="llvm/Jit.h" line="175" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a3b8ed0a6c863013898f33f7bb9be650d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
         <definition>virtual rrllvm::Jit::~Jit</definition>
         <argsstring>()=default</argsstring>
         <name>~Jit</name>
-        <qualifiedname>rrllvm::Jit::~Jit</qualifiedname>
         <briefdescription>
 <para>Add support for libsbml distrib functions. </para>
         </briefdescription>
@@ -190,16 +177,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="174" column="17"/>
+        <location file="llvm/Jit.h" line="189" column="17"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a71b51482a5d3ed6e773494138358e317" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>std::uint64_t</type>
         <definition>virtual std::uint64_t rrllvm::Jit::lookupFunctionAddress</definition>
         <argsstring>(const std::string &amp;name)=0</argsstring>
         <name>lookupFunctionAddress</name>
-        <qualifiedname>rrllvm::Jit::lookupFunctionAddress</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a7c19af88fe0dc1ad16bf809a78e4dec6">lookupFunctionAddress</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1ab595a7d72e4838dbbe2027130b4ecc3b">lookupFunctionAddress</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>name</declname>
@@ -210,16 +195,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="198" column="31"/>
+        <location file="llvm/Jit.h" line="213" column="31"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addObjectFile</definition>
         <argsstring>(rrOwningBinary owningObject)=0</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::Jit::addObjectFile</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1ad38295e9143c288d11c0313686b66d11">addObjectFile</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1ac9d5a99c6f5a888d3d403995873ec3a4">addObjectFile</reimplementedby>
         <param>
           <type>rrOwningBinary</type>
           <declname>owningObject</declname>
@@ -232,16 +215,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="205" column="22"/>
+        <location file="llvm/Jit.h" line="220" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a0914537453011b9acd33baabe5585453" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addObjectFile</definition>
         <argsstring>(std::unique_ptr&lt; llvm::object::ObjectFile &gt; objectFile)=0</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::Jit::addObjectFile</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1af6987a4dfe7045ab102c27d943e9dd00">addObjectFile</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a1a86ef74cd562bd951bd3570cd823097">addObjectFile</reimplementedby>
         <param>
           <type>std::unique_ptr&lt; llvm::object::ObjectFile &gt;</type>
           <declname>objectFile</declname>
@@ -253,16 +234,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="210" column="22"/>
+        <location file="llvm/Jit.h" line="225" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a33e40a54eb3ece2598f47e09c86b211e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addObjectFile</definition>
         <argsstring>(std::unique_ptr&lt; llvm::MemoryBuffer &gt; obj)=0</argsstring>
         <name>addObjectFile</name>
-        <qualifiedname>rrllvm::Jit::addObjectFile</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1ac6718157487c3ff6b8b7ab0bd8dc61cc">addObjectFile</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a54678279d720f8517a5c130a9c80e6f8">addObjectFile</reimplementedby>
         <param>
           <type>std::unique_ptr&lt; llvm::MemoryBuffer &gt;</type>
           <declname>obj</declname>
@@ -274,16 +253,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="215" column="22"/>
+        <location file="llvm/Jit.h" line="230" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1ad2784cc3b1431f2315d3c7b3b63759af" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addModule</definition>
         <argsstring>(llvm::Module *M)=0</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::Jit::addModule</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a3d4b7271b8af2f550a909c127b4ccf49">addModule</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a34a4ef86cfce934a493ed67fa8714dd3">addModule</reimplementedby>
         <param>
           <type>llvm::Module *</type>
           <declname>M</declname>
@@ -305,16 +282,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="220" column="22"/>
+        <location file="llvm/Jit.h" line="235" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1add4b53cfec0eff51d41dc19d733914cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addModule</definition>
         <argsstring>(std::unique_ptr&lt; llvm::Module &gt; M, std::unique_ptr&lt; llvm::LLVMContext &gt; ctx)=0</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::Jit::addModule</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a896e1f6a4c0087c1cfec2271c018cdfd">addModule</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a4bc8ec62262063d3a2ad50fe68ee10c7">addModule</reimplementedby>
         <param>
           <type>std::unique_ptr&lt; llvm::Module &gt;</type>
           <declname>M</declname>
@@ -348,16 +323,14 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="229" column="22"/>
+        <location file="llvm/Jit.h" line="244" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void rrllvm::Jit::addModule</definition>
         <argsstring>()=0</argsstring>
         <name>addModule</name>
-        <qualifiedname>rrllvm::Jit::addModule</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68">addModule</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1ac2d4943094676d1cae9d39fa52618b1f">addModule</reimplementedby>
         <briefdescription>
 <para>add the module and context which are member variables of the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> instance to the current <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> engine. </para>
         </briefdescription>
@@ -366,16 +339,14 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="238" column="22"/>
+        <location file="llvm/Jit.h" line="253" column="22"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1Jit_1aa12a437ad699812ffcb49839dbd74e4e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>const llvm::DataLayout &amp;</type>
-        <definition>virtual const llvm::DataLayout &amp; rrllvm::Jit::getDataLayout</definition>
+        <definition>virtual const llvm::DataLayout&amp; rrllvm::Jit::getDataLayout</definition>
         <argsstring>() const =0</argsstring>
         <name>getDataLayout</name>
-        <qualifiedname>rrllvm::Jit::getDataLayout</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1ab27afc739dd1466259b0b5168b3c89a2">getDataLayout</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a9a77adef72b42870b30e2c8fc0a6db58">getDataLayout</reimplementedby>
         <briefdescription>
 <para>get the DataLayout currently in use in the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> </para>
         </briefdescription>
@@ -383,16 +354,14 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="243" column="40"/>
+        <location file="llvm/Jit.h" line="258" column="40"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1Jit_1a38c60da63a6915853ee06bfc2de5e76c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>std::unique_ptr&lt; llvm::MemoryBuffer &gt;</type>
-        <definition>virtual std::unique_ptr&lt; llvm::MemoryBuffer &gt; rrllvm::Jit::getCompiledModelFromCache</definition>
+        <definition>virtual std::unique_ptr&lt;llvm::MemoryBuffer&gt; rrllvm::Jit::getCompiledModelFromCache</definition>
         <argsstring>(const std::string &amp;sbmlMD5)=0</argsstring>
         <name>getCompiledModelFromCache</name>
-        <qualifiedname>rrllvm::Jit::getCompiledModelFromCache</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1ae81a46694d77eba74473d015b42e01f7">getCompiledModelFromCache</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a9b07118c9077e486bb5393cd7c536fb7">getCompiledModelFromCache</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbmlMD5</declname>
@@ -416,36 +385,33 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="251" column="33"/>
+        <location file="llvm/Jit.h" line="266" column="33"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1ab4b10666cae29d7ee65d68f2e781b22f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::Jit::transferObjectsToResources</definition>
         <argsstring>(std::shared_ptr&lt; rrllvm::ModelResources &gt; modelResources)</argsstring>
         <name>transferObjectsToResources</name>
-        <qualifiedname>rrllvm::Jit::transferObjectsToResources</qualifiedname>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a11a02de74df8e811b98172f36a878cd7">transferObjectsToResources</reimplementedby>
         <param>
-          <type>std::shared_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">rrllvm::ModelResources</ref> &gt;</type>
+          <type>std::shared_ptr&lt; rrllvm::ModelResources &gt;</type>
           <declname>modelResources</declname>
         </param>
         <briefdescription>
-<para><emphasis>Moves</emphasis> objects over to <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> ptr </para>
+<para><emphasis>Moves</emphasis> objects over to ModelResources ptr </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="256" column="22" bodyfile="llvm/Jit.cpp" bodystart="80" bodyend="83"/>
+        <location file="llvm/Jit.h" line="271" column="22" bodyfile="llvm/Jit.cpp" bodystart="95" bodyend="98"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a126ca0f75646887926342ef4ee8ea034" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rrllvm::Jit::mapLLVMGeneratedFunctionsToSymbols</definition>
         <argsstring>(ModelResources *modelResources, std::uint32_t options)</argsstring>
         <name>mapLLVMGeneratedFunctionsToSymbols</name>
-        <qualifiedname>rrllvm::Jit::mapLLVMGeneratedFunctionsToSymbols</qualifiedname>
         <param>
-          <type><ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> *</type>
+          <type>ModelResources *</type>
           <declname>modelResources</declname>
         </param>
         <param>
@@ -453,7 +419,7 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
           <declname>options</declname>
         </param>
         <briefdescription>
-<para>Map the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref>&apos;d functions that collectively represent a roadrunner compiled sbml model to symbols in. </para>
+<para>Map the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref>&apos;d functions that collectively represent a roadrunner compiled sbml model to symbols in the ModelResources. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -461,6 +427,15 @@ the parameters M and cts are unique pointers and therefore must be moved, not co
 <parametername>modelResources</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>the ModelResources to which to map. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bitfield options to use.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -468,14 +443,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="264" column="22" bodyfile="llvm/Jit.cpp" bodystart="86" bodyend="188"/>
+        <location file="llvm/Jit.h" line="281" column="22" bodyfile="llvm/Jit.cpp" bodystart="101" bodyend="203"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a92e5c8af5539c0e790328d66ed325d26" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::Module *</type>
         <definition>llvm::Module * rrllvm::Jit::getModuleNonOwning</definition>
         <argsstring>()</argsstring>
         <name>getModuleNonOwning</name>
-        <qualifiedname>rrllvm::Jit::getModuleNonOwning</qualifiedname>
         <briefdescription>
 <para>returns a non owning pointer to the llvm::Module instance </para>
         </briefdescription>
@@ -483,14 +457,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="269" column="30" bodyfile="llvm/Jit.cpp" bodystart="57" bodyend="59"/>
+        <location file="llvm/Jit.h" line="286" column="30" bodyfile="llvm/Jit.cpp" bodystart="72" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a1e2112dbdce27e06228eb49e5c8a3f47" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::LLVMContext *</type>
         <definition>llvm::LLVMContext * rrllvm::Jit::getContextNonOwning</definition>
         <argsstring>()</argsstring>
         <name>getContextNonOwning</name>
-        <qualifiedname>rrllvm::Jit::getContextNonOwning</qualifiedname>
         <briefdescription>
 <para>returns a non owning pointer to the llvm::LLVMContext instance </para>
         </briefdescription>
@@ -498,14 +471,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="274" column="35" bodyfile="llvm/Jit.cpp" bodystart="61" bodyend="63"/>
+        <location file="llvm/Jit.h" line="291" column="35" bodyfile="llvm/Jit.cpp" bodystart="76" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1afb8cf53b3bde8eaa539b14cc685cb200" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>llvm::IRBuilder *</type>
         <definition>llvm::IRBuilder * rrllvm::Jit::getBuilderNonOwning</definition>
         <argsstring>()</argsstring>
         <name>getBuilderNonOwning</name>
-        <qualifiedname>rrllvm::Jit::getBuilderNonOwning</qualifiedname>
         <briefdescription>
 <para>returns a non owning pointer to the llvm::LLVMContext instance </para>
         </briefdescription>
@@ -513,14 +485,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="279" column="18" bodyfile="llvm/Jit.cpp" bodystart="76" bodyend="78"/>
+        <location file="llvm/Jit.h" line="296" column="18" bodyfile="llvm/Jit.cpp" bodystart="91" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1ab316cce1cd3f402e678fb3534da19b3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::Jit::emitToString</definition>
         <argsstring>()</argsstring>
         <name>emitToString</name>
-        <qualifiedname>rrllvm::Jit::emitToString</qualifiedname>
         <briefdescription>
 <para>Write the Jit::module in its current state to string as LLVM IR. </para>
         </briefdescription>
@@ -528,14 +499,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="285" column="29" bodyfile="llvm/Jit.cpp" bodystart="190" bodyend="196"/>
+        <location file="llvm/Jit.h" line="302" column="29" bodyfile="llvm/Jit.cpp" bodystart="205" bodyend="211"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1Jit_1a9e57b4ba546eb03eab6bc5e537da8d88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>llvm::raw_svector_ostream &amp;</type>
-        <definition>llvm::raw_svector_ostream &amp; rrllvm::Jit::getCompiledModuleStream</definition>
+        <definition>llvm::raw_svector_ostream&amp; rrllvm::Jit::getCompiledModuleStream</definition>
         <argsstring>()</argsstring>
         <name>getCompiledModuleStream</name>
-        <qualifiedname>rrllvm::Jit::getCompiledModuleStream</qualifiedname>
         <briefdescription>
 <para>get the stream that stores a compiled module as binary. </para>
         </briefdescription>
@@ -543,28 +513,26 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="290" column="35"/>
+        <location file="llvm/Jit.h" line="307" column="35"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a36e531717dce312189fd41dccf81140e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::Jit::getDefaultTargetTriple</definition>
         <argsstring>() const</argsstring>
         <name>getDefaultTargetTriple</name>
-        <qualifiedname>rrllvm::Jit::getDefaultTargetTriple</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="292" column="21" bodyfile="llvm/Jit.cpp" bodystart="301" bodyend="303"/>
+        <location file="llvm/Jit.h" line="309" column="21" bodyfile="llvm/Jit.cpp" bodystart="316" bodyend="318"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a2010d675d46f131db29d7b43b07454b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::Jit::setModuleIdentifier</definition>
         <argsstring>(const std::string &amp;id)</argsstring>
         <name>setModuleIdentifier</name>
-        <qualifiedname>rrllvm::Jit::setModuleIdentifier</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>id</declname>
@@ -575,16 +543,14 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="294" column="14" bodyfile="llvm/Jit.cpp" bodystart="65" bodyend="67"/>
+        <location file="llvm/Jit.h" line="311" column="14" bodyfile="llvm/Jit.cpp" bodystart="80" bodyend="82"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a3c1a1cf489bb7c8a965a2dfbfabddeec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rrllvm::Jit::mangleName</definition>
         <argsstring>(const std::string &amp;unmangledName) const</argsstring>
         <name>mangleName</name>
-        <qualifiedname>rrllvm::Jit::mangleName</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1a88bb307456fc1c38e25cb031e604c430">mangleName</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1a4aa0be70cb4c32f5cfdc2d48e19e53f5">mangleName</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>unmangledName</declname>
@@ -595,16 +561,14 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="296" column="29" bodyfile="llvm/Jit.cpp" bodystart="69" bodyend="74"/>
+        <location file="llvm/Jit.h" line="313" column="29" bodyfile="llvm/Jit.cpp" bodystart="84" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>std::string</type>
         <definition>virtual std::string rrllvm::Jit::getModuleAsString</definition>
         <argsstring>(std::string sbmlMD5)=0</argsstring>
         <name>getModuleAsString</name>
-        <qualifiedname>rrllvm::Jit::getModuleAsString</qualifiedname>
         <reimplementedby refid="classrrllvm_1_1LLJit_1ab7a58cc6be141daf6141498dace4f837">getModuleAsString</reimplementedby>
-        <reimplementedby refid="classrrllvm_1_1MCJit_1ac3b90702092cb6082b57ebea939b83ad">getModuleAsString</reimplementedby>
         <param>
           <type>std::string</type>
           <declname>sbmlMD5</declname>
@@ -614,12 +578,12 @@ this must be called after a the main roadrunner module has been added to the <re
         </briefdescription>
         <detaileddescription>
 <para>This must be called after the module is added to the jit engine. Throws if string is empty.</para>
-<para>This interface is moderate abuse of interface design <ndash/> the parameter sbmlMD5 is only required for the <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old <ref refid="classrrllvm_1_1MCJit" kindref="compound">MCJit</ref> class.</para>
+<para>This interface is moderate abuse of interface design <ndash/> the parameter sbmlMD5 is only required for the <ref refid="classrrllvm_1_1LLJit" kindref="compound">LLJit</ref> subclass, as it is used to query the object cache created by llvm. This is of course bad design but we are boxed by not being able to find a way to enable the same cache system with the old MCJit class.</para>
 <para>Regardless of the bad design, it works, so lets not spend any more time on it. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="312" column="29"/>
+        <location file="llvm/Jit.h" line="329" column="29"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -628,7 +592,6 @@ this must be called after a the main roadrunner module has been added to the <re
         <definition>std::string rrllvm::Jit::getProcessTriple</definition>
         <argsstring>() const</argsstring>
         <name>getProcessTriple</name>
-        <qualifiedname>rrllvm::Jit::getProcessTriple</qualifiedname>
         <briefdescription>
 <para><ref refid="classrrllvm_1_1Jit_1a7613abd146677cc3ee74bc9267ca5d1c" kindref="member">getProcessTriple()</ref> - Return an appropriate target triple for generating code to be loaded into the current process, e.g. </para>
         </briefdescription>
@@ -637,14 +600,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="333" column="21" bodyfile="llvm/Jit.cpp" bodystart="297" bodyend="299"/>
+        <location file="llvm/Jit.h" line="350" column="21" bodyfile="llvm/Jit.cpp" bodystart="312" bodyend="314"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1ae135808ab2a9ab0466cc1cc54715ad93" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const llvm::Target *</type>
         <definition>const llvm::Target * rrllvm::Jit::getDefaultTargetMachine</definition>
         <argsstring>() const</argsstring>
         <name>getDefaultTargetMachine</name>
-        <qualifiedname>rrllvm::Jit::getDefaultTargetMachine</qualifiedname>
         <briefdescription>
 <para>use llvm calls to work out which TargetMachine is currently being used. </para>
         </briefdescription>
@@ -652,14 +614,13 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="339" column="28" bodyfile="llvm/Jit.cpp" bodystart="306" bodyend="318"/>
+        <location file="llvm/Jit.h" line="356" column="28" bodyfile="llvm/Jit.cpp" bodystart="321" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1aa25373cc3dc5ac1bd2f7c162a4e044df" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>FnMap</type>
         <definition>FnMap rrllvm::Jit::externalFunctionSignatures</definition>
         <argsstring>() const</argsstring>
         <name>externalFunctionSignatures</name>
-        <qualifiedname>rrllvm::Jit::externalFunctionSignatures</qualifiedname>
         <briefdescription>
 <para>returns a mapping between function names and function signatures </para>
         </briefdescription>
@@ -667,7 +628,7 @@ this must be called after a the main roadrunner module has been added to the <re
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="344" column="15" bodyfile="llvm/Jit.cpp" bodystart="320" bodyend="395"/>
+        <location file="llvm/Jit.h" line="361" column="15" bodyfile="llvm/Jit.cpp" bodystart="335" bodyend="410"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -676,7 +637,6 @@ this must be called after a the main roadrunner module has been added to the <re
         <definition>void rrllvm::Jit::createCLibraryFunction</definition>
         <argsstring>(llvm::LibFunc funcId, llvm::FunctionType *funcType)</argsstring>
         <name>createCLibraryFunction</name>
-        <qualifiedname>rrllvm::Jit::createCLibraryFunction</qualifiedname>
         <param>
           <type>llvm::LibFunc</type>
           <declname>funcId</declname>
@@ -686,19 +646,25 @@ this must be called after a the main roadrunner module has been added to the <re
           <declname>funcType</declname>
         </param>
         <briefdescription>
+<para>Add a function from the standard C library to the IR Module. </para>
         </briefdescription>
         <detaileddescription>
+<para>An example declaration is: <programlisting><codeline><highlight class="normal">declare<sp/>double<sp/>pow(double,<sp/>double)</highlight></codeline>
+</programlisting></para>
+<para>the declaration is resolved with the standard C library. <programlisting><codeline><highlight class="normal">using<sp/>powFn<sp/>=<sp/>double<sp/>(*)(double<sp/>x,<sp/>double<sp/>y);</highlight></codeline>
+<codeline><highlight class="normal">powFn<sp/>pow<sp/>=<sp/>(powFn)<sp/>executionEngine-&gt;getPointerToNamedFunction(&quot;pow&quot;);</highlight></codeline>
+<codeline><highlight class="normal">std::cout<sp/>&lt;&lt;<sp/>pow(4,<sp/>2)<sp/>&lt;&lt;<sp/>std::endl;<sp/>//<sp/>outputs<sp/>16</highlight></codeline>
+</programlisting> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="369" column="14" bodyfile="llvm/Jit.cpp" bodystart="198" bodyend="215"/>
+        <location file="llvm/Jit.h" line="388" column="14" bodyfile="llvm/Jit.cpp" bodystart="213" bodyend="230"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1Jit_1a1cca34a72a03589116a08b4f2309299a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::Jit::createCLibraryFunctions</definition>
         <argsstring>()</argsstring>
         <name>createCLibraryFunctions</name>
-        <qualifiedname>rrllvm::Jit::createCLibraryFunctions</qualifiedname>
         <briefdescription>
 <para>Pull a collection of functions from the standard C library into the developing LLVM IR Module. </para>
         </briefdescription>
@@ -729,7 +695,7 @@ this must be called after a the main roadrunner module has been added to the <re
 <para>double tanh(double x);</para>
 <para>double fmod(double x, double y);</para>
         </inbodydescription>
-        <location file="llvm/Jit.h" line="380" column="14" bodyfile="llvm/Jit.cpp" bodystart="217" bodyend="291"/>
+        <location file="llvm/Jit.h" line="399" column="14" bodyfile="llvm/Jit.cpp" bodystart="232" bodyend="306"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -749,14 +715,8 @@ this must be called after a the main roadrunner module has been added to the <re
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>rrllvm::MCJit</label>
-        <link refid="classrrllvm_1_1MCJit"/>
-        <childnode refid="1" relation="public-inheritance">
-        </childnode>
-      </node>
     </inheritancegraph>
-    <location file="llvm/Jit.h" line="135" column="5" bodyfile="llvm/Jit.h" bodystart="135" bodyend="383"/>
+    <location file="llvm/Jit.h" line="150" column="14" bodyfile="llvm/Jit.h" bodystart="150" bodyend="402"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1Jit_1ad2784cc3b1431f2315d3c7b3b63759af" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>addModule</name></member>
       <member refid="classrrllvm_1_1Jit_1add4b53cfec0eff51d41dc19d733914cc" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>addModule</name></member>
@@ -772,10 +732,10 @@ this must be called after a the main roadrunner module has been added to the <re
       <member refid="classrrllvm_1_1Jit_1ab316cce1cd3f402e678fb3534da19b3d" prot="public" virt="virtual"><scope>rrllvm::Jit</scope><name>emitToString</name></member>
       <member refid="classrrllvm_1_1Jit_1aa25373cc3dc5ac1bd2f7c162a4e044df" prot="protected" virt="non-virtual"><scope>rrllvm::Jit</scope><name>externalFunctionSignatures</name></member>
       <member refid="classrrllvm_1_1Jit_1afb8cf53b3bde8eaa539b14cc685cb200" prot="public" virt="virtual"><scope>rrllvm::Jit</scope><name>getBuilderNonOwning</name></member>
-      <member refid="classrrllvm_1_1Jit_1a38c60da63a6915853ee06bfc2de5e76c" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>getCompiledModelFromCache</name></member>
-      <member refid="classrrllvm_1_1Jit_1a9e57b4ba546eb03eab6bc5e537da8d88" prot="public" virt="non-virtual"><scope>rrllvm::Jit</scope><name>getCompiledModuleStream</name></member>
+      <member refid="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>getCompiledModelFromCache</name></member>
+      <member refid="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" prot="public" virt="non-virtual"><scope>rrllvm::Jit</scope><name>getCompiledModuleStream</name></member>
       <member refid="classrrllvm_1_1Jit_1a1e2112dbdce27e06228eb49e5c8a3f47" prot="public" virt="virtual"><scope>rrllvm::Jit</scope><name>getContextNonOwning</name></member>
-      <member refid="classrrllvm_1_1Jit_1aa12a437ad699812ffcb49839dbd74e4e" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>getDataLayout</name></member>
+      <member refid="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>getDataLayout</name></member>
       <member refid="classrrllvm_1_1Jit_1ae135808ab2a9ab0466cc1cc54715ad93" prot="protected" virt="non-virtual"><scope>rrllvm::Jit</scope><name>getDefaultTargetMachine</name></member>
       <member refid="classrrllvm_1_1Jit_1a36e531717dce312189fd41dccf81140e" prot="public" virt="non-virtual"><scope>rrllvm::Jit</scope><name>getDefaultTargetTriple</name></member>
       <member refid="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140" prot="public" virt="pure-virtual"><scope>rrllvm::Jit</scope><name>getModuleAsString</name></member>

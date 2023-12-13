@@ -1,86 +1,110 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="rrc__exporter_8h" kind="file" language="C++">
     <compoundname>rrc_exporter.h</compoundname>
     <includes local="yes">stdbool.h</includes>
-    <includedby refid="rrArrayList_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrArrayList.h</includedby>
-    <includedby refid="rrArrayListItemBase_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrArrayListItemBase.h</includedby>
-    <includedby refid="rrcStringList_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrcStringList.h</includedby>
-    <includedby refid="rrc__api_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_api.h</includedby>
-    <includedby refid="rrc__cpp__support_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_cpp_support.h</includedby>
-    <includedby refid="rrc__libstruct__api_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_libstruct_api.h</includedby>
-    <includedby refid="rrc__logging__api_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_logging_api.h</includedby>
-    <includedby refid="rrc__nom__api_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_nom_api.h</includedby>
-    <includedby refid="rrc__utilities_8cpp" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_utilities.cpp</includedby>
-    <includedby refid="rrc__utilities_8h" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_utilities.h</includedby>
+    <includedby refid="rrcStringList_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrcStringList.h</includedby>
+    <includedby refid="rrArrayListItemBase_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayListItemBase.h</includedby>
+    <includedby refid="rrArrayList_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayList.h</includedby>
+    <includedby refid="rrc__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.h</includedby>
+    <includedby refid="rrc__utilities_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_utilities.h</includedby>
+    <includedby refid="rrc__logging__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_logging_api.h</includedby>
+    <includedby refid="rrc__nom__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_nom_api.h</includedby>
+    <includedby refid="rrc__libstruct__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_libstruct_api.h</includedby>
+    <includedby refid="rrc__cpp__support_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_cpp_support.h</includedby>
+    <includedby refid="rrc__utilities_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp</includedby>
     <incdepgraph>
+      <node id="2">
+        <label>stdbool.h</label>
+      </node>
       <node id="1">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h</label>
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_exporter.h</label>
         <link refid="rrc__exporter_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>stdbool.h</label>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrArrayList.h</label>
-        <link refid="rrArrayList_8h_source"/>
-        <childnode refid="3" relation="include">
+      <node id="12">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_libstruct_api.h</label>
+        <link refid="rrc__libstruct__api_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/vsts/work/1/s/wrappers/C/rrArrayListItem.h</label>
+        <link refid="rrArrayListItem_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="6">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrArrayListItem.h</label>
-        <link refid="rrArrayListItem_8h_source"/>
-        <childnode refid="2" relation="include">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
+      </node>
+      <node id="10">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_logging_api.h</label>
+        <link refid="rrc__logging__api_8h"/>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrArrayListItemBase.h</label>
-        <link refid="rrArrayListItemBase_8h_source"/>
+      <node id="8">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.h</label>
+        <link refid="rrc__api_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_nom_api.h</label>
+        <link refid="rrc__nom__api_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_utilities.h</label>
+        <link refid="rrc__utilities_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
       </node>
       <node id="7">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrcStringList.h</label>
-        <link refid="rrcStringList_8h_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
+        <label>/home/vsts/work/1/s/wrappers/C/rrArrayListItemBase.h</label>
+        <link refid="rrArrayListItemBase_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
-      </node>
-      <node id="8">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.h</label>
-        <link refid="rrc__api_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_cpp_support.h</label>
+      <node id="5">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_cpp_support.h</label>
         <link refid="rrc__cpp__support_8h"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h</label>
-        <link refid="rrc__exporter_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="2">
+        <label>/home/vsts/work/1/s/wrappers/C/rrcStringList.h</label>
+        <link refid="rrcStringList_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+      </node>
+      <node id="4">
+        <label>/home/vsts/work/1/s/wrappers/C/rrArrayList.h</label>
+        <link refid="rrArrayList_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_exporter.h</label>
+        <link refid="rrc__exporter_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -90,31 +114,7 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-      </node>
-      <node id="9">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_libstruct_api.h</label>
-        <link refid="rrc__libstruct__api_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_logging_api.h</label>
-        <link refid="rrc__logging__api_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_nom_api.h</label>
-        <link refid="rrc__nom__api_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_utilities.h</label>
-        <link refid="rrc__utilities_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h" line="57" column="14" bodyfile="D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h" bodystart="57" bodyend="-1"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_exporter.h" line="57" column="14" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_exporter.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="rrc__exporter_8h_1a9a4c6def28e1c787ccd5bb01469f08fb" prot="public" static="no">
         <name>rrcCallConv</name>
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h" line="67" column="14" bodyfile="D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h" bodystart="67" bodyend="-1"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_exporter.h" line="67" column="14" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_exporter.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -149,7 +149,8 @@
 &lt;-----------------------------------------------------------<mdash/> This file is part of cRoadRunner. See <ulink url="http://code.google.com/p/roadrunnerlib">http://code.google.com/p/roadrunnerlib</ulink> for more details.</para>
 <para>Copyright (C) 2012-2013 University of Washington, Seattle, WA, USA</para>
 <para>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at <verbatim>http://www.apache.org/licenses/LICENSE-2.0
-</verbatim> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
+</verbatim></para>
+<para>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
 <para>In plain english this means:</para>
 <para>You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;</para>
 <para>You CAN use the software in packages or distributions that you create.</para>
@@ -159,8 +160,8 @@
 <para>redistribute any piece of this software without proper attribution; </para>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>rrc_exporterH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1"></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>rrc_exporterH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>rrc_exporterH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//Export/Import<sp/>wrappers<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
@@ -191,8 +192,9 @@
 <codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(__cplusplus)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>!defined(_MSC_VER)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&quot;stdbool.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else<sp/><sp/><sp/></highlight><highlight class="comment">//VS<sp/>don&apos;t<sp/>have<sp/>stdbool.h</highlight></codeline>
-<codeline lineno="77"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typedef<sp/>int<sp/>bool;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else<sp/><sp/><sp/>//VS<sp/>don&apos;t<sp/>have<sp/>stdbool.h</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bool;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>false<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>true<sp/>1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
@@ -200,6 +202,6 @@
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_exporter.h"/>
+    <location file="/home/vsts/work/1/s/wrappers/C/rrc_exporter.h"/>
   </compounddef>
 </doxygen>

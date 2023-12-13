@@ -1,77 +1,73 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1EventQueue" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::EventQueue</compoundname>
+    <includes refid="EventQueue_8h" local="no">EventQueue.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classrrllvm_1_1EventQueue_1af956fd60f123a8927ba01486c2975aaa" prot="public" static="no">
         <type>std::list&lt; <ref refid="classrr_1_1Event" kindref="compound">rrllvm::Event</ref> &gt;</type>
         <definition>typedef std::list&lt;rrllvm::Event&gt; rrllvm::EventQueue::_Sequence</definition>
         <argsstring></argsstring>
         <name>_Sequence</name>
-        <qualifiedname>rrllvm::EventQueue::_Sequence</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="82" column="23" bodyfile="llvm/EventQueue.h" bodystart="82" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="88" column="27" bodyfile="llvm/EventQueue.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1EventQueue_1a3250b0bafd512a313894998fc88fc10e" prot="public" static="no">
         <type>std::less&lt; _Sequence::value_type &gt;</type>
         <definition>typedef std::less&lt;_Sequence::value_type&gt; rrllvm::EventQueue::_Compare</definition>
         <argsstring></argsstring>
         <name>_Compare</name>
-        <qualifiedname>rrllvm::EventQueue::_Compare</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="83" column="23" bodyfile="llvm/EventQueue.h" bodystart="83" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="89" column="27" bodyfile="llvm/EventQueue.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1EventQueue_1aca34836bb40fcd9dfbf11ddc7d91ffa9" prot="public" static="no">
         <type>_Sequence::const_iterator</type>
         <definition>typedef _Sequence::const_iterator rrllvm::EventQueue::const_iterator</definition>
         <argsstring></argsstring>
         <name>const_iterator</name>
-        <qualifiedname>rrllvm::EventQueue::const_iterator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="84" column="39" bodyfile="llvm/EventQueue.h" bodystart="84" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="90" column="43" bodyfile="llvm/EventQueue.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1EventQueue_1a871f1bdb96ef94fc30b8ab84546f98f5" prot="public" static="no">
         <type>_Sequence::iterator</type>
         <definition>typedef _Sequence::iterator rrllvm::EventQueue::iterator</definition>
         <argsstring></argsstring>
         <name>iterator</name>
-        <qualifiedname>rrllvm::EventQueue::iterator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="85" column="33" bodyfile="llvm/EventQueue.h" bodystart="85" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="91" column="37" bodyfile="llvm/EventQueue.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1EventQueue_1a65478c55d7526355828df40d751bb706" prot="public" static="no">
         <type>_Sequence::const_reference</type>
         <definition>typedef _Sequence::const_reference rrllvm::EventQueue::const_reference</definition>
         <argsstring></argsstring>
         <name>const_reference</name>
-        <qualifiedname>rrllvm::EventQueue::const_reference</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="86" column="40" bodyfile="llvm/EventQueue.h" bodystart="86" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="92" column="44" bodyfile="llvm/EventQueue.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -80,7 +76,6 @@
         <definition>_Sequence rrllvm::EventQueue::sequence</definition>
         <argsstring></argsstring>
         <name>sequence</name>
-        <qualifiedname>rrllvm::EventQueue::sequence</qualifiedname>
         <briefdescription>
 <para>the data structure that holds the collection of events. </para>
         </briefdescription>
@@ -89,21 +84,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="147" column="16" bodyfile="llvm/EventQueue.h" bodystart="147" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="153" column="20" bodyfile="llvm/EventQueue.h" bodystart="153" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1EventQueue_1a7ab87bc5ab57d1867d83680fe943fc87" prot="private" static="no" mutable="no">
         <type>_Compare</type>
         <definition>_Compare rrllvm::EventQueue::comp</definition>
         <argsstring></argsstring>
         <name>comp</name>
-        <qualifiedname>rrllvm::EventQueue::comp</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="148" column="16" bodyfile="llvm/EventQueue.h" bodystart="148" bodyend="-1"/>
+        <location file="llvm/EventQueue.h" line="154" column="20" bodyfile="llvm/EventQueue.h" bodystart="154" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -112,7 +106,6 @@
         <definition>bool rrllvm::EventQueue::eraseExpiredEvents</definition>
         <argsstring>()</argsstring>
         <name>eraseExpiredEvents</name>
-        <qualifiedname>rrllvm::EventQueue::eraseExpiredEvents</qualifiedname>
         <briefdescription>
 <para>remove expired events from the queue. </para>
         </briefdescription>
@@ -120,14 +113,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="91" column="10" bodyfile="llvm/EventQueue.cpp" bodystart="182" bodyend="200"/>
+        <location file="llvm/EventQueue.h" line="97" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="186" bodyend="204"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1a274f786186af2ad05569802de810a120" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rrllvm::EventQueue::hasCurrentEvents</definition>
         <argsstring>()</argsstring>
         <name>hasCurrentEvents</name>
-        <qualifiedname>rrllvm::EventQueue::hasCurrentEvents</qualifiedname>
         <briefdescription>
 <para>are any events current (delay == 0 and triggered or persistant) </para>
         </briefdescription>
@@ -135,14 +127,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="96" column="10" bodyfile="llvm/EventQueue.cpp" bodystart="202" bodyend="205"/>
+        <location file="llvm/EventQueue.h" line="102" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="206" bodyend="209"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1aba1c38087a2d466d482c5d9f6a01ca01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rrllvm::EventQueue::applyEvents</definition>
         <argsstring>()</argsstring>
         <name>applyEvents</name>
-        <qualifiedname>rrllvm::EventQueue::applyEvents</qualifiedname>
         <briefdescription>
 <para>assign all of the top most events with the same priority and remove them from the queue. </para>
         </briefdescription>
@@ -153,14 +144,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="104" column="10" bodyfile="llvm/EventQueue.cpp" bodystart="209" bodyend="265"/>
+        <location file="llvm/EventQueue.h" line="110" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="213" bodyend="269"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1a639037276939cc81ad348fcc71ee1738" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>uint</type>
         <definition>uint rrllvm::EventQueue::size</definition>
         <argsstring>() const</argsstring>
         <name>size</name>
-        <qualifiedname>rrllvm::EventQueue::size</qualifiedname>
         <briefdescription>
 <para>number of events in the queue </para>
         </briefdescription>
@@ -168,14 +158,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="109" column="10" bodyfile="llvm/EventQueue.cpp" bodystart="267" bodyend="270"/>
+        <location file="llvm/EventQueue.h" line="115" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="271" bodyend="274"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1a67e5ac59c13761bc1e27dcb8a34bd2b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const_reference</type>
         <definition>EventQueue::const_reference rrllvm::EventQueue::top</definition>
         <argsstring>()</argsstring>
         <name>top</name>
-        <qualifiedname>rrllvm::EventQueue::top</qualifiedname>
         <briefdescription>
 <para>event with lowest time to assignment and highest priority. </para>
         </briefdescription>
@@ -183,14 +172,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="114" column="21" bodyfile="llvm/EventQueue.cpp" bodystart="277" bodyend="281"/>
+        <location file="llvm/EventQueue.h" line="120" column="25" bodyfile="llvm/EventQueue.cpp" bodystart="281" bodyend="285"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1a3b2a8094722201ba8afdb49924790dea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::EventQueue::push</definition>
         <argsstring>(const Event &amp;e)</argsstring>
         <name>push</name>
-        <qualifiedname>rrllvm::EventQueue::push</qualifiedname>
         <param>
           <type>const <ref refid="classrr_1_1Event" kindref="compound">Event</ref> &amp;</type>
           <declname>e</declname>
@@ -203,14 +191,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="121" column="10" bodyfile="llvm/EventQueue.cpp" bodystart="272" bodyend="275"/>
+        <location file="llvm/EventQueue.h" line="127" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="276" bodyend="279"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1ae48e013f7f46e5affcb6d23ab5e9b261" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
         <definition>double rrllvm::EventQueue::getNextPendingEventTime</definition>
         <argsstring>()</argsstring>
         <name>getNextPendingEventTime</name>
-        <qualifiedname>rrllvm::EventQueue::getNextPendingEventTime</qualifiedname>
         <briefdescription>
 <para>the time the next event is sceduled to be assigned. </para>
         </briefdescription>
@@ -218,14 +205,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="126" column="12" bodyfile="llvm/EventQueue.cpp" bodystart="283" bodyend="293"/>
+        <location file="llvm/EventQueue.h" line="132" column="16" bodyfile="llvm/EventQueue.cpp" bodystart="287" bodyend="297"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1aaf915d38184861eaae2c7401f0bac298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::EventQueue::saveState</definition>
         <argsstring>(std::ostream &amp;out)</argsstring>
         <name>saveState</name>
-        <qualifiedname>rrllvm::EventQueue::saveState</qualifiedname>
         <param>
           <type>std::ostream &amp;</type>
           <declname>out</declname>
@@ -236,14 +222,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="131" column="6" bodyfile="llvm/EventQueue.cpp" bodystart="295" bodyend="306"/>
+        <location file="llvm/EventQueue.h" line="137" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="299" bodyend="310"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EventQueue_1a0ae274da53a26ae056663c3937761ce9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::EventQueue::loadState</definition>
         <argsstring>(std::istream &amp;in, LLVMExecutableModel &amp;model)</argsstring>
         <name>loadState</name>
-        <qualifiedname>rrllvm::EventQueue::loadState</qualifiedname>
         <param>
           <type>std::istream &amp;</type>
           <declname>in</declname>
@@ -258,16 +243,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="136" column="6" bodyfile="llvm/EventQueue.cpp" bodystart="308" bodyend="323"/>
+        <location file="llvm/EventQueue.h" line="142" column="14" bodyfile="llvm/EventQueue.cpp" bodystart="312" bodyend="327"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
-      <memberdef kind="friend" id="classrrllvm_1_1EventQueue_1a4b33aa69cd6bd97bb0e2b1e8042edaa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::ostream &amp;</type>
-        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+      <memberdef kind="friend" id="classrrllvm_1_1EventQueue_1a843845d2c309fb550991f2548ddc8703" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
         <argsstring>(std::ostream &amp;stream, const EventQueue &amp;queue)</argsstring>
         <name>operator&lt;&lt;</name>
-        <qualifiedname>rrllvm::EventQueue::operator&lt;&lt;</qualifiedname>
         <param>
           <type>std::ostream &amp;</type>
           <declname>stream</declname>
@@ -282,14 +266,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EventQueue.h" line="138" column="12" bodyfile="llvm/EventQueue.cpp" bodystart="325" bodyend="336"/>
+        <location file="llvm/EventQueue.h" line="144" column="16" bodyfile="llvm/EventQueue.cpp" bodystart="329" bodyend="340"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>The <ref refid="classrrllvm_1_1EventQueue" kindref="compound">EventQueue</ref> class is when events are queued to execute, but have not yet executed. Some events may be &apos;de-listed&apos; from the <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref> Queue if thier trigger changes back to &apos;false&apos;, if they are set persistent=False. </para>
     </detaileddescription>
-    <location file="llvm/EventQueue.h" line="79" column="1" bodyfile="llvm/EventQueue.h" bodystart="80" bodyend="149"/>
+    <location file="llvm/EventQueue.h" line="86" column="1" bodyfile="llvm/EventQueue.h" bodystart="85" bodyend="155"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1EventQueue_1a3250b0bafd512a313894998fc88fc10e" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>_Compare</name></member>
       <member refid="classrrllvm_1_1EventQueue_1af956fd60f123a8927ba01486c2975aaa" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>_Sequence</name></member>
@@ -302,7 +287,7 @@
       <member refid="classrrllvm_1_1EventQueue_1a274f786186af2ad05569802de810a120" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>hasCurrentEvents</name></member>
       <member refid="classrrllvm_1_1EventQueue_1a871f1bdb96ef94fc30b8ab84546f98f5" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>iterator</name></member>
       <member refid="classrrllvm_1_1EventQueue_1a0ae274da53a26ae056663c3937761ce9" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>loadState</name></member>
-      <member refid="classrrllvm_1_1EventQueue_1a4b33aa69cd6bd97bb0e2b1e8042edaa0" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrrllvm_1_1EventQueue_1a843845d2c309fb550991f2548ddc8703" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>operator&lt;&lt;</name></member>
       <member refid="classrrllvm_1_1EventQueue_1a3b2a8094722201ba8afdb49924790dea" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>push</name></member>
       <member refid="classrrllvm_1_1EventQueue_1aaf915d38184861eaae2c7401f0bac298" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>saveState</name></member>
       <member refid="classrrllvm_1_1EventQueue_1a5f40e76b5c67cc5ea329d91b02275e38" prot="private" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>sequence</name></member>

@@ -562,37 +562,6 @@ TEST_F(StateSavingTests, SaveThenLoadTwice) {
     }));
 }
 
-/**
- * Test disabled because how can you load a model that has not been saved yet?
- * In previous roadrunner versions, the fname parameter was a string "save-state-test.rr".
- * But I have no idea where this file is -- where is it being loaded from? I suspect it
- * was written to some location like home on the first test the first time the suite is run.
- * Subsequently it would load the same state. Clearly this is bad as tests should be
- * independent.
- *
- * todo delete tests that start with a loadState, they do not make sense.
- */
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_3) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_4) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_5) {
-    ASSERT_TRUE(RunStateSavingTest(1, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }));
-}
-
 TEST_F(StateSavingTests, SaveThenLoadWithADifferentModel) {
     ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
         rri->saveState(fname);
@@ -603,27 +572,6 @@ TEST_F(StateSavingTests, SaveThenLoadWithADifferentModel) {
 TEST_F(StateSavingTests, SaveThenLoadWithADiffentModelTwice) {
     ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
         rri->saveState(fname);
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_8) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_9) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_10) {
-    ASSERT_TRUE(RunStateSavingTest(1121, [](RoadRunner *rri, std::string fname) {
         rri->loadState(fname);
         rri->saveState(fname);
         rri->loadState(fname);
@@ -658,27 +606,6 @@ TEST_F(StateSavingTests, SaveThenLoadCase1120) {
 TEST_F(StateSavingTests, SaveThenLoadTwiceCase1120) {
     ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
         rri->saveState(fname);
-        rri->loadState(fname);
-        rri->saveState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_15) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_16) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
-        rri->loadState(fname);
-        rri->loadState(fname);
-    }, "l3v1"));
-}
-
-TEST_F(StateSavingTests, DISABLED_SAVE_STATE_17) {
-    ASSERT_TRUE(RunStateSavingTest(1120, [](RoadRunner *rri, std::string fname) {
         rri->loadState(fname);
         rri->saveState(fname);
         rri->loadState(fname);

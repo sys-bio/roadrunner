@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CModelGenerator" kind="class" language="C++" prot="public">
     <compoundname>rr::CModelGenerator</compoundname>
     <basecompoundref refid="classrr_1_1CompiledModelGenerator" prot="public" virt="non-virtual">rr::CompiledModelGenerator</basecompoundref>
@@ -10,7 +10,6 @@
         <definition>CodeBuilder rr::CModelGenerator::mHeader</definition>
         <argsstring></argsstring>
         <name>mHeader</name>
-        <qualifiedname>rr::CModelGenerator::mHeader</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -24,7 +23,6 @@
         <definition>CodeBuilder rr::CModelGenerator::mSource</definition>
         <argsstring></argsstring>
         <name>mSource</name>
-        <qualifiedname>rr::CModelGenerator::mSource</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -38,7 +36,6 @@
         <definition>std::string rr::CModelGenerator::mHeaderCodeFileName</definition>
         <argsstring></argsstring>
         <name>mHeaderCodeFileName</name>
-        <qualifiedname>rr::CModelGenerator::mHeaderCodeFileName</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -52,7 +49,6 @@
         <definition>std::string rr::CModelGenerator::mSourceCodeFileName</definition>
         <argsstring></argsstring>
         <name>mSourceCodeFileName</name>
-        <qualifiedname>rr::CModelGenerator::mSourceCodeFileName</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -66,7 +62,6 @@
         <definition>std::string rr::CModelGenerator::mCurrentSBML</definition>
         <argsstring></argsstring>
         <name>mCurrentSBML</name>
-        <qualifiedname>rr::CModelGenerator::mCurrentSBML</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -80,7 +75,6 @@
         <definition>ModelSharedLibrary* rr::CModelGenerator::mModelLib</definition>
         <argsstring></argsstring>
         <name>mModelLib</name>
-        <qualifiedname>rr::CModelGenerator::mModelLib</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -94,7 +88,6 @@
         <definition>CCompiler rr::CModelGenerator::mCompiler</definition>
         <argsstring></argsstring>
         <name>mCompiler</name>
-        <qualifiedname>rr::CModelGenerator::mCompiler</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -108,7 +101,6 @@
         <definition>std::string rr::CModelGenerator::mTempFileFolder</definition>
         <argsstring></argsstring>
         <name>mTempFileFolder</name>
-        <qualifiedname>rr::CModelGenerator::mTempFileFolder</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -124,7 +116,6 @@
         <definition>Mutex rr::CModelGenerator::mCompileMutex</definition>
         <argsstring></argsstring>
         <name>mCompileMutex</name>
-        <qualifiedname>rr::CModelGenerator::mCompileMutex</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -140,7 +131,6 @@
         <definition>rr::CModelGenerator::CModelGenerator</definition>
         <argsstring>(const std::string &amp;tempFolder, const std::string &amp;supportCodeFolder, const std::string &amp;compiler)</argsstring>
         <name>CModelGenerator</name>
-        <qualifiedname>rr::CModelGenerator::CModelGenerator</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>tempFolder</declname>
@@ -166,7 +156,6 @@
         <definition>rr::CModelGenerator::~CModelGenerator</definition>
         <argsstring>()</argsstring>
         <name>~CModelGenerator</name>
-        <qualifiedname>rr::CModelGenerator::~CModelGenerator</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -180,7 +169,6 @@
         <definition>ExecutableModel * rr::CModelGenerator::createModel</definition>
         <argsstring>(const std::string &amp;sbml, uint options)</argsstring>
         <name>createModel</name>
-        <qualifiedname>rr::CModelGenerator::createModel</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbml</declname>
@@ -202,7 +190,6 @@
         <definition>bool rr::CModelGenerator::setTemporaryDirectory</definition>
         <argsstring>(const std::string &amp;path)</argsstring>
         <name>setTemporaryDirectory</name>
-        <qualifiedname>rr::CModelGenerator::setTemporaryDirectory</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>path</declname>
@@ -220,7 +207,6 @@
         <definition>std::string rr::CModelGenerator::getTemporaryDirectory</definition>
         <argsstring>()</argsstring>
         <name>getTemporaryDirectory</name>
-        <qualifiedname>rr::CModelGenerator::getTemporaryDirectory</qualifiedname>
         <briefdescription>
 <para>Get the location where this model generator creates source file and shared libraries. </para>
         </briefdescription>
@@ -235,7 +221,6 @@
         <definition>Compiler * rr::CModelGenerator::getCompiler</definition>
         <argsstring>()</argsstring>
         <name>getCompiler</name>
-        <qualifiedname>rr::CModelGenerator::getCompiler</qualifiedname>
         <briefdescription>
 <para>Get the compiler object that the model generator is using to &apos;compile&apos; sbml. </para>
         </briefdescription>
@@ -250,7 +235,6 @@
         <definition>bool rr::CModelGenerator::setCompiler</definition>
         <argsstring>(const std::string &amp;compiler)</argsstring>
         <name>setCompiler</name>
-        <qualifiedname>rr::CModelGenerator::setCompiler</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>compiler</declname>
@@ -270,7 +254,6 @@
         <definition>std::string rr::CModelGenerator::getHeaderCode</definition>
         <argsstring>()</argsstring>
         <name>getHeaderCode</name>
-        <qualifiedname>rr::CModelGenerator::getHeaderCode</qualifiedname>
         <briefdescription>
 <para>These are access in the c_api, should they be??? TODO: fix this. </para>
         </briefdescription>
@@ -285,7 +268,6 @@
         <definition>std::string rr::CModelGenerator::getSourceCode</definition>
         <argsstring>()</argsstring>
         <name>getSourceCode</name>
-        <qualifiedname>rr::CModelGenerator::getSourceCode</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -299,7 +281,6 @@
         <definition>std::string rr::CModelGenerator::getSourceCodeFileName</definition>
         <argsstring>()</argsstring>
         <name>getSourceCodeFileName</name>
-        <qualifiedname>rr::CModelGenerator::getSourceCodeFileName</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -310,12 +291,11 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
-      <memberdef kind="function" id="classrr_1_1CModelGenerator_1a6c71a1d3885d762e426b67ca32f66b7f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CModelGenerator_1a89b19662e8b09b6da1eaf3fea69727ce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
-        <definition>ExecutableModel * rr::CModelGenerator::createModel</definition>
+        <definition>ExecutableModel* rr::CModelGenerator::createModel</definition>
         <argsstring>(const std::string &amp;sbml, ls::LibStructural *ls, bool forceReCompile, bool computeAndAssignConsevationLaws)</argsstring>
         <name>createModel</name>
-        <qualifiedname>rr::CModelGenerator::createModel</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbml</declname>
@@ -347,7 +327,6 @@
         <definition>bool rr::CModelGenerator::generateModelCode</definition>
         <argsstring>(const std::string &amp;sbml, const std::string &amp;modelName, bool computeAndAssignConsevationLaws)</argsstring>
         <name>generateModelCode</name>
-        <qualifiedname>rr::CModelGenerator::generateModelCode</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbml</declname>
@@ -373,7 +352,6 @@
         <definition>bool rr::CModelGenerator::compileModel</definition>
         <argsstring>()</argsstring>
         <name>compileModel</name>
-        <qualifiedname>rr::CModelGenerator::compileModel</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -387,7 +365,6 @@
         <definition>bool rr::CModelGenerator::compileCurrentModel</definition>
         <argsstring>()</argsstring>
         <name>compileCurrentModel</name>
-        <qualifiedname>rr::CModelGenerator::compileCurrentModel</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -401,7 +378,6 @@
         <definition>std::string rr::CModelGenerator::getHeaderCodeFileName</definition>
         <argsstring>()</argsstring>
         <name>getHeaderCodeFileName</name>
-        <qualifiedname>rr::CModelGenerator::getHeaderCodeFileName</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -415,7 +391,6 @@
         <definition>bool rr::CModelGenerator::saveSourceCodeToFolder</definition>
         <argsstring>(const std::string &amp;folder, const std::string &amp;baseName)</argsstring>
         <name>saveSourceCodeToFolder</name>
-        <qualifiedname>rr::CModelGenerator::saveSourceCodeToFolder</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>folder</declname>
@@ -437,7 +412,6 @@
         <definition>int rr::CModelGenerator::getNumberOfFloatingSpecies</definition>
         <argsstring>()</argsstring>
         <name>getNumberOfFloatingSpecies</name>
-        <qualifiedname>rr::CModelGenerator::getNumberOfFloatingSpecies</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -451,7 +425,6 @@
         <definition>std::string rr::CModelGenerator::convertUserFunctionExpression</definition>
         <argsstring>(const std::string &amp;equation)</argsstring>
         <name>convertUserFunctionExpression</name>
-        <qualifiedname>rr::CModelGenerator::convertUserFunctionExpression</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1abe38da96f31ee9d3594f1e32916f4160">convertUserFunctionExpression</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -470,7 +443,6 @@
         <definition>std::string rr::CModelGenerator::convertCompartmentToC</definition>
         <argsstring>(const std::string &amp;compartmentName)</argsstring>
         <name>convertCompartmentToC</name>
-        <qualifiedname>rr::CModelGenerator::convertCompartmentToC</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a5bafcb3155807f633d448f0c134d1442">convertCompartmentToC</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -489,7 +461,6 @@
         <definition>std::string rr::CModelGenerator::convertSpeciesToBc</definition>
         <argsstring>(const std::string &amp;speciesName)</argsstring>
         <name>convertSpeciesToBc</name>
-        <qualifiedname>rr::CModelGenerator::convertSpeciesToBc</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a42b08d9482dfb052f77a73f16e8c91d6">convertSpeciesToBc</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -508,7 +479,6 @@
         <definition>std::string rr::CModelGenerator::convertSpeciesToY</definition>
         <argsstring>(const std::string &amp;speciesName)</argsstring>
         <name>convertSpeciesToY</name>
-        <qualifiedname>rr::CModelGenerator::convertSpeciesToY</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a619f06b6e5c8be37221f27e688e6c20d">convertSpeciesToY</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -527,7 +497,6 @@
         <definition>std::string rr::CModelGenerator::convertSymbolToC</definition>
         <argsstring>(const std::string &amp;compartmentName)</argsstring>
         <name>convertSymbolToC</name>
-        <qualifiedname>rr::CModelGenerator::convertSymbolToC</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a008143f8321b0b0e2228b34e60a1e142">convertSymbolToC</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -547,7 +516,6 @@
         <definition>std::string rr::CModelGenerator::convertSymbolToGP</definition>
         <argsstring>(const std::string &amp;parameterName)</argsstring>
         <name>convertSymbolToGP</name>
-        <qualifiedname>rr::CModelGenerator::convertSymbolToGP</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1ace3ad2cd8e7df05057559b2ef6f5f8d0">convertSymbolToGP</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -566,7 +534,6 @@
         <definition>void rr::CModelGenerator::substituteEquation</definition>
         <argsstring>(const std::string &amp;reactionName, Scanner &amp;s, CodeBuilder &amp;sb)</argsstring>
         <name>substituteEquation</name>
-        <qualifiedname>rr::CModelGenerator::substituteEquation</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a556dd4d189a8a39680ccf2e20d2566b5">substituteEquation</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -593,7 +560,6 @@
         <definition>void rr::CModelGenerator::substituteWords</definition>
         <argsstring>(const std::string &amp;reactionName, bool bFixAmounts, Scanner &amp;s, CodeBuilder &amp;sb)</argsstring>
         <name>substituteWords</name>
-        <qualifiedname>rr::CModelGenerator::substituteWords</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a0d0dc6ac5e8bf9acc1e72ca390e85bcc">substituteWords</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -624,7 +590,6 @@
         <definition>void rr::CModelGenerator::substituteToken</definition>
         <argsstring>(const std::string &amp;reactionName, bool bFixAmounts, Scanner &amp;s, CodeBuilder &amp;sb)</argsstring>
         <name>substituteToken</name>
-        <qualifiedname>rr::CModelGenerator::substituteToken</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a4fbe7cb976783a65780066224a906caf">substituteToken</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -655,7 +620,6 @@
         <definition>std::string rr::CModelGenerator::findSymbol</definition>
         <argsstring>(const std::string &amp;varName)</argsstring>
         <name>findSymbol</name>
-        <qualifiedname>rr::CModelGenerator::findSymbol</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a4374df5b0a1e78c83d0d05ef5a3a2044">findSymbol</reimplements>
         <param>
           <type>const std::string &amp;</type>
@@ -674,7 +638,6 @@
         <definition>void rr::CModelGenerator::write_getModelNameFunction</definition>
         <argsstring>(CodeBuilder &amp;ignore, CodeBuilder &amp;source)</argsstring>
         <name>write_getModelNameFunction</name>
-        <qualifiedname>rr::CModelGenerator::write_getModelNameFunction</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>ignore</declname>
@@ -696,7 +659,6 @@
         <definition>void rr::CModelGenerator::writeComputeAllRatesOfChange</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numIndependentSpecies, const int &amp;numDependentSpecies, DoubleMatrix &amp;L0)</argsstring>
         <name>writeComputeAllRatesOfChange</name>
-        <qualifiedname>rr::CModelGenerator::writeComputeAllRatesOfChange</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sb</declname>
@@ -726,7 +688,6 @@
         <definition>void rr::CModelGenerator::writeComputeConservedTotals</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numFloatingSpecies, const int &amp;numDependentSpecies)</argsstring>
         <name>writeComputeConservedTotals</name>
-        <qualifiedname>rr::CModelGenerator::writeComputeConservedTotals</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a7574c7fea2bd30e11bd11c260e925987">writeComputeConservedTotals</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -754,7 +715,6 @@
         <definition>void rr::CModelGenerator::writeUpdateDependentSpecies</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numIndependentSpecies, const int &amp;numDependentSpecies, DoubleMatrix &amp;L0)</argsstring>
         <name>writeUpdateDependentSpecies</name>
-        <qualifiedname>rr::CModelGenerator::writeUpdateDependentSpecies</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sb</declname>
@@ -784,7 +744,6 @@
         <definition>void rr::CModelGenerator::writeUserDefinedFunctions</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeUserDefinedFunctions</name>
-        <qualifiedname>rr::CModelGenerator::writeUserDefinedFunctions</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a7dd38c5c2c487cf7d081040471a1e516">writeUserDefinedFunctions</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -805,7 +764,6 @@
         <definition>void rr::CModelGenerator::writeResetEvents</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numEvents)</argsstring>
         <name>writeResetEvents</name>
-        <qualifiedname>rr::CModelGenerator::writeResetEvents</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1aac082f76339145c6aa20bb275d57b2f6">writeResetEvents</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -828,7 +786,6 @@
         <definition>void rr::CModelGenerator::writeSetConcentration</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeSetConcentration</name>
-        <qualifiedname>rr::CModelGenerator::writeSetConcentration</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a0b7bcf169af7f23f25e1d522dbf4e474">writeSetConcentration</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -847,7 +804,6 @@
         <definition>void rr::CModelGenerator::writeGetConcentration</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeGetConcentration</name>
-        <qualifiedname>rr::CModelGenerator::writeGetConcentration</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a4309e859892e8ea1c21edb4e3507add1">writeGetConcentration</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -866,7 +822,6 @@
         <definition>void rr::CModelGenerator::writeConvertToAmounts</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeConvertToAmounts</name>
-        <qualifiedname>rr::CModelGenerator::writeConvertToAmounts</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1af2b05c0636fed729b76b0d069e524da3">writeConvertToAmounts</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -885,7 +840,6 @@
         <definition>void rr::CModelGenerator::writeConvertToConcentrations</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeConvertToConcentrations</name>
-        <qualifiedname>rr::CModelGenerator::writeConvertToConcentrations</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1aaf272e2e6b30ca7d5f2aaf24b31575fe">writeConvertToConcentrations</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -904,7 +858,6 @@
         <definition>void rr::CModelGenerator::writeProperties</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeProperties</name>
-        <qualifiedname>rr::CModelGenerator::writeProperties</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1aa44eec2bf385037245bdb0e0d068923c">writeProperties</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -923,7 +876,6 @@
         <definition>void rr::CModelGenerator::writeAccessors</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeAccessors</name>
-        <qualifiedname>rr::CModelGenerator::writeAccessors</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1adda5594223e404f41f412c552ebda903">writeAccessors</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -942,7 +894,6 @@
         <definition>void rr::CModelGenerator::writeOutVariables</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeOutVariables</name>
-        <qualifiedname>rr::CModelGenerator::writeOutVariables</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1ac76213071761d3351f516b7736600187">writeOutVariables</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -961,7 +912,6 @@
         <definition>void rr::CModelGenerator::writeClassHeader</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeClassHeader</name>
-        <qualifiedname>rr::CModelGenerator::writeClassHeader</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a7482e84ec6d33a486678e4fdc016a77e">writeClassHeader</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -980,7 +930,6 @@
         <definition>void rr::CModelGenerator::writeTestConstraints</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeTestConstraints</name>
-        <qualifiedname>rr::CModelGenerator::writeTestConstraints</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a4973b138fe795329171c5ae5eddbaa37">writeTestConstraints</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -999,7 +948,6 @@
         <definition>void rr::CModelGenerator::writeEvalInitialAssignments</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)</argsstring>
         <name>writeEvalInitialAssignments</name>
-        <qualifiedname>rr::CModelGenerator::writeEvalInitialAssignments</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a21ddc6dd30c7f26f9e69b8a552ff7931">writeEvalInitialAssignments</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1022,7 +970,6 @@
         <definition>int rr::CModelGenerator::writeComputeRules</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)</argsstring>
         <name>writeComputeRules</name>
-        <qualifiedname>rr::CModelGenerator::writeComputeRules</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1aa35e6523a75b19a1a7e53783d63df16d">writeComputeRules</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1047,7 +994,6 @@
         <definition>void rr::CModelGenerator::writeComputeReactionRates</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)</argsstring>
         <name>writeComputeReactionRates</name>
-        <qualifiedname>rr::CModelGenerator::writeComputeReactionRates</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a1c76c911be10607a23c502ad75a4be39">writeComputeReactionRates</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1070,7 +1016,6 @@
         <definition>void rr::CModelGenerator::writeEvalEvents</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numEvents, const int &amp;numFloatingSpecies)</argsstring>
         <name>writeEvalEvents</name>
-        <qualifiedname>rr::CModelGenerator::writeEvalEvents</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1aa0f6df64e23106a9c459c3f5cee5a594">writeEvalEvents</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1097,7 +1042,6 @@
         <definition>void rr::CModelGenerator::writeEvalModel</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions, const int &amp;numIndependentSpecies, const int &amp;numFloatingSpecies, const int &amp;numOfRules)</argsstring>
         <name>writeEvalModel</name>
-        <qualifiedname>rr::CModelGenerator::writeEvalModel</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a43ed8efbedeb6d2009f8c6bb769d53d6">writeEvalModel</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1132,7 +1076,6 @@
         <definition>void rr::CModelGenerator::writeEventAssignments</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions, const int &amp;numEvents)</argsstring>
         <name>writeEventAssignments</name>
-        <qualifiedname>rr::CModelGenerator::writeEventAssignments</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a5d2f268d7aa8dd15031be226d0d4ee08">writeEventAssignments</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1159,7 +1102,6 @@
         <definition>void rr::CModelGenerator::writeSetParameterValues</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numReactions)</argsstring>
         <name>writeSetParameterValues</name>
-        <qualifiedname>rr::CModelGenerator::writeSetParameterValues</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a33a94c2f88d626c0ce8c0016aa192685">writeSetParameterValues</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1182,7 +1124,6 @@
         <definition>void rr::CModelGenerator::writeSetCompartmentVolumes</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeSetCompartmentVolumes</name>
-        <qualifiedname>rr::CModelGenerator::writeSetCompartmentVolumes</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a0b1dc554056388c59b3315620712549f">writeSetCompartmentVolumes</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1201,7 +1142,6 @@
         <definition>void rr::CModelGenerator::writeSetBoundaryConditions</definition>
         <argsstring>(CodeBuilder &amp;sb)</argsstring>
         <name>writeSetBoundaryConditions</name>
-        <qualifiedname>rr::CModelGenerator::writeSetBoundaryConditions</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a7181d06e66c4f42b07741bb008bee6a4">writeSetBoundaryConditions</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1220,7 +1160,6 @@
         <definition>void rr::CModelGenerator::writeSetInitialConditions</definition>
         <argsstring>(CodeBuilder &amp;sb, const int &amp;numFloatingSpecies)</argsstring>
         <name>writeSetInitialConditions</name>
-        <qualifiedname>rr::CModelGenerator::writeSetInitialConditions</qualifiedname>
         <reimplements refid="classrr_1_1CompiledModelGenerator_1a6a80d2218a167797574086eba00bc52e">writeSetInitialConditions</reimplements>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
@@ -1243,7 +1182,6 @@
         <definition>void rr::CModelGenerator::writeInitFunction</definition>
         <argsstring>(CodeBuilder &amp;sbh, CodeBuilder &amp;sbc)</argsstring>
         <name>writeInitFunction</name>
-        <qualifiedname>rr::CModelGenerator::writeInitFunction</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sbh</declname>
@@ -1265,7 +1203,6 @@
         <definition>void rr::CModelGenerator::writeInitModelDataFunction</definition>
         <argsstring>(CodeBuilder &amp;sbh, CodeBuilder &amp;sbc)</argsstring>
         <name>writeInitModelDataFunction</name>
-        <qualifiedname>rr::CModelGenerator::writeInitModelDataFunction</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1CodeBuilder" kindref="compound">CodeBuilder</ref> &amp;</type>
           <declname>sbh</declname>
@@ -1287,7 +1224,6 @@
         <definition>int rr::CModelGenerator::readFloatingSpecies</definition>
         <argsstring>()</argsstring>
         <name>readFloatingSpecies</name>
-        <qualifiedname>rr::CModelGenerator::readFloatingSpecies</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1301,7 +1237,6 @@
         <definition>std::string rr::CModelGenerator::generateModelCode</definition>
         <argsstring>(const std::string &amp;sbmlStr, const bool &amp;_computeAndAssignConsevationLaws)</argsstring>
         <name>generateModelCode</name>
-        <qualifiedname>rr::CModelGenerator::generateModelCode</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbmlStr</declname>
@@ -1323,7 +1258,6 @@
         <definition>std::string rr::CModelGenerator::generateModelCode</definition>
         <argsstring>(const std::string &amp;sbmlStr, LibStructural *ls, NOMSupport *nom, const bool &amp;_computeAndAssignConsevationLaws=false)</argsstring>
         <name>generateModelCode</name>
-        <qualifiedname>rr::CModelGenerator::generateModelCode</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>sbmlStr</declname>
@@ -1356,7 +1290,6 @@
         <definition>bool rr::CModelGenerator::loadSBMLIntoNOM</definition>
         <argsstring>(NOMSupport &amp;nom, const std::string &amp;sbml)</argsstring>
         <name>loadSBMLIntoNOM</name>
-        <qualifiedname>rr::CModelGenerator::loadSBMLIntoNOM</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1NOMSupport" kindref="compound">NOMSupport</ref> &amp;</type>
           <declname>nom</declname>
@@ -1392,75 +1325,75 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="8">
+        <label>rr::SymbolList</label>
+        <link refid="classrr_1_1SymbolList"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="1">
         <label>rr::CModelGenerator</label>
         <link refid="classrr_1_1CModelGenerator"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="5">
+        <label>rr::ModelSymbols</label>
+        <link refid="classrr_1_1ModelSymbols"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mDependentSpeciesList</edgelabel>
+          <edgelabel>mIndependentSpeciesList</edgelabel>
+          <edgelabel>mFunctionNames</edgelabel>
+          <edgelabel>mFunctionParameters</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mRateRules</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>mGlobalParameterList</edgelabel>
+          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
+          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
+          <edgelabel>mCompartmentList</edgelabel>
+          <edgelabel>mConservationList</edgelabel>
+          <edgelabel>mReactionList</edgelabel>
+          <edgelabel>mBoundarySpeciesList</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>std::map&lt; int, std::string &gt;</label>
+      </node>
+      <node id="6">
+        <label>rr::IntStringHashTable</label>
+        <link refid="classrr_1_1IntStringHashTable"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::NOMSupport</label>
+        <link refid="classrr_1_1NOMSupport"/>
+      </node>
+      <node id="9">
+        <label>std::vector&lt; Symbol &gt;</label>
+      </node>
+      <node id="3">
+        <label>rr::StringList</label>
+        <link refid="classrr_1_1StringList"/>
+      </node>
       <node id="2">
         <label>rr::CompiledModelGenerator</label>
         <link refid="classrr_1_1CompiledModelGenerator"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>mNOM</edgelabel>
+          <edgelabel>mWarnings</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>mWarnings</edgelabel>
+          <edgelabel>mNOM</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>ms</edgelabel>
         </childnode>
       </node>
-      <node id="8">
-        <label>rr::IntStringHashTable</label>
-        <link refid="classrr_1_1IntStringHashTable"/>
-        <childnode refid="9" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>rr::ModelSymbols</label>
-        <link refid="classrr_1_1ModelSymbols"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>mDependentSpeciesList</edgelabel>
-          <edgelabel>mFunctionNames</edgelabel>
-          <edgelabel>mFunctionParameters</edgelabel>
-          <edgelabel>mIndependentSpeciesList</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>mBoundarySpeciesList</edgelabel>
-          <edgelabel>mCompartmentList</edgelabel>
-          <edgelabel>mConservationList</edgelabel>
-          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
-          <edgelabel>mGlobalParameterList</edgelabel>
-          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
-          <edgelabel>mReactionList</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>mRateRules</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rr::NOMSupport</label>
-        <link refid="classrr_1_1NOMSupport"/>
-      </node>
-      <node id="4">
-        <label>rr::StringList</label>
-        <link refid="classrr_1_1StringList"/>
-      </node>
-      <node id="6">
-        <label>rr::SymbolList</label>
-        <link refid="classrr_1_1SymbolList"/>
-        <childnode refid="7" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>std::map&lt; int, std::string &gt;</label>
-      </node>
-      <node id="7">
-        <label>std::vector&lt; Symbol &gt;</label>
-      </node>
     </collaborationgraph>
-    <location file="c/rrCModelGenerator.h" line="19" column="1" bodyfile="c/rrCModelGenerator.h" bodystart="20" bodyend="155"/>
+    <location file="c/rrCModelGenerator.h" line="20" column="1" bodyfile="c/rrCModelGenerator.h" bodystart="19" bodyend="155"/>
     <listofallmembers>
       <member refid="classrr_1_1CompiledModelGenerator_1ab26b2d6a05b3432f1b07b8bcdd4aa791" prot="protected" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>cleanEquation</name></member>
       <member refid="classrr_1_1CompiledModelGenerator_1ab5464d101e4cecb3d1d9e91fe079d58b" prot="protected" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>cleanEquation</name></member>
@@ -1475,7 +1408,7 @@
       <member refid="classrr_1_1CModelGenerator_1aa5572fadedda65e17ffead73df74c266" prot="private" virt="virtual"><scope>rr::CModelGenerator</scope><name>convertSymbolToGP</name></member>
       <member refid="classrr_1_1CModelGenerator_1a483fbc5e4649d323ce37297b50ab5ae6" prot="private" virt="virtual"><scope>rr::CModelGenerator</scope><name>convertUserFunctionExpression</name></member>
       <member refid="classrr_1_1CModelGenerator_1a93dae9d3cc4684319eb7226894355d92" prot="public" virt="virtual"><scope>rr::CModelGenerator</scope><name>createModel</name></member>
-      <member refid="classrr_1_1CModelGenerator_1a6c71a1d3885d762e426b67ca32f66b7f" prot="private" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>createModel</name></member>
+      <member refid="classrr_1_1CModelGenerator_1a89b19662e8b09b6da1eaf3fea69727ce" prot="private" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>createModel</name></member>
       <member refid="classrr_1_1CompiledModelGenerator_1af619413fab4ce497d39685c4b3935fe3" prot="protected" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>expressionContainsSymbol</name></member>
       <member refid="classrr_1_1CompiledModelGenerator_1ad6310d48d4bf51a6e8641b7eec0b171f" prot="protected" virt="non-virtual"><scope>rr::CModelGenerator</scope><name>expressionContainsSymbol</name></member>
       <member refid="classrr_1_1CModelGenerator_1aedfe74e73de81cfce5be8442c47d9f0c" prot="private" virt="virtual"><scope>rr::CModelGenerator</scope><name>findSymbol</name></member>

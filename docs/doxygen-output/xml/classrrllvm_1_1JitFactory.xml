@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1JitFactory" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::JitFactory</compoundname>
     <includes refid="JitFactory_8h" local="no">JitFactory.h</includes>
@@ -9,14 +9,13 @@
         <definition>rrllvm::JitFactory::JitFactory</definition>
         <argsstring>()=default</argsstring>
         <name>JitFactory</name>
-        <qualifiedname>rrllvm::JitFactory::JitFactory</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/JitFactory.h" line="24" column="9"/>
+        <location file="llvm/JitFactory.h" line="35" column="9"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -25,32 +24,33 @@
         <definition>std::unique_ptr&lt; Jit &gt; rrllvm::JitFactory::makeJitEngine</definition>
         <argsstring>(std::uint32_t opt)</argsstring>
         <name>makeJitEngine</name>
-        <qualifiedname>rrllvm::JitFactory::makeJitEngine</qualifiedname>
         <param>
           <type>std::uint32_t</type>
           <declname>opt</declname>
         </param>
         <briefdescription>
+<para>Create a <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> engine using local options provided by the user. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/JitFactory.h" line="35" column="32" bodyfile="llvm/JitFactory.cpp" bodystart="9" bodyend="20"/>
+        <location file="llvm/JitFactory.h" line="40" column="32" bodyfile="llvm/JitFactory.cpp" bodystart="9" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1JitFactory_1af80242fa2a71b5e365cd216ef6136b94" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> &gt;</type>
         <definition>std::unique_ptr&lt; Jit &gt; rrllvm::JitFactory::makeJitEngine</definition>
         <argsstring>()</argsstring>
         <name>makeJitEngine</name>
-        <qualifiedname>rrllvm::JitFactory::makeJitEngine</qualifiedname>
         <briefdescription>
+<para>Create a <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> engine using the global options in Config. </para>
         </briefdescription>
         <detaileddescription>
+<para>LoadSBMLOptions is populated based on the global Config values. This function instantiates the LoadSBMLOptions and provides the default modelGeneratorOpt to JitFactory::makeJitEngine(opt); </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/JitFactory.h" line="50" column="32" bodyfile="llvm/JitFactory.cpp" bodystart="22" bodyend="26"/>
+        <location file="llvm/JitFactory.h" line="48" column="32" bodyfile="llvm/JitFactory.cpp" bodystart="22" bodyend="26"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -58,7 +58,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="llvm/JitFactory.h" line="21" column="5" bodyfile="llvm/JitFactory.h" bodystart="21" bodyend="52"/>
+    <location file="llvm/JitFactory.h" line="32" column="21" bodyfile="llvm/JitFactory.h" bodystart="32" bodyend="50"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1JitFactory_1afe8612ec8d8933686b7a046f2f02bbdf" prot="public" virt="non-virtual"><scope>rrllvm::JitFactory</scope><name>JitFactory</name></member>
       <member refid="classrrllvm_1_1JitFactory_1a919d7c4b81f1c66b3dbf5f62faea2c7f" prot="public" virt="non-virtual"><scope>rrllvm::JitFactory</scope><name>makeJitEngine</name></member>

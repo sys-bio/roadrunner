@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="ExecutableModelFactory_8h" kind="file" language="C++">
     <compoundname>ExecutableModelFactory.h</compoundname>
     <includes refid="rrExecutableModel_8h" local="yes">rrExecutableModel.h</includes>
@@ -9,6 +9,24 @@
     <includedby refid="ExecutableModelFactory_8cpp" local="no">ExecutableModelFactory.cpp</includedby>
     <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
     <incdepgraph>
+      <node id="12">
+        <label>list</label>
+      </node>
+      <node id="21">
+        <label>functional</label>
+      </node>
+      <node id="19">
+        <label>limits</label>
+      </node>
+      <node id="9">
+        <label>sbml/SBMLDocument.h</label>
+      </node>
+      <node id="10">
+        <label>stdint.h</label>
+      </node>
+      <node id="8">
+        <label>variant</label>
+      </node>
       <node id="15">
         <label>Dictionary.h</label>
         <link refid="Dictionary_8h_source"/>
@@ -23,53 +41,24 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>ExecutableModelFactory.h</label>
-        <link refid="ExecutableModelFactory_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>Setting.h</label>
-        <link refid="Setting_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
+      <node id="3">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
+      </node>
+      <node id="23">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>exception</label>
+      </node>
+      <node id="13">
+        <label>ostream</label>
       </node>
       <node id="2">
         <label>rrExecutableModel.h</label>
@@ -97,63 +86,74 @@
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
       </node>
-      <node id="3">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
+      <node id="22">
+        <label>typeinfo</label>
+      </node>
+      <node id="5">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="23">
-        <label>setting_t.h</label>
-        <link refid="setting__t_8h_source"/>
-      </node>
-      <node id="6">
-        <label>exception</label>
-      </node>
-      <node id="21">
-        <label>functional</label>
-      </node>
-      <node id="17">
-        <label>iostream</label>
-      </node>
-      <node id="19">
-        <label>limits</label>
-      </node>
-      <node id="12">
-        <label>list</label>
-      </node>
-      <node id="13">
-        <label>ostream</label>
-      </node>
-      <node id="9">
-        <label>sbml/SBMLDocument.h</label>
+      <node id="11">
+        <label>vector</label>
       </node>
       <node id="18">
         <label>sstream</label>
       </node>
-      <node id="10">
-        <label>stdint.h</label>
+      <node id="16">
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
       </node>
-      <node id="7">
-        <label>string</label>
+      <node id="17">
+        <label>iostream</label>
+      </node>
+      <node id="1">
+        <label>ExecutableModelFactory.h</label>
+        <link refid="ExecutableModelFactory_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>unordered_map</label>
       </node>
       <node id="14">
         <label>tr1proxy/rr_memory.h</label>
       </node>
       <node id="20">
         <label>type_traits</label>
-      </node>
-      <node id="22">
-        <label>typeinfo</label>
-      </node>
-      <node id="24">
-        <label>unordered_map</label>
-      </node>
-      <node id="8">
-        <label>variant</label>
-      </node>
-      <node id="11">
-        <label>vector</label>
       </node>
     </incdepgraph>
     <innerclass refid="classrr_1_1ExecutableModelFactory" prot="public">rr::ExecutableModelFactory</innerclass>
@@ -182,33 +182,33 @@
 <codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
 <codeline lineno="18"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23" refid="classrr_1_1ExecutableModelFactory" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1ExecutableModelFactory" kindref="compound">ExecutableModelFactory</ref></highlight></codeline>
+<codeline lineno="23" refid="classrr_1_1ExecutableModelFactory" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1ExecutableModelFactory" kindref="compound">ExecutableModelFactory</ref></highlight></codeline>
 <codeline lineno="24"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*createModel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::SBMLDocument*<sp/>sbml,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>md5,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref>*<sp/>dict<sp/>=<sp/>0);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="35"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Creates<sp/>an<sp/>executable<sp/>model<sp/>from<sp/>a<sp/>saved<sp/>binary<sp/>representation</highlight></codeline>
-<codeline lineno="36"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
-<codeline lineno="37"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>in:<sp/>input<sp/>stream<sp/>with<sp/>the<sp/>representation<sp/>of<sp/>the<sp/>model<sp/>at<sp/>the<sp/>front</highlight></codeline>
-<codeline lineno="38"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>modelGeneratorOpt:<sp/>which<sp/>functions<sp/>should<sp/>be<sp/>generated,<sp/>see<sp/>LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS</highlight></codeline>
-<codeline lineno="39"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>and<sp/>LoadSBMLOptions::READ_ONLY</highlight></codeline>
-<codeline lineno="40"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
-<codeline lineno="41"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*createModel(std::istream&amp;<sp/>in,<sp/>uint<sp/>modelGeneratorOpt);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="45"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Regenerate<sp/>an<sp/>executable<sp/>model<sp/>from<sp/>a<sp/>saved<sp/>sbml<sp/>document</highlight></codeline>
-<codeline lineno="46"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
-<codeline lineno="47"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>doc:<sp/>sbml<sp/>document<sp/>that<sp/>generate<sp/>the<sp/>new<sp/>executable<sp/>model<sp/>from</highlight></codeline>
-<codeline lineno="48"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>LoadSBMLOptions:<sp/>load<sp/>options</highlight></codeline>
-<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
-<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*regenerateModel(<ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref>*<sp/>oldModel,<sp/>libsbml::SBMLDocument*<sp/>doc,<sp/>uint<sp/>options);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EXECUTABLEMODELFACTORY_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*createModel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::SBMLDocument*<sp/>sbml,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>md5,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref>*<sp/>dict<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Creates<sp/>an<sp/>executable<sp/>model<sp/>from<sp/>a<sp/>saved<sp/>binary<sp/>representation</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>in:<sp/>input<sp/>stream<sp/>with<sp/>the<sp/>representation<sp/>of<sp/>the<sp/>model<sp/>at<sp/>the<sp/>front</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>modelGeneratorOpt:<sp/>which<sp/>functions<sp/>should<sp/>be<sp/>generated,<sp/>see<sp/>LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>and<sp/>LoadSBMLOptions::READ_ONLY</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*createModel(std::istream&amp;<sp/>in,<sp/>uint<sp/>modelGeneratorOpt);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Regenerate<sp/>an<sp/>executable<sp/>model<sp/>from<sp/>a<sp/>saved<sp/>sbml<sp/>document</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>doc:<sp/>sbml<sp/>document<sp/>that<sp/>generate<sp/>the<sp/>new<sp/>executable<sp/>model<sp/>from</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>LoadSBMLOptions:<sp/>load<sp/>options</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref><sp/>*regenerateModel(<ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref>*<sp/>oldModel,<sp/>libsbml::SBMLDocument*<sp/>doc,<sp/>uint<sp/>options);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EXECUTABLEMODELFACTORY_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="ExecutableModelFactory.h"/>
   </compounddef>

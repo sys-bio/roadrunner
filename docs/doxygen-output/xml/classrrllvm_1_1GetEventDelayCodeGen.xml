@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1GetEventDelayCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::GetEventDelayCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1GetEventValueCodeGenBase" prot="public" virt="non-virtual">rrllvm::GetEventValueCodeGenBase&lt; GetEventDelayCodeGen &gt;</basecompoundref>
+    <includes refid="GetEventValuesCodeGen_8h" local="no">GetEventValuesCodeGen.h</includes>
       <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1GetEventDelayCodeGen_1a2263478874e45582c525fdd661fee459" prot="public" static="yes" mutable="no">
         <type>const char *</type>
         <definition>const char * rrllvm::GetEventDelayCodeGen::FunctionName</definition>
         <argsstring></argsstring>
         <name>FunctionName</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::FunctionName</qualifiedname>
         <initializer>= &quot;getEventDelay&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -17,14 +17,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="185" column="23" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="185" bodyend="-1"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="197" column="27" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1GetEventDelayCodeGen_1aabfc088a233f2af88861047c09ee2467" prot="public" static="yes" mutable="no">
         <type>const char *</type>
         <definition>const char * rrllvm::GetEventDelayCodeGen::IndexArgName</definition>
         <argsstring></argsstring>
         <name>IndexArgName</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::IndexArgName</qualifiedname>
         <initializer>= &quot;delayIndx&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -32,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="186" column="23" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="186" bodyend="-1"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="198" column="27" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -41,14 +40,13 @@
         <definition>libsbml::ASTNode* rrllvm::GetEventDelayCodeGen::node</definition>
         <argsstring></argsstring>
         <name>node</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::node</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="188" column="22" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="188" bodyend="-1"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="200" column="26" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -57,7 +55,6 @@
         <definition>rrllvm::GetEventDelayCodeGen::GetEventDelayCodeGen</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>GetEventDelayCodeGen</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::GetEventDelayCodeGen</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -68,28 +65,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="168" column="5" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="97" bodyend="102"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="180" column="9" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="97" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1GetEventDelayCodeGen_1a8a7a167438345ff7cc95c975781a96fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::GetEventDelayCodeGen::~GetEventDelayCodeGen</definition>
         <argsstring>()</argsstring>
         <name>~GetEventDelayCodeGen</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::~GetEventDelayCodeGen</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="169" column="5" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="104" bodyend="107"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="181" column="9" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="104" bodyend="107"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1GetEventDelayCodeGen_1ac0dcfaafd7455fb6ed5ad72a744d98e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>llvm::Value *</type>
         <definition>llvm::Value * rrllvm::GetEventDelayCodeGen::getMath</definition>
         <argsstring>(const libsbml::Event *, ASTNodeCodeGen &amp;astCodeGen)</argsstring>
         <name>getMath</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::getMath</qualifiedname>
         <param>
           <type>const libsbml::Event *</type>
           <defname>event</defname>
@@ -104,14 +99,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="171" column="17" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="109" bodyend="127"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="183" column="21" bodyfile="llvm/GetEventValuesCodeGen.cpp" bodystart="109" bodyend="127"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetEventDelayCodeGen_1a6e2ef3d8d0b123e8c7e81cf0d740e57f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1GetEventDelayCodeGen_1aac4f2c4ea3096bfe30098e582a191dd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>llvm::Value *</type>
-        <definition>llvm::Value * rrllvm::GetEventDelayCodeGen::createRet</definition>
+        <definition>llvm::Value* rrllvm::GetEventDelayCodeGen::createRet</definition>
         <argsstring>(llvm::Value *value)</argsstring>
         <name>createRet</name>
-        <qualifiedname>rrllvm::GetEventDelayCodeGen::createRet</qualifiedname>
         <param>
           <type>llvm::Value *</type>
           <declname>value</declname>
@@ -122,23 +116,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetEventValuesCodeGen.h" line="173" column="17" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="173" bodyend="183"/>
+        <location file="llvm/GetEventValuesCodeGen.h" line="185" column="21" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="185" bodyend="195"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Get the delay of an SBML <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref>. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="3">
         <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
-      </node>
-      <node id="2">
-        <label>rrllvm::GetEventValueCodeGenBase&lt; GetEventDelayCodeGen &gt;</label>
-        <link refid="classrrllvm_1_1GetEventValueCodeGenBase"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="1">
         <label>rrllvm::GetEventDelayCodeGen</label>
@@ -146,19 +135,61 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>rrllvm::GetEventValueCodeGenBase&lt; GetEventDelayCodeGen &gt;</label>
+        <link refid="classrrllvm_1_1GetEventValueCodeGenBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="6">
+        <label>rrllvm::ASTNodeFactory</label>
+        <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="4">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="5" relation="private-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rrllvm::ModelGeneratorContext</label>
+        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
+      </node>
+      <node id="8">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="5">
+        <label>SBMLVisitor</label>
+      </node>
       <node id="3">
         <label>rrllvm::CodeGenBase&lt; GetEventValueCodeGenBase_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="4" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
+          <edgelabel>modelSymbols</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>dataSymbols</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>modelSymbols</edgelabel>
+        <childnode refid="9" relation="usage">
+          <edgelabel>modelGenContext</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rrllvm::GetEventDelayCodeGen</label>
+        <link refid="classrrllvm_1_1GetEventDelayCodeGen"/>
+        <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
       <node id="2">
@@ -168,56 +199,20 @@
         </childnode>
       </node>
       <node id="7">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="9">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
-      </node>
-      <node id="1">
-        <label>rrllvm::GetEventDelayCodeGen</label>
-        <link refid="classrrllvm_1_1GetEventDelayCodeGen"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="6">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="7" relation="private-inheritance">
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="8">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/GetEventValuesCodeGen.h" line="164" column="1" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="166" bodyend="189"/>
+    <location file="llvm/GetEventValuesCodeGen.h" line="178" column="1" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="176" bodyend="201"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05" prot="public" virt="virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>createFunction</name></member>
-      <member refid="classrrllvm_1_1GetEventDelayCodeGen_1a6e2ef3d8d0b123e8c7e81cf0d740e57f" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>createRet</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1GetEventDelayCodeGen_1aac4f2c4ea3096bfe30098e582a191dd7" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>createRet</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>function</name></member>
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1a2263478874e45582c525fdd661fee459" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>FunctionName</name></member>
@@ -226,7 +221,7 @@
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1ac602bd404deb94c7978e3767c3179937" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>GetEventDelayCodeGen</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1af0c91ca79583f5b3b05824a01a6963b4" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>GetEventValueCodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1ac0dcfaafd7455fb6ed5ad72a744d98e9" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>getMath</name></member>
-      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1a4518cb7f4fa4d8f92aa83eaba7d720d4" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>getRetType</name></member>
+      <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1a72911128b80b0ab3b23257750de4497d" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>getRetType</name></member>
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1aabfc088a233f2af88861047c09ee2467" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>IndexArgName</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>model</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ab15bd110eca7b61396290deb400df94a" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>modelGenContext</name></member>
@@ -234,7 +229,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>module</name></member>
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1a5cd976435a191e52e9229e4b6e92c08b" prot="private" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>node</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetEventDelayCodeGen_1a8a7a167438345ff7cc95c975781a96fe" prot="public" virt="non-virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>~GetEventDelayCodeGen</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1afdea0bb224b7e2c1d01cda3505830da2" prot="public" virt="virtual"><scope>rrllvm::GetEventDelayCodeGen</scope><name>~GetEventValueCodeGenBase</name></member>

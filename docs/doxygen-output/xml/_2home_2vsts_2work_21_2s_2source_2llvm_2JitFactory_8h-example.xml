@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_2home_2vsts_2work_21_2s_2source_2llvm_2JitFactory_8h-example" kind="example">
+    <compoundname>/home/vsts/work/1/s/source/llvm/JitFactory.h</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">LoadSBMLOptions<sp/>opt;</highlight></codeline>
+<codeline><highlight class="normal">opt.setLLVMBackend(LoadSBMLOptions::MCJIT);<sp/>//<sp/>or<sp/>LoadSBMLOptions::LLJit;</highlight></codeline>
+<codeline><highlight class="normal">std::unique_ptr&lt;Jit&gt;<sp/>j<sp/>=<sp/>JitFactory::makeJitEngine(opt.modelGeneratorOpt);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>OR</highlight></codeline>
+<codeline><highlight class="normal">Config::setValue(LLVM_BACKEND,<sp/>Config::LLVM_BACKEND_VALUES::MCJIT);<sp/>//<sp/>default</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>OR</highlight></codeline>
+<codeline><highlight class="normal">Config::setValue(LLVM_BACKEND,<sp/>Config::LLVM_BACKEND_VALUES::LLJIT);<sp/>//<sp/>alternative</highlight></codeline>
+<codeline><highlight class="normal">std::unique_ptr&lt;Jit&gt;<sp/>j<sp/>=<sp/>makeJitEngine();</highlight></codeline>
+</programlisting> <programlisting filename="/home/vsts/work/1/s/source/llvm/JitFactory.h"><codeline><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Created<sp/>by<sp/>Ciaran<sp/>on<sp/>15/11/2021.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ROADRUNNER_JITFACTORY_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ROADRUNNER_JITFACTORY_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrConfig.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;MCJit.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;LLJit.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Jit.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rrllvm<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JitFactory<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JitFactory()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;Jit&gt;<sp/><ref refid="classrrllvm_1_1JitFactory_1af80242fa2a71b5e365cd216ef6136b94" kindref="member">makeJitEngine</ref>(std::uint32_t<sp/>opt);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;Jit&gt;<sp/><ref refid="classrrllvm_1_1JitFactory_1af80242fa2a71b5e365cd216ef6136b94" kindref="member">makeJitEngine</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_JITFACTORY_H</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

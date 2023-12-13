@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1IntegratorListener" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::IntegratorListener</compoundname>
+    <includes refid="Integrator_8h" local="no">Integrator.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1IntegratorListener_1a78bcb1c840e549d0d18f60ef010fd5e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>uint</type>
         <definition>virtual uint rr::IntegratorListener::onTimeStep</definition>
         <argsstring>(Integrator *integrator, ExecutableModel *model, double time)=0</argsstring>
         <name>onTimeStep</name>
-        <qualifiedname>rr::IntegratorListener::onTimeStep</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
           <declname>integrator</declname>
@@ -35,7 +35,6 @@
         <definition>virtual uint rr::IntegratorListener::onEvent</definition>
         <argsstring>(Integrator *integrator, ExecutableModel *model, double time)=0</argsstring>
         <name>onEvent</name>
-        <qualifiedname>rr::IntegratorListener::onEvent</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
           <declname>integrator</declname>
@@ -62,7 +61,6 @@
         <definition>virtual rr::IntegratorListener::~IntegratorListener</definition>
         <argsstring>()</argsstring>
         <name>~IntegratorListener</name>
-        <qualifiedname>rr::IntegratorListener::~IntegratorListener</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -75,8 +73,9 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><ref refid="classrr_1_1IntegratorListener" kindref="compound">IntegratorListener</ref> listens for integrator events. </para>
     </detaileddescription>
-    <location file="Integrator.h" line="38" column="5" bodyfile="Integrator.h" bodystart="38" bodyend="52"/>
+    <location file="Integrator.h" line="38" column="29" bodyfile="Integrator.h" bodystart="38" bodyend="52"/>
     <listofallmembers>
       <member refid="classrr_1_1IntegratorListener_1a4ff64f8bf4a208d25b37b7e99560d82e" prot="public" virt="pure-virtual"><scope>rr::IntegratorListener</scope><name>onEvent</name></member>
       <member refid="classrr_1_1IntegratorListener_1a78bcb1c840e549d0d18f60ef010fd5e2" prot="public" virt="pure-virtual"><scope>rr::IntegratorListener</scope><name>onTimeStep</name></member>

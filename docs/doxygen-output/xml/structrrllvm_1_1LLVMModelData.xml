@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="structrrllvm_1_1LLVMModelData" kind="struct" language="C++" prot="public">
     <compoundname>rrllvm::LLVMModelData</compoundname>
     <includes refid="LLVMModelData_8h" local="no">LLVMModelData.h</includes>
@@ -9,7 +9,6 @@
         <definition>unsigned rrllvm::LLVMModelData::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>rrllvm::LLVMModelData::size</qualifiedname>
         <briefdescription>
 <para>sizeof this struct, make sure we use the correct size in LLVM land. </para>
         </briefdescription>
@@ -24,7 +23,6 @@
         <definition>unsigned rrllvm::LLVMModelData::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
-        <qualifiedname>rrllvm::LLVMModelData::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -38,7 +36,6 @@
         <definition>double rrllvm::LLVMModelData::time</definition>
         <argsstring></argsstring>
         <name>time</name>
-        <qualifiedname>rrllvm::LLVMModelData::time</qualifiedname>
         <briefdescription>
 <para>current time. </para>
         </briefdescription>
@@ -53,7 +50,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numIndCompartments</definition>
         <argsstring></argsstring>
         <name>numIndCompartments</name>
-        <qualifiedname>rrllvm::LLVMModelData::numIndCompartments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -67,7 +63,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numIndFloatingSpecies</definition>
         <argsstring></argsstring>
         <name>numIndFloatingSpecies</name>
-        <qualifiedname>rrllvm::LLVMModelData::numIndFloatingSpecies</qualifiedname>
         <briefdescription>
 <para>The total ammounts of the independent floating species that don&apos;t have rules, i.e. </para>
         </briefdescription>
@@ -84,7 +79,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numIndBoundarySpecies</definition>
         <argsstring></argsstring>
         <name>numIndBoundarySpecies</name>
-        <qualifiedname>rrllvm::LLVMModelData::numIndBoundarySpecies</qualifiedname>
         <briefdescription>
 <para>number of boundary species and boundary species concentrations. </para>
         </briefdescription>
@@ -100,7 +94,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numIndGlobalParameters</definition>
         <argsstring></argsstring>
         <name>numIndGlobalParameters</name>
-        <qualifiedname>rrllvm::LLVMModelData::numIndGlobalParameters</qualifiedname>
         <briefdescription>
 <para>number of global parameters </para>
         </briefdescription>
@@ -115,7 +108,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numRateRules</definition>
         <argsstring></argsstring>
         <name>numRateRules</name>
-        <qualifiedname>rrllvm::LLVMModelData::numRateRules</qualifiedname>
         <briefdescription>
 <para>all rate rules are by definition dependent </para>
         </briefdescription>
@@ -130,7 +122,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numReactions</definition>
         <argsstring></argsstring>
         <name>numReactions</name>
-        <qualifiedname>rrllvm::LLVMModelData::numReactions</qualifiedname>
         <briefdescription>
 <para>number of reactions, same as ratesSize. </para>
         </briefdescription>
@@ -146,7 +137,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numInitCompartments</definition>
         <argsstring></argsstring>
         <name>numInitCompartments</name>
-        <qualifiedname>rrllvm::LLVMModelData::numInitCompartments</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -160,7 +150,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numInitFloatingSpecies</definition>
         <argsstring></argsstring>
         <name>numInitFloatingSpecies</name>
-        <qualifiedname>rrllvm::LLVMModelData::numInitFloatingSpecies</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -174,7 +163,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numInitBoundarySpecies</definition>
         <argsstring></argsstring>
         <name>numInitBoundarySpecies</name>
-        <qualifiedname>rrllvm::LLVMModelData::numInitBoundarySpecies</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -188,7 +176,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numInitGlobalParameters</definition>
         <argsstring></argsstring>
         <name>numInitGlobalParameters</name>
-        <qualifiedname>rrllvm::LLVMModelData::numInitGlobalParameters</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -198,11 +185,10 @@
         <location file="llvm/LLVMModelData.h" line="103" column="41" bodyfile="llvm/LLVMModelData.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrrllvm_1_1LLVMModelData_1a49e6b41b71f22d6a7a68c1c667d86dbf" prot="public" static="no" mutable="no">
-        <type><ref refid="structrr_1_1csr__matrix__t" kindref="compound">rr::csr_matrix</ref> *</type>
+        <type>rr::csr_matrix *</type>
         <definition>rr::csr_matrix* rrllvm::LLVMModelData::stoichiometry</definition>
         <argsstring></argsstring>
         <name>stoichiometry</name>
-        <qualifiedname>rrllvm::LLVMModelData::stoichiometry</qualifiedname>
         <briefdescription>
 <para>stoichiometry matrix </para>
         </briefdescription>
@@ -217,7 +203,6 @@
         <definition>class Random* rrllvm::LLVMModelData::random</definition>
         <argsstring></argsstring>
         <name>random</name>
-        <qualifiedname>rrllvm::LLVMModelData::random</qualifiedname>
         <briefdescription>
 <para>The <ref refid="classrrllvm_1_1Random" kindref="compound">rrllvm::Random</ref> class holds a RNG and caches random distributions used by the distrib package. </para>
         </briefdescription>
@@ -232,7 +217,6 @@
         <definition>unsigned rrllvm::LLVMModelData::numEvents</definition>
         <argsstring></argsstring>
         <name>numEvents</name>
-        <qualifiedname>rrllvm::LLVMModelData::numEvents</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -246,7 +230,6 @@
         <definition>unsigned rrllvm::LLVMModelData::stateVectorSize</definition>
         <argsstring></argsstring>
         <name>stateVectorSize</name>
-        <qualifiedname>rrllvm::LLVMModelData::stateVectorSize</qualifiedname>
         <briefdescription>
 <para>number of items in the state std::vector. </para>
         </briefdescription>
@@ -262,7 +245,6 @@
         <definition>double* rrllvm::LLVMModelData::stateVector</definition>
         <argsstring></argsstring>
         <name>stateVector</name>
-        <qualifiedname>rrllvm::LLVMModelData::stateVector</qualifiedname>
         <briefdescription>
 <para>the state std::vector, this is usually a pointer to a block of data owned by the integrator. </para>
         </briefdescription>
@@ -277,7 +259,6 @@
         <definition>double* rrllvm::LLVMModelData::stateVectorRate</definition>
         <argsstring></argsstring>
         <name>stateVectorRate</name>
-        <qualifiedname>rrllvm::LLVMModelData::stateVectorRate</qualifiedname>
         <briefdescription>
 <para>the rate of change of the state std::vector, this is usually a pointer to a block of data owned by the integrator. </para>
         </briefdescription>
@@ -292,7 +273,6 @@
         <definition>double* rrllvm::LLVMModelData::rateRuleRates</definition>
         <argsstring></argsstring>
         <name>rateRuleRates</name>
-        <qualifiedname>rrllvm::LLVMModelData::rateRuleRates</qualifiedname>
         <briefdescription>
 <para>the rate of change of all elements who&apos;s dynamics are determined by rate rules. </para>
         </briefdescription>
@@ -309,7 +289,6 @@
         <definition>double* rrllvm::LLVMModelData::floatingSpeciesAmountRates</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesAmountRates</name>
-        <qualifiedname>rrllvm::LLVMModelData::floatingSpeciesAmountRates</qualifiedname>
         <briefdescription>
 <para>amount rates of change for floating species. </para>
         </briefdescription>
@@ -325,7 +304,6 @@
         <definition>double* rrllvm::LLVMModelData::compartmentVolumesAlias</definition>
         <argsstring></argsstring>
         <name>compartmentVolumesAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::compartmentVolumesAlias</qualifiedname>
         <briefdescription>
 <para>******* Permanent data section ******* </para>
         </briefdescription>
@@ -341,7 +319,6 @@
         <definition>double* rrllvm::LLVMModelData::initCompartmentVolumesAlias</definition>
         <argsstring></argsstring>
         <name>initCompartmentVolumesAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::initCompartmentVolumesAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -355,9 +332,8 @@
         <definition>double* rrllvm::LLVMModelData::initFloatingSpeciesAmountsAlias</definition>
         <argsstring></argsstring>
         <name>initFloatingSpeciesAmountsAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::initFloatingSpeciesAmountsAlias</qualifiedname>
         <briefdescription>
-<para>\conservation </para>
+<para>conservation </para>
         </briefdescription>
         <detaileddescription>
 <para>length numIndFloatingSpecies</para>
@@ -372,7 +348,6 @@
         <definition>double* rrllvm::LLVMModelData::boundarySpeciesAmountsAlias</definition>
         <argsstring></argsstring>
         <name>boundarySpeciesAmountsAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::boundarySpeciesAmountsAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -386,7 +361,6 @@
         <definition>double* rrllvm::LLVMModelData::initBoundarySpeciesAmountsAlias</definition>
         <argsstring></argsstring>
         <name>initBoundarySpeciesAmountsAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::initBoundarySpeciesAmountsAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -400,7 +374,6 @@
         <definition>double* rrllvm::LLVMModelData::globalParametersAlias</definition>
         <argsstring></argsstring>
         <name>globalParametersAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::globalParametersAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -414,7 +387,6 @@
         <definition>double* rrllvm::LLVMModelData::initGlobalParametersAlias</definition>
         <argsstring></argsstring>
         <name>initGlobalParametersAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::initGlobalParametersAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -428,7 +400,6 @@
         <definition>double* rrllvm::LLVMModelData::reactionRatesAlias</definition>
         <argsstring></argsstring>
         <name>reactionRatesAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::reactionRatesAlias</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -442,7 +413,6 @@
         <definition>double* rrllvm::LLVMModelData::rateRuleValuesAlias</definition>
         <argsstring></argsstring>
         <name>rateRuleValuesAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::rateRuleValuesAlias</qualifiedname>
         <briefdescription>
 <para>All of the elelments which have a rate rule are stored here, including the dependent floating species, which will not be stored in the independent floating species block. </para>
         </briefdescription>
@@ -459,7 +429,6 @@
         <definition>double* rrllvm::LLVMModelData::floatingSpeciesAmountsAlias</definition>
         <argsstring></argsstring>
         <name>floatingSpeciesAmountsAlias</name>
-        <qualifiedname>rrllvm::LLVMModelData::floatingSpeciesAmountsAlias</qualifiedname>
         <briefdescription>
 <para>has length numIndFloatingSpecies </para>
         </briefdescription>
@@ -475,7 +444,6 @@
         <definition>double rrllvm::LLVMModelData::data[0]</definition>
         <argsstring>[0]</argsstring>
         <name>data</name>
-        <qualifiedname>rrllvm::LLVMModelData::data</qualifiedname>
         <briefdescription>
 <para>binary data layout: </para>
         </briefdescription>
@@ -502,26 +470,19 @@
 </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
+      <node id="2">
         <label>rr::Random</label>
         <link refid="classrr_1_1Random"/>
-      </node>
-      <node id="2">
-        <label>rr::csr_matrix_t</label>
-        <link refid="structrr_1_1csr__matrix__t"/>
       </node>
       <node id="1">
         <label>rrllvm::LLVMModelData</label>
         <link refid="structrrllvm_1_1LLVMModelData"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>stoichiometry</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>random</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="llvm/LLVMModelData.h" line="46" column="1" bodyfile="llvm/LLVMModelData.h" bodystart="47" bodyend="247"/>
+    <location file="llvm/LLVMModelData.h" line="47" column="1" bodyfile="llvm/LLVMModelData.h" bodystart="46" bodyend="247"/>
     <listofallmembers>
       <member refid="structrrllvm_1_1LLVMModelData_1a56b0a9fcbdeafb7b801928ba755e5a4d" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelData</scope><name>boundarySpeciesAmountsAlias</name></member>
       <member refid="structrrllvm_1_1LLVMModelData_1a82b40561feb7109b0d8cfa034f014e0c" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelData</scope><name>compartmentVolumesAlias</name></member>

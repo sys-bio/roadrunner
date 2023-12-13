@@ -13,27 +13,27 @@ Store a roadrunner option (or setting) as a \mbox{\hyperlink{classrr_1_1Variant}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{classrr_1_1Setting_af49342a0fabdeeafe649246089a72b40}{Type\+Id}} \{ \newline
-{\bfseries EMPTY} = 0
-, {\bfseries STRING} = 1
-, {\bfseries BOOL} = 2
-, {\bfseries INT32} = 3
-, \newline
-{\bfseries UINT32} = 4
-, {\bfseries INT64} = 5
-, {\bfseries UINT64} = 6
-, {\bfseries FLOAT} = 7
-, \newline
-{\bfseries DOUBLE} = 8
-, {\bfseries CHAR} = 9
-, {\bfseries UCHAR} = 10
-, {\bfseries DOUBLEVECTOR} = 11
+{\bfseries E\+M\+P\+TY} = 0, 
+{\bfseries S\+T\+R\+I\+NG} = 1, 
+{\bfseries B\+O\+OL} = 2, 
+{\bfseries I\+N\+T32} = 3, 
+\newline
+{\bfseries U\+I\+N\+T32} = 4, 
+{\bfseries I\+N\+T64} = 5, 
+{\bfseries U\+I\+N\+T64} = 6, 
+{\bfseries F\+L\+O\+AT} = 7, 
+\newline
+{\bfseries D\+O\+U\+B\+LE} = 8, 
+{\bfseries C\+H\+AR} = 9, 
+{\bfseries U\+C\+H\+AR} = 10, 
+{\bfseries D\+O\+U\+B\+L\+E\+V\+E\+C\+T\+OR} = 11
  \}
 \begin{DoxyCompactList}\small\item\em types that correspond to the index of the position of the type in the variant template. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1Setting_a4ca419f9b706d09cef6d90991e194fee}\label{classrr_1_1Setting_a4ca419f9b706d09cef6d90991e194fee}} 
-{\bfseries Setting} (setting\+\_\+t value)
+\mbox{\hyperlink{classrr_1_1Setting_a4ca419f9b706d09cef6d90991e194fee}{Setting}} (setting\+\_\+t value)
 \begin{DoxyCompactList}\small\item\em constructor to take any type accepted by setting\+\_\+t and store as a variant. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class T $>$ }\\\mbox{\hyperlink{classrr_1_1Setting_ace675cf68c9885e451535578e3c2eff9}{Setting}} (T setting\+Value)
 \begin{DoxyCompactList}\small\item\em constructor for creating a \mbox{\hyperlink{classrr_1_1Setting}{Setting}} from a supperted type T. \end{DoxyCompactList}\item 
@@ -47,7 +47,7 @@ enum \mbox{\hyperlink{classrr_1_1Setting_af49342a0fabdeeafe649246089a72b40}{Type
 \begin{DoxyCompactList}\small\item\em returns the type of std\+::variant contained within this \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class T $>$ }\\bool \mbox{\hyperlink{classrr_1_1Setting_ab0b42145e5c0dab9a86a5faa790f1d7f}{is\+Type}} ()
 \begin{DoxyCompactList}\small\item\em determines whether the current value of \mbox{\hyperlink{classrr_1_1Setting}{Setting}} is of type T. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T $>$ }\\T $\ast$ \mbox{\hyperlink{classrr_1_1Setting_aab0c3dd0b0a5bb7f68c9c6dc25945463}{get\+\_\+if}} ()
+{\footnotesize template$<$class T $>$ }\\T $\ast$ \mbox{\hyperlink{classrr_1_1Setting_a44ebea12f30b1b3e84bf2ebd35c18d06}{get\+\_\+if}} ()
 \begin{DoxyCompactList}\small\item\em get the value of this \mbox{\hyperlink{classrr_1_1Setting}{Setting}} as type T if the value in this \mbox{\hyperlink{classrr_1_1Setting}{Setting}} is of type T. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Setting\+Type $>$ }\\Setting\+Type \mbox{\hyperlink{classrr_1_1Setting_a7b66c72a2cf9b9215733f554b6cd466e}{get}} ()
 \begin{DoxyCompactList}\small\item\em return the value held by this \mbox{\hyperlink{classrr_1_1Setting}{Setting}} as a type Setting\+Type. \end{DoxyCompactList}\item 
@@ -66,54 +66,54 @@ const std\+::type\+\_\+info \& \mbox{\hyperlink{classrr_1_1Setting_a66c1f37c3e43
 \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \& \mbox{\hyperlink{classrr_1_1Setting_adcf3783161d25aa1082673116eb44df0}{operator=}} (const \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&setting)
 \begin{DoxyCompactList}\small\item\em move assignment operator for when rhs is a \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a732b55592cf2f1ce8a12135b2c147420}\label{classrr_1_1Setting_a732b55592cf2f1ce8a12135b2c147420}} 
-\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \& {\bfseries operator=} (\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&\&setting) noexcept
+\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \& \mbox{\hyperlink{classrr_1_1Setting_a732b55592cf2f1ce8a12135b2c147420}{operator=}} (\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&\&setting) noexcept
 \begin{DoxyCompactList}\small\item\em Move assignment operator for \mbox{\hyperlink{classrr_1_1Setting}{Setting}} with another \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_aff50ac7ee57ce021f05b336d3d4c0137}\label{classrr_1_1Setting_aff50ac7ee57ce021f05b336d3d4c0137}} 
-{\bfseries Setting} (const \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&setting)
+\mbox{\hyperlink{classrr_1_1Setting_aff50ac7ee57ce021f05b336d3d4c0137}{Setting}} (const \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&setting)
 \begin{DoxyCompactList}\small\item\em Copy constructor for \mbox{\hyperlink{classrr_1_1Setting}{Setting}} with another \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_aac6b0ac9f9de9746d65dcd5dc2d116c9}\label{classrr_1_1Setting_aac6b0ac9f9de9746d65dcd5dc2d116c9}} 
-{\bfseries Setting} (\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&\&setting) noexcept
+\mbox{\hyperlink{classrr_1_1Setting_aac6b0ac9f9de9746d65dcd5dc2d116c9}{Setting}} (\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \&\&setting) noexcept
 \begin{DoxyCompactList}\small\item\em Move constructor for \mbox{\hyperlink{classrr_1_1Setting}{Setting}} with another \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a861cc76edbf64525ccf1c1f5c6e7a553}\label{classrr_1_1Setting_a861cc76edbf64525ccf1c1f5c6e7a553}} 
-const setting\+\_\+t \& {\bfseries get\+Value} () const
+const setting\+\_\+t \& \mbox{\hyperlink{classrr_1_1Setting_a861cc76edbf64525ccf1c1f5c6e7a553}{get\+Value}} () const
 \begin{DoxyCompactList}\small\item\em getter for the std\+::variant\+\_\+t underlying this \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1Setting_aca92fd79b60e0dfbf9b3f14893b766b6}{python\+Repr}} () const
 \begin{DoxyCompactList}\small\item\em Convert to Python-\/compatible representation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a499f1510451d2871797bfc3d26c18f1d}\label{classrr_1_1Setting_a499f1510451d2871797bfc3d26c18f1d}} 
-bool {\bfseries is\+String} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_a499f1510451d2871797bfc3d26c18f1d}{is\+String}} () const
 \begin{DoxyCompactList}\small\item\em is this variant a std\+::string. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_adc2f542b2952e6280399a1f89736341f}\label{classrr_1_1Setting_adc2f542b2952e6280399a1f89736341f}} 
-bool {\bfseries is\+Integer} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_adc2f542b2952e6280399a1f89736341f}{is\+Integer}} () const
 \begin{DoxyCompactList}\small\item\em was an integer stored here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_ac60624a988dc8231d26ad87850cbb3a3}\label{classrr_1_1Setting_ac60624a988dc8231d26ad87850cbb3a3}} 
-bool {\bfseries is\+Numeric} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_ac60624a988dc8231d26ad87850cbb3a3}{is\+Numeric}} () const
 \begin{DoxyCompactList}\small\item\em is this a numeric type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_af69a91585985c14cff53b770d559eddd}\label{classrr_1_1Setting_af69a91585985c14cff53b770d559eddd}} 
-bool {\bfseries is\+Bool} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_af69a91585985c14cff53b770d559eddd}{is\+Bool}} () const
 \begin{DoxyCompactList}\small\item\em is this a boolean type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a6325294c5a5961ea2425b63898552aba}\label{classrr_1_1Setting_a6325294c5a5961ea2425b63898552aba}} 
-bool {\bfseries is\+Empty} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_a6325294c5a5961ea2425b63898552aba}{is\+Empty}} () const
 \begin{DoxyCompactList}\small\item\em true if empty. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_ac88fb6abc4e46931b13a7d8501821356}\label{classrr_1_1Setting_ac88fb6abc4e46931b13a7d8501821356}} 
-bool {\bfseries is\+Signed} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_ac88fb6abc4e46931b13a7d8501821356}{is\+Signed}} () const
 \begin{DoxyCompactList}\small\item\em true if this is a signed number. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a3fcde472a8b1e12715fc87ff59d30563}\label{classrr_1_1Setting_a3fcde472a8b1e12715fc87ff59d30563}} 
-bool {\bfseries is\+Double\+Vector} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_a3fcde472a8b1e12715fc87ff59d30563}{is\+Double\+Vector}} () const
 \begin{DoxyCompactList}\small\item\em true if this is a std\+::vector of doubles \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a602da5dcede622d5912669b7a66ddb54}\label{classrr_1_1Setting_a602da5dcede622d5912669b7a66ddb54}} 
-bool {\bfseries is\+Double} () const
+bool \mbox{\hyperlink{classrr_1_1Setting_a602da5dcede622d5912669b7a66ddb54}{is\+Double}} () const
 \begin{DoxyCompactList}\small\item\em true if this is a double \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Setting_a1ee105bd7e3f37b7109004f9fa056e78}\label{classrr_1_1Setting_a1ee105bd7e3f37b7109004f9fa056e78}} 
-std\+::string {\bfseries to\+String} ()
+std\+::string \mbox{\hyperlink{classrr_1_1Setting_a1ee105bd7e3f37b7109004f9fa056e78}{to\+String}} ()
 \begin{DoxyCompactList}\small\item\em gets a string representation of the type stored in this \mbox{\hyperlink{classrr_1_1Setting}{Setting}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1Setting_ab97b3a831c1ee98cb591c146cff9d52b}\label{classrr_1_1Setting_ab97b3a831c1ee98cb591c146cff9d52b}} 
-{\footnotesize template$<$class T $>$ }\\static bool {\bfseries is\+Valid\+Type} ()
+{\footnotesize template$<$class T $>$ }\\static bool \mbox{\hyperlink{classrr_1_1Setting_ab97b3a831c1ee98cb591c146cff9d52b}{is\+Valid\+Type}} ()
 \begin{DoxyCompactList}\small\item\em test for membership of type T in setting\+\_\+t, aka supported types \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1Setting_ad62b4bb5f092aa767644bf7b59a41f66}{parse}} (std\+::string \&val)
-\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in JSON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in J\+S\+ON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -153,21 +153,20 @@ The function of this class used to be performed by \mbox{\hyperlink{classrr_1_1V
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// reassign a setting to different type}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting5(123);}
-\DoxyCodeLine{setting5 = \textcolor{stringliteral}{"{}Now a string"{}}; \textcolor{comment}{// okay}}
-\DoxyCodeLine{std::string expected = \textcolor{stringliteral}{"{}Now a string"{}};}
+\DoxyCodeLine{setting5 = \textcolor{stringliteral}{"Now a string"}; \textcolor{comment}{// okay}}
+\DoxyCodeLine{std::string expected = \textcolor{stringliteral}{"Now a string"};}
 \DoxyCodeLine{ASSERT\_TRUE(setting5 == expected); \textcolor{comment}{// pass}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// instantiating a setting from other objects}}
-\DoxyCodeLine{std::string st = \textcolor{stringliteral}{"{}A String"{}};}
+\DoxyCodeLine{std::string st = \textcolor{stringliteral}{"A String"};}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting6(st); \textcolor{comment}{//okay}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting7 = st ; \textcolor{comment}{// not okay}}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting8 = \textcolor{stringliteral}{"{}A string"{}}; \textcolor{comment}{// not okay}}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting8 = \textcolor{stringliteral}{"A string"}; \textcolor{comment}{// not okay}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// check if Setting supports a type}}
 \DoxyCodeLine{\textcolor{keywordtype}{bool} supported = Setting::isValidType<int>(); \textcolor{comment}{// true}}
 \DoxyCodeLine{supported = Setting::isValidType<std::string>(); \textcolor{comment}{// true}}
 \DoxyCodeLine{supported = Setting::isValidType<const char*>(); \textcolor{comment}{// false}}
-
 \end{DoxyCode}
  
 
@@ -211,8 +210,7 @@ constructor for enabling creation of a \mbox{\hyperlink{classrr_1_1Setting}{Sett
 
 The literal gets converted into a std\+::string 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s(\textcolor{stringliteral}{"{}a string"{}}); \textcolor{comment}{//interpreted as string, not const char*}}
-
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s(\textcolor{stringliteral}{"a string"}); \textcolor{comment}{//interpreted as string, not const char*}}
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Setting_a2f608e0145800200b7795eea56a93cd5}\label{classrr_1_1Setting_a2f608e0145800200b7795eea56a93cd5}} 
 \index{rr::Setting@{rr::Setting}!Setting@{Setting}}
@@ -265,12 +263,12 @@ return the value held by this setting as type Setting\+Type.
 const version of Setting\+Type\+::get() \begin{DoxySeeAlso}{See also}
 Setting\+Type\+::get() 
 \end{DoxySeeAlso}
-\mbox{\Hypertarget{classrr_1_1Setting_aab0c3dd0b0a5bb7f68c9c6dc25945463}\label{classrr_1_1Setting_aab0c3dd0b0a5bb7f68c9c6dc25945463}} 
+\mbox{\Hypertarget{classrr_1_1Setting_a44ebea12f30b1b3e84bf2ebd35c18d06}\label{classrr_1_1Setting_a44ebea12f30b1b3e84bf2ebd35c18d06}} 
 \index{rr::Setting@{rr::Setting}!get\_if@{get\_if}}
 \index{get\_if@{get\_if}!rr::Setting@{rr::Setting}}
 \doxysubsubsection{\texorpdfstring{get\_if()}{get\_if()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
-T $\ast$ rr\+::\+Setting\+::get\+\_\+if (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+T$\ast$ rr\+::\+Setting\+::get\+\_\+if (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -293,7 +291,6 @@ type contained by this \mbox{\hyperlink{classrr_1_1Setting}{Setting}} must be re
 \DoxyCodeLine{ASSERT\_EQ(setting.get<\textcolor{keywordtype}{int}>(), 5); \textcolor{comment}{// fails if setting is not int}}
 \DoxyCodeLine{ASSERT\_THROW(setting.get<\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}>();, std::bad\_variant\_access); \textcolor{comment}{// bad, setting contains an int}}
 \DoxyCodeLine{ASSERT\_EQ(setting.getAs<\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}>(), 5); \textcolor{comment}{// Okay, we can convert from int to unsigned (when int > 0)}}
-
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Setting_ab0b42145e5c0dab9a86a5faa790f1d7f}\label{classrr_1_1Setting_ab0b42145e5c0dab9a86a5faa790f1d7f}} 
 \index{rr::Setting@{rr::Setting}!isType@{isType}}
@@ -335,7 +332,7 @@ implicit type conversion support for the \mbox{\hyperlink{classrr_1_1Setting}{Se
 this method is responsible for enabling implicit conversion between \mbox{\hyperlink{classrr_1_1Setting}{Setting}} and its supported types. Moreover, it enables one to implicitly convert (say) a int to a long, in contexts that make sense (as determined by std\+::is\+\_\+convertible\+\_\+v). Some situations are explicitly prohibited from implicit type conversion. These include
 \begin{DoxyItemize}
 \item converting a negative int or long to unsigned int or long
-\item converting a long that has a value \texorpdfstring{$>$}{>} the largest possible value for int to int \begin{DoxyNote}{Note}
+\item converting a long that has a value $>$ the largest possible value for int to int \begin{DoxyNote}{Note}
 for developers\+: clang-\/tidy will ask you to make this explicit, but this method {\itshape must} not be explicit since its entire purpose is implicit type conversion. 
 
 for developers\+: Any additions to types stored in a setting\+\_\+t {\itshape must} have appropriate unit tests added for the new types in Setting\+Tests.\+cpp. 
@@ -362,15 +359,14 @@ operator=(const T\&setting);
 
 
 
-Parses the std\+::string which must be in JSON format. 
+Parses the std\+::string which must be in J\+S\+ON format. 
 
 This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} from a file or create a new one from a std\+::string\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Variant v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"{}0.123"{}});}
-
+\DoxyCodeLine{Variant v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"0.123"});}
 \end{DoxyCode}
  \begin{DoxyNote}{Note}
-this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Setting}} class. We should instead have a JSON parser, is that\textquotesingle{}s the function we need. 
+this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Setting}} class. We should instead have a J\+S\+ON parser, is that\textquotesingle{}s the function we need. 
 \end{DoxyNote}
 \mbox{\Hypertarget{classrr_1_1Setting_aca92fd79b60e0dfbf9b3f14893b766b6}\label{classrr_1_1Setting_aca92fd79b60e0dfbf9b3f14893b766b6}} 
 \index{rr::Setting@{rr::Setting}!pythonRepr@{pythonRepr}}
@@ -383,7 +379,7 @@ this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Sett
 Convert to Python-\/compatible representation. 
 
 \begin{DoxyAuthor}{Author}
-JKM 
+J\+KM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1Setting_a479708abc63de00aca3d56b7e28bee04}\label{classrr_1_1Setting_a479708abc63de00aca3d56b7e28bee04}} 
 \index{rr::Setting@{rr::Setting}!type@{type}}
@@ -421,8 +417,8 @@ equality operator for comparing object other\+Setting of type T against the \mbo
 
 Enables the following types of comparisons 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s1(\textcolor{stringliteral}{"{}string"{}});}
-\DoxyCodeLine{    std::string s2 = \textcolor{stringliteral}{"{}string"{}};}
+\DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s1(\textcolor{stringliteral}{"string"});}
+\DoxyCodeLine{    std::string s2 = \textcolor{stringliteral}{"string"};}
 \DoxyCodeLine{    s1 == s2; \textcolor{comment}{// true}}
 \DoxyCodeLine{    \textcolor{comment}{// or}}
 \DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s3(1234);}
@@ -466,14 +462,13 @@ Enables the following types of comparisons
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \DoxyCodeLine{template<typename T, class = typename std::enable\_if<isValidVariantType<T, setting\_t>::value>\mbox{\hyperlink{classrr_1_1Setting_a479708abc63de00aca3d56b7e28bee04}{::type}}>}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} \&\mbox{\hyperlink{classrr_1_1Setting_adcf3783161d25aa1082673116eb44df0}{operator=}}(T \&\&setting) \textcolor{keyword}{noexcept} \{}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} \&\mbox{\hyperlink{classrr_1_1Setting_adcf3783161d25aa1082673116eb44df0}{operator=}}(T \&\&setting) noexcept \{}
 \DoxyCodeLine{    checkValidType<T>();}
 \DoxyCodeLine{    \textcolor{comment}{// no need to check self assignment with variant}}
 \DoxyCodeLine{    value\_ = std::move(setting\_t(setting));}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
-
 \end{DoxyCode}
  \begin{DoxySeeAlso}{See also}
 docs on std\+::visit 

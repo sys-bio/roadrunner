@@ -2,8 +2,8 @@
 Add Noise Plugin
 ************************
 
-Introduction
-============
+Add Noise Introduction
+======================
 
 The purpose of the AddNoise plugin is to introduce random noise to Tellurium data. 
 
@@ -13,16 +13,16 @@ Currently only Gaussian noise is implemented.
 
 :sup:`1` From Contemporary Communication Systems USING MATLAB(R), by John G. Proakis and Masoud Salehi, published by PWS Publishing Company, 1998, pp 49-50.
 
-Plugin Properties
-=================
+Add Noise Plugin Properties
+===========================
 
 1. InputData: Data on which noise will be applied to.
 2. Sigma: Size of applied noise. Noise is generated for each single data value, with a probability corresponding to a Gaussian distribution, centered around the value, and with a variance equal to :math:`\sigma^{2}`.
 3. NoiseType: Type of noise applied on data. Only Gaussian noise is currently supported.
 4. Progress: The progress property communicates the progress (in percent) of Noise application.
 
-Plugin Events
-=============
+Add Noise Plugin Events
+=======================
 
 The AddNoiseplugin uses all of the available plugin events, i.e. the PluginStarted, PluginProgress and the PluginFinished events. 
 The available data variables for each event are internally treated as pass trough variables, so any data, for any of the events, assigned prior to the plugin’s execute function (in the assignOn() family of functions), can be retrieved unmodified in the corresponding event function. 

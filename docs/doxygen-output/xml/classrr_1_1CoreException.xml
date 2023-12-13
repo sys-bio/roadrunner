@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1CoreException" kind="class" language="C++" prot="public">
     <compoundname>rr::CoreException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+    <includes refid="rrException_8h" local="no">rrException.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1CoreException_1a72ec686cf057796d827f9adaa7668f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::CoreException::CoreException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>CoreException</name>
-        <qualifiedname>rr::CoreException::CoreException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -20,14 +20,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="49" column="9" bodyfile="rrException.cpp" bodystart="25" bodyend="25"/>
+        <location file="rrException.h" line="56" column="9" bodyfile="rrException.cpp" bodystart="25" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CoreException_1a872fc9a14d202519b94cbea3837f2feb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::CoreException::CoreException</definition>
         <argsstring>(const std::string &amp;msg1, const std::string &amp;msg2)</argsstring>
         <name>CoreException</name>
-        <qualifiedname>rr::CoreException::CoreException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg1</declname>
@@ -42,14 +41,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="50" column="9" bodyfile="rrException.cpp" bodystart="27" bodyend="27"/>
+        <location file="rrException.h" line="57" column="9" bodyfile="rrException.cpp" bodystart="27" bodyend="27"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Generic exception class. </para>
     </detaileddescription>
     <inheritancegraph>
+      <node id="3">
+        <label>exception</label>
+      </node>
       <node id="1">
         <label>rr::CoreException</label>
         <link refid="classrr_1_1CoreException"/>
@@ -62,11 +65,14 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
       <node id="1">
         <label>rr::CoreException</label>
         <link refid="classrr_1_1CoreException"/>
@@ -82,14 +88,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="46" column="1" bodyfile="rrException.h" bodystart="47" bodyend="51"/>
+    <location file="rrException.h" line="54" column="1" bodyfile="rrException.h" bodystart="53" bodyend="58"/>
     <listofallmembers>
       <member refid="classrr_1_1CoreException_1a72ec686cf057796d827f9adaa7668f1e" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>CoreException</name></member>
       <member refid="classrr_1_1CoreException_1a872fc9a14d202519b94cbea3837f2feb" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>CoreException</name></member>

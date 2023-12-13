@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::GetFloatingSpeciesAmountCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1GetValueCodeGenBase" prot="public" virt="non-virtual">rrllvm::GetValueCodeGenBase&lt; GetFloatingSpeciesAmountCodeGen, true &gt;</basecompoundref>
+    <includes refid="GetValuesCodeGen_8h" local="no">GetValuesCodeGen.h</includes>
       <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a9352bb2bdede84062a09898a2c93bb27" prot="public" static="yes" mutable="no">
         <type>const char *</type>
         <definition>const char * rrllvm::GetFloatingSpeciesAmountCodeGen::FunctionName</definition>
         <argsstring></argsstring>
         <name>FunctionName</name>
-        <qualifiedname>rrllvm::GetFloatingSpeciesAmountCodeGen::FunctionName</qualifiedname>
         <initializer>= &quot;getFloatingSpeciesAmount&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -17,14 +17,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetValuesCodeGen.h" line="50" column="23" bodyfile="llvm/GetValuesCodeGen.h" bodystart="50" bodyend="-1"/>
+        <location file="llvm/GetValuesCodeGen.h" line="56" column="27" bodyfile="llvm/GetValuesCodeGen.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1ade9e838814210d9ab56aa44d2526a075" prot="public" static="yes" mutable="no">
         <type>const char *</type>
         <definition>const char * rrllvm::GetFloatingSpeciesAmountCodeGen::IndexArgName</definition>
         <argsstring></argsstring>
         <name>IndexArgName</name>
-        <qualifiedname>rrllvm::GetFloatingSpeciesAmountCodeGen::IndexArgName</qualifiedname>
         <initializer>= &quot;floatingSpeciesIndex&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -32,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetValuesCodeGen.h" line="51" column="23" bodyfile="llvm/GetValuesCodeGen.h" bodystart="51" bodyend="-1"/>
+        <location file="llvm/GetValuesCodeGen.h" line="57" column="27" bodyfile="llvm/GetValuesCodeGen.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -41,7 +40,6 @@
         <definition>rrllvm::GetFloatingSpeciesAmountCodeGen::GetFloatingSpeciesAmountCodeGen</definition>
         <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
         <name>GetFloatingSpeciesAmountCodeGen</name>
-        <qualifiedname>rrllvm::GetFloatingSpeciesAmountCodeGen::GetFloatingSpeciesAmountCodeGen</qualifiedname>
         <param>
           <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
           <declname>mgc</declname>
@@ -52,42 +50,47 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetValuesCodeGen.h" line="42" column="5" bodyfile="llvm/GetValuesCodeGen.cpp" bodystart="35" bodyend="39"/>
+        <location file="llvm/GetValuesCodeGen.h" line="48" column="9" bodyfile="llvm/GetValuesCodeGen.cpp" bodystart="35" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a9601e8b129a9298e3850cd3bbea87172" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>rrllvm::GetFloatingSpeciesAmountCodeGen::~GetFloatingSpeciesAmountCodeGen</definition>
         <argsstring>()</argsstring>
         <name>~GetFloatingSpeciesAmountCodeGen</name>
-        <qualifiedname>rrllvm::GetFloatingSpeciesAmountCodeGen::~GetFloatingSpeciesAmountCodeGen</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetValuesCodeGen.h" line="43" column="5" bodyfile="llvm/GetValuesCodeGen.h" bodystart="43" bodyend="43"/>
+        <location file="llvm/GetValuesCodeGen.h" line="49" column="9" bodyfile="llvm/GetValuesCodeGen.h" bodystart="49" bodyend="49"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1ad3887f4e6d5ed3e73e4d023a9678c790" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a2c2fb9fe1ce30cb7ae1d206e3ec8ba33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>std::vector&lt; std::string &gt; rrllvm::GetFloatingSpeciesAmountCodeGen::getIds</definition>
+        <definition>std::vector&lt;std::string&gt; rrllvm::GetFloatingSpeciesAmountCodeGen::getIds</definition>
         <argsstring>()</argsstring>
         <name>getIds</name>
-        <qualifiedname>rrllvm::GetFloatingSpeciesAmountCodeGen::getIds</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/GetValuesCodeGen.h" line="45" column="17" bodyfile="llvm/GetValuesCodeGen.h" bodystart="45" bodyend="48"/>
+        <location file="llvm/GetValuesCodeGen.h" line="51" column="21" bodyfile="llvm/GetValuesCodeGen.h" bodystart="51" bodyend="54"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>Get the current amount of a floating species. </para>
     </detaileddescription>
     <inheritancegraph>
+      <node id="1">
+        <label>rrllvm::GetFloatingSpeciesAmountCodeGen</label>
+        <link refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="3">
         <label>rrllvm::CodeGenBase&lt; GetValueCodeGenBase_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
@@ -96,41 +99,28 @@
         <label>rrllvm::GetValueCodeGenBase&lt; GetFloatingSpeciesAmountCodeGen, true &gt;</label>
         <link refid="classrrllvm_1_1GetValueCodeGenBase"/>
         <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>rrllvm::GetFloatingSpeciesAmountCodeGen</label>
-        <link refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen"/>
-        <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="3">
-        <label>rrllvm::CodeGenBase&lt; GetValueCodeGenBase_FunctionPtr &gt;</label>
-        <link refid="classrrllvm_1_1CodeGenBase"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>modelSymbols</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
-        <label>rrllvm::GetValueCodeGenBase&lt; GetFloatingSpeciesAmountCodeGen, true &gt;</label>
-        <link refid="classrrllvm_1_1GetValueCodeGenBase"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="9">
+      <node id="6">
         <label>rrllvm::ASTNodeFactory</label>
         <link refid="classrrllvm_1_1ASTNodeFactory"/>
+      </node>
+      <node id="4">
+        <label>rrllvm::LLVMModelSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
+        <childnode refid="5" relation="private-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>nodes</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>assignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
+          <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>rateRules</edgelabel>
+        </childnode>
       </node>
       <node id="1">
         <label>rrllvm::GetFloatingSpeciesAmountCodeGen</label>
@@ -138,50 +128,57 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="6">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="7" relation="private-inheritance">
+      <node id="3">
+        <label>rrllvm::CodeGenBase&lt; GetValueCodeGenBase_FunctionPtr &gt;</label>
+        <link refid="classrrllvm_1_1CodeGenBase"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>modelSymbols</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>rateRules</edgelabel>
+          <edgelabel>dataSymbols</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
-          <edgelabel>nodes</edgelabel>
+          <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
-      <node id="4">
+      <node id="9">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
       <node id="8">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
+      <node id="5">
+        <label>SBMLVisitor</label>
+      </node>
+      <node id="7">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
+      <node id="2">
+        <label>rrllvm::GetValueCodeGenBase&lt; GetFloatingSpeciesAmountCodeGen, true &gt;</label>
+        <link refid="classrrllvm_1_1GetValueCodeGenBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="llvm/GetValuesCodeGen.h" line="38" column="1" bodyfile="llvm/GetValuesCodeGen.h" bodystart="40" bodyend="52"/>
+    <location file="llvm/GetValuesCodeGen.h" line="46" column="1" bodyfile="llvm/GetValuesCodeGen.h" bodystart="44" bodyend="58"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646" prot="public" virt="virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>codeGen</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>CodeGenBase</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a13efaf2abf3be680c16cc13b77e6cc86" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>codeGenHeader</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1aad34a1df81ff99ee0c20e7de8cba89f2" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>context</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a1c1b041c97065adb07f106341a248bfc" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>createFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>dataSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>function</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a9352bb2bdede84062a09898a2c93bb27" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>FunctionName</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>functionPassManager</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a198aef7eea324b26f9ce2328f0c50d94" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>FunctionPtr</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a14f72068794e1916454ba2a8998ad6bf" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>GetFloatingSpeciesAmountCodeGen</name></member>
-      <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1ad3887f4e6d5ed3e73e4d023a9678c790" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>getIds</name></member>
+      <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a2c2fb9fe1ce30cb7ae1d206e3ec8ba33" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>getIds</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a0e71d10a41673d1c5264682a0b23f931" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>GetValueCodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1ade9e838814210d9ab56aa44d2526a075" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>IndexArgName</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>model</name></member>
@@ -189,7 +186,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>module</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>options</name></member>
-      <member refid="classrrllvm_1_1CodeGenBase_1a85538605d4b0d3dc1f6e1a69afe6eb8e" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>verifyFunction</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>~CodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen_1a9601e8b129a9298e3850cd3bbea87172" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>~GetFloatingSpeciesAmountCodeGen</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a43d0e3a1ec34a55e281c14db4b7413ed" prot="public" virt="virtual"><scope>rrllvm::GetFloatingSpeciesAmountCodeGen</scope><name>~GetValueCodeGenBase</name></member>

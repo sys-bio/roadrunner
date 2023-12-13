@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1FixedPointIteration" kind="class" language="C++" prot="public">
     <compoundname>rr::FixedPointIteration</compoundname>
     <basecompoundref refid="classrr_1_1KinsolSteadyStateSolver" prot="public" virt="non-virtual">rr::KinsolSteadyStateSolver</basecompoundref>
+    <includes refid="FixedPointIteration_8h" local="no">FixedPointIteration.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1aa9a1e110f67cfcd6cebb8a16b26196f7" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::FixedPointIteration::FixedPointIteration</definition>
         <argsstring>(ExecutableModel *executableModel)</argsstring>
         <name>FixedPointIteration</name>
-        <qualifiedname>rr::FixedPointIteration::FixedPointIteration</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>executableModel</declname>
@@ -20,28 +20,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="21" column="18" bodyfile="FixedPointIteration.cpp" bodystart="10" bodyend="17"/>
+        <location file="FixedPointIteration.h" line="23" column="18" bodyfile="FixedPointIteration.cpp" bodystart="10" bodyend="17"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a27582961cc82b34cb3053662d97aba08" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type></type>
         <definition>rr::FixedPointIteration::~FixedPointIteration</definition>
         <argsstring>() noexcept override</argsstring>
         <name>~FixedPointIteration</name>
-        <qualifiedname>rr::FixedPointIteration::~FixedPointIteration</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="23" column="9" bodyfile="FixedPointIteration.cpp" bodystart="19" bodyend="21"/>
+        <location file="FixedPointIteration.h" line="25" column="9" bodyfile="FixedPointIteration.cpp" bodystart="19" bodyend="21"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a9e1334eebd535c642abb8593d4e46824" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rr::FixedPointIteration::getName</definition>
         <argsstring>() const override</argsstring>
         <name>getName</name>
-        <qualifiedname>rr::FixedPointIteration::getName</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a7d66e096a8c5cfd5e3fdb6cf5aa339d6">getName</reimplements>
         <briefdescription>
 <para>Get the name of this solver. </para>
@@ -50,14 +48,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="28" column="21" bodyfile="FixedPointIteration.cpp" bodystart="62" bodyend="64"/>
+        <location file="FixedPointIteration.h" line="30" column="21" bodyfile="FixedPointIteration.cpp" bodystart="62" bodyend="64"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a4f8a179c87378739262b858a4e279642" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rr::FixedPointIteration::getDescription</definition>
         <argsstring>() const override</argsstring>
         <name>getDescription</name>
-        <qualifiedname>rr::FixedPointIteration::getDescription</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1af8b4a2f0dc7cc99fa22c1056f917e5d4">getDescription</reimplements>
         <briefdescription>
 <para>Get the description of this solver. </para>
@@ -66,14 +63,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="34" column="21" bodyfile="FixedPointIteration.cpp" bodystart="66" bodyend="69"/>
+        <location file="FixedPointIteration.h" line="36" column="21" bodyfile="FixedPointIteration.cpp" bodystart="66" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a694db68c3021fcbceec701335dffd2ee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rr::FixedPointIteration::getHint</definition>
         <argsstring>() const override</argsstring>
         <name>getHint</name>
-        <qualifiedname>rr::FixedPointIteration::getHint</qualifiedname>
         <reimplements refid="classrr_1_1Registrable_1a1a6c686212133cda58ab44b310f401d9">getHint</reimplements>
         <briefdescription>
 <para>Get a (user-readable) hint for this solver. </para>
@@ -82,14 +78,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="40" column="21" bodyfile="FixedPointIteration.cpp" bodystart="71" bodyend="73"/>
+        <location file="FixedPointIteration.h" line="42" column="21" bodyfile="FixedPointIteration.cpp" bodystart="71" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1abb61d5ae308e15d2bfd5eec47270269e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
         <definition>double rr::FixedPointIteration::solve</definition>
         <argsstring>() override</argsstring>
         <name>solve</name>
-        <qualifiedname>rr::FixedPointIteration::solve</qualifiedname>
         <reimplements refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2">solve</reimplements>
         <briefdescription>
         </briefdescription>
@@ -97,14 +92,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="42" column="16" bodyfile="FixedPointIteration.cpp" bodystart="41" bodyend="43"/>
+        <location file="FixedPointIteration.h" line="44" column="16" bodyfile="FixedPointIteration.cpp" bodystart="41" bodyend="43"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a9228e46a342accb7defbccd76e674b9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::FixedPointIteration::createKinsol</definition>
         <argsstring>() override</argsstring>
         <name>createKinsol</name>
-        <qualifiedname>rr::FixedPointIteration::createKinsol</qualifiedname>
         <reimplements refid="classrr_1_1KinsolSteadyStateSolver_1a7c7a941fbf27c7a3a5326b254ee2f1b1">createKinsol</reimplements>
         <briefdescription>
 <para>Initialize kinsol objects. </para>
@@ -114,14 +108,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="46" column="14" bodyfile="FixedPointIteration.cpp" bodystart="23" bodyend="35"/>
+        <location file="FixedPointIteration.h" line="48" column="14" bodyfile="FixedPointIteration.cpp" bodystart="23" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1aaabbfb6ff1bc59dd9cc4371368dc9348" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::FixedPointIteration::freeKinsol</definition>
         <argsstring>() override</argsstring>
         <name>freeKinsol</name>
-        <qualifiedname>rr::FixedPointIteration::freeKinsol</qualifiedname>
         <reimplements refid="classrr_1_1KinsolSteadyStateSolver_1a9ddc7acd14dad905333c11667363de66">freeKinsol</reimplements>
         <briefdescription>
 <para>Destory kinsol objects. </para>
@@ -131,14 +124,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="48" column="14" bodyfile="FixedPointIteration.cpp" bodystart="37" bodyend="39"/>
+        <location file="FixedPointIteration.h" line="50" column="14" bodyfile="FixedPointIteration.cpp" bodystart="37" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1abc9ebf35d6ea07b7a6d8a8798eb3d68d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::FixedPointIteration::updateKinsol</definition>
         <argsstring>() override</argsstring>
         <name>updateKinsol</name>
-        <qualifiedname>rr::FixedPointIteration::updateKinsol</qualifiedname>
         <reimplements refid="classrr_1_1KinsolSteadyStateSolver_1a46e1ca358f9d1a8bbfe1150a1f6cf8ed">updateKinsol</reimplements>
         <briefdescription>
 <para>Calls methods for updating options in kinsol. </para>
@@ -150,14 +142,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="50" column="14" bodyfile="FixedPointIteration.cpp" bodystart="45" bodyend="49"/>
+        <location file="FixedPointIteration.h" line="52" column="14" bodyfile="FixedPointIteration.cpp" bodystart="45" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1ab7451909f822f8642b7555248493371d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::FixedPointIteration::resetSettings</definition>
         <argsstring>() override</argsstring>
         <name>resetSettings</name>
-        <qualifiedname>rr::FixedPointIteration::resetSettings</qualifiedname>
         <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
         <briefdescription>
 <para>Reset all settings to their respective default values. </para>
@@ -166,14 +157,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="52" column="14" bodyfile="FixedPointIteration.cpp" bodystart="51" bodyend="60"/>
+        <location file="FixedPointIteration.h" line="54" column="14" bodyfile="FixedPointIteration.cpp" bodystart="51" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a493e4b60babe10d121bd4d960cede006" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
         <argsstring>(ExecutableModel *executableModel)</argsstring>
         <name>KinsolSteadyStateSolver</name>
-        <qualifiedname>rr::FixedPointIteration::KinsolSteadyStateSolver</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>executableModel</declname>
@@ -186,14 +176,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="19" column="9" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="13" bodyend="16"/>
+        <location file="FixedPointIteration.h" line="21" column="9" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="13" bodyend="16"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1FixedPointIteration_1a7cc99b1d285e7e1afae54f217135d0b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
         <argsstring>()=default</argsstring>
         <name>KinsolSteadyStateSolver</name>
-        <qualifiedname>rr::FixedPointIteration::KinsolSteadyStateSolver</qualifiedname>
         <briefdescription>
 <para>The default constructor for constructing without a model. </para>
         </briefdescription>
@@ -202,20 +191,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="FixedPointIteration.h" line="19" column="9"/>
+        <location file="FixedPointIteration.h" line="21" column="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Implementation of the fixed point iteration form of the kinsol steady state solver. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="1">
-        <label>rr::FixedPointIteration</label>
-        <link refid="classrr_1_1FixedPointIteration"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="2">
         <label>rr::KinsolSteadyStateSolver</label>
         <link refid="classrr_1_1KinsolSteadyStateSolver"/>
@@ -225,12 +209,6 @@
       <node id="5">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
-      </node>
-      <node id="4">
-        <label>rr::Solver</label>
-        <link refid="classrr_1_1Solver"/>
-        <childnode refid="5" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="3">
         <label>rr::SteadyStateSolver</label>
@@ -238,11 +216,11 @@
         <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="6">
-        <label>rr::ExecutableModel</label>
-        <link refid="classrr_1_1ExecutableModel"/>
+      <node id="4">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="1">
         <label>rr::FixedPointIteration</label>
@@ -250,6 +228,8 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="2">
         <label>rr::KinsolSteadyStateSolver</label>
         <link refid="classrr_1_1KinsolSteadyStateSolver"/>
@@ -259,6 +239,12 @@
       <node id="5">
         <label>rr::Registrable</label>
         <link refid="classrr_1_1Registrable"/>
+      </node>
+      <node id="3">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="4">
         <label>rr::Solver</label>
@@ -269,18 +255,22 @@
           <edgelabel>mModel</edgelabel>
         </childnode>
       </node>
-      <node id="3">
-        <label>rr::SteadyStateSolver</label>
-        <link refid="classrr_1_1SteadyStateSolver"/>
-        <childnode refid="4" relation="public-inheritance">
+      <node id="6">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+      <node id="1">
+        <label>rr::FixedPointIteration</label>
+        <link refid="classrr_1_1FixedPointIteration"/>
+        <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="FixedPointIteration.h" line="16" column="5" bodyfile="FixedPointIteration.h" bodystart="16" bodyend="54"/>
+    <location file="FixedPointIteration.h" line="18" column="53" bodyfile="FixedPointIteration.h" bodystart="18" bodyend="56"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>addSetting</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a80807be1f440f524769e55568a3abcf2" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>constraints</name></member>
-      <member refid="classrr_1_1Registrable_1a4380db83a3a2b122fe58fc3bbbb32a69" prot="public" virt="pure-virtual"><scope>rr::FixedPointIteration</scope><name>construct</name></member>
+      <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::FixedPointIteration</scope><name>construct</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a9228e46a342accb7defbccd76e674b9d" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>createKinsol</name></member>
       <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>descriptions</name></member>
@@ -292,12 +282,15 @@
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a6152af9e64fe79d7af756df58dcd0e5e" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>funcNorm</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a4f8a179c87378739262b858a4e279642" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1062b181455da6310d5678a4c978d072" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>getDescription</name></member>
       <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a694db68c3021fcbceec701335dffd2ee" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getHint</name></member>
       <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a30605288d92db09d42a886c132e5429f" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>getHint</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a5ebba0ecca346216d982d9533d32d811" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>getKinsolMemory</name></member>
       <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getModel</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a9e1334eebd535c642abb8593d4e46824" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1ae4ae3d123747f44ba18cb94a37cdcc6d" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>getParamDisplayName</name></member>
@@ -317,6 +310,7 @@
       <member refid="classrr_1_1KinsolSteadyStateSolver_1aa9d3cb9634ec030d4755c863145a6e5e" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>kinsolDyDtFcn</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a493e4b60babe10d121bd4d960cede006" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>KinsolSteadyStateSolver</name></member>
       <member refid="classrr_1_1FixedPointIteration_1a7cc99b1d285e7e1afae54f217135d0b5" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a493e4b60babe10d121bd4d960cede006" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::FixedPointIteration</scope><name>KinsolSteadyStateSolver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" virt="virtual"><scope>rr::FixedPointIteration</scope><name>loadConfigSettings</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a64033039dc53f114855985463ad108f6" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>mKinsol_Memory</name></member>
       <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>mModel</name></member>
@@ -349,6 +343,7 @@
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>solveForSteadyState</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>Solver</name></member>
       <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::FixedPointIteration</scope><name>Solver</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1a1a51e6de634532f7e73051a6129940ae" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>solverStats</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="public" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1KinsolSteadyStateSolver_1aed41325ac8469d5b24fcd55df1eeb52f" prot="protected" virt="non-virtual"><scope>rr::FixedPointIteration</scope><name>stepLength</name></member>

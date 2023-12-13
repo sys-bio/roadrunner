@@ -2,13 +2,13 @@
 Chi Square Plugin
 ************************
 
-Introduction
-============
+Chi Square Introduction
+=======================
 
 The purpose of the ChiSquare plugin is to calculate the ChiSquare and the reduced ChiSquare for two sets of data. 
 
-Plugin Properties
-=================
+Chi Square Plugin Properties
+============================
 
 1. ExperimentalData: Data representing Experimental data. 
 2. ModelData: Data representing Model data. 
@@ -16,8 +16,8 @@ Plugin Properties
 4. ChiSquare: The calculated ChiSquare. 
 5. ReducedChiSquare: The calculated reduced ChiSquare.
 
-Plugin Events
-=============
+Chi Square Plugin Events
+========================
 
 This plugin does not use any plugin events. 
 

@@ -1,0 +1,244 @@
+\hypertarget{_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example}{}\doxysection{/home/vsts/work/1/s/source/llvm/\+Jit.\+h}
+locate a function address based on its name. The returned function address is a 64 bit int that needs casting to the function pointer type.
+
+throws an error if an address for function called
+\begin{DoxyParams}{Parameters}
+{\em name} & is not found.\\
+\hline
+\end{DoxyParams}
+// given a function, for example\+: int fib(int x)\{ if (x $<$ 2) return x; return fib(x-\/1) + fib(x-\/2); \}
+
+// and assuming the function was jitt\textquotesingle{}ed and added to the module under the // symbol \char`\"{}fib\char`\"{} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using} fibonacciFnPtr = int (*)(int);}
+\DoxyCodeLine{fibonacciFnPtr fib = (fibonacciFnPtr)lookupFunctionAddress(\textcolor{stringliteral}{"fib"});}
+\DoxyCodeLine{\textcolor{keywordtype}{int} fibOf4 = fib(4); \textcolor{comment}{// 3}}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// Created by Ciaran on 25/10/2021.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef ROADRUNNER\_JIT\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define ROADRUNNER\_JIT\_H}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define NOMINMAX}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <rrSparse.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "LLVMException.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "rrSparse.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifdef \_MSC\_VER}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(disable: 4146)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(disable: 4141)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(disable: 4267)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(disable: 4624)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <llvm/Analysis/TargetLibraryInfo.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/IR/IRBuilder.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/ExecutionEngine/ObjectCache.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/Target/TargetMachine.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/Object/ObjectFile.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/IR/Mangler.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifdef \_MSC\_VER}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(default: 4146)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(default: 4141)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(default: 4267)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(default: 4624)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }rr \{}
+\DoxyCodeLine{    \textcolor{keyword}{class }ExecutableModel;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }rrllvm \{}
+\DoxyCodeLine{    \textcolor{keyword}{class }Random;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{class }ModelResources;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{class }SBMLModelObjectCache;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{template}<\textcolor{keyword}{typename} FunctionPtrType>}
+\DoxyCodeLine{    \textcolor{keyword}{class }CodeGenBase;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{using} FnPtr\_d1 = double (*)(\textcolor{keywordtype}{double} x);}
+\DoxyCodeLine{    \textcolor{keyword}{using} FnPtr\_i1 = int (*)(\textcolor{keywordtype}{int} x);}
+\DoxyCodeLine{    \textcolor{keyword}{using} FnPtr\_d2 = double (*)(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// these are taken from C library by createCLibraryFunctions}}
+\DoxyCodeLine{    \textcolor{keyword}{using} fabsFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} acosFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} asinFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} atanFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} ceilFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} cosFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} coshFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} expFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} floorFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} logFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} log10FnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} sinFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} sinhFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} tanFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} tanhFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} fmodFnTy = FnPtr\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} powFnTy = FnPtr\_d2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// these are defined locally by roadrunner in SBMLSupportFunctions}}
+\DoxyCodeLine{    \textcolor{keyword}{using} arccotFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_arccot\_negzeroFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arccothFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arccscFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arccschFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arcsecFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arcsechFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} cotFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} cothFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} cscFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} cschFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} secFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} sechFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arccoshFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arcsinhFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} arctanhFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_factorialdFnTy = FnPtr\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_factorialiFnTy = FnPtr\_i1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_logdFnTy = FnPtr\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_rootdFnTy = FnPtr\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} quotientFnTy = FnPtr\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_maxFnTy = FnPtr\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} rr\_minFnTy = FnPtr\_d2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// for a sparse matrix used in llvm world}}
+\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_set\_nz\_FnTy = rr::csr\_matrix *(*)(int, int, double);}
+\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_get\_nz\_FnTy = rr::csr\_matrix *(*)(int, int);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// function signatures for distrib}}
+\DoxyCodeLine{    \textcolor{keyword}{using} DistribFnTy\_d1 = double (*)(Random *, double);}
+\DoxyCodeLine{    \textcolor{keyword}{using} DistribFnTy\_d2 = double (*)(Random *, double, double);}
+\DoxyCodeLine{    \textcolor{keyword}{using} DistribFnTy\_d3 = double (*)(Random *, double, double, double);}
+\DoxyCodeLine{    \textcolor{keyword}{using} DistribFnTy\_d4 = double (*)(Random *, double, double, double, double);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_bernoulli\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_cauchy\_one\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_chisquare\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_exponential\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_laplace\_one\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_poisson\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_rayleigh\_FnTy = DistribFnTy\_d1;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_uniform\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_normal\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_binomial\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_cauchy\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_gamma\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_laplace\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_lognormal\_FnTy = DistribFnTy\_d2;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_chisquare\_three\_FnTy = DistribFnTy\_d3;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_exponential\_three\_FnTy = DistribFnTy\_d3;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_poisson\_three\_FnTy = DistribFnTy\_d3;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_rayleigh\_three\_FnTy = DistribFnTy\_d3;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_normal\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_binomial\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_cauchy\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_gamma\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_laplace\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{    \textcolor{keyword}{using} distrib\_lognormal\_four\_FnTy = DistribFnTy\_d4;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{using} rrOwningBinary = llvm::object::OwningBinary<llvm::object::ObjectFile>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{using} FnMap = std::unordered\_map<std::string, std::pair<llvm::FunctionType *, void *>>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{class }Jit \{}
+\DoxyCodeLine{    \textcolor{keyword}{public}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{explicit} \mbox{\hyperlink{classrrllvm_1_1Jit_ac9bfb0045cd3a21ecd4b48d7fb4683f8}{Jit}}(std::uint32\_t options);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \mbox{\hyperlink{classrrllvm_1_1Jit_ac9bfb0045cd3a21ecd4b48d7fb4683f8}{Jit}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_a639f90099cf9faf011209586a9023a66}{mapFunctionsToJitSymbols}}() = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//        virtual void mapDistribFunctionsToJitSymbols() = 0;}}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \mbox{\hyperlink{classrrllvm_1_1Jit_a3b8ed0a6c863013898f33f7bb9be650d}{\string~Jit}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} std::uint64\_t lookupFunctionAddress(\textcolor{keyword}{const} std::string \&name) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}{addObjectFile}}(rrOwningBinary owningObject) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}{addObjectFile}}(std::unique\_ptr<llvm::object::ObjectFile> objectFile) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_a1da020c67e709b9655807c6d7a8d8344}{addObjectFile}}(std::unique\_ptr<llvm::MemoryBuffer> obj) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_af1bd1151bcdb23b228581e378eff5be0}{addModule}}(llvm::Module *M) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_af1bd1151bcdb23b228581e378eff5be0}{addModule}}(std::unique\_ptr<llvm::Module> M, std::unique\_ptr<llvm::LLVMContext> ctx) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_af1bd1151bcdb23b228581e378eff5be0}{addModule}}() = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keyword}{const} llvm::DataLayout \&\mbox{\hyperlink{classrrllvm_1_1Jit_ab1b79c72c48252a9da789480ab876db5}{getDataLayout}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} std::unique\_ptr<llvm::MemoryBuffer> \mbox{\hyperlink{classrrllvm_1_1Jit_ac8b2944cf579635496c62e2ec0fc12b9}{getCompiledModelFromCache}}(\textcolor{keyword}{const} std::string \&sbmlMD5) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_ab4b10666cae29d7ee65d68f2e781b22f}{transferObjectsToResources}}(std::shared\_ptr<rrllvm::ModelResources> modelResources);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classrrllvm_1_1Jit_a126ca0f75646887926342ef4ee8ea034}{mapLLVMGeneratedFunctionsToSymbols}}(ModelResources *modelResources, std::uint32\_t options);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} llvm::Module *\mbox{\hyperlink{classrrllvm_1_1Jit_a92e5c8af5539c0e790328d66ed325d26}{getModuleNonOwning}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} llvm::LLVMContext *\mbox{\hyperlink{classrrllvm_1_1Jit_a1e2112dbdce27e06228eb49e5c8a3f47}{getContextNonOwning}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} llvm::IRBuilder<> *\mbox{\hyperlink{classrrllvm_1_1Jit_afb8cf53b3bde8eaa539b14cc685cb200}{getBuilderNonOwning}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} std::string \mbox{\hyperlink{classrrllvm_1_1Jit_ab316cce1cd3f402e678fb3534da19b3d}{emitToString}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        llvm::raw\_svector\_ostream \&\mbox{\hyperlink{classrrllvm_1_1Jit_a32be1d696e7e200582353bf4c33c3bfb}{getCompiledModuleStream}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        std::string getDefaultTargetTriple() \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordtype}{void} setModuleIdentifier(\textcolor{keyword}{const} std::string \&\textcolor{keywordtype}{id});}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} std::string mangleName(\textcolor{keyword}{const} std::string \&unmangledName) \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{virtual} std::string \mbox{\hyperlink{classrrllvm_1_1Jit_a49579ba0e6ce122894ec6def38f8e140}{getModuleAsString}}(std::string sbmlMD5) = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{        std::unique\_ptr<llvm::raw\_svector\_ostream> \mbox{\hyperlink{classrrllvm_1_1Jit_aa71f25762a7483cc342a3674881c44d1}{compiledModuleBinaryStream}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        llvm::SmallVector<char, 10> \mbox{\hyperlink{classrrllvm_1_1Jit_a1487ca6247ee86b6dab2020d4659d064}{moduleBuffer}};}
+\DoxyCodeLine{    \textcolor{keyword}{protected}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{        std::string \mbox{\hyperlink{classrrllvm_1_1Jit_a7613abd146677cc3ee74bc9267ca5d1c}{getProcessTriple}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keyword}{const} llvm::Target *\mbox{\hyperlink{classrrllvm_1_1Jit_ae135808ab2a9ab0466cc1cc54715ad93}{getDefaultTargetMachine}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        FnMap \mbox{\hyperlink{classrrllvm_1_1Jit_aa25373cc3dc5ac1bd2f7c162a4e044df}{externalFunctionSignatures}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{        std::unique\_ptr<llvm::LLVMContext> context;}
+\DoxyCodeLine{        std::unique\_ptr<llvm::Module> module;}
+\DoxyCodeLine{        llvm::Module *moduleNonOwning = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{        std::unique\_ptr<llvm::IRBuilder<>> builder;}
+\DoxyCodeLine{        std::uint32\_t options;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{private}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordtype}{void} createCLibraryFunction(llvm::LibFunc funcId, llvm::FunctionType *funcType);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordtype}{void} createCLibraryFunctions();}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \};}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif //ROADRUNNER\_JIT\_H}}
+\end{DoxyCodeInclude}
+ 

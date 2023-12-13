@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1UninitializedValueException" kind="class" language="C++" prot="public">
     <compoundname>rr::UninitializedValueException</compoundname>
     <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
@@ -10,7 +10,6 @@
         <definition>rr::UninitializedValueException::UninitializedValueException</definition>
         <argsstring>(const std::string &amp;msg)</argsstring>
         <name>UninitializedValueException</name>
-        <qualifiedname>rr::UninitializedValueException::UninitializedValueException</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>msg</declname>
@@ -21,24 +20,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrException.h" line="116" column="9" bodyfile="rrException.cpp" bodystart="47" bodyend="47"/>
+        <location file="rrException.h" line="150" column="9" bodyfile="rrException.cpp" bodystart="47" bodyend="47"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Thrown whenever an uninitialized value is encountered, see <ulink url="https://github.com/sys-bio/roadrunner/issues/180">https://github.com/sys-bio/roadrunner/issues/180</ulink>. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rr::Exception</label>
-        <link refid="classrr_1_1Exception"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
       <node id="1">
         <label>rr::UninitializedValueException</label>
         <link refid="classrr_1_1UninitializedValueException"/>
@@ -46,10 +36,28 @@
         </childnode>
       </node>
       <node id="3">
-        <label>std::exception</label>
+        <label>exception</label>
+      </node>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="1">
+        <label>rr::UninitializedValueException</label>
+        <link refid="classrr_1_1UninitializedValueException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>exception</label>
+      </node>
       <node id="2">
         <label>rr::Exception</label>
         <link refid="classrr_1_1Exception"/>
@@ -59,20 +67,8 @@
           <edgelabel>mMessage</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>rr::UninitializedValueException</label>
-        <link refid="classrr_1_1UninitializedValueException"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>std::exception</label>
-      </node>
-      <node id="4">
-        <label>string</label>
-      </node>
     </collaborationgraph>
-    <location file="rrException.h" line="113" column="1" bodyfile="rrException.h" bodystart="114" bodyend="117"/>
+    <location file="rrException.h" line="148" column="1" bodyfile="rrException.h" bodystart="147" bodyend="151"/>
     <listofallmembers>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::UninitializedValueException</scope><name>Exception</name></member>
       <member refid="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de" prot="public" virt="non-virtual"><scope>rr::UninitializedValueException</scope><name>getMessage</name></member>

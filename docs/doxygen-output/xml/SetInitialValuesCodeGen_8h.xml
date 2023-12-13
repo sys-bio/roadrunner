@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="SetInitialValuesCodeGen_8h" kind="file" language="C++">
     <compoundname>SetInitialValuesCodeGen.h</compoundname>
     <includes refid="CodeGenBase_8h" local="yes">CodeGenBase.h</includes>
@@ -12,6 +12,9 @@
     <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <includedby refid="SetInitialValuesCodeGen_8cpp" local="yes">llvm/SetInitialValuesCodeGen.cpp</includedby>
     <incdepgraph>
+      <node id="29">
+        <label>list</label>
+      </node>
       <node id="38">
         <label>ASTNodeFactory.h</label>
         <link refid="ASTNodeFactory_8h_source"/>
@@ -20,63 +23,19 @@
         <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="58">
-        <label>CodeGen.h</label>
-        <link refid="CodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+      <node id="53">
+        <label>llvm/IR/IRBuilder.h</label>
+      </node>
+      <node id="43">
+        <label>Random.h</label>
+        <link refid="Random_8h_source"/>
+        <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>CodeGenBase.h</label>
-        <link refid="CodeGenBase_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="58" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="60" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
-      </node>
-      <node id="47">
-        <label>Jit.h</label>
-        <link refid="Jit_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="53" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-      </node>
-      <node id="49">
-        <label>LLVMException.h</label>
-        <link refid="LLVMException_8h_source"/>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
+      <node id="27">
+        <label>sbml/SBMLDocument.h</label>
       </node>
       <node id="4">
         <label>LLVMIncludes.h</label>
@@ -102,6 +61,62 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="44">
+        <label>tr1proxy/rr_random.h</label>
+      </node>
+      <node id="12">
+        <label>llvm/Support/raw_ostream.h</label>
+      </node>
+      <node id="28">
+        <label>stdint.h</label>
+      </node>
+      <node id="61">
+        <label>SetInitialValueCodeGenBase.h</label>
+        <link refid="SetInitialValueCodeGenBase_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>variant</label>
+      </node>
+      <node id="7">
+        <label>llvm/ExecutionEngine/ExecutionEngine.h</label>
+      </node>
+      <node id="8">
+        <label>llvm/ExecutionEngine/MCJIT.h</label>
+      </node>
+      <node id="10">
+        <label>llvm/Support/TargetSelect.h</label>
+      </node>
+      <node id="37">
+        <label>cassert</label>
+      </node>
+      <node id="18">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
       <node id="16">
         <label>LLVMModelData.h</label>
         <link refid="LLVMModelData_8h_source"/>
@@ -112,23 +127,128 @@
         <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="15">
-        <label>LLVMModelDataSymbols.h</label>
-        <link refid="LLVMModelDataSymbols_8h_source"/>
-        <childnode refid="16" relation="include">
+      <node id="49">
+        <label>stdexcept</label>
+      </node>
+      <node id="36">
+        <label>sbml/math/ASTNode.h</label>
+      </node>
+      <node id="22">
+        <label>string</label>
+      </node>
+      <node id="31">
+        <label>tr1proxy/rr_unordered_map.h</label>
+      </node>
+      <node id="32">
+        <label>map</label>
+      </node>
+      <node id="47">
+        <label>Jit.h</label>
+        <link refid="Jit_8h_source"/>
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="52" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="53" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>LLVMException.h</label>
+        <link refid="LLVMException_8h_source"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>CodeGen.h</label>
+        <link refid="CodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>sbml/Model.h</label>
+      </node>
+      <node id="25">
+        <label>exception</label>
+      </node>
+      <node id="57">
+        <label>llvm/IR/Mangler.h</label>
+      </node>
+      <node id="2">
+        <label>CodeGenBase.h</label>
+        <link refid="CodeGenBase_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>ostream</label>
+      </node>
+      <node id="23">
+        <label>rrExecutableModel.h</label>
+        <link refid="rrExecutableModel_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>llvm/Transforms/Scalar.h</label>
+      </node>
+      <node id="42">
+        <label>sbml/SBMLVisitor.h</label>
+      </node>
+      <node id="13">
+        <label>llvm/Analysis/TargetLibraryInfo.h</label>
+      </node>
+      <node id="40">
+        <label>llvm/IR/DataLayout.h</label>
+      </node>
+      <node id="19">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
       </node>
       <node id="34">
         <label>LLVMModelSymbols.h</label>
@@ -142,6 +262,21 @@
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>rr_unordered_map</label>
+      </node>
+      <node id="24">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="63">
@@ -160,6 +295,12 @@
         <childnode refid="64" relation="include">
         </childnode>
       </node>
+      <node id="59">
+        <label>stack</label>
+      </node>
+      <node id="20">
+        <label>vector</label>
+      </node>
       <node id="39">
         <label>ModelDataIRBuilder.h</label>
         <link refid="ModelDataIRBuilder_8h_source"/>
@@ -170,6 +311,16 @@
         <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>rrSparse.h</label>
+        <link refid="rrSparse_8h_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -196,51 +347,14 @@
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="62">
-        <label>ModelInitialValueSymbolResolver.h</label>
-        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="63" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
+      <node id="51">
+        <label>sstream</label>
       </node>
-      <node id="43">
-        <label>Random.h</label>
-        <link refid="Random_8h_source"/>
-        <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
+      <node id="14">
+        <label>llvm/Support/Host.h</label>
       </node>
-      <node id="61">
-        <label>SetInitialValueCodeGenBase.h</label>
-        <link refid="SetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="62" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="60" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
+      <node id="5">
+        <label>llvm/Config/llvm-config.h</label>
       </node>
       <node id="1">
         <label>llvm/SetInitialValuesCodeGen.h</label>
@@ -260,6 +374,44 @@
         <childnode refid="41" relation="include">
         </childnode>
       </node>
+      <node id="55">
+        <label>llvm/Target/TargetMachine.h</label>
+      </node>
+      <node id="6">
+        <label>llvm/Analysis/Passes.h</label>
+      </node>
+      <node id="52">
+        <label>unordered_map</label>
+      </node>
+      <node id="62">
+        <label>ModelInitialValueSymbolResolver.h</label>
+        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
+      <node id="50">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>llvm/Object/ObjectFile.h</label>
+      </node>
+      <node id="60">
+        <label>Poco/Logger.h</label>
+      </node>
       <node id="35">
         <label>SymbolForest.h</label>
         <link refid="SymbolForest_8h_source"/>
@@ -270,200 +422,48 @@
         <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="24">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
+      <node id="33">
+        <label>set</label>
       </node>
-      <node id="23">
-        <label>rrExecutableModel.h</label>
-        <link refid="rrExecutableModel_8h"/>
-        <childnode refid="18" relation="include">
+      <node id="15">
+        <label>LLVMModelDataSymbols.h</label>
+        <link refid="LLVMModelDataSymbols_8h_source"/>
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
-      </node>
-      <node id="19">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="51">
-        <label>rrLogger.h</label>
-        <link refid="rrLogger_8h_source"/>
-        <childnode refid="52" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-      </node>
-      <node id="18">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="17">
-        <label>rrSparse.h</label>
-        <link refid="rrSparse_8h_source"/>
-        <childnode refid="18" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="60">
-        <label>Poco/Logger.h</label>
-      </node>
-      <node id="37">
-        <label>cassert</label>
-      </node>
-      <node id="25">
-        <label>exception</label>
-      </node>
-      <node id="29">
-        <label>list</label>
-      </node>
-      <node id="6">
-        <label>llvm/Analysis/Passes.h</label>
-      </node>
-      <node id="13">
-        <label>llvm/Analysis/TargetLibraryInfo.h</label>
-      </node>
-      <node id="5">
-        <label>llvm/Config/llvm-config.h</label>
-      </node>
-      <node id="7">
-        <label>llvm/ExecutionEngine/ExecutionEngine.h</label>
-      </node>
-      <node id="8">
-        <label>llvm/ExecutionEngine/MCJIT.h</label>
-      </node>
-      <node id="55">
-        <label>llvm/ExecutionEngine/ObjectCache.h</label>
-      </node>
-      <node id="40">
-        <label>llvm/IR/DataLayout.h</label>
-      </node>
-      <node id="48">
-        <label>llvm/IR/IRBuilder.h</label>
       </node>
       <node id="46">
         <label>llvm/IR/LegacyPassManager.h</label>
       </node>
-      <node id="56">
-        <label>llvm/IR/Mangler.h</label>
-      </node>
-      <node id="9">
-        <label>llvm/IR/PassManager.h</label>
-      </node>
       <node id="54">
-        <label>llvm/Object/ObjectFile.h</label>
-      </node>
-      <node id="14">
-        <label>llvm/Support/Host.h</label>
-      </node>
-      <node id="10">
-        <label>llvm/Support/TargetSelect.h</label>
-      </node>
-      <node id="12">
-        <label>llvm/Support/raw_ostream.h</label>
-      </node>
-      <node id="53">
-        <label>llvm/Target/TargetMachine.h</label>
-      </node>
-      <node id="11">
-        <label>llvm/Transforms/Scalar.h</label>
-      </node>
-      <node id="32">
-        <label>map</label>
+        <label>llvm/ExecutionEngine/ObjectCache.h</label>
       </node>
       <node id="45">
         <label>memory</label>
       </node>
-      <node id="21">
-        <label>ostream</label>
-      </node>
-      <node id="64">
-        <label>rr_unordered_map</label>
-      </node>
-      <node id="41">
-        <label>sbml/Model.h</label>
-      </node>
-      <node id="27">
-        <label>sbml/SBMLDocument.h</label>
-      </node>
-      <node id="42">
-        <label>sbml/SBMLVisitor.h</label>
-      </node>
-      <node id="36">
-        <label>sbml/math/ASTNode.h</label>
-      </node>
-      <node id="33">
-        <label>set</label>
-      </node>
-      <node id="52">
-        <label>sstream</label>
-      </node>
-      <node id="59">
-        <label>stack</label>
-      </node>
-      <node id="50">
-        <label>stdexcept</label>
-      </node>
-      <node id="28">
-        <label>stdint.h</label>
-      </node>
-      <node id="22">
-        <label>string</label>
-      </node>
-      <node id="30">
-        <label>tr1proxy/rr_memory.h</label>
-      </node>
-      <node id="44">
-        <label>tr1proxy/rr_random.h</label>
-      </node>
-      <node id="31">
-        <label>tr1proxy/rr_unordered_map.h</label>
-      </node>
-      <node id="57">
-        <label>unordered_map</label>
-      </node>
-      <node id="26">
-        <label>variant</label>
-      </node>
-      <node id="20">
-        <label>vector</label>
+      <node id="9">
+        <label>llvm/IR/PassManager.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4">
-        <label>CVODEIntegrator.h</label>
-        <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
+      <node id="7">
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
+      </node>
+      <node id="13">
+        <label>llvm/LLVMModelGenerator.h</label>
+        <link refid="LLVMModelGenerator_8h_source"/>
       </node>
       <node id="3">
         <label>ForwardSensitivitySolver.h</label>
@@ -473,20 +473,12 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="9">
-        <label>NLEQ1Solver.h</label>
-        <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="10" relation="include">
+      <node id="4">
+        <label>CVODEIntegrator.h</label>
+        <link refid="CVODEIntegrator_8h"/>
+        <childnode refid="3" relation="include">
         </childnode>
-      </node>
-      <node id="11">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
-        <childnode refid="10" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -497,15 +489,25 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
+      <node id="10">
+        <label>SteadyStateSolver.cpp</label>
+        <link refid="SteadyStateSolver_8cpp"/>
+      </node>
+      <node id="5">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="11">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>SensitivitySolverFactory.h</label>
         <link refid="SensitivitySolverFactory_8h_source"/>
         <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="10">
-        <label>SteadyStateSolver.cpp</label>
-        <link refid="SteadyStateSolver_8cpp"/>
       </node>
       <node id="2">
         <label>llvm/LLVMExecutableModel.h</label>
@@ -519,13 +521,11 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="12">
-        <label>llvm/LLVMModelGenerator.h</label>
-        <link refid="LLVMModelGenerator_8h_source"/>
-      </node>
-      <node id="13">
-        <label>llvm/ModelResources.h</label>
-        <link refid="ModelResources_8h_source"/>
+      <node id="9">
+        <label>NLEQ1Solver.h</label>
+        <link refid="NLEQ1Solver_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>llvm/SetInitialValuesCodeGen.h</label>
@@ -533,17 +533,11 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
+      <node id="12">
+        <label>llvm/ModelResources.h</label>
+        <link refid="ModelResources_8h_source"/>
       </node>
     </invincdepgraph>
-    <innerclass refid="classrrllvm_1_1SetFloatingSpeciesInitConcentrationCodeGen" prot="public">rrllvm::SetFloatingSpeciesInitConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1SetBoundarySpeciesInitConcentrationCodeGen" prot="public">rrllvm::SetBoundarySpeciesInitConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1SetFloatingSpeciesInitAmountCodeGen" prot="public">rrllvm::SetFloatingSpeciesInitAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1SetBoundarySpeciesInitAmountCodeGen" prot="public">rrllvm::SetBoundarySpeciesInitAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1SetCompartmentInitVolumeCodeGen" prot="public">rrllvm::SetCompartmentInitVolumeCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1SetGlobalParameterInitValueCodeGen" prot="public">rrllvm::SetGlobalParameterInitValueCodeGen</innerclass>
     <innernamespace refid="namespacerrllvm">rrllvm</innernamespace>
     <briefdescription>
     </briefdescription>
@@ -570,119 +564,118 @@
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rrllvm</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="21" refid="classrrllvm_1_1SetFloatingSpeciesInitConcentrationCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetFloatingSpeciesInitConcentrationCodeGen" kindref="compound">SetFloatingSpeciesInitConcentrationCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetFloatingSpeciesInitConcentrationCodeGen,<sp/>false&gt;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetFloatingSpeciesInitConcentrationCodeGen" kindref="compound">SetFloatingSpeciesInitConcentrationCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;mgc);</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetFloatingSpeciesInitConcentrationCodeGen" kindref="compound">~SetFloatingSpeciesInitConcentrationCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetFloatingSpeciesInitConcentrationCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetFloatingSpeciesInitConcentrationCodeGen,<sp/>false&gt;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetFloatingSpeciesInitConcentrationCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetFloatingSpeciesInitConcentrationCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="classrrllvm_1_1SetBoundarySpeciesInitConcentrationCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetBoundarySpeciesInitConcentrationCodeGen" kindref="compound">SetBoundarySpeciesInitConcentrationCodeGen</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetBoundarySpeciesInitConcentrationCodeGen,<sp/>false&gt;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetBoundarySpeciesInitConcentrationCodeGen" kindref="compound">SetBoundarySpeciesInitConcentrationCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>&amp;<sp/>mgc);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetBoundarySpeciesInitConcentrationCodeGen" kindref="compound">~SetBoundarySpeciesInitConcentrationCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetBoundarySpeciesInitConcentrationCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetBoundarySpeciesInitConcentrationCodeGen,<sp/>false&gt;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetBoundarySpeciesInitConcentrationCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetBoundarySpeciesInitConcentrationCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59" refid="classrrllvm_1_1SetFloatingSpeciesInitAmountCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetFloatingSpeciesInitAmountCodeGen" kindref="compound">SetFloatingSpeciesInitAmountCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetFloatingSpeciesInitAmountCodeGen,<sp/>true&gt;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetFloatingSpeciesInitAmountCodeGen" kindref="compound">SetFloatingSpeciesInitAmountCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;mgc);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetFloatingSpeciesInitAmountCodeGen" kindref="compound">~SetFloatingSpeciesInitAmountCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetFloatingSpeciesInitAmountCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetFloatingSpeciesInitAmountCodeGen,<sp/>true&gt;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetFloatingSpeciesInitAmountCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetFloatingSpeciesInitAmountCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78" refid="classrrllvm_1_1SetBoundarySpeciesInitAmountCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetBoundarySpeciesInitAmountCodeGen" kindref="compound">SetBoundarySpeciesInitAmountCodeGen</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetBoundarySpeciesInitAmountCodeGen,<sp/>true&gt;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetBoundarySpeciesInitAmountCodeGen" kindref="compound">SetBoundarySpeciesInitAmountCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>&amp;<sp/>mgc);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetBoundarySpeciesInitAmountCodeGen" kindref="compound">~SetBoundarySpeciesInitAmountCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetBoundarySpeciesInitAmountCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetBoundarySpeciesInitAmountCodeGen,<sp/>true&gt;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetBoundarySpeciesInitAmountCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetBoundarySpeciesInitAmountCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97" refid="classrrllvm_1_1SetCompartmentInitVolumeCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetCompartmentInitVolumeCodeGen" kindref="compound">SetCompartmentInitVolumeCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetCompartmentInitVolumeCodeGen,<sp/>false&gt;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetCompartmentInitVolumeCodeGen" kindref="compound">SetCompartmentInitVolumeCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;mgc);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetCompartmentInitVolumeCodeGen" kindref="compound">~SetCompartmentInitVolumeCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="112"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114" refid="classrrllvm_1_1SetGlobalParameterInitValueCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1SetGlobalParameterInitValueCodeGen" kindref="compound">SetGlobalParameterInitValueCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetInitialValueCodeGenBase" kindref="compound">SetInitialValueCodeGenBase</ref>&lt;SetGlobalParameterInitValueCodeGen,<sp/>false&gt;</highlight></codeline>
-<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetGlobalParameterInitValueCodeGen" kindref="compound">SetGlobalParameterInitValueCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;mgc);</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1SetGlobalParameterInitValueCodeGen" kindref="compound">~SetGlobalParameterInitValueCodeGen</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetCompartmentInitVolumeCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetCompartmentInitVolumeCodeGen,<sp/>false&gt;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetCompartmentInitVolumeCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetCompartmentInitVolumeCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">SetGlobalParameterInitValueCodeGen<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetInitialValueCodeGenBase&lt;SetGlobalParameterInitValueCodeGen,<sp/>false&gt;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetGlobalParameterInitValueCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ModelGeneratorContext&amp;<sp/>mgc);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~SetGlobalParameterInitValueCodeGen()<sp/>{};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringIntVector<sp/>getIds();</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isInitialValue()<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>FunctionName;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>IndexArgName;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rrllvm<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRLLVMSETINITIALVALUESCODEGEN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rrllvm<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRLLVMSETINITIALVALUESCODEGEN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/SetInitialValuesCodeGen.h"/>
   </compounddef>

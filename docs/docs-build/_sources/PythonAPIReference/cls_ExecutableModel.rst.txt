@@ -10,7 +10,7 @@ a dictionary. The dictionary keys are all of the symbols specified in the origin
 a number of selection strings described in the Selections section.
 
 .. method:: ExecutableModel.keys()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get a list of all the keys that this model has. This is a very good way of looking at all the
    available symbols and selection strings:
@@ -22,7 +22,7 @@ a number of selection strings described in the Selections section.
 
 
 .. method:: ExecutableModel.items()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get a list of key / value pairs of all the selections / values in the model.
 
@@ -33,7 +33,7 @@ a number of selection strings described in the Selections section.
 
 
 .. method:: ExecutableModel.__getitem__
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Implements the python ``[]`` indexing operator, so the model values can be accessed like::
 
@@ -47,7 +47,7 @@ a number of selection strings described in the Selections section.
 
 
 .. method:: ExecutableModel.__setitem__
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Implements the python ``[]`` indexing operator for setting values::
 
@@ -71,7 +71,7 @@ Floating Species
 ----------------
 
 .. method:: ExecutableModel.getFloatingSpeciesIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of all floating species SBML ids.
 
@@ -80,7 +80,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.getDependentFloatingSpeciesIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of dependent floating species SBML ids.
 
@@ -89,7 +89,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.getIndependentFloatingSpeciesIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of independent floating species SBML ids.
 
@@ -98,7 +98,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.getFloatingSpeciesConcentrationIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of all floating species concentration ids.
 
@@ -107,7 +107,7 @@ Floating Species
    
 
 .. method:: ExecutableModel.getNumFloatingSpecies()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the number of floating species in the model.
 
@@ -116,7 +116,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.getFloatingSpeciesAmounts([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get the list of floating species amounts. If no arguments are given, this
    returns all floating species amounts.
@@ -137,7 +137,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.setFloatingSpeciesAmounts(values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Use this to set the entire set of floating species amounts in one call.
    The order of species is given by the order of Ids returned by getFloatingSpeciesIds()
@@ -152,7 +152,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.getFloatingSpeciesConcentrations([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of floating species concentrations. The order of species is
    given by the order of Ids returned by getFloatingSpeciesIds()
@@ -166,7 +166,7 @@ Floating Species
 
 
 .. method:: ExecutableModel.setFloatingSpeciesConcentrations([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Use this to set the entire set of floating species concentrations in one call.
    The order of species is given by the order of Ids returned by getFloatingSpeciesIds()
@@ -195,7 +195,7 @@ what has changed the initial conditions use the :meth:`~ExecutableModel.reset()`
 The following methods allow access to the floating species initial condition values:
 
 .. method:: ExecutableModel.getFloatingSpeciesInitAmountIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of the floating species amount initial amount selection symbols.
 
@@ -204,7 +204,7 @@ The following methods allow access to the floating species initial condition val
 
 
 .. method:: ExecutableModel.getFloatingSpeciesInitConcentrationIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of the floating species amount initial concentration selection symbols.
 
@@ -213,7 +213,7 @@ The following methods allow access to the floating species initial condition val
 
 
 .. method:: ExecutableModel.getFloatingSpeciesInitConcentrations([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of floating species initial concentrations. The order of species is
    given by the order of Ids returned by getFloatingSpeciesInitialConcentrationIds()
@@ -228,7 +228,7 @@ The following methods allow access to the floating species initial condition val
 
 
 .. method:: ExecutableModel.setFloatingSpeciesInitConcentrations([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Set a vector of floating species initial concentrations. The order of species is
    given by the order of Ids returned by getFloatingSpeciesInitialAmountIds()
@@ -242,7 +242,7 @@ The following methods allow access to the floating species initial condition val
 
 
 .. method:: ExecutableModel.getFloatingSpeciesInitAmounts([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of floating species initial amounts. The order of species is
    given by the order of Ids returned by getFloatingSpeciesInitialConcentrationIds()
@@ -257,7 +257,7 @@ The following methods allow access to the floating species initial condition val
 
 
 .. method:: ExecutableModel.setFloatingSpeciesInitAmounts([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Set a vector of floating species initial amounts. The order of species is
    given by the order of Ids returned by getFloatingSpeciesInitialAmountIds()
@@ -274,7 +274,7 @@ Boundary Species
 ----------------
 
 .. method:: ExecutableModel.getBoundarySpeciesAmounts([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of boundary species amounts. The order of species is
    given by the order of Ids returned by getBoundarySpeciesIds()
@@ -288,7 +288,7 @@ Boundary Species
 
 
 .. method:: ExecutableModel.getBoundarySpeciesConcentrations([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of boundary species concentrations. The order of species is
    given by the order of Ids returned by getBoundarySpeciesIds()
@@ -302,7 +302,7 @@ Boundary Species
 
 
 .. method:: ExecutableModel.getBoundarySpeciesIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of boundary species Ids.
 
@@ -315,7 +315,7 @@ Boundary Species
 
 
 .. method:: ExecutableModel.getBoundarySpeciesConcentrationIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of boundary species concentration Ids.
 
@@ -328,7 +328,7 @@ Boundary Species
    
    
 .. method:: ExecutableModel.getNumBoundarySpecies()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the number of boundary species in the model.
 
@@ -338,7 +338,7 @@ Boundary Species
 
 
 .. method:: ExecutableModel.setBoundarySpeciesConcentrations([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Use this to set the entire set of boundary species concentrations in one call.
    The order of species is given by the order of boundary species returned by getBoundarySpeciesIds()
@@ -359,7 +359,7 @@ Compartments
 ------------
 
 .. method:: ExecutableModel.getCompartmentIds([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of compartment identifier symbols.
 
@@ -373,7 +373,7 @@ Compartments
 
 
 .. method:: ExecutableModel.getCompartmentVolumes([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of compartment volumes. The order of volumes is
    given by the order of Ids returned by getCompartmentIds()
@@ -388,7 +388,7 @@ Compartments
 
 
 .. method:: ExecutableModel.getNumCompartments()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the number of compartments in the model.
 
@@ -400,7 +400,7 @@ Compartments
 
 
 .. method:: ExecutableModel.setCompartmentVolumes([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Set a vector of compartment volumes.
 
@@ -425,7 +425,7 @@ Global Parameters
 
 
 .. method:: ExecutableModel.getGlobalParameterIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of global parameter ids.
 
@@ -433,7 +433,7 @@ Global Parameters
 
 
 .. method:: ExecutableModel.getGlobalParameterValues([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Returns a vector of global parameter values. The order of species is
    given by the order of Ids returned by getGlobalParameterIds()
@@ -448,7 +448,7 @@ Global Parameters
 
 
 .. method:: ExecutableModel.getNumGlobalParameters()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
 
    Returns the number of global parameters in the model.
@@ -458,7 +458,7 @@ Global Parameters
 
 
 .. method:: ExecutableModel.setGlobalParameterValues([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Sets the entire set of global parameters.
    The order of parameters is given by the order of Ids returned by getGlobalParameterIds()
@@ -479,7 +479,7 @@ Reactions
 ---------
 
 .. method:: ExecutableModel.getNumReactions()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the number of reactions in the model.
 
@@ -489,7 +489,7 @@ Reactions
 
 
 .. method:: ExecutableModel.getReactionIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of reaction Ids.
 
@@ -502,7 +502,7 @@ Reactions
 
 
 .. method:: ExecutableModel.getReactionRates([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of reaction rates (reaction velocity) for the current state of the model. The
    order of reaction rates is given by the order of Ids returned by getReactionIds()
@@ -519,7 +519,7 @@ Events
 ------
 
 .. method:: ExecutableModel.getNumEvents()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Returns the number of events.
 
@@ -531,7 +531,7 @@ Rate Rules
 ----------
 
 .. method:: ExecutableModel.getNumRateRules()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Returns the number of rate rules.
 
@@ -540,7 +540,7 @@ Rate Rules
 
    
 .. method:: ExecutableModel.getEventIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Returns a list of event ids.
 
@@ -555,7 +555,7 @@ Stoichiometry
 -------------
 
 .. method:: ExecutableModel.getStoichiometry(speciesIndex, reactionIndex)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the stochiometric coefficient for the given species index and reaction index.
 
@@ -577,7 +577,7 @@ Conserved Moieties
 Refer to :attr:`RoadRunner.conservedMoietyAnalysis` and :attr:`Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES` for more information.
 
 .. method:: ExecutableModel.getNumConservedMoieties()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return the number of conserved moieties in the model.
 
@@ -589,7 +589,7 @@ Refer to :attr:`RoadRunner.conservedMoietyAnalysis` and :attr:`Config.LOADSBMLOP
 
 
 .. method:: ExecutableModel.getConservedMoietyIds([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of conserved moiety identifier symbols.
 
@@ -603,7 +603,7 @@ Refer to :attr:`RoadRunner.conservedMoietyAnalysis` and :attr:`Config.LOADSBMLOP
 
 
 .. method:: ExecutableModel.getConservedMoietyValues([index])
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a vector of conserved moiety volumes. The order of values is
    given by the order of Ids returned by getConservedMoietyIds()
@@ -618,7 +618,7 @@ Refer to :attr:`RoadRunner.conservedMoietyAnalysis` and :attr:`Config.LOADSBMLOP
 
 
 .. method:: ExecutableModel.setConservedMoietyValues([index], values)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Set a vector of conserved moiety values.
 
@@ -644,7 +644,7 @@ Misc
 ----
 
 .. method:: ExecutableModel.getAllTimeCourseComponentIds()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Return a list of all component ids.  The list includes ids of amount/concentration of 
    floating species, boundary species, global parameters, compartments, and reactions, 
@@ -658,7 +658,7 @@ Misc
 
 
 .. method:: ExecutableModel.getInfo()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get various info about the model.
 
@@ -701,7 +701,7 @@ Misc
 
 
 .. method:: ExecutableModel.getModelName()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get the model name specified in the SBML.
 
@@ -711,7 +711,7 @@ Misc
 
 
 .. method:: ExecutableModel.getTime()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Get the model time. The model originally start at time t=0 and is advaced forward in time by the
    integrator. So, if one ran a simulation from time = 0 to time = 10, the model will then have it's
@@ -722,7 +722,7 @@ Misc
 
 
 .. method:: ExecutableModel.setTime(time)
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Set the model time variable.
 
@@ -735,20 +735,20 @@ Misc
 
 
 .. method:: ExecutableModel.reset()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Resets all the floating species concentrations to their initial values.
 
 
 .. method:: ExecutableModel.resetAll()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Resets all variables, species, etc. to the CURRENT initial values.
    It also resets all parameter back to the values they had when the model was first loaded
 
 
 .. method:: ExecutableModel.resetToOrigin()
-   :module: RoadRunner
+   :module: RoadRunner_python
 
    Resets the model back to the state is was when it was FIRST loaded.
    The scope of reset includes all initial values and parameters, etc.

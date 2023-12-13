@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="classrr_1_1Logger" kind="class" language="C++" prot="public">
     <compoundname>rr::Logger</compoundname>
     <includes refid="rrLogger_8h" local="no">rrLogger.h</includes>
@@ -7,7 +7,6 @@
       <memberdef kind="enum" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" prot="public" static="no" strong="no">
         <type></type>
         <name>Level</name>
-        <qualifiedname>rr::Logger::Level</qualifiedname>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" prot="public">
           <name>LOG_CURRENT</name>
           <initializer>= 0</initializer>
@@ -89,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="70" column="5" bodyfile="rrLogger.h" bodystart="71" bodyend="92"/>
+        <location file="rrLogger.h" line="71" column="1" bodyfile="rrLogger.h" bodystart="70" bodyend="92"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -98,7 +97,6 @@
         <definition>void rr::Logger::setLevel</definition>
         <argsstring>(int level=LOG_CURRENT)</argsstring>
         <name>setLevel</name>
-        <qualifiedname>rr::Logger::setLevel</qualifiedname>
         <param>
           <type>int</type>
           <declname>level</declname>
@@ -118,7 +116,6 @@
         <definition>int rr::Logger::getLevel</definition>
         <argsstring>()</argsstring>
         <name>getLevel</name>
-        <qualifiedname>rr::Logger::getLevel</qualifiedname>
         <briefdescription>
 <para>get the current logging level. </para>
         </briefdescription>
@@ -133,7 +130,6 @@
         <definition>void rr::Logger::disableLogging</definition>
         <argsstring>()</argsstring>
         <name>disableLogging</name>
-        <qualifiedname>rr::Logger::disableLogging</qualifiedname>
         <briefdescription>
 <para>Suppresses all logging output. </para>
         </briefdescription>
@@ -148,7 +144,6 @@
         <definition>void rr::Logger::disableConsoleLogging</definition>
         <argsstring>()</argsstring>
         <name>disableConsoleLogging</name>
-        <qualifiedname>rr::Logger::disableConsoleLogging</qualifiedname>
         <briefdescription>
 <para>stops logging to the console, but file logging may continue. </para>
         </briefdescription>
@@ -163,7 +158,6 @@
         <definition>void rr::Logger::enableConsoleLogging</definition>
         <argsstring>(int level=LOG_CURRENT)</argsstring>
         <name>enableConsoleLogging</name>
-        <qualifiedname>rr::Logger::enableConsoleLogging</qualifiedname>
         <param>
           <type>int</type>
           <declname>level</declname>
@@ -183,7 +177,6 @@
         <definition>void rr::Logger::enableFileLogging</definition>
         <argsstring>(const std::string &amp;fileName=&quot;&quot;, int level=LOG_CURRENT)</argsstring>
         <name>enableFileLogging</name>
-        <qualifiedname>rr::Logger::enableFileLogging</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>fileName</declname>
@@ -210,7 +203,6 @@
         <definition>void rr::Logger::disableFileLogging</definition>
         <argsstring>()</argsstring>
         <name>disableFileLogging</name>
-        <qualifiedname>rr::Logger::disableFileLogging</qualifiedname>
         <briefdescription>
 <para>turns off file logging, but has no effect on console logging. </para>
         </briefdescription>
@@ -225,7 +217,6 @@
         <definition>std::string rr::Logger::getCurrentLevelAsString</definition>
         <argsstring>()</argsstring>
         <name>getCurrentLevelAsString</name>
-        <qualifiedname>rr::Logger::getCurrentLevelAsString</qualifiedname>
         <briefdescription>
 <para>get the textural form of the current logging level. </para>
         </briefdescription>
@@ -240,7 +231,6 @@
         <definition>std::string rr::Logger::getFileName</definition>
         <argsstring>()</argsstring>
         <name>getFileName</name>
-        <qualifiedname>rr::Logger::getFileName</qualifiedname>
         <briefdescription>
 <para>get the name of the currently used log file. </para>
         </briefdescription>
@@ -255,7 +245,6 @@
         <definition>void rr::Logger::setFormattingPattern</definition>
         <argsstring>(const std::string &amp;format)</argsstring>
         <name>setFormattingPattern</name>
-        <qualifiedname>rr::Logger::setFormattingPattern</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>format</declname>
@@ -319,7 +308,6 @@
         <definition>std::string rr::Logger::getFormattingPattern</definition>
         <argsstring>()</argsstring>
         <name>getFormattingPattern</name>
-        <qualifiedname>rr::Logger::getFormattingPattern</qualifiedname>
         <briefdescription>
 <para>get the currently set formatting pattern. </para>
         </briefdescription>
@@ -334,7 +322,6 @@
         <definition>std::string rr::Logger::levelToString</definition>
         <argsstring>(int level)</argsstring>
         <name>levelToString</name>
-        <qualifiedname>rr::Logger::levelToString</qualifiedname>
         <param>
           <type>int</type>
           <declname>level</declname>
@@ -353,7 +340,6 @@
         <definition>Logger::Level rr::Logger::stringToLevel</definition>
         <argsstring>(const std::string &amp;str)</argsstring>
         <name>stringToLevel</name>
-        <qualifiedname>rr::Logger::stringToLevel</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>str</declname>
@@ -372,7 +358,6 @@
         <definition>bool rr::Logger::getColoredOutput</definition>
         <argsstring>()</argsstring>
         <name>getColoredOutput</name>
-        <qualifiedname>rr::Logger::getColoredOutput</qualifiedname>
         <briefdescription>
 <para>check if we have colored logging enabled. </para>
         </briefdescription>
@@ -387,7 +372,6 @@
         <definition>void rr::Logger::setColoredOutput</definition>
         <argsstring>(bool)</argsstring>
         <name>setColoredOutput</name>
-        <qualifiedname>rr::Logger::setColoredOutput</qualifiedname>
         <param>
           <type>bool</type>
           <defname>bool1</defname>
@@ -406,7 +390,6 @@
         <definition>void rr::Logger::setProperty</definition>
         <argsstring>(const std::string &amp;name, const std::string &amp;value)</argsstring>
         <name>setProperty</name>
-        <qualifiedname>rr::Logger::setProperty</qualifiedname>
         <param>
           <type>const std::string &amp;</type>
           <declname>name</declname>
@@ -433,7 +416,6 @@
         <definition>void rr::Logger::log</definition>
         <argsstring>(Level level, const std::string &amp;msg)</argsstring>
         <name>log</name>
-        <qualifiedname>rr::Logger::log</qualifiedname>
         <param>
           <type><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Level</ref></type>
           <declname>level</declname>
@@ -457,7 +439,6 @@
         <definition>void rr::Logger::setConsoleStream</definition>
         <argsstring>(std::ostream *os)</argsstring>
         <name>setConsoleStream</name>
-        <qualifiedname>rr::Logger::setConsoleStream</qualifiedname>
         <param>
           <type>std::ostream *</type>
           <declname>os</declname>
@@ -480,7 +461,7 @@
     <detaileddescription>
 <para>A set of static method for setting the logging level. </para>
     </detaileddescription>
-    <location file="rrLogger.h" line="62" column="1" bodyfile="rrLogger.h" bodystart="63" bodyend="300"/>
+    <location file="rrLogger.h" line="63" column="1" bodyfile="rrLogger.h" bodystart="62" bodyend="300"/>
     <listofallmembers>
       <member refid="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableConsoleLogging</name></member>
       <member refid="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableFileLogging</name></member>

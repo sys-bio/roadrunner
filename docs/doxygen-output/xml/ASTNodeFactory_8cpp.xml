@@ -1,14 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="ASTNodeFactory_8cpp" kind="file" language="C++">
     <compoundname>ASTNodeFactory.cpp</compoundname>
     <includes refid="ASTNodeFactory_8h" local="yes">ASTNodeFactory.h</includes>
     <incdepgraph>
-      <node id="1">
-        <label>llvm/ASTNodeFactory.cpp</label>
-        <link refid="ASTNodeFactory_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="4">
+        <label>list</label>
       </node>
       <node id="2">
         <label>ASTNodeFactory.h</label>
@@ -18,11 +15,14 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>list</label>
-      </node>
       <node id="3">
         <label>sbml/math/ASTNode.h</label>
+      </node>
+      <node id="1">
+        <label>llvm/ASTNodeFactory.cpp</label>
+        <link refid="ASTNodeFactory_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacerrllvm">rrllvm</innernamespace>
@@ -59,21 +59,21 @@
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="27"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal">libsbml::ASTNode*<sp/><ref refid="classrrllvm_1_1ASTNodeFactory_1aa492e96aa042c33f1cf3480dc1b65e3c" kindref="member">ASTNodeFactory::create</ref>(libsbml::ASTNodeType_t<sp/>type)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">libsbml::ASTNode*<sp/>ASTNodeFactory::create(libsbml::ASTNodeType_t<sp/>type)</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>ASTNode<sp/>*node<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>ASTNode(type);</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>nodes.push_back(node);</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>node;</highlight></codeline>
 <codeline lineno="34"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal">libsbml::ASTNode*<sp/><ref refid="classrrllvm_1_1ASTNodeFactory_1aa492e96aa042c33f1cf3480dc1b65e3c" kindref="member">ASTNodeFactory::create</ref>(libsbml::Token_t*<sp/>token)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">libsbml::ASTNode*<sp/>ASTNodeFactory::create(libsbml::Token_t*<sp/>token)</highlight></codeline>
 <codeline lineno="37"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>ASTNode<sp/>*node<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>ASTNode(token);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>nodes.push_back(node);</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>node;</highlight></codeline>
 <codeline lineno="41"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal">libsbml::ASTNode*<sp/><ref refid="classrrllvm_1_1ASTNodeFactory_1aa492e96aa042c33f1cf3480dc1b65e3c" kindref="member">ASTNodeFactory::create</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode&amp;<sp/>orig)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">libsbml::ASTNode*<sp/>ASTNodeFactory::create(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode&amp;<sp/>orig)</highlight></codeline>
 <codeline lineno="44"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>ASTNode<sp/>*node<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>ASTNode(orig);</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>nodes.push_back(node);</highlight></codeline>
