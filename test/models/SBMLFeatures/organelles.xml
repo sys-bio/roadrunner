@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1" level="3" spatial:required="true" version="1">
+   <model areaUnits="um2" id="CellOrganizer2_7" lengthUnits="um" name="CellOrganizer2_7" substanceUnits="molecules" timeUnits="s" volumeUnits="um3">
+      <spatial:geometry spatial:coordinateSystem="cartesian">
+         <spatial:listOfAdjacentDomains>
+            <spatial:adjacentDomains spatial:domain1="EC0" spatial:domain2="vesicle1" spatial:id="EC0_vesicle1"/>
+            <spatial:adjacentDomains spatial:domain1="EC0" spatial:domain2="vesicle2" spatial:id="EC0_vesicle2"/>
+            <spatial:adjacentDomains spatial:domain1="EC0" spatial:domain2="vesicle3" spatial:id="EC0_vesicle3"/>
+            <spatial:adjacentDomains spatial:domain1="EC0" spatial:domain2="vesicle4" spatial:id="EC0_vesicle4"/>
+            <spatial:adjacentDomains spatial:domain1="EC0" spatial:domain2="vesicle0" spatial:id="EC0_vesicle0"/>
+         </spatial:listOfAdjacentDomains>
+         <spatial:listOfCoordinateComponents>
+            <spatial:coordinateComponent spatial:id="x" spatial:type="cartesianX" spatial:unit="um">
+               <spatial:boundaryMin spatial:id="Xmin" spatial:value="-10"/>
+               <spatial:boundaryMax spatial:id="Xmax" spatial:value="10"/>
+            </spatial:coordinateComponent>
+            <spatial:coordinateComponent spatial:id="y" spatial:type="cartesianY" spatial:unit="um">
+               <spatial:boundaryMin spatial:id="Ymin" spatial:value="-10"/>
+               <spatial:boundaryMax spatial:id="Ymax" spatial:value="10"/>
+            </spatial:coordinateComponent>
+            <spatial:coordinateComponent spatial:id="z" spatial:type="cartesianZ" spatial:unit="um">
+               <spatial:boundaryMin spatial:id="Zmin" spatial:value="-10"/>
+               <spatial:boundaryMax spatial:id="Zmax" spatial:value="10"/>
+            </spatial:coordinateComponent>
+         </spatial:listOfCoordinateComponents>
+         <spatial:listOfDomains>
+            <spatial:domain spatial:domainType="EC" spatial:id="EC0">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="10.2335" spatial:coord2="11.7338" spatial:coord3="0.61715"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+            <spatial:domain spatial:domainType="vesicle" spatial:id="vesicle0">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="14.0467" spatial:coord2="7.1867" spatial:coord3="1.176"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+            <spatial:domain spatial:domainType="vesicle" spatial:id="vesicle1">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="3.1033" spatial:coord2="12.9033" spatial:coord3="0.098"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+            <spatial:domain spatial:domainType="vesicle" spatial:id="vesicle2">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="3.7567" spatial:coord2="14.7" spatial:coord3="0.539"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+            <spatial:domain spatial:domainType="vesicle" spatial:id="vesicle3">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="6.2067" spatial:coord2="16.66" spatial:coord3="0.539"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+            <spatial:domain spatial:domainType="vesicle" spatial:id="vesicle4">
+               <spatial:listOfInteriorPoints>
+                  <spatial:interiorPoint spatial:coord1="4.41" spatial:coord2="13.72" spatial:coord3="0.784"/>
+               </spatial:listOfInteriorPoints>
+            </spatial:domain>
+         </spatial:listOfDomains>
+         <spatial:listOfDomainTypes>
+            <spatial:domainType spatial:id="EC" spatial:spatialDimensions="3"/>
+            <spatial:domainType spatial:id="vesicle" spatial:spatialDimensions="3"/>
+         </spatial:listOfDomainTypes>
+         <spatial:listOfGeometryDefinitions>
+                  <spatial:csGeometry spatial:id="csgid056101043048054" spatial:isActive="true">
+                     <spatial:listOfCSGObjects>
+                        <spatial:csgObject spatial:domainType="vesicle" spatial:id="vesicle1" spatial:ordinal="1">
+                           <spatial:csgTranslation spatial:id="translation" spatial:translateX="14.0467" spatial:translateY="7.1867" spatial:translateZ="1.176">
+                              <spatial:csgRotation spatial:id="rotation" spatial:rotateAngleInRadians="1.9063" spatial:rotateX="0" spatial:rotateY="0" spatial:rotateZ="0">
+                                 <spatial:csgScale spatial:id="scale" spatial:scaleX="0.18233" spatial:scaleY="0.13681" spatial:scaleZ="0.0014762">
+                                    <spatial:csgPrimitive spatial:id="sphere" spatial:primitiveType="sphere"/>
+                                 </spatial:csgScale>
+                              </spatial:csgRotation>
+                           </spatial:csgTranslation>
+                        </spatial:csgObject>
+                        <spatial:csgObject spatial:domainType="vesicle" spatial:id="vesicle2" spatial:ordinal="2">
+                           <spatial:csgTranslation spatial:id="translation" spatial:translateX="3.1033" spatial:translateY="12.9033" spatial:translateZ="0.098">
+                              <spatial:csgRotation spatial:id="rotation" spatial:rotateAngleInRadians="2.8576" spatial:rotateX="0" spatial:rotateY="0" spatial:rotateZ="0">
+                                 <spatial:csgScale spatial:id="scale" spatial:scaleX="0.20984" spatial:scaleY="0.19498" spatial:scaleZ="0.023465">
+                                    <spatial:csgPrimitive spatial:id="sphere" spatial:primitiveType="sphere"/>
+                                 </spatial:csgScale>
+                              </spatial:csgRotation>
+                           </spatial:csgTranslation>
+                        </spatial:csgObject>
+                        <spatial:csgObject spatial:domainType="vesicle" spatial:id="vesicle3" spatial:ordinal="3">
+                           <spatial:csgTranslation spatial:id="translation" spatial:translateX="3.7567" spatial:translateY="14.7" spatial:translateZ="0.539">
+                              <spatial:csgRotation spatial:id="rotation" spatial:rotateAngleInRadians="1.6625" spatial:rotateX="0" spatial:rotateY="0" spatial:rotateZ="0">
+                                 <spatial:csgScale spatial:id="scale" spatial:scaleX="0.44382" spatial:scaleY="0.35643" spatial:scaleZ="0.097921">
+                                    <spatial:csgPrimitive spatial:id="sphere" spatial:primitiveType="sphere"/>
+                                 </spatial:csgScale>
+                              </spatial:csgRotation>
+                           </spatial:csgTranslation>
+                        </spatial:csgObject>
+                        <spatial:csgObject spatial:domainType="vesicle" spatial:id="vesicle4" spatial:ordinal="4">
+                           <spatial:csgTranslation spatial:id="translation" spatial:translateX="6.2067" spatial:translateY="16.66" spatial:translateZ="0.539">
+                              <spatial:csgRotation spatial:id="rotation" spatial:rotateAngleInRadians="2.2783" spatial:rotateX="0" spatial:rotateY="0" spatial:rotateZ="0">
+                                 <spatial:csgScale spatial:id="scale" spatial:scaleX="0.1533" spatial:scaleY="0.14143" spatial:scaleZ="0.070294">
+                                    <spatial:csgPrimitive spatial:id="sphere" spatial:primitiveType="sphere"/>
+                                 </spatial:csgScale>
+                              </spatial:csgRotation>
+                           </spatial:csgTranslation>
+                        </spatial:csgObject>
+                        <spatial:csgObject spatial:domainType="vesicle" spatial:id="vesicle5" spatial:ordinal="5">
+                           <spatial:csgTranslation spatial:id="translation" spatial:translateX="4.41" spatial:translateY="13.72" spatial:translateZ="0.784">
+                              <spatial:csgRotation spatial:id="rotation" spatial:rotateAngleInRadians="1.8051" spatial:rotateX="0" spatial:rotateY="0" spatial:rotateZ="0">
+                                 <spatial:csgScale spatial:id="scale" spatial:scaleX="0.22228" spatial:scaleY="0.15407" spatial:scaleZ="0.22676">
+                                    <spatial:csgPrimitive spatial:id="sphere" spatial:primitiveType="sphere"/>
+                                 </spatial:csgScale>
+                              </spatial:csgRotation>
+                           </spatial:csgTranslation>
+                        </spatial:csgObject>
+                     </spatial:listOfCSGObjects>
+                  </spatial:csGeometry>
+         </spatial:listOfGeometryDefinitions>
+      </spatial:geometry>
+      <listOfUnitDefinitions>
+         <unitDefinition id="molecules">
+            <listOfUnits>
+               <unit exponent="1" kind="item" multiplier="1" scale="0"/>
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="um3">
+            <listOfUnits>
+               <unit exponent="3" kind="metre" multiplier="1" scale="-6"/>
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="um2">
+            <listOfUnits>
+               <unit exponent="2" kind="metre" multiplier="1" scale="-6"/>
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="um">
+            <listOfUnits>
+               <unit exponent="1" kind="metre" multiplier="1" scale="-6"/>
+            </listOfUnits>
+         </unitDefinition>
+         <unitDefinition id="s">
+            <listOfUnits>
+               <unit exponent="1" kind="second" multiplier="1" scale="0"/>
+            </listOfUnits>
+         </unitDefinition>
+      </listOfUnitDefinitions>
+      <listOfCompartments>
+         <compartment constant="true" id="EC" name="EC" size="50000" spatialDimensions="3" units="um3">
+            <spatial:compartmentMapping spatial:domainType="EC" spatial:id="ECEC" spatial:unitSize="1"/>
+            <annotation>
+               <cellorganizer/>
+            </annotation>
+         </compartment>
+         <compartment constant="true" id="vesicle" name="vesicle" size="50000" spatialDimensions="3" units="um3">
+            <spatial:compartmentMapping spatial:domainType="vesicle" spatial:id="vesiclevesicle" spatial:unitSize="1"/>
+            <annotation>
+               <cellorganizer/>
+            </annotation>
+         </compartment>
+      </listOfCompartments>
+   </model>
+</sbml>

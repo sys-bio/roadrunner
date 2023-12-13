@@ -189,7 +189,7 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
     Value *stoich = builder.CreateLoad(stoichEP, "stoichiometry");
 
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
-            dataSymbols.getStoichiometryIndx();
+            dataSymbols.getStoichiometryList();
 
     for (std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::iterator i =
             stoichEntries.begin(); i != stoichEntries.end(); i++)

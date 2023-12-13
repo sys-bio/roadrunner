@@ -105,14 +105,14 @@ namespace rr {
             Setting(false),                             // SIMULATEOPTIONS_MULTI_STEP,
             Setting(false),                             // SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP,
             Setting(true),                              // SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP,
-            Setting(std::string("CVODE")),          // SIMULATEOPTIONS_INTEGRATOR
+            Setting(std::string("CVODE")),              // SIMULATEOPTIONS_INTEGRATOR
             Setting(-1),                                // SIMULATEOPTIONS_INITIAL_TIMESTEP,
             Setting(-1),                                // SIMULATEOPTIONS_MINIMUM_TIMESTEP,
             Setting(-1),                                // SIMULATEOPTIONS_MAXIMUM_TIMESTEP,
             Setting(-1),                                // SIMULATEOPTIONS_MAXIMUM_NUM_STEPS
             Setting(false),                             // ROADRUNNER_DISABLE_WARNINGS
             Setting(false),                             // ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES
-            Setting(int(AllChecksON & UnitsCheckOFF)),   // SBML_APPLICABLEVALIDATORS
+            Setting(int(AllChecksON & UnitsCheckOFF)),  // SBML_APPLICABLEVALIDATORS
             Setting(0.00001),                           // ROADRUNNER_JACOBIAN_STEP_SIZE
             Setting((int)(SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING)), // MODEL_RESET
             Setting(1.e-12),                            // CVODE_MIN_ABSOLUTE
@@ -131,9 +131,9 @@ namespace rr {
             Setting(0),                                 // STEADYSTATE_BROYDEN
             Setting(3),                                 // STEADYSTATE_LINEARITY
             Setting((std::int32_t)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS), // ROADRUNNER_JACOBIAN_MODE
-            Setting(std::string(".")),              // TEMP_DIR_PATH,
-            Setting(std::string("")),               // LOGGER_LOG_FILE_PATH,
-            Setting(-1),                 // RANDOM_SEED
+            Setting(std::string(".")),                  // TEMP_DIR_PATH,
+            Setting(std::string("")),                   // LOGGER_LOG_FILE_PATH,
+            Setting(-1),                                // RANDOM_SEED
             Setting(true),                              // PYTHON_ENABLE_NAMED_MATRIX
             Setting(true),                              // LLVM_SYMBOL_CACHE
             Setting(true),                              // OPTIMIZE_REACTION_RATE_SELECTION
@@ -144,7 +144,10 @@ namespace rr {
             Setting(1000),                              // K_ROWS_PER_WRITE
             Setting((std::int32_t)Config::MCJIT),       // LLVM_BACKEND
             Setting((std::int32_t)Config::NONE),        // LLJIT_OPTIMIZATION_LEVEL
-            Setting(1)                      // LLJIT_NUM_THREADS
+            Setting(1),                                 // LLJIT_NUM_THREADS
+            Setting(1.e-9),                             // METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD
+            Setting(0.02),                              // METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE
+            Setting(1.e-2)                              // METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD
     };
 
     static bool initialized = false;
@@ -261,6 +264,9 @@ namespace rr {
         keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND_VALUES::MCJIT;
         keys["LLJIT_OPTIMIZATION_LEVEL"] = rr::Config::LLJIT_OPTIMIZATION_LEVELS::AGGRESSIVE;
         keys["LLJIT_NUM_THREADS"] = getDefaultNumThreads();
+        keys["METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
+        keys["METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE;
+        keys["METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD;
 
         // add space after develop keys to clean up merging.
 
@@ -579,6 +585,8 @@ namespace rr {
             return Config::LLJIT_OPTIMIZATION_LEVEL;
         else if (key == "LLJIT_NUM_THREADS")
             return Config::LLJIT_NUM_THREADS;
+        else if (key == "METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD")
+            return Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
 
         else
             throw std::runtime_error("No such config key: '" + key + "'");

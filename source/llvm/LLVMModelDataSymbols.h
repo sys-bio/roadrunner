@@ -151,6 +151,7 @@ public:
         GLOBAL_PARAMETER,
         REACTION,
         EVENT,
+        STOICHIOMETRY,
         INVALID_SYMBOL
     };
 
@@ -244,6 +245,11 @@ public:
     std::vector<std::string> getReactionIds() const;
     size_t getReactionSize() const;
 
+    int getStoichiometryIndex(std::string const&) const;
+    int getStoichiometryIndex(const std::string&, const std::string&) const;
+    std::vector<std::string> getStoichiometryIds() const;
+    size_t getStoichiometrySize() const;
+
 
     std::vector<std::string> getGlobalParameterIds() const;
 
@@ -310,7 +316,7 @@ public:
      * in the list of pairs, first is the row (species) index,
      * and second is the column (reaction) index.
      */
-    std::list<SpeciesReferenceInfo> getStoichiometryIndx() const;
+    std::list<SpeciesReferenceInfo> getStoichiometryList() const;
 
     /**
      * initialize and allocate the buffers (including the stoich matrix)
@@ -421,6 +427,11 @@ public:
      * get the id of a conserved moiety given its name.
      */
     int getConservedMoietyIndex(const std::string& name) const;
+
+    /**
+     * check if the conserved moiety is turned on for this model
+     */
+    bool isConservedMoietyAnalysis() const;
 
 private:
 

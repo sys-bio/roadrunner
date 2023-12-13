@@ -133,11 +133,6 @@ namespace rr
         int stateVectorSize;
         double* stateVector;
         double* stateVectorRate;
-        // m rows x n cols
-        // offset = row*NUMCOLS + column
-        int stoichRows;
-        int stoichCols;
-        double* stoichData;
         std::vector<unsigned char> eventStatus;
         std::vector<unsigned char> previousEventStatus;
 
@@ -146,11 +141,10 @@ namespace rr
 
         double urand();
         void setEngineSeed(std::uint64_t seed);
-        std::uint64_t getSeed() const;
 
         inline double getStoich(uint species, uint reaction)
         {
-            return stoichData[species * stoichCols + reaction];
+            return mModel->getStoichiometry(species, reaction);
         }
 
         /**

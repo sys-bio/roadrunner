@@ -906,6 +906,19 @@ namespace rr {
         void setSteadyStateThreshold(double val);
 
         /**
+         * @brief Get the flux threshold used in getCC
+         * @details In the MCA routines, RoadRunner will keep trying to
+         * converge to a steady state until this threshold is met
+         */
+        double getFluxThreshold() const;
+
+        /**
+         * @brief Set the flux threshold used in getCC
+         * @details In getCC, RoadRunner will return 0.0 for flux control coefficients if the 
+         */
+        void setFluxThreshold(double val);
+
+        /**
          * Get unscaled control coefficient with respect to a global parameter
          *
          * variableName must be either a reaction or floating species.
@@ -1299,7 +1312,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true);
+        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true, bool errIfNotExist = true);
 
 
         /*
@@ -1896,11 +1909,6 @@ namespace rr {
 
         void getSpeciesIdsFromAST(const libsbml::ASTNode *node, std::vector<std::string> &species,
                                   std::vector<std::string> &speciesNames);
-
-        /*
-        * check and remove all parameter without any assignments
-        */
-        void checkGlobalParameters();
 
         void saveSelectionVector(std::ostream &, std::vector<SelectionRecord> &);
 

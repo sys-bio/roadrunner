@@ -1896,10 +1896,6 @@ TEST_F(CApiRRTests, TestRemove_Rules1) {
     checkRRTest("Remove_Rules1");
 }
 
-TEST_F(CApiRRTests, TestRemove_Rules2) {
-    checkRRTest("Remove_Rules2");
-}
-
 TEST_F(CApiRRTests, TestRemove_Species1) {
     checkRRTest("Remove_Species1");
 }

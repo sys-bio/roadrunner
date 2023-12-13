@@ -140,6 +140,9 @@ namespace rr
                 if (err)
                 {
                     errmsg = "  Error from libsbml:\n" + err->getMessage();
+                    if (err->getErrorId() == 10103) {
+                        throw std::domain_error("Invalid SBML, but valid XML.  It's possible that this is not an SBML file at all, but something else.");
+                    }
                 }
                 throw std::runtime_error("SBML document unable to be read." + errmsg);
             }

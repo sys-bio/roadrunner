@@ -178,7 +178,12 @@ namespace rr
             /**
             * Do not create a default selection list when the model is loaded.
             */
-            NO_DEFAULT_SELECTIONS = (0x1 << 0)   // => 0x00000001
+            NO_DEFAULT_SELECTIONS = (0x1 << 0),   // => 0x00000001
+
+            /**
+            * Do not create a default steady state selection list when the model is loaded.
+            */
+            NO_DEFAULT_STEADY_STATE_SELECTIONS = (0x1 << 1)   // => 0x00000010
         };
 
         /**
@@ -438,6 +443,9 @@ namespace rr
         * step size used for numeric Jacobian calculations.
         */
         double jacobianStepSize;
+        double diffStepSize;
+        double steadyStateThreshold;
+        double fluxThreshold;
 
         /**
         * load default valued from config.

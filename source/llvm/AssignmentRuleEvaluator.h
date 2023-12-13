@@ -12,7 +12,6 @@
 
 #include <sbml/Model.h>
 #include <sbml/SBMLVisitor.h>
-#include <sbml/AlgebraicRule.h>
 #include <sbml/AssignmentRule.h>
 
 namespace rrllvm

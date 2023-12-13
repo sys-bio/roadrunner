@@ -5,6 +5,7 @@ add_test_executable(
         invalid_sbml.cpp
         valid_sbml.cpp
         events.cpp
+        unsupported_packages.cpp
 )
 
 # make test_targets list global to all tests

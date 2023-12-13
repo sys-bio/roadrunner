@@ -61,13 +61,6 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
-        // get rows and columns
-        mModel->getStoichiometryMatrix(&stoichRows, &stoichCols, nullptr);
-        stoichData = new double[stoichRows * stoichCols];
-
-        // fill stoichData
-        mModel->getStoichiometryMatrix(&stoichRows, &stoichCols, &stoichData);
-
         setEngineSeed(getValue("seed").get<std::uint64_t>());
 	}
 
@@ -75,9 +68,6 @@ namespace rr
 	    :   Integrator(m),
 			timeScale(1.0),
 			stoichScale(1.0),
-			stoichRows(0),
-			stoichCols(0),
-			stoichData(nullptr),
 			reactionRates(nullptr),
 			reactionRatesBuffer(nullptr),
 			stateVector(nullptr),
@@ -98,12 +88,10 @@ namespace rr
             delete[] reactionRatesBuffer;
             delete[] stateVector;
             delete[] stateVectorRate;
-            delete[] stoichData;
             reactionRates = nullptr;
             reactionRatesBuffer = nullptr;
             stateVector = nullptr;
             stateVectorRate = nullptr;
-            stoichData = nullptr;
         }
 	}
 
@@ -114,12 +102,10 @@ namespace rr
         delete[] reactionRatesBuffer;
         delete[] stateVector;
         delete[] stateVectorRate;
-        delete[] stoichData;
         reactionRates = nullptr;
         reactionRatesBuffer = nullptr;
         stateVector = nullptr;
         stateVectorRate = nullptr;
-        stoichData = nullptr;
 
         mModel = m;
         mModel->reset();
@@ -129,10 +115,6 @@ namespace rr
 
         timeScale = 1.;
         stoichScale = 1.;
-
-        stoichRows = 0;
-        stoichCols = 0;
-        stoichData = nullptr;
 
         initializeFromModel();
     }

@@ -552,6 +552,21 @@ namespace rr {
             LLJIT_NUM_THREADS,
 
             /**
+             * The flux threshold when calculating the scaled control coefficients of fluxes.
+             */
+            METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD,
+
+            /**
+             * The differential step size when calculating the scaled control coefficients of fluxes.
+             */
+            METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE,
+
+            /**
+             * The differential step size when calculating the scaled control coefficients of fluxes.
+             */
+            METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD,
+
+            /**
              * Needs to be the last item in the enum, no mater how many
              * other items are added, this is used internally to create
              * a static array.

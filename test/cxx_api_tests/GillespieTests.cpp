@@ -9,6 +9,7 @@
 
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
+#include "RoadRunnerTest.h"
 using namespace rr;
 
 /**
@@ -18,12 +19,32 @@ using namespace rr;
  * that need a new test to fix a bug.
  */
 
-class GillespieTests : public ::testing::Test{
+class GillespieTests : public RoadRunnerTest{
 
 public:
     OpenLinearFlux openLinearFlux;
     GillespieTests() = default;
 };
+
+TEST_F(GillespieTests, OddStoichiometries) {
+    RoadRunner rr1((rrTestModelsDir_ / "SBMLFeatures" / "S1_S2_S2.xml").string());
+    RoadRunner rr2((rrTestModelsDir_ / "SBMLFeatures" / "S1_2S2.xml").string());
+    rr1.setIntegrator("gillespie");
+    rr2.setIntegrator("gillespie");
+    rr1.getIntegrator()->setValue("seed", 1234);
+    rr2.getIntegrator()->setValue("seed", 1234);
+    rr1.getFullStoichiometryMatrix();
+    const ls::DoubleMatrix* results1 = rr1.simulate(0, 5, 20);
+    const ls::DoubleMatrix* results2 = rr2.simulate(0, 5, 20);
+
+    ASSERT_EQ(results1->RSize(), results2->RSize());
+    ASSERT_EQ(results1->CSize(), results2->CSize());
+    for (unsigned int row = 0; row < results1->RSize(); row++) {
+        for (unsigned int col = 0; col < results1->CSize(); col++) {
+            EXPECT_NEAR(results1->Element(row, col), results2->Element(row, col), 0.00001);
+        }
+    }
+}
 
 TEST_F(GillespieTests, Seed){
     RoadRunner rr(openLinearFlux.str());

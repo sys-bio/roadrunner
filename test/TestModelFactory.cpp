@@ -49,8 +49,8 @@ void SteadyStateResult::checkSteadyState(rr::RoadRunner *rr, double tol) {
         double actualResult = result[0][i]; // 0th row, ith col of a DoubleMatrix
         double expected = expectedResult[speciesID]; // first is start val, second is speciesID at steady state
 
-        std::cout << "Comparing \"" << speciesID << "\" expected result: " << expected
-                  << " with actual result " << actualResult << std::endl;
+        //std::cout << "Comparing \"" << speciesID << "\" expected result: " << expected
+        //          << " with actual result " << actualResult << std::endl;
         EXPECT_NEAR(expected, actualResult, tol);
     }
 }

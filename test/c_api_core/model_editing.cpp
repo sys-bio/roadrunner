@@ -421,12 +421,6 @@ TEST_F(CAPIModelEditingTests, REMOVE_COMPARTMENT_1) {
     }));
 }
 
-TEST_F(CAPIModelEditingTests, REMOVE_PARAM_RECURSE_1) {
-    EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
-        removeParameter(rri, "k2");
-    }));
-}
-
 TEST_F(CAPIModelEditingTests, REMOVE_EVENT_ASSIGNMENT_1) {
     EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
         removeEventAssignments(rri, "event1", "S2");

@@ -150,6 +150,9 @@ namespace rr {
         }
 
         jacobianStepSize = Config::getDouble(Config::ROADRUNNER_JACOBIAN_STEP_SIZE);
+        diffStepSize = Config::getDouble(Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE);
+        steadyStateThreshold = Config::getDouble(Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD);
+        fluxThreshold = Config::getDouble(Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD);
     }
 
 

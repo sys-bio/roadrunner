@@ -328,6 +328,9 @@ public:
     virtual std::string getCompartmentId(size_t);
     virtual int getReactionIndex(const std::string&);
     virtual std::string getReactionId(size_t);
+    virtual int getStoichiometryIndex(const std::string&);
+    virtual int getStoichiometryIndex(const std::string& speciesId, const std::string& reactionId);
+    virtual std::string getStoichiometryId(size_t);
 
     virtual void print(std::ostream &stream);
 
@@ -338,28 +341,25 @@ public:
     virtual int setConservedMoietyValues(size_t len, int const *indx,
             const double *values);
 
-
     virtual int setCompartmentVolumes(size_t len, int const* indx,
         const double* values);
 
     virtual int setCompartmentVolumes(size_t len, int const* indx,
         const double* values, bool strict);
 
+    virtual int setStoichiometries(size_t len, int const* indx,
+                                      const double* values);
+
+    virtual int setStoichiometries(size_t len, int const* indx,
+                                      const double* values, bool strict);
+
+    virtual int setStoichiometry(int index, double value);
+
+    virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value);
+
+    virtual double getStoichiometry(int index);
 
     virtual double getStoichiometry(int speciesIndex, int reactionIndex);
-
-    /**
-     * allocate a block of memory and copy the stochiometric values into it,
-     * and return it.
-     *
-     * The caller is responsible for freeing the memory that is referenced by data.
-     *
-     * @param[out] rows will hold the number of rows in the matrix.
-     * @param[out] cols will hold the number of columns in the matrix.
-     * @param[out] data a pointer which will hold a newly allocated memory block.
-     */
-    virtual int getStoichiometryMatrix(int* rows, int* cols, double** data);
-
 
     /******************************* Initial Conditions Section *******************/
     #if (1) /**********************************************************************/

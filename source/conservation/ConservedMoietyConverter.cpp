@@ -19,7 +19,6 @@
 #include "rrRoadRunner.h"
 
 #include <sbml/math/ASTNode.h>
-#include <sbml/AlgebraicRule.h>
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 #include <sbml/InitialAssignment.h>

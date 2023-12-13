@@ -11,7 +11,7 @@ class RoadRunnerAPITestsWithMCJit : public RoadRunnerAPITests {
 public:
     RoadRunnerAPITestsWithMCJit() 
         : RoadRunnerAPITests(){
-        Logger::setLevel(Logger::LOG_WARNING);
+        //Logger::setLevel(Logger::LOG_WARNING);
         Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT);
     }
 };
@@ -62,8 +62,8 @@ TEST_F(RoadRunnerAPITestsWithMCJit, loadSBMLWithLeadingNewlineCharacter){
     loadSBMLWithLeadingNewlineCharacter();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_RoadRunnerConstructorVersion){
-    DISABLED_RoadRunnerConstructorVersion();
+TEST_F(RoadRunnerAPITestsWithMCJit, RoadRunnerConstructorVersion){
+    RoadRunnerConstructorVersion();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_RoadRunnerConstructorFromURL){
@@ -74,8 +74,8 @@ TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_CompilerTempDirSupportCodeDir){
     DISABLED_CompilerTempDirSupportCodeDir();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_CopyConstructor){
-    DISABLED_CopyConstructor();
+TEST_F(RoadRunnerAPITestsWithMCJit, CopyConstructor){
+    CopyConstructor();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_EqualityOperators){
@@ -422,8 +422,8 @@ TEST_F(RoadRunnerAPITestsWithMCJit, setBoundary){
     setBoundary();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setHasOnlySubstanceUnits){
-    DISABLED_setHasOnlySubstanceUnits();
+TEST_F(RoadRunnerAPITestsWithMCJit, setHasOnlySubstanceUnits){
+    setHasOnlySubstanceUnits();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, setInitAmount){
@@ -446,12 +446,12 @@ TEST_F(RoadRunnerAPITestsWithMCJit, addReactionDirect){
     addReactionDirect();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_removeReactionWithUnusedParameters){
-    DISABLED_removeReactionWithUnusedParameters();
+TEST_F(RoadRunnerAPITestsWithMCJit, removeReactionAndUnusedParameters){
+    removeReactionAndUnusedParameters();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, removeReactionWithoutUnusedParameters){
-    removeReactionWithoutUnusedParameters();
+TEST_F(RoadRunnerAPITestsWithMCJit, removeReactionButNotUnusedParameters){
+    removeReactionButNotUnusedParameters();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setReversible){
@@ -502,32 +502,32 @@ TEST_F(RoadRunnerAPITestsWithMCJit, addEvent){
     addEvent();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_addTrigger){
-    DISABLED_addTrigger();
+TEST_F(RoadRunnerAPITestsWithMCJit, addTrigger){
+    addTrigger();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setPersistent){
-    DISABLED_setPersistent();
+TEST_F(RoadRunnerAPITestsWithMCJit, setPersistent){
+    setPersistent();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setTriggerInitialValue){
-    DISABLED_setTriggerInitialValue();
+TEST_F(RoadRunnerAPITestsWithMCJit, setTriggerInitialValue){
+    setTriggerInitialValue();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_addPriority){
-    DISABLED_addPriority();
+TEST_F(RoadRunnerAPITestsWithMCJit, addPriority){
+    addPriority();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_addDelay){
-    DISABLED_addDelay();
+TEST_F(RoadRunnerAPITestsWithMCJit, addDelay){
+    addDelay();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_addEventAssignment){
-    DISABLED_addEventAssignment();
+TEST_F(RoadRunnerAPITestsWithMCJit, addEventAssignment){
+    addEventAssignment();
 }
 
-TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_removeEventAssignments){
-    DISABLED_removeEventAssignments();
+TEST_F(RoadRunnerAPITestsWithMCJit, removeEventAssignments){
+    removeEventAssignments();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, removeEvent){

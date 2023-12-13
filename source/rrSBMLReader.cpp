@@ -119,6 +119,60 @@ static bool has_comp(const std::string& sbml) {
 }
 
 /**
+ * Check if the given sbml std::string uses the qual extension.
+ *
+ * We only need to scan inside the <sbml ... > tag, which is
+ * as the start of the doc, so this should be a very fast search.
+ *
+ * <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+ *     xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1"
+ *     level="3" version="1" comp:required="false">
+ */
+static bool has_qual(const std::string& sbml) {
+    std::string sbmlss; // sbml substring, avoid looking in entire document.
+    sbml_re.extract(sbml, sbmlss);
+    static const std::string qualns =
+        "http://www.sbml.org/sbml/level3/version1/qual";
+    return sbmlss.find(qualns) != std::string::npos;
+}
+
+/**
+ * Check if the given sbml std::string uses the spatial extension.
+ *
+ * We only need to scan inside the <sbml ... > tag, which is
+ * as the start of the doc, so this should be a very fast search.
+ *
+ * <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+ *     xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1"
+ *     level="3" version="1" comp:required="false">
+ */
+static bool has_spatial(const std::string& sbml) {
+    std::string sbmlss; // sbml substring, avoid looking in entire document.
+    sbml_re.extract(sbml, sbmlss);
+    static const std::string spatialns =
+        "http://www.sbml.org/sbml/level3/version1/spatial";
+    return sbmlss.find(spatialns) != std::string::npos;
+}
+
+/**
+ * Check if the given sbml std::string uses the multi extension.
+ *
+ * We only need to scan inside the <sbml ... > tag, which is
+ * as the start of the doc, so this should be a very fast search.
+ *
+ * <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+ *     xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1"
+ *     level="3" version="1" comp:required="false">
+ */
+static bool has_multi(const std::string& sbml) {
+    std::string sbmlss; // sbml substring, avoid looking in entire document.
+    sbml_re.extract(sbml, sbmlss);
+    static const std::string multins =
+        "http://www.sbml.org/sbml/level3/version1/multi";
+    return sbmlss.find(multins) != std::string::npos;
+}
+
+/**
  * flatten a comp model.
  */
 static std::string flatten_comp(const std::string& sbml, const std::string fname)
@@ -251,6 +305,21 @@ std::string SBMLReader::read(const std::string& str)
         if (has_comp(s))
         {
             return flatten_comp(s, str);
+        }
+        if (has_qual(s))
+        {
+            rrLog(Logger::LOG_ERROR) << "Qual model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'qual' package (for qualitative or 'logical' modeling).  These models are not supported by roadrunner or tellurium.  A good source of software that supports qual is the COLOMOTO consortium.  See http://www.colomoto.org/software/ for a list of other software packages that might work for you.");
+        }
+        if (has_spatial(s))
+        {
+            rrLog(Logger::LOG_ERROR) << "Spatial model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'spatial' package.  These models are not supported by roadrunner or tellurium.  A few software packages that do support spatial (as of 2023) include VCell (https://vcell.org/), XitoSBML (https://github.com/spatialsimulator/XitoSBML) and Spatial SBML (https://github.com/fbergmann/spatial-sbml).");
+        }
+        if (has_multi(s))
+        {
+            rrLog(Logger::LOG_ERROR) << "Multi model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'multi' package for multistate, multicomponent and multicompartment models, or 'rule-based' models.  These models are not supported by roadrunner or tellurium.  The best software package that supports multi (as of 2023) is Simmune (https://bioinformatics.niaid.nih.gov/simmune/).");
         }
         return s;
     }
