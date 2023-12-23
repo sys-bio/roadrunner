@@ -1,4 +1,4 @@
-name: Build-$(date +"%Y%m%d")-$(github.run_number)
+name: Build-$(date +"%Y%m%d")-$(GITHUB_RUN_NUMBER)
 
 on:
   push:
@@ -15,16 +15,16 @@ jobs:
 
     strategy:
       matrix:
-        PythonVersion: ["3.8", "3.9", "3.10", "3.11"]
+        PythonName: ["py38", "py39", "py310", "py311"]
         include:
-          - PythonName: "py38"
-            PythonVersion: "3.8"
-          - PythonName: "py39"
-            PythonVersion: "3.9"
-          - PythonName: "py310"
-            PythonVersion: "3.10"
-          - PythonName: "py311"
-            PythonVersion: "3.11"
+          - PythonVersion: "3.8"
+            PythonName: "py38"
+          - PythonVersion: "3.9"
+            PythonName: "py39"
+          - PythonVersion: "3.10"
+            PythonName: "py310"
+          - PythonVersion: "3.`11"
+            PythonName: "py311"
 
     container:
       image: sysbiouw/roadrunner-manylinux2014:latest
@@ -118,10 +118,8 @@ jobs:
         run: |
           echo "${{ env.CondaExecutable }} shell.bash hook"
           eval "$(${{ env.CondaExecutable }} shell.bash hook)"
-          ${{ env.CondaExecutable }} init
-          
-          echo ". ~/.bashrc"
-          source ~/.bashrc
+          ${{ env.CondaExecutable }} init bash
+          source "$HOME/.bashrc"
           ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
 
       - name: Install Dependencies
