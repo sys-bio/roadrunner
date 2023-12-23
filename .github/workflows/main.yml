@@ -15,15 +15,8 @@ jobs:
 
     strategy:
       matrix:
-        py39:
-          PythonVersion: 3.9
-          PythonName: py39
-        py310:
-          PythonVersion: 3.10
-          PythonName: py310
-        py311:
-          PythonVersion: 3.11
-          PythonName: py311
+        PythonVersion: ["3.8", "3.9", "3.10", "3.11"]
+        PythonName: ["py38", "py39", "py310", "py311"]
 
     container:
       image: sysbiouw/roadrunner-manylinux2014:latest
