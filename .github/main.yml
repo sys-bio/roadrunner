@@ -1,0 +1,177 @@
+name: Build-$(date +"%Y%m%d")-$(github.run_number)
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  ManyLinux2014:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        py39:
+          PythonVersion: 3.9
+          PythonName: py39
+        py310:
+          PythonVersion: 3.10
+          PythonName: py310
+        py311:
+          PythonVersion: 3.11
+          PythonName: py311
+
+    container:
+      image: sysbiouw/roadrunner-manylinux2014:latest
+
+    env:
+      CCACHE_DIR: ${{ github.workspace }}/ccache
+      BUILD_DIRECTORY: ${{ github.workspace }}/build
+      SOURCE_DIRECTORY: ${{ github.workspace }}
+        INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
+      MinicondaRoot: /Miniconda3
+      PythonRoot: ${{ env.MinicondaRoot }}/envs/${{ matrix.PythonName }}
+      CondaExecutable: ${{ env.MinicondaRoot }}/bin/conda
+      PythonExecutable: ${{ env.PythonRoot }}/bin/python
+      PythonLibDir: ${{ env.PythonRoot }}/lib
+      PythonIncludeDir: ${{ env.PythonRoot }}/include
+      PipExecutable: ${{ env.PythonRoot }}/bin/pip
+      SwigExecutable: /swig-4.0.2/install-swig-4.0.2/bin/swig
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Check Variables
+        run: |
+          # Check if SOURCE_DIRECTORY exists
+          echo "SOURCE_DIRECTORY   $SOURCE_DIRECTORY"
+          if [ ! -d "$SOURCE_DIRECTORY" ]; then
+            echo "ERROR: SOURCE_DIRECTORY does not exist at $SOURCE_DIRECTORY"
+            exit 1
+          fi
+
+          # Check if MinicondaRoot exists
+          echo "MinicondaRoot      $MinicondaRoot"
+          if [ ! -d "$MinicondaRoot" ]; then
+            echo "ERROR: MinicondaRoot does not exist at $MinicondaRoot"
+            exit 1
+          fi
+
+          # Check if PythonRoot exists
+          echo "PythonRoot         $PythonRoot"
+          if [ ! -d "$PythonRoot" ]; then
+            echo "ERROR: PythonRoot does not exist at $PythonRoot"
+            exit 1
+          fi
+
+          # Check if CondaExecutable exists
+          echo "CondaExecutable    $CondaExecutable"
+          if [ ! -f "$CondaExecutable" ]; then
+            echo "ERROR: CondaExecutable does not exist at $CondaExecutable"
+            exit 1
+          fi
+
+          # Check if PythonExecutable exists
+          echo "PythonExecutable   $PythonExecutable"
+          if [ ! -f "$PythonExecutable" ]; then
+            echo "ERROR: PythonExecutable does not exist at $PythonExecutable"
+            exit 1
+          fi
+
+          # Check if PythonLibDir exists
+          echo "PythonLibDir       $PythonLibDir"
+          if [ ! -d "$PythonLibDir" ]; then
+            echo "ERROR: PythonLibDir does not exist at $PythonLibDir"
+            exit 1
+          fi
+
+          # Check if PythonIncludeDir exists
+          echo "PythonIncludeDir   $PythonIncludeDir"
+          if [ ! -d "$PythonIncludeDir" ]; then
+            echo "ERROR: PythonIncludeDir does not exist at $PythonIncludeDir"
+            exit 1
+          fi
+
+          # Check if PipExecutable exists
+          echo "PipExecutable      $PipExecutable"
+          if [ ! -f "$PipExecutable" ]; then
+            echo "ERROR: PipExecutable does not exist at $PipExecutable"
+            exit 1
+          fi
+
+          # Check if SwigExecutable exists
+          echo "SwigExecutable     $SwigExecutable"
+          if [ ! -f "$SwigExecutable" ]; then
+            echo "ERROR: SwigExecutable does not exist at $SwigExecutable"
+            exit 1
+          fi
+
+      - name: Set up Conda
+        run: |
+          echo "${{ env.CondaExecutable }} shell.bash hook"
+          eval "$(${{ env.CondaExecutable }} shell.bash hook)"
+          ${{ env.CondaExecutable }} init
+          
+          echo ". ~/.bashrc"
+          . ~/.bashrc
+          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
+
+      - name: Install Dependencies
+        run: |
+          mkdir $BUILD_DIRECTORY
+          cd $BUILD_DIRECTORY
+          
+          ${{ env.PipExecutable }} install -r $SOURCE_DIRECTORY/requirements.txt
+          ${{ env.PipExecutable }} install -r $SOURCE_DIRECTORY/test-requirements.txt
+          
+          cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$INSTALL_DIRECTORY -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$PythonRoot -DSWIG_EXECUTABLE=$SwigExecutable -DCMAKE_BUILD_TYPE=Release ..
+          cmake --build . --target install --config Release -j 12
+
+      - name: Build With Python
+        run: |
+          . ~/.bashrc
+          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
+          
+          cd $BUILD_DIRECTORY
+          ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
+
+      - name: Run Tests
+        run: |
+          . ~/.bashrc
+          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
+          
+          cd $BUILD_DIRECTORY
+          ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
+
+      - name: Run Stochastic test suite
+        run: |
+          . ~/.bashrc
+          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
+          
+          cd $BUILD_DIRECTORY
+          ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
+
+      - name: Build Pip Wheel
+        run: |
+          cd $INSTALL_DIRECTORY
+          ls
+          
+          ${{ env.PipExecutable }} install numpy pytest
+          ${{ env.PythonExecutable }} ./setup.py bdist_wheel
+          ${{ env.PythonExecutable }} ./setup_rrplugins.py bdist_wheel
+
+      - name: Copy install to artifact staging area
+        run: cp -r $INSTALL_DIRECTORY/* ${{ github.workspace }}/roadrunner-manylinux2014-${{ matrix.PythonName }}
+
+      - name: Publish Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: roadrunner-ManyLinux2014-${{ matrix.PythonName }}
+          path: ${{ github.workspace }}/roadrunner-manylinux2014-${{ matrix.PythonName }}
