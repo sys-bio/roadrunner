@@ -114,13 +114,12 @@ jobs:
             exit 1
           fi
 
-      - name: Set up Conda
-        run: |
-          echo "${{ env.CondaExecutable }} shell.bash hook"
-          eval "$(${{ env.CondaExecutable }} shell.bash hook)"
-          ${{ env.CondaExecutable }} init bash
-          source "$HOME/.bashrc"
-          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
+      - name: Setup conda
+        uses: s-weigand/setup-conda@v1
+        with:
+          update-conda: true
+          python-version: ${{ matrix.PythonVersion }}
+          conda-channels: anaconda
 
       - name: Install Dependencies
         run: |
