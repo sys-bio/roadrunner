@@ -32,7 +32,7 @@ jobs:
       CCACHE_DIR: ${{ github.workspace }}/ccache
       BUILD_DIRECTORY: ${{ github.workspace }}/build
       SOURCE_DIRECTORY: ${{ github.workspace }}
-        INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
+      INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
       MinicondaRoot: /Miniconda3
       PythonRoot: ${{ env.MinicondaRoot }}/envs/${{ matrix.PythonName }}
       CondaExecutable: ${{ env.MinicondaRoot }}/bin/conda
