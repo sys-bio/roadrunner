@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         PythonVersion: ["3.8", "3.9", "3.10", "3.11"]
-        PythonName: ["py38", "py39", "py310", "py311"]
+        PythonName: ["py38","py39","py310","py311"]
 
     container:
       image: sysbiouw/roadrunner-manylinux2014:latest
@@ -27,12 +27,12 @@ jobs:
       SOURCE_DIRECTORY: ${{ github.workspace }}
       INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
       MinicondaRoot: /Miniconda3
-      PythonRoot: ${{ env.MinicondaRoot }}/envs/${{ matrix.PythonName }}
-      CondaExecutable: ${{ env.MinicondaRoot }}/bin/conda
-      PythonExecutable: ${{ env.PythonRoot }}/bin/python
-      PythonLibDir: ${{ env.PythonRoot }}/lib
-      PythonIncludeDir: ${{ env.PythonRoot }}/include
-      PipExecutable: ${{ env.PythonRoot }}/bin/pip
+      PythonRoot: ${{ MinicondaRoot }}/envs/${{ matrix.PythonName }}
+      CondaExecutable: ${{ MinicondaRoot }}/bin/conda
+      PythonExecutable: ${{ PythonRoot }}/bin/python
+      PythonLibDir: ${{ PythonRoot }}/lib
+      PythonIncludeDir: ${{ PythonRoot }}/include
+      PipExecutable: ${{ PythonRoot }}/bin/pip
       SwigExecutable: /swig-4.0.2/install-swig-4.0.2/bin/swig
 
     steps:
