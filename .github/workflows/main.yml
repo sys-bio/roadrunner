@@ -118,10 +118,10 @@ jobs:
         run: |
           echo "${{ env.CondaExecutable }} shell.bash hook"
           eval "$(${{ env.CondaExecutable }} shell.bash hook)"
-          ${{ env.CondaExecutable }} init bash
+          ${{ env.CondaExecutable }} init
           
           echo ". ~/.bashrc"
-          . ~/.bashrc
+          source ~/.bashrc
           ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
 
       - name: Install Dependencies
