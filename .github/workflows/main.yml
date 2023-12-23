@@ -27,12 +27,12 @@ jobs:
       SOURCE_DIRECTORY: ${{ github.workspace }}
       INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
       MinicondaRoot: /Miniconda3
-      PythonRoot: ${{ MinicondaRoot }}/envs/${{ matrix.PythonName }}
-      CondaExecutable: ${{ MinicondaRoot }}/bin/conda
-      PythonExecutable: ${{ PythonRoot }}/bin/python
-      PythonLibDir: ${{ PythonRoot }}/lib
-      PythonIncludeDir: ${{ PythonRoot }}/include
-      PipExecutable: ${{ PythonRoot }}/bin/pip
+      PythonRoot: /Miniconda3/envs/${{ matrix.PythonName }}
+      CondaExecutable: /Miniconda3/bin/conda
+      PythonExecutable: /Miniconda3/envs/${{ matrix.PythonName }}/bin/python
+      PythonLibDir: /Miniconda3/envs/${{ matrix.PythonName }}/lib
+      PythonIncludeDir: /Miniconda3/envs/${{ matrix.PythonName }}/include
+      PipExecutable: /Miniconda3/envs/${{ matrix.PythonName }}/bin/pip
       SwigExecutable: /swig-4.0.2/install-swig-4.0.2/bin/swig
 
     steps:
