@@ -118,7 +118,7 @@ jobs:
         run: |
           echo "${{ env.CondaExecutable }} shell.bash hook"
           eval "$(${{ env.CondaExecutable }} shell.bash hook)"
-          ${{ env.CondaExecutable }} init
+          ${{ env.CondaExecutable }} init bash
           
           echo ". ~/.bashrc"
           . ~/.bashrc
