@@ -85,17 +85,10 @@ jobs:
           conda create --quiet --yes --name ${env:PythonName} python=${env:PythonVersion}
           Write-Host "pip upgrade:"
           C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe --version
-          ${env:PipExecutable} install --upgrade pip
+          C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe install --upgrade pip
           Write-Host "pip help:"
-          ${env:PipExecutable} install --help
-          Write-Host "${env:PipExecutable} install requests"
-          ${env:PipExecutable} install requests
-          Write-Host "${env:PipExecutable} install numpy"
-          ${env:PipExecutable} install numpy
-
-      - name: Get LLVM
-        shell: pwsh
-        run: |
-          Write-Host "${env:PythonExecutable} .\\.azurepipelines\\getLLVM.py ${env:LLVM_DOWNLOAD_LINK} ${env:LLVM_INSTALL_PREFIX}"
-          ${env:PythonExecutable} .\\.azurepipelines\\getLLVM.py ${env:LLVM_DOWNLOAD_LINK} ${env:LLVM_INSTALL_PREFIX}
-        if: env.LLVM_CACHE == 'false'
+          C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe ${env:PipExecutable} install --help
+          Write-Host "C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe install requests"
+          C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe install requests
+          Write-Host "C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe install numpy"
+          C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe install numpy
