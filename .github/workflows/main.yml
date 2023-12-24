@@ -26,8 +26,18 @@ jobs:
   WindowsBuildRoadrunnerCpp:
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        BuildType: ['Release', 'Debug']
+        include:
+          - BuildTests: 'On'
+            BuildType: 'Release'
+          - BuildTests: 'OFF'
+            BuildType: 'Debug'
+
     env:
       LLVM_CACHE: 'false'
+      LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-msvc2022-x64-rel.zip'
       MinicondaRoot: 'C:\Miniconda'
       PythonName: 'py39'
       PythonVersion: 3.9
