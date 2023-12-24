@@ -1,175 +1,56 @@
-name: Build-$(date +"%Y%m%d")-$(GITHUB_RUN_NUMBER)
+name: $(date +"%Y%m%d").$(rev)
 
 on:
   push:
     branches:
       - develop
       - release
+
   pull_request:
     branches:
       - '*'
 
+env:
+  SOURCE_DIR: ${{ github.workspace }}
+  BUILD_DIR: ${{ github.workspace }}/build
+  INSTALL_DIR: ${{ github.workspace }}/roadrunner-${{ runner.os }}
+  LLVM_INSTALL_PREFIX: ${{ github.workspace }}/llvm
+  DEPS_INSTALL_PREFIX: ${{ github.workspace }}/libroadrunner-deps
+  SWIG_SOURCE_DIR: ${{ github.workspace }}/swig
+  SWIG_INSTALL_PREFIX: ${{ github.workspace }}/swig/install-azure
+  SWIG_EXECUTABLE: ${{ github.workspace }}/swig/install-azure/bin/swig
+
+
 jobs:
-  ManyLinux2014:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        PythonName: ["py38", "py39", "py310", "py311"]
-        include:
-          - PythonVersion: "3.8"
-            PythonName: "py38"
-          - PythonVersion: "3.9"
-            PythonName: "py39"
-          - PythonVersion: "3.10"
-            PythonName: "py310"
-          - PythonVersion: "3.`11"
-            PythonName: "py311"
-
-    container:
-      image: sysbiouw/roadrunner-manylinux2014:latest
+  WindowsBuildRoadrunnerCpp:
+    runs-on: windows-latest
 
     env:
-      CCACHE_DIR: ${{ github.workspace }}/ccache
-      BUILD_DIRECTORY: ${{ github.workspace }}/build
-      SOURCE_DIRECTORY: ${{ github.workspace }}
-      INSTALL_DIRECTORY: ${{ github.workspace }}/install-manylinux2014-${{ matrix.PythonName }}
-      MinicondaRoot: /Miniconda3
-      PythonRoot: /Miniconda3/envs/${{ matrix.PythonName }}
-      CondaExecutable: /Miniconda3/bin/conda
-      PythonExecutable: /Miniconda3/envs/${{ matrix.PythonName }}/bin/python
-      PythonLibDir: /Miniconda3/envs/${{ matrix.PythonName }}/lib
-      PythonIncludeDir: /Miniconda3/envs/${{ matrix.PythonName }}/include
-      PipExecutable: /Miniconda3/envs/${{ matrix.PythonName }}/bin/pip
-      SwigExecutable: /swig-4.0.2/install-swig-4.0.2/bin/swig
+      LLVM_CACHE: 'false'
+      MinicondaRoot: 'C:\\Miniconda'
+      PythonName: 'py39'
+      PythonVersion: '3.9'
+      PythonRoot: '$(MinicondaRoot)\\envs\\$(PythonName)'
+      PythonLibDir: '$(PythonRoot)\\Lib'
+      PythonScriptsDir: '$(PythonRoot)\\Scripts'
+      PythonExecutable: '$(PythonRoot)\\python.exe'
+      PipExecutable: '$(PythonScriptsDir)\\pip.exe'
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           submodules: recursive
 
-      - name: Check Variables
+      - name: Print Environment Variables
+        shell: pwsh
         run: |
-          # Check if SOURCE_DIRECTORY exists
-          echo "SOURCE_DIRECTORY   $SOURCE_DIRECTORY"
-          if [ ! -d "$SOURCE_DIRECTORY" ]; then
-            echo "ERROR: SOURCE_DIRECTORY does not exist at $SOURCE_DIRECTORY"
-            exit 1
-          fi
-
-          # Check if MinicondaRoot exists
-          echo "MinicondaRoot      $MinicondaRoot"
-          if [ ! -d "$MinicondaRoot" ]; then
-            echo "ERROR: MinicondaRoot does not exist at $MinicondaRoot"
-            exit 1
-          fi
-
-          # Check if PythonRoot exists
-          echo "PythonRoot         $PythonRoot"
-          if [ ! -d "$PythonRoot" ]; then
-            echo "ERROR: PythonRoot does not exist at $PythonRoot"
-            exit 1
-          fi
-
-          # Check if CondaExecutable exists
-          echo "CondaExecutable    $CondaExecutable"
-          if [ ! -f "$CondaExecutable" ]; then
-            echo "ERROR: CondaExecutable does not exist at $CondaExecutable"
-            exit 1
-          fi
-
-          # Check if PythonExecutable exists
-          echo "PythonExecutable   $PythonExecutable"
-          if [ ! -f "$PythonExecutable" ]; then
-            echo "ERROR: PythonExecutable does not exist at $PythonExecutable"
-            exit 1
-          fi
-
-          # Check if PythonLibDir exists
-          echo "PythonLibDir       $PythonLibDir"
-          if [ ! -d "$PythonLibDir" ]; then
-            echo "ERROR: PythonLibDir does not exist at $PythonLibDir"
-            exit 1
-          fi
-
-          # Check if PythonIncludeDir exists
-          echo "PythonIncludeDir   $PythonIncludeDir"
-          if [ ! -d "$PythonIncludeDir" ]; then
-            echo "ERROR: PythonIncludeDir does not exist at $PythonIncludeDir"
-            exit 1
-          fi
-
-          # Check if PipExecutable exists
-          echo "PipExecutable      $PipExecutable"
-          if [ ! -f "$PipExecutable" ]; then
-            echo "ERROR: PipExecutable does not exist at $PipExecutable"
-            exit 1
-          fi
-
-          # Check if SwigExecutable exists
-          echo "SwigExecutable     $SwigExecutable"
-          if [ ! -f "$SwigExecutable" ]; then
-            echo "ERROR: SwigExecutable does not exist at $SwigExecutable"
-            exit 1
-          fi
-
-      - name: Setup conda
-        uses: s-weigand/setup-conda@v1
-        with:
-          update-conda: true
-          python-version: ${{ matrix.PythonVersion }}
-          conda-channels: anaconda
-
-      - name: Install Dependencies
-        run: |
-          mkdir $BUILD_DIRECTORY
-          cd $BUILD_DIRECTORY
-          
-          ${{ env.PipExecutable }} install -r $SOURCE_DIRECTORY/requirements.txt
-          ${{ env.PipExecutable }} install -r $SOURCE_DIRECTORY/test-requirements.txt
-          
-          cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$INSTALL_DIRECTORY -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$PythonRoot -DSWIG_EXECUTABLE=$SwigExecutable -DCMAKE_BUILD_TYPE=Release ..
-          cmake --build . --target install --config Release -j 12
-
-      - name: Build With Python
-        run: |
-          . ~/.bashrc
-          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
-          
-          cd $BUILD_DIRECTORY
-          ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
-
-      - name: Run Tests
-        run: |
-          . ~/.bashrc
-          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
-          
-          cd $BUILD_DIRECTORY
-          ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-
-      - name: Run Stochastic test suite
-        run: |
-          . ~/.bashrc
-          ${{ env.CondaExecutable }} activate ${{ matrix.PythonName }}
-          
-          cd $BUILD_DIRECTORY
-          ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-
-      - name: Build Pip Wheel
-        run: |
-          cd $INSTALL_DIRECTORY
-          ls
-          
-          ${{ env.PipExecutable }} install numpy pytest
-          ${{ env.PythonExecutable }} ./setup.py bdist_wheel
-          ${{ env.PythonExecutable }} ./setup_rrplugins.py bdist_wheel
-
-      - name: Copy install to artifact staging area
-        run: cp -r $INSTALL_DIRECTORY/* ${{ github.workspace }}/roadrunner-manylinux2014-${{ matrix.PythonName }}
-
-      - name: Publish Build Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: roadrunner-ManyLinux2014-${{ matrix.PythonName }}
-          path: ${{ github.workspace }}/roadrunner-manylinux2014-${{ matrix.PythonName }}
+          echo "LLVM_CACHE=${env:LLVM_CACHE}"
+          echo "PythonName=${env:PythonName}"
+          echo "LLVM_CONFIG_EXECUTABLE=${env:LLVM_INSTALL_PREFIX}\\bin\\llvm-config"
+          echo "MinicondaRoot=${env:MinicondaRoot}"
+          echo "PythonRoot=${env:PythonRoot}"
+          echo "PythonLibDir=${env:PythonLibDir}"
+          echo "PythonExecutable=${env:PythonExecutable}"
+          echo "CondaExecutable=${env:MinicondaRoot}\\condabin\\conda"
+          echo "PipExecutable=${env:PythonExecutable}"
