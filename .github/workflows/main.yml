@@ -92,7 +92,7 @@ jobs:
         if: env.LLVM_CACHE == 'false'
           
       - name: Download libroadrunner-deps install artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: libroadrunner-deps-$(runner.os)-$(BuildType)
           path: ${{ env.DEPS_INSTALL_PREFIX }}
