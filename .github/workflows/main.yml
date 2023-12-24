@@ -88,12 +88,12 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Creating new conda environment"
-          conda create --quiet --yes --name ${env:PythonName} python=${env:PythonVersion}
+          conda create --quiet --yes --name $PipExecutable python=${env:PythonVersion}
           Write-Host "pip upgrade:"
-          C:\Miniconda\envs\py39\Scripts\pip.exe install --upgrade pip
+          $PipExecutable install --upgrade pip
           Write-Host "pip help:"
-          C:\Miniconda\envs\py39\Scripts\pip.exe install --help
-          Write-Host "${env:PipExecutable} install requests"
-          C:\Miniconda\envs\py39\Scripts\pip.exe install requests
-          Write-Host "${env:PipExecutable} install numpy"
-          C:\Miniconda\envs\py39\Scripts\pip.exe install numpy
+          $PipExecutable install --help
+          Write-Host "$PipExecutable install requests"
+          $PipExecutable install requests
+          Write-Host "$PipExecutable install numpy"
+          $PipExecutable install numpy
