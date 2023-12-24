@@ -91,3 +91,10 @@ jobs:
           ${env:PipExecutable} install requests
           Write-Host "${env:PipExecutable} install numpy"
           ${env:PipExecutable} install numpy
+
+      - name: Get LLVM
+        shell: pwsh
+        run: |
+          Write-Host "${env:PythonExecutable} .\\.azurepipelines\\getLLVM.py ${env:LLVM_DOWNLOAD_LINK} ${env:LLVM_INSTALL_PREFIX}"
+          ${env:PythonExecutable} .\\.azurepipelines\\getLLVM.py ${env:LLVM_DOWNLOAD_LINK} ${env:LLVM_INSTALL_PREFIX}
+        if: env.LLVM_CACHE -ne 'true'
