@@ -31,30 +31,17 @@ jobs:
       MinicondaRoot: 'C:\Miniconda'
       PythonName: 'py39'
       PythonVersion: 3.9
-      PythonRoot: 'C:\Miniconda\envs\py39'
-      PythonLibDir: 'C:\Miniconda\envs\py39\Lib'
-      PythonScriptsDir: 'C:\Miniconda\envs\py39\Scripts'
-      PythonExecutable: 'C:\Miniconda\envs\py39\python.exe'
-      PipExecutable: 'C:\Miniconda\envs\py39\Scripts\pip.exe'
+      PythonRoot: ${{ env.MinicondaRoot }}\envs\py39
+      PythonLibDir: ${{ env.PythonRoot }}\Lib
+      PythonScriptsDir: ${{ env.PythonRoot }}\Scripts
+      PythonExecutable: ${{ env.PythonRoot }}\python.exe
+      PipExecutable: ${{ env.PythonScriptsDir }}\pip.exe
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
-      - name: Print Environment Variables
-        shell: pwsh
-        run: |
-          echo "LLVM_CACHE=${{ env.LLVM_CACHE }}"
-          echo "PythonName=${{ env.PythonName }}"
-          echo "LLVM_CONFIG_EXECUTABLE=${{ env.LLVM_INSTALL_PREFIX }}\bin\llvm-config"
-          echo "MinicondaRoot=${{ env.MinicondaRoot }}"
-          echo "PythonRoot=${{ env.PythonRoot }}"
-          echo "PythonLibDir=${{ env.PythonLibDir }}"
-          echo "PythonExecutable=${{ env.PythonExecutable }}"
-          echo "CondaExecutable=${{ env.MinicondaRoot }}\condabin\conda"
-          echo "PipExecutable=${{ env.PipExecutable }}"
 
       - name: Make Directories
         shell: pwsh
