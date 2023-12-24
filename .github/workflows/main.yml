@@ -84,4 +84,16 @@ jobs:
           echo "PythonRoot ${env:PythonRoot}"
           echo "PythonLibDir ${env:PythonLibDir}"
             
-      
+      - name: Install packages using conda
+        shell: pwsh
+        run: |
+          Write-Host "Creating new conda environment"
+          conda create --quiet --yes --name ${env:PythonName} python=${env:PythonVersion}
+          Write-Host "pip upgrade:"
+          ${env:PipExecutable} install --upgrade pip
+          Write-Host "pip help:"
+          ${env:PipExecutable} install --help
+          Write-Host "${env:PipExecutable} install requests"
+          ${env:PipExecutable} install requests
+          Write-Host "${env:PipExecutable} install numpy"
+          ${env:PipExecutable} install numpy
