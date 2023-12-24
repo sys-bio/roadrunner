@@ -1,4 +1,4 @@
-name: "$(date +\"%Y%m%d\").$(rev)"
+name: $(rev)
 
 on:
   push:
@@ -31,11 +31,11 @@ jobs:
       MinicondaRoot: 'C:\\Miniconda'
       PythonName: 'py39'
       PythonVersion: '3.9'
-      PythonRoot: '$(MinicondaRoot)\\envs\\$(PythonName)'
-      PythonLibDir: '$(PythonRoot)\\Lib'
-      PythonScriptsDir: '$(PythonRoot)\\Scripts'
-      PythonExecutable: '$(PythonRoot)\\python.exe'
-      PipExecutable: '$(PythonScriptsDir)\\pip.exe'
+      PythonRoot: 'C:\\Miniconda\\envs\\py39'
+      PythonLibDir: 'C:\\Miniconda\\envs\\py39\\Lib'
+      PythonScriptsDir: 'C:\\Miniconda\\envs\\py39\\Scripts'
+      PythonExecutable: 'C:\\Miniconda\\envs\\py39\\python.exe'
+      PipExecutable: 'C:\\Miniconda\\envs\\py39\\Scripts\\pip.exe'
 
     steps:
       - name: Checkout code
