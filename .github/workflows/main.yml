@@ -13,7 +13,7 @@ on:
 env:
   SOURCE_DIR: ${{ github.workspace }}
   BUILD_DIR: ${{ github.workspace }}/build
-  INSTALL_DIR: ${{ github.workspace }}/roadrunner-${{ runner.os }}
+  INSTALL_DIR: ${{ github.workspace }}/roadrunner-"$RUNNER_OS"
   LLVM_INSTALL_PREFIX: ${{ github.workspace }}/llvm
   DEPS_INSTALL_PREFIX: ${{ github.workspace }}/libroadrunner-deps
   SWIG_SOURCE_DIR: ${{ github.workspace }}/swig
