@@ -86,6 +86,7 @@ jobs:
           Write-Host "pip upgrade:"
           ${env:PipExecutable} install --upgrade pip
           Write-Host "pip help:"
+          ${env:PipExecutable} --version
           ${env:PipExecutable} install --help
           Write-Host "${env:PipExecutable} install requests"
           ${env:PipExecutable} install requests
