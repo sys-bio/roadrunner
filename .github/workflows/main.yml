@@ -92,8 +92,8 @@ jobs:
           Write-Host "pip upgrade:"
           C:\Miniconda\envs\py39\Scripts\pip.exe install --upgrade pip
           Write-Host "pip help:"
-          ${env:PipExecutable} install --help
+          C:\Miniconda\envs\py39\Scripts\pip.exe install --help
           Write-Host "${env:PipExecutable} install requests"
-          ${env:PipExecutable} install requests
+          C:\Miniconda\envs\py39\Scripts\pip.exe install requests
           Write-Host "${env:PipExecutable} install numpy"
-          ${env:PipExecutable} install numpy
+          C:\Miniconda\envs\py39\Scripts\pip.exe install numpy
