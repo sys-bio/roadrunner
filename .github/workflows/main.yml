@@ -67,3 +67,21 @@ jobs:
         with:
           update-conda: true
           python-version: 3.9
+
+      - name: Add conda to PATH
+        shell: pwsh
+        run: |
+          Write-Host "##vso[task.prependpath]$env:CONDA\\Scripts"
+
+      - name: Print Python Variables
+        shell: pwsh
+        run: |
+          where.exe conda
+          where.exe python
+          echo "PythonVersion ${env:PythonVersion}"
+          echo "PythonName ${env:PythonName}"
+          echo "MinicondaRoot ${env:MinicondaRoot}"
+          echo "PythonRoot ${env:PythonRoot}"
+          echo "PythonLibDir ${env:PythonLibDir}"
+            
+      
