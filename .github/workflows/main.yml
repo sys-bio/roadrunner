@@ -84,9 +84,9 @@ jobs:
           Write-Host "Creating new conda environment"
           conda create --quiet --yes --name ${env:PythonName} python=${env:PythonVersion}
           Write-Host "pip upgrade:"
+          ${env:PipExecutable} --version
           ${env:PipExecutable} install --upgrade pip
           Write-Host "pip help:"
-          ${env:PipExecutable} --version
           ${env:PipExecutable} install --help
           Write-Host "${env:PipExecutable} install requests"
           ${env:PipExecutable} install requests
