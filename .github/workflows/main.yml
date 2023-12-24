@@ -101,7 +101,7 @@ jobs:
       - name: Get LLVM
         shell: pwsh
         run: |
-          echo "${{ env.PythonExecutable }} .\.azurepipelines\\getLLVM.py ${{ env.LLVM_DOWNLOAD_LINK }} ${{ env.LLVM_INSTALL_PREFIX }}"
+          echo "${{ env.PythonExecutable }} .\.azurepipelines\getLLVM.py ${{ env.LLVM_DOWNLOAD_LINK }} ${{ env.LLVM_INSTALL_PREFIX }}"
           ${{ env.PythonExecutable }} .\.azurepipelines\getLLVM.py ${{ env.LLVM_DOWNLOAD_LINK }} ${{ env.LLVM_INSTALL_PREFIX }}
         if: env.LLVM_CACHE == 'false'
           
