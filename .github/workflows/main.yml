@@ -46,15 +46,15 @@ jobs:
       - name: Print Environment Variables
         shell: pwsh
         run: |
-          echo "LLVM_CACHE=${env:LLVM_CACHE}"
-          echo "PythonName=${env:PythonName}"
-          echo "LLVM_CONFIG_EXECUTABLE=${env:LLVM_INSTALL_PREFIX}\bin\llvm-config"
-          echo "MinicondaRoot=${env:MinicondaRoot}"
-          echo "PythonRoot=${env:PythonRoot}"
-          echo "PythonLibDir=${env:PythonLibDir}"
-          echo "PythonExecutable=${env:PythonExecutable}"
-          echo "CondaExecutable=${env:MinicondaRoot}\condabin\conda"
-          echo "PipExecutable=${env:PipExecutable}"
+          echo "LLVM_CACHE=${{ env.LLVM_CACHE }}"
+          echo "PythonName=${{ env.PythonName }}"
+          echo "LLVM_CONFIG_EXECUTABLE=${{ env.LLVM_INSTALL_PREFIX }}\bin\llvm-config"
+          echo "MinicondaRoot=${{ env.MinicondaRoot }}"
+          echo "PythonRoot=${{ env.PythonRoot }}"
+          echo "PythonLibDir=${{ env.PythonLibDir }}"
+          echo "PythonExecutable=${{ env.PythonExecutable }}"
+          echo "CondaExecutable=${{ env.MinicondaRoot }}\condabin\conda"
+          echo "PipExecutable=${{ env.PipExecutable }}"
 
       - name: Make Directories
         shell: pwsh
@@ -78,22 +78,23 @@ jobs:
         run: |
           where.exe conda
           where.exe python
-          echo "PythonVersion ${env:PythonVersion}"
-          echo "PythonName ${env:PythonName}"
-          echo "MinicondaRoot ${env:MinicondaRoot}"
-          echo "PythonRoot ${env:PythonRoot}"
-          echo "PythonLibDir ${env:PythonLibDir}"
+          echo "PythonVersion $${{ env.PythonVersion }}"
+          echo "PythonName ${{ env.PythonName }}"
+          echo "MinicondaRoot ${{ env.MinicondaRoot }}"
+          echo "PythonRoot ${{ env.PythonRoot }}"
+          echo "PythonLibDir ${{ env.PipExecutable }}"
             
       - name: Install packages using conda
         shell: pwsh
         run: |
           Write-Host "Creating new conda environment"
-          conda create --quiet --yes --name $PipExecutable python=$PythonVersion
+          conda create --quiet --yes --name ${{ env.PipExecutable }} python=${{ env.PythonVersion }}
           Write-Host "pip upgrade:"
-          $PipExecutable install --upgrade pip
+          ${{ env.PipExecutable }} install --upgrade pip
           Write-Host "pip help:"
-          $PipExecutable install --help
-          Write-Host "$PipExecutable install requests"
-          $PipExecutable install requests
-          Write-Host "$PipExecutable install numpy"
-          $PipExecutable install numpy
+          ${{ env.PipExecutable }} install --help
+          Write-Host "${{ env.PipExecutable }} install requests"
+          ${{ env.PipExecutable }} install requests
+          Write-Host "${{ env.PipExecutable }} install numpy"
+          ${{ env.PipExecutable }} install numpy
+          
