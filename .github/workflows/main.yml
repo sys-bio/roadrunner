@@ -1,4 +1,4 @@
-name: $(date +"%Y%m%d").$(rev)
+name: "$(date +\"%Y%m%d\").$(rev)"
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: recursive
 
