@@ -546,6 +546,7 @@ namespace rr {
                     // called when a event root is found clears out all pending events and applies
                     // them.
                     applyPendingEvents(timeEnd);
+                    reInit(timeEnd);
                 }
 
                 if (listener) {
