@@ -370,6 +370,7 @@ stages:
               ls
               echo "$(PythonExecutable) setup.py bdist_wheel"
               $(PythonExecutable) setup.py bdist_wheel
+              rm -r dist/
               echo "$(PythonExecutable) setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
@@ -733,6 +734,7 @@ stages:
               echo "ls in install dir"
               ls
               $(PythonExecutable) setup.py bdist_wheel
+              rm -r dist/
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
@@ -1100,12 +1102,19 @@ stages:
               echo "cd to $(INSTALL_DIRECTORY)"
               cd $(INSTALL_DIRECTORY)
 
+              #Space was filling up, so since we've already installed, we can delete the build directory.
+              echo "rm $(BUILD_DIRECTORY)"
+              rm $(BUILD_DIRECTORY)
+
               echo "ls"
               ls
 
               $(PipExecutable) install numpy pytest
               echo "$(PythonExecutable) ./setup.py bdist_wheel"
               $(PythonExecutable) ./setup.py bdist_wheel
+              echo "rm -r dist/"
+              rm -r dist/
+              echo "$(PythonExecutable) ./setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
 
               # cd dist
