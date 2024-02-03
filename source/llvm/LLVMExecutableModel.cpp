@@ -1431,6 +1431,9 @@ double LLVMExecutableModel::getValue(const std::string& id)
     case SelectionRecord::TIME:
         result = getTime();
         break;
+    case SelectionRecord::SEED:
+        result = getRandomSeed();
+        break;
     case SelectionRecord::FLOATING_AMOUNT:
         getFloatingSpeciesAmounts(1, &index, &result);
         break;
@@ -1511,6 +1514,8 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
         switch(sel.selectionType)
         {
         case SelectionRecord::TIME:
+            break;
+        case SelectionRecord::SEED:
             break;
         case SelectionRecord::UNKNOWN_ELEMENT:
             // check for sbml element types
@@ -1659,6 +1664,9 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
     {
     case SelectionRecord::TIME:
         setTime(value);
+        break;
+    case SelectionRecord::SEED:
+        setRandomSeed(value);
         break;
     case SelectionRecord::FLOATING_AMOUNT:
         setFloatingSpeciesAmounts(1, &index, &value);

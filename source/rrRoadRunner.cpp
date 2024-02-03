@@ -1362,7 +1362,9 @@ namespace rr {
             case SelectionRecord::TIME:
                 dResult = getCurrentTime();
                 break;
-
+            case SelectionRecord::SEED:
+                dResult = impl->model->getRandomSeed();
+                break;
             default:
                 dResult = 0.0;
                 break;
@@ -4630,6 +4632,7 @@ namespace rr {
         // check to see that we have valid selection ids
         switch (sel.selectionType) {
             case SelectionRecord::TIME:
+            case SelectionRecord::SEED:
             case SelectionRecord::UNKNOWN_ELEMENT:
                 // check for sbml element types
 
@@ -4653,6 +4656,9 @@ namespace rr {
                     break;
                 } else if (sel.selectionType == SelectionRecord::TIME) {
                     //Need to put this here in case there's an actual SBML variable called 'time'
+                    break;
+                } else if (sel.selectionType == SelectionRecord::SEED) {
+                    //Need to put this here in case there's an actual SBML variable called 'seed'
                     break;
                 } else {
                     throw Exception("No sbml element exists for symbol '" + str + "'");
@@ -7185,7 +7191,6 @@ namespace rr {
             getSpeciesIdsFromAST(node->getChild(i), species, instanceSpeciesNames);
         }
     }
-
 
     void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results) {
         for (const std::vector<double> &row: results) {
