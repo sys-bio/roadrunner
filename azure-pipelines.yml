@@ -1104,7 +1104,7 @@ stages:
 
               #Space was filling up, so since we've already installed, we can delete the build directory.
               echo "rm $(BUILD_DIRECTORY)"
-              rm $(BUILD_DIRECTORY)
+              rm -r $(BUILD_DIRECTORY)
 
               echo "ls"
               ls
