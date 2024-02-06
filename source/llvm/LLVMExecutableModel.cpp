@@ -1666,7 +1666,7 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
         setTime(value);
         break;
     case SelectionRecord::SEED:
-        setRandomSeed(value);
+        Config::setValue(Config::RANDOM_SEED, value);
         break;
     case SelectionRecord::FLOATING_AMOUNT:
         setFloatingSpeciesAmounts(1, &index, &value);

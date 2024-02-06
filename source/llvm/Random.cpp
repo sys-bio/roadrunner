@@ -59,7 +59,7 @@ static Function* createGlobalMappingFunction(const char* funcName,
 
 static int64_t defaultSeed()
 {
-    int64_t seed = Config::getValue(Config::RANDOM_SEED).get<int>();
+    int64_t seed = Config::getValue(Config::RANDOM_SEED).getAs<int>();
     if (seed < 0)
     {
         // system time in mirsoseconds since 1970

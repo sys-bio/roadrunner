@@ -594,8 +594,8 @@ namespace rr {
 
 
     RoadRunner::RoadRunner(const std::string &_compiler, const std::string &_tempDir,
-                           const std::string &supportCodeDir) 
-        : impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir)) 
+                           const std::string &supportCodeDir)
+        : impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir))
         , dataVersionNumber(RR_VERSION_MAJOR * 10 + RR_VERSION_MINOR)
     {
         initLLVM();
@@ -1347,7 +1347,7 @@ namespace rr {
             case SelectionRecord::INITIAL_GLOBAL_PARAMETER:
                 impl->model->getGlobalParameterInitValues(1, &record.index, &dResult);
                 break;
-            case SelectionRecord::INITIAL_COMPARTMENT: 
+            case SelectionRecord::INITIAL_COMPARTMENT:
                 impl->model->getCompartmentInitVolumes(1, &record.index, &dResult);
                 break;
             case SelectionRecord::STOICHIOMETRY: {
@@ -1363,7 +1363,7 @@ namespace rr {
                 dResult = getCurrentTime();
                 break;
             case SelectionRecord::SEED:
-                dResult = impl->model->getRandomSeed();
+                dResult = Config::getValue(Config::RANDOM_SEED).getAs<int>();
                 break;
             default:
                 dResult = 0.0;
@@ -4574,6 +4574,8 @@ namespace rr {
                 SelectionRecord::GLOBAL_PARAMETER |
                 SelectionRecord::STOICHIOMETRY);
         }
+        else if (sel.selectionType == SelectionRecord::SEED)
+            regenerateModel(true, true);
     }
 
 
