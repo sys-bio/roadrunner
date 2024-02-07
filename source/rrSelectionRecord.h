@@ -152,8 +152,6 @@ public:
          */
         EIGENVALUE_IMAG =                    (0x1 << 23),
 
-        SEED =                               (0x1 << 24),
-
         /**
         * SelectionType for everything.
         */

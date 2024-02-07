@@ -21,12 +21,6 @@ static bool is_time(const std::string& str)
     return is_time_re.match(str);
 }
 
-static const Poco::RegularExpression is_seed_re("^\\s*seed\\s*$", RegularExpression::RE_CASELESS);
-static bool is_seed(const std::string& str)
-{
-    return is_seed_re.match(str);
-}
-
 static const Poco::RegularExpression is_uec_re("^\\s*uec\\s*\\(\\s*(\\w*)\\s*,\\s*(\\w*)\\s*\\)\\s*$", RegularExpression::RE_CASELESS);
 static bool is_uec(const std::string& str, std::string& p1, std::string& p2)
 {
@@ -392,10 +386,6 @@ rr::SelectionRecord::SelectionRecord(const std::string str) :
         if (is_time(str))
         {
             selectionType = TIME;
-        }
-        else if (is_seed(str))
-        {
-            selectionType = SEED;
         }
         else
         {

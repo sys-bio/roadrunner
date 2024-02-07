@@ -1362,9 +1362,6 @@ namespace rr {
             case SelectionRecord::TIME:
                 dResult = getCurrentTime();
                 break;
-            case SelectionRecord::SEED:
-                dResult = Config::getValue(Config::RANDOM_SEED).getAs<int>();
-                break;
             default:
                 dResult = 0.0;
                 break;
@@ -4574,8 +4571,6 @@ namespace rr {
                 SelectionRecord::GLOBAL_PARAMETER |
                 SelectionRecord::STOICHIOMETRY);
         }
-        else if (sel.selectionType == SelectionRecord::SEED)
-            regenerateModel(true, true);
     }
 
 
@@ -4634,7 +4629,6 @@ namespace rr {
         // check to see that we have valid selection ids
         switch (sel.selectionType) {
             case SelectionRecord::TIME:
-            case SelectionRecord::SEED:
             case SelectionRecord::UNKNOWN_ELEMENT:
                 // check for sbml element types
 
@@ -4658,9 +4652,6 @@ namespace rr {
                     break;
                 } else if (sel.selectionType == SelectionRecord::TIME) {
                     //Need to put this here in case there's an actual SBML variable called 'time'
-                    break;
-                } else if (sel.selectionType == SelectionRecord::SEED) {
-                    //Need to put this here in case there's an actual SBML variable called 'seed'
                     break;
                 } else {
                     throw Exception("No sbml element exists for symbol '" + str + "'");
@@ -7192,6 +7183,15 @@ namespace rr {
         for (uint i = 0; i < node->getNumChildren(); i++) {
             getSpeciesIdsFromAST(node->getChild(i), species, instanceSpeciesNames);
         }
+    }
+
+    void RoadRunner::setSeed(long int seed) {
+        Config::setValue(Config::RANDOM_SEED, seed);
+        regenerateModel(true, true);
+    }
+
+    long int RoadRunner::getSeed() {
+        return Config::getValue(Config::RANDOM_SEED).getAs<long int>();
     }
 
     void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results) {

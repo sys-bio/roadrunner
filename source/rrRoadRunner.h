@@ -1600,6 +1600,16 @@ namespace rr {
 
         std::vector<std::string> getConservedMoietyIds();
 
+        /**
+         * @brief Set the value of Config::RANDOM_SEED
+         */
+        void setSeed(long int seed);
+
+        /**
+         * @brief Returns the value of Config::RANDOM_SEED
+         */
+        long int getSeed();
+
 #ifndef SWIG // deprecated methods not SWIG'ed
 
         /**
