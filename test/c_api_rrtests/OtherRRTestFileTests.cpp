@@ -89,7 +89,7 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_VARIABLE_TIMESTEP) {
 
     RoadRunner rr(TestModelFileName.string(), nullptr);
     rr.setIntegrator("gillespie");
-    rr.getIntegrator()->setValue("seed", 123);
+    rr.setSeed(123);
 
     SimulateOptions opt;
     opt.start = 0;
@@ -122,9 +122,9 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_FIXED_TIMESTEP) {
     EXPECT_TRUE(std::filesystem::exists(TestModelFileName));
     RoadRunner rr(TestModelFileName.string(), NULL);
     SimulateOptions opt;
+    rr.setSeed(123);
     rr.setIntegrator("gillespie");
     ASSERT_STREQ("gillespie", rr.getIntegrator()->getName().c_str());
-    rr.getIntegrator()->setValue("seed", 123);
     rr.getIntegrator()->setValue("variable_step_size", false);
     opt.start = 0;
     opt.duration = 50;
