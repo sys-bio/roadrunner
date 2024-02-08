@@ -82,6 +82,12 @@ namespace rr
         IntegrationMethod getIntegrationMethod() const override;
 
         /**
+         * @author WBC, ETS
+         * @brief Sets the value of an integrator setting (e.g. absolute_tolerance)
+         */
+        void setValue(const std::string& setting, Setting value) override;
+
+        /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */

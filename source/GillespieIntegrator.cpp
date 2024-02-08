@@ -140,6 +140,32 @@ namespace rr
 		return Integrator::Deterministic;
 	}
 
+    void GillespieIntegrator::setValue(const std::string& key, Setting val)
+    {
+        Integrator::setValue(key, val);
+
+        /*	In addition to typically value-setting behavior, some settings require further changes
+        within CVODE. */
+        if (key == "seed")
+        {
+            try
+            {
+                auto seed = val.getAs<std::uint64_t>();
+                setEngineSeed(seed);
+            }
+            catch (std::exception& e)
+            {
+                std::stringstream ss;
+                ss << "Could not convert the value \"" << val.get<std::string>();
+                ss << "\" to an unsigned long integer. " << std::endl;
+                ss << "The seed must be a number between 0 and ";
+                ss << std::numeric_limits<unsigned long>::max();
+                ss << "; "<<std::endl << "error message: " << e.what() << ".";
+                throw std::invalid_argument(ss.str());
+            }
+        }
+    }
+
     void GillespieIntegrator::resetSettings()
     {
         Solver::resetSettings();
