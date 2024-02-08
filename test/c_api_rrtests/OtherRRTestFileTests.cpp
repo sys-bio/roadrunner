@@ -89,7 +89,7 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_VARIABLE_TIMESTEP) {
 
     RoadRunner rr(TestModelFileName.string(), nullptr);
     rr.setIntegrator("gillespie");
-    rr.setSeed(123);
+    rr.getIntegrator()->setValue("seed", 123);
 
     SimulateOptions opt;
     opt.start = 0;
@@ -124,8 +124,8 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_FIXED_TIMESTEP) {
     SimulateOptions opt;
     rr.setIntegrator("gillespie");
     ASSERT_STREQ("gillespie", rr.getIntegrator()->getName().c_str());
+    rr.getIntegrator()->setValue("seed", 123);
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(123);
     opt.start = 0;
     opt.duration = 50;
     opt.steps = 100;
