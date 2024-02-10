@@ -3615,6 +3615,7 @@ bool rrcCallConv resetAll(RRHandle handle)
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
             SelectionRecord::GLOBAL_PARAMETER);
+        rri->resetSeed();
         return true;
     catch_bool_macro
 }
