@@ -134,6 +134,7 @@ namespace rr {
             Setting(std::string(".")),                  // TEMP_DIR_PATH,
             Setting(std::string("")),                   // LOGGER_LOG_FILE_PATH,
             Setting(-1),                                // RANDOM_SEED
+            Setting(false),                             // RESET_RANDOM_SEED
             Setting(true),                              // PYTHON_ENABLE_NAMED_MATRIX
             Setting(true),                              // LLVM_SYMBOL_CACHE
             Setting(true),                              // OPTIMIZE_REACTION_RATE_SELECTION
@@ -251,6 +252,7 @@ namespace rr {
         keys["TEMP_DIR_PATH"] = rr::Config::TEMP_DIR_PATH;
         keys["LOGGER_LOG_FILE_PATH"] = rr::Config::LOGGER_LOG_FILE_PATH;
         keys["RANDOM_SEED"] = rr::Config::RANDOM_SEED;
+        keys["RESET_RANDOM_SEED"] = rr::Config::RESET_RANDOM_SEED;
         keys["PYTHON_ENABLE_NAMED_MATRIX"] = rr::Config::PYTHON_ENABLE_NAMED_MATRIX;
         keys["LLVM_SYMBOL_CACHE"] = rr::Config::LLVM_SYMBOL_CACHE;
         keys["OPTIMIZE_REACTION_RATE_SELECTION"] =
@@ -565,6 +567,8 @@ namespace rr {
             return Config::LOGGER_LOG_FILE_PATH;
         else if (key == "RANDOM_SEED")
             return Config::RANDOM_SEED;
+        else if (key == "RESET_RANDOM_SEED")
+            return Config::RESET_RANDOM_SEED;
         else if (key == "PYTHON_ENABLE_NAMED_MATRIX")
             return Config::PYTHON_ENABLE_NAMED_MATRIX;
         else if (key == "LLVM_SYMBOL_CACHE")
