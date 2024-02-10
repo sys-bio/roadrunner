@@ -1603,12 +1603,21 @@ namespace rr {
         /**
          * @brief Set the value of Config::RANDOM_SEED
          */
-        void setSeed(long int seed);
+        void setSeed(long int seed, bool reset = true);
 
         /**
          * @brief Returns the value of Config::RANDOM_SEED
          */
         long int getSeed();
+
+
+        /**
+         * @brief Reset seed's value
+         * @details Set the value of Config::RANDOM_SEED to -1 and
+         * Config::RESET_RANDOM_SEED to false
+         *
+         */
+        void resetSeed();
 
 #ifndef SWIG // deprecated methods not SWIG'ed
 
