@@ -1699,3 +1699,16 @@ TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
     EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }
+
+TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value) {
+    RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    rr1.simulate();
+    rr2.simulate();
+    EXPECT_NE(rr1.getValue("a"), rr2.getValue("a"));
+    rr1.setSeed(42, true );
+    rr2.setSeed(42, true);
+    rr1.simulate(0, 50, 100);
+    rr2.simulate(0, 50, 100);
+    EXPECT_NEAR(rr1.getValue("a"), rr2.getValue("a"), 0.0000001);
+}
