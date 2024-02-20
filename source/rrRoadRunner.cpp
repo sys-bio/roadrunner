@@ -7188,11 +7188,17 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(long int seed, bool reset) {
+    void RoadRunner::setSeed(long int seed, bool resetSeed) {
         Config::setValue(Config::RESET_RANDOM_SEED, false);
         Config::setValue(Config::RANDOM_SEED, seed);
-        regenerateModel(true, true);
-        Config::setValue(Config::RESET_RANDOM_SEED, reset);
+        Config::setValue(Config::RESET_RANDOM_SEED, resetSeed);
+        regenerateModel(true);
+        reset(SelectionRecord::TIME |
+                SelectionRecord::RATE |
+                SelectionRecord::FLOATING |
+                SelectionRecord::BOUNDARY |
+                SelectionRecord::COMPARTMENT |
+                SelectionRecord::GLOBAL_PARAMETER);
     }
 
     long int RoadRunner::getSeed() {
@@ -7200,7 +7206,8 @@ namespace rr {
     }
 
     void RoadRunner::resetSeed() {
-        setSeed(-1, false);
+        if (getSeed() != -1 || Config::getValue(Config::RESET_RANDOM_SEED).getAs<bool>())
+            setSeed(-1, false);
     }
 
     void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results) {
