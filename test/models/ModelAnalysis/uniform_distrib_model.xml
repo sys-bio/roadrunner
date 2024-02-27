@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.14.0 with libSBML version 5.20.2. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="2" comp:required="true" distrib:required="true">
+  <model metaid="__main" id="__main">
+    <listOfParameters>
+      <parameter id="timer" value="0" constant="false"/>
+      <parameter id="x" value="0.5" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="timer">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="_E0" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <ci> timer </ci>
+              <cn> 0.99 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="x">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/uniform"> uniform </csymbol>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+          <eventAssignment variable="timer">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>
