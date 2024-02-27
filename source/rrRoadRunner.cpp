@@ -1282,7 +1282,6 @@ namespace rr {
             case SelectionRecord::UNSCALED_CONTROL:
                 dResult = getuCC(record.p1, record.p2);
                 break;
-
             case SelectionRecord::EIGENVALUE_REAL: {
                 std::string species = record.p1;
                 int index = impl->model->getFloatingSpeciesIndex(species);
@@ -7188,17 +7187,24 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(long int seed, bool resetSeed) {
+    void RoadRunner::setSeed(long int seed, bool resetModel, bool resetSeed) {
         Config::setValue(Config::RESET_RANDOM_SEED, false);
         Config::setValue(Config::RANDOM_SEED, seed);
         Config::setValue(Config::RESET_RANDOM_SEED, resetSeed);
-        regenerateModel(true);
-        reset(SelectionRecord::TIME |
-                SelectionRecord::RATE |
-                SelectionRecord::FLOATING |
-                SelectionRecord::BOUNDARY |
-                SelectionRecord::COMPARTMENT |
-                SelectionRecord::GLOBAL_PARAMETER);
+        if (resetModel) {
+            regenerateModel(true);
+            reset(SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+        }
+        else {
+            impl->model->setRandomSeed(seed);
+            if (getIntegrator()->getName() == "gillespie")
+                getIntegrator()->setValue("seed", Setting(seed));
+        }
     }
 
     long int RoadRunner::getSeed() {

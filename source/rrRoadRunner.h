@@ -1603,7 +1603,7 @@ namespace rr {
         /**
          * @brief Set the value of Config::RANDOM_SEED
          */
-        void setSeed(long int seed, bool resetSeed = true);
+        void setSeed(long int seed, bool resetModel = true, bool resetSeed = true);
 
         /**
          * @brief Returns the value of Config::RANDOM_SEED
