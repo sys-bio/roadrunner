@@ -1700,15 +1700,27 @@ TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }
 
-TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value) {
+TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
     RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     rr1.simulate();
     rr2.simulate();
     EXPECT_NE(rr1.getValue("a"), rr2.getValue("a"));
-    rr1.setSeed(42, true );
-    rr2.setSeed(42, true);
-    rr1.simulate(0, 50, 100);
-    rr2.simulate(0, 50, 100);
+    rr1.setSeed(42);
+    rr2.setSeed(42);
+    rr1.simulate();
+    rr2.simulate();
     EXPECT_NEAR(rr1.getValue("a"), rr2.getValue("a"), 0.0000001);
+}
+
+TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Uniform_Without_Reset_Model) {
+    RoadRunner rr1((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
+    RoadRunner rr2((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
+    rr1.simulate(0, 5, 50);
+    rr2.simulate(0, 5, 50);
+    rr1.setSeed(42, false);
+    rr2.setSeed(42, false);
+    rr1.simulate(5, 10, 50);
+    rr2.simulate(5, 10, 50);
+    EXPECT_NEAR(rr1.getValue("x"), rr2.getValue("x"), 0.0000001);
 }
