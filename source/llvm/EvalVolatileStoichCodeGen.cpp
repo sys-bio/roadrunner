@@ -42,6 +42,8 @@ namespace rrllvm {
         ModelDataLoadSymbolResolver resolver(modelData, modelGenContext);
         ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
 
+        LLVMModelDataSymbols* dataSymbolsPtr = const_cast<LLVMModelDataSymbols*>(&dataSymbols);
+
         ASTNodeCodeGen astCodeGen(builder, resolver, modelGenContext, modelData);
 
         const ListOfReactions *reactions = model->getListOfReactions();
@@ -79,7 +81,7 @@ namespace rrllvm {
                     assert(value && "value for species reference stoichiometry is 0");
 
                     const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
-                            dataSymbols.getNamedSpeciesReferenceInfo(p->getId());
+                        dataSymbolsPtr->getNamedSpeciesReferenceInfo(p->getId());
 
                     mdbuilder.createStoichiometryStore(info.row, info.column,
                                                        value, p->getId());
@@ -117,7 +119,7 @@ namespace rrllvm {
                     value = builder.CreateFMul(negOne, value, "neg_" + r->getId());
 
                     const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
-                            dataSymbols.getNamedSpeciesReferenceInfo(r->getId());
+                        dataSymbolsPtr->getNamedSpeciesReferenceInfo(r->getId());
 
                     mdbuilder.createStoichiometryStore(info.row, info.column, value,
                                                        r->getId());

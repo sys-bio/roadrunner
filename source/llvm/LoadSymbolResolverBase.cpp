@@ -82,6 +82,11 @@ void LoadSymbolResolverBase::recursiveSymbolPop()
     symbolStack.pop_back();
 }
 
+bool LoadSymbolResolverBase::isLocalParameter(const std::string& symbol)
+{
+    return false;
+}
+
 void LoadSymbolResolverBase::flushCache()
 {
     symbolCache.clear();

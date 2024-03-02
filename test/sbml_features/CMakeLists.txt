@@ -5,6 +5,7 @@ add_test_executable(
         events.cpp
         invalid_sbml.cpp
         piecewise_triggers.cpp
+        rateOf.cpp
         unsupported_packages.cpp
         valid_sbml.cpp
 )

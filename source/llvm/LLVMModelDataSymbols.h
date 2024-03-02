@@ -357,7 +357,7 @@ public:
     bool isNamedSpeciesReference(const std::string& id) const;
 
     const SpeciesReferenceInfo& getNamedSpeciesReferenceInfo(
-            const std::string& id) const;
+            const std::string& id);
 
 
     /******* Conserved Moiety Section ********************************************/

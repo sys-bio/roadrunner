@@ -763,7 +763,7 @@ stages:
         displayName: UbuntuBuildRoadrunnerCpp
         continueOnError: "false"
         pool:
-          vmImage: 'Ubuntu-20.04'
+          vmImage: 'Ubuntu-latest'
         strategy:
           matrix:
             64-bit Linux Release:
@@ -978,7 +978,7 @@ stages:
               PythonVersion: 3.12
               PythonName: py312
         pool:
-          vmImage: 'ubuntu-20.04'
+          vmImage: 'ubuntu-latest'
         container: sysbiouw/roadrunner-manylinux2014:latest
         variables:
           CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
@@ -1076,6 +1076,7 @@ stages:
 
               echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
               cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
+              rm -r -f $(SOURCE_DIR)/docs $(SOURCE_DIR)/examples
               cmake --build . --target install --config Release -j 12
 
             displayName: Build With Python

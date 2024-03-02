@@ -241,7 +241,9 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     case AST_FUNCTION_DELAY:
         result = delayExprCodeGen(ast);
         break;
-
+    case AST_FUNCTION_RATE_OF:
+        result = rateOfCodeGen(ast);
+        break;
     case AST_LAMBDA:
         result = notImplemented(ast);
         break;
@@ -635,6 +637,159 @@ llvm::Value* ASTNodeCodeGen::delayExprCodeGen(const libsbml::ASTNode* ast)
     //  << str << "'.";
 
     //return codeGen(ast->getChild(0));
+}
+
+llvm::Value* ASTNodeCodeGen::rateOfCodeGen(const libsbml::ASTNode* ast)
+{
+    if (ast->getNumChildren() != 1) {
+        throw_llvm_exception("AST type 'rateOf' requires exactly one child.");
+    }
+
+    ASTNode* child = ast->getChild(0);
+    if (child->getType() != AST_NAME)
+    {
+        char* formula = SBML_formulaToL3String(ast);
+        std::stringstream err;
+        err << "The rateOf csymbol may only be used on individual symbols, i.e. 'rateOf(S1)'.  The expression '" << formula << "' is illegal.";
+        free(formula);
+        throw_llvm_exception(err.str())
+    }
+    string name = child->getName();
+    const LLVMModelDataSymbols& dataSymbols = ctx.getModelDataSymbols();
+    //ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
+    Value* rate = NULL;
+    resolver.recursiveSymbolPush("rateOf(" + name + ")");
+    //Looking for a rate.  Our options are: local parameter, floating species, rate rule target, assignment rule target (an error), and everything else is zero.
+    if (resolver.isLocalParameter(name))
+    {
+        rate = ConstantFP::get(builder.getContext(), APFloat(0.0));
+    }
+    else if (dataSymbols.isIndependentFloatingSpecies(name))
+    {
+        //NOTE:  if we stored rates persistently, we could use the following instead:
+        //rate = mdbuilder.createFloatSpeciesAmtRateLoad(name, name + "_amtRate");
+        const Model* model = ctx.getModel();
+        const Species* species = model->getSpecies(name);
+        bool speciesIsAmount = species->getHasOnlySubstanceUnits();
+        string compId = species->getCompartment();
+        bool compIsConst = true;
+
+        if (!speciesIsAmount) {
+            //Determine if the compartment changes in time.
+            const Rule* compRule = model->getRule(compId);
+            if (compRule != NULL) {
+                if (compRule->getTypeCode() == SBML_ASSIGNMENT_RULE) {
+                    std::stringstream err;
+                    err << "Unable to calculate rateOf(" << name << "), because "
+                        << name << " is a concentration, not an amount, but its compartment ("
+                        << compId << ") chages due to an assignment rule.  Since we cannot"
+                        << " calculate derivatives on the fly, we cannot determine the rate of"
+                        << " change of the species " << name << " concentration";
+                    throw_llvm_exception(err.str());
+                }
+                else {
+                    //The only other option is a rate rule, which means the compartment changes in time.
+                    compIsConst = false;
+                }
+            }
+        }
+
+        //The functions are different depending on how complicated things get, so we need references.  The final Value will be created from the overallRef ASTNode.
+        ASTNode amtRate(AST_PLUS);
+        ASTNode* amtRateRef = &amtRate;
+        ASTNode* overallRef = &amtRate;
+
+        //Deal with conversion factors:
+        string conversion_factor = "";
+        if (model->isSetConversionFactor()) {
+            conversion_factor = model->getConversionFactor();
+        }
+        if (species->isSetConversionFactor()) {
+            conversion_factor = species->getConversionFactor();
+        }
+        if (!conversion_factor.empty()) {
+            amtRate.setType(AST_TIMES); //rate * conversion factor
+            ASTNode* unscaledRate = new ASTNode(AST_PLUS);
+            amtRate.addChild(unscaledRate);
+            ASTNode* cf = new ASTNode(AST_NAME);
+            cf->setName(conversion_factor.c_str());
+            amtRate.addChild(cf);
+            amtRateRef = unscaledRate;
+        }
+
+        //Sum all the kinetic laws * stoichiometries in which this species appears:
+        for (int rxn = 0; rxn < model->getNumReactions(); rxn++) {
+            const Reaction* reaction = model->getReaction(rxn);
+            if (reaction->getReactant(name) == NULL &&
+                reaction->getProduct(name) == NULL) {
+                continue;
+            }
+            ASTNode* times = new ASTNode(AST_TIMES);
+            ASTNode* stoich = new ASTNode(AST_NAME);
+            stoich->setName((reaction->getId() + ":" + name).c_str());
+            times->addChild(stoich);
+            times->addChild(reaction->getKineticLaw()->getMath()->deepCopy());
+            amtRateRef->addChild(times);
+        }
+
+        //Now deal with the case where the species symbol is a concentration, not an amount.
+        ASTNode scaledConcentrationRate(AST_DIVIDE);
+        ASTNode combinedConcentrationRate(AST_MINUS);
+        if (!speciesIsAmount) {
+            //Need to divide by the compartment size (rate / comp)
+            scaledConcentrationRate.addChild(overallRef->deepCopy());
+            ASTNode* compsize = new ASTNode(AST_NAME);
+            compsize->setName(compId.c_str());
+            scaledConcentrationRate.addChild(compsize);
+            overallRef = &scaledConcentrationRate;
+
+            //If the compartment changes in time, it becomes even more complicated!
+            if (!compIsConst) {
+                //The equation is: rateOf([S1]) = rateOf(S1)/C - [S1]/C * rateOf(C)
+                combinedConcentrationRate.addChild(overallRef->deepCopy());
+                ASTNode* subdiv = new ASTNode(AST_DIVIDE);
+                ASTNode* mult = new ASTNode(AST_TIMES);
+                ASTNode* species = new ASTNode(AST_NAME);
+                species->setName(name.c_str());
+                ASTNode* rateOfComp = new ASTNode(AST_FUNCTION_RATE_OF);
+                ASTNode* comp = new ASTNode(AST_NAME);
+                comp->setName(compId.c_str());
+                rateOfComp->addChild(comp);
+                mult->addChild(rateOfComp);
+                mult->addChild(species);
+                subdiv->addChild(mult);
+                subdiv->addChild(comp->deepCopy());
+                combinedConcentrationRate.addChild(subdiv);
+                overallRef = &combinedConcentrationRate;
+            }
+
+        }
+        //string formula = SBML_formulaToL3String(overallRef);
+        rate = ASTNodeCodeGen(builder, resolver, ctx, modelData).codeGenDouble(overallRef);
+    }
+    else if (dataSymbols.hasRateRule(name))
+    {
+        //NOTE:  if we stored rates persistently, we could use the following instead:
+        //rate = mdbuilder.createRateRuleRateLoad(name, name + "_rate");
+        const LLVMModelSymbols& modelSymbols = ctx.getModelSymbols();
+        SymbolForest::ConstIterator i = modelSymbols.getRateRules().find(
+            name);
+        if (i != modelSymbols.getRateRules().end())
+        {
+            rate = ASTNodeCodeGen(builder, resolver, ctx, modelData).codeGenDouble(i->second);
+        }
+    }
+    else if (dataSymbols.hasAssignmentRule(name))
+    {
+        throw_llvm_exception("Unable to define the rateOf for symbol '" + name + "' as it is changed by an assignment rule.");
+    }
+    else
+    {
+        rate = ConstantFP::get(builder.getContext(), APFloat(0.0));
+    }
+    assert(rate);
+    resolver.recursiveSymbolPop();
+    return rate;
 }
 
 llvm::Value* ASTNodeCodeGen::nameExprCodeGen(const libsbml::ASTNode* ast)

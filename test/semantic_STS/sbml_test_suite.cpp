@@ -252,7 +252,7 @@ public:
 TEST_F(SbmlTestSuite, test_single)
 {
     // Use when need to run one test.
-    EXPECT_TRUE(RunTest(1511));
+    EXPECT_TRUE(RunTest(1823));
 }
 TEST_F(SbmlTestSuite, t1)
 {
@@ -7556,15 +7556,15 @@ TEST_F(SbmlTestSuite, t1821)
 {
     EXPECT_TRUE(RunTest(1821));
 }
+TEST_F(SbmlTestSuite, t1822)
+{
+    EXPECT_TRUE(RunTest(1822));
+}
+TEST_F(SbmlTestSuite, t1823)
+{
+    EXPECT_TRUE(RunTest(1823));
+}
 //The following tests do not yet exist.
-//TEST_F(SbmlTestSuite, t1822)
-//{
-//    EXPECT_TRUE(RunTest(1822));
-//}
-//TEST_F(SbmlTestSuite, t1823)
-//{
-//    EXPECT_TRUE(RunTest(1823));
-//}
 //TEST_F(SbmlTestSuite, t1824)
 //{
 //    EXPECT_TRUE(RunTest(1824));

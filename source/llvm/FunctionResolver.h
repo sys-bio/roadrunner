@@ -35,6 +35,8 @@ public:
 
     virtual void recursiveSymbolPop();
 
+    virtual bool isLocalParameter(const std::string& symbol);
+
 private:
     LoadSymbolResolver& parentResolver;
     const ModelGeneratorContext& modelGenContext;

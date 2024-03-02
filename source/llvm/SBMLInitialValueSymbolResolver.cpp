@@ -88,6 +88,37 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
         return loadReactionRate(reaction);
     }
 
+    LLVMModelDataSymbols* modelDataSymbolsPtr = const_cast<LLVMModelDataSymbols*>(&modelDataSymbols);
+
+    if (modelDataSymbols.isNamedSpeciesReference(symbol))
+    {
+        const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
+            modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
+
+        ModelDataIRBuilder mdbuilder(modelData, modelDataSymbols, builder);
+        Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
+
+        if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
+        {
+            std::string msg = "Mutable stochiometry for species which appear "
+                "multiple times in a single reaction is not currently "
+                "supported, species reference id: ";
+            msg += symbol;
+            throw_llvm_exception(msg);
+        }
+
+        if (info.type == LLVMModelDataSymbols::Reactant)
+        {
+            // it's consumed in the reaction, so has a negative in the stoich
+            // matrix
+            Value* negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+            negOne->setName("neg_one");
+            value = builder.CreateFMul(negOne, value, "neg_" + symbol);
+        }
+
+        return cacheValue(symbol, args, value);
+    }
+
     std::string msg = "Could not find requested symbol \'";
     msg += symbol;
     msg += "\' in the model";

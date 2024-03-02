@@ -126,4 +126,9 @@ void FunctionResolver::recursiveSymbolPop()
     parentResolver.recursiveSymbolPop();
 }
 
+bool FunctionResolver::isLocalParameter(const std::string& symbol)
+{
+    return false;
+}
+
 } /* namespace rr */
