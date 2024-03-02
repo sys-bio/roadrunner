@@ -464,12 +464,6 @@ namespace rr {
              * for the random seed.
              */
             RANDOM_SEED,
-
-            /**
-             * Reset random seed value when reset function is called
-             */
-            RESET_RANDOM_SEED,
-
             /**
              * use new numpy arrays with row/column names
              * experimental
