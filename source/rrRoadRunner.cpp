@@ -1528,9 +1528,6 @@ namespace rr {
         //With other fixes, this doesn't work:  it resets all global parameters when it shouldn't.
         //uint opt2 = rr::SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER;
         //reset((int) opt2 | opt1);
-
-        if (rr::Config::getBool(rr::Config::RESET_RANDOM_SEED))
-            resetSeed();
     }
 
     void RoadRunner::reset(int options) {
@@ -7187,10 +7184,8 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(long int seed, bool resetModel, bool resetSeed) {
-        Config::setValue(Config::RESET_RANDOM_SEED, false);
+    void RoadRunner::setSeed(long int seed, bool resetModel) {
         Config::setValue(Config::RANDOM_SEED, seed);
-        Config::setValue(Config::RESET_RANDOM_SEED, resetSeed);
         if (resetModel) {
             regenerateModel(true);
             reset(SelectionRecord::TIME |
@@ -7212,7 +7207,7 @@ namespace rr {
     }
 
     void RoadRunner::resetSeed() {
-        if (getSeed() != -1 || Config::getValue(Config::RESET_RANDOM_SEED).getAs<bool>())
+        if (getSeed() != -1)
             setSeed(-1, false);
     }
 
