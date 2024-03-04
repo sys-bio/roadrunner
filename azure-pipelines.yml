@@ -1172,12 +1172,10 @@ stages:
               # echo "wheel is: $wheel"
               # $(PipExecutable) install $wheel
             displayName: Build Pip Wheel
-          - task: CopyFiles@2
-            inputs:
-              sourceFolder: '$(INSTALL_DIRECTORY)'
-              contents: '**'
-              targetFolder: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
-            displayName: Copy install to artifact staging area
+          - script: |
+              echo "mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)"
+              mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
+            displayName: Move install to staging directory
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
