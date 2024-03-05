@@ -1174,6 +1174,7 @@ stages:
             displayName: Build Pip Wheel
           - script: |
               echo "mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)"
+              mkdir $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
               mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
             displayName: Move install to staging directory
           - task: PublishBuildArtifacts@1
