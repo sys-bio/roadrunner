@@ -419,7 +419,7 @@ stages:
               ls
               echo "$(PythonExecutable) setup.py bdist_wheel"
               $(PythonExecutable) setup.py bdist_wheel
-              rm -r dist/
+              rm -r build/
               echo "$(PythonExecutable) setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
@@ -783,7 +783,7 @@ stages:
               echo "ls in install dir"
               ls
               $(PythonExecutable) setup.py bdist_wheel
-              rm -r dist/
+              rm -r build/
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
@@ -1162,8 +1162,8 @@ stages:
               $(PipExecutable) install numpy pytest
               echo "$(PythonExecutable) ./setup.py bdist_wheel"
               $(PythonExecutable) ./setup.py bdist_wheel
-              echo "rm -r dist/"
-              rm -r dist/
+              echo "rm -r build/"
+              rm -r build/
               echo "$(PythonExecutable) ./setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
 
