@@ -1293,6 +1293,24 @@ namespace std { class ostream{}; }
         def getModel(self):
             return self._getModel()
 
+        def setSeed(self, seed, resetModel=True):
+            """
+            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
+                           the existing model and for the global configuration option")
+            :param seed: The seed to use for the random number generator.
+            :param resetModel: If True, the model will be reset after setting the seed.
+            """
+            print("calling set seed python")
+            _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
+
+        def getSeed(self):
+            """
+            warnings.warn("the integrator option is now ignored for this function. So this function now returns the seed used for\
+                           the existing model and for the global configuration option")
+            """
+            print("calling get seed python")
+            return _roadrunner.RoadRunner_getSeed(self)
+
         def _setConservedMoietyAnalysisProxy(self, value):
             self._setConservedMoietyAnalysis(value)
             self._makeProperties()
