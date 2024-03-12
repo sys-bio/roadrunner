@@ -7197,8 +7197,7 @@ namespace rr {
         }
         else {
             impl->model->setRandomSeed(seed);
-            if (getIntegrator()->getName() == "gillespie")
-                getIntegrator()->setValue("seed", Setting(seed));
+            getIntegratorByName("gillespie")->setValue("seed", Setting(seed));
         }
     }
 
