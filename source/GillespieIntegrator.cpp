@@ -419,7 +419,7 @@ namespace rr
 		rrLog(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
 
         // Checks if seed is not equal to -1 (the value which is considered as the random seed value)
-        if (seed != ULONG_MAX && seed != -1)
+        if (seed != ULONG_MAX)
             engine.seed((std::int64_t)seed);
         // MSVC needs an explicit cast, fail to compile otherwise.
         else
