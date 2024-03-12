@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include <cassert>
+#include <climits>
 #include <iostream>
 #include <exception>
 #include <limits>
