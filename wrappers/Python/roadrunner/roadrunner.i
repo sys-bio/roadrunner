@@ -1281,14 +1281,20 @@ namespace std { class ostream{}; }
             else:
                 return _roadrunner.RoadRunner__getValue(self, *args)
 
-        def setValues(self, keys, values):
+        def setValues(self, keysOrDict=None, values=None):
             """
-            Sets the values as defined in the 'keys' list to be the corresponding value in the 'values' list.
-            :param keys (list): The list of id strings to set.
-            :param values (list): The list of values to use.  Must be identical in length to 'keys'.
+            Sets a number of values in the roadrunner object all at once.   values as defined in the 'keys' list to be the corresponding value in the 'values' list.
+            :param keysOrDict (list or dict): Either a list of id strings to set, or a dictionary with string keys and numerical values.
+            :param values (list): The list of values to use.  Must be identical in length to 'keysOrDict', and keysOrDict must not be a dictionary.
             """
-            for key, val in zip(keys, values):
-                _roadrunner.RoadRunner_setValue(self, key, val)
+            if isinstance(keysOrDict, dict):
+                if values is not None:
+                    raise ValueError(""Because keysOrDict is a dictionary, 'values' must be None.")
+                for key in keysOrDict:
+                    _roadrunner.RoadRunner_setValue(self, key, keysOrDict[key])
+            else:
+                for key, val in zip(keys, values):
+                    _roadrunner.RoadRunner_setValue(self, key, val)
 
         def getModel(self):
             return self._getModel()
