@@ -1281,7 +1281,7 @@ namespace std { class ostream{}; }
             else:
                 return _roadrunner.RoadRunner__getValue(self, *args)
 
-        def setValues(self, keysOrDict=None, values=None):
+        def setValues(self, keysOrDict, values=None):
             """
             Sets a number of values in the roadrunner object all at once.   values as defined in the 'keys' list to be the corresponding value in the 'values' list.
             :param keysOrDict (list or dict): Either a list of id strings to set, or a dictionary with string keys and numerical values.
