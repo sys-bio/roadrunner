@@ -1283,7 +1283,7 @@ namespace std { class ostream{}; }
 
         def setValues(self, keysOrDict, values=None):
             """
-            Sets a number of values in the roadrunner object all at once.   values as defined in the 'keys' list to be the corresponding value in the 'values' list.
+            Sets a number of values in the roadrunner object all at once.   Use either with the first argument defined as a dictionary, or with both arguments defined, with the first as the keys and the second as the values.
             :param keysOrDict (list or dict): Either a list of id strings to set, or a dictionary with string keys and numerical values.
             :param values (list): The list of values to use.  Must be identical in length to 'keysOrDict', and keysOrDict must not be a dictionary.
             """
