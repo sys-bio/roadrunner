@@ -1289,12 +1289,12 @@ namespace std { class ostream{}; }
             """
             if isinstance(keysOrDict, dict):
                 if values is not None:
-                    raise ValueError(""Because keysOrDict is a dictionary, 'values' must be None.")
+                    raise ValueError("Because keysOrDict is a dictionary, 'values' must be None.")
                 for key in keysOrDict:
                     _roadrunner.RoadRunner_setValue(self, key, keysOrDict[key])
             else:
                 for key, val in zip(keys, values):
-                    _roadrunner.RoadRunner_setValue(self, key, val)
+                    _roadrunner.RoadRunner_setValue(self, keysOrDict, val)
 
         def getModel(self):
             return self._getModel()
