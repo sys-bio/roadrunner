@@ -1294,7 +1294,7 @@ namespace std { class ostream{}; }
                     _roadrunner.RoadRunner_setValue(self, key, keysOrDict[key])
             else:
                 for key, val in zip(keysOrDict, values):
-                    _roadrunner.RoadRunner_setValue(self, keysOrDict, val)
+                    _roadrunner.RoadRunner_setValue(self, key, val)
 
         def getModel(self):
             return self._getModel()
