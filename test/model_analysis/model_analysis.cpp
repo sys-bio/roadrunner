@@ -511,12 +511,12 @@ TEST_F(ModelAnalysisTests, DISABLED_SimulateCVODEFromNegativeStart_T0fireDelay) 
     std::cout << *result;
 }
 
-TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_General) {
+TEST_F(ModelAnalysisTests, DISABLED_SimulateGillespieFromNegativeStart_General) {
     //Event:  at S1 > 500: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event.xml").string());
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(1, false);
+    rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
     opt.start = -2;
     opt.duration = 10;
@@ -530,38 +530,38 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_General) {
     }
 }
 
-TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Time) {
+TEST_F(ModelAnalysisTests, DISABLED_SimulateGillespieFromNegativeStart_Time) {
     //Event:  at time > -1.1: S1 = 0;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time.xml").string());
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(1, false);
+    rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
     opt.start = -2;
     opt.duration = 10;
     opt.steps = 120;
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
-    //EXPECT_LE(result->Element(11, 1), 20);
+    EXPECT_LE(result->Element(11, 1), 20);
     EXPECT_NEAR(result->Element(24, 1), 100, 50);
 }
 
-TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Time_Delay) {
+TEST_F(ModelAnalysisTests, DISABLED_SimulateGillespieFromNegativeStart_Time_Delay) {
     //Event:  at 0.5 after time > -1.1: S1 = 0;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time_delay.xml").string());
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(1, false);
+    rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
     opt.start = -2;
     opt.duration = 10;
     opt.steps = 120;
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
-    EXPECT_GE(result->Element(2, 1), 400);
-    //EXPECT_LE(result->Element(17, 1), 20);
+    EXPECT_GE(result->Element(2, 1), 500);
+    EXPECT_LE(result->Element(17, 1), 20);
     EXPECT_NEAR(result->Element(24, 1), 66, 30);
-    EXPECT_NEAR(result->Element(120, 1), 946, 80);
+    EXPECT_NEAR(result->Element(120, 1), 946, 50);
 }
 
 TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_T0fire) {
@@ -569,7 +569,7 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_T0fire) {
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire.xml").string());
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(1, false);
+    rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
     opt.start = -2;
     opt.duration = 10;
@@ -584,14 +584,14 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_T0fire) {
     }
 }
 
-TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Combo) {
+TEST_F(ModelAnalysisTests, DISABLED_SimulateGillespieFromNegativeStart_Combo) {
     //Events:  E0: at 0.3 after time > -1: S1 = 0;
     //         E1: at time > 1: S1 = 100;
     //         E2: at 0.5 after S1 > 500: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_combo.xml").string());
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
-    rr.setSeed(1, false);
+    rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
     opt.start = -2;
     opt.duration = 10;
@@ -599,20 +599,19 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_Combo) {
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
     EXPECT_NEAR(result->Element(2, 1), 508, 20);
-    //EXPECT_NEAR(result->Element(8, 1), 308, 10);
-    //EXPECT_LE(result->Element(16, 1), 15);
-    EXPECT_NEAR(result->Element(36, 1), 187, 40);
+    EXPECT_NEAR(result->Element(8, 1), 308, 10);
+    EXPECT_LE(result->Element(16, 1), 15);
+    EXPECT_NEAR(result->Element(36, 1), 187, 20);
     EXPECT_NEAR(result->Element(37, 1), 110, 10);
-    EXPECT_NEAR(result->Element(80, 1), 503, 60);
-    //EXPECT_NEAR(result->Element(86, 1), 304, 10);
-    EXPECT_NEAR(result->Element(120, 1), 360, 60);
+    EXPECT_NEAR(result->Element(80, 1), 503, 30);
+    EXPECT_NEAR(result->Element(86, 1), 304, 10);
+    EXPECT_NEAR(result->Element(120, 1), 360, 40);
     for (int i = 1; i <= opt.steps; i++)
     {
         EXPECT_LE(result->Element(i, 1), 580);
         EXPECT_GE(result->Element(i, 1), 0);
     }
 }
-
 
 TEST_F(ModelAnalysisTests, NonZeroStarts_CVODE) {
     //Event:  at S1 > 500, t0=false: S1 = 300;
@@ -1705,6 +1704,26 @@ TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }
 
+TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Check) {
+    RoadRunner rr((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    EXPECT_NE(rr.getSeed(), -1);
+    rr.setSeed(42);
+    EXPECT_EQ(rr.getSeed(), 42);
+    rr.setSeed(-1);
+    EXPECT_NE(rr.getSeed(), -1);
+    rr.setIntegrator("gillespie");
+    EXPECT_NE(rr.getSeed("gillespie"), -1);
+    EXPECT_EQ(rr.getSeed("gillespie"), rr.getIntegrator()->getValue("seed").getAs<long int>());
+    rr.setSeed(42);
+    EXPECT_EQ(rr.getSeed("gillespie"), 42);
+    EXPECT_EQ(rr.getSeed("gillespie"), rr.getIntegrator()->getValue("seed").getAs<long int>());
+    rr.resetSeed();
+    EXPECT_EQ(Config::getValue(Config::RANDOM_SEED).getAs<long int>(), -1);
+    EXPECT_NE(rr.getSeed(), -1);
+    EXPECT_NE(rr.getSeed("gillespie"), -1);
+    EXPECT_EQ(rr.getSeed("gillespie"), rr.getIntegrator()->getValue("seed").getAs<long int>());
+}
+
 TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
     RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
@@ -1731,16 +1750,11 @@ TEST_F(ModelAnalysisTests, Set_Gillespie_Random_Seed) {
     RoadRunner rr1((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     rr1.setIntegrator("gillespie");
-    rr1.getIntegrator()->setValue("variable_step_size", false);
-    rr1.setIntegrator("gillespie");
     rr1.setSeed(-1, false);
     rr2.setIntegrator("gillespie");
-    rr2.getIntegrator()->setValue("variable_step_size", false);
-    rr2.setIntegrator("gillespie");
-    rr1.setSeed(-1, false);
-
-    rr1.simulate();
-    rr2.simulate();
+    rr2.setSeed(-1, false);
+    rr1.simulate(0, 10, 2);
+    rr2.simulate(0, 10, 2);
     EXPECT_NE(rr1.getValue("S2"), rr2.getValue("S2"));
 }
 

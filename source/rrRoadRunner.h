@@ -1608,7 +1608,7 @@ namespace rr {
         /**
          * @brief Returns the value of Config::RANDOM_SEED
          */
-        long int getSeed();
+        long int getSeed(const std::string &integratorName="");
 
 
         /**

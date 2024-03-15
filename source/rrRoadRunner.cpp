@@ -6898,8 +6898,11 @@ namespace rr {
             std::unordered_map<std::string, double> indTolerances;
 
 //		bool toleranceVector = (impl->integrator->getType("absolute_tolerance") == Setting::DOUBLEVECTOR);
-            Setting absTol = impl->integrator->getValue("absolute_tolerance");
-            Setting::TypeId tolType = absTol.type();
+            Setting absTol;
+            if (impl->integrator->hasValue("absolute_tolerance")) {
+                absTol = impl->integrator->getValue("absolute_tolerance");
+                Setting::TypeId tolType = absTol.type();
+            }
 
             // if absolute_tolerance is a double vector
             if (auto v1 = absTol.get_if<std::vector<double>>()) {
@@ -7198,20 +7201,34 @@ namespace rr {
         else {
             impl->model->setRandomSeed(seed);
             for (auto integrator : impl->integrators) {
-                if (integrator->getName() == "gillespie") {
+                if (integrator->getName() == "gillespie")
                     integrator->setValue("seed", Setting(seed));
-                }
             }
         }
     }
 
-    long int RoadRunner::getSeed() {
-        return Config::getValue(Config::RANDOM_SEED).getAs<long int>();
+    long int RoadRunner::getSeed(const std::string &integratorName) {
+        if (integratorName.empty())
+            return impl->model->getRandomSeed();
+        else if (integratorName == "gillespie") {
+            for (auto integrator : impl->integrators) {
+                if (integrator->getName() == integratorName)
+                    return integrator->getValue("seed").getAs<long int>();
+            }
+        }
+        else
+            throw std::invalid_argument(integratorName + " is not set as the current integrator.");
     }
 
     void RoadRunner::resetSeed() {
-        if (getSeed() != -1)
+        if (Config::getValue(Config::RANDOM_SEED).getAs<long int>() != -1)
             setSeed(-1, false);
+        else {
+            for (auto integrator : impl->integrators) {
+                if (integrator->getName() == "gillespie")
+                    integrator->setValue("seed", Setting(-1));
+            }
+        }
     }
 
     void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results) {

@@ -27,24 +27,7 @@ namespace rr
 {
 	static std::uint64_t defaultSeed()
 	{
-	    Setting seedSetting = Config::getValue(Config::RANDOM_SEED);
-	    std::uint64_t seed;
-	    if (auto int32Val = seedSetting.get_if<std::int32_t>()) {
-	        seed = (std::uint64_t)*int32Val;
-	    } else if (auto uInt32Val= seedSetting.get_if<std::uint32_t>()){
-	        seed = (std::uint64_t)*uInt32Val;
-	    } else if (auto int64Val = seedSetting.get_if<std::int64_t>()){
-	        seed = (std::uint64_t)*int64Val;
-	    } else if (auto uInt64Val= seedSetting.get_if<std::uint64_t>()){
-	        seed = *uInt64Val;
-	    } else {
-	        throw std::invalid_argument("GillespieIntegrator::defaultSeed: Seed is of incorrect type.");
-	    }
-		if (seed < 0)
-		{
-			seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-		}
-		return seed	;
+		return Config::getValue(Config::RANDOM_SEED).getAs<std::uint64_t>();
 	}
 
 	void GillespieIntegrator::initializeFromModel() {
@@ -151,8 +134,7 @@ namespace rr
         {
             try
             {
-                auto seed = val.getAs<std::uint64_t>();
-                setEngineSeed(seed);
+                setEngineSeed(val.getAs<std::uint64_t>());
             }
             catch (std::exception& e)
             {
@@ -165,6 +147,8 @@ namespace rr
                 throw std::invalid_argument(ss.str());
             }
         }
+        else
+            Integrator::setValue(key, val);
     }
 
     void GillespieIntegrator::resetSettings()
@@ -420,11 +404,15 @@ namespace rr
 		rrLog(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
 
         // Checks if seed is not equal to -1 (the value which is considered as the random seed value)
-        if (seed != ULONG_MAX)
-            engine.seed((std::int64_t)seed);
+        if (seed != -1)
+            engine.seed(seed);
         // MSVC needs an explicit cast, fail to compile otherwise.
-        else
-            engine.seed((getMicroSeconds()));
+        else {
+            seed = (std::uint64_t)getMicroSeconds();
+            engine.seed(seed);
+        }
+
+        Integrator::setValue("seed", (std::uint64_t)seed);
 	}
 
     Solver *GillespieIntegrator::construct(ExecutableModel *executableModel) const {

@@ -1306,17 +1306,16 @@ namespace std { class ostream{}; }
             :param seed: The seed to use for the random number generator.
             :param resetModel: If True, the model will be reset after setting the seed.
             """
-            print("calling set seed python")
             _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
 
-        def getSeed(self):
+        def getSeed(self, integratorName=""):
             """
             Obtain the current seed for this roadrunner object.
             warnings.warn("the integrator option is now ignored for this function. So this function now returns the seed used for\
                            the existing model and for the global configuration option")
+            :param seed: The integrator name to get the seed for. If None, the Config seed is returned.
             """
-            print("calling get seed python")
-            return _roadrunner.RoadRunner_getSeed(self)
+            return _roadrunner.RoadRunner_getSeed(self, integratorName)
 
         def _setConservedMoietyAnalysisProxy(self, value):
             self._setConservedMoietyAnalysis(value)
