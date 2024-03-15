@@ -258,6 +258,17 @@ Selections
    :rtype: list
 
 
+.. method:: RoadRunner.[element_id]
+   :module: RoadRunner
+
+   Access the current value of a model element.  All model elements with mathematical meaning (species, compartment, or parameters) can be accessed and set using this method.
+   >>> rr.S1
+   6.3
+   >>> rr.S1 = 2.9
+   >>> rr.S1
+   2.9
+
+
 .. method:: RoadRunner.getValue(sel)
 
    Returns the value for a given selection. For more information on accepted selection types
@@ -267,6 +278,29 @@ Selections
                obtained from createSelection
    :type sel: str or SelectionRecord
 
+
+.. method:: RoadRunner.setValue(sel, value)
+
+   Sets the value for a given selection. For more information on accepted selection types
+   see :ref:`Selecting Values <selecting-values>`.
+
+   :param str sel: a selection that is either a string or a SelectionRecord that was
+               obtained from createSelection
+   :param double value: the value of the selection to be set
+
+
+.. method:: RoadRunner.setValues(keysOrDict, values=None)
+
+   Sets a number of values in the roadrunner object all at once.   Use either with the first argument defined as a dictionary, or with both arguments defined, with the first as the keys and the second as the values.
+   see :ref:`Selecting Values <selecting-values>`.
+   
+   >>> parameters = {'a': 7, 'b': 8}
+   >>> rr.setValues(parameters)
+   >>> rr.setValues(parameters.keys(), parameters.values())
+
+   :param keysOrDict: either a list of id strings to set, or a dictionary with string keys and numerical values.
+   :type keysOrDict: list<str> or dict<str, double>
+   :param double value: the list of values to use.  Must be identical in length to 'keysOrDict', and keysOrDict must not be a dictionary.
 
 
 .. method:: RoadRunner.getSelectedValues()
@@ -306,16 +340,25 @@ Model Access
 ------------
 
 
+.. method:: RoadRunner.getValue(eid)
+   :module: RoadRunner
+
+   The current value of model elements can be obtained or set by using the ID of the element.  This works for all model elements with mathematical meaning (species, compartments, or parameters)
+   >>> rr.S1
+   6.3
+   >>> rr.S1 = 2.9
+   >>> rr.S1
+   2.9
+
+
 .. method:: RoadRunner.isModelLoaded()
    :module: RoadRunner
 
    Return True if model was loaded; False otherwise
 
 
-
 .. py:attribute:: RoadRunner.model
    :module: RoadRunner
-   :annotation: None
 
    Get the currently loaded model. The model object contains the entire state of the SBML model.
 
@@ -887,9 +930,9 @@ Easy edit to the model without modifying and reloading sbml files.
    
   
    :param str eid: the ID of the event to be removed
-   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call.
  
- .. method:: RoadrUNNER.regenerateModel ()
+ .. method:: RoadRunner.regenerateModel ()
     :module RoadRunner
 
    Call this method to jit compile any model you've constructed using the modeling editing API. This will make the model ready for simulation.  
