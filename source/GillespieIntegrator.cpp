@@ -45,7 +45,7 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
-        setEngineSeed(getValue("seed").get<std::uint64_t>());
+        setEngineSeed(getValue("seed").getAs<std::uint64_t>());
 	}
 
 	GillespieIntegrator::GillespieIntegrator(ExecutableModel* m)
