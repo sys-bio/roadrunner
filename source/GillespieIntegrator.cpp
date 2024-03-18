@@ -147,8 +147,6 @@ namespace rr
                 throw std::invalid_argument(ss.str());
             }
         }
-        else
-            Integrator::setValue(key, val);
     }
 
     void GillespieIntegrator::resetSettings()
@@ -410,9 +408,8 @@ namespace rr
         else {
             seed = (std::uint64_t)getMicroSeconds();
             engine.seed(seed);
+            Integrator::setValue("seed", seed);
         }
-
-        Integrator::setValue("seed", (std::uint64_t)seed);
 	}
 
     Solver *GillespieIntegrator::construct(ExecutableModel *executableModel) const {
