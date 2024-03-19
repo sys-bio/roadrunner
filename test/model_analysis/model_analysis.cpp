@@ -428,7 +428,7 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Time) {
     ASSERT_EQ(result->RSize(), 121);
     //Spot checks for when the events fire.
     EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
-    //EXPECT_NEAR(result->Element(11, 1), 1.8, 1);
+    EXPECT_NEAR(result->Element(11, 1), 1.8, 1);
     EXPECT_NEAR(result->Element(24, 1), 121, 1);
     EXPECT_NEAR(result->Element(120, 1), 1001, 1);
 }
@@ -445,7 +445,7 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_TimeDelay) {
     ASSERT_EQ(result->RSize(), 121);
     //Spot checks for when the events fire.
     EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
-    //EXPECT_NEAR(result->Element(17, 1), 1.8, 1);
+    EXPECT_NEAR(result->Element(17, 1), 1.8, 1);
     EXPECT_NEAR(result->Element(24, 1), 66, 1);
     EXPECT_NEAR(result->Element(120, 1), 946, 1);
 }
@@ -482,7 +482,7 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Combo) {
     ASSERT_EQ(result->RSize(), 121);
     //Spot checks for when the events fire.
     EXPECT_NEAR(result->Element(2, 1), 508.3, 1);
-    //EXPECT_NEAR(result->Element(8, 1), 308.3, 1);
+    EXPECT_NEAR(result->Element(8, 1), 308.3, 1);
     EXPECT_NEAR(result->Element(16, 1), 3.7, 1);
     EXPECT_NEAR(result->Element(36, 1), 187.0, 1);
     EXPECT_NEAR(result->Element(37, 1), 109.2, 1);
