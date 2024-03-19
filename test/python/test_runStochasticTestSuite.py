@@ -206,6 +206,7 @@ class RoadRunnerTests(unittest.TestCase):
             rr.resetToOrigin()
             if self.testType == "StochasticTimeCourse":
                 rr.setIntegrator('gillespie')
+                rr.setSeed(1, False)
                 sim = rr.simulate(self.start, self.duration, self.steps + 1)
             elif self.testType == "StatisticalDistribution":
                 rr.setIntegrator('cvode')
