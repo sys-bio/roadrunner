@@ -25,10 +25,24 @@
 
 namespace rr
 {
-	static std::uint64_t defaultSeed()
-	{
-		return Config::getValue(Config::RANDOM_SEED).getAs<std::uint64_t>();
-	}
+    static std::uint64_t defaultSeed()
+    {
+        Setting seedSetting = Config::getValue(Config::RANDOM_SEED);
+        std::uint64_t seed;
+        if (auto int32Val = seedSetting.get_if<std::int32_t>()) {
+            seed = (std::uint64_t)*int32Val;
+        } else if (auto uInt32Val= seedSetting.get_if<std::uint32_t>()){
+            seed = (std::uint64_t)*uInt32Val;
+        } else if (auto int64Val = seedSetting.get_if<std::int64_t>()){
+            seed = (std::uint64_t)*int64Val;
+        } else if (auto uInt64Val= seedSetting.get_if<std::uint64_t>()){
+            seed = *uInt64Val;
+        } else {
+            throw std::invalid_argument("GillespieIntegrator::defaultSeed: Seed is of incorrect type.");
+        }
+
+        return seed;
+    }
 
 	void GillespieIntegrator::initializeFromModel() {
         nReactions = mModel->getNumReactions();
@@ -45,7 +59,7 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
-        setEngineSeed(getValue("seed").getAs<std::uint64_t>());
+        setEngineSeed(getValue("seed").get<std::uint64_t>());
 	}
 
 	GillespieIntegrator::GillespieIntegrator(ExecutableModel* m)
