@@ -25,9 +25,8 @@
 
 namespace rr
 {
-    static std::uint64_t defaultSeed()
-    {
-        Setting seedSetting = Config::getValue(Config::RANDOM_SEED);
+
+    static std::uint64_t seedValue(Setting seedSetting) {
         std::uint64_t seed;
         if (auto int32Val = seedSetting.get_if<std::int32_t>()) {
             seed = (std::uint64_t)*int32Val;
@@ -38,10 +37,14 @@ namespace rr
         } else if (auto uInt64Val= seedSetting.get_if<std::uint64_t>()){
             seed = *uInt64Val;
         } else {
-            throw std::invalid_argument("GillespieIntegrator::defaultSeed: Seed is of incorrect type.");
+            throw std::invalid_argument("seedSetting is of incorrect type.");
         }
 
         return seed;
+    }
+
+    static std::uint64_t defaultSeed() {
+        return seedValue(Config::getValue(Config::RANDOM_SEED));
     }
 
 	void GillespieIntegrator::initializeFromModel() {
@@ -59,7 +62,7 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
-        setEngineSeed(getValue("seed").get<std::uint64_t>());
+        setEngineSeed(getValue("seed"));
 	}
 
 	GillespieIntegrator::GillespieIntegrator(ExecutableModel* m)
@@ -148,7 +151,7 @@ namespace rr
         {
             try
             {
-                setEngineSeed(val.getAs<std::uint64_t>());
+                setEngineSeed(val);
             }
             catch (std::exception& e)
             {
@@ -411,8 +414,9 @@ namespace rr
 		return (double)engine() / (double)std::mt19937::max();
 	}
 
-	void GillespieIntegrator::setEngineSeed(std::uint64_t seed)
+	void GillespieIntegrator::setEngineSeed(Setting seedSetting)
 	{
+        std::uint64_t seed = seedValue(seedSetting);
 		rrLog(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
 
         // Checks if seed is not equal to -1 (the value which is considered as the random seed value)

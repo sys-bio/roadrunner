@@ -140,7 +140,7 @@ namespace rr
         void applyEvents(double timeEnd, std::vector<unsigned char> &prevEventStatus);
 
         double urand();
-        void setEngineSeed(std::uint64_t seed);
+        void setEngineSeed(Setting seedSetting);
 
         inline double getStoich(uint species, uint reaction)
         {
