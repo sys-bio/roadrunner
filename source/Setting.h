@@ -214,41 +214,79 @@ namespace rr {
             const std::type_info &inf = typeInfo();
             return visit([&](auto &&val) {
                 if constexpr (std::is_convertible_v<decltype(val), As>) {
-                    // if we have an int
-                    if (auto intValue = std::get_if<int>(&value_)) {
-                        // and its negative,
-                        if (*intValue < 0) {
-                            // we cannot convert to unsigned int or unsigned long
-                            if (typeid(As) == typeid(unsigned int) || typeid(As) == typeid(unsigned long)) {
-                                throw std::bad_variant_access{};
-                                return As{};
-                            }
-                        }
-                    }
+                    std::ostringstream os;
+                    os << "Cannot retrieve setting value:  you have requested the value as a ";
+                    os << "\"" << typeid(As).name() << "\", but the value of the setting is ";
+                    std::ostringstream oss_neg;
 
-                    // if we have a long,
-                    if (auto lValue = std::get_if<std::int64_t>(&value_)) {
-                        // and its negative, we cannot convert to unsigned int or unsigned long
-                        if (*lValue < 0) {
-                            if (typeid(As) == typeid(unsigned int) || typeid(As) == typeid(unsigned long)) {
-                                throw std::bad_variant_access{};
-                                return As{}; // must be present
-                            }
+                    // if we have some form of negative signed integer
+                    bool isNegInt = false;
+                    uint64_t uint64val = 0;
+                    if (auto intValue = std::get_if<int>(&value_))
+                    {
+                        if (*intValue < 0)
+                        {
+                            isNegInt = false;
+                            oss_neg << "\"" << *intValue << "\", which is negative." << std::endl;
                         }
-                        // furthermore, if we have a long which has a value greater than
-                        // that of int32 maximum, we have a problem and throw
-                        if (*lValue > ((std::int64_t) (std::numeric_limits<int>::max)())) {
-                            throw std::bad_variant_access{}; // has annoying private constructor so we can't add arguments
-                            return As{}; // must be present
+                        uint64val = *intValue;
+                    }
+                    else if (auto intValue = std::get_if<int64_t>(&value_))
+                    {
+                        if (*intValue < 0)
+                        {
+                            isNegInt = false;
+                            oss_neg << "\"" << *intValue << "\", which is negative." << std::endl;
+                        }
+                        uint64val = *intValue;
+                    }
+                    else if (auto intValue = std::get_if<unsigned int>(&value_))
+                    {
+                        uint64val = *intValue;
+                    }
+                    else if (auto intValue = std::get_if<uint64_t>(&value_))
+                    {
+                        uint64val = *intValue;
+                    }
+                    if (isNegInt)
+                    {
+                        // we cannot convert to an unsigned type
+                        if (typeid(As) == typeid(unsigned int) || typeid(As) == typeid(unsigned long)) {
+                            // would prefer to throw std::bad_variant_access, but it seems
+                            // it does not have the appropriate constructor (?)
+                            os << oss_neg.str();
+                            throw std::invalid_argument(os.str());
+                            return As{}; // oddly enough, this *is* necessary
                         }
                     }
                     // if we have a double, with value greater than std::numeric_limits<float>::max
                     // and we try to convert to float, we have an error
                     if (auto lValue = std::get_if<float>(&value_)) {
                         if (*lValue > ((std::numeric_limits<float>::max)())) {
-                            throw std::bad_variant_access{};
+                            os << "\"" << *lValue << "\", which is too large." << std::endl;
+                            throw std::invalid_argument(os.str());
                             return As{}; // must be present
                         }
+                    }
+                    //Now check if the value is larger than the max value for the type:
+                    os << "\"" << uint64val << "\", which is too large." << std::endl;
+                    if (typeid(As) == typeid(int) &&
+                        uint64val > ((std::int64_t)(std::numeric_limits<int>::max)()))
+                    {
+                        throw std::invalid_argument(os.str());
+                        return As{}; // must be present
+                    }
+                    else if (typeid(As) == typeid(unsigned int) &&
+                        uint64val > ((std::int64_t)(std::numeric_limits<unsigned int>::max)()))
+                    {
+                        throw std::invalid_argument(os.str());
+                        return As{}; // must be present
+                    }
+                    else if (typeid(As) == typeid(int64_t) &&
+                        uint64val > ((std::int64_t)(std::numeric_limits<int64_t>::max)()))
+                    {
+                        throw std::invalid_argument(os.str());
+                        return As{}; // must be present
                     }
                     return As(val);
                 } else {

@@ -3,11 +3,12 @@
 //
 
 #include "gtest/gtest.h"
+#include "rrConfig.h"
+#include "Poco/Path.h" // for Poco::Path::home, which is used in rrConfig.cpp
 #include <filesystem>
 #include <fstream>
 #include <cstdlib>
-#include "rrConfig.h"
-#include "Poco/Path.h" // for Poco::Path::home, which is used in rrConfig.cpp
+#include <limits>
 
 using namespace rr;
 
@@ -154,11 +155,61 @@ TEST_F(ConfigTests, SetLLJitOptLevelToAggressive){
 TEST_F(ConfigTests, SetLLJitNumThreadsTo7){
     // only print out the default value, which will
     // be different on different machines ==> bad test
-    std::cout << Config::getValue(Config::LLJIT_NUM_THREADS).getAs<int>() << std::endl;
     Config::setValue(Config::LLJIT_NUM_THREADS, 7);
     int numThreads = Config::getValue(Config::LLJIT_NUM_THREADS);
     ASSERT_EQ(7, numThreads);
 }
 
+TEST_F(ConfigTests, SetSeedToNighMaxValues) {
+    uint64_t seedval = (std::numeric_limits<uint64_t>::max)() - 5;
+    Config::setValue(Config::RANDOM_SEED, seedval);
+    rr::Setting seed_as_setting = Config::getValue(Config::RANDOM_SEED);
+    uint64_t seed = seed_as_setting.getAs<uint64_t>();
+    ASSERT_EQ(seedval, seed);
 
+    ASSERT_THROW(seed_as_setting.getAs<int64_t>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<unsigned int>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<int>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<string>(), std::invalid_argument);
+    string seedstr = seed_as_setting.toString();
+
+    seedval = (std::numeric_limits<int64_t>::max)() - 5;
+    Config::setValue(Config::RANDOM_SEED, seedval);
+    seed_as_setting = Config::getValue(Config::RANDOM_SEED);
+    seed = seed_as_setting.getAs<uint64_t>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<int64_t>();
+    ASSERT_EQ(seedval, seed);
+    ASSERT_THROW(seed_as_setting.getAs<unsigned int>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<int>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<string>(), std::invalid_argument);
+    seedstr = seed_as_setting.toString();
+
+    seedval = (std::numeric_limits<unsigned int>::max)() - 5;
+    Config::setValue(Config::RANDOM_SEED, seedval);
+    seed_as_setting = Config::getValue(Config::RANDOM_SEED);
+    seed = seed_as_setting.getAs<uint64_t>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<int64_t>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<unsigned int>();
+    ASSERT_EQ(seedval, seed);
+    ASSERT_THROW(seed_as_setting.getAs<int>(), std::invalid_argument);
+    ASSERT_THROW(seed_as_setting.getAs<string>(), std::invalid_argument);
+    seedstr = seed_as_setting.toString();
+
+    seedval = (std::numeric_limits<int>::max)() - 5;
+    Config::setValue(Config::RANDOM_SEED, seedval);
+    seed_as_setting = Config::getValue(Config::RANDOM_SEED);
+    seed = seed_as_setting.getAs<uint64_t>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<int64_t>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<unsigned int>();
+    ASSERT_EQ(seedval, seed);
+    seed = seed_as_setting.getAs<int>();
+    ASSERT_EQ(seedval, seed);
+    ASSERT_THROW(seed_as_setting.getAs<string>(), std::invalid_argument);
+    seedstr = seed_as_setting.toString();
+}
 
