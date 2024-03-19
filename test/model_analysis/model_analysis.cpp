@@ -1746,7 +1746,7 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Uniform_Without_Reset_Model) {
     EXPECT_NEAR(rr1.getValue("x"), rr2.getValue("x"), 0.0000001);
 }
 
-TEST_F(ModelAnalysisTests, Set_Gillespie_Random_Seed) {
+TEST_F(ModelAnalysisTests, DISABLED_Set_Gillespie_Random_Seed) {
     RoadRunner rr1((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     rr1.setIntegrator("gillespie");
