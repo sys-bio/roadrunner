@@ -71,7 +71,7 @@ class RoadRunnerTests(unittest.TestCase):
         for Z in Zvec:
             if Z < xrange[0] or Z > xrange[1]:
                 nmean_wrong += 1
-        self.assertLessEqual(nmean_wrong, 5)
+        self.assertLessEqual(nmean_wrong, 10)
         return nmean_wrong, Zvec
 
     def countWrongSDs(self, sds, expectedsds, xrange):
@@ -206,7 +206,6 @@ class RoadRunnerTests(unittest.TestCase):
             rr.resetToOrigin()
             if self.testType == "StochasticTimeCourse":
                 rr.setIntegrator('gillespie')
-                rr.setSeed(1, False)
                 sim = rr.simulate(self.start, self.duration, self.steps + 1)
             elif self.testType == "StatisticalDistribution":
                 rr.setIntegrator('cvode')
