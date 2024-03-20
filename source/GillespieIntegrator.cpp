@@ -431,6 +431,7 @@ namespace rr
             seed = (std::uint64_t)getMicroSeconds();
             engine.seed(seed);
             Integrator::setValue("seed", seed);
+            rrLog(Logger::LOG_INFORMATION) << "Using seed value from the clock: " << seed;
         }
     }
 
