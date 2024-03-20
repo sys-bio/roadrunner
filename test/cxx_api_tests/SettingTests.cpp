@@ -201,7 +201,7 @@ TEST_F(SettingTests, ImplicitCastNegativeIntToUInt) {
     Setting setting(-4);
     ASSERT_THROW(
             unsigned int x = setting,
-            std::bad_variant_access
+            std::invalid_argument
     );
 }
 
@@ -210,7 +210,7 @@ TEST_F(SettingTests, ImplicitCastNegativeIntToULong) {
     Setting setting(-4);
     ASSERT_THROW(
             unsigned long x = setting,
-            std::bad_variant_access
+            std::invalid_argument
     );
 }
 
@@ -221,7 +221,18 @@ TEST_F(SettingTests, ImplicitCastLongToIntOutOfBounds) {
     Setting setting(out_of_range);
     ASSERT_THROW(
             int x = setting,
-            std::bad_variant_access
+            std::invalid_argument
+    );
+}
+
+TEST_F(SettingTests, ImplicitCastLongToNegIntOutOfBounds) {
+    // should raise error
+    std::int64_t biggest_int = std::numeric_limits<int>::max();
+    std::int64_t out_of_range = -biggest_int * 10;
+    Setting setting(out_of_range);
+    ASSERT_THROW(
+        int x = setting,
+        std::invalid_argument
     );
 }
 
