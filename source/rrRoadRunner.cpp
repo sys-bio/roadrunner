@@ -1933,6 +1933,18 @@ namespace rr {
         impl->model->getStateVectorRate(impl->model->getTime(), 0);
     }
 
+    bool hasTime(const libsbml::ASTNode* astn)
+    {
+        if (astn->getType() == libsbml::AST_NAME_TIME) {
+            return true;
+        }
+        for (int c = 0; c < astn->getNumChildren(); c++) {
+            if (hasTime(astn->getChild(c))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     const ls::DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt) {
         get_self();
@@ -1946,6 +1958,36 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "FBC model discovered, but not simulatable.";
             throw std::domain_error("This SBML model contains information from the 'fbc' package for Flux Balance Control analysis, or constraint-based modeling.  These models can be analyzed but not simulated by roadrunner or tellurium.  The most popular software package that supports fbc (as of 2023) is COBRA (https://opencobra.github.io/), and other software packages exist as well.");
 
+        }
+
+        if (self.integrator->getName() == "gillespie") {
+            // Throw error if model has rate rules.
+            if (self.model->getNumRateRules() > 0) {
+                std::stringstream err;
+                err << "The gillespie integrator is unable to simulate a model with rate rules.  Either change the rate rules into reactions, or remove them from the model.  The IDs of elements with rate rules are: ";
+                list<string> rrids;
+                self.model->getRateRuleIds(rrids);
+                for (auto rr = rrids.begin(); rr != rrids.end(); rr++) {
+                    err << *rr;
+                    if (rr != rrids.begin()) {
+                        err << ", ";
+                    }
+                }
+                err << ".";
+                throw std::domain_error(err.str());
+            }
+            // Warn if event triggers have time in them.
+            const libsbml::ListOfEvents* loe = self.document->getModel()->getListOfEvents();
+            for (int e = 0; e < loe->size(); e++) {
+                const libsbml::Event* event = loe->get(e);
+                const libsbml::ASTNode* trigger = event->getTrigger()->getMath();
+                if (hasTime(trigger)) {
+                    rrLog(Logger::LOG_ERROR) << "An event involving 'time' is present in this model, but time is not treated continuously in a gillespie simulation.  Continuing, but the simulation will not be precise.  Consider changing the trigger to involve species levels instead.";
+                }
+                if (event->isSetDelay()) {
+                    rrLog(Logger::LOG_ERROR) << "An event with a delay is present in this model, but time is not treated continuously in a gillespie simulation.  Continuing, but the delay will not be precise.  Consider changing the trigger to not have a delay instead.";
+                }
+            }
         }
 
         applySimulateOptions();
@@ -7207,17 +7249,18 @@ namespace rr {
         }
     }
 
-    long int RoadRunner::getSeed(const std::string &integratorName) {
-        if (integratorName.empty())
+    int64_t RoadRunner::getSeed(const std::string &integratorName) {
+        if (integratorName.empty()) {
             return impl->model->getRandomSeed();
+        }
         else if (integratorName == "gillespie") {
             for (auto integrator : impl->integrators) {
-                if (integrator->getName() == integratorName)
-                    return integrator->getValue("seed").getAs<long int>();
+                if (integrator->getName() == integratorName) {
+                    return integrator->getValue("seed").getAs<int64_t>();
+                }
             }
         }
-        else
-            throw std::invalid_argument(integratorName + " is not set as the current integrator.");
+        throw std::invalid_argument(integratorName + " is not set as the current integrator.");
     }
 
     void RoadRunner::resetSeed() {
