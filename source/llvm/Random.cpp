@@ -59,7 +59,7 @@ static Function* createGlobalMappingFunction(const char* funcName,
 
 static int64_t defaultSeed()
 {
-    return Config::getValue(Config::RANDOM_SEED).getAs<long int>();
+    return Config::getValue(Config::RANDOM_SEED).getAs<int64_t>();
 }
 
 Random::Random(ModelGeneratorContext& ctx)
