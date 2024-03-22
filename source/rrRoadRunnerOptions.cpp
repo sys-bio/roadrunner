@@ -238,7 +238,7 @@ namespace rr {
                 }
             }
             if (times.size() <= 1) {
-                throw std::invalid_argument("The 'times' setting must be a vector of at least two values.");
+                throw std::invalid_argument("The 'times' setting must be a vector of at least two values, as the first value is the time at the initial state of the model, and the second (and subsequent) times are the times the simulation progresses to.");
             }
             if (times[0] != start) {
                 if (start == 0) //The default.
@@ -255,10 +255,10 @@ namespace rr {
             double prev = start;
             for (size_t tv = 1; tv < times.size(); tv++) {
                 double hstep = times[tv] - prev;
-                if (hstep <= 0) {
+                if (hstep < 0) {
                     std::stringstream err;
                     err << "The 'times' setting must be a vector of time values that start at the time value at the initial state of the model and increase along the vector.  The value "
-                        << times[tv] << " is less than or equal to the previous value of " << prev << ".";
+                        << times[tv] << " is less than the previous value of " << prev << ".";
                     throw std::invalid_argument(err.str());
                 }
                 prev = times[tv];
