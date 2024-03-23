@@ -464,7 +464,6 @@ namespace rr {
              * for the random seed.
              */
             RANDOM_SEED,
-
             /**
              * use new numpy arrays with row/column names
              * experimental

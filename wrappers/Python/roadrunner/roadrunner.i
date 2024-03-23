@@ -1299,6 +1299,30 @@ namespace std { class ostream{}; }
         def getModel(self):
             return self._getModel()
 
+        def setSeed(self, seed, resetModel=True):
+            """
+            Sets the seed for all random number generators: any use of 'distrib' in the model, any
+              simultaneously-firing events, and any use of the 'gillespie' integrator.  Also sets
+              the global seed in the configuration object, so subsequently-created roadrunner objects
+              will be created with the same seed.  Setting the seed to -1 (or any negative integer)
+              tells the random number generators to use a seed based on the system clock (in 
+              microcseconds) instead.
+            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
+                           the existing model and for the global configuration option")
+            :param seed: The seed to use for the random number generator.
+            :param resetModel: If True, the model will be reset after setting the seed.
+            """
+            _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
+
+        def getSeed(self, integratorName=""):
+            """
+            Obtain the current seed for this roadrunner object.
+            warnings.warn("the integrator option is now ignored for this function. So this function now returns the seed used for\
+                           the existing model and for the global configuration option")
+            :param seed: The integrator name to get the seed for. If None, the Config seed is returned.
+            """
+            return _roadrunner.RoadRunner_getSeed(self, integratorName)
+
         def _setConservedMoietyAnalysisProxy(self, value):
             self._setConservedMoietyAnalysis(value)
             self._makeProperties()
@@ -1659,7 +1683,7 @@ namespace std { class ostream{}; }
                 DEPRECATED: use solver wrappers (this setting only available for some solvers).
 
             seed
-                DEPRECATED: use solver wrappers (this setting only available for some solvers).
+                DEPRECATED: use 'setSeed'.
 
 
             :returns: a numpy array with each selected output time series being a

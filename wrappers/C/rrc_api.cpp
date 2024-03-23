@@ -3410,37 +3410,6 @@ vector<double> rr_getRatesOfChange(RoadRunner* rr)
     return result;
 }
 
-C_DECL_SPEC bool rrcCallConv getSeed(RRHandle h, long* result) {
-    start_try
-        RoadRunner *r = (RoadRunner*)h;
-        //Integrator *intg = r->getIntegrator(Integrator::GILLESPIE);
-		//*result = intg->getItem("seed").get<long>();
-		*result = r->getIntegrator()->getValue("seed").get<std::int32_t>();
-        return true;
-    catch_bool_macro;
-}
-
-C_DECL_SPEC bool rrcCallConv setSeed(RRHandle h, long result) {
-    start_try
-        RoadRunner *r = (RoadRunner*)h;
-        //Integrator *intg = r->getIntegrator(Integrator::GILLESPIE);
-        //intg->setItem("seed", result);
-		Integrator *intg = r->getIntegrator();
-		if (intg->getName() == "gillespie")
-		{
-			intg->setValue("seed", Setting(result));
-		}
-		else
-		{
-			Integrator *intg = dynamic_cast<Integrator*>(
-			        IntegratorFactory::getInstance().New("gillespie", r->getModel())
-            );
-			intg->setValue("seed", Setting(result));
-		}
-        return true;
-    catch_bool_macro
-}
-
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespie(RRHandle handle) {
     start_try
         RoadRunner *r = (RoadRunner*)handle;
@@ -3646,6 +3615,7 @@ bool rrcCallConv resetAll(RRHandle handle)
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
             SelectionRecord::GLOBAL_PARAMETER);
+        rri->resetSeed();
         return true;
     catch_bool_macro
 }

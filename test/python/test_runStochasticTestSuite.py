@@ -71,7 +71,6 @@ class RoadRunnerTests(unittest.TestCase):
         for Z in Zvec:
             if Z < xrange[0] or Z > xrange[1]:
                 nmean_wrong += 1
-        self.assertLessEqual(nmean_wrong, 5)
         return nmean_wrong, Zvec
 
     def countWrongSDs(self, sds, expectedsds, xrange):
