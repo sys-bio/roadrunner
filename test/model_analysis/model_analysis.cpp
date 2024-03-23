@@ -22,6 +22,66 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, SimulateWithSameTimes) {
+    RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
+    std::vector<double> times;
+    times.push_back(0);
+    times.push_back(1);
+    times.push_back(1);
+    times.push_back(10);
+    SimulateOptions opt;
+    opt.times = times;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    EXPECT_EQ(result->numRows(), 4);
+    EXPECT_EQ(result->Element(0, 0), 0);
+    EXPECT_EQ(result->Element(1, 0), 1);
+    EXPECT_EQ(result->Element(2, 0), 1);
+    EXPECT_EQ(result->Element(3, 0), 10);
+    for (unsigned int col = 0; col < result->numCols(); col++) {
+        EXPECT_EQ(result->Element(1, col), result->Element(2, col));
+    }
+}
+
+//TEST_F(ModelAnalysisTests, SimulateWithSameStartTimes) {
+//    RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
+//    std::vector<double> times;
+//    times.push_back(0);
+//    times.push_back(0);
+//    times.push_back(1);
+//    times.push_back(10);
+//    SimulateOptions opt;
+//    opt.times = times;
+//    const ls::DoubleMatrix* result = rr.simulate(&opt);
+//    EXPECT_EQ(result->numRows(), 4);
+//    EXPECT_EQ(result->Element(0, 0), 0);
+//    EXPECT_EQ(result->Element(1, 0), 0);
+//    EXPECT_EQ(result->Element(2, 0), 1);
+//    EXPECT_EQ(result->Element(3, 0), 10);
+//    for (unsigned int col = 0; col < result->numCols(); col++) {
+//        EXPECT_EQ(result->Element(0, col), result->Element(1, col));
+//    }
+//}
+
+TEST_F(ModelAnalysisTests, SimulateWithSameEndTimes) {
+    RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
+    std::vector<double> times;
+    times.push_back(0);
+    times.push_back(1);
+    times.push_back(10);
+    times.push_back(10);
+    SimulateOptions opt;
+    opt.times = times;
+    const ls::DoubleMatrix* result = rr.simulate(&opt);
+    EXPECT_EQ(result->numRows(), 4);
+    EXPECT_EQ(result->Element(0, 0), 0);
+    EXPECT_EQ(result->Element(1, 0), 1);
+    EXPECT_EQ(result->Element(2, 0), 10);
+    EXPECT_EQ(result->Element(3, 0), 10);
+    for (unsigned int col = 0; col < result->numCols(); col++) {
+        EXPECT_EQ(result->Element(2, col), result->Element(3, col));
+    }
+}
+
 TEST_F(ModelAnalysisTests, issue1031) {
     //Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::LLJIT);
     rr::RoadRunner rr((modelAnalysisModelsDir / "zero_rate_at_steady_state.xml").string());

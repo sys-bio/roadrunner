@@ -2231,7 +2231,7 @@ namespace rr {
                     double next = self.simulateOpt.getNext(i);
                     double itime = self.integrator->integrate(tout, next - tout);
 
-                    // the test suite is extremly sensetive to time differences,
+                    // the test suite is extremly sensitive to time differences,
                     // so need to use the *exact* time here. occasionally the integrator
                     // will return a value just slightly off from the exact time
                     // value.
