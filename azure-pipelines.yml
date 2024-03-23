@@ -1138,15 +1138,16 @@ stages:
               cd $(BUILD_DIR)
               ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
             displayName: Run Tests
-          - script: |
-              echo ". ~/.bashrc"
-              . ~/.bashrc
-              $(CondaExecutable) activate $(PythonName)
+            # Skip stochastic test suite for now because it keeps pushing us over an hour.
+          # - script: |
+          #     echo ". ~/.bashrc"
+          #     . ~/.bashrc
+          #     $(CondaExecutable) activate $(PythonName)
 
-              echo "cd'ing to build dir $(BUILD_DIR)"
-              cd $(BUILD_DIR)
-              ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-            displayName: Run Stochastic test suite
+          #     echo "cd'ing to build dir $(BUILD_DIR)"
+          #     cd $(BUILD_DIR)
+          #     ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
+          #   displayName: Run Stochastic test suite
 
           - script: |
               echo "cd to $(INSTALL_DIRECTORY)"
