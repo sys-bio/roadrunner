@@ -1203,7 +1203,7 @@ namespace std { class ostream{}; }
             if (PyFloat_Check(pval)) {
                 val = PyFloat_AsDouble(pval);
             }
-            else if (PyInt_Check(pval)) {
+            else if (PyArray_IsIntegerScalar(pval)) {
                 val = PyInt_AsLong(pval);
             }
             else {

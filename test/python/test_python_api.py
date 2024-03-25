@@ -3,6 +3,7 @@
 import os
 import sys
 import unittest
+import numpy
 
 thisDir = os.path.dirname(os.path.realpath(__file__))
 rr_site_packages = os.path.dirname(os.path.dirname(thisDir))
@@ -1203,6 +1204,14 @@ class RoadRunnerTests(unittest.TestCase):
     def test_simulateWithTimes(self):
         self.rr.resetToOrigin()
         self.rr.simulate(times = [0, 1, 5, 10])
+        result = self.rr.getSimulationData()
+        self.assertEqual(list(result[:,0]), [0, 1, 5, 10])
+
+    def test_simulateWithNumpyIntTimes(self):
+        self.rr.resetToOrigin()
+        numpy_intvec = numpy.array([0, 1, 5, 10])
+        
+        self.rr.simulate(times = numpy_intvec)
         result = self.rr.getSimulationData()
         self.assertEqual(list(result[:,0]), [0, 1, 5, 10])
 
