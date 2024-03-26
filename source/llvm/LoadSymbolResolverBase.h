@@ -43,6 +43,8 @@ public:
 
     void recursiveSymbolPop() override;
 
+    virtual bool isLocalParameter(const std::string& symbol) override;
+
     /**
      * Flush the symbol cache. This is required in branches and switch blocks as
      * a symbol used in a previous block can not be re-used in the current block.

@@ -128,7 +128,7 @@ namespace rr {
 /**
  * check if metabolic control analysis is valid for the model.
  *
- * In effect, this checks that the the model is a pure
+ * In effect, this checks that the model is a pure
  * reaction-kinetics model with no rate rules, no events.
  *
  * Throws an invaid arg exception if not valid.
@@ -594,8 +594,8 @@ namespace rr {
 
 
     RoadRunner::RoadRunner(const std::string &_compiler, const std::string &_tempDir,
-                           const std::string &supportCodeDir) 
-        : impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir)) 
+                           const std::string &supportCodeDir)
+        : impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir))
         , dataVersionNumber(RR_VERSION_MAJOR * 10 + RR_VERSION_MINOR)
     {
         initLLVM();
@@ -1282,7 +1282,6 @@ namespace rr {
             case SelectionRecord::UNSCALED_CONTROL:
                 dResult = getuCC(record.p1, record.p2);
                 break;
-
             case SelectionRecord::EIGENVALUE_REAL: {
                 std::string species = record.p1;
                 int index = impl->model->getFloatingSpeciesIndex(species);
@@ -1347,7 +1346,7 @@ namespace rr {
             case SelectionRecord::INITIAL_GLOBAL_PARAMETER:
                 impl->model->getGlobalParameterInitValues(1, &record.index, &dResult);
                 break;
-            case SelectionRecord::INITIAL_COMPARTMENT: 
+            case SelectionRecord::INITIAL_COMPARTMENT:
                 impl->model->getCompartmentInitVolumes(1, &record.index, &dResult);
                 break;
             case SelectionRecord::STOICHIOMETRY: {
@@ -1362,7 +1361,6 @@ namespace rr {
             case SelectionRecord::TIME:
                 dResult = getCurrentTime();
                 break;
-
             default:
                 dResult = 0.0;
                 break;
@@ -1511,7 +1509,7 @@ namespace rr {
     bool RoadRunner::clearModel() {
         // The model owns the shared library (if it exists), when the model is deleted,
         // its dtor unloads the shared lib.
-        impl->document.reset(new libsbml::SBMLDocument());
+        impl->document.reset(new libsbml::SBMLDocument(3, 2));
         impl->document->createModel();
         if (impl->model) {
             impl->model = nullptr;
@@ -1935,6 +1933,18 @@ namespace rr {
         impl->model->getStateVectorRate(impl->model->getTime(), 0);
     }
 
+    bool hasTime(const libsbml::ASTNode* astn)
+    {
+        if (astn->getType() == libsbml::AST_NAME_TIME) {
+            return true;
+        }
+        for (int c = 0; c < astn->getNumChildren(); c++) {
+            if (hasTime(astn->getChild(c))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     const ls::DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt) {
         get_self();
@@ -1948,6 +1958,36 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "FBC model discovered, but not simulatable.";
             throw std::domain_error("This SBML model contains information from the 'fbc' package for Flux Balance Control analysis, or constraint-based modeling.  These models can be analyzed but not simulated by roadrunner or tellurium.  The most popular software package that supports fbc (as of 2023) is COBRA (https://opencobra.github.io/), and other software packages exist as well.");
 
+        }
+
+        if (self.integrator->getName() == "gillespie") {
+            // Throw error if model has rate rules.
+            if (self.model->getNumRateRules() > 0) {
+                std::stringstream err;
+                err << "The gillespie integrator is unable to simulate a model with rate rules.  Either change the rate rules into reactions, or remove them from the model.  The IDs of elements with rate rules are: ";
+                list<string> rrids;
+                self.model->getRateRuleIds(rrids);
+                for (auto rr = rrids.begin(); rr != rrids.end(); rr++) {
+                    err << *rr;
+                    if (rr != rrids.begin()) {
+                        err << ", ";
+                    }
+                }
+                err << ".";
+                throw std::domain_error(err.str());
+            }
+            // Warn if event triggers have time in them.
+            const libsbml::ListOfEvents* loe = self.document->getModel()->getListOfEvents();
+            for (int e = 0; e < loe->size(); e++) {
+                const libsbml::Event* event = loe->get(e);
+                const libsbml::ASTNode* trigger = event->getTrigger()->getMath();
+                if (hasTime(trigger)) {
+                    rrLog(Logger::LOG_ERROR) << "An event involving 'time' is present in this model, but time is not treated continuously in a gillespie simulation.  Continuing, but the simulation will not be precise.  Consider changing the trigger to involve species levels instead.";
+                }
+                if (event->isSetDelay()) {
+                    rrLog(Logger::LOG_ERROR) << "An event with a delay is present in this model, but time is not treated continuously in a gillespie simulation.  Continuing, but the delay will not be precise.  Consider changing the trigger to not have a delay instead.";
+                }
+            }
         }
 
         applySimulateOptions();
@@ -2231,7 +2271,7 @@ namespace rr {
                     double next = self.simulateOpt.getNext(i);
                     double itime = self.integrator->integrate(tout, next - tout);
 
-                    // the test suite is extremly sensetive to time differences,
+                    // the test suite is extremly sensitive to time differences,
                     // so need to use the *exact* time here. occasionally the integrator
                     // will return a value just slightly off from the exact time
                     // value.
@@ -6900,8 +6940,11 @@ namespace rr {
             std::unordered_map<std::string, double> indTolerances;
 
 //		bool toleranceVector = (impl->integrator->getType("absolute_tolerance") == Setting::DOUBLEVECTOR);
-            Setting absTol = impl->integrator->getValue("absolute_tolerance");
-            Setting::TypeId tolType = absTol.type();
+            Setting absTol;
+            if (impl->integrator->hasValue("absolute_tolerance")) {
+                absTol = impl->integrator->getValue("absolute_tolerance");
+                Setting::TypeId tolType = absTol.type();
+            }
 
             // if absolute_tolerance is a double vector
             if (auto v1 = absTol.get_if<std::vector<double>>()) {
@@ -7186,6 +7229,50 @@ namespace rr {
         }
     }
 
+    void RoadRunner::setSeed(long int seed, bool resetModel) {
+        Config::setValue(Config::RANDOM_SEED, seed);
+        if (resetModel) {
+            regenerateModel(true);
+            reset(SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+        }
+        else {
+            impl->model->setRandomSeed(seed);
+            for (auto integrator : impl->integrators) {
+                if (integrator->getName() == "gillespie")
+                    integrator->setValue("seed", Setting(seed));
+            }
+        }
+    }
+
+    int64_t RoadRunner::getSeed(const std::string &integratorName) {
+        if (integratorName.empty()) {
+            return impl->model->getRandomSeed();
+        }
+        else if (integratorName == "gillespie") {
+            for (auto integrator : impl->integrators) {
+                if (integrator->getName() == integratorName) {
+                    return integrator->getValue("seed").getAs<int64_t>();
+                }
+            }
+        }
+        throw std::invalid_argument(integratorName + " is not set as the current integrator.");
+    }
+
+    void RoadRunner::resetSeed() {
+        if (Config::getValue(Config::RANDOM_SEED).getAs<long int>() != -1)
+            setSeed(-1, false);
+        else {
+            for (auto integrator : impl->integrators) {
+                if (integrator->getName() == "gillespie")
+                    integrator->setValue("seed", Setting(-1));
+            }
+        }
+    }
 
     void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results) {
         for (const std::vector<double> &row: results) {

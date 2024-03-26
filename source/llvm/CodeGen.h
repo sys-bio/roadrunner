@@ -50,6 +50,8 @@ namespace rrllvm
 
         virtual void recursiveSymbolPop() = 0;
 
+        virtual bool isLocalParameter(const std::string& symbol) = 0;
+
         /**
          * nested conditionals (or functions?) can push a local cache block, where
          * symbols would be chached. These need to be popped as these symbols are

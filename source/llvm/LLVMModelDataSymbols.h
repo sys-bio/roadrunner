@@ -51,34 +51,35 @@ enum ModelDataFields {
     Stoichiometry,                            // 13
     RandomPtr,                                // 14
     NumEvents,                                // 15
-    StateVectorSize,                          // 16
-    StateVector,                              // 17
-    StateVectorRate,                          // 18
-    RateRuleRates,                            // 19
-    FloatingSpeciesAmountRates,               // 20
+    NumPiecewiseTriggers,                     // 16
+    StateVectorSize,                          // 17
+    StateVector,                              // 18
+    StateVectorRate,                          // 19
+    RateRuleRates,                            // 20
+    FloatingSpeciesAmountRates,               // 21
 
-    CompartmentVolumesAlias,                  // 21
-    InitCompartmentVolumesAlias,              // 22
-    InitFloatingSpeciesAmountsAlias,          // 23
-    BoundarySpeciesAmountsAlias,              // 24
-    InitBoundarySpeciesAmountsAlias,          // 25
-    GlobalParametersAlias,                    // 26
-    InitGlobalParametersAlias,                // 27
-    ReactionRatesAlias,                       // 28
+    CompartmentVolumesAlias,                  // 22
+    InitCompartmentVolumesAlias,              // 23
+    InitFloatingSpeciesAmountsAlias,          // 24
+    BoundarySpeciesAmountsAlias,              // 25
+    InitBoundarySpeciesAmountsAlias,          // 26
+    GlobalParametersAlias,                    // 27
+    InitGlobalParametersAlias,                // 28
+    ReactionRatesAlias,                       // 29
 
-    RateRuleValuesAlias,                      // 29
-    FloatingSpeciesAmountsAlias,              // 30
+    RateRuleValuesAlias,                      // 30
+    FloatingSpeciesAmountsAlias,              // 31
 
-    CompartmentVolumes,                       // 31
-    InitCompartmentVolumes,                   // 32
-    InitFloatingSpeciesAmounts,               // 33
-    BoundarySpeciesAmounts,                   // 34
-    InitBoundarySpeciesAmounts,               // 35
-    GlobalParameters,                         // 36
-    InitGlobalParameters,                     // 37
-    ReactionRates,                            // 38
-    NotSafe_RateRuleValues,                   // 39
-    NotSafe_FloatingSpeciesAmounts,           // 40
+    CompartmentVolumes,                       // 32
+    InitCompartmentVolumes,                   // 33
+    InitFloatingSpeciesAmounts,               // 34
+    BoundarySpeciesAmounts,                   // 35
+    InitBoundarySpeciesAmounts,               // 36
+    GlobalParameters,                         // 37
+    InitGlobalParameters,                     // 38
+    ReactionRates,                            // 39
+    NotSafe_RateRuleValues,                   // 40
+    NotSafe_FloatingSpeciesAmounts,           // 41
 };
 
 enum EventAtributes
@@ -117,7 +118,7 @@ enum EventAtributes
  * * Most of the indexes used in this class are indexes into ModelData
  * arrays, therefore we use unsigned integers -- these are less error
  * prone and its easier to check if they are valid i.e. only check that
- * they are less than the the array size and we do not have to check that
+ * they are less than the array size and we do not have to check that
  * it is positive.
  *
  * * All symbols from the sbml are reordered such that the independent
@@ -356,7 +357,7 @@ public:
     bool isNamedSpeciesReference(const std::string& id) const;
 
     const SpeciesReferenceInfo& getNamedSpeciesReferenceInfo(
-            const std::string& id) const;
+            const std::string& id);
 
 
     /******* Conserved Moiety Section ********************************************/
@@ -486,12 +487,12 @@ public:
     size_t getEventBufferSize(size_t eventId) const;
 
     /**
-     * the the row indices of non-zero stoichiometry values
+     * the row indices of non-zero stoichiometry values
      */
     const std::vector<uint>& getStoichRowIndx() const;
 
     /**
-     * the the column indices of non-zero stoichiometry values
+     * the column indices of non-zero stoichiometry values
      */
     const std::vector<uint>& getStoichColIndx() const;
 

@@ -1203,7 +1203,7 @@ namespace std { class ostream{}; }
             if (PyFloat_Check(pval)) {
                 val = PyFloat_AsDouble(pval);
             }
-            else if (PyInt_Check(pval)) {
+            else if (PyArray_IsIntegerScalar(pval)) {
                 val = PyInt_AsLong(pval);
             }
             else {
@@ -1281,12 +1281,47 @@ namespace std { class ostream{}; }
             else:
                 return _roadrunner.RoadRunner__getValue(self, *args)
 
-        def setValues(self, keys, values):
-            for key, val in zip(keys, values):
-                _roadrunner.RoadRunner_setValue(self, key, val)
+        def setValues(self, keysOrDict, values=None):
+            """
+            Sets a number of values in the roadrunner object all at once.   Use either with the first argument defined as a dictionary, or with both arguments defined, with the first as the keys and the second as the values.
+            :param keysOrDict (list or dict): Either a list of id strings to set, or a dictionary with string keys and numerical values.
+            :param values (list): The list of values to use.  Must be identical in length to 'keysOrDict', and keysOrDict must not be a dictionary.
+            """
+            if isinstance(keysOrDict, dict):
+                if values is not None:
+                    raise ValueError("Because keysOrDict is a dictionary, 'values' must be None.")
+                for key in keysOrDict:
+                    _roadrunner.RoadRunner_setValue(self, key, keysOrDict[key])
+            else:
+                for key, val in zip(keysOrDict, values):
+                    _roadrunner.RoadRunner_setValue(self, key, val)
 
         def getModel(self):
             return self._getModel()
+
+        def setSeed(self, seed, resetModel=True):
+            """
+            Sets the seed for all random number generators: any use of 'distrib' in the model, any
+              simultaneously-firing events, and any use of the 'gillespie' integrator.  Also sets
+              the global seed in the configuration object, so subsequently-created roadrunner objects
+              will be created with the same seed.  Setting the seed to -1 (or any negative integer)
+              tells the random number generators to use a seed based on the system clock (in 
+              microcseconds) instead.
+            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
+                           the existing model and for the global configuration option")
+            :param seed: The seed to use for the random number generator.
+            :param resetModel: If True, the model will be reset after setting the seed.
+            """
+            _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
+
+        def getSeed(self, integratorName=""):
+            """
+            Obtain the current seed for this roadrunner object.
+            warnings.warn("the integrator option is now ignored for this function. So this function now returns the seed used for\
+                           the existing model and for the global configuration option")
+            :param seed: The integrator name to get the seed for. If None, the Config seed is returned.
+            """
+            return _roadrunner.RoadRunner_getSeed(self, integratorName)
 
         def _setConservedMoietyAnalysisProxy(self, value):
             self._setConservedMoietyAnalysis(value)
@@ -1648,7 +1683,7 @@ namespace std { class ostream{}; }
                 DEPRECATED: use solver wrappers (this setting only available for some solvers).
 
             seed
-                DEPRECATED: use solver wrappers (this setting only available for some solvers).
+                DEPRECATED: use 'setSeed'.
 
 
             :returns: a numpy array with each selected output time series being a

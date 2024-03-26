@@ -846,11 +846,20 @@ namespace rr {
          */
         virtual void getEventRoots(double time, const double *y, double *gdot) = 0;
 
+        virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot) = 0;
+
         virtual double getNextPendingEventTime(bool pop) = 0;
 
         virtual int getPendingEventSize() = 0;
 
         virtual void resetEvents() = 0;
+
+        /**
+         * We do root-finding for 'piecewise triggers': those times in a piecewise function that transition from one condition to the next.
+         */
+        virtual int getNumPiecewiseTriggers() = 0;
+
+
 
         /**
          * need a virtual destructor as object implementing this interface

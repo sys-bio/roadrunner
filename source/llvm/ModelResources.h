@@ -61,6 +61,7 @@ namespace rrllvm
         GetEventDelayCodeGen::FunctionPtr getEventDelayPtr;
         EventTriggerCodeGen::FunctionPtr eventTriggerPtr;
         EventAssignCodeGen::FunctionPtr eventAssignPtr;
+        GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
         EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
         EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
         SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;

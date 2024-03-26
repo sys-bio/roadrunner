@@ -52,23 +52,22 @@ static bool isAliasOrPointer(ModelDataFields f)
 {
     /* Model Data alias are between one of the following values */
     /*
-    StateVector,                              // 13
-    StateVectorRate,                          // 14
-    RateRuleRates,                            // 15
-    FloatingSpeciesAmountRates,               // 16
+        "StateVector",                          // 18
+        "StateVectorRate",                      // 19
+        "RateRuleRates",                        // 20
+        "FloatingSpeciesAmountRates",           // 21
 
-    CompartmentVolumesAlias,                  // 17
-    CompartmentVolumesInitAlias,              // 18
-    FloatingSpeciesAmountsInitAlias,          // 19
-    ConservedSpeciesAmountsInitAlias,         // 20
-    BoundarySpeciesAmountsAlias,              // 21
-    BoundarySpeciesAmountsInitAlias,          // 22
-    GlobalParametersAlias,                    // 23
-    GlobalParametersInitAlias,                // 24
-    ReactionRatesAlias,                       // 25
+        "CompartmentVolumesAlias",              // 22
+        "InitCompartmentVolumesAlias",          // 23
+        "InitFloatingSpeciesAmountsAlias",      // 24
+        "BoundarySpeciesAmountsAlias",          // 25
+        "InitBoundarySpeciesAmountsAlias",      // 26
+        "GlobalParametersAlias",                // 27
+        "InitGlobalParametersAlias",            // 28
+        "ReactionRatesAlias",                   // 29
 
-    RateRuleValuesAlias,                      // 26
-    FloatingSpeciesAmountsAlias,              // 27
+        "RateRuleValuesAlias",                  // 30
+        "FloatingSpeciesAmountsAlias",          // 31
      */
     return f >= StateVector && f <= FloatingSpeciesAmountsAlias;
 }
@@ -77,17 +76,16 @@ static bool isArray(ModelDataFields f)
 {
     /* arrays are the last elements in the model data struct */
     /*
-     CompartmentVolumes,                       // 28
-     CompartmentVolumesInit,                   // 29
-     FloatingSpeciesAmounts,                   // 30
-     FloatingSpeciesAmountsInit,               // 31
-     ConservedSpeciesAmountsInit,              // 32
-     BoundarySpeciesAmounts,                   // 33
-     BoundarySpeciesAmountsInit,               // 34
-     GlobalParameters,                         // 35
-     GlobalParametersInit,                     // 36
-     RateRuleValues,                           // 37
-     ReactionRates,                            // 38
+        "CompartmentVolumes",                   // 32
+        "InitCompartmentVolumes",               // 33
+        "InitFloatingSpeciesAmounts",           // 34
+        "BoundarySpeciesAmounts",               // 35
+        "InitBoundarySpeciesAmounts",           // 36
+        "GlobalParameters",                     // 37
+        "InitGlobalParameters",                 // 38
+        "ReactionRates",                        // 39
+        "NotSafe_RateRuleValues",               // 40
+        "NotSafe_FloatingSpeciesAmounts"        // 41
      */
 
     return f >= CompartmentVolumes && f <= NotSafe_FloatingSpeciesAmounts;
@@ -687,34 +685,35 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         elements.push_back(csrSparsePtrType); // 13     dcsr_matrix              stoichiometry;
         elements.push_back(voidPtrType);      // 14     void*                    random;
         elements.push_back(int32Type);        // 15     int                      numEvents;
-        elements.push_back(int32Type);        // 16     int                      stateVectorSize;
-        elements.push_back(doublePtrType);    // 17     double*                  stateVector;
-        elements.push_back(doublePtrType);    // 18     double*                  stateVectorRate;
-        elements.push_back(doublePtrType);    // 19     double*                  rateRuleRates;
-        elements.push_back(doublePtrType);    // 20     double*                  floatingSpeciesAmountRates;
+        elements.push_back(int32Type);        // 16     int                      numPiecewiseTriggers;
+        elements.push_back(int32Type);        // 17     int                      stateVectorSize;
+        elements.push_back(doublePtrType);    // 18     double*                  stateVector;
+        elements.push_back(doublePtrType);    // 19     double*                  stateVectorRate;
+        elements.push_back(doublePtrType);    // 20     double*                  rateRuleRates;
+        elements.push_back(doublePtrType);    // 21     double*                  floatingSpeciesAmountRates;
 
-        elements.push_back(doublePtrType);    // 21     double*                  compartmentVolumesAlias;
-        elements.push_back(doublePtrType);    // 22     double*                  compartmentVolumesInitAlias;
-        elements.push_back(doublePtrType);    // 23     double*                  floatingSpeciesAmountsInitAlias
-        elements.push_back(doublePtrType);    // 24     double*                  boundarySpeciesAmountsAlias;
-        elements.push_back(doublePtrType);    // 25     double*                  boundarySpeciesAmountsInitAlias;
-        elements.push_back(doublePtrType);    // 26     double*                  globalParametersAlias
-        elements.push_back(doublePtrType);    // 27     double*                  globalParametersInitAlias
-        elements.push_back(doublePtrType);    // 28     double*                  reactionRatesAlias
+        elements.push_back(doublePtrType);    // 22     double*                  compartmentVolumesAlias;
+        elements.push_back(doublePtrType);    // 23     double*                  compartmentVolumesInitAlias;
+        elements.push_back(doublePtrType);    // 24     double*                  floatingSpeciesAmountsInitAlias
+        elements.push_back(doublePtrType);    // 25     double*                  boundarySpeciesAmountsAlias;
+        elements.push_back(doublePtrType);    // 26     double*                  boundarySpeciesAmountsInitAlias;
+        elements.push_back(doublePtrType);    // 27     double*                  globalParametersAlias
+        elements.push_back(doublePtrType);    // 28     double*                  globalParametersInitAlias
+        elements.push_back(doublePtrType);    // 29     double*                  reactionRatesAlias
 
-        elements.push_back(doublePtrType);    // 29     double*                  rateRuleValuesAlias
-        elements.push_back(doublePtrType);    // 30     double*                  floatingSpeciesAmountsAlias
+        elements.push_back(doublePtrType);    // 30     double*                  rateRuleValuesAlias
+        elements.push_back(doublePtrType);    // 31     double*                  floatingSpeciesAmountsAlias
 
-        elements.push_back(ArrayType::get(doubleType, numIndCompartments));     // 31 CompartmentVolumes
-        elements.push_back(ArrayType::get(doubleType, numInitCompartments));    // 32 initCompartmentVolumes
-        elements.push_back(ArrayType::get(doubleType, numInitFloatingSpecies)); // 33 initFloatingSpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numIndBoundarySpecies));  // 34 boundarySpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numInitBoundarySpecies)); // 35 initBoundarySpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numIndGlobalParameters)); // 36 globalParameters
-        elements.push_back(ArrayType::get(doubleType, numInitGlobalParameters));// 37 initGlobalParameters
-        elements.push_back(ArrayType::get(doubleType, numReactions));           // 38 reactionRates
-        elements.push_back(ArrayType::get(doubleType, numRateRules));           // 39 rateRuleValues
-        elements.push_back(ArrayType::get(doubleType, numIndFloatingSpecies));  // 40 floatingSpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numIndCompartments));     // 32 CompartmentVolumes
+        elements.push_back(ArrayType::get(doubleType, numInitCompartments));    // 33 initCompartmentVolumes
+        elements.push_back(ArrayType::get(doubleType, numInitFloatingSpecies)); // 34 initFloatingSpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numIndBoundarySpecies));  // 35 boundarySpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numInitBoundarySpecies)); // 36 initBoundarySpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numIndGlobalParameters)); // 37 globalParameters
+        elements.push_back(ArrayType::get(doubleType, numInitGlobalParameters));// 38 initGlobalParameters
+        elements.push_back(ArrayType::get(doubleType, numReactions));           // 39 reactionRates
+        elements.push_back(ArrayType::get(doubleType, numRateRules));           // 40 rateRuleValues
+        elements.push_back(ArrayType::get(doubleType, numIndFloatingSpecies));  // 41 floatingSpeciesAmounts
 
         // creates a named struct,
         // the act of creating a named struct should
@@ -954,377 +953,6 @@ llvm::Function* LLVMModelDataIRBuilderTesting::getDispIntDecl(llvm::Module* modu
     }
     return f;
 }
-
-
-
-
-void LLVMModelDataIRBuilderTesting::test(Module *module, IRBuilder<> *build,
-        ExecutionEngine * engine)
-{
-//    TheModule = module;
-//    context = &module->getContext();
-//    rr::builder = build;
-//    TheExecutionEngine = engine;
-//    createDispPrototypes();
-//
-//    callDispInt(23);
-//
-//    structSetProto();
-//
-//    TestStruct s =
-//    { 0 };
-//
-//    s.var3 = (char*) calloc(50, sizeof(char));
-//    s.var5 = (char*) calloc(50, sizeof(char));
-//
-//    sprintf(s.var5, "1234567890");
-//
-//    char* p = (char*) calloc(50, sizeof(char));
-//
-//    dispStruct(&s);
-//
-//    callStructSet(&s, 314, 3.14, 2.78, p, 0, 0);
-//
-//    printf("p: %s\n", p);
-//
-//    dispStruct(&s);
-//
-//    printf("new var5: ");
-//    for (int i = 0; i < 10; i++)
-//    {
-//        printf("{i:%i,c:%i}, ", i, s.var5[i]);
-//    }
-//    printf("\n");
-}
-
-
-
-
-//
-//
-//static Module *TheModule;
-//static IRBuilder<> *builder;
-//static ExecutionEngine *TheExecutionEngine;
-//static LLVMContext *context;
-//
-//static LLVMContext &getContext() {
-//    return *context;
-//}
-//
-//Value *storeInStruct(IRBuilder<> *B, Value *S, Value *V, unsigned index, const char* s = "");
-//Value *loadFromStruct(IRBuilder<> *B, Value *S, unsigned index, const char* s = "");
-//
-//struct TestStruct {
-//    int var0;
-//    double var1;
-//    double var2;
-//    char* var3;
-//    double var4;
-//    char* var5;
-//};
-//
-//StructType* getTestStructType() {
-//    // static StructType *     create (ArrayRef< Type * > Elements, StringRef Name, bool isPacked=false)
-//    std::vector<Type*> elements;
-//    elements.push_back(Type::getInt32Ty(getContext()));   // int var0;
-//    elements.push_back(Type::getDoubleTy(getContext()));  // double var1;
-//    elements.push_back(Type::getDoubleTy(getContext()));  // double var2;
-//    //elements.push_back(ArrayType::get(Type::getInt8Ty(getContext()), 0)); // char* var3;
-//    elements.push_back(Type::getInt8PtrTy(getContext())); // char* var5;
-//    elements.push_back(Type::getDoubleTy(getContext()));  // double var4;
-//    //elements.push_back(ArrayType::get(Type::getInt8Ty(getContext()), 0));   // char[] var5;
-//    elements.push_back(Type::getInt8PtrTy(getContext())); // char* var5; // char* var5;
-//
-//
-//
-//
-//    StructType *s = StructType::create(elements, "TestStruct");
-//
-//    const DataLayout &dl = *TheExecutionEngine->getDataLayout();
-//
-//    size_t llvm_size = dl.getTypeStoreSize(s);
-//
-//    printf("TestStruct size: %i, , LLVM Size: %i\n", sizeof(TestStruct), llvm_size);
-//
-//
-//
-//    return s;
-//}
-//
-//Value *getVar5(Value *testStructPtr, int index) {
-//    GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(builder->CreateStructGEP(testStructPtr, 5, "var5_gep"));
-//    LoadInst * var5_load = builder.CreateLoad(gep, "var5_load");
-//    //Value *var5_load = loadFromStruct(Builder, testStructPtr, 5, "var5");
-//    gep = dyn_cast<GetElementPtrInst>(builder->CreateConstGEP1_32(var5_load, index, "var5_elem_gep"));
-//    return builder.CreateLoad(gep, "var5_elem");
-//}
-//
-//
-//static void dispStruct(TestStruct *s)
-//{
-//    printf("%s {\n",  __PRETTY_FUNCTION__);
-//    printf("\tvar0: %i\n", s->var0);
-//    printf("\tvar1: %f\n", s->var1);
-//    printf("\tvar2: %f\n", s->var2);
-//    printf("\tvar3: %s\n", s->var3);
-//    printf("\tvar4: %f\n", s->var4);
-//    printf("\tvar5: %s\n", s->var5);
-//    printf("}\n");
-//
-//
-//}
-//
-//static Function* dispStructProto() {
-//
-//    StructType *structType = getTestStructType();
-//    PointerType *structTypePtr = llvm::PointerType::get(structType, 0);
-//    std::vector<Type*> args(1, structTypePtr);
-//    FunctionType *funcType = FunctionType::get(Type::getVoidTy(getContext()), args, false);
-//    Function *f = Function::Create(funcType, Function::InternalLinkage, "dispStruct", TheModule);
-//    return f;
-//}
-//
-//static void dispInt(int i) {
-//    printf("%s, %i\n", __PRETTY_FUNCTION__, i);
-//}
-//
-
-//
-//static void callDispInt(int val) {
-//    // Evaluate a top-level expression into an anonymous function.
-//
-//    Function *func = TheExecutionEngine->FindFunctionNamed("dispInt");
-//
-//    // JIT the function, returning a function pointer.
-//    void *fptr = TheExecutionEngine->getPointerToFunction(func);
-//
-//    // Cast it to the right type (takes no arguments, returns a double) so we
-//    // can call it as a native function.
-//    void (*fp)(int) = (void (*)(int))fptr;
-//
-//    fp(val);
-//}
-//
-//
-//
-
-//
-//static void dispCharStar(char* p) {
-//    printf("%s: %s\n", __PRETTY_FUNCTION__, p);
-//}
-//
-//static Function* dispCharStarProto() {
-//    Function *f = TheModule->getFunction("dispCharStar");
-//    if (f == 0) {
-//        std::vector<Type*>args(1, Type::getInt8PtrTy(getContext()));
-//        FunctionType *funcType = FunctionType::get(Type::getVoidTy(getContext()), args, false);
-//        f = Function::Create(funcType, Function::InternalLinkage, "dispCharStar", TheModule);
-//    }
-//    return f;
-//}
-//
-//static void dispChar(char p) {
-//    printf("%s as char: %c\n", __PRETTY_FUNCTION__, p);
-//    printf("%s as int: %i\n", __PRETTY_FUNCTION__, (int)p);
-//}
-//
-//static Function* dispCharProto() {
-//    Function *f = TheModule->getFunction("dispChar");
-//    if (f == 0) {
-//        std::vector<Type*>args(1, Type::getInt8Ty(getContext()));
-//        FunctionType *funcType = FunctionType::get(Type::getVoidTy(getContext()), args, false);
-//        f = Function::Create(funcType, Function::InternalLinkage, "dispChar", TheModule);
-//    }
-//    return f;
-//}
-//
-//static void createDispPrototypes() {
-//    TheExecutionEngine->addGlobalMapping(dispStructProto(), (void*)dispStruct);
-//    TheExecutionEngine->addGlobalMapping(dispIntProto(), (void*)dispInt);
-//    TheExecutionEngine->addGlobalMapping(dispDoubleProto(), (void*)dispDouble);
-//    TheExecutionEngine->addGlobalMapping(dispCharStarProto(), (void*)dispCharStar);
-//    TheExecutionEngine->addGlobalMapping(dispCharProto(), (void*)dispChar);
-//}
-//
-//static void structSetBody(Function *func) {
-//    // Create a new basic block to start insertion into.
-//    BasicBlock *BB = BasicBlock::Create(getContext(), "entry", func);
-//    builder.SetInsertPoint(BB);
-//
-//    LLVMContext &context = getContext();
-//
-//    std::vector<Value*> args;
-//
-//    // Set names for all arguments.
-//    unsigned idx = 0;
-//    for (Function::arg_iterator ai = func->arg_begin(); ai != func->arg_end();
-//            ++ai, ++idx) {
-//
-//        args.push_back(ai);
-//        //ai->setName(Args[Idx]);
-//
-//        // Add arguments to variable symbol table.
-//        //NamedValues[Args[Idx]] = AI;
-//    }
-//
-//    Value *arg = ConstantInt::get(Type::getInt32Ty(getContext()), 16);
-//
-//    builder.CreateCall(dispIntProto(), args[1], "");
-//
-//    builder.CreateCall(dispDoubleProto(), args[2], "");
-//
-//    //builder->CreateCall(dispDoubleProto(), args[3], "");
-//
-//    builder.CreateCall(dispCharStarProto(), args[4], "");
-//
-//    storeInStruct(builder, args[0], args[1], 0);
-//    storeInStruct(builder, args[0], args[2], 1);
-//    storeInStruct(builder, args[0], args[3], 2);
-//    storeInStruct(builder, args[0], args[5], 4);
-//
-//
-//
-//    Value *var3 = loadFromStruct(builder, args[0], 3, "var3");
-//
-//    //Value *var3 = args[4];
-//
-//    Type *t = var3->getType();
-//
-//    var3->dump();
-//    t->dump();
-//
-//
-//    Value *c = ConstantInt::get(Type::getInt8Ty(getContext()), 's');
-//    Value *gep = builder.CreateConstGEP1_32(var3, 0, "array gep");
-//    builder.CreateStore(c, gep);
-//    gep = builder.CreateConstGEP1_32(var3, 1, "array gep");
-//    builder.CreateStore(c, gep);
-//    gep = builder.CreateConstGEP1_32(var3, 2, "array gep");
-//    builder.CreateStore(c, gep);
-//
-//
-//    c = ConstantInt::get(Type::getInt8Ty(getContext()), '2');
-//
-//    Value *var5_2 = getVar5(args[0], 2);
-//
-//    var5_2->dump();
-//
-//    builder.CreateCall(dispCharProto(), var5_2);
-//
-//
-//
-//    builder.CreateCall(dispCharStarProto(), args[4], "");
-//
-//
-//
-//
-//    // Finish off the function.
-//    builder.CreateRetVoid();
-//
-//    // Validate the generated code, checking for consistency.
-//    verifyFunction(*func);
-//}
-//
-//static Function* structSetProto() {
-//    Function *f = TheModule->getFunction("structSet");
-//
-//    if (f == 0) {
-//        std::vector<Type*> args;
-//        StructType *structType = getTestStructType();
-//        PointerType *structTypePtr = llvm::PointerType::get(structType, 0);
-//        args.push_back(structTypePtr);
-//        args.push_back(Type::getInt32Ty(getContext()));   // int var0;
-//        args.push_back(Type::getDoubleTy(getContext()));  // double var1;
-//        args.push_back(Type::getDoubleTy(getContext()));  // double var2;
-//        args.push_back(Type::getInt8PtrTy(getContext())); // char* var3;
-//        args.push_back(Type::getDoubleTy(getContext()));  // double var4;
-//        args.push_back(Type::getInt8PtrTy(getContext())); // char* var5;
-//
-//        FunctionType *funcType = FunctionType::get(Type::getVoidTy(getContext()), args, false);
-//        f = Function::Create(funcType, Function::InternalLinkage, "structSet", TheModule);
-//
-//
-//        structSetBody(f);
-//
-//    }
-//    return f;
-//}
-//
-//static void callStructSet(TestStruct *s, int var0, double var1, double var2,
-//        char* var3, double var4, char* var5)
-//{
-//    Function *func = TheExecutionEngine->FindFunctionNamed("structSet");
-//
-//    // JIT the function, returning a function pointer.
-//    void *fptr = TheExecutionEngine->getPointerToFunction(func);
-//
-//    // Cast it to the right type (takes no arguments, returns a double) so we
-//    // can call it as a native function.
-//    void (*fp)(TestStruct*, int, double, double, char*, double, char*) =
-//            (void (*)(TestStruct*, int, double, double,char*, double, char*))fptr;
-//
-//    fp(s, var0, var1, var2, var3, var4, var5);
-//
-//
-//
-//}
-//
-//
-//
-//// Store V in structure S element index
-//Value *storeInStruct(IRBuilder<> *B, Value *S, Value *V, unsigned index, const char* s)
-//{
-//    return B->CreateStore(V, B->CreateStructGEP(S, index, s), s);
-//}
-//
-//// Store V in structure S element index
-//Value *loadFromStruct(IRBuilder<> *B, Value *S, unsigned index, const char* s)
-//{
-//    Value *gep = B->CreateStructGEP(S, index, s);
-//    return B->CreateLoad(gep, s);
-//}
-//
-//void dispIntrinsics(Intrinsic::ID id) {
-//    Intrinsic::IITDescriptor ids[8];
-//    SmallVector<Intrinsic::IITDescriptor, 8> table;
-//    Intrinsic::getIntrinsicInfoTableEntries(id, table);
-//
-//    printf("table: %i\n", table.size());
-//
-//    for(unsigned i = 0; i < table.size(); i++) {
-//        ids[i] = table[i];
-//    }
-//
-//    for(unsigned i = 0; i < table.size(); i++) {
-//        Intrinsic::IITDescriptor::IITDescriptorKind kind = ids[i].Kind;
-//        Intrinsic::IITDescriptor::ArgKind argKind = ids[i].getArgumentKind();
-//        unsigned argNum = ids[i].getArgumentNumber();
-//
-//        printf("kind: %i, argKind: %i, argNum: %i\n", kind, argKind, argNum);
-//
-//    }
-//
-//    printf("foo\n");
-//
-//    std::vector<Type*> args(table.size() - 1, Type::getDoubleTy(getContext()));
-//
-//    printf("intrinsic name: %s\n", getName(id, args).c_str());
-//
-//    Function *decl = Intrinsic::getDeclaration(TheModule, id, args);
-//    decl->dump();
-//
-//    FunctionType *func = Intrinsic::getType(getContext(), id, args);
-//
-//    func->dump();
-//
-//    printf("done\n");
-//
-//
-//
-//
-//
-//    //func->dump();
-//}
 
 
 } /* namespace rr */

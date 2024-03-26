@@ -76,7 +76,7 @@ extern const char*  ALLOCATE_API_ERROR_MSG;
 extern const char*  INVALID_HANDLE_ERROR_MSG;
 
 /*!
- \brief Retrieves the the content of a file.
+ \brief Retrieves the content of a file.
  \param[in] fName Pointer to a string holding the name and optionla path to a file
  \return Content of file as a string, returns null if it fails
  \ingroup utilities

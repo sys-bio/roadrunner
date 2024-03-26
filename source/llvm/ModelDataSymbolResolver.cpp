@@ -148,10 +148,12 @@ namespace rrllvm
             return cacheValue(symbol, args, mdbuilder.createRateRuleValueLoad(symbol));
         }
 
+        LLVMModelDataSymbols* modelDataSymbolsPtr = const_cast<LLVMModelDataSymbols*>(&modelDataSymbols);
+
         if (modelDataSymbols.isNamedSpeciesReference(symbol))
         {
             const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
-                modelDataSymbols.getNamedSpeciesReferenceInfo(symbol);
+                modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
             Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
 
@@ -265,6 +267,8 @@ namespace rrllvm
         // at this point, we have already taken care of the species amount /
         // conc conversion, rest are just plain stores.
 
+        LLVMModelDataSymbols* modelDataSymbolsPtr = const_cast<LLVMModelDataSymbols*>(&modelDataSymbols);
+
         if (modelDataSymbols.hasRateRule(symbol))
         {
             return mdbuilder.createRateRuleValueStore(symbol, value);
@@ -283,7 +287,7 @@ namespace rrllvm
         else if (modelDataSymbols.isNamedSpeciesReference(symbol))
         {
             const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
-                modelDataSymbols.getNamedSpeciesReferenceInfo(symbol);
+                modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
             if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
             {

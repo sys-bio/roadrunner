@@ -380,9 +380,6 @@ namespace rrllvm
         std::pair<llvm::Function*, llvm::Function*> createFloatingSpeciesAccessors(
             llvm::Module* module, const std::string id);
 
-        void test(llvm::Module* module, llvm::IRBuilder<>* build,
-            llvm::ExecutionEngine* engine);
-
 
         static llvm::Function* getDispIntDecl(llvm::Module* module);
         llvm::CallInst* createDispInt(llvm::Value* intVal);

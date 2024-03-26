@@ -28,8 +28,10 @@
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Support/TargetRegistry.h"
 #include "llvm/Support/DynamicLibrary.h"
-//#include "llvm/ExecutionEngine/OrcMCJITReplacement.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
+
+#include <sbml/math/ASTNodeType.h>
+#include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
 
 
 #include "llvm/ExecutionEngine/ExecutionEngine.h"
@@ -108,6 +110,7 @@ namespace rrllvm {
             :
             ownedDoc(nullptr),
             doc(nullptr),
+            mPiecewiseTriggers(),
             symbols(nullptr),
             options(options),
             random(nullptr),
@@ -161,6 +164,8 @@ namespace rrllvm {
 
             model = doc->getModel();
 
+            addAllPiecewiseTriggers(model);
+
             symbols = new LLVMModelDataSymbols(doc->getModel(), options);
 
             modelSymbols = std::make_unique<LLVMModelSymbols>(getModel(), *symbols);
@@ -207,59 +212,154 @@ namespace rrllvm {
     ModelGeneratorContext::ModelGeneratorContext() :
             ownedDoc(createEmptyDocument()),
             doc(ownedDoc),
+            mPiecewiseTriggers(),
             symbols(new LLVMModelDataSymbols(doc->getModel(), 0)),
             modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
             options(0)
-//        functionPassManager(0)
     {
         // initialize LLVM
         // TODO check result
         InitializeNativeTarget();
         InitializeNativeTargetAsmPrinter();
         InitializeNativeTargetAsmParser();
-
-//    context = std::unique_ptr<LLVMContext>();
-//    // Make the module, which holds all the code.
-//    module_owner = std::unique_ptr<Module>(new Module("LLVM Module", *context));
-//	module = module_owner.get();
-//
-//    builder = std::make_unique<IRBuilder<>>(*context);
-//
-//    errString = new std::string();
-//
-//	addGlobalMappings();
-//
-//    EngineBuilder engineBuilder(std::move(module_owner));
-//    //engineBuilder.setEngineKind(EngineKind::JIT);
-//    engineBuilder.setErrorStr(errString);
-//    executionEngine = std::unique_ptr<llvm::ExecutionEngine>(engineBuilder.create());
-
     }
 
     Random *ModelGeneratorContext::getRandom() const {
         return random;
     }
 
+    void ModelGeneratorContext::addAllPiecewiseTriggers(const libsbml::Model* model)
+    {
+        clearPiecewiseTriggers();
+
+        //If there are piecewise functions in function definitions, we need to convert the document to not have function definitions any more (sigh)
+        for (size_t fd = 0; fd < model->getNumFunctionDefinitions(); fd++) {
+            if (containsPiecewise(model->getFunctionDefinition(fd)->getMath())) {
+                libsbml::SBMLFunctionDefinitionConverter converter;
+                SBMLDocument doc(model->getLevel(), model->getVersion());
+                doc.setModel(model);
+                converter.setDocument(&doc);
+                if (converter.convert() == LIBSBML_OPERATION_SUCCESS) {
+                    return addAllPiecewiseTriggers(doc.getModel());
+                }
+                //Otherwise, I suppose we just continue?
+                rrLog(Logger::LOG_WARNING) << "A piecewise function was discovered in a function definition, but we were unable to convert the document to remove function definitions.  Any transitions in those piecewise functions may not be noticed by the simulator.";
+            }
+        }
+
+        //Only worry about piecewise functions in continuous contexts:  initial assignments and event assignments are fine, because we don't need to stop simulation to check things; the assignment is already happening when simulation is stopped.
+        for (size_t r = 0; r < model->getNumRules(); r++) {
+            //We don't care whether the rule is assignment, rate, or even algebraic; we're just looking for piecewise functions.
+            const libsbml::Rule* rule = model->getRule(r);
+            const ASTNode* node = rule->getMath();
+            addPiecewiseTriggersFrom(node);
+        }
+        for (size_t r = 0; r < model->getNumReactions(); r++) {
+            const libsbml::Reaction* rxn = model->getReaction(r);
+            if (rxn->isSetKineticLaw()) {
+                addPiecewiseTriggersFrom(rxn->getKineticLaw()->getMath());
+            }
+        }
+        //Event triggers themselves might have piecewise arguments in them:
+        for (size_t e = 0; e < model->getNumEvents(); e++) {
+            const libsbml::Event* event = model->getEvent(e);
+            if (event->isSetTrigger()) {
+                addPiecewiseTriggersFrom(event->getTrigger()->getMath());
+            }
+        }
+    }
+
+    void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::ASTNode* node)
+    {
+        if (node == NULL) {
+            return;
+        }
+        if (node->getType() == libsbml::AST_FUNCTION_PIECEWISE) {
+            // The format of the piecewise function is (val1, cond1, val2, cond2, ..., val_otherwise).  They're checked sequentially, so if cond1 is true, val1 is always returned, and if cond1 is false but cond2 is true, val2 is returned, etc.  This means the value returned is dependent on the following conditions:
+            // cond1
+            // cond2 && (!cond1)
+            // cond3 && (!cond1 && !cond2)
+            // ...
+            // !cond1 && !cond2 && !cond3  && ...
+
+            // None of the values need to be checked, just the conditions.  Hence:
+            std::vector<const libsbml::ASTNode*> conditions;
+            for (size_t c = 1; c < node->getNumChildren(); c += 2) {
+                conditions.push_back(node->getChild(c));
+            }
+            for (size_t c = 0; c < conditions.size(); c++) {
+                std::vector<const libsbml::ASTNode*> nots;
+                for (size_t n = 0; n < c; n++) {
+                    nots.push_back(conditions[n]);
+                }
+                if (nots.size() > 0) {
+                    libsbml::ASTNode* root = new libsbml::ASTNode(libsbml::AST_LOGICAL_AND);
+                    root->addChild(conditions[c]->deepCopy());
+                    for (size_t n = 0; n < nots.size(); n++) {
+                        libsbml::ASTNode* child_not = new libsbml::ASTNode(libsbml::AST_LOGICAL_NOT);
+                        child_not->addChild(nots[n]->deepCopy());
+                        root->addChild(child_not);
+                    }
+                    mPiecewiseTriggers.push_back(root);
+                }
+                else {
+                    mPiecewiseTriggers.push_back(conditions[c]->deepCopy());
+                }
+            }
+            //If there's an 'otherwise', we need an all-nots trigger:
+            if (node->getNumChildren() % 2 == 1) {
+                libsbml::ASTNode* root = new libsbml::ASTNode(libsbml::AST_LOGICAL_AND);
+                for (size_t c = 0; c < conditions.size(); c++) {
+                    libsbml::ASTNode* child_not = new libsbml::ASTNode(libsbml::AST_LOGICAL_NOT);
+                    child_not->addChild(conditions[c]->deepCopy());
+                    root->addChild(child_not);
+                }
+                mPiecewiseTriggers.push_back(root);
+            }
+        }
+
+        //Not 'else', since a piecewise function can have piecewise children.
+        for (size_t c = 0; c < node->getNumChildren(); c++) {
+            const ASTNode* child = node->getChild(c);
+            addPiecewiseTriggersFrom(child);
+        }
+    }
+
+    bool ModelGeneratorContext::containsPiecewise(const libsbml::ASTNode* node)
+    {
+        if (node == NULL) {
+            return false;
+        }
+        if (node->getType() == libsbml::AST_FUNCTION_PIECEWISE) {
+            return true;
+        }
+
+        for (size_t c = 0; c < node->getNumChildren(); c++) {
+            if (containsPiecewise(node->getChild(c))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void ModelGeneratorContext::clearPiecewiseTriggers()
+    {
+        for (size_t pt = 0; pt < mPiecewiseTriggers.size(); pt++) {
+            delete mPiecewiseTriggers[pt];
+        }
+        mPiecewiseTriggers.clear();
+    }
+
     void ModelGeneratorContext::cleanup() {
         delete ownedDoc;
         ownedDoc = 0;
-//    delete errString; errString = 0;
+        clearPiecewiseTriggers();
     }
-
 
     ModelGeneratorContext::~ModelGeneratorContext() {
         cleanup();
     }
-
-//llvm::LLVMContext &ModelGeneratorContext::getContext() const
-//{
-//    return *context;
-//}
-//
-//llvm::ExecutionEngine &ModelGeneratorContext::getExecutionEngine() const
-//{
-//    return *executionEngine;
-//}
 
     const LLVMModelDataSymbols &ModelGeneratorContext::getModelDataSymbols() const {
         return *symbols;
@@ -269,26 +369,23 @@ namespace rrllvm {
         return doc;
     }
 
-
     Jit *ModelGeneratorContext::getJitNonOwning() const {
         return jit.get();
     }
-
 
     const libsbml::Model *ModelGeneratorContext::getModel() const {
         return doc->getModel();
     }
 
+    const std::vector<libsbml::ASTNode*>* ModelGeneratorContext::getPiecewiseTriggers() const
+    {
+        return &mPiecewiseTriggers;
+    }
 
-//llvm::Module *ModelGeneratorContext::getModule() const
-//{
-//	return jit->getModuleNonOwning();
-//}
-//
-//llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
-//{
-//    return *jit->getBuilderNonOwning();
-//}
+    size_t ModelGeneratorContext::getNumPiecewiseTriggers() const
+    {
+        return mPiecewiseTriggers.size();
+    }
 
     void ModelGeneratorContext::transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> modelResources) {
         modelResources->symbols = symbols;
@@ -299,14 +396,6 @@ namespace rrllvm {
 
         modelResources->random = random;
         random = nullptr;
-
-//    modelResources->context = std::move(context);
-//    context = nullptr;
-//    modelResources->executionEngine = std::move(executionEngine);
-//    executionEngine = nullptr;
-//
-//	modelResources->errStr = errString;
-//    errString = nullptr;
     }
 
     const LLVMModelSymbols &ModelGeneratorContext::getModelSymbols() const {
@@ -320,7 +409,6 @@ namespace rrllvm {
     bool ModelGeneratorContext::useSymbolCache() const {
         return (options & LoadSBMLOptions::LLVM_SYMBOL_CACHE) != 0;
     }
-
 
     static SBMLDocument *checkedReadSBMLFromString(const char *xml) {
         SBMLDocument *doc = readSBMLFromString(xml);

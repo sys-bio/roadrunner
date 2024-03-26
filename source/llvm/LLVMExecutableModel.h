@@ -32,6 +32,7 @@
 #include "GetEventValuesCodeGen.h"
 #include "EventAssignCodeGen.h"
 #include "EventTriggerCodeGen.h"
+#include "GetPiecewiseTriggerCodeGen.h"
 #include "EvalVolatileStoichCodeGen.h"
 #include "EvalConversionFactorCodeGen.h"
 #include "SetValuesCodeGen.h"
@@ -97,7 +98,7 @@ public:
      * evaluate the initial conditions specified in the sbml, this entails
      * evaluating all InitialAssigments, AssigmentRules, initial values, etc...
      *
-     * The the model state is fully set.
+     * Then the model state is fully set.
      */
     void evalInitialConditions(uint32_t flags = 0);
 
@@ -489,6 +490,8 @@ public:
 
     virtual void getEventRoots(double time, const double* y, double* gdot);
 
+    virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot);
+
     virtual double getNextPendingEventTime(bool pop);
 
     virtual int getPendingEventSize();
@@ -563,6 +566,9 @@ public:
     virtual int getEventIndex(const std::string& eid);
     virtual std::string getEventId(size_t index);
     virtual void getEventIds(std::list<std::string>& out);
+
+    virtual int getNumPiecewiseTriggers();
+
     virtual void getAssignmentRuleIds(std::list<std::string>& out);
     virtual void getRateRuleIds(std::list<std::string>& out);
     virtual void getInitialAssignmentIds(std::list<std::string>& out);
@@ -656,6 +662,7 @@ private:
     GetEventDelayCodeGen::FunctionPtr getEventDelayPtr;
     EventTriggerCodeGen::FunctionPtr eventTriggerPtr;
     EventAssignCodeGen::FunctionPtr eventAssignPtr;
+    GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
     EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
     EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
 
