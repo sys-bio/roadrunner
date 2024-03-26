@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1Solver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::Solver</compoundname>
     <basecompoundref refid="classrr_1_1Registrable" prot="public" virt="non-virtual">rr::Registrable</basecompoundref>
@@ -272,17 +272,17 @@
         <argsstring>()</argsstring>
         <name>resetSettings</name>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a68cd9b39288762b25f1410aa743f703c">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1a345df1be0ad82f14a56273b89a26828a">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1FixedPointIteration_1ab7451909f822f8642b7555248493371d">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a66033d9628dea4a1e2ffc2158087a2e1">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1ac72e6b148def07a53c79e83441b380cd">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1a1eb6cfa0ea863c828fc8b25ec2cfd389">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1a345df1be0ad82f14a56273b89a26828a">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1a1eb6cfa0ea863c828fc8b25ec2cfd389">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
         <briefdescription>
 <para>Reset all settings to their respective default values. </para>
         </briefdescription>
@@ -464,8 +464,8 @@
         <argsstring>(const std::string &amp;key, Setting value)</argsstring>
         <name>setValue</name>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1ae0b99769434152ba1fbd775f32f3aa22">setValue</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1aa21499e410b057552054665291618348">setValue</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc">setValue</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1aa21499e410b057552054665291618348">setValue</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -522,9 +522,9 @@
         <argsstring>() const</argsstring>
         <name>toString</name>
         <reimplementedby refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a3d626fc6eb7f2698840a4d2a94da5720">toString</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a65fed1a29701ddcfb6d0d3f023550bc8">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1a3d626fc6eb7f2698840a4d2a94da5720">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413">toString</reimplementedby>
         <briefdescription>
 <para>Return a std::string representation of the solver. </para>
         </briefdescription>
@@ -543,9 +543,9 @@
         <argsstring>() const</argsstring>
         <name>toRepr</name>
         <reimplementedby refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1acd883d6f972f3735251d363a69ae9da1">toRepr</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1abc775885d87bf9afa1b5616fe28d1de3">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1acd883d6f972f3735251d363a69ae9da1">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747">toRepr</reimplementedby>
         <briefdescription>
 <para>Return std::string representation a la Python <bold>repr</bold> method. </para>
         </briefdescription>
@@ -648,14 +648,14 @@
         <argsstring>(ExecutableModel *m)=0</argsstring>
         <name>syncWithModel</name>
         <reimplementedby refid="classrr_1_1ForwardSensitivitySolver_1aa0560086789464708c95896272e1b5ce">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a3d28cd898cf997dbc2243b0fc2ae3856">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad928d3d4e5efbe04dcc2ab503119c745">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1a11c9feeea50fcf52a453f374c1152535">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad928d3d4e5efbe04dcc2ab503119c745">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1a11c9feeea50fcf52a453f374c1152535">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a3d28cd898cf997dbc2243b0fc2ae3856">syncWithModel</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>m</declname>
@@ -932,7 +932,7 @@
         <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="Solver.h" line="39" column="1" bodyfile="Solver.h" bodystart="38" bodyend="212"/>
+    <location file="Solver.h" line="38" column="5" bodyfile="Solver.h" bodystart="39" bodyend="212"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>addSetting</name></member>
       <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>construct</name></member>

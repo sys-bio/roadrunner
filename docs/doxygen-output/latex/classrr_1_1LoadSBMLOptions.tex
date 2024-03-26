@@ -1,15 +1,15 @@
-\hypertarget{classrr_1_1LoadSBMLOptions}{}\doxysection{rr\+::Load\+S\+B\+M\+L\+Options Class Reference}
+\hypertarget{classrr_1_1LoadSBMLOptions}{}\doxysection{rr\+::Load\+SBMLOptions Class Reference}
 \label{classrr_1_1LoadSBMLOptions}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}
 
 
-Options for loading S\+B\+ML into \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}.  
+Options for loading SBML into \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}.  
 
 
 
 
 {\ttfamily \#include $<$rr\+Road\+Runner\+Options.\+h$>$}
 
-Inheritance diagram for rr\+::Load\+S\+B\+M\+L\+Options\+:\begin{figure}[H]
+Inheritance diagram for rr\+::Load\+SBMLOptions\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{classrr_1_1LoadSBMLOptions}
@@ -19,48 +19,49 @@ Inheritance diagram for rr\+::Load\+S\+B\+M\+L\+Options\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_aeb6710490a37803b0ea9ed19209650c5}\label{classrr_1_1LoadSBMLOptions_aeb6710490a37803b0ea9ed19209650c5}} 
-enum {\bfseries L\+L\+V\+M\+\_\+\+B\+A\+C\+K\+E\+N\+D\+\_\+\+V\+A\+L\+U\+ES} \{ {\bfseries M\+C\+J\+IT} = (0x1 $<$$<$ 14), 
-{\bfseries L\+L\+J\+IT} = (0x1 $<$$<$ 15)
+enum {\bfseries LLVM\+\_\+\+BACKEND\+\_\+\+VALUES} \{ {\bfseries MCJIT} = (0x1 $<$$<$ 14)
+, {\bfseries LLJIT} = (0x1 $<$$<$ 15)
  \}
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a88a71dd1cb345f34bc4b743099ecf4da}\label{classrr_1_1LoadSBMLOptions_a88a71dd1cb345f34bc4b743099ecf4da}} 
-enum {\bfseries L\+L\+J\+I\+T\+\_\+\+O\+P\+T\+I\+M\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+LS} \{ {\bfseries N\+O\+NE} = (0x1 $<$$<$ 16), 
-{\bfseries L\+E\+SS} = (0x1 $<$$<$ 17), 
-{\bfseries D\+E\+F\+A\+U\+LT} = (0x1 $<$$<$ 18), 
-{\bfseries A\+G\+G\+R\+E\+S\+S\+I\+VE} = (0x1 $<$$<$ 19)
+enum {\bfseries LLJIT\+\_\+\+OPTIMIZATION\+\_\+\+LEVELS} \{ {\bfseries NONE} = (0x1 $<$$<$ 16)
+, {\bfseries LESS} = (0x1 $<$$<$ 17)
+, {\bfseries DEFAULT} = (0x1 $<$$<$ 18)
+, {\bfseries AGGRESSIVE} = (0x1 $<$$<$ 19)
  \}
 \item 
 enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{Model\+Generator\+Opt}} \{ \newline
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f}{C\+O\+N\+S\+E\+R\+V\+E\+D\+\_\+\+M\+O\+I\+E\+T\+I\+ES}} = (0x1 $<$$<$ 0), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d}{R\+E\+C\+O\+M\+P\+I\+LE}} = (0x1 $<$$<$ 1), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60}{R\+E\+A\+D\+\_\+\+O\+N\+LY}} = (0x1 $<$$<$ 2), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386}{M\+U\+T\+A\+B\+L\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+C\+O\+N\+D\+I\+T\+I\+O\+NS}} = (0x1 $<$$<$ 3), 
-\newline
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+G\+VN}} = (0x1 $<$$<$ 4), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+C\+F\+G\+\_\+\+S\+I\+M\+P\+L\+I\+F\+I\+C\+A\+T\+I\+ON}} = (0x1 $<$$<$ 5), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+I\+N\+S\+T\+R\+U\+C\+T\+I\+O\+N\+\_\+\+C\+O\+M\+B\+I\+N\+I\+NG}} = (0x1 $<$$<$ 6), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+D\+E\+A\+D\+\_\+\+I\+N\+S\+T\+\_\+\+E\+L\+I\+M\+I\+N\+A\+T\+I\+ON}} = (0x1 $<$$<$ 7), 
-\newline
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+D\+E\+A\+D\+\_\+\+C\+O\+D\+E\+\_\+\+E\+L\+I\+M\+I\+N\+A\+T\+I\+ON}} = (0x1 $<$$<$ 8), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+I\+N\+S\+T\+R\+U\+C\+T\+I\+O\+N\+\_\+\+S\+I\+M\+P\+L\+I\+F\+I\+ER}} = (0x1 $<$$<$ 9), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7}{O\+P\+T\+I\+M\+I\+ZE}}, 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87}{U\+S\+E\+\_\+\+M\+C\+J\+IT}} = (0x1 $<$$<$ 10), 
-\newline
-{\bfseries L\+L\+V\+M\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+C\+A\+C\+HE} = (0x1 $<$$<$ 11), 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0}{T\+U\+R\+N\+\_\+\+O\+N\+\_\+\+V\+A\+L\+I\+D\+A\+T\+I\+ON}} = (0x1 $<$$<$ 12)
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f}{CONSERVED\+\_\+\+MOIETIES}} = (0x1 $<$$<$ 0)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d}{RECOMPILE}} = (0x1 $<$$<$ 1)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60}{READ\+\_\+\+ONLY}} = (0x1 $<$$<$ 2)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386}{MUTABLE\+\_\+\+INITIAL\+\_\+\+CONDITIONS}} = (0x1 $<$$<$ 3)
+, \newline
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c}{OPTIMIZE\+\_\+\+GVN}} = (0x1 $<$$<$ 4)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c}{OPTIMIZE\+\_\+\+CFG\+\_\+\+SIMPLIFICATION}} = (0x1 $<$$<$ 5)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245}{OPTIMIZE\+\_\+\+INSTRUCTION\+\_\+\+COMBINING}} = (0x1 $<$$<$ 6)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d}{OPTIMIZE\+\_\+\+DEAD\+\_\+\+INST\+\_\+\+ELIMINATION}} = (0x1 $<$$<$ 7)
+, \newline
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef}{OPTIMIZE\+\_\+\+DEAD\+\_\+\+CODE\+\_\+\+ELIMINATION}} = (0x1 $<$$<$ 8)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2}{OPTIMIZE\+\_\+\+INSTRUCTION\+\_\+\+SIMPLIFIER}} = (0x1 $<$$<$ 9)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7}{OPTIMIZE}}
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87}{USE\+\_\+\+MCJIT}} = (0x1 $<$$<$ 10)
+, \newline
+{\bfseries LLVM\+\_\+\+SYMBOL\+\_\+\+CACHE} = (0x1 $<$$<$ 11)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0}{TURN\+\_\+\+ON\+\_\+\+VALIDATION}} = (0x1 $<$$<$ 12)
  \}
 \item 
-enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2a}{Load\+Opt}} \{ \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b}{N\+O\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+L\+E\+C\+T\+I\+O\+NS}} = (0x1 $<$$<$ 0)
+enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2a}{Load\+Opt}} \{ \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b}{NO\+\_\+\+DEFAULT\+\_\+\+SELECTIONS}} = (0x1 $<$$<$ 0)
+, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa4409e951d9e91cf5db1ba9a287587f78}{NO\+\_\+\+DEFAULT\+\_\+\+STEADY\+\_\+\+STATE\+\_\+\+SELECTIONS}} = (0x1 $<$$<$ 1)
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_aa95998812baf41557f365fa6a6118db3}\label{classrr_1_1LoadSBMLOptions_aa95998812baf41557f365fa6a6118db3}} 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_aa95998812baf41557f365fa6a6118db3}{Load\+S\+B\+M\+L\+Options}} ()
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_aa95998812baf41557f365fa6a6118db3}{Load\+SBMLOptions}} ()
 \begin{DoxyCompactList}\small\item\em initializes the struct with the default options. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a16a0bc21e030a836579b2c1b9231b29a}\label{classrr_1_1LoadSBMLOptions_a16a0bc21e030a836579b2c1b9231b29a}} 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a16a0bc21e030a836579b2c1b9231b29a}{Load\+S\+B\+M\+L\+Options}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict)
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a16a0bc21e030a836579b2c1b9231b29a}{Load\+SBMLOptions}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict)
 \begin{DoxyCompactList}\small\item\em creates an object from an existing dictionary. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}\label{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}} 
 void \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&value) override
@@ -86,19 +87,19 @@ void {\bfseries set\+Conserved\+Moiety\+Conversion} (bool val)
 void {\bfseries set\+Validation} (bool val)
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a19f19e9ebf702ce1ea94fc6398ad188e}\label{classrr_1_1LoadSBMLOptions_a19f19e9ebf702ce1ea94fc6398ad188e}} 
-void {\bfseries set\+L\+L\+V\+M\+Backend} (Load\+S\+B\+M\+L\+Options\+::\+L\+L\+V\+M\+\_\+\+B\+A\+C\+K\+E\+N\+D\+\_\+\+V\+A\+L\+U\+ES val)
+void {\bfseries set\+LLVMBackend} (Load\+SBMLOptions\+::\+LLVM\+\_\+\+BACKEND\+\_\+\+VALUES val)
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_ab90d2f7e6a7f3a0674c44ee03754f012}\label{classrr_1_1LoadSBMLOptions_ab90d2f7e6a7f3a0674c44ee03754f012}} 
-void {\bfseries set\+L\+L\+Jit\+Optimization\+Level} (L\+L\+J\+I\+T\+\_\+\+O\+P\+T\+I\+M\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+LS levels)
+void {\bfseries set\+LLJit\+Optimization\+Level} (LLJIT\+\_\+\+OPTIMIZATION\+\_\+\+LEVELS levels)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_ad4f19d332cb0d01f488c0add92ba9657}\label{classrr_1_1LoadSBMLOptions_ad4f19d332cb0d01f488c0add92ba9657}} 
-static std\+::vector$<$ L\+L\+V\+M\+\_\+\+B\+A\+C\+K\+E\+N\+D\+\_\+\+V\+A\+L\+U\+ES $>$ {\bfseries get\+All\+L\+L\+V\+M\+Backend\+Values} ()
+static std\+::vector$<$ LLVM\+\_\+\+BACKEND\+\_\+\+VALUES $>$ {\bfseries get\+All\+LLVMBackend\+Values} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a06b09adec28cd463b500271cd0474523}\label{classrr_1_1LoadSBMLOptions_a06b09adec28cd463b500271cd0474523}} 
-static std\+::vector$<$ L\+L\+J\+I\+T\+\_\+\+O\+P\+T\+I\+M\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+LS $>$ {\bfseries get\+All\+L\+L\+Jit\+Optimization\+Values} ()
+static std\+::vector$<$ LLJIT\+\_\+\+OPTIMIZATION\+\_\+\+LEVELS $>$ {\bfseries get\+All\+LLJit\+Optimization\+Values} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -119,7 +120,7 @@ std\+::uint32\+\_\+t {\bfseries load\+Flags}
 
 
 \doxysubsection{Detailed Description}
-Options for loading S\+B\+ML into \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}. 
+Options for loading SBML into \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}. 
 
 Future version may add additional fields to the end of this struct, this way we can maintain binary compatibility with older \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} versions. 
 
@@ -128,11 +129,15 @@ Future version may add additional fields to the end of this struct, this way we 
 \index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!LoadOpt@{LoadOpt}}
 \index{LoadOpt@{LoadOpt}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}
 \doxysubsubsection{\texorpdfstring{LoadOpt}{LoadOpt}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2a}{rr\+::\+Load\+S\+B\+M\+L\+Options\+::\+Load\+Opt}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2a}{rr\+::\+Load\+SBMLOptions\+::\+Load\+Opt}}}
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_DEFAULT\_SELECTIONS@{NO\_DEFAULT\_SELECTIONS}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!NO\_DEFAULT\_SELECTIONS@{NO\_DEFAULT\_SELECTIONS}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b}\label{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b}} 
-N\+O\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+L\+E\+C\+T\+I\+O\+NS&Do not create a default selection list when the model is loaded. \\
+NO\+\_\+\+DEFAULT\+\_\+\+SELECTIONS&Do not create a default selection list when the model is loaded. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_DEFAULT\_STEADY\_STATE\_SELECTIONS@{NO\_DEFAULT\_STEADY\_STATE\_SELECTIONS}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!NO\_DEFAULT\_STEADY\_STATE\_SELECTIONS@{NO\_DEFAULT\_STEADY\_STATE\_SELECTIONS}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa4409e951d9e91cf5db1ba9a287587f78}\label{classrr_1_1LoadSBMLOptions_a686f9d0515d333b1551f5afd2db39e2aa4409e951d9e91cf5db1ba9a287587f78}} 
+NO\+\_\+\+DEFAULT\+\_\+\+STEADY\+\_\+\+STATE\+\_\+\+SELECTIONS&Do not create a default steady state selection list when the model is loaded. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -140,67 +145,67 @@ N\+O\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+L\+E\+C\+T\+I\+O\+NS&Do not create 
 \index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!ModelGeneratorOpt@{ModelGeneratorOpt}}
 \index{ModelGeneratorOpt@{ModelGeneratorOpt}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}
 \doxysubsubsection{\texorpdfstring{ModelGeneratorOpt}{ModelGeneratorOpt}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{rr\+::\+Load\+S\+B\+M\+L\+Options\+::\+Model\+Generator\+Opt}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6}{rr\+::\+Load\+SBMLOptions\+::\+Model\+Generator\+Opt}}}
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CONSERVED\_MOIETIES@{CONSERVED\_MOIETIES}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!CONSERVED\_MOIETIES@{CONSERVED\_MOIETIES}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f}} 
-C\+O\+N\+S\+E\+R\+V\+E\+D\+\_\+\+M\+O\+I\+E\+T\+I\+ES&perform conservation analysis. This causes a re-\/ordering of the species, so results generated with this flag enabled can not be compared index wise to results generated otherwise.
+CONSERVED\+\_\+\+MOIETIES&perform conservation analysis. This causes a re-\/ordering of the species, so results generated with this flag enabled can not be compared index wise to results generated otherwise.
 
 currently only implemented with the C code generating model \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RECOMPILE@{RECOMPILE}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!RECOMPILE@{RECOMPILE}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d}} 
-R\+E\+C\+O\+M\+P\+I\+LE&Should the model be recompiled? The L\+L\+VM Model\+Generator maintins a hash table of currently running models. If this flag is N\+OT set, then the generator will look to see if there is already a running instance of the given model and use the generated code from that one.
+RECOMPILE&Should the model be recompiled? The LLVM Model\+Generator maintins a hash table of currently running models. If this flag is NOT set, then the generator will look to see if there is already a running instance of the given model and use the generated code from that one.
 
 If only a single instance of a model is run, there is no need to cache the models, and this can safetly be enabled, realizing some performance gains. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READ\_ONLY@{READ\_ONLY}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!READ\_ONLY@{READ\_ONLY}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60}} 
-R\+E\+A\+D\+\_\+\+O\+N\+LY&If this is set, then a read-\/only model is generated. A read-\/only model can be simulated, but no code is generated to set model values, i.\+e. parameters, amounts, values, etc...
+READ\+\_\+\+ONLY&If this is set, then a read-\/only model is generated. A read-\/only model can be simulated, but no code is generated to set model values, i.\+e. parameters, amounts, values, etc...
 
 It takes a finite amount of time to generate the model value setting functions, and if they are not needed, one may see some performance gains, especially in very large models. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MUTABLE\_INITIAL\_CONDITIONS@{MUTABLE\_INITIAL\_CONDITIONS}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!MUTABLE\_INITIAL\_CONDITIONS@{MUTABLE\_INITIAL\_CONDITIONS}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386}} 
-M\+U\+T\+A\+B\+L\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+C\+O\+N\+D\+I\+T\+I\+O\+NS&Generate accessor functions to allow changing of initial conditions. \\
+MUTABLE\+\_\+\+INITIAL\+\_\+\+CONDITIONS&Generate accessor functions to allow changing of initial conditions. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_GVN@{OPTIMIZE\_GVN}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_GVN@{OPTIMIZE\_GVN}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+G\+VN&G\+VN -\/ This pass performs global value numbering and redundant load elimination cotemporaneously. \\
+OPTIMIZE\+\_\+\+GVN&GVN -\/ This pass performs global value numbering and redundant load elimination cotemporaneously. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_CFG\_SIMPLIFICATION@{OPTIMIZE\_CFG\_SIMPLIFICATION}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_CFG\_SIMPLIFICATION@{OPTIMIZE\_CFG\_SIMPLIFICATION}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+C\+F\+G\+\_\+\+S\+I\+M\+P\+L\+I\+F\+I\+C\+A\+T\+I\+ON&C\+F\+G\+Simplification -\/ Merge basic blocks, eliminate unreachable blocks, simplify terminator instructions, etc... \\
+OPTIMIZE\+\_\+\+CFG\+\_\+\+SIMPLIFICATION&CFGSimplification -\/ Merge basic blocks, eliminate unreachable blocks, simplify terminator instructions, etc... \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_INSTRUCTION\_COMBINING@{OPTIMIZE\_INSTRUCTION\_COMBINING}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_INSTRUCTION\_COMBINING@{OPTIMIZE\_INSTRUCTION\_COMBINING}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+I\+N\+S\+T\+R\+U\+C\+T\+I\+O\+N\+\_\+\+C\+O\+M\+B\+I\+N\+I\+NG&Instruction\+Combining -\/ Combine instructions to form fewer, simple instructions. This pass does not modify the C\+FG, and has a tendency to make instructions dead, so a subsequent D\+CE pass is useful. \\
+OPTIMIZE\+\_\+\+INSTRUCTION\+\_\+\+COMBINING&Instruction\+Combining -\/ Combine instructions to form fewer, simple instructions. This pass does not modify the CFG, and has a tendency to make instructions dead, so a subsequent DCE pass is useful. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_DEAD\_INST\_ELIMINATION@{OPTIMIZE\_DEAD\_INST\_ELIMINATION}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_DEAD\_INST\_ELIMINATION@{OPTIMIZE\_DEAD\_INST\_ELIMINATION}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+D\+E\+A\+D\+\_\+\+I\+N\+S\+T\+\_\+\+E\+L\+I\+M\+I\+N\+A\+T\+I\+ON&Dead\+Inst\+Elimination -\/ This pass quickly removes trivially dead instructions without modifying the C\+FG of the function. It is a Basic\+Block\+Pass, so it runs efficiently when queued next to other Basic\+Block\+Pass\textquotesingle{}s. \\
+OPTIMIZE\+\_\+\+DEAD\+\_\+\+INST\+\_\+\+ELIMINATION&Dead\+Inst\+Elimination -\/ This pass quickly removes trivially dead instructions without modifying the CFG of the function. It is a Basic\+Block\+Pass, so it runs efficiently when queued next to other Basic\+Block\+Pass\textquotesingle{}s. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_DEAD\_CODE\_ELIMINATION@{OPTIMIZE\_DEAD\_CODE\_ELIMINATION}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_DEAD\_CODE\_ELIMINATION@{OPTIMIZE\_DEAD\_CODE\_ELIMINATION}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+D\+E\+A\+D\+\_\+\+C\+O\+D\+E\+\_\+\+E\+L\+I\+M\+I\+N\+A\+T\+I\+ON&Dead\+Code\+Elimination -\/ This pass is more powerful than Dead\+Inst\+Elimination, because it is worklist driven that can potentially revisit instructions when their other instructions become dead, to eliminate chains of dead computations. \\
+OPTIMIZE\+\_\+\+DEAD\+\_\+\+CODE\+\_\+\+ELIMINATION&Dead\+Code\+Elimination -\/ This pass is more powerful than Dead\+Inst\+Elimination, because it is worklist driven that can potentially revisit instructions when their other instructions become dead, to eliminate chains of dead computations. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_INSTRUCTION\_SIMPLIFIER@{OPTIMIZE\_INSTRUCTION\_SIMPLIFIER}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE\_INSTRUCTION\_SIMPLIFIER@{OPTIMIZE\_INSTRUCTION\_SIMPLIFIER}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+I\+N\+S\+T\+R\+U\+C\+T\+I\+O\+N\+\_\+\+S\+I\+M\+P\+L\+I\+F\+I\+ER&Instruction\+Simplifier -\/ Remove redundant instructions. \\
+OPTIMIZE\+\_\+\+INSTRUCTION\+\_\+\+SIMPLIFIER&Instruction\+Simplifier -\/ Remove redundant instructions. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE@{OPTIMIZE}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!OPTIMIZE@{OPTIMIZE}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7}} 
-O\+P\+T\+I\+M\+I\+ZE&all optimizations, use to check if bit mask has any optimizations. \\
+OPTIMIZE&all optimizations, use to check if bit mask has any optimizations. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USE\_MCJIT@{USE\_MCJIT}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!USE\_MCJIT@{USE\_MCJIT}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87}} 
-U\+S\+E\+\_\+\+M\+C\+J\+IT&Use the L\+L\+VM M\+C\+J\+IT J\+IT engine. Defaults to false.
+USE\+\_\+\+MCJIT&Use the LLVM MCJIT JIT engine. Defaults to false.
 
-The M\+C\+J\+IT is the new L\+L\+VM J\+IT engine, it is not as well tested as the original J\+IT engine. Does N\+OT work on L\+L\+VM 3.\+1 \\
+The MCJIT is the new LLVM JIT engine, it is not as well tested as the original JIT engine. Does NOT work on LLVM 3.\+1 \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TURN\_ON\_VALIDATION@{TURN\_ON\_VALIDATION}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}\index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!TURN\_ON\_VALIDATION@{TURN\_ON\_VALIDATION}}}\mbox{\Hypertarget{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0}\label{classrr_1_1LoadSBMLOptions_a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0}} 
-T\+U\+R\+N\+\_\+\+O\+N\+\_\+\+V\+A\+L\+I\+D\+A\+T\+I\+ON&Turn on S\+B\+ML validation. \\
+TURN\+\_\+\+ON\+\_\+\+VALIDATION&Turn on SBML validation. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -211,7 +216,7 @@ T\+U\+R\+N\+\_\+\+O\+N\+\_\+\+V\+A\+L\+I\+D\+A\+T\+I\+ON&Turn on S\+B\+ML valida
 \index{rr::LoadSBMLOptions@{rr::LoadSBMLOptions}!hasKey@{hasKey}}
 \index{hasKey@{hasKey}!rr::LoadSBMLOptions@{rr::LoadSBMLOptions}}
 \doxysubsubsection{\texorpdfstring{hasKey()}{hasKey()}}
-{\footnotesize\ttfamily bool rr\+::\+Load\+S\+B\+M\+L\+Options\+::has\+Key (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool rr\+::\+Load\+SBMLOptions\+::has\+Key (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

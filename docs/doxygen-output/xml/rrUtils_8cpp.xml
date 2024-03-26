@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrUtils_8cpp" kind="file" language="C++">
     <compoundname>rrUtils.cpp</compoundname>
     <includes local="no">filesystem</includes>
@@ -855,7 +855,7 @@
 <codeline lineno="405"><highlight class="normal"></highlight></codeline>
 <codeline lineno="406"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="407"><highlight class="normal"></highlight></codeline>
-<codeline lineno="417"><highlight class="comment">//bool<sp/>fileExists(const<sp/>std::string&amp;<sp/>fname,<sp/>int<sp/>fileMode)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight><highlight class="comment">//bool<sp/>fileExists(const<sp/>std::string&amp;<sp/>fname,<sp/>int<sp/>fileMode)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="418"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="419"><highlight class="normal"></highlight><highlight class="comment">//#if<sp/>!defined<sp/>(WIN32)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="420"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>bool<sp/>res<sp/>=<sp/>(access(fname.c_str(),<sp/>fileMode)<sp/>==<sp/>0);</highlight><highlight class="normal"></highlight></codeline>
@@ -908,7 +908,7 @@
 <codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/>badtags.push_back(</highlight><highlight class="stringliteral">&quot;fbc&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>badtags.push_back(</highlight><highlight class="stringliteral">&quot;FastReaction&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/>badtags.push_back(</highlight><highlight class="stringliteral">&quot;VolumeConcentrationRate&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/>badtags.push_back(</highlight><highlight class="stringliteral">&quot;RateOf&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//badtags.push_back(&quot;RateOf&quot;);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/>badtags.push_back(</highlight><highlight class="stringliteral">&quot;AssignedVariableStoichiometry&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="472"><highlight class="normal"></highlight></codeline>
 <codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(integrator<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;rk4&quot;</highlight><highlight class="normal"><sp/>||<sp/>integrator<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;rk45&quot;</highlight><highlight class="normal">)</highlight></codeline>

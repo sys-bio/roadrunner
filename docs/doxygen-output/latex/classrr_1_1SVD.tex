@@ -1,19 +1,19 @@
-\hypertarget{classrr_1_1SVD}{}\doxysection{rr\+::S\+VD Class Reference}
+\hypertarget{classrr_1_1SVD}{}\doxysection{rr\+::SVD Class Reference}
 \label{classrr_1_1SVD}\index{rr::SVD@{rr::SVD}}
 
 
-The routine computes the singular value decomposition (\mbox{\hyperlink{classrr_1_1SVD}{S\+VD}}) of a real m-\/by-\/n matrix.  
+The routine computes the singular value decomposition (\mbox{\hyperlink{classrr_1_1SVD}{SVD}}) of a real m-\/by-\/n matrix.  
 
 
 
 
-{\ttfamily \#include $<$S\+V\+D.\+h$>$}
+{\ttfamily \#include $<$SVD.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classrr_1_1SVD_a0569c342c50ef3ee3d28b7b6160f9760}{S\+VD}} (ls\+::\+Double\+Matrix \&matrix)
-\begin{DoxyCompactList}\small\item\em constructor for \mbox{\hyperlink{classrr_1_1SVD}{S\+VD}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1SVD_a0569c342c50ef3ee3d28b7b6160f9760}{SVD}} (ls\+::\+Double\+Matrix \&matrix)
+\begin{DoxyCompactList}\small\item\em constructor for \mbox{\hyperlink{classrr_1_1SVD}{SVD}} \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1SVD_a0b4a95bc088a26d8b39270c2bb78ecff}\label{classrr_1_1SVD_a0b4a95bc088a26d8b39270c2bb78ecff}} 
 const ls\+::\+Double\+Matrix \& \mbox{\hyperlink{classrr_1_1SVD_a0b4a95bc088a26d8b39270c2bb78ecff}{get\+Singular\+Values}} () const
 \begin{DoxyCompactList}\small\item\em returns the singular values computed for input matrix \end{DoxyCompactList}\item 
@@ -30,9 +30,9 @@ bool \mbox{\hyperlink{classrr_1_1SVD_abe52c6f991c060f50be7c366b744c8db}{is\+Sing
 
 
 \doxysubsection{Detailed Description}
-The routine computes the singular value decomposition (\mbox{\hyperlink{classrr_1_1SVD}{S\+VD}}) of a real m-\/by-\/n matrix. 
+The routine computes the singular value decomposition (\mbox{\hyperlink{classrr_1_1SVD}{SVD}}) of a real m-\/by-\/n matrix. 
 
-Often when computing the steady state of a system the jacobian matrix is singular. \mbox{\hyperlink{classrr_1_1SVD}{S\+VD}} is a way of computing the rank of a matrix, which in turn can be used to determine whether a rank is singular\+:
+Often when computing the steady state of a system the jacobian matrix is singular. \mbox{\hyperlink{classrr_1_1SVD}{SVD}} is a way of computing the rank of a matrix, which in turn can be used to determine whether a rank is singular\+:
 \begin{DoxyItemize}
 \item if rank $<$ min(\+N, M) of an NxM matrix then it is singular. 
 \end{DoxyItemize}
@@ -42,23 +42,23 @@ Often when computing the steady state of a system the jacobian matrix is singula
 \index{rr::SVD@{rr::SVD}!SVD@{SVD}}
 \index{SVD@{SVD}!rr::SVD@{rr::SVD}}
 \doxysubsubsection{\texorpdfstring{SVD()}{SVD()}}
-{\footnotesize\ttfamily rr\+::\+S\+V\+D\+::\+S\+VD (\begin{DoxyParamCaption}\item[{ls\+::\+Double\+Matrix \&}]{matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily rr\+::\+SVD\+::\+SVD (\begin{DoxyParamCaption}\item[{ls\+::\+Double\+Matrix \&}]{matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 
-constructor for \mbox{\hyperlink{classrr_1_1SVD}{S\+VD}} 
+constructor for \mbox{\hyperlink{classrr_1_1SVD}{SVD}} 
 
 
 \begin{DoxyParams}{Parameters}
 {\em matrix} & a ls\+::\+Matrix$<$double$>$\\
 \hline
 \end{DoxyParams}
-S\+VG is conducted on instantiation \begin{DoxySeeAlso}{See also}
-\mbox{\hyperlink{classrr_1_1SVD_a0b4a95bc088a26d8b39270c2bb78ecff}{S\+V\+D\+::get\+Singular\+Values}} 
+SVG is conducted on instantiation \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classrr_1_1SVD_a0b4a95bc088a26d8b39270c2bb78ecff}{SVD\+::get\+Singular\+Values}} 
 
-\mbox{\hyperlink{classrr_1_1SVD_aaa62288e25ab68c503461e69d321e317}{S\+V\+D\+::get\+Left\+Singular\+Vectors}} 
+\mbox{\hyperlink{classrr_1_1SVD_aaa62288e25ab68c503461e69d321e317}{SVD\+::get\+Left\+Singular\+Vectors}} 
 
-\mbox{\hyperlink{classrr_1_1SVD_abd19a9873fc9b890f8c5ff01ead7166d}{S\+V\+D\+::get\+Right\+Singular\+Vectors}} 
+\mbox{\hyperlink{classrr_1_1SVD_abd19a9873fc9b890f8c5ff01ead7166d}{SVD\+::get\+Right\+Singular\+Vectors}} 
 \end{DoxySeeAlso}
 The lapack rountine at the core of this class seems to expect the transpose of our input matrix so we do that here in the constructor. transpose should be done {\itshape after} collecting the initial dimensions Moreover, the output matrices left and right require transposing back before we give them to user
 
@@ -67,7 +67,7 @@ The lapack rountine at the core of this class seems to expect the transpose of o
 \index{rr::SVD@{rr::SVD}!isSingular@{isSingular}}
 \index{isSingular@{isSingular}!rr::SVD@{rr::SVD}}
 \doxysubsubsection{\texorpdfstring{isSingular()}{isSingular()}}
-{\footnotesize\ttfamily bool rr\+::\+S\+V\+D\+::is\+Singular (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool rr\+::\+SVD\+::is\+Singular (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -77,7 +77,7 @@ this is determined by testing whether than rank of the matrix is less than the s
 \index{rr::SVD@{rr::SVD}!rank@{rank}}
 \index{rank@{rank}!rr::SVD@{rr::SVD}}
 \doxysubsubsection{\texorpdfstring{rank()}{rank()}}
-{\footnotesize\ttfamily int rr\+::\+S\+V\+D\+::rank (\begin{DoxyParamCaption}\item[{double}]{tol = {\ttfamily 1e-\/15} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily int rr\+::\+SVD\+::rank (\begin{DoxyParamCaption}\item[{double}]{tol = {\ttfamily 1e-\/15} }\end{DoxyParamCaption}) const}
 
 
 
@@ -92,5 +92,5 @@ the rank of a matrix is equal to the number of non-\/zero singular values!
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-S\+V\+D.\+h\item 
-S\+V\+D.\+cpp\end{DoxyCompactItemize}
+SVD.\+h\item 
+SVD.\+cpp\end{DoxyCompactItemize}

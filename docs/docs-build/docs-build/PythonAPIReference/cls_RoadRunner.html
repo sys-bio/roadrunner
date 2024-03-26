@@ -90,6 +90,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#selections">Selections</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.getIds"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getIds()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.getValue"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.setValue"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.setValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.setValues()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getSelectedValues"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getSelectedValues()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.timeCourseSelections"><code class="docutils literal notranslate"><span class="pre">RoadRunner.timeCourseSelections</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.createSelection"><code class="docutils literal notranslate"><span class="pre">RoadRunner.createSelection()</span></code></a></li>
@@ -97,6 +99,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#model-access">Model Access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getValue"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getValue()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.isModelLoaded"><code class="docutils literal notranslate"><span class="pre">RoadRunner.isModelLoaded()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.model"><code class="docutils literal notranslate"><span class="pre">RoadRunner.model</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.getModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.getModel()</span></code></a></li>
@@ -132,7 +135,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.addEventAssignment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.addEventAssignment()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadRunner.removeEventAssignment"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeEventAssignment()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#RoadRunner.removeEvent"><code class="docutils literal notranslate"><span class="pre">RoadRunner.removeEvent()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.RoadrUNNER.regenerateModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.RoadrUNNER.regenerateModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#RoadRunner.regenerateModel"><code class="docutils literal notranslate"><span class="pre">RoadRunner.regenerateModel()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#simulation">Simulation</a><ul>
@@ -520,6 +523,17 @@ For more information on the possible settings, see <a class="reference internal"
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">RoadRunner.[element_id]</span></span></dt>
+<dd><p>Access the current value of a model element.  All model elements with mathematical meaning (species, compartment, or parameters) can be accessed and set using this method.
+&gt;&gt;&gt; rr.S1
+6.3
+&gt;&gt;&gt; rr.S1 = 2.9
+&gt;&gt;&gt; rr.S1
+2.9</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="RoadRunner.getValue">
 <span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getValue" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the value for a given selection. For more information on accepted selection types
@@ -528,6 +542,42 @@ see <a class="reference internal" href="../selecting_values.html#selecting-value
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sel</strong> (<em>str</em><em> or </em><a class="reference internal" href="cls_SelectionRecord.html#roadrunner.SelectionRecord" title="roadrunner.SelectionRecord"><em>SelectionRecord</em></a>) – a selection that is either a string or a SelectionRecord that was
 obtained from createSelection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RoadRunner.setValue">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.setValue" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the value for a given selection. For more information on accepted selection types
+see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sel</strong> (<em>str</em>) – a selection that is either a string or a SelectionRecord that was
+obtained from createSelection</p></li>
+<li><p><strong>value</strong> (<em>double</em>) – the value of the selection to be set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RoadRunner.setValues">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keysOrDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.setValues" title="Permalink to this definition"></a></dt>
+<dd><p>Sets a number of values in the roadrunner object all at once.   Use either with the first argument defined as a dictionary, or with both arguments defined, with the first as the keys and the second as the values.
+see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setValues</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setValues</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keysOrDict</strong> (<em>list&lt;str&gt;</em><em> or </em><em>dict&lt;str</em><em>, </em><em>double&gt;</em>) – either a list of id strings to set, or a dictionary with string keys and numerical values.</p></li>
+<li><p><strong>value</strong> (<em>double</em>) – the list of values to use.  Must be identical in length to ‘keysOrDict’, and keysOrDict must not be a dictionary.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -576,6 +626,17 @@ For more information on accepted selection types, see <a class="reference intern
 <section id="model-access">
 <h2>Model Access<a class="headerlink" href="#model-access" title="Permalink to this heading"></a></h2>
 <dl class="py method">
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getValue">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getValue" title="Permalink to this definition"></a></dt>
+<dd><p>The current value of model elements can be obtained or set by using the ID of the element.  This works for all model elements with mathematical meaning (species, compartments, or parameters)
+&gt;&gt;&gt; rr.S1
+6.3
+&gt;&gt;&gt; rr.S1 = 2.9
+&gt;&gt;&gt; rr.S1
+2.9</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="RoadRunner.RoadRunner.isModelLoaded">
 <span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">isModelLoaded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.isModelLoaded" title="Permalink to this definition"></a></dt>
 <dd><p>Return True if model was loaded; False otherwise</p>
@@ -583,7 +644,7 @@ For more information on accepted selection types, see <a class="reference intern
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="RoadRunner.RoadRunner.model">
-<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#RoadRunner.RoadRunner.model" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#RoadRunner.RoadRunner.model" title="Permalink to this definition"></a></dt>
 <dd><p>Get the currently loaded model. The model object contains the entire state of the SBML model.</p>
 </dd></dl>
 
@@ -1227,13 +1288,13 @@ the model once after all editings are completed.</p>
 <dd class="field-odd"><p>the ID of the event to be removed</p>
 </dd>
 <dt class="field-even">param bool forceRegenerate<span class="colon">:</span></dt>
-<dd class="field-even"><p>indicate whether the new model is regenerated after this function call</p>
+<dd class="field-even"><p>indicate whether the new model is regenerated after this function call.</p>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="RoadRunner.RoadrUNNER.regenerateModel">
-<span class="sig-prename descclassname"><span class="pre">RoadrUNNER.</span></span><span class="sig-name descname"><span class="pre">regenerateModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadrUNNER.regenerateModel" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="RoadRunner.regenerateModel">
+<span class="sig-name descname"><span class="pre">regenerateModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.regenerateModel" title="Permalink to this definition"></a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">:module</span> <span class="pre">RoadRunner</span></span></dt>
 <dd><p>Call this method to jit compile any model you’ve constructed using the modeling editing API. This will make the model ready for simulation.</p>

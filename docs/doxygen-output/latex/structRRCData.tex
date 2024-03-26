@@ -1,8 +1,8 @@
-\hypertarget{structRRCData}{}\doxysection{R\+R\+C\+Data Struct Reference}
+\hypertarget{structRRCData}{}\doxysection{RRCData Struct Reference}
 \label{structRRCData}\index{RRCData@{RRCData}}
 
 
-Structure for the result type from the simulate calls. The client is responsible for freeing the R\+R\+C\+Data\+Ptr.  
+Structure for the result type from the simulate calls. The client is responsible for freeing the RRCData\+Ptr.  
 
 
 
@@ -12,9 +12,9 @@ Structure for the result type from the simulate calls. The client is responsible
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{structRRCData_aaebd12e68638f3572eea166c7dd0af69}{R\+Size}}
+int \mbox{\hyperlink{structRRCData_aaebd12e68638f3572eea166c7dd0af69}{RSize}}
 \item 
-int \mbox{\hyperlink{structRRCData_a573616e93e0241d11b40ea56c708041b}{C\+Size}}
+int \mbox{\hyperlink{structRRCData_a573616e93e0241d11b40ea56c708041b}{CSize}}
 \item 
 double $\ast$ \mbox{\hyperlink{structRRCData_a4f2db98f036a01dca7168fee658bac0c}{Data}}
 \item 
@@ -25,40 +25,40 @@ char $\ast$$\ast$ \mbox{\hyperlink{structRRCData_a54acd2748775883500033984275be1
 
 
 \doxysubsection{Detailed Description}
-Structure for the result type from the simulate calls. The client is responsible for freeing the R\+R\+C\+Data\+Ptr. 
+Structure for the result type from the simulate calls. The client is responsible for freeing the RRCData\+Ptr. 
 
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structRRCData_a54acd2748775883500033984275be173}\label{structRRCData_a54acd2748775883500033984275be173}} 
 \index{RRCData@{RRCData}!ColumnHeaders@{ColumnHeaders}}
 \index{ColumnHeaders@{ColumnHeaders}!RRCData@{RRCData}}
 \doxysubsubsection{\texorpdfstring{ColumnHeaders}{ColumnHeaders}}
-{\footnotesize\ttfamily char$\ast$$\ast$ R\+R\+C\+Data\+::\+Column\+Headers}
+{\footnotesize\ttfamily char$\ast$$\ast$ RRCData\+::\+Column\+Headers}
 
 Pointer to an array of column header strings \mbox{\Hypertarget{structRRCData_a573616e93e0241d11b40ea56c708041b}\label{structRRCData_a573616e93e0241d11b40ea56c708041b}} 
 \index{RRCData@{RRCData}!CSize@{CSize}}
 \index{CSize@{CSize}!RRCData@{RRCData}}
 \doxysubsubsection{\texorpdfstring{CSize}{CSize}}
-{\footnotesize\ttfamily int R\+R\+C\+Data\+::\+C\+Size}
+{\footnotesize\ttfamily int RRCData\+::\+CSize}
 
 The number of columns in the data matrix \mbox{\Hypertarget{structRRCData_a4f2db98f036a01dca7168fee658bac0c}\label{structRRCData_a4f2db98f036a01dca7168fee658bac0c}} 
 \index{RRCData@{RRCData}!Data@{Data}}
 \index{Data@{Data}!RRCData@{RRCData}}
 \doxysubsubsection{\texorpdfstring{Data}{Data}}
-{\footnotesize\ttfamily double$\ast$ R\+R\+C\+Data\+::\+Data}
+{\footnotesize\ttfamily double$\ast$ RRCData\+::\+Data}
 
-A pointer to the data stored in the matrix. Access an element using Data\mbox{[}row$\ast$\+C\+Size + col\mbox{]} \mbox{\Hypertarget{structRRCData_aaebd12e68638f3572eea166c7dd0af69}\label{structRRCData_aaebd12e68638f3572eea166c7dd0af69}} 
+A pointer to the data stored in the matrix. Access an element using Data\mbox{[}row$\ast$\+CSize + col\mbox{]} \mbox{\Hypertarget{structRRCData_aaebd12e68638f3572eea166c7dd0af69}\label{structRRCData_aaebd12e68638f3572eea166c7dd0af69}} 
 \index{RRCData@{RRCData}!RSize@{RSize}}
 \index{RSize@{RSize}!RRCData@{RRCData}}
 \doxysubsubsection{\texorpdfstring{RSize}{RSize}}
-{\footnotesize\ttfamily int R\+R\+C\+Data\+::\+R\+Size}
+{\footnotesize\ttfamily int RRCData\+::\+RSize}
 
 The number of rows in the data matrix \mbox{\Hypertarget{structRRCData_a2579ee2008f91694842f2278630852bf}\label{structRRCData_a2579ee2008f91694842f2278630852bf}} 
 \index{RRCData@{RRCData}!Weights@{Weights}}
 \index{Weights@{Weights}!RRCData@{RRCData}}
 \doxysubsubsection{\texorpdfstring{Weights}{Weights}}
-{\footnotesize\ttfamily double$\ast$ R\+R\+C\+Data\+::\+Weights}
+{\footnotesize\ttfamily double$\ast$ RRCData\+::\+Weights}
 
-A pointer to weights stored in the Weights matrix. Access an element using Weights\mbox{[}row$\ast$\+C\+Size + col\mbox{]} 
+A pointer to weights stored in the Weights matrix. Access an element using Weights\mbox{[}row$\ast$\+CSize + col\mbox{]} 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

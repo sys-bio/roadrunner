@@ -10,16 +10,16 @@ road\+Runner C wrappers 2012
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}{get\+Number\+Of\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}{get\+Number\+Of\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Returns the number of rules in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gadd064802065aece47c2e966f9fff5958}{get\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
-\begin{DoxyCompactList}\small\item\em Returns the name of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga41628ed993912f07fef8232af1a01051}{set\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$name)
-\begin{DoxyCompactList}\small\item\em Sets the name of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga300c79897dd0002ea7810b0bd7ce640c}{get\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
-\begin{DoxyCompactList}\small\item\em Returns the id of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gaa4a7f06dcfd66520eae88c7138c61364}{set\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$id)
-\begin{DoxyCompactList}\small\item\em Sets the id of currently loaded S\+B\+ML model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gadd064802065aece47c2e966f9fff5958}{get\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
+\begin{DoxyCompactList}\small\item\em Returns the name of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga41628ed993912f07fef8232af1a01051}{set\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Sets the name of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga300c79897dd0002ea7810b0bd7ce640c}{get\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
+\begin{DoxyCompactList}\small\item\em Returns the id of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gaa4a7f06dcfd66520eae88c7138c61364}{set\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, char $\ast$id)
+\begin{DoxyCompactList}\small\item\em Sets the id of currently loaded SBML model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -30,24 +30,22 @@ Totte Karlsson \& Herbert M Sauro
 \end{DoxyAuthor}
 $<$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- This file is part of c\+Road\+Runner. See \href{http://code.google.com/p/roadrunnerlib}{\texttt{ http\+://code.\+google.\+com/p/roadrunnerlib}} for more details.
 
-Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, U\+SA
+Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, USA
 
 Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb}http://www.apache.org/licenses/LICENSE-2.0
 \end{DoxyVerb}
-
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 In plain english this means\+:
 
-You C\+AN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
+You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
 
-You C\+AN use the software in packages or distributions that you create.
+You CAN use the software in packages or distributions that you create.
 
-You S\+H\+O\+U\+LD include a copy of the license in any redistribution you may make;
+You SHOULD include a copy of the license in any redistribution you may make;
 
-You are N\+OT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
+You are NOT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
 
-Y\+OU C\+A\+N\+N\+OT\+:
+YOU CANNOT\+:
 
 redistribute any piece of this software without proper attribution; 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="LoadSymbolResolverBase_8h" kind="file" language="C++">
     <compoundname>LoadSymbolResolverBase.h</compoundname>
     <includes refid="CodeGen_8h" local="yes">CodeGen.h</includes>
@@ -8,10 +8,10 @@
     <includes refid="LLVMModelSymbols_8h" local="yes">LLVMModelSymbols.h</includes>
     <includes refid="ModelGeneratorContext_8h" local="yes">ModelGeneratorContext.h</includes>
     <includes local="no">rr_unordered_map</includes>
-    <includedby refid="SBMLInitialValueSymbolResolver_8h" local="yes">llvm/SBMLInitialValueSymbolResolver.h</includedby>
+    <includedby refid="LoadSymbolResolverBase_8cpp" local="yes">llvm/LoadSymbolResolverBase.cpp</includedby>
     <includedby refid="ModelDataSymbolResolver_8h" local="yes">llvm/ModelDataSymbolResolver.h</includedby>
     <includedby refid="ModelInitialValueSymbolResolver_8h" local="yes">llvm/ModelInitialValueSymbolResolver.h</includedby>
-    <includedby refid="LoadSymbolResolverBase_8cpp" local="yes">llvm/LoadSymbolResolverBase.cpp</includedby>
+    <includedby refid="SBMLInitialValueSymbolResolver_8h" local="yes">llvm/SBMLInitialValueSymbolResolver.h</includedby>
     <incdepgraph>
       <node id="29">
         <label>list</label>
@@ -393,7 +393,7 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="15">
+      <node id="14">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -439,22 +439,24 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="22">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="2">
         <label>llvm/ModelDataSymbolResolver.h</label>
         <link refid="ModelDataSymbolResolver_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
@@ -466,6 +468,12 @@
       <node id="7">
         <label>Integrator.cpp</label>
         <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="20">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="27">
         <label>llvm/GetInitialValuesCodeGen.h</label>
@@ -490,9 +498,9 @@
         <link refid="LoadSymbolResolverBase_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -533,18 +541,18 @@
         <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="17">
         <label>llvm/EventAssignCodeGen.h</label>
         <link refid="EventAssignCodeGen_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="16">
         <label>llvm/EventCodeGenBase.h</label>
         <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
       <node id="19">
@@ -553,25 +561,25 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="2">
+      <node id="30">
         <label>llvm/SBMLInitialValueSymbolResolver.h</label>
         <link refid="SBMLInitialValueSymbolResolver_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="21">
         <label>llvm/GetValueCodeGenBase.h</label>
         <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="18" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="18">
         <label>llvm/EventTriggerCodeGen.h</label>
         <link refid="EventTriggerCodeGen_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -610,7 +618,7 @@
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rrllvm</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33" refid="classrrllvm_1_1LoadSymbolResolverBase" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1LoadSymbolResolverBase" kindref="compound">LoadSymbolResolverBase</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref></highlight></codeline>
+<codeline lineno="33" refid="classrrllvm_1_1LoadSymbolResolverBase" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1LoadSymbolResolverBase" kindref="compound">LoadSymbolResolverBase</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref></highlight></codeline>
 <codeline lineno="34"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value*<sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1af30e82d88abca4047e01c3cb032b16a3" kindref="member">loadReactionRate</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Reaction*);</highlight></codeline>
@@ -619,42 +627,44 @@
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>recursiveSymbolPop()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1ae380d0e0ba65b430e3ce7c23be4b7829" kindref="member">flushCache</ref>();</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1a7e60c19319e7c69ce40893709590c5b6" kindref="member">pushCacheBlock</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1af789e2e8265aa79b6452f521df9f234e" kindref="member">popCacheBlock</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase" kindref="compound">LoadSymbolResolverBase</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;ctx,<sp/>llvm::Value<sp/>*modelData);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::list&lt;std::string&gt;<sp/>StringStack;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_map&lt;std::string,<sp/>llvm::Value*&gt;<sp/>ValueMap;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::deque&lt;ValueMap&gt;<sp/>ValueMapStack;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;modelGenContext;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*model;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;modelDataSymbols;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>for<sp/>recursive<sp/>symbol<sp/>definitions<sp/>in<sp/>rule<sp/>evaluations</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>StringStack<sp/>symbolStack;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cache<sp/>symbols</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>ValueMapStack<sp/>symbolCache;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value*<sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1a12fc46aecb84cdf679fbeeac7da5e3f5" kindref="member">cacheValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;&amp;<sp/>args,</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>value<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rrllvm<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isLocalParameter(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1ae380d0e0ba65b430e3ce7c23be4b7829" kindref="member">flushCache</ref>();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1a7e60c19319e7c69ce40893709590c5b6" kindref="member">pushCacheBlock</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1af789e2e8265aa79b6452f521df9f234e" kindref="member">popCacheBlock</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase" kindref="compound">LoadSymbolResolverBase</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;ctx,<sp/>llvm::Value<sp/>*modelData);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::list&lt;std::string&gt;<sp/>StringStack;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_map&lt;std::string,<sp/>llvm::Value*&gt;<sp/>ValueMap;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::deque&lt;ValueMap&gt;<sp/>ValueMapStack;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;modelGenContext;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*model;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;modelDataSymbols;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>for<sp/>recursive<sp/>symbol<sp/>definitions<sp/>in<sp/>rule<sp/>evaluations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>StringStack<sp/>symbolStack;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cache<sp/>symbols</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>ValueMapStack<sp/>symbolCache;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value*<sp/><ref refid="classrrllvm_1_1LoadSymbolResolverBase_1a12fc46aecb84cdf679fbeeac7da5e3f5" kindref="member">cacheValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>symbol,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::ArrayRef&lt;llvm::Value*&gt;&amp;<sp/>args,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>value<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LOADSYMBOLRESOLVERBASE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rrllvm<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LOADSYMBOLRESOLVERBASE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/LoadSymbolResolverBase.h"/>
   </compounddef>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrUtils_8h" kind="file" language="C++">
     <compoundname>rrUtils.h</compoundname>
     <includes local="no">float.h</includes>
@@ -29,11 +29,11 @@
     <includedby refid="rrUtils_8cpp" local="yes">rrUtils.cpp</includedby>
     <includedby refid="rrCCompiler_8cpp" local="yes">c/rrCCompiler.cpp</includedby>
     <includedby refid="rrCModelGenerator_8cpp" local="yes">c/rrCModelGenerator.cpp</includedby>
-    <includedby refid="rrSBMLSymbol_8h" local="yes">c/rrSBMLSymbol.h</includedby>
-    <includedby refid="rrSBMLSymbolDependencies_8h" local="yes">c/rrSBMLSymbolDependencies.h</includedby>
     <includedby refid="rrCompiledExecutableModel_8cpp" local="yes">c/rrCompiledExecutableModel.cpp</includedby>
     <includedby refid="rrCompiledModelState_8cpp" local="yes">c/rrCompiledModelState.cpp</includedby>
     <includedby refid="rrModelSharedLibrary_8cpp" local="yes">c/rrModelSharedLibrary.cpp</includedby>
+    <includedby refid="rrSBMLSymbol_8h" local="yes">c/rrSBMLSymbol.h</includedby>
+    <includedby refid="rrSBMLSymbolDependencies_8h" local="yes">c/rrSBMLSymbolDependencies.h</includedby>
     <includedby refid="rrStringList_8cpp" local="yes">c/rrStringList.cpp</includedby>
     <includedby refid="LLVMCompiler_8cpp" local="yes">llvm/LLVMCompiler.cpp</includedby>
     <includedby refid="LLVMModelGenerator_8cpp" local="no">llvm/LLVMModelGenerator.cpp</includedby>
@@ -230,7 +230,7 @@
         <label>c/rrCompiledExecutableModel.h</label>
         <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
-      <node id="4">
+      <node id="9">
         <label>c/rrScanner.h</label>
         <link refid="rrScanner_8h_source"/>
         <childnode refid="5" relation="include">
@@ -255,11 +255,11 @@
       <node id="8">
         <label>c/rrNOMSupport.h</label>
         <link refid="rrNOMSupport_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="10">
@@ -268,7 +268,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="4">
         <label>c/rrModelSymbols.h</label>
         <link refid="rrModelSymbols_8h_source"/>
         <childnode refid="5" relation="include">
@@ -335,7 +335,7 @@
 <codeline lineno="49"><highlight class="normal">RR_DECLSPEC<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>populateFileSet(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>modelsFolder,<sp/>std::set&lt;std::string&gt;&amp;<sp/>models);</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="comment">//RR_DECLSPEC<sp/>bool<sp/>fileExists(const<sp/>std::string&amp;<sp/>fileN,<sp/>int<sp/>fileMode=0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//RR_DECLSPEC<sp/>bool<sp/>fileExists(const<sp/>std::string&amp;<sp/>fileN,<sp/>int<sp/>fileMode=0);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//RR_DECLSPEC<sp/>bool<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>folderExists(const<sp/>std::string&amp;<sp/>folderN);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal">RR_DECLSPEC<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>createFolder(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>path);</highlight></codeline>

@@ -1,15 +1,15 @@
-\hypertarget{classrr_1_1CModelGenerator}{}\doxysection{rr\+::C\+Model\+Generator Class Reference}
+\hypertarget{classrr_1_1CModelGenerator}{}\doxysection{rr\+::CModel\+Generator Class Reference}
 \label{classrr_1_1CModelGenerator}\index{rr::CModelGenerator@{rr::CModelGenerator}}
 
 
-Generate executable S\+B\+ML models by generating and compiling C source code into shared libraries with an external C compiler.  
+Generate executable SBML models by generating and compiling C source code into shared libraries with an external C compiler.  
 
 
 
 
-{\ttfamily \#include $<$rr\+C\+Model\+Generator.\+h$>$}
+{\ttfamily \#include $<$rr\+CModel\+Generator.\+h$>$}
 
-Inheritance diagram for rr\+::C\+Model\+Generator\+:\begin{figure}[H]
+Inheritance diagram for rr\+::CModel\+Generator\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classrr_1_1CModelGenerator}
@@ -19,7 +19,7 @@ Inheritance diagram for rr\+::C\+Model\+Generator\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_a5c4429fa28c8ba87f0ab9ac5bbcb3dd4}\label{classrr_1_1CModelGenerator_a5c4429fa28c8ba87f0ab9ac5bbcb3dd4}} 
-{\bfseries C\+Model\+Generator} (const std\+::string \&temp\+Folder, const std\+::string \&support\+Code\+Folder, const std\+::string \&compiler)
+{\bfseries CModel\+Generator} (const std\+::string \&temp\+Folder, const std\+::string \&support\+Code\+Folder, const std\+::string \&compiler)
 \item 
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_a93dae9d3cc4684319eb7226894355d92}\label{classrr_1_1CModelGenerator_a93dae9d3cc4684319eb7226894355d92}} 
 virtual \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries create\+Model} (const std\+::string \&sbml, uint options)
@@ -37,7 +37,7 @@ virtual bool \mbox{\hyperlink{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee8714
 \begin{DoxyCompactList}\small\item\em Set the name of the compiler to use. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}\label{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}} 
 std\+::string \mbox{\hyperlink{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}{get\+Header\+Code}} ()
-\begin{DoxyCompactList}\small\item\em These are access in the c\+\_\+api, should they be??? T\+O\+DO\+: fix this. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em These are access in the c\+\_\+api, should they be??? TODO\+: fix this. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_ada19fa6598c395dbbea8572802eb6846}\label{classrr_1_1CModelGenerator_ada19fa6598c395dbbea8572802eb6846}} 
 std\+::string {\bfseries get\+Source\+Code} ()
 \item 
@@ -48,14 +48,14 @@ std\+::string {\bfseries get\+Source\+Code\+File\+Name} ()
 
 
 \doxysubsection{Detailed Description}
-Generate executable S\+B\+ML models by generating and compiling C source code into shared libraries with an external C compiler. 
+Generate executable SBML models by generating and compiling C source code into shared libraries with an external C compiler. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee87149a07b8351f}\label{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee87149a07b8351f}} 
 \index{rr::CModelGenerator@{rr::CModelGenerator}!setCompiler@{setCompiler}}
 \index{setCompiler@{setCompiler}!rr::CModelGenerator@{rr::CModelGenerator}}
 \doxysubsubsection{\texorpdfstring{setCompiler()}{setCompiler()}}
-{\footnotesize\ttfamily bool rr\+::\+C\+Model\+Generator\+::set\+Compiler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{compiler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool rr\+::\+CModel\+Generator\+::set\+Compiler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{compiler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -65,5 +65,5 @@ As this is a C source code compiler, this is the name of the external C compiler
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-c/rr\+C\+Model\+Generator.\+h\item 
-c/rr\+C\+Model\+Generator.\+cpp\end{DoxyCompactItemize}
+c/rr\+CModel\+Generator.\+h\item 
+c/rr\+CModel\+Generator.\+cpp\end{DoxyCompactItemize}

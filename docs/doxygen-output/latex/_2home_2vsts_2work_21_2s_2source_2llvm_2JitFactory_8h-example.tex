@@ -9,6 +9,7 @@
 \DoxyCodeLine{\textcolor{comment}{// OR}}
 \DoxyCodeLine{\mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{Config::setValue}}(LLVM\_BACKEND, Config::LLVM\_BACKEND\_VALUES::LLJIT); \textcolor{comment}{// alternative}}
 \DoxyCodeLine{std::unique\_ptr<Jit> j = makeJitEngine();}
+
 \end{DoxyCode}
 
 
@@ -21,10 +22,10 @@
 \DoxyCodeLine{\textcolor{preprocessor}{\#ifndef ROADRUNNER\_JITFACTORY\_H}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#define ROADRUNNER\_JITFACTORY\_H}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "rrConfig.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "MCJit.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "LLJit.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "Jit.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}rrConfig.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}MCJit.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}LLJit.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}Jit.h"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keyword}{namespace }rrllvm \{}
 \DoxyCodeLine{}
@@ -41,6 +42,7 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#endif //ROADRUNNER\_JITFACTORY\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif }\textcolor{comment}{//ROADRUNNER\_JITFACTORY\_H}}
+
 \end{DoxyCodeInclude}
  

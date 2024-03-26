@@ -8,9 +8,9 @@ Error handling routines.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__errorfunctions_ga5ff7d55f1f52b72f5f17a687c0c361fd}{has\+Error}} (void)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__errorfunctions_ga5ff7d55f1f52b72f5f17a687c0c361fd}{has\+Error}} (void)
 \begin{DoxyCompactList}\small\item\em Check if there is an error string to retrieve. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{get\+Last\+Error}} (void)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{get\+Last\+Error}} (void)
 \begin{DoxyCompactList}\small\item\em Retrieve the current error string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -24,7 +24,7 @@ Error handling routines.
 \index{Error handling functions@{Error handling functions}!getLastError@{getLastError}}
 \index{getLastError@{getLastError}!Error handling functions@{Error handling functions}}
 \doxysubsubsection{\texorpdfstring{getLastError()}{getLastError()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Last\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Last\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
@@ -33,6 +33,7 @@ Retrieve the current error string.
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{str = \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{getLastError}} (\textcolor{keywordtype}{void}); }
+
 \end{DoxyCode}
 
 
@@ -43,7 +44,7 @@ Return null if fails, otherwise returns a pointer to the error string
 \index{Error handling functions@{Error handling functions}!hasError@{hasError}}
 \index{hasError@{hasError}!Error handling functions@{Error handling functions}}
 \doxysubsubsection{\texorpdfstring{hasError()}{hasError()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv has\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv has\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 

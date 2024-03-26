@@ -431,10 +431,10 @@
 </li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.getLinkMatrix">getLinkMatrix() (RoadRunner.RoadRunner method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PythonAPIReference/cls_Integrator.html#Integrator.getListener">getListener() (Integrator method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.getModel">getModel() (RoadRunner.RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_ExecutableModel.html#RoadRunner_python.ExecutableModel.getModelName">getModelName() (RoadRunner_python.ExecutableModel method)</a>
@@ -536,6 +536,8 @@
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.getValue">getValue() (RoadRunner method)</a>
 
       <ul>
+        <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.getValue">(RoadRunner.RoadRunner method)</a>
+</li>
         <li><a href="PythonAPIReference/cls_Solver.html#Solver.getValue">(Solver method)</a>
 </li>
       </ul></li>
@@ -790,7 +792,7 @@
 </li>
       <li><a href="PythonAPIReference/cls_LoadSBMLOptions.html#RoadRunner.LoadSBMLOptions.recompile">recompile (RoadRunner.LoadSBMLOptions attribute)</a>
 </li>
-      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadrUNNER.regenerateModel">regenerateModel() (RoadRunner.RoadrUNNER method)</a>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.regenerateModel">regenerateModel() (RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_Integrator.html#CVODE.Integrator.relative_tolerance">relative_tolerance (CVODE.Integrator attribute)</a>
 
@@ -959,6 +961,12 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys15MAX_OUTPUT_ROWSE">rr::Config::Keys::MAX_OUTPUT_ROWS (C++ enumerator)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZEE">rr::Config::Keys::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE (C++ enumerator)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys41METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLDE">rr::Config::Keys::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD (C++ enumerator)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLDE">rr::Config::Keys::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD (C++ enumerator)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys11MODEL_RESETE">rr::Config::Keys::MODEL_RESET (C++ enumerator)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE">rr::Config::Keys::OPTIMIZE_REACTION_RATE_SELECTION (C++ enumerator)</a>
@@ -1093,9 +1101,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator12cvodeDyDtFcnEd8N_Vector8N_VectorPv">rr::CVODEIntegrator::cvodeDyDtFcn (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator15CVODEIntegratorEP15ExecutableModel">rr::CVODEIntegrator::CVODEIntegrator (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator29cvodeEventAndPiecewiseRootFcnEd8N_VectorPdPv">rr::CVODEIntegrator::cvodeEventAndPiecewiseRootFcn (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator12cvodeRootFcnEd8N_VectorPdPv">rr::CVODEIntegrator::cvodeRootFcn (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator15CVODEIntegratorEP15ExecutableModel">rr::CVODEIntegrator::CVODEIntegrator (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator11eventStatusE">rr::CVODEIntegrator::eventStatus (C++ member)</a>
 </li>
@@ -1391,11 +1399,15 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel24getNumIndFloatingSpeciesEv">rr::ExecutableModel::getNumIndFloatingSpecies (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel23getNumPiecewiseTriggersEv">rr::ExecutableModel::getNumPiecewiseTriggers (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel15getNumRateRulesEv">rr::ExecutableModel::getNumRateRules (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel15getNumReactionsEv">rr::ExecutableModel::getNumReactions (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel19getPendingEventSizeEv">rr::ExecutableModel::getPendingEventSize (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel24getPiecewiseTriggerRootsEdPKdPd">rr::ExecutableModel::getPiecewiseTriggerRoots (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel9getRandomEv">rr::ExecutableModel::getRandom (C++ function)</a>
 </li>
@@ -1421,9 +1433,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel18getStateVectorRateEdPKdPd">rr::ExecutableModel::getStateVectorRate (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel16getStoichiometryEii">rr::ExecutableModel::getStoichiometry (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel16getStoichiometryEi">rr::ExecutableModel::getStoichiometry (C++ function)</a>, <a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel16getStoichiometryEii">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel22getStoichiometryMatrixEPiPiPPd">rr::ExecutableModel::getStoichiometryMatrix (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel18getStoichiometryIdE6size_t">rr::ExecutableModel::getStoichiometryId (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel21getStoichiometryIndexERKNSt6stringE">rr::ExecutableModel::getStoichiometryIndex (C++ function)</a>, <a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel21getStoichiometryIndexERKNSt6stringERKNSt6stringE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel19getSupportedIdTypesEv">rr::ExecutableModel::getSupportedIdTypes (C++ function)</a>
 </li>
@@ -1479,6 +1493,10 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel14setStateVectorEPKd">rr::ExecutableModel::setStateVector (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel18setStoichiometriesE6size_tPKiPKd">rr::ExecutableModel::setStoichiometries (C++ function)</a>, <a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel18setStoichiometriesE6size_tPKiPKdb">[1]</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel16setStoichiometryEid">rr::ExecutableModel::setStoichiometry (C++ function)</a>, <a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel16setStoichiometryEiid">[1]</a>
+</li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel7setTimeEd">rr::ExecutableModel::setTime (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrExecutableModel.html#_CPPv4N2rr15ExecutableModel8setValueERKNSt6stringEd">rr::ExecutableModel::setValue (C++ function)</a>
@@ -1515,8 +1533,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4NK2rr19GillespieIntegrator7getNameEv">rr::GillespieIntegrator::getName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4NK2rr19GillespieIntegrator7getSeedEv">rr::GillespieIntegrator::getSeed (C++ function)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator9getStoichE4uint4uint">rr::GillespieIntegrator::getStoich (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator19GillespieIntegratorEP15ExecutableModel">rr::GillespieIntegrator::GillespieIntegrator (C++ function)</a>
@@ -1539,7 +1555,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator7restartEd">rr::GillespieIntegrator::restart (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator13setEngineSeedENSt8uint64_tE">rr::GillespieIntegrator::setEngineSeed (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator13setEngineSeedE7Setting">rr::GillespieIntegrator::setEngineSeed (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator11setListenerE21IntegratorListenerPtr">rr::GillespieIntegrator::setListener (C++ function)</a>
 </li>
@@ -1550,12 +1566,6 @@
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator15stateVectorRateE">rr::GillespieIntegrator::stateVectorRate (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator15stateVectorSizeE">rr::GillespieIntegrator::stateVectorSize (C++ member)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator10stoichColsE">rr::GillespieIntegrator::stoichCols (C++ member)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator10stoichDataE">rr::GillespieIntegrator::stoichData (C++ member)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator10stoichRowsE">rr::GillespieIntegrator::stoichRows (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator11stoichScaleE">rr::GillespieIntegrator::stoichScale (C++ member)</a>
 </li>
@@ -1664,6 +1674,8 @@
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions7LoadOptE">rr::LoadSBMLOptions::LoadOpt (C++ enum)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions7LoadOpt21NO_DEFAULT_SELECTIONSE">rr::LoadSBMLOptions::LoadOpt::NO_DEFAULT_SELECTIONS (C++ enumerator)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions7LoadOpt34NO_DEFAULT_STEADY_STATE_SELECTIONSE">rr::LoadSBMLOptions::LoadOpt::NO_DEFAULT_STEADY_STATE_SELECTIONS (C++ enumerator)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions15LoadSBMLOptionsEPK10Dictionary">rr::LoadSBMLOptions::LoadSBMLOptions (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions15LoadSBMLOptionsEv">[1]</a>
 </li>
@@ -1923,8 +1935,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner23changeInitialConditionsERKNSt6vectorIdEE">rr::RoadRunner::changeInitialConditions (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner21checkGlobalParametersEv">rr::RoadRunner::checkGlobalParameters (C++ function)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner7checkIDERKNSt6stringERKNSt6stringE">rr::RoadRunner::checkID (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner10clearModelEv">rr::RoadRunner::clearModel (C++ function)</a>
@@ -2038,6 +2048,8 @@
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner39getFloatingSpeciesInitialConcentrationsEv">rr::RoadRunner::getFloatingSpeciesInitialConcentrations (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner37getFloatingSpeciesInitialConditionIdsEv">rr::RoadRunner::getFloatingSpeciesInitialConditionIds (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4NK2rr10RoadRunner16getFluxThresholdEv">rr::RoadRunner::getFluxThreshold (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner20getFrequencyResponseEdiiRKNSt6stringERKNSt6stringEbb">rr::RoadRunner::getFrequencyResponse (C++ function)</a>
 </li>
@@ -2167,6 +2179,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner37getScaledFluxControlCoefficientMatrixEv">rr::RoadRunner::getScaledFluxControlCoefficientMatrix (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner7getSeedERKNSt6stringE">rr::RoadRunner::getSeed (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner17getSelectedValuesERN2ls12DoubleMatrixEid">rr::RoadRunner::getSelectedValues (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner17getSelectedValuesERNSt6vectorIdEEd">[1]</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner17getSelectedValuesEv">[2]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner16getSelectionListEv">rr::RoadRunner::getSelectionList (C++ function)</a>
@@ -2275,7 +2289,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner22removeEventAssignmentsERKNSt6stringERKNSt6stringEb">rr::RoadRunner::removeEventAssignments (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner23removeInitialAssignmentERKNSt6stringEb">rr::RoadRunner::removeInitialAssignment (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner23removeInitialAssignmentERKNSt6stringEbb">rr::RoadRunner::removeInitialAssignment (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner15removeParameterERKNSt6stringEb">rr::RoadRunner::removeParameter (C++ function)</a>
 </li>
@@ -2288,6 +2302,8 @@
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner14removeVariableERKNSt6stringE">rr::RoadRunner::removeVariable (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5resetEi">rr::RoadRunner::reset (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5resetEv">[1]</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner9resetSeedEv">rr::RoadRunner::resetSeed (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner19resetSelectionListsEv">rr::RoadRunner::resetSelectionLists (C++ function)</a>
 </li>
@@ -2327,6 +2343,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner39setFloatingSpeciesInitialConcentrationsERKNSt6vectorIdEE">rr::RoadRunner::setFloatingSpeciesInitialConcentrations (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner16setFluxThresholdEd">rr::RoadRunner::setFluxThreshold (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner25setGlobalParameterByIndexEKiKd">rr::RoadRunner::setGlobalParameterByIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner24setGlobalParameterByNameERKNSt6stringEd">rr::RoadRunner::setGlobalParameterByName (C++ function)</a>
@@ -2350,6 +2368,8 @@
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner13setPersistentERKNSt6stringEbb">rr::RoadRunner::setPersistent (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner13setReversibleERKNSt6stringEbb">rr::RoadRunner::setReversible (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner7setSeedElb">rr::RoadRunner::setSeed (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner13setSelectionsERKNSt6vectorIN2rr15SelectionRecordEEE">rr::RoadRunner::setSelections (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner13setSelectionsERKNSt6vectorINSt6stringEEE">[1]</a>
 </li>
@@ -2495,8 +2515,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4N2rr13RoadRunnerMap5eraseERKNSt6stringE">rr::RoadRunnerMap::erase (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4N2rr13RoadRunnerMap4findERKNSt6stringE">rr::RoadRunnerMap::find (C++ function)</a>, <a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4NK2rr13RoadRunnerMap4findERKNSt6stringE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4NK2rr13RoadRunnerMap8getItemsEv">rr::RoadRunnerMap::getItems (C++ function)</a>
@@ -2511,6 +2529,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4N2rr13RoadRunnerMap12loadParallelERKNSt6vectorINSt6stringEEE">rr::RoadRunnerMap::loadParallel (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4N2rr13RoadRunnerMap10loadSerialERKNSt6vectorINSt6stringEEE">rr::RoadRunnerMap::loadSerial (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RoadRunnerMap.html#_CPPv4N2rr13RoadRunnerMap11numThreads_E">rr::RoadRunnerMap::numThreads_ (C++ member)</a>
@@ -2925,6 +2945,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ASTNodeCodeGen.html#_CPPv4N6rrllvm14ASTNodeCodeGen16piecewiseCodeGenEPKN7libsbml7ASTNodeE">rrllvm::ASTNodeCodeGen::piecewiseCodeGen (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/ASTNodeCodeGen.html#_CPPv4N6rrllvm14ASTNodeCodeGen13rateOfCodeGenEPKN7libsbml7ASTNodeE">rrllvm::ASTNodeCodeGen::rateOfCodeGen (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/ASTNodeCodeGen.html#_CPPv4N6rrllvm14ASTNodeCodeGen15realExprCodeGenEPKN7libsbml7ASTNodeE">rrllvm::ASTNodeCodeGen::realExprCodeGen (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ASTNodeCodeGen.html#_CPPv4N6rrllvm14ASTNodeCodeGen8resolverE">rrllvm::ASTNodeCodeGen::resolver (C++ member)</a>
@@ -3141,6 +3163,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/FunctionResolver.html#_CPPv4N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext">rrllvm::FunctionResolver::FunctionResolver (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/FunctionResolver.html#_CPPv4N6rrllvm16FunctionResolver16isLocalParameterERKNSt6stringE">rrllvm::FunctionResolver::isLocalParameter (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/FunctionResolver.html#_CPPv4N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE">rrllvm::FunctionResolver::loadSymbolValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/FunctionResolver.html#_CPPv4N6rrllvm16FunctionResolver5modelE">rrllvm::FunctionResolver::model (C++ member)</a>
@@ -3162,6 +3186,8 @@
       <li><a href="C%2B%2BAPIReference/llvm/KineticLawParameterResolver.html#_CPPv4N6rrllvm27KineticLawParameterResolverE">rrllvm::KineticLawParameterResolver (C++ class)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/KineticLawParameterResolver.html#_CPPv4N6rrllvm27KineticLawParameterResolver7builderE">rrllvm::KineticLawParameterResolver::builder (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/KineticLawParameterResolver.html#_CPPv4N6rrllvm27KineticLawParameterResolver16isLocalParameterERKNSt6stringE">rrllvm::KineticLawParameterResolver::isLocalParameter (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/KineticLawParameterResolver.html#_CPPv4N6rrllvm27KineticLawParameterResolver10kineticLawE">rrllvm::KineticLawParameterResolver::kineticLaw (C++ member)</a>
 </li>
@@ -3397,11 +3423,17 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel24getNumIndFloatingSpeciesEv">rrllvm::LLVMExecutableModel::getNumIndFloatingSpecies (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getNumPiecewiseTriggersEv">rrllvm::LLVMExecutableModel::getNumPiecewiseTriggers (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel15getNumRateRulesEv">rrllvm::LLVMExecutableModel::getNumRateRules (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel15getNumReactionsEv">rrllvm::LLVMExecutableModel::getNumReactions (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19getPendingEventSizeEv">rrllvm::LLVMExecutableModel::getPendingEventSize (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel22getPiecewiseTriggerPtrE">rrllvm::LLVMExecutableModel::getPiecewiseTriggerPtr (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel24getPiecewiseTriggerRootsEdPKdPd">rrllvm::LLVMExecutableModel::getPiecewiseTriggerRoots (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel9getRandomEv">rrllvm::LLVMExecutableModel::getRandom (C++ function)</a>
 </li>
@@ -3429,9 +3461,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel18getStateVectorRateEdPKdPd">rrllvm::LLVMExecutableModel::getStateVectorRate (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getStoichiometryEii">rrllvm::LLVMExecutableModel::getStoichiometry (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getStoichiometryEi">rrllvm::LLVMExecutableModel::getStoichiometry (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getStoichiometryEii">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel22getStoichiometryMatrixEPiPiPPd">rrllvm::LLVMExecutableModel::getStoichiometryMatrix (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel18getStoichiometryIdE6size_t">rrllvm::LLVMExecutableModel::getStoichiometryId (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel21getStoichiometryIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getStoichiometryIndex (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel21getStoichiometryIndexERKNSt6stringERKNSt6stringE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19getSupportedIdTypesEv">rrllvm::LLVMExecutableModel::getSupportedIdTypes (C++ function)</a>
 </li>
@@ -3520,6 +3554,10 @@
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel13setRandomSeedE7int64_t">rrllvm::LLVMExecutableModel::setRandomSeed (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel14setStateVectorEPKd">rrllvm::LLVMExecutableModel::setStateVector (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel18setStoichiometriesE6size_tPKiPKd">rrllvm::LLVMExecutableModel::setStoichiometries (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel18setStoichiometriesE6size_tPKiPKdb">[1]</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16setStoichiometryEid">rrllvm::LLVMExecutableModel::setStoichiometry (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16setStoichiometryEiid">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel7setTimeEd">rrllvm::LLVMExecutableModel::setTime (C++ function)</a>
 </li>
@@ -3665,7 +3703,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols12getModelNameEv">rrllvm::LLVMModelDataSymbols::getModelName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols28getNamedSpeciesReferenceInfoERKNSt6stringE">rrllvm::LLVMModelDataSymbols::getNamedSpeciesReferenceInfo (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbols28getNamedSpeciesReferenceInfoERKNSt6stringE">rrllvm::LLVMModelDataSymbols::getNamedSpeciesReferenceInfo (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols13getRateRuleIdE6size_t">rrllvm::LLVMModelDataSymbols::getRateRuleId (C++ function)</a>
 </li>
@@ -3683,7 +3721,13 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols16getStoichColIndxEv">rrllvm::LLVMModelDataSymbols::getStoichColIndx (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols20getStoichiometryIndxEv">rrllvm::LLVMModelDataSymbols::getStoichiometryIndx (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols19getStoichiometryIdsEv">rrllvm::LLVMModelDataSymbols::getStoichiometryIds (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols21getStoichiometryIndexERKNSt6stringE">rrllvm::LLVMModelDataSymbols::getStoichiometryIndex (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols21getStoichiometryIndexERKNSt6stringERKNSt6stringE">[1]</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols20getStoichiometryListEv">rrllvm::LLVMModelDataSymbols::getStoichiometryList (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols20getStoichiometrySizeEv">rrllvm::LLVMModelDataSymbols::getStoichiometrySize (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols16getStoichRowIndxEv">rrllvm::LLVMModelDataSymbols::getStoichRowIndx (C++ function)</a>
 </li>
@@ -3738,6 +3782,8 @@
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbols13initReactionsEPKN7libsbml5ModelE">rrllvm::LLVMModelDataSymbols::initReactions (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols17isBoundarySpeciesERKNSt6stringE">rrllvm::LLVMModelDataSymbols::isBoundarySpecies (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols25isConservedMoietyAnalysisEv">rrllvm::LLVMModelDataSymbols::isConservedMoietyAnalysis (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4NK6rrllvm20LLVMModelDataSymbols26isConservedMoietyParameterE4uint">rrllvm::LLVMModelDataSymbols::isConservedMoietyParameter (C++ function)</a>
 </li>
@@ -3847,6 +3893,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbols15SymbolIndexType8REACTIONE">rrllvm::LLVMModelDataSymbols::SymbolIndexType::REACTION (C++ enumerator)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbols15SymbolIndexType13STOICHIOMETRYE">rrllvm::LLVMModelDataSymbols::SymbolIndexType::STOICHIOMETRY (C++ enumerator)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbols11UIntUIntMapE">rrllvm::LLVMModelDataSymbols::UIntUIntMap (C++ type)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelDataSymbols.html#_CPPv4N6rrllvm20LLVMModelDataSymbolsD0Ev">rrllvm::LLVMModelDataSymbols::~LLVMModelDataSymbols (C++ function)</a>
@@ -3920,6 +3968,8 @@
       <li><a href="C%2B%2BAPIReference/llvm/LoadSymbolResolverBase.html#_CPPv4N6rrllvm22LoadSymbolResolverBase10cacheValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEEPN4llvm5ValueE">rrllvm::LoadSymbolResolverBase::cacheValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LoadSymbolResolverBase.html#_CPPv4N6rrllvm22LoadSymbolResolverBase10flushCacheEv">rrllvm::LoadSymbolResolverBase::flushCache (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/LoadSymbolResolverBase.html#_CPPv4N6rrllvm22LoadSymbolResolverBase16isLocalParameterERKNSt6stringE">rrllvm::LoadSymbolResolverBase::isLocalParameter (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LoadSymbolResolverBase.html#_CPPv4N6rrllvm22LoadSymbolResolverBase16loadReactionRateEPKN7libsbml8ReactionE">rrllvm::LoadSymbolResolverBase::loadReactionRate (C++ function)</a>
 </li>
@@ -4075,7 +4125,15 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE">rrllvm::ModelGeneratorContext (C++ class)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext23addAllPiecewiseTriggersEPKN7libsbml5ModelE">rrllvm::ModelGeneratorContext::addAllPiecewiseTriggers (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext24addPiecewiseTriggersFromEPKN7libsbml7ASTNodeE">rrllvm::ModelGeneratorContext::addPiecewiseTriggersFrom (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext7cleanupEv">rrllvm::ModelGeneratorContext::cleanup (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext22clearPiecewiseTriggersEv">rrllvm::ModelGeneratorContext::clearPiecewiseTriggers (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext17containsPiecewiseEPKN7libsbml7ASTNodeE">rrllvm::ModelGeneratorContext::containsPiecewise (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext3docE">rrllvm::ModelGeneratorContext::doc (C++ member)</a>
 </li>
@@ -4091,7 +4149,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4NK6rrllvm21ModelGeneratorContext15getModelSymbolsEv">rrllvm::ModelGeneratorContext::getModelSymbols (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4NK6rrllvm21ModelGeneratorContext23getNumPiecewiseTriggersEv">rrllvm::ModelGeneratorContext::getNumPiecewiseTriggers (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4NK6rrllvm21ModelGeneratorContext10getOptionsEv">rrllvm::ModelGeneratorContext::getOptions (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4NK6rrllvm21ModelGeneratorContext20getPiecewiseTriggersEv">rrllvm::ModelGeneratorContext::getPiecewiseTriggers (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4NK6rrllvm21ModelGeneratorContext9getRandomEv">rrllvm::ModelGeneratorContext::getRandom (C++ function)</a>
 </li>
@@ -4104,6 +4166,8 @@
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext12modelSymbolsE">rrllvm::ModelGeneratorContext::modelSymbols (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext15moietyConverterE">rrllvm::ModelGeneratorContext::moietyConverter (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext18mPiecewiseTriggersE">rrllvm::ModelGeneratorContext::mPiecewiseTriggers (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContext7optionsE">rrllvm::ModelGeneratorContext::options (C++ member)</a>
 </li>
@@ -4253,10 +4317,10 @@
 </li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.setIntegrator">setIntegrator() (RoadRunner.RoadRunner method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.setIntegratorSetting">setIntegratorSetting() (RoadRunner.RoadRunner method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.setKineticLaw">setKineticLaw() (RoadRunner.RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_Logger.html#RoadRunner.Logger.setLevel">setLevel() (RoadRunner.Logger static method)</a>
@@ -4275,12 +4339,16 @@
 </li>
       <li><a href="PythonAPIReference/cls_Solver.html#Solver.settingsPyDictRepr">settingsPyDictRepr() (Solver method)</a>
 </li>
-      <li><a href="PythonAPIReference/cls_Config.html#RoadRunner.Config.setValue">setValue() (RoadRunner.Config static method)</a>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.setValue">setValue() (RoadRunner method)</a>
 
       <ul>
+        <li><a href="PythonAPIReference/cls_Config.html#RoadRunner.Config.setValue">(RoadRunner.Config static method)</a>
+</li>
         <li><a href="PythonAPIReference/cls_Solver.html#Solver.setValue">(Solver method)</a>
 </li>
       </ul></li>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.setValues">setValues() (RoadRunner method)</a>
+</li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate">simulate() (RoadRunner.RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_SteadyStateSolver.html#SteadyStateSolver.solve">solve() (SteadyStateSolver method)</a>

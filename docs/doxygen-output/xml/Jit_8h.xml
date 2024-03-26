@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="Jit_8h" kind="file" language="C++">
     <compoundname>Jit.h</compoundname>
     <includes refid="rrSparse_8h" local="no">rrSparse.h</includes>
@@ -11,12 +11,12 @@
     <includes local="yes">llvm/Target/TargetMachine.h</includes>
     <includes local="yes">llvm/Object/ObjectFile.h</includes>
     <includes local="yes">llvm/IR/Mangler.h</includes>
+    <includedby refid="Jit_8cpp" local="yes">llvm/Jit.cpp</includedby>
+    <includedby refid="JitFactory_8h" local="yes">llvm/JitFactory.h</includedby>
+    <includedby refid="LLJit_8h" local="yes">llvm/LLJit.h</includedby>
+    <includedby refid="MCJit_8h" local="yes">llvm/MCJit.h</includedby>
     <includedby refid="ModelGeneratorContext_8h" local="yes">llvm/ModelGeneratorContext.h</includedby>
     <includedby refid="ModelResources_8h" local="yes">llvm/ModelResources.h</includedby>
-    <includedby refid="Jit_8cpp" local="yes">llvm/Jit.cpp</includedby>
-    <includedby refid="MCJit_8h" local="yes">llvm/MCJit.h</includedby>
-    <includedby refid="LLJit_8h" local="yes">llvm/LLJit.h</includedby>
-    <includedby refid="JitFactory_8h" local="yes">llvm/JitFactory.h</includedby>
     <incdepgraph>
       <node id="13">
         <label>llvm/IR/IRBuilder.h</label>
@@ -113,63 +113,63 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
+      <node id="26">
         <label>llvm/EvalInitialConditionsCodeGen.h</label>
         <link refid="EvalInitialConditionsCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="14">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="15">
+      <node id="19">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
-      <node id="5">
+      <node id="10">
         <label>ForwardSensitivitySolver.h</label>
         <link refid="ForwardSensitivitySolver_8h_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>CVODEIntegrator.h</label>
-        <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="29">
-        <label>llvm/SetValuesCodeGen.h</label>
-        <link refid="SetValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="32">
-        <label>llvm/SetInitialValueCodeGenBase.h</label>
-        <link refid="SetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>llvm/GetInitialValueCodeGenBase.h</label>
-        <link refid="GetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>NLEQSolver.h</label>
-        <link refid="NLEQSolver_8h_source"/>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="11">
+        <label>CVODEIntegrator.h</label>
+        <link refid="CVODEIntegrator_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>llvm/SetValuesCodeGen.h</label>
+        <link refid="SetValuesCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>llvm/SetInitialValueCodeGenBase.h</label>
+        <link refid="SetInitialValueCodeGenBase_8h_source"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>llvm/GetInitialValueCodeGenBase.h</label>
+        <link refid="GetInitialValueCodeGenBase_8h_source"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>NLEQSolver.h</label>
+        <link refid="NLEQSolver_8h_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
         <label>llvm/JitFactory.h</label>
         <link refid="JitFactory_8h_source"/>
       </node>
@@ -177,33 +177,35 @@
         <label>llvm/FunctionResolver.h</label>
         <link refid="FunctionResolver_8h_source"/>
       </node>
-      <node id="19">
+      <node id="33">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="40">
         <label>llvm/ModelDataSymbolResolver.h</label>
         <link refid="ModelDataSymbolResolver_8h_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="29">
         <label>llvm/EvalVolatileStoichCodeGen.h</label>
         <link refid="EvalVolatileStoichCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
@@ -212,51 +214,43 @@
         <link refid="Jit_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>llvm/EvalReactionRatesCodeGen.h</label>
-        <link refid="EvalReactionRatesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="21">
-        <label>llvm/GetInitialValuesCodeGen.h</label>
-        <link refid="GetInitialValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>llvm/CodeGenBase.h</label>
-        <link refid="CodeGenBase_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+      </node>
+      <node id="28">
+        <label>llvm/EvalReactionRatesCodeGen.h</label>
+        <link refid="EvalReactionRatesCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+      </node>
+      <node id="12">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="23">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+      </node>
+      <node id="31">
+        <label>llvm/GetInitialValuesCodeGen.h</label>
+        <link refid="GetInitialValuesCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+      </node>
+      <node id="24">
+        <label>llvm/CodeGenBase.h</label>
+        <link refid="CodeGenBase_8h_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
@@ -264,85 +258,85 @@
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-      </node>
-      <node id="13">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="39">
-        <label>llvm/MCJit.h</label>
-        <link refid="MCJit_8h_source"/>
-        <childnode refid="40" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>SensitivitySolverFactory.h</label>
-        <link refid="SensitivitySolverFactory_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="28">
-        <label>llvm/EvalConversionFactorCodeGen.h</label>
-        <link refid="EvalConversionFactorCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>llvm/LoadSymbolResolverBase.h</label>
-        <link refid="LoadSymbolResolverBase_8h_source"/>
         <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>llvm/LLVMExecutableModel.h</label>
-        <link refid="LLVMExecutableModel_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>llvm/ModelGeneratorContext.h</label>
-        <link refid="ModelGeneratorContext_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
+      <node id="18">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+      </node>
+      <node id="4">
+        <label>llvm/MCJit.h</label>
+        <link refid="MCJit_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>SensitivitySolverFactory.h</label>
+        <link refid="SensitivitySolverFactory_8h_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>llvm/EvalConversionFactorCodeGen.h</label>
+        <link refid="EvalConversionFactorCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>llvm/LoadSymbolResolverBase.h</label>
+        <link refid="LoadSymbolResolverBase_8h_source"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>llvm/LLVMExecutableModel.h</label>
+        <link refid="LLVMExecutableModel_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
+      </node>
+      <node id="5">
+        <label>llvm/ModelGeneratorContext.h</label>
+        <link refid="ModelGeneratorContext_8h_source"/>
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
@@ -350,107 +344,126 @@
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="16">
         <label>NLEQ1Solver.h</label>
         <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="35">
         <label>llvm/SetInitialValuesCodeGen.h</label>
         <link refid="SetInitialValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="30">
-        <label>llvm/SetValueCodeGenBase.h</label>
-        <link refid="SetValueCodeGenBase_8h_source"/>
-        <childnode refid="29" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="36">
-        <label>llvm/ModelInitialValueSymbolResolver.h</label>
-        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>llvm/EvalRateRuleRatesCodeGen.h</label>
-        <link refid="EvalRateRuleRatesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="37">
-        <label>llvm/ASTNodeCodeGen.h</label>
-        <link refid="ASTNodeCodeGen_8h_source"/>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>llvm/EventAssignCodeGen.h</label>
-        <link refid="EventAssignCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>llvm/EventCodeGenBase.h</label>
-        <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
+        <label>llvm/SetValueCodeGenBase.h</label>
+        <link refid="SetValueCodeGenBase_8h_source"/>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
       <node id="41">
+        <label>llvm/ModelInitialValueSymbolResolver.h</label>
+        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>llvm/EvalRateRuleRatesCodeGen.h</label>
+        <link refid="EvalRateRuleRatesCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>llvm/ASTNodeCodeGen.h</label>
+        <link refid="ASTNodeCodeGen_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>llvm/EventAssignCodeGen.h</label>
+        <link refid="EventAssignCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>llvm/EventCodeGenBase.h</label>
+        <link refid="EventCodeGenBase_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
         <label>llvm/LLJit.h</label>
         <link refid="LLJit_8h_source"/>
-        <childnode refid="40" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="22">
         <label>llvm/GetEventValuesCodeGen.h</label>
         <link refid="GetEventValuesCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="42">
         <label>llvm/SBMLInitialValueSymbolResolver.h</label>
         <link refid="SBMLInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>llvm/GetValueCodeGenBase.h</label>
+        <link refid="GetValueCodeGenBase_8h_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>llvm/EventTriggerCodeGen.h</label>
+        <link refid="EventTriggerCodeGen_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="20">
-        <label>llvm/GetValueCodeGenBase.h</label>
-        <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="19" relation="include">
-        </childnode>
-      </node>
-      <node id="26">
-        <label>llvm/EventTriggerCodeGen.h</label>
-        <link refid="EventTriggerCodeGen_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
     </invincdepgraph>
-    <innerclass refid="classrrllvm_1_1CodeGenBase" prot="public">rrllvm::CodeGenBase</innerclass>
     <innerclass refid="classrrllvm_1_1Jit" prot="public">rrllvm::Jit</innerclass>
     <innernamespace refid="namespacerr">rr</innernamespace>
     <innernamespace refid="namespacerrllvm">rrllvm</innernamespace>
@@ -571,8 +584,8 @@
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>rr_minFnTy<sp/>=<sp/>FnPtr_d2;</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>a<sp/>sparse<sp/>matrix<sp/>used<sp/>in<sp/>llvm<sp/>world</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_set_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(int,<sp/>int,<sp/>double);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_get_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(int,<sp/>int);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_set_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_get_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>function<sp/>signatures<sp/>for<sp/>distrib</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>DistribFnTy_d1<sp/>=<sp/>double<sp/>(*)(Random<sp/>*,<sp/>double);</highlight></codeline>
@@ -616,29 +629,29 @@
 <codeline lineno="160"><highlight class="normal"></highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1Jit_1ac9bfb0045cd3a21ecd4b48d7fb4683f8" kindref="member">Jit</ref>();</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66" kindref="member">mapFunctionsToJitSymbols</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="175" refid="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66" kindref="member">mapFunctionsToJitSymbols</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="176"><highlight class="normal"></highlight></codeline>
-<codeline lineno="184"><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>virtual<sp/>void<sp/>mapDistribFunctionsToJitSymbols()<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>virtual<sp/>void<sp/>mapDistribFunctionsToJitSymbols()<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a3b8ed0a6c863013898f33f7bb9be650d" kindref="member">~Jit</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189" refid="classrrllvm_1_1Jit_1a3b8ed0a6c863013898f33f7bb9be650d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a3b8ed0a6c863013898f33f7bb9be650d" kindref="member">~Jit</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"></highlight></codeline>
 <codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>lookupFunctionAddress(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;name)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" kindref="member">addObjectFile</ref>(rrOwningBinary<sp/>owningObject)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="220" refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" kindref="member">addObjectFile</ref>(rrOwningBinary<sp/>owningObject)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="221"><highlight class="normal"></highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" kindref="member">addObjectFile</ref>(std::unique_ptr&lt;llvm::object::ObjectFile&gt;<sp/>objectFile)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="225" refid="classrrllvm_1_1Jit_1a0914537453011b9acd33baabe5585453" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a0914537453011b9acd33baabe5585453" kindref="member">addObjectFile</ref>(std::unique_ptr&lt;llvm::object::ObjectFile&gt;<sp/>objectFile)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="226"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a1da020c67e709b9655807c6d7a8d8344" kindref="member">addObjectFile</ref>(std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>obj)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="230" refid="classrrllvm_1_1Jit_1a33e40a54eb3ece2598f47e09c86b211e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a33e40a54eb3ece2598f47e09c86b211e" kindref="member">addObjectFile</ref>(std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>obj)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="231"><highlight class="normal"></highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" kindref="member">addModule</ref>(llvm::Module<sp/>*M)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="235" refid="classrrllvm_1_1Jit_1ad2784cc3b1431f2315d3c7b3b63759af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1ad2784cc3b1431f2315d3c7b3b63759af" kindref="member">addModule</ref>(llvm::Module<sp/>*M)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="236"><highlight class="normal"></highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" kindref="member">addModule</ref>(std::unique_ptr&lt;llvm::Module&gt;<sp/>M,<sp/>std::unique_ptr&lt;llvm::LLVMContext&gt;<sp/>ctx)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="244" refid="classrrllvm_1_1Jit_1add4b53cfec0eff51d41dc19d733914cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1add4b53cfec0eff51d41dc19d733914cc" kindref="member">addModule</ref>(std::unique_ptr&lt;llvm::Module&gt;<sp/>M,<sp/>std::unique_ptr&lt;llvm::LLVMContext&gt;<sp/>ctx)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="245"><highlight class="normal"></highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" kindref="member">addModule</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="253" refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1af1bd1151bcdb23b228581e378eff5be0" kindref="member">addModule</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="254"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::DataLayout<sp/>&amp;<ref refid="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5" kindref="member">getDataLayout</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="258" refid="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::DataLayout<sp/>&amp;<ref refid="classrrllvm_1_1Jit_1ab1b79c72c48252a9da789480ab876db5" kindref="member">getDataLayout</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="259"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/><ref refid="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9" kindref="member">getCompiledModelFromCache</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;sbmlMD5)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="266" refid="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/><ref refid="classrrllvm_1_1Jit_1ac8b2944cf579635496c62e2ec0fc12b9" kindref="member">getCompiledModelFromCache</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;sbmlMD5)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"></highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1ab4b10666cae29d7ee65d68f2e781b22f" kindref="member">transferObjectsToResources</ref>(std::shared_ptr&lt;rrllvm::ModelResources&gt;<sp/>modelResources);</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"></highlight></codeline>
@@ -652,7 +665,7 @@
 <codeline lineno="297"><highlight class="normal"></highlight></codeline>
 <codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrrllvm_1_1Jit_1ab316cce1cd3f402e678fb3534da19b3d" kindref="member">emitToString</ref>();</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::raw_svector_ostream<sp/>&amp;<ref refid="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" kindref="member">getCompiledModuleStream</ref>();</highlight></codeline>
+<codeline lineno="307" refid="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::raw_svector_ostream<sp/>&amp;<ref refid="classrrllvm_1_1Jit_1a32be1d696e7e200582353bf4c33c3bfb" kindref="member">getCompiledModuleStream</ref>();</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>getDefaultTargetTriple()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="310"><highlight class="normal"></highlight></codeline>
@@ -660,7 +673,7 @@
 <codeline lineno="312"><highlight class="normal"></highlight></codeline>
 <codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>mangleName(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;unmangledName)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="314"><highlight class="normal"></highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140" kindref="member">getModuleAsString</ref>(std::string<sp/>sbmlMD5)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="329" refid="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrrllvm_1_1Jit_1a49579ba0e6ce122894ec6def38f8e140" kindref="member">getModuleAsString</ref>(std::string<sp/>sbmlMD5)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="330"><highlight class="normal"></highlight></codeline>
 <codeline lineno="339" refid="classrrllvm_1_1Jit_1aa71f25762a7483cc342a3674881c44d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;llvm::raw_svector_ostream&gt;<sp/><ref refid="classrrllvm_1_1Jit_1aa71f25762a7483cc342a3674881c44d1" kindref="member">compiledModuleBinaryStream</ref>;</highlight></codeline>
 <codeline lineno="340"><highlight class="normal"></highlight></codeline>
@@ -692,7 +705,7 @@
 <codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="403"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="404"><highlight class="normal"></highlight></codeline>
-<codeline lineno="405"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_JIT_H</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//ROADRUNNER_JIT_H</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="llvm/Jit.h"/>
   </compounddef>

@@ -1,15 +1,15 @@
-\hypertarget{classrrllvm_1_1LLVMExecutableModel}{}\doxysection{rrllvm\+::L\+L\+V\+M\+Executable\+Model Class Reference}
+\hypertarget{classrrllvm_1_1LLVMExecutableModel}{}\doxysection{rrllvm\+::LLVMExecutable\+Model Class Reference}
 \label{classrrllvm_1_1LLVMExecutableModel}\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 
 
-L\+L\+VM executable model.  
+LLVM executable model.  
 
 
 
 
-{\ttfamily \#include $<$L\+L\+V\+M\+Executable\+Model.\+h$>$}
+{\ttfamily \#include $<$LLVMExecutable\+Model.\+h$>$}
 
-Inheritance diagram for rrllvm\+::L\+L\+V\+M\+Executable\+Model\+:\begin{figure}[H]
+Inheritance diagram for rrllvm\+::LLVMExecutable\+Model\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classrrllvm_1_1LLVMExecutableModel}
@@ -19,15 +19,15 @@ Inheritance diagram for rrllvm\+::L\+L\+V\+M\+Executable\+Model\+:\begin{figure}
 \begin{DoxyCompactItemize}
 \item 
 virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2fa49b7f906b27eb2848a308eda2cdaa}{get\+Executable\+Model\+Desc}} () const
-\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}\label{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}} 
-\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}{L\+L\+V\+M\+Executable\+Model}} ()
+\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}{LLVMExecutable\+Model}} ()
 \begin{DoxyCompactList}\small\item\em the default ctor just zeros out all our private bits, then the main construction is handled by the model generator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}\label{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}} 
-\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}{L\+L\+V\+M\+Executable\+Model}} (const std\+::shared\+\_\+ptr$<$ Model\+Resources $>$ \&resources, \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{L\+L\+V\+M\+Model\+Data}} $\ast$model\+Data)
-\begin{DoxyCompactList}\small\item\em takes ownership of the \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{L\+L\+V\+M\+Model\+Data}} pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}{LLVMExecutable\+Model}} (const std\+::shared\+\_\+ptr$<$ Model\+Resources $>$ \&resources, \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{LLVMModel\+Data}} $\ast$model\+Data)
+\begin{DoxyCompactList}\small\item\em takes ownership of the \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{LLVMModel\+Data}} pointer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_afe9d85e99b293a7e401d36a7dfc99a16}\label{classrrllvm_1_1LLVMExecutableModel_afe9d85e99b293a7e401d36a7dfc99a16}} 
-{\bfseries L\+L\+V\+M\+Executable\+Model} (std\+::istream \&in, uint model\+Generator\+Opt)
+{\bfseries LLVMExecutable\+Model} (std\+::istream \&in, uint model\+Generator\+Opt)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}\label{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}} 
 virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}{get\+Model\+Name}} ()
@@ -164,6 +164,13 @@ virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f0557
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}\label{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}} 
 virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}{get\+Reaction\+Id}} (size\+\_\+t)
 \begin{DoxyCompactList}\small\item\em get the name of the specified reaction \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aa8f77058af930c8478c4bfc74466cf30}{get\+Stoichiometry\+Index}} (const std\+::string \&)
+\begin{DoxyCompactList}\small\item\em get the index of a named stoichiometry \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a30f7250017cba2d48167b63fcf4118e7}{get\+Stoichiometry\+Index}} (const std\+::string \&species\+Id, const std\+::string \&reaction\+Id)
+\begin{DoxyCompactList}\small\item\em get the index of a named stoichiometry \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a082907a3ebd933402ca9e66605394b04}\label{classrrllvm_1_1LLVMExecutableModel_a082907a3ebd933402ca9e66605394b04}} 
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a082907a3ebd933402ca9e66605394b04}{get\+Stoichiometry\+Id}} (size\+\_\+t)
+\begin{DoxyCompactList}\small\item\em get the name of the specified stoichiometry \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a5b3365470c345a7c3829941de76561a7}\label{classrrllvm_1_1LLVMExecutableModel_a5b3365470c345a7c3829941de76561a7}} 
 virtual void {\bfseries print} (std\+::ostream \&stream)
 \item 
@@ -188,10 +195,22 @@ virtual int {\bfseries set\+Compartment\+Volumes} (size\+\_\+t len, int const $\
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a6d564bfeaa2049b927bdd50d3d8c4045}\label{classrrllvm_1_1LLVMExecutableModel_a6d564bfeaa2049b927bdd50d3d8c4045}} 
 virtual int {\bfseries set\+Compartment\+Volumes} (size\+\_\+t len, int const $\ast$indx, const double $\ast$values, bool strict)
 \item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a3548ed0b2e40509d8d70967198ccbf18}\label{classrrllvm_1_1LLVMExecutableModel_a3548ed0b2e40509d8d70967198ccbf18}} 
+virtual int {\bfseries set\+Stoichiometries} (size\+\_\+t len, int const $\ast$indx, const double $\ast$values)
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a4d24e30a9608ef2096c1474140143b5e}\label{classrrllvm_1_1LLVMExecutableModel_a4d24e30a9608ef2096c1474140143b5e}} 
+virtual int {\bfseries set\+Stoichiometries} (size\+\_\+t len, int const $\ast$indx, const double $\ast$values, bool strict)
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_abc86194b2d36e040095647968235d35b}\label{classrrllvm_1_1LLVMExecutableModel_abc86194b2d36e040095647968235d35b}} 
+virtual int {\bfseries set\+Stoichiometry} (int index, double value)
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a658f3b1463ecadeacceaa7a81a9cf899}\label{classrrllvm_1_1LLVMExecutableModel_a658f3b1463ecadeacceaa7a81a9cf899}} 
+virtual int {\bfseries set\+Stoichiometry} (int species\+Index, int reaction\+Index, double value)
+\item 
+virtual double \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1301d30cf97517eae056a7eb3c0cad0f}{get\+Stoichiometry}} (int index)
+\begin{DoxyCompactList}\small\item\em Get the current stiochiometry value with the given index. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a5de8a96030e376804d05413cf10f0338}{get\+Stoichiometry}} (int species\+Index, int reaction\+Index)
 \begin{DoxyCompactList}\small\item\em Get the current stiochiometry value for the given species / reaction. \end{DoxyCompactList}\item 
-virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1475e0cd372f9bea14493c595fe024fa}{get\+Stoichiometry\+Matrix}} (int $\ast$rows, int $\ast$cols, double $\ast$$\ast$data)
-\begin{DoxyCompactList}\small\item\em allocate a block of memory and copy the stochiometric values into it, and return it. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae18e2e04bafd5613f832d0723c6831d5}{set\+Floating\+Species\+Init\+Concentrations}} (size\+\_\+t len, const int $\ast$indx, double const $\ast$values)
 \begin{DoxyCompactList}\small\item\em Set the initial concentrations of the floating species. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a255c7e48d3a23261b9988b33888564d3}{set\+Boundary\+Species\+Init\+Concentrations}} (size\+\_\+t len, const int $\ast$indx, double const $\ast$values)
@@ -237,9 +256,9 @@ virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a458c2d66964745
 \begin{DoxyCompactList}\small\item\em set the seed used by the random number generator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a4e903b2a5bbd26d442a87850a8a2b435}\label{classrrllvm_1_1LLVMExecutableModel_a4e903b2a5bbd26d442a87850a8a2b435}} 
 virtual int64\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a4e903b2a5bbd26d442a87850a8a2b435}{get\+Random\+Seed}} ()
-\begin{DoxyCompactList}\small\item\em get the seed used by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the seed used by the RNG. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a99ee742fbcd0a2fab7957f319991a234}{get\+Random}} ()
-\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the RNG. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a4f06c08e3ab3add42160b7f9fbb6e6d1}\label{classrrllvm_1_1LLVMExecutableModel_a4f06c08e3ab3add42160b7f9fbb6e6d1}} 
 virtual int {\bfseries get\+Num\+Events} ()
 \item 
@@ -250,6 +269,9 @@ virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abf91b16221e3117
 \begin{DoxyCompactList}\small\item\em erases expired events, and applies ripe events as long as we have ripe events. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aee3874c5ef6f6eaf4997b0a22abedbbb}{get\+Event\+Roots}} (double time, const double $\ast$y, double $\ast$gdot)
 \begin{DoxyCompactList}\small\item\em evaluate the event \textquotesingle{}roots\textquotesingle{} -- when events transition form triggered -\/ non-\/triggered or triggered to non-\/triggered state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aa067eecad3de69b81f9b16e4c233bd16}\label{classrrllvm_1_1LLVMExecutableModel_aa067eecad3de69b81f9b16e4c233bd16}} 
+virtual void {\bfseries get\+Piecewise\+Trigger\+Roots} (double time, const double $\ast$y, double $\ast$gdot)
+\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ad075c63302eeb30e11c138184c0d0e3a}\label{classrrllvm_1_1LLVMExecutableModel_ad075c63302eeb30e11c138184c0d0e3a}} 
 virtual double {\bfseries get\+Next\+Pending\+Event\+Time} (bool pop)
 \item 
@@ -297,6 +319,9 @@ virtual std\+::string {\bfseries get\+Event\+Id} (size\+\_\+t index)
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aace8aab3fcc35b3095e593df45b91a29}\label{classrrllvm_1_1LLVMExecutableModel_aace8aab3fcc35b3095e593df45b91a29}} 
 virtual void {\bfseries get\+Event\+Ids} (std\+::list$<$ std\+::string $>$ \&out)
 \item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ad996b75ad81c763d9eb79112b97ac652}\label{classrrllvm_1_1LLVMExecutableModel_ad996b75ad81c763d9eb79112b97ac652}} 
+virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ad996b75ad81c763d9eb79112b97ac652}{get\+Num\+Piecewise\+Triggers}} ()
+\begin{DoxyCompactList}\small\item\em We do root-\/finding for \textquotesingle{}piecewise triggers\textquotesingle{}\+: those times in a piecewise function that transition from one condition to the next. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ae5036fa43ef7c64bc4eec7eb7e4b2638}\label{classrrllvm_1_1LLVMExecutableModel_ae5036fa43ef7c64bc4eec7eb7e4b2638}} 
 virtual void {\bfseries get\+Assignment\+Rule\+Ids} (std\+::list$<$ std\+::string $>$ \&out)
 \item 
@@ -329,7 +354,7 @@ void {\bfseries save\+State} (std\+::ostream \&out)
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a91399f39aa048e8c3aa1ced8feead859}\label{classrrllvm_1_1LLVMExecutableModel_a91399f39aa048e8c3aa1ced8feead859}} 
-class {\bfseries L\+L\+V\+M\+Model\+Generator}
+class {\bfseries LLVMModel\+Generator}
 \item 
 {\footnotesize template$<$typename a\+\_\+type , typename b\+\_\+type $>$ }\\void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a5d1a347ddea18fbc9b91a647273bd9e3}{copy\+Cached\+Model}} (a\+\_\+type $\ast$src, b\+\_\+type $\ast$dst)
 \begin{DoxyCompactList}\small\item\em copy the cached model fields between a cached model, and a executable model. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -337,29 +362,29 @@ class {\bfseries L\+L\+V\+M\+Model\+Generator}
 
 
 \doxysubsection{Detailed Description}
-L\+L\+VM executable model. 
+LLVM executable model. 
 
 \begin{DoxyAuthor}{Author}
-E\+TS
+ETS
 \end{DoxyAuthor}
-Interface to L\+L\+VM executable model. 
+Interface to LLVM executable model. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aa0e78adf76883e1eadcf4cdd1f0179ff}\label{classrrllvm_1_1LLVMExecutableModel_aa0e78adf76883e1eadcf4cdd1f0179ff}} 
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!evalInitialConditions@{evalInitialConditions}}
 \index{evalInitialConditions@{evalInitialConditions}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{evalInitialConditions()}{evalInitialConditions()}}
-{\footnotesize\ttfamily void rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::eval\+Initial\+Conditions (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void rrllvm\+::\+LLVMExecutable\+Model\+::eval\+Initial\+Conditions (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{flags = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
 evaluate the initial conditions specified in the sbml, this entails evaluating all Initial\+Assigments, Assigment\+Rules, initial values, etc... 
 
-The the model state is fully set. \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}\label{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}} 
+Then the model state is fully set. \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}\label{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}} 
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getBoundarySpeciesAmounts@{getBoundarySpeciesAmounts}}
 \index{getBoundarySpeciesAmounts@{getBoundarySpeciesAmounts}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getBoundarySpeciesAmounts()}{getBoundarySpeciesAmounts()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Boundary\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Boundary\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -382,7 +407,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a892be60159e501929cbb1169
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getBoundarySpeciesConcentrations@{getBoundarySpeciesConcentrations}}
 \index{getBoundarySpeciesConcentrations@{getBoundarySpeciesConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getBoundarySpeciesConcentrations()}{getBoundarySpeciesConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Boundary\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Boundary\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -405,7 +430,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a17dbc546d79fe987ff625e0c
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getCompartmentVolumes@{getCompartmentVolumes}}
 \index{getCompartmentVolumes@{getCompartmentVolumes}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getCompartmentVolumes()}{getCompartmentVolumes()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Compartment\+Volumes (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Compartment\+Volumes (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -428,7 +453,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a977a5a3a7ed0fcfa04fe7436
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getEventIndex@{getEventIndex}}
 \index{getEventIndex@{getEventIndex}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getEventIndex()}{getEventIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Event\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{eid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Event\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{eid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -442,7 +467,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_ae9b3e5baef45072822f9ccaf
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getEventRoots@{getEventRoots}}
 \index{getEventRoots@{getEventRoots}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getEventRoots()}{getEventRoots()}}
-{\footnotesize\ttfamily void rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Event\+Roots (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{const double $\ast$}]{y,  }\item[{double $\ast$}]{gdot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rrllvm\+::\+LLVMExecutable\+Model\+::get\+Event\+Roots (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{const double $\ast$}]{y,  }\item[{double $\ast$}]{gdot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -467,14 +492,14 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2c4d631f32873d4d98d613ad
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getEventTriggers@{getEventTriggers}}
 \index{getEventTriggers@{getEventTriggers}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getEventTriggers()}{getEventTriggers()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Event\+Triggers (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{unsigned char $\ast$}]{event\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Event\+Triggers (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{unsigned char $\ast$}]{event\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Get status of event triggers. 
 
 \begin{DoxyAuthor}{Author}
-E\+TS
+ETS
 \end{DoxyAuthor}
 When len $<$= 0, returns number of events. Otherwise, sets bits in event\+State to the corresponding trigger. 
 \begin{DoxyParams}[1]{Parameters}
@@ -493,14 +518,14 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a6402d7445658e1828be487e1
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getExecutableModelDesc@{getExecutableModelDesc}}
 \index{getExecutableModelDesc@{getExecutableModelDesc}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getExecutableModelDesc()}{getExecutableModelDesc()}}
-{\footnotesize\ttfamily virtual std\+::string rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Executable\+Model\+Desc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual std\+::string rrllvm\+::\+LLVMExecutable\+Model\+::get\+Executable\+Model\+Desc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
 
-Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. 
+Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 07/31/2015 
@@ -513,15 +538,15 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Mode
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getFloatingSpeciesAmountRate@{getFloatingSpeciesAmountRate}}
 \index{getFloatingSpeciesAmountRate@{getFloatingSpeciesAmountRate}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesAmountRate()}{getFloatingSpeciesAmountRate()}}
-{\footnotesize\ttfamily double rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Floating\+Species\+Amount\+Rate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const double $\ast$}]{reaction\+Rates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rrllvm\+::\+LLVMExecutable\+Model\+::get\+Floating\+Species\+Amount\+Rate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const double $\ast$}]{reaction\+Rates }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. 
 
-T\+O\+DO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
+TODO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
 
-T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
+TODO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
 
 
 \begin{DoxyParams}{Parameters}
@@ -538,7 +563,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a460387891972dfb029d5fdd6
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getFloatingSpeciesAmountRates@{getFloatingSpeciesAmountRates}}
 \index{getFloatingSpeciesAmountRates@{getFloatingSpeciesAmountRates}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesAmountRates()}{getFloatingSpeciesAmountRates()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Floating\+Species\+Amount\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Floating\+Species\+Amount\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -561,7 +586,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_ae1e4374bedf764a353165d7f
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getFloatingSpeciesAmounts@{getFloatingSpeciesAmounts}}
 \index{getFloatingSpeciesAmounts@{getFloatingSpeciesAmounts}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesAmounts()}{getFloatingSpeciesAmounts()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Floating\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Floating\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -584,7 +609,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_ac83c1f5b678079babd5eeb76
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getFloatingSpeciesConcentrationRates@{getFloatingSpeciesConcentrationRates}}
 \index{getFloatingSpeciesConcentrationRates@{getFloatingSpeciesConcentrationRates}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesConcentrationRates()}{getFloatingSpeciesConcentrationRates()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Floating\+Species\+Concentration\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Floating\+Species\+Concentration\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -607,7 +632,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aae51da13c4dbe4e0ae21f12f
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getFloatingSpeciesConcentrations@{getFloatingSpeciesConcentrations}}
 \index{getFloatingSpeciesConcentrations@{getFloatingSpeciesConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesConcentrations()}{getFloatingSpeciesConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Floating\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Floating\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -630,7 +655,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_afdb9b1204d85b4baf496e685
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getGlobalParameterValues@{getGlobalParameterValues}}
 \index{getGlobalParameterValues@{getGlobalParameterValues}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterValues()}{getGlobalParameterValues()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Global\+Parameter\+Values (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Global\+Parameter\+Values (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -653,13 +678,13 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_af598ac63c984d7101b0d026d
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getRandom@{getRandom}}
 \index{getRandom@{getRandom}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getRandom()}{getRandom()}}
-{\footnotesize\ttfamily double rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rrllvm\+::\+LLVMExecutable\+Model\+::get\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-Get a uniform random number between 0 and 1 created by the R\+NG. 
+Get a uniform random number between 0 and 1 created by the RNG. 
 
-The type of R\+NG can be specified in the config file with the R\+A\+N\+D\+O\+M\+\_\+\+G\+E\+N\+E\+R\+A\+T\+O\+R\+\_\+\+T\+Y\+PE key. 
+The type of RNG can be specified in the config file with the RANDOM\+\_\+\+GENERATOR\+\_\+\+TYPE key. 
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a1f69d29d4291440935ed41122ed83e7f}{rr\+::\+Executable\+Model}}.
 
@@ -667,13 +692,13 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a1f69d29d4291440935ed4112
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getRateRuleRates@{getRateRuleRates}}
 \index{getRateRuleRates@{getRateRuleRates}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getRateRuleRates()}{getRateRuleRates()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Rate\+Rule\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Rate\+Rule\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 calculate rate rule values. 
 
-T\+O\+DO redo this function, not very effecient. 
+TODO redo this function, not very effecient. 
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1ExecutableModel_a8a266e7c864913e6dede8c69a063adac}{rr\+::\+Executable\+Model}}.
 
@@ -681,14 +706,14 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1ExecutableModel_a8a266e7c864913e6
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getRateRuleSymbols@{getRateRuleSymbols}}
 \index{getRateRuleSymbols@{getRateRuleSymbols}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getRateRuleSymbols()}{getRateRuleSymbols()}}
-{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Rate\+Rule\+Symbols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rrllvm\+::\+LLVMExecutable\+Model\+::get\+Rate\+Rule\+Symbols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Gets the symbols defined by rate rules, i.\+e. returns all x such that x\textquotesingle{} = f(x) is a rule which defines parameter x. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 07/31/2015 
@@ -701,7 +726,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getReactionIndex@{getReactionIndex}}
 \index{getReactionIndex@{getReactionIndex}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getReactionIndex()}{getReactionIndex()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Reaction\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{eid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Reaction\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{eid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -718,7 +743,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28df
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getReactionRates@{getReactionRates}}
 \index{getReactionRates@{getReactionRates}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getReactionRates()}{getReactionRates()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Reaction\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Reaction\+Rates (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -728,7 +753,7 @@ get the std\+::vector of reaction rates.
 \begin{DoxyParams}{Parameters}
 {\em len} & the length of the supplied buffer, must be $>$= reaction rates size. \\
 \hline
-{\em indx} & pointer to index array. If N\+U\+LL, then it is ignored and the reaction rates are copied directly into the supplied buffer. \\
+{\em indx} & pointer to index array. If NULL, then it is ignored and the reaction rates are copied directly into the supplied buffer. \\
 \hline
 {\em values} & pointer to user supplied buffer where rates will be stored. \\
 \hline
@@ -741,7 +766,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a37c53cc370ff236657272f55
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStateVector@{getStateVector}}
 \index{getStateVector@{getStateVector}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getStateVector()}{getStateVector()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+State\+Vector (\begin{DoxyParamCaption}\item[{double $\ast$}]{state\+Vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+State\+Vector (\begin{DoxyParamCaption}\item[{double $\ast$}]{state\+Vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -749,11 +774,11 @@ copies the internal model state std\+::vector into the provided buffer.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if N\+U\+LL, return the size required.\\
+\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if NULL, return the size required.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state std\+::vector. 
+the number of items coppied into the provided buffer, if state\+Vector is NULL, returns the length of the state std\+::vector. 
 \end{DoxyReturn}
 
 
@@ -763,7 +788,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a75b6f37ac538d2d2a0709fe4
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStateVectorRate@{getStateVectorRate}}
 \index{getStateVectorRate@{getStateVectorRate}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getStateVectorRate()}{getStateVectorRate()}}
-{\footnotesize\ttfamily void rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+State\+Vector\+Rate (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{const double $\ast$}]{y,  }\item[{double $\ast$}]{dydt = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rrllvm\+::\+LLVMExecutable\+Model\+::get\+State\+Vector\+Rate (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{const double $\ast$}]{y,  }\item[{double $\ast$}]{dydt = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -786,11 +811,25 @@ The state std\+::vector is packed such that the first n raterule elements are th
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a0495c2ece9edad29d61849b2443d4274}{rr\+::\+Executable\+Model}}.
 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a1301d30cf97517eae056a7eb3c0cad0f}\label{classrrllvm_1_1LLVMExecutableModel_a1301d30cf97517eae056a7eb3c0cad0f}} 
+\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStoichiometry@{getStoichiometry}}
+\index{getStoichiometry@{getStoichiometry}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double rrllvm\+::\+LLVMExecutable\+Model\+::get\+Stoichiometry (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the current stiochiometry value with the given index. 
+
+If either are not valid, NaN is returned. 
+
+Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a24c46805c8c790f1cbec5c7726f03aa6}{rr\+::\+Executable\+Model}}.
+
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a5de8a96030e376804d05413cf10f0338}\label{classrrllvm_1_1LLVMExecutableModel_a5de8a96030e376804d05413cf10f0338}} 
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStoichiometry@{getStoichiometry}}
 \index{getStoichiometry@{getStoichiometry}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
-\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}}
-{\footnotesize\ttfamily double rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Stoichiometry (\begin{DoxyParamCaption}\item[{int}]{species\+Index,  }\item[{int}]{reaction\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double rrllvm\+::\+LLVMExecutable\+Model\+::get\+Stoichiometry (\begin{DoxyParamCaption}\item[{int}]{species\+Index,  }\item[{int}]{reaction\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -800,36 +839,45 @@ If either are not valid, NaN is returned.
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_af9f7809b903426c14942b01a8e24a2b7}{rr\+::\+Executable\+Model}}.
 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a1475e0cd372f9bea14493c595fe024fa}\label{classrrllvm_1_1LLVMExecutableModel_a1475e0cd372f9bea14493c595fe024fa}} 
-\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStoichiometryMatrix@{getStoichiometryMatrix}}
-\index{getStoichiometryMatrix@{getStoichiometryMatrix}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
-\doxysubsubsection{\texorpdfstring{getStoichiometryMatrix()}{getStoichiometryMatrix()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Stoichiometry\+Matrix (\begin{DoxyParamCaption}\item[{int $\ast$}]{rows,  }\item[{int $\ast$}]{cols,  }\item[{double $\ast$$\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aa8f77058af930c8478c4bfc74466cf30}\label{classrrllvm_1_1LLVMExecutableModel_aa8f77058af930c8478c4bfc74466cf30}} 
+\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStoichiometryIndex@{getStoichiometryIndex}}
+\index{getStoichiometryIndex@{getStoichiometryIndex}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometryIndex()}{getStoichiometryIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Stoichiometry\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-allocate a block of memory and copy the stochiometric values into it, and return it. 
+get the index of a named stoichiometry 
 
-The caller is responsible for freeing the memory that is referenced by data.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em rows} & will hold the number of rows in the matrix. \\
-\hline
-\mbox{\texttt{ out}}  & {\em cols} & will hold the number of columns in the matrix. \\
-\hline
-\mbox{\texttt{ out}}  & {\em data} & a pointer which will hold a newly allocated memory block. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+$>$= 0 on success, $<$ 0 on failure. 
+\end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850cd48b8f71}{rr\+::\+Executable\+Model}}.
+Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a32956e67e0a0792e4b8d8322d6dad6dd}{rr\+::\+Executable\+Model}}.
+
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a30f7250017cba2d48167b63fcf4118e7}\label{classrrllvm_1_1LLVMExecutableModel_a30f7250017cba2d48167b63fcf4118e7}} 
+\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getStoichiometryIndex@{getStoichiometryIndex}}
+\index{getStoichiometryIndex@{getStoichiometryIndex}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometryIndex()}{getStoichiometryIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::get\+Stoichiometry\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{,  }\item[{const std\+::string \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+get the index of a named stoichiometry 
+
+\begin{DoxyReturn}{Returns}
+$>$= 0 on success, $<$ 0 on failure. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a4033367a836e9bcaac6733ac4a5b990e}{rr\+::\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}\label{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}} 
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getValue@{getValue}}
 \index{getValue@{getValue}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
-{\footnotesize\ttfamily double rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rrllvm\+::\+LLVMExecutable\+Model\+::get\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -843,7 +891,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a1c35
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setBoundarySpeciesAmounts@{setBoundarySpeciesAmounts}}
 \index{setBoundarySpeciesAmounts@{setBoundarySpeciesAmounts}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setBoundarySpeciesAmounts()}{setBoundarySpeciesAmounts()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Boundary\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Boundary\+Species\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -866,7 +914,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Mode
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setBoundarySpeciesConcentrations@{setBoundarySpeciesConcentrations}}
 \index{setBoundarySpeciesConcentrations@{setBoundarySpeciesConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setBoundarySpeciesConcentrations()}{setBoundarySpeciesConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Boundary\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Boundary\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -889,7 +937,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a1a4409ff1e5e41a13b1dcf2a
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setBoundarySpeciesInitAmounts@{setBoundarySpeciesInitAmounts}}
 \index{setBoundarySpeciesInitAmounts@{setBoundarySpeciesInitAmounts}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setBoundarySpeciesInitAmounts()}{setBoundarySpeciesInitAmounts()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Boundary\+Species\+Init\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Boundary\+Species\+Init\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -905,7 +953,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a7c2106b589bb41b2a01ab2dc
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setBoundarySpeciesInitConcentrations@{setBoundarySpeciesInitConcentrations}}
 \index{setBoundarySpeciesInitConcentrations@{setBoundarySpeciesInitConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setBoundarySpeciesInitConcentrations()}{setBoundarySpeciesInitConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Boundary\+Species\+Init\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Boundary\+Species\+Init\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -921,7 +969,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2e7799db0c63278059cef7de
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setCompartmentInitVolumes@{setCompartmentInitVolumes}}
 \index{setCompartmentInitVolumes@{setCompartmentInitVolumes}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setCompartmentInitVolumes()}{setCompartmentInitVolumes()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Compartment\+Init\+Volumes (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Compartment\+Init\+Volumes (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -937,7 +985,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a83fa84b59feb32abe1f2a6b1
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setFloatingSpeciesConcentrations@{setFloatingSpeciesConcentrations}}
 \index{setFloatingSpeciesConcentrations@{setFloatingSpeciesConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setFloatingSpeciesConcentrations()}{setFloatingSpeciesConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Floating\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Floating\+Species\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{int const $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -960,7 +1008,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aecd3bdfe291bd3791fe7e4e7
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setFloatingSpeciesInitAmounts@{setFloatingSpeciesInitAmounts}}
 \index{setFloatingSpeciesInitAmounts@{setFloatingSpeciesInitAmounts}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setFloatingSpeciesInitAmounts()}{setFloatingSpeciesInitAmounts()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Floating\+Species\+Init\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Floating\+Species\+Init\+Amounts (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -976,7 +1024,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_ab18c3070d601ba587d24a163
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setFloatingSpeciesInitConcentrations@{setFloatingSpeciesInitConcentrations}}
 \index{setFloatingSpeciesInitConcentrations@{setFloatingSpeciesInitConcentrations}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setFloatingSpeciesInitConcentrations()}{setFloatingSpeciesInitConcentrations()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Floating\+Species\+Init\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Floating\+Species\+Init\+Concentrations (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -992,7 +1040,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a29d64b57e270120b9ee37d34
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setGlobalParameterInitValues@{setGlobalParameterInitValues}}
 \index{setGlobalParameterInitValues@{setGlobalParameterInitValues}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setGlobalParameterInitValues()}{setGlobalParameterInitValues()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Global\+Parameter\+Init\+Values (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+Global\+Parameter\+Init\+Values (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len,  }\item[{const int $\ast$}]{indx,  }\item[{double const $\ast$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -1006,13 +1054,13 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a71d62fc8b558dfb4da4de4db
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setRandomSeed@{setRandomSeed}}
 \index{setRandomSeed@{setRandomSeed}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setRandomSeed()}{setRandomSeed()}}
-{\footnotesize\ttfamily void rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+Random\+Seed (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rrllvm\+::\+LLVMExecutable\+Model\+::set\+Random\+Seed (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 set the seed used by the random number generator. 
 
-This will by definition reset the R\+NG. 
+This will by definition reset the RNG. 
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279de045c735}{rr\+::\+Executable\+Model}}.
 
@@ -1020,7 +1068,7 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279d
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!setStateVector@{setStateVector}}
 \index{setStateVector@{setStateVector}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
 \doxysubsubsection{\texorpdfstring{setStateVector()}{setStateVector()}}
-{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::set\+State\+Vector (\begin{DoxyParamCaption}\item[{const double $\ast$}]{state\+Vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily int rrllvm\+::\+LLVMExecutable\+Model\+::set\+State\+Vector (\begin{DoxyParamCaption}\item[{const double $\ast$}]{state\+Vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -1056,5 +1104,5 @@ We don\textquotesingle{}t want to have Executable\+Model inherit from Cahced\+Mo
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/\mbox{\hyperlink{LLVMExecutableModel_8h}{L\+L\+V\+M\+Executable\+Model.\+h}}\item 
-llvm/L\+L\+V\+M\+Executable\+Model.\+cpp\end{DoxyCompactItemize}
+llvm/\mbox{\hyperlink{LLVMExecutableModel_8h}{LLVMExecutable\+Model.\+h}}\item 
+llvm/LLVMExecutable\+Model.\+cpp\end{DoxyCompactItemize}

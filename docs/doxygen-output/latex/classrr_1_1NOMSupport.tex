@@ -1,13 +1,13 @@
-\hypertarget{classrr_1_1NOMSupport}{}\doxysection{rr\+::N\+O\+M\+Support Class Reference}
+\hypertarget{classrr_1_1NOMSupport}{}\doxysection{rr\+::NOMSupport Class Reference}
 \label{classrr_1_1NOMSupport}\index{rr::NOMSupport@{rr::NOMSupport}}
 
 
-Methods to query various information from an S\+B\+ML document.  
+Methods to query various information from an SBML document.  
 
 
 
 
-{\ttfamily \#include $<$rr\+N\+O\+M\+Support.\+h$>$}
+{\ttfamily \#include $<$rr\+NOMSupport.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -16,7 +16,7 @@ Methods to query various information from an S\+B\+ML document.
 Model $\ast$ {\bfseries get\+Model} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a042ec03b76a52bbc23f1b45d6ddb7d97}\label{classrr_1_1NOMSupport_a042ec03b76a52bbc23f1b45d6ddb7d97}} 
-S\+B\+M\+L\+Document $\ast$ {\bfseries get\+S\+B\+M\+L\+Document} ()
+SBMLDocument $\ast$ {\bfseries get\+SBMLDocument} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a9cb13fa46956d4d9eb4f757033162fa8}\label{classrr_1_1NOMSupport_a9cb13fa46956d4d9eb4f757033162fa8}} 
 \mbox{\hyperlink{classrr_1_1StringListContainer}{String\+List\+Container}} {\bfseries get\+Derived\+Unit\+Definition} (const std\+::string \&s\+Id)
@@ -55,7 +55,7 @@ S\+B\+M\+L\+Document $\ast$ {\bfseries get\+S\+B\+M\+L\+Document} ()
 \mbox{\hyperlink{classrr_1_1StringListContainer}{String\+List\+Container}} {\bfseries get\+Nth\+List\+Of\+Reactants} (const int \&n\+Index)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a52282ac0b9ce27938a9af0b2a5d6e0d7}\label{classrr_1_1NOMSupport_a52282ac0b9ce27938a9af0b2a5d6e0d7}} 
-A\+S\+T\+Node {\bfseries replace\+Symbol} (A\+S\+T\+Node $\ast$node, const std\+::string \&old\+Id, const std\+::string \&new\+Id)
+ASTNode {\bfseries replace\+Symbol} (ASTNode $\ast$node, const std\+::string \&old\+Id, const std\+::string \&new\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a3339854f8e9610c4c74892364fdc9b23}\label{classrr_1_1NOMSupport_a3339854f8e9610c4c74892364fdc9b23}} 
 bool {\bfseries exists} (const std\+::string \&s\+Id)
@@ -73,15 +73,15 @@ bool {\bfseries has\+Initial\+Amount} (const std\+::string \&s\+Id)
 bool {\bfseries has\+Initial\+Concentration} (const std\+::string \&s\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_aa62a91c7b7c6853ea773bef184d5c1a6}\label{classrr_1_1NOMSupport_aa62a91c7b7c6853ea773bef184d5c1a6}} 
-bool {\bfseries has\+S\+B\+O\+Term} (const std\+::string \&s\+Id)
+bool {\bfseries has\+SBOTerm} (const std\+::string \&s\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ae3a81d64f472b6976fce809e11ceeadf}\label{classrr_1_1NOMSupport_ae3a81d64f472b6976fce809e11ceeadf}} 
 bool {\bfseries has\+Value} (const std\+::string \&s\+Id)
 \item 
 bool \mbox{\hyperlink{classrr_1_1NOMSupport_a3c820dd2dddc2159ce3059a49e1742ea}{is\+Boundary}} (const std\+::string \&s\+Id)
-\begin{DoxyCompactList}\small\item\em Checks whether the element for the given S\+B\+ML id is a boundary species. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks whether the element for the given SBML id is a boundary species. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrr_1_1NOMSupport_a38d543c385dea96edf0fd0f7fd183a74}{is\+Compartment}} (const std\+::string \&s\+Id)
-\begin{DoxyCompactList}\small\item\em Checks whether the element for the given S\+B\+ML id is a compartment. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks whether the element for the given SBML id is a compartment. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a2ace14d965d6a0e6f55a7748daee0022}\label{classrr_1_1NOMSupport_a2ace14d965d6a0e6f55a7748daee0022}} 
 bool {\bfseries is\+Constant\+Impl} (const std\+::string \&s\+Id)
 \item 
@@ -168,13 +168,13 @@ int \mbox{\hyperlink{classrr_1_1NOMSupport_ae37000c3877a19cb3792ba6b249411fd}{ge
 int {\bfseries get\+Num\+Rules} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_aefdda4804b2afd2edf9d422e051929ef}\label{classrr_1_1NOMSupport_aefdda4804b2afd2edf9d422e051929ef}} 
-int {\bfseries get\+S\+B\+O\+Term} (const std\+::string \&s\+Id)
+int {\bfseries get\+SBOTerm} (const std\+::string \&s\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ac71223c1746d7324a443cb2f0a0eef62}\label{classrr_1_1NOMSupport_ac71223c1746d7324a443cb2f0a0eef62}} 
 std\+::pair$<$ std\+::string, std\+::string $>$ {\bfseries get\+Nth\+Initial\+Assignment\+Pair} (const int \&n\+Index)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ab5567726fad741afe90970199323c16e}\label{classrr_1_1NOMSupport_ab5567726fad741afe90970199323c16e}} 
-S\+Base $\ast$ {\bfseries get\+Element} (const std\+::string \&s\+Id)
+SBase $\ast$ {\bfseries get\+Element} (const std\+::string \&s\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a77806368c8fb2e39faa8eaec26c1b1cd}\label{classrr_1_1NOMSupport_a77806368c8fb2e39faa8eaec26c1b1cd}} 
 std\+::string {\bfseries add\+Empty\+Set\+Node} (const std\+::string \&sbml)
@@ -189,22 +189,22 @@ std\+::string {\bfseries add\+Missing\+Modifiers} (const std\+::string \&s\+Mode
 std\+::string {\bfseries add\+Source\+Sink\+Nodes} (const std\+::string \&sbml)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a80ab85e86a866b6bc74d926b4bbbe832}\label{classrr_1_1NOMSupport_a80ab85e86a866b6bc74d926b4bbbe832}} 
-std\+::string {\bfseries convert\+Level1\+To\+Level2\+Impl} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries convert\+Level1\+To\+Level2\+Impl} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_adc4736f2235a3574134d6d331e783a3e}\label{classrr_1_1NOMSupport_adc4736f2235a3574134d6d331e783a3e}} 
-std\+::string {\bfseries convert\+Level2\+To\+Level1\+Impl} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries convert\+Level2\+To\+Level1\+Impl} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a346152a907f276dd38e36a9d5143a693}\label{classrr_1_1NOMSupport_a346152a907f276dd38e36a9d5143a693}} 
-std\+::string {\bfseries convert\+Pow\+Impl} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries convert\+Pow\+Impl} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_af9c9e31d3594550dff33b9e894424759}\label{classrr_1_1NOMSupport_af9c9e31d3594550dff33b9e894424759}} 
-std\+::string {\bfseries convert\+S\+B\+ML} (const std\+::string \&s\+Model, const int \&n\+Level, const int \&n\+Version)
+std\+::string {\bfseries convert\+SBML} (const std\+::string \&s\+Model, const int \&n\+Level, const int \&n\+Version)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a19bc67b559feb217207e1f4acaaee13f}\label{classrr_1_1NOMSupport_a19bc67b559feb217207e1f4acaaee13f}} 
-std\+::string {\bfseries convert\+S\+B\+ML} (const std\+::string \&s\+Model, const int \&n\+Level, const int \&n\+Version, bool throw\+Error)
+std\+::string {\bfseries convert\+SBML} (const std\+::string \&s\+Model, const int \&n\+Level, const int \&n\+Version, bool throw\+Error)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ad15f2c6518e78cb9b3323445496c08d4}\label{classrr_1_1NOMSupport_ad15f2c6518e78cb9b3323445496c08d4}} 
-std\+::string {\bfseries convert\+Time\+To\+C\+Symbol} (const std\+::string \&s\+Arg, const std\+::string \&s\+Time\+Symbol)
+std\+::string {\bfseries convert\+Time\+To\+CSymbol} (const std\+::string \&s\+Arg, const std\+::string \&s\+Time\+Symbol)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a3f94ac2f8e49f16d4349be914b856ed1}\label{classrr_1_1NOMSupport_a3f94ac2f8e49f16d4349be914b856ed1}} 
 std\+::string {\bfseries fix\+Common\+Issues} (const std\+::string \&sbml)
@@ -213,7 +213,7 @@ std\+::string {\bfseries fix\+Common\+Issues} (const std\+::string \&sbml)
 std\+::string {\bfseries fix\+Common\+Issues} (const std\+::string \&sbml, const std\+::string \&program\+Name, const std\+::string \&program\+Version)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a09fd81548bda69ec8174d165ca4e0f67}\label{classrr_1_1NOMSupport_a09fd81548bda69ec8174d165ca4e0f67}} 
-std\+::string {\bfseries fet\+Annotated\+Model} (const std\+::string \&target\+S\+B\+ML, const std\+::string \&source\+S\+B\+ML, bool check\+Model\+Id)
+std\+::string {\bfseries fet\+Annotated\+Model} (const std\+::string \&target\+SBML, const std\+::string \&source\+SBML, bool check\+Model\+Id)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ab286ef74860b4b85f2d3e18a07ea053d}\label{classrr_1_1NOMSupport_ab286ef74860b4b85f2d3e18a07ea053d}} 
 std\+::string {\bfseries get\+Annotation} (const std\+::string \&s\+Id)
@@ -293,22 +293,22 @@ std\+::string {\bfseries get\+Nth\+Rule\+Type} (const int \&arg)
 std\+::string {\bfseries get\+Outside\+Compartment} (const std\+::string \&var0)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a5f6bba068472f44f601c793ecc0bfc07}\label{classrr_1_1NOMSupport_a5f6bba068472f44f601c793ecc0bfc07}} 
-std\+::string {\bfseries get\+S\+B\+ML} ()
+std\+::string {\bfseries get\+SBML} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a9f934e606b170c5cb19e7a8688003e51}\label{classrr_1_1NOMSupport_a9f934e606b170c5cb19e7a8688003e51}} 
-std\+::string {\bfseries get\+S\+B\+O\+Capable\+S\+B\+ML} (const std\+::string \&s\+Model)
+std\+::string {\bfseries get\+SBOCapable\+SBML} (const std\+::string \&s\+Model)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a918b6d7bb00360b650713da570d063bb}\label{classrr_1_1NOMSupport_a918b6d7bb00360b650713da570d063bb}} 
-std\+::string {\bfseries remove\+J\+D1\+Layout} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries remove\+JD1\+Layout} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ae1e748490c2fe4ad72c825e0b4e3aa77}\label{classrr_1_1NOMSupport_ae1e748490c2fe4ad72c825e0b4e3aa77}} 
-std\+::string {\bfseries remove\+J\+D2\+Layout} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries remove\+JD2\+Layout} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_acb3669d728f0f541e14d8bd3ba26b222}\label{classrr_1_1NOMSupport_acb3669d728f0f541e14d8bd3ba26b222}} 
-std\+::string {\bfseries remove\+Layout\+Information} (const std\+::string \&s\+S\+B\+ML)
+std\+::string {\bfseries remove\+Layout\+Information} (const std\+::string \&s\+SBML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_afbdcedb58c48276fb376712442855642}\label{classrr_1_1NOMSupport_afbdcedb58c48276fb376712442855642}} 
-std\+::string {\bfseries validate\+S\+B\+ML} (const std\+::string \&s\+Model)
+std\+::string {\bfseries validate\+SBML} (const std\+::string \&s\+Model)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_acd1171573afbdf8efab3a53dd925c212}\label{classrr_1_1NOMSupport_acd1171573afbdf8efab3a53dd925c212}} 
 std\+::string {\bfseries validate\+With\+Consistency} (const std\+::string \&s\+Model)
@@ -326,13 +326,13 @@ void {\bfseries change\+Constant\+For\+Rules} (Model $\ast$model)
 void {\bfseries load\+From\+File} (const std\+::string \&file\+Name)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a40e2adec0fc4df5bfb277f1e7bca23a5}\label{classrr_1_1NOMSupport_a40e2adec0fc4df5bfb277f1e7bca23a5}} 
-void {\bfseries load\+Parameter\+Promoted\+S\+B\+ML} (const std\+::string \&var0, const std\+::string \&s\+Time\+Symbol)
+void {\bfseries load\+Parameter\+Promoted\+SBML} (const std\+::string \&var0, const std\+::string \&s\+Time\+Symbol)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_abb5326dbaf4f84567e6ea005d02de211}\label{classrr_1_1NOMSupport_abb5326dbaf4f84567e6ea005d02de211}} 
-void {\bfseries load\+S\+B\+ML} (const std\+::string \&var0)
+void {\bfseries load\+SBML} (const std\+::string \&var0)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a370fa81709c4140a65701965a74ecb53}\label{classrr_1_1NOMSupport_a370fa81709c4140a65701965a74ecb53}} 
-void {\bfseries load\+S\+B\+ML} (const std\+::string \&var0, const std\+::string \&s\+Time\+Symbol)
+void {\bfseries load\+SBML} (const std\+::string \&var0, const std\+::string \&s\+Time\+Symbol)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a4a9071e9661c63082b0115e43bbf903f}\label{classrr_1_1NOMSupport_a4a9071e9661c63082b0115e43bbf903f}} 
 void {\bfseries set\+Annotation} (const std\+::string \&s\+Id, const std\+::string \&s\+Annotation)
@@ -344,7 +344,7 @@ void {\bfseries set\+Model\+Id} (const std\+::string \&s\+Id)
 void {\bfseries set\+Notes} (const std\+::string \&s\+Id, const std\+::string \&s\+Notes)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a321b88e58783f3f7624bd393d6b13363}\label{classrr_1_1NOMSupport_a321b88e58783f3f7624bd393d6b13363}} 
-void {\bfseries set\+S\+B\+O\+Term} (const std\+::string \&s\+Id, const int \&n\+S\+B\+O\+Term)
+void {\bfseries set\+SBOTerm} (const std\+::string \&s\+Id, const int \&n\+SBOTerm)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a258c21942cbbd02b0422021a8a59e409}\label{classrr_1_1NOMSupport_a258c21942cbbd02b0422021a8a59e409}} 
 void {\bfseries set\+Value} (const std\+::string \&s\+Id, const double \&d\+Value)
@@ -353,7 +353,7 @@ void {\bfseries set\+Value} (const std\+::string \&s\+Id, const double \&d\+Valu
 void {\bfseries set\+Value} (Model $\ast$model, const std\+::string \&id, const double \&value, const bool \&throw\+If\+Not\+Found)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ac50df28f1f1f5dd8484dcc8540b3a499}\label{classrr_1_1NOMSupport_ac50df28f1f1f5dd8484dcc8540b3a499}} 
-void {\bfseries test\+A\+S\+T\+Time} ()
+void {\bfseries test\+ASTTime} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a213257b944b8c9eb2b806d82186a6f44}\label{classrr_1_1NOMSupport_a213257b944b8c9eb2b806d82186a6f44}} 
 std\+::string {\bfseries get\+Nth\+Boundary\+Species\+Compartment\+Name} (const int \&n\+Index)
@@ -370,28 +370,28 @@ stack$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1NOMSupport_ac2c0def46c909
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_abfc6a3d95e648477a618e45adba76bd4}\label{classrr_1_1NOMSupport_abfc6a3d95e648477a618e45adba76bd4}} 
-static std\+::string {\bfseries getlib\+S\+B\+M\+L\+Version} ()
+static std\+::string {\bfseries getlib\+SBMLVersion} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_af5c047495e2476c0f33964f93ccae4c1}\label{classrr_1_1NOMSupport_af5c047495e2476c0f33964f93ccae4c1}} 
 static std\+::string \mbox{\hyperlink{classrr_1_1NOMSupport_af5c047495e2476c0f33964f93ccae4c1}{convert\+Time}} (const std\+::string \&s\+Arg, const std\+::string \&s\+Time\+Symbol)
-\begin{DoxyCompactList}\small\item\em stateless utility functions, these obviously do not change the state of this N\+OM object. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{classrr_1_1StringList}{String\+List}} \mbox{\hyperlink{classrr_1_1NOMSupport_a88fb6cac272bc681f168299168df9721}{get\+Symbols}} (const A\+S\+T\+Node $\ast$math)
-\begin{DoxyCompactList}\small\item\em Returns the list of all names contained in the A\+S\+T\+Node. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em stateless utility functions, these obviously do not change the state of this NOM object. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classrr_1_1StringList}{String\+List}} \mbox{\hyperlink{classrr_1_1NOMSupport_a88fb6cac272bc681f168299168df9721}{get\+Symbols}} (const ASTNode $\ast$math)
+\begin{DoxyCompactList}\small\item\em Returns the list of all names contained in the ASTNode. \end{DoxyCompactList}\item 
 static deque$<$ Rule $\ast$ $>$ \mbox{\hyperlink{classrr_1_1NOMSupport_a7a0445e0662e5e98289861125be45cf1}{reorder\+Assignment\+Rules}} (deque$<$ Rule $\ast$ $>$ \&assignment\+Rules)
 \begin{DoxyCompactList}\small\item\em Reorders assignment rules. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a43eefc5fcb055fc01b6a8d06ab96e4c1}\label{classrr_1_1NOMSupport_a43eefc5fcb055fc01b6a8d06ab96e4c1}} 
-static void {\bfseries fill\+Stack} (stack$<$ std\+::string $>$ \&stack, \mbox{\hyperlink{classrr_1_1SBMLSymbol}{S\+B\+M\+L\+Symbol}} \&symbol)
+static void {\bfseries fill\+Stack} (stack$<$ std\+::string $>$ \&stack, \mbox{\hyperlink{classrr_1_1SBMLSymbol}{SBMLSymbol}} \&symbol)
 \item 
-static void \mbox{\hyperlink{classrr_1_1NOMSupport_a860034fb4e70cb79da25fb2ec824df5e}{reorder\+Rules}} (S\+B\+M\+L\+Document \&oc, Model \&model)
+static void \mbox{\hyperlink{classrr_1_1NOMSupport_a860034fb4e70cb79da25fb2ec824df5e}{reorder\+Rules}} (SBMLDocument \&oc, Model \&model)
 \begin{DoxyCompactList}\small\item\em Reorders the Rules of the model in such a way, that Assignment\+Rules are calculated first, followed by Rate Rules and Algebraic Rules. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a978bc9d8042583bc384f5e12d506b05b}\label{classrr_1_1NOMSupport_a978bc9d8042583bc384f5e12d506b05b}} 
-static std\+::string {\bfseries get\+Param\+Promoted\+S\+B\+ML} (const std\+::string \&s\+Arg)
+static std\+::string {\bfseries get\+Param\+Promoted\+SBML} (const std\+::string \&s\+Arg)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ad343b1729d3d8ad64187c278f91ac17d}\label{classrr_1_1NOMSupport_ad343b1729d3d8ad64187c278f91ac17d}} 
-static std\+::string {\bfseries get\+Id} (S\+Base \&element)
+static std\+::string {\bfseries get\+Id} (SBase \&element)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_ad0e1c892882efaa6a16bc17e0378404f}\label{classrr_1_1NOMSupport_ad0e1c892882efaa6a16bc17e0378404f}} 
-static std\+::string {\bfseries convert\+Math\+M\+L\+To\+String} (const std\+::string \&s\+Math\+ML)
+static std\+::string {\bfseries convert\+Math\+MLTo\+String} (const std\+::string \&s\+Math\+ML)
 \item 
 \mbox{\Hypertarget{classrr_1_1NOMSupport_a47d8ee3fdee452957c85ea68e2b25482}\label{classrr_1_1NOMSupport_a47d8ee3fdee452957c85ea68e2b25482}} 
 static std\+::string {\bfseries convert\+String\+To\+Math\+ML} (const std\+::string \&var0)
@@ -399,7 +399,7 @@ static std\+::string {\bfseries convert\+String\+To\+Math\+ML} (const std\+::str
 
 
 \doxysubsection{Detailed Description}
-Methods to query various information from an S\+B\+ML document. 
+Methods to query various information from an SBML document. 
 
 This class provides a set of static method to query various items from sbml objects. 
 
@@ -408,7 +408,7 @@ This class provides a set of static method to query various items from sbml obje
 \index{rr::NOMSupport@{rr::NOMSupport}!getKineticLaw@{getKineticLaw}}
 \index{getKineticLaw@{getKineticLaw}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{getKineticLaw()}{getKineticLaw()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+N\+O\+M\+Support\+::get\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string rr\+::\+NOMSupport\+::get\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption})}
 
 
 
@@ -418,7 +418,7 @@ This will be changed to return a Kinetic\+Law object soon. \mbox{\Hypertarget{cl
 \index{rr::NOMSupport@{rr::NOMSupport}!getNthFloatingSpeciesCompartmentName@{getNthFloatingSpeciesCompartmentName}}
 \index{getNthFloatingSpeciesCompartmentName@{getNthFloatingSpeciesCompartmentName}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{getNthFloatingSpeciesCompartmentName()}{getNthFloatingSpeciesCompartmentName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+N\+O\+M\+Support\+::get\+Nth\+Floating\+Species\+Compartment\+Name (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string rr\+::\+NOMSupport\+::get\+Nth\+Floating\+Species\+Compartment\+Name (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
 
 
 
@@ -428,7 +428,7 @@ So, say we have a model like\+: model \{ species\{boundary = false\} species\{bo
 \index{rr::NOMSupport@{rr::NOMSupport}!getNumParameters@{getNumParameters}}
 \index{getNumParameters@{getNumParameters}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{getNumParameters()}{getNumParameters()}}
-{\footnotesize\ttfamily int rr\+::\+N\+O\+M\+Support\+::get\+Num\+Parameters (\begin{DoxyParamCaption}\item[{int}]{reaction }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int rr\+::\+NOMSupport\+::get\+Num\+Parameters (\begin{DoxyParamCaption}\item[{int}]{reaction }\end{DoxyParamCaption})}
 
 \begin{DoxyReturn}{Returns}
 the number of parameters for the i\textquotesingle{}th reaction, if reaction is not a kinetic law, 0 otherwise. 
@@ -437,7 +437,7 @@ the number of parameters for the i\textquotesingle{}th reaction, if reaction is 
 \index{rr::NOMSupport@{rr::NOMSupport}!getNumReactions@{getNumReactions}}
 \index{getNumReactions@{getNumReactions}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{getNumReactions()}{getNumReactions()}}
-{\footnotesize\ttfamily int rr\+::\+N\+O\+M\+Support\+::get\+Num\+Reactions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int rr\+::\+NOMSupport\+::get\+Num\+Reactions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \begin{DoxyReturn}{Returns}
 the number of Reactions in this Model. 
@@ -446,15 +446,15 @@ the number of Reactions in this Model.
 \index{rr::NOMSupport@{rr::NOMSupport}!getSymbols@{getSymbols}}
 \index{getSymbols@{getSymbols}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{getSymbols()}{getSymbols()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1StringList}{String\+List}} rr\+::\+N\+O\+M\+Support\+::get\+Symbols (\begin{DoxyParamCaption}\item[{const A\+S\+T\+Node $\ast$}]{math }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1StringList}{String\+List}} rr\+::\+NOMSupport\+::get\+Symbols (\begin{DoxyParamCaption}\item[{const ASTNode $\ast$}]{math }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Returns the list of all names contained in the A\+S\+T\+Node. 
+Returns the list of all names contained in the ASTNode. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em math} & A\+S\+T\+Node \\
+{\em math} & ASTNode \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -464,21 +464,21 @@ List of all symbols
 \index{rr::NOMSupport@{rr::NOMSupport}!isBoundary@{isBoundary}}
 \index{isBoundary@{isBoundary}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{isBoundary()}{isBoundary()}}
-{\footnotesize\ttfamily bool rr\+::\+N\+O\+M\+Support\+::is\+Boundary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s\+Id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool rr\+::\+NOMSupport\+::is\+Boundary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s\+Id }\end{DoxyParamCaption})}
 
 
 
-Checks whether the element for the given S\+B\+ML id is a boundary species. 
+Checks whether the element for the given SBML id is a boundary species. 
 
 @ param name the id to check \mbox{\Hypertarget{classrr_1_1NOMSupport_a38d543c385dea96edf0fd0f7fd183a74}\label{classrr_1_1NOMSupport_a38d543c385dea96edf0fd0f7fd183a74}} 
 \index{rr::NOMSupport@{rr::NOMSupport}!isCompartment@{isCompartment}}
 \index{isCompartment@{isCompartment}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{isCompartment()}{isCompartment()}}
-{\footnotesize\ttfamily bool rr\+::\+N\+O\+M\+Support\+::is\+Compartment (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s\+Id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool rr\+::\+NOMSupport\+::is\+Compartment (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s\+Id }\end{DoxyParamCaption})}
 
 
 
-Checks whether the element for the given S\+B\+ML id is a compartment. 
+Checks whether the element for the given SBML id is a compartment. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -492,13 +492,13 @@ true if element is a compartment, false otherwise
 \index{rr::NOMSupport@{rr::NOMSupport}!reorderAssignmentRules@{reorderAssignmentRules}}
 \index{reorderAssignmentRules@{reorderAssignmentRules}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{reorderAssignmentRules()}{reorderAssignmentRules()}}
-{\footnotesize\ttfamily deque$<$ Rule $\ast$ $>$ rr\+::\+N\+O\+M\+Support\+::reorder\+Assignment\+Rules (\begin{DoxyParamCaption}\item[{deque$<$ Rule $\ast$ $>$ \&}]{assignment\+Rules }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily deque$<$ Rule $\ast$ $>$ rr\+::\+NOMSupport\+::reorder\+Assignment\+Rules (\begin{DoxyParamCaption}\item[{deque$<$ Rule $\ast$ $>$ \&}]{assignment\+Rules }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Reorders assignment rules. 
 
-In S\+B\+ML assignment rules does not have to appear in the correct order. That is you could have an assignment rule A = B, and a rule B = C. Now the result would differ, if the first rule is evaluated before the second. Thus the rules will be reordered such that this will be taken care of.
+In SBML assignment rules does not have to appear in the correct order. That is you could have an assignment rule A = B, and a rule B = C. Now the result would differ, if the first rule is evaluated before the second. Thus the rules will be reordered such that this will be taken care of.
 
 
 \begin{DoxyParams}{Parameters}
@@ -512,7 +512,7 @@ assignment rules in independent order
 \index{rr::NOMSupport@{rr::NOMSupport}!reorderRules@{reorderRules}}
 \index{reorderRules@{reorderRules}!rr::NOMSupport@{rr::NOMSupport}}
 \doxysubsubsection{\texorpdfstring{reorderRules()}{reorderRules()}}
-{\footnotesize\ttfamily void rr\+::\+N\+O\+M\+Support\+::reorder\+Rules (\begin{DoxyParamCaption}\item[{S\+B\+M\+L\+Document \&}]{oc,  }\item[{Model \&}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void rr\+::\+NOMSupport\+::reorder\+Rules (\begin{DoxyParamCaption}\item[{SBMLDocument \&}]{oc,  }\item[{Model \&}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -529,5 +529,5 @@ Reorders the Rules of the model in such a way, that Assignment\+Rules are calcul
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-c/rr\+N\+O\+M\+Support.\+h\item 
-c/rr\+N\+O\+M\+Support.\+cpp\end{DoxyCompactItemize}
+c/rr\+NOMSupport.\+h\item 
+c/rr\+NOMSupport.\+cpp\end{DoxyCompactItemize}

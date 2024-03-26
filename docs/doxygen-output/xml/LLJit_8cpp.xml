@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="LLJit_8cpp" kind="file" language="C++">
     <compoundname>LLJit.cpp</compoundname>
     <includes refid="LLJit_8h" local="yes">LLJit.h</includes>
@@ -714,25 +714,25 @@
 <codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>adds<sp/>the<sp/>generater<sp/>created<sp/>above</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llJit-&gt;getMainJITDylib().addGenerator(std::move(*DLSG));</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"></highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LLJit_1a996945de22420bc5951594d75d80a591" kindref="member">LLJit::mapFunctionsToJitSymbols</ref>();</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LLJit::mapFunctionsToJitSymbols();</highlight></codeline>
 <codeline lineno="197"><highlight class="normal"></highlight></codeline>
 <codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
 <codeline lineno="200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1a996945de22420bc5951594d75d80a591" kindref="member">LLJit::mapFunctionsToJitSymbols</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::mapFunctionsToJitSymbols()<sp/>{</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::DenseMap&lt;llvm::orc::SymbolStringPtr,<sp/>llvm::JITEvaluatedSymbol&gt;<sp/>map{};</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">[fnName,<sp/>fnTy_addr_pair]:<sp/><ref refid="classrrllvm_1_1Jit_1aa25373cc3dc5ac1bd2f7c162a4e044df" kindref="member">externalFunctionSignatures</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">[fnName,<sp/>fnTy_addr_pair]:<sp/>externalFunctionSignatures())<sp/>{</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">[fnTy,<sp/>addr]<sp/>=<sp/>fnTy_addr_pair;</highlight></codeline>
 <codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::string<sp/>mangled<sp/>=<sp/>mangleName(fnName);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function::Create(fnTy,<sp/>Function::ExternalLinkage,<sp/>fnName,<sp/><ref refid="classrrllvm_1_1Jit_1a92e5c8af5539c0e790328d66ed325d26" kindref="member">getModuleNonOwning</ref>());</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function::Create(fnTy,<sp/>Function::ExternalLinkage,<sp/>fnName,<sp/>getModuleNonOwning());</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map.insert({</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llJit-&gt;mangleAndIntern(fnName),<sp/>JITEvaluatedSymbol::fromPointer(addr)</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>these<sp/>call<sp/>out<sp/>to<sp/>functions<sp/>that<sp/>create<sp/>the<sp/>necessary<sp/>function<sp/>if</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>already<sp/>been<sp/>created<sp/>before.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelDataIRBuilder_1a71f439ded73bbea7284d7675f824f177" kindref="member">ModelDataIRBuilder::getCSRMatrixSetNZDecl</ref>(<ref refid="classrrllvm_1_1Jit_1a92e5c8af5539c0e790328d66ed325d26" kindref="member">getModuleNonOwning</ref>());</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelDataIRBuilder_1a43814b580c9cb37b7f19bd3835ff2852" kindref="member">ModelDataIRBuilder::getCSRMatrixGetNZDecl</ref>(<ref refid="classrrllvm_1_1Jit_1a92e5c8af5539c0e790328d66ed325d26" kindref="member">getModuleNonOwning</ref>());</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelDataIRBuilder::getCSRMatrixSetNZDecl(getModuleNonOwning());</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelDataIRBuilder::getCSRMatrixGetNZDecl(getModuleNonOwning());</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map.insert({llJit-&gt;mangleAndIntern(std::string(ModelDataIRBuilder::csr_matrix_set_nzName)),</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JITEvaluatedSymbol::fromPointer(&amp;rr::csr_matrix_set_nz)}</highlight></codeline>
@@ -767,7 +767,7 @@
 <codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="255"><highlight class="normal"></highlight></codeline>
 <codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1ad38295e9143c288d11c0313686b66d11" kindref="member">LLJit::addObjectFile</ref>(rrOwningBinary<sp/>owningObject)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addObjectFile(rrOwningBinary<sp/>owningObject)<sp/>{</highlight></codeline>
 <codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Error<sp/>err<sp/>=<sp/>llJit-&gt;addObjectFile(std::move(owningObject.takeBinary().second));</highlight></codeline>
 <codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(err)<sp/>{</highlight></codeline>
 <codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>errMsg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>add<sp/>object<sp/>to<sp/>LLJit&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -776,13 +776,13 @@
 <codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::DataLayout<sp/>&amp;<ref refid="classrrllvm_1_1LLJit_1ab27afc739dd1466259b0b5168b3c89a2" kindref="member">LLJit::getDataLayout</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>llvm::DataLayout<sp/>&amp;LLJit::getDataLayout()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>llJit-&gt;getDataLayout();</highlight></codeline>
 <codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="269"><highlight class="normal"></highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68" kindref="member">LLJit::addModule</ref>(llvm::orc::ThreadSafeModule<sp/>tsm)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addModule(llvm::orc::ThreadSafeModule<sp/>tsm)<sp/>{</highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;full<sp/>module:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/><ref refid="classrrllvm_1_1Jit_1ab316cce1cd3f402e678fb3534da19b3d" kindref="member">emitToString</ref>()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>emitToString()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 <codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(llvm::Error<sp/>err<sp/>=<sp/>llJit-&gt;addIRModule(std::move(tsm)))<sp/>{</highlight></codeline>
 <codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>errMsg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Unable<sp/>to<sp/>add<sp/>ThreadSafeModule<sp/>to<sp/>LLJit&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLogErr<sp/>&lt;&lt;<sp/>errMsg;</highlight></codeline>
@@ -790,7 +790,7 @@
 <codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68" kindref="member">LLJit::addModule</ref>(std::unique_ptr&lt;llvm::Module&gt;<sp/>M,<sp/>std::unique_ptr&lt;llvm::LLVMContext&gt;<sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addModule(std::unique_ptr&lt;llvm::Module&gt;<sp/>M,<sp/>std::unique_ptr&lt;llvm::LLVMContext&gt;<sp/>ctx)<sp/>{</highlight></codeline>
 <codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Error<sp/>err<sp/>=<sp/>llJit-&gt;addIRModule(</highlight></codeline>
 <codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::orc::ThreadSafeModule(std::move(M),<sp/>std::move(ctx))</highlight></codeline>
 <codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
@@ -800,11 +800,11 @@
 <codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="288"><highlight class="normal"></highlight></codeline>
 <codeline lineno="289"><highlight class="normal"></highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68" kindref="member">LLJit::addModule</ref>(llvm::Module<sp/>*m)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addModule(llvm::Module<sp/>*m)<sp/>{</highlight></codeline>
 <codeline lineno="291"><highlight class="normal"></highlight></codeline>
 <codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="293"><highlight class="normal"></highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1ad38295e9143c288d11c0313686b66d11" kindref="member">LLJit::addObjectFile</ref>(std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>obj)<sp/>{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addObjectFile(std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>obj)<sp/>{</highlight></codeline>
 <codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Error<sp/>err<sp/>=<sp/>llJit-&gt;addObjectFile(std::move(obj));</highlight></codeline>
 <codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(err)<sp/>{</highlight></codeline>
 <codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>s<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Unable<sp/>to<sp/>add<sp/>object<sp/>file<sp/>to<sp/>LLJit&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -813,12 +813,12 @@
 <codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="302"><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1ad38295e9143c288d11c0313686b66d11" kindref="member">LLJit::addObjectFile</ref>(std::unique_ptr&lt;llvm::object::ObjectFile&gt;<sp/>objectFile)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addObjectFile(std::unique_ptr&lt;llvm::object::ObjectFile&gt;<sp/>objectFile)<sp/>{</highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Only<sp/>needed<sp/>for<sp/>MCJit,<sp/>which<sp/>will<sp/>be<sp/>removed<sp/>in<sp/>the<sp/>distant<sp/>future.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"></highlight></codeline>
 <codeline lineno="307"><highlight class="normal"></highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLJit_1a9996b44cdcaffab0ad6b5dba722bba68" kindref="member">LLJit::addModule</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLJit::addModule()<sp/>{</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::orc::ThreadSafeModule<sp/>TSM(std::move(module),<sp/>std::move(context));</highlight></codeline>
 <codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Error<sp/>err<sp/>=<sp/>llJit-&gt;addIRModule(std::move(TSM));</highlight></codeline>
 <codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(err)<sp/>{</highlight></codeline>
@@ -828,7 +828,7 @@
 <codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="317"><highlight class="normal"></highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/><ref refid="classrrllvm_1_1LLJit_1ae81a46694d77eba74473d015b42e01f7" kindref="member">LLJit::getCompiledModelFromCache</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;sbmlMD5)<sp/>{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>LLJit::getCompiledModelFromCache(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;sbmlMD5)<sp/>{</highlight></codeline>
 <codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBMLModelObjectCache<sp/>&amp;cache<sp/>=<sp/>SBMLModelObjectCache::getObjectCache();</highlight></codeline>
 <codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>v<sp/>=<sp/>cache.inspect();</highlight></codeline>
 <codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LLVMContext<sp/>ctx;</highlight></codeline>
@@ -841,7 +841,7 @@
 <codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>llJit.get();</highlight></codeline>
 <codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="330"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrrllvm_1_1LLJit_1a8e45940e3838ff80b89aa29f34ba1e29" kindref="member">LLJit::dump</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>LLJit::dump()<sp/>{</highlight></codeline>
 <codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>s;</highlight></codeline>
 <codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::raw_string_ostream<sp/>os(s);</highlight></codeline>
 <codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llJit-&gt;getExecutionSession().dump(os);</highlight></codeline>
@@ -864,8 +864,8 @@
 <codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="353"><highlight class="normal"></highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrrllvm_1_1LLJit_1ab7a58cc6be141daf6141498dace4f837" kindref="member">LLJit::getModuleAsString</ref>(std::string<sp/>sbmlMD5)<sp/>{</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>memBuf<sp/>=<sp/><ref refid="classrrllvm_1_1LLJit_1ae81a46694d77eba74473d015b42e01f7" kindref="member">getCompiledModelFromCache</ref>(sbmlMD5);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>LLJit::getModuleAsString(std::string<sp/>sbmlMD5)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;llvm::MemoryBuffer&gt;<sp/>memBuf<sp/>=<sp/>getCompiledModelFromCache(sbmlMD5);</highlight></codeline>
 <codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemoryBufferRef<sp/>memBufRef<sp/>=<sp/>memBuf-&gt;getMemBufferRef();</highlight></codeline>
 <codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>s<sp/>=<sp/>memBufRef.getBuffer().str();</highlight></codeline>
 <codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(s.empty())<sp/>{</highlight></codeline>

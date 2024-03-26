@@ -27,6 +27,9 @@ void {\bfseries recursive\+Symbol\+Push} (const std\+::string \&symbol) override
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_aa0fc1373dd80036307a6da734c44639a}\label{classrrllvm_1_1LoadSymbolResolverBase_aa0fc1373dd80036307a6da734c44639a}} 
 void {\bfseries recursive\+Symbol\+Pop} () override
 \item 
+\mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_ae8d7b5224b9502b30a8aa398c9090300}\label{classrrllvm_1_1LoadSymbolResolverBase_ae8d7b5224b9502b30a8aa398c9090300}} 
+virtual bool {\bfseries is\+Local\+Parameter} (const std\+::string \&symbol) override
+\item 
 void \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolverBase_ae380d0e0ba65b430e3ce7c23be4b7829}{flush\+Cache}} ()
 \begin{DoxyCompactList}\small\item\em Flush the symbol cache. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolverBase_a7e60c19319e7c69ce40893709590c5b6}{push\+Cache\+Block}} () override
@@ -63,13 +66,13 @@ const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+C
 const libsbml\+::\+Model $\ast$ {\bfseries model}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_a7c4487a9784c8dd8cce184dff8c4cda4}\label{classrrllvm_1_1LoadSymbolResolverBase_a7c4487a9784c8dd8cce184dff8c4cda4}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} \& {\bfseries model\+Data\+Symbols}
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} \& {\bfseries model\+Data\+Symbols}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_a21d2fbcaa66d3de99fb9dc7f8288582c}\label{classrrllvm_1_1LoadSymbolResolverBase_a21d2fbcaa66d3de99fb9dc7f8288582c}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{L\+L\+V\+M\+Model\+Symbols}} \& {\bfseries model\+Symbols}
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{LLVMModel\+Symbols}} \& {\bfseries model\+Symbols}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_aa108e3576012f1012ebacd4fe30cf747}\label{classrrllvm_1_1LoadSymbolResolverBase_aa108e3576012f1012ebacd4fe30cf747}} 
-llvm\+::\+I\+R\+Builder \& {\bfseries builder}
+llvm\+::\+IRBuilder \& {\bfseries builder}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_a5a0d696ef7f5c0c9db5512a619fdc657}\label{classrrllvm_1_1LoadSymbolResolverBase_a5a0d696ef7f5c0c9db5512a619fdc657}} 
 llvm\+::\+Value $\ast$ {\bfseries model\+Data}
@@ -98,9 +101,9 @@ This has common functionality such as dealing with sbml elements such as reactio
 
 check in the symbol cache if the symbol exists, if so return it. 
 
-If the value is not N\+U\+LL, it is cached and returned.
+If the value is not NULL, it is cached and returned.
 
-Cached function args not currently supported (just return N\+U\+LL). \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_ae380d0e0ba65b430e3ce7c23be4b7829}\label{classrrllvm_1_1LoadSymbolResolverBase_ae380d0e0ba65b430e3ce7c23be4b7829}} 
+Cached function args not currently supported (just return NULL). \mbox{\Hypertarget{classrrllvm_1_1LoadSymbolResolverBase_ae380d0e0ba65b430e3ce7c23be4b7829}\label{classrrllvm_1_1LoadSymbolResolverBase_ae380d0e0ba65b430e3ce7c23be4b7829}} 
 \index{rrllvm::LoadSymbolResolverBase@{rrllvm::LoadSymbolResolverBase}!flushCache@{flushCache}}
 \index{flushCache@{flushCache}!rrllvm::LoadSymbolResolverBase@{rrllvm::LoadSymbolResolverBase}}
 \doxysubsubsection{\texorpdfstring{flushCache()}{flushCache()}}

@@ -70,9 +70,9 @@ void \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_aed656c6267d711b2e2d45
 \begin{DoxyCompactList}\small\item\em returns the indexes of parameters that user wants sensitivities for, based off of which\+Parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ForwardSensitivitySolver_ae2da77e914bbff9a93ef44c2c3546a3b}\label{classrr_1_1ForwardSensitivitySolver_ae2da77e914bbff9a93ef44c2c3546a3b}} 
 N\+\_\+\+Vector \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_ae2da77e914bbff9a93ef44c2c3546a3b}{get\+State\+Vector}} ()
-\begin{DoxyCompactList}\small\item\em retuns pointer to the state vector used by sundials for solving O\+DE. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em retuns pointer to the state vector used by sundials for solving ODE. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ForwardSensitivitySolver_a7aa4a017b53b2e2ae10d09c1f1747efd}\label{classrr_1_1ForwardSensitivitySolver_a7aa4a017b53b2e2ae10d09c1f1747efd}} 
-N\+\_\+\+Vector $\ast$ \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_a7aa4a017b53b2e2ae10d09c1f1747efd}{get\+Sensitivity\+N\+Vector\+Ptr}} ()
+N\+\_\+\+Vector $\ast$ \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_a7aa4a017b53b2e2ae10d09c1f1747efd}{get\+Sensitivity\+NVector\+Ptr}} ()
 \begin{DoxyCompactList}\small\item\em retuns pointer to the state vector used by sundials for storing sensitivity matrix. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1Matrix}{rr\+::\+Matrix}}$<$ double $>$ \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_a7fa7605a48dbc60c2d86fcdcf3d34f35}{get\+Sensitivity\+Matrix}} (int k=0) override
 \begin{DoxyCompactList}\small\item\em get current values of sensitivities of model variables to parameters. \end{DoxyCompactList}\item 
@@ -108,10 +108,10 @@ int \mbox{\hyperlink{classrr_1_1ForwardSensitivitySolver_aa84e84aba27a1fd6826cd7
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1ForwardSensitivitySolver_a94a18c4a7ce92d176eecc5da3e4a64e8}\label{classrr_1_1ForwardSensitivitySolver_a94a18c4a7ce92d176eecc5da3e4a64e8}} 
-int {\bfseries F\+F\+S\+Dy\+Dt\+Fcn} (realtype time, N\+\_\+\+Vector cv\+\_\+y, N\+\_\+\+Vector cv\+\_\+ydot, void $\ast$user\+Data)
+int {\bfseries FFSDy\+Dt\+Fcn} (realtype time, N\+\_\+\+Vector cv\+\_\+y, N\+\_\+\+Vector cv\+\_\+ydot, void $\ast$user\+Data)
 \item 
 \mbox{\Hypertarget{classrr_1_1ForwardSensitivitySolver_ab0f65e181178179b40d9f4b5c68f69d5}\label{classrr_1_1ForwardSensitivitySolver_ab0f65e181178179b40d9f4b5c68f69d5}} 
-int {\bfseries F\+F\+S\+Root\+Fcn} (realtype time, N\+\_\+\+Vector y\+\_\+vector, realtype $\ast$gout, void $\ast$user\+\_\+data)
+int {\bfseries FFSRoot\+Fcn} (realtype time, N\+\_\+\+Vector y\+\_\+vector, realtype $\ast$gout, void $\ast$user\+\_\+data)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -119,7 +119,7 @@ int {\bfseries F\+F\+S\+Root\+Fcn} (realtype time, N\+\_\+\+Vector y\+\_\+vector
 \doxysubsection{Detailed Description}
 Time based sensivitity solver. 
 
-Uses \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}} to integrate the \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} and cvodes to compute sensitivity information at each time point. Implements the \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver}{Time\+Series\+Sensitivity\+Solver}} interface 
+Uses \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{CVODEIntegrator}} to integrate the \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} and cvodes to compute sensitivity information at each time point. Implements the \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver}{Time\+Series\+Sensitivity\+Solver}} interface 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1ForwardSensitivitySolver_ae938e625ed4e8d3536b6b3fb9371a08d}\label{classrr_1_1ForwardSensitivitySolver_ae938e625ed4e8d3536b6b3fb9371a08d}} 
@@ -133,7 +133,7 @@ Uses \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}} to
 Constructs a new \mbox{\hyperlink{classrr_1_1Solver}{Solver}} of a given type. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM, W\+BC
+JKM, WBC
 \end{DoxyAuthor}
 the caller is responsible for deleting memory associated with the returned Solver$\ast$. 
 
@@ -240,7 +240,7 @@ Implements \mbox{\hyperlink{classrr_1_1TimeSeriesSensitivitySolver_a1f0c8cb09f7f
 Called whenever a new model is loaded to allow integrator to reset internal state. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -257,7 +257,7 @@ Implements \mbox{\hyperlink{classrr_1_1Solver_aecb0e7c619e544aeabc6db9903165158}
 Return std\+::string representation a la Python {\bfseries{repr}} method. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -274,7 +274,7 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a2f2b574b220becfebd1be2d8c
 Return a std\+::string representation of the solver. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 

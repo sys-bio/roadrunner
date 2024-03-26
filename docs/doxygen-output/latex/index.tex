@@ -6,7 +6,7 @@ Totte Karlsson (\href{mailto:totte@dunescientific.com}{\texttt{ totte@dunescient
 Herbert M. Sauro (\href{mailto:hsauro@u.washington.edu}{\texttt{ hsauro@u.\+washington.\+edu}})
 \end{DoxyAuthor}
 \hypertarget{index_sec_intro}{}\doxysection{Introduction}\label{index_sec_intro}
-This document describes the application programming interface (wrappers) of \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}, an open source (B\+SD) library for computing structural characteristics of cellular networks.\hypertarget{index_sec_install}{}\doxysection{Instalation}\label{index_sec_install}
+This document describes the application programming interface (wrappers) of \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}, an open source (BSD) library for computing structural characteristics of cellular networks.\hypertarget{index_sec_install}{}\doxysection{Instalation}\label{index_sec_install}
 \begin{DoxyParagraph}{}
 
 \end{DoxyParagraph}
@@ -14,7 +14,7 @@ This document describes the application programming interface (wrappers) of \mbo
 
 \end{DoxyParagraph}
 \begin{DoxyParagraph}{Dependencies}
-The \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} library depend on several third-\/party libraries, C\+Lapack, lib\+S\+B\+ML (libxml2), Sundials, N\+L\+EQ, and Poco. These are provided with the binary installation where necessary. 
+The \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} library depend on several third-\/party libraries, CLapack, lib\+SBML (libxml2), Sundials, NLEQ, and Poco. These are provided with the binary installation where necessary. 
 \end{DoxyParagraph}
 \begin{DoxyParagraph}{}
 
@@ -40,7 +40,8 @@ All Integrators are created by the \mbox{\hyperlink{classrr_1_1IntegratorFactory
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{r.simulate(0, 10, 100, integrator=\textcolor{stringliteral}{"MyIntegratorName"})}
+\DoxyCodeLine{r.simulate(0, 10, 100, integrator=\textcolor{stringliteral}{"{}MyIntegratorName"{}})}
+
 \end{DoxyCode}
 
 
@@ -49,13 +50,14 @@ Or, in C++\+:
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{BasicDictionary d;}
-\DoxyCodeLine{d.setItem(\textcolor{stringliteral}{"integrator"}, \textcolor{stringliteral}{"MyIntegratorName"})}
+\DoxyCodeLine{d.setItem(\textcolor{stringliteral}{"{}integrator"{}}, \textcolor{stringliteral}{"{}MyIntegratorName"{}})}
 \DoxyCodeLine{r.simulate(\&d);}
+
 \end{DoxyCode}
 
 
 To create a new integrator, one first needs to create an object that implments the \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} interface, tell \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} about it.\hypertarget{index_sec_int_impl}{}\doxysubsection{Implementing the Integrator interface}\label{index_sec_int_impl}
-The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the O\+N\+LY object that creates integrators.
+The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the ONLY object that creates integrators.
 
 Integrators are created when the \mbox{\hyperlink{classrr_1_1RegistrationFactory_af6a9a68a5895f4da2bf3f57872b09bd4}{Integrator\+Factory\+::\+New}} method is called, typically by the top level \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object. New Integrators are given a pointer to an existing \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} object which the \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} is responsible for advancing forward in time, and pointer to a \mbox{\hyperlink{classrr_1_1SimulateOptions}{Simulate\+Options}} object which contains the initial set of parameters that the \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} may configure itself with.
 
@@ -68,10 +70,11 @@ There are three key members of the \mbox{\hyperlink{classrr_1_1Integrator}{Integ
 \begin{DoxyItemize}
 \item Integrator\+::integrate This is the actual method that should perform the time integration.\end{DoxyItemize}
 \begin{DoxyItemize}
-\item Integrator\+::restart This method is called whenever the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object is re-\/started. This gives the integrator an option to reload any internal solvers. Simple integrators like the \mbox{\hyperlink{classrr_1_1EulerIntegrator}{Euler\+Integrator}} does not really do anything in the \mbox{\hyperlink{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}{Euler\+Integrator\+::restart}} method, but more sophisticated ones like the C\+V\+O\+DE integrator perform a number of tasks such as re-\/calclating the tollerances and so forth.\end{DoxyItemize}
+\item Integrator\+::restart This method is called whenever the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object is re-\/started. This gives the integrator an option to reload any internal solvers. Simple integrators like the \mbox{\hyperlink{classrr_1_1EulerIntegrator}{Euler\+Integrator}} does not really do anything in the \mbox{\hyperlink{classrr_1_1EulerIntegrator_a82a562273e6d73bebcb8e25de45a20a4}{Euler\+Integrator\+::restart}} method, but more sophisticated ones like the CVODE integrator perform a number of tasks such as re-\/calclating the tollerances and so forth.\end{DoxyItemize}
 The other key thing that an \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} needs to do is provide a 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keyword}{const} Dictionary* getIntegratorOptions();}
+
 \end{DoxyCode}
  method, as in the Euler\+Integrator\+::get\+Integrator\+Options. This method is used by the \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} to build a list of all the available tuning parameters that any integrator supports. The returned \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} pointer should be statically created inside the implemtation file, and should contain the following keys / values
 
@@ -120,6 +123,7 @@ First, a new enum value needs to be added to the Integrator\+::\+Integrator\+Id 
 \DoxyCodeLine{\{}
 \DoxyCodeLine{    result = \textcolor{keyword}{new} CVODEIntegrator(m, opt);}
 \DoxyCodeLine{\}}
+
 \end{DoxyCode}
 
 
@@ -133,6 +137,7 @@ Finally, the Integrator\+Factory\+::get\+Integrator\+Options() method needs to b
 \DoxyCodeLine{        RK4Integrator::getIntegratorOptions(),}
 \DoxyCodeLine{        EulerIntegrator::getIntegratorOptions()}
 \DoxyCodeLine{\};}
+
 \end{DoxyCode}
 
 
@@ -149,18 +154,20 @@ This section includes the complete Euler integrator implemented in \mbox{\hyperl
 \DoxyCodeLine{  \textcolor{stringliteral}{'exampleParameter1'} : 123456}
 \DoxyCodeLine{  \textcolor{stringliteral}{'exampleParameter2'} : some value}
 \DoxyCodeLine{\}>}
+
 \end{DoxyCode}
 
 
 In Python, all the keyword arguments to the simulate method are packaged up and added to the dictionary which is passed into the \mbox{\hyperlink{classrr_1_1RoadRunner_a377834f22edadb7706779ecca7c1eb4e}{Road\+Runner\+::simulate}} method. In C++, the equivalent code would be\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{SimulateOptions\& opt = r.getSimulateOptions();}
-\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"integrator"}, \textcolor{stringliteral}{"euler"})}
-\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"exampleParameter1"}, 123456);}
-\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"exampleParameter2"}, \textcolor{stringliteral}{"some value"});}
+\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"{}integrator"{}}, \textcolor{stringliteral}{"{}euler"{}})}
+\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"{}exampleParameter1"{}}, 123456);}
+\DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"{}exampleParameter2"{}}, \textcolor{stringliteral}{"{}some value"{}});}
 \DoxyCodeLine{r.simulate();}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::cout << r.getIntegrator()-\/>toString() << std::endl;}
+
 \end{DoxyCode}
 
 

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="Matrix_8h" kind="file" language="C++">
     <compoundname>Matrix.h</compoundname>
     <includes local="yes">rr-libstruct/lsMatrix.h</includes>
     <includes local="no">algorithm</includes>
-    <includedby refid="Matrix3D_8h" local="yes">Matrix3D.h</includedby>
-    <includedby refid="ForwardSensitivitySolver_8h" local="yes">ForwardSensitivitySolver.h</includedby>
     <includedby refid="ForwardSensitivitySolver_8cpp" local="yes">ForwardSensitivitySolver.cpp</includedby>
+    <includedby refid="ForwardSensitivitySolver_8h" local="yes">ForwardSensitivitySolver.h</includedby>
+    <includedby refid="Matrix3D_8h" local="yes">Matrix3D.h</includedby>
     <incdepgraph>
       <node id="1">
         <label>Matrix.h</label>
@@ -29,51 +29,51 @@
         <link refid="Matrix_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
-      </node>
-      <node id="4">
-        <label>ForwardSensitivitySolver.h</label>
-        <link refid="ForwardSensitivitySolver_8h_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>CVODEIntegrator.h</label>
-        <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
       <node id="6">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="7">
-        <label>SensitivitySolverFactory.h</label>
-        <link refid="SensitivitySolverFactory_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
+        <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
       </node>
       <node id="2">
-        <label>Matrix3D.h</label>
-        <link refid="Matrix3D_8h_source"/>
+        <label>ForwardSensitivitySolver.h</label>
+        <link refid="ForwardSensitivitySolver_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="3">
+        <label>CVODEIntegrator.h</label>
+        <link refid="CVODEIntegrator_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="5">
+        <label>SensitivitySolverFactory.h</label>
+        <link refid="SensitivitySolverFactory_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Matrix3D.h</label>
+        <link refid="Matrix3D_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
         <label>SensitivitySolver.h</label>
         <link refid="SensitivitySolver_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -388,7 +388,7 @@
 <codeline lineno="414"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>rr</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="415"><highlight class="normal"></highlight></codeline>
 <codeline lineno="416"><highlight class="normal"></highlight></codeline>
-<codeline lineno="417"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_MATRIX_H</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//ROADRUNNER_MATRIX_H</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="Matrix.h"/>
   </compounddef>

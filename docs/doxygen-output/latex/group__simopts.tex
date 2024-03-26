@@ -8,131 +8,131 @@ Reflective wrappers for interacting with steady state solvers and integrators.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa8601a5e07c4ecf51504c93698dd8bd3}{get\+Num\+Registered\+Integrators}} ()
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa8601a5e07c4ecf51504c93698dd8bd3}{get\+Num\+Registered\+Integrators}} ()
 \begin{DoxyCompactList}\small\item\em Get the number of registered integrators. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa86407653706a5eb35952f8504a14f6b}{get\+Registered\+Integrator\+Name}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa86407653706a5eb35952f8504a14f6b}{get\+Registered\+Integrator\+Name}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the name of a registered integrator (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gab198855261c723dc9cda5b020ad4e968}{get\+Registered\+Integrator\+Hint}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gab198855261c723dc9cda5b020ad4e968}{get\+Registered\+Integrator\+Hint}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the hint of a registered integrator (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6f5e3612ce5b7786fb4beaee24e2ae28}{get\+Registered\+Integrator\+Description}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6f5e3612ce5b7786fb4beaee24e2ae28}{get\+Registered\+Integrator\+Description}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the description of a registered integrator (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9f53dbde25a049a9bb684d6ce62f4a53}{get\+Num\+Instantiated\+Integrators}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9f53dbde25a049a9bb684d6ce62f4a53}{get\+Num\+Instantiated\+Integrators}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Get the number of instantiated integrators. To instantiate an integrator, use \mbox{\hyperlink{group__simopts_ga03859721af6b184225c5c27469993526}{set\+Current\+Integrator}}. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga03859721af6b184225c5c27469993526}{set\+Current\+Integrator}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$name\+Of\+Integrator)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga03859721af6b184225c5c27469993526}{set\+Current\+Integrator}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$name\+Of\+Integrator)
 \begin{DoxyCompactList}\small\item\em Specify the current integrator to be used for simulation. This method instantiates a new integrator of the given type (e.\+g. cvode, gillespie) if one does not currently exist. Otherwise, the existing integrator of this type is used. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaaf577c92ea41732a71be75bcdb11ad03}{get\+Current\+Integrator\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaaf577c92ea41732a71be75bcdb11ad03}{get\+Current\+Integrator\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a description of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaaef7c92677683e15435efbf02933bc17}{get\+Current\+Integrator\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaaef7c92677683e15435efbf02933bc17}{get\+Current\+Integrator\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a description of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga57ee0556b06f18a717a049e80e78c662}{get\+Current\+Integrator\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga57ee0556b06f18a717a049e80e78c662}{get\+Current\+Integrator\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a short hint for the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga763ff26ae1a224347c45be95503a5f25}{get\+Number\+Of\+Current\+Integrator\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga763ff26ae1a224347c45be95503a5f25}{get\+Number\+Of\+Current\+Integrator\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Get the number of adjustable settings for the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga767db79a74407436ceadd4f9aed9d2d8}{get\+Current\+Integrator\+Nth\+Parameter\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga767db79a74407436ceadd4f9aed9d2d8}{get\+Current\+Integrator\+Nth\+Parameter\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the name of a parameter of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gacdb1b250a185069bb9095e5c57d21a15}{get\+Current\+Integrator\+Nth\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gacdb1b250a185069bb9095e5c57d21a15}{get\+Current\+Integrator\+Nth\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the description of a parameter of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga7fb8d8e319fc933326c7f7be85abcc86}{get\+Current\+Integrator\+Nth\+Parameter\+Display\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga7fb8d8e319fc933326c7f7be85abcc86}{get\+Current\+Integrator\+Nth\+Parameter\+Display\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the display name of a parameter of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga03d3ea3b70051af5ce5b7d9993f3014f}{get\+Current\+Integrator\+Nth\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga03d3ea3b70051af5ce5b7d9993f3014f}{get\+Current\+Integrator\+Nth\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the hint of a parameter of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4592d8b89172a225388305f80fa668bf}{get\+Current\+Integrator\+Nth\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4592d8b89172a225388305f80fa668bf}{get\+Current\+Integrator\+Nth\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the type of a parameter of the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga205c572e84b6551d3f151e535e4f4e56}{reset\+Current\+Integrator\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga205c572e84b6551d3f151e535e4f4e56}{reset\+Current\+Integrator\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Reset the integrator parameters to their default values. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga460b211b03cfa48ed8ba993d7ba64360}{get\+List\+Of\+Current\+Integrator\+Parameter\+Names}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga460b211b03cfa48ed8ba993d7ba64360}{get\+List\+Of\+Current\+Integrator\+Parameter\+Names}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Get the names of adjustable settings for the current integrator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga208ddd31ba6e9587b35589ac3b0b06cf}{get\+Current\+Integrator\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga208ddd31ba6e9587b35589ac3b0b06cf}{get\+Current\+Integrator\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the description for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga2b699c02f0dfec8d3c6b139101ccdd0b}{get\+Current\+Integrator\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga2b699c02f0dfec8d3c6b139101ccdd0b}{get\+Current\+Integrator\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the hint for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga994195c39a6b5711ee066d22ff1c40b1}{get\+Current\+Integrator\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga994195c39a6b5711ee066d22ff1c40b1}{get\+Current\+Integrator\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the return type for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga213e8eef897ae66c9b056f16eea0a627}{get\+Current\+Integrator\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga213e8eef897ae66c9b056f16eea0a627}{get\+Current\+Integrator\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the integer value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6f22352b5f0e7c3387443314d64e11a8}{set\+Current\+Integrator\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6f22352b5f0e7c3387443314d64e11a8}{set\+Current\+Integrator\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, int value)
 \begin{DoxyCompactList}\small\item\em Set the integer value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC unsigned int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga917a877643c486f36b8990cd1d4e4cdf}{get\+Current\+Integrator\+Parameter\+U\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC unsigned int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga917a877643c486f36b8990cd1d4e4cdf}{get\+Current\+Integrator\+Parameter\+UInt}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the unsigned integer value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6c9b94cd06de1df1f9cbd23552c0086e}{set\+Current\+Integrator\+Parameter\+U\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, unsigned int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6c9b94cd06de1df1f9cbd23552c0086e}{set\+Current\+Integrator\+Parameter\+UInt}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, unsigned int value)
 \begin{DoxyCompactList}\small\item\em Set the unsigned integer value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC double rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gae1a665a2397be6e44deed8f12c06a086}{get\+Current\+Integrator\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC double rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gae1a665a2397be6e44deed8f12c06a086}{get\+Current\+Integrator\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the double value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga3c19bbec9a976296bd303c478a49faca}{set\+Current\+Integrator\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga3c19bbec9a976296bd303c478a49faca}{set\+Current\+Integrator\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, double value)
 \begin{DoxyCompactList}\small\item\em Set the double value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gadc3d282328e0f7e3fbdb774edeb0a85b}{get\+Current\+Integrator\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gadc3d282328e0f7e3fbdb774edeb0a85b}{get\+Current\+Integrator\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the string value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga00ede917db32c969afdf1cf6cdba5e58}{set\+Current\+Integrator\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, const char $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga00ede917db32c969afdf1cf6cdba5e58}{set\+Current\+Integrator\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, const char $\ast$value)
 \begin{DoxyCompactList}\small\item\em Set the string value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga10253c662c0fc3209c03eddd18b17189}{get\+Current\+Integrator\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga10253c662c0fc3209c03eddd18b17189}{get\+Current\+Integrator\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the boolean value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9fafd1ec59dd2166482cada57a228907}{set\+Current\+Integrator\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9fafd1ec59dd2166482cada57a228907}{set\+Current\+Integrator\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, int value)
 \begin{DoxyCompactList}\small\item\em Set the boolean value for a specific integrator setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga8975486b773796272ae4df1f7d8d170a}{get\+Current\+Integrator\+Parameter\+Double\+Array}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, double $\ast$$\ast$value, int $\ast$len)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga8975486b773796272ae4df1f7d8d170a}{get\+Current\+Integrator\+Parameter\+Double\+Array}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, double $\ast$$\ast$value, int $\ast$len)
 \begin{DoxyCompactList}\small\item\em Get the double array value for a specific integrator setting. Should only used for absoluate tolerace. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga7b6c15875d590f7ef0260bf1fb1979a0}{set\+Current\+Integrator\+Parameter\+Double\+Array}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, double $\ast$value, int len)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga7b6c15875d590f7ef0260bf1fb1979a0}{set\+Current\+Integrator\+Parameter\+Double\+Array}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, double $\ast$value, int len)
 \begin{DoxyCompactList}\small\item\em Set the double array value for a specific integrator setting. Should only used for absoluate tolerace. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gac90890da4fa7088236e8088abe88546f}{set\+Current\+Integrator\+Individual\+Tolerance}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gac90890da4fa7088236e8088abe88546f}{set\+Current\+Integrator\+Individual\+Tolerance}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, double value)
 \begin{DoxyCompactList}\small\item\em Set the double array value for a specific integrator setting. Should only used for absoluate tolerace. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6fbf99a4844ffce08d85315d4b6c78a7}{get\+Num\+Registered\+Steady\+State\+Solvers}} ()
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga6fbf99a4844ffce08d85315d4b6c78a7}{get\+Num\+Registered\+Steady\+State\+Solvers}} ()
 \begin{DoxyCompactList}\small\item\em Get the number of registered steady state solvers. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gacd18e95822cd00ebf8a8b8c309c124eb}{get\+Registered\+Steady\+State\+Solver\+Name}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gacd18e95822cd00ebf8a8b8c309c124eb}{get\+Registered\+Steady\+State\+Solver\+Name}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the name of a registered steady state solver (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga52e63c80df1fe65bf546577244643a5d}{get\+Registered\+Steady\+State\+Solver\+Hint}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga52e63c80df1fe65bf546577244643a5d}{get\+Registered\+Steady\+State\+Solver\+Hint}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the hint of a registered steady state solver (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga401234c2b03f0d581719b70be3bb37aa}{get\+Registered\+Steady\+State\+Solver\+Description}} (int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga401234c2b03f0d581719b70be3bb37aa}{get\+Registered\+Steady\+State\+Solver\+Description}} (int n)
 \begin{DoxyCompactList}\small\item\em Get the description of a registered steady state solver (e.\+g. cvode etc.) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9c4768bbd5a8434983a859e7a1970569}{set\+Current\+Steady\+State\+Solver}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$name\+Of\+Steady\+State\+Solver)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga9c4768bbd5a8434983a859e7a1970569}{set\+Current\+Steady\+State\+Solver}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$name\+Of\+Steady\+State\+Solver)
 \begin{DoxyCompactList}\small\item\em Specify the current steady state solver to be used for simulation. This method instantiates a new steady state solver of the given type (e.\+g. cvode, gillespie) if one does not currently exist. Otherwise, the existing steady state solver of this type is used. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga72f7974f9fa5be30b5ed59cab276fdc5}{get\+Current\+Steady\+State\+Solver\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga72f7974f9fa5be30b5ed59cab276fdc5}{get\+Current\+Steady\+State\+Solver\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a description of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gad7885eabfff420f2199160a8b14b85dd}{get\+Current\+Steady\+State\+Solver\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gad7885eabfff420f2199160a8b14b85dd}{get\+Current\+Steady\+State\+Solver\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a description of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4aa73e5a1e3d68676070ab90db9063fa}{get\+Current\+Steady\+State\+Solver\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4aa73e5a1e3d68676070ab90db9063fa}{get\+Current\+Steady\+State\+Solver\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain a short hint for the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga23844d07340f60b3a6ab27ad8a9ee310}{get\+Number\+Of\+Current\+Steady\+State\+Solver\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga23844d07340f60b3a6ab27ad8a9ee310}{get\+Number\+Of\+Current\+Steady\+State\+Solver\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Get the number of adjustable settings for the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gad50210ebf997ceb3b18ee10b4cc9c710}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gad50210ebf997ceb3b18ee10b4cc9c710}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the name of a parameter of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaf6a6e5288a6f8b58f41737825046d24e}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Display\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaf6a6e5288a6f8b58f41737825046d24e}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Display\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the display name of a parameter of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga05dd029c5b8c15de5e2d4afe76eb292a}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga05dd029c5b8c15de5e2d4afe76eb292a}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the description of a parameter of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga47763c7b38d01d9e3270e4ed62174f87}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga47763c7b38d01d9e3270e4ed62174f87}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the hint of a parameter of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int n)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int n)
 \begin{DoxyCompactList}\small\item\em Get the type of a parameter of the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4118f6921374a739a1c70bbdd62fb369}{reset\+Current\+Steady\+State\+Solver\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga4118f6921374a739a1c70bbdd62fb369}{reset\+Current\+Steady\+State\+Solver\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Reset the steady state solver parameters to their default values. \end{DoxyCompactList}\item 
-const C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gac4968483656eaaa849126406ca6ad385}{solver\+Type\+To\+String}} (int code)
-\begin{DoxyCompactList}\small\item\em Get a string description of the type \mbox{[}S\+T\+A\+T\+IC M\+E\+M\+O\+RY -\/ DO N\+OT F\+R\+EE\mbox{]} Can call on return value of e.\+g. \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} to retrieve human-\/readable string representation. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaf64c105a0d97615c35c20fa3c914d02f}{get\+List\+Of\+Current\+Steady\+State\+Solver\+Parameter\+Names}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC const char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga5888dff87f249363284c2da8adeb2929}{solver\+Type\+To\+String}} (int code)
+\begin{DoxyCompactList}\small\item\em Get a string description of the type \mbox{[}STATIC MEMORY -\/ DO NOT FREE\mbox{]} Can call on return value of e.\+g. \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} to retrieve human-\/readable string representation. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaf64c105a0d97615c35c20fa3c914d02f}{get\+List\+Of\+Current\+Steady\+State\+Solver\+Parameter\+Names}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Get the names of adjustable settings for the current steady state solver. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gae4391215387abc3c42904baa80fc6dab}{get\+Current\+Steady\+State\+Solver\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gae4391215387abc3c42904baa80fc6dab}{get\+Current\+Steady\+State\+Solver\+Parameter\+Description}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the description for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga96d0f7c969a3bb1531e45e22b6ac03aa}{get\+Current\+Steady\+State\+Solver\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga96d0f7c969a3bb1531e45e22b6ac03aa}{get\+Current\+Steady\+State\+Solver\+Parameter\+Hint}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the hint for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gac019d29e6ecca6fc03e3e8655c3b8d2a}{get\+Current\+Steady\+State\+Solver\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gac019d29e6ecca6fc03e3e8655c3b8d2a}{get\+Current\+Steady\+State\+Solver\+Parameter\+Type}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the return type for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga68f9fd611c92985e64032f33c2113abf}{get\+Current\+Steady\+State\+Solver\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga68f9fd611c92985e64032f33c2113abf}{get\+Current\+Steady\+State\+Solver\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the integer value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaca6074f20bb8153c68434e01ca816e96}{set\+Current\+Steady\+State\+Solver\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaca6074f20bb8153c68434e01ca816e96}{set\+Current\+Steady\+State\+Solver\+Parameter\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, int value)
 \begin{DoxyCompactList}\small\item\em Set the integer value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC unsigned int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa1054e2ca39435ddbbd58404cd27b168}{get\+Current\+Steady\+State\+Solver\+Parameter\+U\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC unsigned int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gaa1054e2ca39435ddbbd58404cd27b168}{get\+Current\+Steady\+State\+Solver\+Parameter\+UInt}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the unsigned integer value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gabf3c2ce7c29a811c7820990105d6930e}{set\+Current\+Steady\+State\+Solver\+Parameter\+U\+Int}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, unsigned int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gabf3c2ce7c29a811c7820990105d6930e}{set\+Current\+Steady\+State\+Solver\+Parameter\+UInt}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, unsigned int value)
 \begin{DoxyCompactList}\small\item\em Set the unsigned integer value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC double rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga8b3f6e055847ea87ce3c7293b7811198}{get\+Current\+Steady\+State\+Solver\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC double rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga8b3f6e055847ea87ce3c7293b7811198}{get\+Current\+Steady\+State\+Solver\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the double value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga892908646abb69b7c66515f2c5d4876d}{set\+Current\+Steady\+State\+Solver\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga892908646abb69b7c66515f2c5d4876d}{set\+Current\+Steady\+State\+Solver\+Parameter\+Double}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, double value)
 \begin{DoxyCompactList}\small\item\em Set the double value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gabf43324e8fa464a080627fb2b1f33266}{get\+Current\+Steady\+State\+Solver\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gabf43324e8fa464a080627fb2b1f33266}{get\+Current\+Steady\+State\+Solver\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the string value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gab78a4576072dfd77426d8b945e5a6d77}{set\+Current\+Steady\+State\+Solver\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, const char $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_gab78a4576072dfd77426d8b945e5a6d77}{set\+Current\+Steady\+State\+Solver\+Parameter\+String}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, const char $\ast$value)
 \begin{DoxyCompactList}\small\item\em Set the string value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga37f8d24be664edd3f3cb3815e511d743}{get\+Current\+Steady\+State\+Solver\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga37f8d24be664edd3f3cb3815e511d743}{get\+Current\+Steady\+State\+Solver\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Get the boolean value for a specific steady state solver setting. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga0f6eb9daee5a9476c5f6b3c1b185bb28}{set\+Current\+Steady\+State\+Solver\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$parameter\+Name, int value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__simopts_ga0f6eb9daee5a9476c5f6b3c1b185bb28}{set\+Current\+Steady\+State\+Solver\+Parameter\+Boolean}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$parameter\+Name, int value)
 \begin{DoxyCompactList}\small\item\em Set the boolean value for a specific steady state solver setting. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -146,7 +146,7 @@ Reflective wrappers for interacting with steady state solvers and integrators.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorDescription@{getCurrentIntegratorDescription}}
 \index{getCurrentIntegratorDescription@{getCurrentIntegratorDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorDescription()}{getCurrentIntegratorDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -164,7 +164,7 @@ Returns a description of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorHint@{getCurrentIntegratorHint}}
 \index{getCurrentIntegratorHint@{getCurrentIntegratorHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorHint()}{getCurrentIntegratorHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -182,7 +182,7 @@ Returns a short hint of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorName@{getCurrentIntegratorName}}
 \index{getCurrentIntegratorName@{getCurrentIntegratorName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorName()}{getCurrentIntegratorName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -200,7 +200,7 @@ Returns a description of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorNthParameterDescription@{getCurrentIntegratorNthParameterDescription}}
 \index{getCurrentIntegratorNthParameterDescription@{getCurrentIntegratorNthParameterDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorNthParameterDescription()}{getCurrentIntegratorNthParameterDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -217,7 +217,7 @@ Get the description of a parameter of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorNthParameterDisplayName@{getCurrentIntegratorNthParameterDisplayName}}
 \index{getCurrentIntegratorNthParameterDisplayName@{getCurrentIntegratorNthParameterDisplayName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorNthParameterDisplayName()}{getCurrentIntegratorNthParameterDisplayName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Display\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Display\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -234,7 +234,7 @@ Get the display name of a parameter of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorNthParameterHint@{getCurrentIntegratorNthParameterHint}}
 \index{getCurrentIntegratorNthParameterHint@{getCurrentIntegratorNthParameterHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorNthParameterHint()}{getCurrentIntegratorNthParameterHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -251,7 +251,7 @@ Get the hint of a parameter of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorNthParameterName@{getCurrentIntegratorNthParameterName}}
 \index{getCurrentIntegratorNthParameterName@{getCurrentIntegratorNthParameterName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorNthParameterName()}{getCurrentIntegratorNthParameterName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -268,7 +268,7 @@ Get the name of a parameter of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorNthParameterType@{getCurrentIntegratorNthParameterType}}
 \index{getCurrentIntegratorNthParameterType@{getCurrentIntegratorNthParameterType}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorNthParameterType()}{getCurrentIntegratorNthParameterType()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Integrator\+Nth\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -285,7 +285,7 @@ Get the type of a parameter of the current integrator.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterBoolean@{getCurrentIntegratorParameterBoolean}}
 \index{getCurrentIntegratorParameterBoolean@{getCurrentIntegratorParameterBoolean}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterBoolean()}{getCurrentIntegratorParameterBoolean()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -305,7 +305,7 @@ Returns a boolean value for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterDescription@{getCurrentIntegratorParameterDescription}}
 \index{getCurrentIntegratorParameterDescription@{getCurrentIntegratorParameterDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterDescription()}{getCurrentIntegratorParameterDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -325,7 +325,7 @@ Returns a description for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterDouble@{getCurrentIntegratorParameterDouble}}
 \index{getCurrentIntegratorParameterDouble@{getCurrentIntegratorParameterDouble}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterDouble()}{getCurrentIntegratorParameterDouble()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC double rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC double rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -345,7 +345,7 @@ Returns a double value for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterDoubleArray@{getCurrentIntegratorParameterDoubleArray}}
 \index{getCurrentIntegratorParameterDoubleArray@{getCurrentIntegratorParameterDoubleArray}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterDoubleArray()}{getCurrentIntegratorParameterDoubleArray()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Double\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double $\ast$$\ast$}]{value,  }\item[{int $\ast$}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Double\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double $\ast$$\ast$}]{value,  }\item[{int $\ast$}]{len }\end{DoxyParamCaption})}
 
 
 
@@ -369,7 +369,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterHint@{getCurrentIntegratorParameterHint}}
 \index{getCurrentIntegratorParameterHint@{getCurrentIntegratorParameterHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterHint()}{getCurrentIntegratorParameterHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -389,7 +389,7 @@ Returns a hint for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterInt@{getCurrentIntegratorParameterInt}}
 \index{getCurrentIntegratorParameterInt@{getCurrentIntegratorParameterInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterInt()}{getCurrentIntegratorParameterInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -409,7 +409,7 @@ Returns an integer value for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterString@{getCurrentIntegratorParameterString}}
 \index{getCurrentIntegratorParameterString@{getCurrentIntegratorParameterString}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterString()}{getCurrentIntegratorParameterString()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -429,7 +429,7 @@ Returns a string value for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterType@{getCurrentIntegratorParameterType}}
 \index{getCurrentIntegratorParameterType@{getCurrentIntegratorParameterType}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterType()}{getCurrentIntegratorParameterType()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -443,13 +443,13 @@ Get the return type for a specific integrator setting.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns a integer that indicates the return type for the integrator setting. 0-\/S\+T\+R\+I\+NG, 1-\/B\+O\+OL, 2-\/I\+N\+T32, 3-\/U\+I\+N\+T32, 4-\/I\+N\+T64, 5-\/U\+I\+N\+T64, 6-\/F\+L\+O\+AT, 7-\/D\+O\+U\+B\+LE, 8-\/C\+H\+AR, 9-\/U\+C\+H\+AR, 10-\/E\+M\+P\+TY 
+Returns a integer that indicates the return type for the integrator setting. 0-\/STRING, 1-\/BOOL, 2-\/INT32, 3-\/UINT32, 4-\/INT64, 5-\/UINT64, 6-\/FLOAT, 7-\/DOUBLE, 8-\/CHAR, 9-\/UCHAR, 10-\/EMPTY 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__simopts_ga917a877643c486f36b8990cd1d4e4cdf}\label{group__simopts_ga917a877643c486f36b8990cd1d4e4cdf}} 
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentIntegratorParameterUInt@{getCurrentIntegratorParameterUInt}}
 \index{getCurrentIntegratorParameterUInt@{getCurrentIntegratorParameterUInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentIntegratorParameterUInt()}{getCurrentIntegratorParameterUInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC unsigned int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+U\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC unsigned int rrc\+Call\+Conv get\+Current\+Integrator\+Parameter\+UInt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -469,7 +469,7 @@ Returns an integer value for the integrator setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverDescription@{getCurrentSteadyStateSolverDescription}}
 \index{getCurrentSteadyStateSolverDescription@{getCurrentSteadyStateSolverDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverDescription()}{getCurrentSteadyStateSolverDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -487,7 +487,7 @@ Returns a description of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverHint@{getCurrentSteadyStateSolverHint}}
 \index{getCurrentSteadyStateSolverHint@{getCurrentSteadyStateSolverHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverHint()}{getCurrentSteadyStateSolverHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -505,7 +505,7 @@ Returns a short hint of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverName@{getCurrentSteadyStateSolverName}}
 \index{getCurrentSteadyStateSolverName@{getCurrentSteadyStateSolverName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverName()}{getCurrentSteadyStateSolverName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -523,7 +523,7 @@ Returns a description of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverNthParameterDescription@{getCurrentSteadyStateSolverNthParameterDescription}}
 \index{getCurrentSteadyStateSolverNthParameterDescription@{getCurrentSteadyStateSolverNthParameterDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverNthParameterDescription()}{getCurrentSteadyStateSolverNthParameterDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -540,7 +540,7 @@ Get the description of a parameter of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverNthParameterDisplayName@{getCurrentSteadyStateSolverNthParameterDisplayName}}
 \index{getCurrentSteadyStateSolverNthParameterDisplayName@{getCurrentSteadyStateSolverNthParameterDisplayName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverNthParameterDisplayName()}{getCurrentSteadyStateSolverNthParameterDisplayName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Display\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Display\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -557,7 +557,7 @@ Get the display name of a parameter of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverNthParameterHint@{getCurrentSteadyStateSolverNthParameterHint}}
 \index{getCurrentSteadyStateSolverNthParameterHint@{getCurrentSteadyStateSolverNthParameterHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverNthParameterHint()}{getCurrentSteadyStateSolverNthParameterHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -574,7 +574,7 @@ Get the hint of a parameter of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverNthParameterName@{getCurrentSteadyStateSolverNthParameterName}}
 \index{getCurrentSteadyStateSolverNthParameterName@{getCurrentSteadyStateSolverNthParameterName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverNthParameterName()}{getCurrentSteadyStateSolverNthParameterName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -591,7 +591,7 @@ Get the name of a parameter of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverNthParameterType@{getCurrentSteadyStateSolverNthParameterType}}
 \index{getCurrentSteadyStateSolverNthParameterType@{getCurrentSteadyStateSolverNthParameterType}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverNthParameterType()}{getCurrentSteadyStateSolverNthParameterType()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -608,7 +608,7 @@ Get the type of a parameter of the current steady state solver.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterBoolean@{getCurrentSteadyStateSolverParameterBoolean}}
 \index{getCurrentSteadyStateSolverParameterBoolean@{getCurrentSteadyStateSolverParameterBoolean}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterBoolean()}{getCurrentSteadyStateSolverParameterBoolean()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -628,7 +628,7 @@ Returns a boolean value for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterDescription@{getCurrentSteadyStateSolverParameterDescription}}
 \index{getCurrentSteadyStateSolverParameterDescription@{getCurrentSteadyStateSolverParameterDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterDescription()}{getCurrentSteadyStateSolverParameterDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -648,7 +648,7 @@ Returns a description for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterDouble@{getCurrentSteadyStateSolverParameterDouble}}
 \index{getCurrentSteadyStateSolverParameterDouble@{getCurrentSteadyStateSolverParameterDouble}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterDouble()}{getCurrentSteadyStateSolverParameterDouble()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC double rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC double rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -668,7 +668,7 @@ Returns a double value for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterHint@{getCurrentSteadyStateSolverParameterHint}}
 \index{getCurrentSteadyStateSolverParameterHint@{getCurrentSteadyStateSolverParameterHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterHint()}{getCurrentSteadyStateSolverParameterHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -688,7 +688,7 @@ Returns a hint for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterInt@{getCurrentSteadyStateSolverParameterInt}}
 \index{getCurrentSteadyStateSolverParameterInt@{getCurrentSteadyStateSolverParameterInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterInt()}{getCurrentSteadyStateSolverParameterInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -708,7 +708,7 @@ Returns an integer value for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterString@{getCurrentSteadyStateSolverParameterString}}
 \index{getCurrentSteadyStateSolverParameterString@{getCurrentSteadyStateSolverParameterString}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterString()}{getCurrentSteadyStateSolverParameterString()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -728,7 +728,7 @@ Returns a string value for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterType@{getCurrentSteadyStateSolverParameterType}}
 \index{getCurrentSteadyStateSolverParameterType@{getCurrentSteadyStateSolverParameterType}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterType()}{getCurrentSteadyStateSolverParameterType()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -742,13 +742,13 @@ Get the return type for a specific steady state solver setting.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns a integer that indicates the return type for the steady state solver setting. 0-\/S\+T\+R\+I\+NG, 1-\/B\+O\+OL, 2-\/I\+N\+T32, 3-\/U\+I\+N\+T32, 4-\/I\+N\+T64, 5-\/U\+I\+N\+T64, 6-\/F\+L\+O\+AT, 7-\/D\+O\+U\+B\+LE, 8-\/C\+H\+AR, 9-\/U\+C\+H\+AR, 10-\/E\+M\+P\+TY 
+Returns a integer that indicates the return type for the steady state solver setting. 0-\/STRING, 1-\/BOOL, 2-\/INT32, 3-\/UINT32, 4-\/INT64, 5-\/UINT64, 6-\/FLOAT, 7-\/DOUBLE, 8-\/CHAR, 9-\/UCHAR, 10-\/EMPTY 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__simopts_gaa1054e2ca39435ddbbd58404cd27b168}\label{group__simopts_gaa1054e2ca39435ddbbd58404cd27b168}} 
 \index{Solver options wrappers@{Solver options wrappers}!getCurrentSteadyStateSolverParameterUInt@{getCurrentSteadyStateSolverParameterUInt}}
 \index{getCurrentSteadyStateSolverParameterUInt@{getCurrentSteadyStateSolverParameterUInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getCurrentSteadyStateSolverParameterUInt()}{getCurrentSteadyStateSolverParameterUInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC unsigned int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+U\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC unsigned int rrc\+Call\+Conv get\+Current\+Steady\+State\+Solver\+Parameter\+UInt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name }\end{DoxyParamCaption})}
 
 
 
@@ -768,7 +768,7 @@ Returns an integer value for the steady state solver setting.
 \index{Solver options wrappers@{Solver options wrappers}!getListOfCurrentIntegratorParameterNames@{getListOfCurrentIntegratorParameterNames}}
 \index{getListOfCurrentIntegratorParameterNames@{getListOfCurrentIntegratorParameterNames}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getListOfCurrentIntegratorParameterNames()}{getListOfCurrentIntegratorParameterNames()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv get\+List\+Of\+Current\+Integrator\+Parameter\+Names (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv get\+List\+Of\+Current\+Integrator\+Parameter\+Names (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -786,7 +786,7 @@ Returns a list that contains the names of adjustable integrator settings.
 \index{Solver options wrappers@{Solver options wrappers}!getListOfCurrentSteadyStateSolverParameterNames@{getListOfCurrentSteadyStateSolverParameterNames}}
 \index{getListOfCurrentSteadyStateSolverParameterNames@{getListOfCurrentSteadyStateSolverParameterNames}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getListOfCurrentSteadyStateSolverParameterNames()}{getListOfCurrentSteadyStateSolverParameterNames()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv get\+List\+Of\+Current\+Steady\+State\+Solver\+Parameter\+Names (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv get\+List\+Of\+Current\+Steady\+State\+Solver\+Parameter\+Names (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -804,7 +804,7 @@ Returns a list that contains the names of adjustable steady state solver setting
 \index{Solver options wrappers@{Solver options wrappers}!getNumberOfCurrentIntegratorParameters@{getNumberOfCurrentIntegratorParameters}}
 \index{getNumberOfCurrentIntegratorParameters@{getNumberOfCurrentIntegratorParameters}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getNumberOfCurrentIntegratorParameters()}{getNumberOfCurrentIntegratorParameters()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Number\+Of\+Current\+Integrator\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Number\+Of\+Current\+Integrator\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -822,7 +822,7 @@ Returns an integer that corresponds to the number of adjustable integrator setti
 \index{Solver options wrappers@{Solver options wrappers}!getNumberOfCurrentSteadyStateSolverParameters@{getNumberOfCurrentSteadyStateSolverParameters}}
 \index{getNumberOfCurrentSteadyStateSolverParameters@{getNumberOfCurrentSteadyStateSolverParameters}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getNumberOfCurrentSteadyStateSolverParameters()}{getNumberOfCurrentSteadyStateSolverParameters()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Number\+Of\+Current\+Steady\+State\+Solver\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Number\+Of\+Current\+Steady\+State\+Solver\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -840,7 +840,7 @@ Returns an integer that corresponds to the number of adjustable steady state sol
 \index{Solver options wrappers@{Solver options wrappers}!getNumInstantiatedIntegrators@{getNumInstantiatedIntegrators}}
 \index{getNumInstantiatedIntegrators@{getNumInstantiatedIntegrators}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getNumInstantiatedIntegrators()}{getNumInstantiatedIntegrators()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Num\+Instantiated\+Integrators (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Num\+Instantiated\+Integrators (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -858,7 +858,7 @@ Returns an integer that corresponds to the number of currently registered integr
 \index{Solver options wrappers@{Solver options wrappers}!getNumRegisteredIntegrators@{getNumRegisteredIntegrators}}
 \index{getNumRegisteredIntegrators@{getNumRegisteredIntegrators}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getNumRegisteredIntegrators()}{getNumRegisteredIntegrators()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Num\+Registered\+Integrators (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Num\+Registered\+Integrators (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -871,7 +871,7 @@ Returns an integer that corresponds to the number of currently registered integr
 \index{Solver options wrappers@{Solver options wrappers}!getNumRegisteredSteadyStateSolvers@{getNumRegisteredSteadyStateSolvers}}
 \index{getNumRegisteredSteadyStateSolvers@{getNumRegisteredSteadyStateSolvers}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getNumRegisteredSteadyStateSolvers()}{getNumRegisteredSteadyStateSolvers()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Num\+Registered\+Steady\+State\+Solvers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Num\+Registered\+Steady\+State\+Solvers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -884,7 +884,7 @@ Returns an integer that corresponds to the number of currently registered steady
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredIntegratorDescription@{getRegisteredIntegratorDescription}}
 \index{getRegisteredIntegratorDescription@{getRegisteredIntegratorDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredIntegratorDescription()}{getRegisteredIntegratorDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Description (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Description (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -902,7 +902,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredIntegratorHint@{getRegisteredIntegratorHint}}
 \index{getRegisteredIntegratorHint@{getRegisteredIntegratorHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredIntegratorHint()}{getRegisteredIntegratorHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Hint (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Hint (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -920,7 +920,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredIntegratorName@{getRegisteredIntegratorName}}
 \index{getRegisteredIntegratorName@{getRegisteredIntegratorName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredIntegratorName()}{getRegisteredIntegratorName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Name (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Integrator\+Name (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -938,7 +938,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredSteadyStateSolverDescription@{getRegisteredSteadyStateSolverDescription}}
 \index{getRegisteredSteadyStateSolverDescription@{getRegisteredSteadyStateSolverDescription}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredSteadyStateSolverDescription()}{getRegisteredSteadyStateSolverDescription()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Description (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Description (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -956,7 +956,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredSteadyStateSolverHint@{getRegisteredSteadyStateSolverHint}}
 \index{getRegisteredSteadyStateSolverHint@{getRegisteredSteadyStateSolverHint}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredSteadyStateSolverHint()}{getRegisteredSteadyStateSolverHint()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Hint (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Hint (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -974,7 +974,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!getRegisteredSteadyStateSolverName@{getRegisteredSteadyStateSolverName}}
 \index{getRegisteredSteadyStateSolverName@{getRegisteredSteadyStateSolverName}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{getRegisteredSteadyStateSolverName()}{getRegisteredSteadyStateSolverName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Name (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Registered\+Steady\+State\+Solver\+Name (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -992,7 +992,7 @@ Callee owns memory
 \index{Solver options wrappers@{Solver options wrappers}!resetCurrentIntegratorParameters@{resetCurrentIntegratorParameters}}
 \index{resetCurrentIntegratorParameters@{resetCurrentIntegratorParameters}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{resetCurrentIntegratorParameters()}{resetCurrentIntegratorParameters()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv reset\+Current\+Integrator\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv reset\+Current\+Integrator\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -1010,7 +1010,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!resetCurrentSteadyStateSolverParameters@{resetCurrentSteadyStateSolverParameters}}
 \index{resetCurrentSteadyStateSolverParameters@{resetCurrentSteadyStateSolverParameters}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{resetCurrentSteadyStateSolverParameters()}{resetCurrentSteadyStateSolverParameters()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv reset\+Current\+Steady\+State\+Solver\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv reset\+Current\+Steady\+State\+Solver\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -1028,7 +1028,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegrator@{setCurrentIntegrator}}
 \index{setCurrentIntegrator@{setCurrentIntegrator}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegrator()}{setCurrentIntegrator()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{name\+Of\+Integrator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{name\+Of\+Integrator }\end{DoxyParamCaption})}
 
 
 
@@ -1048,7 +1048,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorIndividualTolerance@{setCurrentIntegratorIndividualTolerance}}
 \index{setCurrentIntegratorIndividualTolerance@{setCurrentIntegratorIndividualTolerance}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorIndividualTolerance()}{setCurrentIntegratorIndividualTolerance()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Individual\+Tolerance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Individual\+Tolerance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1070,7 +1070,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterBoolean@{setCurrentIntegratorParameterBoolean}}
 \index{setCurrentIntegratorParameterBoolean@{setCurrentIntegratorParameterBoolean}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterBoolean()}{setCurrentIntegratorParameterBoolean()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1092,7 +1092,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterDouble@{setCurrentIntegratorParameterDouble}}
 \index{setCurrentIntegratorParameterDouble@{setCurrentIntegratorParameterDouble}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterDouble()}{setCurrentIntegratorParameterDouble()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1114,7 +1114,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterDoubleArray@{setCurrentIntegratorParameterDoubleArray}}
 \index{setCurrentIntegratorParameterDoubleArray@{setCurrentIntegratorParameterDoubleArray}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterDoubleArray()}{setCurrentIntegratorParameterDoubleArray()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Double\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double $\ast$}]{value,  }\item[{int}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Double\+Array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double $\ast$}]{value,  }\item[{int}]{len }\end{DoxyParamCaption})}
 
 
 
@@ -1138,7 +1138,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterInt@{setCurrentIntegratorParameterInt}}
 \index{setCurrentIntegratorParameterInt@{setCurrentIntegratorParameterInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterInt()}{setCurrentIntegratorParameterInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1160,7 +1160,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterString@{setCurrentIntegratorParameterString}}
 \index{setCurrentIntegratorParameterString@{setCurrentIntegratorParameterString}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterString()}{setCurrentIntegratorParameterString()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1182,7 +1182,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentIntegratorParameterUInt@{setCurrentIntegratorParameterUInt}}
 \index{setCurrentIntegratorParameterUInt@{setCurrentIntegratorParameterUInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentIntegratorParameterUInt()}{setCurrentIntegratorParameterUInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+U\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Integrator\+Parameter\+UInt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1204,7 +1204,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolver@{setCurrentSteadyStateSolver}}
 \index{setCurrentSteadyStateSolver@{setCurrentSteadyStateSolver}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolver()}{setCurrentSteadyStateSolver()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{name\+Of\+Steady\+State\+Solver }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{name\+Of\+Steady\+State\+Solver }\end{DoxyParamCaption})}
 
 
 
@@ -1224,7 +1224,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolverParameterBoolean@{setCurrentSteadyStateSolverParameterBoolean}}
 \index{setCurrentSteadyStateSolverParameterBoolean@{setCurrentSteadyStateSolverParameterBoolean}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolverParameterBoolean()}{setCurrentSteadyStateSolverParameterBoolean()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Boolean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1246,7 +1246,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolverParameterDouble@{setCurrentSteadyStateSolverParameterDouble}}
 \index{setCurrentSteadyStateSolverParameterDouble@{setCurrentSteadyStateSolverParameterDouble}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolverParameterDouble()}{setCurrentSteadyStateSolverParameterDouble()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1268,7 +1268,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolverParameterInt@{setCurrentSteadyStateSolverParameterInt}}
 \index{setCurrentSteadyStateSolverParameterInt@{setCurrentSteadyStateSolverParameterInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolverParameterInt()}{setCurrentSteadyStateSolverParameterInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1290,7 +1290,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolverParameterString@{setCurrentSteadyStateSolverParameterString}}
 \index{setCurrentSteadyStateSolverParameterString@{setCurrentSteadyStateSolverParameterString}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolverParameterString()}{setCurrentSteadyStateSolverParameterString()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1312,7 +1312,7 @@ Returns True if successful.
 \index{Solver options wrappers@{Solver options wrappers}!setCurrentSteadyStateSolverParameterUInt@{setCurrentSteadyStateSolverParameterUInt}}
 \index{setCurrentSteadyStateSolverParameterUInt@{setCurrentSteadyStateSolverParameterUInt}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{setCurrentSteadyStateSolverParameterUInt()}{setCurrentSteadyStateSolverParameterUInt()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+U\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Current\+Steady\+State\+Solver\+Parameter\+UInt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{parameter\+Name,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -1330,15 +1330,15 @@ Set the unsigned integer value for a specific steady state solver setting.
 \begin{DoxyReturn}{Returns}
 Returns True if successful. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{group__simopts_gac4968483656eaaa849126406ca6ad385}\label{group__simopts_gac4968483656eaaa849126406ca6ad385}} 
+\mbox{\Hypertarget{group__simopts_ga5888dff87f249363284c2da8adeb2929}\label{group__simopts_ga5888dff87f249363284c2da8adeb2929}} 
 \index{Solver options wrappers@{Solver options wrappers}!solverTypeToString@{solverTypeToString}}
 \index{solverTypeToString@{solverTypeToString}!Solver options wrappers@{Solver options wrappers}}
 \doxysubsubsection{\texorpdfstring{solverTypeToString()}{solverTypeToString()}}
-{\footnotesize\ttfamily const C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv solver\+Type\+To\+String (\begin{DoxyParamCaption}\item[{int}]{code }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC const char$\ast$ rrc\+Call\+Conv solver\+Type\+To\+String (\begin{DoxyParamCaption}\item[{int}]{code }\end{DoxyParamCaption})}
 
 
 
-Get a string description of the type \mbox{[}S\+T\+A\+T\+IC M\+E\+M\+O\+RY -\/ DO N\+OT F\+R\+EE\mbox{]} Can call on return value of e.\+g. \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} to retrieve human-\/readable string representation. 
+Get a string description of the type \mbox{[}STATIC MEMORY -\/ DO NOT FREE\mbox{]} Can call on return value of e.\+g. \mbox{\hyperlink{group__simopts_ga69e42b48d6cd2347e27a6f3327d025e3}{get\+Current\+Steady\+State\+Solver\+Nth\+Parameter\+Type}} to retrieve human-\/readable string representation. 
 
 
 \begin{DoxyParams}[1]{Parameters}

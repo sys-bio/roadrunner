@@ -8,19 +8,19 @@ Initialize library and terminate library instance.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga3285113641ecf1dc35c39fceb39b60fc}{create\+R\+R\+Instance}} (void)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga3285113641ecf1dc35c39fceb39b60fc}{create\+RRInstance}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize a new road\+Runner instance and return a handle to it. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga0bd8e459a637346cdf196f91148015ec}{create\+R\+R\+Instance\+Ex}} (const char $\ast$temp\+Folder, const char $\ast$compiler)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga0bd8e459a637346cdf196f91148015ec}{create\+RRInstance\+Ex}} (const char $\ast$temp\+Folder, const char $\ast$compiler)
 \begin{DoxyCompactList}\small\item\em Initialize a new road\+Runner instance and return a handle to it. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gae0b2f65464742bba3beb0ad38dcdd863}{free\+R\+R\+Instance}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gae0b2f65464742bba3beb0ad38dcdd863}{free\+RRInstance}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Free the road\+Runner instance. \end{DoxyCompactList}\item 
 char $\ast$ \mbox{\hyperlink{group__initialization_gad1a68a41c939d388df3d8cf1f14023a5}{get\+Install\+Folder}} (void)
 \begin{DoxyCompactList}\small\item\em Returns the folder in which the Road\+Runner wrappers is installed. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gabe314ab514c04cd902c078b864f22a64}{set\+Install\+Folder}} (const char $\ast$folder)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gabe314ab514c04cd902c078b864f22a64}{set\+Install\+Folder}} (const char $\ast$folder)
 \begin{DoxyCompactList}\small\item\em Set the internal string containing the folder in where the Road\+Runner C wrappers is installed. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gacb21c6ed7c891635f41cfd43e99cda2f}{set\+Compute\+And\+Assign\+Conservation\+Laws}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const bool On\+\_\+\+Or\+\_\+\+Off)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_gacb21c6ed7c891635f41cfd43e99cda2f}{set\+Compute\+And\+Assign\+Conservation\+Laws}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const bool On\+\_\+\+Or\+\_\+\+Off)
 \begin{DoxyCompactList}\small\item\em Enable or disable conservation analysis. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga3e9ca24ab5e08fa5a5c70aad4d9d255c}{get\+Compute\+And\+Assign\+Conservation\+Laws}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__initialization_ga3e9ca24ab5e08fa5a5c70aad4d9d255c}{get\+Compute\+And\+Assign\+Conservation\+Laws}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int $\ast$value)
 \begin{DoxyCompactList}\small\item\em Get the value of the moiety conservation setting. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -28,7 +28,7 @@ C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__
 Initialize library and terminate library instance. 
 
 Road\+Runner C wrappers Library\hypertarget{group__initialization_intro_sec}{}\doxysubsection{Introduction}\label{group__initialization_intro_sec}
-Road\+Runner is a S\+B\+ML compliant high performance and portable simulation engine for systems and synthetic biology. To run a simple S\+B\+ML model and generate time series data we would write the following code\+:
+Road\+Runner is a SBML compliant high performance and portable simulation engine for systems and synthetic biology. To run a simple SBML model and generate time series data we would write the following code\+:
 
 
 \begin{DoxyCode}{0}
@@ -36,17 +36,17 @@ Road\+Runner is a S\+B\+ML compliant high performance and portable simulation en
 \DoxyCodeLine{\textcolor{preprocessor}{\#define STATIC\_RRC}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdio.h>}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdlib.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"{}}}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{}
 \DoxyCodeLine{    \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrHandle;}
 \DoxyCodeLine{    \mbox{\hyperlink{structRRCData}{RRCDataPtr}} result;}
 \DoxyCodeLine{}
-\DoxyCodeLine{    printf (\textcolor{stringliteral}{"Starting Test Program \%s\(\backslash\)n"}, argv[0]);}
+\DoxyCodeLine{    printf (\textcolor{stringliteral}{"{}Starting Test Program \%s\(\backslash\)n"{}}, argv[0]);}
 \DoxyCodeLine{    rrHandle = \mbox{\hyperlink{group__initialization_ga3285113641ecf1dc35c39fceb39b60fc}{createRRInstance}}();}
-\DoxyCodeLine{    \textcolor{keywordflow}{if} (!\mbox{\hyperlink{group__loadsave_ga03cb924c6790b039f77a1a9c5dbcdda1}{loadSBMLFromFile}} (rrHandle, \textcolor{stringliteral}{"feedback.xml"})) \{}
-\DoxyCodeLine{        printf (\textcolor{stringliteral}{"Failed to load model: \%s\(\backslash\)n"}, \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{getLastError}} ());}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} (!\mbox{\hyperlink{group__loadsave_ga03cb924c6790b039f77a1a9c5dbcdda1}{loadSBMLFromFile}} (rrHandle, \textcolor{stringliteral}{"{}feedback.xml"{}})) \{}
+\DoxyCodeLine{        printf (\textcolor{stringliteral}{"{}Failed to load model: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{getLastError}} ());}
 \DoxyCodeLine{        getchar ();}
 \DoxyCodeLine{        exit (0);}
 \DoxyCodeLine{    \}}
@@ -57,6 +57,7 @@ Road\+Runner is a S\+B\+ML compliant high performance and portable simulation en
 \DoxyCodeLine{    getchar ();}
 \DoxyCodeLine{    exit (0);}
 \DoxyCodeLine{\}}
+
 \end{DoxyCode}
 
 
@@ -66,20 +67,20 @@ More complex example, using C wrappers\+:
 \DoxyCodeLine{\textcolor{preprocessor}{\#define STATIC\_RRC}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdio.h>}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdlib.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"{}}}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{}
 \DoxyCodeLine{   \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrHandle;}
 \DoxyCodeLine{   \mbox{\hyperlink{structRRCData}{RRCDataPtr}} result;}
 \DoxyCodeLine{   \textcolor{keywordtype}{int} index;}
 \DoxyCodeLine{   \textcolor{keywordtype}{int} col;}
 \DoxyCodeLine{   \textcolor{keywordtype}{int} row;}
-\DoxyCodeLine{   printf (\textcolor{stringliteral}{"Starting Test Program \%s\(\backslash\)n"}, argv[0]);}
+\DoxyCodeLine{   printf (\textcolor{stringliteral}{"{}Starting Test Program \%s\(\backslash\)n"{}}, argv[0]);}
 \DoxyCodeLine{   rrHandle = \mbox{\hyperlink{group__initialization_ga3285113641ecf1dc35c39fceb39b60fc}{createRRInstance}}();}
-\DoxyCodeLine{   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{group__loadsave_gaeaaaf4f7855457d6207934149f52f5f9}{loadSBML}} (rrHandle, \textcolor{stringliteral}{"feedback.xml"})) \{}
-\DoxyCodeLine{      printf (\textcolor{stringliteral}{"Error while loading SBML file\(\backslash\)n"});}
-\DoxyCodeLine{      printf (\textcolor{stringliteral}{"Error message: \%s\(\backslash\)n"}, \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{getLastError}}());}
+\DoxyCodeLine{   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{group__loadsave_gaeaaaf4f7855457d6207934149f52f5f9}{loadSBML}} (rrHandle, \textcolor{stringliteral}{"{}feedback.xml"{}})) \{}
+\DoxyCodeLine{      printf (\textcolor{stringliteral}{"{}Error while loading SBML file\(\backslash\)n"{}});}
+\DoxyCodeLine{      printf (\textcolor{stringliteral}{"{}Error message: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{group__errorfunctions_gaa698640f13467d87966d8b90f0c3944c}{getLastError}}());}
 \DoxyCodeLine{      getchar ();}
 \DoxyCodeLine{      exit (0);}
 \DoxyCodeLine{   \}}
@@ -88,32 +89,33 @@ More complex example, using C wrappers\+:
 \DoxyCodeLine{   \textcolor{comment}{// Print out column headers... typically time and species.}}
 \DoxyCodeLine{   \textcolor{keywordflow}{for} (col = 0; col < result-\/>\mbox{\hyperlink{structRRCData_a573616e93e0241d11b40ea56c708041b}{CSize}}; col++)}
 \DoxyCodeLine{   \{}
-\DoxyCodeLine{      printf (\textcolor{stringliteral}{"\%10s"}, result-\/>\mbox{\hyperlink{structRRCData_a54acd2748775883500033984275be173}{ColumnHeaders}}[index++]);}
+\DoxyCodeLine{      printf (\textcolor{stringliteral}{"{}\%10s"{}}, result-\/>\mbox{\hyperlink{structRRCData_a54acd2748775883500033984275be173}{ColumnHeaders}}[index++]);}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (col < result-\/>CSize -\/ 1)}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{         printf (\textcolor{stringliteral}{"\(\backslash\)t"});}
+\DoxyCodeLine{         printf (\textcolor{stringliteral}{"{}\(\backslash\)t"{}});}
 \DoxyCodeLine{      \}}
 \DoxyCodeLine{   \}}
-\DoxyCodeLine{   printf (\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{   printf (\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
 \DoxyCodeLine{   index = 0;}
 \DoxyCodeLine{   \textcolor{comment}{// Print out the data}}
 \DoxyCodeLine{   \textcolor{keywordflow}{for} (row = 0; row < result-\/>\mbox{\hyperlink{structRRCData_aaebd12e68638f3572eea166c7dd0af69}{RSize}}; row++)}
 \DoxyCodeLine{   \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{for} (col = 0; col < result-\/>\mbox{\hyperlink{structRRCData_a573616e93e0241d11b40ea56c708041b}{CSize}}; col++)}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{         printf (\textcolor{stringliteral}{"\%10f"}, result-\/>\mbox{\hyperlink{structRRCData_a4f2db98f036a01dca7168fee658bac0c}{Data}}[index++]);}
+\DoxyCodeLine{         printf (\textcolor{stringliteral}{"{}\%10f"{}}, result-\/>\mbox{\hyperlink{structRRCData_a4f2db98f036a01dca7168fee658bac0c}{Data}}[index++]);}
 \DoxyCodeLine{         \textcolor{keywordflow}{if} (col < result-\/>CSize -\/1)}
 \DoxyCodeLine{         \{}
-\DoxyCodeLine{            printf (\textcolor{stringliteral}{"\(\backslash\)t"});}
+\DoxyCodeLine{            printf (\textcolor{stringliteral}{"{}\(\backslash\)t"{}});}
 \DoxyCodeLine{         \}}
 \DoxyCodeLine{      \}}
-\DoxyCodeLine{   printf (\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{   printf (\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
 \DoxyCodeLine{   \}}
 \DoxyCodeLine{   \textcolor{comment}{//Cleanup}}
 \DoxyCodeLine{   \mbox{\hyperlink{group__freeRoutines_ga2f52213c492e3c4c5d2ac6c72e04a035}{freeRRCData}} (result);}
 \DoxyCodeLine{   \mbox{\hyperlink{group__initialization_gae0b2f65464742bba3beb0ad38dcdd863}{freeRRInstance}} (rrHandle);}
 \DoxyCodeLine{   getchar ();}
 \DoxyCodeLine{   exit (0);}
+
 \end{DoxyCode}
 
 
@@ -134,38 +136,38 @@ Would create output as shown below\+:
 \DoxyCodeLine{ 7.777778        0.193459        0.268986        0.628542        1.483161}
 \DoxyCodeLine{ 8.888889        1.566864        1.219950        1.105718        1.370199}
 \DoxyCodeLine{10.000000        0.269437        0.678127        1.199353        1.868247}
+
 \end{DoxyCode}
  Note that if you are using a C++ compiler, you\textquotesingle{}ll need to change the \#include lines of both above programs to\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdio.h>}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <stdlib.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__api_8h}{rrc\_api.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__types_8h}{rrc\_types.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rrc__utilities_8h}{rrc\_utilities.h}}"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keyword}{using namespace }rrc;}
+
 \end{DoxyCode}
  \hypertarget{group__initialization_install_sec}{}\doxysubsection{Installation}\label{group__initialization_install_sec}
 Installation documentation is provided at lib\+Road\+Runner.\+org.\hypertarget{group__initialization_license_sec}{}\doxysubsection{License}\label{group__initialization_license_sec}
-Copyright (C) 2012 University of Washington, Seattle, WA, U\+SA
+Copyright (C) 2012 University of Washington, Seattle, WA, USA
 
 Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb}http://www.apache.org/licenses/LICENSE-2.0
 \end{DoxyVerb}
-
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 In plain english this means\+:
 
-You C\+AN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
+You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
 
-You C\+AN use the software in packages or distributions that you create.
+You CAN use the software in packages or distributions that you create.
 
-You S\+H\+O\+U\+LD include a copy of the license in any redistribution you may make;
+You SHOULD include a copy of the license in any redistribution you may make;
 
-You are N\+OT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
+You are NOT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
 
-Y\+OU C\+A\+N\+N\+OT\+:
+YOU CANNOT\+:
 
 redistribute any piece of this software without proper attribution; 
 
@@ -174,7 +176,7 @@ redistribute any piece of this software without proper attribution;
 \index{Library initialization and termination methods@{Library initialization and termination methods}!createRRInstance@{createRRInstance}}
 \index{createRRInstance@{createRRInstance}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{createRRInstance()}{createRRInstance()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} rrc\+Call\+Conv create\+R\+R\+Instance (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrc\+Call\+Conv create\+RRInstance (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
@@ -187,7 +189,7 @@ Returns a Road\+Runner instance, returns null if it fails
 \index{Library initialization and termination methods@{Library initialization and termination methods}!createRRInstanceEx@{createRRInstanceEx}}
 \index{createRRInstanceEx@{createRRInstanceEx}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{createRRInstanceEx()}{createRRInstanceEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} rrc\+Call\+Conv create\+R\+R\+Instance\+Ex (\begin{DoxyParamCaption}\item[{const char $\ast$}]{temp\+Folder,  }\item[{const char $\ast$}]{compiler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rrc\+Call\+Conv create\+RRInstance\+Ex (\begin{DoxyParamCaption}\item[{const char $\ast$}]{temp\+Folder,  }\item[{const char $\ast$}]{compiler }\end{DoxyParamCaption})}
 
 
 
@@ -197,7 +199,7 @@ Initialize a new road\+Runner instance and return a handle to it.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em temp\+Folder} & set roadrunners temporary folder \\
 \hline
-\mbox{\texttt{ in}}  & {\em compiler} & may be N\+U\+LL, if N\+U\+LL, uses default compiler. If L\+L\+VM build is enabled, setting compiler to \char`\"{}llvm\char`\"{} enables llvm based model generation. \\
+\mbox{\texttt{ in}}  & {\em compiler} & may be NULL, if NULL, uses default compiler. If LLVM build is enabled, setting compiler to \char`\"{}llvm\char`\"{} enables llvm based model generation. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -207,7 +209,7 @@ Returns a Road\+Runner instance, returns null if it fails
 \index{Library initialization and termination methods@{Library initialization and termination methods}!freeRRInstance@{freeRRInstance}}
 \index{freeRRInstance@{freeRRInstance}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{freeRRInstance()}{freeRRInstance()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv free\+R\+R\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv free\+RRInstance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -222,7 +224,7 @@ Free the road\+Runner instance.
 \index{Library initialization and termination methods@{Library initialization and termination methods}!getComputeAndAssignConservationLaws@{getComputeAndAssignConservationLaws}}
 \index{getComputeAndAssignConservationLaws@{getComputeAndAssignConservationLaws}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{getComputeAndAssignConservationLaws()}{getComputeAndAssignConservationLaws()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Compute\+And\+Assign\+Conservation\+Laws (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Compute\+And\+Assign\+Conservation\+Laws (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -255,7 +257,7 @@ Pointer to string holding the install folder
 \index{Library initialization and termination methods@{Library initialization and termination methods}!setComputeAndAssignConservationLaws@{setComputeAndAssignConservationLaws}}
 \index{setComputeAndAssignConservationLaws@{setComputeAndAssignConservationLaws}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{setComputeAndAssignConservationLaws()}{setComputeAndAssignConservationLaws()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Compute\+And\+Assign\+Conservation\+Laws (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const bool}]{On\+\_\+\+Or\+\_\+\+Off }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Compute\+And\+Assign\+Conservation\+Laws (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const bool}]{On\+\_\+\+Or\+\_\+\+Off }\end{DoxyParamCaption})}
 
 
 
@@ -275,7 +277,7 @@ Returns true if successful
 \index{Library initialization and termination methods@{Library initialization and termination methods}!setInstallFolder@{setInstallFolder}}
 \index{setInstallFolder@{setInstallFolder}!Library initialization and termination methods@{Library initialization and termination methods}}
 \doxysubsubsection{\texorpdfstring{setInstallFolder()}{setInstallFolder()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Install\+Folder (\begin{DoxyParamCaption}\item[{const char $\ast$}]{folder }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Install\+Folder (\begin{DoxyParamCaption}\item[{const char $\ast$}]{folder }\end{DoxyParamCaption})}
 
 
 

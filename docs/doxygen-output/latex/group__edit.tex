@@ -2,138 +2,138 @@
 \label{group__edit}\index{Edit models@{Edit models}}
 
 
-Add or remove species or reactions without modifying S\+B\+ML files and reloading.  
+Add or remove species or reactions without modifying SBML files and reloading.  
 
 
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}{add\+Species\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}{add\+Species\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga213287c567b88a4f3619fdf379f67ac5}{add\+Species\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga213287c567b88a4f3619fdf379f67ac5}{add\+Species\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga48236ef5d127c7b685fd774d879c028a}{add\+Species\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga48236ef5d127c7b685fd774d879c028a}{add\+Species\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}{add\+Species\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}{add\+Species\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf5ebfc87d97383ffb003897259a21b6b}{remove\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf5ebfc87d97383ffb003897259a21b6b}{remove\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid)
 \begin{DoxyCompactList}\small\item\em Remove a species from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa5476fe243ffdaf0bcbfe66aea494235}{remove\+Species\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa5476fe243ffdaf0bcbfe66aea494235}{remove\+Species\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid)
 \begin{DoxyCompactList}\small\item\em Remove a species from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8921bdb73c1e763803e5b09f805d69b3}{set\+Boundary}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8921bdb73c1e763803e5b09f805d69b3}{set\+Boundary}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Set the boundary condition of an existing species. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gab9365d945c1d34faf59d9c5e7a00a82e}{set\+Boundary\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool boundary\+Condition)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gab9365d945c1d34faf59d9c5e7a00a82e}{set\+Boundary\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Set the boundary condition of an existing species, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga248d8ff19df589804f1c1694ac7e5f9e}{set\+Has\+Only\+Substance\+Units}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool has\+Only\+Substance\+Units)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga248d8ff19df589804f1c1694ac7e5f9e}{set\+Has\+Only\+Substance\+Units}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool has\+Only\+Substance\+Units)
 \begin{DoxyCompactList}\small\item\em Set the has\+Only\+Substance\+Units attribute for an existing species. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga9c7e43b21d3e26b38e66418790d8f3d1}{set\+Has\+Only\+Substance\+Units\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool has\+Only\+Substance\+Units)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga9c7e43b21d3e26b38e66418790d8f3d1}{set\+Has\+Only\+Substance\+Units\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool has\+Only\+Substance\+Units)
 \begin{DoxyCompactList}\small\item\em Set the has\+Only\+Substance\+Units attribute for an existing species, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga9ba3074a869cb39d563ae7d1506af16d}{set\+Init\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, double init\+Amount)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga9ba3074a869cb39d563ae7d1506af16d}{set\+Init\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, double init\+Amount)
 \begin{DoxyCompactList}\small\item\em Set initial amount for an existing species. Initial amount/concentration set before will be unset. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga80abbff53934b6f04a9afacd15473b96}{set\+Init\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, double init\+Amount)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga80abbff53934b6f04a9afacd15473b96}{set\+Init\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, double init\+Amount)
 \begin{DoxyCompactList}\small\item\em Set initial amount for an existing species, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga5026531e15978c336b2b4d4abcb2e9be}{set\+Init\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, double init\+Concentration)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga5026531e15978c336b2b4d4abcb2e9be}{set\+Init\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, double init\+Concentration)
 \begin{DoxyCompactList}\small\item\em Set initial concentration for an existing species. Initial amount/concentration set before will be unset. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadcd74cac7960af27a524825400a4a742}{set\+Init\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, double init\+Concentration)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadcd74cac7960af27a524825400a4a742}{set\+Init\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, double init\+Concentration)
 \begin{DoxyCompactList}\small\item\em Set initial concentration for an existing species, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6c9b053218414056b281784601620a02}{set\+Constant}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool constant)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6c9b053218414056b281784601620a02}{set\+Constant}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool constant)
 \begin{DoxyCompactList}\small\item\em Set the constant attribute for an existing species/ parameter/ compartment. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6fbb9c364b89b3d2314abf1a2f51fb18}{set\+Constant\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, bool constant)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6fbb9c364b89b3d2314abf1a2f51fb18}{set\+Constant\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sid, bool constant)
 \begin{DoxyCompactList}\small\item\em Set the constant attribute for an existing species/ parameter/ compartment, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga293a05e2160ded1dc93f6b9690fc1a13}{add\+Reaction\+From\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sbml\+Rep)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga293a05e2160ded1dc93f6b9690fc1a13}{add\+Reaction\+From\+SBML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sbml\+Rep)
 \begin{DoxyCompactList}\small\item\em Add a reaction to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadac1a7b790b66943345dfcdf828cc113}{add\+Reaction\+From\+S\+B\+M\+L\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sbml\+Rep)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadac1a7b790b66943345dfcdf828cc113}{add\+Reaction\+From\+SBMLNo\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$sbml\+Rep)
 \begin{DoxyCompactList}\small\item\em Add a reaction to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa7f6b9bba1b2f0b8b58c8f482996cb45}{add\+Reaction}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, const char $\ast$$\ast$reactants, int num\+Reactants, const char $\ast$$\ast$products, int num\+Products, const char $\ast$kinetic\+Law)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa7f6b9bba1b2f0b8b58c8f482996cb45}{add\+Reaction}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, const char $\ast$$\ast$reactants, int num\+Reactants, const char $\ast$$\ast$products, int num\+Products, const char $\ast$kinetic\+Law)
 \begin{DoxyCompactList}\small\item\em Add a reaction to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1fa5c6e3d14d7f3365c2dceb65d99dd0}{add\+Reaction\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, const char $\ast$$\ast$reactants, int num\+Reactants, const char $\ast$$\ast$products, int num\+Products, const char $\ast$kinetic\+Law)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1fa5c6e3d14d7f3365c2dceb65d99dd0}{add\+Reaction\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, const char $\ast$$\ast$reactants, int num\+Reactants, const char $\ast$$\ast$products, int num\+Products, const char $\ast$kinetic\+Law)
 \begin{DoxyCompactList}\small\item\em Add a reaction to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga18bb32c66077d71a3b9cd9b811c3e0c8}{remove\+Reaction}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga18bb32c66077d71a3b9cd9b811c3e0c8}{remove\+Reaction}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid)
 \begin{DoxyCompactList}\small\item\em Remove a reaction from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga47763245848a18dd12875537dabdcaa5}{remove\+Reaction\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga47763245848a18dd12875537dabdcaa5}{remove\+Reaction\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid)
 \begin{DoxyCompactList}\small\item\em Remove a reaction from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga2b076cf359d49f90b45166de827f5d0e}{set\+Reversible}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, bool reversible)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga2b076cf359d49f90b45166de827f5d0e}{set\+Reversible}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, bool reversible)
 \begin{DoxyCompactList}\small\item\em Set the reversible attribut for an existing reaction in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga381bd92c722f99592f023ee9638b1acd}{set\+Reversible\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, bool reversible)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga381bd92c722f99592f023ee9638b1acd}{set\+Reversible\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, bool reversible)
 \begin{DoxyCompactList}\small\item\em Set the reversible attribut for an existing reaction in the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga65af700ff39d9a62c478223c682bb820}{set\+Kinetic\+Law}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, const char $\ast$kinetic\+Law)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga65af700ff39d9a62c478223c682bb820}{set\+Kinetic\+Law}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, const char $\ast$kinetic\+Law)
 \begin{DoxyCompactList}\small\item\em Set the kinetic law for a existing reaction in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga13a6acbdb848b6eb8f5bbd1cdd6b5da0}{set\+Kinetic\+Law\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid, const char $\ast$kinetic\+Law)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga13a6acbdb848b6eb8f5bbd1cdd6b5da0}{set\+Kinetic\+Law\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid, const char $\ast$kinetic\+Law)
 \begin{DoxyCompactList}\small\item\em Set the kinetic law for a existing reaction in the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadbf20490f39ce700b719dc17810f186e}{get\+Kinetic\+Law}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$rid)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gadbf20490f39ce700b719dc17810f186e}{get\+Kinetic\+Law}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$rid)
 \begin{DoxyCompactList}\small\item\em Get the kinetic law for a existing reaction in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gacfd1209c0b382d7b6a6f2b3515e5db34}{add\+Parameter}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$pid, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gacfd1209c0b382d7b6a6f2b3515e5db34}{add\+Parameter}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$pid, double value)
 \begin{DoxyCompactList}\small\item\em Add a parameter to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4f437dc218d90dbee5ceb7d4da81a6fd}{add\+Parameter\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$pid, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4f437dc218d90dbee5ceb7d4da81a6fd}{add\+Parameter\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$pid, double value)
 \begin{DoxyCompactList}\small\item\em Add a parameter to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gac7df3bdfc5e286c38d8c01083c7758ae}{remove\+Parameter}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$pid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gac7df3bdfc5e286c38d8c01083c7758ae}{remove\+Parameter}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$pid)
 \begin{DoxyCompactList}\small\item\em Remove a parameter from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga0d02f47a521474e66796e6dc61315d42}{remove\+Parameter\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$pid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga0d02f47a521474e66796e6dc61315d42}{remove\+Parameter\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$pid)
 \begin{DoxyCompactList}\small\item\em Remove a parameter from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga7c977e3f0f4ce6bc995a8da3cad7a3ca}{add\+Compartment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid, double init\+Volume)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga7c977e3f0f4ce6bc995a8da3cad7a3ca}{add\+Compartment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$cid, double init\+Volume)
 \begin{DoxyCompactList}\small\item\em Add a compartment to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gabaf4d71079e13cfe0230c17f4852c999}{add\+Compartment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid, double init\+Volume)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gabaf4d71079e13cfe0230c17f4852c999}{add\+Compartment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$cid, double init\+Volume)
 \begin{DoxyCompactList}\small\item\em Add a compartment to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf8605b6f7b39d858088ba4e19397432b}{remove\+Compartment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf8605b6f7b39d858088ba4e19397432b}{remove\+Compartment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$cid)
 \begin{DoxyCompactList}\small\item\em Remove a compartment from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gafaed1396ad11b33059bb3ce43d366437}{remove\+Compartment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gafaed1396ad11b33059bb3ce43d366437}{remove\+Compartment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$cid)
 \begin{DoxyCompactList}\small\item\em Remove a compartment from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gabbe9164c7a231ec1897b499fde57c575}{add\+Assignment\+Rule}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gabbe9164c7a231ec1897b499fde57c575}{add\+Assignment\+Rule}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add an assignment rule to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1587edf0539fbe8e8c1eeab7649817fc}{add\+Assignment\+Rule\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1587edf0539fbe8e8c1eeab7649817fc}{add\+Assignment\+Rule\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add an assignment rule to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6d307cf036da117093ce7c12a1bbac12}{add\+Rate\+Rule}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6d307cf036da117093ce7c12a1bbac12}{add\+Rate\+Rule}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add a rate rule to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa976a37b5ae524589962a2e221bd5494}{add\+Rate\+Rule\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa976a37b5ae524589962a2e221bd5494}{add\+Rate\+Rule\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add a rate rule to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gacdcdce22857ccd8b1b50b23e9bb87a6d}{remove\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gacdcdce22857ccd8b1b50b23e9bb87a6d}{remove\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid)
 \begin{DoxyCompactList}\small\item\em Remove rules related to given variable from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga3e9e96480b844f89f7747ff393296e31}{remove\+Rules\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga3e9e96480b844f89f7747ff393296e31}{remove\+Rules\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$vid)
 \begin{DoxyCompactList}\small\item\em Remove rules related to given variable from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga422f646318432c53e55a21023d0a1c6a}{add\+Event}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool use\+Values\+From\+Trigger\+Time, const char $\ast$trigger)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga422f646318432c53e55a21023d0a1c6a}{add\+Event}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool use\+Values\+From\+Trigger\+Time, const char $\ast$trigger)
 \begin{DoxyCompactList}\small\item\em Add an event to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8ab641b74a9c41f4acc279743f3cbea3}{add\+Event\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool use\+Values\+From\+Trigger\+Time, const char $\ast$trigger)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8ab641b74a9c41f4acc279743f3cbea3}{add\+Event\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool use\+Values\+From\+Trigger\+Time, const char $\ast$trigger)
 \begin{DoxyCompactList}\small\item\em Add an event to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gab37b31b061870deec86b90d66957597f}{add\+Trigger}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$trigger)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gab37b31b061870deec86b90d66957597f}{add\+Trigger}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$trigger)
 \begin{DoxyCompactList}\small\item\em Add trigger to an existing event in the model If the given event already has a trigger object, the given trigger will replace the old trigger in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4c96ec4c2ceaed371f66ea3ded851b78}{add\+Trigger\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$trigger)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4c96ec4c2ceaed371f66ea3ded851b78}{add\+Trigger\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$trigger)
 \begin{DoxyCompactList}\small\item\em Add trigger to an existing event in the model, without regenerating it The last modification must regenerate for the modifications to take effect If the given event already has a trigger object, the given trigger will replace the old trigger in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63c76df048f9f101192fd246a477b009}{set\+Persistent}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool persistent)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63c76df048f9f101192fd246a477b009}{set\+Persistent}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool persistent)
 \begin{DoxyCompactList}\small\item\em Set the persistent attribute of the trigger of given event. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae14f71e017601ee6e0318b500b86737d}{set\+Persistent\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool persistent)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae14f71e017601ee6e0318b500b86737d}{set\+Persistent\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool persistent)
 \begin{DoxyCompactList}\small\item\em Set the persistent attribute of the trigger of given event, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaced895f2114902810f012e9fe9802585}{set\+Trigger\+Initial\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool init\+Value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaced895f2114902810f012e9fe9802585}{set\+Trigger\+Initial\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool init\+Value)
 \begin{DoxyCompactList}\small\item\em Set the initial value attribute of the trigger of given event. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga85761d21e4b36832b9aa9c92eaf2b96a}{set\+Trigger\+Initial\+Value\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, bool init\+Value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga85761d21e4b36832b9aa9c92eaf2b96a}{set\+Trigger\+Initial\+Value\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, bool init\+Value)
 \begin{DoxyCompactList}\small\item\em Set the initial value attribute of the trigger of given event, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga711302f1fd5c858986d3dfc1dc08b1b3}{add\+Priority}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$priority)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga711302f1fd5c858986d3dfc1dc08b1b3}{add\+Priority}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$priority)
 \begin{DoxyCompactList}\small\item\em Add priority to an existing event in the model If the given event already has a priority object, the given priority will replace the old priority in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga474febd50aafbafcf28a527c02eb7379}{add\+Priority\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$priority)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga474febd50aafbafcf28a527c02eb7379}{add\+Priority\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$priority)
 \begin{DoxyCompactList}\small\item\em Add priority to an existing event in the model, without regenerating it The last modification must regenerate for the modifications to take effect If the given event already has a priority object, the given priority will replace the old priority in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gad8bb54099f75e3c008876b814d637b51}{add\+Delay}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$delay)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gad8bb54099f75e3c008876b814d637b51}{add\+Delay}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$delay)
 \begin{DoxyCompactList}\small\item\em Add delay to an existing event in the model If the given event already has a delay object, the given delay will replace the old delay in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4071a87f536f73010a975e176008b341}{add\+Delay\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$delay)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4071a87f536f73010a975e176008b341}{add\+Delay\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$delay)
 \begin{DoxyCompactList}\small\item\em Add delay to an existing event in the model, without regenerating it The last modification must regenerate for the modifications to take effect If the given event already has a delay object, the given delay will replace the old delay in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa0de38be452631012b064cb9bb1e33e2}{add\+Event\+Assignment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaa0de38be452631012b064cb9bb1e33e2}{add\+Event\+Assignment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add an event assignment to an existing event in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4732dfe59580be7767a15cc46cecfeac}{add\+Event\+Assignment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$vid, const char $\ast$formula)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga4732dfe59580be7767a15cc46cecfeac}{add\+Event\+Assignment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add an event assignment to an existing event in the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga0b3a2c5332a40b9c48ff95af3bfe3e4b}{remove\+Event\+Assignments}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$vid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga0b3a2c5332a40b9c48ff95af3bfe3e4b}{remove\+Event\+Assignments}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$vid)
 \begin{DoxyCompactList}\small\item\em Remove event assignments for given variable from an existing event. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1c270f6f8e51a359b4b82ccecba79204}{remove\+Event\+Assignments\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid, const char $\ast$vid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1c270f6f8e51a359b4b82ccecba79204}{remove\+Event\+Assignments\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid, const char $\ast$vid)
 \begin{DoxyCompactList}\small\item\em Remove event assignments for given variable from an existing event, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gafa104b283510299c93d7c869de763342}{remove\+Event}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gafa104b283510299c93d7c869de763342}{remove\+Event}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid)
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga322382e2cb2e35312cd4a88ceee906a5}{remove\+Events\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga322382e2cb2e35312cd4a88ceee906a5}{remove\+Events\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$eid)
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae8d120bbf287b0879707510d1df86328}{regenerate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae8d120bbf287b0879707510d1df86328}{regenerate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63e642abda6ec0756781e159be5d3010}{validate\+Current\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
-\begin{DoxyCompactList}\small\item\em Validate the current S\+B\+ML file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63e642abda6ec0756781e159be5d3010}{validate\+Current\+SBML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
+\begin{DoxyCompactList}\small\item\em Validate the current SBML file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Add or remove species or reactions without modifying S\+B\+ML files and reloading. 
+Add or remove species or reactions without modifying SBML files and reloading. 
 
 
 
@@ -142,7 +142,7 @@ Add or remove species or reactions without modifying S\+B\+ML files and reloadin
 \index{Edit models@{Edit models}!addAssignmentRule@{addAssignmentRule}}
 \index{addAssignmentRule@{addAssignmentRule}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addAssignmentRule()}{addAssignmentRule()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Assignment\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Assignment\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -164,7 +164,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addAssignmentRuleNoRegen@{addAssignmentRuleNoRegen}}
 \index{addAssignmentRuleNoRegen@{addAssignmentRuleNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addAssignmentRuleNoRegen()}{addAssignmentRuleNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Assignment\+Rule\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Assignment\+Rule\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -186,7 +186,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addCompartment@{addCompartment}}
 \index{addCompartment@{addCompartment}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addCompartment()}{addCompartment()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Compartment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{cid,  }\item[{double}]{init\+Volume }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Compartment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{cid,  }\item[{double}]{init\+Volume }\end{DoxyParamCaption})}
 
 
 
@@ -208,7 +208,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addCompartmentNoRegen@{addCompartmentNoRegen}}
 \index{addCompartmentNoRegen@{addCompartmentNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addCompartmentNoRegen()}{addCompartmentNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Compartment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{cid,  }\item[{double}]{init\+Volume }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Compartment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{cid,  }\item[{double}]{init\+Volume }\end{DoxyParamCaption})}
 
 
 
@@ -230,7 +230,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addDelay@{addDelay}}
 \index{addDelay@{addDelay}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addDelay()}{addDelay()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Delay (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{delay }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Delay (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{delay }\end{DoxyParamCaption})}
 
 
 
@@ -252,7 +252,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addDelayNoRegen@{addDelayNoRegen}}
 \index{addDelayNoRegen@{addDelayNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addDelayNoRegen()}{addDelayNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Delay\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{delay }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Delay\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{delay }\end{DoxyParamCaption})}
 
 
 
@@ -274,7 +274,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addEvent@{addEvent}}
 \index{addEvent@{addEvent}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addEvent()}{addEvent()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{use\+Values\+From\+Trigger\+Time,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{use\+Values\+From\+Trigger\+Time,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
 
 
 
@@ -298,7 +298,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addEventAssignment@{addEventAssignment}}
 \index{addEventAssignment@{addEventAssignment}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addEventAssignment()}{addEventAssignment()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Event\+Assignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Event\+Assignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -322,7 +322,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addEventAssignmentNoRegen@{addEventAssignmentNoRegen}}
 \index{addEventAssignmentNoRegen@{addEventAssignmentNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addEventAssignmentNoRegen()}{addEventAssignmentNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Event\+Assignment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Event\+Assignment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -346,7 +346,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addEventNoRegen@{addEventNoRegen}}
 \index{addEventNoRegen@{addEventNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addEventNoRegen()}{addEventNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Event\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{use\+Values\+From\+Trigger\+Time,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Event\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{use\+Values\+From\+Trigger\+Time,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
 
 
 
@@ -370,7 +370,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addParameter@{addParameter}}
 \index{addParameter@{addParameter}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addParameter()}{addParameter()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{pid,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{pid,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -392,7 +392,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addParameterNoRegen@{addParameterNoRegen}}
 \index{addParameterNoRegen@{addParameterNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addParameterNoRegen()}{addParameterNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Parameter\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{pid,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Parameter\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{pid,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -414,7 +414,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addPriority@{addPriority}}
 \index{addPriority@{addPriority}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addPriority()}{addPriority()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Priority (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{priority }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Priority (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{priority }\end{DoxyParamCaption})}
 
 
 
@@ -436,7 +436,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addPriorityNoRegen@{addPriorityNoRegen}}
 \index{addPriorityNoRegen@{addPriorityNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addPriorityNoRegen()}{addPriorityNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Priority\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{priority }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Priority\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{priority }\end{DoxyParamCaption})}
 
 
 
@@ -458,7 +458,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addRateRule@{addRateRule}}
 \index{addRateRule@{addRateRule}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addRateRule()}{addRateRule()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Rate\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Rate\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -480,7 +480,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addRateRuleNoRegen@{addRateRuleNoRegen}}
 \index{addRateRuleNoRegen@{addRateRuleNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addRateRuleNoRegen()}{addRateRuleNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Rate\+Rule\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Rate\+Rule\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid,  }\item[{const char $\ast$}]{formula }\end{DoxyParamCaption})}
 
 
 
@@ -502,7 +502,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addReaction@{addReaction}}
 \index{addReaction@{addReaction}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addReaction()}{addReaction()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Reaction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$$\ast$}]{reactants,  }\item[{int}]{num\+Reactants,  }\item[{const char $\ast$$\ast$}]{products,  }\item[{int}]{num\+Products,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Reaction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$$\ast$}]{reactants,  }\item[{int}]{num\+Reactants,  }\item[{const char $\ast$$\ast$}]{products,  }\item[{int}]{num\+Products,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
 
 
 
@@ -532,7 +532,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addReactionFromSBML@{addReactionFromSBML}}
 \index{addReactionFromSBML@{addReactionFromSBML}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addReactionFromSBML()}{addReactionFromSBML()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Reaction\+From\+S\+B\+ML (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sbml\+Rep }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Reaction\+From\+SBML (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sbml\+Rep }\end{DoxyParamCaption})}
 
 
 
@@ -542,7 +542,7 @@ Add a reaction to the current model.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
 \hline
-\mbox{\texttt{ in}}  & {\em sbml\+Rep} & the S\+B\+ML representation (i.\+e. a reaction tag) describing the reaction to be added \\
+\mbox{\texttt{ in}}  & {\em sbml\+Rep} & the SBML representation (i.\+e. a reaction tag) describing the reaction to be added \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -552,7 +552,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addReactionFromSBMLNoRegen@{addReactionFromSBMLNoRegen}}
 \index{addReactionFromSBMLNoRegen@{addReactionFromSBMLNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addReactionFromSBMLNoRegen()}{addReactionFromSBMLNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Reaction\+From\+S\+B\+M\+L\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sbml\+Rep }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Reaction\+From\+SBMLNo\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sbml\+Rep }\end{DoxyParamCaption})}
 
 
 
@@ -562,7 +562,7 @@ Add a reaction to the current model, without regenerating it The last modificati
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
 \hline
-\mbox{\texttt{ in}}  & {\em sbml\+Rep} & the S\+B\+ML representation (i.\+e. a reaction tag) describing the reaction to be added \\
+\mbox{\texttt{ in}}  & {\em sbml\+Rep} & the SBML representation (i.\+e. a reaction tag) describing the reaction to be added \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -572,7 +572,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addReactionNoRegen@{addReactionNoRegen}}
 \index{addReactionNoRegen@{addReactionNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addReactionNoRegen()}{addReactionNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Reaction\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$$\ast$}]{reactants,  }\item[{int}]{num\+Reactants,  }\item[{const char $\ast$$\ast$}]{products,  }\item[{int}]{num\+Products,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Reaction\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$$\ast$}]{reactants,  }\item[{int}]{num\+Reactants,  }\item[{const char $\ast$$\ast$}]{products,  }\item[{int}]{num\+Products,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
 
 
 
@@ -602,7 +602,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addSpeciesAmount@{addSpeciesAmount}}
 \index{addSpeciesAmount@{addSpeciesAmount}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addSpeciesAmount()}{addSpeciesAmount()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Amount (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Species\+Amount (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -630,7 +630,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addSpeciesAmountNoRegen@{addSpeciesAmountNoRegen}}
 \index{addSpeciesAmountNoRegen@{addSpeciesAmountNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addSpeciesAmountNoRegen()}{addSpeciesAmountNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Amount\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Species\+Amount\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -658,7 +658,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addSpeciesConcentration@{addSpeciesConcentration}}
 \index{addSpeciesConcentration@{addSpeciesConcentration}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addSpeciesConcentration()}{addSpeciesConcentration()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Concentration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Species\+Concentration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -686,7 +686,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addSpeciesConcentrationNoRegen@{addSpeciesConcentrationNoRegen}}
 \index{addSpeciesConcentrationNoRegen@{addSpeciesConcentrationNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addSpeciesConcentrationNoRegen()}{addSpeciesConcentrationNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Concentration\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Species\+Concentration\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -714,7 +714,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addTrigger@{addTrigger}}
 \index{addTrigger@{addTrigger}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addTrigger()}{addTrigger()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Trigger (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Trigger (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
 
 
 
@@ -736,7 +736,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!addTriggerNoRegen@{addTriggerNoRegen}}
 \index{addTriggerNoRegen@{addTriggerNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{addTriggerNoRegen()}{addTriggerNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Trigger\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv add\+Trigger\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{trigger }\end{DoxyParamCaption})}
 
 
 
@@ -758,7 +758,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!getKineticLaw@{getKineticLaw}}
 \index{getKineticLaw@{getKineticLaw}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{getKineticLaw()}{getKineticLaw()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
 
 
 
@@ -778,7 +778,7 @@ Returns the kinetic law.
 \index{Edit models@{Edit models}!regenerate@{regenerate}}
 \index{regenerate@{regenerate}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{regenerate()}{regenerate()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv regenerate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv regenerate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -796,7 +796,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeCompartment@{removeCompartment}}
 \index{removeCompartment@{removeCompartment}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeCompartment()}{removeCompartment()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Compartment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{cid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Compartment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{cid }\end{DoxyParamCaption})}
 
 
 
@@ -816,7 +816,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeCompartmentNoRegen@{removeCompartmentNoRegen}}
 \index{removeCompartmentNoRegen@{removeCompartmentNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeCompartmentNoRegen()}{removeCompartmentNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Compartment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{cid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Compartment\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{cid }\end{DoxyParamCaption})}
 
 
 
@@ -836,7 +836,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeEvent@{removeEvent}}
 \index{removeEvent@{removeEvent}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeEvent()}{removeEvent()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid }\end{DoxyParamCaption})}
 
 
 
@@ -856,7 +856,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeEventAssignments@{removeEventAssignments}}
 \index{removeEventAssignments@{removeEventAssignments}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeEventAssignments()}{removeEventAssignments()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Event\+Assignments (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Event\+Assignments (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
 
 
 
@@ -878,7 +878,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeEventAssignmentsNoRegen@{removeEventAssignmentsNoRegen}}
 \index{removeEventAssignmentsNoRegen@{removeEventAssignmentsNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeEventAssignmentsNoRegen()}{removeEventAssignmentsNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Event\+Assignments\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Event\+Assignments\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
 
 
 
@@ -900,7 +900,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeEventsNoRegen@{removeEventsNoRegen}}
 \index{removeEventsNoRegen@{removeEventsNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeEventsNoRegen()}{removeEventsNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Events\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Events\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid }\end{DoxyParamCaption})}
 
 
 
@@ -920,7 +920,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeParameter@{removeParameter}}
 \index{removeParameter@{removeParameter}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeParameter()}{removeParameter()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{pid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{pid }\end{DoxyParamCaption})}
 
 
 
@@ -940,7 +940,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeParameterNoRegen@{removeParameterNoRegen}}
 \index{removeParameterNoRegen@{removeParameterNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeParameterNoRegen()}{removeParameterNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Parameter\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{pid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Parameter\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{pid }\end{DoxyParamCaption})}
 
 
 
@@ -960,7 +960,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeReaction@{removeReaction}}
 \index{removeReaction@{removeReaction}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeReaction()}{removeReaction()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Reaction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Reaction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
 
 
 
@@ -980,7 +980,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeReactionNoRegen@{removeReactionNoRegen}}
 \index{removeReactionNoRegen@{removeReactionNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeReactionNoRegen()}{removeReactionNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Reaction\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Reaction\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid }\end{DoxyParamCaption})}
 
 
 
@@ -1000,7 +1000,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeRules@{removeRules}}
 \index{removeRules@{removeRules}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeRules()}{removeRules()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
 
 
 
@@ -1020,7 +1020,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeRulesNoRegen@{removeRulesNoRegen}}
 \index{removeRulesNoRegen@{removeRulesNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeRulesNoRegen()}{removeRulesNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Rules\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Rules\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{vid }\end{DoxyParamCaption})}
 
 
 
@@ -1040,7 +1040,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeSpecies@{removeSpecies}}
 \index{removeSpecies@{removeSpecies}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeSpecies()}{removeSpecies()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Species (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Species (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid }\end{DoxyParamCaption})}
 
 
 
@@ -1060,7 +1060,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!removeSpeciesNoRegen@{removeSpeciesNoRegen}}
 \index{removeSpeciesNoRegen@{removeSpeciesNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{removeSpeciesNoRegen()}{removeSpeciesNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv remove\+Species\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv remove\+Species\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid }\end{DoxyParamCaption})}
 
 
 
@@ -1080,7 +1080,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setBoundary@{setBoundary}}
 \index{setBoundary@{setBoundary}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setBoundary()}{setBoundary()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Boundary (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Boundary (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -1102,7 +1102,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setBoundaryNoRegen@{setBoundaryNoRegen}}
 \index{setBoundaryNoRegen@{setBoundaryNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setBoundaryNoRegen()}{setBoundaryNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Boundary\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Boundary\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -1124,7 +1124,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setConstant@{setConstant}}
 \index{setConstant@{setConstant}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setConstant()}{setConstant()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Constant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{constant }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Constant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{constant }\end{DoxyParamCaption})}
 
 
 
@@ -1146,7 +1146,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setConstantNoRegen@{setConstantNoRegen}}
 \index{setConstantNoRegen@{setConstantNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setConstantNoRegen()}{setConstantNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Constant\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{constant }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Constant\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{constant }\end{DoxyParamCaption})}
 
 
 
@@ -1168,7 +1168,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setHasOnlySubstanceUnits@{setHasOnlySubstanceUnits}}
 \index{setHasOnlySubstanceUnits@{setHasOnlySubstanceUnits}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setHasOnlySubstanceUnits()}{setHasOnlySubstanceUnits()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Has\+Only\+Substance\+Units (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{has\+Only\+Substance\+Units }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Has\+Only\+Substance\+Units (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{has\+Only\+Substance\+Units }\end{DoxyParamCaption})}
 
 
 
@@ -1190,7 +1190,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setHasOnlySubstanceUnitsNoRegen@{setHasOnlySubstanceUnitsNoRegen}}
 \index{setHasOnlySubstanceUnitsNoRegen@{setHasOnlySubstanceUnitsNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setHasOnlySubstanceUnitsNoRegen()}{setHasOnlySubstanceUnitsNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Has\+Only\+Substance\+Units\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{has\+Only\+Substance\+Units }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Has\+Only\+Substance\+Units\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{bool}]{has\+Only\+Substance\+Units }\end{DoxyParamCaption})}
 
 
 
@@ -1212,7 +1212,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setInitAmount@{setInitAmount}}
 \index{setInitAmount@{setInitAmount}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setInitAmount()}{setInitAmount()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Init\+Amount (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Amount }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Init\+Amount (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Amount }\end{DoxyParamCaption})}
 
 
 
@@ -1234,7 +1234,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setInitAmountNoRegen@{setInitAmountNoRegen}}
 \index{setInitAmountNoRegen@{setInitAmountNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setInitAmountNoRegen()}{setInitAmountNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Init\+Amount\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Amount }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Init\+Amount\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Amount }\end{DoxyParamCaption})}
 
 
 
@@ -1256,7 +1256,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setInitConcentration@{setInitConcentration}}
 \index{setInitConcentration@{setInitConcentration}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setInitConcentration()}{setInitConcentration()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Init\+Concentration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Concentration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Init\+Concentration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Concentration }\end{DoxyParamCaption})}
 
 
 
@@ -1278,7 +1278,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setInitConcentrationNoRegen@{setInitConcentrationNoRegen}}
 \index{setInitConcentrationNoRegen@{setInitConcentrationNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setInitConcentrationNoRegen()}{setInitConcentrationNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Init\+Concentration\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Concentration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Init\+Concentration\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{double}]{init\+Concentration }\end{DoxyParamCaption})}
 
 
 
@@ -1300,7 +1300,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setKineticLaw@{setKineticLaw}}
 \index{setKineticLaw@{setKineticLaw}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setKineticLaw()}{setKineticLaw()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Kinetic\+Law (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
 
 
 
@@ -1322,7 +1322,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setKineticLawNoRegen@{setKineticLawNoRegen}}
 \index{setKineticLawNoRegen@{setKineticLawNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setKineticLawNoRegen()}{setKineticLawNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Kinetic\+Law\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Kinetic\+Law\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{const char $\ast$}]{kinetic\+Law }\end{DoxyParamCaption})}
 
 
 
@@ -1344,7 +1344,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setPersistent@{setPersistent}}
 \index{setPersistent@{setPersistent}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setPersistent()}{setPersistent()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Persistent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{persistent }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Persistent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{persistent }\end{DoxyParamCaption})}
 
 
 
@@ -1366,7 +1366,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setPersistentNoRegen@{setPersistentNoRegen}}
 \index{setPersistentNoRegen@{setPersistentNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setPersistentNoRegen()}{setPersistentNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Persistent\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{persistent }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Persistent\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{persistent }\end{DoxyParamCaption})}
 
 
 
@@ -1388,7 +1388,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setReversible@{setReversible}}
 \index{setReversible@{setReversible}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setReversible()}{setReversible()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Reversible (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{bool}]{reversible }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Reversible (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{bool}]{reversible }\end{DoxyParamCaption})}
 
 
 
@@ -1410,7 +1410,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setReversibleNoRegen@{setReversibleNoRegen}}
 \index{setReversibleNoRegen@{setReversibleNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setReversibleNoRegen()}{setReversibleNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Reversible\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{bool}]{reversible }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Reversible\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{rid,  }\item[{bool}]{reversible }\end{DoxyParamCaption})}
 
 
 
@@ -1432,7 +1432,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setTriggerInitialValue@{setTriggerInitialValue}}
 \index{setTriggerInitialValue@{setTriggerInitialValue}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setTriggerInitialValue()}{setTriggerInitialValue()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Trigger\+Initial\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{init\+Value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Trigger\+Initial\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{init\+Value }\end{DoxyParamCaption})}
 
 
 
@@ -1454,7 +1454,7 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!setTriggerInitialValueNoRegen@{setTriggerInitialValueNoRegen}}
 \index{setTriggerInitialValueNoRegen@{setTriggerInitialValueNoRegen}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{setTriggerInitialValueNoRegen()}{setTriggerInitialValueNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Trigger\+Initial\+Value\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{init\+Value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Trigger\+Initial\+Value\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{eid,  }\item[{bool}]{init\+Value }\end{DoxyParamCaption})}
 
 
 
@@ -1476,11 +1476,11 @@ Returns false if the call fails, otherwise returns a true
 \index{Edit models@{Edit models}!validateCurrentSBML@{validateCurrentSBML}}
 \index{validateCurrentSBML@{validateCurrentSBML}!Edit models@{Edit models}}
 \doxysubsubsection{\texorpdfstring{validateCurrentSBML()}{validateCurrentSBML()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv validate\+Current\+S\+B\+ML (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv validate\+Current\+SBML (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
-Validate the current S\+B\+ML file. 
+Validate the current SBML file. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -1488,5 +1488,5 @@ Validate the current S\+B\+ML file.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns false if the current S\+B\+ML file is not valid, otherwise returns a true 
+Returns false if the current SBML file is not valid, otherwise returns a true 
 \end{DoxyReturn}

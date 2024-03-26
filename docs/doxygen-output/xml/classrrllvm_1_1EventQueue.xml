@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1EventQueue" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::EventQueue</compoundname>
     <includes refid="EventQueue_8h" local="no">EventQueue.h</includes>
@@ -248,7 +248,7 @@
       </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="classrrllvm_1_1EventQueue_1a843845d2c309fb550991f2548ddc8703" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend std::ostream &amp;</type>
+        <type>std::ostream &amp;</type>
         <definition>std::ostream&amp; operator&lt;&lt;</definition>
         <argsstring>(std::ostream &amp;stream, const EventQueue &amp;queue)</argsstring>
         <name>operator&lt;&lt;</name>
@@ -270,11 +270,12 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>The <ref refid="classrrllvm_1_1EventQueue" kindref="compound">EventQueue</ref> class is when events are queued to execute, but have not yet executed. </para>
     </briefdescription>
     <detaileddescription>
-<para>The <ref refid="classrrllvm_1_1EventQueue" kindref="compound">EventQueue</ref> class is when events are queued to execute, but have not yet executed. Some events may be &apos;de-listed&apos; from the <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref> Queue if thier trigger changes back to &apos;false&apos;, if they are set persistent=False. </para>
+<para>Some events may be &apos;de-listed&apos; from the <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref> Queue if thier trigger changes back to &apos;false&apos;, if they are set persistent=False. </para>
     </detaileddescription>
-    <location file="llvm/EventQueue.h" line="86" column="1" bodyfile="llvm/EventQueue.h" bodystart="85" bodyend="155"/>
+    <location file="llvm/EventQueue.h" line="85" column="5" bodyfile="llvm/EventQueue.h" bodystart="86" bodyend="155"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1EventQueue_1a3250b0bafd512a313894998fc88fc10e" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>_Compare</name></member>
       <member refid="classrrllvm_1_1EventQueue_1af956fd60f123a8927ba01486c2975aaa" prot="public" virt="non-virtual"><scope>rrllvm::EventQueue</scope><name>_Sequence</name></member>

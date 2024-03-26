@@ -18,15 +18,15 @@ Inheritance diagram for rr\+::Executable\+Model\+:\begin{figure}[H]
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404c}{Executable\+Model\+Flags}} \{ \mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}{I\+N\+T\+E\+G\+R\+A\+T\+I\+ON}} = (0x1 $<$$<$ 0), 
-\mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}{O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+R\+E\+A\+C\+T\+I\+O\+N\+\_\+\+R\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON}} = (0x1 $<$$<$ 1)
+enum \mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404c}{Executable\+Model\+Flags}} \{ \mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}{INTEGRATION}} = (0x1 $<$$<$ 0)
+, \mbox{\hyperlink{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}{OPTIMIZE\+\_\+\+REACTION\+\_\+\+RATE\+\_\+\+SELECTION}} = (0x1 $<$$<$ 1)
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classrr_1_1ExecutableModel_a304eb91e2abe96301321cf6507087a9f}{Executable\+Model}} ()
-\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a07791b0ccd6feeb665278e9888cb8af7}\label{classrr_1_1ExecutableModel_a07791b0ccd6feeb665278e9888cb8af7}} 
 virtual std\+::string {\bfseries get\+Executable\+Model\+Desc} () const =0
 \item 
@@ -173,8 +173,20 @@ virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}\label{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}} 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}{set\+Value}} (const std\+::string \&id, double value)=0
 \begin{DoxyCompactList}\small\item\em sets the value coresponding to the given selection stringl \end{DoxyCompactList}\item 
-virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850cd48b8f71}{get\+Stoichiometry\+Matrix}} (int $\ast$rows, int $\ast$cols, double $\ast$$\ast$data)=0
-\begin{DoxyCompactList}\small\item\em allocate a block of memory and copy the stochiometric values into it, and return it. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_ab6e53b77f5595497d1ed5bfa792bd9fb}\label{classrr_1_1ExecutableModel_ab6e53b77f5595497d1ed5bfa792bd9fb}} 
+virtual int {\bfseries set\+Stoichiometries} (size\+\_\+t len, int const $\ast$indx, const double $\ast$values)=0
+\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a164c8467118e80fa19187c1e1127ab3d}\label{classrr_1_1ExecutableModel_a164c8467118e80fa19187c1e1127ab3d}} 
+virtual int {\bfseries set\+Stoichiometries} (size\+\_\+t len, int const $\ast$indx, const double $\ast$values, bool strict)=0
+\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a5efe8fdfacd6d1f6f09b85a41d8e82ea}\label{classrr_1_1ExecutableModel_a5efe8fdfacd6d1f6f09b85a41d8e82ea}} 
+virtual int {\bfseries set\+Stoichiometry} (int index, double value)=0
+\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a1f3e775e5d098dc071fbf60c105c70f2}\label{classrr_1_1ExecutableModel_a1f3e775e5d098dc071fbf60c105c70f2}} 
+virtual int {\bfseries set\+Stoichiometry} (int species\+Index, int reaction\+Index, double value)=0
+\item 
+virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_a24c46805c8c790f1cbec5c7726f03aa6}{get\+Stoichiometry}} (int index)=0
+\begin{DoxyCompactList}\small\item\em Get the current stiochiometry value with the given index. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_af9f7809b903426c14942b01a8e24a2b7}{get\+Stoichiometry}} (int species\+Index, int reaction\+Index)=0
 \begin{DoxyCompactList}\small\item\em Get the current stiochiometry value for the given species / reaction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ab4927aa2d8bf20c59b75a568757d369b}\label{classrr_1_1ExecutableModel_ab4927aa2d8bf20c59b75a568757d369b}} 
@@ -205,6 +217,13 @@ virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28d
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aeb911dc90408981370c78149680d9027}\label{classrr_1_1ExecutableModel_aeb911dc90408981370c78149680d9027}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1ExecutableModel_aeb911dc90408981370c78149680d9027}{get\+Reaction\+Id}} (size\+\_\+t index)=0
 \begin{DoxyCompactList}\small\item\em get the name of the specified reaction \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a32956e67e0a0792e4b8d8322d6dad6dd}{get\+Stoichiometry\+Index}} (const std\+::string \&)=0
+\begin{DoxyCompactList}\small\item\em get the index of a named stoichiometry \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a4033367a836e9bcaac6733ac4a5b990e}{get\+Stoichiometry\+Index}} (const std\+::string \&, const std\+::string \&)=0
+\begin{DoxyCompactList}\small\item\em get the index of a named stoichiometry \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a2d4026192a945b79389ecfde43fbf7d7}\label{classrr_1_1ExecutableModel_a2d4026192a945b79389ecfde43fbf7d7}} 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1ExecutableModel_a2d4026192a945b79389ecfde43fbf7d7}{get\+Stoichiometry\+Id}} (size\+\_\+t index)=0
+\begin{DoxyCompactList}\small\item\em get the name of the specified stoichiometry \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}{get\+Reaction\+Rates}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)=0
 \begin{DoxyCompactList}\small\item\em get the std\+::vector of reaction rates. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}{get\+Rate\+Rule\+Values}} (double $\ast$rate\+Rule\+Values)=0
@@ -238,6 +257,9 @@ virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_ae30181bdbfd3e4fedc2dedc
 \begin{DoxyCompactList}\small\item\em Itterate through all of the current and pending events and apply them. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_a2c4d631f32873d4d98d613add078d9b3}{get\+Event\+Roots}} (double time, const double $\ast$y, double $\ast$gdot)=0
 \begin{DoxyCompactList}\small\item\em evaluate the event \textquotesingle{}roots\textquotesingle{} -- when events transition form triggered -\/ non-\/triggered or triggered to non-\/triggered state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a3e4ce1860674c7728084788f55c17d95}\label{classrr_1_1ExecutableModel_a3e4ce1860674c7728084788f55c17d95}} 
+virtual void {\bfseries get\+Piecewise\+Trigger\+Roots} (double time, const double $\ast$y, double $\ast$gdot)=0
+\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ad80b6a7167b0a78364dc680475ab2e3c}\label{classrr_1_1ExecutableModel_ad80b6a7167b0a78364dc680475ab2e3c}} 
 virtual double {\bfseries get\+Next\+Pending\+Event\+Time} (bool pop)=0
 \item 
@@ -247,6 +269,9 @@ virtual int {\bfseries get\+Pending\+Event\+Size} ()=0
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a936756fa4facd2b182b4cfcbe0f07fab}\label{classrr_1_1ExecutableModel_a936756fa4facd2b182b4cfcbe0f07fab}} 
 virtual void {\bfseries reset\+Events} ()=0
 \item 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_aa35394bc6641722aab173eb07bc96f55}\label{classrr_1_1ExecutableModel_aa35394bc6641722aab173eb07bc96f55}} 
+virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_aa35394bc6641722aab173eb07bc96f55}{get\+Num\+Piecewise\+Triggers}} ()=0
+\begin{DoxyCompactList}\small\item\em We do root-\/finding for \textquotesingle{}piecewise triggers\textquotesingle{}\+: those times in a piecewise function that transition from one condition to the next. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{classrr_1_1ExecutableModel_a7d670c92b720d7dcf3ab70fa9d1b14d0}{$\sim$\+Executable\+Model}} ()
 \begin{DoxyCompactList}\small\item\em need a virtual destructor as object implementing this interface can be deleted directly, i.\+e. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_ae9b3e5baef45072822f9ccaf9d13ffa8}{get\+Event\+Index}} (const std\+::string \&eid)=0
@@ -281,9 +306,9 @@ virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac27
 \begin{DoxyCompactList}\small\item\em set the seed used by the random number generator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a7a543cc2ccca4130d26c871308fa2b4d}\label{classrr_1_1ExecutableModel_a7a543cc2ccca4130d26c871308fa2b4d}} 
 virtual int64\+\_\+t \mbox{\hyperlink{classrr_1_1ExecutableModel_a7a543cc2ccca4130d26c871308fa2b4d}{get\+Random\+Seed}} ()=0
-\begin{DoxyCompactList}\small\item\em get the seed used by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the seed used by the RNG. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_a1f69d29d4291440935ed41122ed83e7f}{get\+Random}} ()=0
-\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the RNG. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a86c218fc4ad993ddd532a50f2918f383}\label{classrr_1_1ExecutableModel_a86c218fc4ad993ddd532a50f2918f383}} 
 virtual uint32\+\_\+t \mbox{\hyperlink{classrr_1_1ExecutableModel_a86c218fc4ad993ddd532a50f2918f383}{get\+Flags}} () const =0
 \begin{DoxyCompactList}\small\item\em Get the current set of flags. \end{DoxyCompactList}\item 
@@ -322,7 +347,7 @@ class {\bfseries Road\+Runner}
 \doxysubsection{Detailed Description}
 Base class for all code generation systems; allows compiling and evaluating the model. 
 
-The \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} interface provides a way to access an sbml model that was compiled, J\+IT\textquotesingle{}d or interpreted as executable (runnable) module.
+The \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} interface provides a way to access an sbml model that was compiled, JIT\textquotesingle{}d or interpreted as executable (runnable) module.
 
 An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} holds a Model\+Data structure, all the simulation values are stored in the Model\+Data struct, i.\+e. the dynamic state of the model is fully contained in the Model\+Data structure.
 
@@ -337,11 +362,11 @@ An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} should also 
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{INTEGRATION@{INTEGRATION}!rr::ExecutableModel@{rr::ExecutableModel}}\index{rr::ExecutableModel@{rr::ExecutableModel}!INTEGRATION@{INTEGRATION}}}\mbox{\Hypertarget{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}\label{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}} 
-I\+N\+T\+E\+G\+R\+A\+T\+I\+ON&A simulation is currently running. This means that the model should not have to re-\/calculate the reaction rate std\+::vector as it was calculated in the previous integration step. \\
+INTEGRATION&A simulation is currently running. This means that the model should not have to re-\/calculate the reaction rate std\+::vector as it was calculated in the previous integration step. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_REACTION\_RATE\_SELECTION@{OPTIMIZE\_REACTION\_RATE\_SELECTION}!rr::ExecutableModel@{rr::ExecutableModel}}\index{rr::ExecutableModel@{rr::ExecutableModel}!OPTIMIZE\_REACTION\_RATE\_SELECTION@{OPTIMIZE\_REACTION\_RATE\_SELECTION}}}\mbox{\Hypertarget{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}\label{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}} 
-O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+R\+E\+A\+C\+T\+I\+O\+N\+\_\+\+R\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON&optimize not-\/recalculating the reaction rates during selection. \\
+OPTIMIZE\+\_\+\+REACTION\+\_\+\+RATE\+\_\+\+SELECTION&optimize not-\/recalculating the reaction rates during selection. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -356,10 +381,10 @@ O\+P\+T\+I\+M\+I\+Z\+E\+\_\+\+R\+E\+A\+C\+T\+I\+O\+N\+\_\+\+R\+A\+T\+E\+\_\+\+S\
 
 
 
-Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. 
+Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 07/31/2015 
@@ -395,14 +420,14 @@ If any events trigger a state change which triggers any additional events, these
 \hline
 {\em previous\+Event\+Status} & array of previous event triggered states. \\
 \hline
-{\em initial\+State} & (optional)\+: initial state std\+::vector, may be N\+U\+LL, in which the current state is used. \\
+{\em initial\+State} & (optional)\+: initial state std\+::vector, may be NULL, in which the current state is used. \\
 \hline
-{\em final\+State} & (optional)\+: final state std\+::vector, where the final state is coppied to. May be N\+U\+LL, in which case, ignored. \\
+{\em final\+State} & (optional)\+: final state std\+::vector, where the final state is coppied to. May be NULL, in which case, ignored. \\
 \hline
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ab377d0bba85bbd8c8eec4f2ad132c41b}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abf91b16221e311777c120258a1e8ef39}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ab377d0bba85bbd8c8eec4f2ad132c41b}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abf91b16221e311777c120258a1e8ef39}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a892be60159e501929cbb1169533d5104}\label{classrr_1_1ExecutableModel_a892be60159e501929cbb1169533d5104}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getBoundarySpeciesAmounts@{getBoundarySpeciesAmounts}}
@@ -425,7 +450,7 @@ get the boundary species amounts
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac7547346f83f0407259f9aa83fba2f2a}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a17dbc546d79fe987ff625e0c387f5cbd}\label{classrr_1_1ExecutableModel_a17dbc546d79fe987ff625e0c387f5cbd}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getBoundarySpeciesConcentrations@{getBoundarySpeciesConcentrations}}
@@ -448,7 +473,7 @@ get the boundary species concentrations
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_af242105f0b29c521b8bc7a438d09b43b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_af242105f0b29c521b8bc7a438d09b43b}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a977a5a3a7ed0fcfa04fe74369a4526ae}\label{classrr_1_1ExecutableModel_a977a5a3a7ed0fcfa04fe74369a4526ae}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getCompartmentVolumes@{getCompartmentVolumes}}
@@ -471,7 +496,7 @@ get the compartment volumes
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae93515327eae8af56a12b24bd545df33}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae93515327eae8af56a12b24bd545df33}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ae9b3e5baef45072822f9ccaf9d13ffa8}\label{classrr_1_1ExecutableModel_ae9b3e5baef45072822f9ccaf9d13ffa8}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getEventIndex@{getEventIndex}}
@@ -485,7 +510,7 @@ Gets the index for an event id.
 
 If there is no event with this id, returns -\/1. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2e869485a6748bd33b3320dc955422a4}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ac7a3dc4d4e4df17dad7e521d09671189}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2e869485a6748bd33b3320dc955422a4}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ac7a3dc4d4e4df17dad7e521d09671189}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a2c4d631f32873d4d98d613add078d9b3}\label{classrr_1_1ExecutableModel_a2c4d631f32873d4d98d613add078d9b3}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getEventRoots@{getEventRoots}}
@@ -510,7 +535,7 @@ Simplest method is to return 1 for triggered, -\/1 for not-\/triggered, so long 
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aee3874c5ef6f6eaf4997b0a22abedbbb}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ae88b85f7caac07acbeed3d429bc74afb}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aee3874c5ef6f6eaf4997b0a22abedbbb}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ae88b85f7caac07acbeed3d429bc74afb}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a6402d7445658e1828be487e1a63bbc89}\label{classrr_1_1ExecutableModel_a6402d7445658e1828be487e1a63bbc89}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getEventTriggers@{getEventTriggers}}
@@ -526,7 +551,7 @@ The reason this returns an unsigned char instead of a bool array is this array i
 
 So, on every modern system I\textquotesingle{}m aware of, bool is an unsigned char, so use that data type here. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a6720985571bb7836a43f054dc8b60a60}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a6720985571bb7836a43f054dc8b60a60}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a460387891972dfb029d5fdd6134c10eb}\label{classrr_1_1ExecutableModel_a460387891972dfb029d5fdd6134c10eb}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getFloatingSpeciesAmountRate@{getFloatingSpeciesAmountRate}}
@@ -538,9 +563,9 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a6720985571bb
 
 Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. 
 
-T\+O\+DO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
+TODO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
 
-T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
+TODO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
 
 
 \begin{DoxyParams}{Parameters}
@@ -551,7 +576,7 @@ T\+O\+DO\+: If the conversion factor changes in between getting the reaction rat
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aba4cbc143e2a9ad641e8db160837e466}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aba4cbc143e2a9ad641e8db160837e466}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ae1e4374bedf764a353165d7f3acc31c0}\label{classrr_1_1ExecutableModel_ae1e4374bedf764a353165d7f3acc31c0}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getFloatingSpeciesAmountRates@{getFloatingSpeciesAmountRates}}
@@ -574,7 +599,7 @@ get the floating species amount rates
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a09efca344b22a007529763ce30074d09}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a09efca344b22a007529763ce30074d09}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ac83c1f5b678079babd5eeb76c87a4e02}\label{classrr_1_1ExecutableModel_ac83c1f5b678079babd5eeb76c87a4e02}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getFloatingSpeciesAmounts@{getFloatingSpeciesAmounts}}
@@ -597,7 +622,7 @@ get the floating species amounts
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ab7af45309d8f1c09fbca57365328cdc9}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ab7af45309d8f1c09fbca57365328cdc9}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aae51da13c4dbe4e0ae21f12f3a23cdb8}\label{classrr_1_1ExecutableModel_aae51da13c4dbe4e0ae21f12f3a23cdb8}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getFloatingSpeciesConcentrationRates@{getFloatingSpeciesConcentrationRates}}
@@ -620,7 +645,7 @@ get the floating species concentration rates
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a4baa1758d5d3e84b8c431794704f4eca}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a4baa1758d5d3e84b8c431794704f4eca}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_afdb9b1204d85b4baf496e685e16c0479}\label{classrr_1_1ExecutableModel_afdb9b1204d85b4baf496e685e16c0479}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getFloatingSpeciesConcentrations@{getFloatingSpeciesConcentrations}}
@@ -643,7 +668,7 @@ get the floating species concentrations
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8c5aff102586a6b652ac912d7a674a32}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8c5aff102586a6b652ac912d7a674a32}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_af598ac63c984d7101b0d026dd217a822}\label{classrr_1_1ExecutableModel_af598ac63c984d7101b0d026dd217a822}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getGlobalParameterValues@{getGlobalParameterValues}}
@@ -666,7 +691,7 @@ get the global parameter values
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7326ff8b52c44cc6ebe88bad8495f175}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7326ff8b52c44cc6ebe88bad8495f175}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a172aeacd0685bcce8153ae67718fc697}\label{classrr_1_1ExecutableModel_a172aeacd0685bcce8153ae67718fc697}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getIds@{getIds}}
@@ -687,7 +712,7 @@ populates a given list with all the ids that this class can accept.
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aeede1447cf35aa59a2efc4ae8973924b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9c5f0f3045d073ae63d4f1e2b3cb232a}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aeede1447cf35aa59a2efc4ae8973924b}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9c5f0f3045d073ae63d4f1e2b3cb232a}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a1f69d29d4291440935ed41122ed83e7f}\label{classrr_1_1ExecutableModel_a1f69d29d4291440935ed41122ed83e7f}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRandom@{getRandom}}
@@ -697,11 +722,11 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aeede1447cf35
 
 
 
-Get a uniform random number between 0 and 1 created by the R\+NG. 
+Get a uniform random number between 0 and 1 created by the RNG. 
 
-The type of R\+NG can be specified in the config file with the R\+A\+N\+D\+O\+M\+\_\+\+G\+E\+N\+E\+R\+A\+T\+O\+R\+\_\+\+T\+Y\+PE key. 
+The type of RNG can be specified in the config file with the RANDOM\+\_\+\+GENERATOR\+\_\+\+TYPE key. 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a02b3938fd3ad7d20d33ed3e0b42da21a}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a99ee742fbcd0a2fab7957f319991a234}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a99ee742fbcd0a2fab7957f319991a234}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a02b3938fd3ad7d20d33ed3e0b42da21a}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a8a266e7c864913e6dede8c69a063adac}\label{classrr_1_1ExecutableModel_a8a266e7c864913e6dede8c69a063adac}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRateRuleRates@{getRateRuleRates}}
@@ -719,14 +744,14 @@ the what the rate rule integrates to, and store it in the given array.
 \begin{DoxyParams}{Parameters}
 {\em len} & the length of the supplied buffer, must be $>$= reaction rates size. \\
 \hline
-{\em indx} & pointer to index array. If N\+U\+LL, then it is ignored and the rates are copied directly into the supplied buffer. \\
+{\em indx} & pointer to index array. If NULL, then it is ignored and the rates are copied directly into the supplied buffer. \\
 \hline
 {\em values} & pointer to user supplied buffer where rates will be stored. \\
 \hline
 \end{DoxyParams}
 
 
-Reimplemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_af9bb32c29e9a9212b4e8b99732df94d3}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Reimplemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_af9bb32c29e9a9212b4e8b99732df94d3}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}\label{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRateRuleSymbols@{getRateRuleSymbols}}
@@ -739,14 +764,14 @@ Reimplemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_af9bb32c29e
 Gets the symbols defined by rate rules, i.\+e. returns all x such that x\textquotesingle{} = f(x) is a rule which defines parameter x. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 07/31/2015 
 \end{DoxyDate}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1b73548f88c353066c8758ac671e29f9}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1b73548f88c353066c8758ac671e29f9}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}\label{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRateRuleValues@{getRateRuleValues}}
@@ -762,7 +787,7 @@ the what the rate rule integrates to, and store it in the given array.
 
 The length of rate\+Rule\+Values obviously must be the number of rate rules we have. 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a2a820ae64f278087b85f836aef5afb32}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_adfe1a7598ad23c18db90c3fcfe708d5e}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_adfe1a7598ad23c18db90c3fcfe708d5e}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a2a820ae64f278087b85f836aef5afb32}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28dfdfd9d437}\label{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28dfdfd9d437}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getReactionIndex@{getReactionIndex}}
@@ -779,7 +804,7 @@ $>$= 0 on success, $<$ 0 on failure.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9a2275b0715bc7461c8f402492462b05}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9a2275b0715bc7461c8f402492462b05}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}\label{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getReactionRates@{getReactionRates}}
@@ -795,14 +820,14 @@ get the std\+::vector of reaction rates.
 \begin{DoxyParams}{Parameters}
 {\em len} & the length of the supplied buffer, must be $>$= reaction rates size. \\
 \hline
-{\em indx} & pointer to index array. If N\+U\+LL, then it is ignored and the reaction rates are copied directly into the supplied buffer. \\
+{\em indx} & pointer to index array. If NULL, then it is ignored and the reaction rates are copied directly into the supplied buffer. \\
 \hline
 {\em values} & pointer to user supplied buffer where rates will be stored. \\
 \hline
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb20ad8a4b5d5c89750f85b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb20ad8a4b5d5c89750f85b}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a75b6f37ac538d2d2a0709fe4080b0570}\label{classrr_1_1ExecutableModel_a75b6f37ac538d2d2a0709fe4080b0570}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getStateVector@{getStateVector}}
@@ -820,15 +845,15 @@ copies the internal model state std\+::vector into the provided buffer.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if N\+U\+LL, return the size required.\\
+\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if NULL, return the size required.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state std\+::vector. 
+the number of items coppied into the provided buffer, if state\+Vector is NULL, returns the length of the state std\+::vector. 
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a6ba2d5c65fa0c94f521c22ff440a56bc}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1bab14a8a11c8fe0e23521e107105447}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1bab14a8a11c8fe0e23521e107105447}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a6ba2d5c65fa0c94f521c22ff440a56bc}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a0495c2ece9edad29d61849b2443d4274}\label{classrr_1_1ExecutableModel_a0495c2ece9edad29d61849b2443d4274}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getStateVectorRate@{getStateVectorRate}}
@@ -855,12 +880,26 @@ The state std\+::vector is packed such that the first n raterule elements are th
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a4333e3139f974ae771ad2d2fb317208f}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abd45bf12bc33c31f5a02dd52c019783f}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abd45bf12bc33c31f5a02dd52c019783f}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a4333e3139f974ae771ad2d2fb317208f}{rr\+::\+Compiled\+Executable\+Model}}.
+
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a24c46805c8c790f1cbec5c7726f03aa6}\label{classrr_1_1ExecutableModel_a24c46805c8c790f1cbec5c7726f03aa6}} 
+\index{rr::ExecutableModel@{rr::ExecutableModel}!getStoichiometry@{getStoichiometry}}
+\index{getStoichiometry@{getStoichiometry}!rr::ExecutableModel@{rr::ExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual double rr\+::\+Executable\+Model\+::get\+Stoichiometry (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the current stiochiometry value with the given index. 
+
+If either are not valid, NaN is returned. 
+
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1301d30cf97517eae056a7eb3c0cad0f}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_af9f7809b903426c14942b01a8e24a2b7}\label{classrr_1_1ExecutableModel_af9f7809b903426c14942b01a8e24a2b7}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getStoichiometry@{getStoichiometry}}
 \index{getStoichiometry@{getStoichiometry}!rr::ExecutableModel@{rr::ExecutableModel}}
-\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}}
+\doxysubsubsection{\texorpdfstring{getStoichiometry()}{getStoichiometry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily virtual double rr\+::\+Executable\+Model\+::get\+Stoichiometry (\begin{DoxyParamCaption}\item[{int}]{species\+Index,  }\item[{int}]{reaction\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -869,32 +908,41 @@ Get the current stiochiometry value for the given species / reaction.
 
 If either are not valid, NaN is returned. 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a15522874be17399807aa1f0f1e2fd655}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a5de8a96030e376804d05413cf10f0338}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a5de8a96030e376804d05413cf10f0338}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a15522874be17399807aa1f0f1e2fd655}{rr\+::\+Compiled\+Executable\+Model}}.
 
-\mbox{\Hypertarget{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850cd48b8f71}\label{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850cd48b8f71}} 
-\index{rr::ExecutableModel@{rr::ExecutableModel}!getStoichiometryMatrix@{getStoichiometryMatrix}}
-\index{getStoichiometryMatrix@{getStoichiometryMatrix}!rr::ExecutableModel@{rr::ExecutableModel}}
-\doxysubsubsection{\texorpdfstring{getStoichiometryMatrix()}{getStoichiometryMatrix()}}
-{\footnotesize\ttfamily virtual int rr\+::\+Executable\+Model\+::get\+Stoichiometry\+Matrix (\begin{DoxyParamCaption}\item[{int $\ast$}]{rows,  }\item[{int $\ast$}]{cols,  }\item[{double $\ast$$\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-allocate a block of memory and copy the stochiometric values into it, and return it. 
-
-The caller is responsible for freeing the memory that is referenced by data.
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a32956e67e0a0792e4b8d8322d6dad6dd}\label{classrr_1_1ExecutableModel_a32956e67e0a0792e4b8d8322d6dad6dd}} 
+\index{rr::ExecutableModel@{rr::ExecutableModel}!getStoichiometryIndex@{getStoichiometryIndex}}
+\index{getStoichiometryIndex@{getStoichiometryIndex}!rr::ExecutableModel@{rr::ExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometryIndex()}{getStoichiometryIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual int rr\+::\+Executable\+Model\+::get\+Stoichiometry\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em rows} & will hold the number of rows in the matrix. \\
-\hline
-\mbox{\texttt{ out}}  & {\em cols} & will hold the number of columns in the matrix. \\
-\hline
-\mbox{\texttt{ out}}  & {\em data} & a pointer which will hold a newly allocated memory block. \\
-\hline
-\end{DoxyParams}
+
+get the index of a named stoichiometry 
+
+\begin{DoxyReturn}{Returns}
+$>$= 0 on success, $<$ 0 on failure. 
+\end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_add13e9f74b8918a43bee644d27dac876}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1475e0cd372f9bea14493c595fe024fa}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aa8f77058af930c8478c4bfc74466cf30}{rrllvm\+::\+LLVMExecutable\+Model}}.
+
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_a4033367a836e9bcaac6733ac4a5b990e}\label{classrr_1_1ExecutableModel_a4033367a836e9bcaac6733ac4a5b990e}} 
+\index{rr::ExecutableModel@{rr::ExecutableModel}!getStoichiometryIndex@{getStoichiometryIndex}}
+\index{getStoichiometryIndex@{getStoichiometryIndex}!rr::ExecutableModel@{rr::ExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getStoichiometryIndex()}{getStoichiometryIndex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual int rr\+::\+Executable\+Model\+::get\+Stoichiometry\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{,  }\item[{const std\+::string \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the index of a named stoichiometry 
+
+\begin{DoxyReturn}{Returns}
+$>$= 0 on success, $<$ 0 on failure. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a30f7250017cba2d48167b63fcf4118e7}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a1c35eec8d9f2}\label{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a1c35eec8d9f2}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getValue@{getValue}}
@@ -908,7 +956,7 @@ gets the value for the given id std\+::string.
 
 The std\+::string must be a \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} std\+::string that is accepted by this class. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ab7bc9e9b4426d9d22080bb64bd900cab}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ab7bc9e9b4426d9d22080bb64bd900cab}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a217c61819d9b029c5928ace53b805e89}\label{classrr_1_1ExecutableModel_a217c61819d9b029c5928ace53b805e89}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!reset@{reset}}
@@ -922,7 +970,7 @@ Loads the initial conditions into the current model state.
 
 Initial conditions may have been updated at any time externally. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a787d4c097ccccc10519eae389c1a78e3}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ad919983c3e2f1fe9b1d86d80ae8a938f}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a787d4c097ccccc10519eae389c1a78e3}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ad919983c3e2f1fe9b1d86d80ae8a938f}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a1a4409ff1e5e41a13b1dcf2ab936ab23}\label{classrr_1_1ExecutableModel_a1a4409ff1e5e41a13b1dcf2ab936ab23}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setBoundarySpeciesConcentrations@{setBoundarySpeciesConcentrations}}
@@ -945,7 +993,7 @@ set the boundary species concentrations
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aaa538c4229baa2ffb0173c43c58674b2}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aaa538c4229baa2ffb0173c43c58674b2}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a7c2106b589bb41b2a01ab2dc5207024e}\label{classrr_1_1ExecutableModel_a7c2106b589bb41b2a01ab2dc5207024e}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setBoundarySpeciesInitAmounts@{setBoundarySpeciesInitAmounts}}
@@ -961,7 +1009,7 @@ Takes the same indices as the other boundary species methods.
 
 Note, if a boundary species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2bf030fd88daa3de4d803aaf0982fd43}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2bf030fd88daa3de4d803aaf0982fd43}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a2e7799db0c63278059cef7de4ad18396}\label{classrr_1_1ExecutableModel_a2e7799db0c63278059cef7de4ad18396}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setBoundarySpeciesInitConcentrations@{setBoundarySpeciesInitConcentrations}}
@@ -977,7 +1025,7 @@ Takes the same indices as the other boundary species methods.
 
 Note, if a boundary species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a255c7e48d3a23261b9988b33888564d3}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a255c7e48d3a23261b9988b33888564d3}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a83fa84b59feb32abe1f2a6b178b6f106}\label{classrr_1_1ExecutableModel_a83fa84b59feb32abe1f2a6b178b6f106}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setCompartmentInitVolumes@{setCompartmentInitVolumes}}
@@ -993,7 +1041,7 @@ Takes the same indices as the other compartment methods.
 
 Note, if a compartment has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4868fa0f700923e1d26f59db2439be2}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4868fa0f700923e1d26f59db2439be2}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aecd3bdfe291bd3791fe7e4e75a71ac3f}\label{classrr_1_1ExecutableModel_aecd3bdfe291bd3791fe7e4e75a71ac3f}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setFloatingSpeciesConcentrations@{setFloatingSpeciesConcentrations}}
@@ -1016,7 +1064,7 @@ set the floating species concentrations
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7056709cd89a33fba3d78ebe24463522}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7056709cd89a33fba3d78ebe24463522}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ab18c3070d601ba587d24a16353fc8b60}\label{classrr_1_1ExecutableModel_ab18c3070d601ba587d24a16353fc8b60}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setFloatingSpeciesInitAmounts@{setFloatingSpeciesInitAmounts}}
@@ -1032,7 +1080,7 @@ Takes the same indices as the other floating species methods.
 
 Note, if a floating species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2917252bcf019a085d8cef01d7752f4b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2917252bcf019a085d8cef01d7752f4b}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a29d64b57e270120b9ee37d3464ffbb3c}\label{classrr_1_1ExecutableModel_a29d64b57e270120b9ee37d3464ffbb3c}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setFloatingSpeciesInitConcentrations@{setFloatingSpeciesInitConcentrations}}
@@ -1048,7 +1096,7 @@ Takes the same indices as the other floating species methods.
 
 Note, if a floating species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae18e2e04bafd5613f832d0723c6831d5}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae18e2e04bafd5613f832d0723c6831d5}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a71d62fc8b558dfb4da4de4dbd3845665}\label{classrr_1_1ExecutableModel_a71d62fc8b558dfb4da4de4dbd3845665}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setGlobalParameterInitValues@{setGlobalParameterInitValues}}
@@ -1062,7 +1110,7 @@ Set the initial value of the global parameter.
 
 Takes the same indices as the other global parameter methods. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a3f6882867b8da2742473c2647bf10af5}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a3f6882867b8da2742473c2647bf10af5}{rrllvm\+::\+LLVMExecutable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279de045c735}\label{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279de045c735}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setRandomSeed@{setRandomSeed}}
@@ -1074,9 +1122,9 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a3f6882867b8d
 
 set the seed used by the random number generator. 
 
-This will by definition reset the R\+NG. 
+This will by definition reset the RNG. 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_adf911e78697e088e315c2235ebf63376}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a458c2d66964745c99226f60be9a8b0fe}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a458c2d66964745c99226f60be9a8b0fe}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_adf911e78697e088e315c2235ebf63376}{rr\+::\+Compiled\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a57a67063c957714b916d4a3d4277c3b9}\label{classrr_1_1ExecutableModel_a57a67063c957714b916d4a3d4277c3b9}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!setStateVector@{setStateVector}}
@@ -1098,7 +1146,7 @@ the number of items copied from the state std\+::vector, negative on failure.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a39fc85f1dfeba7d5885f66f78f9b4704}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8ab1d594d85c537534ee12fa8eafee2c}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8ab1d594d85c537534ee12fa8eafee2c}{rrllvm\+::\+LLVMExecutable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a39fc85f1dfeba7d5885f66f78f9b4704}{rr\+::\+Compiled\+Executable\+Model}}.
 
 
 
