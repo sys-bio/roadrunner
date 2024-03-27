@@ -2017,8 +2017,8 @@ namespace std { class ostream{}; }
         def steadyStateSolver(self, v):
             self.setSteadyStateSolver(v)
 
-        def addParameter(self, *args):
-            self._addParameter(*args)
+        def addParameter(self, sid, initValue = 0.0, forceRegenerate = True):
+            self._addParameter(sid, initValue, forceRegenerate)
             self._makeProperties()
 
         def addReaction(self, *args):
