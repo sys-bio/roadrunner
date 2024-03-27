@@ -1,8 +1,6 @@
 /*
  * GetPiecewiseTriggerCodeGen.h
  *
- *  Created on: Aug 10, 2013
- *      Author: andy
  */
 
 #ifndef RRLLVMGetPiecewiseTriggerCodeGen_H_
@@ -28,6 +26,9 @@ namespace rrllvm
 
     typedef unsigned char (*GetPiecewiseTriggerCodeGen_FunctionPtr)(LLVMModelData*, size_t);
 
+    /** @class GetPiecewiseTriggerCodeGen
+    * Class for getting piecewise trigger values.
+    */
     class GetPiecewiseTriggerCodeGen :
         public CodeGenBase<GetPiecewiseTriggerCodeGen_FunctionPtr>
     {
@@ -35,6 +36,10 @@ namespace rrllvm
         GetPiecewiseTriggerCodeGen(const ModelGeneratorContext& mgc);
         virtual ~GetPiecewiseTriggerCodeGen() {};
 
+        /**
+         * The heart of the class, that creates code blocks for every piecewise
+         * trigger in the model.
+         */
         llvm::Value* codeGen();
 
         typedef GetPiecewiseTriggerCodeGen_FunctionPtr FunctionPtr;
@@ -42,8 +47,14 @@ namespace rrllvm
         static const char* FunctionName;
         static const char* IndexArgName;
 
+        /**
+         * The ret type is a boolean, aka 'getInt8Ty'
+         */
         llvm::Type* getRetType();
 
+        /**
+         * create a return type, a zero value should return the default type
+         */
         llvm::Value* createRet(llvm::Value*);
 
     private:
