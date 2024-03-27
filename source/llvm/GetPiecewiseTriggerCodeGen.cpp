@@ -1,8 +1,5 @@
 /*
  * GetPiecewiseTriggerCodeGen.cpp
- *
- *  Created on: Aug 10, 2013
- *      Author: andy
  */
 #pragma hdrstop
 #include "GetPiecewiseTriggerCodeGen.h"
