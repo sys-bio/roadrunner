@@ -8,15 +8,15 @@ Get information about reaction rates.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_gaaa9941b7cba362c4098feedb02b047a4}{get\+Number\+Of\+Reactions}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_gaaa9941b7cba362c4098feedb02b047a4}{get\+Number\+Of\+Reactions}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the number of reactions in the loaded model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga6fbbae97760afea7cc74e26e2cb74926}{get\+Reaction\+Rate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const int index, double $\ast$rate)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga6fbbae97760afea7cc74e26e2cb74926}{get\+Reaction\+Rate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const int index, double $\ast$rate)
 \begin{DoxyCompactList}\small\item\em Retrieve a give reaction rate as indicated by the index parameter. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_gae0d748f8af83914cc078f8728d67ed0e}{get\+Reaction\+Rates}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_gae0d748f8af83914cc078f8728d67ed0e}{get\+Reaction\+Rates}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Retrieve a vector of reaction rates as determined by the current state of the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga106854f50f9896130fb77f64f2c5885c}{get\+Reaction\+Rates\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} vec)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga106854f50f9896130fb77f64f2c5885c}{get\+Reaction\+Rates\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} vec)
 \begin{DoxyCompactList}\small\item\em Retrieve a vector of reaction rates given a vector of species concentrations. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga893427e9bcf19edb7742fd7a40bde89e}{get\+Reaction\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__reaction_ga893427e9bcf19edb7742fd7a40bde89e}{get\+Reaction\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the list of reaction Ids. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -30,7 +30,7 @@ Get information about reaction rates.
 \index{Reaction group@{Reaction group}!getNumberOfReactions@{getNumberOfReactions}}
 \index{getNumberOfReactions@{getNumberOfReactions}!Reaction group@{Reaction group}}
 \doxysubsubsection{\texorpdfstring{getNumberOfReactions()}{getNumberOfReactions()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Number\+Of\+Reactions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Number\+Of\+Reactions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -39,6 +39,7 @@ Obtain the number of reactions in the loaded model.
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{number = \mbox{\hyperlink{group__reaction_gaaa9941b7cba362c4098feedb02b047a4}{getNumberOfReactions}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle); }
+
 \end{DoxyCode}
 
 
@@ -54,7 +55,7 @@ Returns -\/1 if it fails, if successful it return 0 or more, indicating the numb
 \index{Reaction group@{Reaction group}!getReactionIds@{getReactionIds}}
 \index{getReactionIds@{getReactionIds}!Reaction group@{Reaction group}}
 \doxysubsubsection{\texorpdfstring{getReactionIds()}{getReactionIds()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -66,13 +67,13 @@ Obtain the list of reaction Ids.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns null if it fails, if successful it returns a pointer to a R\+R\+String\+Array\+Ptr struct 
+Returns null if it fails, if successful it returns a pointer to a RRString\+Array\+Ptr struct 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__reaction_ga6fbbae97760afea7cc74e26e2cb74926}\label{group__reaction_ga6fbbae97760afea7cc74e26e2cb74926}} 
 \index{Reaction group@{Reaction group}!getReactionRate@{getReactionRate}}
 \index{getReactionRate@{getReactionRate}!Reaction group@{Reaction group}}
 \doxysubsubsection{\texorpdfstring{getReactionRate()}{getReactionRate()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv get\+Reaction\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const int}]{index,  }\item[{double $\ast$}]{rate }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv get\+Reaction\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const int}]{index,  }\item[{double $\ast$}]{rate }\end{DoxyParamCaption})}
 
 
 
@@ -94,7 +95,7 @@ Returns false if it fails
 \index{Reaction group@{Reaction group}!getReactionRates@{getReactionRates}}
 \index{getReactionRates@{getReactionRates}!Reaction group@{Reaction group}}
 \doxysubsubsection{\texorpdfstring{getReactionRates()}{getReactionRates()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Rates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Rates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -112,7 +113,7 @@ Returns null if it fails, otherwise it returns a vector of reaction rates
 \index{Reaction group@{Reaction group}!getReactionRatesEx@{getReactionRatesEx}}
 \index{getReactionRatesEx@{getReactionRatesEx}!Reaction group@{Reaction group}}
 \doxysubsubsection{\texorpdfstring{getReactionRatesEx()}{getReactionRatesEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Rates\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}}}]{vec }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv get\+Reaction\+Rates\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}}}]{vec }\end{DoxyParamCaption})}
 
 
 

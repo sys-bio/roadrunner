@@ -22,7 +22,7 @@ std\+::string \mbox{\hyperlink{classrr_1_1SimulateOptions_af028e3752c6c9c3e25d5c
 std\+::string \mbox{\hyperlink{classrr_1_1SimulateOptions_ae95f2f7ba2b8af37a27e8c8f47f0ae72}{to\+Repr}} () const
 \begin{DoxyCompactList}\small\item\em get a short descriptions of this object, compatable with python {\bfseries{repr}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1SimulateOptions_a670a8cca2fd579cc776e70e95221bc81}\label{classrr_1_1SimulateOptions_a670a8cca2fd579cc776e70e95221bc81}} 
-void {\bfseries load\+S\+B\+M\+L\+Settings} (const std\+::string \&filename)
+void {\bfseries load\+SBMLSettings} (const std\+::string \&filename)
 \item 
 virtual void \mbox{\hyperlink{classrr_1_1SimulateOptions_abbdfae309d8622bb68ff68d7173a7b78}{initialize}} ()
 \item 
@@ -120,7 +120,7 @@ Large simulations should have this disabled. \mbox{\Hypertarget{classrr_1_1Simul
 
 The ouptut file for simulation results. 
 
-If non-\/empty, then the simulation results are batch-\/written to output\+\_\+file every Config\+::\+K\+\_\+\+R\+O\+W\+S\+\_\+\+P\+E\+R\+\_\+\+W\+R\+I\+TE rows, and an empty result matrix is returned. \mbox{\Hypertarget{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}\label{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}} 
+If non-\/empty, then the simulation results are batch-\/written to output\+\_\+file every Config\+::\+K\+\_\+\+ROWS\+\_\+\+PER\+\_\+\+WRITE rows, and an empty result matrix is returned. \mbox{\Hypertarget{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}\label{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}} 
 \index{rr::SimulateOptions@{rr::SimulateOptions}!start@{start}}
 \index{start@{start}!rr::SimulateOptions@{rr::SimulateOptions}}
 \doxysubsubsection{\texorpdfstring{start}{start}}
@@ -150,11 +150,11 @@ The samples are evenly spaced. When a simulation system calculates the data poin
 
 The variables (in addition to time) whose values will be saved in the result. 
 
-These are S\+B\+ML model id\textquotesingle{}s. Order is significant, as this determines the order of the columns in the result matrix.
+These are SBML model id\textquotesingle{}s. Order is significant, as this determines the order of the columns in the result matrix.
 
 Important\+: if a symbol in this list refers to a species in the model, then that symbol will also be listed in either the amount or concentration lists below.
 
-N\+O\+TE\+:If a listed variable has two underscores in it (\textquotesingle{}\+\_\+\+\_\+\textquotesingle{}), that variable is actually present only in a submodel of the main model, from the Hierarchical Model Composition package, in the format submodel\+I\+D\+\_\+\+\_\+variable\+ID. If the model is flattened, the variable will appear automatically. 
+NOTE\+:If a listed variable has two underscores in it (\textquotesingle{}\+\_\+\+\_\+\textquotesingle{}), that variable is actually present only in a submodel of the main model, from the Hierarchical Model Composition package, in the format submodel\+ID\+\_\+\+\_\+variable\+ID. If the model is flattened, the variable will appear automatically. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

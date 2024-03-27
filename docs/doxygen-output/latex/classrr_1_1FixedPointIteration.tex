@@ -63,7 +63,7 @@ Implementation of the fixed point iteration form of the kinsol steady state solv
 
 Initialize kinsol objects. 
 
-All subclasses require some of the same initial calls (such as N\+\_\+\+V\+New\+\_\+\+Serial and K\+I\+N\+Create). 
+All subclasses require some of the same initial calls (such as N\+\_\+\+VNew\+\_\+\+Serial and KINCreate). 
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a7c7a941fbf27c7a3a5326b254ee2f1b1}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 
@@ -115,7 +115,7 @@ The settings configuration system in roadrunner make this particular aspect of i
 
 User passes in arguments like u\+Scale and they are stored at the class level. This method passed them on to kinsol.
 
-When a user updates a setting with set\+Value, they are only updating the value in roadrunner. The change doesn\textquotesingle{}t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular \char`\"{}setters\char`\"{} because they won\textquotesingle{}t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call K\+I\+N\+\_\+\+Solve. 
+When a user updates a setting with set\+Value, they are only updating the value in roadrunner. The change doesn\textquotesingle{}t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular \char`\"{}setters\char`\"{} because they won\textquotesingle{}t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call KIN\+\_\+\+Solve. 
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a46e1ca358f9d1a8bbfe1150a1f6cf8ed}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 

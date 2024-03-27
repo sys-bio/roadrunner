@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1SteadyStateSolver" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::SteadyStateSolver</compoundname>
     <basecompoundref refid="classrr_1_1Solver" prot="public" virt="non-virtual">rr::Solver</basecompoundref>
@@ -26,12 +26,12 @@
         <definition>virtual double rr::SteadyStateSolver::solve</definition>
         <argsstring>()=0</argsstring>
         <name>solve</name>
-        <reimplementedby refid="classrr_1_1PresimulationProgramDecorator_1a335d316de985285bd3d6086430bdc258">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1af8245130dad6e050fd0bacdddc6cbec6">solve</reimplementedby>
-        <reimplementedby refid="classrr_1_1FixedPointIteration_1abb61d5ae308e15d2bfd5eec47270269e">solve</reimplementedby>
         <reimplementedby refid="classrr_1_1BasicNewtonIteration_1a4e322271d2eac9740271623abdcb4051">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1abb61d5ae308e15d2bfd5eec47270269e">solve</reimplementedby>
         <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1PresimulationProgramDecorator_1a335d316de985285bd3d6086430bdc258">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1af8245130dad6e050fd0bacdddc6cbec6">solve</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -138,9 +138,9 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> is an abstract base class that provides an interface to specific steady-state solver class implementations. </para>
     </briefdescription>
     <detaileddescription>
-<para><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> is an abstract base class that provides an interface to specific steady-state solver class implementations. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="8">
@@ -239,7 +239,7 @@
         <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="SteadyStateSolver.h" line="38" column="1" bodyfile="SteadyStateSolver.h" bodystart="37" bodyend="67"/>
+    <location file="SteadyStateSolver.h" line="37" column="5" bodyfile="SteadyStateSolver.h" bodystart="38" bodyend="67"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>addSetting</name></member>
       <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>construct</name></member>

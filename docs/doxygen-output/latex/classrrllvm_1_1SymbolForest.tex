@@ -2,7 +2,7 @@
 \label{classrrllvm_1_1SymbolForest}\index{rrllvm::SymbolForest@{rrllvm::SymbolForest}}
 
 
-Similar to a symbol table, except instead of a name / value, we have a name / tree, where the tree is the root of an A\+S\+T\+Node tree.  
+Similar to a symbol table, except instead of a name / value, we have a name / tree, where the tree is the root of an ASTNode tree.  
 
 
 
@@ -13,20 +13,20 @@ Similar to a symbol table, except instead of a name / value, we have a name / tr
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}}
-\begin{DoxyCompactList}\small\item\em syntatically the same as a std\+::map$<$std\+::string, const libsbml\+::\+A\+S\+T\+Node$\ast$$>$\+::const\+\_\+iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em syntatically the same as a std\+::map$<$std\+::string, const libsbml\+::\+ASTNode$\ast$$>$\+::const\+\_\+iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_aaedbda7bf450a9d891e86c0a8537b411}\label{classrrllvm_1_1SymbolForest_aaedbda7bf450a9d891e86c0a8537b411}} 
-typedef std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries Map}
+typedef std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries Map}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_a38f08b182471f4a2b2d58929685f5180}\label{classrrllvm_1_1SymbolForest_a38f08b182471f4a2b2d58929685f5180}} 
-typedef std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$\+::const\+\_\+iterator {\bfseries \+\_\+const\+\_\+iterator}
+typedef std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$\+::const\+\_\+iterator {\bfseries \+\_\+const\+\_\+iterator}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}} \mbox{\hyperlink{classrrllvm_1_1SymbolForest_a4b99a270969d9dfc5051ab0291e5724b}{find}} (const std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$\+::key\+\_\+type \&x) const
+const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}} \mbox{\hyperlink{classrrllvm_1_1SymbolForest_a4b99a270969d9dfc5051ab0291e5724b}{find}} (const std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$\+::key\+\_\+type \&x) const
 \begin{DoxyCompactList}\small\item\em find and end are designed to work identically to the std\+::map\+::find. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_abef6ac740ea1dcd64dd5f0fb8cc3b023}\label{classrrllvm_1_1SymbolForest_abef6ac740ea1dcd64dd5f0fb8cc3b023}} 
 const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}} \& {\bfseries end} () const
@@ -35,28 +35,28 @@ const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iter
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_a0ffc0753cae0d119ba9e2a785957c6af}\label{classrrllvm_1_1SymbolForest_a0ffc0753cae0d119ba9e2a785957c6af}} 
-std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries floating\+Species}
+std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries floating\+Species}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_a0aac11af419eb861cdb198437fc0a521}\label{classrrllvm_1_1SymbolForest_a0aac11af419eb861cdb198437fc0a521}} 
-std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries boundary\+Species}
+std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries boundary\+Species}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_a4b928ea68f80e6363e55ee7910c43a5d}\label{classrrllvm_1_1SymbolForest_a4b928ea68f80e6363e55ee7910c43a5d}} 
-std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries compartments}
+std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries compartments}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_aff350a13c202ca5133292e6e0c503491}\label{classrrllvm_1_1SymbolForest_aff350a13c202ca5133292e6e0c503491}} 
-std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries global\+Parameters}
+std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries global\+Parameters}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SymbolForest_ab8bf5cd765af1482339a0f1e3aba4d39}\label{classrrllvm_1_1SymbolForest_ab8bf5cd765af1482339a0f1e3aba4d39}} 
-std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$ {\bfseries species\+References}
+std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$ {\bfseries species\+References}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Similar to a symbol table, except instead of a name / value, we have a name / tree, where the tree is the root of an A\+S\+T\+Node tree. 
+Similar to a symbol table, except instead of a name / value, we have a name / tree, where the tree is the root of an ASTNode tree. 
 
 The rationality behind this will be covered in the paper, but briefly its required because we are dealing with a declarative language in which the rules can be defined in any order.
 
-This class does not own anything, it just has const pointers to a set of A\+S\+T\+Nodes which are owned either by the sbml model, or some containing class.
+This class does not own anything, it just has const pointers to a set of ASTNodes which are owned either by the sbml model, or some containing class.
 
 This class basically stores the name / value of all the re-\/write rules (assigment or initial assigment). 
 
@@ -65,7 +65,7 @@ This class basically stores the name / value of all the re-\/write rules (assigm
 \index{rrllvm::SymbolForest@{rrllvm::SymbolForest}!find@{find}}
 \index{find@{find}!rrllvm::SymbolForest@{rrllvm::SymbolForest}}
 \doxysubsubsection{\texorpdfstring{find()}{find()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}} rrllvm\+::\+Symbol\+Forest\+::find (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, const libsbml\+::\+A\+S\+T\+Node $\ast$ $>$\+::key\+\_\+type \&}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classrrllvm_1_1SymbolForest_1_1ConstIterator}{Const\+Iterator}} rrllvm\+::\+Symbol\+Forest\+::find (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::string, const libsbml\+::\+ASTNode $\ast$ $>$\+::key\+\_\+type \&}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

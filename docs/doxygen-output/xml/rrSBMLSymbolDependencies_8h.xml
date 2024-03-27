@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrSBMLSymbolDependencies_8h" kind="file" language="C++">
     <compoundname>rrSBMLSymbolDependencies.h</compoundname>
     <includes local="no">ostream</includes>
@@ -7,8 +7,8 @@
     <includes local="no">deque</includes>
     <includes refid="rrExporter_8h" local="yes">rrExporter.h</includes>
     <includes refid="rrUtils_8h" local="yes">rrUtils.h</includes>
-    <includedby refid="rrSBMLSymbol_8h" local="yes">c/rrSBMLSymbol.h</includedby>
     <includedby refid="rrSBMLSymbol_8cpp" local="yes">c/rrSBMLSymbol.cpp</includedby>
+    <includedby refid="rrSBMLSymbol_8h" local="yes">c/rrSBMLSymbol.h</includedby>
     <includedby refid="rrSBMLSymbolDependencies_8cpp" local="yes">c/rrSBMLSymbolDependencies.cpp</includedby>
     <incdepgraph>
       <node id="15">
@@ -204,7 +204,7 @@
         <label>c/rrCompiledExecutableModel.h</label>
         <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
-      <node id="4">
+      <node id="9">
         <label>c/rrScanner.h</label>
         <link refid="rrScanner_8h_source"/>
         <childnode refid="5" relation="include">
@@ -229,11 +229,11 @@
       <node id="8">
         <label>c/rrNOMSupport.h</label>
         <link refid="rrNOMSupport_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -242,7 +242,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="4">
         <label>c/rrModelSymbols.h</label>
         <link refid="rrModelSymbols_8h_source"/>
         <childnode refid="5" relation="include">

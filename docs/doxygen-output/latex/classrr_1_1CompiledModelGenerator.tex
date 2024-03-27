@@ -2,7 +2,7 @@
 \label{classrr_1_1CompiledModelGenerator}\index{rr::CompiledModelGenerator@{rr::CompiledModelGenerator}}
 
 
-Both compiled model generators (C and C\+Sharp) share a lot of functionality, so implement that here.  
+Both compiled model generators (C and CSharp) share a lot of functionality, so implement that here.  
 
 
 
@@ -139,7 +139,7 @@ virtual std\+::string \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_af0ad2a
 ls\+::\+Double\+Matrix $\ast$ {\bfseries initialize\+L0} (int \&nr\+Rows, int \&nr\+Cols)
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_af619413fab4ce497d39685c4b3935fe3}\label{classrr_1_1CompiledModelGenerator_af619413fab4ce497d39685c4b3935fe3}} 
-bool {\bfseries expression\+Contains\+Symbol} (A\+S\+T\+Node $\ast$ast, const std\+::string \&symbol)
+bool {\bfseries expression\+Contains\+Symbol} (ASTNode $\ast$ast, const std\+::string \&symbol)
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_ad6310d48d4bf51a6e8641b7eec0b171f}\label{classrr_1_1CompiledModelGenerator_ad6310d48d4bf51a6e8641b7eec0b171f}} 
 bool {\bfseries expression\+Contains\+Symbol} (const std\+::string \&expression, const std\+::string \&symbol)
@@ -163,8 +163,8 @@ std\+::string {\bfseries write\+Double} (const double \&value, const std\+::stri
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_ab26b2d6a05b3432f1b07b8bcdd4aa791}\label{classrr_1_1CompiledModelGenerator_ab26b2d6a05b3432f1b07b8bcdd4aa791}} 
-static A\+S\+T\+Node $\ast$ \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_ab26b2d6a05b3432f1b07b8bcdd4aa791}{clean\+Equation}} (A\+S\+T\+Node $\ast$ast)
-\begin{DoxyCompactList}\small\item\em creates a new A\+ST node \end{DoxyCompactList}\item 
+static ASTNode $\ast$ \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_ab26b2d6a05b3432f1b07b8bcdd4aa791}{clean\+Equation}} (ASTNode $\ast$ast)
+\begin{DoxyCompactList}\small\item\em creates a new AST node \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_ab5464d101e4cecb3d1d9e91fe079d58b}\label{classrr_1_1CompiledModelGenerator_ab5464d101e4cecb3d1d9e91fe079d58b}} 
 static std\+::string {\bfseries clean\+Equation} (const std\+::string \&equation)
 \end{DoxyCompactItemize}
@@ -174,8 +174,8 @@ static std\+::string {\bfseries clean\+Equation} (const std\+::string \&equation
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_af346298187993ac6d970c58f32a7af4f}\label{classrr_1_1CompiledModelGenerator_af346298187993ac6d970c58f32a7af4f}} 
 ls\+::\+Lib\+Structural $\ast$ \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_af346298187993ac6d970c58f32a7af4f}{m\+Lib\+Struct}}
 \begin{DoxyCompactList}\small\item\em Refernce to libstruct library this are set by create\+Model, and for the time being remain after create\+Model completes. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1NOMSupport}{N\+O\+M\+Support}} $\ast$ \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_a95eb17b0b46dc689ee4e1eb4d737c6f1}{m\+N\+OM}}
-\begin{DoxyCompactList}\small\item\em Object that provide some wrappers and new \char`\"{}\+N\+O\+M\char`\"{} functions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1NOMSupport}{NOMSupport}} $\ast$ \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_a95eb17b0b46dc689ee4e1eb4d737c6f1}{m\+NOM}}
+\begin{DoxyCompactList}\small\item\em Object that provide some wrappers and new \char`\"{}\+NOM\char`\"{} functions. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_a2d7614c0af0bd2bc86487f828a98e7ac}\label{classrr_1_1CompiledModelGenerator_a2d7614c0af0bd2bc86487f828a98e7ac}} 
 bool {\bfseries m\+Compute\+And\+Assign\+Consevation\+Laws}
 \item 
@@ -186,22 +186,22 @@ const std\+::string {\bfseries m\+Fix\+Amount\+Compartments}
 \mbox{\hyperlink{classrr_1_1StringList}{String\+List}} {\bfseries m\+Warnings}
 \item 
 \mbox{\hyperlink{classrr_1_1ModelSymbols}{Model\+Symbols}} \mbox{\hyperlink{classrr_1_1CompiledModelGenerator_aae0da14da795acd4122229c1b306c262}{ms}}
-\begin{DoxyCompactList}\small\item\em hold all the symbolic (A\+KA metadata) information in the model The idea is that all the memebers of this class will be const, and the entire thing will be created anew each time create\+Model is called. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em hold all the symbolic (AKA metadata) information in the model The idea is that all the memebers of this class will be const, and the entire thing will be created anew each time create\+Model is called. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Both compiled model generators (C and C\+Sharp) share a lot of functionality, so implement that here. 
+Both compiled model generators (C and CSharp) share a lot of functionality, so implement that here. 
 
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_a95eb17b0b46dc689ee4e1eb4d737c6f1}\label{classrr_1_1CompiledModelGenerator_a95eb17b0b46dc689ee4e1eb4d737c6f1}} 
 \index{rr::CompiledModelGenerator@{rr::CompiledModelGenerator}!mNOM@{mNOM}}
 \index{mNOM@{mNOM}!rr::CompiledModelGenerator@{rr::CompiledModelGenerator}}
 \doxysubsubsection{\texorpdfstring{mNOM}{mNOM}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1NOMSupport}{N\+O\+M\+Support}}$\ast$ rr\+::\+Compiled\+Model\+Generator\+::m\+N\+OM\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1NOMSupport}{NOMSupport}}$\ast$ rr\+::\+Compiled\+Model\+Generator\+::m\+NOM\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Object that provide some wrappers and new \char`\"{}\+N\+O\+M\char`\"{} functions. 
+Object that provide some wrappers and new \char`\"{}\+NOM\char`\"{} functions. 
 
 this are set by create\+Model, and for the time being remain after create\+Model completes. \mbox{\Hypertarget{classrr_1_1CompiledModelGenerator_aae0da14da795acd4122229c1b306c262}\label{classrr_1_1CompiledModelGenerator_aae0da14da795acd4122229c1b306c262}} 
 \index{rr::CompiledModelGenerator@{rr::CompiledModelGenerator}!ms@{ms}}
@@ -211,7 +211,7 @@ this are set by create\+Model, and for the time being remain after create\+Model
 
 
 
-hold all the symbolic (A\+KA metadata) information in the model The idea is that all the memebers of this class will be const, and the entire thing will be created anew each time create\+Model is called. 
+hold all the symbolic (AKA metadata) information in the model The idea is that all the memebers of this class will be const, and the entire thing will be created anew each time create\+Model is called. 
 
 This thing will creted in one shot, then all the code building will access it. 
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1EvalVolatileStoichCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::EvalVolatileStoichCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; EvalVolatileStoichCodeGen_FunctionPtr &gt;</basecompoundref>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalVolatileStoichCodeGen.h" line="35" column="21" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="37" bodyend="131"/>
+        <location file="llvm/EvalVolatileStoichCodeGen.h" line="35" column="21" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="37" bodyend="133"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalVolatileStoichCodeGen.h" line="47" column="14" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="133" bodyend="151"/>
+        <location file="llvm/EvalVolatileStoichCodeGen.h" line="47" column="14" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="135" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1EvalVolatileStoichCodeGen_1ac6f1d4560979b128ac255ebb4c2542f3" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -102,13 +102,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalVolatileStoichCodeGen.h" line="54" column="14" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="189" bodyend="225"/>
+        <location file="llvm/EvalVolatileStoichCodeGen.h" line="54" column="14" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="191" bodyend="227"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Evaluate &apos;volatile stoichiometries&apos;, or, stoichiometries that can change over the course of a simulation. </para>
     </briefdescription>
     <detaileddescription>
-<para>Evaluate &apos;volatile stoichiometries&apos;, or, stoichiometries that can change over the course of a simulation. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -129,55 +129,12 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
-      </node>
-      <node id="3">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="4" relation="private-inheritance">
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-      </node>
       <node id="2">
         <label>rrllvm::CodeGenBase&lt; EvalVolatileStoichCodeGen_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>modelSymbols</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-      </node>
-      <node id="8">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="7">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="4">
-        <label>SBMLVisitor</label>
-      </node>
-      <node id="6">
-        <label>rrllvm::SymbolForest</label>
-        <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
     </collaborationgraph>
-    <location file="llvm/EvalVolatileStoichCodeGen.h" line="30" column="1" bodyfile="llvm/EvalVolatileStoichCodeGen.h" bodystart="28" bodyend="55"/>
+    <location file="llvm/EvalVolatileStoichCodeGen.h" line="28" column="5" bodyfile="llvm/EvalVolatileStoichCodeGen.h" bodystart="30" bodyend="55"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::EvalVolatileStoichCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1EvalVolatileStoichCodeGen_1a5e26d4f400905d317c4309c353de7ad1" prot="public" virt="virtual"><scope>rrllvm::EvalVolatileStoichCodeGen</scope><name>codeGen</name></member>

@@ -34,12 +34,12 @@ void \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a36692f167efb2d98104b754f7709e0a0
 \begin{DoxyCompactList}\small\item\em Like the \char`\"{}insert(const std\+::string \&sbml\+Or\+File);\char`\"{} overload, but pass in a vector of sbml file or sbml strings. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a6d384b01fbf98397a0d475838ac5fd75}{erase}} (const std\+::string \&key)
 \begin{DoxyCompactList}\small\item\em remove an element with \end{DoxyCompactList}\item 
-Thread\+Safe\+Unordered\+Map\+::iterator \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a6cc2faaac1c5ee045a5a42ea9aa17394}{begin}} ()
+Thread\+Safe\+Unordered\+Map\+::iterator \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a34903c378ab7ac40ccc656bf4d0dac9d}{begin}} ()
 \begin{DoxyCompactList}\small\item\em map iterator \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a0fda87a87041ffddf67c427dd16f3254}\label{classrr_1_1RoadRunnerMap_a0fda87a87041ffddf67c427dd16f3254}} 
 Thread\+Safe\+Unordered\+Map\+::const\+\_\+iterator {\bfseries begin} () const
 \item 
-Thread\+Safe\+Unordered\+Map\+::iterator \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a6807a3ec91489b43298a17ea0f117e0c}{end}} ()
+Thread\+Safe\+Unordered\+Map\+::iterator \mbox{\hyperlink{classrr_1_1RoadRunnerMap_a32cd8895262727088f335c25ae813e98}{end}} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a07ad39be64cd0c4a2c6b54f6f3183bf2}\label{classrr_1_1RoadRunnerMap_a07ad39be64cd0c4a2c6b54f6f3183bf2}} 
 Thread\+Safe\+Unordered\+Map\+::const\+\_\+iterator {\bfseries end} () const
@@ -129,11 +129,11 @@ get borrowed reference from map for roadrunner model with key equal to
 {\em key} & .\\
 \hline
 \end{DoxyParams}
-returned pointer is owned by the \mbox{\hyperlink{classrr_1_1RoadRunnerMap}{Road\+Runner\+Map}} object. \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a6cc2faaac1c5ee045a5a42ea9aa17394}\label{classrr_1_1RoadRunnerMap_a6cc2faaac1c5ee045a5a42ea9aa17394}} 
+returned pointer is owned by the \mbox{\hyperlink{classrr_1_1RoadRunnerMap}{Road\+Runner\+Map}} object. \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a34903c378ab7ac40ccc656bf4d0dac9d}\label{classrr_1_1RoadRunnerMap_a34903c378ab7ac40ccc656bf4d0dac9d}} 
 \index{rr::RoadRunnerMap@{rr::RoadRunnerMap}!begin@{begin}}
 \index{begin@{begin}!rr::RoadRunnerMap@{rr::RoadRunnerMap}}
 \doxysubsubsection{\texorpdfstring{begin()}{begin()}}
-{\footnotesize\ttfamily Thread\+Safe\+Unordered\+Map\+::const\+\_\+iterator rr\+::\+Road\+Runner\+Map\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Thread\+Safe\+Unordered\+Map\+::iterator rr\+::\+Road\+Runner\+Map\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -144,6 +144,7 @@ map iterator
 \DoxyCodeLine{\textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\&[modelName, rr]: rrm) \{}
 \DoxyCodeLine{   ...}
 \DoxyCodeLine{\}}
+
 \end{DoxyCode}
 
 
@@ -153,6 +154,7 @@ or
 \DoxyCodeLine{    actual[i] = rr-\/>getInstanceID();}
 \DoxyCodeLine{    i++;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a1af8de359ac7fbca433c3e249a2d9496}\label{classrr_1_1RoadRunnerMap_a1af8de359ac7fbca433c3e249a2d9496}} 
 \index{rr::RoadRunnerMap@{rr::RoadRunnerMap}!count@{count}}
@@ -169,11 +171,11 @@ count the number of keys with value
 {\em key} & .\\
 \hline
 \end{DoxyParams}
-Because there can be only 1 element with a particular key in the map, the return value of count is guarenteed to be either 0 for not found, or 1 for found. \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a6807a3ec91489b43298a17ea0f117e0c}\label{classrr_1_1RoadRunnerMap_a6807a3ec91489b43298a17ea0f117e0c}} 
+Because there can be only 1 element with a particular key in the map, the return value of count is guarenteed to be either 0 for not found, or 1 for found. \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a32cd8895262727088f335c25ae813e98}\label{classrr_1_1RoadRunnerMap_a32cd8895262727088f335c25ae813e98}} 
 \index{rr::RoadRunnerMap@{rr::RoadRunnerMap}!end@{end}}
 \index{end@{end}!rr::RoadRunnerMap@{rr::RoadRunnerMap}}
 \doxysubsubsection{\texorpdfstring{end()}{end()}}
-{\footnotesize\ttfamily Thread\+Safe\+Unordered\+Map\+::const\+\_\+iterator rr\+::\+Road\+Runner\+Map\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Thread\+Safe\+Unordered\+Map\+::iterator rr\+::\+Road\+Runner\+Map\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 \begin{DoxyCode}{0}
@@ -181,6 +183,7 @@ Because there can be only 1 element with a particular key in the map, the return
 \DoxyCodeLine{    \textcolor{keyword}{auto}\&[modelName, rr] = *it;}
 \DoxyCodeLine{    i++;}
 \DoxyCodeLine{\}}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1RoadRunnerMap_a6d384b01fbf98397a0d475838ac5fd75}\label{classrr_1_1RoadRunnerMap_a6d384b01fbf98397a0d475838ac5fd75}} 
 \index{rr::RoadRunnerMap@{rr::RoadRunnerMap}!erase@{erase}}

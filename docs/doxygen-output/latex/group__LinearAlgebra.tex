@@ -8,9 +8,9 @@ Linear algebra utility functions.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga142092d1f7edcc6500f1b965abed68be}{get\+Eigenvalues\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} mat)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga142092d1f7edcc6500f1b965abed68be}{get\+Eigenvalues\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} mat)
 \begin{DoxyCompactList}\small\item\em Compute the eigenvalues of a double matrix. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{R\+R\+Complex\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}{get\+Eigenvalues\+Vector}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} mat)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{RRComplex\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}{get\+Eigenvalues\+Vector}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} mat)
 \begin{DoxyCompactList}\small\item\em Compute the eigenvalues of a double matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -24,7 +24,7 @@ Linear algebra utility functions.
 \index{Linear algebra functions@{Linear algebra functions}!getEigenvaluesMatrix@{getEigenvaluesMatrix}}
 \index{getEigenvaluesMatrix@{getEigenvaluesMatrix}!Linear algebra functions@{Linear algebra functions}}
 \doxysubsubsection{\texorpdfstring{getEigenvaluesMatrix()}{getEigenvaluesMatrix()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv get\+Eigenvalues\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv get\+Eigenvalues\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
 
 
 
@@ -36,13 +36,13 @@ Compute the eigenvalues of a double matrix.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns N\+U\+LL if it fails, otherwise returns a matrix of eigenvalues. The first column will contain the real values and the second column the imaginary values 
+Returns NULL if it fails, otherwise returns a matrix of eigenvalues. The first column will contain the real values and the second column the imaginary values 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}\label{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}} 
 \index{Linear algebra functions@{Linear algebra functions}!getEigenvaluesVector@{getEigenvaluesVector}}
 \index{getEigenvaluesVector@{getEigenvaluesVector}!Linear algebra functions@{Linear algebra functions}}
 \doxysubsubsection{\texorpdfstring{getEigenvaluesVector()}{getEigenvaluesVector()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{R\+R\+Complex\+Vector\+Ptr}} rrc\+Call\+Conv get\+Eigenvalues\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{RRComplex\+Vector\+Ptr}} rrc\+Call\+Conv get\+Eigenvalues\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
 
 
 

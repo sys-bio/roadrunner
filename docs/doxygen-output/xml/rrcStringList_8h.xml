@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrcStringList_8h" kind="file" language="C++">
     <compoundname>rrcStringList.h</compoundname>
     <includes local="no">vector</includes>
@@ -8,8 +8,8 @@
     <includes refid="rrConstants_8h" local="yes">rrConstants.h</includes>
     <includes refid="rrc__types_8h" local="yes">rrc_types.h</includes>
     <includedby refid="rrArrayList_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayList.cpp</includedby>
-    <includedby refid="rrArrayListItem_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayListItem.h</includedby>
     <includedby refid="rrArrayList_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayList.h</includedby>
+    <includedby refid="rrArrayListItem_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrArrayListItem.h</includedby>
     <includedby refid="rrc__cpp__support_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_cpp_support.h</includedby>
     <includedby refid="rrcStringList_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrcStringList.cpp</includedby>
     <incdepgraph>
@@ -70,20 +70,20 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
+      <node id="5">
         <label>/home/vsts/work/1/s/wrappers/C/rrArrayListItem.h</label>
         <link refid="rrArrayListItem_8h_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="5">
+      <node id="4">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="4">
+      <node id="3">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_cpp_support.h</label>
         <link refid="rrc__cpp__support_8h"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -91,15 +91,15 @@
         <link refid="rrcStringList_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
       </node>
-      <node id="3">
+      <node id="2">
         <label>/home/vsts/work/1/s/wrappers/C/rrArrayList.h</label>
         <link refid="rrArrayList_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -124,7 +124,7 @@
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::string;</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::ostream;</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="keyword">class<sp/></highlight><highlight class="normal">C_DECL_SPEC<sp/>StringList</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">C_DECL_SPEC<sp/>StringList</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vector&lt;string&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mStrings;</highlight></codeline>

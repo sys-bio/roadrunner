@@ -1,4 +1,4 @@
-\hypertarget{group__NOM}{}\doxysection{Network object model (N\+OM) functions}
+\hypertarget{group__NOM}{}\doxysection{Network object model (NOM) functions}
 \label{group__NOM}\index{Network object model (NOM) functions@{Network object model (NOM) functions}}
 
 
@@ -8,16 +8,16 @@ Network object model functions.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}{get\+Number\+Of\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}{get\+Number\+Of\+Rules}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Returns the number of rules in the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gadd064802065aece47c2e966f9fff5958}{get\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
-\begin{DoxyCompactList}\small\item\em Returns the name of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga41628ed993912f07fef8232af1a01051}{set\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$name)
-\begin{DoxyCompactList}\small\item\em Sets the name of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga300c79897dd0002ea7810b0bd7ce640c}{get\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
-\begin{DoxyCompactList}\small\item\em Returns the id of currently loaded S\+B\+ML model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gaa4a7f06dcfd66520eae88c7138c61364}{set\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$id)
-\begin{DoxyCompactList}\small\item\em Sets the id of currently loaded S\+B\+ML model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gadd064802065aece47c2e966f9fff5958}{get\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
+\begin{DoxyCompactList}\small\item\em Returns the name of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga41628ed993912f07fef8232af1a01051}{set\+Model\+Name}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Sets the name of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_ga300c79897dd0002ea7810b0bd7ce640c}{get\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
+\begin{DoxyCompactList}\small\item\em Returns the id of currently loaded SBML model. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv \mbox{\hyperlink{group__NOM_gaa4a7f06dcfd66520eae88c7138c61364}{set\+Model\+Id}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, char $\ast$id)
+\begin{DoxyCompactList}\small\item\em Sets the id of currently loaded SBML model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -30,11 +30,11 @@ Network object model functions.
 \index{Network object model (NOM) functions@{Network object model (NOM) functions}!getModelId@{getModelId}}
 \index{getModelId@{getModelId}!Network object model (NOM) functions@{Network object model (NOM) functions}}
 \doxysubsubsection{\texorpdfstring{getModelId()}{getModelId()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Model\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Model\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
-Returns the id of currently loaded S\+B\+ML model. 
+Returns the id of currently loaded SBML model. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -42,17 +42,17 @@ Returns the id of currently loaded S\+B\+ML model.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns a char$\ast$ containing the id if successful, N\+U\+LL otherwise 
+Returns a char$\ast$ containing the id if successful, NULL otherwise 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__NOM_gadd064802065aece47c2e966f9fff5958}\label{group__NOM_gadd064802065aece47c2e966f9fff5958}} 
 \index{Network object model (NOM) functions@{Network object model (NOM) functions}!getModelName@{getModelName}}
 \index{getModelName@{getModelName}!Network object model (NOM) functions@{Network object model (NOM) functions}}
 \doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+Model\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+Model\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
-Returns the name of currently loaded S\+B\+ML model. 
+Returns the name of currently loaded SBML model. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -60,13 +60,13 @@ Returns the name of currently loaded S\+B\+ML model.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns a char$\ast$ containing the name if successful, N\+U\+LL otherwise 
+Returns a char$\ast$ containing the name if successful, NULL otherwise 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}\label{group__NOM_ga97df6daacbf87b1b2d3b4dd3f4e05876}} 
 \index{Network object model (NOM) functions@{Network object model (NOM) functions}!getNumberOfRules@{getNumberOfRules}}
 \index{getNumberOfRules@{getNumberOfRules}!Network object model (NOM) functions@{Network object model (NOM) functions}}
 \doxysubsubsection{\texorpdfstring{getNumberOfRules()}{getNumberOfRules()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Number\+Of\+Rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Number\+Of\+Rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -84,11 +84,11 @@ Returns an integer larger or equal to 0 if successful, or -\/1 on failure
 \index{Network object model (NOM) functions@{Network object model (NOM) functions}!setModelId@{setModelId}}
 \index{setModelId@{setModelId}!Network object model (NOM) functions@{Network object model (NOM) functions}}
 \doxysubsubsection{\texorpdfstring{setModelId()}{setModelId()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv set\+Model\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{char $\ast$}]{id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv set\+Model\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{char $\ast$}]{id }\end{DoxyParamCaption})}
 
 
 
-Sets the id of currently loaded S\+B\+ML model. 
+Sets the id of currently loaded SBML model. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -101,11 +101,11 @@ Sets the id of currently loaded S\+B\+ML model.
 \index{Network object model (NOM) functions@{Network object model (NOM) functions}!setModelName@{setModelName}}
 \index{setModelName@{setModelName}!Network object model (NOM) functions@{Network object model (NOM) functions}}
 \doxysubsubsection{\texorpdfstring{setModelName()}{setModelName()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv set\+Model\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv set\+Model\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
 
 
 
-Sets the name of currently loaded S\+B\+ML model. 
+Sets the name of currently loaded SBML model. 
 
 
 \begin{DoxyParams}[1]{Parameters}

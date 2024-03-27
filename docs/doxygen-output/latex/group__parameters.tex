@@ -8,15 +8,15 @@ Set and get global and local parameters.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga8786ef7925e23f93be3826e3bc1a7c73}{get\+Global\+Parameter\+Values}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga8786ef7925e23f93be3826e3bc1a7c73}{get\+Global\+Parameter\+Values}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Retrieve the values for all the global parameter values in a vector. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga3f4d3739191a328326e0de1f7c07334a}{set\+Global\+Parameter\+By\+Index}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const int index, const double value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga3f4d3739191a328326e0de1f7c07334a}{set\+Global\+Parameter\+By\+Index}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const int index, const double value)
 \begin{DoxyCompactList}\small\item\em Set the value for a particular global parameter. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_gac2fed7cbeb8f0b2099f72f73de5dac36}{get\+Global\+Parameter\+By\+Index}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const int index, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_gac2fed7cbeb8f0b2099f72f73de5dac36}{get\+Global\+Parameter\+By\+Index}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const int index, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Retrieve the global parameter value. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga430bad38724b6db3feea39b31231e85e}{get\+Number\+Of\+Global\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga430bad38724b6db3feea39b31231e85e}{get\+Number\+Of\+Global\+Parameters}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Returns the number of global parameters in the model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga0ad560fd0b56ac0c36eff2db996b40cb}{get\+Global\+Parameter\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__parameters_ga0ad560fd0b56ac0c36eff2db996b40cb}{get\+Global\+Parameter\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the list of global parameter Ids. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -30,7 +30,7 @@ Set and get global and local parameters.
 \index{Parameters group@{Parameters group}!getGlobalParameterByIndex@{getGlobalParameterByIndex}}
 \index{getGlobalParameterByIndex@{getGlobalParameterByIndex}!Parameters group@{Parameters group}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterByIndex()}{getGlobalParameterByIndex()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv get\+Global\+Parameter\+By\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const int}]{index,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv get\+Global\+Parameter\+By\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const int}]{index,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -40,7 +40,7 @@ Retrieve the global parameter value.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
 \hline
- & {\em index} & The index to the global parameter (corresponds to position in get\+Global\+Parameters\+Ids(\+R\+R\+Handle handle)) \\
+ & {\em index} & The index to the global parameter (corresponds to position in get\+Global\+Parameters\+Ids(\+RRHandle handle)) \\
 \hline
  & {\em value} & The value returned by the method \\
 \hline
@@ -52,7 +52,7 @@ Returns true if successful, false otherwise
 \index{Parameters group@{Parameters group}!getGlobalParameterIds@{getGlobalParameterIds}}
 \index{getGlobalParameterIds@{getGlobalParameterIds}!Parameters group@{Parameters group}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterIds()}{getGlobalParameterIds()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv get\+Global\+Parameter\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv get\+Global\+Parameter\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -64,13 +64,13 @@ Obtain the list of global parameter Ids.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns null if it fails, if successful it returns a pointer to a R\+R\+String\+Array\+Ptr struct 
+Returns null if it fails, if successful it returns a pointer to a RRString\+Array\+Ptr struct 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__parameters_ga8786ef7925e23f93be3826e3bc1a7c73}\label{group__parameters_ga8786ef7925e23f93be3826e3bc1a7c73}} 
 \index{Parameters group@{Parameters group}!getGlobalParameterValues@{getGlobalParameterValues}}
 \index{getGlobalParameterValues@{getGlobalParameterValues}!Parameters group@{Parameters group}}
 \doxysubsubsection{\texorpdfstring{getGlobalParameterValues()}{getGlobalParameterValues()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv get\+Global\+Parameter\+Values (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv get\+Global\+Parameter\+Values (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -79,6 +79,7 @@ Retrieve the values for all the global parameter values in a vector.
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{structRRVector}{RRVectorPtr}} values = \mbox{\hyperlink{group__parameters_ga8786ef7925e23f93be3826e3bc1a7c73}{getGlobalParameterValues}} (\textcolor{keywordtype}{void}); }
+
 \end{DoxyCode}
 
 
@@ -94,7 +95,7 @@ Returns the vector of global parameter values or null if an error occurred
 \index{Parameters group@{Parameters group}!getNumberOfGlobalParameters@{getNumberOfGlobalParameters}}
 \index{getNumberOfGlobalParameters@{getNumberOfGlobalParameters}!Parameters group@{Parameters group}}
 \doxysubsubsection{\texorpdfstring{getNumberOfGlobalParameters()}{getNumberOfGlobalParameters()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Number\+Of\+Global\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Number\+Of\+Global\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -109,7 +110,7 @@ Returns the number of global parameters in the model.
 \index{Parameters group@{Parameters group}!setGlobalParameterByIndex@{setGlobalParameterByIndex}}
 \index{setGlobalParameterByIndex@{setGlobalParameterByIndex}!Parameters group@{Parameters group}}
 \doxysubsubsection{\texorpdfstring{setGlobalParameterByIndex()}{setGlobalParameterByIndex()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Global\+Parameter\+By\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const int}]{index,  }\item[{const double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Global\+Parameter\+By\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const int}]{index,  }\item[{const double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -119,7 +120,7 @@ Set the value for a particular global parameter.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
 \hline
- & {\em index} & The index to the global parameter (corresponds to position in \mbox{\hyperlink{group__parameters_ga0ad560fd0b56ac0c36eff2db996b40cb}{get\+Global\+Parameter\+Ids(\+R\+R\+Handle handle)}}) \\
+ & {\em index} & The index to the global parameter (corresponds to position in \mbox{\hyperlink{group__parameters_ga0ad560fd0b56ac0c36eff2db996b40cb}{get\+Global\+Parameter\+Ids(\+RRHandle handle)}}) \\
 \hline
  & {\em value} & The value of the parameter to set \\
 \hline

@@ -1,29 +1,34 @@
-\hypertarget{classrrllvm_1_1ModelDataIRBuilder}{}\doxysection{rrllvm\+::Model\+Data\+I\+R\+Builder Class Reference}
+\hypertarget{classrrllvm_1_1ModelDataIRBuilder}{}\doxysection{rrllvm\+::Model\+Data\+IRBuilder Class Reference}
 \label{classrrllvm_1_1ModelDataIRBuilder}\index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 
 
-{\ttfamily \#include $<$Model\+Data\+I\+R\+Builder.\+h$>$}
+The model data IR builder.  
+
+
+
+
+{\ttfamily \#include $<$Model\+Data\+IRBuilder.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a8bc39b1fd4a0dad7cb4b8018600218b1}\label{classrrllvm_1_1ModelDataIRBuilder_a8bc39b1fd4a0dad7cb4b8018600218b1}} 
-\mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8bc39b1fd4a0dad7cb4b8018600218b1}{Model\+Data\+I\+R\+Builder}} (llvm\+::\+Value $\ast$model\+Data, \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} const \&, llvm\+::\+I\+R\+Builder$<$$>$ \&)
+\mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8bc39b1fd4a0dad7cb4b8018600218b1}{Model\+Data\+IRBuilder}} (llvm\+::\+Value $\ast$model\+Data, \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} const \&, llvm\+::\+IRBuilder$<$$>$ \&)
 \begin{DoxyCompactList}\small\item\em these only make sense attached to a model\+Data pointer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ab1594480ae7371b9073f688ccc1264f7}\label{classrrllvm_1_1ModelDataIRBuilder_ab1594480ae7371b9073f688ccc1264f7}} 
-llvm\+::\+Value $\ast$ {\bfseries create\+Float\+Species\+Amt\+G\+EP} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+llvm\+::\+Value $\ast$ {\bfseries create\+Float\+Species\+Amt\+GEP} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a971d0b8e40c0dd0f1c283162a1dd201b}\label{classrrllvm_1_1ModelDataIRBuilder_a971d0b8e40c0dd0f1c283162a1dd201b}} 
-llvm\+::\+Value $\ast$ {\bfseries create\+Bound\+Species\+Amt\+G\+EP} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+llvm\+::\+Value $\ast$ {\bfseries create\+Bound\+Species\+Amt\+GEP} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ac0d44b92ab4ecc37a9b8036f3493a760}\label{classrrllvm_1_1ModelDataIRBuilder_ac0d44b92ab4ecc37a9b8036f3493a760}} 
-llvm\+::\+Value $\ast$ {\bfseries create\+Global\+Param\+G\+EP} (const std\+::string \&id)
+llvm\+::\+Value $\ast$ {\bfseries create\+Global\+Param\+GEP} (const std\+::string \&id)
 \item 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a7b3359986b617683208948a88344e779}{create\+G\+EP}} (Model\+Data\+Fields field)
-\begin{DoxyCompactList}\small\item\em create a G\+EP for a Model\+Data structure field. \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a7b3359986b617683208948a88344e779}{create\+GEP}} (Model\+Data\+Fields field)
+\begin{DoxyCompactList}\small\item\em create a GEP for a Model\+Data structure field. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a0c6f0447aae3aa5ac8fddec77a64b23f}\label{classrrllvm_1_1ModelDataIRBuilder_a0c6f0447aae3aa5ac8fddec77a64b23f}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0c6f0447aae3aa5ac8fddec77a64b23f}{create\+G\+EP}} (Model\+Data\+Fields field, unsigned index, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em create a G\+EP for an array which belongs to the Model\+Data struct, only valid for arrays, will crash on non-\/array fields. \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0c6f0447aae3aa5ac8fddec77a64b23f}{create\+GEP}} (Model\+Data\+Fields field, unsigned index, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em create a GEP for an array which belongs to the Model\+Data struct, only valid for arrays, will crash on non-\/array fields. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_afdbd5af4da9e556e97f737bee861f5f8}\label{classrrllvm_1_1ModelDataIRBuilder_afdbd5af4da9e556e97f737bee861f5f8}} 
 llvm\+::\+Value $\ast$ {\bfseries create\+Load} (Model\+Data\+Fields field, unsigned index, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \item 
@@ -31,8 +36,8 @@ llvm\+::\+Value $\ast$ {\bfseries create\+Load} (Model\+Data\+Fields field, unsi
 llvm\+::\+Value $\ast$ {\bfseries create\+Store} (Model\+Data\+Fields field, unsigned index, llvm\+::\+Value $\ast$value, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a124c650e4d831ce3b93acdb6d9b86e00}\label{classrrllvm_1_1ModelDataIRBuilder_a124c650e4d831ce3b93acdb6d9b86e00}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a124c650e4d831ce3b93acdb6d9b86e00}{create\+Comp\+G\+EP}} (const std\+::string \&id)
-\begin{DoxyCompactList}\small\item\em the G\+EP for a compartment \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a124c650e4d831ce3b93acdb6d9b86e00}{create\+Comp\+GEP}} (const std\+::string \&id)
+\begin{DoxyCompactList}\small\item\em the GEP for a compartment \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a8cb04bb1f7f48de204b27d75c41ea753}\label{classrrllvm_1_1ModelDataIRBuilder_a8cb04bb1f7f48de204b27d75c41ea753}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8cb04bb1f7f48de204b27d75c41ea753}{create\+Comp\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the compartment value \end{DoxyCompactList}\item 
@@ -40,11 +45,11 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8cb04
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a6e84263f8639dc61fb3f1b30106fb382}{create\+Comp\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the compartment value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a0e6420b8f2afe9c8f0cffea300ef5f9f}\label{classrrllvm_1_1ModelDataIRBuilder_a0e6420b8f2afe9c8f0cffea300ef5f9f}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0e6420b8f2afe9c8f0cffea300ef5f9f}{create\+Init\+Float\+Species\+Amt\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em the G\+EP for a floating species initial amount \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0e6420b8f2afe9c8f0cffea300ef5f9f}{create\+Init\+Float\+Species\+Amt\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em the GEP for a floating species initial amount \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a8409fb8ce44ad066c436c3e0ab24ec17}\label{classrrllvm_1_1ModelDataIRBuilder_a8409fb8ce44ad066c436c3e0ab24ec17}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8409fb8ce44ad066c436c3e0ab24ec17}{create\+Init\+Boundary\+Species\+Amt\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em the G\+EP for a boundary species initial amount \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a8409fb8ce44ad066c436c3e0ab24ec17}{create\+Init\+Boundary\+Species\+Amt\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em the GEP for a boundary species initial amount \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ab61b243ae9e02a6309c0df18a0a60349}\label{classrrllvm_1_1ModelDataIRBuilder_ab61b243ae9e02a6309c0df18a0a60349}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ab61b243ae9e02a6309c0df18a0a60349}{create\+Init\+Float\+Species\+Amt\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the floating species initial amount value \end{DoxyCompactList}\item 
@@ -58,8 +63,8 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a3b7d2
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a788ab717f75eb3b3bb14456ab9db9a2e}{create\+Init\+Boundary\+Species\+Amt\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the boundary species initial value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a4ebc50a06da2dec5079b837f1b7b8ba2}\label{classrrllvm_1_1ModelDataIRBuilder_a4ebc50a06da2dec5079b837f1b7b8ba2}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a4ebc50a06da2dec5079b837f1b7b8ba2}{create\+Init\+Comp\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em the G\+EP for a compartment \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a4ebc50a06da2dec5079b837f1b7b8ba2}{create\+Init\+Comp\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em the GEP for a compartment \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a480ea9be1f574dec9ed7b7a1c01895e0}\label{classrrllvm_1_1ModelDataIRBuilder_a480ea9be1f574dec9ed7b7a1c01895e0}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a480ea9be1f574dec9ed7b7a1c01895e0}{create\+Init\+Comp\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the compartment value \end{DoxyCompactList}\item 
@@ -67,8 +72,8 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a480ea
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a05cfbc9f4b384ddf4b8f671d0c9f8bc8}{create\+Init\+Comp\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the compartment value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ac6a73266b8481b9bb0f8701f7a8e9b0f}\label{classrrllvm_1_1ModelDataIRBuilder_ac6a73266b8481b9bb0f8701f7a8e9b0f}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ac6a73266b8481b9bb0f8701f7a8e9b0f}{create\+Init\+Global\+Param\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em the G\+EP for a init global params \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ac6a73266b8481b9bb0f8701f7a8e9b0f}{create\+Init\+Global\+Param\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em the GEP for a init global params \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a302e5fb2002300229b27171b0de23a03}\label{classrrllvm_1_1ModelDataIRBuilder_a302e5fb2002300229b27171b0de23a03}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a302e5fb2002300229b27171b0de23a03}{create\+Init\+Global\+Param\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the init global param value \end{DoxyCompactList}\item 
@@ -88,8 +93,8 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ab55a6
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0bf91a06351023837251f46610ccc031}{create\+Float\+Species\+Amt\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the floating species amount \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_aee43a7f65c430949377f8ceceec46f4e}\label{classrrllvm_1_1ModelDataIRBuilder_aee43a7f65c430949377f8ceceec46f4e}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_aee43a7f65c430949377f8ceceec46f4e}{create\+Float\+Species\+Amt\+Rate\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em the G\+EP for the amount rates \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_aee43a7f65c430949377f8ceceec46f4e}{create\+Float\+Species\+Amt\+Rate\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em the GEP for the amount rates \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ab98f914dc0095a2646ec5050683eb5c5}\label{classrrllvm_1_1ModelDataIRBuilder_ab98f914dc0095a2646ec5050683eb5c5}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ab98f914dc0095a2646ec5050683eb5c5}{create\+Float\+Species\+Amt\+Rate\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the floating species amount value \end{DoxyCompactList}\item 
@@ -109,8 +114,8 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a97709
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ad1361738088499a0be5b02d6947af7c0}{create\+Reaction\+Rate\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the floating species amount \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a62759f27f21636aeae98d68a2d481da8}\label{classrrllvm_1_1ModelDataIRBuilder_a62759f27f21636aeae98d68a2d481da8}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a62759f27f21636aeae98d68a2d481da8}{create\+Rate\+Rule\+Value\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em rate rule G\+EP \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a62759f27f21636aeae98d68a2d481da8}{create\+Rate\+Rule\+Value\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em rate rule GEP \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a1ce8a56c0e142b190ffc7096f332a203}\label{classrrllvm_1_1ModelDataIRBuilder_a1ce8a56c0e142b190ffc7096f332a203}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a1ce8a56c0e142b190ffc7096f332a203}{create\+Rate\+Rule\+Value\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the rate rule value \end{DoxyCompactList}\item 
@@ -118,8 +123,8 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a1ce8a
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a604302c4ef21692b690f31652639d5ab}{create\+Rate\+Rule\+Value\+Store}} (const std\+::string \&id, llvm\+::\+Value $\ast$value)
 \begin{DoxyCompactList}\small\item\em store the rate rule value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ae02c48627dd549f3df06472b956eb4f0}\label{classrrllvm_1_1ModelDataIRBuilder_ae02c48627dd549f3df06472b956eb4f0}} 
-llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ae02c48627dd549f3df06472b956eb4f0}{create\+Rate\+Rule\+Rate\+G\+EP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
-\begin{DoxyCompactList}\small\item\em rate rule G\+EP \end{DoxyCompactList}\item 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ae02c48627dd549f3df06472b956eb4f0}{create\+Rate\+Rule\+Rate\+GEP}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em rate rule GEP \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ad05a66482d3ed25eb5ec9aada8e6af7a}\label{classrrllvm_1_1ModelDataIRBuilder_ad05a66482d3ed25eb5ec9aada8e6af7a}} 
 llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ad05a66482d3ed25eb5ec9aada8e6af7a}{create\+Rate\+Rule\+Rate\+Load}} (const std\+::string \&id, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em load the rate rule rate \end{DoxyCompactList}\item 
@@ -138,17 +143,17 @@ llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ac50c1
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static llvm\+::\+Call\+Inst $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ae9487096c48c2b9ad0bc33778fe60581}{create\+C\+S\+R\+Matrix\+Set\+NZ}} (llvm\+::\+I\+R\+Builder$<$$>$ \&, llvm\+::\+Value $\ast$csr\+Ptr, llvm\+::\+Value $\ast$row, llvm\+::\+Value $\ast$col, llvm\+::\+Value $\ast$value, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+static llvm\+::\+Call\+Inst $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_ae9487096c48c2b9ad0bc33778fe60581}{create\+CSRMatrix\+Set\+NZ}} (llvm\+::\+IRBuilder$<$$>$ \&, llvm\+::\+Value $\ast$csr\+Ptr, llvm\+::\+Value $\ast$row, llvm\+::\+Value $\ast$col, llvm\+::\+Value $\ast$value, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em create a call to the csr\+\_\+matrix\+\_\+set\+\_\+nz function. \end{DoxyCompactList}\item 
-static llvm\+::\+Call\+Inst $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a98a0c888fd91ecabdc9d4ff17eccb3f9}{create\+C\+S\+R\+Matrix\+Get\+NZ}} (llvm\+::\+I\+R\+Builder$<$$>$ \&, llvm\+::\+Value $\ast$csr\+Ptr, llvm\+::\+Value $\ast$row, llvm\+::\+Value $\ast$col, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
+static llvm\+::\+Call\+Inst $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a98a0c888fd91ecabdc9d4ff17eccb3f9}{create\+CSRMatrix\+Get\+NZ}} (llvm\+::\+IRBuilder$<$$>$ \&, llvm\+::\+Value $\ast$csr\+Ptr, llvm\+::\+Value $\ast$row, llvm\+::\+Value $\ast$col, const llvm\+::\+Twine \&name=\char`\"{}\char`\"{})
 \begin{DoxyCompactList}\small\item\em create a call to the csr\+\_\+matrix\+\_\+get\+\_\+nz function. \end{DoxyCompactList}\item 
-static llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a71f439ded73bbea7284d7675f824f177}{get\+C\+S\+R\+Matrix\+Set\+N\+Z\+Decl}} (llvm\+::\+Module $\ast$module)
+static llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a71f439ded73bbea7284d7675f824f177}{get\+CSRMatrix\+Set\+NZDecl}} (llvm\+::\+Module $\ast$module)
 \begin{DoxyCompactList}\small\item\em get the function declaration (prototype) for the csr\+\_\+matrix\+\_\+set\+\_\+nz function. \end{DoxyCompactList}\item 
-static llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a43814b580c9cb37b7f19bd3835ff2852}{get\+C\+S\+R\+Matrix\+Get\+N\+Z\+Decl}} (llvm\+::\+Module $\ast$module)
+static llvm\+::\+Function $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a43814b580c9cb37b7f19bd3835ff2852}{get\+CSRMatrix\+Get\+NZDecl}} (llvm\+::\+Module $\ast$module)
 \begin{DoxyCompactList}\small\item\em get the function declaration (prototype) for the csr\+\_\+matrix\+\_\+set\+\_\+nz function. \end{DoxyCompactList}\item 
-static llvm\+::\+Struct\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a3dd75d52850dbecf8f2ce22209aca7b4}{get\+C\+S\+R\+Sparse\+Struct\+Type}} (llvm\+::\+Module $\ast$module, llvm\+::\+Execution\+Engine $\ast$engine=0)
-\begin{DoxyCompactList}\small\item\em get the struct type for the C\+SR sparse storage struct. \end{DoxyCompactList}\item 
-static llvm\+::\+Struct\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_aa97533e0c2786753ab0d33259e097fb1}{create\+Model\+Data\+Struct\+Type}} (llvm\+::\+Module $\ast$module, llvm\+::\+Execution\+Engine $\ast$engine, \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} const \&symbols)
+static llvm\+::\+Struct\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a3dd75d52850dbecf8f2ce22209aca7b4}{get\+CSRSparse\+Struct\+Type}} (llvm\+::\+Module $\ast$module, llvm\+::\+Execution\+Engine $\ast$engine=0)
+\begin{DoxyCompactList}\small\item\em get the struct type for the CSR sparse storage struct. \end{DoxyCompactList}\item 
+static llvm\+::\+Struct\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_aa97533e0c2786753ab0d33259e097fb1}{create\+Model\+Data\+Struct\+Type}} (llvm\+::\+Module $\ast$module, llvm\+::\+Execution\+Engine $\ast$engine, \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} const \&symbols)
 \begin{DoxyCompactList}\small\item\em Creates a Model\+Data struct for the given sbml symbols in the llvm Module. \end{DoxyCompactList}\item 
 static llvm\+::\+Struct\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1ModelDataIRBuilder_a0ef021e16b99691a0cde663060898c4c}{get\+Struct\+Type}} (llvm\+::\+Module $\ast$module)
 \begin{DoxyCompactList}\small\item\em get the Model\+Data struct type. \end{DoxyCompactList}\item 
@@ -159,7 +164,7 @@ static unsigned {\bfseries get\+Model\+Data\+Size} (llvm\+::\+Module $\ast$modul
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ab492203c83d2a23d80a9087c77acfbbf}\label{classrrllvm_1_1ModelDataIRBuilder_ab492203c83d2a23d80a9087c77acfbbf}} 
-static const char $\ast$ {\bfseries L\+L\+V\+M\+Model\+Data\+Name} = \char`\"{}rr\+\_\+\+L\+L\+V\+M\+Model\+Data\char`\"{}
+static const char $\ast$ {\bfseries LLVMModel\+Data\+Name} = \char`\"{}rr\+\_\+\+LLVMModel\+Data\char`\"{}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a93563e90ab8b9113af95eb6fc3fe7712}\label{classrrllvm_1_1ModelDataIRBuilder_a93563e90ab8b9113af95eb6fc3fe7712}} 
 static const char $\ast$ {\bfseries csr\+\_\+matrix\+Name} = \char`\"{}rr\+\_\+csr\+\_\+matrix\char`\"{}
@@ -174,19 +179,21 @@ static const char $\ast$ {\bfseries csr\+\_\+matrix\+\_\+get\+\_\+nz\+Name} = \c
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_ae8d3686601dff2b1db2a9b162f3e7eb5}\label{classrrllvm_1_1ModelDataIRBuilder_ae8d3686601dff2b1db2a9b162f3e7eb5}} 
-class {\bfseries L\+L\+V\+M\+Model\+Data\+I\+R\+Builder\+Testing}
+class {\bfseries LLVMModel\+Data\+IRBuilder\+Testing}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The model data IR builder. (Sorry, this is very old code.) 
+The model data IR builder. 
+
+(Sorry, this is very old code.) 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a98a0c888fd91ecabdc9d4ff17eccb3f9}\label{classrrllvm_1_1ModelDataIRBuilder_a98a0c888fd91ecabdc9d4ff17eccb3f9}} 
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!createCSRMatrixGetNZ@{createCSRMatrixGetNZ}}
 \index{createCSRMatrixGetNZ@{createCSRMatrixGetNZ}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{createCSRMatrixGetNZ()}{createCSRMatrixGetNZ()}}
-{\footnotesize\ttfamily llvm\+::\+Call\+Inst $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::create\+C\+S\+R\+Matrix\+Get\+NZ (\begin{DoxyParamCaption}\item[{llvm\+::\+I\+R\+Builder$<$$>$ \&}]{,  }\item[{llvm\+::\+Value $\ast$}]{csr\+Ptr,  }\item[{llvm\+::\+Value $\ast$}]{row,  }\item[{llvm\+::\+Value $\ast$}]{col,  }\item[{const llvm\+::\+Twine \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Call\+Inst $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::create\+CSRMatrix\+Get\+NZ (\begin{DoxyParamCaption}\item[{llvm\+::\+IRBuilder$<$$>$ \&}]{,  }\item[{llvm\+::\+Value $\ast$}]{csr\+Ptr,  }\item[{llvm\+::\+Value $\ast$}]{row,  }\item[{llvm\+::\+Value $\ast$}]{col,  }\item[{const llvm\+::\+Twine \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -196,7 +203,7 @@ only valid whilst a basic block is being filled. \mbox{\Hypertarget{classrrllvm_
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!createCSRMatrixSetNZ@{createCSRMatrixSetNZ}}
 \index{createCSRMatrixSetNZ@{createCSRMatrixSetNZ}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{createCSRMatrixSetNZ()}{createCSRMatrixSetNZ()}}
-{\footnotesize\ttfamily llvm\+::\+Call\+Inst $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::create\+C\+S\+R\+Matrix\+Set\+NZ (\begin{DoxyParamCaption}\item[{llvm\+::\+I\+R\+Builder$<$$>$ \&}]{,  }\item[{llvm\+::\+Value $\ast$}]{csr\+Ptr,  }\item[{llvm\+::\+Value $\ast$}]{row,  }\item[{llvm\+::\+Value $\ast$}]{col,  }\item[{llvm\+::\+Value $\ast$}]{value,  }\item[{const llvm\+::\+Twine \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Call\+Inst $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::create\+CSRMatrix\+Set\+NZ (\begin{DoxyParamCaption}\item[{llvm\+::\+IRBuilder$<$$>$ \&}]{,  }\item[{llvm\+::\+Value $\ast$}]{csr\+Ptr,  }\item[{llvm\+::\+Value $\ast$}]{row,  }\item[{llvm\+::\+Value $\ast$}]{col,  }\item[{llvm\+::\+Value $\ast$}]{value,  }\item[{const llvm\+::\+Twine \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -206,11 +213,11 @@ only valid whilst a basic block is being filled. \mbox{\Hypertarget{classrrllvm_
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!createGEP@{createGEP}}
 \index{createGEP@{createGEP}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{createGEP()}{createGEP()}}
-{\footnotesize\ttfamily llvm\+::\+Value $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::create\+G\+EP (\begin{DoxyParamCaption}\item[{Model\+Data\+Fields}]{field }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily llvm\+::\+Value $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::create\+GEP (\begin{DoxyParamCaption}\item[{Model\+Data\+Fields}]{field }\end{DoxyParamCaption})}
 
 
 
-create a G\+EP for a Model\+Data structure field. 
+create a GEP for a Model\+Data structure field. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -221,7 +228,7 @@ create a G\+EP for a Model\+Data structure field.
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!createModelDataStructType@{createModelDataStructType}}
 \index{createModelDataStructType@{createModelDataStructType}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{createModelDataStructType()}{createModelDataStructType()}}
-{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::create\+Model\+Data\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module,  }\item[{llvm\+::\+Execution\+Engine $\ast$}]{engine,  }\item[{\mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} const \&}]{symbols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::create\+Model\+Data\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module,  }\item[{llvm\+::\+Execution\+Engine $\ast$}]{engine,  }\item[{\mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} const \&}]{symbols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -231,7 +238,7 @@ This must be called before any model accessing code is generated. \mbox{\Hyperta
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!getCSRMatrixGetNZDecl@{getCSRMatrixGetNZDecl}}
 \index{getCSRMatrixGetNZDecl@{getCSRMatrixGetNZDecl}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{getCSRMatrixGetNZDecl()}{getCSRMatrixGetNZDecl()}}
-{\footnotesize\ttfamily llvm\+::\+Function $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::get\+C\+S\+R\+Matrix\+Get\+N\+Z\+Decl (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Function $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::get\+CSRMatrix\+Get\+NZDecl (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -241,7 +248,7 @@ create if not found \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a71f439
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!getCSRMatrixSetNZDecl@{getCSRMatrixSetNZDecl}}
 \index{getCSRMatrixSetNZDecl@{getCSRMatrixSetNZDecl}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{getCSRMatrixSetNZDecl()}{getCSRMatrixSetNZDecl()}}
-{\footnotesize\ttfamily llvm\+::\+Function $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::get\+C\+S\+R\+Matrix\+Set\+N\+Z\+Decl (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Function $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::get\+CSRMatrix\+Set\+NZDecl (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -251,17 +258,17 @@ create if not found. \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a3dd75
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!getCSRSparseStructType@{getCSRSparseStructType}}
 \index{getCSRSparseStructType@{getCSRSparseStructType}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{getCSRSparseStructType()}{getCSRSparseStructType()}}
-{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::get\+C\+S\+R\+Sparse\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module,  }\item[{llvm\+::\+Execution\+Engine $\ast$}]{engine = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::get\+CSRSparse\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module,  }\item[{llvm\+::\+Execution\+Engine $\ast$}]{engine = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-get the struct type for the C\+SR sparse storage struct. 
+get the struct type for the CSR sparse storage struct. 
 
 create if not found \mbox{\Hypertarget{classrrllvm_1_1ModelDataIRBuilder_a0ef021e16b99691a0cde663060898c4c}\label{classrrllvm_1_1ModelDataIRBuilder_a0ef021e16b99691a0cde663060898c4c}} 
 \index{rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}!getStructType@{getStructType}}
 \index{getStructType@{getStructType}!rrllvm::ModelDataIRBuilder@{rrllvm::ModelDataIRBuilder}}
 \doxysubsubsection{\texorpdfstring{getStructType()}{getStructType()}}
-{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+I\+R\+Builder\+::get\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily llvm\+::\+Struct\+Type $\ast$ rrllvm\+::\+Model\+Data\+IRBuilder\+::get\+Struct\+Type (\begin{DoxyParamCaption}\item[{llvm\+::\+Module $\ast$}]{module }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -273,5 +280,5 @@ Throws an exception if the Model\+Data struct could not be obtained.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/Model\+Data\+I\+R\+Builder.\+h\item 
-llvm/Model\+Data\+I\+R\+Builder.\+cpp\end{DoxyCompactItemize}
+llvm/Model\+Data\+IRBuilder.\+h\item 
+llvm/Model\+Data\+IRBuilder.\+cpp\end{DoxyCompactItemize}

@@ -2,7 +2,7 @@
 \label{classrr_1_1CompiledExecutableModel}\index{rr::CompiledExecutableModel@{rr::CompiledExecutableModel}}
 
 
-Both the \mbox{\hyperlink{classrr_1_1CModelGenerator}{C\+Model\+Generator}} and the C\+Sharp\+Model\+Generator use the same paradigm of producing source code, calling a external compiler and loadig the resulting shared library.  
+Both the \mbox{\hyperlink{classrr_1_1CModelGenerator}{CModel\+Generator}} and the CSharp\+Model\+Generator use the same paradigm of producing source code, calling a external compiler and loadig the resulting shared library.  
 
 
 
@@ -25,7 +25,7 @@ enum \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ad6a1d9558dfadffa255bad
 \begin{DoxyCompactItemize}
 \item 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ac831d54ccdde2cd5df4a086ff944102e}{get\+Executable\+Model\+Desc}} () const
-\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a289e026daee71eb990147906c7f6aa96}{Compiled\+Executable\+Model}} (const \mbox{\hyperlink{classrr_1_1ModelSymbols}{Model\+Symbols}} \&symbols, \mbox{\hyperlink{classrr_1_1ModelSharedLibrary}{Model\+Shared\+Library}} $\ast$dll)
 \begin{DoxyCompactList}\small\item\em makes a copy of the \mbox{\hyperlink{classrr_1_1ModelSymbols}{Model\+Symbols}} and keeps it. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a358042c7806b3ab4572e9ace4afe2e7c}\label{classrr_1_1CompiledExecutableModel_a358042c7806b3ab4572e9ace4afe2e7c}} 
@@ -295,7 +295,7 @@ double {\bfseries get\+Floating\+Species\+Concentration} (int index)
 bool \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a53a996bfec50781d72b01ef4ed50d15f}{setup\+Model\+Data}} ()
 \begin{DoxyCompactList}\small\item\em initialize and allocate space for the Model\+Data buffers. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a6ed828bd7380883f7d70eab3b11cb47c}\label{classrr_1_1CompiledExecutableModel_a6ed828bd7380883f7d70eab3b11cb47c}} 
-virtual bool \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a6ed828bd7380883f7d70eab3b11cb47c}{setup\+D\+L\+L\+Functions}} ()
+virtual bool \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a6ed828bd7380883f7d70eab3b11cb47c}{setup\+DLLFunctions}} ()
 \begin{DoxyCompactList}\small\item\em setup the function pointer variables to point to the C functions in the loaded shared library. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a2dc1e802226e9a7278503bb0e5348351}\label{classrr_1_1CompiledExecutableModel_a2dc1e802226e9a7278503bb0e5348351}} 
 std\+::vector$<$ int $>$ {\bfseries retest\+Events} (const double \&time\+End, const std\+::vector$<$ int $>$ \&handled\+Events, std\+::vector$<$ int $>$ \&remove\+Events)
@@ -358,9 +358,9 @@ virtual void \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_adf911e78697e08
 \begin{DoxyCompactList}\small\item\em set the seed used by the random number generator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a728ba55db8c4d193990452c9303ea133}\label{classrr_1_1CompiledExecutableModel_a728ba55db8c4d193990452c9303ea133}} 
 virtual int64\+\_\+t \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a728ba55db8c4d193990452c9303ea133}{get\+Random\+Seed}} ()
-\begin{DoxyCompactList}\small\item\em get the seed used by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the seed used by the RNG. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a02b3938fd3ad7d20d33ed3e0b42da21a}{get\+Random}} ()
-\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the R\+NG. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get a uniform random number between 0 and 1 created by the RNG. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a1db2b94da9271085a088c16acba2462e}\label{classrr_1_1CompiledExecutableModel_a1db2b94da9271085a088c16acba2462e}} 
 virtual uint32\+\_\+t \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a1db2b94da9271085a088c16acba2462e}{get\+Flags}} () const
 \begin{DoxyCompactList}\small\item\em Get the current set of flags. \end{DoxyCompactList}\item 
@@ -384,7 +384,7 @@ double $\ast$ {\bfseries m\+Dummy\+Double\+Array}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a0e9f631e3808545a6e9c19c64b7ce089}\label{classrr_1_1CompiledExecutableModel_a0e9f631e3808545a6e9c19c64b7ce089}} 
 \mbox{\hyperlink{structSModelData}{Model\+Data}} \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a0e9f631e3808545a6e9c19c64b7ce089}{m\+Data}}
-\begin{DoxyCompactList}\small\item\em the data that is exchanged with the loaded shared lib, and all sorts of other routines such as C\+V\+O\+DE. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the data that is exchanged with the loaded shared lib, and all sorts of other routines such as CVODE. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a96f54b093369dba01f1922282734ea73}\label{classrr_1_1CompiledExecutableModel_a96f54b093369dba01f1922282734ea73}} 
 \mbox{\hyperlink{classrr_1_1ModelSymbols}{Model\+Symbols}} {\bfseries ms}
 \item 
@@ -392,97 +392,97 @@ double $\ast$ {\bfseries m\+Dummy\+Double\+Array}
 bool \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a8a1e046aa716f81c30ebb4a8ffbd4a42}{m\+Is\+Initialized}}
 \begin{DoxyCompactList}\small\item\em If all functions are found properly in the dll, this one is true. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_ab74cb32586c9b684c42d82c2eb0970e6}\label{classrr_1_1CompiledExecutableModel_ab74cb32586c9b684c42d82c2eb0970e6}} 
-\mbox{\hyperlink{classrr_1_1ModelSharedLibrary}{Model\+Shared\+Library}} $\ast$ {\bfseries m\+D\+LL}
+\mbox{\hyperlink{classrr_1_1ModelSharedLibrary}{Model\+Shared\+Library}} $\ast$ {\bfseries m\+DLL}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a8cab5094a3391b0b93e5ad9862f30c8c}\label{classrr_1_1CompiledExecutableModel_a8cab5094a3391b0b93e5ad9862f30c8c}} 
 std\+::stack$<$ \mbox{\hyperlink{classrr_1_1CompiledModelState}{Compiled\+Model\+State}} $\ast$ $>$ {\bfseries model\+States}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a3a38ba403d17d5c6db5f6994a705c9c7}\label{classrr_1_1CompiledExecutableModel_a3a38ba403d17d5c6db5f6994a705c9c7}} 
-c\+\_\+int\+\_\+\+M\+DS {\bfseries c\+Init\+Model}
+c\+\_\+int\+\_\+\+MDS {\bfseries c\+Init\+Model}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a7a3af2b6c2ce06b3ac7765c34fb188c2}\label{classrr_1_1CompiledExecutableModel_a7a3af2b6c2ce06b3ac7765c34fb188c2}} 
-c\+\_\+int\+\_\+\+M\+DS {\bfseries c\+Init\+Model\+Data}
+c\+\_\+int\+\_\+\+MDS {\bfseries c\+Init\+Model\+Data}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a107de20a86ec2cb7be62576acef9d0da}\label{classrr_1_1CompiledExecutableModel_a107de20a86ec2cb7be62576acef9d0da}} 
-c\+\_\+char\+Star\+\_\+\+M\+DS {\bfseries cget\+Model\+Name}
+c\+\_\+char\+Star\+\_\+\+MDS {\bfseries cget\+Model\+Name}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a6ed8623cb3b3d60e3843654a2c7242fd}\label{classrr_1_1CompiledExecutableModel_a6ed8623cb3b3d60e3843654a2c7242fd}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cinitialize\+Initial\+Conditions}
+c\+\_\+void\+\_\+\+MDS {\bfseries cinitialize\+Initial\+Conditions}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a6bea05828a524535e13f6953e87b97f2}\label{classrr_1_1CompiledExecutableModel_a6bea05828a524535e13f6953e87b97f2}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cset\+Parameter\+Values}
+c\+\_\+void\+\_\+\+MDS {\bfseries cset\+Parameter\+Values}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a2bed2cc8acfc948194a133c753aaca4e}\label{classrr_1_1CompiledExecutableModel_a2bed2cc8acfc948194a133c753aaca4e}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cset\+Compartment\+Volumes}
+c\+\_\+void\+\_\+\+MDS {\bfseries cset\+Compartment\+Volumes}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_aaa0ec96c6cbe536da8abcc6027fe7cc4}\label{classrr_1_1CompiledExecutableModel_aaa0ec96c6cbe536da8abcc6027fe7cc4}} 
-c\+\_\+int\+\_\+\+M\+D\+S\+\_\+int {\bfseries cget\+Num\+Local\+Parameters}
+c\+\_\+int\+\_\+\+MDS\+\_\+int {\bfseries cget\+Num\+Local\+Parameters}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_aa0d979244966b7a8d4cfd8ec7e778735}\label{classrr_1_1CompiledExecutableModel_aa0d979244966b7a8d4cfd8ec7e778735}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cset\+Boundary\+Conditions}
+c\+\_\+void\+\_\+\+MDS {\bfseries cset\+Boundary\+Conditions}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a33855ba6b661f3db7504fd6af5977a50}\label{classrr_1_1CompiledExecutableModel_a33855ba6b661f3db7504fd6af5977a50}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cset\+Initial\+Conditions}
+c\+\_\+void\+\_\+\+MDS {\bfseries cset\+Initial\+Conditions}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a8f4878decd5874b371374f18d26e30cb}\label{classrr_1_1CompiledExecutableModel_a8f4878decd5874b371374f18d26e30cb}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ceval\+Initial\+Assignments}
+c\+\_\+void\+\_\+\+MDS {\bfseries ceval\+Initial\+Assignments}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a48432dee6530b3b380553cb907f9e0f5}\label{classrr_1_1CompiledExecutableModel_a48432dee6530b3b380553cb907f9e0f5}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cupdate\+Dependent\+Species\+Values}
+c\+\_\+void\+\_\+\+MDS {\bfseries cupdate\+Dependent\+Species\+Values}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a015020ebb051507bc5f6bf3d6c318b2e}\label{classrr_1_1CompiledExecutableModel_a015020ebb051507bc5f6bf3d6c318b2e}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ccompute\+Rules}
+c\+\_\+void\+\_\+\+MDS {\bfseries ccompute\+Rules}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a4cc5f79290ee97a33ab7ff3570aa563f}\label{classrr_1_1CompiledExecutableModel_a4cc5f79290ee97a33ab7ff3570aa563f}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cconvert\+To\+Amounts}
+c\+\_\+void\+\_\+\+MDS {\bfseries cconvert\+To\+Amounts}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a90658be420a21e54eb4b4c585b64830c}\label{classrr_1_1CompiledExecutableModel_a90658be420a21e54eb4b4c585b64830c}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ccompute\+Conserved\+Totals}
+c\+\_\+void\+\_\+\+MDS {\bfseries ccompute\+Conserved\+Totals}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a8da8f86909562fc89b0261b6fddca571}\label{classrr_1_1CompiledExecutableModel_a8da8f86909562fc89b0261b6fddca571}} 
-c\+\_\+double\+\_\+\+M\+D\+S\+\_\+int {\bfseries cget\+Concentration}
+c\+\_\+double\+\_\+\+MDS\+\_\+int {\bfseries cget\+Concentration}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_afaa881d7cc8a16df81ebe99aace9b5d3}\label{classrr_1_1CompiledExecutableModel_afaa881d7cc8a16df81ebe99aace9b5d3}} 
-c\+\_\+double\+Star\+\_\+\+M\+DS {\bfseries c\+Get\+Current\+Values}
+c\+\_\+double\+Star\+\_\+\+MDS {\bfseries c\+Get\+Current\+Values}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_ae96ced57631c1e2244a52b57260ddee1}\label{classrr_1_1CompiledExecutableModel_ae96ced57631c1e2244a52b57260ddee1}} 
-c\+\_\+void\+\_\+\+M\+D\+S\+\_\+double\+\_\+double\+Star {\bfseries ceval\+Model}
+c\+\_\+void\+\_\+\+MDS\+\_\+double\+\_\+double\+Star {\bfseries ceval\+Model}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a87bc7fe483e31c998befcb74a6af8213}\label{classrr_1_1CompiledExecutableModel_a87bc7fe483e31c998befcb74a6af8213}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries cconvert\+To\+Concentrations}
+c\+\_\+void\+\_\+\+MDS {\bfseries cconvert\+To\+Concentrations}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a40c7619a6c39e44d1b2c3e9edd03c6ff}\label{classrr_1_1CompiledExecutableModel_a40c7619a6c39e44d1b2c3e9edd03c6ff}} 
-c\+\_\+void\+\_\+\+M\+D\+S\+\_\+double\+\_\+double\+Star {\bfseries ceval\+Events}
+c\+\_\+void\+\_\+\+MDS\+\_\+double\+\_\+double\+Star {\bfseries ceval\+Events}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a03a83d683b08de3bc3e4362a1bf2f191}\label{classrr_1_1CompiledExecutableModel_a03a83d683b08de3bc3e4362a1bf2f191}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ccompute\+All\+Rates\+Of\+Change}
+c\+\_\+void\+\_\+\+MDS {\bfseries ccompute\+All\+Rates\+Of\+Change}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_af225567017f29585a721e19f395b8a16}\label{classrr_1_1CompiledExecutableModel_af225567017f29585a721e19f395b8a16}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries c\+Assign\+Rates\+\_\+a}
+c\+\_\+void\+\_\+\+MDS {\bfseries c\+Assign\+Rates\+\_\+a}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a7804b8c4086b51f3e7582acfbf279f3e}\label{classrr_1_1CompiledExecutableModel_a7804b8c4086b51f3e7582acfbf279f3e}} 
-c\+\_\+void\+\_\+\+M\+D\+S\+\_\+double\+Star {\bfseries c\+Assign\+Rates\+\_\+b}
+c\+\_\+void\+\_\+\+MDS\+\_\+double\+Star {\bfseries c\+Assign\+Rates\+\_\+b}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a21b1576296ce08904a525b5e53f9bc15}\label{classrr_1_1CompiledExecutableModel_a21b1576296ce08904a525b5e53f9bc15}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ctest\+Constraints}
+c\+\_\+void\+\_\+\+MDS {\bfseries ctest\+Constraints}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a0a156cb3bfc3393e14c71d7d6c54c81c}\label{classrr_1_1CompiledExecutableModel_a0a156cb3bfc3393e14c71d7d6c54c81c}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries creset\+Events}
+c\+\_\+void\+\_\+\+MDS {\bfseries creset\+Events}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_afb7d96a19919a50d594ac799b09559dd}\label{classrr_1_1CompiledExecutableModel_afb7d96a19919a50d594ac799b09559dd}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries c\+Initialize\+Rates}
+c\+\_\+void\+\_\+\+MDS {\bfseries c\+Initialize\+Rates}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a6f9e6580d1c25f305a83deba42c47454}\label{classrr_1_1CompiledExecutableModel_a6f9e6580d1c25f305a83deba42c47454}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries c\+Initialize\+Rate\+Rule\+Symbols}
+c\+\_\+void\+\_\+\+MDS {\bfseries c\+Initialize\+Rate\+Rule\+Symbols}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_af12dfb932e55432e51119b3ed9456794}\label{classrr_1_1CompiledExecutableModel_af12dfb932e55432e51119b3ed9456794}} 
-c\+\_\+void\+\_\+\+M\+D\+S\+\_\+int\+\_\+double {\bfseries cset\+Concentration}
+c\+\_\+void\+\_\+\+MDS\+\_\+int\+\_\+double {\bfseries cset\+Concentration}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a8e1da512d5d5e09cbb1127e8ef49f705}\label{classrr_1_1CompiledExecutableModel_a8e1da512d5d5e09cbb1127e8ef49f705}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries c\+Compute\+Reaction\+Rates}
+c\+\_\+void\+\_\+\+MDS {\bfseries c\+Compute\+Reaction\+Rates}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a5871195828a4296d4fd708f706b7ec7f}\label{classrr_1_1CompiledExecutableModel_a5871195828a4296d4fd708f706b7ec7f}} 
-c\+\_\+void\+\_\+\+M\+DS {\bfseries ccompute\+Event\+Priorities}
+c\+\_\+void\+\_\+\+MDS {\bfseries ccompute\+Event\+Priorities}
 \item 
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_a410819286030c7ec1c6ecc16292292b8}\label{classrr_1_1CompiledExecutableModel_a410819286030c7ec1c6ecc16292292b8}} 
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1PendingAssignment}{Pending\+Assignment}} $>$ {\bfseries m\+Assignments}
@@ -503,7 +503,7 @@ class {\bfseries Compiled\+Model\+State}
 
 
 \doxysubsection{Detailed Description}
-Both the \mbox{\hyperlink{classrr_1_1CModelGenerator}{C\+Model\+Generator}} and the C\+Sharp\+Model\+Generator use the same paradigm of producing source code, calling a external compiler and loadig the resulting shared library. 
+Both the \mbox{\hyperlink{classrr_1_1CModelGenerator}{CModel\+Generator}} and the CSharp\+Model\+Generator use the same paradigm of producing source code, calling a external compiler and loadig the resulting shared library. 
 
 This class implements the \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} interface using this paradigm. 
 
@@ -554,9 +554,9 @@ If any events trigger a state change which triggers any additional events, these
 \hline
 {\em previous\+Event\+Status} & array of previous event triggered states. \\
 \hline
-{\em initial\+State} & (optional)\+: initial state std\+::vector, may be N\+U\+LL, in which the current state is used. \\
+{\em initial\+State} & (optional)\+: initial state std\+::vector, may be NULL, in which the current state is used. \\
 \hline
-{\em final\+State} & (optional)\+: final state std\+::vector, where the final state is coppied to. May be N\+U\+LL, in which case, ignored. \\
+{\em final\+State} & (optional)\+: final state std\+::vector, where the final state is coppied to. May be NULL, in which case, ignored. \\
 \hline
 \end{DoxyParams}
 
@@ -667,10 +667,10 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2c4d631f32873d4d98d613ad
 
 
 
-Returns a human-\/readable description of the code generation backend, e.\+g. L\+L\+VM, legacy C, etc. 
+Returns a human-\/readable description of the code generation backend, e.\+g. LLVM, legacy C, etc. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 07/31/2015 
@@ -765,9 +765,9 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a172aeacd0685bcce8153ae67
 
 
 
-Get a uniform random number between 0 and 1 created by the R\+NG. 
+Get a uniform random number between 0 and 1 created by the RNG. 
 
-The type of R\+NG can be specified in the config file with the R\+A\+N\+D\+O\+M\+\_\+\+G\+E\+N\+E\+R\+A\+T\+O\+R\+\_\+\+T\+Y\+PE key. 
+The type of RNG can be specified in the config file with the RANDOM\+\_\+\+GENERATOR\+\_\+\+TYPE key. 
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a1f69d29d4291440935ed41122ed83e7f}{rr\+::\+Executable\+Model}}.
 
@@ -816,11 +816,11 @@ copies the internal model state std\+::vector into the provided buffer.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if N\+U\+LL, return the size required.\\
+\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if NULL, return the size required.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state std\+::vector. 
+the number of items coppied into the provided buffer, if state\+Vector is NULL, returns the length of the state std\+::vector. 
 \end{DoxyReturn}
 
 
@@ -888,10 +888,6 @@ The caller is responsible for freeing the memory that is referenced by data.
 \mbox{\texttt{ out}}  & {\em data} & a pointer which will hold a newly allocated memory block. \\
 \hline
 \end{DoxyParams}
-
-
-Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850cd48b8f71}{rr\+::\+Executable\+Model}}.
-
 \mbox{\Hypertarget{classrr_1_1CompiledExecutableModel_ab7bc9e9b4426d9d22080bb64bd900cab}\label{classrr_1_1CompiledExecutableModel_ab7bc9e9b4426d9d22080bb64bd900cab}} 
 \index{rr::CompiledExecutableModel@{rr::CompiledExecutableModel}!getValue@{getValue}}
 \index{getValue@{getValue}!rr::CompiledExecutableModel@{rr::CompiledExecutableModel}}
@@ -980,7 +976,7 @@ set the floating species concentrations
 
 set the seed used by the random number generator. 
 
-This will by definition reset the R\+NG. 
+This will by definition reset the RNG. 
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279de045c735}{rr\+::\+Executable\+Model}}.
 

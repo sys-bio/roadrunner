@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrc__utilities_8h" kind="file" language="C++">
     <compoundname>rrc_utilities.h</compoundname>
     <includes refid="rrc__exporter_8h" local="yes">rrc_exporter.h</includes>
     <includes refid="rrc__types_8h" local="yes">rrc_types.h</includes>
     <includes refid="rrc__macros_8h" local="yes">rrc_macros.h</includes>
-    <includedby refid="rrc__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.h</includedby>
     <includedby refid="rrc__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</includedby>
+    <includedby refid="rrc__api_8h" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.h</includedby>
     <includedby refid="rrc__cpp__support_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_cpp_support.cpp</includedby>
     <includedby refid="rrc__libstruct__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_libstruct_api.cpp</includedby>
     <includedby refid="rrc__utilities_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp</includedby>
@@ -40,14 +40,14 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
+      <node id="2">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="2">
+      <node id="3">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.h</label>
         <link refid="rrc__api_8h"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="60" column="13" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="35" bodyend="-1" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="60" declcolumn="13"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="60" column="13" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="60" declcolumn="13"/>
       </memberdef>
       <memberdef kind="variable" id="rrc__utilities_8h_1ae4404be9766c980f2b2065a726ad42a6" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="65" column="13" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="37" bodyend="-1" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="65" declcolumn="13"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="65" column="13" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="65" declcolumn="13"/>
       </memberdef>
       <memberdef kind="variable" id="rrc__utilities_8h_1a7abd7eb1ec507cbb9cd17ad024d0dc66" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="71" column="20" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="33" bodyend="-1" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="71" declcolumn="20"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="71" column="20" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="71" declcolumn="20"/>
       </memberdef>
       <memberdef kind="variable" id="rrc__utilities_8h_1af8776c486d2155e2b40d97013c89c558" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="76" column="20" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="34" bodyend="-1" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="76" declcolumn="20"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="76" column="20" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="76" declcolumn="20"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -128,7 +128,7 @@
           <declname>fName</declname>
         </param>
         <briefdescription>
-<para>Retrieves the the content of a file. </para>
+<para>Retrieves the content of a file. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="84" column="40" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="44" bodyend="50" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="84" declcolumn="40"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="84" column="40" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="84" declcolumn="40"/>
       </memberdef>
       <memberdef kind="function" id="rrc__utilities_8h_1ac28208e24619f20c9cc90f7319ea270e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -176,7 +176,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="92" column="40" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="39" bodyend="42" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="92" declcolumn="40"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="92" column="40" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="92" declcolumn="40"/>
       </memberdef>
       <memberdef kind="function" id="rrc__utilities_8h_1a9034d02bd121fa7f5eb6b4efa642d86a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="100" column="40" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="57" bodyend="60" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="100" declcolumn="40"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="100" column="40" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="100" declcolumn="40"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga0d154a4c5f0aef656c333775638b2b7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a32a8a60ac06858ff3a791672bd2bec73" kindref="member">RRListPtr</ref> rrcCallConv</type>
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="133" column="35" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="65" bodyend="71" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="133" declcolumn="35"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="133" column="35" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="133" declcolumn="35"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gafd22078b804cc5b7e39849fb51c7519a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC void rrcCallConv</type>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="139" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="73" bodyend="95" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="139" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="139" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="139" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gadc06b896a3117610bbdcf25abb984f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -290,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="148" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="218" bodyend="221" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="148" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="148" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="148" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga1b1b84f8ecafcb31e12e66a0f0f1b49b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a79938364b69256c42480bb3a29ebf73e" kindref="member">RRListItemPtr</ref> rrcCallConv</type>
@@ -320,7 +320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="158" column="39" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="97" bodyend="103" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="158" declcolumn="39"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="158" column="39" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="158" declcolumn="39"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga53219912496c999a31ae4f108b1a8247" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a79938364b69256c42480bb3a29ebf73e" kindref="member">RRListItemPtr</ref> rrcCallConv</type>
@@ -350,7 +350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="167" column="39" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="105" bodyend="111" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="167" declcolumn="39"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="167" column="39" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="167" declcolumn="39"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gacc07a37b137b826130770eacd8c93d4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a79938364b69256c42480bb3a29ebf73e" kindref="member">RRListItemPtr</ref> rrcCallConv</type>
@@ -380,7 +380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="176" column="39" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="113" bodyend="119" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="176" declcolumn="39"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="176" column="39" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="176" declcolumn="39"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gab092027f0f1176d66f13cb570efa28c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a79938364b69256c42480bb3a29ebf73e" kindref="member">RRListItemPtr</ref> rrcCallConv</type>
@@ -410,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="185" column="39" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="121" bodyend="127" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="185" declcolumn="39"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="185" column="39" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="185" declcolumn="39"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga2ae7d5112afc94d0dae42cc89b5158ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -456,7 +456,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="201" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="131" bodyend="155" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="201" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="201" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="201" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga11a02911ab01db4dc839ae97782e5bf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a79938364b69256c42480bb3a29ebf73e" kindref="member">RRListItemPtr</ref> rrcCallConv</type>
@@ -498,7 +498,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="213" column="39" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="177" bodyend="180" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="213" declcolumn="39"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="213" column="39" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="213" declcolumn="39"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gaecb302d3561bc1e80a8123f991970fa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -528,7 +528,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="222" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="157" bodyend="160" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="222" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="222" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="222" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga462c5cc75cb0f353a9d1f0cd8324876c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -558,7 +558,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="231" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="162" bodyend="165" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="231" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="231" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="231" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga2198a9abc9617d9e926f515faa1663ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -588,7 +588,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="240" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="167" bodyend="170" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="240" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="240" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="240" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gad17754e97e43d0ed08c2a5cca68f7a39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -618,7 +618,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="249" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="172" bodyend="175" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="249" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="249" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="249" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga68d5e8b5116e1076c5cac49858d469f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -660,7 +660,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="259" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="213" bodyend="216" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="259" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="259" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="259" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga1e19335d11372caa5e9dc2d8976ce688" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -702,7 +702,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="269" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="182" bodyend="190" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="269" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="269" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="269" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gab383162093a2782001a6d623dc077dc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -744,7 +744,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="279" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="192" bodyend="201" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="279" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="279" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="279" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1ga177fc925d1726b0844c17837d3ed4425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -774,7 +774,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="288" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="203" bodyend="206" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="288" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="288" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="288" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__list_1gaf9b1219b9a239f0fb73cd83095bbecce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a32a8a60ac06858ff3a791672bd2bec73" kindref="member">RRListPtr</ref> rrcCallConv</type>
@@ -804,7 +804,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="298" column="35" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="208" bodyend="211" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="298" declcolumn="35"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="298" column="35" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="298" declcolumn="35"/>
       </memberdef>
       <memberdef kind="function" id="group__freeRoutines_1ga2f52213c492e3c4c5d2ac6c72e04a035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -822,7 +822,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="308" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="300" bodyend="315" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="308" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="308" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="308" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__freeRoutines_1gaaaea1b8264a6d7511153ef611fa88e53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -840,7 +840,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="314" column="29" bodyfile="rrStringUtils.cpp" bodystart="44" bodyend="48" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="314" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="314" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="314" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__freeRoutines_1ga905dbf578855f9e21e956f6066a6a2b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -859,7 +859,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="327" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="325" bodyend="340" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="327" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="327" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="327" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__freeRoutines_1ga97046231a95430c020e94004ca257b83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -877,7 +877,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="333" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="342" bodyend="352" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="333" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="333" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="333" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__freeRoutines_1ga9adcba296046c5770d44e64626b600ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -895,7 +895,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="339" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="288" bodyend="298" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="339" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="339" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="339" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gaa54dd2d3c615bb2838c0670d0344e001" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -928,7 +928,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="356" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="366" bodyend="377" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="356" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="356" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="356" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga9f52eab51dfe4dcd3d87538bf8ecd453" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a3be72d6006034fd349f753d2bf441bf7" kindref="member">RRVectorPtr</ref> rrcCallConv</type>
@@ -961,7 +961,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="369" column="37" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="355" bodyend="364" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="369" declcolumn="37"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="369" column="37" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="369" declcolumn="37"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gab84c62954e2a81c5dbc2c897e88b05f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1018,7 +1018,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="384" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="379" bodyend="397" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="384" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="384" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="384" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gab7ecf31370cd1f63c424d703f1a676cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1075,7 +1075,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="400" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="399" bodyend="417" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="400" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="400" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="400" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gabf1979f15bd6b02315b3f9d880fded85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1ae586a879d30f0823087e42d93464b5dd" kindref="member">RRDoubleMatrixPtr</ref> rrcCallConv</type>
@@ -1113,7 +1113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="413" column="43" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="421" bodyend="438" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="413" declcolumn="43"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="413" column="43" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="413" declcolumn="43"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga13d0d619adf01ca451033e742aaed38e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1146,7 +1146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="426" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="440" bodyend="448" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="426" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="426" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="426" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga643d224921897abead4fdcdf1e1e362e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1179,7 +1179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="439" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="450" bodyend="459" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="439" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="439" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="439" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga412ade7dedfbaeafd99eb4abe3fa4f7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1248,7 +1248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="458" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="461" bodyend="479" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="458" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="458" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="458" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gae8a55dbfe92b2f7cb325970a75f69e1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1317,7 +1317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="477" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="481" bodyend="499" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="477" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="477" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="477" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gab72f77166a650f91ce979db7e1b5558d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1386,7 +1386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="497" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="501" bodyend="520" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="497" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="497" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="497" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga9d777aebf7c6bbd55b9b06f31e7e9f42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1487,7 +1487,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="529" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="543" bodyend="551" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="529" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="529" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="529" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga76a2e0f7b1704b28ef0b6661b5e6ada9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1519,7 +1519,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="540" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="553" bodyend="561" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="540" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="540" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="540" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gad475100038d18ad8033220f10a05156a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1588,7 +1588,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="556" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="563" bodyend="581" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="556" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="556" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="556" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1gaaa98160597f72e56bf32eff95e7b1f0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1633,7 +1633,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="570" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="583" bodyend="600" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="570" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="570" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="570" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1gaff70db9c262110e72d1cf090b04d05a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1654,7 +1654,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="581" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="746" bodyend="770" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="581" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="581" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="581" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1gaef1d1f1789f4c5bca4e6b7af4bf53885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1675,7 +1675,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="588" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="772" bodyend="795" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="588" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="588" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="588" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1ga9ecd62cd0fd10a179bd2fe5e55f69929" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1696,7 +1696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="595" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="652" bodyend="688" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="595" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="595" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="595" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1ga02a9a7fee7703402fcf6e36f30d384be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1717,7 +1717,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="602" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="690" bodyend="716" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="602" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="602" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="602" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1gacb4e2892fead121b86bcaf22fea17178" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1738,7 +1738,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="609" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="718" bodyend="744" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="609" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="609" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="609" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__stringArray_1ga4fcdcd7af4041c61ad958b7444ed0263" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1759,7 +1759,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="616" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="604" bodyend="610" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="616" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="616" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="616" declcolumn="29"/>
       </memberdef>
       <memberdef kind="function" id="group__stringArray_1ga6543d536e989bd4cbf52b53e000cf025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1784,7 +1784,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="623" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="612" bodyend="628" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="623" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="623" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="623" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1ga57ac412ea941375e41f6cbc193c666e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1805,7 +1805,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="630" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="630" bodyend="650" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="630" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="630" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="630" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__toString_1ga7cfc863a3d8fec26c951a2f40fa7dfa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1826,7 +1826,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="637" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="223" bodyend="285" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="637" declcolumn="30"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="637" column="30" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="637" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__helperRoutines_1ga39acec7b552d0d705387d45e160a6448" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC int rrcCallConv</type>
@@ -1910,7 +1910,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="660" column="29" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.cpp" bodystart="52" bodyend="55" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="660" declcolumn="29"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" line="660" column="29" declfile="/home/vsts/work/1/s/wrappers/C/rrc_utilities.h" declline="660" declcolumn="29"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1922,8 +1922,7 @@
 &lt;-----------------------------------------------------------<mdash/> This file is part of cRoadRunner. See <ulink url="http://code.google.com/p/roadrunnerlib">http://code.google.com/p/roadrunnerlib</ulink> for more details.</para>
 <para>Copyright (C) 2012-2013 University of Washington, Seattle, WA, USA</para>
 <para>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at <verbatim>http://www.apache.org/licenses/LICENSE-2.0
-</verbatim></para>
-<para>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
+</verbatim> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</para>
 <para>In plain english this means:</para>
 <para>You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;</para>
 <para>You CAN use the software in packages or distributions that you create.</para>
@@ -1933,8 +1932,8 @@
 <para>redistribute any piece of this software without proper attribution; </para>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"></codeline>
-<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>rrc_utilitiesH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>rrc_utilitiesH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>rrc_utilitiesH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="rrc__exporter_8h" kindref="compound">rrc_exporter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="rrc__types_8h" kindref="compound">rrc_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
@@ -1949,148 +1948,148 @@
 <codeline lineno="54"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="rrc__utilities_8h_1a8f3828dfd1294cbcf4e57b4e382f8a8c" kindref="member">gLastError</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="rrc__utilities_8h_1a8f3828dfd1294cbcf4e57b4e382f8a8c" kindref="member">gLastError</ref>;</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="rrc__utilities_8h_1ae4404be9766c980f2b2065a726ad42a6" kindref="member">gInstallFolder</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="rrc__utilities_8h_1ae4404be9766c980f2b2065a726ad42a6" kindref="member">gInstallFolder</ref>;</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//Error/Warning<sp/>Messages</highlight></codeline>
 <codeline lineno="71"><highlight class="comment"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><ref refid="rrc__utilities_8h_1a7abd7eb1ec507cbb9cd17ad024d0dc66" kindref="member">ALLOCATE_API_ERROR_MSG</ref>;</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><ref refid="rrc__utilities_8h_1af8776c486d2155e2b40d97013c89c558" kindref="member">INVALID_HANDLE_ERROR_MSG</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><ref refid="rrc__utilities_8h_1af8776c486d2155e2b40d97013c89c558" kindref="member">INVALID_HANDLE_ERROR_MSG</ref>;</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1acc9949f745af42ea6b3539620e2b8d9d" kindref="member">getFileContent</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fName);</highlight></codeline>
+<codeline lineno="84" refid="rrc__utilities_8h_1acc9949f745af42ea6b3539620e2b8d9d" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1acc9949f745af42ea6b3539620e2b8d9d" kindref="member">getFileContent</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fName);</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1ac28208e24619f20c9cc90f7319ea270e" kindref="member">createText</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>text);</highlight></codeline>
+<codeline lineno="92" refid="rrc__utilities_8h_1ac28208e24619f20c9cc90f7319ea270e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1ac28208e24619f20c9cc90f7319ea270e" kindref="member">createText</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>text);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1a9034d02bd121fa7f5eb6b4efa642d86a" kindref="member">createTextMemory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="100" refid="rrc__utilities_8h_1a9034d02bd121fa7f5eb6b4efa642d86a" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcCallConv<sp/><sp/><sp/><sp/><ref refid="rrc__utilities_8h_1a9034d02bd121fa7f5eb6b4efa642d86a" kindref="member">createTextMemory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">//<sp/>List<sp/>support<sp/>routines</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga0d154a4c5f0aef656c333775638b2b7d" kindref="member">createRRList</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133" refid="group__list_1ga0d154a4c5f0aef656c333775638b2b7d" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga0d154a4c5f0aef656c333775638b2b7d" kindref="member">createRRList</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gafd22078b804cc5b7e39849fb51c7519a" kindref="member">freeRRList</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list);</highlight></codeline>
+<codeline lineno="139" refid="group__list_1gafd22078b804cc5b7e39849fb51c7519a" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gafd22078b804cc5b7e39849fb51c7519a" kindref="member">freeRRList</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list);</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gadc06b896a3117610bbdcf25abb984f98" kindref="member">getListLength</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>myList);</highlight></codeline>
+<codeline lineno="148" refid="group__list_1gadc06b896a3117610bbdcf25abb984f98" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gadc06b896a3117610bbdcf25abb984f98" kindref="member">getListLength</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>myList);</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga1b1b84f8ecafcb31e12e66a0f0f1b49b" kindref="member">createIntegerItem</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="158" refid="group__list_1ga1b1b84f8ecafcb31e12e66a0f0f1b49b" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga1b1b84f8ecafcb31e12e66a0f0f1b49b" kindref="member">createIntegerItem</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga53219912496c999a31ae4f108b1a8247" kindref="member">createDoubleItem</ref><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="167" refid="group__list_1ga53219912496c999a31ae4f108b1a8247" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga53219912496c999a31ae4f108b1a8247" kindref="member">createDoubleItem</ref><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gacc07a37b137b826130770eacd8c93d4e" kindref="member">createStringItem</ref><sp/><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
+<codeline lineno="176" refid="group__list_1gacc07a37b137b826130770eacd8c93d4e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gacc07a37b137b826130770eacd8c93d4e" kindref="member">createStringItem</ref><sp/><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gab092027f0f1176d66f13cb570efa28c8" kindref="member">createListItem</ref><sp/>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structRRList" kindref="compound">RRList</ref>*<sp/>value);</highlight></codeline>
+<codeline lineno="185" refid="group__list_1gab092027f0f1176d66f13cb570efa28c8" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gab092027f0f1176d66f13cb570efa28c8" kindref="member">createListItem</ref><sp/>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structRRList" kindref="compound">RRList</ref>*<sp/>value);</highlight></codeline>
 <codeline lineno="186"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga2ae7d5112afc94d0dae42cc89b5158ee" kindref="member">addItem</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list,<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>*item);</highlight></codeline>
+<codeline lineno="201" refid="group__list_1ga2ae7d5112afc94d0dae42cc89b5158ee" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga2ae7d5112afc94d0dae42cc89b5158ee" kindref="member">addItem</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list,<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>*item);</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight></codeline>
 <codeline lineno="203"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga11a02911ab01db4dc839ae97782e5bf1" kindref="member">getListItem</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
+<codeline lineno="213" refid="group__list_1ga11a02911ab01db4dc839ae97782e5bf1" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1ga11a02911ab01db4dc839ae97782e5bf1" kindref="member">getListItem</ref><sp/>(<ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gaecb302d3561bc1e80a8123f991970fa8" kindref="member">isListItemInteger</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="222" refid="group__list_1gaecb302d3561bc1e80a8123f991970fa8" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gaecb302d3561bc1e80a8123f991970fa8" kindref="member">isListItemInteger</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="231"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga462c5cc75cb0f353a9d1f0cd8324876c" kindref="member">isListItemDouble</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="231" refid="group__list_1ga462c5cc75cb0f353a9d1f0cd8324876c" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga462c5cc75cb0f353a9d1f0cd8324876c" kindref="member">isListItemDouble</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"></highlight></codeline>
-<codeline lineno="240"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga2198a9abc9617d9e926f515faa1663ac" kindref="member">isListItemString</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="240" refid="group__list_1ga2198a9abc9617d9e926f515faa1663ac" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga2198a9abc9617d9e926f515faa1663ac" kindref="member">isListItemString</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="249"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gad17754e97e43d0ed08c2a5cca68f7a39" kindref="member">isListItemList</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="249" refid="group__list_1gad17754e97e43d0ed08c2a5cca68f7a39" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gad17754e97e43d0ed08c2a5cca68f7a39" kindref="member">isListItemList</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="250"><highlight class="normal"></highlight></codeline>
-<codeline lineno="259"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga68d5e8b5116e1076c5cac49858d469f6" kindref="member">isListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="rrc__types_8h_1ab99437ab2e88aa90b7ebb8add042b25e" kindref="member">ListItemType</ref><sp/>itemType);</highlight></codeline>
+<codeline lineno="259" refid="group__list_1ga68d5e8b5116e1076c5cac49858d469f6" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga68d5e8b5116e1076c5cac49858d469f6" kindref="member">isListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="rrc__types_8h_1ab99437ab2e88aa90b7ebb8add042b25e" kindref="member">ListItemType</ref><sp/>itemType);</highlight></codeline>
 <codeline lineno="260"><highlight class="normal"></highlight></codeline>
-<codeline lineno="269"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga1e19335d11372caa5e9dc2d8976ce688" kindref="member">getIntegerListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
+<codeline lineno="269" refid="group__list_1ga1e19335d11372caa5e9dc2d8976ce688" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1ga1e19335d11372caa5e9dc2d8976ce688" kindref="member">getIntegerListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
-<codeline lineno="279"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gab383162093a2782001a6d623dc077dc5" kindref="member">getDoubleListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
+<codeline lineno="279" refid="group__list_1gab383162093a2782001a6d623dc077dc5" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__list_1gab383162093a2782001a6d623dc077dc5" kindref="member">getDoubleListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
 <codeline lineno="280"><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__list_1ga177fc925d1726b0844c17837d3ed4425" kindref="member">getStringListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="288" refid="group__list_1ga177fc925d1726b0844c17837d3ed4425" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__list_1ga177fc925d1726b0844c17837d3ed4425" kindref="member">getStringListItem</ref><sp/>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="289"><highlight class="normal"></highlight></codeline>
 <codeline lineno="290"><highlight class="normal"></highlight></codeline>
-<codeline lineno="298"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gaf9b1219b9a239f0fb73cd83095bbecce" kindref="member">getList</ref>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
+<codeline lineno="298" refid="group__list_1gaf9b1219b9a239f0fb73cd83095bbecce" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__list_1gaf9b1219b9a239f0fb73cd83095bbecce" kindref="member">getList</ref>(<ref refid="structRRListItem" kindref="compound">RRListItemPtr</ref><sp/>item);</highlight></codeline>
 <codeline lineno="299"><highlight class="normal"></highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Free<sp/>memory<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="303"><highlight class="normal"></highlight></codeline>
-<codeline lineno="308"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga2f52213c492e3c4c5d2ac6c72e04a035" kindref="member">freeRRCData</ref>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>handle);</highlight></codeline>
+<codeline lineno="308" refid="group__freeRoutines_1ga2f52213c492e3c4c5d2ac6c72e04a035" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga2f52213c492e3c4c5d2ac6c72e04a035" kindref="member">freeRRCData</ref>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>handle);</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"></highlight></codeline>
-<codeline lineno="314"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1gaaaea1b8264a6d7511153ef611fa88e53" kindref="member">freeText</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>text);</highlight></codeline>
+<codeline lineno="314" refid="group__freeRoutines_1gaaaea1b8264a6d7511153ef611fa88e53" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1gaaaea1b8264a6d7511153ef611fa88e53" kindref="member">freeText</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>text);</highlight></codeline>
 <codeline lineno="315"><highlight class="normal"></highlight></codeline>
 <codeline lineno="316"><highlight class="normal"></highlight></codeline>
-<codeline lineno="321"><highlight class="comment">//C_DECL_SPEC<sp/>int<sp/>rrcCallConv<sp/>freeStringList(RRStringListHandle<sp/>sl);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">//C_DECL_SPEC<sp/>int<sp/>rrcCallConv<sp/>freeStringList(RRStringListHandle<sp/>sl);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="322"><highlight class="normal"></highlight></codeline>
-<codeline lineno="327"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga905dbf578855f9e21e956f6066a6a2b5" kindref="member">freeStringArray</ref>(<ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>sl);</highlight></codeline>
+<codeline lineno="327" refid="group__freeRoutines_1ga905dbf578855f9e21e956f6066a6a2b5" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga905dbf578855f9e21e956f6066a6a2b5" kindref="member">freeStringArray</ref>(<ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>sl);</highlight></codeline>
 <codeline lineno="328"><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga97046231a95430c020e94004ca257b83" kindref="member">freeVector</ref>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector);</highlight></codeline>
+<codeline lineno="333" refid="group__freeRoutines_1ga97046231a95430c020e94004ca257b83" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga97046231a95430c020e94004ca257b83" kindref="member">freeVector</ref>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector);</highlight></codeline>
 <codeline lineno="334"><highlight class="normal"></highlight></codeline>
-<codeline lineno="339"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga9adcba296046c5770d44e64626b600ba" kindref="member">freeMatrix</ref>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>matrix);</highlight></codeline>
+<codeline lineno="339" refid="group__freeRoutines_1ga9adcba296046c5770d44e64626b600ba" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__freeRoutines_1ga9adcba296046c5770d44e64626b600ba" kindref="member">freeMatrix</ref>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>matrix);</highlight></codeline>
 <codeline lineno="340"><highlight class="normal"></highlight></codeline>
 <codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>Methods</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="344"><highlight class="normal"></highlight></codeline>
-<codeline lineno="356"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gaa54dd2d3c615bb2838c0670d0344e001" kindref="member">getVectorLength</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector);</highlight></codeline>
+<codeline lineno="356" refid="group__helperRoutines_1gaa54dd2d3c615bb2838c0670d0344e001" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gaa54dd2d3c615bb2838c0670d0344e001" kindref="member">getVectorLength</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector);</highlight></codeline>
 <codeline lineno="357"><highlight class="normal"></highlight></codeline>
-<codeline lineno="369"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga9f52eab51dfe4dcd3d87538bf8ecd453" kindref="member">createVector</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="369" refid="group__helperRoutines_1ga9f52eab51dfe4dcd3d87538bf8ecd453" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga9f52eab51dfe4dcd3d87538bf8ecd453" kindref="member">createVector</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
 <codeline lineno="370"><highlight class="normal"></highlight></codeline>
-<codeline lineno="384"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab84c62954e2a81c5dbc2c897e88b05f2" kindref="member">getVectorElement</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
+<codeline lineno="384" refid="group__helperRoutines_1gab84c62954e2a81c5dbc2c897e88b05f2" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab84c62954e2a81c5dbc2c897e88b05f2" kindref="member">getVectorElement</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
 <codeline lineno="385"><highlight class="normal"></highlight></codeline>
 <codeline lineno="386"><highlight class="normal"></highlight></codeline>
-<codeline lineno="400"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab7ecf31370cd1f63c424d703f1a676cc" kindref="member">setVectorElement</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="400" refid="group__helperRoutines_1gab7ecf31370cd1f63c424d703f1a676cc" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab7ecf31370cd1f63c424d703f1a676cc" kindref="member">setVectorElement</ref><sp/>(<ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vector,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
 <codeline lineno="401"><highlight class="normal"></highlight></codeline>
-<codeline lineno="413"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gabf1979f15bd6b02315b3f9d880fded85" kindref="member">createRRMatrix</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c);</highlight></codeline>
+<codeline lineno="413" refid="group__helperRoutines_1gabf1979f15bd6b02315b3f9d880fded85" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/><ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gabf1979f15bd6b02315b3f9d880fded85" kindref="member">createRRMatrix</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c);</highlight></codeline>
 <codeline lineno="414"><highlight class="normal"></highlight></codeline>
-<codeline lineno="426"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga13d0d619adf01ca451033e742aaed38e" kindref="member">getMatrixNumRows</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m);</highlight></codeline>
+<codeline lineno="426" refid="group__helperRoutines_1ga13d0d619adf01ca451033e742aaed38e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga13d0d619adf01ca451033e742aaed38e" kindref="member">getMatrixNumRows</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m);</highlight></codeline>
 <codeline lineno="427"><highlight class="normal"></highlight></codeline>
-<codeline lineno="439"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga643d224921897abead4fdcdf1e1e362e" kindref="member">getMatrixNumCols</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m);</highlight></codeline>
+<codeline lineno="439" refid="group__helperRoutines_1ga643d224921897abead4fdcdf1e1e362e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga643d224921897abead4fdcdf1e1e362e" kindref="member">getMatrixNumCols</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m);</highlight></codeline>
 <codeline lineno="440"><highlight class="normal"></highlight></codeline>
-<codeline lineno="458"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga412ade7dedfbaeafd99eb4abe3fa4f7e" kindref="member">getMatrixElement</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
+<codeline lineno="458" refid="group__helperRoutines_1ga412ade7dedfbaeafd99eb4abe3fa4f7e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga412ade7dedfbaeafd99eb4abe3fa4f7e" kindref="member">getMatrixElement</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>value);</highlight></codeline>
 <codeline lineno="459"><highlight class="normal"></highlight></codeline>
-<codeline lineno="477"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gae8a55dbfe92b2f7cb325970a75f69e1c" kindref="member">setMatrixElement</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="477" refid="group__helperRoutines_1gae8a55dbfe92b2f7cb325970a75f69e1c" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gae8a55dbfe92b2f7cb325970a75f69e1c" kindref="member">setMatrixElement</ref><sp/>(<ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
 <codeline lineno="478"><highlight class="normal"></highlight></codeline>
 <codeline lineno="479"><highlight class="normal"></highlight></codeline>
-<codeline lineno="497"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab72f77166a650f91ce979db7e1b5558d" kindref="member">getComplexMatrixElement</ref><sp/>(<ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/><ref refid="structRRComplex" kindref="compound">RRComplexPtr</ref><sp/>value);</highlight></codeline>
+<codeline lineno="497" refid="group__helperRoutines_1gab72f77166a650f91ce979db7e1b5558d" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gab72f77166a650f91ce979db7e1b5558d" kindref="member">getComplexMatrixElement</ref><sp/>(<ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/><ref refid="structRRComplex" kindref="compound">RRComplexPtr</ref><sp/>value);</highlight></codeline>
 <codeline lineno="498"><highlight class="normal"></highlight></codeline>
 <codeline lineno="499"><highlight class="normal"></highlight></codeline>
-<codeline lineno="517"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga9d777aebf7c6bbd55b9b06f31e7e9f42" kindref="member">setComplexMatrixElement</ref><sp/>(<ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/><ref refid="structRRComplex" kindref="compound">RRComplexPtr</ref><sp/>value);</highlight></codeline>
+<codeline lineno="517" refid="group__helperRoutines_1ga9d777aebf7c6bbd55b9b06f31e7e9f42" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga9d777aebf7c6bbd55b9b06f31e7e9f42" kindref="member">setComplexMatrixElement</ref><sp/>(<ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>m,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/><ref refid="structRRComplex" kindref="compound">RRComplexPtr</ref><sp/>value);</highlight></codeline>
 <codeline lineno="518"><highlight class="normal"></highlight></codeline>
 <codeline lineno="519"><highlight class="normal"></highlight></codeline>
-<codeline lineno="529"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gae18768d9447fda2618cacb5099eb768e" kindref="member">getRRDataNumRows</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
+<codeline lineno="529" refid="group__helperRoutines_1gae18768d9447fda2618cacb5099eb768e" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gae18768d9447fda2618cacb5099eb768e" kindref="member">getRRDataNumRows</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
 <codeline lineno="530"><highlight class="normal"></highlight></codeline>
-<codeline lineno="540"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga76a2e0f7b1704b28ef0b6661b5e6ada9" kindref="member">getRRDataNumCols</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
+<codeline lineno="540" refid="group__helperRoutines_1ga76a2e0f7b1704b28ef0b6661b5e6ada9" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga76a2e0f7b1704b28ef0b6661b5e6ada9" kindref="member">getRRDataNumCols</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
 <codeline lineno="541"><highlight class="normal"></highlight></codeline>
-<codeline lineno="556"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gad475100038d18ad8033220f10a05156a" kindref="member">getRRCDataElement</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
+<codeline lineno="556" refid="group__helperRoutines_1gad475100038d18ad8033220f10a05156a" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gad475100038d18ad8033220f10a05156a" kindref="member">getRRCDataElement</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
 <codeline lineno="557"><highlight class="normal"></highlight></codeline>
-<codeline lineno="570"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gaaa98160597f72e56bf32eff95e7b1f0c" kindref="member">getRRDataColumnLabel</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>column);</highlight></codeline>
+<codeline lineno="570" refid="group__helperRoutines_1gaaa98160597f72e56bf32eff95e7b1f0c" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1gaaa98160597f72e56bf32eff95e7b1f0c" kindref="member">getRRDataColumnLabel</ref><sp/>(<ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>column);</highlight></codeline>
 <codeline lineno="571"><highlight class="normal"></highlight></codeline>
 <codeline lineno="572"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="573"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Convert<sp/>data<sp/>to<sp/>string<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="574"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--------------------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="575"><highlight class="normal"></highlight></codeline>
-<codeline lineno="581"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gaff70db9c262110e72d1cf090b04d05a3" kindref="member">vectorToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vec);</highlight></codeline>
+<codeline lineno="581" refid="group__toString_1gaff70db9c262110e72d1cf090b04d05a3" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gaff70db9c262110e72d1cf090b04d05a3" kindref="member">vectorToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRVector" kindref="compound">RRVectorPtr</ref><sp/>vec);</highlight></codeline>
 <codeline lineno="582"><highlight class="normal"></highlight></codeline>
-<codeline lineno="588"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gaef1d1f1789f4c5bca4e6b7af4bf53885" kindref="member">complexVectorToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRComplexVector" kindref="compound">RRComplexVectorPtr</ref><sp/>vec);</highlight></codeline>
+<codeline lineno="588" refid="group__toString_1gaef1d1f1789f4c5bca4e6b7af4bf53885" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gaef1d1f1789f4c5bca4e6b7af4bf53885" kindref="member">complexVectorToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRComplexVector" kindref="compound">RRComplexVectorPtr</ref><sp/>vec);</highlight></codeline>
 <codeline lineno="589"><highlight class="normal"></highlight></codeline>
-<codeline lineno="595"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga9ecd62cd0fd10a179bd2fe5e55f69929" kindref="member">rrCDataToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
+<codeline lineno="595" refid="group__toString_1ga9ecd62cd0fd10a179bd2fe5e55f69929" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga9ecd62cd0fd10a179bd2fe5e55f69929" kindref="member">rrCDataToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRCData" kindref="compound">RRCDataPtr</ref><sp/>rrData);</highlight></codeline>
 <codeline lineno="596"><highlight class="normal"></highlight></codeline>
-<codeline lineno="602"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga02a9a7fee7703402fcf6e36f30d384be" kindref="member">matrixToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>mat);</highlight></codeline>
+<codeline lineno="602" refid="group__toString_1ga02a9a7fee7703402fcf6e36f30d384be" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga02a9a7fee7703402fcf6e36f30d384be" kindref="member">matrixToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRDoubleMatrix" kindref="compound">RRDoubleMatrixPtr</ref><sp/>mat);</highlight></codeline>
 <codeline lineno="603"><highlight class="normal"></highlight></codeline>
-<codeline lineno="609"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gacb4e2892fead121b86bcaf22fea17178" kindref="member">complexMatrixToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>mat);</highlight></codeline>
+<codeline lineno="609" refid="group__toString_1gacb4e2892fead121b86bcaf22fea17178" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1gacb4e2892fead121b86bcaf22fea17178" kindref="member">complexMatrixToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRComplexMatrix" kindref="compound">RRComplexMatrixPtr</ref><sp/>mat);</highlight></codeline>
 <codeline lineno="610"><highlight class="normal"></highlight></codeline>
-<codeline lineno="616"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__stringArray_1ga4fcdcd7af4041c61ad958b7444ed0263" kindref="member">getNumberOfStringElements</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list);</highlight></codeline>
+<codeline lineno="616" refid="group__stringArray_1ga4fcdcd7af4041c61ad958b7444ed0263" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__stringArray_1ga4fcdcd7af4041c61ad958b7444ed0263" kindref="member">getNumberOfStringElements</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list);</highlight></codeline>
 <codeline lineno="617"><highlight class="normal"></highlight></codeline>
-<codeline lineno="623"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__stringArray_1ga6543d536e989bd4cbf52b53e000cf025" kindref="member">getStringElement</ref><sp/>(<ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
+<codeline lineno="623" refid="group__stringArray_1ga6543d536e989bd4cbf52b53e000cf025" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__stringArray_1ga6543d536e989bd4cbf52b53e000cf025" kindref="member">getStringElement</ref><sp/>(<ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
 <codeline lineno="624"><highlight class="normal"></highlight></codeline>
-<codeline lineno="630"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga57ac412ea941375e41f6cbc193c666e1" kindref="member">stringArrayToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list);</highlight></codeline>
+<codeline lineno="630" refid="group__toString_1ga57ac412ea941375e41f6cbc193c666e1" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga57ac412ea941375e41f6cbc193c666e1" kindref="member">stringArrayToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRStringArray" kindref="compound">RRStringArrayPtr</ref><sp/>list);</highlight></codeline>
 <codeline lineno="631"><highlight class="normal"></highlight></codeline>
-<codeline lineno="637"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga7cfc863a3d8fec26c951a2f40fa7dfa4" kindref="member">listToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list);</highlight></codeline>
+<codeline lineno="637" refid="group__toString_1ga7cfc863a3d8fec26c951a2f40fa7dfa4" refkind="member"><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rrcCallConv<sp/><ref refid="group__toString_1ga7cfc863a3d8fec26c951a2f40fa7dfa4" kindref="member">listToString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structRRList" kindref="compound">RRListPtr</ref><sp/>list);</highlight></codeline>
 <codeline lineno="638"><highlight class="normal"></highlight></codeline>
 <codeline lineno="639"><highlight class="normal"></highlight></codeline>
 <codeline lineno="640"><highlight class="normal"></highlight><highlight class="comment">//========================<sp/>DATA<sp/>WRITING<sp/>ROUTINES<sp/>=============================</highlight></codeline>
-<codeline lineno="648"><highlight class="comment"></highlight><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga39acec7b552d0d705387d45e160a6448" kindref="member">writeRRData</ref>(<ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref><sp/>handle,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fileNameAndPath);</highlight></codeline>
+<codeline lineno="648" refid="group__helperRoutines_1ga39acec7b552d0d705387d45e160a6448" refkind="member"><highlight class="comment"></highlight><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga39acec7b552d0d705387d45e160a6448" kindref="member">writeRRData</ref>(<ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref><sp/>handle,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fileNameAndPath);</highlight></codeline>
 <codeline lineno="649"><highlight class="normal"></highlight></codeline>
 <codeline lineno="650"><highlight class="normal"></highlight></codeline>
 <codeline lineno="652"><highlight class="comment">//<sp/>TEST<sp/>UTILITY<sp/>functions<sp/>(to<sp/>be<sp/>documented<sp/>later.<sp/>Only<sp/>for<sp/>internal<sp/>testing)</highlight></codeline>
-<codeline lineno="660"><highlight class="comment"></highlight><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga15cdab183a7e81c1e7beba9b80a6544c" kindref="member">compileSource</ref>(<ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref><sp/>handle,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>sourceFileNameAndPath);</highlight></codeline>
+<codeline lineno="660" refid="group__helperRoutines_1ga15cdab183a7e81c1e7beba9b80a6544c" refkind="member"><highlight class="comment"></highlight><highlight class="normal">C_DECL_SPEC<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rrcCallConv<sp/><ref refid="group__helperRoutines_1ga15cdab183a7e81c1e7beba9b80a6544c" kindref="member">compileSource</ref>(<ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref><sp/>handle,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>sourceFileNameAndPath);</highlight></codeline>
 <codeline lineno="661"><highlight class="normal"></highlight></codeline>
 <codeline lineno="662"><highlight class="normal"></highlight></codeline>
 <codeline lineno="663"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__cplusplus)</highlight><highlight class="normal"></highlight></codeline>

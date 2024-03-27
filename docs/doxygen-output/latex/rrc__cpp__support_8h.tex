@@ -16,28 +16,28 @@ road\+Runner C wrappers 2012
 \item 
 void {\bfseries rrc\+::set\+Error} (const string \&err)
 \begin{DoxyCompactList}\small\item\em Set wrappers error. \end{DoxyCompactList}\item 
-Road\+Runner $\ast$ {\bfseries rrc\+::cast\+To\+Road\+Runner} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} rr\+Handle)
+Road\+Runner $\ast$ {\bfseries rrc\+::cast\+To\+Road\+Runner} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} rr\+Handle)
 \begin{DoxyCompactList}\small\item\em Cast a handle to Road\+Runner instance pointer, throws if it fails. \end{DoxyCompactList}\item 
-bool {\bfseries rrc\+::copy\+Vector} (const \mbox{\hyperlink{structRRVector}{R\+R\+Vector}} $\ast$source, vector$<$ double $>$ \&dest)
+bool {\bfseries rrc\+::copy\+Vector} (const \mbox{\hyperlink{structRRVector}{RRVector}} $\ast$source, vector$<$ double $>$ \&dest)
 \begin{DoxyCompactList}\small\item\em Copy a C vector to a std\+::vector. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structRRVector}{R\+R\+Vector}} $\ast$ {\bfseries rrc\+::create\+Vector} (const vector$<$ double $>$ \&vec)
+\mbox{\hyperlink{structRRVector}{RRVector}} $\ast$ {\bfseries rrc\+::create\+Vector} (const vector$<$ double $>$ \&vec)
 \begin{DoxyCompactList}\small\item\em Creates a C vector from a std\+::vector. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structRRComplexVector}{R\+R\+Complex\+Vector}} $\ast$ {\bfseries rrc\+::create\+Vector} (const vector$<$ ls\+::\+Complex $>$ \&vec)
+\mbox{\hyperlink{structRRComplexVector}{RRComplex\+Vector}} $\ast$ {\bfseries rrc\+::create\+Vector} (const vector$<$ ls\+::\+Complex $>$ \&vec)
 \begin{DoxyCompactList}\small\item\em Creates a C Complex vector from a std\+::vector$<$ls\+::\+Complex$>$ \end{DoxyCompactList}\item 
-vector$<$ double $>$ {\bfseries rrc\+::create\+Vector} (const \mbox{\hyperlink{structRRVector}{R\+R\+Vector}} $\ast$vec)
+vector$<$ double $>$ {\bfseries rrc\+::create\+Vector} (const \mbox{\hyperlink{structRRVector}{RRVector}} $\ast$vec)
 \begin{DoxyCompactList}\small\item\em Creates a std vector from a C vector. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structRRDoubleMatrix}{R\+R\+Double\+Matrix}} $\ast$ {\bfseries rrc\+::create\+Matrix} (const ls\+::\+Double\+Matrix $\ast$mat)
+\mbox{\hyperlink{structRRDoubleMatrix}{RRDouble\+Matrix}} $\ast$ {\bfseries rrc\+::create\+Matrix} (const ls\+::\+Double\+Matrix $\ast$mat)
 \begin{DoxyCompactList}\small\item\em Creates a C matrix from a ls\+::\+Double\+Matrix, supplied as a pointer. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC ls\+::\+Double\+Matrix $\ast$ \mbox{\hyperlink{rrc__cpp__support_8h_a835ebb3ef0d2a50c6057c5c947389ee7}{rrc\+::create\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} mat)
-\begin{DoxyCompactList}\small\item\em Creates a ls\+::\+Double\+Matrix from a R\+R\+Matrix, supplied as a pointer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structRRComplexMatrix}{R\+R\+Complex\+Matrix}} $\ast$ {\bfseries rrc\+::create\+Matrix} (const ls\+::\+Complex\+Matrix $\ast$mat)
+C\+\_\+\+DECL\+\_\+\+SPEC ls\+::\+Double\+Matrix $\ast$ \mbox{\hyperlink{rrc__cpp__support_8h_a835ebb3ef0d2a50c6057c5c947389ee7}{rrc\+::create\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} mat)
+\begin{DoxyCompactList}\small\item\em Creates a ls\+::\+Double\+Matrix from a RRMatrix, supplied as a pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structRRComplexMatrix}{RRComplex\+Matrix}} $\ast$ {\bfseries rrc\+::create\+Matrix} (const ls\+::\+Complex\+Matrix $\ast$mat)
 \begin{DoxyCompactList}\small\item\em Creates a C complex matrix from a ls\+::\+Complex\+Matrix, supplied as a pointer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} {\bfseries rrc\+::create\+List} (const \mbox{\hyperlink{classrr_1_1StringList}{rrc\+::\+String\+List}} \&list)
+\mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} {\bfseries rrc\+::create\+List} (const \mbox{\hyperlink{classrr_1_1StringList}{rrc\+::\+String\+List}} \&list)
 \begin{DoxyCompactList}\small\item\em Creates a C String\+Array from a \mbox{\hyperlink{classrr_1_1StringList}{rr\+::\+String\+List}}. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} \mbox{\hyperlink{rrc__cpp__support_8h_a9708701b977b0ee9f17d56c04de1566f}{rrc\+::create\+Array\+List}} (const Array\+List \&list)
-\begin{DoxyCompactList}\small\item\em Creates a heterogenoeus \mbox{\hyperlink{structRRList}{R\+R\+List}} from a rr\+::\+Array\+List. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} {\bfseries rrc\+::create\+R\+R\+C\+Data} (const \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} \&)
-\begin{DoxyCompactList}\small\item\em Creates an R\+R\+C\+Data\+Ptr from the current state of a Road\+Runner object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} \mbox{\hyperlink{rrc__cpp__support_8h_a9708701b977b0ee9f17d56c04de1566f}{rrc\+::create\+Array\+List}} (const Array\+List \&list)
+\begin{DoxyCompactList}\small\item\em Creates a heterogenoeus \mbox{\hyperlink{structRRList}{RRList}} from a rr\+::\+Array\+List. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} {\bfseries rrc\+::create\+RRCData} (const \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} \&)
+\begin{DoxyCompactList}\small\item\em Creates an RRCData\+Ptr from the current state of a Road\+Runner object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -48,25 +48,23 @@ Totte Karlsson \& Herbert M Sauro
 \end{DoxyAuthor}
 $<$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- This file is part of c\+Road\+Runner. See \href{http://code.google.com/p/roadrunnerlib}{\texttt{ http\+://code.\+google.\+com/p/roadrunnerlib}} for more details.
 
-Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, U\+SA
+Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, USA
 
 Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb}http://www.apache.org/licenses/LICENSE-2.0
 \end{DoxyVerb}
-
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 In plain english this means\+:
 
-You C\+AN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
+You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
 
-You C\+AN use the software in packages or distributions that you create.
+You CAN use the software in packages or distributions that you create.
 
-You S\+H\+O\+U\+LD include a copy of the license in any redistribution you may make;
+You SHOULD include a copy of the license in any redistribution you may make;
 
-You are N\+OT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
+You are NOT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
 
-Y\+OU C\+A\+N\+N\+OT\+:
+YOU CANNOT\+:
 
 redistribute any piece of this software without proper attribution; 
 
@@ -75,7 +73,7 @@ redistribute any piece of this software without proper attribution;
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!castToRoadRunner@{castToRoadRunner}}
 \index{castToRoadRunner@{castToRoadRunner}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{castToRoadRunner()}{castToRoadRunner()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} $\ast$ rrc\+::cast\+To\+Road\+Runner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{rr\+Handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} $\ast$ rrc\+::cast\+To\+Road\+Runner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{rr\+Handle }\end{DoxyParamCaption})}
 
 
 
@@ -93,7 +91,7 @@ Pointer to a roadrunner instance
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!copyVector@{copyVector}}
 \index{copyVector@{copyVector}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{copyVector()}{copyVector()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+::copy\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structRRVector}{R\+R\+Vector}} $\ast$}]{source,  }\item[{vector$<$ double $>$ \&}]{dest }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+::copy\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structRRVector}{RRVector}} $\ast$}]{source,  }\item[{vector$<$ double $>$ \&}]{dest }\end{DoxyParamCaption})}
 
 
 
@@ -101,7 +99,7 @@ Copy a C vector to a std\+::vector.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em source} & Pointer to a \mbox{\hyperlink{structRRVector}{R\+R\+Vector}} structure instance \\
+\mbox{\texttt{ in}}  & {\em source} & Pointer to a \mbox{\hyperlink{structRRVector}{RRVector}} structure instance \\
 \hline
 \mbox{\texttt{ in}}  & {\em dest} & Destination std\+::vector \\
 \hline
@@ -113,11 +111,11 @@ True or false, indicating the result
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createArrayList@{createArrayList}}
 \index{createArrayList@{createArrayList}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createArrayList()}{createArrayList()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+::create\+Array\+List (\begin{DoxyParamCaption}\item[{const Array\+List \&}]{list }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+::create\+Array\+List (\begin{DoxyParamCaption}\item[{const Array\+List \&}]{list }\end{DoxyParamCaption})}
 
 
 
-Creates a heterogenoeus \mbox{\hyperlink{structRRList}{R\+R\+List}} from a rr\+::\+Array\+List. 
+Creates a heterogenoeus \mbox{\hyperlink{structRRList}{RRList}} from a rr\+::\+Array\+List. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -125,13 +123,13 @@ Creates a heterogenoeus \mbox{\hyperlink{structRRList}{R\+R\+List}} from a rr\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a \mbox{\hyperlink{structRRList}{R\+R\+List}}. Null if it fails 
+A handle to a \mbox{\hyperlink{structRRList}{RRList}}. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8cpp_ab5775e703dab475cc8e75f88823a78c2}\label{rrc__cpp__support_8cpp_ab5775e703dab475cc8e75f88823a78c2}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createList@{createList}}
 \index{createList@{createList}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createList()}{createList()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+::create\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1StringList}{rrc\+::\+String\+List}} \&}]{list }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+::create\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1StringList}{rrc\+::\+String\+List}} \&}]{list }\end{DoxyParamCaption})}
 
 
 
@@ -143,13 +141,13 @@ Creates a C String\+Array from a \mbox{\hyperlink{classrr_1_1StringList}{rr\+::\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a \mbox{\hyperlink{structRRStringArray}{R\+R\+String\+Array}}. Null if it fails 
+A handle to a \mbox{\hyperlink{structRRStringArray}{RRString\+Array}}. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8cpp_ad2b2503ade5b37f9ce03d452399b34d7}\label{rrc__cpp__support_8cpp_ad2b2503ade5b37f9ce03d452399b34d7}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createMatrix@{createMatrix}}
 \index{createMatrix@{createMatrix}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createMatrix()}{createMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const ls\+::\+Complex\+Matrix $\ast$}]{mat }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const ls\+::\+Complex\+Matrix $\ast$}]{mat }\end{DoxyParamCaption})}
 
 
 
@@ -161,13 +159,13 @@ Creates a C complex matrix from a ls\+::\+Complex\+Matrix, supplied as a pointer
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a \mbox{\hyperlink{structRRComplexMatrix}{R\+R\+Complex\+Matrix}}. Null if it fails 
+A handle to a \mbox{\hyperlink{structRRComplexMatrix}{RRComplex\+Matrix}}. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8cpp_a438a08945081717ab148f08beac4e1d7}\label{rrc__cpp__support_8cpp_a438a08945081717ab148f08beac4e1d7}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createMatrix@{createMatrix}}
 \index{createMatrix@{createMatrix}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createMatrix()}{createMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const ls\+::\+Double\+Matrix $\ast$}]{mat }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const ls\+::\+Double\+Matrix $\ast$}]{mat }\end{DoxyParamCaption})}
 
 
 
@@ -179,21 +177,21 @@ Creates a C matrix from a ls\+::\+Double\+Matrix, supplied as a pointer.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a R\+R\+Matrix. Null if it fails 
+A handle to a RRMatrix. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8h_a835ebb3ef0d2a50c6057c5c947389ee7}\label{rrc__cpp__support_8h_a835ebb3ef0d2a50c6057c5c947389ee7}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createMatrix@{createMatrix}}
 \index{createMatrix@{createMatrix}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createMatrix()}{createMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC ls\+::\+Double\+Matrix$\ast$ rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC ls\+::\+Double\+Matrix$\ast$ rrc\+::create\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{mat }\end{DoxyParamCaption})}
 
 
 
-Creates a ls\+::\+Double\+Matrix from a R\+R\+Matrix, supplied as a pointer. 
+Creates a ls\+::\+Double\+Matrix from a RRMatrix, supplied as a pointer. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em mat} & Input R\+R\+Matrix pointer \\
+\mbox{\texttt{ in}}  & {\em mat} & Input RRMatrix pointer \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -203,17 +201,17 @@ A handle to a Double\+Matrix. Null if it fails
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createRRCData@{createRRCData}}
 \index{createRRCData@{createRRCData}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createRRCData()}{createRRCData()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+::create\+R\+R\+C\+Data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} \&}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+::create\+RRCData (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1RoadRunner}{rr\+::\+Road\+Runner}} \&}]{ }\end{DoxyParamCaption})}
 
 
 
-Creates an R\+R\+C\+Data\+Ptr from the current state of a Road\+Runner object. 
+Creates an RRCData\+Ptr from the current state of a Road\+Runner object. 
 
-This may be used directly after Road\+Runner\+::simulate() has been called to package up the simulation result data and column names into one of these R\+R\+C\+Data\+Ptr structs. \mbox{\Hypertarget{rrc__cpp__support_8cpp_ab2d664111e409f424b11daa80820bafb}\label{rrc__cpp__support_8cpp_ab2d664111e409f424b11daa80820bafb}} 
+This may be used directly after Road\+Runner\+::simulate() has been called to package up the simulation result data and column names into one of these RRCData\+Ptr structs. \mbox{\Hypertarget{rrc__cpp__support_8cpp_ab2d664111e409f424b11daa80820bafb}\label{rrc__cpp__support_8cpp_ab2d664111e409f424b11daa80820bafb}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createVector@{createVector}}
 \index{createVector@{createVector}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createVector()}{createVector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC vector$<$ double $>$ rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structRRVector}{R\+R\+Vector}} $\ast$}]{vec }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC vector$<$ double $>$ rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structRRVector}{RRVector}} $\ast$}]{vec }\end{DoxyParamCaption})}
 
 
 
@@ -231,7 +229,7 @@ A std vector object
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createVector@{createVector}}
 \index{createVector@{createVector}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createVector()}{createVector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const vector$<$ double $>$ \&}]{vec }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const vector$<$ double $>$ \&}]{vec }\end{DoxyParamCaption})}
 
 
 
@@ -243,13 +241,13 @@ Creates a C vector from a std\+::vector.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a \mbox{\hyperlink{structRRVector}{R\+R\+Vector}}. Null if it fails 
+A handle to a \mbox{\hyperlink{structRRVector}{RRVector}}. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8cpp_a791633a020a7993706198d9bda91ff23}\label{rrc__cpp__support_8cpp_a791633a020a7993706198d9bda91ff23}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!createVector@{createVector}}
 \index{createVector@{createVector}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{createVector()}{createVector()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{R\+R\+Complex\+Vector\+Ptr}} rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const vector$<$ ls\+::\+Complex $>$ \&}]{vec }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{RRComplex\+Vector\+Ptr}} rrc\+::create\+Vector (\begin{DoxyParamCaption}\item[{const vector$<$ ls\+::\+Complex $>$ \&}]{vec }\end{DoxyParamCaption})}
 
 
 
@@ -261,13 +259,13 @@ Creates a C Complex vector from a std\+::vector$<$ls\+::\+Complex$>$
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A handle to a \mbox{\hyperlink{structRRComplexVector}{R\+R\+Complex\+Vector}}. Null if it fails 
+A handle to a \mbox{\hyperlink{structRRComplexVector}{RRComplex\+Vector}}. Null if it fails 
 \end{DoxyReturn}
 \mbox{\Hypertarget{rrc__cpp__support_8cpp_aa5105bf392f572cf29ecc41f15e7ae0e}\label{rrc__cpp__support_8cpp_aa5105bf392f572cf29ecc41f15e7ae0e}} 
 \index{rrc\_cpp\_support.h@{rrc\_cpp\_support.h}!setError@{setError}}
 \index{setError@{setError}!rrc\_cpp\_support.h@{rrc\_cpp\_support.h}}
 \doxysubsubsection{\texorpdfstring{setError()}{setError()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+::set\+Error (\begin{DoxyParamCaption}\item[{const string \&}]{err }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+::set\+Error (\begin{DoxyParamCaption}\item[{const string \&}]{err }\end{DoxyParamCaption})}
 
 
 

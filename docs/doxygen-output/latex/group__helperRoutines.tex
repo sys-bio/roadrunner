@@ -8,39 +8,39 @@ Helper routines for accessing the various C wrappers types, eg lists and arrays.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gaa54dd2d3c615bb2838c0670d0344e001}{get\+Vector\+Length}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} vector)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gaa54dd2d3c615bb2838c0670d0344e001}{get\+Vector\+Length}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} vector)
 \begin{DoxyCompactList}\small\item\em Get the number of elements in a vector type. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga9f52eab51dfe4dcd3d87538bf8ecd453}{create\+Vector}} (int size)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga9f52eab51dfe4dcd3d87538bf8ecd453}{create\+Vector}} (int size)
 \begin{DoxyCompactList}\small\item\em Create a new vector with a given size. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab84c62954e2a81c5dbc2c897e88b05f2}{get\+Vector\+Element}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} vector, int index, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab84c62954e2a81c5dbc2c897e88b05f2}{get\+Vector\+Element}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} vector, int index, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Get a particular element from a vector. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab7ecf31370cd1f63c424d703f1a676cc}{set\+Vector\+Element}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} vector, int index, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab7ecf31370cd1f63c424d703f1a676cc}{set\+Vector\+Element}} (\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} vector, int index, double value)
 \begin{DoxyCompactList}\small\item\em Set a particular element in a vector. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gabf1979f15bd6b02315b3f9d880fded85}{create\+R\+R\+Matrix}} (int r, int c)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gabf1979f15bd6b02315b3f9d880fded85}{create\+RRMatrix}} (int r, int c)
 \begin{DoxyCompactList}\small\item\em Create an empty matrix of size r by c. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga13d0d619adf01ca451033e742aaed38e}{get\+Matrix\+Num\+Rows}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} m)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga13d0d619adf01ca451033e742aaed38e}{get\+Matrix\+Num\+Rows}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} m)
 \begin{DoxyCompactList}\small\item\em Retrieve the number of rows in the given matrix. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga643d224921897abead4fdcdf1e1e362e}{get\+Matrix\+Num\+Cols}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} m)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga643d224921897abead4fdcdf1e1e362e}{get\+Matrix\+Num\+Cols}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} m)
 \begin{DoxyCompactList}\small\item\em Retrieve the number of columns in the given matrix. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga412ade7dedfbaeafd99eb4abe3fa4f7e}{get\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} m, int r, int c, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga412ade7dedfbaeafd99eb4abe3fa4f7e}{get\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} m, int r, int c, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Retrieve an element at a given row and column from a matrix type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gae8a55dbfe92b2f7cb325970a75f69e1c}{set\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} m, int r, int c, double value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gae8a55dbfe92b2f7cb325970a75f69e1c}{set\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} m, int r, int c, double value)
 \begin{DoxyCompactList}\small\item\em Set an element at a given row and column with a given value in a matrix type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab72f77166a650f91ce979db7e1b5558d}{get\+Complex\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} m, int r, int c, \mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{R\+R\+Complex\+Ptr}} value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gab72f77166a650f91ce979db7e1b5558d}{get\+Complex\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} m, int r, int c, \mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{RRComplex\+Ptr}} value)
 \begin{DoxyCompactList}\small\item\em Retrieve an element at a given row and column from a complex matrix type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga9d777aebf7c6bbd55b9b06f31e7e9f42}{set\+Complex\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} m, int r, int c, \mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{R\+R\+Complex\+Ptr}} value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga9d777aebf7c6bbd55b9b06f31e7e9f42}{set\+Complex\+Matrix\+Element}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} m, int r, int c, \mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{RRComplex\+Ptr}} value)
 \begin{DoxyCompactList}\small\item\em Set an element at a given row and column with a given value in a complex matrix type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gae18768d9447fda2618cacb5099eb768e}{get\+R\+R\+Data\+Num\+Rows}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rr\+Data)
-\begin{DoxyCompactList}\small\item\em Retrieve the number of rows in the given Road\+Runner numerical data (returned from \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+R\+R\+Handle handle)}}) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga76a2e0f7b1704b28ef0b6661b5e6ada9}{get\+R\+R\+Data\+Num\+Cols}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rr\+Data)
-\begin{DoxyCompactList}\small\item\em Retrieve the number of columns in the given rr\+Data data (returned form \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+R\+R\+Handle handle)}}) \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gad475100038d18ad8033220f10a05156a}{get\+R\+R\+C\+Data\+Element}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rr\+Data, int r, int c, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gae18768d9447fda2618cacb5099eb768e}{get\+RRData\+Num\+Rows}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rr\+Data)
+\begin{DoxyCompactList}\small\item\em Retrieve the number of rows in the given Road\+Runner numerical data (returned from \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+RRHandle handle)}}) \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga76a2e0f7b1704b28ef0b6661b5e6ada9}{get\+RRData\+Num\+Cols}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rr\+Data)
+\begin{DoxyCompactList}\small\item\em Retrieve the number of columns in the given rr\+Data data (returned form \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+RRHandle handle)}}) \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gad475100038d18ad8033220f10a05156a}{get\+RRCData\+Element}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rr\+Data, int r, int c, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Retrieves an element at a given row and column from a Road\+Runner data type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gaaa98160597f72e56bf32eff95e7b1f0c}{get\+R\+R\+Data\+Column\+Label}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rr\+Data, int column)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_gaaa98160597f72e56bf32eff95e7b1f0c}{get\+RRData\+Column\+Label}} (\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rr\+Data, int column)
 \begin{DoxyCompactList}\small\item\em Retrieves a label for a given column in a rr\+Data type variable. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga39acec7b552d0d705387d45e160a6448}{write\+R\+R\+Data}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$file\+Name\+And\+Path)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga39acec7b552d0d705387d45e160a6448}{write\+RRData}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$file\+Name\+And\+Path)
 \begin{DoxyCompactList}\small\item\em Writes Road\+Runner data to file. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga15cdab183a7e81c1e7beba9b80a6544c}{compile\+Source}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$source\+File\+Name\+And\+Path)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__helperRoutines_ga15cdab183a7e81c1e7beba9b80a6544c}{compile\+Source}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$source\+File\+Name\+And\+Path)
 \begin{DoxyCompactList}\small\item\em Compiles source code. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -54,7 +54,7 @@ Helper routines for accessing the various C wrappers types, eg lists and arrays.
 \index{Helper routines@{Helper routines}!compileSource@{compileSource}}
 \index{compileSource@{compileSource}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{compileSource()}{compileSource()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv compile\+Source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{source\+File\+Name\+And\+Path }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv compile\+Source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{source\+File\+Name\+And\+Path }\end{DoxyParamCaption})}
 
 
 
@@ -62,7 +62,7 @@ Compiles source code.
 
 
 \begin{DoxyParams}{Parameters}
-{\em handle} & Handle to a R\+R\+Instance \\
+{\em handle} & Handle to a RRInstance \\
 \hline
 {\em source\+File\+Name\+And\+Path} & Pointer to string holding the file(with path) to compile \\
 \hline
@@ -74,7 +74,7 @@ Returns a t/f indicating the result
 \index{Helper routines@{Helper routines}!createRRMatrix@{createRRMatrix}}
 \index{createRRMatrix@{createRRMatrix}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{createRRMatrix()}{createRRMatrix()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv create\+R\+R\+Matrix (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv create\+RRMatrix (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -85,6 +85,7 @@ Matrices are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{m = \mbox{\hyperlink{group__helperRoutines_gabf1979f15bd6b02315b3f9d880fded85}{createRRMatrix}} (2, 3); }
+
 \end{DoxyCode}
 
 
@@ -94,13 +95,13 @@ Example\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns N\+U\+LL if fails, otherwise returns a handle to the matrix 
+Returns NULL if fails, otherwise returns a handle to the matrix 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__helperRoutines_ga9f52eab51dfe4dcd3d87538bf8ecd453}\label{group__helperRoutines_ga9f52eab51dfe4dcd3d87538bf8ecd453}} 
 \index{Helper routines@{Helper routines}!createVector@{createVector}}
 \index{createVector@{createVector}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{createVector()}{createVector()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} rrc\+Call\+Conv create\+Vector (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} rrc\+Call\+Conv create\+Vector (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
 
 
 
@@ -111,6 +112,7 @@ Vectors are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{myVector = \mbox{\hyperlink{group__helperRoutines_ga9f52eab51dfe4dcd3d87538bf8ecd453}{createVector}} (10); }
+
 \end{DoxyCode}
 
 
@@ -126,7 +128,7 @@ Returns null if it fails, otherwise returns a pointer to the new vector
 \index{Helper routines@{Helper routines}!getComplexMatrixElement@{getComplexMatrixElement}}
 \index{getComplexMatrixElement@{getComplexMatrixElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getComplexMatrixElement()}{getComplexMatrixElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Complex\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{\mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{R\+R\+Complex\+Ptr}}}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Complex\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{\mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{RRComplex\+Ptr}}}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -137,6 +139,7 @@ Matrices are indexed from zero
 Example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_gab72f77166a650f91ce979db7e1b5558d}{getComplexMatrixElement}} (m, 2, 4, \&value);}
+
 \end{DoxyCode}
 
 
@@ -158,7 +161,7 @@ Returns True if successful
 \index{Helper routines@{Helper routines}!getMatrixElement@{getMatrixElement}}
 \index{getMatrixElement@{getMatrixElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getMatrixElement()}{getMatrixElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -169,6 +172,7 @@ Matrices are indexed from zero
 Example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_ga412ade7dedfbaeafd99eb4abe3fa4f7e}{getMatrixElement}} (m, 2, 4, \&value);}
+
 \end{DoxyCode}
 
 
@@ -190,7 +194,7 @@ Returns True if successful
 \index{Helper routines@{Helper routines}!getMatrixNumCols@{getMatrixNumCols}}
 \index{getMatrixNumCols@{getMatrixNumCols}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getMatrixNumCols()}{getMatrixNumCols()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Matrix\+Num\+Cols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{m }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Matrix\+Num\+Cols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{m }\end{DoxyParamCaption})}
 
 
 
@@ -201,6 +205,7 @@ Matrices are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{nRows = \mbox{\hyperlink{group__helperRoutines_ga643d224921897abead4fdcdf1e1e362e}{getMatrixNumCols}} (m); }
+
 \end{DoxyCode}
 
 
@@ -216,7 +221,7 @@ Returns -\/1 if fails, otherwise returns the number of columns
 \index{Helper routines@{Helper routines}!getMatrixNumRows@{getMatrixNumRows}}
 \index{getMatrixNumRows@{getMatrixNumRows}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getMatrixNumRows()}{getMatrixNumRows()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Matrix\+Num\+Rows (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{m }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Matrix\+Num\+Rows (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{m }\end{DoxyParamCaption})}
 
 
 
@@ -227,6 +232,7 @@ Matrices are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{nRows = \mbox{\hyperlink{group__helperRoutines_ga13d0d619adf01ca451033e742aaed38e}{getMatrixNumRows}} (m); }
+
 \end{DoxyCode}
 
 
@@ -242,7 +248,7 @@ Returns -\/1 if fails, otherwise returns the number of rows
 \index{Helper routines@{Helper routines}!getRRCDataElement@{getRRCDataElement}}
 \index{getRRCDataElement@{getRRCDataElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getRRCDataElement()}{getRRCDataElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+R\+R\+C\+Data\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}}}]{rr\+Data,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+RRCData\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}}}]{rr\+Data,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -253,6 +259,7 @@ Road\+Runner numerical data are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_gad475100038d18ad8033220f10a05156a}{getRRCDataElement}} (rrData, 2, 4, *value); }
+
 \end{DoxyCode}
 
 
@@ -274,7 +281,7 @@ Returns true if successful
 \index{Helper routines@{Helper routines}!getRRDataColumnLabel@{getRRDataColumnLabel}}
 \index{getRRDataColumnLabel@{getRRDataColumnLabel}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getRRDataColumnLabel()}{getRRDataColumnLabel()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+R\+R\+Data\+Column\+Label (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}}}]{rr\+Data,  }\item[{int}]{column }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+RRData\+Column\+Label (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}}}]{rr\+Data,  }\item[{int}]{column }\end{DoxyParamCaption})}
 
 
 
@@ -285,6 +292,7 @@ Result data are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{str = getResultColumnLabel (rrData, 2, 4); }
+
 \end{DoxyCode}
 
 
@@ -302,15 +310,16 @@ Returns null if fails, otherwise returns a pointer to the string column label
 \index{Helper routines@{Helper routines}!getRRDataNumCols@{getRRDataNumCols}}
 \index{getRRDataNumCols@{getRRDataNumCols}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getRRDataNumCols()}{getRRDataNumCols()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+R\+R\+Data\+Num\+Cols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}}}]{rr\+Data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+RRData\+Num\+Cols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}}}]{rr\+Data }\end{DoxyParamCaption})}
 
 
 
-Retrieve the number of columns in the given rr\+Data data (returned form \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+R\+R\+Handle handle)}}) 
+Retrieve the number of columns in the given rr\+Data data (returned form \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+RRHandle handle)}}) 
 
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{nRows = getResultNumCols (rrData); }
+
 \end{DoxyCode}
 
 
@@ -326,15 +335,16 @@ Returns -\/1 if fails, otherwise returns the number of columns
 \index{Helper routines@{Helper routines}!getRRDataNumRows@{getRRDataNumRows}}
 \index{getRRDataNumRows@{getRRDataNumRows}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getRRDataNumRows()}{getRRDataNumRows()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+R\+R\+Data\+Num\+Rows (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}}}]{rr\+Data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+RRData\+Num\+Rows (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}}}]{rr\+Data }\end{DoxyParamCaption})}
 
 
 
-Retrieve the number of rows in the given Road\+Runner numerical data (returned from \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+R\+R\+Handle handle)}}) 
+Retrieve the number of rows in the given Road\+Runner numerical data (returned from \mbox{\hyperlink{group__simulation_ga9ac99f6909eb0a6244035fc9cdeff94d}{simulate(\+RRHandle handle)}}) 
 
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{nRows = \mbox{\hyperlink{group__helperRoutines_gae18768d9447fda2618cacb5099eb768e}{getRRDataNumRows}} (result); }
+
 \end{DoxyCode}
 
 
@@ -350,7 +360,7 @@ Returns -\/1 if fails, otherwise returns the number of rows
 \index{Helper routines@{Helper routines}!getVectorElement@{getVectorElement}}
 \index{getVectorElement@{getVectorElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getVectorElement()}{getVectorElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Vector\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}}}]{vector,  }\item[{int}]{index,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Vector\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}}}]{vector,  }\item[{int}]{index,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -361,6 +371,7 @@ Vectors are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_gab84c62954e2a81c5dbc2c897e88b05f2}{getVectorElement}} (myVector, 10, *value); }
+
 \end{DoxyCode}
 
 
@@ -380,7 +391,7 @@ Returns true if successful
 \index{Helper routines@{Helper routines}!getVectorLength@{getVectorLength}}
 \index{getVectorLength@{getVectorLength}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{getVectorLength()}{getVectorLength()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Vector\+Length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}}}]{vector }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Vector\+Length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}}}]{vector }\end{DoxyParamCaption})}
 
 
 
@@ -391,6 +402,7 @@ Vectors are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{count = \mbox{\hyperlink{group__helperRoutines_gaa54dd2d3c615bb2838c0670d0344e001}{getVectorLength}} (myVector); }
+
 \end{DoxyCode}
 
 
@@ -406,7 +418,7 @@ Returns -\/1 if it fails, otherwise returns the number of elements in the vector
 \index{Helper routines@{Helper routines}!setComplexMatrixElement@{setComplexMatrixElement}}
 \index{setComplexMatrixElement@{setComplexMatrixElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{setComplexMatrixElement()}{setComplexMatrixElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Complex\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{\mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{R\+R\+Complex\+Ptr}}}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Complex\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{\mbox{\hyperlink{rrc__types_8h_ada2046d7326c56ae29d8510fbf6622ee}{RRComplex\+Ptr}}}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -417,6 +429,7 @@ Matrices are indexed from zero
 Example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_ga9d777aebf7c6bbd55b9b06f31e7e9f42}{setComplexMatrixElement}} (m, 2, 4, value);}
+
 \end{DoxyCode}
 
 
@@ -438,7 +451,7 @@ Returns True if successful
 \index{Helper routines@{Helper routines}!setMatrixElement@{setMatrixElement}}
 \index{setMatrixElement@{setMatrixElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{setMatrixElement()}{setMatrixElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Matrix\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}}}]{m,  }\item[{int}]{r,  }\item[{int}]{c,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -449,6 +462,7 @@ Matrices are indexed from zero
 Example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_gae8a55dbfe92b2f7cb325970a75f69e1c}{setMatrixElement}} (m, 2, 4, value);}
+
 \end{DoxyCode}
 
 
@@ -470,7 +484,7 @@ Returns True if successful
 \index{Helper routines@{Helper routines}!setVectorElement@{setVectorElement}}
 \index{setVectorElement@{setVectorElement}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{setVectorElement()}{setVectorElement()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv set\+Vector\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}}}]{vector,  }\item[{int}]{index,  }\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv set\+Vector\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}}}]{vector,  }\item[{int}]{index,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -481,6 +495,7 @@ Vectors are indexed from zero
 Example\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{status = \mbox{\hyperlink{group__helperRoutines_gab7ecf31370cd1f63c424d703f1a676cc}{setVectorElement}} (myVector, 10, 3.1415); }
+
 \end{DoxyCode}
 
 
@@ -500,7 +515,7 @@ Returns true if successful
 \index{Helper routines@{Helper routines}!writeRRData@{writeRRData}}
 \index{writeRRData@{writeRRData}!Helper routines@{Helper routines}}
 \doxysubsubsection{\texorpdfstring{writeRRData()}{writeRRData()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv write\+R\+R\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{file\+Name\+And\+Path }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv write\+RRData (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{file\+Name\+And\+Path }\end{DoxyParamCaption})}
 
 
 

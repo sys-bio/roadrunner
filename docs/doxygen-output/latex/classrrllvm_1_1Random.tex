@@ -17,7 +17,7 @@ Define and collect ways to generate random values and values from random distrib
 \begin{DoxyCompactList}\small\item\em creates a new \mbox{\hyperlink{classrrllvm_1_1Random}{Random}} object and adds the distrib as global mappings to the execution engine. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Random_a921b6e5e3b55c17e8ccc59840ebb7e08}\label{classrrllvm_1_1Random_a921b6e5e3b55c17e8ccc59840ebb7e08}} 
 \mbox{\hyperlink{classrrllvm_1_1Random_a921b6e5e3b55c17e8ccc59840ebb7e08}{Random}} (const \mbox{\hyperlink{classrr_1_1Random}{Random}} \&other)
-\begin{DoxyCompactList}\small\item\em copy constructor, copy the distributions but reset the R\+NG to what is specified by the config. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em copy constructor, copy the distributions but reset the RNG to what is specified by the config. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Random_a897db0dcdeacdef5caac7087e4875616}\label{classrrllvm_1_1Random_a897db0dcdeacdef5caac7087e4875616}} 
 \mbox{\hyperlink{classrr_1_1Random}{Random}} \& \mbox{\hyperlink{classrrllvm_1_1Random_a897db0dcdeacdef5caac7087e4875616}{operator=}} (const \mbox{\hyperlink{classrr_1_1Random}{Random}} \&rhs)
 \begin{DoxyCompactList}\small\item\em assignment operator, copies the fields from the other object, but does not re-\/intialize them. \end{DoxyCompactList}\item 
@@ -25,7 +25,7 @@ Define and collect ways to generate random values and values from random distrib
 \begin{DoxyCompactList}\small\item\em default ctor, this obviously does not add any mappings to a \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Random_a71acc6461e87790ee45f7f5da635eb8a}\label{classrrllvm_1_1Random_a71acc6461e87790ee45f7f5da635eb8a}} 
 double \mbox{\hyperlink{classrrllvm_1_1Random_a71acc6461e87790ee45f7f5da635eb8a}{operator()}} ()
-\begin{DoxyCompactList}\small\item\em return a normalized random number between 0 and 1 using the R\+NG engine. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em return a normalized random number between 0 and 1 using the RNG engine. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1Random_ad009ff45cd685be754370b668e99f6f2}\label{classrrllvm_1_1Random_ad009ff45cd685be754370b668e99f6f2}} 
 int \mbox{\hyperlink{classrrllvm_1_1Random_ad009ff45cd685be754370b668e99f6f2}{get\+Max\+Tries}} () const
 \begin{DoxyCompactList}\small\item\em Returns the maximum number of tries to find a value inside a truncated range. \end{DoxyCompactList}\item 
@@ -37,21 +37,21 @@ double \mbox{\hyperlink{classrrllvm_1_1Random_a5bfaae233b2805b56c2b9ac9c084c12d}
 double \mbox{\hyperlink{classrrllvm_1_1Random_a4cb7608f39fe6bf46935025168007e71}{max}} ()
 \begin{DoxyCompactList}\small\item\em max random number. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrrllvm_1_1Random_a5eab5fabaad44ed2245d63b03a3475eb}{set\+Random\+Seed}} (int64\+\_\+t)
-\begin{DoxyCompactList}\small\item\em Try to hide the R\+NG, so we can use different R\+N\+Gs in the future. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Try to hide the RNG, so we can use different RNGs in the future. \end{DoxyCompactList}\item 
 int64\+\_\+t \mbox{\hyperlink{classrrllvm_1_1Random_ada656438a7c126e74d0263fcbea6e058}{get\+Random\+Seed}} ()
-\begin{DoxyCompactList}\small\item\em Try to hide the R\+NG so we can used different R\+N\+Gs in the future. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Try to hide the RNG so we can used different RNGs in the future. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Random_a387019519efe43d4fba138881519818f}\label{classrrllvm_1_1Random_a387019519efe43d4fba138881519818f}} 
 cxx11\+\_\+ns\+::mt19937 \mbox{\hyperlink{classrrllvm_1_1Random_a387019519efe43d4fba138881519818f}{engine}}
-\begin{DoxyCompactList}\small\item\em R\+NG engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em RNG engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Define and collect ways to generate random values and values from random distributions. 
 
-Of particular use when encountering Math\+ML defined by the \textquotesingle{}Distributions\textquotesingle{} S\+B\+ML L3 package. 
+Of particular use when encountering Math\+ML defined by the \textquotesingle{}Distributions\textquotesingle{} SBML L3 package. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1Random_a72e84ec8e83847899adfb999bbee6bbe}\label{classrrllvm_1_1Random_a72e84ec8e83847899adfb999bbee6bbe}} 
@@ -64,7 +64,7 @@ Of particular use when encountering Math\+ML defined by the \textquotesingle{}Di
 
 default ctor, this obviously does not add any mappings to a \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}}. 
 
-This would be used when a \mbox{\hyperlink{classrrllvm_1_1Random}{Random}} is created by itself, to use the attached R\+NG engine. 
+This would be used when a \mbox{\hyperlink{classrrllvm_1_1Random}{Random}} is created by itself, to use the attached RNG engine. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1Random_ada656438a7c126e74d0263fcbea6e058}\label{classrrllvm_1_1Random_ada656438a7c126e74d0263fcbea6e058}} 
@@ -75,9 +75,9 @@ This would be used when a \mbox{\hyperlink{classrrllvm_1_1Random}{Random}} is cr
 
 
 
-Try to hide the R\+NG so we can used different R\+N\+Gs in the future. 
+Try to hide the RNG so we can used different RNGs in the future. 
 
-get the seed used by the R\+NG. \mbox{\Hypertarget{classrrllvm_1_1Random_a4cb7608f39fe6bf46935025168007e71}\label{classrrllvm_1_1Random_a4cb7608f39fe6bf46935025168007e71}} 
+get the seed used by the RNG. \mbox{\Hypertarget{classrrllvm_1_1Random_a4cb7608f39fe6bf46935025168007e71}\label{classrrllvm_1_1Random_a4cb7608f39fe6bf46935025168007e71}} 
 \index{rrllvm::Random@{rrllvm::Random}!max@{max}}
 \index{max@{max}!rrllvm::Random@{rrllvm::Random}}
 \doxysubsubsection{\texorpdfstring{max()}{max()}}
@@ -87,7 +87,7 @@ get the seed used by the R\+NG. \mbox{\Hypertarget{classrrllvm_1_1Random_a4cb760
 
 max random number. 
 
-M\+S\+VC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarget{classrrllvm_1_1Random_a5bfaae233b2805b56c2b9ac9c084c12d}\label{classrrllvm_1_1Random_a5bfaae233b2805b56c2b9ac9c084c12d}} 
+MSVC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarget{classrrllvm_1_1Random_a5bfaae233b2805b56c2b9ac9c084c12d}\label{classrrllvm_1_1Random_a5bfaae233b2805b56c2b9ac9c084c12d}} 
 \index{rrllvm::Random@{rrllvm::Random}!min@{min}}
 \index{min@{min}!rrllvm::Random@{rrllvm::Random}}
 \doxysubsubsection{\texorpdfstring{min()}{min()}}
@@ -97,7 +97,7 @@ M\+S\+VC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarg
 
 min random number. 
 
-M\+S\+VC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarget{classrrllvm_1_1Random_a5eab5fabaad44ed2245d63b03a3475eb}\label{classrrllvm_1_1Random_a5eab5fabaad44ed2245d63b03a3475eb}} 
+MSVC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarget{classrrllvm_1_1Random_a5eab5fabaad44ed2245d63b03a3475eb}\label{classrrllvm_1_1Random_a5eab5fabaad44ed2245d63b03a3475eb}} 
 \index{rrllvm::Random@{rrllvm::Random}!setRandomSeed@{setRandomSeed}}
 \index{setRandomSeed@{setRandomSeed}!rrllvm::Random@{rrllvm::Random}}
 \doxysubsubsection{\texorpdfstring{setRandomSeed()}{setRandomSeed()}}
@@ -105,9 +105,9 @@ M\+S\+VC looks at this, but gcc stdlib assumes normalized dist. \mbox{\Hypertarg
 
 
 
-Try to hide the R\+NG, so we can use different R\+N\+Gs in the future. 
+Try to hide the RNG, so we can use different RNGs in the future. 
 
-set the seed used by the random number generator. This will by definition reset the R\+NG. 
+set the seed used by the random number generator. This will by definition reset the RNG. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

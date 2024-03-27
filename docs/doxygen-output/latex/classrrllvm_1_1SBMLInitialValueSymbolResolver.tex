@@ -1,4 +1,4 @@
-\hypertarget{classrrllvm_1_1SBMLInitialValueSymbolResolver}{}\doxysection{rrllvm\+::S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver Class Reference}
+\hypertarget{classrrllvm_1_1SBMLInitialValueSymbolResolver}{}\doxysection{rrllvm\+::SBMLInitial\+Value\+Symbol\+Resolver Class Reference}
 \label{classrrllvm_1_1SBMLInitialValueSymbolResolver}\index{rrllvm::SBMLInitialValueSymbolResolver@{rrllvm::SBMLInitialValueSymbolResolver}}
 
 
@@ -7,9 +7,9 @@ pulls values from the original sbml document.
 
 
 
-{\ttfamily \#include $<$S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver.\+h$>$}
+{\ttfamily \#include $<$SBMLInitial\+Value\+Symbol\+Resolver.\+h$>$}
 
-Inheritance diagram for rrllvm\+::S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver\+:\begin{figure}[H]
+Inheritance diagram for rrllvm\+::SBMLInitial\+Value\+Symbol\+Resolver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{classrrllvm_1_1SBMLInitialValueSymbolResolver}
@@ -19,10 +19,10 @@ Inheritance diagram for rrllvm\+::S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver\+
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1SBMLInitialValueSymbolResolver_afe414b6df8ca9e9a16f8d3a5138c9dd9}\label{classrrllvm_1_1SBMLInitialValueSymbolResolver_afe414b6df8ca9e9a16f8d3a5138c9dd9}} 
-\mbox{\hyperlink{classrrllvm_1_1SBMLInitialValueSymbolResolver_afe414b6df8ca9e9a16f8d3a5138c9dd9}{S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver}} (llvm\+::\+Value $\ast$model\+Data, const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&ctx)
+\mbox{\hyperlink{classrrllvm_1_1SBMLInitialValueSymbolResolver_afe414b6df8ca9e9a16f8d3a5138c9dd9}{SBMLInitial\+Value\+Symbol\+Resolver}} (llvm\+::\+Value $\ast$model\+Data, const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&ctx)
 \begin{DoxyCompactList}\small\item\em need a model\+Data ptr because it holds state needed from the random number generators, could be used for init assignmnets. \end{DoxyCompactList}\item 
 virtual llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1SBMLInitialValueSymbolResolver_ab7c1e8fae4c828db8ddf0147d2c105b4}{load\+Symbol\+Value}} (const std\+::string \&symbol, const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&args=llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$())
-\begin{DoxyCompactList}\small\item\em generate an L\+L\+VM load instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em generate an LLVM load instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -34,11 +34,11 @@ pulls values from the original sbml document.
 \index{rrllvm::SBMLInitialValueSymbolResolver@{rrllvm::SBMLInitialValueSymbolResolver}!loadSymbolValue@{loadSymbolValue}}
 \index{loadSymbolValue@{loadSymbolValue}!rrllvm::SBMLInitialValueSymbolResolver@{rrllvm::SBMLInitialValueSymbolResolver}}
 \doxysubsubsection{\texorpdfstring{loadSymbolValue()}{loadSymbolValue()}}
-{\footnotesize\ttfamily llvm\+::\+Value $\ast$ rrllvm\+::\+S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver\+::load\+Symbol\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol,  }\item[{const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&}]{args = {\ttfamily llvm\+:\+:ArrayRef$<$~llvm\+:\+:Value~$\ast$~$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily llvm\+::\+Value $\ast$ rrllvm\+::\+SBMLInitial\+Value\+Symbol\+Resolver\+::load\+Symbol\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{symbol,  }\item[{const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&}]{args = {\ttfamily llvm\+:\+:ArrayRef$<$~llvm\+:\+:Value~$\ast$~$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-generate an L\+L\+VM load instruction. 
+generate an LLVM load instruction. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -55,5 +55,5 @@ Implements \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver_af0c62fdd0c913e241
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver.\+h\item 
-llvm/S\+B\+M\+L\+Initial\+Value\+Symbol\+Resolver.\+cpp\end{DoxyCompactItemize}
+llvm/SBMLInitial\+Value\+Symbol\+Resolver.\+h\item 
+llvm/SBMLInitial\+Value\+Symbol\+Resolver.\+cpp\end{DoxyCompactItemize}

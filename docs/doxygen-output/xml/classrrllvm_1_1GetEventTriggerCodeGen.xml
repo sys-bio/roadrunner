@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1GetEventTriggerCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::GetEventTriggerCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1GetEventValueCodeGenBase" prot="public" virt="non-virtual">rrllvm::GetEventValueCodeGenBase&lt; GetEventTriggerCodeGen, GetEventTriggerCodeGen_FunctionPtr &gt;</basecompoundref>
@@ -118,9 +118,9 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Get the trigger of an SBML <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref>. </para>
     </briefdescription>
     <detaileddescription>
-<para>Get the trigger of an SBML <ref refid="classrrllvm_1_1Event" kindref="compound">Event</ref>. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -130,7 +130,7 @@
         </childnode>
       </node>
       <node id="3">
-        <label>rrllvm::CodeGenBase&lt; GetEventTriggerCodeGen_FunctionPtr &gt;</label>
+        <label>rrllvm::CodeGenBase&lt; FunctionPtrType &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
       </node>
       <node id="1">
@@ -155,8 +155,8 @@
         </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
           <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
           <edgelabel>rateRules</edgelabel>
         </childnode>
       </node>
@@ -166,19 +166,8 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="9">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="8">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>SBMLVisitor</label>
-      </node>
       <node id="3">
-        <label>rrllvm::CodeGenBase&lt; GetEventTriggerCodeGen_FunctionPtr &gt;</label>
+        <label>rrllvm::CodeGenBase&lt; FunctionPtrType &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
         <childnode refid="4" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
@@ -190,6 +179,14 @@
           <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
+      <node id="9">
+        <label>rrllvm::ModelGeneratorContext</label>
+        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
+      </node>
+      <node id="8">
+        <label>rrllvm::LLVMModelDataSymbols</label>
+        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
+      </node>
       <node id="7">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
@@ -200,8 +197,11 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="5">
+        <label>libsbml::SBMLVisitor</label>
+      </node>
     </collaborationgraph>
-    <location file="llvm/GetEventValuesCodeGen.h" line="139" column="1" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="136" bodyend="152"/>
+    <location file="llvm/GetEventValuesCodeGen.h" line="136" column="5" bodyfile="llvm/GetEventValuesCodeGen.h" bodystart="139" bodyend="152"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetEventTriggerCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1GetEventValueCodeGenBase_1af20a6b4a97e94177380b19d93434fe05" prot="public" virt="virtual"><scope>rrllvm::GetEventTriggerCodeGen</scope><name>codeGen</name></member>

@@ -2,13 +2,18 @@
 \label{classrrllvm_1_1Event}\index{rrllvm::Event@{rrllvm::Event}}
 
 
+The \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} class, which mirrors an SBML \mbox{\hyperlink{classrrllvm_1_1Event}{Event}}.  
+
+
+
+
 {\ttfamily \#include $<$Event\+Queue.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Event_a21ce749643495d93b51048dab56559ca}\label{classrrllvm_1_1Event_a21ce749643495d93b51048dab56559ca}} 
-{\bfseries Event} (\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{L\+L\+V\+M\+Executable\+Model}} \&, uint id)
+{\bfseries Event} (\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{LLVMExecutable\+Model}} \&, uint id)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Event_ae324e7f672147244ea90a1b2982406d3}\label{classrrllvm_1_1Event_ae324e7f672147244ea90a1b2982406d3}} 
 {\bfseries Event} (const \mbox{\hyperlink{classrr_1_1Event}{Event}} \&other)
@@ -44,7 +49,7 @@ bool \mbox{\hyperlink{classrrllvm_1_1Event_a2ce6cec1d57bb2fb173af09a5ef1b337}{is
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Event_a6998c57a7bc0bbd7e59b435137e09b55}\label{classrrllvm_1_1Event_a6998c57a7bc0bbd7e59b435137e09b55}} 
-\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{L\+L\+V\+M\+Executable\+Model}} \& {\bfseries model}
+\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{LLVMExecutable\+Model}} \& {\bfseries model}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1Event_a83a6728dc04b25f42d64fb1c0ebd694a}\label{classrrllvm_1_1Event_a83a6728dc04b25f42d64fb1c0ebd694a}} 
 uint {\bfseries id}
@@ -69,7 +74,7 @@ bool {\bfseries operator$<$} (const \mbox{\hyperlink{classrr_1_1Event}{Event}} \
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} class, which mirrors an S\+B\+ML \mbox{\hyperlink{classrrllvm_1_1Event}{Event}}. 
+The \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} class, which mirrors an SBML \mbox{\hyperlink{classrrllvm_1_1Event}{Event}}. 
 
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1Event_aa209f97e1960c357d4a2108050aab330}\label{classrrllvm_1_1Event_aa209f97e1960c357d4a2108050aab330}} 
@@ -82,7 +87,7 @@ The \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} class, which mirrors an S\+B\
 
 data block where assignment rules evaluations are stored if use\+Values\+From\+Trigger\+Time is set. 
 
-T\+O\+DO\+: this should probably be allocated with the Model\+Data structure. Original idea was that more than one event of a type may be queued, but I don\textquotesingle{}t think this is possible. 
+TODO\+: this should probably be allocated with the Model\+Data structure. Original idea was that more than one event of a type may be queued, but I don\textquotesingle{}t think this is possible. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

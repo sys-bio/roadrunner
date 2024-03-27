@@ -1,4 +1,4 @@
-\hypertarget{classrr_1_1CCompiler}{}\doxysection{rr\+::C\+Compiler Class Reference}
+\hypertarget{classrr_1_1CCompiler}{}\doxysection{rr\+::CCompiler Class Reference}
 \label{classrr_1_1CCompiler}\index{rr::CCompiler@{rr::CCompiler}}
 
 
@@ -7,9 +7,9 @@ compiler class for the C based model system.
 
 
 
-{\ttfamily \#include $<$rr\+C\+Compiler.\+h$>$}
+{\ttfamily \#include $<$rr\+CCompiler.\+h$>$}
 
-Inheritance diagram for rr\+::C\+Compiler\+:\begin{figure}[H]
+Inheritance diagram for rr\+::CCompiler\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classrr_1_1CCompiler}
@@ -19,7 +19,7 @@ Inheritance diagram for rr\+::C\+Compiler\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1CCompiler_a3de02cfe8f2df08b3688185de1de0efd}\label{classrr_1_1CCompiler_a3de02cfe8f2df08b3688185de1de0efd}} 
-{\bfseries C\+Compiler} (const std\+::string \&support\+Code\+Folder, const std\+::string \&compiler)
+{\bfseries CCompiler} (const std\+::string \&support\+Code\+Folder, const std\+::string \&compiler)
 \item 
 \mbox{\Hypertarget{classrr_1_1CCompiler_acc4b3aed4b1d75cb19b6ac5d48cb3331}\label{classrr_1_1CCompiler_acc4b3aed4b1d75cb19b6ac5d48cb3331}} 
 virtual std\+::string {\bfseries get\+Compiler} () const
@@ -67,8 +67,8 @@ virtual std\+::string \mbox{\hyperlink{classrr_1_1CCompiler_a10a08dd7e7b60da3481
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1CCompiler_a10a08dd7e7b60da34813b2abd75e2791}{get\+Default\+Target\+Triple()}} -\/ Return the default target triple the compiler has been configured to produce code for. \end{DoxyCompactList}\item 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1CCompiler_aba426f3074705b9b76bed36be8646627}{get\+Process\+Triple}} ()
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1CCompiler_aba426f3074705b9b76bed36be8646627}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. \end{DoxyCompactList}\item 
-virtual std\+::string \mbox{\hyperlink{classrr_1_1CCompiler_a436bb213157ccc15d60cd0d64c584102}{get\+Host\+C\+P\+U\+Name}} ()
-\begin{DoxyCompactList}\small\item\em get\+Host\+C\+P\+U\+Name -\/ Get the L\+L\+VM name for the host C\+PU. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1CCompiler_a436bb213157ccc15d60cd0d64c584102}{get\+Host\+CPUName}} ()
+\begin{DoxyCompactList}\small\item\em get\+Host\+CPUName -\/ Get the LLVM name for the host CPU. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CCompiler_a1a5ee3dac691018a04f9fb166fd19246}\label{classrr_1_1CCompiler_a1a5ee3dac691018a04f9fb166fd19246}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1CCompiler_a1a5ee3dac691018a04f9fb166fd19246}{get\+Version}} ()
 \begin{DoxyCompactList}\small\item\em get the version of the compiler. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -83,13 +83,13 @@ compiler class for the C based model system.
 \index{rr::CCompiler@{rr::CCompiler}!getDefaultTargetTriple@{getDefaultTargetTriple}}
 \index{getDefaultTargetTriple@{getDefaultTargetTriple}!rr::CCompiler@{rr::CCompiler}}
 \doxysubsubsection{\texorpdfstring{getDefaultTargetTriple()}{getDefaultTargetTriple()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+Compiler\+::get\+Default\+Target\+Triple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+CCompiler\+::get\+Default\+Target\+Triple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 \mbox{\hyperlink{classrr_1_1CCompiler_a10a08dd7e7b60da34813b2abd75e2791}{get\+Default\+Target\+Triple()}} -\/ Return the default target triple the compiler has been configured to produce code for. 
 
-The target triple is a std\+::string in the format of\+: C\+P\+U\+\_\+\+T\+Y\+P\+E-\/\+V\+E\+N\+D\+O\+R-\/\+O\+P\+E\+R\+A\+T\+I\+N\+G\+\_\+\+S\+Y\+S\+T\+EM or C\+P\+U\+\_\+\+T\+Y\+P\+E-\/\+V\+E\+N\+D\+O\+R-\/\+K\+E\+R\+N\+E\+L-\/\+O\+P\+E\+R\+A\+T\+I\+N\+G\+\_\+\+S\+Y\+S\+T\+EM 
+The target triple is a std\+::string in the format of\+: CPU\+\_\+\+TYPE-\/\+VENDOR-\/\+OPERATING\+\_\+\+SYSTEM or CPU\+\_\+\+TYPE-\/\+VENDOR-\/\+KERNEL-\/\+OPERATING\+\_\+\+SYSTEM 
 
 Implements \mbox{\hyperlink{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893b}{rr\+::\+Compiler}}.
 
@@ -97,16 +97,16 @@ Implements \mbox{\hyperlink{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893
 \index{rr::CCompiler@{rr::CCompiler}!getHostCPUName@{getHostCPUName}}
 \index{getHostCPUName@{getHostCPUName}!rr::CCompiler@{rr::CCompiler}}
 \doxysubsubsection{\texorpdfstring{getHostCPUName()}{getHostCPUName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+Compiler\+::get\+Host\+C\+P\+U\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+CCompiler\+::get\+Host\+CPUName (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-get\+Host\+C\+P\+U\+Name -\/ Get the L\+L\+VM name for the host C\+PU. 
+get\+Host\+CPUName -\/ Get the LLVM name for the host CPU. 
 
 The particular format of the name is target dependent, and suitable for passing as -\/mcpu to the target which matches the host.
 
 \begin{DoxyReturn}{Returns}
--\/ The host C\+PU name, or empty if the C\+PU could not be determined. 
+-\/ The host CPU name, or empty if the CPU could not be determined. 
 \end{DoxyReturn}
 
 
@@ -116,13 +116,13 @@ Implements \mbox{\hyperlink{classrr_1_1Compiler_a1718efebfe7936512a299c2f32e8c80
 \index{rr::CCompiler@{rr::CCompiler}!getProcessTriple@{getProcessTriple}}
 \index{getProcessTriple@{getProcessTriple}!rr::CCompiler@{rr::CCompiler}}
 \doxysubsubsection{\texorpdfstring{getProcessTriple()}{getProcessTriple()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+Compiler\+::get\+Process\+Triple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+CCompiler\+::get\+Process\+Triple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 \mbox{\hyperlink{classrr_1_1CCompiler_aba426f3074705b9b76bed36be8646627}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. 
 
-when using the J\+IT. 
+when using the JIT. 
 
 Implements \mbox{\hyperlink{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}{rr\+::\+Compiler}}.
 
@@ -130,5 +130,5 @@ Implements \mbox{\hyperlink{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c7
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-c/rr\+C\+Compiler.\+h\item 
-c/rr\+C\+Compiler.\+cpp\end{DoxyCompactItemize}
+c/rr\+CCompiler.\+h\item 
+c/rr\+CCompiler.\+cpp\end{DoxyCompactItemize}

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="EvalInitialConditionsCodeGen_8cpp" kind="file" language="C++">
     <compoundname>EvalInitialConditionsCodeGen.cpp</compoundname>
     <includes refid="EvalInitialConditionsCodeGen_8h" local="yes">EvalInitialConditionsCodeGen.h</includes>
@@ -696,7 +696,7 @@
 <codeline lineno="45"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>the<sp/>set<sp/>init<sp/>value<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Type<sp/>*argTypes[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::PointerType::get(<ref refid="classrrllvm_1_1ModelDataIRBuilder_1a0ef021e16b99691a0cde663060898c4c" kindref="member">ModelDataIRBuilder::getStructType</ref>(this-&gt;module),<sp/>0),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::PointerType::get(ModelDataIRBuilder::getStructType(this-&gt;module),<sp/>0),</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type::getInt32Ty(this-&gt;context)</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
@@ -718,7 +718,7 @@
 <codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Logger::LOG_DEBUG<sp/>&lt;=<sp/><ref refid="classrr_1_1Logger_1ad6b48d767c766eeb3db7505a59631b6b" kindref="member">rr::Logger::getLevel</ref>())</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;boundarySpecies:<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>SymbolForest::Map&amp;<sp/><sp/>initValues<sp/>=<sp/>modelSymbols.<ref refid="classrrllvm_1_1LLVMModelSymbols_1a49316f650dfad2cd908e12d61d78be50" kindref="member">getInitialValues</ref>().boundarySpecies;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>SymbolForest::Map&amp;<sp/><sp/>initValues<sp/>=<sp/>modelSymbols.getInitialValues().boundarySpecies;</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(SymbolForest::Map::const_iterator<sp/>i<sp/>=<sp/>initValues.begin();</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>!=<sp/>initValues.end();<sp/>i++)</highlight></codeline>
@@ -733,7 +733,7 @@
 <codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>SBMLInitialValueSymbolResolver<sp/>initialValueResolver(modelData,<sp/>modelGenContext);</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>values<sp/>in<sp/>the<sp/>model<sp/>state</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>ModelDataStoreSymbolResolver<sp/>modelDataResolver(modelData,<sp/><ref refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" kindref="member">model</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>ModelDataStoreSymbolResolver<sp/>modelDataResolver(modelData,<sp/>model,</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelSymbols,<sp/>dataSymbols,<sp/>builder,<sp/>initialValueResolver);</highlight></codeline>
 <codeline lineno="87"><highlight class="normal"></highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>generate<sp/>model<sp/>code<sp/>for<sp/>both<sp/>floating<sp/>and<sp/>boundary<sp/>species</highlight><highlight class="normal"></highlight></codeline>
@@ -763,10 +763,10 @@
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>values<sp/>specified<sp/>in<sp/>the<sp/>sbml.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>at<sp/>this<sp/>point,<sp/>all<sp/>the<sp/>model<sp/>vars<sp/>have<sp/>been<sp/>set,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>so<sp/>we<sp/>can<sp/>just<sp/>copy<sp/>them<sp/>to<sp/>the<sp/>init<sp/>value<sp/>locations.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" kindref="member">options</ref><sp/>&amp;<sp/><ref refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386" kindref="member">LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS</ref>)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(options<sp/>&amp;<sp/>LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>symbols<sp/>in<sp/>the<sp/>model<sp/>data<sp/>init<sp/>var<sp/>locations.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelInitialValueStoreSymbolResolver<sp/>initValueStoreResolver(modelData,<sp/><ref refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" kindref="member">model</ref>,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelInitialValueStoreSymbolResolver<sp/>initValueStoreResolver(modelData,<sp/>model,</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelSymbols,<sp/>dataSymbols,<sp/>builder,<sp/>initialValueResolver);</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"></highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>codeGenInitSpecies(initValueStoreResolver,<sp/>modelValueResolver);</highlight></codeline>
@@ -778,7 +778,7 @@
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>builder.CreateRetVoid();</highlight></codeline>
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" kindref="member">verifyFunction</ref>();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>verifyFunction();</highlight></codeline>
 <codeline lineno="131"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EvalInitialConditionsCodeGen::codeGenSpecies(</highlight></codeline>
@@ -786,7 +786,7 @@
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoadSymbolResolver&amp;<sp/>initialValueResolver)</highlight></codeline>
 <codeline lineno="136"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>floatingSpecies<sp/>=<sp/>dataSymbols.<ref refid="classrrllvm_1_1LLVMModelDataSymbols_1a330dc333f5b9116091f8f79c10f4db46" kindref="member">getFloatingSpeciesIds</ref>();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>floatingSpecies<sp/>=<sp/>dataSymbols.getFloatingSpeciesIds();</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"></highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::vector&lt;std::string&gt;::const_iterator<sp/>i<sp/>=<sp/>floatingSpecies.begin();</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>!=<sp/>floatingSpecies.end();<sp/>i++)</highlight></codeline>
@@ -840,13 +840,13 @@
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>Value<sp/>*stoich<sp/>=<sp/>builder.CreateLoad(stoichEP,<sp/></highlight><highlight class="stringliteral">&quot;stoichiometry&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"></highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>std::list&lt;LLVMModelDataSymbols::SpeciesReferenceInfo&gt;<sp/>stoichEntries<sp/>=</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dataSymbols.<ref refid="classrrllvm_1_1LLVMModelDataSymbols_1ace13c6c788427ff65704820837096248" kindref="member">getStoichiometryIndx</ref>();</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dataSymbols.getStoichiometryList();</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"></highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::list&lt;LLVMModelDataSymbols::SpeciesReferenceInfo&gt;::iterator<sp/>i<sp/>=</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stoichEntries.begin();<sp/>i<sp/>!=<sp/>stoichEntries.end();<sp/>i++)</highlight></codeline>
 <codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LLVMModelDataSymbols::SpeciesReferenceInfo<sp/>nz<sp/>=<sp/>*i;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode<sp/>*node<sp/>=<sp/>modelSymbols.<ref refid="classrrllvm_1_1LLVMModelSymbols_1a67637dde17c580f01ed1a54476e17e2b" kindref="member">createStoichiometryNode</ref>(nz.row,<sp/>nz.column);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode<sp/>*node<sp/>=<sp/>modelSymbols.createStoichiometryNode(nz.row,<sp/>nz.column);</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>formula<sp/>=<sp/>SBML_formulaToL3String(node);</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t{&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nz.row<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nz.column<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;}<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>formula</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -870,7 +870,7 @@
 <codeline lineno="219"><highlight class="normal"></highlight></codeline>
 <codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>*row<sp/>=<sp/>ConstantInt::get(Type::getInt32Ty(context),<sp/>nz.row,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>*col<sp/>=<sp/>ConstantInt::get(Type::getInt32Ty(context),<sp/>nz.column,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelDataIRBuilder_1ae9487096c48c2b9ad0bc33778fe60581" kindref="member">ModelDataIRBuilder::createCSRMatrixSetNZ</ref>(builder,<sp/>stoich,<sp/>row,<sp/>col,<sp/>stoichValue);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModelDataIRBuilder::createCSRMatrixSetNZ(builder,<sp/>stoich,<sp/>row,<sp/>col,<sp/>stoichValue);</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="225"><highlight class="normal">}</highlight></codeline>
@@ -917,14 +917,14 @@
 <codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StoreSymbolResolver&amp;<sp/>modelDataResolver,</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoadSymbolResolver&amp;<sp/>initialValueResolver)</highlight></codeline>
 <codeline lineno="268"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>floatingSpecies<sp/>=<sp/>dataSymbols.<ref refid="classrrllvm_1_1LLVMModelDataSymbols_1a330dc333f5b9116091f8f79c10f4db46" kindref="member">getFloatingSpeciesIds</ref>();</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>floatingSpecies<sp/>=<sp/>dataSymbols.getFloatingSpeciesIds();</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::vector&lt;std::string&gt;::const_iterator<sp/>i<sp/>=<sp/>floatingSpecies.begin();</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>!=<sp/>floatingSpecies.end();<sp/>i++)</highlight></codeline>
 <codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal"><sp/>=<sp/>*i;</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataSymbols.<ref refid="classrrllvm_1_1LLVMModelDataSymbols_1af242d61196597833aa9e1c5c1850910d" kindref="member">isIndependentInitFloatingSpecies</ref>(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataSymbols.isIndependentInitFloatingSpecies(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">))</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelDataResolver.storeSymbolValue(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,</highlight></codeline>
 <codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initialValueResolver.loadSymbolValue(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">));</highlight></codeline>
@@ -937,7 +937,7 @@
 <codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal"><sp/>=<sp/>*i;</highlight></codeline>
 <codeline lineno="288"><highlight class="normal"></highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataSymbols.<ref refid="classrrllvm_1_1LLVMModelDataSymbols_1a52ef222f608f2e024d6b126186dfe90c" kindref="member">isIndependentInitBoundarySpecies</ref>(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dataSymbols.isIndependentInitBoundarySpecies(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">))</highlight></codeline>
 <codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelDataResolver.storeSymbolValue(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,</highlight></codeline>
 <codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initialValueResolver.loadSymbolValue(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">));</highlight></codeline>

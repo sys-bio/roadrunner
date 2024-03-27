@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrRoadRunnerData_8cpp" kind="file" language="C++">
     <compoundname>rrRoadRunnerData.cpp</compoundname>
     <includes local="no">iomanip</includes>
@@ -503,7 +503,7 @@
 <codeline lineno="46"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>const<sp/>correctness<sp/>here,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nest<sp/>release,<sp/>getSelections<sp/>will<sp/>return<sp/>const<sp/>vec</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunner_1a04a6fd481cfacc2510d5d113520143ef" kindref="member">RoadRunner</ref><sp/>*r<sp/>=<sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal"><ref refid="classrr_1_1RoadRunner_1a04a6fd481cfacc2510d5d113520143ef" kindref="member">RoadRunner</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>RoadRunner<sp/>*r<sp/>=<sp/></highlight><highlight class="keyword">const_cast&lt;</highlight><highlight class="normal">RoadRunner*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rr);</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;SelectionRecord&gt;<sp/>sel<sp/>=<sp/>r-&gt;getSelections();</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
@@ -523,46 +523,46 @@
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::clear()</highlight></codeline>
 <codeline lineno="68"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.clear();</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.resize(0,0);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>.resize(0,0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>mColumnNames.clear();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData.resize(0,0);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>mWeights.resize(0,0);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RoadRunnerData::cSize()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="75"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.CSize();</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData.CSize();</highlight></codeline>
 <codeline lineno="77"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RoadRunnerData::rSize()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="80"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize();</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData.RSize();</highlight></codeline>
 <codeline lineno="82"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RoadRunnerData::getTimeStart()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="group__simulation_1ga0d05bdfec6dd9387c64dd196ec3d880d" kindref="member">RoadRunnerData::getTimeStart</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="85"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Find<sp/>time<sp/>column</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>ptrdiff_t<sp/>timeCol<sp/>=<sp/>rr::indexOf(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>,<sp/></highlight><highlight class="stringliteral">&quot;time&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>ptrdiff_t<sp/>timeCol<sp/>=<sp/>rr::indexOf(mColumnNames,<sp/></highlight><highlight class="stringliteral">&quot;time&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(timeCol<sp/>!=<sp/>-1)</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(0,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeCol));</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData(0,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeCol));</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gDoubleNaN;</highlight></codeline>
 <codeline lineno="93"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RoadRunnerData::getTimeEnd()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="group__simulation_1ga83a02783c6a1c48eb05eafce742972cd" kindref="member">RoadRunnerData::getTimeEnd</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="96"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Find<sp/>time<sp/>column</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>ptrdiff_t<sp/>timeCol<sp/>=<sp/>rr::indexOf(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>,<sp/></highlight><highlight class="stringliteral">&quot;time&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>ptrdiff_t<sp/>timeCol<sp/>=<sp/>rr::indexOf(mColumnNames,<sp/></highlight><highlight class="stringliteral">&quot;time&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(timeCol<sp/>!=<sp/>-1)</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(rSize()<sp/>-1<sp/>,</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeCol));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData(rSize()<sp/>-1<sp/>,</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeCol));</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gDoubleNaN;</highlight></codeline>
 <codeline lineno="104"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setName(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name)</highlight></codeline>
 <codeline lineno="107"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a7381cafbd851a5646d8fd4985eeb5bd6" kindref="member">mName</ref><sp/>=<sp/>name;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>mName<sp/>=<sp/>name;</highlight></codeline>
 <codeline lineno="109"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal">RoadRunnerData&amp;<sp/>RoadRunnerData::operator=<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RoadRunnerData&amp;<sp/>rhs)</highlight></codeline>
@@ -572,21 +572,21 @@
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref><sp/>=<sp/>rhs.mTheData;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref><sp/>=<sp/>rhs.mWeights;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref><sp/>=<sp/>rhs.mColumnNames;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData<sp/>=<sp/>rhs.mTheData;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>mWeights<sp/>=<sp/>rhs.mWeights;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>mColumnNames<sp/>=<sp/>rhs.mColumnNames;</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="122"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::allocateWeights()</highlight></codeline>
 <codeline lineno="125"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Create<sp/>matrix<sp/>with<sp/>weights...<sp/>initialize<sp/>all<sp/>elements<sp/>to<sp/>1</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>.Allocate(<ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize(),<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.CSize());</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>mWeights.Allocate(mTheData.RSize(),<sp/>mTheData.CSize());</highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>rSize();<sp/>i++)</highlight></codeline>
 <codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>cSize();<sp/>j++)</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>(i,j)<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mWeights(i,j)<sp/>=<sp/>1;</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="135"><highlight class="normal">}</highlight></codeline>
@@ -594,7 +594,7 @@
 <codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoadRunnerData::append(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RoadRunnerData&amp;<sp/>data)</highlight></codeline>
 <codeline lineno="138"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//When<sp/>appending<sp/>data,<sp/>the<sp/>number<sp/>of<sp/>rows<sp/>have<sp/>to<sp/>match<sp/>with<sp/>current<sp/>data</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize()<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(mTheData.RSize()<sp/>&gt;<sp/>0)</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(data.rSize()<sp/>!=<sp/>rSize())</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -609,44 +609,44 @@
 <codeline lineno="152"><highlight class="normal"></highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>currColSize<sp/>=<sp/>cSize();</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>RoadRunnerData<sp/>temp(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>,<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>RoadRunnerData<sp/>temp(mColumnNames,<sp/>mTheData);</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"></highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newCSize<sp/>=<sp/>cSize()<sp/>+<sp/>data.cSize();</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.resize(data.rSize(),<sp/>newCSize<sp/>);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData.resize(data.rSize(),<sp/>newCSize<sp/>);</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/>temp.rSize();<sp/>row++)</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col<sp/>=<sp/>0;<sp/>col<sp/>&lt;<sp/>temp.cSize();<sp/>col++)</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,<sp/>col)<sp/>=<sp/>temp(row,<sp/>col);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mTheData(row,<sp/>col)<sp/>=<sp/>temp(row,<sp/>col);</highlight></codeline>
 <codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize();<sp/>row++)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/>mTheData.RSize();<sp/>row++)</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col<sp/>=<sp/>0;<sp/>col<sp/>&lt;<sp/>data.cSize();<sp/>col++)</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,<sp/>col<sp/>+<sp/>currColSize)<sp/>=<sp/>data(row,<sp/>col);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mTheData(row,<sp/>col<sp/>+<sp/>currColSize)<sp/>=<sp/>data(row,<sp/>col);</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"></highlight></codeline>
 <codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col<sp/>=<sp/>0;<sp/>col<sp/>&lt;<sp/>data.cSize();<sp/>col++)</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.push_back(data.getColumnName(col));</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mColumnNames.push_back(data.getColumnName(col));</highlight></codeline>
 <codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="181"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"></highlight></codeline>
 <codeline lineno="183"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;&amp;<sp/>RoadRunnerData::getColumnNames()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="184"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mColumnNames;</highlight></codeline>
 <codeline lineno="186"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="187"><highlight class="normal"></highlight></codeline>
 <codeline lineno="188"><highlight class="normal">std::string<sp/>RoadRunnerData::getColumnName(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="189"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(col<sp/>&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size())</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(col<sp/>&lt;<sp/>mColumnNames.size())</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>[col];</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mColumnNames[col];</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Bad<sp/>Column..&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -654,36 +654,36 @@
 <codeline lineno="197"><highlight class="normal"></highlight></codeline>
 <codeline lineno="198"><highlight class="normal">ptrdiff_t<sp/>RoadRunnerData::getColumnIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>colName)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="199"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rr::indexOf(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>,<sp/>colName);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rr::indexOf(mColumnNames,<sp/>colName);</highlight></codeline>
 <codeline lineno="201"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight></codeline>
 <codeline lineno="203"><highlight class="normal">std::pair&lt;int,int&gt;<sp/>RoadRunnerData::dimension()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="204"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::pair&lt;int,int&gt;(<ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize(),<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.CSize());</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::pair&lt;int,int&gt;(mTheData.RSize(),<sp/>mTheData.CSize());</highlight></codeline>
 <codeline lineno="206"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"></highlight></codeline>
 <codeline lineno="208"><highlight class="normal">std::string<sp/>RoadRunnerData::getName()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="209"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a7381cafbd851a5646d8fd4985eeb5bd6" kindref="member">mName</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mName;</highlight></codeline>
 <codeline lineno="211"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight></codeline>
 <codeline lineno="213"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setTimeDataPrecision(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>prec)</highlight></codeline>
 <codeline lineno="214"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a7580d39e2d41620af80842a1af411beb" kindref="member">mTimePrecision</ref><sp/>=<sp/>prec;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>mTimePrecision<sp/>=<sp/>prec;</highlight></codeline>
 <codeline lineno="216"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"></highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setDataPrecision(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>prec)</highlight></codeline>
 <codeline lineno="219"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a13da357ba080cf43f424947d996bfc4c" kindref="member">mDataPrecision</ref><sp/>=<sp/>prec;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>mDataPrecision<sp/>=<sp/>prec;</highlight></codeline>
 <codeline lineno="221"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="222"><highlight class="normal"></highlight></codeline>
 <codeline lineno="223"><highlight class="normal">std::string<sp/>RoadRunnerData::getColumnNamesAsString()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="224"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>lbls;</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size();<sp/>i++)</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mColumnNames.size();<sp/>i++)</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lbls.append(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>[i]);</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(i<sp/>&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size()<sp/>-1)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lbls.append(mColumnNames[i]);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(i<sp/>&lt;<sp/>mColumnNames.size()<sp/>-1)</highlight></codeline>
 <codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lbls.append(</highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -693,72 +693,72 @@
 <codeline lineno="236"><highlight class="normal"></highlight></codeline>
 <codeline lineno="237"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::allocate(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>cSize,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>rSize)</highlight></codeline>
 <codeline lineno="238"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.Allocate(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(cSize),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rSize));</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData.Allocate(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(cSize),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(rSize));</highlight></codeline>
 <codeline lineno="240"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="241"><highlight class="normal"></highlight></codeline>
 <codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">//===========<sp/>OPERATORS</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="243"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>RoadRunnerData::operator()<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">&amp;<sp/>row,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">&amp;<sp/>col)</highlight></codeline>
 <codeline lineno="244"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,col);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData(row,col);</highlight></codeline>
 <codeline lineno="246"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="247"><highlight class="normal"></highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoadRunnerData::hasWeights()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="249"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>.size()<sp/>&gt;<sp/>0)<sp/>?<sp/>true<sp/>:<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(mWeights.size()<sp/>&gt;<sp/>0)<sp/>?<sp/>true<sp/>:<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="251"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="252"><highlight class="normal"></highlight></codeline>
 <codeline lineno="253"><highlight class="normal"></highlight></codeline>
 <codeline lineno="254"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RoadRunnerData::getDataElement(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col)</highlight></codeline>
 <codeline lineno="255"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,col);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData(row,col);</highlight></codeline>
 <codeline lineno="257"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="258"><highlight class="normal"></highlight></codeline>
 <codeline lineno="259"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/>RoadRunnerData::setDataElement(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)</highlight></codeline>
 <codeline lineno="260"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,col)<sp/>=<sp/>value;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData(row,col)<sp/>=<sp/>value;</highlight></codeline>
 <codeline lineno="262"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="263"><highlight class="normal"></highlight></codeline>
 <codeline lineno="264"><highlight class="normal"></highlight></codeline>
 <codeline lineno="265"><highlight class="normal"></highlight></codeline>
 <codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RoadRunnerData::getWeight(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="267"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>(row,<sp/>col);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mWeights(row,<sp/>col);</highlight></codeline>
 <codeline lineno="269"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
 <codeline lineno="271"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setWeight(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)</highlight></codeline>
 <codeline lineno="272"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>(row,<sp/>col)<sp/>=<sp/>value;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>mWeights(row,<sp/>col)<sp/>=<sp/>value;</highlight></codeline>
 <codeline lineno="274"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight></codeline>
 <codeline lineno="276"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RoadRunnerData::operator()<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">&amp;<sp/>row,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">&amp;<sp/>col)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="277"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(row,col);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData(row,col);</highlight></codeline>
 <codeline lineno="279"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="280"><highlight class="normal"></highlight></codeline>
 <codeline lineno="281"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setColumnNames(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;&amp;<sp/>colNames)</highlight></codeline>
 <codeline lineno="282"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref><sp/>=<sp/>colNames;</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Simulation<sp/>Data<sp/>Columns:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>rr::toString(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>mColumnNames<sp/>=<sp/>colNames;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Simulation<sp/>Data<sp/>Columns:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>rr::toString(mColumnNames);</highlight></codeline>
 <codeline lineno="285"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="286"><highlight class="normal"></highlight></codeline>
 <codeline lineno="287"><highlight class="normal"></highlight></codeline>
 <codeline lineno="288"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::reSize(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rows,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cols)</highlight></codeline>
 <codeline lineno="289"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.Allocate(rows,<sp/>cols);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData.Allocate(rows,<sp/>cols);</highlight></codeline>
 <codeline lineno="291"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="292"><highlight class="normal"></highlight></codeline>
 <codeline lineno="293"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoadRunnerData::setData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DoubleMatrix&amp;<sp/>theData)</highlight></codeline>
 <codeline lineno="294"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref><sp/>=<sp/>theData;</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Simulation<sp/>Data<sp/>===========<sp/>\n&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData<sp/>=<sp/>theData;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Simulation<sp/>Data<sp/>===========<sp/>\n&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>mTheData;</highlight></codeline>
 <codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>check();</highlight></codeline>
 <codeline lineno="298"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="299"><highlight class="normal"></highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoadRunnerData::check()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="301"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.CSize()<sp/>!=<sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size())</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(mTheData.CSize()<sp/>!=<sp/>mColumnNames.size())</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_ERROR)&lt;&lt;</highlight><highlight class="stringliteral">&quot;Number<sp/>of<sp/>columns<sp/>(&quot;</highlight><highlight class="normal">&lt;&lt;<ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.CSize()&lt;&lt;</highlight><highlight class="stringliteral">&quot;)<sp/>in<sp/>simulation<sp/>data<sp/>is<sp/>not<sp/>equal<sp/>to<sp/>number<sp/>of<sp/>columns<sp/>in<sp/>column<sp/>header<sp/>(&quot;</highlight><highlight class="normal">&lt;&lt;<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size()&lt;&lt;</highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_ERROR)&lt;&lt;</highlight><highlight class="stringliteral">&quot;Number<sp/>of<sp/>columns<sp/>(&quot;</highlight><highlight class="normal">&lt;&lt;mTheData.CSize()&lt;&lt;</highlight><highlight class="stringliteral">&quot;)<sp/>in<sp/>simulation<sp/>data<sp/>is<sp/>not<sp/>equal<sp/>to<sp/>number<sp/>of<sp/>columns<sp/>in<sp/>column<sp/>header<sp/>(&quot;</highlight><highlight class="normal">&lt;&lt;mColumnNames.size()&lt;&lt;</highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
@@ -778,17 +778,17 @@
 <codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref><sp/>=<sp/>rr::splitString(lines[0],<sp/></highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(lInfo)<sp/>&lt;&lt;<sp/>rr::toString(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/>mColumnNames<sp/>=<sp/>rr::splitString(lines[0],<sp/></highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>rrLog(lInfo)<sp/>&lt;&lt;<sp/>rr::toString(mColumnNames);</highlight></codeline>
 <codeline lineno="326"><highlight class="normal"></highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.resize(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(lines.size())<sp/>-1,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classrr_1_1RoadRunnerData_1ab8717fd648deaa62f96f10b3f017dd19" kindref="member">mColumnNames</ref>.size()));</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>mTheData.resize(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(lines.size())<sp/>-1,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(mColumnNames.size()));</highlight></codeline>
 <codeline lineno="328"><highlight class="normal"></highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>.RSize();<sp/>i++)</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mTheData.RSize();<sp/>i++)</highlight></codeline>
 <codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>aLine<sp/>=<sp/>splitString(lines[i+1],<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>aLine.size();<sp/>j++)</highlight></codeline>
 <codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>(i,j)<sp/>=<sp/>toDouble(aLine[j]);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mTheData(i,j)<sp/>=<sp/>toDouble(aLine[j]);</highlight></codeline>
 <codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"></highlight></codeline>
@@ -1025,12 +1025,12 @@
 <codeline lineno="568"><highlight class="normal"></highlight></codeline>
 <codeline lineno="569"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DoubleMatrix&amp;<sp/>RoadRunnerData::getData()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="570"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a881dfd840f8cfaf304f5a8134a82fc08" kindref="member">mTheData</ref>;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mTheData;</highlight></codeline>
 <codeline lineno="572"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="573"><highlight class="normal"></highlight></codeline>
 <codeline lineno="574"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DoubleMatrix&amp;<sp/>RoadRunnerData::getWeights()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="575"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RoadRunnerData_1a35237d1ad85d1610d907c9dd3168517d" kindref="member">mWeights</ref>;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mWeights;</highlight></codeline>
 <codeline lineno="577"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="578"><highlight class="normal"></highlight></codeline>
 <codeline lineno="579"><highlight class="normal">}<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//namespace</highlight><highlight class="normal"></highlight></codeline>

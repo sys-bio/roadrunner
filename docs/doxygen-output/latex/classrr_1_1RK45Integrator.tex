@@ -1,4 +1,4 @@
-\hypertarget{classrr_1_1RK45Integrator}{}\doxysection{rr\+::R\+K45\+Integrator Class Reference}
+\hypertarget{classrr_1_1RK45Integrator}{}\doxysection{rr\+::RK45\+Integrator Class Reference}
 \label{classrr_1_1RK45Integrator}\index{rr::RK45Integrator@{rr::RK45Integrator}}
 
 
@@ -7,9 +7,9 @@ A Runge-\/\+Kutta Fehlberg method for roadrunner.
 
 
 
-{\ttfamily \#include $<$R\+K45\+Integrator.\+h$>$}
+{\ttfamily \#include $<$RK45\+Integrator.\+h$>$}
 
-Inheritance diagram for rr\+::R\+K45\+Integrator\+:\begin{figure}[H]
+Inheritance diagram for rr\+::RK45\+Integrator\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=4.000000cm]{classrr_1_1RK45Integrator}
@@ -18,9 +18,9 @@ Inheritance diagram for rr\+::R\+K45\+Integrator\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classrr_1_1RK45Integrator_a56e76a2ebf06fb1a1eebc929d8cc292e}{R\+K45\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\mbox{\hyperlink{classrr_1_1RK45Integrator_a56e76a2ebf06fb1a1eebc929d8cc292e}{RK45\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
 \begin{DoxyCompactList}\small\item\em Constructor\+: takes an executable model, does not own the pointer. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classrr_1_1RK45Integrator_a8f080676c2c77fb14fc1f45b5705ebb4}{$\sim$\+R\+K45\+Integrator}} ()
+virtual \mbox{\hyperlink{classrr_1_1RK45Integrator_a8f080676c2c77fb14fc1f45b5705ebb4}{$\sim$\+RK45\+Integrator}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1RK45Integrator_ac72e73c1d53f4884d9976cacee27f738}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
 \begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
@@ -41,7 +41,7 @@ std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_ae5526461902e834afff94a
 virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} {\bfseries get\+Value} (std\+::string key)
 \item 
 Integration\+Method \mbox{\hyperlink{classrr_1_1RK45Integrator_ade69fdfc91f614a6f20bc8027d5e2f0a}{get\+Integration\+Method}} () const
-\begin{DoxyCompactList}\small\item\em Always deterministic for R\+K45. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Always deterministic for RK45. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RK45Integrator_a68cd9b39288762b25f1410aa743f703c}{reset\+Settings}} ()
 \begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1RK45Integrator_a7fdc3829b5635e1b0cd18cced396261d}{set\+Listener}} (Integrator\+Listener\+Ptr)
@@ -58,11 +58,11 @@ virtual Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1RK45Integrator_af3
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a79b1afc7612cb7646fa288dea1425655}{get\+R\+K45\+Name}} ()
+static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a79b1afc7612cb7646fa288dea1425655}{get\+RK45\+Name}} ()
 \begin{DoxyCompactList}\small\item\em Get the name for this integrator. \end{DoxyCompactList}\item 
-static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a4540762ed7dca923baa3849f25c4a88f}{get\+R\+K45\+Description}} ()
+static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a4540762ed7dca923baa3849f25c4a88f}{get\+RK45\+Description}} ()
 \begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
-static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a0adfabeb7354eb4b364106b30d7b91e1}{get\+R\+K45\+Hint}} ()
+static std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a0adfabeb7354eb4b364106b30d7b91e1}{get\+RK45\+Hint}} ()
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -80,7 +80,7 @@ Uses the Fehlberg method, an adaptive step method, to integrate models.
 \index{rr::RK45Integrator@{rr::RK45Integrator}!RK45Integrator@{RK45Integrator}}
 \index{RK45Integrator@{RK45Integrator}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{RK45Integrator()}{RK45Integrator()}}
-{\footnotesize\ttfamily rr\+::\+R\+K45\+Integrator\+::\+R\+K45\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily rr\+::\+RK45\+Integrator\+::\+RK45\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})}
 
 
 
@@ -93,7 +93,7 @@ KC
 \index{rr::RK45Integrator@{rr::RK45Integrator}!````~RK45Integrator@{$\sim$RK45Integrator}}
 \index{````~RK45Integrator@{$\sim$RK45Integrator}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{$\sim$RK45Integrator()}{~RK45Integrator()}}
-{\footnotesize\ttfamily rr\+::\+R\+K45\+Integrator\+::$\sim$\+R\+K45\+Integrator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily rr\+::\+RK45\+Integrator\+::$\sim$\+RK45\+Integrator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -109,14 +109,14 @@ KC
 \index{rr::RK45Integrator@{rr::RK45Integrator}!construct@{construct}}
 \index{construct@{construct}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{construct()}{construct()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ rr\+::\+R\+K45\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ rr\+::\+RK45\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Constructs a new \mbox{\hyperlink{classrr_1_1Solver}{Solver}} of a given type. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM, W\+BC
+JKM, WBC
 \end{DoxyAuthor}
 the caller is responsible for deleting memory associated with the returned Solver$\ast$. 
 
@@ -126,14 +126,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a3f529e138fa0288622525bc13cd7
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Get the description for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK45Integrator_a45d69589da662628a6f0f66c200614e3}{get\+Description}} 
@@ -146,14 +146,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getHint@{getHint}}
 \index{getHint@{getHint}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Get the hint for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-W\+BC 
+WBC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK45Integrator_ae5526461902e834afff94a18f679dbe3}{get\+Hint}} 
@@ -166,14 +166,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f4
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getIntegrationMethod@{getIntegrationMethod}}
 \index{getIntegrationMethod@{getIntegrationMethod}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getIntegrationMethod()}{getIntegrationMethod()}}
-{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+R\+K45\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+RK45\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
-Always deterministic for R\+K45. 
+Always deterministic for RK45. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -183,14 +183,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getName@{getName}}
 \index{getName@{getName}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Get the name for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK45Integrator_aebee4c612006c929ba1d194b4258fa55}{get\+Name}} 
@@ -203,46 +203,46 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa3
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getRK45Description@{getRK45Description}}
 \index{getRK45Description@{getRK45Description}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getRK45Description()}{getRK45Description()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+R\+K45\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+RK45\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Get the description for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1RK45Integrator_a0adfabeb7354eb4b364106b30d7b91e1}\label{classrr_1_1RK45Integrator_a0adfabeb7354eb4b364106b30d7b91e1}} 
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getRK45Hint@{getRK45Hint}}
 \index{getRK45Hint@{getRK45Hint}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getRK45Hint()}{getRK45Hint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+R\+K45\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+RK45\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Get the hint for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1RK45Integrator_a79b1afc7612cb7646fa288dea1425655}\label{classrr_1_1RK45Integrator_a79b1afc7612cb7646fa288dea1425655}} 
 \index{rr::RK45Integrator@{rr::RK45Integrator}!getRK45Name@{getRK45Name}}
 \index{getRK45Name@{getRK45Name}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{getRK45Name()}{getRK45Name()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K45\+Integrator\+::get\+R\+K45\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK45\+Integrator\+::get\+RK45\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Get the name for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1RK45Integrator_ab181e94750addee7066f7b35cce2fb4d}\label{classrr_1_1RK45Integrator_ab181e94750addee7066f7b35cce2fb4d}} 
 \index{rr::RK45Integrator@{rr::RK45Integrator}!integrate@{integrate}}
 \index{integrate@{integrate}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
-{\footnotesize\ttfamily double rr\+::\+R\+K45\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{double}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rr\+::\+RK45\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{double}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -261,14 +261,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK45Integrator@{rr::RK45Integrator}!resetSettings@{resetSettings}}
 \index{resetSettings@{resetSettings}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K45\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK45\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Reset all integrator settings to their respective default values. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -278,7 +278,7 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7
 \index{rr::RK45Integrator@{rr::RK45Integrator}!setListener@{setListener}}
 \index{setListener@{setListener}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K45\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK45\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -292,14 +292,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK45Integrator@{rr::RK45Integrator}!syncWithModel@{syncWithModel}}
 \index{syncWithModel@{syncWithModel}!rr::RK45Integrator@{rr::RK45Integrator}}
 \doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K45\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK45\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
 Called whenever a new model is loaded to allow integrator to reset internal state. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -309,5 +309,5 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{RK45Integrator_8h}{R\+K45\+Integrator.\+h}}\item 
-R\+K45\+Integrator.\+cpp\end{DoxyCompactItemize}
+\mbox{\hyperlink{RK45Integrator_8h}{RK45\+Integrator.\+h}}\item 
+RK45\+Integrator.\+cpp\end{DoxyCompactItemize}
