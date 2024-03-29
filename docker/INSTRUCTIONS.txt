@@ -1,0 +1,22 @@
+When updating (i.e. when Python comes out with a new version):
+
+* Change roadrunner-manylinux2014/Dockerfile to reflect new python versions.
+* Make sure docker is running (launching it on the lab mac works)
+* Don't actually use the GUI; just use the command line, once it's running.
+* Run the following commands:
+
+cd roadrunner/docker/
+docker build roadrunner-manylinux2014
+docker images
+
+* Note the IMAGE ID of the thing you just built (We'll say it's 5555):
+
+docker tag 5555 sysbiouw/roadrunner-manylinux2014
+docker login -u "sysbiouw" docker.io
+docker push sysbiouw/roadrunner-manylinux2014
+
+
+
+If you need to update one of the other images, follow the same instructions, but build up from -base to -add-deps, depending on what needs to be updated.  (i.e. if the deps need to be updated, do that first, then the Python with the one after that)
+
+Make sure you build and push roadrunner-manylinux2014-base first, then roadrunner-manylinux2014-add-deps 

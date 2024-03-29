@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrNOMSupport_8h" kind="file" language="C++">
     <compoundname>rrNOMSupport.h</compoundname>
     <includes local="no">list</includes>
@@ -12,9 +12,9 @@
     <includes refid="rrExporter_8h" local="yes">rrExporter.h</includes>
     <includes refid="rrStringListContainer_8h" local="yes">rrStringListContainer.h</includes>
     <includes refid="rrHashTable_8h" local="yes">rrHashTable.h</includes>
+    <includedby refid="rrCompiledExecutableModel_8h" local="yes">c/rrCompiledExecutableModel.h</includedby>
     <includedby refid="rrCompiledModelGenerator_8h" local="yes">c/rrCompiledModelGenerator.h</includedby>
     <includedby refid="rrModelSymbols_8h" local="yes">c/rrModelSymbols.h</includedby>
-    <includedby refid="rrCompiledExecutableModel_8h" local="yes">c/rrCompiledExecutableModel.h</includedby>
     <includedby refid="rrNOMSupport_8cpp" local="yes">c/rrNOMSupport.cpp</includedby>
     <incdepgraph>
       <node id="2">
@@ -288,20 +288,20 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
+      <node id="4">
         <label>c/rrCModelGenerator.h</label>
         <link refid="rrCModelGenerator_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="2">
         <label>c/rrCompiledExecutableModel.h</label>
         <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
-      <node id="2">
+      <node id="3">
         <label>c/rrCompiledModelGenerator.h</label>
         <link refid="rrCompiledModelGenerator_8h_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -309,15 +309,15 @@
         <link refid="rrNOMSupport_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="5">
         <label>c/rrModelSymbols.h</label>
         <link refid="rrModelSymbols_8h_source"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -361,7 +361,7 @@
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>libsbml::UnitDefinition;</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>libsbml::KineticLaw;</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="classrr_1_1NOMSupport" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1NOMSupport" kindref="compound">NOMSupport</ref></highlight></codeline>
+<codeline lineno="40" refid="classrr_1_1NOMSupport" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1NOMSupport" kindref="compound">NOMSupport</ref></highlight></codeline>
 <codeline lineno="41"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1NOMSupport" kindref="compound">NOMSupport</ref>();</highlight></codeline>
@@ -391,7 +391,7 @@
 <codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hasSBOTerm(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hasValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>isBoundary(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>
+<codeline lineno="75" refid="classrr_1_1NOMSupport_1a3c820dd2dddc2159ce3059a49e1742ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1NOMSupport_1a3c820dd2dddc2159ce3059a49e1742ea" kindref="member">isBoundary</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>isCompartment(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>isConstantImpl(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId);</highlight></codeline>

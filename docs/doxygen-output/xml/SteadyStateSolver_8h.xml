@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="SteadyStateSolver_8h" kind="file" language="C++">
     <compoundname>SteadyStateSolver.h</compoundname>
     <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
@@ -12,11 +12,11 @@
     <includes local="no">memory</includes>
     <includes local="no">unordered_map</includes>
     <includes local="no">stdexcept</includes>
-    <includedby refid="SteadyStateSolverDecorator_8h" local="yes">SteadyStateSolverDecorator.h</includedby>
     <includedby refid="KinsolSteadyStateSolver_8h" local="yes">KinsolSteadyStateSolver.h</includedby>
     <includedby refid="NLEQSolver_8h" local="yes">NLEQSolver.h</includedby>
     <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
     <includedby refid="SteadyStateSolver_8cpp" local="yes">SteadyStateSolver.cpp</includedby>
+    <includedby refid="SteadyStateSolverDecorator_8h" local="yes">SteadyStateSolverDecorator.h</includedby>
     <includedby refid="rrc__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</includedby>
     <incdepgraph>
       <node id="13">
@@ -213,46 +213,46 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="12">
+      <node id="8">
         <label>NLEQSolver.h</label>
         <link refid="NLEQSolver_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>NewtonIteration.h</label>
-        <link refid="NewtonIteration_8h_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="11">
-        <label>FixedPointIteration.h</label>
-        <link refid="FixedPointIteration_8h_source"/>
+      <node id="4">
+        <label>NewtonIteration.h</label>
+        <link refid="NewtonIteration_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
-      <node id="9">
+      <node id="6">
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
-      <node id="14">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>BasicNewtonIteration.h</label>
-        <link refid="BasicNewtonIteration_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
+      <node id="3">
+        <label>FixedPointIteration.h</label>
+        <link refid="FixedPointIteration_8h_source"/>
       </node>
       <node id="10">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>BasicNewtonIteration.h</label>
+        <link refid="BasicNewtonIteration_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
         <label>LinesearchNewtonIteration.h</label>
         <link refid="LinesearchNewtonIteration_8h_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -260,49 +260,49 @@
         <link refid="SteadyStateSolver_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="9">
         <label>NLEQ1Solver.h</label>
         <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="13">
         <label>PresimulationDecorator.h</label>
         <link refid="PresimulationDecorator_8h_source"/>
       </node>
-      <node id="5">
+      <node id="14">
         <label>PresimulationProgramDecorator.h</label>
         <link refid="PresimulationProgramDecorator_8h_source"/>
       </node>
-      <node id="3">
+      <node id="12">
         <label>ApproxSteadyStateDecorator.h</label>
         <link refid="ApproxSteadyStateDecorator_8h_source"/>
       </node>
-      <node id="6">
+      <node id="2">
         <label>KinsolSteadyStateSolver.h</label>
         <link refid="KinsolSteadyStateSolver_8h_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>SteadyStateSolverDecorator.h</label>
-        <link refid="SteadyStateSolverDecorator_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+      </node>
+      <node id="11">
+        <label>SteadyStateSolverDecorator.h</label>
+        <link refid="SteadyStateSolverDecorator_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -327,7 +327,7 @@
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==<sp/>FILEDOC<sp/>=================================================</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="preprocessor">#<sp/>ifndef<sp/>RR_STEADY_STATE_SOLVER_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>ifndef<sp/>RR_STEADY_STATE_SOLVER_H_</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>RR_STEADY_STATE_SOLVER_H_</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrLogger.h&quot;</highlight><highlight class="normal"></highlight></codeline>

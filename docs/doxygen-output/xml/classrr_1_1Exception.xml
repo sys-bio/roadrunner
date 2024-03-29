@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1Exception" kind="class" language="C++" prot="public">
     <compoundname>rr::Exception</compoundname>
-    <basecompoundref prot="public" virt="non-virtual">exception</basecompoundref>
-    <derivedcompoundref refid="classrr_1_1CoreException" prot="public" virt="non-virtual">rr::CoreException</derivedcompoundref>
+    <basecompoundref prot="public" virt="non-virtual">std::exception</basecompoundref>
     <derivedcompoundref refid="classrr_1_1CVODEException" prot="public" virt="non-virtual">rr::CVODEException</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1CoreException" prot="public" virt="non-virtual">rr::CoreException</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1DidNotConvergeException" prot="public" virt="non-virtual">rr::DidNotConvergeException</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1InvalidKeyException" prot="public" virt="non-virtual">rr::InvalidKeyException</derivedcompoundref>
     <derivedcompoundref refid="classrr_1_1KinsolException" prot="public" virt="non-virtual">rr::KinsolException</derivedcompoundref>
@@ -104,9 +104,9 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>The <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> exception class. </para>
     </briefdescription>
     <detaileddescription>
-<para>The <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> exception class. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="12">
@@ -127,14 +127,11 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
+      <node id="3">
         <label>rr::CVODEException</label>
         <link refid="classrr_1_1CVODEException"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="2">
-        <label>exception</label>
       </node>
       <node id="6">
         <label>rr::InvalidKeyException</label>
@@ -154,11 +151,14 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
+      <node id="4">
         <label>rr::CoreException</label>
         <link refid="classrr_1_1CoreException"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="2">
+        <label>std::exception</label>
       </node>
       <node id="11">
         <label>rr::NullPointerException</label>
@@ -190,7 +190,7 @@
         <label>string</label>
       </node>
       <node id="2">
-        <label>exception</label>
+        <label>std::exception</label>
       </node>
       <node id="1">
         <label>rr::Exception</label>
@@ -202,7 +202,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="rrException.h" line="36" column="1" bodyfile="rrException.h" bodystart="35" bodyend="47"/>
+    <location file="rrException.h" line="35" column="5" bodyfile="rrException.h" bodystart="36" bodyend="47"/>
     <listofallmembers>
       <member refid="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c" prot="public" virt="non-virtual"><scope>rr::Exception</scope><name>Exception</name></member>
       <member refid="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de" prot="public" virt="non-virtual"><scope>rr::Exception</scope><name>getMessage</name></member>

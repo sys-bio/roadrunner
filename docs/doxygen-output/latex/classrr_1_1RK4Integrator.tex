@@ -1,4 +1,4 @@
-\hypertarget{classrr_1_1RK4Integrator}{}\doxysection{rr\+::R\+K4\+Integrator Class Reference}
+\hypertarget{classrr_1_1RK4Integrator}{}\doxysection{rr\+::RK4\+Integrator Class Reference}
 \label{classrr_1_1RK4Integrator}\index{rr::RK4Integrator@{rr::RK4Integrator}}
 
 
@@ -7,9 +7,9 @@ A super basic 4\textquotesingle{}th order fixed step integrator.
 
 
 
-{\ttfamily \#include $<$R\+K4\+Integrator.\+h$>$}
+{\ttfamily \#include $<$RK4\+Integrator.\+h$>$}
 
-Inheritance diagram for rr\+::R\+K4\+Integrator\+:\begin{figure}[H]
+Inheritance diagram for rr\+::RK4\+Integrator\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=4.000000cm]{classrr_1_1RK4Integrator}
@@ -18,10 +18,10 @@ Inheritance diagram for rr\+::R\+K4\+Integrator\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classrr_1_1RK4Integrator_ac7059cef88e3a80e415855ec5fb2d2ef}{R\+K4\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
-\begin{DoxyCompactList}\small\item\em Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1RK4Integrator_ac7059cef88e3a80e415855ec5fb2d2ef}{RK4\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{RK4\+Integrator}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RK4Integrator_abb1a43506358e94d2fbca78c4a2cc479}\label{classrr_1_1RK4Integrator_abb1a43506358e94d2fbca78c4a2cc479}} 
-\mbox{\hyperlink{classrr_1_1RK4Integrator_abb1a43506358e94d2fbca78c4a2cc479}{$\sim$\+R\+K4\+Integrator}} () override
+\mbox{\hyperlink{classrr_1_1RK4Integrator_abb1a43506358e94d2fbca78c4a2cc479}{$\sim$\+RK4\+Integrator}} () override
 \begin{DoxyCompactList}\small\item\em clean up any mess. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RK4Integrator_a11c9feeea50fcf52a453f374c1152535}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) override
 \begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
@@ -37,12 +37,12 @@ std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_ae6c9594979872d04923ea6f
 std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_a8c9f17d0a94fe8e59b288ec28577db51}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RK4Integrator_a4d3ac5da6eaa4d52fa07603e6e0d1681}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model) const override
-\begin{DoxyCompactList}\small\item\em construct an instance of type \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em construct an instance of type \mbox{\hyperlink{classrr_1_1RK4Integrator}{RK4\+Integrator}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RK4Integrator_ae40e2ed0e1368c2e2df203ce29eddb0c}\label{classrr_1_1RK4Integrator_ae40e2ed0e1368c2e2df203ce29eddb0c}} 
 virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} {\bfseries get\+Value} (std\+::string key)
 \item 
 Integration\+Method \mbox{\hyperlink{classrr_1_1RK4Integrator_aa0b4e374ae795fe7457e95b7878a3de3}{get\+Integration\+Method}} () const override
-\begin{DoxyCompactList}\small\item\em Always deterministic for R\+K4. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Always deterministic for RK4. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RK4Integrator_a1eb6cfa0ea863c828fc8b25ec2cfd389}{reset\+Settings}} () override
 \begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RK4Integrator_a2d58f1e62b818ab6da2e72639eee0103}{set\+Listener}} (Integrator\+Listener\+Ptr) override
@@ -71,13 +71,13 @@ This object is mainly here as an example of creating a new \mbox{\hyperlink{clas
 \index{rr::RK4Integrator@{rr::RK4Integrator}!RK4Integrator@{RK4Integrator}}
 \index{RK4Integrator@{RK4Integrator}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{RK4Integrator()}{RK4Integrator()}}
-{\footnotesize\ttfamily rr\+::\+R\+K4\+Integrator\+::\+R\+K4\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily rr\+::\+RK4\+Integrator\+::\+RK4\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})}
 
 
 
-Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. 
+Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{RK4\+Integrator}}. 
 
-The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the O\+N\+LY object that creates integrators.
+The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the ONLY object that creates integrators.
 
 Integrators are created when the \mbox{\hyperlink{classrr_1_1RegistrationFactory_af6a9a68a5895f4da2bf3f57872b09bd4}{Integrator\+Factory\+::\+New}} method is called, typically by the top level \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object.
 
@@ -88,11 +88,11 @@ The integrator will hold onto the \mbox{\hyperlink{classrr_1_1ExecutableModel}{E
 \index{rr::RK4Integrator@{rr::RK4Integrator}!construct@{construct}}
 \index{construct@{construct}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{construct()}{construct()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ rr\+::\+R\+K4\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Solver}{Solver}} $\ast$ rr\+::\+RK4\+Integrator\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-construct an instance of type \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. 
+construct an instance of type \mbox{\hyperlink{classrr_1_1RK4Integrator}{RK4\+Integrator}}. 
 
 implements the Registrar interface. Used in factory creation of Integrators. 
 
@@ -102,14 +102,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a3f529e138fa0288622525bc13cd7
 \index{rr::RK4Integrator@{rr::RK4Integrator}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK4\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Get the description for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_ae6c9594979872d04923ea6f641dc711a}{get\+Description}} 
@@ -122,14 +122,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_af8b4a2f0dc7cc99fa22c1056f917
 \index{rr::RK4Integrator@{rr::RK4Integrator}!getHint@{getHint}}
 \index{getHint@{getHint}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK4\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Get the hint for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-W\+BC 
+WBC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_a8c9f17d0a94fe8e59b288ec28577db51}{get\+Hint}} 
@@ -142,14 +142,14 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a1a6c686212133cda58ab44b310f4
 \index{rr::RK4Integrator@{rr::RK4Integrator}!getIntegrationMethod@{getIntegrationMethod}}
 \index{getIntegrationMethod@{getIntegrationMethod}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{getIntegrationMethod()}{getIntegrationMethod()}}
-{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+R\+K4\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+RK4\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Always deterministic for R\+K4. 
+Always deterministic for RK4. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -159,14 +159,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK4Integrator@{rr::RK4Integrator}!getName@{getName}}
 \index{getName@{getName}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+RK4\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Get the name for this integrator. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
 Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_afaa4307423748acd1572966df97bae98}{get\+Name}} 
@@ -179,7 +179,7 @@ Implements \mbox{\hyperlink{classrr_1_1Registrable_a7d66e096a8c5cfd5e3fdb6cf5aa3
 \index{rr::RK4Integrator@{rr::RK4Integrator}!integrate@{integrate}}
 \index{integrate@{integrate}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
-{\footnotesize\ttfamily double rr\+::\+R\+K4\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{tf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rr\+::\+RK4\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{tf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -193,14 +193,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK4Integrator@{rr::RK4Integrator}!resetSettings@{resetSettings}}
 \index{resetSettings@{resetSettings}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK4\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Reset all integrator settings to their respective default values. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -210,7 +210,7 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7
 \index{rr::RK4Integrator@{rr::RK4Integrator}!setListener@{setListener}}
 \index{setListener@{setListener}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK4\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -224,14 +224,14 @@ Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 \index{rr::RK4Integrator@{rr::RK4Integrator}!syncWithModel@{syncWithModel}}
 \index{syncWithModel@{syncWithModel}!rr::RK4Integrator@{rr::RK4Integrator}}
 \doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
-{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+RK4\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 Called whenever a new model is loaded to allow integrator to reset internal state. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -241,5 +241,5 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-R\+K4\+Integrator.\+h\item 
-R\+K4\+Integrator.\+cpp\end{DoxyCompactItemize}
+RK4\+Integrator.\+h\item 
+RK4\+Integrator.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classrrllvm_1_1GetPiecewiseTriggerCodeGen" kind="class" language="C++" prot="public">
+    <compoundname>rrllvm::GetPiecewiseTriggerCodeGen</compoundname>
+    <basecompoundref refid="classrrllvm_1_1CodeGenBase" prot="public" virt="non-virtual">rrllvm::CodeGenBase&lt; GetPiecewiseTriggerCodeGen_FunctionPtr &gt;</basecompoundref>
+    <includes refid="GetPiecewiseTriggerCodeGen_8h" local="no">GetPiecewiseTriggerCodeGen.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1ac70ac69ce108ee58fe8da02f8a901717" prot="public" static="no">
+        <type>GetPiecewiseTriggerCodeGen_FunctionPtr</type>
+        <definition>typedef GetPiecewiseTriggerCodeGen_FunctionPtr rrllvm::GetPiecewiseTriggerCodeGen::FunctionPtr</definition>
+        <argsstring></argsstring>
+        <name>FunctionPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="45" column="56" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a7d856976475ac4428ff5153122b6e855" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char * rrllvm::GetPiecewiseTriggerCodeGen::FunctionName</definition>
+        <argsstring></argsstring>
+        <name>FunctionName</name>
+        <initializer>= &quot;getPiecewiseTrigger&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="47" column="27" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1acc01bc4c1fcdceb41b470b12c73f09d2" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char * rrllvm::GetPiecewiseTriggerCodeGen::IndexArgName</definition>
+        <argsstring></argsstring>
+        <name>IndexArgName</name>
+        <initializer>= &quot;triggerIndx&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="48" column="27" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a6d9878e1e4ae381ee5335f3ad3245737" prot="private" static="no" mutable="no">
+        <type>const std::vector&lt; libsbml::ASTNode * &gt; *</type>
+        <definition>const std::vector&lt;libsbml::ASTNode*&gt;* rrllvm::GetPiecewiseTriggerCodeGen::piecewiseTriggers</definition>
+        <argsstring></argsstring>
+        <name>piecewiseTriggers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="61" column="27" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1af835db12ce91d1dcbe8816cf49de02d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rrllvm::GetPiecewiseTriggerCodeGen::GetPiecewiseTriggerCodeGen</definition>
+        <argsstring>(const ModelGeneratorContext &amp;mgc)</argsstring>
+        <name>GetPiecewiseTriggerCodeGen</name>
+        <param>
+          <type>const <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> &amp;</type>
+          <declname>mgc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="36" column="9" bodyfile="llvm/GetPiecewiseTriggerCodeGen.cpp" bodystart="23" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a62defa177cdf4c45f5932e7faf50e715" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rrllvm::GetPiecewiseTriggerCodeGen::~GetPiecewiseTriggerCodeGen</definition>
+        <argsstring>()</argsstring>
+        <name>~GetPiecewiseTriggerCodeGen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="37" column="17" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1abd60003c2ef224226f4cc1799f5fbb35" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>llvm::Value *</type>
+        <definition>llvm::Value * rrllvm::GetPiecewiseTriggerCodeGen::codeGen</definition>
+        <argsstring>()</argsstring>
+        <name>codeGen</name>
+        <reimplements refid="classrrllvm_1_1CodeGenBase_1ac59757fb9d9fdb2f2d964a572c3bcae6">codeGen</reimplements>
+        <briefdescription>
+<para>The heart of the class, that creates code blocks for every piecewise trigger in the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="43" column="21" bodyfile="llvm/GetPiecewiseTriggerCodeGen.cpp" bodystart="29" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a33342e6171e484cbdbccec15ad011d64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>llvm::Type *</type>
+        <definition>llvm::Type * rrllvm::GetPiecewiseTriggerCodeGen::getRetType</definition>
+        <argsstring>()</argsstring>
+        <name>getRetType</name>
+        <briefdescription>
+<para>The ret type is a boolean, aka &apos;getInt8Ty&apos;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="53" column="20" bodyfile="llvm/GetPiecewiseTriggerCodeGen.cpp" bodystart="85" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a2b6a29ab3b46c75c3465ac8da143ce14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>llvm::Value *</type>
+        <definition>llvm::Value * rrllvm::GetPiecewiseTriggerCodeGen::createRet</definition>
+        <argsstring>(llvm::Value *)</argsstring>
+        <name>createRet</name>
+        <param>
+          <type>llvm::Value *</type>
+          <defname>value</defname>
+        </param>
+        <briefdescription>
+<para>create a return type, a zero value should return the default type </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="58" column="21" bodyfile="llvm/GetPiecewiseTriggerCodeGen.cpp" bodystart="90" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class for getting piecewise trigger values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rrllvm::GetPiecewiseTriggerCodeGen</label>
+        <link refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rrllvm::CodeGenBase&lt; GetPiecewiseTriggerCodeGen_FunctionPtr &gt;</label>
+        <link refid="classrrllvm_1_1CodeGenBase"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rrllvm::GetPiecewiseTriggerCodeGen</label>
+        <link refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rrllvm::CodeGenBase&lt; GetPiecewiseTriggerCodeGen_FunctionPtr &gt;</label>
+        <link refid="classrrllvm_1_1CodeGenBase"/>
+      </node>
+    </collaborationgraph>
+    <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="32" column="5" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="34" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>builder</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1abd60003c2ef224226f4cc1799f5fbb35" prot="public" virt="virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>codeGen</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a1c131daf92705152a6cf09d08c107c9a" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>CodeGenBase</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3a0717caee609a520643ae7c9a7e7d5d" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>codeGenHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>codeGenVoidModelDataHeader</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a3eba81738ceb5e5fa7542b0862fac5d3" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>context</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1aa1851ab17329f6a7854d4c7f9e230af9" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>createFunction</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a2b6a29ab3b46c75c3465ac8da143ce14" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>createRet</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae3d653d51c1ca5840b48d2ebcecbcbd5" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>dataSymbols</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a0020335232a3ac90dd100aea8a014291" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>function</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a7d856976475ac4428ff5153122b6e855" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>FunctionName</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>functionPassManager</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1ac70ac69ce108ee58fe8da02f8a901717" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>FunctionPtr</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1af835db12ce91d1dcbe8816cf49de02d8" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>GetPiecewiseTriggerCodeGen</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a33342e6171e484cbdbccec15ad011d64" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>getRetType</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1acc01bc4c1fcdceb41b470b12c73f09d2" prot="public" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>IndexArgName</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>model</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ab15bd110eca7b61396290deb400df94a" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>modelGenContext</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a76bc0630ead4ce14f0d09bad805da8e4" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>modelSymbols</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a9b4d2847b012317dd134feac72211b5c" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>module</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>options</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a6d9878e1e4ae381ee5335f3ad3245737" prot="private" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>piecewiseTriggers</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" prot="protected" virt="non-virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>verifyFunction</name></member>
+      <member refid="classrrllvm_1_1CodeGenBase_1a8552beca29efafd91e21bc2b043ae568" prot="protected" virt="virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>~CodeGenBase</name></member>
+      <member refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen_1a62defa177cdf4c45f5932e7faf50e715" prot="public" virt="virtual"><scope>rrllvm::GetPiecewiseTriggerCodeGen</scope><name>~GetPiecewiseTriggerCodeGen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

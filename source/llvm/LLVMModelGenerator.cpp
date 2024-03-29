@@ -104,6 +104,7 @@ namespace rrllvm {
         dst->getEventDelayPtr = src->getEventDelayPtr;
         dst->eventTriggerPtr = src->eventTriggerPtr;
         dst->eventAssignPtr = src->eventAssignPtr;
+        dst->getPiecewiseTriggerPtr = src->getPiecewiseTriggerPtr;
         dst->evalVolatileStoichPtr = src->evalVolatileStoichPtr;
         dst->evalConversionFactorPtr = src->evalConversionFactorPtr;
     }
@@ -123,6 +124,7 @@ namespace rrllvm {
         GetEventDelayCodeGen(context).createFunction();
         EventTriggerCodeGen(context).createFunction();
         EventAssignCodeGen(context).createFunction();
+        GetPiecewiseTriggerCodeGen(context).createFunction();
         EvalVolatileStoichCodeGen(context).createFunction();
         EvalConversionFactorCodeGen(context).createFunction();
 
@@ -252,7 +254,7 @@ namespace rrllvm {
         modelGeneratorContext->getJitNonOwning()->addModule();
 
         LLVMModelData* modelData = createModelData(modelGeneratorContext->getModelDataSymbols(),
-            modelGeneratorContext->getRandom());
+            modelGeneratorContext->getRandom(), modelGeneratorContext->getNumPiecewiseTriggers());
 
         uint llvmsize = ModelDataIRBuilder::getModelDataSize(
             modelGeneratorContext->getJitNonOwning()->getModuleNonOwning(),
@@ -520,7 +522,7 @@ namespace rrllvm {
 
             if (sp) {
                 rrLog(Logger::LOG_DEBUG) << "found a cached model for \"" << sbmlMD5 << "\"";
-                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random));
+                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random, 0));
             }
             else {
                 rrLog(Logger::LOG_DEBUG) << "no cached model found for " << sbmlMD5
@@ -611,7 +613,7 @@ namespace rrllvm {
         return str;
     }
 
-    LLVMModelData* createModelData(const rrllvm::LLVMModelDataSymbols& symbols, const Random* random) {
+    LLVMModelData* createModelData(const rrllvm::LLVMModelDataSymbols& symbols, const Random* random, uint numPiecewiseTriggers) {
         uint modelDataBaseSize = sizeof(LLVMModelData);
 
         uint numIndCompartments = static_cast<uint>(symbols.getIndependentCompartmentSize());
@@ -659,6 +661,7 @@ namespace rrllvm {
         modelData->numRateRules = numRateRules;
         modelData->numReactions = numReactions;
         modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
+        modelData->numPiecewiseTriggers = numPiecewiseTriggers;
 
         // set the aliases to the offsets
         uint offset = 0;

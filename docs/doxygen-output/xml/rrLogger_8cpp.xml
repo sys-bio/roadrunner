@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrLogger_8cpp" kind="file" language="C++">
     <compoundname>rrLogger.cpp</compoundname>
     <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
@@ -383,9 +383,9 @@
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Mutex<sp/>loggerMutex;</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>SplitterChannel*<sp/>getSplitterChannel();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>SplitterChannel*<sp/>getSplitterChannel();</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>PatternFormatter<sp/>*getPatternFormatter();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>PatternFormatter<sp/>*getPatternFormatter();</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Channel<sp/>*createConsoleChannel()</highlight></codeline>
 <codeline lineno="92"><highlight class="normal">{</highlight></codeline>
@@ -863,7 +863,7 @@
 <codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="565"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="566"><highlight class="normal"></highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><ref refid="classrr_1_1LoggingBuffer_1a604487b60a968da939c335195a9fba19" kindref="member">LoggingBuffer::~LoggingBuffer</ref>()</highlight></codeline>
+<codeline lineno="567"><highlight class="normal">LoggingBuffer::~LoggingBuffer()</highlight></codeline>
 <codeline lineno="568"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/>Poco::Logger<sp/>&amp;logger<sp/>=<sp/>getLogger();</highlight></codeline>
 <codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(level)</highlight></codeline>
@@ -898,19 +898,19 @@
 <codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="600"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="601"><highlight class="normal"></highlight></codeline>
-<codeline lineno="602"><highlight class="normal">std::ostream&amp;<sp/><ref refid="classrr_1_1LoggingBuffer_1a23c72224ad52f14bc2d52d1eb361d479" kindref="member">LoggingBuffer::stream</ref>()</highlight></codeline>
+<codeline lineno="602"><highlight class="normal">std::ostream&amp;<sp/>LoggingBuffer::stream()</highlight></codeline>
 <codeline lineno="603"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>buffer;</highlight></codeline>
 <codeline lineno="605"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="606"><highlight class="normal"></highlight></codeline>
-<codeline lineno="607"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Logger_1aaa118623cb0a11d39321cb6ecebf704a" kindref="member">Logger::setConsoleStream</ref>(std::ostream*<sp/>os)</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Logger::setConsoleStream(std::ostream*<sp/>os)</highlight></codeline>
 <codeline lineno="608"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/>Mutex::ScopedLock<sp/>lock(loggerMutex);</highlight></codeline>
 <codeline lineno="610"><highlight class="normal"></highlight></codeline>
 <codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(os<sp/>!=<sp/>consoleStream)<sp/>{</highlight></codeline>
 <codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>consoleStream<sp/>=<sp/>os;</highlight></codeline>
-<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" kindref="member">disableConsoleLogging</ref>();</highlight></codeline>
-<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Logger_1a859a9358480196476351e5e2a3466b71" kindref="member">enableConsoleLogging</ref>();</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>disableConsoleLogging();</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>enableConsoleLogging();</highlight></codeline>
 <codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="616"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="617"><highlight class="normal"></highlight></codeline>

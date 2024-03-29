@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="LinesearchNewtonIteration_8cpp" kind="file" language="C++">
     <compoundname>LinesearchNewtonIteration.cpp</compoundname>
     <includes refid="LinesearchNewtonIteration_8h" local="yes">LinesearchNewtonIteration.h</includes>
@@ -305,24 +305,24 @@
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>LinesearchNewtonIteration::LinesearchNewtonIteration(ExecutableModel<sp/>*executableModel)<sp/></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>NewtonIteration(executableModel)<sp/>{}</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1LinesearchNewtonIteration_1a62113dcfc8a9d93fd419f025bc202563" kindref="member">LinesearchNewtonIteration::getName</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>LinesearchNewtonIteration::getName()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;newton_linesearch&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1LinesearchNewtonIteration_1a31c7aeb461a19411e3b48336d16401f6" kindref="member">LinesearchNewtonIteration::getDescription</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>LinesearchNewtonIteration::getDescription()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Sundials<sp/>implementation<sp/>of<sp/>newton<sp/>iteration<sp/>algorithm<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;with<sp/>linesearch<sp/>globalization<sp/>for<sp/>solving<sp/>steady<sp/>state<sp/>problems.&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1LinesearchNewtonIteration_1a39c0f6a3a82a515f4d71fdfdb4b25fc3" kindref="member">LinesearchNewtonIteration::getHint</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>LinesearchNewtonIteration::getHint()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Newton<sp/>iteration<sp/>with<sp/>linesearch<sp/>strategy&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604" kindref="member">LinesearchNewtonIteration::solve</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" kindref="member">solveForSteadyState</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>KIN_LINESEARCH);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>LinesearchNewtonIteration::solve()<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>solveForSteadyState(</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>KIN_LINESEARCH);</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>Solver<sp/>*<ref refid="classrr_1_1LinesearchNewtonIteration_1adf4975f6b1cdb5952950400f9f183497" kindref="member">LinesearchNewtonIteration::construct</ref>(ExecutableModel<sp/>*model)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>Solver<sp/>*LinesearchNewtonIteration::construct(ExecutableModel<sp/>*model)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>LinesearchNewtonIteration(model);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>

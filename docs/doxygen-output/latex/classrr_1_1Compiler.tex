@@ -40,8 +40,8 @@ virtual std\+::string \mbox{\hyperlink{classrr_1_1Compiler_a244cefa6a995aeb5d279
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893b}{get\+Default\+Target\+Triple()}} -\/ Return the default target triple the compiler has been configured to produce code for. \end{DoxyCompactList}\item 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}{get\+Process\+Triple}} ()=0
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. \end{DoxyCompactList}\item 
-virtual std\+::string \mbox{\hyperlink{classrr_1_1Compiler_a1718efebfe7936512a299c2f32e8c800}{get\+Host\+C\+P\+U\+Name}} ()=0
-\begin{DoxyCompactList}\small\item\em get\+Host\+C\+P\+U\+Name -\/ Get the L\+L\+VM name for the host C\+PU. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Compiler_a1718efebfe7936512a299c2f32e8c800}{get\+Host\+CPUName}} ()=0
+\begin{DoxyCompactList}\small\item\em get\+Host\+CPUName -\/ Get the LLVM name for the host CPU. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Compiler_ace56af18a4bc2cd882bdf4685e18fb33}\label{classrr_1_1Compiler_ace56af18a4bc2cd882bdf4685e18fb33}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1Compiler_ace56af18a4bc2cd882bdf4685e18fb33}{get\+Version}} ()=0
 \begin{DoxyCompactList}\small\item\em get the version of the compiler. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -59,7 +59,7 @@ static \mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} $\ast$ {\bfseries New} (
 \doxysubsection{Detailed Description}
 interface to manipulate \textquotesingle{}compiler\textquotesingle{} settings. 
 
-In the C generating model sytem, an external C compiler is used to compile generated C code. However, in the L\+L\+VM system, there is no code generation nor compilation, so this interface is not really usefull, but is implemented for compatiblity with the C system. 
+In the C generating model sytem, an external C compiler is used to compile generated C code. However, in the LLVM system, there is no code generation nor compilation, so this interface is not really usefull, but is implemented for compatiblity with the C system. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893b}\label{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893b}} 
@@ -72,28 +72,28 @@ In the C generating model sytem, an external C compiler is used to compile gener
 
 \mbox{\hyperlink{classrr_1_1Compiler_a244cefa6a995aeb5d2793ff893f1893b}{get\+Default\+Target\+Triple()}} -\/ Return the default target triple the compiler has been configured to produce code for. 
 
-The target triple is a std\+::string in the format of\+: C\+P\+U\+\_\+\+T\+Y\+P\+E-\/\+V\+E\+N\+D\+O\+R-\/\+O\+P\+E\+R\+A\+T\+I\+N\+G\+\_\+\+S\+Y\+S\+T\+EM or C\+P\+U\+\_\+\+T\+Y\+P\+E-\/\+V\+E\+N\+D\+O\+R-\/\+K\+E\+R\+N\+E\+L-\/\+O\+P\+E\+R\+A\+T\+I\+N\+G\+\_\+\+S\+Y\+S\+T\+EM 
+The target triple is a std\+::string in the format of\+: CPU\+\_\+\+TYPE-\/\+VENDOR-\/\+OPERATING\+\_\+\+SYSTEM or CPU\+\_\+\+TYPE-\/\+VENDOR-\/\+KERNEL-\/\+OPERATING\+\_\+\+SYSTEM 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_af43a6b3d973fee5348bd9d2cea192752}{rrllvm\+::\+L\+L\+V\+M\+Compiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_a10a08dd7e7b60da34813b2abd75e2791}{rr\+::\+C\+Compiler}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_af43a6b3d973fee5348bd9d2cea192752}{rrllvm\+::\+LLVMCompiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_a10a08dd7e7b60da34813b2abd75e2791}{rr\+::\+CCompiler}}.
 
 \mbox{\Hypertarget{classrr_1_1Compiler_a1718efebfe7936512a299c2f32e8c800}\label{classrr_1_1Compiler_a1718efebfe7936512a299c2f32e8c800}} 
 \index{rr::Compiler@{rr::Compiler}!getHostCPUName@{getHostCPUName}}
 \index{getHostCPUName@{getHostCPUName}!rr::Compiler@{rr::Compiler}}
 \doxysubsubsection{\texorpdfstring{getHostCPUName()}{getHostCPUName()}}
-{\footnotesize\ttfamily virtual std\+::string rr\+::\+Compiler\+::get\+Host\+C\+P\+U\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Compiler\+::get\+Host\+CPUName (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
-get\+Host\+C\+P\+U\+Name -\/ Get the L\+L\+VM name for the host C\+PU. 
+get\+Host\+CPUName -\/ Get the LLVM name for the host CPU. 
 
 The particular format of the name is target dependent, and suitable for passing as -\/mcpu to the target which matches the host.
 
 \begin{DoxyReturn}{Returns}
--\/ The host C\+PU name, or empty if the C\+PU could not be determined. 
+-\/ The host CPU name, or empty if the CPU could not be determined. 
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_ae8f2ba44fbc064d81f77b8aafdaf9109}{rrllvm\+::\+L\+L\+V\+M\+Compiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_a436bb213157ccc15d60cd0d64c584102}{rr\+::\+C\+Compiler}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_ae8f2ba44fbc064d81f77b8aafdaf9109}{rrllvm\+::\+LLVMCompiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_a436bb213157ccc15d60cd0d64c584102}{rr\+::\+CCompiler}}.
 
 \mbox{\Hypertarget{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}\label{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}} 
 \index{rr::Compiler@{rr::Compiler}!getProcessTriple@{getProcessTriple}}
@@ -105,9 +105,9 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_ae8f2ba44fbc064d81f7
 
 \mbox{\hyperlink{classrr_1_1Compiler_afe24151183f7db59208bfe86da2b3c79}{get\+Process\+Triple()}} -\/ Return an appropriate target triple for generating code to be loaded into the current process, e.\+g. 
 
-when using the J\+IT. 
+when using the JIT. 
 
-Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_a8a9f792ca40a9b3826d5b540263f7c05}{rrllvm\+::\+L\+L\+V\+M\+Compiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_aba426f3074705b9b76bed36be8646627}{rr\+::\+C\+Compiler}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMCompiler_a8a9f792ca40a9b3826d5b540263f7c05}{rrllvm\+::\+LLVMCompiler}}, and \mbox{\hyperlink{classrr_1_1CCompiler_aba426f3074705b9b76bed36be8646627}{rr\+::\+CCompiler}}.
 
 
 

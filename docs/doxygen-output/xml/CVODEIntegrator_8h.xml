@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="CVODEIntegrator_8h" kind="file" language="C++">
     <compoundname>CVODEIntegrator.h</compoundname>
     <includes refid="Integrator_8h" local="yes">Integrator.h</includes>
@@ -12,8 +12,8 @@
     <includes local="no">sundials/sundials_nvector.h</includes>
     <includes refid="ForwardSensitivitySolver_8h" local="yes">ForwardSensitivitySolver.h</includes>
     <includedby refid="ApproxSteadyStateDecorator_8cpp" local="yes">ApproxSteadyStateDecorator.cpp</includedby>
-    <includedby refid="ForwardSensitivitySolver_8h" local="yes">ForwardSensitivitySolver.h</includedby>
     <includedby refid="CVODEIntegrator_8cpp" local="yes">CVODEIntegrator.cpp</includedby>
+    <includedby refid="ForwardSensitivitySolver_8h" local="yes">ForwardSensitivitySolver.h</includedby>
     <includedby refid="Integrator_8cpp" local="yes">Integrator.cpp</includedby>
     <includedby refid="IntegratorFactory_8cpp" local="yes">IntegratorFactory.cpp</includedby>
     <includedby refid="KinsolSteadyStateSolver_8cpp" local="yes">KinsolSteadyStateSolver.cpp</includedby>
@@ -43,7 +43,7 @@
       <node id="14">
         <label>functional</label>
       </node>
-      <node id="113">
+      <node id="114">
         <label>queue</label>
       </node>
       <node id="31">
@@ -161,7 +161,7 @@
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="115" relation="include">
+        <childnode refid="116" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -186,7 +186,7 @@
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="107">
+      <node id="108">
         <label>SetValuesCodeGen.h</label>
         <link refid="SetValuesCodeGen_8h_source"/>
         <childnode refid="83" relation="include">
@@ -199,7 +199,7 @@
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="108" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
         </childnode>
@@ -207,7 +207,7 @@
       <node id="42">
         <label>stdint.h</label>
       </node>
-      <node id="110">
+      <node id="111">
         <label>SetInitialValueCodeGenBase.h</label>
         <link refid="SetInitialValueCodeGenBase_8h_source"/>
         <childnode refid="83" relation="include">
@@ -279,14 +279,14 @@
       <node id="53">
         <label>llvm/ExecutionEngine/ExecutionEngine.h</label>
       </node>
-      <node id="111">
+      <node id="112">
         <label>EventQueue.h</label>
         <link refid="EventQueue_8h_source"/>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="112" relation="include">
-        </childnode>
         <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
@@ -361,7 +361,7 @@
       <node id="19">
         <label>string</label>
       </node>
-      <node id="105">
+      <node id="106">
         <label>EvalVolatileStoichCodeGen.h</label>
         <link refid="EvalVolatileStoichCodeGen_8h_source"/>
         <childnode refid="83" relation="include">
@@ -449,6 +449,36 @@
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
         </childnode>
       </node>
       <node id="70">
@@ -590,7 +620,7 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="106">
+      <node id="107">
         <label>EvalConversionFactorCodeGen.h</label>
         <link refid="EvalConversionFactorCodeGen_8h_source"/>
         <childnode refid="83" relation="include">
@@ -656,11 +686,13 @@
         </childnode>
         <childnode refid="107" relation="include">
         </childnode>
-        <childnode refid="109" relation="include">
+        <childnode refid="108" relation="include">
         </childnode>
-        <childnode refid="111" relation="include">
+        <childnode refid="110" relation="include">
         </childnode>
-        <childnode refid="114" relation="include">
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
@@ -733,7 +765,7 @@
       <node id="51">
         <label>llvm/Config/llvm-config.h</label>
       </node>
-      <node id="109">
+      <node id="110">
         <label>SetInitialValuesCodeGen.h</label>
         <link refid="SetInitialValuesCodeGen_8h_source"/>
         <childnode refid="83" relation="include">
@@ -746,7 +778,7 @@
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="110" relation="include">
+        <childnode refid="111" relation="include">
         </childnode>
         <childnode refid="70" relation="include">
         </childnode>
@@ -771,7 +803,7 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="114">
+      <node id="115">
         <label>rrSelectionRecord.h</label>
         <link refid="rrSelectionRecord_8h_source"/>
         <childnode refid="5" relation="include">
@@ -814,7 +846,7 @@
       <node id="52">
         <label>llvm/Analysis/Passes.h</label>
       </node>
-      <node id="108">
+      <node id="109">
         <label>SetValueCodeGenBase.h</label>
         <link refid="SetValueCodeGenBase_8h_source"/>
         <childnode refid="83" relation="include">
@@ -840,7 +872,7 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="112">
+      <node id="113">
         <label>deque</label>
       </node>
       <node id="20">
@@ -923,7 +955,7 @@
         <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="115">
+      <node id="116">
         <label>nvector/nvector_serial.h</label>
       </node>
       <node id="100">
@@ -1151,7 +1183,7 @@
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==<sp/>FILEDOC<sp/>=================================================</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="comment">//todo<sp/>replace<sp/>the<sp/>include<sp/>guards<sp/>to<sp/>match<sp/>the<sp/>filename</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//todo<sp/>replace<sp/>the<sp/>include<sp/>guards<sp/>to<sp/>match<sp/>the<sp/>filename</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>rrCvodeInterfaceH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>rrCvodeInterfaceH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
@@ -1210,7 +1242,7 @@
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntegrationMethod<sp/><ref refid="classrr_1_1CVODEIntegrator_1a7cc1f774e58f179fb2e69c515c9f2a1f" kindref="member">getIntegrationMethod</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc" kindref="member">setValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;setting,<sp/><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref><sp/>value)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6" kindref="member">setValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;setting,<sp/><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref><sp/>value)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1CVODEIntegrator_1a6b9189a5d39d8c33541ea82ad9a382a4" kindref="member">setMaxOrder</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newValue);</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
@@ -1251,7 +1283,7 @@
 <codeline lineno="235"><highlight class="normal"></highlight></codeline>
 <codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="classrr_1_1CVODEIntegrator_1ad3ad4d2d9d49bce33f8d34d177ff703a" kindref="member">getCvodeMemory</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"></highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;double&gt;<sp/><ref refid="classrr_1_1CVODEIntegrator_1a623435278b083018cc05780ace8922f1" kindref="member">getAbsoluteToleranceVector</ref>();</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classrr_1_1CVODEIntegrator_1a061679b9a025e15a6457efc8cd8806e4" kindref="member">getAbsoluteToleranceVector</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="247"><highlight class="normal"></highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight></codeline>
 <codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
@@ -1303,7 +1335,7 @@
 <codeline lineno="313"><highlight class="normal"></highlight></codeline>
 <codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cvodeDyDtFcn(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t,<sp/>N_Vector<sp/>cv_y,<sp/>N_Vector<sp/>cv_ydot,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_data);</highlight></codeline>
 <codeline lineno="315"><highlight class="normal"></highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cvodeRootFcn(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t,<sp/>N_Vector<sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*gout,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*g_data);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cvodeEventAndPiecewiseRootFcn(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t,<sp/>N_Vector<sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*gout,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*g_data);</highlight></codeline>
 <codeline lineno="317"><highlight class="normal"></highlight></codeline>
 <codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="319"><highlight class="normal"></highlight></codeline>

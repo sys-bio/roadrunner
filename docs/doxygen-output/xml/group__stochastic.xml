@@ -1,93 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="group__stochastic" kind="group">
     <compoundname>stochastic</compoundname>
     <title>Stochastic simulations</title>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__stochastic_1ga7f5813153b9ea59a30cbc2cdfbdedffc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>C_DECL_SPEC bool rrcCallConv</type>
-        <definition>C_DECL_SPEC bool rrcCallConv getSeed</definition>
-        <argsstring>(RRHandle handle, long *seed)</argsstring>
-        <name>getSeed</name>
-        <param>
-          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
-          <declname>handle</declname>
-        </param>
-        <param>
-          <type>long *</type>
-          <declname>seed</declname>
-        </param>
-        <briefdescription>
-<para>Determine the current seed used by the random generator. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="in">handle</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Handle to a RoadRunner instance </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="out">seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>This is the value of the current seed, returned to the caller </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Returns true if successful </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2934" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3413" bodyend="3421" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2934" declcolumn="30"/>
-      </memberdef>
-      <memberdef kind="function" id="group__stochastic_1gaa694837d219e6fd8c55183ad5aa05910" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>C_DECL_SPEC bool rrcCallConv</type>
-        <definition>C_DECL_SPEC bool rrcCallConv setSeed</definition>
-        <argsstring>(RRHandle handle, long seed)</argsstring>
-        <name>setSeed</name>
-        <param>
-          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
-          <declname>handle</declname>
-        </param>
-        <param>
-          <type>long</type>
-          <declname>seed</declname>
-        </param>
-        <briefdescription>
-<para>Set the current seed used by the random generator. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="in">handle</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Handle to a RoadRunner instance </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="out">seed</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>This is the value the caller will set the seed to </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Returns true if successful </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2944" column="30" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3423" bodyend="3442" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2944" declcolumn="30"/>
-      </memberdef>
       <memberdef kind="function" id="group__stochastic_1gaeaf09f5ac0fcf9df24ccb0e62c82703e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
         <definition>C_DECL_SPEC RRCDataPtr rrcCallConv gillespie</definition>
@@ -116,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2957" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3444" bodyend="3455" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2957" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2937" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2937" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga90d4504aafacfdc2148bedbde8b84823" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -177,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2981" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3457" bodyend="3463" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2981" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2961" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2961" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga2177740637e6d6732621c7cded0dbba5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -207,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2994" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3465" bodyend="3476" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2994" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="2974" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="2974" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1gabedfc117be6781c6caca54ecc74561ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -281,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3021" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3478" bodyend="3485" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3021" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3001" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3001" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga3f887a483162b0eed518be4faec411d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -323,7 +239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3036" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3487" bodyend="3544" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3036" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3016" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3016" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga984a669536f489f257335903ce54469c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -410,7 +326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3065" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3546" bodyend="3553" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3065" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3045" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3045" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga4caaa9e174e6b9065524e7cdc56fabb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -452,7 +368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3081" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3555" bodyend="3618" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3081" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3061" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3061" declcolumn="36"/>
       </memberdef>
       <memberdef kind="function" id="group__stochastic_1ga11f181f858ccff7015069b6479772024" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC <ref refid="rrc__types_8h_1a9da8b124eb9c3c0045f8926c6a420b4a" kindref="member">RRCDataPtr</ref> rrcCallConv</type>
@@ -539,7 +455,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3113" column="36" bodyfile="/home/vsts/work/1/s/wrappers/C/rrc_api.cpp" bodystart="3620" bodyend="3627" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3113" declcolumn="36"/>
+        <location file="/home/vsts/work/1/s/wrappers/C/rrc_api.h" line="3093" column="36" declfile="/home/vsts/work/1/s/wrappers/C/rrc_api.h" declline="3093" declcolumn="36"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

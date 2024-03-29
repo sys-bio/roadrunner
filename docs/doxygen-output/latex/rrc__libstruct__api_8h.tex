@@ -10,17 +10,17 @@ road\+Runner C wrappers 2012
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_gabcc1c1d88e91e4c17888f63a1158fade}{get\+L0\+Matrix}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_gabcc1c1d88e91e4c17888f63a1158fade}{get\+L0\+Matrix}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Returns the L0 Matrix. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_ga0c68a334f896f419160f09e140c52a5b}{get\+Eigen\+Vectors}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} matrix)
-\begin{DoxyCompactList}\small\item\em Calculates the eigen-\/vectors of a square real matrix. This function calculates the complex (right)eigenvectors of the given real matrix. The complex matrix returned contains the eigenvectors in the columns, in the same order as Lib\+L\+A\+\_\+get\+Eigen\+Values. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_ga5d823d9deca09548bf65c9df30bf0aac}{get\+Z\+Eigen\+Vectors}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{R\+R\+Complex\+Matrix\+Ptr}} matrix)
-\begin{DoxyCompactList}\small\item\em Calculates the eigen-\/vectors of a square nonsymmetrix complex matrix. This function calculates the complex (right)eigenvectors of the given real matrix. The complex matrix returned contains the eigenvectors in the columns, in the same order as get\+Z\+Eigen\+Values. The right eigenvector v(j) of A satisfies\+: \end{DoxyCompactList}\item 
-\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{R\+R\+Vector\+Ptr}} \mbox{\hyperlink{group__Stoich_gaed6227a5e35be5cfdaf667ddb3f9afe9}{get\+Conserved\+Sums}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_ga0c68a334f896f419160f09e140c52a5b}{get\+Eigen\+Vectors}} (\mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} matrix)
+\begin{DoxyCompactList}\small\item\em Calculates the eigen-\/vectors of a square real matrix. This function calculates the complex (right)eigenvectors of the given real matrix. The complex matrix returned contains the eigenvectors in the columns, in the same order as Lib\+LA\+\_\+get\+Eigen\+Values. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__Stoich_ga5d823d9deca09548bf65c9df30bf0aac}{get\+ZEigen\+Vectors}} (\mbox{\hyperlink{rrc__types_8h_a8cf9e865d8541d100f153800adbb7c3f}{RRComplex\+Matrix\+Ptr}} matrix)
+\begin{DoxyCompactList}\small\item\em Calculates the eigen-\/vectors of a square nonsymmetrix complex matrix. This function calculates the complex (right)eigenvectors of the given real matrix. The complex matrix returned contains the eigenvectors in the columns, in the same order as get\+ZEigen\+Values. The right eigenvector v(j) of A satisfies\+: \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rrc__types_8h_a3be72d6006034fd349f753d2bf441bf7}{RRVector\+Ptr}} \mbox{\hyperlink{group__Stoich_gaed6227a5e35be5cfdaf667ddb3f9afe9}{get\+Conserved\+Sums}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Returns values for conservation laws using the current initial conditions. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga142092d1f7edcc6500f1b965abed68be}{get\+Eigenvalues\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} mat)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga142092d1f7edcc6500f1b965abed68be}{get\+Eigenvalues\+Matrix}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} mat)
 \begin{DoxyCompactList}\small\item\em Compute the eigenvalues of a double matrix. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{R\+R\+Complex\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}{get\+Eigenvalues\+Vector}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{R\+R\+Double\+Matrix\+Ptr}} mat)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_ae05c63419a6ca0575eb327fd04dae4b5}{RRComplex\+Vector\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__LinearAlgebra_ga9902e4c49cc0334f2d2b297b977856c3}{get\+Eigenvalues\+Vector}} (const \mbox{\hyperlink{rrc__types_8h_ae586a879d30f0823087e42d93464b5dd}{RRDouble\+Matrix\+Ptr}} mat)
 \begin{DoxyCompactList}\small\item\em Compute the eigenvalues of a double matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -32,24 +32,22 @@ Totte Karlsson \& Herbert M Sauro
 \end{DoxyAuthor}
 $<$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- This file is part of c\+Road\+Runner. See \href{http://code.google.com/p/roadrunnerlib}{\texttt{ http\+://code.\+google.\+com/p/roadrunnerlib}} for more details.
 
-Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, U\+SA
+Copyright (C) 2012-\/2013 University of Washington, Seattle, WA, USA
 
 Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \begin{DoxyVerb}http://www.apache.org/licenses/LICENSE-2.0
 \end{DoxyVerb}
-
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 In plain english this means\+:
 
-You C\+AN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
+You CAN freely download and use this software, in whole or in part, for personal, company internal, or commercial purposes;
 
-You C\+AN use the software in packages or distributions that you create.
+You CAN use the software in packages or distributions that you create.
 
-You S\+H\+O\+U\+LD include a copy of the license in any redistribution you may make;
+You SHOULD include a copy of the license in any redistribution you may make;
 
-You are N\+OT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
+You are NOT required include the source of software, or of any modifications you may have made to it, in any redistribution you may assemble that includes it.
 
-Y\+OU C\+A\+N\+N\+OT\+:
+YOU CANNOT\+:
 
 redistribute any piece of this software without proper attribution; 

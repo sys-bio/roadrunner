@@ -96,11 +96,13 @@ public:
     MOCK_METHOD(std::string, getInfo, (), (override));
     MOCK_METHOD(void, print, (std::ostream & stream), (override));
     MOCK_METHOD(int, getNumEvents, (), (override));
+    MOCK_METHOD(int, getNumPiecewiseTriggers, (), (override));
     MOCK_METHOD(int, getEventTriggers, (size_t len, const int *indx, unsigned char *values), (override));
     MOCK_METHOD(int, applyEvents,
                 (double timeEnd, const unsigned char *previousEventStatus,const double *initialState, double *finalState),
                 (override));
     MOCK_METHOD(void, getEventRoots, (double time, const double *y, double *gdot), (override));
+    MOCK_METHOD(void, getPiecewiseTriggerRoots, (double time, const double* y, double* gdot), (override));
     MOCK_METHOD(double, getNextPendingEventTime, (bool pop), (override));
     MOCK_METHOD(int, getPendingEventSize, (), (override));
     MOCK_METHOD(void, resetEvents, (), (override));

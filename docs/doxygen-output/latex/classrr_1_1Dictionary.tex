@@ -52,20 +52,21 @@ These are automatically mapped to python dictionaries.
 
 Get a value. 
 
-Variants are P\+OD. If the key does not exist, an std\+::exception will be thrown.
+Variants are POD. If the key does not exist, an std\+::exception will be thrown.
 
 The \mbox{\hyperlink{classrr_1_1Setting}{Setting}} object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the \mbox{\hyperlink{classrr_1_1Setting}{Setting}} can not be converted, it will raise an exception, i.\+e.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{Dictionary* d = ...;}
-\DoxyCodeLine{\textcolor{keywordtype}{int} a = d-\/>getItem(\textcolor{stringliteral}{"someIntKey"});}
-\DoxyCodeLine{std::string s = d-\/>getItem(\textcolor{stringliteral}{"someStrVal"});}
-\DoxyCodeLine{\textcolor{keywordtype}{double} val = d-\/>getItem(\textcolor{stringliteral}{"someDoubleVal"});}
+\DoxyCodeLine{\textcolor{keywordtype}{int} a = d-\/>getItem(\textcolor{stringliteral}{"{}someIntKey"{}});}
+\DoxyCodeLine{std::string s = d-\/>getItem(\textcolor{stringliteral}{"{}someStrVal"{}});}
+\DoxyCodeLine{\textcolor{keywordtype}{double} val = d-\/>getItem(\textcolor{stringliteral}{"{}someDoubleVal"{}});}
+
 \end{DoxyCode}
  
 
-Implemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_ae4dd5db25b55f9561e231c23c53ae941}{rr\+::\+Load\+S\+B\+M\+L\+Options}}, and \mbox{\hyperlink{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}{rr\+::\+Basic\+Dictionary}}.
+Implemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_ae4dd5db25b55f9561e231c23c53ae941}{rr\+::\+Load\+SBMLOptions}}, and \mbox{\hyperlink{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}{rr\+::\+Basic\+Dictionary}}.
 
 \mbox{\Hypertarget{classrr_1_1Dictionary_a4708fee12ec4cd5e879df9bf5570c02a}\label{classrr_1_1Dictionary_a4708fee12ec4cd5e879df9bf5570c02a}} 
 \index{rr::Dictionary@{rr::Dictionary}!setItem@{setItem}}
@@ -82,13 +83,14 @@ The \mbox{\hyperlink{classrr_1_1Setting}{Setting}} object has a large number of 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{Dictionary*d = (...);}
-\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"someIntKey"}, 1);}
-\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"someStrKey"}, std::string(\textcolor{stringliteral}{"some std::string"}));}
-\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"someFloatVal, 0.123);}}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someIntKey"{}}, 1);}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someStrKey"{}}, std::string(\textcolor{stringliteral}{"{}some std::string"{}}));}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someFloatVal, 0.123);}}
+
 \end{DoxyCode}
  
 
-Implemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}{rr\+::\+Load\+S\+B\+M\+L\+Options}}, and \mbox{\hyperlink{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}{rr\+::\+Basic\+Dictionary}}.
+Implemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5c681de2711ebbc2591d11a280b9db94}{rr\+::\+Load\+SBMLOptions}}, and \mbox{\hyperlink{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}{rr\+::\+Basic\+Dictionary}}.
 
 
 

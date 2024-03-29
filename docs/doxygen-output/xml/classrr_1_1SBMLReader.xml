@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1SBMLReader" kind="class" language="C++" prot="public">
     <compoundname>rr::SBMLReader</compoundname>
     <includes refid="rrSBMLReader_8h" local="no">rrSBMLReader.h</includes>
@@ -22,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSBMLReader.h" line="47" column="24" bodyfile="rrSBMLReader.cpp" bodystart="194" bodyend="264"/>
+        <location file="rrSBMLReader.h" line="47" column="24" bodyfile="rrSBMLReader.cpp" bodystart="248" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -52,7 +52,7 @@
 <para>This is simple enough that it should belong in <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> proper, however we currently use Poco for reading http streams, and it seems to compilation issues if &quot;windows.h&quot; is included before, an evidently some other roadrunner file includes windows.h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.</para>
 <para>also, we put it as a static class method because libSBML already uses &apos;readSBML&apos; and we want to avoid namespace collisions. </para>
     </detaileddescription>
-    <location file="rrSBMLReader.h" line="34" column="1" bodyfile="rrSBMLReader.h" bodystart="33" bodyend="51"/>
+    <location file="rrSBMLReader.h" line="33" column="1" bodyfile="rrSBMLReader.h" bodystart="34" bodyend="51"/>
     <listofallmembers>
       <member refid="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3" prot="public" virt="non-virtual"><scope>rr::SBMLReader</scope><name>is_sbml</name></member>
       <member refid="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c" prot="public" virt="non-virtual"><scope>rr::SBMLReader</scope><name>read</name></member>

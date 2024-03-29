@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="EvalInitialConditionsCodeGen_8h" kind="file" language="C++">
     <compoundname>EvalInitialConditionsCodeGen.h</compoundname>
     <includes refid="ModelGeneratorContext_8h" local="yes">ModelGeneratorContext.h</includes>
@@ -11,8 +11,8 @@
     <includes refid="ModelDataSymbolResolver_8h" local="yes">ModelDataSymbolResolver.h</includes>
     <includes local="no">sbml/Model.h</includes>
     <includes local="no">sbml/SBMLVisitor.h</includes>
-    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <includedby refid="EvalInitialConditionsCodeGen_8cpp" local="yes">llvm/EvalInitialConditionsCodeGen.cpp</includedby>
+    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <incdepgraph>
       <node id="28">
         <label>list</label>
@@ -459,7 +459,7 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="13">
+      <node id="12">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -525,7 +525,7 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -562,7 +562,7 @@
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*EvalInitialConditions_FunctionPtr)(LLVMModelData*,<sp/>size_t);</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35" refid="classrrllvm_1_1EvalInitialConditionsCodeGen" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1EvalInitialConditionsCodeGen" kindref="compound">EvalInitialConditionsCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><sp/><ref refid="classrrllvm_1_1CodeGenBase" kindref="compound">CodeGenBase</ref>&lt;EvalInitialConditions_FunctionPtr&gt;</highlight></codeline>
+<codeline lineno="35" refid="classrrllvm_1_1EvalInitialConditionsCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1EvalInitialConditionsCodeGen" kindref="compound">EvalInitialConditionsCodeGen</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><sp/><ref refid="classrrllvm_1_1CodeGenBase" kindref="compound">CodeGenBase</ref>&lt;EvalInitialConditions_FunctionPtr&gt;</highlight></codeline>
 <codeline lineno="36"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1EvalInitialConditionsCodeGen" kindref="compound">EvalInitialConditionsCodeGen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;mgc);</highlight></codeline>

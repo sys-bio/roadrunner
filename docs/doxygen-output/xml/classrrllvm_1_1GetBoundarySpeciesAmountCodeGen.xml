@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1GetBoundarySpeciesAmountCodeGen" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::GetBoundarySpeciesAmountCodeGen</compoundname>
     <basecompoundref refid="classrrllvm_1_1GetValueCodeGenBase" prot="public" virt="non-virtual">rrllvm::GetValueCodeGenBase&lt; GetBoundarySpeciesAmountCodeGen, true &gt;</basecompoundref>
@@ -80,9 +80,9 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Get the current amount of a boundary species. </para>
     </briefdescription>
     <detaileddescription>
-<para>Get the current amount of a boundary species. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="3">
@@ -103,58 +103,15 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="6">
-        <label>rrllvm::ASTNodeFactory</label>
-        <link refid="classrrllvm_1_1ASTNodeFactory"/>
-      </node>
-      <node id="4">
-        <label>rrllvm::LLVMModelSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelSymbols"/>
-        <childnode refid="5" relation="private-inheritance">
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>nodes</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
-          <edgelabel>initialAssignmentRules</edgelabel>
-          <edgelabel>rateRules</edgelabel>
-        </childnode>
-      </node>
       <node id="3">
         <label>rrllvm::CodeGenBase&lt; GetValueCodeGenBase_FunctionPtr &gt;</label>
         <link refid="classrrllvm_1_1CodeGenBase"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>modelSymbols</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>dataSymbols</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>modelGenContext</edgelabel>
-        </childnode>
-      </node>
-      <node id="9">
-        <label>rrllvm::ModelGeneratorContext</label>
-        <link refid="classrrllvm_1_1ModelGeneratorContext"/>
-      </node>
-      <node id="8">
-        <label>rrllvm::LLVMModelDataSymbols</label>
-        <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>SBMLVisitor</label>
       </node>
       <node id="2">
         <label>rrllvm::GetValueCodeGenBase&lt; GetBoundarySpeciesAmountCodeGen, true &gt;</label>
         <link refid="classrrllvm_1_1GetValueCodeGenBase"/>
         <childnode refid="3" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="7">
-        <label>rrllvm::SymbolForest</label>
-        <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
       <node id="1">
         <label>rrllvm::GetBoundarySpeciesAmountCodeGen</label>
@@ -163,7 +120,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="llvm/GetValuesCodeGen.h" line="27" column="1" bodyfile="llvm/GetValuesCodeGen.h" bodystart="25" bodyend="39"/>
+    <location file="llvm/GetValuesCodeGen.h" line="25" column="5" bodyfile="llvm/GetValuesCodeGen.h" bodystart="27" bodyend="39"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1CodeGenBase_1a36a54f70488b5dc597b63d51b6339793" prot="protected" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesAmountCodeGen</scope><name>builder</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a739149ffea7cfc8d805d468d3df6e646" prot="public" virt="virtual"><scope>rrllvm::GetBoundarySpeciesAmountCodeGen</scope><name>codeGen</name></member>

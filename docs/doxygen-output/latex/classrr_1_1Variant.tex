@@ -2,6 +2,11 @@
 \label{classrr_1_1Variant}\index{rr::Variant@{rr::Variant}}
 
 
+A basic type to hold a variety of data types.  
+
+
+
+
 {\ttfamily \#include $<$\+\_\+\+Variant.\+h$>$}
 
 \doxysubsection*{Public Types}
@@ -9,20 +14,20 @@
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}\label{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}} 
 enum \mbox{\hyperlink{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}{Type\+Id}} \{ \newline
-{\bfseries S\+T\+R\+I\+NG}, 
-{\bfseries B\+O\+OL}, 
-{\bfseries I\+N\+T32}, 
-{\bfseries U\+I\+N\+T32}, 
-\newline
-{\bfseries I\+N\+T64}, 
-{\bfseries U\+I\+N\+T64}, 
-{\bfseries F\+L\+O\+AT}, 
-{\bfseries D\+O\+U\+B\+LE}, 
-\newline
-{\bfseries C\+H\+AR}, 
-{\bfseries U\+C\+H\+AR}, 
-{\bfseries E\+M\+P\+TY}, 
-{\bfseries D\+O\+U\+B\+L\+E\+V\+E\+C\+T\+OR}
+{\bfseries STRING}
+, {\bfseries BOOL}
+, {\bfseries INT32}
+, {\bfseries UINT32}
+, \newline
+{\bfseries INT64}
+, {\bfseries UINT64}
+, {\bfseries FLOAT}
+, {\bfseries DOUBLE}
+, \newline
+{\bfseries CHAR}
+, {\bfseries UCHAR}
+, {\bfseries EMPTY}
+, {\bfseries DOUBLEVECTOR}
  \}
 \begin{DoxyCompactList}\small\item\em list of currently supported types that a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} can hold. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -44,7 +49,7 @@ enum \mbox{\hyperlink{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}{Type
 \begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_a22c85776d05ff8009e6f6686db25f949}\label{classrr_1_1Variant_a22c85776d05ff8009e6f6686db25f949}} 
 {\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classrr_1_1Variant}{Variant}} \& \mbox{\hyperlink{classrr_1_1Variant_a22c85776d05ff8009e6f6686db25f949}{operator=}} (const T \&value)
-\begin{DoxyCompactList}\small\item\em Assignment operator for assigning P\+OD to Var same as the constructor, this assigns a value to an existing \mbox{\hyperlink{classrr_1_1Variant}{Variant}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Assignment operator for assigning POD to Var same as the constructor, this assigns a value to an existing \mbox{\hyperlink{classrr_1_1Variant}{Variant}}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \& \mbox{\hyperlink{classrr_1_1Variant_ac04cac2d0b4d939f789658bebbb05f21}{operator=}} (const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&other)
 \begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_a5bfdfef2698dc62678ed6e5b9f807c2a}\label{classrr_1_1Variant_a5bfdfef2698dc62678ed6e5b9f807c2a}} 
@@ -55,41 +60,41 @@ const std\+::type\+\_\+info \& \mbox{\hyperlink{classrr_1_1Variant_ab221d80ddd0d
 {\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{classrr_1_1Variant_a7bb371be936601754f61d5285f834352}{convert}} () const
 \begin{DoxyCompactList}\small\item\em Convert this variant to a supported data type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_a1e671df21f20cf4cea3cd97b91d74bad}\label{classrr_1_1Variant_a1e671df21f20cf4cea3cd97b91d74bad}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (std\+::string)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (std\+::string)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a80fb1e965dafc1d64a72baaf4dfb74a7}\label{classrr_1_1Variant_a80fb1e965dafc1d64a72baaf4dfb74a7}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (long)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (long)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_affffce16e5c854be89c5ad19565b662e}\label{classrr_1_1Variant_affffce16e5c854be89c5ad19565b662e}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (bool)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (bool)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a0c5b814015afebf10133a5040a4ba5dd}\label{classrr_1_1Variant_a0c5b814015afebf10133a5040a4ba5dd}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (float)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (float)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a4b997ca2b06a76b4ce2eee7b71a32f02}\label{classrr_1_1Variant_a4b997ca2b06a76b4ce2eee7b71a32f02}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (double)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (double)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a7a91de1a107d4c7e2e9fd36955051758}\label{classrr_1_1Variant_a7a91de1a107d4c7e2e9fd36955051758}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (unsigned long)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (unsigned long)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_ad3c33516ac06d47ad80ce1838a41503d}\label{classrr_1_1Variant_ad3c33516ac06d47ad80ce1838a41503d}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (int)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (int)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_aeaecee8f6ff49545b3feb060f4a2fc6b}\label{classrr_1_1Variant_aeaecee8f6ff49545b3feb060f4a2fc6b}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (unsigned int)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (unsigned int)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a4455d0058d6627a8291c5b7ede89cf1b}\label{classrr_1_1Variant_a4455d0058d6627a8291c5b7ede89cf1b}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (char)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (char)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_aaec35f10a7667638c62206c83f090352}\label{classrr_1_1Variant_aaec35f10a7667638c62206c83f090352}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (unsigned char)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (unsigned char)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_a6cee1990f0e04b644c0cac5af847a67c}\label{classrr_1_1Variant_a6cee1990f0e04b644c0cac5af847a67c}} 
-{\bfseries V\+A\+R\+I\+A\+N\+T\+\_\+\+I\+M\+P\+L\+I\+C\+I\+T\+\_\+\+C\+O\+N\+V\+E\+RT} (std\+::vector$<$ double $>$)
+{\bfseries VARIANT\+\_\+\+IMPLICIT\+\_\+\+CONVERT} (std\+::vector$<$ double $>$)
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}\label{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}} 
 std\+::string \mbox{\hyperlink{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}{to\+String}} () const
-\begin{DoxyCompactList}\small\item\em Converts the \mbox{\hyperlink{classrr_1_1Variant}{Variant}} to a std\+::string in J\+S\+ON format. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts the \mbox{\hyperlink{classrr_1_1Variant}{Variant}} to a std\+::string in JSON format. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1Variant_aae71df98365e03148ca33a3d3f354115}{python\+Repr}} () const
 \begin{DoxyCompactList}\small\item\em Convert to Python-\/compatible representation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_a287a173e395dafe75f1631c69f00551a}\label{classrr_1_1Variant_a287a173e395dafe75f1631c69f00551a}} 
@@ -117,11 +122,11 @@ bool {\bfseries is\+Double\+Vector} () const
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{parse}} (const std\+::string \&val)
-\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in J\+S\+ON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in JSON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-A basic type to hold a variety of data types.
+A basic type to hold a variety of data types. 
 
 Unfourtunatly C++ does not have a standard variant type so we have to create one here.
 
@@ -139,6 +144,7 @@ To store a value, just assign it, the assignment operator automatically takes ca
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// store a double:}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = (double)0.123;}
+
 \end{DoxyCode}
 
 
@@ -153,6 +159,7 @@ Extraction\+: To retrieve the stored data, uses the convert function, this is te
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// to convert to std::string:}}
 \DoxyCodeLine{std::string s = v.convert<std::string>();}
+
 \end{DoxyCode}
 
 
@@ -177,7 +184,8 @@ create a new variant from an existing supported data type.
 This templated constructor can assign any primitive type\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = (int)1;}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = std::string(\textcolor{stringliteral}{"a std::string"});}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = std::string(\textcolor{stringliteral}{"{}a std::string"{}});}
+
 \end{DoxyCode}
  
 
@@ -199,6 +207,7 @@ This method will try to perform type coercion, i.\+e. if this variant contains a
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{comment}{// convert to int:}}
 \DoxyCodeLine{\textcolor{keywordtype}{int} i = v.convert<\textcolor{keywordtype}{int}>();}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Variant_ac04cac2d0b4d939f789658bebbb05f21}\label{classrr_1_1Variant_ac04cac2d0b4d939f789658bebbb05f21}} 
 \index{rr::Variant@{rr::Variant}!operator=@{operator=}}
@@ -218,11 +227,12 @@ Assign one variant to another. \mbox{\Hypertarget{classrr_1_1Variant_abe42f3be24
 
 
 
-Parses the std\+::string which must be in J\+S\+ON format. 
+Parses the std\+::string which must be in JSON format. 
 
 This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} from a file or create a new one from a std\+::string\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"0.123"});}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"{}0.123"{}});}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Variant_aae71df98365e03148ca33a3d3f354115}\label{classrr_1_1Variant_aae71df98365e03148ca33a3d3f354115}} 
 \index{rr::Variant@{rr::Variant}!pythonRepr@{pythonRepr}}
@@ -235,7 +245,7 @@ This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} fr
 Convert to Python-\/compatible representation. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1Variant_ab221d80ddd0d06174c61d90e25ebb0d2}\label{classrr_1_1Variant_ab221d80ddd0d06174c61d90e25ebb0d2}} 
 \index{rr::Variant@{rr::Variant}!typeInfo@{typeInfo}}
@@ -254,11 +264,12 @@ This will let you check what kind of data is strored in this variant.
 \DoxyCodeLine{\textcolor{comment}{// to check if this is an integer:}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = ...}
 \DoxyCodeLine{if (v.type() == \textcolor{keyword}{typeid}(\textcolor{keywordtype}{int}))}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"its an int"};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}its an int"{}};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// to check if its a std::string:}}
 \DoxyCodeLine{\textcolor{keywordflow}{if} (v.type() == \textcolor{keyword}{typeid}(std::string))}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"ints a std::string"};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}ints a std::string"{}};}
+
 \end{DoxyCode}
  
 

@@ -72,34 +72,35 @@ static const char* modelDataFieldsNames[] =  {
         "Stoichiometry",                        // 13
         "RandomPtr",                            // 14
         "NumEvents",                            // 15
-        "StateVectorSize",                      // 16
-        "StateVector",                          // 17
-        "StateVectorRate",                      // 18
-        "RateRuleRates",                        // 19
-        "FloatingSpeciesAmountRates",           // 20
+        "NumPiecewiseTriggers",                 // 16
+        "StateVectorSize",                      // 17
+        "StateVector",                          // 18
+        "StateVectorRate",                      // 19
+        "RateRuleRates",                        // 20
+        "FloatingSpeciesAmountRates",           // 21
 
-        "CompartmentVolumesAlias",              // 21
-        "InitCompartmentVolumesAlias",          // 22
-        "InitFloatingSpeciesAmountsAlias",      // 23
-        "BoundarySpeciesAmountsAlias",          // 24
-        "InitBoundarySpeciesAmountsAlias",      // 25
-        "GlobalParametersAlias",                // 26
-        "InitGlobalParametersAlias",            // 27
-        "ReactionRatesAlias",                   // 28
+        "CompartmentVolumesAlias",              // 22
+        "InitCompartmentVolumesAlias",          // 23
+        "InitFloatingSpeciesAmountsAlias",      // 24
+        "BoundarySpeciesAmountsAlias",          // 25
+        "InitBoundarySpeciesAmountsAlias",      // 26
+        "GlobalParametersAlias",                // 27
+        "InitGlobalParametersAlias",            // 28
+        "ReactionRatesAlias",                   // 29
 
-        "RateRuleValuesAlias",                  // 29
-        "FloatingSpeciesAmountsAlias",          // 30
+        "RateRuleValuesAlias",                  // 30
+        "FloatingSpeciesAmountsAlias",          // 31
 
-        "CompartmentVolumes",                   // 31
-        "InitCompartmentVolumes",               // 32
-        "InitFloatingSpeciesAmounts",           // 33
-        "BoundarySpeciesAmounts",               // 34
-        "InitBoundarySpeciesAmounts",           // 35
-        "GlobalParameters",                     // 36
-        "InitGlobalParameters",                 // 37
-        "ReactionRates",                        // 38
-        "NotSafe_RateRuleValues",               // 39
-        "NotSafe_FloatingSpeciesAmounts"        // 40
+        "CompartmentVolumes",                   // 32
+        "InitCompartmentVolumes",               // 33
+        "InitFloatingSpeciesAmounts",           // 34
+        "BoundarySpeciesAmounts",               // 35
+        "InitBoundarySpeciesAmounts",           // 36
+        "GlobalParameters",                     // 37
+        "InitGlobalParameters",                 // 38
+        "ReactionRates",                        // 39
+        "NotSafe_RateRuleValues",               // 40
+        "NotSafe_FloatingSpeciesAmounts"        // 41
 };
 
 
@@ -332,47 +333,6 @@ int LLVMModelDataSymbols::getGlobalParameterIndex(
     }
     return -1;
 }
-
-/*
-void LLVMModelDataSymbols::initAllocModelDataBuffers(LLVMModelData& m) const
-{
-    // zero out the structure
-    LLVMModelData::init(m);
-
-    // set the buffer sizes
-    m.numIndFloatingSpecies         = independentFloatingSpeciesSize;
-
-    //mData.numDependentSpecies           = ms.mNumDependentSpecies;
-    m.numIndGlobalParameters        = independentGlobalParameterSize;
-    m.numReactions                  = reactionsMap.size();
-    m.numEvents                     = eventAttributes.size();
-    m.numRateRules                  = rateRules.size();
-    m.numIndCompartments            = independentCompartmentSize;
-    m.numIndBoundarySpecies         = independentBoundarySpeciesSize;
-
-    // in certain cases, the data returned by c++ new may be alligned differently than
-    // malloc, so just use calloc here just to be safe, plus calloc returns zero
-    // initialized memory.
-
-    m.floatingSpeciesAmountsAlias = (double*)calloc(m.numIndFloatingSpecies, sizeof(double));
-    m.floatingSpeciesAmountRates = 0;
-    m.rateRuleValuesAlias = (double*)calloc(m.numRateRules, sizeof(double));
-    m.rateRuleRates = 0;
-
-    m.reactionRatesAlias = (double*)calloc(m.numReactions, sizeof(double));
-
-    m.globalParametersAlias = (double*)calloc(m.numIndGlobalParameters, sizeof(double));
-    m.compartmentVolumesAlias = (double*)calloc(m.numIndCompartments, sizeof(double));
-
-    m.boundarySpeciesAmountsAlias = (double*)calloc(m.numIndBoundarySpecies, sizeof(double));
-
-
-    // allocate the stoichiometry matrix
-    m.stoichiometry = rr::csr_matrix_new(m.numIndFloatingSpecies, getReactionSize(),
-            stoichRowIndx, stoichColIndx, std::vector<double>(stoichRowIndx.size(), 0));
-}
-*/
-
 
 const std::vector<uint>& LLVMModelDataSymbols::getStoichRowIndx() const
 {
@@ -1665,16 +1625,41 @@ size_t LLVMModelDataSymbols::getEventBufferSize(size_t eventId) const
 
 bool LLVMModelDataSymbols::isNamedSpeciesReference(const std::string& id) const
 {
-    return namedSpeciesReferenceInfo.find(id) != namedSpeciesReferenceInfo.end();
+    if (namedSpeciesReferenceInfo.find(id) != namedSpeciesReferenceInfo.end()) {
+        return true;
+    }
+    if (id.find(":") != string::npos) {
+        //LS: This whole section is for when we ask for rateOf(specid).
+        string rxnid = id.substr(0, id.find(":"));
+        string specid = id.substr(id.find(":") + 1, id.length());
+        if (getReactionIndex(rxnid) != -1 && getFloatingSpeciesIndex(specid) != -1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 const LLVMModelDataSymbols::SpeciesReferenceInfo&
-    LLVMModelDataSymbols::getNamedSpeciesReferenceInfo(const std::string& id) const
+    LLVMModelDataSymbols::getNamedSpeciesReferenceInfo(const std::string& id)
 {
     StringRefInfoMap::const_iterator i = namedSpeciesReferenceInfo.find(id);
     if (i != namedSpeciesReferenceInfo.end())
     {
         return i->second;
+    }
+    else if (id.find(":") != string::npos) {
+        //LS: This whole section is for when we ask for rateOf(specid).
+        string rxnid = id.substr(0, id.find(":"));
+        string specid = id.substr(id.find(":") + 1, id.length());
+        int rxnIdx = getReactionIndex(rxnid);
+        int speciesIdx = getFloatingSpeciesIndex(specid);
+        if (rxnIdx == -1 || speciesIdx == -1) {
+            throw_llvm_exception(id + " is not a named SpeciesReference: '" + rxnid + "' and '" + specid + "' are not a valid combination of reaction and species.");
+        }
+        SpeciesReferenceInfo info =
+        { static_cast<uint>(speciesIdx), static_cast<uint>(rxnIdx), Product, rxnid };
+        namedSpeciesReferenceInfo[id] = info;
+        return namedSpeciesReferenceInfo[id];
     }
     else
     {

@@ -2,7 +2,7 @@
 \label{classrr_1_1EventListener}\index{rr::EventListener@{rr::EventListener}}
 
 
-Notifies the user of S\+B\+ML events.  
+Notifies the user of SBML events.  
 
 
 
@@ -13,7 +13,7 @@ Notifies the user of S\+B\+ML events.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1EventListener_adec5ad68634f11e5109e73e43b08c00d}\label{classrr_1_1EventListener_adec5ad68634f11e5109e73e43b08c00d}} 
-enum {\bfseries Result} \{ {\bfseries H\+A\+L\+T\+\_\+\+S\+I\+M\+U\+L\+A\+T\+I\+ON} = (0x1 $<$$<$ 0)
+enum {\bfseries Result} \{ {\bfseries HALT\+\_\+\+SIMULATION} = (0x1 $<$$<$ 0)
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -28,7 +28,7 @@ virtual uint {\bfseries on\+Assignment} (\mbox{\hyperlink{classrr_1_1ExecutableM
 
 
 \doxysubsection{Detailed Description}
-Notifies the user of S\+B\+ML events. 
+Notifies the user of SBML events. 
 
 \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} has the capatiblity to notify user objects of any sbml event.
 
@@ -38,7 +38,7 @@ To remove it, just pass in a 0.
 
 Event\+Handers are free to change any model parameters.
 
-They may return a result value specified by the Result enum. Currently, we we only have the H\+A\+L\+T\+\_\+\+S\+I\+M\+U\+L\+A\+T\+I\+ON which will result in \mbox{\hyperlink{classrr_1_1RoadRunner_a27aedd28b2a2d5453200ca4a4a2bf4c0}{Road\+Runner\+::one\+Step}} or \mbox{\hyperlink{classrr_1_1RoadRunner_a377834f22edadb7706779ecca7c1eb4e}{Road\+Runner\+::simulate}} to stop at the current time and return. This may be usefull if someone wants to run a simulation up until some threshold or state is reached. 
+They may return a result value specified by the Result enum. Currently, we we only have the HALT\+\_\+\+SIMULATION which will result in \mbox{\hyperlink{classrr_1_1RoadRunner_a27aedd28b2a2d5453200ca4a4a2bf4c0}{Road\+Runner\+::one\+Step}} or \mbox{\hyperlink{classrr_1_1RoadRunner_a377834f22edadb7706779ecca7c1eb4e}{Road\+Runner\+::simulate}} to stop at the current time and return. This may be usefull if someone wants to run a simulation up until some threshold or state is reached. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -59,13 +59,7 @@ static Function* createGlobalMappingFunction(const char* funcName,
 
 static int64_t defaultSeed()
 {
-    int64_t seed = Config::getValue(Config::RANDOM_SEED).get<int>();
-    if (seed < 0)
-    {
-        // system time in mirsoseconds since 1970
-        seed = getMicroSeconds();
-    }
-    return seed;
+    return Config::getValue(Config::RANDOM_SEED).getAs<int64_t>();
 }
 
 Random::Random(ModelGeneratorContext& ctx)
@@ -585,6 +579,9 @@ void Random::setMaxTries(int maxTries)
 
 void Random::setRandomSeed(int64_t val)
 {
+    // system time in microseconds since 1970
+    if (val == -1)
+        val = getMicroSeconds();
 #ifdef RR_32BIT
     unsigned long maxl = std::numeric_limits<unsigned long>::max() - 2;
     unsigned long seed = val % maxl;

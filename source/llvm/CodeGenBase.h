@@ -78,7 +78,6 @@ protected:
             builder(*mgc.getJitNonOwning()->getBuilderNonOwning()),
             options(mgc.getOptions()),
             function(0)
-//            functionPassManager(mgc.getJitNonOwning().getFunctionPassManager())
     {
 
     };

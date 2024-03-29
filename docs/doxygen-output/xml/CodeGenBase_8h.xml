@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="CodeGenBase_8h" kind="file" language="C++">
     <compoundname>CodeGenBase.h</compoundname>
     <includes refid="ModelGeneratorContext_8h" local="yes">ModelGeneratorContext.h</includes>
@@ -8,22 +8,23 @@
     <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
     <includes local="no">Poco/Logger.h</includes>
     <includes local="yes">llvm/IR/Mangler.h</includes>
-    <includedby refid="EvalInitialConditionsCodeGen_8h" local="yes">llvm/EvalInitialConditionsCodeGen.h</includedby>
-    <includedby refid="EvalReactionRatesCodeGen_8h" local="yes">llvm/EvalReactionRatesCodeGen.h</includedby>
-    <includedby refid="EvalRateRuleRatesCodeGen_8h" local="yes">llvm/EvalRateRuleRatesCodeGen.h</includedby>
-    <includedby refid="GetValuesCodeGen_8h" local="yes">llvm/GetValuesCodeGen.h</includedby>
-    <includedby refid="GetValueCodeGenBase_8h" local="yes">llvm/GetValueCodeGenBase.h</includedby>
-    <includedby refid="GetInitialValuesCodeGen_8h" local="yes">llvm/GetInitialValuesCodeGen.h</includedby>
-    <includedby refid="GetInitialValueCodeGenBase_8h" local="yes">llvm/GetInitialValueCodeGenBase.h</includedby>
-    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
-    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
-    <includedby refid="EvalVolatileStoichCodeGen_8h" local="yes">llvm/EvalVolatileStoichCodeGen.h</includedby>
-    <includedby refid="EvalConversionFactorCodeGen_8h" local="yes">llvm/EvalConversionFactorCodeGen.h</includedby>
-    <includedby refid="SetValuesCodeGen_8h" local="yes">llvm/SetValuesCodeGen.h</includedby>
-    <includedby refid="SetValueCodeGenBase_8h" local="yes">llvm/SetValueCodeGenBase.h</includedby>
-    <includedby refid="SetInitialValuesCodeGen_8h" local="yes">llvm/SetInitialValuesCodeGen.h</includedby>
-    <includedby refid="SetInitialValueCodeGenBase_8h" local="yes">llvm/SetInitialValueCodeGenBase.h</includedby>
     <includedby refid="CodeGenBase_8cpp" local="yes">llvm/CodeGenBase.cpp</includedby>
+    <includedby refid="EvalConversionFactorCodeGen_8h" local="yes">llvm/EvalConversionFactorCodeGen.h</includedby>
+    <includedby refid="EvalInitialConditionsCodeGen_8h" local="yes">llvm/EvalInitialConditionsCodeGen.h</includedby>
+    <includedby refid="EvalRateRuleRatesCodeGen_8h" local="yes">llvm/EvalRateRuleRatesCodeGen.h</includedby>
+    <includedby refid="EvalReactionRatesCodeGen_8h" local="yes">llvm/EvalReactionRatesCodeGen.h</includedby>
+    <includedby refid="EvalVolatileStoichCodeGen_8h" local="yes">llvm/EvalVolatileStoichCodeGen.h</includedby>
+    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
+    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
+    <includedby refid="GetInitialValueCodeGenBase_8h" local="yes">llvm/GetInitialValueCodeGenBase.h</includedby>
+    <includedby refid="GetInitialValuesCodeGen_8h" local="yes">llvm/GetInitialValuesCodeGen.h</includedby>
+    <includedby refid="GetPiecewiseTriggerCodeGen_8h" local="yes">llvm/GetPiecewiseTriggerCodeGen.h</includedby>
+    <includedby refid="GetValueCodeGenBase_8h" local="yes">llvm/GetValueCodeGenBase.h</includedby>
+    <includedby refid="GetValuesCodeGen_8h" local="yes">llvm/GetValuesCodeGen.h</includedby>
+    <includedby refid="SetInitialValueCodeGenBase_8h" local="yes">llvm/SetInitialValueCodeGenBase.h</includedby>
+    <includedby refid="SetInitialValuesCodeGen_8h" local="yes">llvm/SetInitialValuesCodeGen.h</includedby>
+    <includedby refid="SetValueCodeGenBase_8h" local="yes">llvm/SetValueCodeGenBase.h</includedby>
+    <includedby refid="SetValuesCodeGen_8h" local="yes">llvm/SetValuesCodeGen.h</includedby>
     <incdepgraph>
       <node id="28">
         <label>list</label>
@@ -395,7 +396,7 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
+      <node id="15">
         <label>llvm/EvalInitialConditionsCodeGen.h</label>
         <link refid="EvalInitialConditionsCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -405,7 +406,7 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="14">
+      <node id="13">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -425,22 +426,22 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="31">
         <label>llvm/SetValuesCodeGen.h</label>
         <link refid="SetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="28">
         <label>llvm/SetInitialValueCodeGenBase.h</label>
         <link refid="SetInitialValueCodeGenBase_8h_source"/>
         <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="23">
         <label>llvm/GetInitialValueCodeGenBase.h</label>
         <link refid="GetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -451,13 +452,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="27">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="18">
         <label>llvm/EvalVolatileStoichCodeGen.h</label>
         <link refid="EvalVolatileStoichCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -467,7 +468,7 @@
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
-      <node id="15">
+      <node id="17">
         <label>llvm/EvalReactionRatesCodeGen.h</label>
         <link refid="EvalReactionRatesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -477,7 +478,13 @@
         <label>Integrator.cpp</label>
         <link refid="Integrator_8cpp"/>
       </node>
-      <node id="19">
+      <node id="25">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
         <label>llvm/GetInitialValuesCodeGen.h</label>
         <link refid="GetInitialValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -498,11 +505,11 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
         <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
@@ -515,6 +522,8 @@
         <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
       <node id="12">
@@ -529,7 +538,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="2">
         <label>llvm/EvalConversionFactorCodeGen.h</label>
         <link refid="EvalConversionFactorCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -559,10 +568,10 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>llvm/SetValueCodeGenBase.h</label>
         <link refid="SetValueCodeGenBase_8h_source"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
       <node id="16">
@@ -571,39 +580,39 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="20">
         <label>llvm/EventAssignCodeGen.h</label>
         <link refid="EventAssignCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="19">
         <label>llvm/EventCodeGenBase.h</label>
         <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="23" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>llvm/GetEventValuesCodeGen.h</label>
         <link refid="GetEventValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="26">
         <label>llvm/GetValueCodeGenBase.h</label>
         <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="17" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="21">
         <label>llvm/EventTriggerCodeGen.h</label>
         <link refid="EventTriggerCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -660,7 +669,7 @@
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::pair&lt;std::string,<sp/>int&gt;<sp/>StringIntPair;</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;StringIntPair&gt;<sp/>StringIntVector;</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>FunctionPtrType&gt;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>FunctionPtrType&gt;</highlight></codeline>
 <codeline lineno="53" refid="classrrllvm_1_1CodeGenBase" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1CodeGenBase" kindref="compound">CodeGenBase</ref></highlight></codeline>
 <codeline lineno="54"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
@@ -689,103 +698,102 @@
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builder(*mgc.getJitNonOwning()-&gt;<ref refid="classrrllvm_1_1Jit_1afb8cf53b3bde8eaa539b14cc685cb200" kindref="member">getBuilderNonOwning</ref>()),</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" kindref="member">options</ref>(mgc.getOptions()),</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(0)</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>functionPassManager(mgc.getJitNonOwning().getFunctionPassManager())</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;modelGenContext;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91" refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" kindref="member">model</ref>;</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;dataSymbols;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::LLVMContext<sp/>&amp;context;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Module<sp/>*module;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Function<sp/>*</highlight><highlight class="keyword">function</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104" refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::legacy::FunctionPassManager*<sp/><ref refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" kindref="member">functionPassManager</ref>;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109" refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" kindref="member">options</ref>;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value<sp/>*codeGen()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N&gt;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*codeGenHeader(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>functionName,</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type<sp/>*retType,</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type*<sp/>(&amp;argTypes)[N],</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>(&amp;argNames)[N],</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>(&amp;args)[N])</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>the<sp/>set<sp/>init<sp/>value<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::FunctionType<sp/>*funcType<sp/>=<sp/>llvm::FunctionType::get(retType,<sp/>argTypes,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>=<sp/>llvm::Function::Create(funcType,</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Function::ExternalLinkage,</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>functionName,<sp/>module);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>new<sp/>basic<sp/>block<sp/>to<sp/>start<sp/>insertion<sp/>into.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*basicBlock<sp/>=<sp/>llvm::BasicBlock::Create(context,</highlight><highlight class="stringliteral">&quot;entry&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builder.SetInsertPoint(basicBlock);</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>assert(function-&gt;arg_size()<sp/>==<sp/>N);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(llvm::Function::arg_iterator<sp/>ai<sp/>=<sp/>function-&gt;arg_begin();</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ai<sp/>!=<sp/>function-&gt;arg_end();<sp/>++ai,<sp/>++i)</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value<sp/>*arg<sp/>=<sp/>ai;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arg-&gt;setName(argNames[i]);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>args[i]<sp/>=<sp/>arg;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>basicBlock;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149" refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" kindref="member">codeGenVoidModelDataHeader</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>functionName,llvm::Value*<sp/>&amp;modelData)</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type<sp/>*argTypes[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::PointerType::get(</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelDataIRBuilder_1a0ef021e16b99691a0cde663060898c4c" kindref="member">ModelDataIRBuilder::getStructType</ref>(module),<sp/>0)</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argNames[]<sp/>=<sp/>{<sp/></highlight><highlight class="stringliteral">&quot;modelData&quot;</highlight><highlight class="normal"><sp/>};</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value<sp/>*args[]<sp/>=<sp/>{<sp/>0<sp/>};</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*basicBlock<sp/>=<sp/>codeGenHeader(functionName,</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type::getVoidTy(context),</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>argTypes,<sp/>argNames,<sp/>args);</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelData<sp/>=<sp/>args[0];</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>basicBlock;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168" refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Function<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" kindref="member">verifyFunction</ref>()</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLogInfo<sp/>&lt;&lt;<sp/>std::string(</highlight><highlight class="stringliteral">&quot;function:<sp/>&quot;</highlight><highlight class="normal">)<sp/>+<sp/>to_string(</highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(llvm::verifyFunction(*</highlight><highlight class="keyword">function</highlight><highlight class="normal">))</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>err<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Corrupt<sp/>Generated<sp/>Function,<sp/>&quot;</highlight><highlight class="normal"><sp/><sp/>+<sp/>to_string(</highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLogErr<sp/>&lt;&lt;<sp/>err;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>LLVMException(err);</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref><sp/>&amp;modelGenContext;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::Model<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" kindref="member">model</ref>;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref><sp/>&amp;dataSymbols;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref><sp/>&amp;modelSymbols;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::LLVMContext<sp/>&amp;context;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Module<sp/>*module;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Function<sp/>*</highlight><highlight class="keyword">function</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::legacy::FunctionPassManager*<sp/><ref refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" kindref="member">functionPassManager</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1CodeGenBase_1a747be8f3c35284547ad6f31b36736471" kindref="member">options</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>llvm::Value<sp/>*codeGen()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>N&gt;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*codeGenHeader(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>functionName,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type<sp/>*retType,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type*<sp/>(&amp;argTypes)[N],</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>(&amp;argNames)[N],</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>(&amp;args)[N])</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>the<sp/>set<sp/>init<sp/>value<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::FunctionType<sp/>*funcType<sp/>=<sp/>llvm::FunctionType::get(retType,<sp/>argTypes,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>=<sp/>llvm::Function::Create(funcType,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Function::ExternalLinkage,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>functionName,<sp/>module);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>new<sp/>basic<sp/>block<sp/>to<sp/>start<sp/>insertion<sp/>into.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*basicBlock<sp/>=<sp/>llvm::BasicBlock::Create(context,</highlight><highlight class="stringliteral">&quot;entry&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builder.SetInsertPoint(basicBlock);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>assert(function-&gt;arg_size()<sp/>==<sp/>N);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(llvm::Function::arg_iterator<sp/>ai<sp/>=<sp/>function-&gt;arg_begin();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ai<sp/>!=<sp/>function-&gt;arg_end();<sp/>++ai,<sp/>++i)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value<sp/>*arg<sp/>=<sp/>ai;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arg-&gt;setName(argNames[i]);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>args[i]<sp/>=<sp/>arg;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>basicBlock;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1a3fcef26eb9a2eecf5f7cf332f2b41d8b" kindref="member">codeGenVoidModelDataHeader</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>functionName,llvm::Value*<sp/>&amp;modelData)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type<sp/>*argTypes[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::PointerType::get(</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ModelDataIRBuilder_1a0ef021e16b99691a0cde663060898c4c" kindref="member">ModelDataIRBuilder::getStructType</ref>(module),<sp/>0)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argNames[]<sp/>=<sp/>{<sp/></highlight><highlight class="stringliteral">&quot;modelData&quot;</highlight><highlight class="normal"><sp/>};</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value<sp/>*args[]<sp/>=<sp/>{<sp/>0<sp/>};</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::BasicBlock<sp/>*basicBlock<sp/>=<sp/>codeGenHeader(functionName,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Type::getVoidTy(context),</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>argTypes,<sp/>argNames,<sp/>args);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelData<sp/>=<sp/>args[0];</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>basicBlock;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Function<sp/>*<ref refid="classrrllvm_1_1CodeGenBase_1ae2c5677c9b195984feb6c3a06aa801bd" kindref="member">verifyFunction</ref>()</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLogInfo<sp/>&lt;&lt;<sp/>std::string(</highlight><highlight class="stringliteral">&quot;function:<sp/>&quot;</highlight><highlight class="normal">)<sp/>+<sp/>to_string(</highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(llvm::verifyFunction(*</highlight><highlight class="keyword">function</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>err<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Corrupt<sp/>Generated<sp/>Function,<sp/>&quot;</highlight><highlight class="normal"><sp/><sp/>+<sp/>to_string(</highlight><highlight class="keyword">function</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLogErr<sp/>&lt;&lt;<sp/>err;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>LLVMException(err);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
 <codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classrrllvm_1_1CodeGenBase" kindref="compound">CodeGenBase</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classrrllvm_1_1CodeGenBase" kindref="compound">CodeGenBase</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
 <codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LLVMCodeGenBaseH<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LLVMCodeGenBaseH<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/CodeGenBase.h"/>
   </compounddef>

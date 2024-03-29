@@ -11,8 +11,9 @@ throws an error if an address for function called
 // and assuming the function was jitt\textquotesingle{}ed and added to the module under the // symbol \char`\"{}fib\char`\"{} 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{using} fibonacciFnPtr = int (*)(int);}
-\DoxyCodeLine{fibonacciFnPtr fib = (fibonacciFnPtr)lookupFunctionAddress(\textcolor{stringliteral}{"fib"});}
+\DoxyCodeLine{fibonacciFnPtr fib = (fibonacciFnPtr)lookupFunctionAddress(\textcolor{stringliteral}{"{}fib"{}});}
 \DoxyCodeLine{\textcolor{keywordtype}{int} fibOf4 = fib(4); \textcolor{comment}{// 3}}
+
 \end{DoxyCode}
 
 
@@ -28,8 +29,8 @@ throws an error if an address for function called
 \DoxyCodeLine{\textcolor{preprocessor}{\#define NOMINMAX}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <rrSparse.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "LLVMException.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "rrSparse.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}LLVMException.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}rrSparse.h"{}}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <unordered\_map>}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#ifdef \_MSC\_VER}}
@@ -40,11 +41,11 @@ throws an error if an address for function called
 \DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include <llvm/Analysis/TargetLibraryInfo.h>}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/IR/IRBuilder.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/ExecutionEngine/ObjectCache.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/Target/TargetMachine.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/Object/ObjectFile.h"}}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include "llvm/IR/Mangler.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}llvm/IR/IRBuilder.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}llvm/ExecutionEngine/ObjectCache.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}llvm/Target/TargetMachine.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}llvm/Object/ObjectFile.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}llvm/IR/Mangler.h"{}}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#ifdef \_MSC\_VER}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#pragma warning(default: 4146)}}
@@ -118,8 +119,8 @@ throws an error if an address for function called
 \DoxyCodeLine{    \textcolor{keyword}{using} rr\_minFnTy = FnPtr\_d2;}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// for a sparse matrix used in llvm world}}
-\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_set\_nz\_FnTy = rr::csr\_matrix *(*)(int, int, double);}
-\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_get\_nz\_FnTy = rr::csr\_matrix *(*)(int, int);}
+\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_set\_nz\_FnTy = rr::csr\_matrix *(*)(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{double});}
+\DoxyCodeLine{    \textcolor{keyword}{using} csr\_matrix\_get\_nz\_FnTy = rr::csr\_matrix *(*)(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{int});}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// function signatures for distrib}}
 \DoxyCodeLine{    \textcolor{keyword}{using} DistribFnTy\_d1 = double (*)(Random *, double);}
@@ -239,6 +240,7 @@ throws an error if an address for function called
 \DoxyCodeLine{    \};}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#endif //ROADRUNNER\_JIT\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif }\textcolor{comment}{//ROADRUNNER\_JIT\_H}}
+
 \end{DoxyCodeInclude}
  

@@ -2,7 +2,7 @@
 \label{classrrllvm_1_1ModelGeneratorContext}\index{rrllvm::ModelGeneratorContext@{rrllvm::ModelGeneratorContext}}
 
 
-All L\+L\+VM code generating objects basically need at a minimum three things to operate\+:  
+All LLVM code generating objects basically need at a minimum three things to operate\+:  
 
 
 
@@ -13,27 +13,33 @@ All L\+L\+VM code generating objects basically need at a minimum three things to
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_ac2301d4bd4fbecfd65912e4f90cb74df}\label{classrrllvm_1_1ModelGeneratorContext_ac2301d4bd4fbecfd65912e4f90cb74df}} 
-\mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext_ac2301d4bd4fbecfd65912e4f90cb74df}{Model\+Generator\+Context}} (const libsbml\+::\+S\+B\+M\+L\+Document $\ast$\+\_\+doc, unsigned options, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ jit\+Engine)
-\begin{DoxyCompactList}\small\item\em attach to an existing sbml document, we borrow a reference to this doc and DO N\+OT take ownership of it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext_ac2301d4bd4fbecfd65912e4f90cb74df}{Model\+Generator\+Context}} (const libsbml\+::\+SBMLDocument $\ast$\+\_\+doc, unsigned options, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $>$ jit\+Engine)
+\begin{DoxyCompactList}\small\item\em attach to an existing sbml document, we borrow a reference to this doc and DO NOT take ownership of it. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext_a619188b61652e3b93638b53fc5d015d7}{Model\+Generator\+Context}} ()
 \begin{DoxyCompactList}\small\item\em does not attach to any sbml doc, \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_ade1c196f4f3eab85227a4d95f74cbd3e}\label{classrrllvm_1_1ModelGeneratorContext_ade1c196f4f3eab85227a4d95f74cbd3e}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} \& {\bfseries get\+Model\+Data\+Symbols} () const
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{LLVMModel\+Data\+Symbols}} \& {\bfseries get\+Model\+Data\+Symbols} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_a9b693f85b018fd86bc45e482357ad6ff}\label{classrrllvm_1_1ModelGeneratorContext_a9b693f85b018fd86bc45e482357ad6ff}} 
-const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{L\+L\+V\+M\+Model\+Symbols}} \& {\bfseries get\+Model\+Symbols} () const
+const \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols}{LLVMModel\+Symbols}} \& {\bfseries get\+Model\+Symbols} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_adf1aa9873d0ea45bcc1483269c304266}\label{classrrllvm_1_1ModelGeneratorContext_adf1aa9873d0ea45bcc1483269c304266}} 
-const libsbml\+::\+S\+B\+M\+L\+Document $\ast$ {\bfseries get\+Document} () const
+const libsbml\+::\+SBMLDocument $\ast$ {\bfseries get\+Document} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_a385227b7e5141abc5e3f4f37941f37df}\label{classrrllvm_1_1ModelGeneratorContext_a385227b7e5141abc5e3f4f37941f37df}} 
 const libsbml\+::\+Model $\ast$ {\bfseries get\+Model} () const
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_a8249f4ad462564b4b60849a92d8ef4f8}\label{classrrllvm_1_1ModelGeneratorContext_a8249f4ad462564b4b60849a92d8ef4f8}} 
+const std\+::vector$<$ libsbml\+::\+ASTNode $\ast$ $>$ $\ast$ {\bfseries get\+Piecewise\+Triggers} () const
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_a9b6f151f3d7a727bcbfeba608889cfe3}\label{classrrllvm_1_1ModelGeneratorContext_a9b6f151f3d7a727bcbfeba608889cfe3}} 
+size\+\_\+t {\bfseries get\+Num\+Piecewise\+Triggers} () const
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_ac6715881f01e813cb1346ca66dc55a51}\label{classrrllvm_1_1ModelGeneratorContext_ac6715881f01e813cb1346ca66dc55a51}} 
 \mbox{\hyperlink{classrrllvm_1_1Jit}{Jit}} $\ast$ {\bfseries get\+Jit\+Non\+Owning} () const
 \item 
 void \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext_af63938c6a114a8c859110da2d3649189}{transfer\+Objects\+To\+Resources}} (std\+::shared\+\_\+ptr$<$ rrllvm\+::\+Model\+Resources $>$ model\+Resources)
-\begin{DoxyCompactList}\small\item\em nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of reference, even though we gaurantee this to be non-\/null \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A lot can go wrong in the process of generating a model from an sbml doc. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_ab2e5c1ec8f1a4232f2f2858dcfa3f1d9}\label{classrrllvm_1_1ModelGeneratorContext_ab2e5c1ec8f1a4232f2f2858dcfa3f1d9}} 
 bool {\bfseries get\+Conserved\+Moiety\+Analysis} () const
 \item 
@@ -48,21 +54,21 @@ unsigned {\bfseries get\+Options} () const
 
 
 \doxysubsection{Detailed Description}
-All L\+L\+VM code generating objects basically need at a minimum three things to operate\+: 
+All LLVM code generating objects basically need at a minimum three things to operate\+: 
 
 1\+: sbml Model -\/ what to process 2\+: llvm Context -\/ all llvm functions need this, manages llvm memory 3\+: llvm Module -\/ where the generated code will go
 
 Code generators also need to know the symbols that are in the sbml doc. These {\itshape could} be re-\/determined in each code gen, but wastefull. The symbols can be thought of as the first pass of the compiler, so all symbols are determined ahead of time before any code generation.
 
-They also make use of an llvm I\+R\+Builder, one of these {\itshape could} be allocated in each code gen object, but that would be wasteful, so we use a single one per sbml compilation, and each code gen just resets the builder insert point, that is what is was designed to do.
+They also make use of an llvm IRBuilder, one of these {\itshape could} be allocated in each code gen object, but that would be wasteful, so we use a single one per sbml compilation, and each code gen just resets the builder insert point, that is what is was designed to do.
 
-So, that leaves us with 5 object that are needed by code generators. Should all code gens have all 5 args passed to thier ctors? There is much talk about how context objects are evil, however this one is N\+OT inteneded to grow, only store the absolute minimun information that all code generators need.
+So, that leaves us with 5 object that are needed by code generators. Should all code gens have all 5 args passed to thier ctors? There is much talk about how context objects are evil, however this one is NOT inteneded to grow, only store the absolute minimun information that all code generators need.
 
 This class basically functions as a set of ivars if all code generators were methods on a single code gen class.
 
-T\+O\+DO doc wise discuss the problems with context objects, and why this one address all the concerns.
+TODO doc wise discuss the problems with context objects, and why this one address all the concerns.
 
-T\+O\+DO document memory managment, engine owns model, ... 
+TODO document memory managment, engine owns model, ... 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_a619188b61652e3b93638b53fc5d015d7}\label{classrrllvm_1_1ModelGeneratorContext_a619188b61652e3b93638b53fc5d015d7}} 
@@ -75,7 +81,7 @@ T\+O\+DO document memory managment, engine owns model, ...
 
 does not attach to any sbml doc, 
 
-useful for testing out L\+L\+VM functionality. 
+useful for testing out LLVM functionality. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1ModelGeneratorContext_aae03d74871964f0ee688a5531d713c1b}\label{classrrllvm_1_1ModelGeneratorContext_aae03d74871964f0ee688a5531d713c1b}} 
@@ -96,13 +102,10 @@ The random object exists if the document has the distrib package, is null otherw
 
 
 
-nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of reference, even though we gaurantee this to be non-\/null 
+A lot can go wrong in the process of generating a model from an sbml doc. 
 
-if optimization is enabled, this gets the function pass manager loaded with all the requested optimizers. N\+U\+LL if no optimization is specified.
+This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.
 
-\begin{DoxyReturn}{Returns}
-a borrowed reference that is owned by \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} A lot can go wrong in the process of generating a model from an sbml doc. This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.
-\end{DoxyReturn}
 However, when a model is successfully generated, we need a way to give it the exec engine, and whatever other bits it requires.
 
 So, this method exists so that the generated model can steal all the objects it needs from us, these object are transfered to the model, and our pointers to them are cleared. 

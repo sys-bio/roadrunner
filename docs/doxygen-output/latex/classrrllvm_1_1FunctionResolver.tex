@@ -22,12 +22,15 @@ Inheritance diagram for rrllvm\+::Function\+Resolver\+:\begin{figure}[H]
 {\bfseries Function\+Resolver} (\mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{Load\+Symbol\+Resolver}} \&parent\+Resolver, llvm\+::\+Value $\ast$model\+Data, const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&ctx)
 \item 
 virtual llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1FunctionResolver_a3cb392b698b4a6bcfca2bb56312d3809}{load\+Symbol\+Value}} (const std\+::string \&symbol, const llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$ \&args=llvm\+::\+Array\+Ref$<$ llvm\+::\+Value $\ast$ $>$())
-\begin{DoxyCompactList}\small\item\em generate an L\+L\+VM load instruction. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em generate an LLVM load instruction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1FunctionResolver_aac4263c431a3bd9df828802906896833}\label{classrrllvm_1_1FunctionResolver_aac4263c431a3bd9df828802906896833}} 
 virtual void {\bfseries recursive\+Symbol\+Push} (const std\+::string \&symbol)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1FunctionResolver_a6503ab9a9628fb08b38ac6b1401c17bd}\label{classrrllvm_1_1FunctionResolver_a6503ab9a9628fb08b38ac6b1401c17bd}} 
 virtual void {\bfseries recursive\+Symbol\+Pop} ()
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1FunctionResolver_a9a8708898f79e38df3ed6a6a3696a998}\label{classrrllvm_1_1FunctionResolver_a9a8708898f79e38df3ed6a6a3696a998}} 
+virtual bool {\bfseries is\+Local\+Parameter} (const std\+::string \&symbol)
 \end{DoxyCompactItemize}
 
 
@@ -43,7 +46,7 @@ Not thread safe -- but perfectly fine if stack allocated.
 
 
 
-generate an L\+L\+VM load instruction. 
+generate an LLVM load instruction. 
 
 
 \begin{DoxyParams}{Parameters}

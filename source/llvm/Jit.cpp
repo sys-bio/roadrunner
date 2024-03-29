@@ -128,6 +128,8 @@ namespace rrllvm {
                 "eventTrigger"));
         modelResources->eventAssignPtr = reinterpret_cast<EventAssignCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "eventAssign"));
+        modelResources->getPiecewiseTriggerPtr = reinterpret_cast<GetPiecewiseTriggerCodeGen::FunctionPtr>(lookupFunctionAddress(
+                "getPiecewiseTrigger"));
         modelResources->evalVolatileStoichPtr = reinterpret_cast<EvalVolatileStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalVolatileStoich"));
         modelResources->evalConversionFactorPtr = reinterpret_cast<EvalConversionFactorCodeGen::FunctionPtr>(lookupFunctionAddress(

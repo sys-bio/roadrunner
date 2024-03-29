@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrStringList_8h" kind="file" language="C++">
     <compoundname>rrStringList.h</compoundname>
     <includes local="no">vector</includes>
@@ -7,8 +7,8 @@
     <includes refid="rrConstants_8h" local="yes">rrConstants.h</includes>
     <includes local="yes">../wrappers/C/rrc_types.h</includes>
     <includedby refid="rrCCompiler_8h" local="yes">c/rrCCompiler.h</includedby>
-    <includedby refid="rrStringListContainer_8h" local="yes">c/rrStringListContainer.h</includedby>
     <includedby refid="rrStringList_8cpp" local="yes">c/rrStringList.cpp</includedby>
+    <includedby refid="rrStringListContainer_8h" local="yes">c/rrStringListContainer.h</includedby>
     <incdepgraph>
       <node id="5">
         <label>limits</label>
@@ -80,11 +80,11 @@
       <node id="6">
         <label>c/rrNOMSupport.h</label>
         <link refid="rrNOMSupport_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -128,7 +128,7 @@
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::string;</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::ostream;</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18" refid="classrr_1_1StringList" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1StringList" kindref="compound">StringList</ref></highlight></codeline>
+<codeline lineno="18" refid="classrr_1_1StringList" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1StringList" kindref="compound">StringList</ref></highlight></codeline>
 <codeline lineno="19"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mStrings;</highlight></codeline>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrExecutableModel_8h" kind="file" language="C++">
     <compoundname>rrExecutableModel.h</compoundname>
     <includes refid="rrOSSpecifics_8h" local="yes">rrOSSpecifics.h</includes>
@@ -12,30 +12,30 @@
     <includes local="no">ostream</includes>
     <includes local="yes">tr1proxy/rr_memory.h</includes>
     <includedby refid="ApproxSteadyStateDecorator_8cpp" local="yes">ApproxSteadyStateDecorator.cpp</includedby>
-    <includedby refid="KinsolSteadyStateSolver_8h" local="yes">KinsolSteadyStateSolver.h</includedby>
     <includedby refid="CVODEIntegrator_8cpp" local="yes">CVODEIntegrator.cpp</includedby>
     <includedby refid="EulerIntegrator_8h" local="yes">EulerIntegrator.h</includedby>
     <includedby refid="ExecutableModelFactory_8h" local="yes">ExecutableModelFactory.h</includedby>
     <includedby refid="GillespieIntegrator_8h" local="yes">GillespieIntegrator.h</includedby>
     <includedby refid="Integrator_8cpp" local="yes">Integrator.cpp</includedby>
+    <includedby refid="KinsolSteadyStateSolver_8h" local="yes">KinsolSteadyStateSolver.h</includedby>
     <includedby refid="NewtonIteration_8cpp" local="yes">NewtonIteration.cpp</includedby>
     <includedby refid="NLEQ1Solver_8h" local="yes">NLEQ1Solver.h</includedby>
-    <includedby refid="rrNLEQ1Interface_8h" local="yes">rrNLEQ1Interface.h</includedby>
     <includedby refid="NLEQ2Solver_8h" local="yes">NLEQ2Solver.h</includedby>
-    <includedby refid="rrNLEQ2Interface_8h" local="yes">rrNLEQ2Interface.h</includedby>
     <includedby refid="PresimulationDecorator_8cpp" local="yes">PresimulationDecorator.cpp</includedby>
     <includedby refid="PresimulationProgramDecorator_8cpp" local="yes">PresimulationProgramDecorator.cpp</includedby>
     <includedby refid="RK45Integrator_8cpp" local="no">RK45Integrator.cpp</includedby>
     <includedby refid="RK4Integrator_8cpp" local="no">RK4Integrator.cpp</includedby>
     <includedby refid="rrExecutableModel_8cpp" local="yes">rrExecutableModel.cpp</includedby>
     <includedby refid="rrNLEQ1Interface_8cpp" local="yes">rrNLEQ1Interface.cpp</includedby>
+    <includedby refid="rrNLEQ1Interface_8h" local="yes">rrNLEQ1Interface.h</includedby>
     <includedby refid="rrNLEQ2Interface_8cpp" local="yes">rrNLEQ2Interface.cpp</includedby>
+    <includedby refid="rrNLEQ2Interface_8h" local="yes">rrNLEQ2Interface.h</includedby>
     <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
-    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
-    <includedby refid="LLVMModelDataSymbols_8h" local="yes">llvm/LLVMModelDataSymbols.h</includedby>
     <includedby refid="rrSparse_8cpp" local="yes">rrSparse.cpp</includedby>
     <includedby refid="rrCompiledExecutableModel_8h" local="yes">c/rrCompiledExecutableModel.h</includedby>
+    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <includedby refid="LLVMModelData_8cpp" local="yes">llvm/LLVMModelData.cpp</includedby>
+    <includedby refid="LLVMModelDataSymbols_8h" local="yes">llvm/LLVMModelDataSymbols.h</includedby>
     <includedby refid="rrc__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</includedby>
     <includedby refid="rrc__nom__api_8cpp" local="yes">/home/vsts/work/1/s/wrappers/C/rrc_nom_api.cpp</includedby>
     <incdepgraph>
@@ -112,13 +112,13 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="26">
+      <node id="28">
         <label>llvm/EvalInitialConditionsCodeGen.h</label>
         <link refid="EvalInitialConditionsCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
@@ -126,57 +126,57 @@
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
-      <node id="17">
+      <node id="18">
         <label>ForwardSensitivitySolver.h</label>
         <link refid="ForwardSensitivitySolver_8h_source"/>
-        <childnode refid="18" relation="include">
-        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>CVODEIntegrator.h</label>
         <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="37">
         <label>llvm/SetValuesCodeGen.h</label>
         <link refid="SetValuesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="41">
         <label>llvm/SetInitialValueCodeGenBase.h</label>
         <link refid="SetInitialValueCodeGenBase_8h_source"/>
         <childnode refid="42" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="39">
         <label>llvm/GetInitialValueCodeGenBase.h</label>
         <link refid="GetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="32" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>NLEQSolver.h</label>
         <link refid="NLEQSolver_8h_source"/>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="3">
+      <node id="8">
         <label>NewtonIteration.h</label>
         <link refid="NewtonIteration_8h_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="53">
         <label>llvm/FunctionResolver.h</label>
         <link refid="FunctionResolver_8h_source"/>
       </node>
@@ -184,68 +184,18 @@
         <label>rrNLEQ2Interface.h</label>
         <link refid="rrNLEQ2Interface_8h_source"/>
       </node>
-      <node id="30">
+      <node id="35">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="46">
-        <label>llvm/ModelDataSymbolResolver.h</label>
-        <link refid="ModelDataSymbolResolver_8h_source"/>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>llvm/EvalVolatileStoichCodeGen.h</label>
-        <link refid="EvalVolatileStoichCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>FixedPointIteration.h</label>
-        <link refid="FixedPointIteration_8h_source"/>
-      </node>
-      <node id="5">
-        <label>SteadyStateSolver.cpp</label>
-        <link refid="SteadyStateSolver_8cpp"/>
-      </node>
-      <node id="28">
-        <label>llvm/EvalReactionRatesCodeGen.h</label>
-        <link refid="EvalReactionRatesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="32">
-        <label>llvm/GetInitialValuesCodeGen.h</label>
-        <link refid="GetInitialValuesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="27">
-        <label>llvm/CodeGenBase.h</label>
-        <link refid="CodeGenBase_8h_source"/>
-        <childnode refid="26" relation="include">
-        </childnode>
+        <label>llvm/ModelDataSymbolResolver.h</label>
+        <link refid="ModelDataSymbolResolver_8h_source"/>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
@@ -253,25 +203,85 @@
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+      </node>
+      <node id="48">
+        <label>llvm/EvalVolatileStoichCodeGen.h</label>
+        <link refid="EvalVolatileStoichCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>SteadyStateSolver.cpp</label>
+        <link refid="SteadyStateSolver_8cpp"/>
+      </node>
+      <node id="7">
+        <label>FixedPointIteration.h</label>
+        <link refid="FixedPointIteration_8h_source"/>
+      </node>
+      <node id="47">
+        <label>llvm/EvalReactionRatesCodeGen.h</label>
+        <link refid="EvalReactionRatesCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="33">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>llvm/GetInitialValuesCodeGen.h</label>
+        <link refid="GetInitialValuesCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>llvm/CodeGenBase.h</label>
+        <link refid="CodeGenBase_8h_source"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="5">
         <label>GillespieIntegrator.h</label>
         <link refid="GillespieIntegrator_8h_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -279,13 +289,13 @@
         <link refid="rrExecutableModel_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -297,283 +307,289 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="52" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="52">
-        <label>c/rrCompiledExecutableModel.h</label>
-        <link refid="rrCompiledExecutableModel_8h_source"/>
-      </node>
-      <node id="14">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>BasicNewtonIteration.h</label>
-        <link refid="BasicNewtonIteration_8h_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>LinesearchNewtonIteration.h</label>
-        <link refid="LinesearchNewtonIteration_8h_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
-        <label>SensitivitySolverFactory.h</label>
-        <link refid="SensitivitySolverFactory_8h_source"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="51">
-        <label>llvm/LLVMModelSymbols.h</label>
-        <link refid="LLVMModelSymbols_8h_source"/>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="45" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
-        </childnode>
-        <childnode refid="47" relation="include">
-        </childnode>
-      </node>
-      <node id="39">
-        <label>llvm/EvalConversionFactorCodeGen.h</label>
-        <link refid="EvalConversionFactorCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="44">
-        <label>llvm/LoadSymbolResolverBase.h</label>
-        <link refid="LoadSymbolResolverBase_8h_source"/>
-        <childnode refid="45" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
-        </childnode>
-        <childnode refid="47" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="16">
-        <label>llvm/LLVMExecutableModel.h</label>
-        <link refid="LLVMExecutableModel_8h"/>
+        <label>c/rrCompiledExecutableModel.h</label>
+        <link refid="rrCompiledExecutableModel_8h_source"/>
+      </node>
+      <node id="13">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>BasicNewtonIteration.h</label>
+        <link refid="BasicNewtonIteration_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>LinesearchNewtonIteration.h</label>
+        <link refid="LinesearchNewtonIteration_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>SensitivitySolverFactory.h</label>
+        <link refid="SensitivitySolverFactory_8h_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>llvm/LLVMModelSymbols.h</label>
+        <link refid="LLVMModelSymbols_8h_source"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>llvm/EvalConversionFactorCodeGen.h</label>
+        <link refid="EvalConversionFactorCodeGen_8h_source"/>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+      </node>
+      <node id="26">
+        <label>llvm/LoadSymbolResolverBase.h</label>
+        <link refid="LoadSymbolResolverBase_8h_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>llvm/LLVMExecutableModel.h</label>
+        <link refid="LLVMExecutableModel_8h"/>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
       </node>
-      <node id="50">
+      <node id="44">
         <label>llvm/ModelDataIRBuilder.h</label>
         <link refid="ModelDataIRBuilder_8h_source"/>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>llvm/ModelGeneratorContext.h</label>
-        <link refid="ModelGeneratorContext_8h_source"/>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>NLEQ1Solver.h</label>
-        <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="42">
-        <label>llvm/SetInitialValuesCodeGen.h</label>
-        <link refid="SetInitialValuesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>ExecutableModelFactory.h</label>
-        <link refid="ExecutableModelFactory_8h_source"/>
-      </node>
-      <node id="41">
-        <label>llvm/SetValueCodeGenBase.h</label>
-        <link refid="SetValueCodeGenBase_8h_source"/>
-        <childnode refid="40" relation="include">
-        </childnode>
-      </node>
-      <node id="47">
-        <label>llvm/ModelInitialValueSymbolResolver.h</label>
-        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-      </node>
-      <node id="29">
-        <label>llvm/EvalRateRuleRatesCodeGen.h</label>
-        <link refid="EvalRateRuleRatesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="48">
-        <label>llvm/ASTNodeCodeGen.h</label>
-        <link refid="ASTNodeCodeGen_8h_source"/>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-      </node>
-      <node id="36">
-        <label>llvm/EventAssignCodeGen.h</label>
-        <link refid="EventAssignCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-      </node>
-      <node id="35">
-        <label>llvm/EventCodeGenBase.h</label>
-        <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>rrNLEQ1Interface.h</label>
-        <link refid="rrNLEQ1Interface_8h_source"/>
-      </node>
-      <node id="24">
-        <label>llvm/LLVMModelDataSymbols.h</label>
-        <link refid="LLVMModelDataSymbols_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
         <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
-      </node>
-      <node id="34">
-        <label>llvm/GetEventValuesCodeGen.h</label>
-        <link refid="GetEventValuesCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
+        <label>llvm/ModelGeneratorContext.h</label>
+        <link refid="ModelGeneratorContext_8h_source"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>NLEQ1Solver.h</label>
+        <link refid="NLEQ1Solver_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>llvm/SetInitialValuesCodeGen.h</label>
+        <link refid="SetInitialValuesCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ExecutableModelFactory.h</label>
+        <link refid="ExecutableModelFactory_8h_source"/>
+      </node>
+      <node id="36">
+        <label>llvm/SetValueCodeGenBase.h</label>
+        <link refid="SetValueCodeGenBase_8h_source"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>llvm/ModelInitialValueSymbolResolver.h</label>
+        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>llvm/EvalRateRuleRatesCodeGen.h</label>
+        <link refid="EvalRateRuleRatesCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>llvm/ASTNodeCodeGen.h</label>
+        <link refid="ASTNodeCodeGen_8h_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>llvm/EventAssignCodeGen.h</label>
+        <link refid="EventAssignCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>llvm/EventCodeGenBase.h</label>
+        <link refid="EventCodeGenBase_8h_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>rrNLEQ1Interface.h</label>
+        <link refid="rrNLEQ1Interface_8h_source"/>
+      </node>
+      <node id="25">
+        <label>llvm/LLVMModelDataSymbols.h</label>
+        <link refid="LLVMModelDataSymbols_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>llvm/GetEventValuesCodeGen.h</label>
+        <link refid="GetEventValuesCodeGen_8h_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
         <label>llvm/SBMLInitialValueSymbolResolver.h</label>
         <link refid="SBMLInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>llvm/GetValueCodeGenBase.h</label>
+        <link refid="GetValueCodeGenBase_8h_source"/>
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="31">
-        <label>llvm/GetValueCodeGenBase.h</label>
-        <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="30" relation="include">
-        </childnode>
-      </node>
-      <node id="37">
         <label>llvm/EventTriggerCodeGen.h</label>
         <link refid="EventTriggerCodeGen_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="2">
         <label>EulerIntegrator.h</label>
         <link refid="EulerIntegrator_8h_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
-      <node id="2">
+      <node id="6">
         <label>KinsolSteadyStateSolver.h</label>
         <link refid="KinsolSteadyStateSolver_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -599,7 +615,7 @@
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==<sp/>FILEDOC<sp/>=================================================</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="preprocessor">#<sp/>ifndef<sp/>rrExecutableModelH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>ifndef<sp/>rrExecutableModelH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>rrExecutableModelH</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==<sp/>INCLUDES<sp/>================================================</highlight><highlight class="normal"></highlight></codeline>
@@ -674,31 +690,31 @@
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getExecutableModelDesc()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="group__NOM_1gadd064802065aece47c2e966f9fff5958" kindref="member">getModelName</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="133" refid="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044" kindref="member">getModelName</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setTime(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>_time)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getTime()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
 <codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__reset_1gabde768cf80e67fe8f2811a28843e41f4" kindref="member">reset</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="145" refid="classrr_1_1ExecutableModel_1a217c61819d9b029c5928ace53b805e89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a217c61819d9b029c5928ace53b805e89" kindref="member">reset</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"></highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>
 <codeline lineno="148"><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"></codeline>
-<codeline lineno="151"></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumDepFloatingSpecies()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="classrr_1_1ExecutableModel_1a2acd2a498cee58cfdc676d9010be5ec0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a2acd2a498cee58cfdc676d9010be5ec0" kindref="member">getNumDepFloatingSpecies</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumFloatingSpecies()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="162" refid="classrr_1_1ExecutableModel_1aa2999a84a5a0d691dc08f3f78b94636d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aa2999a84a5a0d691dc08f3f78b94636d" kindref="member">getNumFloatingSpecies</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"></highlight></codeline>
 <codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getFloatingSpeciesIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="165"><highlight class="normal"></highlight></codeline>
 <codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getFloatingSpeciesId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumIndFloatingSpecies()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="172" refid="classrr_1_1ExecutableModel_1ace75e9d47e3eeb59661e7c2e2b2ed6e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ace75e9d47e3eeb59661e7c2e2b2ed6e4" kindref="member">getNumIndFloatingSpecies</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__floating_1ga2ff2c4bb6d0ddd59ed3509e7c97c1d43" kindref="member">getFloatingSpeciesAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="182" refid="classrr_1_1ExecutableModel_1ac83c1f5b678079babd5eeb76c87a4e02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ac83c1f5b678079babd5eeb76c87a4e02" kindref="member">getFloatingSpeciesAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"></highlight></codeline>
 <codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
@@ -724,51 +740,51 @@
 <codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setFloatingSpeciesAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>strict)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="207"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getFloatingSpeciesAmountRates(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="216" refid="classrr_1_1ExecutableModel_1ae1e4374bedf764a353165d7f3acc31c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ae1e4374bedf764a353165d7f3acc31c0" kindref="member">getFloatingSpeciesAmountRates</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight></codeline>
 <codeline lineno="219"><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getFloatingSpeciesConcentrationRates(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="228" refid="classrr_1_1ExecutableModel_1aae51da13c4dbe4e0ae21f12f3a23cdb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aae51da13c4dbe4e0ae21f12f3a23cdb8" kindref="member">getFloatingSpeciesConcentrationRates</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="230"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__floating_1ga0659eab040dbdfde46b9fc73b46b65d6" kindref="member">getFloatingSpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="239" refid="classrr_1_1ExecutableModel_1afdb9b1204d85b4baf496e685e16c0479" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1afdb9b1204d85b4baf496e685e16c0479" kindref="member">getFloatingSpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__floating_1gab6bde54c81fa570ab09da91b65e92327" kindref="member">setFloatingSpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="250" refid="classrr_1_1ExecutableModel_1aecd3bdfe291bd3791fe7e4e75a71ac3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aecd3bdfe291bd3791fe7e4e75a71ac3f" kindref="member">setFloatingSpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="252"><highlight class="normal"></highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setFloatingSpeciesInitConcentrations(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="263" refid="classrr_1_1ExecutableModel_1a29d64b57e270120b9ee37d3464ffbb3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a29d64b57e270120b9ee37d3464ffbb3c" kindref="member">setFloatingSpeciesInitConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getFloatingSpeciesInitConcentrations(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="270" refid="classrr_1_1ExecutableModel_1a6545a8afda7e5a52d9fb0ae945990d80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a6545a8afda7e5a52d9fb0ae945990d80" kindref="member">getFloatingSpeciesInitConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"></highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setFloatingSpeciesInitAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="283" refid="classrr_1_1ExecutableModel_1ab18c3070d601ba587d24a16353fc8b60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ab18c3070d601ba587d24a16353fc8b60" kindref="member">setFloatingSpeciesInitAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="285"><highlight class="normal"></highlight></codeline>
-<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getFloatingSpeciesInitAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="290" refid="classrr_1_1ExecutableModel_1a21232f10be3c16a112ddd93170d9caa8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a21232f10be3c16a112ddd93170d9caa8" kindref="member">getFloatingSpeciesInitAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="292"><highlight class="normal"></highlight></codeline>
 <codeline lineno="293"><highlight class="normal"></highlight></codeline>
-<codeline lineno="294"></codeline>
-<codeline lineno="295"></codeline>
-<codeline lineno="299"></codeline>
-<codeline lineno="300"></codeline>
-<codeline lineno="301"></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumBoundarySpecies()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307" refid="classrr_1_1ExecutableModel_1a6ee272090a6b7a4a6808f091c1930495" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a6ee272090a6b7a4a6808f091c1930495" kindref="member">getNumBoundarySpecies</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getBoundarySpeciesIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="310"><highlight class="normal"></highlight></codeline>
 <codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getBoundarySpeciesId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__boundary_1ga33ee65078c2e09dfa9e68342064544c0" kindref="member">getBoundarySpeciesAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="321" refid="classrr_1_1ExecutableModel_1a892be60159e501929cbb1169533d5104" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a892be60159e501929cbb1169533d5104" kindref="member">getBoundarySpeciesAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"></highlight></codeline>
 <codeline lineno="324"><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__boundary_1gaa36e026ba8f7488c7a57e96c0471763b" kindref="member">getBoundarySpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="333" refid="classrr_1_1ExecutableModel_1a17dbc546d79fe987ff625e0c387f5cbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a17dbc546d79fe987ff625e0c387f5cbd" kindref="member">getBoundarySpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="335"><highlight class="normal"></highlight></codeline>
-<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__boundary_1gacc067866a08d07a196d681328b5b3e38" kindref="member">setBoundarySpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="344" refid="classrr_1_1ExecutableModel_1a1a4409ff1e5e41a13b1dcf2ab936ab23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a1a4409ff1e5e41a13b1dcf2ab936ab23" kindref="member">setBoundarySpeciesConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="346"><highlight class="normal"></highlight></codeline>
 <codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
@@ -794,32 +810,32 @@
 <codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setBoundarySpeciesAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>values,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>strict)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="369"><highlight class="normal"></highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setBoundarySpeciesInitConcentrations(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
+<codeline lineno="380" refid="classrr_1_1ExecutableModel_1a2e7799db0c63278059cef7de4ad18396" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a2e7799db0c63278059cef7de4ad18396" kindref="member">setBoundarySpeciesInitConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="382"><highlight class="normal"></highlight></codeline>
-<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getBoundarySpeciesInitConcentrations(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
+<codeline lineno="387" refid="classrr_1_1ExecutableModel_1af215f6272824b762b01e7348c073d610" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1af215f6272824b762b01e7348c073d610" kindref="member">getBoundarySpeciesInitConcentrations</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="389"><highlight class="normal"></highlight></codeline>
-<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setBoundarySpeciesInitAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
+<codeline lineno="400" refid="classrr_1_1ExecutableModel_1a7c2106b589bb41b2a01ab2dc5207024e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a7c2106b589bb41b2a01ab2dc5207024e" kindref="member">setBoundarySpeciesInitAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="402"><highlight class="normal"></highlight></codeline>
-<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getBoundarySpeciesInitAmounts(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
+<codeline lineno="407" refid="classrr_1_1ExecutableModel_1ab55839f110bc70f7c5ae2cbd8f9225f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ab55839f110bc70f7c5ae2cbd8f9225f7" kindref="member">getBoundarySpeciesInitAmounts</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="409"><highlight class="normal"></highlight></codeline>
 <codeline lineno="410"><highlight class="normal"></highlight></codeline>
 <codeline lineno="411"><highlight class="normal"></highlight></codeline>
-<codeline lineno="412"></codeline>
-<codeline lineno="413"></codeline>
-<codeline lineno="416"></codeline>
-<codeline lineno="417"></codeline>
-<codeline lineno="418"></codeline>
-<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumGlobalParameters()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423" refid="classrr_1_1ExecutableModel_1aabbf6f025ea3c064f0dcaa5e4afaa87e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aabbf6f025ea3c064f0dcaa5e4afaa87e" kindref="member">getNumGlobalParameters</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="424"><highlight class="normal"></highlight></codeline>
-<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getGlobalParameterIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="428" refid="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee" kindref="member">getGlobalParameterIndex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="429"><highlight class="normal"></highlight></codeline>
-<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getGlobalParameterId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="433" refid="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81" kindref="member">getGlobalParameterId</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="434"><highlight class="normal"></highlight></codeline>
-<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__parameters_1ga8786ef7925e23f93be3826e3bc1a7c73" kindref="member">getGlobalParameterValues</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="443" refid="classrr_1_1ExecutableModel_1af598ac63c984d7101b0d026dd217a822" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1af598ac63c984d7101b0d026dd217a822" kindref="member">getGlobalParameterValues</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="445"><highlight class="normal"></highlight></codeline>
 <codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
@@ -845,19 +861,19 @@
 <codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setGlobalParameterValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>strict)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="468"><highlight class="normal"></highlight></codeline>
-<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setGlobalParameterInitValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="474" refid="classrr_1_1ExecutableModel_1a71d62fc8b558dfb4da4de4dbd3845665" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a71d62fc8b558dfb4da4de4dbd3845665" kindref="member">setGlobalParameterInitValues</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="476"><highlight class="normal"></highlight></codeline>
-<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getGlobalParameterInitValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="481" refid="classrr_1_1ExecutableModel_1a8a1693fc65e2e34772ca5acecad1e90b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a8a1693fc65e2e34772ca5acecad1e90b" kindref="member">getGlobalParameterInitValues</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="483"><highlight class="normal"></highlight></codeline>
 <codeline lineno="484"><highlight class="normal"></highlight></codeline>
 <codeline lineno="485"><highlight class="normal"></highlight></codeline>
-<codeline lineno="486"></codeline>
-<codeline lineno="487"></codeline>
-<codeline lineno="490"></codeline>
-<codeline lineno="491"></codeline>
-<codeline lineno="493"></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
 <codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumCompartments()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="496"><highlight class="normal"></highlight></codeline>
 <codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getCompartmentIndexForFloatingSpecies(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
@@ -868,7 +884,7 @@
 <codeline lineno="502"><highlight class="normal"></highlight></codeline>
 <codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getCompartmentId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="504"><highlight class="normal"></highlight></codeline>
-<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getCompartmentVolumes(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="513" refid="classrr_1_1ExecutableModel_1a977a5a3a7ed0fcfa04fe74369a4526ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a977a5a3a7ed0fcfa04fe74369a4526ae" kindref="member">getCompartmentVolumes</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="515"><highlight class="normal"></highlight></codeline>
 <codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
@@ -894,178 +910,230 @@
 <codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setCompartmentVolumes(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
 <codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>strict)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="538"><highlight class="normal"></highlight></codeline>
-<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setCompartmentInitVolumes(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="549" refid="classrr_1_1ExecutableModel_1a83fa84b59feb32abe1f2a6b178b6f106" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a83fa84b59feb32abe1f2a6b178b6f106" kindref="member">setCompartmentInitVolumes</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="551"><highlight class="normal"></highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getCompartmentInitVolumes(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="556" refid="classrr_1_1ExecutableModel_1afbc91472ec905f668e0cc5714fdc30db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1afbc91472ec905f668e0cc5714fdc30db" kindref="member">getCompartmentInitVolumes</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
 <codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="558"><highlight class="normal"></highlight></codeline>
 <codeline lineno="559"><highlight class="normal"></highlight></codeline>
 <codeline lineno="560"><highlight class="normal"></highlight></codeline>
-<codeline lineno="561"></codeline>
-<codeline lineno="562"></codeline>
-<codeline lineno="565"></codeline>
-<codeline lineno="566"></codeline>
-<codeline lineno="567"></codeline>
-<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getIds(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>types,<sp/>std::list&lt;std::string&gt;<sp/>&amp;ids)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577" refid="classrr_1_1ExecutableModel_1a172aeacd0685bcce8153ae67718fc697" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a172aeacd0685bcce8153ae67718fc697" kindref="member">getIds</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>types,<sp/>std::list&lt;std::string&gt;<sp/>&amp;ids)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="578"><highlight class="normal"></highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getSupportedIdTypes()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="582" refid="classrr_1_1ExecutableModel_1a200b81cd9a7f1f9a6b3af6a35fcc4c63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a200b81cd9a7f1f9a6b3af6a35fcc4c63" kindref="member">getSupportedIdTypes</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="583"><highlight class="normal"></highlight></codeline>
-<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="group__state_1ga6ff35b4282c583424f4d5708330012b9" kindref="member">getValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="588" refid="classrr_1_1ExecutableModel_1aebaced13ef2afd070d7a1c35eec8d9f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aebaced13ef2afd070d7a1c35eec8d9f2" kindref="member">getValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="589"><highlight class="normal"></highlight></codeline>
-<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__state_1gab8416894a99ef18924c1a719be4521f3" kindref="member">setValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="593" refid="classrr_1_1ExecutableModel_1ac98de72b8f4f43bc6b93b191852702b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ac98de72b8f4f43bc6b93b191852702b5" kindref="member">setValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="594"><highlight class="normal"></highlight></codeline>
 <codeline lineno="595"><highlight class="normal"></highlight></codeline>
 <codeline lineno="596"><highlight class="normal"></highlight></codeline>
-<codeline lineno="597"></codeline>
-<codeline lineno="598"></codeline>
-<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__Stoich_1ga162f8d37e89e83e5e14cee87c02f89f2" kindref="member">getStoichiometryMatrix</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*rows,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*cols,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>**data)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="611"><highlight class="normal"></highlight></codeline>
-<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getStoichiometry(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>speciesIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reactionIndex)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="618"><highlight class="normal"></highlight></codeline>
-<codeline lineno="619"><highlight class="normal"></highlight></codeline>
-<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumConservedMoieties()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="621"><highlight class="normal"></highlight></codeline>
-<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getConservedMoietyIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="623"><highlight class="normal"></highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getConservedMoietyId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="625"><highlight class="normal"></highlight></codeline>
-<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getConservedMoietyValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="627"><highlight class="normal"></highlight></codeline>
-<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setConservedMoietyValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
-<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="601"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="602"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="603"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>len<sp/>the<sp/>length<sp/>of<sp/>the<sp/>indx<sp/>and<sp/>values<sp/>arrays.</highlight></codeline>
+<codeline lineno="604"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>indx<sp/>an<sp/>array<sp/>of<sp/>length<sp/>len<sp/>of<sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="605"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>values<sp/>an<sp/>array<sp/>of<sp/>at<sp/>least<sp/>length<sp/>len<sp/>which<sp/>store<sp/>the</highlight></codeline>
+<codeline lineno="606"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="607"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setStoichiometries(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"></highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="612"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>len<sp/>the<sp/>length<sp/>of<sp/>the<sp/>indx<sp/>and<sp/>values<sp/>arrays.</highlight></codeline>
+<codeline lineno="615"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>indx<sp/>an<sp/>array<sp/>of<sp/>length<sp/>len<sp/>of<sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="616"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>values<sp/>an<sp/>array<sp/>of<sp/>at<sp/>least<sp/>length<sp/>len<sp/>which<sp/>store<sp/>the</highlight></codeline>
+<codeline lineno="617"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stoichiometries.</highlight></codeline>
+<codeline lineno="618"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>strict<sp/>whether<sp/>to<sp/>throw<sp/>if<sp/>the<sp/>value<sp/>cannot<sp/>be<sp/>set.</highlight></codeline>
+<codeline lineno="619"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setStoichiometries(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>strict)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="624"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>setStoichiometry.</highlight></codeline>
+<codeline lineno="625"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="626"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>index<sp/>the<sp/>index<sp/>of<sp/>the<sp/>stoichiometry.</highlight></codeline>
+<codeline lineno="627"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>value<sp/>of<sp/>stoichiometry<sp/>to<sp/>be<sp/>set.</highlight></codeline>
+<codeline lineno="628"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setStoichiometry(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="630"><highlight class="normal"></highlight></codeline>
-<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumRateRules()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="632"><highlight class="normal"></highlight></codeline>
-<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>getRateRuleSymbols()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="640"><highlight class="normal"></highlight></codeline>
-<codeline lineno="641"><highlight class="normal"></highlight></codeline>
-<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumReactions()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="632"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>setStoichiometry.</highlight></codeline>
+<codeline lineno="633"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="634"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>the<sp/>speciesIndex<sp/>of<sp/>stoichiometry.</highlight></codeline>
+<codeline lineno="635"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>the<sp/>reactionIndex<sp/>of<sp/>stoichiometry.</highlight></codeline>
+<codeline lineno="636"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>@param[in]<sp/>value<sp/>of<sp/>stoichiometry<sp/>to<sp/>be<sp/>set.</highlight></codeline>
+<codeline lineno="637"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setStoichiometry(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>speciesIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reactionIndex,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>value)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645" refid="classrr_1_1ExecutableModel_1a24c46805c8c790f1cbec5c7726f03aa6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a24c46805c8c790f1cbec5c7726f03aa6" kindref="member">getStoichiometry</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="646"><highlight class="normal"></highlight></codeline>
-<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getReactionIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="652"><highlight class="normal"></highlight></codeline>
-<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getReactionId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="657"><highlight class="normal"></highlight></codeline>
-<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__reaction_1gae0d748f8af83914cc078f8728d67ed0e" kindref="member">getReactionRates</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
-<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="668"><highlight class="normal"></highlight></codeline>
-<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getRateRuleValues(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*rateRuleValues)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="677"><highlight class="normal"></highlight></codeline>
-<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getRateRuleRates(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values);</highlight></codeline>
-<codeline lineno="688"><highlight class="normal"></highlight></codeline>
-<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getStateVectorId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="693"><highlight class="normal"></highlight></codeline>
-<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getStateVector(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*stateVector)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="711"><highlight class="normal"></highlight></codeline>
-<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setStateVector(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*stateVector)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="722"><highlight class="normal"></highlight></codeline>
-<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getStateVectorRate(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*dydt<sp/>=<sp/>0)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="652" refid="classrr_1_1ExecutableModel_1af9f7809b903426c14942b01a8e24a2b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1af9f7809b903426c14942b01a8e24a2b7" kindref="member">getStoichiometry</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>speciesIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reactionIndex)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumConservedMoieties()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getConservedMoietyIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"></highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getConservedMoietyId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getConservedMoietyValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setConservedMoietyValues(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumRateRules()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"></highlight></codeline>
+<codeline lineno="674" refid="classrr_1_1ExecutableModel_1aa1d89fd7d5690de7add613f5ce75b631" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1ExecutableModel_1aa1d89fd7d5690de7add613f5ce75b631" kindref="member">getRateRuleSymbols</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="680" refid="classrr_1_1ExecutableModel_1acb056a72125190c2abe39dba9c3600f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1acb056a72125190c2abe39dba9c3600f1" kindref="member">getNumReactions</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"></highlight></codeline>
+<codeline lineno="686" refid="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437" kindref="member">getReactionIndex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691" refid="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027" kindref="member">getReactionId</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"></highlight></codeline>
+<codeline lineno="697" refid="classrr_1_1ExecutableModel_1a32956e67e0a0792e4b8d8322d6dad6dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a32956e67e0a0792e4b8d8322d6dad6dd" kindref="member">getStoichiometryIndex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="703" refid="classrr_1_1ExecutableModel_1a4033367a836e9bcaac6733ac4a5b990e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a4033367a836e9bcaac6733ac4a5b990e" kindref="member">getStoichiometryIndex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708" refid="classrr_1_1ExecutableModel_1a2d4026192a945b79389ecfde43fbf7d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrr_1_1ExecutableModel_1a2d4026192a945b79389ecfde43fbf7d7" kindref="member">getStoichiometryId</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight></codeline>
+<codeline lineno="718" refid="classrr_1_1ExecutableModel_1a37c53cc370ff236657272f5596fd27ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a37c53cc370ff236657272f5596fd27ff" kindref="member">getReactionRates</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*indx,</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"></highlight></codeline>
+<codeline lineno="728" refid="classrr_1_1ExecutableModel_1a8372872ec5858e91adc81080ad763c84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a8372872ec5858e91adc81080ad763c84" kindref="member">getRateRuleValues</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*rateRuleValues)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"></highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getRateRuleRates(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>indx,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>values);</highlight></codeline>
 <codeline lineno="740"><highlight class="normal"></highlight></codeline>
-<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>testConstraints()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="742"><highlight class="normal"></highlight></codeline>
-<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="group__utility_1ga84805d87e0b75fcaff3b7ad3d1179002" kindref="member">getInfo</ref>()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="744"><highlight class="normal"></highlight></codeline>
-<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print(std::ostream<sp/>&amp;stream)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="746"><highlight class="normal"></highlight></codeline>
-<codeline lineno="747"><highlight class="normal"></highlight></codeline>
-<codeline lineno="748"></codeline>
-<codeline lineno="750"></codeline>
-<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumEvents()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="753"><highlight class="normal"></highlight></codeline>
-<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getEventTriggers(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*indx,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="766"><highlight class="normal"></highlight></codeline>
-<codeline lineno="767"><highlight class="normal"></highlight></codeline>
-<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>applyEvents(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timeEnd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*previousEventStatus,</highlight></codeline>
-<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*initialState,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*finalState)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="782"><highlight class="normal"></highlight></codeline>
-<codeline lineno="783"><highlight class="normal"></highlight></codeline>
-<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getEventRoots(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*gdot)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="744" refid="classrr_1_1ExecutableModel_1ac6c245edd9ecea5feea84cff15db7b26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classrr_1_1ExecutableModel_1ac6c245edd9ecea5feea84cff15db7b26" kindref="member">getStateVectorId</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"></highlight></codeline>
+<codeline lineno="762" refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*stateVector)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"></highlight></codeline>
+<codeline lineno="773" refid="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" kindref="member">setStateVector</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*stateVector)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"></highlight></codeline>
+<codeline lineno="791" refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*dydt<sp/>=<sp/>0)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="792"><highlight class="normal"></highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>testConstraints()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"></highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="group__utility_1ga84805d87e0b75fcaff3b7ad3d1179002" kindref="member">getInfo</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="796"><highlight class="normal"></highlight></codeline>
-<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getNextPendingEventTime(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>pop)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print(std::ostream<sp/>&amp;stream)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="798"><highlight class="normal"></highlight></codeline>
-<codeline lineno="799"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getPendingEventSize()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"></highlight></codeline>
 <codeline lineno="800"><highlight class="normal"></highlight></codeline>
-<codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>resetEvents()<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="802"><highlight class="normal"></highlight></codeline>
-<codeline lineno="809" refid="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" kindref="member">~ExecutableModel</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="810"><highlight class="normal"></highlight></codeline>
-<codeline lineno="811"><highlight class="normal"></highlight></codeline>
-<codeline lineno="812"></codeline>
-<codeline lineno="813"></codeline>
-<codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getEventIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="821"><highlight class="normal"></highlight></codeline>
-<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getEventId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="823"><highlight class="normal"></highlight></codeline>
-<codeline lineno="824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getEventIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="825"><highlight class="normal"></highlight></codeline>
-<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getAssignmentRuleIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="827"><highlight class="normal"></highlight></codeline>
-<codeline lineno="828"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getRateRuleIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="829"><highlight class="normal"></highlight></codeline>
-<codeline lineno="830"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getInitialAssignmentIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="831"><highlight class="normal"></highlight></codeline>
-<codeline lineno="832"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setEventListener(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref><sp/>eventHandler)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="833"><highlight class="normal"></highlight></codeline>
-<codeline lineno="834"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref><sp/>getEventListener(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getNumEvents()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="805"><highlight class="normal"></highlight></codeline>
+<codeline lineno="817" refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" kindref="member">getEventTriggers</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*indx,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*values)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="818"><highlight class="normal"></highlight></codeline>
+<codeline lineno="819"><highlight class="normal"></highlight></codeline>
+<codeline lineno="832" refid="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" kindref="member">applyEvents</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timeEnd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*previousEventStatus,</highlight></codeline>
+<codeline lineno="833"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*initialState,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*finalState)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="834"><highlight class="normal"></highlight></codeline>
 <codeline lineno="835"><highlight class="normal"></highlight></codeline>
-<codeline lineno="849"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getFloatingSpeciesAmountRate(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,</highlight></codeline>
-<codeline lineno="850"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*reactionRates)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="851"><highlight class="normal"></highlight></codeline>
-<codeline lineno="856"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__reset_1gabde768cf80e67fe8f2811a28843e41f4" kindref="member">reset</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>options)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="857"><highlight class="normal"></highlight></codeline>
-<codeline lineno="862"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setRandomSeed(int64_t)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="847" refid="classrr_1_1ExecutableModel_1a2c4d631f32873d4d98d613add078d9b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a2c4d631f32873d4d98d613add078d9b3" kindref="member">getEventRoots</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*gdot)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="848"><highlight class="normal"></highlight></codeline>
+<codeline lineno="849"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getPiecewiseTriggerRoots(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>gdot)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="850"><highlight class="normal"></highlight></codeline>
+<codeline lineno="851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getNextPendingEventTime(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>pop)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="852"><highlight class="normal"></highlight></codeline>
+<codeline lineno="853"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getPendingEventSize()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="854"><highlight class="normal"></highlight></codeline>
+<codeline lineno="855"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>resetEvents()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="856"><highlight class="normal"></highlight></codeline>
+<codeline lineno="860" refid="classrr_1_1ExecutableModel_1aa35394bc6641722aab173eb07bc96f55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aa35394bc6641722aab173eb07bc96f55" kindref="member">getNumPiecewiseTriggers</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="861"><highlight class="normal"></highlight></codeline>
+<codeline lineno="862"><highlight class="normal"></highlight></codeline>
 <codeline lineno="863"><highlight class="normal"></highlight></codeline>
-<codeline lineno="867"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>int64_t<sp/>getRandomSeed()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="868"><highlight class="normal"></highlight></codeline>
-<codeline lineno="875"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getRandom()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="876"><highlight class="normal"></highlight></codeline>
-<codeline lineno="880"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/>getFlags()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="881"><highlight class="normal"></highlight></codeline>
-<codeline lineno="886"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setFlags(uint32_t)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="887"><highlight class="normal"></highlight></codeline>
-<codeline lineno="888" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" kindref="member">ExecutableModelFlags</ref><sp/>{</highlight></codeline>
-<codeline lineno="894" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INTEGRATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="895"><highlight class="normal"></highlight></codeline>
-<codeline lineno="899" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_REACTION_RATE_SELECTION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>1),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000010</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="900"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="901"><highlight class="normal"></highlight></codeline>
-<codeline lineno="905" refid="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" kindref="member">computeAllRatesOfChange</ref>()<sp/>{};</highlight></codeline>
-<codeline lineno="906"><highlight class="normal"></highlight></codeline>
-<codeline lineno="907"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="908"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Writes<sp/>&quot;Saving<sp/>state<sp/>not<sp/>implemented<sp/>for<sp/>this<sp/>model<sp/>type&quot;<sp/>to<sp/>out<sp/>if<sp/>not<sp/>implemented<sp/>for<sp/>the<sp/>underlying</highlight></codeline>
-<codeline lineno="909"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>model<sp/>type</highlight></codeline>
-<codeline lineno="910"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="911"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__loadsave_1gae6b66c032a09e36e6372fb822b8cef24" kindref="member">saveState</ref>(std::ostream<sp/>&amp;out)<sp/>{</highlight></codeline>
-<codeline lineno="912"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Saving<sp/>state<sp/>not<sp/>implemented<sp/>for<sp/>this<sp/>model<sp/>type&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="913"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="914"><highlight class="normal"></highlight></codeline>
-<codeline lineno="915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setIntegrationStartTime(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time);</highlight></codeline>
-<codeline lineno="916"><highlight class="normal"></highlight></codeline>
-<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RoadRunner;</highlight></codeline>
+<codeline lineno="870" refid="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" kindref="member">~ExecutableModel</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="871"><highlight class="normal"></highlight></codeline>
+<codeline lineno="872"><highlight class="normal"></highlight></codeline>
+<codeline lineno="873"><highlight class="normal"></highlight></codeline>
+<codeline lineno="874"><highlight class="normal"></highlight></codeline>
+<codeline lineno="881" refid="classrr_1_1ExecutableModel_1ae9b3e5baef45072822f9ccaf9d13ffa8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ae9b3e5baef45072822f9ccaf9d13ffa8" kindref="member">getEventIndex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;eid)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="882"><highlight class="normal"></highlight></codeline>
+<codeline lineno="883"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/>getEventId(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="884"><highlight class="normal"></highlight></codeline>
+<codeline lineno="885"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getEventIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="886"><highlight class="normal"></highlight></codeline>
+<codeline lineno="887"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getAssignmentRuleIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="888"><highlight class="normal"></highlight></codeline>
+<codeline lineno="889"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getRateRuleIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="890"><highlight class="normal"></highlight></codeline>
+<codeline lineno="891"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getInitialAssignmentIds(std::list&lt;std::string&gt;&amp;)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="892"><highlight class="normal"></highlight></codeline>
+<codeline lineno="893"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setEventListener(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref><sp/>eventHandler)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="894"><highlight class="normal"></highlight></codeline>
+<codeline lineno="895"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref><sp/>getEventListener(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="896"><highlight class="normal"></highlight></codeline>
+<codeline lineno="910" refid="classrr_1_1ExecutableModel_1a460387891972dfb029d5fdd6134c10eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a460387891972dfb029d5fdd6134c10eb" kindref="member">getFloatingSpeciesAmountRate</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,</highlight></codeline>
+<codeline lineno="911"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*reactionRates)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="912"><highlight class="normal"></highlight></codeline>
+<codeline lineno="917" refid="classrr_1_1ExecutableModel_1ac87e7f485678d07d7567398dea63c512" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ac87e7f485678d07d7567398dea63c512" kindref="member">reset</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>options)<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="918"><highlight class="normal"></highlight></codeline>
-<codeline lineno="919"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="920"><highlight class="normal"></highlight></codeline>
-<codeline lineno="921"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mIntegrationStartTime;</highlight></codeline>
-<codeline lineno="922"><highlight class="normal"></highlight></codeline>
-<codeline lineno="926" refid="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" kindref="member">setIntegration</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>value)<sp/>{</highlight></codeline>
-<codeline lineno="927"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>flags<sp/>=<sp/>getFlags();</highlight></codeline>
-<codeline lineno="928"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value)<sp/>{</highlight></codeline>
-<codeline lineno="929"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags<sp/>|=<sp/>INTEGRATION;</highlight></codeline>
-<codeline lineno="930"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="931"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags<sp/>&amp;=<sp/>~INTEGRATION;</highlight></codeline>
-<codeline lineno="932"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="933"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>setFlags(flags);</highlight></codeline>
-<codeline lineno="934"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="935"><highlight class="normal"></highlight></codeline>
-<codeline lineno="936"><highlight class="normal"></highlight></codeline>
-<codeline lineno="937"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="938"><highlight class="normal"></highlight></codeline>
-<codeline lineno="939"><highlight class="normal"></highlight></codeline>
-<codeline lineno="940"><highlight class="normal"></highlight></codeline>
-<codeline lineno="941"><highlight class="normal"></highlight></codeline>
-<codeline lineno="945"><highlight class="normal"><sp/><sp/><sp/><sp/>RR_DECLSPEC<sp/>std::ostream<sp/>&amp;operator&lt;&lt;(std::ostream<sp/>&amp;stream,<sp/>ExecutableModel<sp/>*model);</highlight></codeline>
-<codeline lineno="946"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="947"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>rrExecutableModelH</highlight></codeline>
+<codeline lineno="923" refid="classrr_1_1ExecutableModel_1aa5b4c23527fab27a54ac279de045c735" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aa5b4c23527fab27a54ac279de045c735" kindref="member">setRandomSeed</ref>(int64_t)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="924"><highlight class="normal"></highlight></codeline>
+<codeline lineno="928" refid="classrr_1_1ExecutableModel_1a7a543cc2ccca4130d26c871308fa2b4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>int64_t<sp/><ref refid="classrr_1_1ExecutableModel_1a7a543cc2ccca4130d26c871308fa2b4d" kindref="member">getRandomSeed</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="929"><highlight class="normal"></highlight></codeline>
+<codeline lineno="936" refid="classrr_1_1ExecutableModel_1a1f69d29d4291440935ed41122ed83e7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a1f69d29d4291440935ed41122ed83e7f" kindref="member">getRandom</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="937"><highlight class="normal"></highlight></codeline>
+<codeline lineno="941" refid="classrr_1_1ExecutableModel_1a86c218fc4ad993ddd532a50f2918f383" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="classrr_1_1ExecutableModel_1a86c218fc4ad993ddd532a50f2918f383" kindref="member">getFlags</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="942"><highlight class="normal"></highlight></codeline>
+<codeline lineno="947" refid="classrr_1_1ExecutableModel_1a3474ace3dd70d16662142d377bd1b5f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a3474ace3dd70d16662142d377bd1b5f6" kindref="member">setFlags</ref>(uint32_t)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="948"><highlight class="normal"></highlight></codeline>
+<codeline lineno="949" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" kindref="member">ExecutableModelFlags</ref><sp/>{</highlight></codeline>
+<codeline lineno="955" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INTEGRATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="956"><highlight class="normal"></highlight></codeline>
+<codeline lineno="960" refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_REACTION_RATE_SELECTION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>1),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000010</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="961"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="962"><highlight class="normal"></highlight></codeline>
+<codeline lineno="966" refid="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" kindref="member">computeAllRatesOfChange</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="967"><highlight class="normal"></highlight></codeline>
+<codeline lineno="968"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="969"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Writes<sp/>&quot;Saving<sp/>state<sp/>not<sp/>implemented<sp/>for<sp/>this<sp/>model<sp/>type&quot;<sp/>to<sp/>out<sp/>if<sp/>not<sp/>implemented<sp/>for<sp/>the<sp/>underlying</highlight></codeline>
+<codeline lineno="970"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>model<sp/>type</highlight></codeline>
+<codeline lineno="971"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="972"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__loadsave_1gae6b66c032a09e36e6372fb822b8cef24" kindref="member">saveState</ref>(std::ostream<sp/>&amp;out)<sp/>{</highlight></codeline>
+<codeline lineno="973"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>out<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Saving<sp/>state<sp/>not<sp/>implemented<sp/>for<sp/>this<sp/>model<sp/>type&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="974"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="975"><highlight class="normal"></highlight></codeline>
+<codeline lineno="976"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setIntegrationStartTime(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>time);</highlight></codeline>
+<codeline lineno="977"><highlight class="normal"></highlight></codeline>
+<codeline lineno="978"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RoadRunner;</highlight></codeline>
+<codeline lineno="979"><highlight class="normal"></highlight></codeline>
+<codeline lineno="980"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="981"><highlight class="normal"></highlight></codeline>
+<codeline lineno="982"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mIntegrationStartTime;</highlight></codeline>
+<codeline lineno="983"><highlight class="normal"></highlight></codeline>
+<codeline lineno="987" refid="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" kindref="member">setIntegration</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>value)<sp/>{</highlight></codeline>
+<codeline lineno="988"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>flags<sp/>=<sp/>getFlags();</highlight></codeline>
+<codeline lineno="989"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value)<sp/>{</highlight></codeline>
+<codeline lineno="990"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags<sp/>|=<sp/>INTEGRATION;</highlight></codeline>
+<codeline lineno="991"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="992"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags<sp/>&amp;=<sp/>~INTEGRATION;</highlight></codeline>
+<codeline lineno="993"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="994"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>setFlags(flags);</highlight></codeline>
+<codeline lineno="995"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="996"><highlight class="normal"></highlight></codeline>
+<codeline lineno="997"><highlight class="normal"></highlight></codeline>
+<codeline lineno="998"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="999"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1000"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1001"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1002"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1006"><highlight class="normal"><sp/><sp/><sp/><sp/>RR_DECLSPEC<sp/>std::ostream<sp/>&amp;operator&lt;&lt;(std::ostream<sp/>&amp;stream,<sp/>ExecutableModel<sp/>*model);</highlight></codeline>
+<codeline lineno="1007"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1008"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>rrExecutableModelH</highlight></codeline>
     </programlisting>
     <location file="rrExecutableModel.h"/>
   </compounddef>

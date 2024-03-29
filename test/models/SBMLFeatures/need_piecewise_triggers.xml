@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.14.0 with libSBML version 5.20.2. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model metaid="__main" id="__main">
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X1" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="in_interval" constant="false"/>
+      <parameter id="u" constant="false"/>
+      <parameter id="k" value="0.1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="in_interval">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <and/>
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn type="integer"> 1 </cn>
+            </apply>
+            <apply>
+              <leq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 1.5 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="u">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn type="integer"> 3 </cn>
+              <ci> in_interval </ci>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J0" reversible="true" fast="false">
+        <listOfProducts>
+          <speciesReference species="X1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <apply>
+                  <minus/>
+                  <ci> k </ci>
+                </apply>
+                <ci> X1 </ci>
+              </apply>
+              <ci> u </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

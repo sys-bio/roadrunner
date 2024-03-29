@@ -37,8 +37,7 @@ namespace rr {
 
     int cvodeDyDtFcn(realtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
 
-    int cvodeRootFcn(realtype t, N_Vector y, realtype *gout, void *userData);
-
+    int cvodeEventAndPiecewiseRootFcn(realtype t, N_Vector y, realtype *gout, void *userData);
 
     // Sets the value of an element in a N_Vector object
     inline void SetVector(N_Vector v, int Index, double Value) {
@@ -657,11 +656,6 @@ namespace rr {
         mStateVector = N_VNew_Serial(allocStateVectorSize);
         variableStepPostEventState.resize(allocStateVectorSize);
 
-
-//        for (int i = 0; i < allocStateVectorSize; i++) {
-//            SetVector(mStateVector, i, 0.);
-//        }
-//         set mStateVector to the values that are currently in the model
         auto states = new double[allocStateVectorSize];
         mModel->getStateVector(states);
 
@@ -698,12 +692,12 @@ namespace rr {
             handleCVODEError(err);
         }
 
-        if (mModel->getNumEvents() > 0) {
-            if ((err = CVodeRootInit(mCVODE_Memory, mModel->getNumEvents(),
-                                     cvodeRootFcn)) != CV_SUCCESS) {
+        if (mModel->getNumEvents() + mModel->getNumPiecewiseTriggers() > 0) {
+            if ((err = CVodeRootInit(mCVODE_Memory, mModel->getNumEvents() + mModel->getNumPiecewiseTriggers(),
+                                     cvodeEventAndPiecewiseRootFcn)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
-            rrLog(Logger::LOG_TRACE) << "CVRootInit executed.....";
+            rrLog(Logger::LOG_TRACE) << "CVRootInit executed for events.....";
         }
 
         /**
@@ -1034,16 +1028,22 @@ namespace rr {
 
     // int (*CVRootFn)(realtype t, N_Vector y, realtype *gout, void *user_data)
     // Cvode calls this to check for event changes
-    int cvodeRootFcn(realtype time, N_Vector y_vector, realtype *gout, void *user_data) {
-        CVODEIntegrator *cvInstance = (CVODEIntegrator *) user_data;
+    int cvodeEventAndPiecewiseRootFcn(realtype time, N_Vector y_vector, realtype* gout, void* user_data) {
+        CVODEIntegrator* cvInstance = (CVODEIntegrator*)user_data;
 
         assert(cvInstance && "user data pointer is NULL on CVODE root callback");
 
-        ExecutableModel *model = cvInstance->mModel;
+        ExecutableModel* model = cvInstance->mModel;
 
-        double *y = NV_DATA_S(y_vector);
+        double* y = NV_DATA_S(y_vector);
 
-        model->getEventRoots(time, y, gout);
+        if (model->getNumEvents() > 0) {
+            model->getEventRoots(time, y, gout);
+        }
+
+        if (model->getNumPiecewiseTriggers() > 0) {
+            model->getPiecewiseTriggerRoots(time, y, gout + model->getNumEvents());
+        }
 
         return CV_SUCCESS;
     }

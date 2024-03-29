@@ -2,10 +2,12 @@ add_test_executable(
         test_sbml_features test_targets
         ${SharedTestFiles}
         boolean_delay.cpp
-        invalid_sbml.cpp
-        valid_sbml.cpp
         events.cpp
+        invalid_sbml.cpp
+        piecewise_triggers.cpp
+        rateOf.cpp
         unsupported_packages.cpp
+        valid_sbml.cpp
 )
 
 # make test_targets list global to all tests

@@ -2,6 +2,11 @@
 \label{classrrllvm_1_1EventQueue}\index{rrllvm::EventQueue@{rrllvm::EventQueue}}
 
 
+The \mbox{\hyperlink{classrrllvm_1_1EventQueue}{Event\+Queue}} class is when events are queued to execute, but have not yet executed.  
+
+
+
+
 {\ttfamily \#include $<$Event\+Queue.\+h$>$}
 
 \doxysubsection*{Public Types}
@@ -48,7 +53,7 @@ double \mbox{\hyperlink{classrrllvm_1_1EventQueue_ae48e013f7f46e5affcb6d23ab5e9b
 void {\bfseries save\+State} (std\+::ostream \&out)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_a0ae274da53a26ae056663c3937761ce9}\label{classrrllvm_1_1EventQueue_a0ae274da53a26ae056663c3937761ce9}} 
-void {\bfseries load\+State} (std\+::istream \&in, \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{L\+L\+V\+M\+Executable\+Model}} \&model)
+void {\bfseries load\+State} (std\+::istream \&in, \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel}{LLVMExecutable\+Model}} \&model)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -59,7 +64,9 @@ std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&stream, const \mb
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{classrrllvm_1_1EventQueue}{Event\+Queue}} class is when events are queued to execute, but have not yet executed. Some events may be \textquotesingle{}de-\/listed\textquotesingle{} from the \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} Queue if thier trigger changes back to \textquotesingle{}false\textquotesingle{}, if they are set persistent=False. 
+The \mbox{\hyperlink{classrrllvm_1_1EventQueue}{Event\+Queue}} class is when events are queued to execute, but have not yet executed. 
+
+Some events may be \textquotesingle{}de-\/listed\textquotesingle{} from the \mbox{\hyperlink{classrrllvm_1_1Event}{Event}} Queue if thier trigger changes back to \textquotesingle{}false\textquotesingle{}, if they are set persistent=False. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1EventQueue_aba1c38087a2d466d482c5d9f6a01ca01}\label{classrrllvm_1_1EventQueue_aba1c38087a2d466d482c5d9f6a01ca01}} 

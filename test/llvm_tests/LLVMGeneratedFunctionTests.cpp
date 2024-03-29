@@ -51,7 +51,7 @@ void LLVMGeneratedFunctionTests::checkInitialEvaluationSpecies(int options, int 
         // we need an instance of modelData to work with the functions.
         LLVMModelDataSymbols sym(m, options);
         std::unique_ptr<Random> r = std::make_unique<Random>();
-        LLVMModelData *modelData = createModelData(sym, r.get());
+        LLVMModelData *modelData = createModelData(sym, r.get(), 0);
 
         // Evaluate initial conditions
         evalInitConditions(modelData, options);

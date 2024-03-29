@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1CompiledExecutableModel" kind="class" language="C++" prot="public">
     <compoundname>rr::CompiledExecutableModel</compoundname>
     <basecompoundref refid="classrr_1_1ExecutableModel" prot="public" virt="non-virtual">rr::ExecutableModel</basecompoundref>
@@ -23,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="87" column="1" bodyfile="c/rrCompiledExecutableModel.h" bodystart="86" bodyend="93"/>
+        <location file="c/rrCompiledExecutableModel.h" line="86" column="5" bodyfile="c/rrCompiledExecutableModel.h" bodystart="87" bodyend="93"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -565,10 +565,13 @@
       </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="classrr_1_1CompiledExecutableModel_1af5eaffccb3276d5df2c3648acad060fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend class</type>
+        <type>class</type>
         <definition>friend class CompiledModelState</definition>
         <argsstring></argsstring>
         <name>CompiledModelState</name>
+        <param>
+          <type><ref refid="classrr_1_1CompiledModelState" kindref="compound">CompiledModelState</ref></type>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2623,7 +2626,6 @@
         <definition>int rr::CompiledExecutableModel::getStoichiometryMatrix</definition>
         <argsstring>(int *rows, int *cols, double **data)</argsstring>
         <name>getStoichiometryMatrix</name>
-        <reimplements refid="classrr_1_1ExecutableModel_1a2aacbf75ac32b2b188f7850cd48b8f71">getStoichiometryMatrix</reimplements>
         <param>
           <type>int *</type>
           <declname>rows</declname>
@@ -3332,16 +3334,16 @@
           <edgelabel>ms</edgelabel>
         </childnode>
         <childnode refid="13" relation="usage">
-          <edgelabel>cInitModelData</edgelabel>
-          <edgelabel>mData</edgelabel>
           <edgelabel>cAssignRates_b</edgelabel>
-          <edgelabel>cgetNumLocalParameters</edgelabel>
-          <edgelabel>cgetModelName</edgelabel>
           <edgelabel>cGetCurrentValues</edgelabel>
           <edgelabel>cInitModel</edgelabel>
-          <edgelabel>cgetConcentration</edgelabel>
-          <edgelabel>cevalModel</edgelabel>
+          <edgelabel>cInitModelData</edgelabel>
           <edgelabel>cevalEvents</edgelabel>
+          <edgelabel>cevalModel</edgelabel>
+          <edgelabel>cgetConcentration</edgelabel>
+          <edgelabel>cgetModelName</edgelabel>
+          <edgelabel>cgetNumLocalParameters</edgelabel>
+          <edgelabel>csetConcentration</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
@@ -3350,21 +3352,21 @@
         <link refid="classrr_1_1ModelSymbols"/>
         <childnode refid="8" relation="usage">
           <edgelabel>mDependentSpeciesList</edgelabel>
-          <edgelabel>mIndependentSpeciesList</edgelabel>
           <edgelabel>mFunctionNames</edgelabel>
           <edgelabel>mFunctionParameters</edgelabel>
+          <edgelabel>mIndependentSpeciesList</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>mRateRules</edgelabel>
         </childnode>
         <childnode refid="11" relation="usage">
-          <edgelabel>mGlobalParameterList</edgelabel>
-          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
-          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
+          <edgelabel>mBoundarySpeciesList</edgelabel>
           <edgelabel>mCompartmentList</edgelabel>
           <edgelabel>mConservationList</edgelabel>
+          <edgelabel>mFloatingSpeciesConcentrationList</edgelabel>
+          <edgelabel>mGlobalParameterList</edgelabel>
+          <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
           <edgelabel>mReactionList</edgelabel>
-          <edgelabel>mBoundarySpeciesList</edgelabel>
         </childnode>
       </node>
       <node id="5">
@@ -3396,8 +3398,8 @@
         <label>rr::ModelSharedLibrary</label>
         <link refid="classrr_1_1ModelSharedLibrary"/>
         <childnode refid="5" relation="usage">
-          <edgelabel>mPathToLib</edgelabel>
           <edgelabel>mLibName</edgelabel>
+          <edgelabel>mPathToLib</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>mTheLib</edgelabel>
@@ -3412,7 +3414,7 @@
         <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="c/rrCompiledExecutableModel.h" line="43" column="1" bodyfile="c/rrCompiledExecutableModel.h" bodystart="42" bodyend="524"/>
+    <location file="c/rrCompiledExecutableModel.h" line="42" column="1" bodyfile="c/rrCompiledExecutableModel.h" bodystart="43" bodyend="524"/>
     <listofallmembers>
       <member refid="classrr_1_1CompiledExecutableModel_1ae7eda6b60005eb01f9d278599c9540dd" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>applyEventAssignment</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ab377d0bba85bbd8c8eec4f2ad132c41b" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>applyEvents</name></member>
@@ -3540,9 +3542,11 @@
       <member refid="classrr_1_1CompiledExecutableModel_1ab362cc56a36821440b5737ca3cf07496" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumGlobalParameters</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a57547419a8ad6d372ba861116850b788" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumIndFloatingSpecies</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a5207e407a5a9d27c5c4834d01a0173b0" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumLocalParameters</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa35394bc6641722aab173eb07bc96f55" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumPiecewiseTriggers</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ad41d28162371bccbda5e4e24978ea67c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumRateRules</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1aeab495d246324b89051360053c9ca42b" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumReactions</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a637150c6f6ca6bede8cbdd7e0405ce12" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getPendingEventSize</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a3e4ce1860674c7728084788f55c17d95" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getPiecewiseTriggerRoots</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a02b3938fd3ad7d20d33ed3e0b42da21a" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRandom</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a728ba55db8c4d193990452c9303ea133" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRandomSeed</name></member>
       <member refid="classrr_1_1ExecutableModel_1a4445b440c3be7b63e587e000af4ada17" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getRateRuleIds</name></member>
@@ -3559,6 +3563,10 @@
       <member refid="classrr_1_1ExecutableModel_1ac6c245edd9ecea5feea84cff15db7b26" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getStateVectorId</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a4333e3139f974ae771ad2d2fb317208f" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getStateVectorRate</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a15522874be17399807aa1f0f1e2fd655" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometry</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a24c46805c8c790f1cbec5c7726f03aa6" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometry</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a2d4026192a945b79389ecfde43fbf7d7" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometryId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a32956e67e0a0792e4b8d8322d6dad6dd" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometryIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a4033367a836e9bcaac6733ac4a5b990e" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometryIndex</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1add13e9f74b8918a43bee644d27dac876" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getStoichiometryMatrix</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1af50e6358c72134961ae87dd4406ababa" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getSupportedIdTypes</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1af02f8a5c72a7daa22b7a5138cc9848ff" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getTime</name></member>
@@ -3632,6 +3640,10 @@
       <member refid="classrr_1_1CompiledExecutableModel_1adf911e78697e088e315c2235ebf63376" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setRandomSeed</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ade8ee1b8f813ff02d80a9df79af4e461" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setRateRuleValues</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a39fc85f1dfeba7d5885f66f78f9b4704" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setStateVector</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ab6e53b77f5595497d1ed5bfa792bd9fb" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>setStoichiometries</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a164c8467118e80fa19187c1e1127ab3d" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>setStoichiometries</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a5efe8fdfacd6d1f6f09b85a41d8e82ea" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>setStoichiometry</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a1f3e775e5d098dc071fbf60c105c70f2" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>setStoichiometry</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a324c8df0ec3e73850ca0ac48d2770594" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setTime</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a6ed828bd7380883f7d70eab3b11cb47c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setupDLLFunctions</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a53a996bfec50781d72b01ef4ed50d15f" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>setupModelData</name></member>

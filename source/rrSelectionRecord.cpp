@@ -325,7 +325,6 @@ rr::SelectionRecord::SelectionRecord(const std::string str) :
         index(-1), selectionType(UNKNOWN)
 {
     int complex;
-
     if (is_ec(str, p1, p2))
     {
         selectionType = ELASTICITY;

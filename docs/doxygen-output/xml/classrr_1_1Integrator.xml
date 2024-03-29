@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1Integrator" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>rr::Integrator</compoundname>
     <basecompoundref refid="classrr_1_1Solver" prot="public" virt="non-virtual">rr::Solver</basecompoundref>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="72" column="31" bodyfile="Integrator.h" bodystart="72" bodyend="77"/>
+        <location file="Integrator.h" line="72" column="9" bodyfile="Integrator.h" bodystart="72" bodyend="77"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -115,10 +115,10 @@
         <argsstring>() const =0</argsstring>
         <name>getIntegrationMethod</name>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ade69fdfc91f614a6f20bc8027d5e2f0a">getIntegrationMethod</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1a9fe029c162b37172c49f2175c69eb8fc">getIntegrationMethod</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1aa0b4e374ae795fe7457e95b7878a3de3">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1a7cc1f774e58f179fb2e69c515c9f2a1f">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a8c70add8b8867dadd74af16da2209cf6">getIntegrationMethod</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1a9fe029c162b37172c49f2175c69eb8fc">getIntegrationMethod</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1aa0b4e374ae795fe7457e95b7878a3de3">getIntegrationMethod</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -134,9 +134,9 @@
         <name>syncWithModel</name>
         <reimplements refid="classrr_1_1Solver_1aecb0e7c619e544aeabc6db9903165158">syncWithModel</reimplements>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad928d3d4e5efbe04dcc2ab503119c745">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a11c9feeea50fcf52a453f374c1152535">syncWithModel</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>m</declname>
@@ -193,8 +193,8 @@
         <reimplementedby refid="classrr_1_1RK45Integrator_1ab181e94750addee7066f7b35cce2fb4d">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a5b94124e1efbca3f0fd151f736912276">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1a1e29429af0ec90aa2f47be15bbe8856c">integrate</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1a3656bd81548da001b68c969740a3bc94">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a37f3be6adad08270982ba790c721aa64">integrate</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1a3656bd81548da001b68c969740a3bc94">integrate</reimplementedby>
         <param>
           <type>double</type>
           <declname>t0</declname>
@@ -217,10 +217,10 @@
         <argsstring>(double t0)=0</argsstring>
         <name>restart</name>
         <reimplementedby refid="classrr_1_1RK45Integrator_1abde959ca72506e25e6c1187a4fa15b2b">restart</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1abdfa3fcd449ee9d7b3cb3ee421291fe4">restart</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a82a562273e6d73bebcb8e25de45a20a4">restart</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1a262d1d16bd30c35269cd3daabfd1b574">restart</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1abdfa3fcd449ee9d7b3cb3ee421291fe4">restart</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1acde5e92ec049c105b7d22b0f125d94a9">restart</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1a262d1d16bd30c35269cd3daabfd1b574">restart</reimplementedby>
         <param>
           <type>double</type>
           <declname>t0</declname>
@@ -282,7 +282,7 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         <definition>std::vector&lt; double &gt; rr::Integrator::getAbsoluteToleranceVector</definition>
         <argsstring>()</argsstring>
         <name>getAbsoluteToleranceVector</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a623435278b083018cc05780ace8922f1">getAbsoluteToleranceVector</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a061679b9a025e15a6457efc8cd8806e4">getAbsoluteToleranceVector</reimplementedby>
         <briefdescription>
 <para>Get the absolute tolerance vector for the solver. </para>
         </briefdescription>
@@ -300,9 +300,9 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         <name>setListener</name>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a5e291108e3a53b921a90450ee2efbe48">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a7fdc3829b5635e1b0cd18cced396261d">setListener</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1aca2901ed7b5a503e054fd18e8f0392ad">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1ad90d4e1cc786cb9e9231cdcfc42a01ed">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a2d58f1e62b818ab6da2e72639eee0103">setListener</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1aca2901ed7b5a503e054fd18e8f0392ad">setListener</reimplementedby>
         <param>
           <type>IntegratorListenerPtr</type>
         </param>
@@ -320,10 +320,10 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         <argsstring>()=0</argsstring>
         <name>getListener</name>
         <reimplementedby refid="classrr_1_1RK45Integrator_1af31a4d9eaff51261d8589f6020f2d612">getListener</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1aa412e44a4edb787ea54c397de0a94429">getListener</reimplementedby>
-        <reimplementedby refid="classrr_1_1RK4Integrator_1a673dba96f3e55e5f1bda0872f01d12ac">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1CVODEIntegrator_1a480b8dad2e4dabcdb8fec1439ab7c5f7">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a446b4802e6e5a7db2f2f60cbac430d4a">getListener</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1aa412e44a4edb787ea54c397de0a94429">getListener</reimplementedby>
+        <reimplementedby refid="classrr_1_1RK4Integrator_1a673dba96f3e55e5f1bda0872f01d12ac">getListener</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -441,9 +441,9 @@ In order to ensure that the results of the SBML test suite remain valid, this me
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> is an abstract base class that provides an interface to specific integrator class implementations. </para>
     </briefdescription>
     <detaileddescription>
-<para><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> is an abstract base class that provides an interface to specific integrator class implementations. </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="7">
@@ -518,7 +518,7 @@ In order to ensure that the results of the SBML test suite remain valid, this me
         <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="Integrator.h" line="60" column="36" bodyfile="Integrator.h" bodystart="60" bodyend="146"/>
+    <location file="Integrator.h" line="60" column="5" bodyfile="Integrator.h" bodystart="60" bodyend="146"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>addSetting</name></member>
       <member refid="classrr_1_1Registrable_1a3f529e138fa0288622525bc13cd73c5f" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>construct</name></member>

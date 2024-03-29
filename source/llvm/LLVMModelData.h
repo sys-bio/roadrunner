@@ -117,23 +117,26 @@ struct LLVMModelData
     //Event stuff
     unsigned                            numEvents;                        // 15
 
+    //Piecewise triggers that get treated like events for rootfinding purposes.
+    unsigned                            numPiecewiseTriggers;             // 16
+
     /**
      * number of items in the state std::vector.
      * should be numIndFloatingSpecies + numRateRules
      */
-    unsigned                            stateVectorSize;                  // 16
+    unsigned                            stateVectorSize;                  // 17
 
     /**
      * the state std::vector, this is usually a pointer to a block of data
      * owned by the integrator.
      */
-    double*                             stateVector;                      // 17
+    double*                             stateVector;                      // 18
 
     /**
      * the rate of change of the state std::vector, this is usually a pointer to
      * a block of data owned by the integrator.
      */
-    double*                             stateVectorRate;                  // 18
+    double*                             stateVectorRate;                  // 19
 
     /**
      * the rate of change of all elements who's dynamics are determined
@@ -144,7 +147,7 @@ struct LLVMModelData
      *
      * Normally NULL, only valid durring an evalModel call.
      */
-    double*                             rateRuleRates;                    // 19
+    double*                             rateRuleRates;                    // 20
 
 
 
@@ -154,7 +157,7 @@ struct LLVMModelData
      * This pointer is ONLY valid during an evalModel call, otherwise it is
      * zero. TODO, this needs be be moved to a parameter.
      */
-    double*                             floatingSpeciesAmountRates;       // 20
+    double*                             floatingSpeciesAmountRates;       // 21
 
 
  
@@ -170,8 +173,8 @@ struct LLVMModelData
      * units: volume
      */
 
-    double*                             compartmentVolumesAlias;          // 21
-    double*                             initCompartmentVolumesAlias;      // 22
+    double*                             compartmentVolumesAlias;          // 22
+    double*                             initCompartmentVolumesAlias;      // 23
 
 
     /**
@@ -182,16 +185,16 @@ struct LLVMModelData
 	 * Note that dependent floating species which have a rate rule will not be stored
 	 * in this block, instead, they will be stored in RateRule block
      */
-    double*                             initFloatingSpeciesAmountsAlias;  // 23
+    double*                             initFloatingSpeciesAmountsAlias;  // 24
 
 
-    double*                             boundarySpeciesAmountsAlias;      // 24
-    double*                             initBoundarySpeciesAmountsAlias;  // 25
+    double*                             boundarySpeciesAmountsAlias;      // 25
+    double*                             initBoundarySpeciesAmountsAlias;  // 26
 
-    double*                             globalParametersAlias;            // 26
-    double*                             initGlobalParametersAlias;        // 27
+    double*                             globalParametersAlias;            // 27
+    double*                             initGlobalParametersAlias;        // 28
 
-    double*                             reactionRatesAlias;               // 28
+    double*                             reactionRatesAlias;               // 29
 
     /**
      * All of the elelments which have a rate rule are stored here, including 
@@ -207,7 +210,7 @@ struct LLVMModelData
      * of this struct.
      *
      */
-    double*                             rateRuleValuesAlias;              // 29
+    double*                             rateRuleValuesAlias;              // 30
 
 
 
@@ -218,22 +221,22 @@ struct LLVMModelData
      * This pointer is part of the state std::vector. When any function is called by
      * CVODE, this is actually a pointer to a CVODE owned memory block.
      */
-    double*                             floatingSpeciesAmountsAlias;      // 30
+    double*                             floatingSpeciesAmountsAlias;      // 31
 
     /**
 	 * binary data layout:
      *
-     * compartmentVolumes                [numIndCompartmentVolumes]       // 31
-     * initCompartmentVolumes            [numInitCompartmentVolumes]      // 32
-     * initFloatingSpeciesAmounts        [numInitFloatingSpecies]         // 33
-     * boundarySpeciesAmounts            [numIndBoundarySpecies]          // 34
-     * initBoundarySpeciesAmounts        [numInitBoundarySpecies]         // 35
-     * globalParameters                  [numIndGlobalParameters]         // 36
-     * initGlobalParameters              [numInitGlobalParameters]        // 37
-     * reactionRates                     [numReactions]                   // 38
+     * compartmentVolumes                [numIndCompartmentVolumes]       // 32
+     * initCompartmentVolumes            [numInitCompartmentVolumes]      // 33
+     * initFloatingSpeciesAmounts        [numInitFloatingSpecies]         // 34
+     * boundarySpeciesAmounts            [numIndBoundarySpecies]          // 35
+     * initBoundarySpeciesAmounts        [numInitBoundarySpecies]         // 36
+     * globalParameters                  [numIndGlobalParameters]         // 37
+     * initGlobalParameters              [numInitGlobalParameters]        // 38
+     * reactionRates                     [numReactions]                   // 39
      *
-     * rateRuleValues                    [numRateRules]                   // 39
-     * floatingSpeciesAmounts            [numIndFloatingSpecies]          // 40
+     * rateRuleValues                    [numRateRules]                   // 40
+     * floatingSpeciesAmounts            [numIndFloatingSpecies]          // 41
      */
 
 	 /**

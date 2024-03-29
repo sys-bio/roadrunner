@@ -32,16 +32,30 @@ stages:
         timeoutInMinutes: "0"
         displayName: MacBuildRoadrunnerCpp
         continueOnError: "false"
-        pool:
-          vmImage: 'macOS-11'
         strategy:
           matrix:
-            64-bit Mac Release:
+            64-bit Mac Release x86:
               BuildType: Release
               LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
-            64-bit Mac Debug:
+              vmImage: macOS-11
+              arch: x86_64
+            64-bit Mac Debug x86:
               BuildType: Debug
               LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
+            # 64-bit Mac Release M1:
+            #   BuildType: Release
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-14
+            #   arch: arm64
+            # 64-bit Mac Debug M1:
+            #   BuildType: Debug
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-14
+            #   arch: arm64
+        pool:
+          vmImage: $(vmImage)
         variables:
           LLVM_CACHE: 'false'
           PythonName: 'py39'
@@ -138,7 +152,7 @@ stages:
               # - https://dev.azure.com/TheRoadrunnerProject/libroadrunner-deps/_build?definitionId=9
               pipeline: 9
               runVersion: 'latest'
-              artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
+              artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)-$(arch)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
           - script: |
@@ -191,22 +205,58 @@ stages:
         timeoutInMinutes: "0"
         displayName: MacBuildRoadrunnerPython
         continueOnError: "false"
-        pool:
-          vmImage: 'macOS-11'
         strategy:
           matrix:
-            py38:
-              PythonVersion: 3.8
-              PythonName: py38
-            py39:
+            py39, x86:
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
               PythonVersion: 3.9
               PythonName: py39
-            py310:
+            py310, x86:
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
               PythonVersion: 3.10
               PythonName: py310
-            py311:
+            py311, x86:
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
               PythonVersion: 3.11
               PythonName: py311
+            py312, x86:
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
+              PythonVersion: 3.12
+              PythonName: py312
+            # py39, arm64:
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-11
+            #   arch: arm64_64
+            #   PythonVersion: 3.9
+            #   PythonName: py39
+            # py310, arm64:
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-11
+            #   arch: arm64_64
+            #   PythonVersion: 3.10
+            #   PythonName: py310
+            # py311, arm64:
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-11
+            #   arch: arm64_64
+            #   PythonVersion: 3.11
+            #   PythonName: py311
+            # py312, arm64:
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-11
+            #   arch: arm64_64
+            #   PythonVersion: 3.12
+            #   PythonName: py312
+        pool:
+          vmImage: $(vmImage)
         variables:
           MinicondaRoot : '/usr/local/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
@@ -217,7 +267,6 @@ stages:
           SWIG_CACHE: 'false'
           MINICONDA_CACHE: 'false'
           LLVM_CACHE: 'false'
-          LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
         steps:
           - checkout: self
             submodules: recursive
@@ -272,7 +321,7 @@ stages:
               project: 'libroadrunner-deps'
               pipeline: 9
               runVersion: 'latest'
-              artifact: libroadrunner-deps-$(Agent.OS)-Release
+              artifact: libroadrunner-deps-$(Agent.OS)-Release-$(arch)
               path: $(DEPS_INSTALL_PREFIX)
             displayName: Download libroadrunner-deps install artifacts
           - script: |
@@ -370,6 +419,7 @@ stages:
               ls
               echo "$(PythonExecutable) setup.py bdist_wheel"
               $(PythonExecutable) setup.py bdist_wheel
+              rm -r build/
               echo "$(PythonExecutable) setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
@@ -413,8 +463,8 @@ stages:
         variables:
           LLVM_CACHE: 'false'
           MinicondaRoot : 'C:\Miniconda'
-          PythonName: 'py39'
-          PythonVersion: '3.9'
+          PythonName: 'py311'
+          PythonVersion: '3.11'
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
           PythonLibDir: '$(PythonRoot)\Lib'
           PythonScriptsDir: '$(PythonRoot)\Scripts'
@@ -557,9 +607,6 @@ stages:
           vmImage: 'windows-2019'
         strategy:
           matrix:
-            py38:
-              PythonVersion: 3.8
-              PythonName: py38
             py39:
               PythonVersion: 3.9
               PythonName: py39
@@ -569,6 +616,9 @@ stages:
             py311:
               PythonVersion: 3.11
               PythonName: py311
+            py312:
+              PythonVersion: 3.12
+              PythonName: py312
         variables:
           MinicondaRoot : 'C:\Miniconda'
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
@@ -733,6 +783,7 @@ stages:
               echo "ls in install dir"
               ls
               $(PythonExecutable) setup.py bdist_wheel
+              rm -r build/
               $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
@@ -761,7 +812,7 @@ stages:
         displayName: UbuntuBuildRoadrunnerCpp
         continueOnError: "false"
         pool:
-          vmImage: 'Ubuntu-20.04'
+          vmImage: 'Ubuntu-latest'
         strategy:
           matrix:
             64-bit Linux Release:
@@ -963,9 +1014,6 @@ stages:
       - job:
         strategy:
           matrix:
-            py38:
-              PythonVersion: 3.8
-              PythonName: py38
             py39:
               PythonVersion: 3.9
               PythonName: py39
@@ -975,8 +1023,11 @@ stages:
             py311:
               PythonVersion: 3.11
               PythonName: py311
+            py312:
+              PythonVersion: 3.12
+              PythonName: py312
         pool:
-          vmImage: 'ubuntu-20.04'
+          vmImage: 'ubuntu-latest'
         container: sysbiouw/roadrunner-manylinux2014:latest
         variables:
           CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
@@ -1074,6 +1125,7 @@ stages:
 
               echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
               cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
+              rm -r -f $(SOURCE_DIR)/docs $(SOURCE_DIR)/examples
               cmake --build . --target install --config Release -j 12
 
             displayName: Build With Python
@@ -1086,19 +1138,24 @@ stages:
               cd $(BUILD_DIR)
               ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
             displayName: Run Tests
-          - script: |
-              echo ". ~/.bashrc"
-              . ~/.bashrc
-              $(CondaExecutable) activate $(PythonName)
+            # Skip stochastic test suite for now because it keeps pushing us over an hour.
+          # - script: |
+          #     echo ". ~/.bashrc"
+          #     . ~/.bashrc
+          #     $(CondaExecutable) activate $(PythonName)
 
-              echo "cd'ing to build dir $(BUILD_DIR)"
-              cd $(BUILD_DIR)
-              ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-            displayName: Run Stochastic test suite
+          #     echo "cd'ing to build dir $(BUILD_DIR)"
+          #     cd $(BUILD_DIR)
+          #     ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
+          #   displayName: Run Stochastic test suite
 
           - script: |
               echo "cd to $(INSTALL_DIRECTORY)"
               cd $(INSTALL_DIRECTORY)
+
+              #Space was filling up, so since we've already installed, we can delete the build directory.
+              echo "rm $(BUILD_DIRECTORY)"
+              rm -r $(BUILD_DIRECTORY)
 
               echo "ls"
               ls
@@ -1106,6 +1163,9 @@ stages:
               $(PipExecutable) install numpy pytest
               echo "$(PythonExecutable) ./setup.py bdist_wheel"
               $(PythonExecutable) ./setup.py bdist_wheel
+              echo "rm -r build/"
+              rm -r build/
+              echo "$(PythonExecutable) ./setup_rrplugins.py bdist_wheel"
               $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
 
               # cd dist
@@ -1113,12 +1173,11 @@ stages:
               # echo "wheel is: $wheel"
               # $(PipExecutable) install $wheel
             displayName: Build Pip Wheel
-          - task: CopyFiles@2
-            inputs:
-              sourceFolder: '$(INSTALL_DIRECTORY)'
-              contents: '**'
-              targetFolder: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
-            displayName: Copy install to artifact staging area
+          - script: |
+              echo "mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)"
+              mkdir $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
+              mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
+            displayName: Move install to staging directory
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'

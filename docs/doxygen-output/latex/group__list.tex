@@ -8,42 +8,42 @@ Some methods return lists (heterogeneous arrays of data), these routines make it
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga0d154a4c5f0aef656c333775638b2b7d}{create\+R\+R\+List}} (void)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga0d154a4c5f0aef656c333775638b2b7d}{create\+RRList}} (void)
 \begin{DoxyCompactList}\small\item\em Create a new list. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{group__list_gafd22078b804cc5b7e39849fb51c7519a}\label{group__list_gafd22078b804cc5b7e39849fb51c7519a}} 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC void rrc\+Call\+Conv \mbox{\hyperlink{group__list_gafd22078b804cc5b7e39849fb51c7519a}{free\+R\+R\+List}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} list)
-\begin{DoxyCompactList}\small\item\em Free R\+R\+List\+Ptr structure, i.\+e destroy a list. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gadc06b896a3117610bbdcf25abb984f98}{get\+List\+Length}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} my\+List)
+C\+\_\+\+DECL\+\_\+\+SPEC void rrc\+Call\+Conv \mbox{\hyperlink{group__list_gafd22078b804cc5b7e39849fb51c7519a}{free\+RRList}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} list)
+\begin{DoxyCompactList}\small\item\em Free RRList\+Ptr structure, i.\+e destroy a list. \end{DoxyCompactList}\item 
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gadc06b896a3117610bbdcf25abb984f98}{get\+List\+Length}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} my\+List)
 \begin{DoxyCompactList}\small\item\em Returns the length of a given list. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga1b1b84f8ecafcb31e12e66a0f0f1b49b}{create\+Integer\+Item}} (int value)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga1b1b84f8ecafcb31e12e66a0f0f1b49b}{create\+Integer\+Item}} (int value)
 \begin{DoxyCompactList}\small\item\em Create a list item to store an integer. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga53219912496c999a31ae4f108b1a8247}{create\+Double\+Item}} (double value)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga53219912496c999a31ae4f108b1a8247}{create\+Double\+Item}} (double value)
 \begin{DoxyCompactList}\small\item\em Create a list item to store a double value. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gacc07a37b137b826130770eacd8c93d4e}{create\+String\+Item}} (char $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gacc07a37b137b826130770eacd8c93d4e}{create\+String\+Item}} (char $\ast$value)
 \begin{DoxyCompactList}\small\item\em Create a list item to store a pointer to a char$\ast$. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gab092027f0f1176d66f13cb570efa28c8}{create\+List\+Item}} (struct \mbox{\hyperlink{structRRList}{R\+R\+List}} $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gab092027f0f1176d66f13cb570efa28c8}{create\+List\+Item}} (struct \mbox{\hyperlink{structRRList}{RRList}} $\ast$value)
 \begin{DoxyCompactList}\small\item\em Create a list item to store a list. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga2ae7d5112afc94d0dae42cc89b5158ee}{add\+Item}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} list, \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} $\ast$item)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga2ae7d5112afc94d0dae42cc89b5158ee}{add\+Item}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} list, \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} $\ast$item)
 \begin{DoxyCompactList}\small\item\em Add a list item to a list and return index to the added item. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga11a02911ab01db4dc839ae97782e5bf1}{get\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} list, int index)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga11a02911ab01db4dc839ae97782e5bf1}{get\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} list, int index)
 \begin{DoxyCompactList}\small\item\em Returns the index$^\wedge$th item from the list. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gaecb302d3561bc1e80a8123f991970fa8}{is\+List\+Item\+Integer}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gaecb302d3561bc1e80a8123f991970fa8}{is\+List\+Item\+Integer}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns true or false if the list item is an integer. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga462c5cc75cb0f353a9d1f0cd8324876c}{is\+List\+Item\+Double}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga462c5cc75cb0f353a9d1f0cd8324876c}{is\+List\+Item\+Double}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns true or false if the list item is a double. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga2198a9abc9617d9e926f515faa1663ac}{is\+List\+Item\+String}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga2198a9abc9617d9e926f515faa1663ac}{is\+List\+Item\+String}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns true or false if the list item is a character array. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gad17754e97e43d0ed08c2a5cca68f7a39}{is\+List\+Item\+List}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gad17754e97e43d0ed08c2a5cca68f7a39}{is\+List\+Item\+List}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns true or false if the list item is a list itself. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga68d5e8b5116e1076c5cac49858d469f6}{is\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item, enum \mbox{\hyperlink{rrc__types_8h_ab99437ab2e88aa90b7ebb8add042b25e}{List\+Item\+Type}} item\+Type)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga68d5e8b5116e1076c5cac49858d469f6}{is\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item, enum \mbox{\hyperlink{rrc__types_8h_ab99437ab2e88aa90b7ebb8add042b25e}{List\+Item\+Type}} item\+Type)
 \begin{DoxyCompactList}\small\item\em Returns true or false if the list item is the given item\+Type. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga1e19335d11372caa5e9dc2d8976ce688}{get\+Integer\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item, int $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga1e19335d11372caa5e9dc2d8976ce688}{get\+Integer\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item, int $\ast$value)
 \begin{DoxyCompactList}\small\item\em Returns the integer from a list item. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gab383162093a2782001a6d623dc077dc5}{get\+Double\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv \mbox{\hyperlink{group__list_gab383162093a2782001a6d623dc077dc5}{get\+Double\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Returns the double from a list item. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga177fc925d1726b0844c17837d3ed4425}{get\+String\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__list_ga177fc925d1726b0844c17837d3ed4425}{get\+String\+List\+Item}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns the string from a list item. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gaf9b1219b9a239f0fb73cd83095bbecce}{get\+List}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} item)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__list_gaf9b1219b9a239f0fb73cd83095bbecce}{get\+List}} (\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} item)
 \begin{DoxyCompactList}\small\item\em Returns a list from a list item if it contains a list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -57,7 +57,7 @@ Some methods return lists (heterogeneous arrays of data), these routines make it
 \index{List handling routines@{List handling routines}!addItem@{addItem}}
 \index{addItem@{addItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{addItem()}{addItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv add\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}}}]{list,  }\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} $\ast$}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv add\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}}}]{list,  }\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} $\ast$}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -68,6 +68,7 @@ Add a list item to a list and return index to the added item.
 \DoxyCodeLine{x = \mbox{\hyperlink{group__list_ga0d154a4c5f0aef656c333775638b2b7d}{createRRList}}(\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle);}
 \DoxyCodeLine{item1 = \mbox{\hyperlink{group__list_ga1b1b84f8ecafcb31e12e66a0f0f1b49b}{createIntegerItem}} (4);}
 \DoxyCodeLine{add (x, item1);}
+
 \end{DoxyCode}
 
 
@@ -85,7 +86,7 @@ The index to where the list item was added
 \index{List handling routines@{List handling routines}!createDoubleItem@{createDoubleItem}}
 \index{createDoubleItem@{createDoubleItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{createDoubleItem()}{createDoubleItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv create\+Double\+Item (\begin{DoxyParamCaption}\item[{double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv create\+Double\+Item (\begin{DoxyParamCaption}\item[{double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -103,7 +104,7 @@ A pointer to the list item
 \index{List handling routines@{List handling routines}!createIntegerItem@{createIntegerItem}}
 \index{createIntegerItem@{createIntegerItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{createIntegerItem()}{createIntegerItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv create\+Integer\+Item (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv create\+Integer\+Item (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -121,7 +122,7 @@ A pointer to the list item
 \index{List handling routines@{List handling routines}!createListItem@{createListItem}}
 \index{createListItem@{createListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{createListItem()}{createListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv create\+List\+Item (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structRRList}{R\+R\+List}} $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv create\+List\+Item (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structRRList}{RRList}} $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -139,7 +140,7 @@ A pointer to the list item
 \index{List handling routines@{List handling routines}!createRRList@{createRRList}}
 \index{createRRList@{createRRList}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{createRRList()}{createRRList()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv create\+R\+R\+List (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv create\+RRList (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
@@ -160,10 +161,11 @@ Example, build the list \mbox{[}123, \mbox{[}3.\+1415926\mbox{]}\mbox{]}
 \DoxyCodeLine{\mbox{\hyperlink{group__list_ga2ae7d5112afc94d0dae42cc89b5158ee}{addItem}} (l, item1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{item = \mbox{\hyperlink{group__list_ga11a02911ab01db4dc839ae97782e5bf1}{getListItem}} (l, 0);}
-\DoxyCodeLine{printf (\textcolor{stringliteral}{"item = \%d\(\backslash\)n"}, item-\/>data.iValue);}
+\DoxyCodeLine{printf (\textcolor{stringliteral}{"{}item = \%d\(\backslash\)n"{}}, item-\/>data.iValue);}
 \DoxyCodeLine{}
 \DoxyCodeLine{printf (\mbox{\hyperlink{group__toString_ga7cfc863a3d8fec26c951a2f40fa7dfa4}{listToString}} (l));}
 \DoxyCodeLine{\mbox{\hyperlink{group__list_gafd22078b804cc5b7e39849fb51c7519a}{freeRRList}} (l);}
+
 \end{DoxyCode}
 
 
@@ -174,7 +176,7 @@ Returns null if fails, otherwise returns a pointer to a new list structure
 \index{List handling routines@{List handling routines}!createStringItem@{createStringItem}}
 \index{createStringItem@{createStringItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{createStringItem()}{createStringItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv create\+String\+Item (\begin{DoxyParamCaption}\item[{char $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv create\+String\+Item (\begin{DoxyParamCaption}\item[{char $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -192,7 +194,7 @@ A pointer to the list item
 \index{List handling routines@{List handling routines}!getDoubleListItem@{getDoubleListItem}}
 \index{getDoubleListItem@{getDoubleListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getDoubleListItem()}{getDoubleListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Double\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Double\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -212,7 +214,7 @@ Returns true is successful, else false
 \index{List handling routines@{List handling routines}!getIntegerListItem@{getIntegerListItem}}
 \index{getIntegerListItem@{getIntegerListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getIntegerListItem()}{getIntegerListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+Integer\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item,  }\item[{int $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+Integer\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item,  }\item[{int $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -232,7 +234,7 @@ Returns true is successful, else false
 \index{List handling routines@{List handling routines}!getList@{getList}}
 \index{getList@{getList}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getList()}{getList()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv get\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv get\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -244,13 +246,13 @@ Returns a list from a list item if it contains a list.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns N\+U\+LL if item isn\textquotesingle{}t a list, otherwise it returns a list from the item 
+Returns NULL if item isn\textquotesingle{}t a list, otherwise it returns a list from the item 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__list_ga11a02911ab01db4dc839ae97782e5bf1}\label{group__list_ga11a02911ab01db4dc839ae97782e5bf1}} 
 \index{List handling routines@{List handling routines}!getListItem@{getListItem}}
 \index{getListItem@{getListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getListItem()}{getListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}} rrc\+Call\+Conv get\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}}}]{list,  }\item[{int}]{index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}} rrc\+Call\+Conv get\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}}}]{list,  }\item[{int}]{index }\end{DoxyParamCaption})}
 
 
 
@@ -270,7 +272,7 @@ A pointer to the retrieved list item
 \index{List handling routines@{List handling routines}!getListLength@{getListLength}}
 \index{getListLength@{getListLength}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getListLength()}{getListLength()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv get\+List\+Length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}}}]{my\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv get\+List\+Length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}}}]{my\+List }\end{DoxyParamCaption})}
 
 
 
@@ -288,7 +290,7 @@ Length of list
 \index{List handling routines@{List handling routines}!getStringListItem@{getStringListItem}}
 \index{getStringListItem@{getStringListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{getStringListItem()}{getStringListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char$\ast$ rrc\+Call\+Conv get\+String\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC char$\ast$ rrc\+Call\+Conv get\+String\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -300,13 +302,13 @@ Returns the string from a list item.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns N\+U\+LL if it fails, otherwise returns a pointer to the string 
+Returns NULL if it fails, otherwise returns a pointer to the string 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__list_ga68d5e8b5116e1076c5cac49858d469f6}\label{group__list_ga68d5e8b5116e1076c5cac49858d469f6}} 
 \index{List handling routines@{List handling routines}!isListItem@{isListItem}}
 \index{isListItem@{isListItem}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{isListItem()}{isListItem()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv is\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item,  }\item[{enum \mbox{\hyperlink{rrc__types_8h_ab99437ab2e88aa90b7ebb8add042b25e}{List\+Item\+Type}}}]{item\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv is\+List\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item,  }\item[{enum \mbox{\hyperlink{rrc__types_8h_ab99437ab2e88aa90b7ebb8add042b25e}{List\+Item\+Type}}}]{item\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -326,7 +328,7 @@ If true, then the list item holds a list
 \index{List handling routines@{List handling routines}!isListItemDouble@{isListItemDouble}}
 \index{isListItemDouble@{isListItemDouble}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{isListItemDouble()}{isListItemDouble()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv is\+List\+Item\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv is\+List\+Item\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -344,7 +346,7 @@ If true, then the list item holds a double
 \index{List handling routines@{List handling routines}!isListItemInteger@{isListItemInteger}}
 \index{isListItemInteger@{isListItemInteger}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{isListItemInteger()}{isListItemInteger()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv is\+List\+Item\+Integer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv is\+List\+Item\+Integer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -362,7 +364,7 @@ If true, then the list item holds an integer
 \index{List handling routines@{List handling routines}!isListItemList@{isListItemList}}
 \index{isListItemList@{isListItemList}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{isListItemList()}{isListItemList()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv is\+List\+Item\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv is\+List\+Item\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 
@@ -380,7 +382,7 @@ If true, then the list item holds a list
 \index{List handling routines@{List handling routines}!isListItemString@{isListItemString}}
 \index{isListItemString@{isListItemString}!List handling routines@{List handling routines}}
 \doxysubsubsection{\texorpdfstring{isListItemString()}{isListItemString()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC int rrc\+Call\+Conv is\+List\+Item\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{R\+R\+List\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC int rrc\+Call\+Conv is\+List\+Item\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a79938364b69256c42480bb3a29ebf73e}{RRList\+Item\+Ptr}}}]{item }\end{DoxyParamCaption})}
 
 
 

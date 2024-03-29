@@ -228,6 +228,16 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6rrllvm21ModelGeneratorContext20getPiecewiseTriggersEv">
+<span id="_CPPv3NK6rrllvm21ModelGeneratorContext20getPiecewiseTriggersEv"></span><span id="_CPPv2NK6rrllvm21ModelGeneratorContext20getPiecewiseTriggersEv"></span><span id="rrllvm::ModelGeneratorContext::getPiecewiseTriggersC"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1a8249f4ad462564b4b60849a92d8ef4f8"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getPiecewiseTriggers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6rrllvm21ModelGeneratorContext20getPiecewiseTriggersEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6rrllvm21ModelGeneratorContext23getNumPiecewiseTriggersEv">
+<span id="_CPPv3NK6rrllvm21ModelGeneratorContext23getNumPiecewiseTriggersEv"></span><span id="_CPPv2NK6rrllvm21ModelGeneratorContext23getNumPiecewiseTriggersEv"></span><span id="rrllvm::ModelGeneratorContext::getNumPiecewiseTriggersC"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1a9b6f151f3d7a727bcbfeba608889cfe3"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumPiecewiseTriggers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6rrllvm21ModelGeneratorContext23getNumPiecewiseTriggersEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6rrllvm21ModelGeneratorContext15getJitNonOwningEv">
 <span id="_CPPv3NK6rrllvm21ModelGeneratorContext15getJitNonOwningEv"></span><span id="_CPPv2NK6rrllvm21ModelGeneratorContext15getJitNonOwningEv"></span><span id="rrllvm::ModelGeneratorContext::getJitNonOwningC"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ac6715881f01e813cb1346ca66dc55a51"></span><span class="n"><span class="pre">Jit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getJitNonOwning</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6rrllvm21ModelGeneratorContext15getJitNonOwningEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
@@ -235,16 +245,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext26transferObjectsToResourcesENSt10shared_ptrIN6rrllvm14ModelResourcesEEE">
 <span id="_CPPv3N6rrllvm21ModelGeneratorContext26transferObjectsToResourcesENSt10shared_ptrIN6rrllvm14ModelResourcesEEE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext26transferObjectsToResourcesENSt10shared_ptrIN6rrllvm14ModelResourcesEEE"></span><span id="rrllvm::ModelGeneratorContext::transferObjectsToResources__std::shared_ptr:rrllvm::ModelResources:"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1af63938c6a114a8c859110da2d3649189"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">transferObjectsToResources</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ModelResources</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">modelResources</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext26transferObjectsToResourcesENSt10shared_ptrIN6rrllvm14ModelResourcesEEE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of reference, even though we gaurantee this to be non-null </p>
-<p>if optimization is enabled, this gets the function pass manager loaded with all the requested optimizers. NULL if no optimization is specified.</p>
-<p>
-However, when a model is successfully generated, we need a way to give it the exec engine, and whatever other bits it requires.</p>
+<dd><p>A lot can go wrong in the process of generating a model from an sbml doc. </p>
+<p>This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.</p>
+<p>However, when a model is successfully generated, we need a way to give it the exec engine, and whatever other bits it requires.</p>
 <p>So, this method exists so that the generated model can steal all the objects it needs from us, these object are transfered to the model, and our pointers to them are cleared. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>a borrowed reference that is owned by <a class="reference internal" href="#classrrllvm_1_1ModelGeneratorContext"><span class="std std-ref">ModelGeneratorContext</span></a> A lot can go wrong in the process of generating a model from an sbml doc. This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -273,6 +277,30 @@ However, when a model is successfully generated, we need a way to give it the ex
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext23addAllPiecewiseTriggersEPKN7libsbml5ModelE">
+<span id="_CPPv3N6rrllvm21ModelGeneratorContext23addAllPiecewiseTriggersEPKN7libsbml5ModelE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext23addAllPiecewiseTriggersEPKN7libsbml5ModelE"></span><span id="rrllvm::ModelGeneratorContext::addAllPiecewiseTriggers__libsbml::ModelCP"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ace5ad1e45030d3116d0c8283f511fc97"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addAllPiecewiseTriggers</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Model</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">model</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext23addAllPiecewiseTriggersEPKN7libsbml5ModelE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get all transitions from any piecewise equations in the model. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext24addPiecewiseTriggersFromEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm21ModelGeneratorContext24addPiecewiseTriggersFromEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext24addPiecewiseTriggersFromEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ModelGeneratorContext::addPiecewiseTriggersFrom__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1adaa8384e9f2effab54c3603c427125d0"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addPiecewiseTriggersFrom</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext24addPiecewiseTriggersFromEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get all transitions from any piecewise equations in the model. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext17containsPiecewiseEPKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm21ModelGeneratorContext17containsPiecewiseEPKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext17containsPiecewiseEPKN7libsbml7ASTNodeE"></span><span id="rrllvm::ModelGeneratorContext::containsPiecewise__libsbml::ASTNodeCP"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ab09ef57332d46afe11a3d71d0f0b1e24"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsPiecewise</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext17containsPiecewiseEPKN7libsbml7ASTNodeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get all transitions from any piecewise equations in the model. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext22clearPiecewiseTriggersEv">
+<span id="_CPPv3N6rrllvm21ModelGeneratorContext22clearPiecewiseTriggersEv"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext22clearPiecewiseTriggersEv"></span><span id="rrllvm::ModelGeneratorContext::clearPiecewiseTriggers"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ae17ff7ea16c15250c280827d5de5dbad"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearPiecewiseTriggers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext22clearPiecewiseTriggersEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Delete any piecewise trigger nodes (which we own) </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext7cleanupEv">
 <span id="_CPPv3N6rrllvm21ModelGeneratorContext7cleanupEv"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext7cleanupEv"></span><span id="rrllvm::ModelGeneratorContext::cleanup"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ad47a63d8c765ee58914470cac11a4b86"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cleanup</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext7cleanupEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>free any memory this class allocated. </p>
@@ -284,7 +312,7 @@ However, when a model is successfully generated, we need a way to give it the ex
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext8ownedDocE">
 <span id="_CPPv3N6rrllvm21ModelGeneratorContext8ownedDocE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext8ownedDocE"></span><span id="rrllvm::ModelGeneratorContext::ownedDoc__libsbml::SBMLDocumentP"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ac4a67dfb625826b58fdc9c3d1cbea809"></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SBMLDocument</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ownedDoc</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext8ownedDocE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>these point to the same location, ownedDoc is set if we create the doc, otherwise its nullptr, meaning we’re borrowing the the doc. </p>
+<dd><p>these point to the same location, ownedDoc is set if we create the doc, otherwise its nullptr, meaning we’re borrowing the doc. </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -292,6 +320,11 @@ However, when a model is successfully generated, we need a way to give it the ex
 <span id="_CPPv3N6rrllvm21ModelGeneratorContext3docE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext3docE"></span><span id="rrllvm::ModelGeneratorContext::doc__libsbml::SBMLDocumentCP"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1ab54772fc1ab69c585080acc8e1dd538a"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SBMLDocument</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">doc</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext3docE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>always references the sbml doc. </p>
 </dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext18mPiecewiseTriggersE">
+<span id="_CPPv3N6rrllvm21ModelGeneratorContext18mPiecewiseTriggersE"></span><span id="_CPPv2N6rrllvm21ModelGeneratorContext18mPiecewiseTriggersE"></span><span id="rrllvm::ModelGeneratorContext::mPiecewiseTriggers__std::vector:libsbml::ASTNodeP:"></span><span class="target" id="classrrllvm_1_1ModelGeneratorContext_1aaf574218997e4a8fc5802498bc79835d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mPiecewiseTriggers</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm21ModelGeneratorContext18mPiecewiseTriggersE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N6rrllvm21ModelGeneratorContext7symbolsE">

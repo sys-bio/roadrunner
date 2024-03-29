@@ -2924,26 +2924,6 @@ C_DECL_SPEC bool rrcCallConv getuEE(RRHandle handle, const char* name, const cha
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Determine the current seed used by the random generator
-
- \param[in] handle Handle to a RoadRunner instance
- \param[out] seed This is the value of the current seed, returned to the caller
- \return Returns true if successful
- \ingroup stochastic
-*/
-C_DECL_SPEC bool rrcCallConv getSeed(RRHandle handle, long* seed);
-
-/*!
- \brief Set the current seed used by the random generator
-
- \param[in] handle Handle to a RoadRunner instance
- \param[out] seed This is the value the caller will set the seed to
- \return Returns true if successful
- \ingroup stochastic
-*/
-C_DECL_SPEC bool rrcCallConv setSeed(RRHandle handle, long seed);
-
-/*!
  \brief Carry out a time-course simulation using the Gillespie algorithm with
  variable step size. setTimeStart, setTimeEnd, etc are used to set the simulation
  characteristics.
@@ -3250,7 +3230,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfConfigKeys();
 
 /*!
  \brief Set the selection list for output from simulate(void) or simulateEx(void)
- Use setTimeCourseSelectionListEx(handle, length, list) to set the the simulate selection list.
+ Use setTimeCourseSelectionListEx(handle, length, list) to set the simulate selection list.
  Compared to setTimeCourseSelectionList, setTimeCourseSelectionListEx, expects a list of char* strings
  otherwise it has identical functionality.
  \param[in] handle Handle to a RoadRunner instance

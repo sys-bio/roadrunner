@@ -13,20 +13,20 @@ Store a roadrunner option (or setting) as a \mbox{\hyperlink{classrr_1_1Variant}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{classrr_1_1Setting_af49342a0fabdeeafe649246089a72b40}{Type\+Id}} \{ \newline
-{\bfseries E\+M\+P\+TY} = 0, 
-{\bfseries S\+T\+R\+I\+NG} = 1, 
-{\bfseries B\+O\+OL} = 2, 
-{\bfseries I\+N\+T32} = 3, 
-\newline
-{\bfseries U\+I\+N\+T32} = 4, 
-{\bfseries I\+N\+T64} = 5, 
-{\bfseries U\+I\+N\+T64} = 6, 
-{\bfseries F\+L\+O\+AT} = 7, 
-\newline
-{\bfseries D\+O\+U\+B\+LE} = 8, 
-{\bfseries C\+H\+AR} = 9, 
-{\bfseries U\+C\+H\+AR} = 10, 
-{\bfseries D\+O\+U\+B\+L\+E\+V\+E\+C\+T\+OR} = 11
+{\bfseries EMPTY} = 0
+, {\bfseries STRING} = 1
+, {\bfseries BOOL} = 2
+, {\bfseries INT32} = 3
+, \newline
+{\bfseries UINT32} = 4
+, {\bfseries INT64} = 5
+, {\bfseries UINT64} = 6
+, {\bfseries FLOAT} = 7
+, \newline
+{\bfseries DOUBLE} = 8
+, {\bfseries CHAR} = 9
+, {\bfseries UCHAR} = 10
+, {\bfseries DOUBLEVECTOR} = 11
  \}
 \begin{DoxyCompactList}\small\item\em types that correspond to the index of the position of the type in the variant template. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -113,7 +113,7 @@ std\+::string \mbox{\hyperlink{classrr_1_1Setting_a1ee105bd7e3f37b7109004f9fa056
 {\footnotesize template$<$class T $>$ }\\static bool \mbox{\hyperlink{classrr_1_1Setting_ab97b3a831c1ee98cb591c146cff9d52b}{is\+Valid\+Type}} ()
 \begin{DoxyCompactList}\small\item\em test for membership of type T in setting\+\_\+t, aka supported types \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1Setting_ad62b4bb5f092aa767644bf7b59a41f66}{parse}} (std\+::string \&val)
-\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in J\+S\+ON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in JSON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -153,20 +153,21 @@ The function of this class used to be performed by \mbox{\hyperlink{classrr_1_1V
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// reassign a setting to different type}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting5(123);}
-\DoxyCodeLine{setting5 = \textcolor{stringliteral}{"Now a string"}; \textcolor{comment}{// okay}}
-\DoxyCodeLine{std::string expected = \textcolor{stringliteral}{"Now a string"};}
+\DoxyCodeLine{setting5 = \textcolor{stringliteral}{"{}Now a string"{}}; \textcolor{comment}{// okay}}
+\DoxyCodeLine{std::string expected = \textcolor{stringliteral}{"{}Now a string"{}};}
 \DoxyCodeLine{ASSERT\_TRUE(setting5 == expected); \textcolor{comment}{// pass}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// instantiating a setting from other objects}}
-\DoxyCodeLine{std::string st = \textcolor{stringliteral}{"A String"};}
+\DoxyCodeLine{std::string st = \textcolor{stringliteral}{"{}A String"{}};}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting6(st); \textcolor{comment}{//okay}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting7 = st ; \textcolor{comment}{// not okay}}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting8 = \textcolor{stringliteral}{"A string"}; \textcolor{comment}{// not okay}}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} setting8 = \textcolor{stringliteral}{"{}A string"{}}; \textcolor{comment}{// not okay}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// check if Setting supports a type}}
 \DoxyCodeLine{\textcolor{keywordtype}{bool} supported = Setting::isValidType<int>(); \textcolor{comment}{// true}}
 \DoxyCodeLine{supported = Setting::isValidType<std::string>(); \textcolor{comment}{// true}}
 \DoxyCodeLine{supported = Setting::isValidType<const char*>(); \textcolor{comment}{// false}}
+
 \end{DoxyCode}
  
 
@@ -210,7 +211,8 @@ constructor for enabling creation of a \mbox{\hyperlink{classrr_1_1Setting}{Sett
 
 The literal gets converted into a std\+::string 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s(\textcolor{stringliteral}{"a string"}); \textcolor{comment}{//interpreted as string, not const char*}}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s(\textcolor{stringliteral}{"{}a string"{}}); \textcolor{comment}{//interpreted as string, not const char*}}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Setting_a2f608e0145800200b7795eea56a93cd5}\label{classrr_1_1Setting_a2f608e0145800200b7795eea56a93cd5}} 
 \index{rr::Setting@{rr::Setting}!Setting@{Setting}}
@@ -291,6 +293,7 @@ type contained by this \mbox{\hyperlink{classrr_1_1Setting}{Setting}} must be re
 \DoxyCodeLine{ASSERT\_EQ(setting.get<\textcolor{keywordtype}{int}>(), 5); \textcolor{comment}{// fails if setting is not int}}
 \DoxyCodeLine{ASSERT\_THROW(setting.get<\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}>();, std::bad\_variant\_access); \textcolor{comment}{// bad, setting contains an int}}
 \DoxyCodeLine{ASSERT\_EQ(setting.getAs<\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}>(), 5); \textcolor{comment}{// Okay, we can convert from int to unsigned (when int > 0)}}
+
 \end{DoxyCode}
  \mbox{\Hypertarget{classrr_1_1Setting_ab0b42145e5c0dab9a86a5faa790f1d7f}\label{classrr_1_1Setting_ab0b42145e5c0dab9a86a5faa790f1d7f}} 
 \index{rr::Setting@{rr::Setting}!isType@{isType}}
@@ -359,14 +362,15 @@ operator=(const T\&setting);
 
 
 
-Parses the std\+::string which must be in J\+S\+ON format. 
+Parses the std\+::string which must be in JSON format. 
 
 This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} from a file or create a new one from a std\+::string\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Variant v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"0.123"});}
+\DoxyCodeLine{Variant v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"{}0.123"{}});}
+
 \end{DoxyCode}
  \begin{DoxyNote}{Note}
-this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Setting}} class. We should instead have a J\+S\+ON parser, is that\textquotesingle{}s the function we need. 
+this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Setting}} class. We should instead have a JSON parser, is that\textquotesingle{}s the function we need. 
 \end{DoxyNote}
 \mbox{\Hypertarget{classrr_1_1Setting_aca92fd79b60e0dfbf9b3f14893b766b6}\label{classrr_1_1Setting_aca92fd79b60e0dfbf9b3f14893b766b6}} 
 \index{rr::Setting@{rr::Setting}!pythonRepr@{pythonRepr}}
@@ -379,7 +383,7 @@ this function is a tangent to the main \mbox{\hyperlink{classrr_1_1Setting}{Sett
 Convert to Python-\/compatible representation. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1Setting_a479708abc63de00aca3d56b7e28bee04}\label{classrr_1_1Setting_a479708abc63de00aca3d56b7e28bee04}} 
 \index{rr::Setting@{rr::Setting}!type@{type}}
@@ -417,8 +421,8 @@ equality operator for comparing object other\+Setting of type T against the \mbo
 
 Enables the following types of comparisons 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s1(\textcolor{stringliteral}{"string"});}
-\DoxyCodeLine{    std::string s2 = \textcolor{stringliteral}{"string"};}
+\DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s1(\textcolor{stringliteral}{"{}string"{}});}
+\DoxyCodeLine{    std::string s2 = \textcolor{stringliteral}{"{}string"{}};}
 \DoxyCodeLine{    s1 == s2; \textcolor{comment}{// true}}
 \DoxyCodeLine{    \textcolor{comment}{// or}}
 \DoxyCodeLine{    \mbox{\hyperlink{classrr_1_1Setting_a2f3f6beff36ad237ca6493dfaa19741f}{Setting}} s3(1234);}
@@ -469,6 +473,7 @@ Enables the following types of comparisons
 \DoxyCodeLine{    \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
+
 \end{DoxyCode}
  \begin{DoxySeeAlso}{See also}
 docs on std\+::visit 

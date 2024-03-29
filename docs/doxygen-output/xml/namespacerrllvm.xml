@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="namespacerrllvm" kind="namespace" language="C++">
     <compoundname>rrllvm</compoundname>
     <innerclass refid="classrrllvm_1_1AssignmentRuleEvaluator" prot="public">rrllvm::AssignmentRuleEvaluator</innerclass>
@@ -7,37 +7,40 @@
     <innerclass refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" prot="public">rrllvm::ASTNodeCodeGenScalarTicket</innerclass>
     <innerclass refid="classrrllvm_1_1ASTNodeFactory" prot="public">rrllvm::ASTNodeFactory</innerclass>
     <innerclass refid="classrrllvm_1_1CodeGen" prot="public">rrllvm::CodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1LoadSymbolResolver" prot="public">rrllvm::LoadSymbolResolver</innerclass>
+    <innerclass refid="classrrllvm_1_1StoreSymbolResolver" prot="public">rrllvm::StoreSymbolResolver</innerclass>
     <innerclass refid="classrrllvm_1_1CodeGenBase" prot="public">rrllvm::CodeGenBase</innerclass>
     <innerclass refid="classrrllvm_1_1EvalConversionFactorCodeGen" prot="public">rrllvm::EvalConversionFactorCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1EvalInitialConditionsCodeGen" prot="public">rrllvm::EvalInitialConditionsCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1EvalRateRuleRatesCodeGen" prot="public">rrllvm::EvalRateRuleRatesCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1EvalReactionRatesCodeGen" prot="public">rrllvm::EvalReactionRatesCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1EvalVolatileStoichCodeGen" prot="public">rrllvm::EvalVolatileStoichCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1Event" prot="public">rrllvm::Event</innerclass>
     <innerclass refid="classrrllvm_1_1EventAssignCodeGen" prot="public">rrllvm::EventAssignCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1EventCodeGenBase" prot="public">rrllvm::EventCodeGenBase</innerclass>
     <innerclass refid="structrrllvm_1_1EventPredicate" prot="public">rrllvm::EventPredicate</innerclass>
+    <innerclass refid="classrrllvm_1_1Event" prot="public">rrllvm::Event</innerclass>
     <innerclass refid="classrrllvm_1_1EventQueue" prot="public">rrllvm::EventQueue</innerclass>
     <innerclass refid="classrrllvm_1_1EventTriggerCodeGen" prot="public">rrllvm::EventTriggerCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1FunctionResolver" prot="public">rrllvm::FunctionResolver</innerclass>
-    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesAmountCodeGen" prot="public">rrllvm::GetBoundarySpeciesAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen" prot="public">rrllvm::GetBoundarySpeciesConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesInitAmountCodeGen" prot="public">rrllvm::GetBoundarySpeciesInitAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesInitConcentrationCodeGen" prot="public">rrllvm::GetBoundarySpeciesInitConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetCompartmentInitVolumeCodeGen" prot="public">rrllvm::GetCompartmentInitVolumeCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetCompartmentVolumeCodeGen" prot="public">rrllvm::GetCompartmentVolumeCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetEventDelayCodeGen" prot="public">rrllvm::GetEventDelayCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetEventPriorityCodeGen" prot="public">rrllvm::GetEventPriorityCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetEventTriggerCodeGen" prot="public">rrllvm::GetEventTriggerCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1GetEventValueCodeGenBase" prot="public">rrllvm::GetEventValueCodeGenBase</innerclass>
-    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen" prot="public">rrllvm::GetFloatingSpeciesAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesConcentrationCodeGen" prot="public">rrllvm::GetFloatingSpeciesConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesInitAmountCodeGen" prot="public">rrllvm::GetFloatingSpeciesInitAmountCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen" prot="public">rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetGlobalParameterCodeGen" prot="public">rrllvm::GetGlobalParameterCodeGen</innerclass>
-    <innerclass refid="classrrllvm_1_1GetGlobalParameterInitValueCodeGen" prot="public">rrllvm::GetGlobalParameterInitValueCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetEventTriggerCodeGen" prot="public">rrllvm::GetEventTriggerCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetEventPriorityCodeGen" prot="public">rrllvm::GetEventPriorityCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetEventDelayCodeGen" prot="public">rrllvm::GetEventDelayCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1GetInitialValueCodeGenBase" prot="public">rrllvm::GetInitialValueCodeGenBase</innerclass>
+    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen" prot="public">rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesInitConcentrationCodeGen" prot="public">rrllvm::GetBoundarySpeciesInitConcentrationCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesInitAmountCodeGen" prot="public">rrllvm::GetFloatingSpeciesInitAmountCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesInitAmountCodeGen" prot="public">rrllvm::GetBoundarySpeciesInitAmountCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetCompartmentInitVolumeCodeGen" prot="public">rrllvm::GetCompartmentInitVolumeCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetGlobalParameterInitValueCodeGen" prot="public">rrllvm::GetGlobalParameterInitValueCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetPiecewiseTriggerCodeGen" prot="public">rrllvm::GetPiecewiseTriggerCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1GetValueCodeGenBase" prot="public">rrllvm::GetValueCodeGenBase</innerclass>
+    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesAmountCodeGen" prot="public">rrllvm::GetBoundarySpeciesAmountCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesAmountCodeGen" prot="public">rrllvm::GetFloatingSpeciesAmountCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen" prot="public">rrllvm::GetBoundarySpeciesConcentrationCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetFloatingSpeciesConcentrationCodeGen" prot="public">rrllvm::GetFloatingSpeciesConcentrationCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetCompartmentVolumeCodeGen" prot="public">rrllvm::GetCompartmentVolumeCodeGen</innerclass>
+    <innerclass refid="classrrllvm_1_1GetGlobalParameterCodeGen" prot="public">rrllvm::GetGlobalParameterCodeGen</innerclass>
     <innerclass refid="classrrllvm_1_1Jit" prot="public">rrllvm::Jit</innerclass>
     <innerclass refid="classrrllvm_1_1JitFactory" prot="public">rrllvm::JitFactory</innerclass>
     <innerclass refid="classrrllvm_1_1KineticLawParameterResolver" prot="public">rrllvm::KineticLawParameterResolver</innerclass>
@@ -45,20 +48,18 @@
     <innerclass refid="classrrllvm_1_1LLVMCompiler" prot="public">rrllvm::LLVMCompiler</innerclass>
     <innerclass refid="classrrllvm_1_1LLVMExecutableModel" prot="public">rrllvm::LLVMExecutableModel</innerclass>
     <innerclass refid="structrrllvm_1_1LLVMModelData" prot="public">rrllvm::LLVMModelData</innerclass>
-    <innerclass refid="classrrllvm_1_1LLVMModelDataIRBuilderTesting" prot="public">rrllvm::LLVMModelDataIRBuilderTesting</innerclass>
     <innerclass refid="classrrllvm_1_1LLVMModelDataSymbols" prot="public">rrllvm::LLVMModelDataSymbols</innerclass>
     <innerclass refid="classrrllvm_1_1LLVMModelGenerator" prot="public">rrllvm::LLVMModelGenerator</innerclass>
     <innerclass refid="classrrllvm_1_1LLVMModelSymbols" prot="public">rrllvm::LLVMModelSymbols</innerclass>
-    <innerclass refid="classrrllvm_1_1LoadSymbolResolver" prot="public">rrllvm::LoadSymbolResolver</innerclass>
     <innerclass refid="classrrllvm_1_1LoadSymbolResolverBase" prot="public">rrllvm::LoadSymbolResolverBase</innerclass>
     <innerclass refid="classrrllvm_1_1ModelDataIRBuilder" prot="public">rrllvm::ModelDataIRBuilder</innerclass>
+    <innerclass refid="classrrllvm_1_1LLVMModelDataIRBuilderTesting" prot="public">rrllvm::LLVMModelDataIRBuilderTesting</innerclass>
     <innerclass refid="classrrllvm_1_1ModelGeneratorContext" prot="public">rrllvm::ModelGeneratorContext</innerclass>
     <innerclass refid="classrrllvm_1_1ModelResourceProvider" prot="public">rrllvm::ModelResourceProvider</innerclass>
     <innerclass refid="classrrllvm_1_1Random" prot="public">rrllvm::Random</innerclass>
     <innerclass refid="classrrllvm_1_1SBMLInitialValueSymbolResolver" prot="public">rrllvm::SBMLInitialValueSymbolResolver</innerclass>
     <innerclass refid="classrrllvm_1_1SBMLModelObjectCache" prot="public">rrllvm::SBMLModelObjectCache</innerclass>
     <innerclass refid="classrrllvm_1_1SetValueCodeGenBase" prot="public">rrllvm::SetValueCodeGenBase</innerclass>
-    <innerclass refid="classrrllvm_1_1StoreSymbolResolver" prot="public">rrllvm::StoreSymbolResolver</innerclass>
     <innerclass refid="classrrllvm_1_1SymbolForest" prot="public">rrllvm::SymbolForest</innerclass>
       <sectiondef kind="enum">
       <memberdef kind="enum" id="LLVMModelDataSymbols_8h_1a318154bee3361ded939b3fcf368adab8" prot="public" static="no" strong="no">
@@ -172,6 +173,13 @@
         </enumvalue>
         <enumvalue id="LLVMModelDataSymbols_8h_1a318154bee3361ded939b3fcf368adab8a8db07edabee3ed7d03a8b4c936e238d8" prot="public">
           <name>NumEvents</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="LLVMModelDataSymbols_8h_1a318154bee3361ded939b3fcf368adab8a9b00b1fec946684a68872df90e093f50" prot="public">
+          <name>NumPiecewiseTriggers</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -358,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="35" column="21" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="35" bodyend="82"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="35" column="1" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="35" bodyend="83"/>
       </memberdef>
       <memberdef kind="enum" id="LLVMModelDataSymbols_8h_1a56359a3dc71f6d7451f44e349fec3b81" prot="public" static="no" strong="no">
         <type></type>
@@ -393,7 +401,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="85" column="1" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="84" bodyend="89"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="85" column="1" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="86" bodyend="90"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -565,6 +573,19 @@
         <inbodydescription>
         </inbodydescription>
         <location file="llvm/GetInitialValueCodeGenBase.h" line="25" column="13" bodyfile="llvm/GetInitialValueCodeGenBase.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="GetPiecewiseTriggerCodeGen_8h_1abcc78c14c2bc82261effbcea42442506" prot="public" static="no">
+        <type>unsigned char(*</type>
+        <definition>typedef unsigned char(* rrllvm::GetPiecewiseTriggerCodeGen_FunctionPtr) (LLVMModelData *, size_t)</definition>
+        <argsstring>)(LLVMModelData *, size_t)</argsstring>
+        <name>GetPiecewiseTriggerCodeGen_FunctionPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/GetPiecewiseTriggerCodeGen.h" line="27" column="22" bodyfile="llvm/GetPiecewiseTriggerCodeGen.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="GetValueCodeGenBase_8h_1a5138a371d6753a62f5313a759eebb8c2" prot="public" static="no">
         <type>double(*</type>
@@ -1567,7 +1588,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.cpp" line="1316" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1316" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.cpp" line="1323" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1323" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="LLVMModelDataSymbols_8cpp_1ab7d0be483572f07194fad16c6237afb2" prot="public" static="no">
         <type>cxx11_ns::unordered_map&lt; uint, ssize_type &gt;</type>
@@ -1580,7 +1601,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.cpp" line="1317" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1317" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.cpp" line="1324" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1324" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1a623fb2eecf135c54d2c8ab4ae7dbadd5" prot="public" static="no">
         <type>std::weak_ptr&lt; ModelResources &gt;</type>
@@ -1838,7 +1859,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ASTNodeCodeGen.cpp" line="1403" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="1403" bodyend="1414" declfile="llvm/ASTNodeCodeGen.cpp" declline="39" declcolumn="13"/>
+        <location file="llvm/ASTNodeCodeGen.cpp" line="1558" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="1558" bodyend="1569" declfile="llvm/ASTNodeCodeGen.cpp" declline="39" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="ASTNodeCodeGen_8cpp_1ab6e2d1a7bcbe21244fe9d59cd807bcd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1855,7 +1876,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ASTNodeCodeGen.cpp" line="41" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="41" bodyend="47" declfile="llvm/ASTNodeCodeGen.h" declline="135" declcolumn="13"/>
+        <location file="llvm/ASTNodeCodeGen.cpp" line="41" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="41" bodyend="47" declfile="llvm/ASTNodeCodeGen.h" declline="137" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="EvalVolatileStoichCodeGen_8cpp_1aca20ef9949b7668b5a74a25b2a26e91b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -1881,7 +1902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalVolatileStoichCodeGen.cpp" line="154" column="17" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="154" bodyend="187"/>
+        <location file="llvm/EvalVolatileStoichCodeGen.cpp" line="156" column="17" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="156" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="EventQueue_8cpp_1a0d825ecc4e905532347cd0e52be7c363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2000,7 +2021,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="607" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="607" bodyend="612" declfile="llvm/LLVMIncludes.h" declline="118" declcolumn="13"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="609" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="609" bodyend="614" declfile="llvm/LLVMIncludes.h" declline="118" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelData_8cpp_1a2c8ed62c3575769c8bc81ed568811e81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::ostream &amp;</type>
@@ -2021,7 +2042,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelData.cpp" line="49" column="1" bodyfile="llvm/LLVMModelData.cpp" bodystart="49" bodyend="104" declfile="llvm/LLVMModelData.h" declline="258" declcolumn="1"/>
+        <location file="llvm/LLVMModelData.cpp" line="49" column="1" bodyfile="llvm/LLVMModelData.cpp" bodystart="49" bodyend="104" declfile="llvm/LLVMModelData.h" declline="261" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelData_8cpp_1ace95dba9bf735deee2db65c16cc88f26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2042,7 +2063,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelData.cpp" line="106" column="6" bodyfile="llvm/LLVMModelData.cpp" bodystart="106" bodyend="173" declfile="llvm/LLVMModelData.h" declline="248" declcolumn="6"/>
+        <location file="llvm/LLVMModelData.cpp" line="106" column="6" bodyfile="llvm/LLVMModelData.cpp" bodystart="106" bodyend="174" declfile="llvm/LLVMModelData.h" declline="251" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelData_8cpp_1a104516ebe59a471ed7d82b6f5f174553" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref> *</type>
@@ -2059,7 +2080,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelData.cpp" line="179" column="15" bodyfile="llvm/LLVMModelData.cpp" bodystart="179" bodyend="260" declfile="llvm/LLVMModelData.h" declline="249" declcolumn="15"/>
+        <location file="llvm/LLVMModelData.cpp" line="180" column="15" bodyfile="llvm/LLVMModelData.cpp" bodystart="180" bodyend="262" declfile="llvm/LLVMModelData.h" declline="252" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelData_8cpp_1afb50a5a46b5a17f2ab5f90368247b8a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2076,7 +2097,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelData.cpp" line="262" column="7" bodyfile="llvm/LLVMModelData.cpp" bodystart="262" bodyend="270" declfile="llvm/LLVMModelData.h" declline="250" declcolumn="6"/>
+        <location file="llvm/LLVMModelData.cpp" line="264" column="7" bodyfile="llvm/LLVMModelData.cpp" bodystart="264" bodyend="272" declfile="llvm/LLVMModelData.h" declline="253" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelGenerator_8cpp_1a18507731c5464be9817e4256a3e6c2af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -2097,7 +2118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="111" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="111" bodyend="221" declfile="llvm/LLVMModelGenerator.cpp" declline="66" declcolumn="17"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="112" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="112" bodyend="223" declfile="llvm/LLVMModelGenerator.cpp" declline="66" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelGenerator_8cpp_1ada07d0362849e25c1ed58ad060d80c47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref></type>
@@ -2139,11 +2160,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="223" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="223" bodyend="231" declfile="llvm/LLVMModelGenerator.cpp" declline="71" declcolumn="24"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="225" column="17" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="225" bodyend="233" declfile="llvm/LLVMModelGenerator.cpp" declline="71" declcolumn="24"/>
       </memberdef>
-      <memberdef kind="function" id="LLVMModelGenerator_8cpp_1adf2cb4f9cfc67974dd015ec96a45bdd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="LLVMModelGenerator_8cpp_1a29169d1cecde9229bfa350d70ecd40ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref> *</type>
-        <definition>LLVMModelData * rrllvm::codeGenAddModuleAndMakeModelData</definition>
+        <definition>LLVMModelData* rrllvm::codeGenAddModuleAndMakeModelData</definition>
         <argsstring>(ModelGeneratorContext *modelGeneratorContext, std::shared_ptr&lt; ModelResources &gt; &amp;modelResources, std::uint32_t options)</argsstring>
         <name>codeGenAddModuleAndMakeModelData</name>
         <param>
@@ -2166,9 +2187,8 @@
         </detaileddescription>
         <inbodydescription>
 <para>Adds the module and context which is owned by the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> to the developing LLVM IR module. In some <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref>&apos;s (MCJit), this also triggers llvm IR optimization</para>
-<para>Adds the module and context which is owned by the <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> to the developing LLVM IR module. In some <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref>&apos;s (MCJit), this also triggers llvm IR optimization</para>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="238" column="19" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="238" bodyend="280" declfile="llvm/LLVMModelGenerator.cpp" declline="73" declcolumn="26"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="240" column="19" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="240" bodyend="282" declfile="llvm/LLVMModelGenerator.cpp" declline="73" declcolumn="26"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelGenerator_8cpp_1ab53298cb3bc264117463b07e2452e24f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -2199,12 +2219,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="87" column="10" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="87" bodyend="109"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="87" column="10" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="87" bodyend="110"/>
       </memberdef>
-      <memberdef kind="function" id="LLVMModelGenerator_8cpp_1a7ef274b2c6297cc413b54f38f4a38573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="LLVMModelGenerator_8cpp_1a2cd371e3e74405de7a8a4711c01ae600" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref> *</type>
         <definition>LLVMModelData * rrllvm::createModelData</definition>
-        <argsstring>(const rrllvm::LLVMModelDataSymbols &amp;symbols, const Random *random)</argsstring>
+        <argsstring>(const rrllvm::LLVMModelDataSymbols &amp;symbols, const Random *random, uint numPiecewiseTriggers)</argsstring>
         <name>createModelData</name>
         <param>
           <type>const <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">rrllvm::LLVMModelDataSymbols</ref> &amp;</type>
@@ -2214,13 +2234,17 @@
           <type>const <ref refid="classrr_1_1Random" kindref="compound">Random</ref> *</type>
           <declname>random</declname>
         </param>
+        <param>
+          <type>uint</type>
+          <declname>numPiecewiseTriggers</declname>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="614" column="19" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="614" bodyend="711" declfile="llvm/ModelGeneratorContext.h" declline="242" declcolumn="19"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="616" column="19" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="616" bodyend="714" declfile="llvm/ModelGeneratorContext.h" declline="250" declcolumn="19"/>
       </memberdef>
       <memberdef kind="function" id="ModelDataIRBuilder_8cpp_1a9b6f0b05d36838414d31ff2f17f932eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2237,7 +2261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelDataIRBuilder.cpp" line="51" column="13" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="51" bodyend="74"/>
+        <location file="llvm/ModelDataIRBuilder.cpp" line="51" column="13" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="51" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="ModelDataIRBuilder_8cpp_1a1a676d0219c63da5b89b86306ea797e7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2254,7 +2278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelDataIRBuilder.cpp" line="76" column="13" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="76" bodyend="94"/>
+        <location file="llvm/ModelDataIRBuilder.cpp" line="75" column="13" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="75" bodyend="92"/>
       </memberdef>
       <memberdef kind="function" id="ModelDataIRBuilder_8cpp_1a960913f2d3e743f3b1b5bcef77d7f272" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>llvm::StructType *</type>
@@ -2276,7 +2300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelDataIRBuilder.cpp" line="158" column="18" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="158" bodyend="167"/>
+        <location file="llvm/ModelDataIRBuilder.cpp" line="156" column="18" bodyfile="llvm/ModelDataIRBuilder.cpp" bodystart="156" bodyend="165"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a9c91dbc70aeddd1d3f879a10a15029a6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Function *</type>
@@ -2301,7 +2325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="104" column="10" bodyfile="llvm/Random.cpp" bodystart="104" bodyend="108" declfile="llvm/ModelGeneratorContext.cpp" declline="76" declcolumn="21"/>
+        <location file="llvm/Random.cpp" line="98" column="10" bodyfile="llvm/Random.cpp" bodystart="98" bodyend="102" declfile="llvm/ModelGeneratorContext.cpp" declline="78" declcolumn="21"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a05192d98317f5b565127f4d58d164e9e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>SBMLDocument *</type>
@@ -2319,7 +2343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="325" column="25" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="325" bodyend="345" declfile="llvm/ModelGeneratorContext.cpp" declline="84" declcolumn="25"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="413" column="25" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="413" bodyend="433" declfile="llvm/ModelGeneratorContext.cpp" declline="86" declcolumn="25"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1ae8356aaa4689b5a491b99a5bab173123" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>SBMLDocument *</type>
@@ -2332,7 +2356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="201" column="25" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="201" bodyend="205"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="206" column="25" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="206" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1afc9ac5c919e421b94e49063a0fa3a862" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Function *</type>
@@ -2370,7 +2394,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="60" column="16" bodyfile="llvm/Random.cpp" bodystart="60" bodyend="69"/>
+        <location file="llvm/Random.cpp" line="60" column="16" bodyfile="llvm/Random.cpp" bodystart="60" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a0cdef3eb466def7934ab3a8a4f023447" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2395,7 +2419,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="110" column="8" bodyfile="llvm/Random.cpp" bodystart="110" bodyend="122" declfile="llvm/Random.h" declline="125" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="104" column="8" bodyfile="llvm/Random.cpp" bodystart="104" bodyend="116" declfile="llvm/Random.h" declline="125" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a6527022b1768f24d8322238a5067b6bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2420,7 +2444,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="124" column="8" bodyfile="llvm/Random.cpp" bodystart="124" bodyend="132" declfile="llvm/Random.h" declline="126" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="118" column="8" bodyfile="llvm/Random.cpp" bodystart="118" bodyend="126" declfile="llvm/Random.h" declline="126" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a6c358bfc6dc5908984655f259445f96b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2453,7 +2477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="134" column="8" bodyfile="llvm/Random.cpp" bodystart="134" bodyend="161" declfile="llvm/Random.h" declline="127" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="128" column="8" bodyfile="llvm/Random.cpp" bodystart="128" bodyend="155" declfile="llvm/Random.h" declline="127" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a1473f9c8fad2549c53e171cca6269734" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2474,7 +2498,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="163" column="8" bodyfile="llvm/Random.cpp" bodystart="163" bodyend="171" declfile="llvm/Random.h" declline="128" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="157" column="8" bodyfile="llvm/Random.cpp" bodystart="157" bodyend="165" declfile="llvm/Random.h" declline="128" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a91891f7f9237f54ac22b9d5a2aa512d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2499,7 +2523,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="173" column="8" bodyfile="llvm/Random.cpp" bodystart="173" bodyend="181" declfile="llvm/Random.h" declline="129" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="167" column="8" bodyfile="llvm/Random.cpp" bodystart="167" bodyend="175" declfile="llvm/Random.h" declline="129" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a5e36ccbb238a35377ce67a51fdf99a32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2532,7 +2556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="183" column="8" bodyfile="llvm/Random.cpp" bodystart="183" bodyend="210" declfile="llvm/Random.h" declline="130" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="177" column="8" bodyfile="llvm/Random.cpp" bodystart="177" bodyend="204" declfile="llvm/Random.h" declline="130" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1aba08203c4e28cce82ece91ae0d951be0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2557,7 +2581,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="212" column="8" bodyfile="llvm/Random.cpp" bodystart="212" bodyend="220" declfile="llvm/Random.h" declline="131" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="206" column="8" bodyfile="llvm/Random.cpp" bodystart="206" bodyend="214" declfile="llvm/Random.h" declline="131" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a881f3cc304b827dddb4b1027c1d86fbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2578,7 +2602,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="222" column="8" bodyfile="llvm/Random.cpp" bodystart="222" bodyend="231" declfile="llvm/Random.h" declline="132" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="216" column="8" bodyfile="llvm/Random.cpp" bodystart="216" bodyend="225" declfile="llvm/Random.h" declline="132" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1af0fa8a6b697f80f097bd8a14cc4ea95b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2611,7 +2635,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="233" column="8" bodyfile="llvm/Random.cpp" bodystart="233" bodyend="260" declfile="llvm/Random.h" declline="133" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="227" column="8" bodyfile="llvm/Random.cpp" bodystart="227" bodyend="254" declfile="llvm/Random.h" declline="133" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a75d79c0a6e98c76ff15fe0f25285a43e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2632,7 +2656,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="262" column="8" bodyfile="llvm/Random.cpp" bodystart="262" bodyend="270" declfile="llvm/Random.h" declline="134" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="256" column="8" bodyfile="llvm/Random.cpp" bodystart="256" bodyend="264" declfile="llvm/Random.h" declline="134" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1acdc359a2a5dcda76252c98f14c2c5b0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2661,7 +2685,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="272" column="8" bodyfile="llvm/Random.cpp" bodystart="272" bodyend="299" declfile="llvm/Random.h" declline="135" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="266" column="8" bodyfile="llvm/Random.cpp" bodystart="266" bodyend="293" declfile="llvm/Random.h" declline="135" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a2b1b274665c50e773fa7ed1862234370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2682,7 +2706,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="301" column="8" bodyfile="llvm/Random.cpp" bodystart="301" bodyend="309" declfile="llvm/Random.h" declline="136" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="295" column="8" bodyfile="llvm/Random.cpp" bodystart="295" bodyend="303" declfile="llvm/Random.h" declline="136" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a2e1491b984491eb25077d51f3ed325e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2711,7 +2735,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="311" column="8" bodyfile="llvm/Random.cpp" bodystart="311" bodyend="338" declfile="llvm/Random.h" declline="137" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="305" column="8" bodyfile="llvm/Random.cpp" bodystart="305" bodyend="332" declfile="llvm/Random.h" declline="137" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1acc7a72b35c4ce30f21092c31c4cf5b9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2736,7 +2760,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="340" column="8" bodyfile="llvm/Random.cpp" bodystart="340" bodyend="348" declfile="llvm/Random.h" declline="138" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="334" column="8" bodyfile="llvm/Random.cpp" bodystart="334" bodyend="342" declfile="llvm/Random.h" declline="138" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1abec38352939794d3a7d48e5195818089" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2769,7 +2793,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="350" column="8" bodyfile="llvm/Random.cpp" bodystart="350" bodyend="377" declfile="llvm/Random.h" declline="139" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="344" column="8" bodyfile="llvm/Random.cpp" bodystart="344" bodyend="371" declfile="llvm/Random.h" declline="139" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a976480058b2b493e869677e39ae7ae2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2794,7 +2818,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="379" column="8" bodyfile="llvm/Random.cpp" bodystart="379" bodyend="389" declfile="llvm/Random.h" declline="140" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="373" column="8" bodyfile="llvm/Random.cpp" bodystart="373" bodyend="383" declfile="llvm/Random.h" declline="140" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a632dcf161590aec0969d09561f48d2a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2815,7 +2839,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="391" column="8" bodyfile="llvm/Random.cpp" bodystart="391" bodyend="402" declfile="llvm/Random.h" declline="141" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="385" column="8" bodyfile="llvm/Random.cpp" bodystart="385" bodyend="396" declfile="llvm/Random.h" declline="141" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1ac628ecaf57fd22b779b6a75cddd43c2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2848,7 +2872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="404" column="8" bodyfile="llvm/Random.cpp" bodystart="404" bodyend="435" declfile="llvm/Random.h" declline="142" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="398" column="8" bodyfile="llvm/Random.cpp" bodystart="398" bodyend="429" declfile="llvm/Random.h" declline="142" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a3af54f1eaae2aec0694cfc71c3f18689" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2873,7 +2897,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="437" column="8" bodyfile="llvm/Random.cpp" bodystart="437" bodyend="445" declfile="llvm/Random.h" declline="143" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="431" column="8" bodyfile="llvm/Random.cpp" bodystart="431" bodyend="439" declfile="llvm/Random.h" declline="143" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a04f32907ab3e02236fb0572c8daf663c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2906,7 +2930,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="447" column="8" bodyfile="llvm/Random.cpp" bodystart="447" bodyend="474" declfile="llvm/Random.h" declline="144" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="441" column="8" bodyfile="llvm/Random.cpp" bodystart="441" bodyend="468" declfile="llvm/Random.h" declline="144" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a7db3965410c59be7bf7e399655d22295" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2927,7 +2951,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="476" column="8" bodyfile="llvm/Random.cpp" bodystart="476" bodyend="484" declfile="llvm/Random.h" declline="145" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="470" column="8" bodyfile="llvm/Random.cpp" bodystart="470" bodyend="478" declfile="llvm/Random.h" declline="145" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1ad527b7a6141335be69626b02c5492006" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2956,7 +2980,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="486" column="8" bodyfile="llvm/Random.cpp" bodystart="486" bodyend="513" declfile="llvm/Random.h" declline="146" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="480" column="8" bodyfile="llvm/Random.cpp" bodystart="480" bodyend="507" declfile="llvm/Random.h" declline="146" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a193ec272e008dee8a6c5b3d78c27d8d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2977,7 +3001,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="515" column="8" bodyfile="llvm/Random.cpp" bodystart="515" bodyend="528" declfile="llvm/Random.h" declline="147" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="509" column="8" bodyfile="llvm/Random.cpp" bodystart="509" bodyend="522" declfile="llvm/Random.h" declline="147" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1aa74176d05915d8e112ea20786a04a33a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -3006,13 +3030,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/Random.cpp" line="530" column="8" bodyfile="llvm/Random.cpp" bodystart="530" bodyend="561" declfile="llvm/Random.h" declline="148" declcolumn="12"/>
+        <location file="llvm/Random.cpp" line="524" column="8" bodyfile="llvm/Random.cpp" bodystart="524" bodyend="555" declfile="llvm/Random.h" declline="148" declcolumn="12"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="llvm/AssignmentRuleEvaluator.cpp" line="17" column="1"/>
+    <location file="llvm/AssignmentRuleEvaluator.cpp" line="16" column="1"/>
   </compounddef>
 </doxygen>

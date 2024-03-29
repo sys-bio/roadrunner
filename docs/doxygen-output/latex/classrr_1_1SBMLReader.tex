@@ -1,4 +1,4 @@
-\hypertarget{classrr_1_1SBMLReader}{}\doxysection{rr\+::S\+B\+M\+L\+Reader Class Reference}
+\hypertarget{classrr_1_1SBMLReader}{}\doxysection{rr\+::SBMLReader Class Reference}
 \label{classrr_1_1SBMLReader}\index{rr::SBMLReader@{rr::SBMLReader}}
 
 
@@ -7,13 +7,13 @@ Read an sbml document from either disk, a remote url, or as a std\+::string.
 
 
 
-{\ttfamily \#include $<$rr\+S\+B\+M\+L\+Reader.\+h$>$}
+{\ttfamily \#include $<$rr\+SBMLReader.\+h$>$}
 
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static std\+::string \mbox{\hyperlink{classrr_1_1SBMLReader_a44068da2706c5ee19f091b5c81def54c}{read}} (const std\+::string \&sbml\+\_\+or\+\_\+uri)
-\begin{DoxyCompactList}\small\item\em read an S\+B\+ML document from a local file path, a remote U\+RI, or directlly from a sbml std\+::string. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em read an SBML document from a local file path, a remote URI, or directlly from a sbml std\+::string. \end{DoxyCompactList}\item 
 static bool \mbox{\hyperlink{classrr_1_1SBMLReader_a54b61d2e7ddf0da6646c3936ad548df3}{is\+\_\+sbml}} (const std\+::string \&str)
 \begin{DoxyCompactList}\small\item\em performs some basic checks to see if the std\+::string is an sbml std\+::string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -25,14 +25,14 @@ This function will first try to iterperet the std\+::string as uri, if that fail
 
 This is simple enough that it should belong in \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} proper, however we currently use Poco for reading http streams, and it seems to compilation issues if \char`\"{}windows.\+h\char`\"{} is included before, an evidently some other roadrunner file includes windows.\+h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.
 
-also, we put it as a static class method because lib\+S\+B\+ML already uses \textquotesingle{}read\+S\+B\+ML\textquotesingle{} and we want to avoid namespace collisions. 
+also, we put it as a static class method because lib\+SBML already uses \textquotesingle{}read\+SBML\textquotesingle{} and we want to avoid namespace collisions. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1SBMLReader_a54b61d2e7ddf0da6646c3936ad548df3}\label{classrr_1_1SBMLReader_a54b61d2e7ddf0da6646c3936ad548df3}} 
 \index{rr::SBMLReader@{rr::SBMLReader}!is\_sbml@{is\_sbml}}
 \index{is\_sbml@{is\_sbml}!rr::SBMLReader@{rr::SBMLReader}}
 \doxysubsubsection{\texorpdfstring{is\_sbml()}{is\_sbml()}}
-{\footnotesize\ttfamily bool rr\+::\+S\+B\+M\+L\+Reader\+::is\+\_\+sbml (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily bool rr\+::\+SBMLReader\+::is\+\_\+sbml (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -42,17 +42,17 @@ This just checks the basic format and checks on characters that are not valid fi
 \index{rr::SBMLReader@{rr::SBMLReader}!read@{read}}
 \index{read@{read}!rr::SBMLReader@{rr::SBMLReader}}
 \doxysubsubsection{\texorpdfstring{read()}{read()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+S\+B\+M\+L\+Reader\+::read (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sbml\+\_\+or\+\_\+uri }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+SBMLReader\+::read (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sbml\+\_\+or\+\_\+uri }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-read an S\+B\+ML document from a local file path, a remote U\+RI, or directlly from a sbml std\+::string. 
+read an SBML document from a local file path, a remote URI, or directlly from a sbml std\+::string. 
 
 If the document is a local file, and has the comp extension, it is automatically flattened before begin returned.
 
-If the std\+::string is already a S\+B\+ML std\+::string, it is passed through. If the std\+::string is a local file or U\+RI, the document is read from the source and the contents returned (and flattened if comp). 
+If the std\+::string is already a SBML std\+::string, it is passed through. If the std\+::string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-rr\+S\+B\+M\+L\+Reader.\+h\item 
-rr\+S\+B\+M\+L\+Reader.\+cpp\end{DoxyCompactItemize}
+rr\+SBMLReader.\+h\item 
+rr\+SBMLReader.\+cpp\end{DoxyCompactItemize}
