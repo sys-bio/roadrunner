@@ -5726,7 +5726,9 @@ namespace rr {
             std::cout << "p1: " << sr.p1 << std::endl;
             rr::loadBinary(in, sr.p2);
             std::cout << "p2: " << sr.p2 << std::endl;
-            rr::loadBinary(in, sr.selectionType);
+            unsigned long stype = 0;
+            rr::loadBinary(in, stype);
+            sr.selectionType = SelectionRecord::SelectionType(stype);
             std::cout << "selection type: " << sr.selectionType << std::endl;
             v.push_back(sr);
         }
