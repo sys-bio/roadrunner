@@ -5718,11 +5718,16 @@ namespace rr {
         rr::loadBinary(in, vsize);
         v.clear();
         for (int i = 0; i < vsize; i++) {
+            std::cout << i << std::endl;
             SelectionRecord sr;
             rr::loadBinary(in, sr.index);
+            std::cout << "index: " << sr.index << std::endl;
             rr::loadBinary(in, sr.p1);
+            std::cout << "p1: " << sr.p1 << std::endl;
             rr::loadBinary(in, sr.p2);
+            std::cout << "p2: " << sr.p2 << std::endl;
             rr::loadBinary(in, sr.selectionType);
+            std::cout << "selection type: " << sr.selectionType << std::endl;
             v.push_back(sr);
         }
     }
