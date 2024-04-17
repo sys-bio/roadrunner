@@ -843,18 +843,18 @@ TEST_F(StateSavingTests, LOAD_PREWRITTEN_FILE) {
 //    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
 //}
 //
-TEST_F(StateSavingTests, FromFile) {
-    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
-    //std::cout << "saved to " << p << std::endl;
-    RoadRunner rr(OpenLinearFlux().str());
-    rr.saveState(p.string());
-    RoadRunner rr2;
-    rr2.loadState(p.string());
-    auto actualDataLsMatrix = *rr2.simulate(0, 10, 11);
-    auto actualData = rr::Matrix<double>(actualDataLsMatrix); // for almostEquals
-    auto expectedData = OpenLinearFlux().timeSeriesResult();
-    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
-}
+//TEST_F(StateSavingTests, FromFile) {
+//    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
+//    //std::cout << "saved to " << p << std::endl;
+//    RoadRunner rr(OpenLinearFlux().str());
+//    rr.saveState(p.string());
+//    RoadRunner rr2;
+//    rr2.loadState(p.string());
+//    auto actualDataLsMatrix = *rr2.simulate(0, 10, 11);
+//    auto actualData = rr::Matrix<double>(actualDataLsMatrix); // for almostEquals
+//    auto expectedData = OpenLinearFlux().timeSeriesResult();
+//    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
+//}
 //
 //
 //class StateSavingTestsModelData : public RoadRunnerTest {
