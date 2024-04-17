@@ -267,7 +267,7 @@ set(
 )
 # doesn't actually contain tests, just an interface into the STS
 # add_subdirectory(sbml-test-suite)
-# add_subdirectory(mockups)
+add_subdirectory(mockups)
 # add_subdirectory(c_api_core)
 # add_subdirectory(llvm_tests)
 # add_subdirectory(c_api_rrtests)
