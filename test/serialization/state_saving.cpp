@@ -444,11 +444,11 @@ bool StateSavingTests::StateRunTestModelFromScratch(void(*generate)(RoadRunner *
 //    EXPECT_THROW(rri.loadState((stateSavingModelsDir / "nonexistent-save-state.rr").string()), std::invalid_argument);
 //}
 
-TEST_F(StateSavingTests, LOAD_PREWRITTEN_FILE) {
-    RoadRunner rri;
-    //Note: Update this file from build-debug/test/serialization/savedState.rr
-    rri.loadState((stateSavingModelsDir / "savedState.rr").string());
-}
+//TEST_F(StateSavingTests, LOAD_PREWRITTEN_FILE) {
+//    RoadRunner rri;
+//    //Note: Update this file from build-debug/test/serialization/savedState.rr
+//    rri.loadState((stateSavingModelsDir / "savedState.rr").string());
+//}
 
 //TEST_F(StateSavingTests, COPY_RR) {
 //    RoadRunner rr(3, 2);
@@ -843,18 +843,18 @@ TEST_F(StateSavingTests, LOAD_PREWRITTEN_FILE) {
 //    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
 //}
 //
-//TEST_F(StateSavingTests, FromFile) {
-//    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
-//    //std::cout << "saved to " << p << std::endl;
-//    RoadRunner rr(OpenLinearFlux().str());
-//    rr.saveState(p.string());
-//    RoadRunner rr2;
-//    rr2.loadState(p.string());
-//    auto actualDataLsMatrix = *rr2.simulate(0, 10, 11);
-//    auto actualData = rr::Matrix<double>(actualDataLsMatrix); // for almostEquals
-//    auto expectedData = OpenLinearFlux().timeSeriesResult();
-//    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
-//}
+TEST_F(StateSavingTests, FromFile) {
+    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
+    //std::cout << "saved to " << p << std::endl;
+    RoadRunner rr(OpenLinearFlux().str());
+    rr.saveState(p.string());
+    RoadRunner rr2;
+    rr2.loadState(p.string());
+    auto actualDataLsMatrix = *rr2.simulate(0, 10, 11);
+    auto actualData = rr::Matrix<double>(actualDataLsMatrix); // for almostEquals
+    auto expectedData = OpenLinearFlux().timeSeriesResult();
+    ASSERT_TRUE(expectedData.almostEquals(actualData, 1e-4));
+}
 //
 //
 //class StateSavingTestsModelData : public RoadRunnerTest {
