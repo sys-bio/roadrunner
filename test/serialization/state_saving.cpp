@@ -46,7 +46,7 @@ static std::mutex SerializationMutex;
  */
 class StateSavingTests : public RoadRunnerTest {
 public:
-    path stateSavingModelsDir = rrTestModelsDir_ / "StateSaving";
+    path stateSavingModelsDir = rrTestModelsDir_ / "StateSavingTests";
     path stateSavingOutputDir = rrTestDir_ / "StateSavingOutput";
     path fname_ = stateSavingOutputDir / "state-saving-test.rr";
     std::string fname;
@@ -434,14 +434,19 @@ TEST_F(StateSavingTests, LOAD_INVALID_FILE) {
 #if (!defined(__APPLE__))
 #  if LLVM_VERSION_PATCH > 1
     RoadRunner rri;
-    EXPECT_THROW(rri.loadState((rrTestModelsDir_ / "wrong-save-state.rr").string()), std::exception);
+    EXPECT_THROW(rri.loadState((stateSavingModelsDir / "wrong-save-state.rr").string()), std::exception);
 #  endif
 #endif
 }
 
 TEST_F(StateSavingTests, LOAD_NONEXISTENT_FILE) {
     RoadRunner rri;
-    EXPECT_THROW(rri.loadState((rrTestModelsDir_ / "nonexistent-save-state.rr").string()), std::invalid_argument);
+    EXPECT_THROW(rri.loadState((stateSavingModelsDir / "nonexistent-save-state.rr").string()), std::invalid_argument);
+}
+
+TEST_F(StateSavingTests, LOAD_PREWRITTEN_FILE) {
+    RoadRunner rri;
+    rri.loadState((stateSavingModelsDir / "savedState.rr").string());
 }
 
 TEST_F(StateSavingTests, COPY_RR) {
