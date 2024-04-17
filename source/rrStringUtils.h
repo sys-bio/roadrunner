@@ -322,6 +322,7 @@ namespace rr {
     inline void loadBinary(std::istream &in, std::string &s) {
         size_t ssize;
         loadBinary(in, ssize);
+        std::cout << "string size: " << ssize << std::endl;
         s.resize(ssize);
         in.read(&s[0], ssize);
     }

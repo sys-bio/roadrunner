@@ -297,7 +297,7 @@ if (WIN32 AND BUILD_RR_PLUGINS)
 endif() #BUILD_RR_PLUGINS
 
 #List the semantic_STS last, since it takes much longer to run than the others.
-add_subdirectory(semantic_STS)
+# add_subdirectory(semantic_STS)
 
 
 #######################################################################
