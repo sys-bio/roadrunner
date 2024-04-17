@@ -1,25 +1,25 @@
-# # Starter pipeline 
-# # Start with a minimal pipeline that you can customize to build and deploy your code.
-# # Add steps that build, run tests, deploy, and more:
-# # https://aka.ms/yaml
-# name: $(Date:yyyyMMdd)$(Rev:.r)
+# Starter pipeline 
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
-# # specific branch build
-# trigger:
-#   branches:
-#     include:
-#     - develop
-#     - release
+# specific branch build
+trigger:
+  branches:
+    include:
+    - develop
+    - release
 
-# variables:
-#   SOURCE_DIR: '$(System.DefaultWorkingDirectory)' # eg /home/vsts/work/1/s
-#   BUILD_DIR: '$(SOURCE_DIR)/build'
-#   INSTALL_DIR: '$(SOURCE_DIR)/roadrunner-$(Agent.OS)'
-#   LLVM_INSTALL_PREFIX: '$(SOURCE_DIR)/llvm' # e.g./home/vsts/work/1
-#   DEPS_INSTALL_PREFIX: '$(SOURCE_DIR)/libroadrunner-deps' # e.g./home/vsts/work/1
-#   SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
-#   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
-#   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
+variables:
+  SOURCE_DIR: '$(System.DefaultWorkingDirectory)' # eg /home/vsts/work/1/s
+  BUILD_DIR: '$(SOURCE_DIR)/build'
+  INSTALL_DIR: '$(SOURCE_DIR)/roadrunner-$(Agent.OS)'
+  LLVM_INSTALL_PREFIX: '$(SOURCE_DIR)/llvm' # e.g./home/vsts/work/1
+  DEPS_INSTALL_PREFIX: '$(SOURCE_DIR)/libroadrunner-deps' # e.g./home/vsts/work/1
+  SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
+  SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
+  SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 # stages:
 # ########################################################################
