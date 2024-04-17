@@ -1004,184 +1004,184 @@ stages:
             displayName: Publish docs
             condition: eq(variables.BuildType, 'Release')
 
-# #########################################################################
-# # Many Linux Build
-# #
-#   - stage: ManyLinux
-#     displayName: ManyLinux2014
-#     dependsOn: []
-#     jobs:
-#       - job:
-#         strategy:
-#           matrix:
-#             py39:
-#               PythonVersion: 3.9
-#               PythonName: py39
-#             py310:
-#               PythonVersion: 3.10
-#               PythonName: py310
-#             py311:
-#               PythonVersion: 3.11
-#               PythonName: py311
-#             py312:
-#               PythonVersion: 3.12
-#               PythonName: py312
-#         pool:
-#           vmImage: 'ubuntu-latest'
-#         container: sysbiouw/roadrunner-manylinux2014:latest
-#         variables:
-#           CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
-#           BUILD_DIRECTORY: '$(System.DefaultWorkingDirectory)/build'
-#           SOURCE_DIRECTORY: '$(System.DefaultWorkingDirectory)'
-#           INSTALL_DIRECTORY: '$(System.DefaultWorkingDirectory)/install-azure'
-#           MinicondaRoot: '/Miniconda3'
-#           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
-#           CondaExecutable: '$(MinicondaRoot)/bin/conda'
-#           PythonExecutable: '$(PythonRoot)/bin/python'
-#           PythonLibDir: '$(PythonRoot)/lib'
-#           PythonIncludeDir: '$(PythonRoot)/include'
-#           PipExecutable: '$(PythonRoot)/bin/pip'
-#           SwigExecutable: '/swig-4.0.2/install-swig-4.0.2/bin/swig'
+#########################################################################
+# Many Linux Build
+#
+  - stage: ManyLinux
+    displayName: ManyLinux2014
+    dependsOn: []
+    jobs:
+      - job:
+        strategy:
+          matrix:
+            py39:
+              PythonVersion: 3.9
+              PythonName: py39
+            py310:
+              PythonVersion: 3.10
+              PythonName: py310
+            py311:
+              PythonVersion: 3.11
+              PythonName: py311
+            py312:
+              PythonVersion: 3.12
+              PythonName: py312
+        pool:
+          vmImage: 'ubuntu-latest'
+        container: sysbiouw/roadrunner-manylinux2014:latest
+        variables:
+          CCACHE_DIR: '$(Pipeline.Workspace)/ccache'
+          BUILD_DIRECTORY: '$(System.DefaultWorkingDirectory)/build'
+          SOURCE_DIRECTORY: '$(System.DefaultWorkingDirectory)'
+          INSTALL_DIRECTORY: '$(System.DefaultWorkingDirectory)/install-azure'
+          MinicondaRoot: '/Miniconda3'
+          PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
+          CondaExecutable: '$(MinicondaRoot)/bin/conda'
+          PythonExecutable: '$(PythonRoot)/bin/python'
+          PythonLibDir: '$(PythonRoot)/lib'
+          PythonIncludeDir: '$(PythonRoot)/include'
+          PipExecutable: '$(PythonRoot)/bin/pip'
+          SwigExecutable: '/swig-4.0.2/install-swig-4.0.2/bin/swig'
 
-#         steps:
-#           - checkout: self
-#             submodules: recursive
+        steps:
+          - checkout: self
+            submodules: recursive
 
-#           - script: |
+          - script: |
 
-#               echo "SOURCE_DIRECTORY   $(SOURCE_DIRECTORY)"
-#               if [ ! -d "$(SOURCE_DIRECTORY)" ]; then
-#                 echo "Can't find SOURCE_DIRECTORY at $(SOURCE_DIRECTORY)"
-#                 exit 1
-#               fi
+              echo "SOURCE_DIRECTORY   $(SOURCE_DIRECTORY)"
+              if [ ! -d "$(SOURCE_DIRECTORY)" ]; then
+                echo "Can't find SOURCE_DIRECTORY at $(SOURCE_DIRECTORY)"
+                exit 1
+              fi
 
-#               echo "MinicondaRoot      $(MinicondaRoot)"
-#               if [ ! -d "$(MinicondaRoot)" ]; then
-#                 echo "Can't find MinicondaRoot at $(MinicondaRoot)"
-#                 exit 1
-#               fi
+              echo "MinicondaRoot      $(MinicondaRoot)"
+              if [ ! -d "$(MinicondaRoot)" ]; then
+                echo "Can't find MinicondaRoot at $(MinicondaRoot)"
+                exit 1
+              fi
 
-#               echo "PythonRoot         $(PythonRoot)"
-#               if [ ! -d "$(PythonRoot)" ]; then
-#                 echo "Can't find PythonRoot at $(PythonRoot)"
-#                 exit 1
-#               fi
+              echo "PythonRoot         $(PythonRoot)"
+              if [ ! -d "$(PythonRoot)" ]; then
+                echo "Can't find PythonRoot at $(PythonRoot)"
+                exit 1
+              fi
 
-#               echo "CondaExecutable    $(CondaExecutable)"
-#               if [ ! -f "$(CondaExecutable)" ]; then
-#                 echo "Can't find CondaExecutable at $(CondaExecutable)"
-#                 exit 1
-#               fi
+              echo "CondaExecutable    $(CondaExecutable)"
+              if [ ! -f "$(CondaExecutable)" ]; then
+                echo "Can't find CondaExecutable at $(CondaExecutable)"
+                exit 1
+              fi
 
-#               echo "PythonExecutable   $(PythonExecutable)"
-#               if [ ! -f "$(PythonExecutable)" ]; then
-#                 echo "Can't find PythonExecutable at $(PythonExecutable)"
-#                 exit 1
-#               fi
+              echo "PythonExecutable   $(PythonExecutable)"
+              if [ ! -f "$(PythonExecutable)" ]; then
+                echo "Can't find PythonExecutable at $(PythonExecutable)"
+                exit 1
+              fi
 
-#               echo "PythonLibDir       $(PythonLibDir)"
-#               if [ ! -d "$(PythonLibDir)" ]; then
-#                 echo "Can't find PythonLibDir at $(PythonLibDir)"
-#                 exit 1
-#               fi
+              echo "PythonLibDir       $(PythonLibDir)"
+              if [ ! -d "$(PythonLibDir)" ]; then
+                echo "Can't find PythonLibDir at $(PythonLibDir)"
+                exit 1
+              fi
 
-#               echo "PythonIncludeDir   $(PythonIncludeDir)"
-#               if [ ! -d "$(PythonIncludeDir)" ]; then
-#                 echo "Can't find PythonIncludeDir at $(PythonIncludeDir)"
-#                 exit 1
-#               fi
+              echo "PythonIncludeDir   $(PythonIncludeDir)"
+              if [ ! -d "$(PythonIncludeDir)" ]; then
+                echo "Can't find PythonIncludeDir at $(PythonIncludeDir)"
+                exit 1
+              fi
 
-#               echo "PipExecutable      $(PipExecutable)"
-#               if [ ! -f "$(PipExecutable)" ]; then
-#                 echo "Can't find PipExecutable at $(PipExecutable)"
-#                 exit 1
-#               fi
+              echo "PipExecutable      $(PipExecutable)"
+              if [ ! -f "$(PipExecutable)" ]; then
+                echo "Can't find PipExecutable at $(PipExecutable)"
+                exit 1
+              fi
 
-#               echo "SwigExecutable     $(SwigExecutable)"
-#               if [ ! -f "$(SwigExecutable)" ]; then
-#                 echo "Can't find SwigExecutable at $(SwigExecutable)"
-#                 exit 1
-#               fi
+              echo "SwigExecutable     $(SwigExecutable)"
+              if [ ! -f "$(SwigExecutable)" ]; then
+                echo "Can't find SwigExecutable at $(SwigExecutable)"
+                exit 1
+              fi
 
-#             displayName: Print Azure Variables
+            displayName: Print Azure Variables
 
-#           - script: |
-#               echo "$(CondaExecutable) shell.bash hook"
-#               eval "$($(CondaExecutable) shell.bash hook)"
-#               $(CondaExecutable) init
+          - script: |
+              echo "$(CondaExecutable) shell.bash hook"
+              eval "$($(CondaExecutable) shell.bash hook)"
+              $(CondaExecutable) init
 
-#               echo ". ~/.bashrc"
-#               . ~/.bashrc
-#               $(CondaExecutable) activate $(PythonName)
+              echo ". ~/.bashrc"
+              . ~/.bashrc
+              $(CondaExecutable) activate $(PythonName)
 
-#               echo "mkdir $(BUILD_DIRECTORY)"
-#               mkdir $(BUILD_DIRECTORY)
+              echo "mkdir $(BUILD_DIRECTORY)"
+              mkdir $(BUILD_DIRECTORY)
 
-#               echo "cd $(BUILD_DIRECTORY)"
-#               cd $(BUILD_DIRECTORY)
+              echo "cd $(BUILD_DIRECTORY)"
+              cd $(BUILD_DIRECTORY)
 
-#               $(PipExecutable) install -r $(SOURCE_DIR)/requirements.txt
-#               $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
+              $(PipExecutable) install -r $(SOURCE_DIR)/requirements.txt
+              $(PipExecutable) install -r $(SOURCE_DIR)/test-requirements.txt
 
-#               echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
-#               cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
-#               rm -r -f $(SOURCE_DIR)/docs $(SOURCE_DIR)/examples
-#               cmake --build . --target install --config Release -j 12
+              echo "cmake command: cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release .."
+              cmake -DLLVM_INSTALL_PREFIX=/install-llvm-13.x -DRR_DEPENDENCIES_INSTALL_PREFIX=/install-libroadrunner-deps -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIRECTORY) -DBUILD_PYTHON=ON -DBUILD_RR_PLUGINS=ON -DBUILD_TESTS=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SwigExecutable) -DCMAKE_BUILD_TYPE=Release ..
+              rm -r -f $(SOURCE_DIR)/docs $(SOURCE_DIR)/examples
+              cmake --build . --target install --config Release -j 12
 
-#             displayName: Build With Python
-#           - script: |
-#               echo ". ~/.bashrc"
-#               . ~/.bashrc
-#               $(CondaExecutable) activate $(PythonName)
+            displayName: Build With Python
+          - script: |
+              echo ". ~/.bashrc"
+              . ~/.bashrc
+              $(CondaExecutable) activate $(PythonName)
 
-#               echo "cd'ing to build dir $(BUILD_DIR)"
-#               cd $(BUILD_DIR)
-#               ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
-#             displayName: Run Tests
-#             # Skip stochastic test suite for now because it keeps pushing us over an hour.
-#           # - script: |
-#           #     echo ". ~/.bashrc"
-#           #     . ~/.bashrc
-#           #     $(CondaExecutable) activate $(PythonName)
+              echo "cd'ing to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              ctest --extra-verbose --output-on-failure --exclude-regex python_tests_RunStochasticTestSuite .
+            displayName: Run Tests
+            # Skip stochastic test suite for now because it keeps pushing us over an hour.
+          # - script: |
+          #     echo ". ~/.bashrc"
+          #     . ~/.bashrc
+          #     $(CondaExecutable) activate $(PythonName)
 
-#           #     echo "cd'ing to build dir $(BUILD_DIR)"
-#           #     cd $(BUILD_DIR)
-#           #     ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
-#           #   displayName: Run Stochastic test suite
+          #     echo "cd'ing to build dir $(BUILD_DIR)"
+          #     cd $(BUILD_DIR)
+          #     ctest --extra-verbose --output-on-failure --tests-regex python_tests_RunStochasticTestSuite .
+          #   displayName: Run Stochastic test suite
 
-#           - script: |
-#               echo "cd to $(INSTALL_DIRECTORY)"
-#               cd $(INSTALL_DIRECTORY)
+          - script: |
+              echo "cd to $(INSTALL_DIRECTORY)"
+              cd $(INSTALL_DIRECTORY)
 
-#               #Space was filling up, so since we've already installed, we can delete the build directory.
-#               echo "rm $(BUILD_DIRECTORY)"
-#               rm -r $(BUILD_DIRECTORY)
+              #Space was filling up, so since we've already installed, we can delete the build directory.
+              echo "rm $(BUILD_DIRECTORY)"
+              rm -r $(BUILD_DIRECTORY)
 
-#               echo "ls"
-#               ls
+              echo "ls"
+              ls
 
-#               $(PipExecutable) install numpy pytest
-#               echo "$(PythonExecutable) ./setup.py bdist_wheel"
-#               $(PythonExecutable) ./setup.py bdist_wheel
-#               echo "rm -r build/"
-#               rm -r build/
-#               echo "$(PythonExecutable) ./setup_rrplugins.py bdist_wheel"
-#               $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
+              $(PipExecutable) install numpy pytest
+              echo "$(PythonExecutable) ./setup.py bdist_wheel"
+              $(PythonExecutable) ./setup.py bdist_wheel
+              echo "rm -r build/"
+              rm -r build/
+              echo "$(PythonExecutable) ./setup_rrplugins.py bdist_wheel"
+              $(PythonExecutable) ./setup_rrplugins.py bdist_wheel
 
-#               # cd dist
-#               # wheel=$(realpath $(ls))
-#               # echo "wheel is: $wheel"
-#               # $(PipExecutable) install $wheel
-#             displayName: Build Pip Wheel
-#           - script: |
-#               echo "mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)"
-#               mkdir $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
-#               mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
-#             displayName: Move install to staging directory
-#           - task: PublishBuildArtifacts@1
-#             inputs:
-#               pathToPublish: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
-#               artifactName: roadrunner-ManyLinux2014-$(PythonName)
-#               Parallel: true
-#               ParallelCount: 8
+              # cd dist
+              # wheel=$(realpath $(ls))
+              # echo "wheel is: $wheel"
+              # $(PipExecutable) install $wheel
+            displayName: Build Pip Wheel
+          - script: |
+              echo "mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)"
+              mkdir $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
+              mv $(INSTALL_DIRECTORY)/* $(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)
+            displayName: Move install to staging directory
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/roadrunner-manylinux2014-$(PythonName)'
+              artifactName: roadrunner-ManyLinux2014-$(PythonName)
+              Parallel: true
+              ParallelCount: 8
 
