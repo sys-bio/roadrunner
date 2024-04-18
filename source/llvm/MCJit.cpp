@@ -57,15 +57,18 @@ namespace rrllvm {
 
 
     MCJit::MCJit(std::uint32_t opt)
-            : Jit(opt),
-              engineBuilder(EngineBuilder(std::move(module))) {
-
+        : Jit(opt)
+        , engineBuilder(EngineBuilder(std::move(module)))
+        , executionEngine()
+        , functionPassManager()
+        , errString()
+    {
         compiledModuleBinaryStream = std::make_unique<llvm::raw_svector_ostream>(moduleBuffer);
 
         engineBuilder
                 .setErrorStr(errString.get())
                 .setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
-        executionEngine = std::unique_ptr<ExecutionEngine>(engineBuilder.create());
+        executionEngine.reset(engineBuilder.create());
 
         MCJit::mapFunctionsToJitSymbols();
         MCJit::initFunctionPassManager();
