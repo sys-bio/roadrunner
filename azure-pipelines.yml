@@ -22,181 +22,181 @@ variables:
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
-# ########################################################################
-# # MacOS Build
-# #
-#   - stage: MacBuildRoadrunnerCpp
-#     dependsOn: []
-#     jobs:
-#       - job: MacBuildRoadrunnerCpp
-#         timeoutInMinutes: "0"
-#         displayName: MacBuildRoadrunnerCpp
-#         continueOnError: "false"
-#         strategy:
-#           matrix:
-#             64-bit Mac Release x86:
-#               BuildType: Release
-#               LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
-#               vmImage: macOS-11
-#               arch: x86_64
-#             64-bit Mac Debug x86:
-#               BuildType: Debug
-#               LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
-#               vmImage: macOS-11
-#               arch: x86_64
-#             # 64-bit Mac Release M1:
-#             #   BuildType: Release
-#             #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
-#             #   vmImage: macOS-14
-#             #   arch: arm64
-#             # 64-bit Mac Debug M1:
-#             #   BuildType: Debug
-#             #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
-#             #   vmImage: macOS-14
-#             #   arch: arm64
-#         pool:
-#           vmImage: $(vmImage)
-#         variables:
-#           LLVM_CACHE: 'false'
-#           PythonName: 'py39'
-#           LLVM_CONFIG_EXECUTABLE :  '$(LLVM_INSTALL_PREFIX)/bin/llvm-config'
-#           MinicondaRoot : '/usr/local/miniconda'
-#           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
-#           PythonLibDir: '$(PythonRoot)/lib'
-#           PythonExecutable: '$(PythonRoot)/bin/python'
-#           CondaExecutable: '$(MinicondaRoot)/condabin/conda'
-#           PipExecutable: '$(PythonRoot)/bin/pip'
-#         steps:
-#           - checkout: self
-#             submodules: recursive
-#           - script: |
-#               echo "SOURCE_DIR $(SOURCE_DIR)"
-#               echo "BUILD_DIR $(BUILD_DIR)"
-#               echo "INSTALL_DIR $(INSTALL_DIR)"
-#               echo "LLVM_INSTALL_PREFIX $(LLVM_INSTALL_PREFIX)"
-#               echo "DEPS_INSTALL_PREFIX $(DEPS_INSTALL_PREFIX)"
-#               echo "Build.DefinitionName $(Build.DefinitionName)"
-#               echo "System.DefinitionId	 $(System.DefinitionId)"
-#               echo "Agent.OS $(Agent.OS)"
+########################################################################
+# MacOS Build
+#
+  - stage: MacBuildRoadrunnerCpp
+    dependsOn: []
+    jobs:
+      - job: MacBuildRoadrunnerCpp
+        timeoutInMinutes: "0"
+        displayName: MacBuildRoadrunnerCpp
+        continueOnError: "false"
+        strategy:
+          matrix:
+            64-bit Mac Release x86:
+              BuildType: Release
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
+            64-bit Mac Debug x86:
+              BuildType: Debug
+              LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_11_7_x86_64.zip'
+              vmImage: macOS-11
+              arch: x86_64
+            # 64-bit Mac Release M1:
+            #   BuildType: Release
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-14
+            #   arch: arm64
+            # 64-bit Mac Debug M1:
+            #   BuildType: Debug
+            #   LLVM_DOWNLOAD_LINK: 'https://github.com/sys-bio/llvm-13.x/releases/download/llvmorg-13.0.0/llvm-13.x-macosx_13_2_arm64.zip'
+            #   vmImage: macOS-14
+            #   arch: arm64
+        pool:
+          vmImage: $(vmImage)
+        variables:
+          LLVM_CACHE: 'false'
+          PythonName: 'py39'
+          LLVM_CONFIG_EXECUTABLE :  '$(LLVM_INSTALL_PREFIX)/bin/llvm-config'
+          MinicondaRoot : '/usr/local/miniconda'
+          PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
+          PythonLibDir: '$(PythonRoot)/lib'
+          PythonExecutable: '$(PythonRoot)/bin/python'
+          CondaExecutable: '$(MinicondaRoot)/condabin/conda'
+          PipExecutable: '$(PythonRoot)/bin/pip'
+        steps:
+          - checkout: self
+            submodules: recursive
+          - script: |
+              echo "SOURCE_DIR $(SOURCE_DIR)"
+              echo "BUILD_DIR $(BUILD_DIR)"
+              echo "INSTALL_DIR $(INSTALL_DIR)"
+              echo "LLVM_INSTALL_PREFIX $(LLVM_INSTALL_PREFIX)"
+              echo "DEPS_INSTALL_PREFIX $(DEPS_INSTALL_PREFIX)"
+              echo "Build.DefinitionName $(Build.DefinitionName)"
+              echo "System.DefinitionId	 $(System.DefinitionId)"
+              echo "Agent.OS $(Agent.OS)"
 
-#               echo "System.AccessToken  $(System.AccessToken)"
-#               echo "System.CollectionId $(System.CollectionId)"
-#               echo "System.CollectionUri  $(System.CollectionUri)"
-#               echo "System.DefaultWorkingDirectory  $(System.DefaultWorkingDirectory)"
-#               echo "System.DefinitionId $(System.DefinitionId)"
-#               echo "System.HostType $(System.HostType)"
-#               echo "System.JobAttempt $(System.JobAttempt)"
-#               echo "System.JobDisplayName $(System.JobDisplayName)"
-#               echo "System.JobId  $(System.JobId)"
-#               echo "System.JobName  $(System.JobName)"
-#               echo "System.PhaseAttempt $(System.PhaseAttempt)"
-#               echo "System.PhaseDisplayName $(System.PhaseDisplayName)"
-#               echo "System.PhaseName  $(System.PhaseName)"
-#               echo "System.StageAttempt $(System.StageAttempt)"
-#               echo "System.StageDisplayName $(System.StageDisplayName)"
-#               echo "System.StageName  $(System.StageName)"
-#               echo "System.PullRequest.IsFork $(System.PullRequest.IsFork)"
-#               echo "System.PullRequest.PullRequestId $(System.PullRequest.PullRequestId)"
-#               echo "System.PullRequest.PullRequestNumber $(System.PullRequest.PullRequestNumber)"
-#               echo "System.PullRequest.SourceBranch $(System.PullRequest.SourceBranch)"
-#               echo "System.PullRequest.SourceRepositoryURI $(System.PullRequest.SourceRepositoryURI)"
-#               echo "System.PullRequest.TargetBranch $(System.PullRequest.TargetBranch)"
-#               echo "System.TeamFoundationCollectionUri $(System.TeamFoundationCollectionUri)"
-#               echo "System.TeamProject $(System.TeamProject)"
-#               echo "System.TeamProjectId $(System.TeamProjectId)"
-#               echo "TF_BUILD $(TF_BUILD)"
-#             displayName: Print Variables
-#           - script: |
-#               mkdir $(DEPS_INSTALL_PREFIX)
-#             displayName: Make Directories
+              echo "System.AccessToken  $(System.AccessToken)"
+              echo "System.CollectionId $(System.CollectionId)"
+              echo "System.CollectionUri  $(System.CollectionUri)"
+              echo "System.DefaultWorkingDirectory  $(System.DefaultWorkingDirectory)"
+              echo "System.DefinitionId $(System.DefinitionId)"
+              echo "System.HostType $(System.HostType)"
+              echo "System.JobAttempt $(System.JobAttempt)"
+              echo "System.JobDisplayName $(System.JobDisplayName)"
+              echo "System.JobId  $(System.JobId)"
+              echo "System.JobName  $(System.JobName)"
+              echo "System.PhaseAttempt $(System.PhaseAttempt)"
+              echo "System.PhaseDisplayName $(System.PhaseDisplayName)"
+              echo "System.PhaseName  $(System.PhaseName)"
+              echo "System.StageAttempt $(System.StageAttempt)"
+              echo "System.StageDisplayName $(System.StageDisplayName)"
+              echo "System.StageName  $(System.StageName)"
+              echo "System.PullRequest.IsFork $(System.PullRequest.IsFork)"
+              echo "System.PullRequest.PullRequestId $(System.PullRequest.PullRequestId)"
+              echo "System.PullRequest.PullRequestNumber $(System.PullRequest.PullRequestNumber)"
+              echo "System.PullRequest.SourceBranch $(System.PullRequest.SourceBranch)"
+              echo "System.PullRequest.SourceRepositoryURI $(System.PullRequest.SourceRepositoryURI)"
+              echo "System.PullRequest.TargetBranch $(System.PullRequest.TargetBranch)"
+              echo "System.TeamFoundationCollectionUri $(System.TeamFoundationCollectionUri)"
+              echo "System.TeamProject $(System.TeamProject)"
+              echo "System.TeamProjectId $(System.TeamProjectId)"
+              echo "TF_BUILD $(TF_BUILD)"
+            displayName: Print Variables
+          - script: |
+              mkdir $(DEPS_INSTALL_PREFIX)
+            displayName: Make Directories
 
-#           - bash: echo "##vso[task.prependpath]$CONDA/bin"
-#             displayName: Add conda to PATH
+          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            displayName: Add conda to PATH
 
-#           # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
-#           # We need to take ownership if we want to update conda or install packages globally
-#           - bash: sudo chown -R $USER $CONDA
-#             displayName: Take ownership of conda installation
-#           - script: |
-#               echo "cd to source dir: $(SOURCE_DIR)"
-#               cd $(SOURCE_DIR)
-#               echo "ls"
-#               ls
-#               echo "which conda"
-#               which conda
-#               echo "cd miniconda root: $(MinicondaRoot)"
-#               cd $(MinicondaRoot)
-#               echo "ls"
-#               ls
-#               $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
-#             displayName: InstallCondaEnv
+          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+          # We need to take ownership if we want to update conda or install packages globally
+          - bash: sudo chown -R $USER $CONDA
+            displayName: Take ownership of conda installation
+          - script: |
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "ls"
+              ls
+              echo "which conda"
+              which conda
+              echo "cd miniconda root: $(MinicondaRoot)"
+              cd $(MinicondaRoot)
+              echo "ls"
+              ls
+              $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion) -c conda-forge
+            displayName: InstallCondaEnv
 
-#           - script: |
-#               $(PipExecutable) install requests
-#               $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
-#               echo "give execute permissions to llvm-config using chmod 777 *"
-#               cd $(LLVM_INSTALL_PREFIX)/bin
-#               chmod 777 llvm-config
-#             displayName: "Get LLVM"
-# #            condition: ne(variables.LLVM_CACHE, 'true')
+          - script: |
+              $(PipExecutable) install requests
+              $(PythonExecutable) ./.azurepipelines/getLLVM.py $(LLVM_DOWNLOAD_LINK) $(LLVM_INSTALL_PREFIX)
+              echo "give execute permissions to llvm-config using chmod 777 *"
+              cd $(LLVM_INSTALL_PREFIX)/bin
+              chmod 777 llvm-config
+            displayName: "Get LLVM"
+#            condition: ne(variables.LLVM_CACHE, 'true')
 
 
-#           - task: DownloadPipelineArtifact@2
-#             # In this task we go and grab the build artefacts from
-#             # the libroadrunner-dependencies package
-#             inputs:
-#               source: 'specific'
-#               project: 'libroadrunner-deps'
-#               # pipeline is found in the url when looking at azure in browser.
-#               # for example, it looks like this:
-#               # - https://dev.azure.com/TheRoadrunnerProject/libroadrunner-deps/_build?definitionId=9
-#               pipeline: 9
-#               runVersion: 'latest'
-#               artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)-$(arch)
-#               path: $(DEPS_INSTALL_PREFIX)
-#             displayName: Download libroadrunner-deps install artifacts
-#           - script: |
-#               echo "$(DEPS_INSTALL_PREFIX)"
-#               echo "cd to $(DEPS_INSTALL_PREFIX)"
-#               cd $(DEPS_INSTALL_PREFIX)
-#               echo "ls: "
-#               ls
-#               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
-#               mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
-#               rm -r $(DEPS_INSTALL_PREFIX)/install-azure
-#               ls
-#             displayName: Move Dependencies
-#           - script: |
-#               echo "Configuring roadrunner"
-#               echo "mkdir build directory: $(BUILD_DIR)"
-#               mkdir $(BUILD_DIR)
-#               echo "CD to build dir: $(BUILD_DIR)"
-#               cd $(BUILD_DIR)
-#               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
-#             displayName: Run CMake Configure Command
-#           - script: |
-#               echo "less -N $(BUILD_DIR)/source/CMakeFiles/roadrunner.dir/build.make"
-#               less -N "$(BUILD_DIR)/source/CMakeFiles/roadrunner.dir/build.make"
-#               echo "Building roadrunner"
-#               echo "cd to build dir"
-#               cd $(BUILD_DIR)
-#               cmake --build . --target install --config $(BuildType) -j 12
-#             displayName: Run CMake Build Command
-#           - script: |
-#               echo "cd to build dir $(BUILD_DIR)"
-#               cd $(BUILD_DIR)
-#               if [ "$(BuildType)" == "Release" ]; then
-#                 ctest --verbose --extra-verbose --progress
-#               fi
-#             displayName: RunCTest
-#           - task: CopyFiles@2
-#             inputs:
-#               contents: '$(INSTALL_DIR)/**'
-#               targetFolder: $(Build.ArtifactStagingDirectory)
-#             displayName: Copy to Staging Area
-#           - publish: $(Build.ArtifactStagingDirectory)
-#             artifact: roadrunner-MacOS11-$(BuildType)
-#             displayName: Publish
+          - task: DownloadPipelineArtifact@2
+            # In this task we go and grab the build artefacts from
+            # the libroadrunner-dependencies package
+            inputs:
+              source: 'specific'
+              project: 'libroadrunner-deps'
+              # pipeline is found in the url when looking at azure in browser.
+              # for example, it looks like this:
+              # - https://dev.azure.com/TheRoadrunnerProject/libroadrunner-deps/_build?definitionId=9
+              pipeline: 9
+              runVersion: 'latest'
+              artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)-$(arch)
+              path: $(DEPS_INSTALL_PREFIX)
+            displayName: Download libroadrunner-deps install artifacts
+          - script: |
+              echo "$(DEPS_INSTALL_PREFIX)"
+              echo "cd to $(DEPS_INSTALL_PREFIX)"
+              cd $(DEPS_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
+              mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
+              rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+            displayName: Move Dependencies
+          - script: |
+              echo "Configuring roadrunner"
+              echo "mkdir build directory: $(BUILD_DIR)"
+              mkdir $(BUILD_DIR)
+              echo "CD to build dir: $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
+            displayName: Run CMake Configure Command
+          - script: |
+              echo "less -N $(BUILD_DIR)/source/CMakeFiles/roadrunner.dir/build.make"
+              less -N "$(BUILD_DIR)/source/CMakeFiles/roadrunner.dir/build.make"
+              echo "Building roadrunner"
+              echo "cd to build dir"
+              cd $(BUILD_DIR)
+              cmake --build . --target install --config $(BuildType) -j 12
+            displayName: Run CMake Build Command
+          - script: |
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              if [ "$(BuildType)" == "Release" ]; then
+                ctest --verbose --extra-verbose --progress
+              fi
+            displayName: RunCTest
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+            displayName: Copy to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: roadrunner-MacOS11-$(BuildType)
+            displayName: Publish
 
 #   - stage: MacBuildRoadrunnerPython
 #     dependsOn: []
