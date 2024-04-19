@@ -17,7 +17,7 @@ using std::ostream;
 class RR_DECLSPEC SelectionRecord
 {
 public:
-    enum SelectionType
+    enum SelectionType : unsigned long
     {
         /**
         * SelectionType for time.
