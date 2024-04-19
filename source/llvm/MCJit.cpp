@@ -63,7 +63,6 @@ namespace rrllvm {
         , functionPassManager()
         , errString()
     {
-
         compiledModuleBinaryStream = std::make_unique<llvm::raw_svector_ostream>(moduleBuffer);
 
         engineBuilder
@@ -75,10 +74,15 @@ namespace rrllvm {
         MCJit::initFunctionPassManager();
     }
 
+    MCJit::MCJit()
+        : MCJit(LoadSBMLOptions().modelGeneratorOpt)
+    {
+    }
 
     ExecutionEngine* MCJit::getExecutionEngineNonOwning() const {
         return executionEngine.get();
     }
+
     std::string MCJit::mangleName(const std::string& unmangledName) const {
         std::string mangledName;
         llvm::raw_string_ostream mangledNameStream(mangledName);

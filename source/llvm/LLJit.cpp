@@ -72,6 +72,11 @@ namespace rrllvm {
         return mangledNameStream.str();
     }
 
+    LLJit::LLJit()
+        : LLJit(LoadSBMLOptions().modelGeneratorOpt)
+    {
+    }
+
     LLJit::LLJit(std::uint32_t options)
         : Jit(options)
         , llJit()

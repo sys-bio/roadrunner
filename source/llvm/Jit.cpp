@@ -67,7 +67,7 @@ namespace rrllvm {
     }
 
     Jit::Jit()
-            : Jit(LoadSBMLOptions().modelGeneratorOpt) {}
+        : Jit(LoadSBMLOptions().modelGeneratorOpt) {}
 
     llvm::Module *Jit::getModuleNonOwning() {
         return moduleNonOwning;

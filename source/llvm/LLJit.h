@@ -42,7 +42,7 @@ namespace rrllvm {
     class LLJit : public Jit {
     public:
 
-        LLJit() = default;
+        LLJit();
 
         ~LLJit() override = default;
 
