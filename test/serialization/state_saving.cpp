@@ -46,7 +46,7 @@ static std::mutex SerializationMutex;
  */
 class StateSavingTests : public RoadRunnerTest {
 public:
-    path stateSavingModelsDir = rrTestModelsDir_ / "StateSaving";
+    path stateSavingModelsDir = rrTestModelsDir_ / "StateSavingTests";
     path stateSavingOutputDir = rrTestDir_ / "StateSavingOutput";
     path fname_ = stateSavingOutputDir / "state-saving-test.rr";
     std::string fname;
@@ -430,13 +430,20 @@ bool StateSavingTests::StateRunTestModelFromScratch(void(*generate)(RoadRunner *
 //  accordingly.  The reverse can't be tested, since it'll either
 //  exit or throw, depending.
 TEST_F(StateSavingTests, LOAD_INVALID_FILE) {
-// on mac systems this test causes abort signal. We disable on mac.
-#if (!defined(__APPLE__))
-#  if LLVM_VERSION_PATCH > 1
     RoadRunner rri;
-    EXPECT_THROW(rri.loadState((rrTestModelsDir_ / "wrong-save-state.rr").string()), std::exception);
-#  endif
+    EXPECT_THROW(rri.loadState((stateSavingModelsDir / "wrong-save-state.rr").string()), std::exception);
+}
+
+TEST_F(StateSavingTests, LOAD_VALID_FILE) {
+    RoadRunner rri;
+#if defined(_WIN32)
+    rri.loadState((stateSavingModelsDir / "savedState_windows.rr").string());
+    //#elif defined(__unix__)
+    //#if (defined(__APPLE__))
+#else
+    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
 #endif
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
 }
 
 TEST_F(StateSavingTests, LOAD_NONEXISTENT_FILE) {

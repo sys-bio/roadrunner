@@ -73,7 +73,9 @@ namespace rrllvm {
     }
 
     LLJit::LLJit(std::uint32_t options)
-            : Jit(options) {
+        : Jit(options)
+        , llJit()
+    {
 
         // todo, can we cross compile providing a different host arch?
 
