@@ -424,6 +424,18 @@ bool StateSavingTests::StateRunTestModelFromScratch(void(*generate)(RoadRunner *
     return result;
 }
 
+TEST_F(StateSavingTests, LOAD_VALID_FILE) {
+    RoadRunner rri;
+#if defined(_WIN32)
+    rri.loadState((stateSavingModelsDir / "savedState_windows.rr").string());
+    //#elif defined(__unix__)
+    //#if (defined(__APPLE__))
+#else
+    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
+#endif
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+}
+
 // IN LLVM 6.0.1, this test can result, depending on the OS,
 //  in llvm calling *exit* instead of throwing.  We changed this
 //  in our own updated version of llvm, and updated the patch value
