@@ -56,7 +56,7 @@ namespace rrllvm {
     /** @cond PRIVATE */
 
     ModelResources::ModelResources() :
-            symbols(nullptr), executionEngine(nullptr), context(nullptr), random(nullptr), errStr(nullptr) {
+            symbols(nullptr), executionEngine(nullptr), context(nullptr), random(nullptr), errStr(nullptr), jit(nullptr) {
         // the reset of the ivars are assigned by the generator,
         // and in an exception they are not, does not matter as
         // we don't have to delete them.
