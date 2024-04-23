@@ -44,7 +44,8 @@ namespace rrllvm {
      * file type.
      */
 #if LLVM_VERSION_MAJOR == 6
-    llvm::LLVMTargetMachine::CodeGenFileType getCodeGenFileType() {
+    llvm::LLVMTargetMachine::CodeGenFileType getCodeGenFileType()
+    {
         return llvm::TargetMachine::CGFT_ObjectFile;
     }
 #elif LLVM_VERSION_MAJOR >= 12
