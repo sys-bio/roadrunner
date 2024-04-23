@@ -443,9 +443,9 @@ TEST_F(StateSavingTests, LOAD_VALID_FILE) {
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
 #elif (defined(__APPLE__))
     //Try the linux one?
-    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
+    rri.loadState((stateSavingModelsDir / "savedState_mac.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
+    rri.loadState((stateSavingModelsDir / "savedState_mac.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
 #else
     rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
