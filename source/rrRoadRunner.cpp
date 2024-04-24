@@ -259,7 +259,10 @@ namespace rr {
                 simulateOpt(),
                 mInstanceID(0),
                 loadOpt(dict),
-                compiler(Compiler::New()) {
+                compiler(Compiler::New()),
+                model(nullptr),
+                document(nullptr)
+        {
             // have to init integrators the hard way in c++98
             //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
         }
@@ -276,7 +279,10 @@ namespace rr {
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
-                compiler(Compiler::New()) {
+                compiler(Compiler::New()),
+                model(nullptr),
+                document(nullptr)
+        {
             loadOpt.setItem("compiler", Setting(_compiler));
             loadOpt.setItem("tempDir", Setting(_tempDir));
             loadOpt.setItem("supportCodeDir", Setting(_supportCodeDir));
@@ -295,13 +301,13 @@ namespace rr {
                 mSelectionList(rri.mSelectionList),
                 loadOpt(rri.loadOpt),
                 mSteadyStateSelection(rri.mSteadyStateSelection),
-                //model(NULL), //Create below instead.  Constructing with 'NULL' doesn't work.
                 compiler(Compiler::New()),
                 mLS(NULL), //Create only if asked.
                 simulateOpt(rri.simulateOpt),
                 roadRunnerOptions(rri.roadRunnerOptions),
                 configurationXML(rri.configurationXML),
                 simulatedSinceReset(false),
+                model(nullptr),
                 document(rri.document->clone()) {
             //There may be an easier way to save and load the model state, but this
             // is at least straightforward.  We call 'saveState', convert it to an
@@ -5578,6 +5584,7 @@ namespace rr {
     }
 
     void RoadRunner::loadStateS(std::stringstream *in) {
+        rrLog(Logger::LOG_DEBUG) << __FUNC__;
         int inMagicNumber;
         rr::loadBinary(*in, inMagicNumber);
         std::string x = in->str();
