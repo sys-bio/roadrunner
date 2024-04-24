@@ -134,7 +134,7 @@ namespace rrllvm {
         rr::saveBinary(out, usingCompiledModuleBinaryStream);
 
         if (usingCompiledModuleBinaryStream) {
-            rr::saveBinary(out, jit->compiledModuleBinaryStream.get()->str().str());
+            rr::saveBinary(out, jit->getModuleBinaryStreamAsString());
         }
 
     }
@@ -172,10 +172,7 @@ namespace rrllvm {
             //We saved this as a string; convert it back to a 'raw_svector_ostream'
             string stream_str;
             rr::loadBinary(in, stream_str);
-            llvm::raw_svector_ostream* binarystream = new llvm::raw_svector_ostream(jit->moduleBuffer);
-            *binarystream << stream_str;
-
-            jit->compiledModuleBinaryStream.reset(binarystream);
+            jit->resetModuleBinaryStream(stream_str);
         }
 
         //Set up a buffer to read the object code from

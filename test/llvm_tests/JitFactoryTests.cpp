@@ -23,12 +23,14 @@ TEST_F(JitFactoryTests, MCJitFromConfig){
     Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT);
     Jit* j = JitFactory::makeJitEngine();
     ASSERT_TRUE(typeid((*j)) == typeid(MCJit));
+    delete j;
 }
 
 TEST_F(JitFactoryTests, LLJitFromConfig){
     Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::LLJIT);
     Jit* j = JitFactory::makeJitEngine();
     ASSERT_TRUE(typeid((*j)) == typeid(LLJit));
+    delete j;
 }
 
 TEST_F(JitFactoryTests, MCJitFromOpt){
@@ -36,6 +38,7 @@ TEST_F(JitFactoryTests, MCJitFromOpt){
     opt.setLLVMBackend(LoadSBMLOptions::MCJIT);
     Jit* j = JitFactory::makeJitEngine(opt.modelGeneratorOpt);
     ASSERT_TRUE(typeid((*j)) == typeid(MCJit));
+    delete j;
 }
 
 TEST_F(JitFactoryTests, LLJitFromOpt){
@@ -43,4 +46,5 @@ TEST_F(JitFactoryTests, LLJitFromOpt){
     opt.setLLVMBackend(LoadSBMLOptions::LLJIT);
     Jit* j = JitFactory::makeJitEngine(opt.modelGeneratorOpt);
     ASSERT_TRUE(typeid((*j)) == typeid(LLJit));
+    delete j;
 }

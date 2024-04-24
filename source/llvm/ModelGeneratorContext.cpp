@@ -210,13 +210,17 @@ namespace rrllvm {
         return doc;
     }
 
-    ModelGeneratorContext::ModelGeneratorContext() :
-            ownedDoc(createEmptyDocument()),
-            doc(ownedDoc),
-            mPiecewiseTriggers(),
-            symbols(new LLVMModelDataSymbols(doc->getModel(), 0)),
-            modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
-            options(0)
+    ModelGeneratorContext::ModelGeneratorContext() 
+        : ownedDoc(createEmptyDocument())
+        , doc(ownedDoc)
+        , mPiecewiseTriggers()
+        , symbols(new LLVMModelDataSymbols(doc->getModel(), 0))
+        , modelSymbols(new LLVMModelSymbols(doc->getModel(), *symbols))
+        , model(doc->getModel())
+        , random(NULL)
+        , options(0)
+        , jit(nullptr)
+        , moietyConverter(nullptr)
     {
         // initialize LLVM
         // TODO check result

@@ -183,7 +183,7 @@ namespace rrllvm {
             throw_llvm_exception(err);
         }
 
-        auto memBuffer(llvm::MemoryBuffer::getMemBuffer(compiledModuleBinaryStream->str().str()));
+        auto memBuffer(llvm::MemoryBuffer::getMemBuffer(getModuleBinaryStreamAsString()));
 
         llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
             llvm::object::ObjectFile::createObjectFile(

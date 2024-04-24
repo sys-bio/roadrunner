@@ -275,7 +275,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     flags(defaultFlags())
 {
 
-    rrLog(Logger::LOG_DEBUG) << __FUNC__ << std::endl;
+    rrLog(Logger::LOG_DEBUG) << __FUNC__;
     modelData = LLVMModelData_from_save(in);
     resources->loadState(in, modelGeneratorOpt);
 
