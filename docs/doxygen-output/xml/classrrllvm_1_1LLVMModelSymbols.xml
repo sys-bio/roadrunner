@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1LLVMModelSymbols" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::LLVMModelSymbols</compoundname>
-    <basecompoundref prot="private" virt="non-virtual">SBMLVisitor</basecompoundref>
+    <basecompoundref prot="private" virt="non-virtual">libsbml::SBMLVisitor</basecompoundref>
     <includes refid="LLVMModelSymbols_8h" local="no">LLVMModelSymbols.h</includes>
     <innerclass refid="structrrllvm_1_1LLVMModelSymbols_1_1ReactionSymbols" prot="protected">rrllvm::LLVMModelSymbols::ReactionSymbols</innerclass>
       <sectiondef kind="protected-type">
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelSymbols.h" line="74" column="30" bodyfile="llvm/LLVMModelSymbols.h" bodystart="74" bodyend="76"/>
+        <location file="llvm/LLVMModelSymbols.h" line="74" column="5" bodyfile="llvm/LLVMModelSymbols.h" bodystart="74" bodyend="76"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1LLVMModelSymbols_1ab3fdc885f2f338870ddd18853a7ab825" prot="protected" static="no">
         <type>std::list&lt; const libsbml::ASTNode * &gt;</type>
@@ -147,9 +147,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classrrllvm_1_1LLVMModelSymbols_1a62ba3e1984412d37911f4e0cca3e6d4a" prot="private" static="no" mutable="no">
-        <type>const libsbml::Model *</type>
-        <definition>const libsbml::Model* rrllvm::LLVMModelSymbols::model</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1LLVMModelSymbols_1a506cb37164a78141bf3ec5d2bb428c59" prot="private" static="no" mutable="no">
+        <type>libsbml::Model const  *</type>
+        <definition>libsbml::Model const* rrllvm::LLVMModelSymbols::model</definition>
         <argsstring></argsstring>
         <name>model</name>
         <briefdescription>
@@ -535,7 +535,7 @@
         </childnode>
       </node>
       <node id="2">
-        <label>SBMLVisitor</label>
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -553,20 +553,20 @@
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>assignmentRules</edgelabel>
-          <edgelabel>initialValues</edgelabel>
           <edgelabel>initialAssignmentRules</edgelabel>
+          <edgelabel>initialValues</edgelabel>
           <edgelabel>rateRules</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>SBMLVisitor</label>
       </node>
       <node id="4">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
       </node>
+      <node id="2">
+        <label>libsbml::SBMLVisitor</label>
+      </node>
     </collaborationgraph>
-    <location file="llvm/LLVMModelSymbols.h" line="26" column="1" bodyfile="llvm/LLVMModelSymbols.h" bodystart="25" bodyend="254"/>
+    <location file="llvm/LLVMModelSymbols.h" line="25" column="1" bodyfile="llvm/LLVMModelSymbols.h" bodystart="26" bodyend="254"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1aa336e77aebc8b9dd009048e1ce466146" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>assignmentRules</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1ab3fdc885f2f338870ddd18853a7ab825" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>ASTNodeList</name></member>
@@ -580,7 +580,7 @@
       <member refid="classrrllvm_1_1LLVMModelSymbols_1a1f4ad92a3ca40b064d3015c19b849617" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>initialValues</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1a346c6aa644b3297b1319a3f619bdfe9e" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>IntASTNodeListMap</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1a9fda0c55204e8ffde65564b535be7bbb" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>LLVMModelSymbols</name></member>
-      <member refid="classrrllvm_1_1LLVMModelSymbols_1a62ba3e1984412d37911f4e0cca3e6d4a" prot="private" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>model</name></member>
+      <member refid="classrrllvm_1_1LLVMModelSymbols_1a506cb37164a78141bf3ec5d2bb428c59" prot="private" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>model</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1af6ee8336c24f1b548a08cb62465faf21" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>nodes</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1a1a77a8995e4fc70336da702e63c2d0f0" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>processElement</name></member>
       <member refid="classrrllvm_1_1LLVMModelSymbols_1a0d6de412f4d409e3f5e70adaeecd4727" prot="protected" virt="non-virtual"><scope>rrllvm::LLVMModelSymbols</scope><name>processSpecies</name></member>

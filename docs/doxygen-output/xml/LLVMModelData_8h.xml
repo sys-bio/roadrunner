@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="LLVMModelData_8h" kind="file" language="C++">
     <compoundname>LLVMModelData.h</compoundname>
     <includes refid="rrSparse_8h" local="yes">rrSparse.h</includes>
     <includes local="no">string</includes>
     <includes local="no">ostream</includes>
-    <includedby refid="LLVMModelDataSymbols_8h" local="yes">llvm/LLVMModelDataSymbols.h</includedby>
     <includedby refid="LLVMModelData_8cpp" local="yes">llvm/LLVMModelData.cpp</includedby>
+    <includedby refid="LLVMModelDataSymbols_8h" local="yes">llvm/LLVMModelDataSymbols.h</includedby>
     <incdepgraph>
       <node id="3">
         <label>rrOSSpecifics.h</label>
@@ -49,7 +49,7 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="16">
+      <node id="17">
         <label>llvm/EvalInitialConditionsCodeGen.h</label>
         <link refid="EvalInitialConditionsCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -59,7 +59,7 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="14">
+      <node id="13">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -79,22 +79,22 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="26">
         <label>llvm/SetValuesCodeGen.h</label>
         <link refid="SetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="30">
         <label>llvm/SetInitialValueCodeGenBase.h</label>
         <link refid="SetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="32" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="28">
         <label>llvm/GetInitialValueCodeGenBase.h</label>
         <link refid="GetInitialValueCodeGenBase_8h_source"/>
-        <childnode refid="22" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -105,7 +105,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="42">
         <label>llvm/FunctionResolver.h</label>
         <link refid="FunctionResolver_8h_source"/>
       </node>
@@ -115,27 +115,29 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="24">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="16">
         <label>llvm/ModelDataSymbolResolver.h</label>
         <link refid="ModelDataSymbolResolver_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
       </node>
-      <node id="28">
+      <node id="37">
         <label>llvm/EvalVolatileStoichCodeGen.h</label>
         <link refid="EvalVolatileStoichCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -145,7 +147,7 @@
         <label>SteadyStateSolver.cpp</label>
         <link refid="SteadyStateSolver_8cpp"/>
       </node>
-      <node id="18">
+      <node id="36">
         <label>llvm/EvalReactionRatesCodeGen.h</label>
         <link refid="EvalReactionRatesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -156,23 +158,37 @@
         <link refid="Integrator_8cpp"/>
       </node>
       <node id="22">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
         <label>llvm/GetInitialValuesCodeGen.h</label>
         <link refid="GetInitialValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="41">
         <label>llvm/CodeGenBase.h</label>
         <link refid="CodeGenBase_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
@@ -180,19 +196,13 @@
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="12">
@@ -207,34 +217,34 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="38">
         <label>llvm/LLVMModelSymbols.h</label>
         <link refid="LLVMModelSymbols_8h_source"/>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="34">
         <label>llvm/EvalConversionFactorCodeGen.h</label>
         <link refid="EvalConversionFactorCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="15">
         <label>llvm/LoadSymbolResolverBase.h</label>
         <link refid="LoadSymbolResolverBase_8h_source"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -249,58 +259,26 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="33">
         <label>llvm/ModelDataIRBuilder.h</label>
         <link refid="ModelDataIRBuilder_8h_source"/>
-        <childnode refid="41" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>llvm/ModelGeneratorContext.h</label>
-        <link refid="ModelGeneratorContext_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
@@ -310,23 +288,59 @@
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>llvm/ModelGeneratorContext.h</label>
+        <link refid="ModelGeneratorContext_8h_source"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="10">
@@ -335,52 +349,54 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="31">
         <label>llvm/SetInitialValuesCodeGen.h</label>
         <link refid="SetInitialValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="25">
         <label>llvm/SetValueCodeGenBase.h</label>
         <link refid="SetValueCodeGenBase_8h_source"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>llvm/ModelInitialValueSymbolResolver.h</label>
+        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="37">
-        <label>llvm/ModelInitialValueSymbolResolver.h</label>
-        <link refid="ModelInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
+      <node id="35">
         <label>llvm/EvalRateRuleRatesCodeGen.h</label>
         <link refid="EvalRateRuleRatesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="40">
         <label>llvm/ASTNodeCodeGen.h</label>
         <link refid="ASTNodeCodeGen_8h_source"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="19">
         <label>llvm/EventAssignCodeGen.h</label>
         <link refid="EventAssignCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="18">
         <label>llvm/EventCodeGenBase.h</label>
         <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -390,42 +406,42 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="21">
         <label>llvm/GetEventValuesCodeGen.h</label>
         <link refid="GetEventValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="32">
         <label>llvm/SBMLInitialValueSymbolResolver.h</label>
         <link refid="SBMLInitialValueSymbolResolver_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="23">
         <label>llvm/GetValueCodeGenBase.h</label>
         <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="20">
         <label>llvm/EventTriggerCodeGen.h</label>
         <link refid="EventTriggerCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -459,7 +475,7 @@
 <codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(<sp/>disable<sp/>:<sp/>4200<sp/>)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="structrrllvm_1_1LLVMModelData" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref></highlight></codeline>
+<codeline lineno="46" refid="structrrllvm_1_1LLVMModelData" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref></highlight></codeline>
 <codeline lineno="47"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="52" refid="structrrllvm_1_1LLVMModelData_1a14eb8ba27b1fcee72817ab9a05638afe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a14eb8ba27b1fcee72817ab9a05638afe" kindref="member">size</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
@@ -493,61 +509,64 @@
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Event<sp/>stuff</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numEvents;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>15</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124" refid="structrrllvm_1_1LLVMModelData_1a13d7b1094bd407bc0422943c196f4f09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a13d7b1094bd407bc0422943c196f4f09" kindref="member">stateVectorSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>16</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130" refid="structrrllvm_1_1LLVMModelData_1a1d6d7fb287227490a08abd550f10074c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a1d6d7fb287227490a08abd550f10074c" kindref="member">stateVector</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>17</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136" refid="structrrllvm_1_1LLVMModelData_1aab22d8a200ecb761c1255711401298dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1aab22d8a200ecb761c1255711401298dc" kindref="member">stateVectorRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>18</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147" refid="structrrllvm_1_1LLVMModelData_1a56b5c0718c3ada5dcbba2162778badcc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a56b5c0718c3ada5dcbba2162778badcc" kindref="member">rateRuleRates</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>19</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157" refid="structrrllvm_1_1LLVMModelData_1a466783f9f4d8c673d400024969195874" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a466783f9f4d8c673d400024969195874" kindref="member">floatingSpeciesAmountRates</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>20</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/></highlight></codeline>
-<codeline lineno="173" refid="structrrllvm_1_1LLVMModelData_1a82b40561feb7109b0d8cfa034f014e0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a82b40561feb7109b0d8cfa034f014e0c" kindref="member">compartmentVolumesAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>21</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initCompartmentVolumesAlias;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>22</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185" refid="structrrllvm_1_1LLVMModelData_1a34634a6ccba0369823b9f085acfd2b76" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a34634a6ccba0369823b9f085acfd2b76" kindref="member">initFloatingSpeciesAmountsAlias</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>23</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boundarySpeciesAmountsAlias;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>24</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initBoundarySpeciesAmountsAlias;<sp/><sp/></highlight><highlight class="comment">//<sp/>25</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Piecewise<sp/>triggers<sp/>that<sp/>get<sp/>treated<sp/>like<sp/>events<sp/>for<sp/>rootfinding<sp/>purposes.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numPiecewiseTriggers;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="structrrllvm_1_1LLVMModelData_1a13d7b1094bd407bc0422943c196f4f09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a13d7b1094bd407bc0422943c196f4f09" kindref="member">stateVectorSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>17</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="structrrllvm_1_1LLVMModelData_1a1d6d7fb287227490a08abd550f10074c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a1d6d7fb287227490a08abd550f10074c" kindref="member">stateVector</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>18</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="structrrllvm_1_1LLVMModelData_1aab22d8a200ecb761c1255711401298dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1aab22d8a200ecb761c1255711401298dc" kindref="member">stateVectorRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>19</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="structrrllvm_1_1LLVMModelData_1a56b5c0718c3ada5dcbba2162778badcc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a56b5c0718c3ada5dcbba2162778badcc" kindref="member">rateRuleRates</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="structrrllvm_1_1LLVMModelData_1a466783f9f4d8c673d400024969195874" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a466783f9f4d8c673d400024969195874" kindref="member">floatingSpeciesAmountRates</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>21</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="176" refid="structrrllvm_1_1LLVMModelData_1a82b40561feb7109b0d8cfa034f014e0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a82b40561feb7109b0d8cfa034f014e0c" kindref="member">compartmentVolumesAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>22</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initCompartmentVolumesAlias;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>23</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="structrrllvm_1_1LLVMModelData_1a34634a6ccba0369823b9f085acfd2b76" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a34634a6ccba0369823b9f085acfd2b76" kindref="member">initFloatingSpeciesAmountsAlias</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>24</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
 <codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>globalParametersAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>26</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initGlobalParametersAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>27</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boundarySpeciesAmountsAlias;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>25</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initBoundarySpeciesAmountsAlias;<sp/><sp/></highlight><highlight class="comment">//<sp/>26</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="193"><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>reactionRatesAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>28</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"></highlight></codeline>
-<codeline lineno="210" refid="structrrllvm_1_1LLVMModelData_1a8c97c01aea7c7e1f8584447fe8296b7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a8c97c01aea7c7e1f8584447fe8296b7f" kindref="member">rateRuleValuesAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>29</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>globalParametersAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>27</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>initGlobalParametersAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>28</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>reactionRatesAlias;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>29</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="structrrllvm_1_1LLVMModelData_1a8c97c01aea7c7e1f8584447fe8296b7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a8c97c01aea7c7e1f8584447fe8296b7f" kindref="member">rateRuleValuesAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>30</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221" refid="structrrllvm_1_1LLVMModelData_1ae481882dda1cfd8bacab33b05fc86557" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1ae481882dda1cfd8bacab33b05fc86557" kindref="member">floatingSpeciesAmountsAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>30</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"></highlight></codeline>
-<codeline lineno="246" refid="structrrllvm_1_1LLVMModelData_1a6ea5c7859174d56f11254b889fb0da1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a6ea5c7859174d56f11254b889fb0da1a" kindref="member">data</ref>[0];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>listed</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLVMModelData_save(<ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*,<sp/>std::ostream&amp;);</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*<sp/>LLVMModelData_from_save(std::istream&amp;);</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLVMModelData_free(<ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*);</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"></highlight></codeline>
-<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="253"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(<sp/>pop<sp/>)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal">std::ostream&amp;<sp/>operator<sp/>&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>&amp;<sp/>data);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224" refid="structrrllvm_1_1LLVMModelData_1ae481882dda1cfd8bacab33b05fc86557" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1ae481882dda1cfd8bacab33b05fc86557" kindref="member">floatingSpeciesAmountsAlias</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>31</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="structrrllvm_1_1LLVMModelData_1a6ea5c7859174d56f11254b889fb0da1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrrllvm_1_1LLVMModelData_1a6ea5c7859174d56f11254b889fb0da1a" kindref="member">data</ref>[0];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>listed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLVMModelData_save(<ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*,<sp/>std::ostream&amp;);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*<sp/>LLVMModelData_from_save(std::istream&amp;);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LLVMModelData_free(<ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>*);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(<sp/>pop<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
 <codeline lineno="259"><highlight class="normal"></highlight></codeline>
-<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal">std::ostream&amp;<sp/>operator<sp/>&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrrllvm_1_1LLVMModelData" kindref="compound">LLVMModelData</ref>&amp;<sp/>data);</highlight></codeline>
 <codeline lineno="262"><highlight class="normal"></highlight></codeline>
-<codeline lineno="263"><highlight class="normal"></highlight></codeline>
-<codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRLLVMMODELDATA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRLLVMMODELDATA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/LLVMModelData.h"/>
   </compounddef>

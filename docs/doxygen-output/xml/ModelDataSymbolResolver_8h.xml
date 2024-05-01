@@ -1,27 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="ModelDataSymbolResolver_8h" kind="file" language="C++">
     <compoundname>ModelDataSymbolResolver.h</compoundname>
     <includes refid="LoadSymbolResolverBase_8h" local="yes">LoadSymbolResolverBase.h</includes>
     <includes refid="LLVMIncludes_8h" local="yes">LLVMIncludes.h</includes>
     <includes refid="LLVMModelDataSymbols_8h" local="yes">LLVMModelDataSymbols.h</includes>
     <includes refid="LLVMModelSymbols_8h" local="yes">LLVMModelSymbols.h</includes>
-    <includedby refid="EvalInitialConditionsCodeGen_8h" local="yes">llvm/EvalInitialConditionsCodeGen.h</includedby>
-    <includedby refid="GetValueCodeGenBase_8h" local="yes">llvm/GetValueCodeGenBase.h</includedby>
-    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
-    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
-    <includedby refid="SetValueCodeGenBase_8h" local="yes">llvm/SetValueCodeGenBase.h</includedby>
     <includedby refid="EvalConversionFactorCodeGen_8cpp" local="yes">llvm/EvalConversionFactorCodeGen.cpp</includedby>
+    <includedby refid="EvalInitialConditionsCodeGen_8h" local="yes">llvm/EvalInitialConditionsCodeGen.h</includedby>
     <includedby refid="EvalRateRuleRatesCodeGen_8cpp" local="yes">llvm/EvalRateRuleRatesCodeGen.cpp</includedby>
     <includedby refid="EvalReactionRatesCodeGen_8cpp" local="yes">llvm/EvalReactionRatesCodeGen.cpp</includedby>
     <includedby refid="EvalVolatileStoichCodeGen_8cpp" local="yes">llvm/EvalVolatileStoichCodeGen.cpp</includedby>
     <includedby refid="EventAssignCodeGen_8cpp" local="yes">llvm/EventAssignCodeGen.cpp</includedby>
+    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
     <includedby refid="EventTriggerCodeGen_8cpp" local="yes">llvm/EventTriggerCodeGen.cpp</includedby>
     <includedby refid="GetEventValuesCodeGen_8cpp" local="yes">llvm/GetEventValuesCodeGen.cpp</includedby>
+    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
     <includedby refid="GetInitialValuesCodeGen_8cpp" local="yes">llvm/GetInitialValuesCodeGen.cpp</includedby>
+    <includedby refid="GetPiecewiseTriggerCodeGen_8cpp" local="yes">llvm/GetPiecewiseTriggerCodeGen.cpp</includedby>
+    <includedby refid="GetPiecewiseTriggerCodeGen_8h" local="yes">llvm/GetPiecewiseTriggerCodeGen.h</includedby>
+    <includedby refid="GetValueCodeGenBase_8h" local="yes">llvm/GetValueCodeGenBase.h</includedby>
     <includedby refid="GetValuesCodeGen_8cpp" local="yes">llvm/GetValuesCodeGen.cpp</includedby>
     <includedby refid="ModelDataSymbolResolver_8cpp" local="yes">llvm/ModelDataSymbolResolver.cpp</includedby>
     <includedby refid="SetInitialValuesCodeGen_8cpp" local="yes">llvm/SetInitialValuesCodeGen.cpp</includedby>
+    <includedby refid="SetValueCodeGenBase_8h" local="yes">llvm/SetValueCodeGenBase.h</includedby>
     <includedby refid="SetValuesCodeGen_8cpp" local="yes">llvm/SetValuesCodeGen.cpp</includedby>
     <incdepgraph>
       <node id="30">
@@ -416,7 +418,7 @@
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
-      <node id="14">
+      <node id="13">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -436,7 +438,7 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="23">
         <label>llvm/SetValuesCodeGen.h</label>
         <link refid="SetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -450,7 +452,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="21">
         <label>llvm/GetValuesCodeGen.h</label>
         <link refid="GetValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
@@ -463,11 +465,13 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
       <node id="11">
@@ -477,6 +481,12 @@
       <node id="6">
         <label>Integrator.cpp</label>
         <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="19">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="12">
         <label>NLEQ2Solver.h</label>
@@ -508,45 +518,45 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>llvm/SetValueCodeGenBase.h</label>
         <link refid="SetValueCodeGenBase_8h_source"/>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="16">
         <label>llvm/EventAssignCodeGen.h</label>
         <link refid="EventAssignCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="15">
         <label>llvm/EventCodeGenBase.h</label>
         <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>llvm/GetEventValuesCodeGen.h</label>
         <link refid="GetEventValuesCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="20">
         <label>llvm/GetValueCodeGenBase.h</label>
         <link refid="GetValueCodeGenBase_8h_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="17">
         <label>llvm/EventTriggerCodeGen.h</label>
         <link refid="EventTriggerCodeGen_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>

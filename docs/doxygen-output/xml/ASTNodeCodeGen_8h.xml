@@ -1,13 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="ASTNodeCodeGen_8h" kind="file" language="C++">
     <compoundname>ASTNodeCodeGen.h</compoundname>
     <includes refid="LLVMIncludes_8h" local="yes">LLVMIncludes.h</includes>
     <includes refid="CodeGen_8h" local="yes">CodeGen.h</includes>
     <includes refid="ModelGeneratorContext_8h" local="yes">ModelGeneratorContext.h</includes>
     <includes local="no">thread</includes>
-    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
-    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
     <includedby refid="ASTNodeCodeGen_8cpp" local="yes">llvm/ASTNodeCodeGen.cpp</includedby>
     <includedby refid="CodeGenBase_8cpp" local="yes">llvm/CodeGenBase.cpp</includedby>
     <includedby refid="EvalConversionFactorCodeGen_8cpp" local="yes">llvm/EvalConversionFactorCodeGen.cpp</includedby>
@@ -16,8 +14,11 @@
     <includedby refid="EvalReactionRatesCodeGen_8cpp" local="yes">llvm/EvalReactionRatesCodeGen.cpp</includedby>
     <includedby refid="EvalVolatileStoichCodeGen_8cpp" local="yes">llvm/EvalVolatileStoichCodeGen.cpp</includedby>
     <includedby refid="EventAssignCodeGen_8cpp" local="yes">llvm/EventAssignCodeGen.cpp</includedby>
+    <includedby refid="EventCodeGenBase_8h" local="yes">llvm/EventCodeGenBase.h</includedby>
     <includedby refid="EventTriggerCodeGen_8cpp" local="yes">llvm/EventTriggerCodeGen.cpp</includedby>
     <includedby refid="FunctionResolver_8cpp" local="yes">llvm/FunctionResolver.cpp</includedby>
+    <includedby refid="GetEventValuesCodeGen_8h" local="yes">llvm/GetEventValuesCodeGen.h</includedby>
+    <includedby refid="GetPiecewiseTriggerCodeGen_8h" local="yes">llvm/GetPiecewiseTriggerCodeGen.h</includedby>
     <includedby refid="LLVMModelSymbols_8cpp" local="yes">llvm/LLVMModelSymbols.cpp</includedby>
     <includedby refid="LoadSymbolResolverBase_8cpp" local="yes">llvm/LoadSymbolResolverBase.cpp</includedby>
     <includedby refid="ModelDataSymbolResolver_8cpp" local="yes">llvm/ModelDataSymbolResolver.cpp</includedby>
@@ -390,7 +391,7 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="8">
+      <node id="9">
         <label>/home/vsts/work/1/s/wrappers/C/rrc_api.cpp</label>
         <link refid="rrc__api_8cpp"/>
       </node>
@@ -398,66 +399,72 @@
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>ForwardSensitivitySolver.h</label>
         <link refid="ForwardSensitivitySolver_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CVODEIntegrator.h</label>
+        <link refid="CVODEIntegrator_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>CVODEIntegrator.h</label>
-        <link refid="CVODEIntegrator_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
+      <node id="10">
         <label>NLEQSolver.h</label>
         <link refid="NLEQSolver_8h_source"/>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>SteadyStateSolver.cpp</label>
-        <link refid="SteadyStateSolver_8cpp"/>
-      </node>
-      <node id="6">
-        <label>Integrator.cpp</label>
-        <link refid="Integrator_8cpp"/>
-      </node>
-      <node id="12">
-        <label>NLEQ2Solver.h</label>
-        <link refid="NLEQ2Solver_8h"/>
         <childnode refid="11" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>SensitivitySolverFactory.h</label>
-        <link refid="SensitivitySolverFactory_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>llvm/LLVMExecutableModel.h</label>
-        <link refid="LLVMExecutableModel_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+      </node>
+      <node id="12">
+        <label>SteadyStateSolver.cpp</label>
+        <link refid="SteadyStateSolver_8cpp"/>
+      </node>
+      <node id="7">
+        <label>Integrator.cpp</label>
+        <link refid="Integrator_8cpp"/>
+      </node>
+      <node id="18">
+        <label>llvm/GetPiecewiseTriggerCodeGen.h</label>
+        <link refid="GetPiecewiseTriggerCodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="13">
+        <label>NLEQ2Solver.h</label>
+        <link refid="NLEQ2Solver_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>SensitivitySolverFactory.h</label>
+        <link refid="SensitivitySolverFactory_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>llvm/LLVMExecutableModel.h</label>
+        <link refid="LLVMExecutableModel_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
         <label>NLEQ1Solver.h</label>
         <link refid="NLEQ1Solver_8h"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -465,36 +472,38 @@
         <link refid="ASTNodeCodeGen_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="3">
         <label>llvm/EventAssignCodeGen.h</label>
         <link refid="EventAssignCodeGen_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>llvm/EventCodeGenBase.h</label>
-        <link refid="EventCodeGenBase_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="2">
-        <label>llvm/GetEventValuesCodeGen.h</label>
-        <link refid="GetEventValuesCodeGen_8h_source"/>
+        <label>llvm/EventCodeGenBase.h</label>
+        <link refid="EventCodeGenBase_8h_source"/>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="17">
-        <label>llvm/EventTriggerCodeGen.h</label>
-        <link refid="EventTriggerCodeGen_8h_source"/>
-        <childnode refid="3" relation="include">
+        <label>llvm/GetEventValuesCodeGen.h</label>
+        <link refid="GetEventValuesCodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="16">
+        <label>llvm/EventTriggerCodeGen.h</label>
+        <link refid="EventTriggerCodeGen_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -549,7 +558,7 @@
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rrllvm</highlight></codeline>
 <codeline lineno="26"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="30" refid="classrrllvm_1_1ASTNodeCodeGen" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref></highlight></codeline>
+<codeline lineno="30" refid="classrrllvm_1_1ASTNodeCodeGen" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref></highlight></codeline>
 <codeline lineno="31"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>(llvm::IRBuilder&lt;&gt;<sp/>&amp;builder,</highlight></codeline>
@@ -569,73 +578,75 @@
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*delayExprCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*nameExprCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value*<sp/>rateOfCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode*<sp/>ast);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*realExprCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*nameExprCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*distribCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*integerCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyArithmeticCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*minmaxCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*realExprCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*distribCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*integerCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyArithmeticCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>AHu:<sp/>As<sp/>of<sp/>June&apos;18,<sp/>there<sp/>is<sp/>no<sp/>difference<sp/>between<sp/>the<sp/>two<sp/>relation<sp/>CodeGen</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>functions,<sp/>so<sp/>I<sp/>am<sp/>refactoring<sp/>this<sp/>function<sp/>to<sp/>just<sp/>take<sp/>two<sp/>arguments,</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>using<sp/>it<sp/>to<sp/>be<sp/>the<sp/>only<sp/>relational<sp/>switch<sp/>statement</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyBinaryRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast,</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>left,<sp/>llvm::Value*<sp/>right);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>JKM:<sp/>NOTE:<sp/>Not<sp/>SBML-compliant,<sp/>needed<sp/>for<sp/>idiosyncrasies<sp/>in<sp/>some<sp/>legacy<sp/>JDesigner<sp/>models</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyScalarRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Ahu:<sp/>I<sp/>made<sp/>this<sp/>just<sp/>so<sp/>that<sp/>later<sp/>we<sp/>can<sp/>have<sp/>an<sp/>interface<sp/>for<sp/>non-scalar<sp/>relations</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyLogicalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*minmaxCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>AHu:<sp/>As<sp/>of<sp/>June&apos;18,<sp/>there<sp/>is<sp/>no<sp/>difference<sp/>between<sp/>the<sp/>two<sp/>relation<sp/>CodeGen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>functions,<sp/>so<sp/>I<sp/>am<sp/>refactoring<sp/>this<sp/>function<sp/>to<sp/>just<sp/>take<sp/>two<sp/>arguments,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>using<sp/>it<sp/>to<sp/>be<sp/>the<sp/>only<sp/>relational<sp/>switch<sp/>statement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyBinaryRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>llvm::Value*<sp/>left,<sp/>llvm::Value*<sp/>right);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>JKM:<sp/>NOTE:<sp/>Not<sp/>SBML-compliant,<sp/>needed<sp/>for<sp/>idiosyncrasies<sp/>in<sp/>some<sp/>legacy<sp/>JDesigner<sp/>models</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyScalarRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Ahu:<sp/>I<sp/>made<sp/>this<sp/>just<sp/>so<sp/>that<sp/>later<sp/>we<sp/>can<sp/>have<sp/>an<sp/>interface<sp/>for<sp/>non-scalar<sp/>relations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyRelationalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*functionCallCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*applyLogicalCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*intrinsicCallCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*functionCallCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*piecewiseCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*intrinsicCallCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*toBoolean(llvm::Value<sp/>*value);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*toDouble(llvm::Value*<sp/>value);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref><sp/>&amp;resolver;</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>&amp;<sp/>ctx;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Module<sp/>*getModule();</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>scalar_mode_;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*piecewiseCodeGen(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*toBoolean(llvm::Value<sp/>*value);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*toDouble(llvm::Value*<sp/>value);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::IRBuilder&lt;&gt;<sp/>&amp;builder;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1LoadSymbolResolver" kindref="compound">LoadSymbolResolver</ref><sp/>&amp;resolver;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref>&amp;<sp/>ctx;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Value<sp/>*modelData;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>llvm::Module<sp/>*getModule();</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal">std::string<sp/>to_string(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>scalar_mode_;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141" refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref><sp/>{</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>(<ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>&amp;<sp/>gen,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val,<sp/>std::string<sp/>n<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">std::string<sp/>to_string(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>libsbml::ASTNode<sp/>*ast);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref><sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>(<ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>&amp;<sp/>gen,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val,<sp/>std::string<sp/>n<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>&amp;<sp/>z_;</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>v_;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>n_;</highlight></codeline>
-<codeline lineno="151"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<ref refid="classrrllvm_1_1ASTNodeCodeGenScalarTicket" kindref="compound">ASTNodeCodeGenScalarTicket</ref>();</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrrllvm_1_1ASTNodeCodeGen" kindref="compound">ASTNodeCodeGen</ref>&amp;<sp/>z_;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>v_;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>n_;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ASTNodeCodeGenH<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ASTNodeCodeGenH<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="llvm/ASTNodeCodeGen.h"/>
   </compounddef>

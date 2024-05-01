@@ -12,13 +12,13 @@ A factory class to create \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executabl
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ \mbox{\hyperlink{classrr_1_1ExecutableModelFactory_a1d60770a8615289b8e1ba2b41602e0c8}{create\+Model}} (const libsbml\+::\+S\+B\+M\+L\+Document $\ast$sbml, const std\+::string \&md5, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
-\begin{DoxyCompactList}\small\item\em creates a N\+EW object which must be deleted by the caller. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ \mbox{\hyperlink{classrr_1_1ExecutableModelFactory_a1d60770a8615289b8e1ba2b41602e0c8}{create\+Model}} (const libsbml\+::\+SBMLDocument $\ast$sbml, const std\+::string \&md5, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
+\begin{DoxyCompactList}\small\item\em creates a NEW object which must be deleted by the caller. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModelFactory_a23c5051dcf9ea4615029bf6305338dcc}\label{classrr_1_1ExecutableModelFactory_a23c5051dcf9ea4615029bf6305338dcc}} 
 static \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries create\+Model} (std\+::istream \&in, uint model\+Generator\+Opt)
 \item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModelFactory_a71cd447b734c18c4514d238db701205f}\label{classrr_1_1ExecutableModelFactory_a71cd447b734c18c4514d238db701205f}} 
-static \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries regenerate\+Model} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$old\+Model, libsbml\+::\+S\+B\+M\+L\+Document $\ast$doc, uint options)
+static \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries regenerate\+Model} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$old\+Model, libsbml\+::\+SBMLDocument $\ast$doc, uint options)
 \end{DoxyCompactItemize}
 
 
@@ -30,11 +30,11 @@ A factory class to create \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executabl
 \index{rr::ExecutableModelFactory@{rr::ExecutableModelFactory}!createModel@{createModel}}
 \index{createModel@{createModel}!rr::ExecutableModelFactory@{rr::ExecutableModelFactory}}
 \doxysubsubsection{\texorpdfstring{createModel()}{createModel()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rr\+::\+Executable\+Model\+Factory\+::create\+Model (\begin{DoxyParamCaption}\item[{const libsbml\+::\+S\+B\+M\+L\+Document $\ast$}]{sbml,  }\item[{const std\+::string \&}]{md5,  }\item[{const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{dict = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rr\+::\+Executable\+Model\+Factory\+::create\+Model (\begin{DoxyParamCaption}\item[{const libsbml\+::\+SBMLDocument $\ast$}]{sbml,  }\item[{const std\+::string \&}]{md5,  }\item[{const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{dict = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-creates a N\+EW object which must be deleted by the caller. 
+creates a NEW object which must be deleted by the caller. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -42,7 +42,7 @@ creates a N\+EW object which must be deleted by the caller.
 \hline
 {\em md5} & an md5 hash of the model string, used to check if we already created this model. \\
 \hline
-{\em dict} & a dictionary of options, this is typcally a \mbox{\hyperlink{classrr_1_1LoadSBMLOptions}{Load\+S\+B\+M\+L\+Options}} object, but it may be any dictionary. \\
+{\em dict} & a dictionary of options, this is typcally a \mbox{\hyperlink{classrr_1_1LoadSBMLOptions}{Load\+SBMLOptions}} object, but it may be any dictionary. \\
 \hline
 \end{DoxyParams}
 

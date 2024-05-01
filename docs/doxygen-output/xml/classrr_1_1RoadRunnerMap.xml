@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1RoadRunnerMap" kind="class" language="C++" prot="public">
     <compoundname>rr::RoadRunnerMap</compoundname>
     <includes refid="rrRoadRunnerMap_8h" local="no">rrRoadRunnerMap.h</includes>
@@ -362,9 +362,9 @@ The model must already be a unique pointer. The key for accessing the map will b
         </inbodydescription>
         <location file="rrRoadRunnerMap.h" line="129" column="14" bodyfile="rrRoadRunnerMap.cpp" bodystart="107" bodyend="110"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a6cc2faaac1c5ee045a5a42ea9aa17394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a34903c378ab7ac40ccc656bf4d0dac9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
-        <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::begin</definition>
+        <definition>ThreadSafeUnorderedMap::iterator rr::RoadRunnerMap::begin</definition>
         <argsstring>()</argsstring>
         <name>begin</name>
         <briefdescription>
@@ -396,11 +396,11 @@ The model must already be a unique pointer. The key for accessing the map will b
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrRoadRunnerMap.h" line="148" column="48"/>
+        <location file="rrRoadRunnerMap.h" line="148" column="48" bodyfile="rrRoadRunnerMap.cpp" bodystart="194" bodyend="196"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a6807a3ec91489b43298a17ea0f117e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a32cd8895262727088f335c25ae813e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
-        <definition>ThreadSafeUnorderedMap::const_iterator rr::RoadRunnerMap::end</definition>
+        <definition>ThreadSafeUnorderedMap::iterator rr::RoadRunnerMap::end</definition>
         <argsstring>()</argsstring>
         <name>end</name>
         <briefdescription>
@@ -427,7 +427,7 @@ The model must already be a unique pointer. The key for accessing the map will b
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrRoadRunnerMap.h" line="160" column="48"/>
+        <location file="rrRoadRunnerMap.h" line="160" column="48" bodyfile="rrRoadRunnerMap.cpp" bodystart="202" bodyend="204"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1RoadRunnerMap_1a1de37edd3f1822e61c98c200b1b4832a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ThreadSafeUnorderedMap::iterator</type>
@@ -725,16 +725,16 @@ Because there can be only 1 element with a particular key in the map, the return
 <para>Expensive operations like building models are done in parallel.</para>
 <para>Loading <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> models requires expensive builds, which can be prohibitive when loading many models. <ref refid="classrr_1_1RoadRunnerMap" kindref="compound">RoadRunnerMap</ref> is a container for <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> objects which abstracts the process of loading or simulating in parallel. </para>
     </detaileddescription>
-    <location file="rrRoadRunnerMap.h" line="39" column="24" bodyfile="rrRoadRunnerMap.h" bodystart="39" bodyend="260"/>
+    <location file="rrRoadRunnerMap.h" line="39" column="5" bodyfile="rrRoadRunnerMap.h" bodystart="39" bodyend="260"/>
     <listofallmembers>
       <member refid="classrr_1_1RoadRunnerMap_1ad3859547479a3df5e699b6ea054f85d7" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>at</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a2664990c32cf86d3bfb4c659cf805b55" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>at</name></member>
-      <member refid="classrr_1_1RoadRunnerMap_1a6cc2faaac1c5ee045a5a42ea9aa17394" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
+      <member refid="classrr_1_1RoadRunnerMap_1a34903c378ab7ac40ccc656bf4d0dac9d" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a0fda87a87041ffddf67c427dd16f3254" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>begin</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a03349e67a3093ab5fbd86c10df56953f" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>clear</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a1af8de359ac7fbca433c3e249a2d9496" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>count</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1ab6b731d13f9c513083d4ed3ad3daef37" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>empty</name></member>
-      <member refid="classrr_1_1RoadRunnerMap_1a6807a3ec91489b43298a17ea0f117e0c" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
+      <member refid="classrr_1_1RoadRunnerMap_1a32cd8895262727088f335c25ae813e98" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a07ad39be64cd0c4a2c6b54f6f3183bf2" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>end</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a6d384b01fbf98397a0d475838ac5fd75" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>erase</name></member>
       <member refid="classrr_1_1RoadRunnerMap_1a1de37edd3f1822e61c98c200b1b4832a" prot="public" virt="non-virtual"><scope>rr::RoadRunnerMap</scope><name>find</name></member>

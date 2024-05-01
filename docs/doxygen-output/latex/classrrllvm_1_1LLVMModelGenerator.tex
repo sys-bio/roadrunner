@@ -1,4 +1,4 @@
-\hypertarget{classrrllvm_1_1LLVMModelGenerator}{}\doxysection{rrllvm\+::L\+L\+V\+M\+Model\+Generator Class Reference}
+\hypertarget{classrrllvm_1_1LLVMModelGenerator}{}\doxysection{rrllvm\+::LLVMModel\+Generator Class Reference}
 \label{classrrllvm_1_1LLVMModelGenerator}\index{rrllvm::LLVMModelGenerator@{rrllvm::LLVMModelGenerator}}
 
 
@@ -7,21 +7,21 @@ General concepts\+:
 
 
 
-{\ttfamily \#include $<$L\+L\+V\+M\+Model\+Generator.\+h$>$}
+{\ttfamily \#include $<$LLVMModel\+Generator.\+h$>$}
 
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelGenerator_ad117e1d1c9871906b421903262a4ebb6}{create\+Model}} (const libsbml\+::\+S\+B\+M\+L\+Document $\ast$sbml, const std\+::string \&md5, std\+::uint32\+\_\+t options)
+static \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelGenerator_ad117e1d1c9871906b421903262a4ebb6}{create\+Model}} (const libsbml\+::\+SBMLDocument $\ast$sbml, const std\+::string \&md5, std\+::uint32\+\_\+t options)
 \begin{DoxyCompactList}\small\item\em Create an executable model from an sbml std\+::string. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}{regenerate\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$old\+Model, libsbml\+::\+S\+B\+M\+L\+Document $\ast$doc, uint options)
+static \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}{regenerate\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$old\+Model, libsbml\+::\+SBMLDocument $\ast$doc, uint options)
 \begin{DoxyCompactList}\small\item\em Regenerate an executable model from an existing sbml document i.\+e. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 General concepts\+: 
 
-S\+B\+ML defines chemical species.
+SBML defines chemical species.
 
 Floating Species\+: species whose value varies over time, i.\+e. they can \textquotesingle{}float\textquotesingle{} Boundary Species\+: boundary condition species, values are fixed to initial conditions. 
 
@@ -30,25 +30,25 @@ Floating Species\+: species whose value varies over time, i.\+e. they can \textq
 \index{rrllvm::LLVMModelGenerator@{rrllvm::LLVMModelGenerator}!createModel@{createModel}}
 \index{createModel@{createModel}!rrllvm::LLVMModelGenerator@{rrllvm::LLVMModelGenerator}}
 \doxysubsubsection{\texorpdfstring{createModel()}{createModel()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rrllvm\+::\+L\+L\+V\+M\+Model\+Generator\+::create\+Model (\begin{DoxyParamCaption}\item[{const libsbml\+::\+S\+B\+M\+L\+Document $\ast$}]{sbml,  }\item[{const std\+::string \&}]{md5,  }\item[{std\+::uint32\+\_\+t}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rrllvm\+::\+LLVMModel\+Generator\+::create\+Model (\begin{DoxyParamCaption}\item[{const libsbml\+::\+SBMLDocument $\ast$}]{sbml,  }\item[{const std\+::string \&}]{md5,  }\item[{std\+::uint32\+\_\+t}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Create an executable model from an sbml std\+::string. 
 
-The sbml md5 is used as the L\+L\+VM module name. This facilitates object caching via rr\+Object\+Cache since the L\+L\+VM module name is the key in the object map used to cache the objects.\mbox{\Hypertarget{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}\label{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}} 
+The sbml md5 is used as the LLVM module name. This facilitates object caching via rr\+Object\+Cache since the LLVM module name is the key in the object map used to cache the objects.\mbox{\Hypertarget{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}\label{classrrllvm_1_1LLVMModelGenerator_acca1a198b41b71a1abfc28f45422b861}} 
 \index{rrllvm::LLVMModelGenerator@{rrllvm::LLVMModelGenerator}!regenerateModel@{regenerateModel}}
 \index{regenerateModel@{regenerateModel}!rrllvm::LLVMModelGenerator@{rrllvm::LLVMModelGenerator}}
 \doxysubsubsection{\texorpdfstring{regenerateModel()}{regenerateModel()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rrllvm\+::\+L\+L\+V\+M\+Model\+Generator\+::regenerate\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$}]{old\+Model,  }\item[{libsbml\+::\+S\+B\+M\+L\+Document $\ast$}]{doc,  }\item[{uint}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ rrllvm\+::\+LLVMModel\+Generator\+::regenerate\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}} $\ast$}]{old\+Model,  }\item[{libsbml\+::\+SBMLDocument $\ast$}]{doc,  }\item[{uint}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Regenerate an executable model from an existing sbml document i.\+e. 
 
-generate the model normally from the S\+B\+ML document, but copy the values of the floating species (initial and current), boundary species, compartments (initial and current), global parameters (initial and current) that are in both old\+Model and doc, as well as time from the old model into the one returned 
+generate the model normally from the SBML document, but copy the values of the floating species (initial and current), boundary species, compartments (initial and current), global parameters (initial and current) that are in both old\+Model and doc, as well as time from the old model into the one returned 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/L\+L\+V\+M\+Model\+Generator.\+h\item 
-llvm/L\+L\+V\+M\+Model\+Generator.\+cpp\end{DoxyCompactItemize}
+llvm/LLVMModel\+Generator.\+h\item 
+llvm/LLVMModel\+Generator.\+cpp\end{DoxyCompactItemize}

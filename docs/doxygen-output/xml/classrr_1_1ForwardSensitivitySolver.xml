@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrr_1_1ForwardSensitivitySolver" kind="class" language="C++" prot="public">
     <compoundname>rr::ForwardSensitivitySolver</compoundname>
     <basecompoundref refid="classrr_1_1TimeSeriesSensitivitySolver" prot="public" virt="non-virtual">rr::TimeSeriesSensitivitySolver</basecompoundref>
@@ -822,7 +822,7 @@ the caller is responsible for deleting memory associated with the returned Solve
       </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="classrr_1_1ForwardSensitivitySolver_1a94a18c4a7ce92d176eecc5da3e4a64e8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend int</type>
+        <type>int</type>
         <definition>int FFSDyDtFcn</definition>
         <argsstring>(realtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData)</argsstring>
         <name>FFSDyDtFcn</name>
@@ -851,7 +851,7 @@ the caller is responsible for deleting memory associated with the returned Solve
         <location file="ForwardSensitivitySolver.h" line="293" column="20" bodyfile="ForwardSensitivitySolver.cpp" bodystart="33" bodyend="58"/>
       </memberdef>
       <memberdef kind="friend" id="classrr_1_1ForwardSensitivitySolver_1ab0f65e181178179b40d9f4b5c68f69d5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend int</type>
+        <type>int</type>
         <definition>int FFSRootFcn</definition>
         <argsstring>(realtype time, N_Vector y_vector, realtype *gout, void *user_data)</argsstring>
         <name>FFSRootFcn</name>
@@ -953,7 +953,7 @@ the caller is responsible for deleting memory associated with the returned Solve
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="ForwardSensitivitySolver.h" line="31" column="70" bodyfile="ForwardSensitivitySolver.h" bodystart="31" bodyend="297"/>
+    <location file="ForwardSensitivitySolver.h" line="31" column="5" bodyfile="ForwardSensitivitySolver.h" bodystart="31" bodyend="297"/>
     <listofallmembers>
       <member refid="classrr_1_1Solver_1a9d801d628c80877bbadd4fcff012837d" prot="protected" virt="non-virtual"><scope>rr::ForwardSensitivitySolver</scope><name>addSetting</name></member>
       <member refid="classrr_1_1ForwardSensitivitySolver_1ae938e625ed4e8d3536b6b3fb9371a08d" prot="public" virt="virtual"><scope>rr::ForwardSensitivitySolver</scope><name>construct</name></member>

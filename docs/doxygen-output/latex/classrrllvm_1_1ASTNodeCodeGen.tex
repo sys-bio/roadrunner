@@ -1,33 +1,38 @@
-\hypertarget{classrrllvm_1_1ASTNodeCodeGen}{}\doxysection{rrllvm\+::A\+S\+T\+Node\+Code\+Gen Class Reference}
+\hypertarget{classrrllvm_1_1ASTNodeCodeGen}{}\doxysection{rrllvm\+::ASTNode\+Code\+Gen Class Reference}
 \label{classrrllvm_1_1ASTNodeCodeGen}\index{rrllvm::ASTNodeCodeGen@{rrllvm::ASTNodeCodeGen}}
 
 
-{\ttfamily \#include $<$A\+S\+T\+Node\+Code\+Gen.\+h$>$}
+All of the LLVM IR generation is handled here.  
+
+
+
+
+{\ttfamily \#include $<$ASTNode\+Code\+Gen.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeCodeGen_a8f27a81bbe9fbdf8f29dd2d9a54870de}\label{classrrllvm_1_1ASTNodeCodeGen_a8f27a81bbe9fbdf8f29dd2d9a54870de}} 
-{\bfseries A\+S\+T\+Node\+Code\+Gen} (llvm\+::\+I\+R\+Builder$<$$>$ \&builder, \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{Load\+Symbol\+Resolver}} \&resolver, const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&ctx, llvm\+::\+Value $\ast$model\+Data)
+{\bfseries ASTNode\+Code\+Gen} (llvm\+::\+IRBuilder$<$$>$ \&builder, \mbox{\hyperlink{classrrllvm_1_1LoadSymbolResolver}{Load\+Symbol\+Resolver}} \&resolver, const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&ctx, llvm\+::\+Value $\ast$model\+Data)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeCodeGen_a5926bbdb90c85ecadb92aeb6ac8628d1}\label{classrrllvm_1_1ASTNodeCodeGen_a5926bbdb90c85ecadb92aeb6ac8628d1}} 
-llvm\+::\+Value $\ast$ {\bfseries code\+Gen\+Double} (const libsbml\+::\+A\+S\+T\+Node $\ast$ast)
+llvm\+::\+Value $\ast$ {\bfseries code\+Gen\+Double} (const libsbml\+::\+ASTNode $\ast$ast)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeCodeGen_a09eac51c79e1f2509072f10615c09631}\label{classrrllvm_1_1ASTNodeCodeGen_a09eac51c79e1f2509072f10615c09631}} 
-llvm\+::\+Value $\ast$ {\bfseries code\+Gen\+Boolean} (const libsbml\+::\+A\+S\+T\+Node $\ast$ast)
+llvm\+::\+Value $\ast$ {\bfseries code\+Gen\+Boolean} (const libsbml\+::\+ASTNode $\ast$ast)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeCodeGen_a69559ab4b8ff63c2ff123cc8f3f5593b}\label{classrrllvm_1_1ASTNodeCodeGen_a69559ab4b8ff63c2ff123cc8f3f5593b}} 
-class {\bfseries A\+S\+T\+Node\+Code\+Gen\+Scalar\+Ticket}
+class {\bfseries ASTNode\+Code\+Gen\+Scalar\+Ticket}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-All of the L\+L\+VM IR generation is handled here. 
+All of the LLVM IR generation is handled here. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/A\+S\+T\+Node\+Code\+Gen.\+h\item 
-llvm/A\+S\+T\+Node\+Code\+Gen.\+cpp\end{DoxyCompactItemize}
+llvm/ASTNode\+Code\+Gen.\+h\item 
+llvm/ASTNode\+Code\+Gen.\+cpp\end{DoxyCompactItemize}

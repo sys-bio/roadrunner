@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrNOMSupport_8cpp" kind="file" language="C++">
     <compoundname>rrNOMSupport.cpp</compoundname>
     <includes local="no">math.h</includes>
@@ -388,9 +388,9 @@
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>NOMSupport::STR_DoubleFormat(</highlight><highlight class="stringliteral">&quot;%.5G&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>changeSymbol(ASTNode<sp/>*node,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>targetType);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>changeSymbol(ASTNode<sp/>*node,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>targetType);</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MathT&gt;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MathT&gt;</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>changeSymbolT(MathT*<sp/>thing,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sTimeSymbol,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>targetType);</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal">NOMSupport::NOMSupport()</highlight></codeline>
@@ -408,7 +408,7 @@
 <codeline lineno="65"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal">std::string<sp/>NOMSupport::getlibSBMLVersion()</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">std::string<sp/><ref refid="group__utility_1ga2235582889c86de1bcef3c2a83631183" kindref="member">NOMSupport::getlibSBMLVersion</ref>()</highlight></codeline>
 <codeline lineno="69"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>getLibSBMLDottedVersion();</highlight></codeline>
 <codeline lineno="71"><highlight class="normal">}</highlight></codeline>
@@ -423,7 +423,7 @@
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mSBMLDoc;</highlight></codeline>
 <codeline lineno="81"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::reset()</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__reset_1gabde768cf80e67fe8f2811a28843e41f4" kindref="member">NOMSupport::reset</ref>()</highlight></codeline>
 <codeline lineno="84"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>mSymbolTable.clear();</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
@@ -448,7 +448,7 @@
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>getId(*oCompartment);</highlight></codeline>
 <codeline lineno="106"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>NOMSupport::getValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="group__state_1ga6ff35b4282c583424f4d5708330012b9" kindref="member">NOMSupport::getValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId)</highlight></codeline>
 <codeline lineno="109"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -590,7 +590,7 @@
 <codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="248"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="249"><highlight class="normal"></highlight></codeline>
-<codeline lineno="250"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NOMSupport_1af5c047495e2476c0f33964f93ccae4c1" kindref="member">NOMSupport::convertTime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sArg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sTimeSymbol)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">std::string<sp/>NOMSupport::convertTime(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sArg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sTimeSymbol)</highlight></codeline>
 <codeline lineno="251"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>own<sp/>sbml<sp/>doc,<sp/>and<sp/>it<sp/>creates<sp/>a<sp/>cstr,<sp/>but<sp/>it<sp/>owns<sp/>the<sp/>model.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>SBMLDocument*<sp/>oSBMLDoc<sp/>=<sp/>0;</highlight></codeline>
@@ -698,7 +698,7 @@
 <codeline lineno="355"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="356"><highlight class="normal"></highlight></codeline>
 <codeline lineno="357"><highlight class="normal"></highlight></codeline>
-<codeline lineno="358"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NOMSupport_1a16d422f74f452590dda119bb215d01ce" kindref="member">NOMSupport::getKineticLaw</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>index)</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">std::string<sp/><ref refid="group__edit_1gadbf20490f39ce700b719dc17810f186e" kindref="member">NOMSupport::getKineticLaw</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>index)</highlight></codeline>
 <codeline lineno="359"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -827,7 +827,7 @@
 <codeline lineno="484"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="485"><highlight class="normal"></highlight></codeline>
 <codeline lineno="486"><highlight class="normal"></highlight></codeline>
-<codeline lineno="487"><highlight class="normal">std::string<sp/>NOMSupport::getModelName()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="487"><highlight class="normal">std::string<sp/><ref refid="group__NOM_1gadd064802065aece47c2e966f9fff5958" kindref="member">NOMSupport::getModelName</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="488"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -968,7 +968,7 @@
 <codeline lineno="625"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="626"><highlight class="normal"></highlight></codeline>
 <codeline lineno="627"><highlight class="normal"></highlight></codeline>
-<codeline lineno="628"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NOMSupport_1af4a3ab21cb823459ea86eb96b00c8499" kindref="member">NOMSupport::getNthFloatingSpeciesCompartmentName</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nIndex)</highlight></codeline>
+<codeline lineno="628"><highlight class="normal">std::string<sp/>NOMSupport::getNthFloatingSpeciesCompartmentName(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nIndex)</highlight></codeline>
 <codeline lineno="629"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1360,7 +1360,7 @@
 <codeline lineno="1017"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1018"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1019"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1020"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NOMSupport_1a1291a825f520b10575aa6703166db75e" kindref="member">NOMSupport::getNumParameters</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>var0)</highlight></codeline>
+<codeline lineno="1020"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NOMSupport::getNumParameters(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>var0)</highlight></codeline>
 <codeline lineno="1021"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1022"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="1023"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1380,7 +1380,7 @@
 <codeline lineno="1037"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1038"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1039"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1040"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NOMSupport_1ae37000c3877a19cb3792ba6b249411fd" kindref="member">NOMSupport::getNumReactions</ref>()</highlight></codeline>
+<codeline lineno="1040"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NOMSupport::getNumReactions()</highlight></codeline>
 <codeline lineno="1041"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1042"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="1043"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1399,7 +1399,7 @@
 <codeline lineno="1056"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1057"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1058"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1059"><highlight class="normal">std::string<sp/>NOMSupport::getParamPromotedSBML(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sArg)</highlight></codeline>
+<codeline lineno="1059"><highlight class="normal">std::string<sp/><ref refid="rrc__api_8h_1a1e12a65f50c3138f73628d090bda918a" kindref="member">NOMSupport::getParamPromotedSBML</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sArg)</highlight></codeline>
 <codeline lineno="1060"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1061"><highlight class="normal"><sp/><sp/><sp/><sp/>SBMLDocument<sp/>*oSBMLDoc<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="1062"><highlight class="normal"><sp/><sp/><sp/><sp/>Model<sp/>*oModel<sp/>=<sp/>NULL;</highlight></codeline>
@@ -1577,7 +1577,7 @@
 <codeline lineno="1234"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1235"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1236"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1237"><highlight class="normal">std::string<sp/>NOMSupport::getSBML()</highlight></codeline>
+<codeline lineno="1237"><highlight class="normal">std::string<sp/><ref refid="group__loadsave_1ga583d80e8a54f0d41b8600bb4ece0e552" kindref="member">NOMSupport::getSBML</ref>()</highlight></codeline>
 <codeline lineno="1238"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mModel<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="1240"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1595,7 +1595,7 @@
 <codeline lineno="1252"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1253"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1254"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1255"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">NOMSupport::getSymbols</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode*<sp/>aNode,<sp/>StringList&amp;<sp/>list)</highlight></codeline>
+<codeline lineno="1255"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::getSymbols(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode*<sp/>aNode,<sp/>StringList&amp;<sp/>list)</highlight></codeline>
 <codeline lineno="1256"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!aNode)</highlight></codeline>
 <codeline lineno="1258"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1614,13 +1614,13 @@
 <codeline lineno="1271"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>node.getNumChildren();<sp/>i++)</highlight></codeline>
 <codeline lineno="1273"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">getSymbols</ref>(node.getChild(i),<sp/>list);</highlight></codeline>
+<codeline lineno="1274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>getSymbols(node.getChild(i),<sp/>list);</highlight></codeline>
 <codeline lineno="1275"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1276"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1277"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1278"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1280"><highlight class="normal">StringList<sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">NOMSupport::getSymbols</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode*<sp/>math)</highlight></codeline>
+<codeline lineno="1280"><highlight class="normal">StringList<sp/>NOMSupport::getSymbols(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ASTNode*<sp/>math)</highlight></codeline>
 <codeline lineno="1281"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1282"><highlight class="normal"><sp/><sp/><sp/><sp/>StringList<sp/>result;<sp/></highlight><highlight class="comment">//=<sp/>new<sp/>List&lt;std::string&gt;();</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1283"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(math<sp/>==<sp/>NULL)</highlight></codeline>
@@ -1628,12 +1628,12 @@
 <codeline lineno="1285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="1286"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1287"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1288"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">getSymbols</ref>(math,<sp/>result);</highlight></codeline>
+<codeline lineno="1288"><highlight class="normal"><sp/><sp/><sp/><sp/>getSymbols(math,<sp/>result);</highlight></codeline>
 <codeline lineno="1289"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="1290"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1291"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1292"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1293"><highlight class="normal">deque&lt;Rule*&gt;<sp/><ref refid="classrr_1_1NOMSupport_1a7a0445e0662e5e98289861125be45cf1" kindref="member">NOMSupport::reorderAssignmentRules</ref>(deque&lt;Rule*&gt;&amp;<sp/>assignmentRules)</highlight></codeline>
+<codeline lineno="1293"><highlight class="normal">deque&lt;Rule*&gt;<sp/>NOMSupport::reorderAssignmentRules(deque&lt;Rule*&gt;&amp;<sp/>assignmentRules)</highlight></codeline>
 <codeline lineno="1294"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1295"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(assignmentRules.size()<sp/>&lt;<sp/>2)</highlight></codeline>
 <codeline lineno="1296"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -1662,7 +1662,7 @@
 <codeline lineno="1320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>allSymbols[index]<sp/>=<sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">NOMSupport::getSymbols</ref>(rule-&gt;getMath());</highlight></codeline>
+<codeline lineno="1323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>allSymbols[index]<sp/>=<sp/>NOMSupport::getSymbols(rule-&gt;getMath());</highlight></codeline>
 <codeline lineno="1324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>idList.add(variable);</highlight></codeline>
 <codeline lineno="1326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::map[variable]<sp/>=<sp/>StringList();</highlight><highlight class="comment">//new<sp/>List&lt;std::string&gt;();</highlight><highlight class="normal"></highlight></codeline>
@@ -1733,7 +1733,7 @@
 <codeline lineno="1391"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1392"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1393"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1394"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NOMSupport_1a860034fb4e70cb79da25fb2ec824df5e" kindref="member">NOMSupport::reorderRules</ref>(SBMLDocument&amp;<sp/>doc,<sp/>Model&amp;<sp/>model)</highlight></codeline>
+<codeline lineno="1394"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::reorderRules(SBMLDocument&amp;<sp/>doc,<sp/>Model&amp;<sp/>model)</highlight></codeline>
 <codeline lineno="1395"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1396"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numRules<sp/>=<sp/>(int)<sp/>model.getNumRules();</highlight></codeline>
 <codeline lineno="1397"><highlight class="normal"><sp/><sp/><sp/><sp/>deque&lt;Rule*&gt;<sp/>assignmentRules;</highlight></codeline>
@@ -1761,7 +1761,7 @@
 <codeline lineno="1419"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1420"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1421"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TODO:<sp/>Need<sp/>to<sp/>load<sp/>suitable<sp/>XML<sp/>file<sp/>to<sp/>test<sp/>and<sp/>convert<sp/>following<sp/>code..</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1422"><highlight class="normal"><sp/><sp/><sp/><sp/>assignmentRules<sp/>=<sp/><ref refid="classrr_1_1NOMSupport_1a7a0445e0662e5e98289861125be45cf1" kindref="member">NOMSupport::reorderAssignmentRules</ref>(assignmentRules);</highlight></codeline>
+<codeline lineno="1422"><highlight class="normal"><sp/><sp/><sp/><sp/>assignmentRules<sp/>=<sp/>NOMSupport::reorderAssignmentRules(assignmentRules);</highlight></codeline>
 <codeline lineno="1423"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1424"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>IMPORTANT:<sp/>model.addRule<sp/>inserts<sp/>a<sp/>COPY<sp/>of<sp/>the<sp/>rule<sp/>object,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1425"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>still<sp/>retain<sp/>ownership,<sp/>so<sp/>we<sp/>have<sp/>to<sp/>delete<sp/>them.</highlight><highlight class="normal"></highlight></codeline>
@@ -1799,9 +1799,9 @@
 <codeline lineno="1457"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1458"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1459"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1460"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::loadSBML(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>var0,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sTimeSymbol)</highlight></codeline>
+<codeline lineno="1460"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__loadsave_1gaeaaaf4f7855457d6207934149f52f5f9" kindref="member">NOMSupport::loadSBML</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>var0,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sTimeSymbol)</highlight></codeline>
 <codeline lineno="1461"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="1462"><highlight class="normal"><sp/><sp/><sp/><sp/>loadSBML(var0);</highlight></codeline>
+<codeline lineno="1462"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__loadsave_1gaeaaaf4f7855457d6207934149f52f5f9" kindref="member">loadSBML</ref>(var0);</highlight></codeline>
 <codeline lineno="1463"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!mModel)</highlight></codeline>
 <codeline lineno="1464"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="1465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_ERROR)&lt;&lt;</highlight><highlight class="stringliteral">&quot;No<sp/>model<sp/>is<sp/>allocated<sp/>in<sp/>function<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;__FUNC__&lt;&lt;</highlight><highlight class="stringliteral">&quot;<sp/>file<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;__FILE__;</highlight></codeline>
@@ -1812,7 +1812,7 @@
 <codeline lineno="1470"><highlight class="normal"><sp/><sp/><sp/><sp/>changeSymbol(*mModel,<sp/></highlight><highlight class="stringliteral">&quot;avogadro&quot;</highlight><highlight class="normal">,<sp/>AST_NAME_AVOGADRO);</highlight></codeline>
 <codeline lineno="1471"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1472"><highlight class="normal"><sp/><sp/><sp/><sp/>modifyKineticLaws(*mSBMLDoc,<sp/>*mModel);</highlight></codeline>
-<codeline lineno="1473"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1NOMSupport_1a860034fb4e70cb79da25fb2ec824df5e" kindref="member">reorderRules</ref>(*mSBMLDoc,<sp/>*mModel);</highlight></codeline>
+<codeline lineno="1473"><highlight class="normal"><sp/><sp/><sp/><sp/>reorderRules(*mSBMLDoc,<sp/>*mModel);</highlight></codeline>
 <codeline lineno="1474"><highlight class="normal"><sp/><sp/><sp/><sp/>buildSymbolTable();</highlight></codeline>
 <codeline lineno="1475"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1476"><highlight class="normal"></highlight></codeline>
@@ -1923,7 +1923,7 @@
 <codeline lineno="1581"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1582"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(current.HasInitialAssignment())</highlight></codeline>
 <codeline lineno="1583"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringList<sp/>dependentSymbols<sp/>=<sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">getSymbols</ref>(current.mInitialAssignment);</highlight></codeline>
+<codeline lineno="1584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringList<sp/>dependentSymbols<sp/>=<sp/>getSymbols(current.mInitialAssignment);</highlight></codeline>
 <codeline lineno="1585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>dependentSymbols.Count();<sp/>i++)</highlight></codeline>
 <codeline lineno="1586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="1587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>dependency<sp/>=<sp/>dependentSymbols[i];</highlight></codeline>
@@ -1941,7 +1941,7 @@
 <codeline lineno="1599"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1600"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(current.HasRule())</highlight></codeline>
 <codeline lineno="1601"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringList<sp/>dependentSymbols<sp/>=<sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">getSymbols</ref>(current.mRule);</highlight></codeline>
+<codeline lineno="1602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StringList<sp/>dependentSymbols<sp/>=<sp/>getSymbols(current.mRule);</highlight></codeline>
 <codeline lineno="1603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>dependentSymbols.Count();<sp/>i++)</highlight></codeline>
 <codeline lineno="1604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="1605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>dependency<sp/>=<sp/>dependentSymbols[i];</highlight></codeline>
@@ -1957,7 +1957,7 @@
 <codeline lineno="1615"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1616"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1617"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1618"><highlight class="normal">StringList<sp/><ref refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" kindref="member">NOMSupport::getSymbols</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>formula)</highlight></codeline>
+<codeline lineno="1618"><highlight class="normal">StringList<sp/>NOMSupport::getSymbols(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>formula)</highlight></codeline>
 <codeline lineno="1619"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1620"><highlight class="normal"><sp/><sp/><sp/><sp/>StringList<sp/>sResult;</highlight></codeline>
 <codeline lineno="1621"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(isNullOrEmpty(formula))</highlight></codeline>
@@ -2035,7 +2035,7 @@
 <codeline lineno="1693"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::string(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1694"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1695"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1696"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::loadSBML(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sbmlStr)</highlight></codeline>
+<codeline lineno="1696"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__loadsave_1gaeaaaf4f7855457d6207934149f52f5f9" kindref="member">NOMSupport::loadSBML</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sbmlStr)</highlight></codeline>
 <codeline lineno="1697"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1698"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>mSBMLDoc;</highlight></codeline>
 <codeline lineno="1699"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>model<sp/>is<sp/>owned<sp/>by<sp/>the<sp/>sbml<sp/>doc.</highlight><highlight class="normal"></highlight></codeline>
@@ -2051,7 +2051,7 @@
 <codeline lineno="1709"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1710"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1711"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1712"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::setValue(Model*<sp/>model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>value,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>throwIfNotFound)</highlight></codeline>
+<codeline lineno="1712"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__state_1gab8416894a99ef18924c1a719be4521f3" kindref="member">NOMSupport::setValue</ref>(Model*<sp/>model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>value,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>throwIfNotFound)</highlight></codeline>
 <codeline lineno="1713"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1714"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(model<sp/>==<sp/>NULL)</highlight></codeline>
 <codeline lineno="1715"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -2110,9 +2110,9 @@
 <codeline lineno="1768"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1769"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1770"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1771"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NOMSupport::setValue(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>dValue)</highlight></codeline>
+<codeline lineno="1771"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__state_1gab8416894a99ef18924c1a719be4521f3" kindref="member">NOMSupport::setValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>dValue)</highlight></codeline>
 <codeline lineno="1772"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="1773"><highlight class="normal"><sp/><sp/><sp/><sp/>setValue(mModel,<sp/>sId,<sp/>dValue,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1773"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__state_1gab8416894a99ef18924c1a719be4521f3" kindref="member">setValue</ref>(mModel,<sp/>sId,<sp/>dValue,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1774"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1775"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1776"><highlight class="normal">std::string<sp/>NOMSupport::validateSBML(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sModel)</highlight></codeline>
@@ -2133,7 +2133,7 @@
 <codeline lineno="1791"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1792"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1793"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1794"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NOMSupport_1a38d543c385dea96edf0fd0f7fd183a74" kindref="member">NOMSupport::isCompartment</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId)</highlight></codeline>
+<codeline lineno="1794"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>NOMSupport::isCompartment(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sId)</highlight></codeline>
 <codeline lineno="1795"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1796"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!mModel)</highlight></codeline>
 <codeline lineno="1797"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -2180,7 +2180,7 @@
 <codeline lineno="1838"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1839"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1840"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1841"><highlight class="normal">stack&lt;std::string&gt;<sp/><ref refid="classrr_1_1NOMSupport_1ac2c0def46c9097eb80982c3b15517f1e" kindref="member">NOMSupport::getMatchForSymbol</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sbmlId)</highlight></codeline>
+<codeline lineno="1841"><highlight class="normal">stack&lt;std::string&gt;<sp/>NOMSupport::getMatchForSymbol(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sbmlId)</highlight></codeline>
 <codeline lineno="1842"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1843"><highlight class="normal"><sp/><sp/><sp/><sp/>stack&lt;std::string&gt;<sp/>result;</highlight></codeline>
 <codeline lineno="1844"><highlight class="normal"></highlight></codeline>

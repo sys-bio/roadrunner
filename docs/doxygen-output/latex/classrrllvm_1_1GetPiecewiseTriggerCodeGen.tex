@@ -1,0 +1,57 @@
+\hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen}{}\doxysection{rrllvm\+::Get\+Piecewise\+Trigger\+Code\+Gen Class Reference}
+\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen}\index{rrllvm::GetPiecewiseTriggerCodeGen@{rrllvm::GetPiecewiseTriggerCodeGen}}
+
+
+Class for getting piecewise trigger values.  
+
+
+
+
+{\ttfamily \#include $<$Get\+Piecewise\+Trigger\+Code\+Gen.\+h$>$}
+
+Inheritance diagram for rrllvm\+::Get\+Piecewise\+Trigger\+Code\+Gen\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrrllvm_1_1GetPiecewiseTriggerCodeGen}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_ac70ac69ce108ee58fe8da02f8a901717}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_ac70ac69ce108ee58fe8da02f8a901717}} 
+typedef Get\+Piecewise\+Trigger\+Code\+Gen\+\_\+\+Function\+Ptr {\bfseries Function\+Ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_af835db12ce91d1dcbe8816cf49de02d8}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_af835db12ce91d1dcbe8816cf49de02d8}} 
+{\bfseries Get\+Piecewise\+Trigger\+Code\+Gen} (const \mbox{\hyperlink{classrrllvm_1_1ModelGeneratorContext}{Model\+Generator\+Context}} \&mgc)
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_abd60003c2ef224226f4cc1799f5fbb35}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_abd60003c2ef224226f4cc1799f5fbb35}} 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1GetPiecewiseTriggerCodeGen_abd60003c2ef224226f4cc1799f5fbb35}{code\+Gen}} ()
+\begin{DoxyCompactList}\small\item\em The heart of the class, that creates code blocks for every piecewise trigger in the model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a33342e6171e484cbdbccec15ad011d64}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a33342e6171e484cbdbccec15ad011d64}} 
+llvm\+::\+Type $\ast$ \mbox{\hyperlink{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a33342e6171e484cbdbccec15ad011d64}{get\+Ret\+Type}} ()
+\begin{DoxyCompactList}\small\item\em The ret type is a boolean, aka \textquotesingle{}get\+Int8\+Ty\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a2b6a29ab3b46c75c3465ac8da143ce14}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a2b6a29ab3b46c75c3465ac8da143ce14}} 
+llvm\+::\+Value $\ast$ \mbox{\hyperlink{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a2b6a29ab3b46c75c3465ac8da143ce14}{create\+Ret}} (llvm\+::\+Value $\ast$)
+\begin{DoxyCompactList}\small\item\em create a return type, a zero value should return the default type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a7d856976475ac4428ff5153122b6e855}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_a7d856976475ac4428ff5153122b6e855}} 
+static const char $\ast$ {\bfseries Function\+Name} = \char`\"{}get\+Piecewise\+Trigger\char`\"{}
+\item 
+\mbox{\Hypertarget{classrrllvm_1_1GetPiecewiseTriggerCodeGen_acc01bc4c1fcdceb41b470b12c73f09d2}\label{classrrllvm_1_1GetPiecewiseTriggerCodeGen_acc01bc4c1fcdceb41b470b12c73f09d2}} 
+static const char $\ast$ {\bfseries Index\+Arg\+Name} = \char`\"{}trigger\+Indx\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Class for getting piecewise trigger values. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+llvm/Get\+Piecewise\+Trigger\+Code\+Gen.\+h\item 
+llvm/Get\+Piecewise\+Trigger\+Code\+Gen.\+cpp\end{DoxyCompactItemize}

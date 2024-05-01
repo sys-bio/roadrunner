@@ -9,10 +9,7 @@ implemention class, hide all details here.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a98a6346886edafdcc19398968f87209b}\label{classrr_1_1RoadRunnerImpl_a98a6346886edafdcc19398968f87209b}} 
-{\bfseries Road\+Runner\+Impl} (const std\+::string \&uri\+Or\+S\+B\+ML, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict)
-\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}\label{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}} 
-{\bfseries Road\+Runner\+Impl} (const std\+::istream \&in)
+{\bfseries Road\+Runner\+Impl} (const std\+::string \&uri\+Or\+SBML, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict)
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ae70ba989534390c53ab2eafc75dd189f}\label{classrr_1_1RoadRunnerImpl_ae70ba989534390c53ab2eafc75dd189f}} 
 {\bfseries Road\+Runner\+Impl} (const std\+::string \&\+\_\+compiler, const std\+::string \&\+\_\+temp\+Dir, const std\+::string \&\+\_\+support\+Code\+Dir)
@@ -34,18 +31,15 @@ double {\bfseries get\+Parameter\+Value} (const Parameter\+Type parameter\+Type,
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a3bc658658e9c2b3ee0c604c75c6de7a2}\label{classrr_1_1RoadRunnerImpl_a3bc658658e9c2b3ee0c604c75c6de7a2}} 
 void {\bfseries change\+Parameter} (Parameter\+Type parameter\+Type, int reaction\+Index, int parameter\+Index, double original\+Value, double increment)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a5458588c42ccd2d42308dad12edf7172}\label{classrr_1_1RoadRunnerImpl_a5458588c42ccd2d42308dad12edf7172}} 
+bool {\bfseries is\+Complete\+FBC} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ae060f1fbeb0fb318fce843942e7e820e}\label{classrr_1_1RoadRunnerImpl_ae060f1fbeb0fb318fce843942e7e820e}} 
 int {\bfseries m\+Instance\+ID}
-\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a5522059d377f97e1c7da8dfa61e13a13}\label{classrr_1_1RoadRunnerImpl_a5522059d377f97e1c7da8dfa61e13a13}} 
-double {\bfseries m\+Diff\+Step\+Size}
-\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_aa1e1a941280d94b051f20857ab492fd3}\label{classrr_1_1RoadRunnerImpl_aa1e1a941280d94b051f20857ab492fd3}} 
-double {\bfseries m\+Steady\+State\+Threshold}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}\label{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}} 
 ls\+::\+Double\+Matrix {\bfseries simulation\+Result}
@@ -71,7 +65,7 @@ std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SensitivitySolver}{Sensitivity\+Sol
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} $>$ {\bfseries m\+Selection\+List}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}\label{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}} 
-\mbox{\hyperlink{classrr_1_1LoadSBMLOptions}{Load\+S\+B\+M\+L\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}{load\+Opt}}
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions}{Load\+SBMLOptions}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}{load\+Opt}}
 \begin{DoxyCompactList}\small\item\em Model\+Generator obtained from the factory. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a19f31dff952e138792bc594a62b38897}\label{classrr_1_1RoadRunnerImpl_a19f31dff952e138792bc594a62b38897}} 
 std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} $>$ {\bfseries m\+Steady\+State\+Selection}
@@ -88,8 +82,8 @@ ls\+::\+Lib\+Structural $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a139f9
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}\label{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}} 
 \mbox{\hyperlink{structrr_1_1RoadRunnerOptions}{Road\+Runner\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}{road\+Runner\+Options}}
 \begin{DoxyCompactList}\small\item\em various general options that can be modified by external callers. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}{configuration\+X\+ML}}
-\begin{DoxyCompactList}\small\item\em the xml std\+::string that is given in set\+Configuration\+X\+ML. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}{configuration\+XML}}
+\begin{DoxyCompactList}\small\item\em the xml std\+::string that is given in set\+Configuration\+XML. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}\label{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}} 
 bool {\bfseries simulated\+Since\+Reset} = false
 \item 
@@ -103,7 +97,7 @@ friend {\bfseries Road\+Runner}
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $>$ {\bfseries model}
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a351eec90f0cb0348667df95ce9bd22e7}\label{classrr_1_1RoadRunnerImpl_a351eec90f0cb0348667df95ce9bd22e7}} 
-std\+::unique\+\_\+ptr$<$ libsbml\+::\+S\+B\+M\+L\+Document $>$ {\bfseries document}
+std\+::unique\+\_\+ptr$<$ libsbml\+::\+SBMLDocument $>$ {\bfseries document}
 \end{DoxyCompactItemize}
 
 
@@ -115,13 +109,13 @@ implemention class, hide all details here.
 \index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!configurationXML@{configurationXML}}
 \index{configurationXML@{configurationXML}!rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
 \doxysubsubsection{\texorpdfstring{configurationXML}{configurationXML}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+Impl\+::configuration\+X\+ML}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+Impl\+::configuration\+XML}
 
 
 
-the xml std\+::string that is given in set\+Configuration\+X\+ML. 
+the xml std\+::string that is given in set\+Configuration\+XML. 
 
-Needed because the N\+L\+EQ is only created in the steady\+State method. \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}\label{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}} 
+Needed because the NLEQ is only created in the steady\+State method. \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}\label{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}} 
 \index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!integrator@{integrator}}
 \index{integrator@{integrator}!rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
 \doxysubsubsection{\texorpdfstring{integrator}{integrator}}

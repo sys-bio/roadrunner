@@ -8,25 +8,21 @@ Stochastic simulation algorithms.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga7f5813153b9ea59a30cbc2cdfbdedffc}{get\+Seed}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, long $\ast$seed)
-\begin{DoxyCompactList}\small\item\em Determine the current seed used by the random generator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_gaa694837d219e6fd8c55183ad5aa05910}{set\+Seed}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, long seed)
-\begin{DoxyCompactList}\small\item\em Set the current seed used by the random generator. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_gaeaf09f5ac0fcf9df24ccb0e62c82703e}{gillespie}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_gaeaf09f5ac0fcf9df24ccb0e62c82703e}{gillespie}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Carry out a time-\/course simulation using the Gillespie algorithm with variable step size. set\+Time\+Start, set\+Time\+End, etc are used to set the simulation characteristics. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga90d4504aafacfdc2148bedbde8b84823}{gillespie\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, double time\+Start, double time\+End)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga90d4504aafacfdc2148bedbde8b84823}{gillespie\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, double time\+Start, double time\+End)
 \begin{DoxyCompactList}\small\item\em Carry out a time-\/course simulation using the Gillespie algorithm based on the given arguments, time start, time end and number of points. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga2177740637e6d6732621c7cded0dbba5}{gillespie\+On\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga2177740637e6d6732621c7cded0dbba5}{gillespie\+On\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Carry out a time-\/course simulation using the Gillespie algorithm with fixed step size. set\+Time\+Start, set\+Time\+End, set\+Num\+Points, etc are used to set the simulation characteristics. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_gabedfc117be6781c6caca54ecc74561ea}{gillespie\+On\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, double time\+Start, double time\+End, int number\+Of\+Points)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_gabedfc117be6781c6caca54ecc74561ea}{gillespie\+On\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, double time\+Start, double time\+End, int number\+Of\+Points)
 \begin{DoxyCompactList}\small\item\em Carry out a time-\/course simulation using the Gillespie algorithm with fixed step size based on the given arguments, time start, time end, and number of points. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga3f887a483162b0eed518be4faec411d6}{gillespie\+Mean\+On\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int number\+Of\+Simulations)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga3f887a483162b0eed518be4faec411d6}{gillespie\+Mean\+On\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int number\+Of\+Simulations)
 \begin{DoxyCompactList}\small\item\em Carry out a series of time-\/course simulations using the Gillespie algorithm with fixed step size, then return the average of the simulations. set\+Time\+Start, set\+Time\+End, set\+Num\+Points, etc are used to set the simulation characteristics. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga984a669536f489f257335903ce54469c}{gillespie\+Mean\+On\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, double time\+Start, double time\+End, int number\+Of\+Points, int number\+Of\+Simulations)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga984a669536f489f257335903ce54469c}{gillespie\+Mean\+On\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, double time\+Start, double time\+End, int number\+Of\+Points, int number\+Of\+Simulations)
 \begin{DoxyCompactList}\small\item\em Carry out a series of time-\/course simulations using the Gillespie algorithm with fixed step size, then return the average of the simulations. Based on the given arguments, time start, time end, and number of points. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga4caaa9e174e6b9065524e7cdc56fabb4}{gillespie\+Mean\+S\+D\+On\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, int number\+Of\+Simulations)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga4caaa9e174e6b9065524e7cdc56fabb4}{gillespie\+Mean\+SDOn\+Grid}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, int number\+Of\+Simulations)
 \begin{DoxyCompactList}\small\item\em Carry out a series of time-\/course simulations using the Gillespie algorithm with fixed step size, then return the average and standard deviation of the simulations. set\+Time\+Start, set\+Time\+End, set\+Num\+Points, etc are used to set the simulation characteristics. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga11f181f858ccff7015069b6479772024}{gillespie\+Mean\+S\+D\+On\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, double time\+Start, double time\+End, int number\+Of\+Steps, int number\+Of\+Simulations)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__stochastic_ga11f181f858ccff7015069b6479772024}{gillespie\+Mean\+SDOn\+Grid\+Ex}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, double time\+Start, double time\+End, int number\+Of\+Steps, int number\+Of\+Simulations)
 \begin{DoxyCompactList}\small\item\em Carry out a series of time-\/course simulations using the Gillespie algorithm with fixed step size, then return the average and standard deviation of the simulations. Based on the given arguments, time start, time end, number of points, and number of simulations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -36,31 +32,11 @@ Stochastic simulation algorithms.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__stochastic_ga7f5813153b9ea59a30cbc2cdfbdedffc}\label{group__stochastic_ga7f5813153b9ea59a30cbc2cdfbdedffc}} 
-\index{Stochastic simulations@{Stochastic simulations}!getSeed@{getSeed}}
-\index{getSeed@{getSeed}!Stochastic simulations@{Stochastic simulations}}
-\doxysubsubsection{\texorpdfstring{getSeed()}{getSeed()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv get\+Seed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{long $\ast$}]{seed }\end{DoxyParamCaption})}
-
-
-
-Determine the current seed used by the random generator. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
-\hline
-\mbox{\texttt{ out}}  & {\em seed} & This is the value of the current seed, returned to the caller \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Returns true if successful 
-\end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_gaeaf09f5ac0fcf9df24ccb0e62c82703e}\label{group__stochastic_gaeaf09f5ac0fcf9df24ccb0e62c82703e}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespie@{gillespie}}
 \index{gillespie@{gillespie}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespie()}{gillespie()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -72,13 +48,13 @@ Carry out a time-\/course simulation using the Gillespie algorithm with variable
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga90d4504aafacfdc2148bedbde8b84823}\label{group__stochastic_ga90d4504aafacfdc2148bedbde8b84823}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieEx@{gillespieEx}}
 \index{gillespieEx@{gillespieEx}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieEx()}{gillespieEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End }\end{DoxyParamCaption})}
 
 
 
@@ -92,6 +68,7 @@ Example\+:
 \DoxyCodeLine{\textcolor{keywordtype}{double} timeEnd = 25;}
 \DoxyCodeLine{}
 \DoxyCodeLine{m = \mbox{\hyperlink{group__stochastic_ga90d4504aafacfdc2148bedbde8b84823}{gillespieEx}} (rrHandle, timeStart, timeEnd);}
+
 \end{DoxyCode}
 
 
@@ -105,13 +82,13 @@ Example\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga3f887a483162b0eed518be4faec411d6}\label{group__stochastic_ga3f887a483162b0eed518be4faec411d6}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieMeanOnGrid@{gillespieMeanOnGrid}}
 \index{gillespieMeanOnGrid@{gillespieMeanOnGrid}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieMeanOnGrid()}{gillespieMeanOnGrid()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+On\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+On\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
 
 
 
@@ -125,13 +102,13 @@ Carry out a series of time-\/course simulations using the Gillespie algorithm wi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the average of the results of the simulations including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the average of the results of the simulations including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga984a669536f489f257335903ce54469c}\label{group__stochastic_ga984a669536f489f257335903ce54469c}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieMeanOnGridEx@{gillespieMeanOnGridEx}}
 \index{gillespieMeanOnGridEx@{gillespieMeanOnGridEx}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieMeanOnGridEx()}{gillespieMeanOnGridEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+On\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Points,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+On\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Points,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
 
 
 
@@ -147,6 +124,7 @@ Example\+:
 \DoxyCodeLine{\textcolor{keywordtype}{int} numberOfSimulations = 10;}
 \DoxyCodeLine{}
 \DoxyCodeLine{m = \mbox{\hyperlink{group__stochastic_ga984a669536f489f257335903ce54469c}{gillespieMeanOnGridEx}} (rrHandle, timeStart, timeEnd, numberOfPoints, numberOfSimulations);}
+
 \end{DoxyCode}
 
 
@@ -164,13 +142,13 @@ Example\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the average of the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the average of the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga4caaa9e174e6b9065524e7cdc56fabb4}\label{group__stochastic_ga4caaa9e174e6b9065524e7cdc56fabb4}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieMeanSDOnGrid@{gillespieMeanSDOnGrid}}
 \index{gillespieMeanSDOnGrid@{gillespieMeanSDOnGrid}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieMeanSDOnGrid()}{gillespieMeanSDOnGrid()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+S\+D\+On\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+SDOn\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
 
 
 
@@ -184,13 +162,13 @@ Carry out a series of time-\/course simulations using the Gillespie algorithm wi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the average of the results of the simulations including string labels for the individual columns. The averages are in Data and the standard deviations are in Weights. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the average of the results of the simulations including string labels for the individual columns. The averages are in Data and the standard deviations are in Weights. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga11f181f858ccff7015069b6479772024}\label{group__stochastic_ga11f181f858ccff7015069b6479772024}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieMeanSDOnGridEx@{gillespieMeanSDOnGridEx}}
 \index{gillespieMeanSDOnGridEx@{gillespieMeanSDOnGridEx}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieMeanSDOnGridEx()}{gillespieMeanSDOnGridEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+S\+D\+On\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Steps,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+Mean\+SDOn\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Steps,  }\item[{int}]{number\+Of\+Simulations }\end{DoxyParamCaption})}
 
 
 
@@ -206,6 +184,7 @@ Example\+:
 \DoxyCodeLine{\textcolor{keywordtype}{int} numberOfSimulations = 10;}
 \DoxyCodeLine{}
 \DoxyCodeLine{m = \mbox{\hyperlink{group__stochastic_ga11f181f858ccff7015069b6479772024}{gillespieMeanSDOnGridEx}} (rrHandle, timeStart, timeEnd, numberOfPoints, numberOfSimulations);}
+
 \end{DoxyCode}
 
 
@@ -223,13 +202,13 @@ Example\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the average of the results of the simulation including string labels for the individual columns. The average values are in Data and the standard deviations are in Weights. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the average of the results of the simulation including string labels for the individual columns. The average values are in Data and the standard deviations are in Weights. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_ga2177740637e6d6732621c7cded0dbba5}\label{group__stochastic_ga2177740637e6d6732621c7cded0dbba5}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieOnGrid@{gillespieOnGrid}}
 \index{gillespieOnGrid@{gillespieOnGrid}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieOnGrid()}{gillespieOnGrid()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+On\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+On\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -241,13 +220,13 @@ Carry out a time-\/course simulation using the Gillespie algorithm with fixed st
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
+Returns an array (RRCData\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__stochastic_gabedfc117be6781c6caca54ecc74561ea}\label{group__stochastic_gabedfc117be6781c6caca54ecc74561ea}} 
 \index{Stochastic simulations@{Stochastic simulations}!gillespieOnGridEx@{gillespieOnGridEx}}
 \index{gillespieOnGridEx@{gillespieOnGridEx}!Stochastic simulations@{Stochastic simulations}}
 \doxysubsubsection{\texorpdfstring{gillespieOnGridEx()}{gillespieOnGridEx()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{R\+R\+C\+Data\+Ptr}} rrc\+Call\+Conv gillespie\+On\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Points }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a9da8b124eb9c3c0045f8926c6a420b4a}{RRCData\+Ptr}} rrc\+Call\+Conv gillespie\+On\+Grid\+Ex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{double}]{time\+Start,  }\item[{double}]{time\+End,  }\item[{int}]{number\+Of\+Points }\end{DoxyParamCaption})}
 
 
 
@@ -262,6 +241,7 @@ Example\+:
 \DoxyCodeLine{\textcolor{keywordtype}{int} numberOfPoints = 200;}
 \DoxyCodeLine{}
 \DoxyCodeLine{m = \mbox{\hyperlink{group__stochastic_gabedfc117be6781c6caca54ecc74561ea}{gillespieOnGridEx}} (rrHandle, timeStart, timeEnd, numberOfPoints);}
+
 \end{DoxyCode}
 
 
@@ -277,25 +257,5 @@ Example\+:
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns an array (R\+R\+C\+Data\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting R\+R\+C\+Data\+Ptr structure. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{group__stochastic_gaa694837d219e6fd8c55183ad5aa05910}\label{group__stochastic_gaa694837d219e6fd8c55183ad5aa05910}} 
-\index{Stochastic simulations@{Stochastic simulations}!setSeed@{setSeed}}
-\index{setSeed@{setSeed}!Stochastic simulations@{Stochastic simulations}}
-\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Seed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{long}]{seed }\end{DoxyParamCaption})}
-
-
-
-Set the current seed used by the random generator. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
-\hline
-\mbox{\texttt{ out}}  & {\em seed} & This is the value the caller will set the seed to \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Returns true if successful 
+Returns an array (RRCData\+Ptr) of columns containing the results of the simulation including string labels for the individual columns. The client is responsible for freeing the resulting RRCData\+Ptr structure. 
 \end{DoxyReturn}

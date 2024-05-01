@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classrrllvm_1_1ModelGeneratorContext" kind="class" language="C++" prot="public">
     <compoundname>rrllvm::ModelGeneratorContext</compoundname>
     <includes refid="ModelGeneratorContext_8h" local="no">ModelGeneratorContext.h</includes>
@@ -10,13 +10,13 @@
         <argsstring></argsstring>
         <name>ownedDoc</name>
         <briefdescription>
-<para>these point to the same location, ownedDoc is set if we create the doc, otherwise its nullptr, meaning we&apos;re borrowing the the doc. </para>
+<para>these point to the same location, ownedDoc is set if we create the doc, otherwise its nullptr, meaning we&apos;re borrowing the doc. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="180" column="31" bodyfile="llvm/ModelGeneratorContext.h" bodystart="180" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="166" column="31" bodyfile="llvm/ModelGeneratorContext.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1ab54772fc1ab69c585080acc8e1dd538a" prot="private" static="no" mutable="no">
         <type>const libsbml::SBMLDocument *</type>
@@ -30,7 +30,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="185" column="37" bodyfile="llvm/ModelGeneratorContext.h" bodystart="185" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="171" column="37" bodyfile="llvm/ModelGeneratorContext.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1aaf574218997e4a8fc5802498bc79835d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; libsbml::ASTNode * &gt;</type>
+        <definition>std::vector&lt;libsbml::ASTNode*&gt; rrllvm::ModelGeneratorContext::mPiecewiseTriggers</definition>
+        <argsstring></argsstring>
+        <name>mPiecewiseTriggers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="173" column="21" bodyfile="llvm/ModelGeneratorContext.h" bodystart="173" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1a677b151c591ed8d27ef0fcae894847d2" prot="private" static="no" mutable="no">
         <type>const <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref> *</type>
@@ -43,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="187" column="36" bodyfile="llvm/ModelGeneratorContext.h" bodystart="187" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="175" column="36" bodyfile="llvm/ModelGeneratorContext.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1a02b5b609fb8acc5194eb7d522179636f" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref> &gt;</type>
@@ -57,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="193" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="193" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="181" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1a6cd9fd9c574296602629e33366cbfb21" prot="private" static="no" mutable="no">
         <type>const libsbml::Model *</type>
@@ -70,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="195" column="30" bodyfile="llvm/ModelGeneratorContext.h" bodystart="195" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="183" column="30" bodyfile="llvm/ModelGeneratorContext.h" bodystart="183" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1ac9a203e7e67c559b1bae24a7b2ba4665" prot="private" static="no" mutable="no">
         <type><ref refid="classrr_1_1Random" kindref="compound">Random</ref> *</type>
@@ -88,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="220" column="16" bodyfile="llvm/ModelGeneratorContext.h" bodystart="220" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="208" column="16" bodyfile="llvm/ModelGeneratorContext.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1a9ab39a53632926c0e8aa2c920f36eec0" prot="private" static="no" mutable="no">
         <type>unsigned</type>
@@ -101,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="222" column="18" bodyfile="llvm/ModelGeneratorContext.h" bodystart="222" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="210" column="18" bodyfile="llvm/ModelGeneratorContext.h" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1a683f8a153639b4d1366a4ef7bfb5d696" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> &gt;</type>
@@ -115,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="227" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="227" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="215" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1ModelGeneratorContext_1abb32621250c770f7a23d88926d67b8be" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; rr::conservation::ConservedMoietyConverter &gt;</type>
@@ -129,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="233" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="233" bodyend="-1"/>
+        <location file="llvm/ModelGeneratorContext.h" line="221" column="25" bodyfile="llvm/ModelGeneratorContext.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -157,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="101" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="106" bodyend="198"/>
+        <location file="llvm/ModelGeneratorContext.h" line="101" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="108" bodyend="203"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a619188b61652e3b93638b53fc5d015d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -172,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="111" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="207" bodyend="237"/>
+        <location file="llvm/ModelGeneratorContext.h" line="111" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="212" bodyend="225"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a7356327de6cf3c9dc3952e4c1f810bea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -185,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="113" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="250" bodyend="252"/>
+        <location file="llvm/ModelGeneratorContext.h" line="113" column="9" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="360" bodyend="362"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ade1c196f4f3eab85227a4d95f74cbd3e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref> &amp;</type>
@@ -198,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="115" column="36" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="264" bodyend="266"/>
+        <location file="llvm/ModelGeneratorContext.h" line="115" column="36" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="364" bodyend="366"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a9b693f85b018fd86bc45e482357ad6ff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const <ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref> &amp;</type>
@@ -211,7 +224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="117" column="32" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="312" bodyend="314"/>
+        <location file="llvm/ModelGeneratorContext.h" line="117" column="32" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="401" bodyend="403"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1adf1aa9873d0ea45bcc1483269c304266" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const libsbml::SBMLDocument *</type>
@@ -224,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="119" column="37" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="268" bodyend="270"/>
+        <location file="llvm/ModelGeneratorContext.h" line="119" column="37" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="368" bodyend="370"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a385227b7e5141abc5e3f4f37941f37df" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const libsbml::Model *</type>
@@ -237,7 +250,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="121" column="30" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="278" bodyend="280"/>
+        <location file="llvm/ModelGeneratorContext.h" line="121" column="30" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="376" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a8249f4ad462564b4b60849a92d8ef4f8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; libsbml::ASTNode * &gt; *</type>
+        <definition>const std::vector&lt; libsbml::ASTNode * &gt; * rrllvm::ModelGeneratorContext::getPiecewiseTriggers</definition>
+        <argsstring>() const</argsstring>
+        <name>getPiecewiseTriggers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="123" column="27" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="380" bodyend="383"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a9b6f151f3d7a727bcbfeba608889cfe3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t rrllvm::ModelGeneratorContext::getNumPiecewiseTriggers</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumPiecewiseTriggers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="125" column="16" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="385" bodyend="388"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ac6715881f01e813cb1346ca66dc55a51" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrrllvm_1_1Jit" kindref="compound">Jit</ref> *</type>
@@ -250,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="123" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="273" bodyend="275"/>
+        <location file="llvm/ModelGeneratorContext.h" line="127" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="372" bodyend="374"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1af63938c6a114a8c859110da2d3649189" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -262,18 +301,16 @@
           <declname>modelResources</declname>
         </param>
         <briefdescription>
-<para>nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of reference, even though we gaurantee this to be non-null </para>
+<para>A lot can go wrong in the process of generating a model from an sbml doc. </para>
         </briefdescription>
         <detaileddescription>
-<para>if optimization is enabled, this gets the function pass manager loaded with all the requested optimizers. NULL if no optimization is specified.</para>
-<para><simplesect kind="return"><para>a borrowed reference that is owned by <ref refid="classrrllvm_1_1ModelGeneratorContext" kindref="compound">ModelGeneratorContext</ref> A lot can go wrong in the process of generating a model from an sbml doc. This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.</para>
-</simplesect>
-However, when a model is successfully generated, we need a way to give it the exec engine, and whatever other bits it requires.</para>
+<para>This class is intended to be stack allocated, so when any exception is thrown in the course of model generation, this class will clean up all the contexts and execution engines and so forth.</para>
+<para>However, when a model is successfully generated, we need a way to give it the exec engine, and whatever other bits it requires.</para>
 <para>So, this method exists so that the generated model can steal all the objects it needs from us, these object are transfered to the model, and our pointers to them are cleared. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="156" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="293" bodyend="310"/>
+        <location file="llvm/ModelGeneratorContext.h" line="142" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="390" bodyend="399"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ab2e5c1ec8f1a4232f2f2858dcfa3f1d9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -286,7 +323,7 @@ However, when a model is successfully generated, we need a way to give it the ex
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="158" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="316" bodyend="318"/>
+        <location file="llvm/ModelGeneratorContext.h" line="144" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="405" bodyend="407"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a9384a0ecb86c66472154484f656629d6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -299,7 +336,7 @@ However, when a model is successfully generated, we need a way to give it the ex
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="160" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="320" bodyend="322"/>
+        <location file="llvm/ModelGeneratorContext.h" line="146" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="409" bodyend="411"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1a4bdacf7f4a2e177b6045f4105c315841" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>unsigned</type>
@@ -312,7 +349,7 @@ However, when a model is successfully generated, we need a way to give it the ex
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="162" column="18" bodyfile="llvm/ModelGeneratorContext.h" bodystart="162" bodyend="164"/>
+        <location file="llvm/ModelGeneratorContext.h" line="148" column="18" bodyfile="llvm/ModelGeneratorContext.h" bodystart="148" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1aae03d74871964f0ee688a5531d713c1b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1Random" kindref="compound">Random</ref> *</type>
@@ -327,10 +364,78 @@ However, when a model is successfully generated, we need a way to give it the ex
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="172" column="16" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="239" bodyend="241"/>
+        <location file="llvm/ModelGeneratorContext.h" line="158" column="16" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="227" bodyend="229"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ace5ad1e45030d3116d0c8283f511fc97" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rrllvm::ModelGeneratorContext::addAllPiecewiseTriggers</definition>
+        <argsstring>(const libsbml::Model *model)</argsstring>
+        <name>addAllPiecewiseTriggers</name>
+        <param>
+          <type>const libsbml::Model *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Get all transitions from any piecewise equations in the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="226" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="231" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1adaa8384e9f2effab54c3603c427125d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rrllvm::ModelGeneratorContext::addPiecewiseTriggersFrom</definition>
+        <argsstring>(const libsbml::ASTNode *node)</argsstring>
+        <name>addPiecewiseTriggersFrom</name>
+        <param>
+          <type>const libsbml::ASTNode *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+<para>Get all transitions from any piecewise equations in the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="231" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="272" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ab09ef57332d46afe11a3d71d0f0b1e24" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rrllvm::ModelGeneratorContext::containsPiecewise</definition>
+        <argsstring>(const libsbml::ASTNode *node)</argsstring>
+        <name>containsPiecewise</name>
+        <param>
+          <type>const libsbml::ASTNode *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+<para>Get all transitions from any piecewise equations in the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="236" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="328" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ae17ff7ea16c15250c280827d5de5dbad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rrllvm::ModelGeneratorContext::clearPiecewiseTriggers</definition>
+        <argsstring>()</argsstring>
+        <name>clearPiecewiseTriggers</name>
+        <briefdescription>
+<para>Delete any piecewise trigger nodes (which we own) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="llvm/ModelGeneratorContext.h" line="241" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="346" bodyend="352"/>
+      </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1ModelGeneratorContext_1ad47a63d8c765ee58914470cac11a4b86" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rrllvm::ModelGeneratorContext::cleanup</definition>
@@ -343,7 +448,7 @@ However, when a model is successfully generated, we need a way to give it the ex
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.h" line="238" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="243" bodyend="247"/>
+        <location file="llvm/ModelGeneratorContext.h" line="246" column="14" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="354" bodyend="358"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -358,9 +463,13 @@ However, when a model is successfully generated, we need a way to give it the ex
 <para>TODO doc wise discuss the problems with context objects, and why this one address all the concerns.</para>
 <para>TODO document memory managment, engine owns model, ... </para>
     </detaileddescription>
-    <location file="llvm/ModelGeneratorContext.h" line="95" column="32" bodyfile="llvm/ModelGeneratorContext.h" bodystart="95" bodyend="239"/>
+    <location file="llvm/ModelGeneratorContext.h" line="95" column="5" bodyfile="llvm/ModelGeneratorContext.h" bodystart="95" bodyend="247"/>
     <listofallmembers>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1ace5ad1e45030d3116d0c8283f511fc97" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>addAllPiecewiseTriggers</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1adaa8384e9f2effab54c3603c427125d0" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>addPiecewiseTriggersFrom</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ad47a63d8c765ee58914470cac11a4b86" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>cleanup</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1ae17ff7ea16c15250c280827d5de5dbad" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>clearPiecewiseTriggers</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1ab09ef57332d46afe11a3d71d0f0b1e24" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>containsPiecewise</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ab54772fc1ab69c585080acc8e1dd538a" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>doc</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ab2e5c1ec8f1a4232f2f2858dcfa3f1d9" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getConservedMoietyAnalysis</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1adf1aa9873d0ea45bcc1483269c304266" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getDocument</name></member>
@@ -368,7 +477,9 @@ However, when a model is successfully generated, we need a way to give it the ex
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a385227b7e5141abc5e3f4f37941f37df" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getModel</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ade1c196f4f3eab85227a4d95f74cbd3e" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getModelDataSymbols</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a9b693f85b018fd86bc45e482357ad6ff" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getModelSymbols</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1a9b6f151f3d7a727bcbfeba608889cfe3" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getNumPiecewiseTriggers</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a4bdacf7f4a2e177b6045f4105c315841" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getOptions</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1a8249f4ad462564b4b60849a92d8ef4f8" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getPiecewiseTriggers</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1aae03d74871964f0ee688a5531d713c1b" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>getRandom</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a683f8a153639b4d1366a4ef7bfb5d696" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>jit</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a6cd9fd9c574296602629e33366cbfb21" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>model</name></member>
@@ -376,6 +487,7 @@ However, when a model is successfully generated, we need a way to give it the ex
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a619188b61652e3b93638b53fc5d015d7" prot="public" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>ModelGeneratorContext</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a02b5b609fb8acc5194eb7d522179636f" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>modelSymbols</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1abb32621250c770f7a23d88926d67b8be" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>moietyConverter</name></member>
+      <member refid="classrrllvm_1_1ModelGeneratorContext_1aaf574218997e4a8fc5802498bc79835d" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>mPiecewiseTriggers</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1a9ab39a53632926c0e8aa2c920f36eec0" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>options</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ac4a67dfb625826b58fdc9c3d1cbea809" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>ownedDoc</name></member>
       <member refid="classrrllvm_1_1ModelGeneratorContext_1ac9a203e7e67c559b1bae24a7b2ba4665" prot="private" virt="non-virtual"><scope>rrllvm::ModelGeneratorContext</scope><name>random</name></member>

@@ -106,7 +106,7 @@ namespace rrllvm {
 #endif
 
     ModelGeneratorContext::ModelGeneratorContext(const libsbml::SBMLDocument* doc_, unsigned options,
-                                                 std::unique_ptr<Jit> jitEngine)
+                                                 Jit* jitEngine)
             :
             ownedDoc(nullptr),
             doc(nullptr),
@@ -114,7 +114,8 @@ namespace rrllvm {
             symbols(nullptr),
             options(options),
             random(nullptr),
-            jit(std::move(jitEngine)) {
+            jit(jitEngine) 
+    {
         if (useSymbolCache()) {
             rrLog(Logger::LOG_INFORMATION) << "Using LLVM symbol/value cache";
         } else {
@@ -209,13 +210,17 @@ namespace rrllvm {
         return doc;
     }
 
-    ModelGeneratorContext::ModelGeneratorContext() :
-            ownedDoc(createEmptyDocument()),
-            doc(ownedDoc),
-            mPiecewiseTriggers(),
-            symbols(new LLVMModelDataSymbols(doc->getModel(), 0)),
-            modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
-            options(0)
+    ModelGeneratorContext::ModelGeneratorContext() 
+        : ownedDoc(createEmptyDocument())
+        , doc(ownedDoc)
+        , mPiecewiseTriggers()
+        , symbols(new LLVMModelDataSymbols(doc->getModel(), 0))
+        , modelSymbols(new LLVMModelSymbols(doc->getModel(), *symbols))
+        , model(doc->getModel())
+        , random(NULL)
+        , options(0)
+        , jit(nullptr)
+        , moietyConverter(nullptr)
     {
         // initialize LLVM
         // TODO check result

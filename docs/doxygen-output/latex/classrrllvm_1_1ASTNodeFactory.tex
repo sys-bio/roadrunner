@@ -1,59 +1,59 @@
-\hypertarget{classrrllvm_1_1ASTNodeFactory}{}\doxysection{rrllvm\+::A\+S\+T\+Node\+Factory Class Reference}
+\hypertarget{classrrllvm_1_1ASTNodeFactory}{}\doxysection{rrllvm\+::ASTNode\+Factory Class Reference}
 \label{classrrllvm_1_1ASTNodeFactory}\index{rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}}
 
 
-Manages a set of A\+S\+T\+Nodes.  
+Manages a set of ASTNodes.  
 
 
 
 
-{\ttfamily \#include $<$A\+S\+T\+Node\+Factory.\+h$>$}
+{\ttfamily \#include $<$ASTNode\+Factory.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-libsbml\+::\+A\+S\+T\+Node $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_aa492e96aa042c33f1cf3480dc1b65e3c}{create}} (libsbml\+::\+A\+S\+T\+Node\+Type\+\_\+t type=libsbml\+::\+A\+S\+T\+\_\+\+U\+N\+K\+N\+O\+WN)
-\begin{DoxyCompactList}\small\item\em Creates and returns a new A\+S\+T\+Node. \end{DoxyCompactList}\item 
-libsbml\+::\+A\+S\+T\+Node $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_a3ee8bfff471bd962ecb440b62f78c983}{create}} (libsbml\+::\+Token\+\_\+t $\ast$token)
-\begin{DoxyCompactList}\small\item\em Creates a new A\+S\+T\+Node from the given Token. \end{DoxyCompactList}\item 
-libsbml\+::\+A\+S\+T\+Node $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_a7f53b8f6cd706bbebf98848870e1ca1a}{create}} (const libsbml\+::\+A\+S\+T\+Node \&orig)
-\begin{DoxyCompactList}\small\item\em Copy constructor; creates a deep copy of the given A\+S\+T\+Node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+libsbml\+::\+ASTNode $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_aa492e96aa042c33f1cf3480dc1b65e3c}{create}} (libsbml\+::\+ASTNode\+Type\+\_\+t type=libsbml\+::\+AST\+\_\+\+UNKNOWN)
+\begin{DoxyCompactList}\small\item\em Creates and returns a new ASTNode. \end{DoxyCompactList}\item 
+libsbml\+::\+ASTNode $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_a3ee8bfff471bd962ecb440b62f78c983}{create}} (libsbml\+::\+Token\+\_\+t $\ast$token)
+\begin{DoxyCompactList}\small\item\em Creates a new ASTNode from the given Token. \end{DoxyCompactList}\item 
+libsbml\+::\+ASTNode $\ast$ \mbox{\hyperlink{classrrllvm_1_1ASTNodeFactory_a7f53b8f6cd706bbebf98848870e1ca1a}{create}} (const libsbml\+::\+ASTNode \&orig)
+\begin{DoxyCompactList}\small\item\em Copy constructor; creates a deep copy of the given ASTNode. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Manages a set of A\+S\+T\+Nodes. 
+Manages a set of ASTNodes. 
 
-This class provides a create\+A\+S\+T\+Node which creates a new A\+S\+T\+Node, but it retains a reference to it. When this class is destroyed, all the nodes that it created are destroyed as well.
+This class provides a create\+ASTNode which creates a new ASTNode, but it retains a reference to it. When this class is destroyed, all the nodes that it created are destroyed as well.
 
-T\+O\+DO\+: There might be a standard way of doing this, look it up and replace if there exists such a thing. 
+TODO\+: There might be a standard way of doing this, look it up and replace if there exists such a thing. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeFactory_a7f53b8f6cd706bbebf98848870e1ca1a}\label{classrrllvm_1_1ASTNodeFactory_a7f53b8f6cd706bbebf98848870e1ca1a}} 
 \index{rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}!create@{create}}
 \index{create@{create}!rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily libsbml\+::\+A\+S\+T\+Node $\ast$ rrllvm\+::\+A\+S\+T\+Node\+Factory\+::create (\begin{DoxyParamCaption}\item[{const libsbml\+::\+A\+S\+T\+Node \&}]{orig }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily libsbml\+::\+ASTNode $\ast$ rrllvm\+::\+ASTNode\+Factory\+::create (\begin{DoxyParamCaption}\item[{const libsbml\+::\+ASTNode \&}]{orig }\end{DoxyParamCaption})}
 
 
 
-Copy constructor; creates a deep copy of the given A\+S\+T\+Node. 
+Copy constructor; creates a deep copy of the given ASTNode. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em orig} & the A\+S\+T\+Node to be copied. \\
+{\em orig} & the ASTNode to be copied. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classrrllvm_1_1ASTNodeFactory_aa492e96aa042c33f1cf3480dc1b65e3c}\label{classrrllvm_1_1ASTNodeFactory_aa492e96aa042c33f1cf3480dc1b65e3c}} 
 \index{rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}!create@{create}}
 \index{create@{create}!rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily libsbml\+::\+A\+S\+T\+Node $\ast$ rrllvm\+::\+A\+S\+T\+Node\+Factory\+::create (\begin{DoxyParamCaption}\item[{libsbml\+::\+A\+S\+T\+Node\+Type\+\_\+t}]{type = {\ttfamily libsbml\+:\+:AST\+\_\+UNKNOWN} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily libsbml\+::\+ASTNode $\ast$ rrllvm\+::\+ASTNode\+Factory\+::create (\begin{DoxyParamCaption}\item[{libsbml\+::\+ASTNode\+Type\+\_\+t}]{type = {\ttfamily libsbml\+:\+:AST\+\_\+UNKNOWN} }\end{DoxyParamCaption})}
 
 
 
-Creates and returns a new A\+S\+T\+Node. 
+Creates and returns a new ASTNode. 
 
-Unless the argument {\ttfamily type} is given, the returned node will by default have a type of \mbox{\hyperlink{}{A\+S\+T\+\_\+\+U\+N\+K\+N\+O\+WN}}. If the type isn\textquotesingle{}t supplied when caling this constructor, the caller should set the node type to something else as soon as possible using A\+S\+T\+Node\+::set\+Type(int).
+Unless the argument {\ttfamily type} is given, the returned node will by default have a type of \mbox{\hyperlink{}{AST\+\_\+\+UNKNOWN}}. If the type isn\textquotesingle{}t supplied when caling this constructor, the caller should set the node type to something else as soon as possible using ASTNode\+::set\+Type(int).
 
 
 \begin{DoxyParams}{Parameters}
@@ -64,13 +64,13 @@ Unless the argument {\ttfamily type} is given, the returned node will by default
 \index{rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}!create@{create}}
 \index{create@{create}!rrllvm::ASTNodeFactory@{rrllvm::ASTNodeFactory}}
 \doxysubsubsection{\texorpdfstring{create()}{create()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily libsbml\+::\+A\+S\+T\+Node $\ast$ rrllvm\+::\+A\+S\+T\+Node\+Factory\+::create (\begin{DoxyParamCaption}\item[{libsbml\+::\+Token\+\_\+t $\ast$}]{token }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily libsbml\+::\+ASTNode $\ast$ rrllvm\+::\+ASTNode\+Factory\+::create (\begin{DoxyParamCaption}\item[{libsbml\+::\+Token\+\_\+t $\ast$}]{token }\end{DoxyParamCaption})}
 
 
 
-Creates a new A\+S\+T\+Node from the given Token. 
+Creates a new ASTNode from the given Token. 
 
-The resulting A\+S\+T\+Node will contain the same data as the Token.
+The resulting ASTNode will contain the same data as the Token.
 
 
 \begin{DoxyParams}{Parameters}
@@ -81,5 +81,5 @@ The resulting A\+S\+T\+Node will contain the same data as the Token.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-llvm/A\+S\+T\+Node\+Factory.\+h\item 
-llvm/A\+S\+T\+Node\+Factory.\+cpp\end{DoxyCompactItemize}
+llvm/ASTNode\+Factory.\+h\item 
+llvm/ASTNode\+Factory.\+cpp\end{DoxyCompactItemize}

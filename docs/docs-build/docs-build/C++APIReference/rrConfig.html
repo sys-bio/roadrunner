@@ -320,7 +320,7 @@
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE">
 <span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a571e2ca6736089faed9659cc2301968d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_MAXIMUM_TIMESTEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Specify The Maximum Time Step Size That The Internaal <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Will Use. </p>
+<dd><p>Specify The Maximum Time Step Size That The Internal <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Will Use. </p>
 <p>Uses <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Estimated Value If &lt;= 0. see SimulateOptions::maximumTimeStep </p>
 </dd></dl>
 
@@ -516,7 +516,7 @@
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE">
 <span id="_CPPv3N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span id="_CPPv2N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a44487cb13e7c8fc0c850a064c88b22da"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_PERMISSIVE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Relax SBML resrictions. </p>
+<dd><p>Relax SBML restrictions. </p>
 <p>Allows some idiosyncrasies of e.g. JDesigner that libSBML does not officially support. See: <a class="reference external" href="https://groups.google.com/forum/#!topic/sbml-discuss/u3NK14RUHvE">https://groups.google.com/forum/#!topic/sbml-discuss/u3NK14RUHvE</a></p>
 <p>Specifics: allows use time in user-defined functions, allows use of booleans in scalars </p>
 </dd></dl>
@@ -564,6 +564,24 @@
 <span id="_CPPv3N2rr6Config4Keys17LLJIT_NUM_THREADSE"></span><span id="_CPPv2N2rr6Config4Keys17LLJIT_NUM_THREADSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a1401d17f41f488b559117af515863cba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LLJIT_NUM_THREADS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys17LLJIT_NUM_THREADSE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>How many threads to use when building models with LLJit. </p>
 <p>Defaults to the number of cores </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys41METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLDE">
+<span id="_CPPv3N2rr6Config4Keys41METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLDE"></span><span id="_CPPv2N2rr6Config4Keys41METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aa0c2df65859379c1f56d600dd7a77438"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys41METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLDE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The flux threshold when calculating the scaled control coefficients of fluxes. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZEE">
+<span id="_CPPv3N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZEE"></span><span id="_CPPv2N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a339316570dce9bdd566e13262bc00d1c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The differential step size when calculating the scaled control coefficients of fluxes. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLDE">
+<span id="_CPPv3N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLDE"></span><span id="_CPPv2N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a9537930094cf598fdc15cc992576371a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys49METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLDE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The differential step size when calculating the scaled control coefficients of fluxes. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">

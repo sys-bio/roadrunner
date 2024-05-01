@@ -12,7 +12,7 @@ A set of options that determine how the top level \mbox{\hyperlink{classrr_1_1Ro
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2db}{Options}} \{ \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8}{D\+I\+S\+A\+B\+L\+E\+\_\+\+P\+Y\+T\+H\+O\+N\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+ES}} = (0x1 $<$$<$ 0)
+enum \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2db}{Options}} \{ \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8}{DISABLE\+\_\+\+PYTHON\+\_\+\+DYNAMIC\+\_\+\+PROPERTIES}} = (0x1 $<$$<$ 0)
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -29,7 +29,16 @@ std\+::uint32\+\_\+t \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_ab94c4174ca0
 \begin{DoxyCompactList}\small\item\em a bitmask of the options specified in the Options enumeration. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrr_1_1RoadRunnerOptions_a2d2fb9efd9f69c0ab754bba73e3f8a1c}\label{structrr_1_1RoadRunnerOptions_a2d2fb9efd9f69c0ab754bba73e3f8a1c}} 
 double \mbox{\hyperlink{structrr_1_1RoadRunnerOptions_a2d2fb9efd9f69c0ab754bba73e3f8a1c}{jacobian\+Step\+Size}}
-\begin{DoxyCompactList}\small\item\em step size used for numeric Jacobian calculations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em step size used for numeric Jacobian calculations. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structrr_1_1RoadRunnerOptions_abdc217b1b69797e2d54094602b80ad89}\label{structrr_1_1RoadRunnerOptions_abdc217b1b69797e2d54094602b80ad89}} 
+double {\bfseries diff\+Step\+Size}
+\item 
+\mbox{\Hypertarget{structrr_1_1RoadRunnerOptions_a4171571cd7ee8cb0251912680aa7f32a}\label{structrr_1_1RoadRunnerOptions_a4171571cd7ee8cb0251912680aa7f32a}} 
+double {\bfseries steady\+State\+Threshold}
+\item 
+\mbox{\Hypertarget{structrr_1_1RoadRunnerOptions_a4aeb63732a0f7232dcc8f9a3e124d461}\label{structrr_1_1RoadRunnerOptions_a4aeb63732a0f7232dcc8f9a3e124d461}} 
+double {\bfseries flux\+Threshold}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -44,7 +53,7 @@ A set of options that determine how the top level \mbox{\hyperlink{classrr_1_1Ro
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{DISABLE\_PYTHON\_DYNAMIC\_PROPERTIES@{DISABLE\_PYTHON\_DYNAMIC\_PROPERTIES}!rr::RoadRunnerOptions@{rr::RoadRunnerOptions}}\index{rr::RoadRunnerOptions@{rr::RoadRunnerOptions}!DISABLE\_PYTHON\_DYNAMIC\_PROPERTIES@{DISABLE\_PYTHON\_DYNAMIC\_PROPERTIES}}}\mbox{\Hypertarget{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8}\label{structrr_1_1RoadRunnerOptions_a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8}} 
-D\+I\+S\+A\+B\+L\+E\+\_\+\+P\+Y\+T\+H\+O\+N\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+ES&\mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} by default dynamically generates accessor properties for all sbml symbol names on the model object when it is retrieved in Python. This feature is very nice for interactive use, but can slow things down. If this feature is not needed, it can be disabled here. \\
+DISABLE\+\_\+\+PYTHON\+\_\+\+DYNAMIC\+\_\+\+PROPERTIES&\mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} by default dynamically generates accessor properties for all sbml symbol names on the model object when it is retrieved in Python. This feature is very nice for interactive use, but can slow things down. If this feature is not needed, it can be disabled here. \\
 \hline
 
 \end{DoxyEnumFields}

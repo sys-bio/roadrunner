@@ -8,17 +8,17 @@ Compute derivatives, fluxes, and other values of the system at the current state
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga6ff35b4282c583424f4d5708330012b9}{get\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$symbol\+Id, double $\ast$value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga6ff35b4282c583424f4d5708330012b9}{get\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$symbol\+Id, double $\ast$value)
 \begin{DoxyCompactList}\small\item\em Get the value for a given symbol, use get\+Available\+Time\+Course\+Symbols(void) for a list of symbols. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{set\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$symbol\+Id, const double value)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{set\+Value}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle, const char $\ast$symbol\+Id, const double value)
 \begin{DoxyCompactList}\small\item\em Set the value for a given symbol, use get\+Available\+Time\+Course\+Symbols(void) for a list of symbols. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga045d3842446954ba06e4010e19a2f1b1}{eval\+Model}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga045d3842446954ba06e4010e19a2f1b1}{eval\+Model}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Evaluate the current model, that it update all assignments and rates of change. Do not carry out an integration step. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga37cb4ffafece558c4b6f1af4e53667b9}{get\+Eigenvalue\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga37cb4ffafece558c4b6f1af4e53667b9}{get\+Eigenvalue\+Ids}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the list of eigenvalue Ids. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga60829d32710dc201c4103c76214a4bc6}{get\+Available\+Time\+Course\+Symbols}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_ga60829d32710dc201c4103c76214a4bc6}{get\+Available\+Time\+Course\+Symbols}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the list of all available symbols. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_gafe7dc6a912c3f97edd20b1e6da61b12c}{get\+Available\+Steady\+State\+Symbols}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv \mbox{\hyperlink{group__state_gafe7dc6a912c3f97edd20b1e6da61b12c}{get\+Available\+Steady\+State\+Symbols}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}} handle)
 \begin{DoxyCompactList}\small\item\em Obtain the list of all available steady state symbols. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -32,7 +32,7 @@ Compute derivatives, fluxes, and other values of the system at the current state
 \index{Current state of system@{Current state of system}!evalModel@{evalModel}}
 \index{evalModel@{evalModel}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{evalModel()}{evalModel()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv eval\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv eval\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -50,7 +50,7 @@ Returns false if it fails
 \index{Current state of system@{Current state of system}!getAvailableSteadyStateSymbols@{getAvailableSteadyStateSymbols}}
 \index{getAvailableSteadyStateSymbols@{getAvailableSteadyStateSymbols}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{getAvailableSteadyStateSymbols()}{getAvailableSteadyStateSymbols()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv get\+Available\+Steady\+State\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv get\+Available\+Steady\+State\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -62,13 +62,13 @@ Obtain the list of all available steady state symbols.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns -\/1 if it fails, if successful it returns a pointer to a R\+R\+List\+Ptr struct 
+Returns -\/1 if it fails, if successful it returns a pointer to a RRList\+Ptr struct 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__state_ga60829d32710dc201c4103c76214a4bc6}\label{group__state_ga60829d32710dc201c4103c76214a4bc6}} 
 \index{Current state of system@{Current state of system}!getAvailableTimeCourseSymbols@{getAvailableTimeCourseSymbols}}
 \index{getAvailableTimeCourseSymbols@{getAvailableTimeCourseSymbols}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{getAvailableTimeCourseSymbols()}{getAvailableTimeCourseSymbols()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{R\+R\+List\+Ptr}} rrc\+Call\+Conv get\+Available\+Time\+Course\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a32a8a60ac06858ff3a791672bd2bec73}{RRList\+Ptr}} rrc\+Call\+Conv get\+Available\+Time\+Course\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -80,13 +80,13 @@ Obtain the list of all available symbols.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns -\/1 if it fails, if successful it returns a pointer to a R\+R\+List\+Handle struct 
+Returns -\/1 if it fails, if successful it returns a pointer to a RRList\+Handle struct 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__state_ga37cb4ffafece558c4b6f1af4e53667b9}\label{group__state_ga37cb4ffafece558c4b6f1af4e53667b9}} 
 \index{Current state of system@{Current state of system}!getEigenvalueIds@{getEigenvalueIds}}
 \index{getEigenvalueIds@{getEigenvalueIds}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{getEigenvalueIds()}{getEigenvalueIds()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{R\+R\+String\+Array\+Ptr}} rrc\+Call\+Conv get\+Eigenvalue\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC \mbox{\hyperlink{rrc__types_8h_a7c9475df6c7337d99482b13a365e7596}{RRString\+Array\+Ptr}} rrc\+Call\+Conv get\+Eigenvalue\+Ids (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle }\end{DoxyParamCaption})}
 
 
 
@@ -98,13 +98,13 @@ Obtain the list of eigenvalue Ids.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Returns -\/1 if it fails, if successful it returns a pointer to a R\+R\+String\+Array\+Ptr struct 
+Returns -\/1 if it fails, if successful it returns a pointer to a RRString\+Array\+Ptr struct 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__state_ga6ff35b4282c583424f4d5708330012b9}\label{group__state_ga6ff35b4282c583424f4d5708330012b9}} 
 \index{Current state of system@{Current state of system}!getValue@{getValue}}
 \index{getValue@{getValue}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv get\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{symbol\+Id,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv get\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{symbol\+Id,  }\item[{double $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -112,7 +112,8 @@ Get the value for a given symbol, use get\+Available\+Time\+Course\+Symbols(void
 
 Example\+:
 \begin{DoxyCode}{0}
-\DoxyCodeLine{status = \mbox{\hyperlink{group__state_ga6ff35b4282c583424f4d5708330012b9}{getValue}} (rrHandle, \textcolor{stringliteral}{"S1"}, \&value); }
+\DoxyCodeLine{status = \mbox{\hyperlink{group__state_ga6ff35b4282c583424f4d5708330012b9}{getValue}} (rrHandle, \textcolor{stringliteral}{"{}S1"{}}, \&value); }
+
 \end{DoxyCode}
 
 
@@ -132,7 +133,7 @@ Returns true if successful
 \index{Current state of system@{Current state of system}!setValue@{setValue}}
 \index{setValue@{setValue}!Current state of system@{Current state of system}}
 \doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv set\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{symbol\+Id,  }\item[{const double}]{value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily C\+\_\+\+DECL\+\_\+\+SPEC bool rrc\+Call\+Conv set\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{RRHandle}}}]{handle,  }\item[{const char $\ast$}]{symbol\+Id,  }\item[{const double}]{value }\end{DoxyParamCaption})}
 
 
 
@@ -140,7 +141,8 @@ Set the value for a given symbol, use get\+Available\+Time\+Course\+Symbols(void
 
 Example\+:
 \begin{DoxyCode}{0}
-\DoxyCodeLine{status = \mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{setValue}} (rrHandle, \textcolor{stringliteral}{"S1"}, 0.5); }
+\DoxyCodeLine{status = \mbox{\hyperlink{group__state_gab8416894a99ef18924c1a719be4521f3}{setValue}} (rrHandle, \textcolor{stringliteral}{"{}S1"{}}, 0.5); }
+
 \end{DoxyCode}
 
 

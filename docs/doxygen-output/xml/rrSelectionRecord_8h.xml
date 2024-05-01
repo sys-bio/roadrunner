@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="rrSelectionRecord_8h" kind="file" language="C++">
     <compoundname>rrSelectionRecord.h</compoundname>
     <includes refid="rrExporter_8h" local="yes">rrExporter.h</includes>
@@ -7,11 +7,11 @@
     <includes local="no">string</includes>
     <includedby refid="rrConfig_8cpp" local="yes">rrConfig.cpp</includedby>
     <includedby refid="rrRoadRunner_8h" local="yes">rrRoadRunner.h</includedby>
-    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <includedby refid="rrRoadRunnerOptions_8cpp" local="yes">rrRoadRunnerOptions.cpp</includedby>
     <includedby refid="rrSelectionRecord_8cpp" local="yes">rrSelectionRecord.cpp</includedby>
     <includedby refid="rrUtils_8cpp" local="yes">rrUtils.cpp</includedby>
     <includedby refid="rrCompiledExecutableModel_8cpp" local="yes">c/rrCompiledExecutableModel.cpp</includedby>
+    <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <incdepgraph>
       <node id="4">
         <label>string</label>
@@ -51,7 +51,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="14">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
@@ -125,7 +125,7 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>llvm/ModelResources.h</label>
         <link refid="ModelResources_8h_source"/>
       </node>
@@ -150,7 +150,7 @@
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::string;</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::ostream;</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17" refid="classrr_1_1SelectionRecord" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref></highlight></codeline>
+<codeline lineno="17" refid="classrr_1_1SelectionRecord" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref></highlight></codeline>
 <codeline lineno="18"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="20" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></highlight></codeline>
@@ -284,13 +284,13 @@
 <codeline lineno="361" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MODEL_STATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_AMOUNT<sp/>&amp;<sp/>~INITIAL,</highlight></codeline>
 <codeline lineno="362"><highlight class="normal"></highlight></codeline>
 <codeline lineno="363"><highlight class="normal"></highlight></codeline>
-<codeline lineno="370" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBML_INITIALIZE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>STATE_VECTOR<sp/>options</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBML_INITIALIZE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>STATE_VECTOR<sp/>options</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>is<sp/>used<sp/>here<sp/>because<sp/>it<sp/>is</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>used<sp/>anywhere<sp/>else<sp/>in</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>reset<sp/>options,<sp/>and<sp/>gives</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>indication<sp/>that<sp/>everything<sp/>is<sp/>set,</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>mostly<sp/>it<sp/>saves<sp/>a<sp/>not<sp/>wasting<sp/>a<sp/>bit<sp/>value.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="376" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="377"><highlight class="normal"></highlight></codeline>
 <codeline lineno="382" refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" kindref="member">index</ref>;</highlight></codeline>
 <codeline lineno="383"><highlight class="normal"></highlight></codeline>
@@ -312,10 +312,11 @@
 <codeline lineno="426"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="427"><highlight class="normal"></highlight></codeline>
 <codeline lineno="428"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;<sp/>(std::ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>&amp;<sp/>rec);</highlight></codeline>
-<codeline lineno="429"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="431"><highlight class="normal"></highlight></codeline>
-<codeline lineno="432"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="rrSelectionRecord.h"/>
   </compounddef>

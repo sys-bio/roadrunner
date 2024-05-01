@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_2home_2vsts_2work_21_2s_2source_2llvm_2Jit_8h-example" kind="example">
     <compoundname>/home/vsts/work/1/s/source/llvm/Jit.h</compoundname>
     <briefdescription>
@@ -120,8 +120,8 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>rr_minFnTy<sp/>=<sp/>FnPtr_d2;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>a<sp/>sparse<sp/>matrix<sp/>used<sp/>in<sp/>llvm<sp/>world</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_set_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(int,<sp/>int,<sp/>double);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_get_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(int,<sp/>int);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_set_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>csr_matrix_get_nz_FnTy<sp/>=<sp/>rr::csr_matrix<sp/>*(*)(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>function<sp/>signatures<sp/>for<sp/>distrib</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>DistribFnTy_d1<sp/>=<sp/>double<sp/>(*)(Random<sp/>*,<sp/>double);</highlight></codeline>
@@ -167,7 +167,7 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a639f90099cf9faf011209586a9023a66" kindref="member">mapFunctionsToJitSymbols</ref>()<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>virtual<sp/>void<sp/>mapDistribFunctionsToJitSymbols()<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>virtual<sp/>void<sp/>mapDistribFunctionsToJitSymbols()<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrrllvm_1_1Jit_1a3b8ed0a6c863013898f33f7bb9be650d" kindref="member">~Jit</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -241,8 +241,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_JIT_H</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//ROADRUNNER_JIT_H</highlight><highlight class="normal"></highlight></codeline>
 </programlisting> </para>
     </detaileddescription>
+    <location file="llvm/Jit.h"/>
   </compounddef>
 </doxygen>

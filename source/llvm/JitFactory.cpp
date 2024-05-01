@@ -6,22 +6,28 @@
 
 namespace rrllvm {
 
-    std::unique_ptr<Jit> JitFactory::makeJitEngine(std::uint32_t opt) {
-        std::unique_ptr<Jit> jit;
+    Jit* JitFactory::makeJitEngine(std::uint32_t opt) {
+        rrLog(Logger::LOG_DEBUG) << __FUNC__;
+        Jit* jit = NULL;
         if (opt & LoadSBMLOptions::MCJIT) {
-            jit = std::move(std::make_unique<MCJit>(opt));
+            rrLog(Logger::LOG_DEBUG) << "Creating an MCJit object.";
+            jit = new rrllvm::MCJit(opt);
         }
 
         else if (opt & LoadSBMLOptions::LLJIT) {
-            jit = std::move(std::make_unique<LLJit>(opt));
+            jit = new rrllvm::LLJit(opt);
+        }
+        
+        else {
+            throw std::invalid_argument("Cannot create JIT object; need to say whether it's MCJit or LLJit in the options.");
         }
 
-        return std::move(jit);
+        rrLog(Logger::LOG_DEBUG) << "Done creating a Jit object.";
+        return jit;
     }
 
-    std::unique_ptr<Jit> JitFactory::makeJitEngine() {
+    Jit* JitFactory::makeJitEngine() {
         LoadSBMLOptions opt;
-        std::unique_ptr<Jit> j = JitFactory::makeJitEngine(opt.modelGeneratorOpt);
-        return std::move(j);
+        return JitFactory::makeJitEngine(opt.modelGeneratorOpt);
     }
 }

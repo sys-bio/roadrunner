@@ -2,6 +2,11 @@
 \label{classrr_1_1Integrator}\index{rr::Integrator@{rr::Integrator}}
 
 
+\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} is an abstract base class that provides an interface to specific integrator class implementations.  
+
+
+
+
 {\ttfamily \#include $<$Integrator.\+h$>$}
 
 Inheritance diagram for rr\+::Integrator\+:\begin{figure}[H]
@@ -14,10 +19,10 @@ Inheritance diagram for rr\+::Integrator\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1Integrator_a0912499450e66cb4301263362d64a0d0}\label{classrr_1_1Integrator_a0912499450e66cb4301263362d64a0d0}} 
-enum {\bfseries Integration\+Method} \{ {\bfseries Deterministic}, 
-{\bfseries Stochastic}, 
-{\bfseries Hybrid}, 
-{\bfseries Other}
+enum {\bfseries Integration\+Method} \{ {\bfseries Deterministic}
+, {\bfseries Stochastic}
+, {\bfseries Hybrid}
+, {\bfseries Other}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -35,7 +40,7 @@ virtual void \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb054
 virtual void {\bfseries load\+Config\+Settings} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1Integrator_abd2e6c3616d1831c028f1061d927fbcd}\label{classrr_1_1Integrator_abd2e6c3616d1831c028f1061d927fbcd}} 
-virtual void {\bfseries load\+S\+B\+M\+L\+Settings} (const std\+::string \&filename)
+virtual void {\bfseries load\+SBMLSettings} (const std\+::string \&filename)
 \item 
 \mbox{\Hypertarget{classrr_1_1Integrator_aa29aac9228f7834cfb92d04f823e5ddf}\label{classrr_1_1Integrator_aa29aac9228f7834cfb92d04f823e5ddf}} 
 virtual double {\bfseries integrate} (double t0, double hstep)=0
@@ -44,9 +49,9 @@ virtual double {\bfseries integrate} (double t0, double hstep)=0
 virtual void {\bfseries restart} (double t0)=0
 \item 
 virtual void \mbox{\hyperlink{classrr_1_1Integrator_a51c07785d8af1eb648878347529b2eb4}{tweak\+Tolerances}} ()
-\begin{DoxyCompactList}\small\item\em Fix tolerances for S\+B\+ML tests. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Fix tolerances for SBML tests. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1Integrator_a53099879e74aa5bea1139453db9b5732}{set\+Individual\+Tolerance}} (std\+::string sid, double value)
-\begin{DoxyCompactList}\small\item\em Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{CVODEIntegrator}}. \end{DoxyCompactList}\item 
 virtual std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1Integrator_aa554e9d1232a24c66b280e79f12c6d6b}{get\+Absolute\+Tolerance\+Vector}} ()
 \begin{DoxyCompactList}\small\item\em Get the absolute tolerance vector for the solver. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Integrator_ad4ebded6e6b2d28755a649f402962ba7}\label{classrr_1_1Integrator_ad4ebded6e6b2d28755a649f402962ba7}} 
@@ -93,9 +98,9 @@ double {\bfseries m\+Integration\+Start\+Time}
 
 Get the absolute tolerance vector for the solver. 
 
-Most solvers do not have absolute tolerances; this retrieves the vector for the ones (like C\+V\+O\+DE) that do. 
+Most solvers do not have absolute tolerances; this retrieves the vector for the ones (like CVODE) that do. 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a623435278b083018cc05780ace8922f1}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a061679b9a025e15a6457efc8cd8806e4}{rr\+::\+CVODEIntegrator}}.
 
 \mbox{\Hypertarget{classrr_1_1Integrator_a53099879e74aa5bea1139453db9b5732}\label{classrr_1_1Integrator_a53099879e74aa5bea1139453db9b5732}} 
 \index{rr::Integrator@{rr::Integrator}!setIndividualTolerance@{setIndividualTolerance}}
@@ -105,14 +110,14 @@ Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a623435278b083018cc
 
 
 
-Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. 
+Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{CVODEIntegrator}}. 
 
 \begin{DoxyAuthor}{Author}
 FY 
 \end{DoxyAuthor}
 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a57e9e604b2c2ba388a3fe219e87c326c}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a57e9e604b2c2ba388a3fe219e87c326c}{rr\+::\+CVODEIntegrator}}.
 
 \mbox{\Hypertarget{classrr_1_1Integrator_a18fa004a818506c15d47fa28015039c6}\label{classrr_1_1Integrator_a18fa004a818506c15d47fa28015039c6}} 
 \index{rr::Integrator@{rr::Integrator}!setValue@{setValue}}
@@ -135,7 +140,7 @@ We do not need to reimplement this but we make it explicit. \mbox{\Hypertarget{c
 Called whenever a new model is loaded to allow integrator to reset internal state. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -143,7 +148,7 @@ Implements \mbox{\hyperlink{classrr_1_1Solver_aecb0e7c619e544aeabc6db9903165158}
 
 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda58900a1bbaa738eff}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK4Integrator_a11c9feeea50fcf52a453f374c1152535}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_ad928d3d4e5efbe04dcc2ab503119c745}{rr\+::\+Gillespie\+Integrator}}, and \mbox{\hyperlink{classrr_1_1RK45Integrator_ac72e73c1d53f4884d9976cacee27f738}{rr\+::\+R\+K45\+Integrator}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_a11c9feeea50fcf52a453f374c1152535}{rr\+::\+RK4\+Integrator}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_ad928d3d4e5efbe04dcc2ab503119c745}{rr\+::\+Gillespie\+Integrator}}, \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda58900a1bbaa738eff}{rr\+::\+CVODEIntegrator}}, and \mbox{\hyperlink{classrr_1_1RK45Integrator_ac72e73c1d53f4884d9976cacee27f738}{rr\+::\+RK45\+Integrator}}.
 
 \mbox{\Hypertarget{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}\label{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}} 
 \index{rr::Integrator@{rr::Integrator}!toRepr@{toRepr}}
@@ -156,7 +161,7 @@ Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda589
 Return std\+::string representation a la Python {\bfseries{repr}} method. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -177,7 +182,7 @@ Reimplemented in \mbox{\hyperlink{classrr_1_1EulerIntegrator_abc775885d87bf9afa1
 Return a std\+::string representation of the solver. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM 
+JKM 
 \end{DoxyAuthor}
 
 
@@ -191,14 +196,14 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_af08f448f7eea26415a47caaae
 
 
 
-Fix tolerances for S\+B\+ML tests. 
+Fix tolerances for SBML tests. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM, W\+BC, E\+TS, M\+TK
+JKM, WBC, ETS, MTK
 \end{DoxyAuthor}
-In order to ensure that the results of the S\+B\+ML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be}{Config\+::\+C\+V\+O\+D\+E\+\_\+\+M\+I\+N\+\_\+\+A\+B\+S\+O\+L\+U\+TE}} and \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b}{Config\+::\+C\+V\+O\+D\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+L\+A\+T\+I\+VE}} resp. 
+In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be}{Config\+::\+CVODE\+\_\+\+MIN\+\_\+\+ABSOLUTE}} and \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b}{Config\+::\+CVODE\+\_\+\+MIN\+\_\+\+RELATIVE}} resp. 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a137ada502a737819ca3ad78d0573c35d}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a137ada502a737819ca3ad78d0573c35d}{rr\+::\+CVODEIntegrator}}.
 
 
 
