@@ -110,7 +110,7 @@ jobs:
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
+        uses: ilammy/msvc-dev-cmd@v1.12.1
 
       - name: Upgrade gcc on Linux
         if: matrix.platform.os_type == 'manylinux'
