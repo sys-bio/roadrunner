@@ -153,6 +153,7 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             ls ${{ env.pythonWinLocation }}
             ${{ env.pythonWinLocation }}/python.exe -V
+            ls
             '${{ env.pythonWinLocation }}/python.exe -m pip install -r requirements.txt'
             '${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -m pip install -r requirements.txt'
             '${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/*/python.exe -m pip install -r requirements.txt'
