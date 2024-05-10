@@ -462,8 +462,8 @@ jobs:
           roadrunner_plugins_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^rrplugins')
           echo "roadrunner_plugins_python_wheel_artifacts_name=${roadrunner_plugins_python_wheel_file_name}" >> "${GITHUB_ENV}"
           # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
-          echo "roadrunner_python_wheel_artifacts_file=${{artifacts_root}}/install-roadrunner/dist/$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
-          echo "roadrunner_plugins_python_wheel_artifacts_file=${{artifacts_root}}/install-roadrunner/dist/$roadrunner_plugins_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "roadrunner_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "roadrunner_plugins_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_plugins_python_wheel_file_name" >> "${GITHUB_ENV}"
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
