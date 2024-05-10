@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Setup python versions
         run: |
-          echo "python_v1=3.9" ${{ matrix.platform.s }}
+          echo "python_v1=3.9" ${{ matrix.platform.write_to_env }}
           echo "python_v2=3.10" ${{ matrix.platform.write_to_env }}
           echo "python_v3=3.11" ${{ matrix.platform.write_to_env }}
           echo "python_v4=3.12" ${{ matrix.platform.write_to_env }}
