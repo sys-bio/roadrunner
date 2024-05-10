@@ -131,9 +131,16 @@ jobs:
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
-      - name: Setup Windows Python path
+      - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
         run: |
+          $python_win_root = $(${{ env.pythonLocation }} ../..)
+          echo "$python_win_root"
+          cd $python_win_root
+          cd ${{ env.python_v1 }}*/x*/
+          $pythonWinExecutable = $(realpath)
+          echo "$pythonWinExecutable"
+
           $pattern = '[\\]'
           $temp = '${{ env.pythonLocation }}' -replace $pattern, '/'
           echo "$temp"
