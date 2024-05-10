@@ -151,6 +151,8 @@ jobs:
             /Miniconda3/envs/${{ env.python_v3_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
             /Miniconda3/envs/${{ env.python_v4_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            ls ${{ env.pythonWinLocation }}
+            ${{ env.pythonWinLocation }}/python.exe -V
             '${{ env.pythonWinLocation }}/python.exe -m pip install -r requirements.txt'
             '${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -m pip install -r requirements.txt'
             '${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/*/python.exe -m pip install -r requirements.txt'
