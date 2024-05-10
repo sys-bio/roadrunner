@@ -19,65 +19,47 @@ jobs:
             os_type: macos
             os_name: macos-11
             build_type: Release
-            build_tests: ON
-            build_plugins: ON
             build_python: ON
           - name: macos-11-debug
             os_type: macos
             os_name: macos-11
             build_type: Debug
-            build_tests: ON
-            build_plugins: ON
-            build_python: ON
+            build_python: OFF
           - name: macos-latest-release
             os_type: macos
             os_name: macos-latest
             build_type: Release
-            build_tests: OFF
-            build_plugins: ON
             build_python: ON
           - name: macos-latest-debug
             os_type: macos
             os_name: macos-latest
             build_type: Debug
-            build_tests: ON
-            build_plugins: ON
-            build_python: ON
+            build_python: OFF
           - name: ubuntu-latest-release
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Release
-            build_tests: ON
-            build_plugins: ON
             build_python: ON
           - name: ubuntu-latest-debug
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Debug
-            build_tests: ON
-            build_plugins: ON
-            build_python: ON
+            build_python: OFF
           - name: windows-latest-release
             os_type: windows
             os_name: windows-latest
             build_type: Release
-            build_tests: ON
-            build_plugins: ON
             build_python: ON
           - name: windows-latest-debug
             os_type: windows
             os_name: windows-latest
             build_type: Debug
-            build_tests: OFF
-            build_plugins: OFF
             build_python: OFF
           - name: manylinux2014-release
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux2014_x86_64
             build_type: Release
-            build_tests: ON
-            build_plugins: ON
             build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
@@ -87,24 +69,66 @@ jobs:
         llvm_repo: [ "llvm-13.x" ]
         llvm_name: [ "llvm-13.x" ]
         llvm_release_version: [ "v13.0" ]
-        python_version:
-          - name: py39
-            version: "3.9"
-            run_tests: OFF
-          - name: py310
-            version: "3.10"
-            run_tests: OFF
-          - name: py311
-            version: "3.11"
-            run_tests: OFF
-          - name: py312
-            version: "3.12"
-            run_tests: ON
+        build_tests: [ON]
+        build_plugins: [ON]
     runs-on: ${{ matrix.platform.os_name }}
     container:
       image: ${{ matrix.platform.container_image || '' }}
 
     steps:
+      - name: Setup python versions
+        run: |
+          echo "python_v1=3.9" >> $GITHUB_ENV
+          echo "python_v2=3.10" >> $GITHUB_ENV
+          echo "python_v3=3.11" >> $GITHUB_ENV
+          echo "python_v4=3.12" >> $GITHUB_ENV
+          echo "python_v1_name=39" >> $GITHUB_ENV
+          echo "python_v2_name=310" >> $GITHUB_ENV
+          echo "python_v3_name=311" >> $GITHUB_ENV
+          echo "python_v4_name=312" >> $GITHUB_ENV
+
+      - name: Setup Python for non-Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
+        uses: actions/setup-python@v4
+        with:
+          python-version: |
+            ${{ env.python_v1 }}
+            ${{ env.python_v2 }}
+            ${{ env.python_v3 }}
+            ${{ env.python_v4 }}
+
+      - name: Setup Python for Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
+        shell: bash
+        run: |
+          wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+          bash Miniconda3-latest-Linux-x86_64.sh -b -p /Miniconda3
+
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }}
+           
+          /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
+          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
+
+      - name: Install Python dependencies
+        if: matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/roadrunner
+          if [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            /Miniconda3/envs/${{ env.python_v1_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            /Miniconda3/envs/${{ env.python_v2_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            /Miniconda3/envs/${{ env.python_v3_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            /Miniconda3/envs/${{ env.python_v4_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+          else
+            python${{ env.python_v1 }} -m pip install -r requirements.txt
+            python${{ env.python_v2 }} -m pip install -r requirements.txt
+            python${{ env.python_v3 }} -m pip install -r requirements.txt
+            python${{ env.python_v4 }} -m pip install -r requirements.txt
+          fi
+
       - name: Checkout RoadRunner
         if: matrix.platform.os_type == 'manylinux'
         uses: actions/checkout@v3
@@ -199,49 +223,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
-
-      - name: Setup Python for non-Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python_version.version }}
-
-      - name: Setup Python for Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}
-          yum update -y
-          yum install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
-          mkdir -p python${{ matrix.python_version.version }}
-          cd python${{ matrix.python_version.version }}
-          curl -L https://www.python.org/ftp/python/${{ matrix.python_version.version }}.0/Python-${{ matrix.python_version.version }}.0.tgz > python.tgz
-          tar -zxf python.tgz
-          rm python.tgz
-          cd Python-${{ matrix.python_version.version }}.0
-          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
-          mkdir -p install-python
-          if [ -z "$CFLAGS" ]; then
-            export CFLAGS="-fPIC"
-          else
-            export CFLAGS="$CFLAGS -fPIC"
-          fi
-          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python
-          make install
-          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python/bin" >> "${GITHUB_PATH}"
-
-      - name: Install Python dependencies
-        if: matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/roadrunner
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pip install -r requirements.txt
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-          else
-            python${{ matrix.python_version.version }} -m pip install -r requirements.txt
-          fi
 
       - name: Install Swig
         shell: bash
@@ -353,8 +334,8 @@ jobs:
           -DCMAKE_INSTALL_PREFIX="${RUNNER_WORKSPACE}/install-roadrunner" \
           -DRR_DEPENDENCIES_INSTALL_PREFIX=${RR_DEPENDENCIES_INSTALL_PREFIX} \
           -DLLVM_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX} \
-          -DBUILD_TESTS=${{ matrix.platform.build_tests }} \
-          -DBUILD_RR_PLUGINS=${{ matrix.platform.build_plugins }} \
+          -DBUILD_TESTS=${{ matrix.build_tests }} \
+          -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           ${SWIG_DIR}
 
@@ -365,7 +346,7 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Install test dependencies
-        if: matrix.platform.build_tests == 'ON' && matrix.platform.build_python == 'ON'
+        if: matrix.build_tests == 'ON' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/roadrunner
@@ -381,14 +362,14 @@ jobs:
           fi
 
       - name: Run RoadRunner tests
-        if : matrix.platform.build_type == 'Release' && matrix.platform.build_tests == 'ON' && matrix.python_version.run_tests == 'ON'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.python_version.run_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --exclude-regex "^python_tests.*"
 
       - name: Run RoadRunner Python tests
-        if : matrix.platform.build_type == 'Release' && matrix.platform.build_tests == 'ON' && matrix.platform.build_python == 'ON'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
