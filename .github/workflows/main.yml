@@ -133,7 +133,6 @@ jobs:
 
       - name: Install Python dependencies
         if: matrix.platform.build_python == 'ON'
-        shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/roadrunner
           if [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
