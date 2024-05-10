@@ -20,47 +20,56 @@ jobs:
             os_name: macos-11
             build_type: Release
             build_python: ON
+            write_to_env: ">> $GITHUB_ENV"
           - name: macos-11-debug
             os_type: macos
             os_name: macos-11
             build_type: Debug
             build_python: OFF
+            write_to_env: ">> $GITHUB_ENV"
           - name: macos-latest-release
             os_type: macos
             os_name: macos-latest
             build_type: Release
             build_python: ON
+            write_to_env: ">> $GITHUB_ENV"
           - name: macos-latest-debug
             os_type: macos
             os_name: macos-latest
             build_type: Debug
             build_python: OFF
+            write_to_env: ">> $GITHUB_ENV"
           - name: ubuntu-latest-release
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Release
             build_python: ON
+            write_to_env: ">> $GITHUB_ENV"
           - name: ubuntu-latest-debug
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Debug
             build_python: OFF
+            write_to_env: ">> $GITHUB_ENV"
           - name: windows-latest-release
             os_type: windows
             os_name: windows-latest
             build_type: Release
             build_python: ON
+            write_to_env: "| Out-File -FilePath $env:GITHUB_ENV -Append"
           - name: windows-latest-debug
             os_type: windows
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
+            write_to_env: "| Out-File -FilePath $env:GITHUB_ENV -Append"
           - name: manylinux2014-release
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux2014_x86_64
             build_type: Release
             build_python: ON
+            write_to_env: ">> $GITHUB_ENV"
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
@@ -76,6 +85,17 @@ jobs:
       image: ${{ matrix.platform.container_image || '' }}
 
     steps:
+      - name: Setup python versions
+        run: |
+          echo "python_v1=3.9" ${{ matrix.platform.s }}
+          echo "python_v2=3.10" ${{ matrix.platform.write_to_env }}
+          echo "python_v3=3.11" ${{ matrix.platform.write_to_env }}
+          echo "python_v4=3.12" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_name=39" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_name=310" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_name=311" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_name=312" ${{ matrix.platform.write_to_env }}
+
       - name: Checkout RoadRunner
         if: matrix.platform.os_type == 'manylinux'
         uses: actions/checkout@v3
@@ -83,17 +103,6 @@ jobs:
       - name: Checkout RoadRunner
         if: matrix.platform.os_type != 'manylinux'
         uses: actions/checkout@v4
-
-      - name: Setup python versions
-        run: |
-          echo "python_v1=3.9" >> $GITHUB_ENV
-          echo "python_v2=3.10" >> $GITHUB_ENV
-          echo "python_v3=3.11" >> $GITHUB_ENV
-          echo "python_v4=3.12" >> $GITHUB_ENV
-          echo "python_v1_name=39" >> $GITHUB_ENV
-          echo "python_v2_name=310" >> $GITHUB_ENV
-          echo "python_v3_name=311" >> $GITHUB_ENV
-          echo "python_v4_name=312" >> $GITHUB_ENV
 
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
@@ -119,7 +128,7 @@ jobs:
           /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }}
            
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
-          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
+          # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
       - name: Install Python dependencies
         if: matrix.platform.build_python == 'ON'
@@ -378,7 +387,7 @@ jobs:
 
       - name: Workaround actions/upload-artifact#176
         run: |
-          echo "artifacts_root=$(realpath ..)" >> $GITHUB_ENV
+          echo "artifacts_root=$(realpath ..)" ${{ matrix.platform.write_to_env }}
 
       - name: Set artifacts path and name
         shell: bash
