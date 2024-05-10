@@ -134,12 +134,13 @@ jobs:
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
         run: |
-          $python_win_root = $(${{ env.pythonLocation }} ../..)
+          cd ${{ env.pythonLocation }}
+          cd ../..
+          $python_win_root = $(realpath)
           echo "$python_win_root"
-          cd $python_win_root
           cd ${{ env.python_v1 }}*/x*/
           $pythonWinExecutable = $(realpath)
-          echo "$pythonWinExecutable"
+          echo $pythonWinExecutable
 
           $pattern = '[\\]'
           $temp = '${{ env.pythonLocation }}' -replace $pattern, '/'
