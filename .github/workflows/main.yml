@@ -153,6 +153,7 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             ${{ env.pythonWinLocation }}/python.exe -m pip install --upgrade pip 
             ${{ env.pythonWinLocation }}/python.exe -m pip install -r ./requirements.txt
+            C:/hostedtoolcache/windows/Python/3.9.13/x86/python.exe -V
             ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -V
             ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -m pip install -r ./requirements.txt
             ${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/*/python.exe -m pip install -r ./requirements.txt
