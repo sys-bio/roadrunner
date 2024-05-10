@@ -132,7 +132,7 @@ jobs:
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
       - name: Setup Windows Python path
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
         run: |
           $pattern = '[\\]'
           $temp = '${{ env.pythonLocation }}' -replace $pattern, '/'
