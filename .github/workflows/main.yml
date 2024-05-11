@@ -168,8 +168,6 @@ jobs:
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'windows' && matrix.platform.os_type != 'manylinux'
         run: |
           cd ${{ env.pythonLocation }}
-          $pattern = '[\\]'
-
           ls ../../${{ env.python_v1 }}*/
           cd ../../${{ env.python_v1 }}*/x64/
           echo "python_v1_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
@@ -187,8 +185,8 @@ jobs:
             /Miniconda3/envs/${{ env.python_v3_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
             /Miniconda3/envs/${{ env.python_v4_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            ${{ env.pythonWinLocation }}/python.exe -m pip install --upgrade pip 
-            ${{ env.pythonWinLocation }}/python.exe -m pip install -r ./requirements.txt
+            ${{ env.python_v1_exe }} -m pip install --upgrade pip 
+            ${{ env.python_v1_exe }} -m pip install -r ./requirements.txt
             C:/hostedtoolcache/windows/Python/3.9.13/x86/python.exe -V
             ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -V
             ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -m pip install -r ./requirements.txt
