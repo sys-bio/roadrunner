@@ -336,7 +336,7 @@ jobs:
             make install
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> "${GITHUB_ENV}"
           fi
-          echo PYTHON_DIR="-DPython_ROOT_DIR=${{env.python_v1_dir}}" >> "${GITHUB_ENV}"
+          echo PYTHON_DIR="-DPython_ROOT_DIR=${{env.python_v1_dir}}/.." >> "${GITHUB_ENV}"
 
       - name: Download LibRoadRunner Dependencies binaries
         shell: bash
