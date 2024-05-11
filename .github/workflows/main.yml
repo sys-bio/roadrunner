@@ -132,13 +132,13 @@ jobs:
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
           echo "python_v1_exe=/Miniconda3/envs/${{ env.python_v1_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}/bin"  ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}"  ${{ matrix.platform.write_to_env }}
           echo "python_v2_exe=/Miniconda3/envs/${{ env.python_v2_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}/bin"  ${{ matrix.platform.write_to_env }}
+          echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}"  ${{ matrix.platform.write_to_env }}
           echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}/bin"  ${{ matrix.platform.write_to_env }}
+          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  ${{ matrix.platform.write_to_env }}
           echo "python_v4_exe=/Miniconda3/envs/${{ env.python_v4_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}/bin"  ${{ matrix.platform.write_to_env }}
+          echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}"  ${{ matrix.platform.write_to_env }}
 
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
@@ -336,7 +336,7 @@ jobs:
             make install
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> "${GITHUB_ENV}"
           fi
-          echo PYTHON_DIR="-DPython_ROOT_DIR=${{env.python_v1_dir}}/.." >> "${GITHUB_ENV}"
+          echo PYTHON_DIR="-DPython_ROOT_DIR=${{env.python_v1_dir}}" >> "${GITHUB_ENV}"
 
       - name: Download LibRoadRunner Dependencies binaries
         shell: bash
