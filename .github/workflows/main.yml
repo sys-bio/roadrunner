@@ -411,8 +411,8 @@ jobs:
           -DBUILD_TESTS=${{ matrix.build_tests }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
-          $${{env.PYTHON_DIR}} \
-          ${SWIG_DIR}
+          ${{env.PYTHON_DIR}} \
+          ${{env.SWIG_DIR}}
 
       - name: Build and install RoadRunner
         shell: bash
