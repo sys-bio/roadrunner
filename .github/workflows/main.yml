@@ -169,10 +169,22 @@ jobs:
         run: |
           cd ${{ env.pythonLocation }}
           export py_lastdir="$(basename $PWD)"
-          ls ../../${{ env.python_v1 }}*/
+
           cd ../../${{ env.python_v1 }}*/$py_lastdir/
           echo "python_v1_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
           echo "python_v1_dir=$PWD" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v1 }}*/$py_lastdir/
+          echo "python_v2_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_dir=$PWD" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v1 }}*/$py_lastdir/
+          echo "python_v3_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_dir=$PWD" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v1 }}*/$py_lastdir/
+          echo "python_v4_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
           
       - name: Install Python dependencies
@@ -181,24 +193,20 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/roadrunner
           if [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            /Miniconda3/envs/${{ env.python_v1_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            /Miniconda3/envs/${{ env.python_v2_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            /Miniconda3/envs/${{ env.python_v3_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            /Miniconda3/envs/${{ env.python_v4_name }}/bin/python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-          elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            ${{ env.python_v1_exe }} -m pip install -r requirements.txt
+            ${{ env.python_v1_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            ${{ env.python_v2_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            ${{ env.python_v3_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+            ${{ env.python_v4_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
+          else
             ${{ env.python_v1_exe }} -m pip install --upgrade pip 
             ${{ env.python_v1_exe }} -m pip install -r ./requirements.txt
-            C:/hostedtoolcache/windows/Python/3.9.13/x86/python.exe -V
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -V
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/x64/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v3 }}*/x64/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v4 }}*/x64/python.exe -m pip install -r ./requirements.txt
-          else
-            python${{ env.python_v1 }} -m pip install -r requirements.txt
-            python${{ env.python_v2 }} -m pip install -r requirements.txt
-            python${{ env.python_v3 }} -m pip install -r requirements.txt
-            python${{ env.python_v4 }} -m pip install -r requirements.txt
+            ${{ env.python_v2_exe }} -m pip install --upgrade pip 
+            ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
+            ${{ env.python_v3_exe }} -m pip install --upgrade pip 
+            ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
+            ${{ env.python_v4_exe }} -m pip install --upgrade pip 
+            ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
           fi
 
       - name: Set MSVC as the default compiler on Windows
