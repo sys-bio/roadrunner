@@ -149,27 +149,28 @@ jobs:
           cd ../../${{ env.python_v2 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
 
           cd ../../${{ env.python_v3 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
 
           cd ../../${{ env.python_v4 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
 
       - name: Setup non-windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'windows' && matrix.platform.os_type != 'manylinux'
         run: |
           cd ${{ env.pythonLocation }}
+          export py_lastdir="$(basename $PWD)"
           ls ../../${{ env.python_v1 }}*/
-          cd ../../${{ env.python_v1 }}*/x64/
+          cd ../../${{ env.python_v1 }}*/$py_lastdir/
           echo "python_v1_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
           echo "python_v1_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
