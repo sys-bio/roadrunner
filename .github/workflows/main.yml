@@ -199,22 +199,16 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/roadrunner
-          if [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            ${{ env.python_v1_exe }} -m pip install -r requirements.txt
-            ${{ env.python_v1_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            ${{ env.python_v2_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            ${{ env.python_v3_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            ${{ env.python_v4_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-          else
-            ${{ env.python_v1_exe }} -m pip install --upgrade pip 
-            ${{ env.python_v1_exe }} -m pip install -r ./requirements.txt
-            ${{ env.python_v2_exe }} -m pip install --upgrade pip 
-            ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
-            ${{ env.python_v3_exe }} -m pip install --upgrade pip 
-            ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
-            ${{ env.python_v4_exe }} -m pip install --upgrade pip 
-            ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
-          fi
+          ${{ env.python_v1_exe }} -m pip install --upgrade pip 
+          ${{ env.python_v1_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v2_exe }} -m pip install --upgrade pip 
+          ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v3_exe }} -m pip install --upgrade pip 
+          ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v4_exe }} -m pip install --upgrade pip 
+          ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
+          # At one point, we needed this on manylinux:
+          # ${{ env.python_v1_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
@@ -342,6 +336,7 @@ jobs:
             make install
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> "${GITHUB_ENV}"
           fi
+          echo PYTHON_DIR="-DPython_ROOT_DIR=${{env.python_v1_dir}}" >> "${GITHUB_ENV}"
 
       - name: Download LibRoadRunner Dependencies binaries
         shell: bash
@@ -416,6 +411,7 @@ jobs:
           -DBUILD_TESTS=${{ matrix.build_tests }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
+          $${{env.PYTHON_DIR}} \
           ${SWIG_DIR}
 
       - name: Build and install RoadRunner
