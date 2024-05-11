@@ -171,19 +171,19 @@ jobs:
           export py_lastdir="$(basename $PWD)"
 
           cd ../../${{ env.python_v1 }}*/$py_lastdir/
-          echo "python_v1_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_exe=$PWD/python${{ env.python_v1_name }}" ${{ matrix.platform.write_to_env }}
           echo "python_v1_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
-          cd ../../${{ env.python_v1 }}*/$py_lastdir/
-          echo "python_v2_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          cd ../../${{ env.python_v2 }}*/$py_lastdir/
+          echo "python_v2_exe=$PWD/python${{ env.python_v2_name }}" ${{ matrix.platform.write_to_env }}
           echo "python_v2_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
-          cd ../../${{ env.python_v1 }}*/$py_lastdir/
-          echo "python_v3_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          cd ../../${{ env.python_v3 }}*/$py_lastdir/
+          echo "python_v3_exe=$PWD/python${{ env.python_v3_name }}" ${{ matrix.platform.write_to_env }}
           echo "python_v3_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
-          cd ../../${{ env.python_v1 }}*/$py_lastdir/
-          echo "python_v4_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          cd ../../${{ env.python_v4 }}*/$py_lastdir/
+          echo "python_v4_exe=$PWD/python${{ env.python_v4_name }}" ${{ matrix.platform.write_to_env }}
           echo "python_v4_dir=$PWD" ${{ matrix.platform.write_to_env }}
 
           
