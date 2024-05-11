@@ -131,24 +131,50 @@ jobs:
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
+          echo "python_v1_exe=/Miniconda3/envs/${{ env.python_v1_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}/bin"  ${{ matrix.platform.write_to_env }}
+
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
         run: |
           cd ${{ env.pythonLocation }}
-          cd ../..
-          $python_win_root = $(realpath .)
-          echo "$python_win_root"
-          cd ${{ env.python_v1 }}*/
-          ls
-          cd x??
-          $pythonWinExecutable = $(realpath .)
-          echo $pythonWinExecutable
-
           $pattern = '[\\]'
-          $temp = '${{ env.pythonLocation }}' -replace $pattern, '/'
-          echo "$temp"
-          ls $temp
-          echo "pythonWinLocation=$temp" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v1 }}*/x64/
+          $pythonWinExecutable = $(realpath .)
+          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
+          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v2 }}*/x64/
+          $pythonWinExecutable = $(realpath .)
+          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
+          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v3 }}*/x64/
+          $pythonWinExecutable = $(realpath .)
+          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
+          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+
+          cd ../../${{ env.python_v4 }}*/x64/
+          $pythonWinExecutable = $(realpath .)
+          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
+          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+
+      - name: Setup non-windows Python paths
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'windows' && matrix.platform.os_type != 'manylinux'
+        run: |
+          cd ${{ env.pythonLocation }}
+          $pattern = '[\\]'
+
+          ls ../../${{ env.python_v1 }}*/
+          cd ../../${{ env.python_v1 }}*/x64/
+          echo "python_v1_exe=$PWD/python${{ env.python_v1 }}" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_dir=$PWD" ${{ matrix.platform.write_to_env }}
+
           
       - name: Install Python dependencies
         if: matrix.platform.build_python == 'ON'
@@ -164,11 +190,11 @@ jobs:
             ${{ env.pythonWinLocation }}/python.exe -m pip install --upgrade pip 
             ${{ env.pythonWinLocation }}/python.exe -m pip install -r ./requirements.txt
             C:/hostedtoolcache/windows/Python/3.9.13/x86/python.exe -V
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -V
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/*/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/*/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v3 }}*/*/python.exe -m pip install -r ./requirements.txt
-            ${{ env.pythonWinLocation }}/../../${{ env.python_v4 }}*/*/python.exe -m pip install -r ./requirements.txt
+            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -V
+            ${{ env.pythonWinLocation }}/../../${{ env.python_v1 }}*/x64/python.exe -m pip install -r ./requirements.txt
+            ${{ env.pythonWinLocation }}/../../${{ env.python_v2 }}*/x64/python.exe -m pip install -r ./requirements.txt
+            ${{ env.pythonWinLocation }}/../../${{ env.python_v3 }}*/x64/python.exe -m pip install -r ./requirements.txt
+            ${{ env.pythonWinLocation }}/../../${{ env.python_v4 }}*/x64/python.exe -m pip install -r ./requirements.txt
           else
             python${{ env.python_v1 }} -m pip install -r requirements.txt
             python${{ env.python_v2 }} -m pip install -r requirements.txt
