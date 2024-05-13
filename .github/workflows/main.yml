@@ -201,12 +201,20 @@ jobs:
           cd ${RUNNER_WORKSPACE}/roadrunner
           ${{ env.python_v1_exe }} -m pip install --upgrade pip 
           ${{ env.python_v1_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v1_exe }} -m pip install -r ./test-requirements.txt
+          ${{ env.python_v1_exe }} -m pip install build
           ${{ env.python_v2_exe }} -m pip install --upgrade pip 
           ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v2_exe }} -m pip install -r ./test-requirements.txt
+          ${{ env.python_v2_exe }} -m pip install build
           ${{ env.python_v3_exe }} -m pip install --upgrade pip 
           ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v3_exe }} -m pip install -r ./test-requirements.txt
+          ${{ env.python_v3_exe }} -m pip install build
           ${{ env.python_v4_exe }} -m pip install --upgrade pip 
           ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v4_exe }} -m pip install -r ./test-requirements.txt
+          ${{ env.python_v4_exe }} -m pip install build
           # At one point, we needed this on manylinux:
           # ${{ env.python_v1_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
@@ -420,35 +428,12 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Install test dependencies
-        if: matrix.build_tests == 'ON' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/roadrunner
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pip install -r requirements.txt
-            python -m pip install -r test-requirements.txt
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r test-requirements.txt
-          else
-            python${{ matrix.python_version.version }} -m pip install -r requirements.txt
-            python${{ matrix.python_version.version }} -m pip install -r test-requirements.txt
-          fi
-
       - name: Run RoadRunner tests
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.python_version.run_tests == 'ON'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --exclude-regex "^python_tests.*"
-
-      - name: Run RoadRunner Python tests
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --tests-regex ^python_tests*
 
       - name: Workaround actions/upload-artifact#176
         run: |
@@ -486,19 +471,11 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pip install setuptools wheel
-            python setup.py bdist_wheel
-            python setup_rrplugins.py bdist_wheel
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org setuptools wheel
-            python${{ matrix.python_version.version }} setup.py bdist_wheel
-            python${{ matrix.python_version.version }} setup_rrplugins.py bdist_wheel
-          else
-            python${{ matrix.python_version.version }} -m pip install setuptools wheel
-            python${{ matrix.python_version.version }} setup.py bdist_wheel
-            python${{ matrix.python_version.version }} setup_rrplugins.py bdist_wheel
-          fi
+          ${{env.python_v1_exe}} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{env.python_v1_exe}} -m build setup.py wheel
+          rm -r -f build
 
       - name: Rename Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -539,3 +516,59 @@ jobs:
         with:
           name: ${{env.roadrunner_plugins_python_wheel_artifacts_name}}
           path: ${{env.roadrunner_plugins_python_wheel_artifacts_file}}
+
+      - name: Rebuild RoadRunner with second Python version
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{env.python_v2_dir}}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
+          # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --tests-regex ^python_tests*
+
+      - name: Create Python wheel artifacts and rename
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{env.python_v1_exe}} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{env.python_v1_exe}} -m build setup.py wheel
+          rm -r -f build
+
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+          fi
+
+      - name: Set Python wheel artifacts path and name
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          roadrunner_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^libroadrunner')
+          echo "roadrunner_python_wheel_artifacts_name=${roadrunner_python_wheel_file_name}" >> "${GITHUB_ENV}"
+          roadrunner_plugins_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^rrplugins')
+          echo "roadrunner_plugins_python_wheel_artifacts_name=${roadrunner_plugins_python_wheel_file_name}" >> "${GITHUB_ENV}"
+          # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
+          echo "roadrunner_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "roadrunner_plugins_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_plugins_python_wheel_file_name" >> "${GITHUB_ENV}"
+
+      - name: Upload RoadRunner Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{env.roadrunner_python_wheel_artifacts_name}}
+          path: ${{env.roadrunner_python_wheel_artifacts_file}}
+
+      - name: Upload RoadRunner Plugins Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{env.roadrunner_plugins_python_wheel_artifacts_name}}
+          path: ${{env.roadrunner_plugins_python_wheel_artifacts_file}}
+
