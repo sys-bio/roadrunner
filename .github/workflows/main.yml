@@ -428,12 +428,12 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run all RoadRunner tests
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_name != 'macos_latest'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos_latest' ]; then
-            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
+          # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
+          ctest -V
 
       - name: Workaround actions/upload-artifact#176
         run: |
@@ -554,12 +554,11 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run RoadRunner tests on fourth Python version
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_name != 'macos_latest'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos_latest' ]; then
-            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ^python_tests*
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ^python_tests*
 
 
       - name: Create fourth Python wheel artifacts and rename
