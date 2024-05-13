@@ -476,7 +476,7 @@ jobs:
           ${{env.python_v1_exe}} -m build
           rm -r -f build
           mv setup_rrplugins.py setup.py
-          ${{env.python_v1_exe}} -m build wheel
+          ${{env.python_v1_exe}} -m build --wheel
           rm -r -f build
 
       - name: Rename Python wheel artifacts
@@ -535,7 +535,7 @@ jobs:
           ${{env.python_v1_exe}} -m build --wheel
           rm -r -f build
           mv setup_rrplugins.py setup.py
-          ${{env.python_v1_exe}} -m build setup.py wheel
+          ${{env.python_v1_exe}} -m build --wheel
           rm -r -f build
 
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
