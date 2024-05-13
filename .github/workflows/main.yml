@@ -471,9 +471,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
-          # ${{env.python_v1_exe}} -m build --wheel
-          ${{env.python_v1_exe}} -m build --help
-          ${{env.python_v1_exe}} -m build
+          ${{env.python_v1_exe}} -m build --wheel
           rm -r -f build
           mv setup_rrplugins.py setup.py
           ${{env.python_v1_exe}} -m build --wheel
@@ -492,33 +490,6 @@ jobs:
             mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/linux/manylinux2014/g")
           fi
 
-      - name: Set Python wheel artifacts path and name
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}
-          roadrunner_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^libroadrunner')
-          echo "roadrunner_python_wheel_artifacts_name=${roadrunner_python_wheel_file_name}" >> "${GITHUB_ENV}"
-          roadrunner_plugins_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^rrplugins')
-          echo "roadrunner_plugins_python_wheel_artifacts_name=${roadrunner_plugins_python_wheel_file_name}" >> "${GITHUB_ENV}"
-          # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
-          echo "roadrunner_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
-          echo "roadrunner_plugins_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_plugins_python_wheel_file_name" >> "${GITHUB_ENV}"
-
-      - name: Upload RoadRunner Python wheel artifacts
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{env.roadrunner_python_wheel_artifacts_name}}
-          path: ${{env.roadrunner_python_wheel_artifacts_file}}
-
-      - name: Upload RoadRunner Plugins Python wheel artifacts
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{env.roadrunner_plugins_python_wheel_artifacts_name}}
-          path: ${{env.roadrunner_plugins_python_wheel_artifacts_file}}
-
       - name: Rebuild RoadRunner with second Python version
         shell: bash
         run: |
@@ -527,15 +498,15 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
           # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --tests-regex ^python_tests*
 
-      - name: Create Python wheel artifacts and rename
+      - name: Create second Python wheel artifacts and rename
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
-          ${{env.python_v1_exe}} -m build --wheel
+          ${{env.python_v2_exe}} -m build --wheel
           rm -r -f build
           mv setup_rrplugins.py setup.py
-          ${{env.python_v1_exe}} -m build --wheel
+          ${{env.python_v2_exe}} -m build --wheel
           rm -r -f build
 
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
@@ -547,18 +518,52 @@ jobs:
             mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
           fi
 
+
+      - name: Rebuild RoadRunner with third Python version
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{env.python_v3_dir}}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
+          # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --tests-regex ^python_tests*
+
+      - name: Create second Python wheel artifacts and rename
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{env.python_v3_exe}} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{env.python_v3_exe}} -m build --wheel
+          rm -r -f build
+
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+          fi
+
+
+
+
+
+
       - name: Set Python wheel artifacts path and name
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          roadrunner_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^libroadrunner')
+          roadrunner_python_wheel_file_name="${{matrix.platform.name}}-python-wheels"
           echo "roadrunner_python_wheel_artifacts_name=${roadrunner_python_wheel_file_name}" >> "${GITHUB_ENV}"
           roadrunner_plugins_python_wheel_file_name=$(ls install-roadrunner/dist | grep '^rrplugins')
           echo "roadrunner_plugins_python_wheel_artifacts_name=${roadrunner_plugins_python_wheel_file_name}" >> "${GITHUB_ENV}"
           # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
-          echo "roadrunner_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
-          echo "roadrunner_plugins_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/$roadrunner_plugins_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "roadrunner_python_wheel_artifacts_file=$roadrunner_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "roadrunner_plugins_python_wheel_artifacts_file=${{env.artifacts_root}}/install-roadrunner/dist/" >> "${GITHUB_ENV}"
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -566,11 +571,3 @@ jobs:
         with:
           name: ${{env.roadrunner_python_wheel_artifacts_name}}
           path: ${{env.roadrunner_python_wheel_artifacts_file}}
-
-      - name: Upload RoadRunner Plugins Python wheel artifacts
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{env.roadrunner_plugins_python_wheel_artifacts_name}}
-          path: ${{env.roadrunner_plugins_python_wheel_artifacts_file}}
-
