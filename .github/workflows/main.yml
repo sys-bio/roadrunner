@@ -299,8 +299,7 @@ jobs:
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
-          }}
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
           restore-keys: |
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
