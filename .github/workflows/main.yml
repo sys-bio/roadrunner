@@ -433,7 +433,7 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
-          ctest -V
+          ctest --output-on-failure --verbose --extra-verbose --progress
 
       - name: Workaround actions/upload-artifact#176
         run: |
@@ -504,10 +504,18 @@ jobs:
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+          fi
+
           mv setup_rrplugins.py setup.py
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
-
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
@@ -532,10 +540,18 @@ jobs:
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+          fi
+
           mv setup_rrplugins.py setup.py
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
-
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
@@ -558,20 +574,28 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ^python_tests*
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
 
 
-      - name: Create fourth Python wheel artifacts and rename
+      - name: Create third Python wheel artifacts and rename
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+          fi
+
           mv setup_rrplugins.py setup.py
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
-
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
@@ -582,16 +606,13 @@ jobs:
           fi
 
 
-
-
-
       - name: Set Python wheel artifacts path and name
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
           echo "roadrunner_python_wheel_artifacts_name=${{ matrix.platform.name }}-python-wheels" >> "${GITHUB_ENV}"
-          echo "roadrunner__python_wheel_artifacts_file=../install-roadrunner/dist/" >> "${GITHUB_ENV}"
+          echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/install-roadrunner/dist/" >> "${GITHUB_ENV}"
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
