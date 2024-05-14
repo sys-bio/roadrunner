@@ -429,7 +429,7 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run all RoadRunner tests
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_name != 'macos_latest'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
@@ -482,10 +482,10 @@ jobs:
         run: |
           mkdir ${RUNNER_WORKSPACE}/wheels/
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
+          if compgen -G "*universal*whl" > /dev/null; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+          elif compgen -G "*-linux*whl" > /dev/null; then
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
@@ -510,10 +510,10 @@ jobs:
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
+          if compgen -G "*universal*whl" > /dev/null; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+          elif compgen -G "*-linux*whl" > /dev/null; then
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
@@ -539,10 +539,10 @@ jobs:
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
+          if compgen -G "*universal*whl" > /dev/null; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+          elif compgen -G "*-linux*whl" > /dev/null; then
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
@@ -558,7 +558,7 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run RoadRunner tests on fourth Python version
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_name != 'macos_latest'
+        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
@@ -578,10 +578,10 @@ jobs:
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
+          if compgen -G "*universal*whl" > /dev/null; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+          elif compgen -G "*-linux*whl" > /dev/null; then
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
