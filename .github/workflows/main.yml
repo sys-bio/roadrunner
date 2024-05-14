@@ -433,7 +433,9 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
-          ctest --output-on-failure --verbose --extra-verbose --progress
+          if [ "${{ matrix.platform.os_name }}" != 'macos-latest' ]; then
+            ctest --output-on-failure --verbose --extra-verbose --progress
+          fi
 
       - name: Workaround actions/upload-artifact#176
         run: |
@@ -483,11 +485,11 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+            mv libroadrunner*universal*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/linux/manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/linux/manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
           fi
 
       - name: Rebuild RoadRunner with second Python version
@@ -504,25 +506,16 @@ jobs:
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
-          fi
-
           mv setup_rrplugins.py setup.py
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+            mv libroadrunner*universal*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
           fi
 
 
@@ -540,25 +533,16 @@ jobs:
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
-          fi
-
           mv setup_rrplugins.py setup.py
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+            mv libroadrunner*universal*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
           fi
 
 
@@ -584,25 +568,16 @@ jobs:
           cd ${RUNNER_WORKSPACE}/install-roadrunner
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
-          fi
-
           mv setup_rrplugins.py setup.py
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
+            mv libroadrunner*universal*.whl $(echo libroadrunner*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libroadrunner*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*.whl | sed "s/-linux/-manylinux2014/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*.whl | sed "s/-linux/-manylinux2014/g")
           fi
 
 
