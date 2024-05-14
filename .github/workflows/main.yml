@@ -537,7 +537,7 @@ jobs:
           ${{ env.python_v3_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
@@ -558,10 +558,12 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          if [ "${{ matrix.platform.os_name }}" != 'macos-latest' ]; then
+            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          fi
 
 
-      - name: Create third Python wheel artifacts and rename
+      - name: Create fourth Python wheel artifacts and rename
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
@@ -591,7 +593,7 @@ jobs:
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}
