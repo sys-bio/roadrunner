@@ -495,6 +495,7 @@ jobs:
       - name: Rebuild RoadRunner with second Python version
         shell: bash
         run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v2_dir }}
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
@@ -522,6 +523,7 @@ jobs:
       - name: Rebuild RoadRunner with third Python version
         shell: bash
         run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
@@ -549,6 +551,7 @@ jobs:
       - name: Rebuild RoadRunner with fourth Python version
         shell: bash
         run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v4_dir }}
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
