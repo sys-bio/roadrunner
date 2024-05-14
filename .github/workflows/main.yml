@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_on_OSs:
-    name: Build RoadRunner on ${{ matrix.platform.name }}-python${{ matrix.python_version.version }}
+    name: ${{ matrix.platform.name }} roadrunner build
     strategy:
       fail-fast: false
       matrix:
@@ -27,15 +27,15 @@ jobs:
             build_type: Debug
             build_python: OFF
             write_to_env: ">> $GITHUB_ENV"
-          - name: macos-latest-release
+          - name: macos-13-release
             os_type: macos
-            os_name: macos-latest
+            os_name: macos-13
             build_type: Release
             build_python: ON
             write_to_env: ">> $GITHUB_ENV"
-          - name: macos-latest-debug
+          - name: macos-13-debug
             os_type: macos
-            os_name: macos-latest
+            os_name: macos-13
             build_type: Debug
             build_python: OFF
             write_to_env: ">> $GITHUB_ENV"
@@ -86,6 +86,7 @@ jobs:
 
     steps:
       - name: Setup python versions
+      # v1 should be the earliest supported version, and v4 the latest.  Tests are only run on v1 and v4.
         run: |
           echo "python_v1=3.9" ${{ matrix.platform.write_to_env }}
           echo "python_v2=3.10" ${{ matrix.platform.write_to_env }}
@@ -433,7 +434,7 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
-          if [ "${{ matrix.platform.os_name }}" != 'macos-latest' ]; then
+          if [ "${{ matrix.platform.os_name }}" != 'macos-13' ]; then
             ctest --output-on-failure --verbose --extra-verbose --progress
           fi
 
@@ -483,6 +484,7 @@ jobs:
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
+          mkdir ${RUNNER_WORKSPACE}/wheels/
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
           if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
@@ -491,6 +493,7 @@ jobs:
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
       - name: Rebuild RoadRunner with second Python version
         shell: bash
@@ -518,6 +521,7 @@ jobs:
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
       - name: Rebuild RoadRunner with third Python version
@@ -546,6 +550,7 @@ jobs:
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
       - name: Rebuild RoadRunner with fourth Python version
@@ -561,7 +566,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos-latest' ]; then
+          if [ "${{ matrix.platform.os_name }}" != 'macos-13' ]; then
             ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
           fi
 
@@ -584,6 +589,7 @@ jobs:
             mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
             mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
           fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
       - name: Set Python wheel artifacts path and name
@@ -592,7 +598,7 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}
           echo "roadrunner_python_wheel_artifacts_name=${{ matrix.platform.name }}-python-wheels" >> "${GITHUB_ENV}"
-          echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/install-roadrunner/dist/" >> "${GITHUB_ENV}"
+          echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> "${GITHUB_ENV}"
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
