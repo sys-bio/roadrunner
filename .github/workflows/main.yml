@@ -438,10 +438,6 @@ jobs:
             ctest --output-on-failure --verbose --extra-verbose --progress
           fi
 
-      - name: Workaround actions/upload-artifact#176
-        run: |
-          echo "artifacts_root=$(realpath ..)" ${{ matrix.platform.write_to_env }}
-
       - name: Set artifacts path and name
         shell: bash
         run: |
@@ -461,7 +457,7 @@ jobs:
             os_name_without_build_type="${os_name%%-*}"
             echo "artifacts_name=roadrunner-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
           fi
-          echo "artifacts_path=${{ env.artifacts_root }}/install-roadrunner" >> "${GITHUB_ENV}"
+          echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> "${GITHUB_ENV}"
 
       - name: Upload roadrunner binaries
         uses: actions/upload-artifact@v3
