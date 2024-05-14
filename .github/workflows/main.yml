@@ -27,15 +27,15 @@ jobs:
             build_type: Debug
             build_python: OFF
             write_to_env: ">> $GITHUB_ENV"
-          - name: macos-13-release
+          - name: macos-14-release
             os_type: macos
-            os_name: macos-13
+            os_name: macos-14
             build_type: Release
             build_python: ON
             write_to_env: ">> $GITHUB_ENV"
-          - name: macos-13-debug
+          - name: macos-14-debug
             os_type: macos
-            os_name: macos-13
+            os_name: macos-14
             build_type: Debug
             build_python: OFF
             write_to_env: ">> $GITHUB_ENV"
@@ -434,7 +434,7 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
-          if [ "${{ matrix.platform.os_name }}" != 'macos-13' ]; then
+          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
             ctest --output-on-failure --verbose --extra-verbose --progress
           fi
 
@@ -566,7 +566,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos-13' ]; then
+          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
             ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
           fi
 
