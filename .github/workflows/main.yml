@@ -429,7 +429,7 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run all RoadRunner tests
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
@@ -492,6 +492,7 @@ jobs:
           mv * ${RUNNER_WORKSPACE}/wheels/
 
       - name: Rebuild RoadRunner with second Python version
+        if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
@@ -521,6 +522,7 @@ jobs:
 
 
       - name: Rebuild RoadRunner with third Python version
+        if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
@@ -550,6 +552,7 @@ jobs:
 
 
       - name: Rebuild RoadRunner with fourth Python version
+        if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
@@ -558,7 +561,7 @@ jobs:
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Run RoadRunner tests on fourth Python version
-        if : matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
