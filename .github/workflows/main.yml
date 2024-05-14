@@ -484,7 +484,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
@@ -510,7 +510,7 @@ jobs:
           ${{ env.python_v2_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
@@ -574,7 +574,7 @@ jobs:
           ${{ env.python_v4_exe }} -m build --wheel
           rm -r -f build
           cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+          if [ "${{ matrix.platform.os_name }}" == 'macos_latest' ]; then
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
