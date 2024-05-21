@@ -20,56 +20,47 @@ jobs:
             os_name: macos-11
             build_type: Release
             build_python: ON
-            write_to_env: ">> $GITHUB_ENV"
           - name: macos-11-debug
             os_type: macos
             os_name: macos-11
             build_type: Debug
             build_python: OFF
-            write_to_env: ">> $GITHUB_ENV"
           - name: macos-14-release
             os_type: macos
             os_name: macos-14
             build_type: Release
             build_python: ON
-            write_to_env: ">> $GITHUB_ENV"
           - name: macos-14-debug
             os_type: macos
             os_name: macos-14
             build_type: Debug
             build_python: OFF
-            write_to_env: ">> $GITHUB_ENV"
           - name: ubuntu-latest-release
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Release
             build_python: ON
-            write_to_env: ">> $GITHUB_ENV"
           - name: ubuntu-latest-debug
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Debug
             build_python: OFF
-            write_to_env: ">> $GITHUB_ENV"
           - name: windows-latest-release
             os_type: windows
             os_name: windows-latest
             build_type: Release
             build_python: ON
-            write_to_env: "| Out-File -FilePath $env:GITHUB_ENV -Append"
           - name: windows-latest-debug
             os_type: windows
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
-            write_to_env: "| Out-File -FilePath $env:GITHUB_ENV -Append"
           - name: manylinux2014-release
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux2014_x86_64
             build_type: Release
             build_python: ON
-            write_to_env: ">> $GITHUB_ENV"
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
@@ -86,16 +77,17 @@ jobs:
 
     steps:
       - name: Setup python versions
+        shell: bash
       # v1 should be the earliest supported version, and v4 the latest.  Tests are only run on v1 and v4.
         run: |
-          echo "python_v1=3.9" ${{ matrix.platform.write_to_env }}
-          echo "python_v2=3.10" ${{ matrix.platform.write_to_env }}
-          echo "python_v3=3.11" ${{ matrix.platform.write_to_env }}
-          echo "python_v4=3.12" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_name=39" ${{ matrix.platform.write_to_env }}
-          echo "python_v2_name=310" ${{ matrix.platform.write_to_env }}
-          echo "python_v3_name=311" ${{ matrix.platform.write_to_env }}
-          echo "python_v4_name=312" ${{ matrix.platform.write_to_env }}
+          echo "python_v1=3.9" >> $GITHUB_ENV
+          echo "python_v2=3.10" >> $GITHUB_ENV
+          echo "python_v3=3.11" >> $GITHUB_ENV
+          echo "python_v4=3.12" >> $GITHUB_ENV
+          echo "python_v1_name=v1" >> $GITHUB_ENV
+          echo "python_v2_name=v2" >> $GITHUB_ENV
+          echo "python_v3_name=v3" >> $GITHUB_ENV
+          echo "python_v4_name=v4" >> $GITHUB_ENV
 
       - name: Checkout RoadRunner
         if: matrix.platform.os_type == 'manylinux'
@@ -132,14 +124,14 @@ jobs:
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
-          echo "python_v1_exe=/Miniconda3/envs/${{ env.python_v1_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}"  ${{ matrix.platform.write_to_env }}
-          echo "python_v2_exe=/Miniconda3/envs/${{ env.python_v2_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}"  ${{ matrix.platform.write_to_env }}
-          echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  ${{ matrix.platform.write_to_env }}
-          echo "python_v4_exe=/Miniconda3/envs/${{ env.python_v4_name }}/bin/python"  ${{ matrix.platform.write_to_env }}
-          echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}"  ${{ matrix.platform.write_to_env }}
+          echo "python_v1_exe=/Miniconda3/envs/${{ env.python_v1_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}"  >> $GITHUB_ENV
+          echo "python_v2_exe=/Miniconda3/envs/${{ env.python_v2_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}"  >> $GITHUB_ENV
+          echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
+          echo "python_v4_exe=/Miniconda3/envs/${{ env.python_v4_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}" >> $GITHUB_ENV
 
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
@@ -150,49 +142,50 @@ jobs:
           cd ../../${{ env.python_v1 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v1_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "python_v1_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
           cd ../../${{ env.python_v2 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v2_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v2_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "python_v2_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
           cd ../../${{ env.python_v3 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v3_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v3_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "python_v3_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
           cd ../../${{ env.python_v4 }}*/x64/
           $pythonWinExecutable = $(realpath .)
           $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v4_exe=$pythonWinExecutable/python.exe" ${{ matrix.platform.write_to_env }}
-          echo "python_v4_dir=$pythonWinExecutable" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "python_v4_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Setup non-windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'windows' && matrix.platform.os_type != 'manylinux'
+        shell: bash
         run: |
           cd ${{ env.pythonLocation }}
           export py_lastdir="$(basename $PWD)"
 
           cd ../../${{ env.python_v1 }}*/$py_lastdir/
           ls
-          echo "python_v1_exe=$PWD/python" ${{ matrix.platform.write_to_env }}
-          echo "python_v1_dir=$PWD" ${{ matrix.platform.write_to_env }}
+          echo "python_v1_exe=$PWD/python" >> $GITHUB_ENV
+          echo "python_v1_dir=$PWD" >> $GITHUB_ENV
 
           cd ../../${{ env.python_v2 }}*/$py_lastdir/
-          echo "python_v2_exe=$PWD/python" ${{ matrix.platform.write_to_env }}
-          echo "python_v2_dir=$PWD" ${{ matrix.platform.write_to_env }}
+          echo "python_v2_exe=$PWD/python" >> $GITHUB_ENV
+          echo "python_v2_dir=$PWD" >> $GITHUB_ENV
 
           cd ../../${{ env.python_v3 }}*/$py_lastdir/
-          echo "python_v3_exe=$PWD/python" ${{ matrix.platform.write_to_env }}
-          echo "python_v3_dir=$PWD" ${{ matrix.platform.write_to_env }}
+          echo "python_v3_exe=$PWD/python" >> $GITHUB_ENV
+          echo "python_v3_dir=$PWD" >> $GITHUB_ENV
 
           cd ../../${{ env.python_v4 }}*/$py_lastdir/
-          echo "python_v4_exe=$PWD/python" ${{ matrix.platform.write_to_env }}
-          echo "python_v4_dir=$PWD" ${{ matrix.platform.write_to_env }}
+          echo "python_v4_exe=$PWD/python" >> $GITHUB_ENV
+          echo "python_v4_dir=$PWD" >> $GITHUB_ENV
 
           
       - name: Install Python dependencies
@@ -249,9 +242,9 @@ jobs:
         shell: bash
         run: |
           architecture=$(uname -m)
-          echo "host_architecture=$architecture" >> "${GITHUB_ENV}"
+          echo "host_architecture=$architecture" >> $GITHUB_ENV
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            echo "OSX_ARCHITECTURES=$architecture" >> "${GITHUB_ENV}"
+            echo "OSX_ARCHITECTURES=$architecture" >> $GITHUB_ENV
           fi
 
       - name: Install ccache
@@ -291,8 +284,8 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> "${GITHUB_ENV}"
-          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+          echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> $GITHUB_ENV
+          echo "COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
@@ -322,7 +315,7 @@ jobs:
             ./configure --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> "${GITHUB_ENV}"
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             mkdir -p swig
             cd swig
@@ -342,9 +335,9 @@ jobs:
             ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> "${GITHUB_ENV}"
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           fi
-          echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> "${GITHUB_ENV}"
+          echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> $GITHUB_ENV
 
       - name: Download LibRoadRunner Dependencies binaries
         shell: bash
@@ -369,7 +362,7 @@ jobs:
           curl -LO "https://github.com/${{ matrix.libroadrunner_deps_owner }}/${{ matrix.libroadrunner_deps_repo }}/releases/download/${{ matrix.libroadrunner_deps_release_version }}/$binary_file_name.zip"
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
-          echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
+          echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> $GITHUB_ENV
 
       - name: Download LLVM binaries
         shell: bash
@@ -394,7 +387,7 @@ jobs:
           curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ matrix.llvm_release_version }}/$binary_file_name.zip"
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
-          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries" >> "${GITHUB_ENV}"
+          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries" >> $GITHUB_ENV
 
           # make llvm-config executable
           chmod a+x ${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries/bin/llvm-config
@@ -428,15 +421,32 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Run all RoadRunner tests
+      - name: Run C RoadRunner tests
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          # ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress
+          # ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
           if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
-            ctest --output-on-failure --verbose --extra-verbose --progress
+            ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
           fi
+
+      - name: Run Python Roadrunner tests (first Python version)
+        if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
+            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          fi
+
+
+      - name: Save roadrunner version
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          rrversion = $(cat VERSION.txt)
+          echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
 
       - name: Set artifacts path and name
         shell: bash
@@ -445,19 +455,19 @@ jobs:
           artifacts_name=""
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-$roadrunner_version-msvc$compiler_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-$roadrunner_version-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
             os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+            echo "artifacts_name=roadrunner-${{ matrix.platform.os_type }}-$roadrunner_version-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             os_name="${{ matrix.platform.name }}"
             os_name_without_build_type="${os_name%%-*}"
-            echo "artifacts_name=roadrunner-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+            echo "artifacts_name=roadrunner-$roadrunner_version-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           fi
-          echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> "${GITHUB_ENV}"
+          echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
         uses: actions/upload-artifact@v3
@@ -560,7 +570,7 @@ jobs:
           cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v4_dir }}
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Run RoadRunner tests on fourth Python version
+      - name: Run Python Roadrunner tests (fourth Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
@@ -596,8 +606,8 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          echo "roadrunner_python_wheel_artifacts_name=${{ matrix.platform.name }}-python-wheels" >> "${GITHUB_ENV}"
-          echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> "${GITHUB_ENV}"
+          echo "roadrunner_python_wheel_artifacts_name=${{ matrix.platform.name }}-roadrunner-$roadrunner_version-python-wheels" >> ${GITHUB_ENV}
+          echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> ${GITHUB_ENV}
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
