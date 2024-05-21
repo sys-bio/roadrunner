@@ -445,7 +445,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
-          export rrversion = $(cat VERSION.txt)
+          export rrversion="$(cat VERSION.txt)"
           echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
 
       - name: Set artifacts path and name
