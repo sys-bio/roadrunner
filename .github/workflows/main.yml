@@ -621,6 +621,7 @@ jobs:
             os_name="${{ matrix.platform.name }}"
             os_name_without_build_type="${os_name%%-*}"
             echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+          fi
           echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> ${GITHUB_ENV}
 
       - name: Upload RoadRunner Python wheel artifacts
