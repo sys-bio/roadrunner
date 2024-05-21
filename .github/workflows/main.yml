@@ -445,6 +445,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ls -l
           export rrversion="$(cat VERSION.txt)"
           echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
 
