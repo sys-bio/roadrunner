@@ -661,6 +661,8 @@ install(
         DESTINATION .
 )
 
+install(FILES
+        "${CMAKE_BINARY_DIR}/VERSION.txt" DESTINATION .)
 # add FindLLVM to install cmake module path so consuming libraries can use it
 install(FILES cmake/FindLLVM.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
 
