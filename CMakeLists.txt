@@ -658,6 +658,7 @@ install(
         FILES
         NOTICE.txt
         NEWS.txt
+        "${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt"
         DESTINATION .
 )
 
