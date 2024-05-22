@@ -609,18 +609,18 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
             # The ubuntu wheel files are named 'manylinux' but are not actually manylinux; they'll only work on ubuntu.
             os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            echo "roadrunner_python_wheel_artifacts_name=DO-NOT-UPLOAD-TEST-ONLY-roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+            echo "roadrunner_python_wheel_artifacts_name=DO-NOT-UPLOAD-TEST-ONLY-roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             os_name="${{ matrix.platform.name }}"
             os_name_without_build_type="${os_name%%-*}"
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${os_name_without_build_type}-${host_architecture}" >> $GITHUB_ENV
           fi
           echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> ${GITHUB_ENV}
 
