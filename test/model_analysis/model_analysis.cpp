@@ -1738,11 +1738,15 @@ TEST_F(ModelAnalysisTests, Set_Gillespie_Random_Seed) {
     RoadRunner rr1((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     rr1.setIntegrator("gillespie");
+    rr1.getIntegrator()->setValue("variable_step_size", true);
     rr1.setSeed(-1, false);
-    rr1.simulate(0, 10, 2);
+    const ls::DoubleMatrix* rr1_results = rr1.simulate(0, 10, 2);
     rr2.setIntegrator("gillespie");
+    rr1.getIntegrator()->setValue("variable_step_size", true);
     rr2.setSeed(-1, false);
-    rr2.simulate(0, 10, 2);
-    EXPECT_NE(rr1.getValue("S2"), rr2.getValue("S2"));
+    const ls::DoubleMatrix* rr2_results = rr2.simulate(0, 10, 2);
+    // With a variable step size, every time step is a random draw, which should be different.
+    EXPECT_NE(rr1_results->Element(1, 0), rr2_results->Element(1, 0));
+    //std::cout << rr1_results->Element(1, 0) << ", " << rr2_results->Element(1, 0) << std::endl;
 }
 
