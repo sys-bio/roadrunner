@@ -339,26 +339,28 @@ jobs:
           fi
           echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> $GITHUB_ENV
 
+      - name: Save standardized os/compiler names
+        shell: bash
+        run: |
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-msvc$compiler_version" >> $GITHUB_ENV
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            os_name="${{ matrix.platform.name }}"
+            os_name_without_build_type="${os_name%%-*}"
+            echo "os_and_compiler=${os_name_without_build_type}" >> $GITHUB_ENV
+          else
+            os_version=$(lsb_release -rs | cut -d '.' -f 1)
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-$os_version" >> $GITHUB_ENV
+          fi
+
       - name: Download LibRoadRunner Dependencies binaries
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ matrix.libroadrunner_deps_name }}-binaries
           cd ${{ matrix.libroadrunner_deps_name }}-binaries
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-msvc${compiler_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            os_name="${{ matrix.platform.name }}"
-            os_name_without_build_type="${os_name%%-*}"
-            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}
-          fi
+          binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}
           curl -LO "https://github.com/${{ matrix.libroadrunner_deps_owner }}/${{ matrix.libroadrunner_deps_repo }}/releases/download/${{ matrix.libroadrunner_deps_release_version }}/$binary_file_name.zip"
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
@@ -370,20 +372,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ matrix.llvm_name }}-binaries
           cd ${{ matrix.llvm_name }}-binaries
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            binary_file_name=${{ matrix.llvm_name }}-${{ matrix.platform.os_type }}-msvc${compiler_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            binary_file_name=${{ matrix.llvm_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            binary_file_name=${{ matrix.llvm_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            os_name="${{ matrix.platform.name }}"
-            os_name_without_build_type="${os_name%%-*}"
-            binary_file_name=${{ matrix.llvm_name }}-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}
-          fi
+          binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}
           curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ matrix.llvm_release_version }}/$binary_file_name.zip"
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
@@ -453,21 +442,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          artifacts_name=""
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            echo "artifacts_name=roadrunner-$roadrunner_version-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            echo "artifacts_name=roadrunner-$roadrunner_version-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            echo "artifacts_name=roadrunner-$roadrunner_version-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            os_name="${{ matrix.platform.name }}"
-            os_name_without_build_type="${os_name%%-*}"
-            echo "artifacts_name=roadrunner-$roadrunner_version-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
-          fi
+          echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
@@ -607,21 +582,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            # The ubuntu wheel files are named 'manylinux' but are not actually manylinux; they'll only work on ubuntu.
-            os_version=$(lsb_release -rs | cut -d '.' -f 1)
-            echo "roadrunner_python_wheel_artifacts_name=DO-NOT-UPLOAD-TEST-ONLY-roadrunner-$roadrunner_version-python-wheels-${{ matrix.platform.os_type }}-$os_version-${host_architecture}" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            os_name="${{ matrix.platform.name }}"
-            os_name_without_build_type="${os_name%%-*}"
-            echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${os_name_without_build_type}-${host_architecture}" >> $GITHUB_ENV
-          fi
+          echo "roadrunner_python_wheel_artifacts_name=roadrunner-$roadrunner_version-python-wheels-${{ env.os_and_compiler }}-${host_architecture}" >> $GITHUB_ENV
           echo "roadrunner_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/wheels/" >> ${GITHUB_ENV}
 
       - name: Upload RoadRunner Python wheel artifacts
