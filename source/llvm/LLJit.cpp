@@ -104,6 +104,9 @@ namespace rrllvm {
 
         // enable position independent code
         JTMB.setRelocationModel(llvm::Reloc::PIC_);
+                
+        // set the default value for code model to large (may have performance consequences)
+        JTMB.setCodeModel(llvm::CodeModel::Large);
 
         // augment the default options
         llvm::TargetOptions targetOptions = JTMB.getOptions();
