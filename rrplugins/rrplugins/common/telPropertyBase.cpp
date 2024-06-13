@@ -23,9 +23,12 @@ mReadOnly(readOnly)
 {
     //Convert any spaces in mName and mAlias to '_'
     //Chech name
-    if(indexOf(mName, ' ') != -1 )
+    if (mName.empty()) {
+        throw(tlp::Exception("Empty property's Name attribute"));
+    }
+    else if(indexOf(mName, ' ') != -1 )
     {
-        throw(tlp::Exception("Zero size or space character found in a property's Name attribute"));
+        throw(tlp::Exception("Space character found in a property's Name attribute"));
     }
 
     //Chek Alias

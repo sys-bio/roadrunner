@@ -1,30 +1,14 @@
-#include "gtest/gtest.h"
-#include <filesystem>
-#include "RoadRunnerTest.h"
+#include "PluginLevenbergMarquardtTests.h"
 #include "telPluginManager.h"
 #include "telPlugin.h"
 #include "telProperties.h"
 #include "telTelluriumData.h"
 #include "telProperty.h"
-//#include "../../wrappers/C/telplugins_properties_api.h"
-
-using std::filesystem::path;
 
 using namespace tlp;
 
-class PluginLevenbergMarquardtTests : public RoadRunnerTest {
-public:
-    path pluginsModelsDir;
-
-    PluginLevenbergMarquardtTests() {
-        pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
-    }
-};
-
-
 TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
 {
-
     //We set the initial value of p6 to 35.11, which is *way* off, to test the edges of the optimizer.
     // Some of the runs actually fail under this scenario.
     // In Python, the confidence limits are normal, but here in C, for some reason some are nan.

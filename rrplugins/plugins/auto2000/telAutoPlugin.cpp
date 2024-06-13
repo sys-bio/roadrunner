@@ -90,6 +90,7 @@ mUZR(                               vector<int>(0),         "UZR",              
 mMaxColumns(                        7,         "MaxColumns",                           "The maximum number of columns that the auto library can write out at one time",                                "",         "")
 {
     mVersion = "1.0.0";
+
     //Setup the plugin properties
     addProperties();
     
@@ -197,6 +198,69 @@ bool AutoPlugin::execute(bool inThread)
     return true;
 }
 
+void AutoPlugin::resetPropertiesValues() {
+    setPropertyByString("SBML", "<none>");
+    setPropertyByString("TempFolder", ".");
+    setPropertyByString("KeepTempFiles", "false");
+    setPropertyByString("ScanDirection", "Negative");
+    setPropertyByString("PreSimulation", "false");
+    setPropertyByString("PreSimulationDuration", "5.0");
+    setPropertyByString("PreSimulationStart", "0.0");
+    setPropertyByString("PreSimulationSteps", "100");
+    setPropertyByString("PrincipalContinuationParameter", "<none>");
+    setPropertyByString("BifurcationData", ""); // needs to be checked
+    setPropertyByString("BifurcationPoints", "{}");
+    setPropertyByString("BifurcationLabels", "");
+    setPropertyByString("CaptureOutputFiles", "false");
+    setPropertyByString("AllowConservedMoiety", "true");
+    setPropertyByString("fort2", "<none>");
+    setPropertyByString("fort3", "<none>");
+    setPropertyByString("BifurcationSummary", "<none>");
+    setPropertyByString("BifurcationDiagram", "<none>");
+    setPropertyByString("fort8", "<none>");
+    setPropertyByString("fort9", "<none>");
+    setPropertyByString("NDIM", "1");
+    setPropertyByString("IPS", "1");
+    setPropertyByString("IRS", "0");
+    setPropertyByString("ILP", "1");
+    setPropertyByString("NICP", "1");
+    setPropertyByString("ICP", "{}");
+    setPropertyByString("NTST", "15");
+    setPropertyByString("NCOL", "3");
+    setPropertyByString("IAD", "3");
+    setPropertyByString("ISP", "1");
+    setPropertyByString("ISW", "1");
+    setPropertyByString("IPLT", "0");
+    setPropertyByString("NBC", "0");
+    setPropertyByString("NINT", "0");
+    setPropertyByString("NMX", "1000");
+    setPropertyByString("RL0", "0.01");
+    setPropertyByString("RL1", "30");
+    setPropertyByString("A0", "0");
+    setPropertyByString("A1", "10000");
+    setPropertyByString("NPR", "50");
+    setPropertyByString("MXBF", "-1");
+    setPropertyByString("IID", "0");
+    setPropertyByString("ITMX", "8");
+    setPropertyByString("ITNW", "5");
+    setPropertyByString("NWTN", "3");
+    setPropertyByString("JAC", "0");
+    setPropertyByString("EPSL", "1e-8");
+    setPropertyByString("EPSU", "1e-8");
+    setPropertyByString("EPSS", "1e-6");
+    setPropertyByString("DS", "0.001");
+    setPropertyByString("DSMIN", "1e-5");
+    setPropertyByString("DSMAX", "0.1");
+    setPropertyByString("IADS", "1");
+    setPropertyByString("NTHL", "0");
+    setPropertyByString("THL", "{}");
+    setPropertyByString("NTHU", "0");
+    setPropertyByString("THU", "{}");
+    setPropertyByString("NUZR", "0");
+    setPropertyByString("UZR", "{}");
+    setPropertyByString("MaxColumns", "7");
+}
+
 void AutoPlugin::addProperties()
 {
     mProperties.add(&mTempFolder);
@@ -208,6 +272,7 @@ void AutoPlugin::addProperties()
 	mProperties.add(&mPreSimulationStart);
 	mProperties.add(&mPreSimulationSteps);
     mProperties.add(&mPrincipalContinuationParameter);
+    mProperties.add(&mCaptureOutputFiles);
     mProperties.add(&mFort2);
     mProperties.add(&mFort3);
     mProperties.add(&mFort6);
@@ -487,5 +552,9 @@ points if IPS=0, 1";
     s << "The maximum number of columns that the auto library can write out at one time";
     assignDescription(mMaxColumns, s);
 
+}POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(AutoPlugin)
+POCO_END_MANIFEST 
 
-}
+
+

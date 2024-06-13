@@ -5,6 +5,7 @@
 #include "lmWorker.h"
 #include "lib/lmmin.h"
 #include "telplugins_types.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace lmfit
@@ -68,6 +69,7 @@ namespace lmfit
         ~LM();
 
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         string                                  getResult();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();

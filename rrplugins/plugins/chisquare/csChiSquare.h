@@ -4,6 +4,7 @@
 #include "telProperty.h"
 #include "rrplugins/pluginBaseClass/telCPPPlugin.h"
 #include "csChiWorker.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace cs_ChiSquare {
@@ -32,6 +33,7 @@ namespace cs_ChiSquare {
                                                 ChiSquare();
                                                 ~ChiSquare();
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();
         bool                                    isWorking() const;

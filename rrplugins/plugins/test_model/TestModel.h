@@ -5,6 +5,7 @@
 #include "telTelluriumData.h"
 #include "rrplugins/core/tel_api.h"
 #include "telplugins_types.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 
@@ -18,6 +19,7 @@ namespace testModel {
         TestModel();
         ~TestModel();
         bool                        execute(bool);
+        void                        resetPropertiesValues();
         unsigned char*              getManualAsPDF() const;
         size_t                      getPDFManualByteSize();
 

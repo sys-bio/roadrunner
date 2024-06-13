@@ -1,6 +1,4 @@
-#include "gtest/gtest.h"
-#include <filesystem>
-#include "RoadRunnerTest.h"
+#include "PluginTestModelTests.h"
 #include "telPluginManager.h"
 #include "telPlugin.h"
 #include "telProperties.h"
@@ -8,19 +6,7 @@
 #include "telProperty.h"
 #include "../../wrappers/C/telplugins_properties_api.h"
 
-using std::filesystem::path;
-
 using namespace tlp;
-
-class PluginTestModelTests : public RoadRunnerTest {
-public:
-    path pluginsModelsDir;
-
-    PluginTestModelTests() {
-        pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
-    }
-};
-
 
 TEST_F(PluginTestModelTests, STANDARD_RUN)
 {
@@ -28,11 +14,6 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
-
-    /// test #1
-    // reset the value of plugin properties
-    tmplugin->resetPropertiesValues();
-
     tmplugin->execute();
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -52,8 +33,8 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     double sumdiff = 0;
     for (int r = 0; r < sim->rSize(); r++)
     {
-    //The 'time' column should be identical:
-    EXPECT_EQ(sim->getDataElement(r, 0), noise->getDataElement(r, 0));
+        //The 'time' column should be identical:
+        EXPECT_EQ(sim->getDataElement(r, 0), noise->getDataElement(r, 0));
 
         for (int c = 1; c < sim->cSize(); c++)
         {

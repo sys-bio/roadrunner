@@ -7,6 +7,7 @@
 #include "telCPPPlugin.h"
 #include "telplugins_types.h"
 #include "nmWorker.h"
+#include "Poco/ClassLibrary.h"
 //---------------------------------------------------------------------------
 
 namespace nmfit
@@ -70,6 +71,7 @@ namespace nmfit
         ~NelderMead();
 
         bool                                    execute(bool inThread = false);
+        void                                    resetPropertiesValues();
         string                                  getResult();
         bool                                    resetPlugin();
         string                                  getImplementationLanguage();

@@ -305,6 +305,8 @@ class Plugin
         */
         virtual bool                    execute(bool inAThread = false) = 0;
 
+        virtual void resetPropertiesValues() {};
+
         rrc::RRHandle                   rrHandle;
 
 

@@ -1,6 +1,4 @@
-#include "gtest/gtest.h"
-#include <filesystem>
-#include "RoadRunnerTest.h"
+#include "PluginMonteCarloTests.h"
 #include "telPluginManager.h"
 #include "telPlugin.h"
 #include "telProperties.h"
@@ -8,23 +6,10 @@
 #include "telProperty.h"
 #include "../../wrappers/C/telplugins_properties_api.h"
 
-using std::filesystem::path;
-
 using namespace tlp;
 
-class PluginMonteCarloTests : public RoadRunnerTest {
-public:
-    path pluginsModelsDir;
-
-    PluginMonteCarloTests() {
-        pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
-    }
-};
-
-
-TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
+TEST_F(PluginMonteCarloTests, CHECK_SEED)
 {
-
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
     Plugin* tmplugin = PM->getPlugin("tel_test_model");
@@ -83,3 +68,4 @@ TEST_F(PluginMonteCarloTests, OPTIMIZE_NELDER_MEAD)
 
     EXPECT_EQ(cl_one, cl->getValue());
 }
+

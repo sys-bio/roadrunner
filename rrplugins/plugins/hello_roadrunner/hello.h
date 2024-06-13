@@ -4,6 +4,7 @@
 #include "rrplugins/pluginBaseClass/telCPPPlugin.h"
 #include "telTelluriumData.h"
 #include "rrplugins/core/tel_api.h"
+#include "Poco/ClassLibrary.h"
 
 namespace hello
 {

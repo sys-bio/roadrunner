@@ -234,6 +234,28 @@ The Plugin has a number of parameters for fine tuning the algorithm. See the emb
         return false;
     }
 
+    void NelderMead::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("FittedData", "");
+        setPropertyByString("Residuals", "");
+        setPropertyByString("ExperimentalDataSelectionList", "");
+        setPropertyByString("Norm", "0");
+        setPropertyByString("Norms", "");
+        setPropertyByString("NrOfIter", "0");
+        setPropertyByString("NrOfFuncIter", "0");
+        setPropertyByString("StandardizedResiduals", "");
+        setPropertyByString("NormalProbabilityOfResiduals", "");
+        setPropertyByString("ChiSquare", "0");
+        setPropertyByString("ReducedChiSquare", "0");
+        setPropertyByString("StatusMessage", "");
+        setPropertyByString("Epsilon", "1.e-6");
+        setPropertyByString("Scale", "1");
+        setPropertyByString("MaxNrOfIterations", "1000");
+        setPropertyByString("Alpha", "1");
+        setPropertyByString("Beta", "0.5");
+        setPropertyByString("Gamma", "2");
+    }
+
 #ifdef EXPORT_NELDER_MEAD
     // Plugin factory function
     TLP_DS NelderMead* plugins_cc createPlugin()
@@ -376,3 +398,10 @@ Model data can only be generated for selections present in the experimental data
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(nmfit::NelderMead)
+POCO_END_MANIFEST
+
+
+

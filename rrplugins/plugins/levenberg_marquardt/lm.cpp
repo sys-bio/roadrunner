@@ -58,7 +58,7 @@ namespace lmfit
         gtol(LM_USERTOL, "gtol", "Orthogonality desired between fvec and its derivs. "),
         epsilon(LM_USERTOL, "epsilon", "Step used to calculate the jacobian. "),
         stepbound(100., "stepbound", "Initial bound to steps in the outer loop. "),
-        patience(100, "patience", "Maximum number of iterations as patience*(nr_of_parameters +1). "),
+        patience(400, "patience", "Maximum number of iterations as patience*(nr_of_parameters +1). "),
         mWorker(*this),
         mLMData(mWorker.mLMData),
         rNormsData(mNorms.getValueReference())
@@ -234,6 +234,26 @@ The Plugin has numerous parameters for fine tuning the algorithm. See the embedd
         return false;
     }
 
+    void LM::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("FittedData", "");
+        setPropertyByString("Residuals", "");
+        setPropertyByString("ExperimentalDataSelectionList", "");
+        setPropertyByString("FittedDataSelectionList", "");
+        setPropertyByString("Norm", "0");
+        setPropertyByString("Norms", "");
+        setPropertyByString("NrOfIter", "0");
+        setPropertyByString("Hessian", "");
+        setPropertyByString("CovarianceMatrix", "");
+        setPropertyByString("StandardizedResiduals", "");
+        setPropertyByString("NormalProbabilityOfResiduals", "");
+        setPropertyByString("ChiSquare", "0");
+        setPropertyByString("ReducedChiSquare", "0");
+        setPropertyByString("StatusMessage", "<none>");
+        setPropertyByString("stepbound", "100.0");
+        setPropertyByString("patience", "400");
+    }
+
 #ifdef EXPORT_LEVENBERG_MARQUARDT
     // Plugin factory function
     TLP_DS LM* plugins_cc createPlugin()
@@ -394,4 +414,10 @@ and the columns of the jacobian.";
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(lmfit::LM)
+POCO_END_MANIFEST
+
+
 

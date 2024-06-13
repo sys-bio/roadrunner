@@ -96,6 +96,14 @@ namespace cs_ChiSquare {
         }
     }
 
+    void ChiSquare::resetPropertiesValues() {
+        setPropertyByString("ExperimentalData", "");
+        setPropertyByString("ModelData", "");
+        setPropertyByString("NrOfModelParameters", "0");
+        setPropertyByString("ChiSquare", "0");
+        setPropertyByString("ReducedChiSquare", "0");
+    }
+
 
     #ifdef EXPORT_CHI_SQUARE
     // Plugin factory function
@@ -142,3 +150,10 @@ namespace cs_ChiSquare {
     }
 
 }
+
+POCO_BEGIN_MANIFEST(tlp::Plugin)
+	POCO_EXPORT_CLASS(cs_ChiSquare::ChiSquare)
+POCO_END_MANIFEST
+
+
+

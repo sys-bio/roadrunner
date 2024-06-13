@@ -5,6 +5,7 @@
 #include "telTelluriumData.h"
 #include "add_noise_worker.h"
 #include "rrplugins/core/tel_api.h"
+#include "Poco/ClassLibrary.h"
 
 //---------------------------------------------------------------------------
 namespace addNoise
@@ -33,6 +34,7 @@ namespace addNoise
 
 
         bool                        execute(bool inThread = false);
+        void                        resetPropertiesValues();
         bool                        isWorking() const; //Returns true as long the thread is active..
         unsigned char* getManualAsPDF() const;
         size_t                      getPDFManualByteSize();
