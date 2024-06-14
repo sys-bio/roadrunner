@@ -1625,6 +1625,7 @@ namespace rr {
                                                << "conserved moieties";
                 }
             }
+            getSteadyStateSolver()->setValue("auto_moiety_analysis", true);
         }
 
         metabolicControlCheck(impl->model.get());
@@ -1711,6 +1712,8 @@ namespace rr {
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
         }
+        getSteadyStateSolver()->setValue("auto_moiety_analysis", false);
+
     }
 
 
