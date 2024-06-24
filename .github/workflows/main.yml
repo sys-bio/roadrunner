@@ -15,14 +15,14 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-11-release
+          - name: macos-12-release
             os_type: macos
-            os_name: macos-11
+            os_name: macos-12
             build_type: Release
             build_python: ON
-          - name: macos-11-debug
+          - name: macos-12-debug
             os_type: macos
-            os_name: macos-11
+            os_name: macos-12
             build_type: Debug
             build_python: OFF
           - name: macos-14-release
