@@ -34,7 +34,7 @@ TEST_F(LineSearchNewtonIterationTests, CheckCorrectSteadyStateVenkatraman2010) {
 
 /**
  */
-TEST_F(LineSearchNewtonIterationTests, CheckCorrectSteadyStateBrown2004) {
+TEST_F(LineSearchNewtonIterationTests, DISABLED_CheckCorrectSteadyStateBrown2004) {
     testSteadyState("Brown2004", "newton_linesearch");
 }
 

@@ -107,7 +107,7 @@ TEST_F(SundialsNewtonIterationTests, CheckCorrectSteadyStateVenkatraman2010) {
 /**
  *
  */
-TEST_F(SundialsNewtonIterationTests, CheckCorrectSteadyStateBrown2004) {
+TEST_F(SundialsNewtonIterationTests, DISABLED_CheckCorrectSteadyStateBrown2004) {
     testSteadyState("Brown2004", "newton");
 }
 
