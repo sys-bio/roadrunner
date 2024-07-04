@@ -55,20 +55,20 @@ jobs:
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
-          - name: manylinux2014-release
+          - name: manylinux_2_28-release
             os_type: manylinux
             os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux2014_x86_64
+            container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
             build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.1.1" ]
+        libroadrunner_deps_release_version: [ "v2.1.2" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-13.x" ]
         llvm_name: [ "llvm-13.x" ]
-        llvm_release_version: [ "v13.0" ]
+        llvm_release_version: [ "v13.1" ]
         build_tests: [ON]
         build_plugins: [ON]
     runs-on: ${{ matrix.platform.os_name }}
@@ -91,7 +91,7 @@ jobs:
 
       - name: Checkout RoadRunner
         if: matrix.platform.os_type == 'manylinux'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout RoadRunner
         if: matrix.platform.os_type != 'manylinux'
@@ -112,7 +112,7 @@ jobs:
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
         shell: bash
         run: |
-          yum install -y wget
+          dnf install -y wget
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
           bash Miniconda3-latest-Linux-x86_64.sh -b -p /Miniconda3
 
@@ -229,14 +229,13 @@ jobs:
             update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
             update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            yum install -y centos-release-scl
-            yum install -y devtoolset-11
-            scl enable devtoolset-11 bash
-            echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+            dnf install -y gcc-toolset-11
+            scl enable gcc-toolset-11 bash
+            echo "/opt/rh/gcc-toolset-11/root/usr/bin" >> "${GITHUB_PATH}"
           fi
 
       - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Get Host Architecture
         shell: bash
@@ -289,7 +288,7 @@ jobs:
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
@@ -473,8 +472,8 @@ jobs:
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
           fi
           mv * ${RUNNER_WORKSPACE}/wheels/
 
@@ -502,8 +501,8 @@ jobs:
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
           fi
           mv * ${RUNNER_WORKSPACE}/wheels/
 
@@ -532,8 +531,8 @@ jobs:
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
           fi
           mv * ${RUNNER_WORKSPACE}/wheels/
 
@@ -572,8 +571,8 @@ jobs:
             mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
             mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
           elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux2014/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux2014/g")
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
           fi
           mv * ${RUNNER_WORKSPACE}/wheels/
 
