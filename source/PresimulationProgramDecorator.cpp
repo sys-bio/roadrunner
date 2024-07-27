@@ -34,7 +34,8 @@ namespace rr {
                 try {
                     return solver_->solve();
                 } catch (std::exception &err) {
-                    throw CoreException("SteadyStateSolver failed to solve presimulation program: ", err.what());
+                    if (timePoint == times.back())
+                        throw CoreException("SteadyStateSolver failed to solve presimulation program: ", err.what());
                 }
             }
         }
