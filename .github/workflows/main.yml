@@ -61,6 +61,12 @@ jobs:
             container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
             build_python: ON
+          - name: manylinux_2_28-debug
+            os_type: manylinux
+            os_name: ubuntu-latest
+            container_image: quay.io/pypa/manylinux_2_28_x86_64
+            build_type: Debug
+            build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
@@ -82,11 +88,11 @@ jobs:
         run: |
           echo "python_v1=3.10" >> $GITHUB_ENV
           echo "python_v2=3.11" >> $GITHUB_ENV
-          # echo "python_v3=3.12" >> $GITHUB_ENV
-          echo "python_v4=3.12" >> $GITHUB_ENV
+          echo "python_v3=3.12" >> $GITHUB_ENV
+          echo "python_v4=3.13" >> $GITHUB_ENV
           echo "python_v1_name=v1" >> $GITHUB_ENV
           echo "python_v2_name=v2" >> $GITHUB_ENV
-          # echo "python_v3_name=v3" >> $GITHUB_ENV
+          echo "python_v3_name=v3" >> $GITHUB_ENV
           echo "python_v4_name=v4" >> $GITHUB_ENV
 
       - name: Checkout RoadRunner
@@ -105,6 +111,7 @@ jobs:
           python-version: |
             ${{ env.python_v1 }}
             ${{ env.python_v2 }}
+            ${{ env.python_v3 }}
             ${{ env.python_v4 }}
 
       - name: Setup Python for Manylinux platforms
@@ -127,8 +134,8 @@ jobs:
           echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}"  >> $GITHUB_ENV
           echo "python_v2_exe=/Miniconda3/envs/${{ env.python_v2_name }}/bin/python" >> $GITHUB_ENV
           echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}"  >> $GITHUB_ENV
-          # echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
-          # echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
+          echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
           echo "python_v4_exe=/Miniconda3/envs/${{ env.python_v4_name }}/bin/python" >> $GITHUB_ENV
           echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}" >> $GITHUB_ENV
 
@@ -150,11 +157,11 @@ jobs:
           echo "python_v2_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
           echo "python_v2_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-          #cd ../../${{ env.python_v3 }}*/x64/
-          #$pythonWinExecutable = $(realpath .)
-          #$pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          #echo "python_v3_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
-          #echo "python_v3_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
+          cd ../../${{ env.python_v3 }}*/x64/
+          $pythonWinExecutable = $(realpath .)
+          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
+          echo "python_v3_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "python_v3_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
           cd ../../${{ env.python_v4 }}*/x64/
           $pythonWinExecutable = $(realpath .)
@@ -178,9 +185,9 @@ jobs:
           echo "python_v2_exe=$PWD/python" >> $GITHUB_ENV
           echo "python_v2_dir=$PWD" >> $GITHUB_ENV
 
-          #cd ../../${{ env.python_v3 }}*/$py_lastdir/
-          #echo "python_v3_exe=$PWD/python" >> $GITHUB_ENV
-          #echo "python_v3_dir=$PWD" >> $GITHUB_ENV
+          cd ../../${{ env.python_v3 }}*/$py_lastdir/
+          echo "python_v3_exe=$PWD/python" >> $GITHUB_ENV
+          echo "python_v3_dir=$PWD" >> $GITHUB_ENV
 
           cd ../../${{ env.python_v4 }}*/$py_lastdir/
           echo "python_v4_exe=$PWD/python" >> $GITHUB_ENV
@@ -200,10 +207,10 @@ jobs:
           ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
           ${{ env.python_v2_exe }} -m pip install -r ./test-requirements.txt
           ${{ env.python_v2_exe }} -m pip install build
-          #${{ env.python_v3_exe }} -m pip install --upgrade pip 
-          #${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
-          #${{ env.python_v3_exe }} -m pip install -r ./test-requirements.txt
-          #${{ env.python_v3_exe }} -m pip install build
+          ${{ env.python_v3_exe }} -m pip install --upgrade pip 
+          ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
+          ${{ env.python_v3_exe }} -m pip install -r ./test-requirements.txt
+          ${{ env.python_v3_exe }} -m pip install build
           ${{ env.python_v4_exe }} -m pip install --upgrade pip 
           ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
           ${{ env.python_v4_exe }} -m pip install -r ./test-requirements.txt
@@ -506,34 +513,34 @@ jobs:
           mv * ${RUNNER_WORKSPACE}/wheels/
 
 
-      # - name: Rebuild RoadRunner with third Python version
-      #   if: matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
-      #     cmake --build . --target install --config ${{ matrix.platform.build_type }}
+      - name: Rebuild RoadRunner with third Python version
+        if: matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      # - name: Create third Python wheel artifacts and rename
-      #   if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner
-      #     ${{ env.python_v3_exe }} -m build --wheel
-      #     rm -r -f build
-      #     mv setup_rrplugins.py setup.py
-      #     ${{ env.python_v3_exe }} -m build --wheel
-      #     rm -r -f build
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-      #     if compgen -G "*universal*whl" > /dev/null; then
-      #       mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #       mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #     elif compgen -G "*-linux*whl" > /dev/null; then
-      #       mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #       mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #     fi
-      #     mv * ${RUNNER_WORKSPACE}/wheels/
+      - name: Create third Python wheel artifacts and rename
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{ env.python_v3_exe }} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{ env.python_v3_exe }} -m build --wheel
+          rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if compgen -G "*universal*whl" > /dev/null; then
+            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
+          elif compgen -G "*-linux*whl" > /dev/null; then
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+          fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
       - name: Rebuild RoadRunner with fourth Python version
