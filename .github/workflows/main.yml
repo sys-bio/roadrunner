@@ -61,12 +61,6 @@ jobs:
             container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
             build_python: ON
-          - name: manylinux_2_28-debug
-            os_type: manylinux
-            os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux_2_28_x86_64
-            build_type: Debug
-            build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
