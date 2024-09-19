@@ -99,7 +99,7 @@ jobs:
 
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         id: four_pythons
         with:
           python-version: |
@@ -214,7 +214,7 @@ jobs:
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1.12.1
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Upgrade gcc on Linux
         if: matrix.platform.os_type == 'manylinux'
@@ -446,7 +446,7 @@ jobs:
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifacts_name }}
           path: ${{ env.artifacts_path }}
@@ -587,7 +587,7 @@ jobs:
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}
