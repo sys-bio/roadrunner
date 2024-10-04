@@ -5,6 +5,7 @@
 #ifndef ROADRUNNER_SETTING_H
 #define ROADRUNNER_SETTING_H
 
+#include <cstdint>
 #include <variant>
 #include <iostream>
 #include <vector>
