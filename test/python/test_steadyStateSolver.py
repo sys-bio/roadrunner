@@ -136,8 +136,8 @@ class SteadyStateSolverIntegrationTests(unittest.TestCase):
                 actual = actual_results[species_name][0]
                 print("Comparing reference value : ", expected_ss_val, "with actual value: ", actual)
                 self.assertAlmostEqual(expected_ss_val, actual, places=places)
-            except Exception as e:
-                print(f"Error during steady state calculation: {e}")
+        except Exception as e:
+            print(f"Error during steady state calculation: {e}")
 
     def checkSteadyStateFluxes(self, model_name: str, solver_name: str, places=5):
         self.checkValidTestModelName(model_name)
