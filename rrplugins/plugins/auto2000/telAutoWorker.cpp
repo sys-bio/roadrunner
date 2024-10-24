@@ -124,6 +124,15 @@ void AutoWorker::run()
     rrc::RRStringArrayPtr temp = gHostInterface->getSteadyStateSelectionList(mTheHost.rrHandle);
     StringList selRecs (temp->String, temp->Count);
     StringList              selList = selRecs;
+    if (temp != NULL) {
+        if (temp->String != NULL) {
+            for (int i = 0; i < temp->Count; i++) {
+                delete[] temp->String[i];
+            }
+            delete[] temp->String;
+        }
+        delete temp;
+    }
 
     TelluriumData& data =  mTheHost.mBifurcationData.getValueReference();
 

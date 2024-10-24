@@ -209,15 +209,15 @@ RRStringArrayPtr createList(const rrc::StringList& sList)
     RRStringArray* list = new RRStringArray;
     list->Count = sList.Count();
 
-    if (list->Count)
-        list->String = new char*[list->Count];
+    if (list->Count) {
+        list->String = new char *[list->Count];
+        for(int i = 0; i < list->Count; i++)
+        {
+            list->String[i] = rr::createText(sList[i]);
+        }
+    }
     else
         list->String = NULL;
-
-    for(int i = 0; i < list->Count; i++)
-    {
-        list->String[i] = rr::createText(sList[i]);
-    }
     return list;
 }
 
