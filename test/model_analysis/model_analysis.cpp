@@ -451,7 +451,243 @@ TEST_F(ModelAnalysisTests, SameJacobians3) {
     EXPECT_NEAR(origVext, rr.getValue("Vext"), 0.0001);
     EXPECT_NEAR(origapap, rr.getValue("apap"), 0.0001);
 }
+TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
+    // Rxn over two compartments of differing volumes.
+    std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
 
+    ls::DoubleMatrix ues = rr.getUnscaledElasticityMatrix();
+    ls::DoubleMatrix jacobian = rr.getFullJacobian();
+
+    // Expected unscaled elasticity matrix:
+    //         S1,      S2
+    //    J0 [[ 0,      0],
+    //    J1 [0.333333, 0],
+    //    J2 [0,        0.961538]]
+
+    // Expected full jacobian matrix:
+    //       	S1	S2
+    //    S1 [ -0.333333333,	    0     ]
+    //    S2 [	0.192307692, -0.961538462 ]
+
+    int rows = 3;
+    int cols = 2;
+    ASSERT_EQ(ues.CSize(), cols);
+    ASSERT_EQ(ues.RSize(), rows);
+        
+    double** ues_expect = new double* [rows];
+    for (int i = 0; i < rows; ++i) {
+        ues_expect[i] = new double[cols]();
+    }
+    ues_expect[0][0] = 0;
+    ues_expect[0][1] = 0;
+    ues_expect[1][0] = 0.33333;
+    ues_expect[1][1] = 0;
+    ues_expect[2][0] = 0;
+    ues_expect[2][1] = 0.961538;
+
+    ls::DoubleMatrix* ues_expected = new ls::DoubleMatrix(3, 2);
+    ues_expected->initializeFrom2DMatrix(ues_expect, 3, 2);
+
+    for (unsigned int c = 0; c < ues.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < ues.RSize(); r++)
+        {
+            EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
+        }
+    }
+   
+    double** jac_expect = new double* [2]; // 2x2
+    for (int i = 0; i < 2; ++i) {
+        jac_expect[i] = new double[cols]();
+    }
+    jac_expect[0][0] = -0.333333333;
+    jac_expect[0][1] = 0;
+    jac_expect[1][0] = 0.192307692;
+    jac_expect[1][1] = -0.961538462;
+
+    ls::DoubleMatrix* jac_expected = new ls::DoubleMatrix(2, 2);
+    jac_expected->initializeFrom2DMatrix(jac_expect, 2, 2);
+
+    ASSERT_EQ(jacobian.CSize(), 2);
+    ASSERT_EQ(jacobian.RSize(), 2);
+    for (unsigned int c = 0; c < jacobian.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < jacobian.RSize(); r++)
+        {
+           // std::cout <<"Jacobian row, col: " << r << ", " << c << ": " << jacobian.Element(r, c) << std::endl;
+           // std::cout << "Expected Jacobian: " << jac_expected->Element(r, c) << std::endl;
+            EXPECT_NEAR(jacobian.Element(r, c), jac_expected->Element(r, c), 0.0001);
+        }
+    }
+    // Put back default JACOBIAN_MODE:
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+}
+
+TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
+    // Rxn over two compartments of differing volumes with JACOBIAN_MODE flag set to TRUE.
+    std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, TRUE);
+    rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
+
+    ls::DoubleMatrix ues = rr.getUnscaledElasticityMatrix();
+    ls::DoubleMatrix jacobian = rr.getFullJacobian();
+
+    // Expected unscaled elasticity matrix:
+    //         S1,      S2
+    //    J0 [[ 0,      0],
+    //    J1 [0.5,      0],
+    //    J2 [0,      2.5]]
+
+    // Expected full jacobian matrix:
+    //       	S1	S2
+    //    S1 [ -0.333333333,	    0     ]
+    //    S2 [	0.192307692, -0.961538462 ]
+
+    int rows = 3;
+    int cols = 2;
+    ASSERT_EQ(ues.CSize(), cols);
+    ASSERT_EQ(ues.RSize(), rows);
+
+    double** ues_expect = new double* [rows];
+    for (int i = 0; i < rows; ++i) {
+        ues_expect[i] = new double[cols]();
+    }
+    ues_expect[0][0] = 0;
+    ues_expect[0][1] = 0;
+    ues_expect[1][0] = 0.5;
+    ues_expect[1][1] = 0;
+    ues_expect[2][0] = 0;
+    ues_expect[2][1] = 2.5;
+
+    ls::DoubleMatrix* ues_expected = new ls::DoubleMatrix(3, 2);
+    ues_expected->initializeFrom2DMatrix(ues_expect, 3, 2);
+
+    for (unsigned int c = 0; c < ues.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < ues.RSize(); r++)
+        {
+            EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
+        }
+    }
+
+    double** jac_expect = new double* [2]; // 2x2
+    for (int i = 0; i < 2; ++i) {
+        jac_expect[i] = new double[cols]();
+    }
+    jac_expect[0][0] = -0.333333333;
+    jac_expect[0][1] = 0;
+    jac_expect[1][0] = 0.192307692;
+    jac_expect[1][1] = -0.961538462;
+
+    ls::DoubleMatrix* jac_expected = new ls::DoubleMatrix(2, 2);
+    jac_expected->initializeFrom2DMatrix(jac_expect, 2, 2);
+
+    ASSERT_EQ(jacobian.CSize(), 2);
+    ASSERT_EQ(jacobian.RSize(), 2);
+    for (unsigned int c = 0; c < jacobian.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < jacobian.RSize(); r++)
+        {
+            // std::cout <<"Jacobian row, col: " << r << ", " << c << ": " << jacobian.Element(r, c) << std::endl;
+            // std::cout << "Expected Jacobian: " << jac_expected->Element(r, c) << std::endl;
+            EXPECT_NEAR(jacobian.Element(r, c), jac_expected->Element(r, c), 0.0001);
+        }
+    }
+    // Put back default selected JACOBIAN_MODE:
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+}
+
+TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
+    // Rxn over two compartments of volume one.
+    std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
+    ASSERT_EQ(rr.getNumberOfCompartments(), 2);
+    for (int i = 0; i < rr.getNumberOfCompartments(); i++) {
+        rr.setCompartmentByIndex(i, 1);
+    }
+
+    ls::DoubleMatrix jacobian = rr.getFullJacobian();
+    // Expected full jacobian matrix:
+    //       	S1	S2
+    //    S1 [ -0.5,   0  ]
+    //    S2 [	0.5, -2.5 ]
+
+    int rows = 2;
+    int cols = 2;
+    double** jac_expect = new double* [rows]; // 2x2
+    for (int i = 0; i < rows; ++i) {
+        jac_expect[i] = new double[cols]();
+    }
+    jac_expect[0][0] = -0.5;
+    jac_expect[0][1] = 0;
+    jac_expect[1][0] = 0.5;
+    jac_expect[1][1] = -2.5;
+
+    ls::DoubleMatrix* jac_expected = new ls::DoubleMatrix(rows, cols);
+    jac_expected->initializeFrom2DMatrix(jac_expect, rows, cols);
+
+    ASSERT_EQ(jacobian.CSize(), cols);
+    ASSERT_EQ(jacobian.RSize(), rows);
+    for (unsigned int c = 0; c < jacobian.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < jacobian.RSize(); r++)
+        {
+            // std::cout <<"Jacobian row, col: " << r << ", " << c << ": " << jacobian.Element(r, c) << std::endl;
+            // std::cout << "Expected Jacobian: " << jac_expected->Element(r, c) << std::endl;
+            EXPECT_NEAR(jacobian.Element(r, c), jac_expected->Element(r, c), 0.0001);
+        }
+    }
+    // Put back default JACOBIAN_MODE:
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+}
+
+TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
+    // Rxn over two compartments of volume two.
+    std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
+    ASSERT_EQ(rr.getNumberOfCompartments(), 2);
+    for (int i = 0; i < rr.getNumberOfCompartments(); i++) {
+        rr.setCompartmentByIndex(i, 2);
+    }
+
+    ls::DoubleMatrix jacobian = rr.getFullJacobian();
+    // Expected full jacobian matrix:
+    //       	S1	S2
+    //    S1 [ -0.25,   0  ]
+    //    S2 [	0.25, -1.25]
+
+    int rows = 2;
+    int cols = 2;
+    double** jac_expect = new double* [rows]; // 2x2
+    for (int i = 0; i < rows; ++i) {
+        jac_expect[i] = new double[cols]();
+    }
+    jac_expect[0][0] = -0.25;
+    jac_expect[0][1] = 0;
+    jac_expect[1][0] = 0.25;
+    jac_expect[1][1] = -1.25;
+
+    ls::DoubleMatrix* jac_expected = new ls::DoubleMatrix(rows, cols);
+    jac_expected->initializeFrom2DMatrix(jac_expect, rows, cols);
+
+    ASSERT_EQ(jacobian.CSize(), cols);
+    ASSERT_EQ(jacobian.RSize(), rows);
+    for (unsigned int c = 0; c < jacobian.CSize(); c++)
+    {
+        for (unsigned int r = 0; r < jacobian.RSize(); r++)
+        {
+            // std::cout <<"Jacobian row, col: " << r << ", " << c << ": " << jacobian.Element(r, c) << std::endl;
+            // std::cout << "Expected Jacobian: " << jac_expected->Element(r, c) << std::endl;
+            EXPECT_NEAR(jacobian.Element(r, c), jac_expected->Element(r, c), 0.0001);
+        }
+    }
+    // Put back default JACOBIAN_MODE:
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+}
 
 TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStartGeneral) {
     //Event:  at S1 > 500: S1 = 300;
