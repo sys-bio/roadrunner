@@ -156,7 +156,7 @@ namespace rr {
          * @param i indexes the number of elements in each row vector j; i in 0, 1, ..., xMax
          * @return A scalar DataType object at index k, j, i of this Matrix3D<DataType>.
          */
-        DataType slice(int k, int j, int i) {
+        DataType slice(int k, int j, int i) const {
             if (k > numZ()) {
                 std::ostringstream err;
                 err << "requested kth index " << k << " from a Matrix3D with " << numZ()
@@ -175,9 +175,9 @@ namespace rr {
                     << " elements in the hight (y) direction";
                 throw std::invalid_argument(err.str());
             }
-            std::vector<std::vector<DataType>> submatrix = data_[k].getValues();
+            return data_[k][j][i];// .getValues();
             // j indicates which row, i indicates which column
-            return submatrix[j][i];
+            //return submatrix[j][i];
         }
 
         /**
@@ -221,7 +221,7 @@ namespace rr {
          * @brief get number of rows in this 3D matrix
          * @details x is rows, y is columns, z is depth.
          */
-        int numRows() {
+        int numRows() const {
             if (data_.empty())
                 return 0;
             return data_[0].numRows();
@@ -231,7 +231,7 @@ namespace rr {
          * @brief get number of columns in this 3D matrix
          * @details if x is rows, y is columns, z is depth.
          */
-        int numCols() {
+        int numCols() const {
             if (data_.empty())
                 return 0;
             return data_[0].numCols();
@@ -241,7 +241,7 @@ namespace rr {
          * @brief get number of matrices in this 3D matrix
          * @details if x is rows, y is columns, z is depth.
          */
-        int numZ() {
+        int numZ() const {
             if (index_.empty())
                 return 0;
             return index_.size();
@@ -270,15 +270,15 @@ namespace rr {
         /**
          * @brief return the row names for this Matrix3D
          */
-        std::vector<std::string> getRowNames() {
-            return slice(0).rowNames;
+        std::vector<std::string> getRowNames() const {
+            return data_[0].rowNames;
         }
 
         /**
          * @brief return the column names for this Matrix3D
          */
-        std::vector<std::string> getColNames() {
-            return slice(0).colNames;
+        std::vector<std::string> getColNames() const {
+            return data_[0].colNames;
         }
 
         /**

@@ -1777,7 +1777,7 @@ namespace rr {
     }
 
 
-    Matrix3DToNumpy::Matrix3DToNumpy(Matrix3DToNumpy::DoubleMatrix3D &matrix)
+    Matrix3DToNumpy::Matrix3DToNumpy(const Matrix3DToNumpy::DoubleMatrix3D &matrix)
             : matrix_(matrix) {}
 
     PyObject *Matrix3DToNumpy::convertData() {
