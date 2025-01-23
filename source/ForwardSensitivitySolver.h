@@ -106,7 +106,7 @@ namespace rr {
          * @brief return a std::vector<double> of model parameters
          * in the order they appear in the model.
          */
-        std::vector<double> getModelParametersAsVector();
+        std::vector<double> getModelParametersAsVector() const;
 
         /**
          * @brief returns the indexes of parameters that user wants

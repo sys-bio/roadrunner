@@ -121,7 +121,7 @@ namespace rr {
          *
          * Most solvers do not have absolute tolerances; this retrieves the vector for the ones (like CVODE) that do.
          */
-        virtual std::vector<double> getAbsoluteToleranceVector();
+        virtual std::vector<double> getAbsoluteToleranceVector() const;
 
 
         /* CARRYOVER METHODS */

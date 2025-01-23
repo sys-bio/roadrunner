@@ -518,7 +518,7 @@ namespace rr {
         return m;
     }
 
-    std::vector<double> ForwardSensitivitySolver::getModelParametersAsVector() {
+    std::vector<double> ForwardSensitivitySolver::getModelParametersAsVector() const {
         std::vector<double> vec(Np);
         auto *idx = new int[Np];
         auto *vals = new double[Np];

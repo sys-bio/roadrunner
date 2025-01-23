@@ -130,7 +130,7 @@ namespace rr {
         /**
          * @brief return the current time as a double
          */
-        double getCurrentTime();
+        double getCurrentTime() const;
 
         /**
          * The Compiler that the ModelGenerator is using to compile / interpret sbml code.
@@ -149,12 +149,12 @@ namespace rr {
          * get a pointer to the integrator which is currently being used to
          * time evolve the system.
          */
-        Integrator *getIntegrator();
+        Integrator *getIntegrator() const;
 
         /**
          * get a pointer to the current steady state solver
          */
-        SteadyStateSolver *getSteadyStateSolver();
+        SteadyStateSolver *getSteadyStateSolver() const;
 
         /**
          * @brief get a pointer to the current sensitivities solver
@@ -232,7 +232,7 @@ namespace rr {
          * @details use getRegisteredSteadyStateSolverNames to
          * get a list of available names
          */
-        void setSteadyStateSolver(const std::string &name);
+        void setSteadyStateSolver(const std::string &name) const;
 
         /**
          * @brief set the current SensitivitySolver to @param name;
@@ -251,7 +251,7 @@ namespace rr {
         /**
          * @brief returns true if SteadyStateSolver @param name exists.
          */
-        bool steadyStateSolverExists(const std::string &name);
+        bool steadyStateSolverExists(const std::string &name) const;
 
         /**
          * @brief returns true if SensitivitySolver @param name exists.
@@ -366,7 +366,7 @@ namespace rr {
          * @returns a borrowed reference to a DoubleMatrix object if successful. The matrix
          * will be empty if output_file is specified and nonempty.
          */
-        const ls::DoubleMatrix *simulate(const SimulateOptions *options = 0);
+        const ls::DoubleMatrix *simulate(const SimulateOptions *options = 0) const;
 
         /**
          * @brief simulate the model using currently set integrator
@@ -374,13 +374,13 @@ namespace rr {
          * @param stop what time point does the simulation end?
          * @param points how many points to output (one greater than the number of steps to take).
          */
-        const ls::DoubleMatrix *simulate(double start, double stop, int points);
+        const ls::DoubleMatrix *simulate(double start, double stop, int points) const;
 
         /**
          * @brief simulate the model using currently set integrator
          * @param times a vector of all the time outputs desired.
          */
-        const ls::DoubleMatrix *simulate(const std::vector<double> &times);
+        const ls::DoubleMatrix *simulate(const std::vector<double> &times) const;
 
         /**
          * @brief simulate a timeseries with sensitivities from start to step with num
@@ -479,7 +479,7 @@ namespace rr {
          *
          * If both arguments are zero, then the document is left alone and the
          */
-        std::string getSBML(int level = 0, int version = 0);
+        std::string getSBML(int level = 0, int version = 0) const;
 
         /**
          * Returns the SBML with the current model parameters. This is different than
@@ -499,7 +499,7 @@ namespace rr {
          * The current default is
          * SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING.
          */
-        void reset();
+        void reset() const;
 
         /**
          * reset the model accordign to a bitfield specified by the
@@ -515,7 +515,7 @@ namespace rr {
          *
          * @param options a bitmask made from the SelectionRecord::SelectionTypes values.
          */
-        void reset(int options);
+        void reset(int options) const;
 
         /**
          * resets time course and steady state selection lists to defaults
@@ -532,7 +532,7 @@ namespace rr {
         /**
          * get a pointer to the ExecutableModel owned by the RoadRunner object.
          */
-        ExecutableModel *getModel();
+        ExecutableModel *getModel() const;
 
         /**
          * load an sbml document from anywhere.
@@ -554,7 +554,7 @@ namespace rr {
         /**
          * create a selection record. This record can be used to select values.
          */
-        rr::SelectionRecord createSelection(const std::string &str);
+        rr::SelectionRecord createSelection(const std::string &str) const;
 
         /**
          * Returns the currently selected columns that will be returned by
@@ -566,19 +566,19 @@ namespace rr {
          * Creates a new selection based on the selection std::string,
          * and returns the value it queries.
          */
-        double getValue(const std::string &sel);
+        double getValue(const std::string &sel) const;
 
-        double getValue(const SelectionRecord &record);
+        double getValue(const SelectionRecord &record) const;
 
 
-        void setSelections(const std::vector<std::string> &selections);
+        void setSelections(const std::vector<std::string> &selections) const;
 
-        void setSelections(const std::vector<rr::SelectionRecord> &selections);
+        void setSelections(const std::vector<rr::SelectionRecord> &selections) const;
 
         /**
          * returns the values selected with SimulateOptions for the current model time / timestep")
          */
-        std::vector<double> getSelectedValues();
+        std::vector<double> getSelectedValues() const;
 
         /**
          * populates a given list with all the ids that this class can accept.
@@ -593,7 +593,7 @@ namespace rr {
           * one species. See Sauro, Systems Biology: Introduction to Pathway
           * Modeling, 1st ed. pp. 60.
           */
-        std::vector<std::string> getIndependentFloatingSpeciesIds();
+        std::vector<std::string> getIndependentFloatingSpeciesIds() const;
 
         /**
           * @author JKM
@@ -601,7 +601,7 @@ namespace rr {
           * @details See @ref getIndependentFloatingSpeciesIds for an explanation
           * of independent vs. dependent.
           */
-        std::vector<std::string> getDependentFloatingSpeciesIds();
+        std::vector<std::string> getDependentFloatingSpeciesIds() const;
 
         /**
         * @author KC
@@ -627,7 +627,7 @@ namespace rr {
          *
          * raises an exception in the selection std::string is invalid.
          */
-        void setValue(const std::string &id, double value);
+        void setValue(const std::string &id, double value) const;
 
 /************************ End Selection Ids Species Section *******************/
 
@@ -659,25 +659,25 @@ namespace rr {
         * @author Claire
         * @brief Returns the independent floating species amounts as an array
         */
-        std::vector<double> getIndependentFloatingSpeciesAmountsV();
+        std::vector<double> getIndependentFloatingSpeciesAmountsV() const;
 
         /**
         * @author Claire
         * @brief Returns the dependent floating species amounts as an array
         */
-        std::vector<double> getDependentFloatingSpeciesAmountsV();
+        std::vector<double> getDependentFloatingSpeciesAmountsV() const;
 
         /**
         * @author Claire
         * @brief Returns the independent floating species concentrations as an array
         */
-        std::vector<double> getIndependentFloatingSpeciesConcentrationsV();
+        std::vector<double> getIndependentFloatingSpeciesConcentrationsV() const;
 
         /**
         * @author Claire
         * @brief Returns the dependent floating species concentrations as an array
         */
-        std::vector<double> getDependentFloatingSpeciesConcentrationsV();
+        std::vector<double> getDependentFloatingSpeciesConcentrationsV() const;
 
         /**
         * @author Claire
@@ -707,7 +707,7 @@ namespace rr {
          * @author KC
          * @brief Returns the rate of change of the floating species as an array
          */
-        std::vector<double> getRatesOfChange();
+        std::vector<double> getRatesOfChange() const;
 
         /**
         * @author KC
@@ -719,7 +719,7 @@ namespace rr {
         * @author KC
         * @brief Returns the rate of change of the independent floating species as an array
         */
-        std::vector<double> getIndependentRatesOfChange();
+        std::vector<double> getIndependentRatesOfChange() const;
 
         /**
         * @author KC
@@ -731,7 +731,7 @@ namespace rr {
         * @author KC
         * @brief Returns the rate of change of the dependent floating species as an array
         */
-        std::vector<double> getDependentRatesOfChange();
+        std::vector<double> getDependentRatesOfChange() const;
 
         /**
         * @author KC
@@ -742,7 +742,7 @@ namespace rr {
         /**
          * compute the full Jacobian at the current operating point
          */
-        ls::DoubleMatrix getFullJacobian();
+        ls::DoubleMatrix getFullJacobian() const;
 
         ls::DoubleMatrix getFullReorderedJacobian();
 
@@ -751,7 +751,7 @@ namespace rr {
          * @param h The step sized used for central difference method.
          *          If negative, the default value from the config file is used.
          */
-        ls::DoubleMatrix getReducedJacobian(double h = -1.0);
+        ls::DoubleMatrix getReducedJacobian(double h = -1.0) const;
 
         /**
          * Returns the eigenvalues of the full jacobian.
@@ -760,7 +760,7 @@ namespace rr {
          * the values are complex only if there are non-zero imaginary
          * parts of the values.
          */
-        std::vector<std::complex<double>> getFullEigenValues();
+        std::vector<std::complex<double>> getFullEigenValues() const;
 
         /**
          * Returns the eigenvalues of the reduced jacobian.
@@ -769,7 +769,7 @@ namespace rr {
          * the values are complex only if there are non-zero imaginary
          * parts of the values.
          */
-        std::vector<std::complex<double>> getReducedEigenValues();
+        std::vector<std::complex<double>> getReducedEigenValues() const;
 
 
         /**
@@ -863,12 +863,12 @@ namespace rr {
         /**
          * This method turns on / off the computation and adherence to conservation laws.
          */
-        void setConservedMoietyAnalysis(bool value);
+        void setConservedMoietyAnalysis(bool value) const;
 
         /**
          * is conservation analysis enabled. This is set
          */
-        bool getConservedMoietyAnalysis();
+        bool getConservedMoietyAnalysis() const;
 
 
         /**
@@ -926,7 +926,7 @@ namespace rr {
          * parameterName must be eithe a global parameter, boundary species, or
          * conserved sum.
          */
-        double getuCC(const std::string &variableName, const std::string &parameterName);
+        double getuCC(const std::string &variableName, const std::string &parameterName) const;
 
         /**
          * Get scaled control coefficient with respect to a global parameter
@@ -936,36 +936,36 @@ namespace rr {
          * The parameterName must be either a global parameter, boundary species,
          * or conserved sum.
          */
-        double getCC(const std::string &variableName, const std::string &parameterName);
+        double getCC(const std::string &variableName, const std::string &parameterName) const;
 
         /**
          * Get unscaled elasticity coefficient with respect to a global parameter or species
          */
-        double getuEE(const std::string &reactionName, const std::string &parameterName);
+        double getuEE(const std::string &reactionName, const std::string &parameterName) const;
 
         /**
          * Get unscaled elasticity coefficient with respect to a global parameter or species.
          * Optionally the model is brought to steady state after the computation.
          */
         double getuEE(const std::string &reactionName, const std::string &parameterName,
-                      bool computeSteadystate);
+                      bool computeSteadystate) const;
 
         /**
          * Get scaled elasticity coefficient with respect to a global parameter or species
          */
-        double getEE(const std::string &reactionName, const std::string &parameterName);
+        double getEE(const std::string &reactionName, const std::string &parameterName) const;
 
         /**
          * Get scaled elasticity coefficient with respect to a global parameter or species.
          * Optionally the model is brought to steady state after the computation.
          */
         double getEE(const std::string &reactionName, const std::string &parameterName,
-                     bool computeSteadyState);
+                     bool computeSteadyState) const;
 
         /**
          * Compute the unscaled species elasticity matrix at the current operating point
          */
-        ls::DoubleMatrix getUnscaledElasticityMatrix();
+        ls::DoubleMatrix getUnscaledElasticityMatrix() const;
 
         /**
          * Compute the unscaled elasticity matrix at the current operating point
@@ -983,7 +983,7 @@ namespace rr {
          * IMPORTANT:
          * Assumes that the reaction rates have been precomputed at the operating point !!
          */
-        double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
+        double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex) const;
 
         /**
          * Add a species to the current model and set its concentration.
@@ -1312,7 +1312,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true, bool errIfNotExist = true);
+        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true, bool errIfNotExist = true) const;
 
 
         /*
@@ -1449,7 +1449,7 @@ namespace rr {
 
         /******************************* Steady State Section *************************/
 
-        double mcaSteadyState();
+        double mcaSteadyState() const;
 
         /**
          * Compute the steady state of the model, returns the sum of squares of the
@@ -1462,7 +1462,7 @@ namespace rr {
          * @param dict a pointer to a dictionary which has the steady state options.
          * May be NULL, in this case the existing options are used.
          */
-        double steadyState(Dictionary *dict = 0);
+        double steadyState(Dictionary *dict = 0) const;
 
 
         /**
@@ -1494,7 +1494,7 @@ namespace rr {
          * state), then calculates and returns the set of values specifed by
          * the steady state selections.
          */
-        std::vector<double> getSteadyStateValues();
+        std::vector<double> getSteadyStateValues() const;
 
         /**
          * Returns a std::vector of the steady state selection strings
@@ -1511,7 +1511,7 @@ namespace rr {
           * @details This would be used after a series of addSpecies, addReaction calls
           * and the model is then ready to be compiled into executable form.
          */
-        void regenerateModel(bool forceRegenerate = true, bool reset = false);
+        void regenerateModel(bool forceRegenerate = true, bool reset = false) const;
 
 
         /******************************* End Steady State Section *********************/
@@ -1526,12 +1526,12 @@ namespace rr {
         /**
          * Alias for this function on the child model object.
          */
-        int getNumberOfIndependentSpecies();  
+        int getNumberOfIndependentSpecies() const;
 
         /**
          * Alias for this function on the child model object.
          */
-        int getNumberOfDependentSpecies();
+        int getNumberOfDependentSpecies() const;
 
         /**
          * Alias for this function on the child model object.
@@ -1596,7 +1596,7 @@ namespace rr {
          * @author MTK, JKM
          * @brief Returns the sum of each conserved cycle
          */
-        std::vector<double> getConservedMoietyValues();
+        std::vector<double> getConservedMoietyValues() const;
 
         std::vector<std::string> getConservedMoietyIds();
 
@@ -1678,7 +1678,7 @@ namespace rr {
         /**
          * Alias for this function on the child model object.
          */
-        int getNumberOfFloatingSpecies();
+        int getNumberOfFloatingSpecies() const;
 
         /**
          * Alias for this function on the child model object.
@@ -1734,7 +1734,7 @@ namespace rr {
         /**
          * Alias for this function on the child model object.
          */
-        std::vector<std::string> getFloatingSpeciesIds();
+        std::vector<std::string> getFloatingSpeciesIds() const;
 
         /**
          * Alias for this function on the child model object.
@@ -1775,7 +1775,7 @@ namespace rr {
          * returns a list of reaction ids obtained from
          * ExecutableModel::getReactionId
          */
-        std::vector<std::string> getReactionIds();
+        std::vector<std::string> getReactionIds() const;
 
        /**@cond PRIVATE */
        /**
@@ -1821,52 +1821,52 @@ namespace rr {
         const int fileMagicNumber = 0xAD6F52;
         const int dataVersionNumber;
 
-        void fixDependentSpeciesValues(int except, double *ref);
+        void fixDependentSpeciesValues(int except, double *ref) const;
 
         /**
          * @brief calls llvm initialization routines in a thread safe way
          */
         void initLLVM();
 
-        size_t createDefaultSteadyStateSelectionList();
+        size_t createDefaultSteadyStateSelectionList() const;
 
-        size_t createDefaultTimeCourseSelectionList();
+        size_t createDefaultTimeCourseSelectionList() const;
 
         /**
          * copies the current selection values into the n'th row of the
          * given matrix
          */
         void getSelectedValues(ls::DoubleMatrix &results, int nRow,
-                               double currentTime);
+                               double currentTime) const;
 
         /**
          * copies the current selection values into the given std::vector.
          */
-        void getSelectedValues(std::vector<double> &results, double currentTime);
+        void getSelectedValues(std::vector<double> &results, double currentTime) const;
 
         bool populateResult();
 
 
-        double getNthSelectedOutput(size_t index, double currentTime);
+        double getNthSelectedOutput(size_t index, double currentTime) const;
 
         bool isParameterUsed(const std::string &sid);
 
         void getAllVariables(const libsbml::ASTNode *node, std::set<std::string> &ids);
 
         /// Get the row index of the time variable in the output array (returns -1 if time is not selected)
-        int getTimeRowIndex();
+        int getTimeRowIndex() const;
 
         enum VariableType {
             vtSpecies = 0, vtFlux
         };
 
         double getVariableValue(const VariableType variableType,
-                                const int variableIndex);
+                                const int variableIndex) const;
 
         /**
          * the LibStruct is normally null, only created on demand here.
          */
-        ls::LibStructural *getLibStruct();
+        ls::LibStructural *getLibStruct() const;
 
         /**
          * If the specified integrator does not exist, create it, and point the
@@ -1874,29 +1874,29 @@ namespace rr {
          */
         //void updateIntegrator();
 
-        bool createDefaultSelectionLists();
+        bool createDefaultSelectionLists() const;
 
         /**
          * creates a selection list from the amounts / conc / variables ivars of the
          * SimulationOptions struct.
          */
-        size_t createTimeCourseSelectionList();
+        size_t createTimeCourseSelectionList() const;
 
-        std::vector<SelectionRecord> getSelectionList();
+        std::vector<SelectionRecord> getSelectionList() const;
 
         /**
          * The simulateOptions may be changed at any time. This updates
          * the integrators just before they are used with the
          * potentially changed options.
          */
-        void applySimulateOptions();
+        void applySimulateOptions() const;
 
 
         enum JacobianMode {
             JACOBIAN_FULL, JACOBIAN_REDUCED
         };
 
-        std::vector<std::complex<double> > getEigenValues(JacobianMode mode);
+        std::vector<std::complex<double> > getEigenValues(JacobianMode mode) const;
 
         ls::DoubleMatrix getEigenValuesNamedArray(JacobianMode mode);
 

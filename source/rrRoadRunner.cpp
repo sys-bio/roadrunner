@@ -660,7 +660,7 @@ namespace rr {
         delete impl;
     }
 
-    ExecutableModel *RoadRunner::getModel() {
+    ExecutableModel *RoadRunner::getModel() const {
         return impl->model.get();
     }
 
@@ -668,7 +668,7 @@ namespace rr {
         impl->roadRunnerOptions = opt;
     }
 
-    std::vector<SelectionRecord> RoadRunner::getSelectionList() {
+    std::vector<SelectionRecord> RoadRunner::getSelectionList() const {
         return impl->mSelectionList;
     }
 
@@ -714,7 +714,7 @@ namespace rr {
         return ss.str();
     }
 
-    double RoadRunner::getCurrentTime() {
+    double RoadRunner::getCurrentTime() const {
         return getModel()->getTime();
     }
 
@@ -727,7 +727,7 @@ namespace rr {
     }
 
 
-    ls::LibStructural *RoadRunner::getLibStruct() {
+    ls::LibStructural *RoadRunner::getLibStruct() const {
         std::lock_guard<std::mutex> lock(rrMtx);
 
         if (impl->mLS) {
@@ -751,12 +751,12 @@ namespace rr {
         impl->loadOpt.setItem("compiler", Setting(compiler));
     }
 
-    Integrator *RoadRunner::getIntegrator() {
+    Integrator *RoadRunner::getIntegrator() const {
         //applySimulateOptions();
         return impl->integrator;
     }
 
-    SteadyStateSolver *RoadRunner::getSteadyStateSolver() {
+    SteadyStateSolver *RoadRunner::getSteadyStateSolver() const {
         return impl->steady_state_solver;
     }
 
@@ -909,7 +909,7 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSteadyStateSolver(const std::string &name) {
+    void RoadRunner::setSteadyStateSolver(const std::string &name) const {
         rrLog(Logger::LOG_DEBUG) << "Setting steady state solver to " << name;
         // Try to set steady_state_solver from an existing reference.
         if (steadyStateSolverExists(name)) {
@@ -960,7 +960,7 @@ namespace rr {
         return false;
     }
 
-    bool RoadRunner::steadyStateSolverExists(const std::string &name) {
+    bool RoadRunner::steadyStateSolverExists(const std::string &name) const {
         for (auto it: impl->steady_state_solvers) {
             if (it->getName() == name) {
                 return true;
@@ -1003,7 +1003,7 @@ namespace rr {
         return impl->simulateOpt;
     }
 
-    bool RoadRunner::getConservedMoietyAnalysis() {
+    bool RoadRunner::getConservedMoietyAnalysis() const {
         return impl->loadOpt.getConservedMoietyConversion();
     }
 
@@ -1033,7 +1033,7 @@ namespace rr {
     }
     /** @endcond PRIVATE */
 
-    size_t RoadRunner::createDefaultTimeCourseSelectionList() {
+    size_t RoadRunner::createDefaultTimeCourseSelectionList() const {
         std::vector<std::string> selections;
         std::vector<std::string> oFloating = getFloatingSpeciesIds();
         size_t numFloatingSpecies = oFloating.size();
@@ -1077,7 +1077,7 @@ namespace rr {
         return impl->mSelectionList.size();
     }
 
-    size_t RoadRunner::createTimeCourseSelectionList() {
+    size_t RoadRunner::createTimeCourseSelectionList() const {
         // make a list out of the values in the settings,
         // will always have at least a "time" at the first item.
         std::vector<std::string> settingsList = createSelectionList(impl->simulateOpt);
@@ -1137,7 +1137,7 @@ namespace rr {
         }
     }
 
-    double RoadRunner::getValue(const SelectionRecord &record) {
+    double RoadRunner::getValue(const SelectionRecord &record) const {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
@@ -1374,7 +1374,7 @@ namespace rr {
         return dResult;
     }
 
-    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime) {
+    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime) const {
         const SelectionRecord &record = impl->mSelectionList[index];
 
         if (record.selectionType == SelectionRecord::TIME) {
@@ -1384,7 +1384,7 @@ namespace rr {
         }
     }
 
-    int RoadRunner::getTimeRowIndex() {
+    int RoadRunner::getTimeRowIndex() const {
         for (u_int j = 0; j < impl->mSelectionList.size(); j++) {
             const SelectionRecord &record = impl->mSelectionList[j];
             if (record.selectionType == SelectionRecord::TIME) {
@@ -1395,7 +1395,7 @@ namespace rr {
         return -1;
     }
 
-    void RoadRunner::getSelectedValues(ls::DoubleMatrix &results, int nRow, double currentTime) {
+    void RoadRunner::getSelectedValues(ls::DoubleMatrix &results, int nRow, double currentTime) const {
         for (u_int j = 0; j < impl->mSelectionList.size(); j++) {
             double out = getNthSelectedOutput(j, currentTime);
             results(nRow, j) = out;
@@ -1403,7 +1403,7 @@ namespace rr {
     }
 
     void RoadRunner::getSelectedValues(std::vector<double> &results,
-                                       double currentTime) {
+                                       double currentTime) const {
         assert(results.size() == impl->mSelectionList.size()
                && "given std::vector and selection list different size");
 
@@ -1414,7 +1414,7 @@ namespace rr {
     }
 
 
-    std::vector<double> RoadRunner::getConservedMoietyValues() {
+    std::vector<double> RoadRunner::getConservedMoietyValues() const {
         return getLibStruct()->getConservedSums();
     }
 
@@ -1491,7 +1491,7 @@ namespace rr {
         }
     }
 
-    bool RoadRunner::createDefaultSelectionLists() {
+    bool RoadRunner::createDefaultSelectionLists() const {
         bool result = true;
 
         //Create a default timecourse selectionlist
@@ -1527,7 +1527,7 @@ namespace rr {
         return false;
     }
 
-    void RoadRunner::reset() {
+    void RoadRunner::reset() const {
         uint opt1 = rr::Config::getInt(rr::Config::MODEL_RESET);
 
         reset(opt1);
@@ -1536,7 +1536,7 @@ namespace rr {
         //reset((int) opt2 | opt1);
     }
 
-    void RoadRunner::reset(int options) {
+    void RoadRunner::reset(int options) const {
         impl->simulatedSinceReset = false;
         if (impl->model) {
             // model gets set to before time = 0
@@ -1575,7 +1575,7 @@ namespace rr {
     }
 
 
-    double RoadRunner::mcaSteadyState() {
+    double RoadRunner::mcaSteadyState() const {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
@@ -1594,7 +1594,7 @@ namespace rr {
         return steadyState();
     }
 
-    double RoadRunner::steadyState(Dictionary *dict) {
+    double RoadRunner::steadyState(Dictionary *dict) const {
         rrLog (Logger::LOG_DEBUG) << "RoadRunner::steadyState...";
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
@@ -1690,7 +1690,7 @@ namespace rr {
     }
 
 
-    void RoadRunner::setConservedMoietyAnalysis(bool value) {
+    void RoadRunner::setConservedMoietyAnalysis(bool value) const {
         get_self();
 
         if (value == self.loadOpt.getConservedMoietyConversion()) {
@@ -1715,12 +1715,12 @@ namespace rr {
 
 
 // [Help("Get scaled elasticity coefficient with respect to a global parameter or species")]
-    double RoadRunner::getEE(const std::string &reactionName, const std::string &parameterName) {
+    double RoadRunner::getEE(const std::string &reactionName, const std::string &parameterName) const {
         return getEE(reactionName, parameterName, true);
     }
 
     double
-    RoadRunner::getEE(const std::string &reactionName, const std::string &parameterName, bool computeSteadyState) {
+    RoadRunner::getEE(const std::string &reactionName, const std::string &parameterName, bool computeSteadyState) const {
         ParameterType parameterType;
         int reactionIndex;
         int parameterIndex;
@@ -1793,11 +1793,11 @@ namespace rr {
         impl->roadRunnerOptions.fluxThreshold = val;
     }
 
-    double RoadRunner::getuEE(const std::string &reactionName, const std::string &parameterName) {
+    double RoadRunner::getuEE(const std::string &reactionName, const std::string &parameterName) const {
         return getuEE(reactionName, parameterName, true);
     }
 
-    void RoadRunner::fixDependentSpeciesValues(int except, double *ref) {
+    void RoadRunner::fixDependentSpeciesValues(int except, double *ref) const {
         int l = impl->model->getNumFloatingSpecies();
         double *vals = new double[l];
         impl->model->getFloatingSpeciesConcentrations(l, NULL, vals);
@@ -1840,7 +1840,7 @@ namespace rr {
     }
 
     double
-    RoadRunner::getuEE(const std::string &reactionName, const std::string &parameterName, bool computeSteadystate) {
+    RoadRunner::getuEE(const std::string &reactionName, const std::string &parameterName, bool computeSteadystate) const {
         try {
             if (!impl->model) {
                 throw CoreException(gEmptyModelMessage);
@@ -1952,7 +1952,7 @@ namespace rr {
         return false;
     }
 
-    const ls::DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt) {
+    const ls::DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt) const {
         get_self();
         check_model();
 
@@ -2306,7 +2306,7 @@ namespace rr {
         return &self.simulationResult;
     }
 
-    const ls::DoubleMatrix *RoadRunner::simulate(double start, double stop, int points) {
+    const ls::DoubleMatrix *RoadRunner::simulate(double start, double stop, int points) const {
         SimulateOptions opt;
         opt.start = start;
         opt.duration = stop;
@@ -2316,7 +2316,7 @@ namespace rr {
         return simulate(&opt);
     }
 
-    const ls::DoubleMatrix *RoadRunner::simulate(const std::vector<double> &times) {
+    const ls::DoubleMatrix *RoadRunner::simulate(const std::vector<double> &times) const {
         SimulateOptions opt;
         opt.times = times;
         return simulate(&opt);
@@ -2378,16 +2378,16 @@ namespace rr {
     }
 
 
-    std::vector<std::complex<double>> RoadRunner::getFullEigenValues() {
+    std::vector<std::complex<double>> RoadRunner::getFullEigenValues() const {
         return getEigenValues(JACOBIAN_FULL);
     }
 
 
-    std::vector<std::complex<double>> RoadRunner::getReducedEigenValues() {
+    std::vector<std::complex<double>> RoadRunner::getReducedEigenValues() const {
         return getEigenValues(JACOBIAN_REDUCED);
     }
 
-    std::vector<std::complex<double> > RoadRunner::getEigenValues(RoadRunner::JacobianMode mode) {
+    std::vector<std::complex<double> > RoadRunner::getEigenValues(RoadRunner::JacobianMode mode) const {
         check_model();
         ls::DoubleMatrix mat;
 
@@ -2476,7 +2476,7 @@ namespace rr {
         return v;
     }
 
-    std::vector<double> RoadRunner::getIndependentFloatingSpeciesAmountsV() {
+    std::vector<double> RoadRunner::getIndependentFloatingSpeciesAmountsV() const {
         check_model();
 
         std::vector<double> result(getNumberOfIndependentSpecies(), 0);
@@ -2487,7 +2487,7 @@ namespace rr {
         return result;
     }
 
-    std::vector<double> RoadRunner::getDependentFloatingSpeciesAmountsV() {
+    std::vector<double> RoadRunner::getDependentFloatingSpeciesAmountsV() const {
         check_model();
 
         std::vector<double> result(getNumberOfDependentSpecies(), 0);
@@ -2499,7 +2499,7 @@ namespace rr {
         return result;
     }
 
-    std::vector<double> RoadRunner::getIndependentFloatingSpeciesConcentrationsV() {
+    std::vector<double> RoadRunner::getIndependentFloatingSpeciesConcentrationsV() const {
         check_model();
 
         std::vector<double> result(getNumberOfIndependentSpecies(), 0);
@@ -2510,7 +2510,7 @@ namespace rr {
         return result;
     }
 
-    std::vector<double> RoadRunner::getDependentFloatingSpeciesConcentrationsV() {
+    std::vector<double> RoadRunner::getDependentFloatingSpeciesConcentrationsV() const {
         check_model();
 
         std::vector<double> result(getNumberOfDependentSpecies(), 0);
@@ -2587,7 +2587,7 @@ namespace rr {
     }
 
 
-    std::vector<double> RoadRunner::getRatesOfChange() {
+    std::vector<double> RoadRunner::getRatesOfChange() const {
         check_model();
 
         int ssvl = impl->model->getStateVector(NULL);
@@ -2654,7 +2654,7 @@ namespace rr {
         return v;
     }
 
-    std::vector<double> RoadRunner::getIndependentRatesOfChange() {
+    std::vector<double> RoadRunner::getIndependentRatesOfChange() const {
         check_model();
 
         std::vector<std::string> idfsId = getIndependentFloatingSpeciesIds();
@@ -2690,7 +2690,7 @@ namespace rr {
         return v;
     }
 
-    std::vector<double> RoadRunner::getDependentRatesOfChange() {
+    std::vector<double> RoadRunner::getDependentRatesOfChange() const {
         check_model();
 
         std::vector<std::string> dfsId = getDependentFloatingSpeciesIds();
@@ -2726,7 +2726,7 @@ namespace rr {
         return v;
     }
 
-    ls::DoubleMatrix RoadRunner::getFullJacobian() {
+    ls::DoubleMatrix RoadRunner::getFullJacobian() const {
         check_model();
 
         get_self();
@@ -2926,7 +2926,7 @@ namespace rr {
         return mult(*rsm, uelast);
     }
 
-    ls::DoubleMatrix RoadRunner::getReducedJacobian(double h) {
+    ls::DoubleMatrix RoadRunner::getReducedJacobian(double h) const {
         get_self();
 
         check_model();
@@ -3249,7 +3249,7 @@ namespace rr {
     }
 
 // Help("Returns the number of dependent species in the model")
-    int RoadRunner::getNumberOfDependentSpecies() {
+    int RoadRunner::getNumberOfDependentSpecies() const {
         try {
             if (impl->model) {
                 //return mStructAnalysis.GetInstance()->getNumDepSpecies();
@@ -3265,7 +3265,7 @@ namespace rr {
     }
 
 // Help("Returns the number of independent species in the model")
-    int RoadRunner::getNumberOfIndependentSpecies() {
+    int RoadRunner::getNumberOfIndependentSpecies() const {
         try {
             if (impl->model) {
                 return getLibStruct()->getNumIndSpecies();
@@ -3279,7 +3279,7 @@ namespace rr {
     }
 
     double RoadRunner::getVariableValue(const VariableType variableType,
-                                        const int variableIndex) {
+                                        const int variableIndex) const {
         switch (variableType) {
             case vtFlux: {
                 double result = 0;
@@ -3302,7 +3302,7 @@ namespace rr {
         return 0;
     }
 
-    size_t RoadRunner::createDefaultSteadyStateSelectionList() {
+    size_t RoadRunner::createDefaultSteadyStateSelectionList() const {
         impl->mSteadyStateSelection.clear();
         // default should be independent floating species only ...
         std::vector<std::string> floatingSpecies = getFloatingSpeciesIds();
@@ -3325,7 +3325,7 @@ namespace rr {
         return impl->mSteadyStateSelection;
     }
 
-    std::vector<double> RoadRunner::getSteadyStateValues() {
+    std::vector<double> RoadRunner::getSteadyStateValues() const {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
@@ -3622,7 +3622,7 @@ namespace rr {
 
 
 // Help("Get the number of floating species")
-    int RoadRunner::getNumberOfFloatingSpecies() {
+    int RoadRunner::getNumberOfFloatingSpecies() const {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
@@ -3900,7 +3900,7 @@ namespace rr {
 
 //---------------- MCA functions......
 //        [Help("Get unscaled control coefficient with respect to a global parameter")]
-    double RoadRunner::getuCC(const std::string &variableName, const std::string &parameterName) {
+    double RoadRunner::getuCC(const std::string &variableName, const std::string &parameterName) const {
         try {
             if (!impl->model) {
                 throw CoreException(gEmptyModelMessage);
@@ -4020,7 +4020,7 @@ namespace rr {
     }
 
 //        [Help("Get scaled control coefficient with respect to a global parameter")]
-    double RoadRunner::getCC(const std::string &variableName, const std::string &parameterName) {
+    double RoadRunner::getCC(const std::string &variableName, const std::string &parameterName) const {
         VariableType variableType;
         ParameterType parameterType;
         int variableIndex;
@@ -4065,7 +4065,7 @@ namespace rr {
     }
 
 
-    double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex) {
+    double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex) const {
         get_self();
 
         check_model();
@@ -4240,7 +4240,7 @@ namespace rr {
     }
 
 
-    ls::DoubleMatrix RoadRunner::getUnscaledElasticityMatrix() {
+    ls::DoubleMatrix RoadRunner::getUnscaledElasticityMatrix() const {
         get_self();
 
         check_model();
@@ -4497,7 +4497,7 @@ namespace rr {
         return stream.str();
     }
 
-    std::string RoadRunner::getSBML(int level, int version) {
+    std::string RoadRunner::getSBML(int level, int version) const {
         check_model();
 
         std::stringstream stream;
@@ -4596,7 +4596,7 @@ namespace rr {
     }
 
 
-    void RoadRunner::setValue(const std::string &sId, double dValue) {
+    void RoadRunner::setValue(const std::string &sId, double dValue) const {
         check_model();
 
         SelectionRecord sel(sId);
@@ -4621,12 +4621,12 @@ namespace rr {
     }
 
 
-    double RoadRunner::getValue(const std::string &sel) {
+    double RoadRunner::getValue(const std::string &sel) const {
         return getValue(createSelection(sel));
     }
 
 
-    std::vector<double> RoadRunner::getSelectedValues() {
+    std::vector<double> RoadRunner::getSelectedValues() const {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
@@ -4662,7 +4662,7 @@ namespace rr {
         return result;
     }
 
-    SelectionRecord RoadRunner::createSelection(const std::string &str) {
+    SelectionRecord RoadRunner::createSelection(const std::string &str) const {
         if (!impl->model) {
             throw Exception("Can not create selection without a model");
         }
@@ -4848,7 +4848,7 @@ namespace rr {
         return res == 0 ? true : false;
     }
 
-    void RoadRunner::setSelections(const std::vector<std::string> &_selList) {
+    void RoadRunner::setSelections(const std::vector<std::string> &_selList) const {
         impl->mSelectionList.clear();
 
         for (int i = 0; i < _selList.size(); ++i) {
@@ -4868,7 +4868,7 @@ namespace rr {
         impl->simulationResult.setColNames(selstr.begin(), selstr.end());
     }
 
-    void RoadRunner::setSelections(const std::vector<rr::SelectionRecord> &ss) {
+    void RoadRunner::setSelections(const std::vector<rr::SelectionRecord> &ss) const {
         impl->mSelectionList = ss;
     }
 
@@ -5142,11 +5142,11 @@ namespace rr {
         }
     }
 
-    std::vector<std::string> RoadRunner::getIndependentFloatingSpeciesIds() {
+    std::vector<std::string> RoadRunner::getIndependentFloatingSpeciesIds() const {
         return getLibStruct()->getIndependentSpecies();
     }
 
-    std::vector<std::string> RoadRunner::getDependentFloatingSpeciesIds() {
+    std::vector<std::string> RoadRunner::getDependentFloatingSpeciesIds() const {
         return getLibStruct()->getDependentSpecies();
     }
 
@@ -5258,7 +5258,7 @@ namespace rr {
                                      &ExecutableModel::getConservedMoietyId);
     }
 
-    std::vector<std::string> RoadRunner::getFloatingSpeciesIds() {
+    std::vector<std::string> RoadRunner::getFloatingSpeciesIds() const {
         std::list<std::string> list;
 
         if (impl->model) {
@@ -5298,7 +5298,7 @@ namespace rr {
         return std::vector<std::string>(list.begin(), list.end());
     }
 
-    std::vector<std::string> RoadRunner::getReactionIds() {
+    std::vector<std::string> RoadRunner::getReactionIds() const {
         std::list<std::string> list;
 
         if (impl->model) {
@@ -5329,7 +5329,7 @@ namespace rr {
         return &impl->simulationResult;
     }
 
-    void RoadRunner::applySimulateOptions() {
+    void RoadRunner::applySimulateOptions() const {
         get_self();
 
         if (self.simulateOpt.duration < 0 || self.simulateOpt.steps < 0) {
@@ -6649,7 +6649,7 @@ namespace rr {
         regenerateModel(forceRegenerate, true);
     }
 
-    void RoadRunner::removeInitialAssignment(const std::string &vid, bool forceRegenerate, bool errIfNotExist) {
+    void RoadRunner::removeInitialAssignment(const std::string &vid, bool forceRegenerate, bool errIfNotExist) const {
         using namespace libsbml;
         Model *sbmlModel = impl->document->getModel();
 
@@ -6941,7 +6941,7 @@ namespace rr {
     }
 
 
-    void RoadRunner::regenerateModel(bool forceRegenerate, bool reset) {
+    void RoadRunner::regenerateModel(bool forceRegenerate, bool reset) const {
         if (forceRegenerate) {
             rrLog(Logger::LOG_DEBUG) << "Regenerating model..." << std::endl;
             std::unordered_map<std::string, double> indTolerances;

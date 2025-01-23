@@ -794,7 +794,7 @@ namespace rr {
         }
     }
 
-    vector<double> CVODEIntegrator::getAbsoluteToleranceVector()
+    vector<double> CVODEIntegrator::getAbsoluteToleranceVector() const
     { 
         int species = mModel->getNumIndFloatingSpecies();
         int rrs = mModel->getNumRateRules();

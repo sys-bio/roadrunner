@@ -77,7 +77,7 @@ namespace rr
 	// the functions below will not be implemented here
 	void Integrator::setIndividualTolerance(std::string sid, double value) {}
 
-    std::vector<double> Integrator::getAbsoluteToleranceVector()
+    std::vector<double> Integrator::getAbsoluteToleranceVector() const
     {
         return std::vector<double>();
     }
