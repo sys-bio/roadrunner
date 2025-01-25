@@ -322,7 +322,7 @@ jobs:
             unzip -q swig.zip -d install-swig
             rm swig.zip
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' || "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+          else
             dnf install -y pcre-devel
             mkdir -p swig
             cd swig
