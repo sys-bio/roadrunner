@@ -336,18 +336,20 @@ jobs:
             make install
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            mkdir -p swig
-            cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.3.0/swig-4.3.0.tar.gz/download > swig.tar.gz
-            tar -zxf swig.tar.gz
-            rm swig.tar.gz
-            mkdir -p install-swig
-            cd swig-4.3.0/
-            sed -i "677,680d;682d" Lib/swig.swg
-            ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
-            make
-            make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
+            # To fix installed swig 4.2:
+            sudo sed -i "681,684d;686d" /usr/share/swig4.0/swig.swg
+            # mkdir -p swig
+            # cd swig
+            # curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.3.0/swig-4.3.0.tar.gz/download > swig.tar.gz
+            # tar -zxf swig.tar.gz
+            # rm swig.tar.gz
+            # mkdir -p install-swig
+            # cd swig-4.3.0/
+            # sed -i "677,680d;682d" Lib/swig.swg
+            # ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
+            # make
+            # make install
+            # echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           fi
           echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> $GITHUB_ENV
 
