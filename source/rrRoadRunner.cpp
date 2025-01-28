@@ -2730,6 +2730,8 @@ namespace rr {
         check_model();
 
         get_self();
+        std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+        Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS); 
 
         // function pointers to the model get values and get init values based on
         // if we are doing amounts or concentrations.
@@ -2744,7 +2746,7 @@ namespace rr {
         GetValueFuncPtr getInitValuePtr = 0;
         SetValueFuncPtr setValuePtr = 0;
         SetValueFuncPtrSize setInitValuePtr = 0;
-
+        
         if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>() ==
             Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS) {
             getValuePtr = &ExecutableModel::getFloatingSpeciesAmounts;
@@ -2870,6 +2872,12 @@ namespace rr {
                         (self.model.get()->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
                     }
                     jac[i][j] = result;
+                    //std::cout << "Full Jacobian, In new code......" << std::endl;
+                    int compIndex = self.model->getCompartmentIndexForFloatingSpecies(i);
+                    double compVol = this->getCompartmentByIndex(compIndex);
+                    if (compVol == 0) { compVol = 1; }
+                    double origVal = jac(i, j);
+                    jac(i, j) = origVal / compVol;
                 }
             }
 
@@ -2890,7 +2898,7 @@ namespace rr {
                 ls::DoubleMatrix jac(self.model->getNumRateRules(), self.model->getNumRateRules());
                 return jac;
             }
-
+      
             ls::DoubleMatrix uelast = getUnscaledElasticityMatrix();
 
             // ptr to libstruct owned obj.
@@ -2903,6 +2911,25 @@ namespace rr {
             }
 
             ls::DoubleMatrix jac = ls::mult(*rsm, uelast);
+  
+            // Now divide value in each row by comp vol of floating species.
+            int jacCols = jac.CSize();
+            //std::cout << "In new code......" << std::endl;
+            assert(self.model->getNumFloatingSpecies() > jac.RSize() && "Number of floating species greater then jac.RSize()");
+            for (int i= 0; i < jac.RSize(); i++) {
+                if (i < self.model->getNumFloatingSpecies()) {
+                    int compIndex = self.model->getCompartmentIndexForFloatingSpecies(i);
+                    double compVol = this->getCompartmentByIndex(compIndex);
+                    if (compVol == 0) { compVol = 1; }
+                    for (int j = 0; j < jac.CSize(); j++) {
+                        double origVal = jac[i][j];
+                        jac[i][j] = origVal / compVol;
+                    }
+                }
+
+            }
+            // Put back User selected JACOBIAN_MODE:
+            Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
 
             // get the row/column ids, independent floating species
             std::list<std::string> list;
@@ -2917,14 +2944,15 @@ namespace rr {
         }
     }
 
-    ls::DoubleMatrix RoadRunner::getFullReorderedJacobian() {
-        check_model();
-
-        LibStructural *ls = getLibStruct();
-        ls::DoubleMatrix uelast = getUnscaledElasticityMatrix();
-        ls::DoubleMatrix *rsm = ls->getStoichiometryMatrix();
-        return mult(*rsm, uelast);
-    }
+   // ls::DoubleMatrix RoadRunner::getFullReorderedJacobian() {
+   //     check_model();
+        // ***** REMOVE THIS method
+        //LibStructural *ls = getLibStruct();
+        //ls::DoubleMatrix uelast = getUnscaledElasticityMatrix(); 
+        //ls::DoubleMatrix *rsm = ls->getStoichiometryMatrix();
+        //return mult(*rsm, uelast);
+    
+    //}
 
     ls::DoubleMatrix RoadRunner::getReducedJacobian(double h) {
         get_self();
@@ -2935,6 +2963,8 @@ namespace rr {
             h = self.roadRunnerOptions.jacobianStepSize;
         }
 
+        std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+        
         int nIndSpecies = self.model->getNumIndFloatingSpecies();
 
         // result matrix
@@ -2965,6 +2995,8 @@ namespace rr {
         GetValueFuncPtr getValuePtr = 0;
         GetValueFuncPtr getRateValuePtr = 0;
         SetValueFuncPtr setValuePtr = 0;
+
+        Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS); 
 
         if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>()
             == Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS) {
@@ -3005,7 +3037,19 @@ namespace rr {
             // matrix is row-major, so have to copy by elements
             for (int j = 0; j < nIndSpecies; ++j) {
                 jac(j, i) = (dy0[j] - dy1[j]) / (2.0 * h);
+                //std::cout << "Reduced Jacobian, In new code......" << std::endl;
+                int compIndex = self.model->getCompartmentIndexForFloatingSpecies(j);
+                double compVol = this->getCompartmentByIndex(compIndex);
+                if (compVol == 0) { compVol = 1; }
+                double origVal = jac(j, i);
+                jac(j, i) = origVal / compVol;
+                
             }
+
+            // Put back User selected JACOBIAN_MODE:
+            Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+
         }
         return jac;
     }
