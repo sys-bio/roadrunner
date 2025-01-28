@@ -15,52 +15,52 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-13-release
-            os_type: macos
-            os_name: macos-13
-            build_type: Release
-            build_python: ON
-          - name: macos-13-debug
-            os_type: macos
-            os_name: macos-13
-            build_type: Debug
-            build_python: OFF
-          - name: macos-14-release
-            os_type: macos
-            os_name: macos-14
-            build_type: Release
-            build_python: ON
-          - name: macos-14-debug
-            os_type: macos
-            os_name: macos-14
-            build_type: Debug
-            build_python: OFF
+          # - name: macos-13-release
+          #   os_type: macos
+          #   os_name: macos-13
+          #   build_type: Release
+          #   build_python: ON
+          # - name: macos-13-debug
+          #   os_type: macos
+          #   os_name: macos-13
+          #   build_type: Debug
+          #   build_python: OFF
+          # - name: macos-14-release
+          #   os_type: macos
+          #   os_name: macos-14
+          #   build_type: Release
+          #   build_python: ON
+          # - name: macos-14-debug
+          #   os_type: macos
+          #   os_name: macos-14
+          #   build_type: Debug
+          #   build_python: OFF
           - name: ubuntu-latest-release
             os_type: ubuntu
             os_name: ubuntu-latest
             build_type: Release
             build_python: ON
-          - name: ubuntu-latest-debug
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Debug
-            build_python: OFF
-          - name: windows-latest-release
-            os_type: windows
-            os_name: windows-latest
-            build_type: Release
-            build_python: ON
-          - name: windows-latest-debug
-            os_type: windows
-            os_name: windows-latest
-            build_type: Debug
-            build_python: OFF
-          - name: manylinux_2_28-release
-            os_type: manylinux
-            os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux_2_28_x86_64
-            build_type: Release
-            build_python: ON
+          # - name: ubuntu-latest-debug
+          #   os_type: ubuntu
+          #   os_name: ubuntu-latest
+          #   build_type: Debug
+          #   build_python: OFF
+          # - name: windows-latest-release
+          #   os_type: windows
+          #   os_name: windows-latest
+          #   build_type: Release
+          #   build_python: ON
+          # - name: windows-latest-debug
+          #   os_type: windows
+          #   os_name: windows-latest
+          #   build_type: Debug
+          #   build_python: OFF
+          # - name: manylinux_2_28-release
+          #   os_type: manylinux
+          #   os_name: ubuntu-latest
+          #   container_image: quay.io/pypa/manylinux_2_28_x86_64
+          #   build_type: Release
+          #   build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
