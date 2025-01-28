@@ -528,7 +528,7 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
     // Rxn over two compartments of differing volumes with JACOBIAN_MODE flag set to TRUE.
     std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
-    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, TRUE);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, true);
     rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
 
     ls::DoubleMatrix ues = rr.getUnscaledElasticityMatrix();
