@@ -430,19 +430,19 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          # ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
-          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
-            ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
-          fi
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+          #if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
+          #  ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+          #fi
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
-            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
-          fi
+          #if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          #fi
 
 
       - name: Save roadrunner version
@@ -566,9 +566,9 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
-            ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
-          fi
+          #if [ "${{ matrix.platform.os_name }}" != 'macos-14' ]; then
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          #fi
 
 
       - name: Create fourth Python wheel artifacts and rename
