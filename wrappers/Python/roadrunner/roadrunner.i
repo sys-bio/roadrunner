@@ -782,7 +782,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::RoadRunner::setCompiler;
 //%ignore rr::RoadRunner::getCC;
 //%ignore rr::RoadRunner::getL0Matrix;
-//%ignore rr::RoadRunner::getSelectedValues;
+%ignore rr::RoadRunner::getSelectedValues;
 %ignore rr::RoadRunner::setFloatingSpeciesByIndex;
 //%ignore rr::RoadRunner::getCapabilitiesAsXML;
 //%ignore rr::RoadRunner::getLinkMatrix;
