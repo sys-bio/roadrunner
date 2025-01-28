@@ -454,7 +454,7 @@ TEST_F(ModelAnalysisTests, SameJacobians3) {
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
     // Rxn over two compartments of differing volumes.
     std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
-    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, false);
     rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
 
     ls::DoubleMatrix ues = rr.getUnscaledElasticityMatrix();
@@ -602,7 +602,7 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
     // Rxn over two compartments of volume one.
     std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
-    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, false);
     rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
     ASSERT_EQ(rr.getNumberOfCompartments(), 2);
     for (int i = 0; i < rr.getNumberOfCompartments(); i++) {
@@ -647,7 +647,7 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
     // Rxn over two compartments of volume two.
     std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
-    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, FALSE);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, false);
     rr::RoadRunner rr((modelAnalysisModelsDir / "jacobian_multi_comps_2sp_3rxn.xml").string());
     ASSERT_EQ(rr.getNumberOfCompartments(), 2);
     for (int i = 0; i < rr.getNumberOfCompartments(); i++) {
