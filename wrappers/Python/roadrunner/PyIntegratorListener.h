@@ -109,7 +109,7 @@ private:
             */
 
             PyObject *args = Py_BuildValue("(N, N, d)", pyIntegrator, pyModel, time);
-            PyObject *pyres = PyEval_CallObject(pyOnTimeStep, args);
+            PyObject *pyres = PyObject_Call(pyOnTimeStep, args, NULL);
 
             if (PyErr_Occurred()) {
 
@@ -168,7 +168,7 @@ private:
             PyObject *pyIntegrator = Integrator_NewPythonObj(integrator);
             PyObject *pyModel = ExecutableModel_NewPythonObj(model);
             PyObject *args = Py_BuildValue("(N, N, s)", pyIntegrator, pyModel, time);
-            PyObject *pyres = PyEval_CallObject(pyOnEvent, args);
+            PyObject *pyres = PyObject_Call(pyOnEvent, args, NULL);
 
             if (PyErr_Occurred()) {
 

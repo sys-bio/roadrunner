@@ -92,8 +92,10 @@ namespace nmfit
         mProperties.add(&mStatusMessage);
 
         //Allocate model and Residuals data
-        mResidualsData.setValue(new TelluriumData());
-        mModelData.setValue(new TelluriumData());
+        TelluriumData residualsData;
+        mResidualsData.setValue(&residualsData);
+        TelluriumData modelData;
+        mModelData.setValue(&modelData);
 
         mHint = "Parameter fitting using the Nelder-Mead algorithm";
         mDescription = "The Nelder-Mead plugin is used to fit a proposed \

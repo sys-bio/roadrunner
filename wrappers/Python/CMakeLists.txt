@@ -11,7 +11,8 @@ install(FILES
         "${CMAKE_CURRENT_SOURCE_DIR}/INSTALL.txt"
         "${CMAKE_CURRENT_SOURCE_DIR}/setup.py"
         "${CMAKE_CURRENT_SOURCE_DIR}/MANIFEST.in"
-        "${CMAKE_BINARY_DIR}/VERSION.txt" DESTINATION .)
+        DESTINATION .
+)
 
 if (WITH_CONDA_BUILDER)
     configure_file(conda/meta.yaml.in conda/meta.yaml @ONLY)

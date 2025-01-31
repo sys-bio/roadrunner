@@ -36,7 +36,13 @@ class RoadRunnerTests(unittest.TestCase):
         for dir in ["../sbml-test-suite/stochastic/", "../test/sbml-test-suite/stochastic/",
                     "../../test/sbml-test-suite/stochastic/", "../../../test/sbml-test-suite/stochastic/",
                     "../../../../test/sbml-test-suite/stochastic/", "../../../../../test/sbml-test-suite/stochastic/",
-                    "../../../../../../test/sbml-test-suite/stochastic/"]:
+                    "../../../../../../test/sbml-test-suite/stochastic/",
+                    "../roadrunner/sbml-test-suite/stochastic/", "../roadrunner/test/sbml-test-suite/stochastic/",
+                    "../../roadrunner/test/sbml-test-suite/stochastic/",
+                    "../../../roadrunner/test/sbml-test-suite/stochastic/",
+                    "../../../../roadrunner/test/sbml-test-suite/stochastic/",
+                    "../../../../../roadrunner/test/sbml-test-suite/stochastic/",
+                    "../../../../../../roadrunner/test/sbml-test-suite/stochastic/"]:
             if isdir(dir):
                 cls.stochdir = dir
         if cls.stochdir == "":
@@ -58,7 +64,7 @@ class RoadRunnerTests(unittest.TestCase):
         cls.results.write("\tnWrongLogMeans")
         cls.results.write("\tnWrongLogSDs")
         cls.results.write("\n")
-        
+
         print(platform.uname())
 
     @classmethod
