@@ -117,7 +117,7 @@ private:
             */
 
             PyObject *args = Py_BuildValue("(N, i, s)", pyModel, index, eventId.c_str());
-            PyObject *pyres = PyEval_CallObject(pyOnTrigger, args);
+            PyObject *pyres = PyObject_Call(pyOnTrigger, args, NULL);
 
 
             if (PyErr_Occurred()) {
@@ -170,7 +170,7 @@ private:
 
             PyObject *pyModel = ExecutableModel_NewPythonObj(model);
             PyObject *args = Py_BuildValue("(N, i, s)", pyModel, index, eventId.c_str());
-            PyObject *pyres = PyEval_CallObject(pyOnAssignment, args);
+            PyObject *pyres = PyObject_Call(pyOnAssignment, args, NULL);
 
             if (PyErr_Occurred()) {
 

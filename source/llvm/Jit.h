@@ -329,10 +329,25 @@ namespace rrllvm {
         virtual std::string getModuleAsString(std::string sbmlMD5) = 0;
 
         /**
+         * @brief Return MCJit's compiled binary stream as a string.
+         * @details Converts the binary stream to a string.  Useful for saving and
+         * loading state for MCJit objects (LLJit doesn't use it).
+         */
+        virtual std::string getModuleBinaryStreamAsString();
+
+        /**
+         * @brief Reset MCJit's compiled binary stream with the given string.
+         * @details MCJit is the only Jit that uses this. (It's bad interface design
+         * but works at least.). LLJit uses a caching mechanism which allows us
+         * to retrieve object files directly, foregoing the need for this function.
+         */
+        virtual void resetModuleBinaryStream(std::string cmbs);
+
+        /**
          * @brief MCJit compiles the generated LLVM IR to this binary stream
          * which is then used both for adding to the Jit as a module and for
          * saveState.
-         * @details MCJit is the only Jit that uses this. (Its bad interface design
+         * @details MCJit is the only Jit that uses this. (It's bad interface design
          * but works at least.). LLJit uses a caching mechanism which allows us
          * to retrieve object files directly, foregoing the need for this variable.
          */

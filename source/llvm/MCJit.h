@@ -37,6 +37,14 @@ namespace rrllvm {
 
         explicit MCJit(std::uint32_t options);
 
+        /**
+         * @brief default constructor.
+         * @details delegates to MCJit(std::uint32_t options). The options
+         * argument is the default constructed from LoadSBMLOptions.modelGeneratorOpt.
+         * Note, that LoadSBMLOptions is influenced by the global Config.
+         */
+        MCJit();
+
         ~MCJit() override = default;
 
 

@@ -97,8 +97,10 @@ namespace lmfit
         mProperties.add(&mStatusMessage);
 
         //Allocate model and Residuals data
-        mResidualsData.setValue(new TelluriumData());
-        mModelData.setValue(new TelluriumData());
+        TelluriumData residualsData;
+        mResidualsData.setValue(&residualsData);
+        TelluriumData modelData;
+        mModelData.setValue(&modelData);
 
         mHint = "Parameter fitting using the Levenberg-Marquardt algorithm";
         mDescription = "The Levenberg-Marquardt plugin is used to fit a proposed \

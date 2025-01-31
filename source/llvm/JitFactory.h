@@ -37,7 +37,7 @@ namespace rrllvm {
         /**
          * @brief Create a Jit engine using local options provided by the user
          */
-        static std::unique_ptr<Jit> makeJitEngine(std::uint32_t opt);
+        static Jit* makeJitEngine(std::uint32_t opt);
 
         /**
          * @brief Create a Jit engine using the global options in Config.
@@ -45,7 +45,7 @@ namespace rrllvm {
          * This function instantiates the LoadSBMLOptions and provides the default
          * modelGeneratorOpt to JitFactory::makeJitEngine(opt);
          */
-        static std::unique_ptr<Jit> makeJitEngine();
+        static Jit* makeJitEngine();
 
     };
 

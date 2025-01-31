@@ -34,13 +34,16 @@ using namespace rr;
 namespace rrllvm {
 
     Jit::Jit(std::uint32_t options)
-            : options(options),
-              context(std::make_unique<llvm::LLVMContext>()),
+        : options(options)
+        , context(std::make_unique<llvm::LLVMContext>())
             // todo the module name should be the sbmlMD5. Might be cleaner to
             //  add this as a parameter to Jit constructor.
-              module(std::make_unique<llvm::Module>("LLVM Module", *context)),
-              moduleNonOwning(module.get()), /*Maintain a weak ref so we don't lose our handle to the module*/
-              builder(std::make_unique<llvm::IRBuilder<>>(*context)) {
+        , module(std::make_unique<llvm::Module>("LLVM Module", *context))
+        , moduleNonOwning(module.get()) /*Maintain a weak ref so we don't lose our handle to the module*/
+        , builder(std::make_unique<llvm::IRBuilder<>>(*context))
+        , compiledModuleBinaryStream(nullptr)
+        , moduleBuffer() 
+    {
 
 
         // IR module is initialized with just a ModuleID and a source filename
@@ -67,7 +70,7 @@ namespace rrllvm {
     }
 
     Jit::Jit()
-            : Jit(LoadSBMLOptions().modelGeneratorOpt) {}
+        : Jit(LoadSBMLOptions().modelGeneratorOpt) {}
 
     llvm::Module *Jit::getModuleNonOwning() {
         return moduleNonOwning;
@@ -305,6 +308,19 @@ namespace rrllvm {
         /// double fmod(double x, double y);
         createCLibraryFunction(LibFunc_fmod,
                                FunctionType::get(double_type, args_d2, false));
+    }
+
+    std::string Jit::getModuleBinaryStreamAsString()
+    {
+        return compiledModuleBinaryStream->str().str();
+    }
+
+    void Jit::resetModuleBinaryStream(std::string cmbs)
+    {
+        //There might be a way to do this directly, but this is at least clean.
+        llvm::raw_svector_ostream* binarystream = new llvm::raw_svector_ostream(moduleBuffer);
+        *binarystream << cmbs;
+        compiledModuleBinaryStream.reset(binarystream);
     }
 
     /**

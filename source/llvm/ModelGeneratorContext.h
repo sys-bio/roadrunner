@@ -101,7 +101,7 @@ namespace rrllvm {
         ModelGeneratorContext(
                 const libsbml::SBMLDocument *_doc,
                 unsigned options,
-                std::unique_ptr<Jit> jitEngine);
+                Jit* jitEngine);
 
         /**
          * does not attach to any sbml doc,

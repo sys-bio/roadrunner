@@ -112,8 +112,28 @@ void AutoTellurimInterface::setInitialPCPValue()
 	if(mAutoConstants.PreSimulation)
 	{
 		// Two simulations gives better results. 
-		gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
-		gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
+		rrc::RRCDataPtr simulationData = gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
+        if (simulationData != NULL) {
+            delete[] simulationData->Weights;
+            if (simulationData->ColumnHeaders != NULL) {
+                for (int i = 0; i < simulationData->CSize; i++)
+                    delete[] simulationData->ColumnHeaders[i];
+                delete[] simulationData->ColumnHeaders;
+            }
+            delete[] simulationData->Data;
+            delete simulationData;
+        }
+        simulationData = gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
+        if (simulationData != NULL) {
+            delete[] simulationData->Weights;
+            if (simulationData->ColumnHeaders != NULL) {
+                for (int i = 0; i < simulationData->CSize; i++)
+                    delete[] simulationData->ColumnHeaders[i];
+                delete[] simulationData->ColumnHeaders;
+            }
+            delete[] simulationData->Data;
+            delete simulationData;
+        }
 	}
 	
 	double* val= new double;		//just to make the call compatible else no use
@@ -147,12 +167,22 @@ bool AutoTellurimInterface::setupUsingCurrentModel()
 	rrc::RRStringArrayPtr lists= gHostInterface->getGlobalParameterIds(mRR);
 	StringList list1(lists->String,lists->Count);
 	mModelParameters = list1;
+    for (int i = 0; i < lists->Count; i++) {
+        delete[] lists->String[i];
+    }
+    delete[] lists->String;
+    delete lists;
 
 	lists= gHostInterface->getBoundarySpeciesIds(mRR);
 	if (lists) {
 		StringList list2(lists->String, lists->Count);
 		//Boundary species can be used as PCP as well
 		mModelBoundarySpecies = list2;
+        for (int i = 0; i < lists->Count; i++) {
+            delete[] lists->String[i];
+        }
+        delete[] lists->String;
+        delete lists;
 	}
     //Set initial value of Primary continuation parameter
     setInitialPCPValue();
@@ -223,17 +253,24 @@ int autoCallConv AutoTellurimInterface::ModelInitializationCallback(long ndim, d
 	}
 
 	int    nrIndFloatingSpecies = gHostInterface->_getNumIndFloatingSpecies(mRR)+gHostInterface->_getNumRateRules(mRR);
-	double* floatCon            = new double[nrIndFloatingSpecies];
-
-	floatCon = (gHostInterface->getFloatingSpeciesConcentrations(mRR))->Data;
+	rrc::RRVectorPtr floatCon = (gHostInterface->getFloatingSpeciesConcentrations(mRR));
 
 	int nMin = min(nrIndFloatingSpecies, ndim);
 	for(int i = 0; i < nMin; i++)
 	{
-		u[i] = floatCon[i];
+		u[i] = floatCon->Data[i];
 	}
 
-	delete[] floatCon;
+    if (floatCon != NULL) {
+        if (floatCon->Data != NULL) {
+            delete[] floatCon->Data;
+            floatCon->Data = NULL;
+        }
+
+        delete floatCon;
+        floatCon = NULL;
+    }
+
 	return 0;
 }
 
@@ -284,6 +321,13 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		
 	rrc::RRStringArrayPtr temp= gHostInterface->getSteadyStateSelectionList(mRR);
 	tlp::StringList selRecs(temp->String, temp->Count);
+    if (temp->String) {
+        for (int i = 0; i < temp->Count; i++) {
+            delete[] temp->String[i];
+        }
+        delete[] temp->String;
+    }
+    delete temp;
 
 	tlp::StringList              selList = selRecs;
 	vector<double> variableTemp(selList.size());
@@ -314,10 +358,10 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		}
 	}
 
-	rrc::RRVectorPtr intermediate= new rrc::RRVector;
+    std::unique_ptr<rrc::RRVector> intermediate = std::make_unique<rrc::RRVector>();
 	intermediate->Count = numIndFloatingSpecies;
 	intermediate->Data = tempConc;
-	gHostInterface->setFloatingSpeciesConcentrations(mRR, intermediate);
+	gHostInterface->setFloatingSpeciesConcentrations(mRR, intermediate.get());
 
 
 	delete [] tempConc;

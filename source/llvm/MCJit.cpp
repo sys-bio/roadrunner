@@ -44,7 +44,8 @@ namespace rrllvm {
      * file type.
      */
 #if LLVM_VERSION_MAJOR == 6
-    llvm::LLVMTargetMachine::CodeGenFileType getCodeGenFileType(){
+    llvm::LLVMTargetMachine::CodeGenFileType getCodeGenFileType()
+    {
         return llvm::TargetMachine::CGFT_ObjectFile;
     }
 #elif LLVM_VERSION_MAJOR >= 12
@@ -57,25 +58,33 @@ namespace rrllvm {
 
 
     MCJit::MCJit(std::uint32_t opt)
-            : Jit(opt),
-              engineBuilder(EngineBuilder(std::move(module))) {
-
+        : Jit(opt)
+        , engineBuilder(EngineBuilder(std::move(module)))
+        , executionEngine()
+        , functionPassManager()
+        , errString()
+    {
         compiledModuleBinaryStream = std::make_unique<llvm::raw_svector_ostream>(moduleBuffer);
 
         engineBuilder
-                .setErrorStr(errString.get())
-                .setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
-        executionEngine = std::unique_ptr<ExecutionEngine>(engineBuilder.create());
+            .setErrorStr(errString.get())
+            .setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
+        executionEngine.reset(engineBuilder.create());
 
         MCJit::mapFunctionsToJitSymbols();
         MCJit::initFunctionPassManager();
     }
 
+    MCJit::MCJit()
+        : MCJit(LoadSBMLOptions().modelGeneratorOpt)
+    {
+    }
 
-    ExecutionEngine *MCJit::getExecutionEngineNonOwning() const {
+    ExecutionEngine* MCJit::getExecutionEngineNonOwning() const {
         return executionEngine.get();
     }
-    std::string MCJit::mangleName(const std::string &unmangledName) const {
+
+    std::string MCJit::mangleName(const std::string& unmangledName) const {
         std::string mangledName;
         llvm::raw_string_ostream mangledNameStream(mangledName);
         llvm::Mangler::getNameWithPrefix(mangledNameStream, unmangledName, getDataLayout());
@@ -86,9 +95,9 @@ namespace rrllvm {
         llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr); // for symbols in current process
 
 
-        for (auto [fnName, fnTy_addr_pair] : externalFunctionSignatures()){
+        for (auto [fnName, fnTy_addr_pair] : externalFunctionSignatures()) {
             auto [fnTy, addr] = fnTy_addr_pair;
-            rrLogDebug << "Creating function \"" << fnName << "\"; fn type: " << toStringRef(fnTy).str() << "; at addr: " <<addr;
+            rrLogDebug << "Creating function \"" << fnName << "\"; fn type: " << toStringRef(fnTy).str() << "; at addr: " << addr;
             Function::Create(fnTy, Function::ExternalLinkage, fnName, getModuleNonOwning());
             llvm::sys::DynamicLibrary::AddSymbol(fnName, addr);
         }
@@ -98,8 +107,8 @@ namespace rrllvm {
         ModelDataIRBuilder::getCSRMatrixSetNZDecl(getModuleNonOwning());
         ModelDataIRBuilder::getCSRMatrixGetNZDecl(getModuleNonOwning());
         // Add the symbol to the library
-        llvm::sys::DynamicLibrary::AddSymbol(ModelDataIRBuilder::csr_matrix_set_nzName, (void*) rr::csr_matrix_set_nz);
-        llvm::sys::DynamicLibrary::AddSymbol(ModelDataIRBuilder::csr_matrix_get_nzName, (void*) rr::csr_matrix_get_nz);
+        llvm::sys::DynamicLibrary::AddSymbol(ModelDataIRBuilder::csr_matrix_set_nzName, (void*)rr::csr_matrix_set_nz);
+        llvm::sys::DynamicLibrary::AddSymbol(ModelDataIRBuilder::csr_matrix_get_nzName, (void*)rr::csr_matrix_get_nz);
     }
 
     void MCJit::transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> modelResources) {
@@ -112,12 +121,12 @@ namespace rrllvm {
 
     }
 
-    std::uint64_t MCJit::lookupFunctionAddress(const std::string &name) {
-        void *v = executionEngine->getPointerToNamedFunction(mangleName(name));
-        return (std::uint64_t) v;
+    std::uint64_t MCJit::lookupFunctionAddress(const std::string& name) {
+        void* v = executionEngine->getPointerToNamedFunction(mangleName(name));
+        return (std::uint64_t)v;
     }
 
-    llvm::TargetMachine *MCJit::getTargetMachine() {
+    llvm::TargetMachine* MCJit::getTargetMachine() {
         return executionEngine->getTargetMachine();
     }
 
@@ -138,7 +147,7 @@ namespace rrllvm {
 
 
         llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
-                llvm::object::ObjectFile::createObjectFile(obj->getMemBufferRef());
+            llvm::object::ObjectFile::createObjectFile(obj->getMemBufferRef());
         if (!objectFileExpected) {
             throw std::invalid_argument("Failed to load object data");
         }
@@ -147,11 +156,11 @@ namespace rrllvm {
     }
 
 
-    const llvm::DataLayout &MCJit::getDataLayout() const {
+    const llvm::DataLayout& MCJit::getDataLayout() const {
         return getExecutionEngineNonOwning()->getDataLayout();
     }
 
-    void MCJit::addModule(llvm::Module *M) {
+    void MCJit::addModule(llvm::Module* M) {
 
     }
 
@@ -169,16 +178,16 @@ namespace rrllvm {
 
         if (compiledModuleBinaryStream->str().empty()) {
             std::string err = "Attempt to add module before its been written to binary. Make a call to "
-                              "MCJit::writeObjectToBinaryStream() before addModule()";
+                "MCJit::writeObjectToBinaryStream() before addModule()";
             rrLogErr << err;
             throw_llvm_exception(err);
         }
 
-        auto memBuffer(llvm::MemoryBuffer::getMemBuffer(compiledModuleBinaryStream->str().str()));
+        auto memBuffer(llvm::MemoryBuffer::getMemBuffer(getModuleBinaryStreamAsString()));
 
         llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
-                llvm::object::ObjectFile::createObjectFile(
-                        llvm::MemoryBufferRef(compiledModuleBinaryStream->str(), "id"));
+            llvm::object::ObjectFile::createObjectFile(
+                llvm::MemoryBufferRef(compiledModuleBinaryStream->str(), "id"));
 
         if (!objectFileExpected) {
             //LS DEBUG:  find a way to get the text out of the error.
@@ -196,7 +205,7 @@ namespace rrllvm {
         getExecutionEngineNonOwning()->finalizeObject();
     }
 
-    std::unique_ptr<llvm::MemoryBuffer> MCJit::getCompiledModelFromCache(const std::string &sbmlMD5) {
+    std::unique_ptr<llvm::MemoryBuffer> MCJit::getCompiledModelFromCache(const std::string& sbmlMD5) {
         return nullptr;
     }
 
@@ -213,8 +222,8 @@ namespace rrllvm {
 
         //Write the object file to modBufferOut
         std::error_code EC;
-//        llvm::SmallVector<char, 10> modBufferOut;
-//        postOptimizedModuleStream(modBufferOut);
+        // llvm::SmallVector<char, 10> modBufferOut;
+        // postOptimizedModuleStream(modBufferOut);
 
         llvm::legacy::PassManager pass;
         auto FileType = getCodeGenFileType();
@@ -244,10 +253,10 @@ namespace rrllvm {
              * Note to developers - passes are stored in llvm/Transforms/Scalar.h.
              */
 
-            // we only support LLVM >= 3.1
+             // we only support LLVM >= 3.1
 #if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR == 1)
             //#if (LLVM_VERSION_MAJOR == 6)
-                functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
+            functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
 #elif (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR <= 4)
             functionPassManager->add(new DataLayout(*executionEngine->getDataLayout()));
 #elif (LLVM_VERSION_MINOR > 4)
@@ -271,7 +280,7 @@ namespace rrllvm {
                 functionPassManager->add(createInstSimplifyLegacyPass());
 #else
                 rrLogWarn << "Not using llvm optimization \"OPTIMIZE_INSTRUCTION_SIMPLIFIER\" "
-                             "because llvm version is " << LLVM_VERSION_MAJOR;
+                    "because llvm version is " << LLVM_VERSION_MAJOR;
 #endif
             }
 
@@ -300,7 +309,7 @@ namespace rrllvm {
                 // or replaced with createDeadCodeEliminationPass, which we add below anyway
 #else
                 rrLogWarn << "Not using OPTIMIZE_DEAD_INST_ELIMINATION because you are using"
-                             "LLVM version " << LLVM_VERSION_MAJOR;
+                    "LLVM version " << LLVM_VERSION_MAJOR;
 #endif
             }
 
@@ -313,11 +322,11 @@ namespace rrllvm {
         }
     }
 
-    llvm::legacy::FunctionPassManager *MCJit::getFunctionPassManager() const {
+    llvm::legacy::FunctionPassManager* MCJit::getFunctionPassManager() const {
         return functionPassManager.get();
     }
 
-    llvm::raw_svector_ostream &MCJit::getCompiledModuleStream() {
+    llvm::raw_svector_ostream& MCJit::getCompiledModuleStream() {
         return *compiledModuleBinaryStream;
     }
 

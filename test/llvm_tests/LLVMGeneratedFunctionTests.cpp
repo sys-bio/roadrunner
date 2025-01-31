@@ -22,8 +22,7 @@ void LLVMGeneratedFunctionTests::checkInitialEvaluationSpecies(int options, int 
         s->setInitialAmount(speciesAmt); // so 4.5 after initial eval?
 
         // create the Jit engine and give to ModelGeneratorContext.
-        std::unique_ptr<Jit> j = JitFactory::makeJitEngine(options);
-        ModelGeneratorContext mgc(doc.get() /*borrowed*/, options, std::move(j));
+        ModelGeneratorContext mgc(doc.get() /*borrowed*/, options, JitFactory::makeJitEngine(options));
 
         // code gen (limited scope, this test only needs a few functions)
         EvalInitialConditionsCodeGen(mgc).createFunction();

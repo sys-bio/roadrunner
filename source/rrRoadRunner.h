@@ -744,7 +744,7 @@ namespace rr {
          */
         ls::DoubleMatrix getFullJacobian();
 
-        ls::DoubleMatrix getFullReorderedJacobian();
+       // ls::DoubleMatrix getFullReorderedJacobian(); // Not implimented
 
         /**
          * Compute the reduced Jacobian at the current operating point.

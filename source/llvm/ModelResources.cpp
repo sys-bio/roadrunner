@@ -55,8 +55,14 @@ using rr::LoadSBMLOptions;
 namespace rrllvm {
     /** @cond PRIVATE */
 
-    ModelResources::ModelResources() :
-            symbols(nullptr), executionEngine(nullptr), context(nullptr), random(nullptr), errStr(nullptr) {
+    ModelResources::ModelResources() 
+        : symbols(nullptr)
+        , executionEngine(nullptr)
+        , context(nullptr)
+        , random(nullptr)
+        , errStr(nullptr)
+        , jit(nullptr)
+    {
         // the reset of the ivars are assigned by the generator,
         // and in an exception they are not, does not matter as
         // we don't have to delete them.
@@ -128,14 +134,13 @@ namespace rrllvm {
         rr::saveBinary(out, usingCompiledModuleBinaryStream);
 
         if (usingCompiledModuleBinaryStream) {
-            rr::saveBinary(out, jit->compiledModuleBinaryStream.get());
+            rr::saveBinary(out, jit->getModuleBinaryStreamAsString());
         }
 
     }
 
     void ModelResources::loadState(std::istream &in, uint modelGeneratorOpt) {
-
-        jit = std::move(JitFactory::makeJitEngine(modelGeneratorOpt));
+        jit.reset(JitFactory::makeJitEngine(modelGeneratorOpt));
 
         // get rid of sumbols, if not nullptr.
         // todo make symbols a unique_ptr
@@ -164,8 +169,10 @@ namespace rrllvm {
          * a roadrunner instance cannot saveState.
          */
         if (usingCompiledModuleBinaryStream) {
-            //Get the object file binary string from the input stream
-            rr::loadBinary(in, jit->compiledModuleBinaryStream.get());
+            //We saved this as a string; convert it back to a 'raw_svector_ostream'
+            string stream_str;
+            rr::loadBinary(in, stream_str);
+            jit->resetModuleBinaryStream(stream_str);
         }
 
         //Set up a buffer to read the object code from
