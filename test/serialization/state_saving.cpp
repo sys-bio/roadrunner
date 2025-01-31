@@ -434,7 +434,7 @@ TEST_F(StateSavingTests, LOAD_INVALID_FILE) {
     EXPECT_THROW(rri.loadState((stateSavingModelsDir / "wrong-save-state.rr").string()), std::exception);
 }
 
-TEST_F(StateSavingTests, DISABLED_LOAD_VALID_FILE) {
+TEST_F(StateSavingTests, LOAD_VALID_FILE) {
     //NOTE:  This test will fail every time roadrunner comes out with a new minor
     // version, and/or the save state format changes.  In fact, if the save state
     // format changes, the minor version *must* change, so that existing roadrunner
