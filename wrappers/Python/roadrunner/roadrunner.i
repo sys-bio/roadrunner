@@ -3062,6 +3062,12 @@ solvers = integrators + steadyStateSolvers
 %ignore rr::integratorFactoryMutex;
 %ignore rr::integratorRegistrationMutex;
 
+// Need to %ignore private friended functions, as of SWIG 4.3
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
+
 // sundials steady state solvers
 %include "KinsolSteadyStateSolver.h"
 %include "NewtonIteration.h"
