@@ -212,9 +212,8 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            apt-get update
-          cp test/stabilization/savedState.rr ../${{ env.save_state_filename }}
+          cp test/stabilization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}
+          echo "cp test/stabilization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}"
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
 
       - name: Set artifacts path and name
