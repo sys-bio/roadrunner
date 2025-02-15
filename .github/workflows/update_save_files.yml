@@ -213,12 +213,10 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
-          echo "find ."
-          find .
-          echo "find grep"
+          echo "find . | grep savedState"
           find . | grep savedState
-          echo "cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}"
-          cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}
+          echo "cp test/serialization/savedState.rr ../${{ env.save_state_filename }}"
+          cp test/serialization/savedState.rr ../${{ env.save_state_filename }}
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
 
       - name: Set artifacts path and name
