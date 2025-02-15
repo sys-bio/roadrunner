@@ -214,6 +214,10 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
           cp test/stabilization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}
+          echo "find ."
+          find .
+          echo "find grep"
+          find . | grep savedState
           echo "cp test/stabilization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}"
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
 
