@@ -456,10 +456,17 @@ TEST_F(StateSavingTests, LOAD_VALID_FILE) {
     rri.loadState((stateSavingModelsDir / "savedState_windows.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
 #elif (defined(__APPLE__))
-    rri.loadState((stateSavingModelsDir / "savedState_mac.rr").string());
+#if defined(__arm64__)
+    rri.loadState((stateSavingModelsDir / "savedState_macos_arm64.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_mac.rr").string());
+    rri.loadState((stateSavingModelsDir / "savedState_macos_arm64.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+#else
+    rri.loadState((stateSavingModelsDir / "savedState_macos_x86.rr").string());
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    rri.loadState((stateSavingModelsDir / "savedState_macos_x86.rr").string());
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+#endif
 #else
     rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
     EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);

@@ -1,0 +1,237 @@
+name: BuildRoadRunner
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build_on_OSs:
+    name: ${{ matrix.platform.name }} roadrunner build
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - name: macos-13-release
+            os_type: macos
+            os_name: macos-13
+            build_type: Release
+          - name: macos-14-release
+            os_type: macos
+            os_name: macos-14
+            build_type: Release
+          - name: windows-latest-release
+            os_type: windows
+            os_name: windows-latest
+            build_type: Release
+          - name: manylinux_2_28-release
+            os_type: manylinux
+            os_name: ubuntu-latest
+            container_image: quay.io/pypa/manylinux_2_28_x86_64
+            build_type: Release
+        libroadrunner_deps_owner: [ "sys-bio" ]
+        libroadrunner_deps_repo: [ "libroadrunner-deps" ]
+        libroadrunner_deps_name: [ "libroadrunner-deps" ]
+        libroadrunner_deps_release_version: [ "v2.2.13" ]
+        llvm_owner: [ "sys-bio" ]
+        llvm_repo: [ "llvm-13.x" ]
+        llvm_name: [ "llvm-13.x" ]
+        llvm_release_version: [ "v13.1" ]
+        build_tests: [ON]
+        build_plugins: [ON]
+    runs-on: ${{ matrix.platform.os_name }}
+    container:
+      image: ${{ matrix.platform.container_image || '' }}
+
+    steps:
+      - name: Checkout RoadRunner
+        if: matrix.platform.os_type != 'manylinux'
+        uses: actions/checkout@v4
+
+      - name: Set MSVC as the default compiler on Windows
+        if: matrix.platform.os_type == 'windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Upgrade gcc on Linux
+        if: matrix.platform.os_type == 'manylinux'
+        shell: bash
+        run: |
+          if [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            apt-get update
+            apt-get install -y software-properties-common
+            add-apt-repository -y ppa:ubuntu-toolchain-r/test
+            apt-get update
+            apt-get install -y gcc-11 g++-11
+            update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
+            update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            dnf install -y gcc-toolset-11
+            scl enable gcc-toolset-11 bash
+            echo "/opt/rh/gcc-toolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+          fi
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Get Host Architecture
+        shell: bash
+        run: |
+          architecture=$(uname -m)
+          echo "host_architecture=$architecture" >> $GITHUB_ENV
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            echo "OSX_ARCHITECTURES=$architecture" >> $GITHUB_ENV
+          fi
+
+      - name: Install ccache
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            brew install ccache
+          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            sudo apt-get update
+            sudo apt-get install -y ccache
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mkdir -p ccache
+            cd ccache
+            curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
+            tar -zxf ccache.tar.gz
+            rm ccache.tar.gz
+            mkdir -p build-ccache
+            mkdir -p install-ccache
+            cd build-ccache
+            cmake -DCMAKE_INSTALL_PREFIX="$RUNNER_WORKSPACE/ccache/install-ccache" -DCMAKE_BUILD_TYPE=Release ../ccache-4.9.1
+            cmake --build . --target install
+            echo "$RUNNER_WORKSPACE/ccache/install-ccache/bin" >> "${GITHUB_PATH}"
+          fi
+
+      - name: Prepare ccache timestamp on non-Windows platforms
+        if: matrix.platform.os_type != 'windows'
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("timestamp=${current_date}" >> $GITHUB_OUTPUT)
+          # message("::set-output name=timestamp::${current_date}")
+
+      - name: Set ccache cache directory on non-Windows
+        if: matrix.platform.os_type != 'windows'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> $GITHUB_ENV
+          echo "COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
+
+      - name: Cache ccache files on non-Windows
+        if: matrix.platform.os_type != 'windows'
+        uses: actions/cache@v4
+        with:
+          path: ${RUNNER_WORKSPACE}/.ccache
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+            ${{ runner.os }}-
+
+      - name: Save standardized os/compiler names
+        shell: bash
+        run: |
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-msvc$compiler_version" >> $GITHUB_ENV
+            echo "save_state_filename=test/models/StateSavingTests/savedState_windows.rr "
+          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
+            if [ "${{ matrix.platform.os_name }}" == 'macos-13' ]; then
+              echo "save_state_filename=test/models/StateSavingTests/savedState_macos_x86.rr "
+            elif [ "${{ matrix.platform.os_name }}" == 'macos-14' ]; then
+              echo "save_state_filename=test/models/StateSavingTests/savedState_macos_arm64.rr "
+            fi
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            os_name="${{ matrix.platform.name }}"
+            os_name_without_build_type="${os_name%%-*}"
+            echo "os_and_compiler=${os_name_without_build_type}" >> $GITHUB_ENV
+            echo "save_state_filename=test/models/StateSavingTests/savedState_linux.rr "
+          fi
+
+      - name: Download LibRoadRunner Dependencies binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ matrix.libroadrunner_deps_name }}-binaries
+          cd ${{ matrix.libroadrunner_deps_name }}-binaries
+          curl -LO "https://github.com/${{ matrix.libroadrunner_deps_owner }}/${{ matrix.libroadrunner_deps_repo }}/releases/download/${{ matrix.libroadrunner_deps_release_version }}/${{ matrix.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
+          unzip -q ${{ matrix.libroadrunner_deps_name }}*.zip
+          rm ${{ matrix.libroadrunner_deps_name }}*.zip
+          echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> $GITHUB_ENV
+
+      - name: Download LLVM binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ matrix.llvm_name }}-binaries
+          cd ${{ matrix.llvm_name }}-binaries
+          curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ matrix.llvm_release_version }}/${{ matrix.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
+          unzip -q ${{ matrix.llvm_name }}*.zip
+          rm ${{ matrix.llvm_name }}*.zip
+          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries" >> $GITHUB_ENV
+
+          # make llvm-config executable
+          chmod a+x ${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries/bin/llvm-config
+
+      - name: Create build directory
+        shell: bash
+        run: mkdir -p ${RUNNER_WORKSPACE}/build-roadrunner
+
+      - name: Configure CMake for RoadRunner
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_BUILD_TYPE=${{ matrix.platform.build_type }} \
+          -DCMAKE_OSX_ARCHITECTURES=${OSX_ARCHITECTURES} \
+          -DCMAKE_INSTALL_PREFIX="${RUNNER_WORKSPACE}/install-roadrunner" \
+          -DRR_DEPENDENCIES_INSTALL_PREFIX=${RR_DEPENDENCIES_INSTALL_PREFIX} \
+          -DLLVM_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX} \
+          -DBUILD_TESTS=${{ matrix.build_tests }} \
+          -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
+          -DBUILD_PYTHON=OFF \
+          ${{ env.PYTHON_DIR }} \
+          ${{ env.SWIG_DIR }}
+
+      - name: Build and install RoadRunner
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
+
+      - name: Run C RoadRunner tests
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            apt-get update
+          cp test/stabilization/savedState.rr ../${{ env.save_state_filename }}
+          ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
+
+      - name: Set artifacts path and name
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          echo "artifacts_name=roadrunner-saveState-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+          echo "artifacts_path=${RUNNER_WORKSPACE}/${{ env.save_state_filename }}" >> $GITHUB_ENV
+
+      - name: Upload roadrunner binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifacts_name }}
+          path: ${{ env.artifacts_path }}
