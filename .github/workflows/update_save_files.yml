@@ -43,7 +43,6 @@ jobs:
 
     steps:
       - name: Checkout RoadRunner
-        if: matrix.platform.os_type != 'manylinux'
         uses: actions/checkout@v4
 
       - name: Set MSVC as the default compiler on Windows
