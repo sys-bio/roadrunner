@@ -55,13 +55,13 @@ int fort_names_are_valid = 0;
 
 void SetFortNames(const char *key)
 {
-    sprintf(fort_name[2], "%s.2", key);
-    sprintf(fort_name[3], "%s.3", key);
-    sprintf(fort_name[6], "%s.6", key);
-    sprintf(fort_name[7], "%s.7", key);
-    sprintf(fort_name[8], "%s.8", key);
-    sprintf(fort_name[9], "%s.9", key);
-    sprintf(fort_name[12], "%s.12", key);
+    snprintf(fort_name[2], 512, "%s.2", key);
+    snprintf(fort_name[3], 512, "%s.3", key);
+    snprintf(fort_name[6], 512, "%s.6", key);
+    snprintf(fort_name[7], 512, "%s.7", key);
+    snprintf(fort_name[8], 512, "%s.8", key);
+    snprintf(fort_name[9], 512, "%s.9", key);
+    snprintf(fort_name[12], 512, "%s.12", key);
 }
 
 int global_conpar_type=CONPAR_DEFAULT;
