@@ -215,6 +215,8 @@ jobs:
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
           echo "find . | grep savedState"
           find . | grep savedState
+          echo "chmod a+rwx ../test ../test/models ../test/models/StateSavingTests/"
+          chmod a+rwx ../test ../test/models ../test/models/StateSavingTests/
           echo "cp test/serialization/savedState.rr ../${{ env.save_state_filename }}"
           cp test/serialization/savedState.rr ../${{ env.save_state_filename }}
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
