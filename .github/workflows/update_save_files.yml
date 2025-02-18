@@ -137,20 +137,20 @@ jobs:
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
             echo "os_and_compiler=${{ matrix.platform.os_type }}-msvc$compiler_version" >> $GITHUB_ENV
-            echo "save_state_filename=test/models/StateSavingTests/savedState_windows.rr " >> $GITHUB_ENV
+            echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_windows.rr " >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
             echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
             if [ "${{ matrix.platform.os_name }}" == 'macos-13' ]; then
-              echo "save_state_filename=test/models/StateSavingTests/savedState_macos_x86.rr " >> $GITHUB_ENV
+              echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_x86.rr " >> $GITHUB_ENV
             elif [ "${{ matrix.platform.os_name }}" == 'macos-14' ]; then
-              echo "save_state_filename=test/models/StateSavingTests/savedState_macos_arm64.rr " >> $GITHUB_ENV
+              echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_arm64.rr " >> $GITHUB_ENV
             fi
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             os_name="${{ matrix.platform.name }}"
             os_name_without_build_type="${os_name%%-*}"
             echo "os_and_compiler=${os_name_without_build_type}" >> $GITHUB_ENV
-            echo "save_state_filename=test/models/StateSavingTests/savedState_linux.rr " >> $GITHUB_ENV
+            echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_linux.rr " >> $GITHUB_ENV
           fi
 
       - name: Download LibRoadRunner Dependencies binaries
@@ -207,18 +207,14 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Run C RoadRunner tests
+      - name: Run FromFile test; copy and run VALID_FILE test
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex FromFile
-          echo "cd ..; find . | grep savedState"
-          cd ..
-          find . | grep savedState
-          echo "cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/roadrunner/${{ env.save_state_filename }}"
-          cp build-roadrunner/test/serialization/savedState.rr roadrunner/${{ env.save_state_filename }}
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          echo "cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}"
+          cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
 
       - name: Set artifacts path and name
