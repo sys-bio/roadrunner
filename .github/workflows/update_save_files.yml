@@ -217,6 +217,14 @@ jobs:
           cp test/serialization/savedState.rr ${RUNNER_WORKSPACE}/${{ env.save_state_filename }}
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LOAD_VALID_FILE
 
+      - name: Save roadrunner version
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ls -l
+          export rrversion="$(cat VERSION.txt)"
+          echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
+
       - name: Set artifacts path and name
         shell: bash
         run: |
