@@ -2688,7 +2688,7 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
 {
     /* Local variables */
     integer iplt, itmp, i, j;
-    char col[9][14+1];
+    char col[9][27+1];
     integer ndm, ips, itp;
     integer isw;
 
@@ -2708,7 +2708,7 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
 
     /*initialize strings*/
     for (i = 0; i < 9; ++i) {
-        snprintf(col[i], 15, "              ");
+        snprintf(col[i], 28, "              ");
     }
 
     if (iap->mynode == 0) {
@@ -2730,36 +2730,36 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
             j = j + 1 + *n2;
         }   
         if (icp[i] > 9) {
-            snprintf(col[j-1], 15, "   PAR(%ld)    ",icp[i]);
+            snprintf(col[j-1], 28, "   PAR(%ld)    ",icp[i]);
         } else {
-            snprintf(col[j-1], 15, "   PAR(%ld)     ",icp[i]);
+            snprintf(col[j-1], 28, "   PAR(%ld)     ",icp[i]);
         }
 
     }
 
     if (iplt > ndm && iplt <= ndm << 1) {
-        snprintf(col[1], 15, " INTEGRAL U(%ld)",iplt-ndm);
+        snprintf(col[1], 28, " INTEGRAL U(%ld)",iplt-ndm);
     } else if (iplt > ndm << 1 && iplt <= ndm * 3) {
-        snprintf(col[1], 15, " L2-NORM U(%ld) ",iplt - (ndm * 2));
+        snprintf(col[1], 28, " L2-NORM U(%ld) ",iplt - (ndm * 2));
     } else if (iplt > 0 && iplt <= ndm) {
         if (abs(ips) <= 1 || ips == 5) {
-            snprintf(col[1], 15, "     U(%ld)     ",-iplt);
+            snprintf(col[1], 28, "     U(%ld)     ",-iplt);
         } else {
-            snprintf(col[1], 15, "   MAX U(%ld)   ",iplt);
+            snprintf(col[1], 28, "   MAX U(%ld)   ",iplt);
         }
     } else if (iplt < 0 && iplt >= -ndm) {
         if (abs(ips) <= 1 || ips == 5) {
-            snprintf(col[1], 15, "     U(%ld)     ",-iplt);
+            snprintf(col[1], 28, "     U(%ld)     ",-iplt);
         } else {
-            snprintf(col[1], 15, "   MIN U(%ld)   ",-iplt);
+            snprintf(col[1], 28, "   MIN U(%ld)   ",-iplt);
         }
     } else {
-        snprintf(col[1], 15, "   L2-NORM    ");
+        snprintf(col[1], 28, "   L2-NORM    ");
     }
 
     if (*n2 > 0) {
         for (i = 0; i < *n2; ++i) {
-            snprintf(col[i+2], 15, "     U(%ld)     ",i + 1);
+            snprintf(col[i+2], 28, "     U(%ld)     ",i + 1);
             itmp = i;
         }
         if ((ips >= 2 && ips <= 4) || (ips >= 6 && ips <= 9) || (ips >= 12 && ips <= 17)) {
@@ -2773,11 +2773,11 @@ headng(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, integer iuni
 
     for (i = 0; i < *n1 + *n2 + 1; ++i) {
         if (strcmp(col[i],"   PAR(10)    ") == 0 && ips > 0 && ips != 4) {
-            snprintf(col[i], 15, "    PERIOD    ");
+            snprintf(col[i], 28, "    PERIOD    ");
         } else if (strcmp(col[i],"   PAR(9)    ") == 0 && (ips == 5 || ips == 15)) {
-            snprintf(col[i], 15, "     FOPT     ");
+            snprintf(col[i], 28, "     FOPT     ");
         } else if (strcmp(col[i],"   PAR(13)    ") == 0 && (ips == 14 || ips == 16)) {
-            snprintf(col[i], 15, "     TIME     ");
+            snprintf(col[i], 28, "     TIME     ");
         }
     }
 
