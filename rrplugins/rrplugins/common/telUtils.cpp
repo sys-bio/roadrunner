@@ -192,7 +192,7 @@ string getCurrentExeFolder()
     char arg1[20];
     char exepath[PATH_MAX+1] = {0};
 
-    sprintf( arg1, "/proc/%d/exe", getpid() );
+    snprintf( arg1, 20, "/proc/%d/exe", getpid() );
     ssize_t r = readlink( arg1, exepath, 1024 );
 
     if (r < 0)

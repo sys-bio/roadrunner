@@ -109,7 +109,7 @@ namespace rrllvm
         for (uint i = 0; i < events->size(); ++i)
         {
             char block_name[64];
-            std::sprintf(block_name, "event_%i_block", i);
+            std::snprintf(block_name, 64, "event_%i_block", i);
             llvm::BasicBlock* block = llvm::BasicBlock::Create(this->context, block_name, this->function);
             this->builder.SetInsertPoint(block);
             resolver.flushCache();

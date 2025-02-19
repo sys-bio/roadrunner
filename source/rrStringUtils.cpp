@@ -742,14 +742,14 @@ std::string toString(const bool& val)
 std::string toString(const double& val, const std::string& format)
 {
     char sBuffer[256];
-    sprintf(sBuffer, format.c_str(), val);
+    snprintf(sBuffer, 256, format.c_str(), val);
     return std::string(sBuffer);
 }
 
 //std::string toString(const int& val)
 //{
 //    char sBuffer[256];
-//    sprintf(sBuffer, format.c_str(), val);
+//    snprintf(sBuffer, 256, format.c_str(), val);
 //    return std::string(sBuffer);
 //}
 
@@ -758,7 +758,7 @@ std::string toString(const unsigned int& n, const std::string& format, const int
     char sBuffer[256];
     if (nBase == 16)
     {
-        sprintf(sBuffer, "%X", n);
+        snprintf(sBuffer, 256, "%X", n);
         return std::string("0x") + std::string(sBuffer);
     }
     else if(nBase == 2)
@@ -777,7 +777,7 @@ std::string toString(const unsigned int& n, const std::string& format, const int
     }
     else
     {
-        sprintf(sBuffer, "%d", n);
+        snprintf(sBuffer, 256, "%d", n);
         return std::string(sBuffer);
     }
 }
@@ -787,7 +787,7 @@ std::string toString(const int& n, const std::string& format, const int nBase)
     char sBuffer[256];
     if (nBase == 16)
     {
-        sprintf(sBuffer, "%X", n);
+        snprintf(sBuffer, 256, "%X", n);
         return std::string("0x") + std::string(sBuffer);
     }
     else if(nBase == 2)
@@ -806,7 +806,7 @@ std::string toString(const int& n, const std::string& format, const int nBase)
     }
     else
     {
-        sprintf(sBuffer, "%d", n);
+        snprintf(sBuffer, 256, "%d", n);
         return std::string(sBuffer);
     }
 }
@@ -816,7 +816,7 @@ std::string toString(const int n, const int nBase)
     char sBuffer[256];
     if (nBase == 16)
     {
-        sprintf(sBuffer, "%X", n);
+        snprintf(sBuffer, 256, "%X", n);
         return std::string("0x") + std::string(sBuffer);
     }
     else if(nBase == 2)
@@ -835,7 +835,7 @@ std::string toString(const int n, const int nBase)
     }
     else
     {
-        sprintf(sBuffer, "%d", n);
+        snprintf(sBuffer, 256, "%d", n);
         return std::string(sBuffer);
     }
 }
@@ -845,7 +845,7 @@ std::string toString(const long n, const int nBase)
     char sBuffer[256];
     if (nBase == 10)
     {
-        sprintf(sBuffer, "%lu", n);
+        snprintf(sBuffer, 256, "%lu", n);
         return std::string(sBuffer);
     }
     return toString( int(n), nBase);
@@ -856,7 +856,7 @@ std::string toString(const unsigned long n, const int nBase)
     char sBuffer[256];
     if (nBase == 10)
     {
-        sprintf(sBuffer, "%lu", n);
+        snprintf(sBuffer, 256, "%lu", n);
         return std::string(sBuffer);
     }
     return toString( int(n), nBase);
@@ -867,7 +867,7 @@ std::string toString(const unsigned short n, const int nBase)
     char sBuffer[256];
     if (nBase == 10)
     {
-        sprintf(sBuffer, "%u", n);
+        snprintf(sBuffer, 256, "%u", n);
         return std::string(sBuffer);
     }
     return toString( int(n), nBase);
@@ -881,14 +881,14 @@ std::string toString(const short n, const int nBase)
 std::string toString(const char n)
 {
     char sBuffer[256];
-    sprintf(sBuffer, "%c", n);
+    snprintf(sBuffer, 256, "%c", n);
     return std::string(sBuffer);
 }
 
 std::string toString(const unsigned char n)
 {
     char sBuffer[256];
-    sprintf(sBuffer, "%c", n);
+    snprintf(sBuffer, 256, "%c", n);
     return std::string(sBuffer);
 }
 

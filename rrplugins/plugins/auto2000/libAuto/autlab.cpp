@@ -61,7 +61,7 @@ void write7(solutionp root) {
       strncpy(&line[10],"   0   0",8);
     } else {
       char tmp[9];
-      sprintf(tmp,"%4d%4d",current->type,current->new_label);
+      snprintf(tmp, 9, "%4d%4d", current->type,current->new_label);
       strncpy(&line[10],tmp,8);
     }
     current = current->next;
