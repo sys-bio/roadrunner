@@ -125,10 +125,6 @@ macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
     set_source_files_properties(${SWIG_INTERFACE_FILE}
             PROPERTIES
             CPLUSPLUS ON
-            SWIG_FLAGS
-            # turns on automatic annotation of python arg and return types
-            # BUT does so in c++ types. Therefore I'm not sure how much value this adds.
-            -py3
             -threads
             -doxygen
             )

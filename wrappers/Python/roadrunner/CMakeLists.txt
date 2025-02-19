@@ -14,12 +14,6 @@ set_property(SOURCE roadrunner.i PROPERTY
         #            "-debug-csymbols"
         #            "-debug-lsymbols"
 
-        # turns on automatic annotation of python arg and return types
-        # BUT does so in c++ types. Therefore I'm not sure how much value this adds
-        # and we might want to just keep this off.
-        "-py3"
-
-
         #    Python Options (available with -python) (run swig.exe -help)
         # "-builtin"                        # Create Python built-in types rather than proxy classes, for better performance
         # "-castmode"                       # Enable the casting mode, which allows implicit cast between types in Python
@@ -38,7 +32,6 @@ set_property(SOURCE roadrunner.i PROPERTY
         # -"nortti"                         # Disable the use of the native C++ RTTI with directors
         # -"nothreads"                      # Disable thread support for the entire interface
         # -"olddefs"                        # Keep the old method definitions when using -fastproxy
-        # -"py3"                            # Generate code with Python 3 specific features and syntax
         # -"relativeimport"                 # Use relative Python imports
         # -"threads"                        # Add thread support for all the interface
         # -"O"                              # Enable the following optimization options:

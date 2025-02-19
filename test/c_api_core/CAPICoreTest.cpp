@@ -323,7 +323,7 @@ TEST_F(CAPICoreTest, CheckGetCC) {
 
     EXPECT_TRUE(success);
 
-    delete rrH;
+    freeRRInstance(rrH);
 
 }
 
@@ -351,7 +351,7 @@ TEST_F(CAPICoreTest, CheckGetEC) {
     }
 
     delete actual;
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckGetUEC) {
@@ -378,7 +378,7 @@ TEST_F(CAPICoreTest, CheckGetUEC) {
     }
 
     delete actual;
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckSetTimeCourseSelectionListEx) {
@@ -386,7 +386,10 @@ TEST_F(CAPICoreTest, CheckSetTimeCourseSelectionListEx) {
     RRHandle rrH = createRRInstance();
     ASSERT_TRUE(loadSBMLFromFileE(rrH, (cAPICoreModelsDir / path("steadystate.xml")).string().c_str(), true));
 
-    char* sel_list[] = { "time", "uec(_J0, A)", "ec(_J1, K)" };
+    char time[] = "time";
+    char uec[] = "uec(_J0, A)";
+    char ec[] = "ec(_J1, K)";
+    char* sel_list[] = { time, uec, ec };
 
     setTimeCourseSelectionListEx(rrH, 3, (const char**)sel_list);
     RRStringArrayPtr sel_rt = getTimeCourseSelectionList(rrH);
@@ -400,7 +403,7 @@ TEST_F(CAPICoreTest, CheckSetTimeCourseSelectionListEx) {
         EXPECT_STREQ(sel_list[i], rescols[i]);
     }
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckSetSteadyStateSelectionListEx) {
@@ -408,7 +411,10 @@ TEST_F(CAPICoreTest, CheckSetSteadyStateSelectionListEx) {
     RRHandle rrH = createRRInstance();
     ASSERT_TRUE(loadSBMLFromFileE(rrH, (cAPICoreModelsDir / path("steadystate.xml")).string().c_str(), true));
 
-    char* sel_list[] = { "A", "uec(_J0, A)", "ec(_J1, K)" };
+    char time[] = "A";
+    char uec[] = "uec(_J0, A)";
+    char ec[] = "ec(_J1, K)";
+    char* sel_list[] = { time, uec, ec };
 
     setSteadyStateSelectionListEx(rrH, 3, (const char**)sel_list);
     RRStringArrayPtr sel_rt = getSteadyStateSelectionList(rrH);
@@ -427,7 +433,7 @@ TEST_F(CAPICoreTest, CheckSetSteadyStateSelectionListEx) {
     }
 
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckGetStoichiometryMatrix) {
@@ -444,7 +450,7 @@ TEST_F(CAPICoreTest, CheckGetStoichiometryMatrix) {
     EXPECT_EQ(stoichs->Data[2], 1.0);
     EXPECT_EQ(stoichs->Data[3], -1.0);
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckRatesOfChangeFunctions) {
@@ -473,7 +479,7 @@ TEST_F(CAPICoreTest, CheckRatesOfChangeFunctions) {
     EXPECT_STREQ(roc_ids->String[0], "AP");
     delete roc_ids;
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_conserved) {
@@ -500,7 +506,7 @@ TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_conserved) {
     ASSERT_EQ(dep_amount->Count, 1);
     EXPECT_EQ(dep_amount->Data[0], 50);
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
 
 TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_nonconserved) {
@@ -529,5 +535,5 @@ TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_nonconserved
     ASSERT_EQ(dep_amount->Count, 1);
     EXPECT_EQ(dep_amount->Data[0], 50);
 
-    delete rrH;
+    freeRRInstance(rrH);
 }
