@@ -58,7 +58,7 @@ namespace rrllvm
         if (symbol.compare(SBML_TIME_SYMBOL) == 0)
         {
             Value* timeEP = mdbuilder.createGEP(Time);
-            Value* time = builder.CreateLoad(timeEP, SBML_TIME_SYMBOL);
+            Value* time = builder.CreateLoad(timeEP->getType()->getPointerElementType(), timeEP, SBML_TIME_SYMBOL);
             return cacheValue(symbol, args, time);
         }
 

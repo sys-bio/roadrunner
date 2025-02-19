@@ -186,7 +186,7 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
     rrLog(Logger::LOG_DEBUG) << "\n";
 
     Value *stoichEP = modelDataBuilder.createGEP(Stoichiometry);
-    Value *stoich = builder.CreateLoad(stoichEP, "stoichiometry");
+    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
 
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
             dataSymbols.getStoichiometryList();

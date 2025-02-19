@@ -48,7 +48,7 @@ bool EventTriggerCodeGen::eventCodeGen(llvm::Value *modelData,
         }
         Value *value = astCodeGen.codeGenDouble(math);
 
-        Value *loc = builder.CreateConstGEP1_32(data, id);
+        Value *loc = builder.CreateConstGEP1_32(data->getType()->getScalarType()->getPointerElementType(), data, id);
         builder.CreateStore(value, loc);
     }
 

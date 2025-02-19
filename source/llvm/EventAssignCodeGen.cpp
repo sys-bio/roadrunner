@@ -47,8 +47,8 @@ bool EventAssignCodeGen::eventCodeGen(llvm::Value *modelData,
         }
         if (model->getCompartment(a->getVariable()) == NULL)
         {
-            Value* loc = builder.CreateConstGEP1_32(data, id);
-            Value* value = builder.CreateLoad(loc, a->getVariable() + "_data");
+            Value* loc = builder.CreateConstGEP1_32(data->getType()->getScalarType()->getPointerElementType(), data, id);
+            Value* value = builder.CreateLoad(loc->getType()->getPointerElementType(), loc, a->getVariable() + "_data");
             mdStoreResolver.storeSymbolValue(a->getVariable(), value);
         }
     }
@@ -61,8 +61,8 @@ bool EventAssignCodeGen::eventCodeGen(llvm::Value *modelData,
         }
         if (model->getCompartment(a->getVariable()) != NULL)
         {
-            Value* loc = builder.CreateConstGEP1_32(data, id);
-            Value* value = builder.CreateLoad(loc, a->getVariable() + "_data");
+            Value* loc = builder.CreateConstGEP1_32(data->getType()->getScalarType()->getPointerElementType(), data, id);
+            Value* value = builder.CreateLoad(loc->getType()->getPointerElementType(), loc, a->getVariable() + "_data");
             mdStoreResolver.storeSymbolValue(a->getVariable(), value);
         }
     }
