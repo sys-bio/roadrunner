@@ -421,7 +421,7 @@ set(INCLUDE_DIRS "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/thread-pool>"
         "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
         "$<BUILD_INTERFACE:${DEPENDENCY_INCLUDE_DIR}>"
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/parallel-hashmap-1.33/parallel_hashmap>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/parallel-hashmap/parallel_hashmap>"
         # though roadrunner does not link libxml2 directly, it does
         # so in the plugins. This next item enables targets that
         # link to roadrunner-static to use
