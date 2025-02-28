@@ -1324,9 +1324,9 @@ def plotBifurcationData(data, colHeaders, bfPoints, bfLabels, legend=True, cmap=
 
     previousLbl = ''
     cm_i = 0
-    plotargs = {'xtitle': xlbl}
+    plotargs = {'xlabel': xlbl}
     if ylabel != None:
-        plotargs['ytitle'] = ylabel
+        plotargs['ylabel'] = ylabel
     for serie in range(nrOfSeries):
         if selections is not None and not colHeaders[serie + 1] in selections:
             continue
