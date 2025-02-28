@@ -696,6 +696,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 
 %ignore rr::RoadRunner::RoadRunner(const std::string&, const std::string&, const std::string&);
+%ignore rr::RoadRunner::operator =;
 /**
  * We do not need the mutexes in python
  */
@@ -884,10 +885,13 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%rename (keys) rr::Dictionary::getKeys;
 
 // do not create these, pure interface.
+%ignore rr::BasicDictionary(std::initializer_list<item>);
 %nodefaultctor rr::Dictionary;
 %nodefaultdtor Dictionary;
 %nodefaultctor rr::BasicDictionary;
 %nodefaultdtor DictionaryImpl;
+
+%ignore  rr::LoadSBMLOptions(const Dictionary*);
 
 
 // ignore SimulateOptions key access methods,
@@ -1070,6 +1074,8 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 
 //%ignore rr::DictionaryImpl;
+%ignore rr::BasicDictionary(std::initializer_list<item>);
+
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.

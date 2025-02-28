@@ -18,9 +18,6 @@
 #include <iostream>
 
 namespace rr {
-    using std::string;
-    using std::invalid_argument;
-    using std::stringstream;
 
     /**
     * An example class intended to show how to create
@@ -115,7 +112,7 @@ namespace rr {
             int internal_steps = getValue("subdivision_steps");
             if (mModel == (rr::ExecutableModel *) NULL) return 0;
 
-            double finalTimeEnd;
+            double finalTimeEnd = t0;
 
             h /= internal_steps;
             for (int subdiv = 0; subdiv < internal_steps; ++subdiv) {

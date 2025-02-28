@@ -35,11 +35,6 @@ rr::pyutil_init(m);
 %template() std::vector<int>;
 %template() std::vector<std::string>;
 
-%apply std::vector<std::string> INOUT { // note the INOUT which is important for pass by reference
-    std::vector<std::string>&,
-    const std::vector<std::string>&
-}
-
 // make a Python Tuple from a C++ DoublePair
 %typemap(out) std::pair<double, double>*
 {
