@@ -3,18 +3,20 @@ set(target roadrunner_c_api)
 
 set(
         HEADERS
-        rrcStringList.h
-        rrArrayList.h
-        rrArrayListItem.h
-        rrArrayListItemBase.h
-        rrc_api.h
-        rrc_logging_api.h
-        rrc_nom_api.h
-        rrc_libstruct_api.h
+        rrcStringList.h 
+        rrArrayList.h 
+        rrArrayListItem.h 
+        rrArrayListItemBase.h 
+        rrc_api.h 
+        rrc_cpp_support.h 
+        rrc_exporter.h 
+        rrc_libstruct_api.h 
+        rrc_logging_api.h 
+        rrc_macros.h 
+        rrc_nom_api.h 
+        rrc_pch.h 
+        rrc_types.h 
         rrc_utilities.h
-        rrc_cpp_support.h
-		rrc_exporter.h
-		rrc_types.h
 )
 
 set(
