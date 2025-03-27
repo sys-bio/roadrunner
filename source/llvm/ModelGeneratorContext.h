@@ -228,7 +228,7 @@ namespace rrllvm {
         /**
          * Add the triggers from a kinetic law.  Needs to deal with local parameters.
          */
-        void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl);
+        void addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl);
 
         /**
         * Replace the local parameters with a constant value.  Roadrunner doesn't allow changes anyway.
