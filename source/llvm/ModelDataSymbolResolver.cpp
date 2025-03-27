@@ -191,7 +191,7 @@ namespace rrllvm
         std::string msg = "the symbol \'";
         msg += symbol;
         msg += "\' is not physically stored in the ModelData structure, "
-            "it either does not exists or is defined by an assigment rule (hence it "
+            "it either does not exist or is defined by an assigment rule (hence it "
             "is not a terminal symbol)";
 
         throw_llvm_exception(msg);
@@ -313,7 +313,7 @@ namespace rrllvm
         std::string msg = "The symbol \'";
         msg += symbol;
         msg += "\' is not physically stored in the ModelData structure, "
-            "it either does not exists or is defined by an assigment rule (hence it "
+            "it either does not exist or is defined by an assigment rule (hence it "
             "is not a terminal symbol)";
 
         throw_llvm_exception(msg);
