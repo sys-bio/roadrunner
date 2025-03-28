@@ -49,3 +49,10 @@ TEST_F(SBMLFeatures, PIECEWISE_AND_EVENT_TRIGGERS)
     EXPECT_NEAR(rri.getValue(rri.createSelection("X1")), 17.66586981819867, 0.0001);
 }
 
+TEST_F(SBMLFeatures, PIECEWISE_LOCAL_PARAMS)
+{
+    RoadRunner rri((SBMLFeaturesDir / "piecewise_trigger_with_local_parameter.xml").string());
+    const ls::DoubleMatrix* results = rri.simulate();
+    EXPECT_NEAR(rri.getValue(rri.createSelection("Y")), 0, 0.000001);
+}
+

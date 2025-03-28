@@ -226,7 +226,17 @@ namespace rrllvm {
         void addAllPiecewiseTriggers(const libsbml::Model* model);
 
         /**
-         * Get all transitions from any piecewise equations in the model.
+         * Add the triggers from a kinetic law.  Needs to deal with local parameters.
+         */
+        void addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl);
+
+        /**
+        * Replace the local parameters with a constant value.  Roadrunner doesn't allow changes anyway.
+        */
+        void replaceLocalParametersWithConstants(libsbml::ASTNode* node, std::map<std::string, double>& values);
+
+        /**
+         * Add the triggers from a particular Piecewise ASTNode.
          */
         void addPiecewiseTriggersFrom(const libsbml::ASTNode* node);
 
