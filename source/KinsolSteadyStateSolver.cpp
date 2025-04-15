@@ -31,18 +31,20 @@ namespace rr {
         assert(mStateVector == nullptr && mKinsol_Memory == nullptr &&
                "calling createKinsol, but kinsol objects already exist");
 
+        SUNContext_Create(NULL, &mSunContext);
+
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);
 
         // create our N_Vector
-        mStateVector = N_VNew_Serial(stateVectorSize);
+        mStateVector = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(mStateVector && "Sundials failed to create N_Vector for state variables");
 
-        fscale = N_VNew_Serial(stateVectorSize);
+        fscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(fscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, fscale); // no scaling. Implement if wanted.
 
-        uscale = N_VNew_Serial(stateVectorSize);
+        uscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(uscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, uscale); // no scaling. Implement if wanted.
 
@@ -52,12 +54,12 @@ namespace rr {
         int err;
 
         // allocate the main kinsol memory block
-        mKinsol_Memory = KINCreate();
+        mKinsol_Memory = KINCreate(mSunContext);
 
         assert(mKinsol_Memory && "Could not create kinsol memory block, Kinsol failed");
 
         // make non negative
-        constraints = N_VNew_Serial(stateVectorSize);
+        constraints = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(constraints && "Sundials failed to create N_Vector for fscale");
         // constraints. If,
         //  0 -> No constraints

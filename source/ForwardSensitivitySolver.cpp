@@ -30,7 +30,7 @@ namespace rr {
     throw std::logic_error(_os.str());                                \
     }
 
-    int FFSDyDtFcn(realtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData) {
+    int FFSDyDtFcn(sunrealtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData) {
         double *y = NV_DATA_S(cv_y);
         double *ydot = NV_DATA_S(cv_ydot);
         ForwardSensitivitySolver *inst = (ForwardSensitivitySolver *) userData;
@@ -57,7 +57,7 @@ namespace rr {
         return CV_SUCCESS;
     }
 
-    int FFSRootFcn(realtype time, N_Vector y_vector, realtype *gout, void *user_data) {
+    int FFSRootFcn(sunrealtype time, N_Vector y_vector, sunrealtype *gout, void *user_data) {
         ForwardSensitivitySolver *cvInstance = (ForwardSensitivitySolver *) user_data;
 
         assert(cvInstance && "user data pointer is NULL on CVODE root callback");
@@ -180,7 +180,7 @@ namespace rr {
         }
 
         if (mSensitivityMatrix) {
-            N_VDestroyVectorArray_Serial(mSensitivityMatrix, mSensitivityMatrixSize);
+            N_VDestroyVectorArray(mSensitivityMatrix, mSensitivityMatrixSize);
             mSensitivityMatrix = nullptr;
         }
     }
@@ -192,6 +192,8 @@ namespace rr {
 
         assert(cvodeIntegrator->mStateVector == nullptr && cvodeIntegrator->mCVODE_Memory == nullptr &&
                "calling create, but cvode objects already exist");
+
+        SUNContext_Create(NULL, &mSunContext);
 
         // still need cvode state std::vector size if we have no vars, but have
         // events, needed so root finder works.
@@ -214,7 +216,7 @@ namespace rr {
         }
 
         // allocate and init the cvode arrays
-        cvodeIntegrator->mStateVector = N_VNew_Serial(allocStateVectorSize);
+        cvodeIntegrator->mStateVector = N_VNew_Serial(allocStateVectorSize, mSunContext);
         cvodeIntegrator->variableStepPostEventState.resize(allocStateVectorSize);
 
         // set mStateVector to the values that are currently in the model
@@ -228,10 +230,10 @@ namespace rr {
 
         if ((bool) getValue("stiff")) {
             rrLog(Logger::LOG_INFORMATION) << "using stiff integrator";
-            cvodeIntegrator->mCVODE_Memory = (void *) CVodeCreate(CV_BDF);
+            cvodeIntegrator->mCVODE_Memory = (void *) CVodeCreate(CV_BDF, mSunContext);
         } else {
             rrLog(Logger::LOG_INFORMATION) << "using non-stiff integrator";
-            cvodeIntegrator->mCVODE_Memory = (void *) CVodeCreate(CV_ADAMS);
+            cvodeIntegrator->mCVODE_Memory = (void *) CVodeCreate(CV_ADAMS, mSunContext);
         }
 
         assert(cvodeIntegrator->mCVODE_Memory && "could not create Cvode, CVodeCreate failed");
@@ -274,7 +276,7 @@ namespace rr {
             // as per the cvode docs (look closely at docs for CVodeCreate)
             // we use the default Newton iteration for stiff
 
-            cvodeIntegrator->nonLinSolver = SUNNonlinSol_Newton(cvodeIntegrator->mStateVector);
+            cvodeIntegrator->nonLinSolver = SUNNonlinSol_Newton(cvodeIntegrator->mStateVector, mSunContext);
 
             if (cvodeIntegrator->nonLinSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: nonLinearSolver_ is nullptr\n");
@@ -286,8 +288,8 @@ namespace rr {
             }
 
             // the newton method requires use of a linear solver, which we set up here.
-            cvodeIntegrator->jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize);
-            cvodeIntegrator->linSolver = SUNLinSol_Dense(cvodeIntegrator->mStateVector, cvodeIntegrator->jac);
+            cvodeIntegrator->jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
+            cvodeIntegrator->linSolver = SUNLinSol_Dense(cvodeIntegrator->mStateVector, cvodeIntegrator->jac, mSunContext);
             if (cvodeIntegrator->linSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: call to SunLinSol_Dense returned nullptr. "
                                          "The size of the sundials matrix (created with SUNDenseMatrix) used for the jacobian "
@@ -308,7 +310,7 @@ namespace rr {
         } else {
             // and fixed point solver (which used to be called functional iteration)
             // for nonstiff problems
-            cvodeIntegrator->nonLinSolver = SUNNonlinSol_FixedPoint(cvodeIntegrator->mStateVector, 0);
+            cvodeIntegrator->nonLinSolver = SUNNonlinSol_FixedPoint(cvodeIntegrator->mStateVector, 0, mSunContext);
             if ((err = CVodeSetNonlinearSolver(cvodeIntegrator->mCVODE_Memory, cvodeIntegrator->nonLinSolver)) !=
                 CV_SUCCESS) {
                 FFSHandleError(err);
@@ -325,7 +327,7 @@ namespace rr {
          */
         if (numModelVariables > 0 && Np > 0) {
             // pointer to N_Vector - i.e. a matrix
-            mSensitivityMatrix = N_VCloneVectorArray_Serial(Ns, cvodeIntegrator->mStateVector);
+            mSensitivityMatrix = N_VCloneVectorArray(Ns, cvodeIntegrator->mStateVector);
             mSensitivityMatrixSize = Ns; //Need to keep the original--'Ns' may change.
 //            mSensitivityMatrixUnique = NVectorArrayPtr(N_VCloneVectorArray_Serial, [](N_Vector* nvec, int num){
 //                N_VDestroyVectorArray_Serial(nvec, num);
@@ -375,22 +377,22 @@ namespace rr {
 
             if (sensi_meth == CV_SIMULTANEOUS) {
                 if (getValue("nonlinear_solver") == "newton") {
-                    NLSsens = SUNNonlinSol_NewtonSens(Ns + 1, cvodeIntegrator->mStateVector);
+                    NLSsens = SUNNonlinSol_NewtonSens(Ns + 1, cvodeIntegrator->mStateVector, mSunContext);
                 }
                 if (getValue("nonlinear_solver") == "fixed_point") {
-                    NLSsens = SUNNonlinSol_FixedPointSens(Ns + 1, cvodeIntegrator->mStateVector, 1);
+                    NLSsens = SUNNonlinSol_FixedPointSens(Ns + 1, cvodeIntegrator->mStateVector, 1, mSunContext);
                 }
             } else if (sensi_meth == CV_STAGGERED) {
                 if (getValue("nonlinear_solver") == "newton") {
-                    NLSsens = SUNNonlinSol_NewtonSens(Ns, cvodeIntegrator->mStateVector);
+                    NLSsens = SUNNonlinSol_NewtonSens(Ns, cvodeIntegrator->mStateVector, mSunContext);
                 } else {
-                    NLSsens = SUNNonlinSol_FixedPointSens(Ns, cvodeIntegrator->mStateVector, 0);
+                    NLSsens = SUNNonlinSol_FixedPointSens(Ns, cvodeIntegrator->mStateVector, 0, mSunContext);
                 }
             } else {
                 if (getValue("nonlinear_solver") == "newton") {
-                    NLSsens = SUNNonlinSol_Newton(cvodeIntegrator->mStateVector);
+                    NLSsens = SUNNonlinSol_Newton(cvodeIntegrator->mStateVector, mSunContext);
                 } else {
-                    NLSsens = SUNNonlinSol_FixedPoint(cvodeIntegrator->mStateVector, 0);
+                    NLSsens = SUNNonlinSol_FixedPoint(cvodeIntegrator->mStateVector, 0, mSunContext);
                 }
             }
 

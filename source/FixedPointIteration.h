@@ -8,7 +8,7 @@
 #include "KinsolSteadyStateSolver.h"
 #include <kinsol/kinsol.h>           /* access to KINSOL func., consts. */
 #include <nvector/nvector_serial.h>  /* access to serial N_Vector       */
-#include <sundials/sundials_types.h> /* defs. of realtype, sunindextype */
+#include <sundials/sundials_types.h> /* defs. of sunrealtype, sunindextype */
 
 namespace rr {
 
