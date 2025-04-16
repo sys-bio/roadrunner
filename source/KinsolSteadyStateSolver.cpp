@@ -76,11 +76,7 @@ namespace rr {
         // set our own error handler. This should be the first thing called after creating kinsol memory block
         // This is the only function where we need to collect the error code and decode it, since
         // the purpose of using this function is to enable automatic error handling.
-        if ((err = KINSetErrHandlerFn(
-                mKinsol_Memory,
-                reinterpret_cast<KINErrHandlerFn>(kinsolErrHandler),
-                this)
-            ) != KIN_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, kinsolErrHandler, this)) != SUN_SUCCESS) {
             decodeKinsolError(err);
         }
 
@@ -262,7 +258,7 @@ namespace rr {
             KINSetEtaForm(mKinsol_Memory, KIN_ETACONSTANT);
         }
         KINSetNumMaxIters(mKinsol_Memory, (int)getValue("num_max_iters"));
-        KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
+        //KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
         KINSetNoInitSetup(mKinsol_Memory, (bool)getValue("no_init_setup"));
         KINSetNoResMon(mKinsol_Memory, (bool)getValue("no_res_monitoring"));
         KINSetMaxSetupCalls(mKinsol_Memory, (int)getValue("max_setup_calls"));

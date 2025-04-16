@@ -69,10 +69,11 @@ namespace rr {
     * If a function that returns a pointer to memory encounters an error,
     * it sets error_code to 0.
     */
-    static void cvodeErrHandler(int error_code, const char *module, const char *function, char *msg, void *eh_data);
-
+    static void cvodeErrHandler(int line, const char* function, const char* file,
+        const char* msg, SUNErrCode error_code,
+        void* err_user_data, SUNContext sunctx);
     /**
-    * macro to throw a (hopefully) usefull error message
+    * macro to throw a (hopefully) useful error message
     */
 #define handleCVODEError(errCode) \
     { std::string _err_what = std::string("CVODE Error: ") + \
@@ -675,7 +676,7 @@ namespace rr {
 
         assert(mCVODE_Memory && "could not create Cvode, CVodeCreate failed");
 
-        if ((err = CVodeSetErrHandlerFn(mCVODE_Memory, cvodeErrHandler, this)) != CV_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, cvodeErrHandler, this)) != SUN_SUCCESS) {
             handleCVODEError(err);
         }
 
@@ -1069,19 +1070,20 @@ namespace rr {
     * If a function that returns a pointer to memory encounters an error,
     * it sets error_code to 0.
     */
-    void cvodeErrHandler(int error_code, const char *module, const char *function,
-                         char *msg, void *eh_data) {
-        CVODEIntegrator *i = (CVODEIntegrator *) eh_data;
+    void cvodeErrHandler(int line, const char* function, const char* file,
+                         const char* msg, SUNErrCode error_code,
+                         void* err_user_data, SUNContext sunctx) {
+        CVODEIntegrator *i = (CVODEIntegrator *)err_user_data;
         i->checkType();
 
         if (error_code < 0) {
             rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
-                                     << ", Module: " << module << ", Function: " << function
+                                     << ", Function: " << function
                                      << ", Message: " << msg;
 
         } else if (error_code == CV_WARNING) {
             rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Module: " << module << ", Function: " << function
+                                       << ", Function: " << function
                                        << ", Message: " << msg;
         }
     }

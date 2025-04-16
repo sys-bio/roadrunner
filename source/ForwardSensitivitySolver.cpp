@@ -71,18 +71,19 @@ namespace rr {
         return CV_SUCCESS;
     }
 
-    void ffsErrHandler(int error_code, const char *module, const char *function,
-                       char *msg, void *eh_data) {
-        ForwardSensitivitySolver *i = (ForwardSensitivitySolver *) eh_data;
+    static void ffsErrHandler(int line, const char* function, const char* file,
+        const char* msg, SUNErrCode error_code,
+        void* err_user_data, SUNContext sunctx) {
+        ForwardSensitivitySolver *i = (ForwardSensitivitySolver *) err_user_data;
 
         if (error_code < 0) {
             rrLog(Logger::LOG_ERROR) << "ForwardSensitivitySolver Error: " << decodeSundialsError(i, error_code, false)
-                                     << ", Module: " << module << ", Function: " << function
+                                     << ", Function: " << function
                                      << ", Message: " << msg;
 
         } else if (error_code == CV_WARNING) {
             rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Module: " << module << ", Function: " << function
+                                       << ", Function: " << function
                                        << ", Message: " << msg;
         }
     }
@@ -238,8 +239,7 @@ namespace rr {
 
         assert(cvodeIntegrator->mCVODE_Memory && "could not create Cvode, CVodeCreate failed");
 
-        if ((err = CVodeSetErrHandlerFn(cvodeIntegrator->mCVODE_Memory, ffsErrHandler, this)) !=
-            CV_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, ffsErrHandler, this)) != SUN_SUCCESS) {
             FFSHandleError(err);
         }
 
