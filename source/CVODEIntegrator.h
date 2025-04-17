@@ -258,6 +258,7 @@ namespace rr {
         SUNMatrix jac = nullptr;
         SUNNonlinearSolver nonLinSolver = nullptr;
         SUNLinearSolver linSolver = nullptr;
+        SUNContext mSunContext;
 
         IntegratorListenerPtr listener;
         double mLastEventTime;

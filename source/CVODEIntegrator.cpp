@@ -35,9 +35,9 @@ namespace rr {
     const int CVODEIntegrator::mDefaultMaxAdamsOrder = 12;
     const int CVODEIntegrator::mDefaultMaxBDFOrder = 5;
 
-    int cvodeDyDtFcn(realtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
+    int cvodeDyDtFcn(sunrealtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
 
-    int cvodeEventAndPiecewiseRootFcn(realtype t, N_Vector y, realtype *gout, void *userData);
+    int cvodeEventAndPiecewiseRootFcn(sunrealtype t, N_Vector y, sunrealtype *gout, void *userData);
 
     // Sets the value of an element in a N_Vector object
     inline void SetVector(N_Vector v, int Index, double Value) {
@@ -69,10 +69,11 @@ namespace rr {
     * If a function that returns a pointer to memory encounters an error,
     * it sets error_code to 0.
     */
-    static void cvodeErrHandler(int error_code, const char *module, const char *function, char *msg, void *eh_data);
-
+    static void cvodeErrHandler(int line, const char* function, const char* file,
+        const char* msg, SUNErrCode error_code,
+        void* err_user_data, SUNContext sunctx);
     /**
-    * macro to throw a (hopefully) usefull error message
+    * macro to throw a (hopefully) useful error message
     */
 #define handleCVODEError(errCode) \
     { std::string _err_what = std::string("CVODE Error: ") + \
@@ -637,6 +638,7 @@ namespace rr {
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int realStateVectorSize = mModel->getStateVector(nullptr);
 
+        SUNContext_Create(NULL, &mSunContext);
 
         // cvode return code
         int err;
@@ -653,7 +655,7 @@ namespace rr {
         }
 
         // allocate and init the cvode arrays
-        mStateVector = N_VNew_Serial(allocStateVectorSize);
+        mStateVector = N_VNew_Serial(allocStateVectorSize, mSunContext);
         variableStepPostEventState.resize(allocStateVectorSize);
 
         auto states = new double[allocStateVectorSize];
@@ -666,15 +668,15 @@ namespace rr {
 
         if ((bool) getValue("stiff")) {
             rrLog(Logger::LOG_INFORMATION) << "using stiff integrator";
-            mCVODE_Memory = (void *) CVodeCreate(CV_BDF);
+            mCVODE_Memory = (void *) CVodeCreate(CV_BDF, mSunContext);
         } else {
             rrLog(Logger::LOG_INFORMATION) << "using non-stiff integrator";
-            mCVODE_Memory = (void *) CVodeCreate(CV_ADAMS);
+            mCVODE_Memory = (void *) CVodeCreate(CV_ADAMS, mSunContext);
         }
 
         assert(mCVODE_Memory && "could not create Cvode, CVodeCreate failed");
 
-        if ((err = CVodeSetErrHandlerFn(mCVODE_Memory, cvodeErrHandler, this)) != CV_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, cvodeErrHandler, this)) != SUN_SUCCESS) {
             handleCVODEError(err);
         }
 
@@ -710,7 +712,7 @@ namespace rr {
             // as per the cvode docs (look closely at docs for CVodeCreate)
             // we use the default Newton iteration for stiff
 
-            nonLinSolver = SUNNonlinSol_Newton(mStateVector);
+            nonLinSolver = SUNNonlinSol_Newton(mStateVector, mSunContext);
 
             if (nonLinSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: nonLinearSolver_ is nullptr\n");
@@ -721,8 +723,8 @@ namespace rr {
             }
 
             // the newton method requires use of a linear solver, which we set up here.
-            jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize);
-            linSolver = SUNLinSol_Dense(mStateVector, jac);
+            jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
+            linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
             if (linSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: call to SunLinSol_Dense returned nullptr. "
                                          "The size of the sundials matrix (created with SUNDenseMatrix) used for the jacobian "
@@ -741,7 +743,7 @@ namespace rr {
         } else {
             // and fixed point solver (which used to be called functional iteration)
             // for nonstiff problems
-            nonLinSolver = SUNNonlinSol_FixedPoint(mStateVector, 0);
+            nonLinSolver = SUNNonlinSol_FixedPoint(mStateVector, 0, mSunContext);
             if ((err = CVodeSetNonlinearSolver(mCVODE_Memory, nonLinSolver)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
@@ -899,7 +901,7 @@ namespace rr {
 
 
         int err;
-        N_Vector nv = N_VMake_Serial(static_cast<long>(amount_tolerances.size()), amount_tolerances.data());
+        N_Vector nv = N_VMake_Serial(static_cast<long>(amount_tolerances.size()), amount_tolerances.data(), mSunContext);
         err = CVodeSVtolerances(mCVODE_Memory, (double)getValue("relative_tolerance"), nv);
         rrLog(Logger::LOG_INFORMATION) << "Tolerances used: abs=[" << std::setprecision(16);
         for (int i = 0; i < amount_tolerances.size(); i++) {
@@ -952,7 +954,7 @@ namespace rr {
 
     // Cvode calls this to compute the dy/dts. This routine in turn calls the
     // model function which is located in the host application.
-    int cvodeDyDtFcn(realtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData) {
+    int cvodeDyDtFcn(sunrealtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData) {
         double *y = NV_DATA_S(cv_y);
         double *ydot = NV_DATA_S(cv_ydot);
         CVODEIntegrator *cvInstance = (CVODEIntegrator *) userData;
@@ -1026,9 +1028,9 @@ namespace rr {
         return mLastEventTime;
     }
 
-    // int (*CVRootFn)(realtype t, N_Vector y, realtype *gout, void *user_data)
+    // int (*CVRootFn)(sunrealtype t, N_Vector y, sunrealtype *gout, void *user_data)
     // Cvode calls this to check for event changes
-    int cvodeEventAndPiecewiseRootFcn(realtype time, N_Vector y_vector, realtype* gout, void* user_data) {
+    int cvodeEventAndPiecewiseRootFcn(sunrealtype time, N_Vector y_vector, sunrealtype* gout, void* user_data) {
         CVODEIntegrator* cvInstance = (CVODEIntegrator*)user_data;
 
         assert(cvInstance && "user data pointer is NULL on CVODE root callback");
@@ -1068,19 +1070,20 @@ namespace rr {
     * If a function that returns a pointer to memory encounters an error,
     * it sets error_code to 0.
     */
-    void cvodeErrHandler(int error_code, const char *module, const char *function,
-                         char *msg, void *eh_data) {
-        CVODEIntegrator *i = (CVODEIntegrator *) eh_data;
+    void cvodeErrHandler(int line, const char* function, const char* file,
+                         const char* msg, SUNErrCode error_code,
+                         void* err_user_data, SUNContext sunctx) {
+        CVODEIntegrator *i = (CVODEIntegrator *)err_user_data;
         i->checkType();
 
         if (error_code < 0) {
             rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
-                                     << ", Module: " << module << ", Function: " << function
+                                     << ", Function: " << function
                                      << ", Message: " << msg;
 
         } else if (error_code == CV_WARNING) {
             rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Module: " << module << ", Function: " << function
+                                       << ", Function: " << function
                                        << ", Message: " << msg;
         }
     }

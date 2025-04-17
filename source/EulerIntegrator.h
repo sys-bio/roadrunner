@@ -374,7 +374,7 @@ namespace rr {
 
         /**
         * Clients may register a listener to listen for time steps, or
-        * sbml events. Time step events are much more usefull for variable
+        * sbml events. Time step events are much more useful for variable
         * time step integrators where they may take long time steps and
         * clients may be notified when these occur.
         *

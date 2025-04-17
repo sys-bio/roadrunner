@@ -474,7 +474,7 @@ target_link_libraries(
         nleq1::nleq1-static
         clapack::lapack clapack::blas clapack::f2c
 
-        SUNDIALS::generic_static
+        SUNDIALS::core_static
         SUNDIALS::nvecserial_static
         SUNDIALS::nvecmanyvector_static
         SUNDIALS::sunmatrixband_static
@@ -490,11 +490,9 @@ target_link_libraries(
         SUNDIALS::sunnonlinsolnewton_static
         SUNDIALS::sunnonlinsolfixedpoint_static
         # cvodes is a superset of cvode.
-        # linking the both can cause a duplicate symbol problem
         # SUNDIALS::cvode_static
         SUNDIALS::cvodes_static
         SUNDIALS::kinsol_static
-
 
         Poco::Foundation
         Poco::Net

@@ -31,18 +31,20 @@ namespace rr {
         assert(mStateVector == nullptr && mKinsol_Memory == nullptr &&
                "calling createKinsol, but kinsol objects already exist");
 
+        SUNContext_Create(NULL, &mSunContext);
+
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);
 
         // create our N_Vector
-        mStateVector = N_VNew_Serial(stateVectorSize);
+        mStateVector = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(mStateVector && "Sundials failed to create N_Vector for state variables");
 
-        fscale = N_VNew_Serial(stateVectorSize);
+        fscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(fscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, fscale); // no scaling. Implement if wanted.
 
-        uscale = N_VNew_Serial(stateVectorSize);
+        uscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(uscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, uscale); // no scaling. Implement if wanted.
 
@@ -52,12 +54,12 @@ namespace rr {
         int err;
 
         // allocate the main kinsol memory block
-        mKinsol_Memory = KINCreate();
+        mKinsol_Memory = KINCreate(mSunContext);
 
         assert(mKinsol_Memory && "Could not create kinsol memory block, Kinsol failed");
 
         // make non negative
-        constraints = N_VNew_Serial(stateVectorSize);
+        constraints = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(constraints && "Sundials failed to create N_Vector for fscale");
         // constraints. If,
         //  0 -> No constraints
@@ -74,11 +76,7 @@ namespace rr {
         // set our own error handler. This should be the first thing called after creating kinsol memory block
         // This is the only function where we need to collect the error code and decode it, since
         // the purpose of using this function is to enable automatic error handling.
-        if ((err = KINSetErrHandlerFn(
-                mKinsol_Memory,
-                reinterpret_cast<KINErrHandlerFn>(kinsolErrHandler),
-                this)
-            ) != KIN_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, kinsolErrHandler, this)) != SUN_SUCCESS) {
             decodeKinsolError(err);
         }
 
@@ -260,7 +258,7 @@ namespace rr {
             KINSetEtaForm(mKinsol_Memory, KIN_ETACONSTANT);
         }
         KINSetNumMaxIters(mKinsol_Memory, (int)getValue("num_max_iters"));
-        KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
+        //KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
         KINSetNoInitSetup(mKinsol_Memory, (bool)getValue("no_init_setup"));
         KINSetNoResMon(mKinsol_Memory, (bool)getValue("no_res_monitoring"));
         KINSetMaxSetupCalls(mKinsol_Memory, (int)getValue("max_setup_calls"));
