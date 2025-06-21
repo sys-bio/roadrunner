@@ -179,7 +179,9 @@ TEST_F(StructuralAnalysisTests, SimpleFluxReactantsStoicMatrix) {
     RoadRunner rr(simpleFlux.str());
     rr.setConservedMoietyAnalysis(true);
     //std::cout << rr.getReactantsStoichiometryMatrix() << std::endl;
-    checkPassed(simpleFlux.reactantsStoicMatrix(), rr.getReactantsStoichiometryMatrix(), 1e-7);
+    ls::DoubleMatrix expected = simpleFlux.reactantsStoicMatrix();
+    ls::DoubleMatrix actual = rr.getReactantsStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, SimpleFluxProductsStoicMatrix) {
@@ -187,7 +189,9 @@ TEST_F(StructuralAnalysisTests, SimpleFluxProductsStoicMatrix) {
     RoadRunner rr(simpleFlux.str());
     rr.setConservedMoietyAnalysis(true);
     //std::cout << rr.getProductsStoichiometryMatrix() << std::endl;
-    checkPassed(simpleFlux.productsStoicMatrix(), rr.getProductsStoichiometryMatrix(), 1e-7);
+    ls::DoubleMatrix expected = simpleFlux.productsStoicMatrix();
+    ls::DoubleMatrix actual = rr.getProductsStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, OddStoichiometryExtendedStoicMatrix) {
@@ -198,7 +202,6 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryExtendedStoicMatrix) {
                 {2,  3, 0,    0},
                 {0,  4, -1.5, 0},
         });
-
     ls::DoubleMatrix actual = rr.getExtendedStoichiometryMatrix();
     checkMatrixEqual(expected, actual, 1e-7);
 }
