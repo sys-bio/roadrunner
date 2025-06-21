@@ -199,7 +199,8 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryExtendedStoicMatrix) {
                 {0,  4, -1.5, 0},
         });
 
-    checkMatrixEqual(expected, rr.getExtendedStoichiometryMatrix(), 1e-7);
+    ls::DoubleMatrix actual = rr.getExtendedStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, OddStoichiometryReactantsStoicMatrix) {
@@ -210,7 +211,8 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryReactantsStoicMatrix) {
                 { 0, 3,  0,   0},
         });
 
-    checkMatrixEqual(expected, rr.getReactantsStoichiometryMatrix(false), 1e-7);
+    ls::DoubleMatrix actual = rr.getReactantsStoichiometryMatrix(false);
+    checkMatrixEqual(expected, actual, 1e-7);
 
     rr::Matrix<double> expected_boundary(
         {
@@ -219,7 +221,8 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryReactantsStoicMatrix) {
                 { 0, 0, -1.5, 0},
         });
 
-    checkMatrixEqual(expected_boundary, rr.getReactantsStoichiometryMatrix(true), 1e-7);
+    actual = rr.getReactantsStoichiometryMatrix(true);
+    checkMatrixEqual(expected_boundary, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, OddStoichiometryProductsStoicMatrix) {
@@ -230,7 +233,8 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryProductsStoicMatrix) {
                 {2, 0, 0,   0},
         });
 
-    checkMatrixEqual(expected, rr.getProductsStoichiometryMatrix(false), 1e-7);
+    ls::DoubleMatrix actual = rr.getProductsStoichiometryMatrix(false);
+    checkMatrixEqual(expected, actual, 1e-7);
 
     rr::Matrix<double> expected_boundary(
         {
@@ -238,8 +242,9 @@ TEST_F(StructuralAnalysisTests, OddStoichiometryProductsStoicMatrix) {
                 {2, 0, 0,   0},
                 {0, 4, 0,   0},
         });
+    actual = rr.getProductsStoichiometryMatrix(true);
 
-    checkMatrixEqual(expected_boundary, rr.getProductsStoichiometryMatrix(true), 1e-7);
+    checkMatrixEqual(expected_boundary, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, BimolecularEndL0Matrix) {
