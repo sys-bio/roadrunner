@@ -326,6 +326,14 @@ TEST_F(RoadRunnerAPITestsWithMCJit, getExtendedStoichiometryMatrix){
     getExtendedStoichiometryMatrix();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, getReactantsStoichiometryMatrix) {
+    getReactantsStoichiometryMatrix();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, getProductsStoichiometryMatrix) {
+    getProductsStoichiometryMatrix();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, getL0Matrix){
     getL0Matrix();
 }

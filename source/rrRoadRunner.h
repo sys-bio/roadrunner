@@ -5,6 +5,7 @@
 #include "rrSelectionRecord.h"
 #include "rrRoadRunnerOptions.h"
 #include "sbml/Species.h"
+#include "sbml/SpeciesReference.h"
 #include <thread>
 
 #ifdef _MSC_VER
@@ -825,6 +826,10 @@ namespace rr {
         ls::DoubleMatrix getFullStoichiometryMatrix();
 
         ls::DoubleMatrix getExtendedStoichiometryMatrix();
+
+        ls::DoubleMatrix getReactantsStoichiometryMatrix(bool boundary = false);
+
+        ls::DoubleMatrix getProductsStoichiometryMatrix(bool boundary = false);
 
 
         ls::DoubleMatrix getL0Matrix();
@@ -1931,6 +1936,8 @@ namespace rr {
         void saveSelectionVector(std::ostream &, std::vector<SelectionRecord> &);
 
         void loadSelectionVector(std::istream &, std::vector<SelectionRecord> &);
+
+        ls::DoubleMatrix getSubStoichiometryMatrix(bool reactants, bool products, bool boundary);
     };
 
 }

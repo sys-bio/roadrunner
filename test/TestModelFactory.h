@@ -338,6 +338,10 @@ public:
 
     rr::Matrix<double> extendedStoicMatrix() override;
 
+    rr::Matrix<double> reactantsStoicMatrix();
+
+    rr::Matrix<double> productsStoicMatrix();
+
     rr::Matrix<double> L0Matrix() override;
 
     rr::Matrix<double> conservationMatrix() override;
