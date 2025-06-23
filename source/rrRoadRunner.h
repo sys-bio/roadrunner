@@ -825,26 +825,51 @@ namespace rr {
          */
         ls::DoubleMatrix getFullStoichiometryMatrix();
 
+        /**
+         * Get the full stoichiometry matrix, including any boundary species in the model.
+         */
         ls::DoubleMatrix getExtendedStoichiometryMatrix();
 
+        /**
+         * Get the 'full' version of the stoichiometry matrix only including any reactants in the reactions.  If the 'boundary' argument is set to 'true', also include any reactant boundary species (as in the 'getExtendedStoichiometryMatrix' function).  The sum of the reactants stoichiometry matrix and the products stoichiometry matrix will equal the full (or extended) stoichiometry matrix.
+         */
         ls::DoubleMatrix getReactantsStoichiometryMatrix(bool boundary = false);
 
+        /**
+         * Get the 'full' version of the stoichiometry matrix only including any products in the reactions.  If the 'boundary' argument is set to 'true', also include any reactant boundary species (as in the 'getExtendedStoichiometryMatrix' function).  The sum of the reactants stoichiometry matrix and the products stoichiometry matrix will equal the full (or extended) stoichiometry matrix.
+         */
         ls::DoubleMatrix getProductsStoichiometryMatrix(bool boundary = false);
 
-
+        /**
+         * Returns the L0 matrix for the current model. The L0 matrix is an (m-r) by r matrix that expresses the dependent reaction rates in terms of the independent rates. m is the number of floating species and r is the rank of the stoichiometry matrix.
+         */
         ls::DoubleMatrix getL0Matrix();
 
-
+        /**
+         * Returns a conservation matrix :math:`\\Gamma` which is a :math:`c \\times m` matrix where :math:`c` is the number of conservation laws and :math:`m` the number of species.
+         */
         ls::DoubleMatrix getConservationMatrix();
 
+        /**
+         * Returns the unscaled concentration control coefficient matrix.
+         */
         ls::DoubleMatrix getUnscaledConcentrationControlCoefficientMatrix();
 
+        /**
+         * Returns the m by n matrix of scaled concentration control coefficients where m is the number
+        of floating species and n the number of reactions.
+         */
         ls::DoubleMatrix getScaledConcentrationControlCoefficientMatrix();
 
+        /**
+         * Returns the unscaled flux control coefficient matrix.
+         */
         ls::DoubleMatrix getUnscaledFluxControlCoefficientMatrix();
 
+        /**
+         * Returns the n by n matrix of scaled flux control coefficients where n is the number of reactions.
+         */
         ls::DoubleMatrix getScaledFluxControlCoefficientMatrix();
-
 
         /**
          * returns the list of floating species, but with a "eigen(...)" std::string
