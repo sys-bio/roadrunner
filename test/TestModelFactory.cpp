@@ -237,6 +237,22 @@ rr::Matrix<double> SimpleFlux::fullStoicMatrix() {
             });
 }
 
+rr::Matrix<double> SimpleFlux::reactantsStoicMatrix() {
+    return rr::Matrix<double>(
+        {
+                {-1, 0},
+                {0,  -1},
+        });
+}
+
+rr::Matrix<double> SimpleFlux::productsStoicMatrix() {
+    return rr::Matrix<double>(
+        {
+                {0, 1},
+                {1, 0},
+        });
+}
+
 rr::Matrix<double> SimpleFlux::extendedStoicMatrix() {
     return fullStoicMatrix(); // not sure when extended should be used
 }

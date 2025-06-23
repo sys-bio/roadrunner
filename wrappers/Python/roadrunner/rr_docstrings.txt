@@ -1286,6 +1286,24 @@ balance to the network as a whole.
 
 
 
+%feature("docstring") rr::RoadRunner::getReactantsStoichiometryMatrix "
+RoadRunner.getReactantsStoichiometryMatrix()
+
+
+Get the 'full' version of the stoichiometry matrix only including any reactants in the reactions.  If the 'boundary' argument is set to 'true', also include any reactant boundary species (as in the 'getExtendedStoichiometryMatrix' function).  The sum of the reactants stoichiometry matrix and the products stoichiometry matrix will equal the full (or extended) stoichiometry matrix.
+";
+
+
+
+%feature("docstring") rr::RoadRunner::getProductsStoichiometryMatrix "
+RoadRunner.getProductsStoichiometryMatrix()
+
+
+Get the 'full' version of the stoichiometry matrix only including any products in the reactions.  If the 'boundary' argument is set to 'true', also include any reactant boundary species (as in the 'getExtendedStoichiometryMatrix' function).  The sum of the reactants stoichiometry matrix and the products stoichiometry matrix will equal the full (or extended) stoichiometry matrix.
+";
+
+
+
 %feature("docstring") rr::RoadRunner::getReducedStoichiometryMatrix "
 RoadRunner.getReducedStoichiometryMatrix()
 

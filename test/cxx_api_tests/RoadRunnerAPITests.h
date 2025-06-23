@@ -948,6 +948,22 @@ public:
         checkMatrixEqual(simpleFlux.extendedStoicMatrix(), rr.getExtendedStoichiometryMatrix());
     }
 
+    void getReactantsStoichiometryMatrix() {
+        SimpleFlux simpleFlux;
+        RoadRunner rr(simpleFlux.str());
+        rr.setConservedMoietyAnalysis(true);
+        //std::cout << rr.getReactantsStoichiometryMatrix() << std::endl;
+        checkMatrixEqual(simpleFlux.reactantsStoicMatrix(), rr.getReactantsStoichiometryMatrix());
+    }
+
+    void getProductsStoichiometryMatrix() {
+        SimpleFlux simpleFlux;
+        RoadRunner rr(simpleFlux.str());
+        rr.setConservedMoietyAnalysis(true);
+        //std::cout << rr.getProductsStoichiometryMatrix() << std::endl;
+        checkMatrixEqual(simpleFlux.productsStoicMatrix(), rr.getProductsStoichiometryMatrix());
+    }
+
     void getL0Matrix() {
         SimpleFlux simpleFlux;
         RoadRunner rr(simpleFlux.str());
