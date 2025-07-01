@@ -31,7 +31,7 @@ namespace rr {
         assert(mStateVector == nullptr && mKinsol_Memory == nullptr &&
                "calling createKinsol, but kinsol objects already exist");
 
-        SUNContext_Create(NULL, &mSunContext);
+        SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);

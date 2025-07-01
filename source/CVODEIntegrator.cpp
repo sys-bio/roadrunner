@@ -638,7 +638,7 @@ namespace rr {
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int realStateVectorSize = mModel->getStateVector(nullptr);
 
-        SUNContext_Create(NULL, &mSunContext);
+        SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // cvode return code
         int err;

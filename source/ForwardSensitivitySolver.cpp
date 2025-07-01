@@ -194,7 +194,7 @@ namespace rr {
         assert(cvodeIntegrator->mStateVector == nullptr && cvodeIntegrator->mCVODE_Memory == nullptr &&
                "calling create, but cvode objects already exist");
 
-        SUNContext_Create(NULL, &mSunContext);
+        SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // still need cvode state std::vector size if we have no vars, but have
         // events, needed so root finder works.
