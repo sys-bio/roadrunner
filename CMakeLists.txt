@@ -607,6 +607,10 @@ else ()
     message(STATUS "NOT building tests")
 endif ()
 
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif ()
+
 
 #======================= INSTALL STUFF ========================================================
 #What sub folders to move into...?
