@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
 project(plugins_examples)
 
 #Give access to headers in the following folders
