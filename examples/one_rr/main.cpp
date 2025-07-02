@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 #include "rrRoadRunner.h"
 #include "rrException.h"
 #include "rrUtils.h"
@@ -8,32 +9,30 @@ using namespace rr;
 
 int main(int argc, char** argv)
 {
-    const char* rootPath = "..";
+    std::filesystem::path rootPath("..");
 
     try
     {
         gLog.setLevel(lInfo);
-        string tmpFolder = joinPath(rootPath, "temp");
-
-        const string modelFile = joinPath(rootPath, "models", "test_1.xml");
+        std::filesystem::path modelFile(rootPath / "models" / "test_1.xml");
 
         //Load modelFiles..
-        Log(lInfo)<<" ---------- LOADING/GENERATING MODELS ------";
+        rrLog(lInfo) << " ---------- LOADING/GENERATING MODELS ------";
 
         RoadRunner rr1("");
         LoadSBMLOptions opt;
         opt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
-        rr1.load(modelFile, &opt);
+        rr1.load(modelFile.string(), &opt);
 
-        Log(lInfo)<<" ---------- SIMULATE ---------------------";
+        rrLog(lInfo) << " ---------- SIMULATE ---------------------";
 
         rr1.simulate();
-        Log(lInfo)<<"Data:"<<*(rr1.getSimulationData());
+        rrLog(lInfo) << "Data:" << *(rr1.getSimulationData());
     }
-    catch(const Exception& ex)
+    catch (const Exception& ex)
     {
 
-        Log(Logger::LOG_ERROR)<<"There was a  problem: "<<ex.getMessage();
+        rrLog(Logger::LOG_ERROR) << "There was a problem: " << ex.getMessage();
     }
 
     return 0;

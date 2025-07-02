@@ -10,11 +10,11 @@ using Poco::UUIDGenerator;
 
 int main()
 {
-	UUIDGenerator& generator = UUIDGenerator::defaultGenerator();
-	UUID uuid2(generator.createRandom());
-	UUID uuid3(generator.createRandom());
-	std::cout << uuid2.toString() << std::endl;
-	std::cout << uuid3.toString() << std::endl;
+    UUIDGenerator& generator = UUIDGenerator::defaultGenerator();
+    UUID uuid2(generator.createRandom());
+    UUID uuid3(generator.createRandom());
+    std::cout << uuid2.toString() << std::endl;
+    std::cout << uuid3.toString() << std::endl;
     return 0;
 }
 

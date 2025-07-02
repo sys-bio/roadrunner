@@ -12,30 +12,28 @@ int main(int argc, char** argv)
     try
     {
         //Use a list of roadrunners
-        const char* rootPath = "..";
+        std::filesystem::path rootPath("..");
 
-//        gLog.SetCutOffLogLevel(lDebug1);
+        //        gLog.SetCutOffLogLevel(lDebug1);
         gLog.setLevel(lInfo);
-        string tmpFolder = joinPath(rootPath, "temp");
-
-        const string modelFile = joinPath(rootPath, "models", "feedback.xml");
+        std::filesystem::path modelFile(rootPath / "models" / "feedback.xml");
 
         //Load modelFiles..
-        Log(lInfo)<<" ---------- LOADING/GENERATING MODELS ------";
+        rrLog(lInfo) << " ---------- LOADING/GENERATING MODELS ------";
 
         RoadRunner rr1("");
         RoadRunner rr2("");
-        rr1.load(modelFile);
-        rr2.load(modelFile);
+        rr1.load(modelFile.string());
+        rr2.load(modelFile.string());
 
-        Log(lInfo)<<" ---------- SIMULATE ---------------------";
+        rrLog(lInfo) << " ---------- SIMULATE ---------------------";
 
-        Log(lInfo)<<"Data:"<<rr1.simulate();
-        Log(lInfo)<<"Data:"<<rr2.simulate();
+        rrLog(lInfo) << "Data:" << rr1.simulate();
+        rrLog(lInfo) << "Data:" << rr2.simulate();
     }
-    catch(const Exception& ex)
+    catch (const Exception& ex)
     {
-        Log(lError)<<"There was a  problem: "<<ex.getMessage();
+        rrLog(lError) << "There was a problem: " << ex.getMessage();
     }
 
     //Pause(true);

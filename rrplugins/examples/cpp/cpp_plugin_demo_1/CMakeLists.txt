@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
 set(target tel_example_cpp_plugin_demo)
 
 set(sources

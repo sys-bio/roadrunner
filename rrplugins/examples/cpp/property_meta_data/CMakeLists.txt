@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
 set(target tel_example_property_meta_data)
 
 set(sources

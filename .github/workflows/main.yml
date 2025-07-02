@@ -416,6 +416,7 @@ jobs:
           -DBUILD_TESTS=${{ matrix.build_tests }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
+          -DBUILD_EXAMPLES=ON \
           ${{ env.PYTHON_DIR }} \
           ${{ env.SWIG_DIR }}
 
