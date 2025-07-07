@@ -6118,19 +6118,21 @@ namespace rr {
         }
 
         rrLog(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << std::endl;
-        if (species->isSetInitialAmount()) {
-            species->unsetInitialAmount();
-        }
-
+        
+        species->unsetInitialConcentration();
         species->setInitialAmount(initAmount);
+
+        //This function returns NULL if there is no such initial assignment.
+        InitialAssignment* ia = sbmlModel->removeInitialAssignment(sid);
+        delete ia;
 
         regenerateModel(forceRegenerate);
 
         // recover the updated init amount
-        int index = impl->model->getFloatingSpeciesIndex(sid);
-        if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
-            impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
-        }
+        //int index = impl->model->getFloatingSpeciesIndex(sid);
+        //if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+        //    impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
+        //}
     }
 
     void RoadRunner::setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate) {
@@ -6144,25 +6146,28 @@ namespace rr {
         }
 
         rrLog(Logger::LOG_DEBUG) << "Setting initial concentration for species " << sid << "..." << std::endl;
-        if (species->isSetInitialConcentration()) {
-            species->unsetInitialConcentration();
-        }
+
+        species->unsetInitialAmount();
         species->setInitialConcentration(initConcentration);
+
+        //This function returns NULL if there is no such initial assignment.
+        InitialAssignment* ia = sbmlModel->removeInitialAssignment(sid);
+        delete ia;
 
         regenerateModel(forceRegenerate);
 
         // recover the updated init concentration
-        int index = impl->model->getFloatingSpeciesIndex(sid);
+        //int index = impl->model->getFloatingSpeciesIndex(sid);
 
-        if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+        //if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 
-            int compartment = impl->model->getCompartmentIndex(species->getCompartment());
-            double compartmentSize = 1;
-            impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+        //    int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+        //    double compartmentSize = 1;
+        //    impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 
-            double initValue = initConcentration * compartmentSize;
-            impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
-        }
+        //    double initValue = initConcentration * compartmentSize;
+        //    impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+        //}
     }
 
     void RoadRunner::setConstant(const std::string &sid, bool constant, bool forceRegenerate) {
