@@ -41,7 +41,7 @@ TEST_F(SBMLFeatures, EVENT_NIGH_INFINITE_LOOP_CATCH)
     {
         RoadRunner rri((SBMLFeaturesDir / "nigh_infinite_events.xml").string());
         rri.simulate();
-        EXPECT_EQ(rri.getValue(rri.createSelection("y")), 5.0);
+        EXPECT_TRUE(false);
     }
     catch (std::exception& ex)
     {
