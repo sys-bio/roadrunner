@@ -6107,18 +6107,18 @@ namespace rr {
     }
 
 
-    void RoadRunner::setInitAmount(const std::string &sid, double initAmount, bool forceRegenerate) {
+    void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate) {
         using namespace libsbml;
-        Model *sbmlModel = impl->document->getModel();
-        Species *species = sbmlModel->getSpecies(sid);
+        Model* sbmlModel = impl->document->getModel();
+        Species* species = sbmlModel->getSpecies(sid);
 
         if (species == NULL) {
             throw std::invalid_argument(
-                    "Roadrunner::setInitAmount failed, no species with ID " + sid + " existed in the model");
+                "Roadrunner::setInitAmount failed, no species with ID " + sid + " existed in the model");
         }
 
         rrLog(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << std::endl;
-        
+
         species->unsetInitialConcentration();
         species->setInitialAmount(initAmount);
 
@@ -6129,10 +6129,18 @@ namespace rr {
         regenerateModel(forceRegenerate);
 
         // recover the updated init amount
-        //int index = impl->model->getFloatingSpeciesIndex(sid);
-        //if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
-        //    impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
-        //}
+        if (species->getBoundaryCondition()) {
+            int index = impl->model->getBoundarySpeciesIndex(sid);
+            if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
+                impl->model->setBoundarySpeciesInitAmounts(1, &index, &initAmount);
+            }
+        }
+        else {
+            int index = impl->model->getFloatingSpeciesIndex(sid);
+            if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+                impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
+            }
+        }
     }
 
     void RoadRunner::setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate) {
@@ -6157,17 +6165,33 @@ namespace rr {
         regenerateModel(forceRegenerate);
 
         // recover the updated init concentration
-        //int index = impl->model->getFloatingSpeciesIndex(sid);
+        if (species->getBoundaryCondition()) {
+            int index = impl->model->getBoundarySpeciesIndex(sid);
 
-        //if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+            if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
 
-        //    int compartment = impl->model->getCompartmentIndex(species->getCompartment());
-        //    double compartmentSize = 1;
-        //    impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+                int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+                double compartmentSize = 1;
+                impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 
-        //    double initValue = initConcentration * compartmentSize;
-        //    impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
-        //}
+                double initValue = initConcentration * compartmentSize;
+                impl->model->setBoundarySpeciesInitAmounts(1, &index, &initValue);
+            }
+        }
+        
+        else {
+            int index = impl->model->getFloatingSpeciesIndex(sid);
+
+            if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+
+                int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+                double compartmentSize = 1;
+                impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+                double initValue = initConcentration * compartmentSize;
+                impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+            }
+        }
     }
 
     void RoadRunner::setConstant(const std::string &sid, bool constant, bool forceRegenerate) {

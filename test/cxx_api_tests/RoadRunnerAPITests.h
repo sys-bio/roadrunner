@@ -186,28 +186,28 @@ public:
     void RoadRunnerConstructorVersion() {
         RoadRunner rr(1, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 1);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 3);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 4);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 5);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(3, 1);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(3, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
     }
 
     /**
@@ -790,6 +790,9 @@ public:
         //std::cout << x << std::endl;
         ls::DoubleMatrix expected({{10}});
         checkMatrixEqual(expected, x);
+        x = rr.getFloatingSpeciesAmountsNamedArray();
+        ls::DoubleMatrix expected2({ {1} });
+        checkMatrixEqual(expected2, x);
         delete testModel;
     }
 
@@ -1179,6 +1182,12 @@ public:
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesAmountsNamedArray();
         checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setInitAmount("PP2AActive", 1234.5);
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected2, actual);
     }
 
     void setInitConcentration() {
@@ -1188,6 +1197,16 @@ public:
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesConcentrationsNamedArray();
         checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setValue("init(cell)", 2);
+        rr2.setInitConcentration("PP2AActive", 1234.5);
+        ls::DoubleMatrix expected2({ {120000/2, 120000/2, 1234.5, 120000/2} });
+        actual = rr2.getBoundarySpeciesConcentrationsNamedArray();
+        checkMatrixEqual(expected2, actual);
+        ls::DoubleMatrix expected3({ {120000, 120000, 1234.5*2, 120000} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected3, actual);
     }
 
     /**
