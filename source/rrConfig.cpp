@@ -140,6 +140,7 @@ namespace rr {
             Setting(true),                              // LOADSBMLOPTIONS_PERMISSIVE
             Setting(100000),                            // MAX_OUTPUT_ROWS
             Setting(false),                             // ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS
+            Setting(10000),                             // MAX_EVENT_CASCADE
             Setting(true),                              // VALIDATION_IN_REGENERATION
             Setting(1000),                              // K_ROWS_PER_WRITE
             Setting((std::int32_t)Config::MCJIT),       // LLVM_BACKEND
@@ -259,6 +260,7 @@ namespace rr {
         keys["MAX_OUTPUT_ROWS"] = rr::Config::MAX_OUTPUT_ROWS;
         keys["ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS"] =
             rr::Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
+        keys["MAX_EVENT_CASCADE"] = rr::Config::MAX_EVENT_CASCADE;
         keys["VALIDATION_IN_REGENERATION"] = rr::Config::VALIDATION_IN_REGENERATION;
         keys["K_ROWS_PER_WRITE"] = rr::Config::K_ROWS_PER_WRITE;
         keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND_VALUES::LLJIT;
@@ -577,6 +579,8 @@ namespace rr {
             return Config::MAX_OUTPUT_ROWS;
         else if (key == "ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS")
             return Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
+        else if (key == "MAX_EVENT_CASCADE")
+            return Config::MAX_EVENT_CASCADE;
         else if (key == "VALIDATION_IN_REGENERATION")
             return Config::VALIDATION_IN_REGENERATION;
         else if (key == "LLVM_BACKEND")

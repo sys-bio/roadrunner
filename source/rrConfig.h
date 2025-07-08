@@ -519,7 +519,21 @@ namespace rr {
             ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS,
 
 
-            /*
+           /**
+            * Set the max number of events that can fire in a single timestep
+            *
+            * It is possible for events at a single time step to trigger even more events.
+            * This is usually due to a botched design that leads to an infinite loop, so
+            * this setting cuts that off after a reasonable number of loops.
+            * 
+            * However, if you have a model that is actually supposed to cascade for an
+            * indefinite number of loops, set this value to -1, and the events will
+            * be allowed to cascade indefinitely.
+            */
+            MAX_EVENT_CASCADE,
+
+
+           /*
             * Turn on SBML file validation during model regeneration after model editing
             *
             */
