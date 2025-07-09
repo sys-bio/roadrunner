@@ -438,8 +438,16 @@ TEST_F(RoadRunnerAPITestsWithMCJit, setInitAmount){
     setInitAmount();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, setInitAmountWithSetValue) {
+    setInitAmountWithSetValue();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, setInitConcentration){
     setInitConcentration();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, setInitConcentrationWithSetValue) {
+    setInitConcentrationWithSetValue();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setConstant){

@@ -1111,7 +1111,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void setInitAmount(const std::string &sid, double initAmount, bool forceRegenerate = true);
+        void setInitAmount(const std::string &sid, double initAmount);
 
 
         /**
@@ -1125,7 +1125,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate = true);
+        void setInitConcentration(const std::string &sid, double initConcentration);
 
         /**
          * Set initial value for any model element. Previous initial levels will be unset.
@@ -1138,7 +1138,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void setInitValue(const std::string& sid, double initValue, bool forceRegenerate);
+        void setInitValue(std::string sid, double initValue);
 
 
         /**
