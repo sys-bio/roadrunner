@@ -16,6 +16,7 @@
 #include "rrExecutableModel.h"
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
+#include "sbml/sbmlDocument.h"
 
 using namespace rr;
 
@@ -1200,13 +1201,23 @@ public:
 
         RoadRunner rr2(Brown2004().str());
         rr2.setValue("init(cell)", 2);
+        EXPECT_NEAR(rr2.getValue("cell"), 2.0, 0.0001);
+        EXPECT_NEAR(rr2.getValue("init(cell)"), 2.0, 0.0001);
         rr2.setInitConcentration("PP2AActive", 1234.5);
-        ls::DoubleMatrix expected2({ {120000/2, 120000/2, 1234.5, 120000/2} });
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
         actual = rr2.getBoundarySpeciesConcentrationsNamedArray();
         checkMatrixEqual(expected2, actual);
-        ls::DoubleMatrix expected3({ {120000, 120000, 1234.5*2, 120000} });
+        ls::DoubleMatrix expected3({ {120000*2, 120000*2, 1234.5*2, 120000*2} });
         actual = rr2.getBoundarySpeciesAmountsNamedArray();
         checkMatrixEqual(expected3, actual);
+
+        string sbml = rr2.getSBML();
+        libsbml::SBMLDocument* doc = libsbml::readSBMLFromString(sbml.c_str());
+        libsbml::Model* mod = doc->getModel();
+        EXPECT_NEAR(mod->getCompartment("cell")->getSize(), 2.0, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("PP2AActive")->getInitialConcentration(), 1234.5, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("Raf1Inactive")->getInitialConcentration(), 120000, 0.00001);
+        delete doc;
     }
 
     /**

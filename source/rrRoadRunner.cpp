@@ -4656,22 +4656,28 @@ namespace rr {
 
         SelectionRecord sel(sId);
 
-        if (sel.selectionType & SelectionRecord::INITIAL) {
-            //Don't worry if it doesn't exist, and don't regenerate yet.
-            removeInitialAssignment(sel.p1, true, false);
+        if (sel.selectionType & SelectionRecord::INITIAL && sel.p2 == "") {
+            if (sel.selectionType & SelectionRecord::CONCENTRATION) {
+                setInitConcentration(sel.p1, dValue, false);
+            }
+            else {
+                setInitValue(sel.p1, dValue, false);
+            }
         }
         
-        impl->model->setValue(sId, dValue);
+        else {
+            impl->model->setValue(sId, dValue);
 
-        if (sel.selectionType & SelectionRecord::INITIAL) {
-            reset(
-                SelectionRecord::TIME |
-                SelectionRecord::RATE |
-                SelectionRecord::FLOATING |
-                SelectionRecord::BOUNDARY |
-                SelectionRecord::COMPARTMENT |
-                SelectionRecord::GLOBAL_PARAMETER |
-                SelectionRecord::STOICHIOMETRY);
+            if (sel.selectionType & SelectionRecord::INITIAL) {
+                reset(
+                    SelectionRecord::TIME |
+                    SelectionRecord::RATE |
+                    SelectionRecord::FLOATING |
+                    SelectionRecord::BOUNDARY |
+                    SelectionRecord::COMPARTMENT |
+                    SelectionRecord::GLOBAL_PARAMETER |
+                    SelectionRecord::STOICHIOMETRY);
+            }
         }
     }
 
@@ -6122,25 +6128,32 @@ namespace rr {
         species->unsetInitialConcentration();
         species->setInitialAmount(initAmount);
 
-        //This function returns NULL if there is no such initial assignment.
-        InitialAssignment* ia = sbmlModel->removeInitialAssignment(sid);
-        delete ia;
-
-        regenerateModel(forceRegenerate);
+        //Remove initial assignment and regenerate and reset if we do (regardless of forceRegenerate; the rest of this function won't work otherwise).
+        removeInitialAssignment(sid, true, false);
 
         // recover the updated init amount
-        if (species->getBoundaryCondition()) {
-            int index = impl->model->getBoundarySpeciesIndex(sid);
-            if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
-                impl->model->setBoundarySpeciesInitAmounts(1, &index, &initAmount);
-            }
-        }
-        else {
-            int index = impl->model->getFloatingSpeciesIndex(sid);
-            if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
-                impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
-            }
-        }
+        impl->model->setValue("init(" + sid+ ")", initAmount);
+
+        regenerateModel(forceRegenerate);
+        reset(
+            SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+        //if (species->getBoundaryCondition()) {
+        //    int index = impl->model->getBoundarySpeciesIndex(sid);
+        //    if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
+        //        impl->model->setBoundarySpeciesInitAmounts(1, &index, &initAmount);
+        //    }
+        //}
+        //else {
+        //    int index = impl->model->getFloatingSpeciesIndex(sid);
+        //    if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+        //        impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
+        //    }
+        //}
     }
 
     void RoadRunner::setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate) {
@@ -6158,43 +6171,111 @@ namespace rr {
         species->unsetInitialAmount();
         species->setInitialConcentration(initConcentration);
 
-        //This function returns NULL if there is no such initial assignment.
-        InitialAssignment* ia = sbmlModel->removeInitialAssignment(sid);
-        delete ia;
+        //Remove initial assignment and regenerate and reset if we do (regardless of forceRegenerate; the rest of this function won't work otherwise).
+        removeInitialAssignment(sid, true, false);
 
-        regenerateModel(forceRegenerate);
 
         // recover the updated init concentration
-        if (species->getBoundaryCondition()) {
-            int index = impl->model->getBoundarySpeciesIndex(sid);
+        impl->model->setValue("init([" + sid + "])", initConcentration);
 
-            if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
+        regenerateModel(forceRegenerate);
+        reset(
+            SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+        //if (species->getBoundaryCondition()) {
+        //    int index = impl->model->getBoundarySpeciesIndex(sid);
 
-                int compartment = impl->model->getCompartmentIndex(species->getCompartment());
-                double compartmentSize = 1;
-                impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+        //    if (index >= 0 && index < impl->model->getNumBoundarySpecies()) {
 
-                double initValue = initConcentration * compartmentSize;
-                impl->model->setBoundarySpeciesInitAmounts(1, &index, &initValue);
-            }
-        }
-        
-        else {
-            int index = impl->model->getFloatingSpeciesIndex(sid);
+        //        int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+        //        double compartmentSize = 1;
+        //        impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 
-            if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+        //        double initValue = initConcentration * compartmentSize;
+        //        //impl->model->setValue(sid, initValue);
+        //        impl->model->setBoundarySpeciesInitAmounts(1, &index, &initValue);
+        //    }
+        //}
+        //
+        //else {
+        //    int index = impl->model->getFloatingSpeciesIndex(sid);
 
-                int compartment = impl->model->getCompartmentIndex(species->getCompartment());
-                double compartmentSize = 1;
-                impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+        //    if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 
-                double initValue = initConcentration * compartmentSize;
-                impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
-            }
-        }
+        //        int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+        //        double compartmentSize = 1;
+        //        impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+        //        double initValue = initConcentration * compartmentSize;
+        //        //impl->model->setValue(sid, initValue);
+        //        impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+        //    }
+        //}
     }
 
-    void RoadRunner::setConstant(const std::string &sid, bool constant, bool forceRegenerate) {
+    void RoadRunner::setInitValue(const std::string& sid, double initValue, bool forceRegenerate) {
+        using namespace libsbml;
+        Model* sbmlModel = impl->document->getModel();
+        if (sid[0] == '[' && sid[sid.size() - 1] == ']') {
+            string sub_sid = sid.substr(1, sid.size() - 1);
+            return setInitConcentration(sid, initValue, forceRegenerate);
+        }
+        Species* species = sbmlModel->getSpecies(sid);
+        if (species != NULL) {
+            return setInitAmount(sid, initValue, forceRegenerate);
+        }
+        //Remove initial assignment and regenerate and reset if we do (regardless of forceRegenerate; the rest of this function won't work otherwise).
+        removeInitialAssignment(sid, true, false);
+
+        bool found = false;
+        //If it's a compartment:
+        Compartment* compartment = sbmlModel->getCompartment(sid);
+        if (compartment != NULL) {
+            compartment->setSize(initValue);
+            found = true;
+        }
+
+        //or a Parameter:
+        Parameter* param = sbmlModel->getParameter(sid);
+        if (param != NULL) {
+            param->setValue(initValue);
+            found = true;
+        }
+
+        if (!found) {
+            SBase* element = sbmlModel->getElementBySId(sid);
+            if (element == NULL) {
+                throw std::invalid_argument(
+                    "Roadrunner::setInitValue failed, no element with ID " + sid + " existed in the model");
+            }
+            int type = element->getTypeCode();
+            if (type == SBML_SPECIES_REFERENCE) {
+                SpeciesReference* sr = static_cast<SpeciesReference*>(element);
+                sr->setStoichiometry(initValue);
+            }
+            else {
+                string package = element->getPackageName();
+                throw std::invalid_argument(
+                    "Cannot set the initial value of '" + sid + "':  cannot set the value of elements of type " + string(SBMLTypeCode_toString(type, package.c_str())) + ".");
+            }
+        }
+
+        impl->model->setValue("init(" + sid + ")", initValue);
+        regenerateModel(forceRegenerate);
+        reset(
+            SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+    }
+
+    void RoadRunner::setConstant(const std::string& sid, bool constant, bool forceRegenerate) {
         using namespace libsbml;
         Model *sbmlModel = impl->document->getModel();
         Species *species = sbmlModel->getSpecies(sid);

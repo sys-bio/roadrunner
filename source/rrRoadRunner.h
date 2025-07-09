@@ -1127,6 +1127,19 @@ namespace rr {
          */
         void setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate = true);
 
+        /**
+         * Set initial value for any model element. Previous initial levels will be unset.
+         * @param sid: the ID of a model element (if a species, use "S1" for amount or "[S1]" for concentration)
+         * @param initValue:       the initial value to be set
+         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+         *					       after this function call
+         *						   default value is true to regenerate model after each call
+         *                         of editing function
+         *						   to save time for editing for multiple times, one could
+         *					       set this flag to true only in the last call of editing
+         */
+        void setInitValue(const std::string& sid, double initValue, bool forceRegenerate);
+
 
         /**
          * Set the constant attribute for an existing species/ parameter/ compartment
@@ -1333,7 +1346,7 @@ namespace rr {
 
 
         /**
-         * Remove initial assignment for a symbol from the current model
+         * Remove initial assignment for a symbol from the current model.  Returns whether or not the model was regenerated.
          * @param vid: ID of the symbol
          * @param forceRegenerate: a boolean value to indicate if the model is regenerated
          *					       after this function call

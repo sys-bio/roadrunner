@@ -8,6 +8,7 @@
 #include "../test_util.h"
 #include <filesystem>
 #include "RoadRunnerTest.h"
+#include "TestModelFactory.h"
 
 using namespace testing;
 using namespace rr;
@@ -501,6 +502,14 @@ void ModelEditingTests::removeAndReaddAllCompartments(RoadRunner *rri, libsbml::
     readdAllEvents(rri, doc);
 }
 
+TEST_F(ModelEditingTests, SET_INITIAL_VALUE_WITH_INITIAL_ASSIGNMENT) {
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    //TestModel* testModel = TestModelFactory("SimpleFluxManuallyReduced");
+    RoadRunner rr(testModel->str());
+    rr.addInitialAssignment("S1", "5/3", true);
+    rr.setValue("init(S1)", 3);
+    //Logger::setLevel(Logger::LOG_DEBUG);
+}
 
 TEST_F(ModelEditingTests, SET_INITIAL_ASSIGNMENT_INIT) {
     RoadRunner rri;
