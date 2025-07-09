@@ -16,7 +16,7 @@
 #include "rrExecutableModel.h"
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
-#include "sbml/sbmlDocument.h"
+#include "sbml/SBMLDocument.h"
 
 using namespace rr;
 
