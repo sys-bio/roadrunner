@@ -481,11 +481,11 @@ TEST_F(CAPIModelEditingTests, SET_HAS_ONLY_SUBSTANCE_UNITS_3) {
 TEST_F(CAPIModelEditingTests, SET_INITIAL_CONCENTRATION_1) {
     EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
         addSpeciesConcentrationNoRegen(rri, "S1", "C", 0.0, false, false);
-        setInitConcentrationNoRegen(rri, "S1", 0.0004);
+        setInitConcentration(rri, "S1", 0.0004);
         addSpeciesConcentrationNoRegen(rri, "S2", "C", 0.0, false, false);
-        setInitConcentrationNoRegen(rri, "S2", 0.00048);
+        setInitConcentration(rri, "S2", 0.00048);
         addSpeciesConcentrationNoRegen(rri, "S3", "C", 0.0, false, false);
-        setInitConcentrationNoRegen(rri, "S3", 0.0008);
+        setInitConcentration(rri, "S3", 0.0008);
         addSpeciesConcentrationNoRegen(rri, "S4", "C", 0.0, false, false);
         setInitConcentration(rri, "S4", 0.0004);
 
@@ -504,16 +504,16 @@ TEST_F(CAPIModelEditingTests, SET_INITIAL_CONCENTRATION_1) {
 
 TEST_F(CAPIModelEditingTests, SET_INITIAL_CONCENTRATION_2) {
     EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
-        setInitConcentrationNoRegen(rri, "S1", 0.0004);
-        setInitConcentrationNoRegen(rri, "S2", 0.00048);
-        setInitConcentrationNoRegen(rri, "S3", 0.0008);
+        setInitConcentration(rri, "S1", 0.0004);
+        setInitConcentration(rri, "S2", 0.00048);
+        setInitConcentration(rri, "S3", 0.0008);
         setInitConcentration(rri, "S4", 0.0004);
     }));
 }
 
 TEST_F(CAPIModelEditingTests, SET_INITIAL_AMOUNT_1) {
     EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
-        setInitAmountNoRegen(rri, "S1", 0.00015);
+        setInitAmount(rri, "S1", 0.00015);
         setInitAmount(rri, "S2", 0);
     }));
 }
@@ -521,7 +521,7 @@ TEST_F(CAPIModelEditingTests, SET_INITIAL_AMOUNT_1) {
 TEST_F(CAPIModelEditingTests, SET_INITIAL_AMOUNT_2) {
     EXPECT_TRUE(RunTestWithModification([](RRHandle rri) {
         addSpeciesConcentration(rri, "S1", "compartment", 0.0, false, false);
-        setInitAmountNoRegen(rri, "S1", 0.00015);
+        setInitAmount(rri, "S1", 0.00015);
         addSpeciesConcentration(rri, "S2", "compartment", 0.0, false, false);
         setInitAmount(rri, "S2", 0);
 
