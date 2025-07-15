@@ -1355,7 +1355,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true, bool errIfNotExist = true);
+        void removeInitialAssignment(const std::string& vid, bool forceRegenerate = true, bool errIfNotExist = true, bool replaceInitVal = true);
 
 
         /*
