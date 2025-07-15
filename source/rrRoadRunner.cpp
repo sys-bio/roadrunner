@@ -6848,7 +6848,7 @@ namespace rr {
 
         if (replaceInitVal) {
             double initValue = impl->model->getValue("init(" + vid + ")");
-            setSBMLValue(sbmlModel, vid, false, initValue);
+            setSBMLValue(sbmlModel, vid, initValue, false);
         }
 
         regenerateModel(forceRegenerate);
