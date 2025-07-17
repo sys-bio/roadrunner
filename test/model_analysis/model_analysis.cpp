@@ -22,6 +22,24 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, RegenerateOddModel) {
+    //This model has both an independent and a dependent floating species, so
+    // the original version of regenerateModel got things wrong when transferring
+    // data from one to the other.  This checks to ensure this was fixed.
+    RoadRunner rr((modelAnalysisModelsDir / "floating_change_rate.xml").string());
+    rr.simulate();
+    double S1 = rr.getValue("init(S1)");
+    EXPECT_EQ(S1, 3);
+    S1 = rr.getValue("S1");
+    EXPECT_EQ(S1, 23);
+    rr.regenerateModel(true, false);
+    S1 = rr.getValue("init(S1)");
+    EXPECT_EQ(S1, 3);
+    S1 = rr.getValue("S1");
+    EXPECT_EQ(S1, 23);
+}
+
+
 TEST_F(ModelAnalysisTests, SimulateWithSameTimes) {
     RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     std::vector<double> times;
@@ -1113,6 +1131,10 @@ TEST_F(ModelAnalysisTests, ResetFloatingSpeciesRate) {
     rr.reset();
     S1 = rr.getValue("S1");
     EXPECT_EQ(S1, 10);
+
+    rr.setValue("init(S2)", 15);
+    EXPECT_EQ(rr.getValue("S2"), 15);
+
 }
 
 

@@ -1911,29 +1911,11 @@ bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmou
 	catch_bool_macro
 }
 
-bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->setInitAmount(sid, initAmount, false);
-		return true;
-	catch_bool_macro
-}
-
 bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri->setInitConcentration(sid, initConcentration);
-		return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->setInitConcentration(sid, initConcentration, false);
 		return true;
 	catch_bool_macro
 }

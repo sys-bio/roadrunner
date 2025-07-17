@@ -953,7 +953,6 @@ def rtestResetToOrigin(rrInstance, testId):
     errorFlag = False
     words = divide(readLine())
     rrInstance.setValue(words[0], float(words[1]))
-    rrInstance.setValue("init(" + words[0] + ")", float(words[1]))
     rrInstance.resetToOrigin()
     d = rrInstance.getValue(words[0])
     rrInstance.reset()

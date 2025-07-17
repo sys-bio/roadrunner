@@ -1111,7 +1111,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void setInitAmount(const std::string &sid, double initAmount, bool forceRegenerate = true);
+        void setInitAmount(const std::string &sid, double initAmount);
 
 
         /**
@@ -1125,7 +1125,20 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void setInitConcentration(const std::string &sid, double initConcentration, bool forceRegenerate = true);
+        void setInitConcentration(const std::string &sid, double initConcentration);
+
+        /**
+         * Set initial value for any model element. Previous initial levels will be unset.
+         * @param sid: the ID of a model element (if a species, use "S1" for amount or "[S1]" for concentration)
+         * @param initValue:       the initial value to be set
+         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+         *					       after this function call
+         *						   default value is true to regenerate model after each call
+         *                         of editing function
+         *						   to save time for editing for multiple times, one could
+         *					       set this flag to true only in the last call of editing
+         */
+        void setInitValue(std::string sid, double initValue);
 
 
         /**
@@ -1333,7 +1346,7 @@ namespace rr {
 
 
         /**
-         * Remove initial assignment for a symbol from the current model
+         * Remove initial assignment for a symbol from the current model.  Returns whether or not the model was regenerated.
          * @param vid: ID of the symbol
          * @param forceRegenerate: a boolean value to indicate if the model is regenerated
          *					       after this function call
@@ -1342,7 +1355,7 @@ namespace rr {
          *						   to save time for editing for multiple times, one could
          *					       set this flag to true only in the last call of editing
          */
-        void removeInitialAssignment(const std::string &vid, bool forceRegenerate = true, bool errIfNotExist = true);
+        void removeInitialAssignment(const std::string& vid, bool forceRegenerate = true, bool errIfNotExist = true, bool replaceInitVal = true);
 
 
         /*

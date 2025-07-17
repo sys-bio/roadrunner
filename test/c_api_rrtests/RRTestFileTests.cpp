@@ -988,13 +988,17 @@ public:
         double d_value_r;
 
         setValue(gRR, d, d_value);
-        setValue(gRR, d_init, d_value);
-
+        
         resetToOrigin(gRR);
-
         getValue(gRR, d, &d_value_r);
 
         EXPECT_NE(d_value, d_value_r);
+
+        setValue(gRR, d_init, d_value);
+        resetToOrigin(gRR);
+        getValue(gRR, d, &d_value_r);
+
+        EXPECT_NEAR(d_value, d_value_r, 1e-6);
     }
 
     void check_CHECK_RK4_OUTPUT(IniSection *aSection) {

@@ -573,17 +573,6 @@ C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, co
 C_DECL_SPEC bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount);
 
 /*!
- \brief Set initial amount for an existing species, without regenerating it
-		The last modification must regenerate for the modifications to take effect
- \param[in] handle Handle to a RoadRunner instance
- \param[in] sid ID of the species
- \param[in] initAmount Initial amount to be set
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount);
-
-/*!
  \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sid ID of the species
@@ -592,18 +581,6 @@ C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* s
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration);
-
-/*!
- \brief Set initial concentration for an existing species, without regenerating it
-		The last modification must regenerate for the modifications to take effect
- \param[in] handle Handle to a RoadRunner instance
- \param[in] sid ID of the species
- \param[in] initConcentration Initial concentration to be set
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration);
-
 
 /*!
  \brief Set the constant attribute for an existing species/ parameter/ compartment.

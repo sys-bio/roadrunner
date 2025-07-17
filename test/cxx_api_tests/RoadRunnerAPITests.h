@@ -16,6 +16,7 @@
 #include "rrExecutableModel.h"
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
+#include "sbml/SBMLDocument.h"
 
 using namespace rr;
 
@@ -186,28 +187,28 @@ public:
     void RoadRunnerConstructorVersion() {
         RoadRunner rr(1, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 1);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 3);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 4);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(2, 5);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(3, 1);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
         rr = RoadRunner(3, 2);
         rr.addCompartment("C1", 1.0);
-        std::cout << rr.getSBML() << std::endl;
+        //std::cout << rr.getSBML() << std::endl;
     }
 
     /**
@@ -790,6 +791,9 @@ public:
         //std::cout << x << std::endl;
         ls::DoubleMatrix expected({{10}});
         checkMatrixEqual(expected, x);
+        x = rr.getFloatingSpeciesAmountsNamedArray();
+        ls::DoubleMatrix expected2({ {1} });
+        checkMatrixEqual(expected2, x);
         delete testModel;
     }
 
@@ -1179,6 +1183,27 @@ public:
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesAmountsNamedArray();
         checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setInitAmount("PP2AActive", 1234.5);
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected2, actual);
+    }
+
+    void setInitAmountWithSetValue() {
+        RoadRunner rr(SimpleFlux().str());
+        rr.setValue("init(S1)", 1234.5);
+        //std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
+        ls::DoubleMatrix expected({ {1234.5, 1} });
+        auto actual = rr.getFloatingSpeciesAmountsNamedArray();
+        checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setValue("init(PP2AActive)", 1234.5);
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected2, actual);
     }
 
     void setInitConcentration() {
@@ -1188,6 +1213,61 @@ public:
         ls::DoubleMatrix expected({{1234.5, 1}});
         auto actual = rr.getFloatingSpeciesConcentrationsNamedArray();
         checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setInitValue("cell", 2);
+        EXPECT_NEAR(rr2.getValue("cell"), 2.0, 0.0001);
+        EXPECT_NEAR(rr2.getValue("init(cell)"), 2.0, 0.0001);
+        rr2.setInitConcentration("PP2AActive", 1234.5);
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
+        actual = rr2.getBoundarySpeciesConcentrationsNamedArray();
+        checkMatrixEqual(expected2, actual);
+        ls::DoubleMatrix expected3({ {120000*2, 120000*2, 1234.5*2, 120000*2} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected3, actual);
+
+        string sbml = rr2.getSBML();
+        libsbml::SBMLDocument* doc = libsbml::readSBMLFromString(sbml.c_str());
+        libsbml::Model* mod = doc->getModel();
+        EXPECT_NEAR(mod->getCompartment("cell")->getSize(), 2.0, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("PP2AActive")->getInitialConcentration(), 1234.5, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("Raf1Inactive")->getInitialConcentration(), 120000, 0.00001);
+        delete doc;
+    }
+
+    void setInitConcentrationWithSetValue() {
+        RoadRunner rr(SimpleFlux().str());
+        rr.setValue("init([S1])", 1234.5);
+        //std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
+        ls::DoubleMatrix expected({ {1234.5, 1} });
+        auto actual = rr.getFloatingSpeciesConcentrationsNamedArray();
+        checkMatrixEqual(expected, actual);
+
+        rr.setInitConcentration("S1", 234.56);
+        //std::cout << rr.getFloatingSpeciesAmountsNamedArray() << std::endl;
+        expected[0][0] = 234.56;
+        actual = rr.getFloatingSpeciesConcentrationsNamedArray();
+        checkMatrixEqual(expected, actual);
+
+        RoadRunner rr2(Brown2004().str());
+        rr2.setValue("init(cell)", 2);
+        EXPECT_NEAR(rr2.getValue("cell"), 2.0, 0.0001);
+        EXPECT_NEAR(rr2.getValue("init(cell)"), 2.0, 0.0001);
+        rr2.setValue("init([PP2AActive])", 1234.5);
+        ls::DoubleMatrix expected2({ {120000, 120000, 1234.5, 120000} });
+        actual = rr2.getBoundarySpeciesConcentrationsNamedArray();
+        checkMatrixEqual(expected2, actual);
+        ls::DoubleMatrix expected3({ {120000 * 2, 120000 * 2, 1234.5 * 2, 120000 * 2} });
+        actual = rr2.getBoundarySpeciesAmountsNamedArray();
+        checkMatrixEqual(expected3, actual);
+
+        string sbml = rr2.getSBML();
+        libsbml::SBMLDocument* doc = libsbml::readSBMLFromString(sbml.c_str());
+        libsbml::Model* mod = doc->getModel();
+        EXPECT_NEAR(mod->getCompartment("cell")->getSize(), 2.0, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("PP2AActive")->getInitialConcentration(), 1234.5, 0.00001);
+        EXPECT_NEAR(mod->getSpecies("Raf1Inactive")->getInitialConcentration(), 120000, 0.00001);
+        delete doc;
     }
 
     /**

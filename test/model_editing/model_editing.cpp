@@ -8,6 +8,7 @@
 #include "../test_util.h"
 #include <filesystem>
 #include "RoadRunnerTest.h"
+#include "TestModelFactory.h"
 
 using namespace testing;
 using namespace rr;
@@ -501,6 +502,14 @@ void ModelEditingTests::removeAndReaddAllCompartments(RoadRunner *rri, libsbml::
     readdAllEvents(rri, doc);
 }
 
+TEST_F(ModelEditingTests, SET_INITIAL_VALUE_WITH_INITIAL_ASSIGNMENT) {
+    TestModel* testModel = TestModelFactory("SimpleFlux");
+    //TestModel* testModel = TestModelFactory("SimpleFluxManuallyReduced");
+    RoadRunner rr(testModel->str());
+    rr.addInitialAssignment("S1", "5/3", true);
+    rr.setValue("init(S1)", 3);
+    //Logger::setLevel(Logger::LOG_DEBUG);
+}
 
 TEST_F(ModelEditingTests, SET_INITIAL_ASSIGNMENT_INIT) {
     RoadRunner rri;
@@ -1440,11 +1449,11 @@ TEST_F(ModelEditingTests, SET_HAS_ONLY_SUBSTANCE_UNITS_3) {
 TEST_F(ModelEditingTests, SET_INITIAL_CONCENTRATION_1) {
     ASSERT_TRUE(RunModelEditingTest([](RoadRunner *rri) {
         rri->addSpeciesConcentration("S1", "C", 0.0);
-        rri->setInitConcentration("S1", 0.0004, false);
+        rri->setInitConcentration("S1", 0.0004);
         rri->addSpeciesConcentration("S2", "C", 0.0);
-        rri->setInitConcentration("S2", 0.00048, false);
+        rri->setInitConcentration("S2", 0.00048);
         rri->addSpeciesConcentration("S3", "C", 0.0);
-        rri->setInitConcentration("S3", 0.0008, false);
+        rri->setInitConcentration("S3", 0.0008);
         rri->addSpeciesConcentration("S4", "C", 0.0);
         rri->setInitConcentration("S4", 0.0004);
 
@@ -1459,16 +1468,16 @@ TEST_F(ModelEditingTests, SET_INITIAL_CONCENTRATION_1) {
 
 TEST_F(ModelEditingTests, SET_INITIAL_CONCENTRATION_2) {
     ASSERT_TRUE(RunModelEditingTest([](RoadRunner *rri) {
-        rri->setInitConcentration("S1", 0.0004, false);
-        rri->setInitConcentration("S2", 0.00048, false);
-        rri->setInitConcentration("S3", 0.0008, false);
+        rri->setInitConcentration("S1", 0.0004);
+        rri->setInitConcentration("S2", 0.00048);
+        rri->setInitConcentration("S3", 0.0008);
         rri->setInitConcentration("S4", 0.0004);
     }));
 }
 
 TEST_F(ModelEditingTests, SET_INITIAL_AMOUNT_1) {
     ASSERT_TRUE(RunModelEditingTest([](RoadRunner *rri) {
-        rri->setInitAmount("S1", 0.00015, false);
+        rri->setInitAmount("S1", 0.00015);
         rri->setInitAmount("S2", 0);
     }));
 }
@@ -1476,7 +1485,7 @@ TEST_F(ModelEditingTests, SET_INITIAL_AMOUNT_1) {
 TEST_F(ModelEditingTests, SET_INITIAL_AMOUNT_2) {
     ASSERT_TRUE(RunModelEditingTest([](RoadRunner *rri) {
         rri->addSpeciesConcentration("S1", "compartment", 1.0, false, false);
-        rri->setInitAmount("S1", 0.00015, false);
+        rri->setInitAmount("S1", 0.00015);
         rri->addSpeciesConcentration("S2", "compartment", 1.0, false, false);
         rri->setInitAmount("S2", 0);
 
