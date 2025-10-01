@@ -61,7 +61,7 @@ namespace rr {
         /**
          * @brief virtual destructor
          */
-        ~KinsolSteadyStateSolver() override = default;
+        ~KinsolSteadyStateSolver() override;
 
         /**
          * @brief implementation of Solver::syncWithModel.
@@ -292,7 +292,7 @@ namespace rr {
 
         std::unordered_map<std::string, Setting> solverStats;
 
-        SUNContext mSunContext;
+        SUNContext mSunContext = nullptr;
 
     };
 

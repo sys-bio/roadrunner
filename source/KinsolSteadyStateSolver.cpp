@@ -15,6 +15,13 @@ namespace rr {
         KinsolSteadyStateSolver::resetSettings();
     }
 
+    KinsolSteadyStateSolver::~KinsolSteadyStateSolver()
+    {
+      if (mSunContext) {
+        SUNContext_Free(&mSunContext);
+      }
+    }
+
     void KinsolSteadyStateSolver::syncWithModel(ExecutableModel *m) {
         freeKinsol();
         mModel = m;
@@ -31,6 +38,9 @@ namespace rr {
         assert(mStateVector == nullptr && mKinsol_Memory == nullptr &&
                "calling createKinsol, but kinsol objects already exist");
 
+        if (mSunContext) {
+          SUNContext_Free(&mSunContext);
+        }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)

@@ -110,6 +110,9 @@ namespace rr {
         if (mCVODE_Memory && mModel) {
             freeSundialsMemory();
         }
+        if (mSunContext) {
+            SUNContext_Free(&mSunContext);
+        }
     }
 
     void CVODEIntegrator::setListener(IntegratorListenerPtr p) {
@@ -638,6 +641,9 @@ namespace rr {
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int realStateVectorSize = mModel->getStateVector(nullptr);
 
+        if (mSunContext) {
+          SUNContext_Free(&mSunContext);
+        }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // cvode return code
