@@ -45,7 +45,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
     lmplugin->setPropertyValue("ExperimentalData", exdata);
 
-    Property<double> k1val(0.31, "k1", "", "", "", true);
+    Property<double> k1val(0.3, "k1", "", "", "", true);
     Properties ipl;
     ipl.add(&k1val);
     //tlp::Property tpcre();
@@ -156,7 +156,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     exdata.read((pluginsModelsDir / "wilbertData.dat").string());
     lmplugin->setPropertyValue("ExperimentalData", &exdata);
 
-    Property<double> p0val(6.77, "p0", "", "", "", true);
+    Property<double> p0val(6.78, "p0", "", "", "", true);
     Property<double> p1val(1.01, "p1", "", "", "", true);
     Property<double> p4val(1.26, "p4", "", "", "", true);
     Property<double> p6val(35.11, "p6", "", "", "", true);
