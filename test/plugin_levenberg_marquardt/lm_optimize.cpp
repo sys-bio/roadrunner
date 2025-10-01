@@ -45,7 +45,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     TelluriumData* exdata = static_cast<TelluriumData*>(testdata->getValueHandle());
     lmplugin->setPropertyValue("ExperimentalData", exdata);
 
-    Property<double> k1val(0.3, "k1", "", "", "", true);
+    Property<double> k1val(0.31, "k1", "", "", "", true);
     Properties ipl;
     ipl.add(&k1val);
     //tlp::Property tpcre();
