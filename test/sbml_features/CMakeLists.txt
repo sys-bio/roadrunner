@@ -3,6 +3,7 @@ add_test_executable(
         ${SharedTestFiles}
         boolean_delay.cpp
         events.cpp
+        fast.cpp
         invalid_sbml.cpp
         piecewise_triggers.cpp
         rateOf.cpp

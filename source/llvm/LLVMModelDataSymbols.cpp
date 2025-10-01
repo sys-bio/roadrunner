@@ -1333,9 +1333,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
     {
         const Reaction *reaction = reactions->get(i);
         if (reaction->isSetFast() && reaction->getFast()==true) {
-          rrLog(Logger::LOG_WARNING)
-            << "Unable to handle SBML fast reactions. Reaction '"
-            << reaction->getId() << "' treated as a slow reaction.";
+            throw_llvm_exception("Unable to support 'fast' reactions.  The reaction '" + reaction->getId() + "' is set 'fast=true', and is therefore not supported.");
         }
         reactionsMap.insert(StringUIntPair(reaction->getId(), i));
 
