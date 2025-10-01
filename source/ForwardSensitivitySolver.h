@@ -218,7 +218,7 @@ namespace rr {
          * virtual inheritance, which may come with hidden problems;
          */
         std::unique_ptr<CVODEIntegrator> cvodeIntegrator = nullptr;
-        SUNContext mSunContext;
+        SUNContext mSunContext = nullptr;
 
         void constructorOperations();
 

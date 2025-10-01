@@ -170,6 +170,9 @@ namespace rr {
 
     ForwardSensitivitySolver::~ForwardSensitivitySolver() {
         freeSundialsMemory();
+        if (mSunContext) {
+          SUNContext_Free(&mSunContext);
+        }
     }
 
     void ForwardSensitivitySolver::freeSundialsMemory() {
@@ -194,6 +197,9 @@ namespace rr {
         assert(cvodeIntegrator->mStateVector == nullptr && cvodeIntegrator->mCVODE_Memory == nullptr &&
                "calling create, but cvode objects already exist");
 
+        if (mSunContext) {
+          SUNContext_Free(&mSunContext);
+        }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
 
         // still need cvode state std::vector size if we have no vars, but have
