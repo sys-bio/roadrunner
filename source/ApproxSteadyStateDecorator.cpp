@@ -34,7 +34,7 @@ namespace rr {
             CVODEIntegrator integrator(model);
 
             // integrate and collect the sundials N_Vector
-            integrator.integrate(end - stepSize, stepSize);
+            integrator.integrate(end - (2*stepSize), stepSize);
             solver_->syncWithModel(model);
             N_Vector svtm1 = integrator.getStateVector();
             std::vector<double> stateVectorAtTMinus1;
@@ -43,7 +43,7 @@ namespace rr {
             }
 
             // integrate collect the new sundials N_Vector
-            integrator.integrate(end, stepSize);
+            integrator.integrate(end-stepSize, stepSize);
             solver_->syncWithModel(model);
             N_Vector stateVectorAtT = integrator.getStateVector();
             double *stateVectorAtTArrPtr = stateVectorAtT->ops->nvgetarraypointer(stateVectorAtT);
