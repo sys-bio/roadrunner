@@ -429,7 +429,7 @@ function(print_target_properties tgt)
     endforeach(prop)
 endfunction(print_target_properties)
 
-cmake_language(CALL print_target_properties zlib::zlibstatic)
+cmake_language(CALL print_target_properties ZLIB::ZLIBSTATIC)
 cmake_language(CALL print_target_properties expat::expat)
 
 #libsbml now needs to know that we found expat, so we set the relevant flags
@@ -437,8 +437,8 @@ set(EXPAT_LIBRARY "expat::expat")
 get_target_property(EXPAT_INCLUDE_DIR expat::expat INTERFACE_INCLUDE_DIRECTORIES)
 get_target_property(EXPAT_LIBRARY expat::expat LOCATION)
 message(STATUS "EXPAT_LIBRARY: ${EXPAT_LIBRARY}")
-set(ZLIB_LIBRARY "zlib::zlibstatic")
-get_target_property(ZLIB_LIBRARY zlib::zlibstatic LOCATION)
+set(ZLIB_LIBRARY ZLIB::ZLIBSTATIC)
+get_target_property(ZLIB_LIBRARY ZLIB::ZLIBSTATIC LOCATION)
 set(ZLIB_INCLUDE_DIR "${RR_DEPENDENCIES_INSTALL_PREFIX}/include/")
 
 message(STATUS "ZLIB_LIBRARY: ${ZLIB_LIBRARY}")
