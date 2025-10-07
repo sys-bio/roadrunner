@@ -26,16 +26,17 @@ namespace rr {
             std::vector<double> times = presimulationTimesVariant.get<std::vector<double>>();
             for (const auto &timePoint: times) {
                 solver_->getModel()->reset();
-                CVODEIntegrator integrator(solver_->getModel());
-                // integrate one interval between 0 and presimulation_time.
-                integrator.integrate(0, timePoint);
-                solver_->syncWithModel(solver_->getModel());
-
+                if (timePoint != 0) {
+                  CVODEIntegrator integrator(solver_->getModel());
+                  // integrate one interval between 0 and presimulation_time.
+                  integrator.integrate(0, timePoint);
+                  solver_->syncWithModel(solver_->getModel());
+                }
                 try {
                     return solver_->solve();
                 } catch (std::exception &err) {
                     if (timePoint == times.back())
-                        throw CoreException("SteadyStateSolver failed to solve presimulation program: ", err.what());
+                        throw std::runtime_error(string("SteadyStateSolver failed to solve presimulation program: ") + err.what());
                 }
             }
         }
@@ -48,5 +49,9 @@ namespace rr {
 
     Solver *PresimulationProgramDecorator::construct(ExecutableModel *executableModel) const {
         return new PresimulationProgramDecorator(executableModel);
+    }
+    bool PresimulationProgramDecorator::hasPresimSetup()
+    {
+      return true;
     }
 }

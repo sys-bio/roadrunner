@@ -22,6 +22,19 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, issue1259) {
+  BasicDictionary opt;
+  opt.setItem("allow_approx", true);
+  opt.setItem("allow_presimulation", true);
+
+  rr::RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+  EXPECT_THROW(rr.steadyState(&opt), CoreException);
+
+  rr.load((modelAnalysisModelsDir / "no_steady_state.xml").string());
+  EXPECT_THROW(rr.steadyState(&opt), CoreException);
+}
+
+
 TEST_F(ModelAnalysisTests, RegenerateOddModel) {
     //This model has both an independent and a dependent floating species, so
     // the original version of regenerateModel got things wrong when transferring

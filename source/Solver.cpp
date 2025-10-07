@@ -37,6 +37,16 @@ namespace rr
         }
     }
 
+    bool Solver::hasPresimSetup()
+    {
+      return false;
+    }
+
+    bool Solver::hasApproxSetup()
+    {
+      return false;
+    }
+
     void Solver::updateSettings(Dictionary * inputSettings)
     {
         if (!inputSettings)
