@@ -1650,18 +1650,42 @@ namespace rr {
 //    SteadyStateSolver* copyOfSSSolverPtr;
 
         // apply presimulation decorator if requested by user
-        if (impl->steady_state_solver->getValue("allow_presimulation")) {
+        if (impl->steady_state_solver->getValue("allow_presimulation") &&
+          !impl->steady_state_solver->hasPresimSetup()) {
             presimDec = new PresimulationProgramDecorator(impl->steady_state_solver);
             impl->steady_state_solver = presimDec;
         }
 
         // apply approximation decorator if requested by user
-        if (impl->steady_state_solver->getValue("allow_approx")) {
+        if (impl->steady_state_solver->getValue("allow_approx") &&
+          !impl->steady_state_solver->hasApproxSetup()) {
             approxDec = new ApproxSteadyStateDecorator(impl->steady_state_solver);
             impl->steady_state_solver = approxDec;
         }
 
-        double ss = impl->steady_state_solver->solve();
+        double ss = 0;
+        try {
+          ss = impl->steady_state_solver->solve();
+        }
+        catch (exception& e) {
+          if (presimDec) {
+            delete presimDec;
+            presimDec = nullptr;
+          }
+
+          if (approxDec) {
+            delete approxDec;
+            approxDec = nullptr;
+          }
+
+          // put back to original type before return
+          // so the next call to steadyState starts
+          // without any decorators.
+          setSteadyStateSolver(solverName);
+          if (!currentConservedMoietyAnalysisStatus)
+            setConservedMoietyAnalysis(currentConservedMoietyAnalysisStatus);
+          throw;
+        }
 
         if (presimDec) {
             delete presimDec;

@@ -22,6 +22,8 @@ namespace rr {
 
         Solver* construct(ExecutableModel* executableModel) const override;
 
+        virtual bool hasApproxSetup() override;
+
     private:
         std::string decoratorName() const override;
 

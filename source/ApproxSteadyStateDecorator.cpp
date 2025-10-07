@@ -28,18 +28,23 @@ namespace rr {
             //  step_size * num_steps = duration
             const double stepSize = end / steps;
 
-            const int &numVariables = mModel->getStateVector(nullptr);
-            CVODEIntegrator integrator(solver_->getModel());
+            rr::ExecutableModel* model = getModel();
+            model->reset();
+            const int &numVariables = model->getStateVector(nullptr);
+            CVODEIntegrator integrator(model);
 
             // integrate and collect the sundials N_Vector
-            integrator.integrate(end - (2*stepSize), stepSize);
-            solver_->syncWithModel(solver_->getModel());
-            N_Vector stateVectorAtTMinus2 = integrator.getStateVector();
-            double* stateVectorAtTMinus2ArrPtr = stateVectorAtTMinus2->ops->nvgetarraypointer(stateVectorAtTMinus2);
+            integrator.integrate(end - stepSize, stepSize);
+            solver_->syncWithModel(model);
+            N_Vector svtm1 = integrator.getStateVector();
+            std::vector<double> stateVectorAtTMinus1;
+            for (int i = 0; i < svtm1->ops->nvgetlength(svtm1); i++) {
+              stateVectorAtTMinus1.push_back(svtm1->ops->nvgetarraypointer(svtm1)[i]);
+            }
 
             // integrate collect the new sundials N_Vector
-            integrator.integrate(end - stepSize, stepSize);
-            solver_->syncWithModel(solver_->getModel());
+            integrator.integrate(end, stepSize);
+            solver_->syncWithModel(model);
             N_Vector stateVectorAtT = integrator.getStateVector();
             double *stateVectorAtTArrPtr = stateVectorAtT->ops->nvgetarraypointer(stateVectorAtT);
 
@@ -47,7 +52,7 @@ namespace rr {
             for (int i = 0; i < stateVectorAtT->ops->nvgetlength(stateVectorAtT); i++) {
                 tol += sqrt(
                         pow(
-                                (stateVectorAtTMinus2ArrPtr[i] - stateVectorAtTArrPtr[i]) / stepSize,
+                                (stateVectorAtTMinus1[i] - stateVectorAtTArrPtr[i]) / stepSize,
                                 2)
                 );
             }
@@ -76,6 +81,11 @@ namespace rr {
 
     Solver *ApproxSteadyStateDecorator::construct(ExecutableModel *executableModel) const {
         return new ApproxSteadyStateDecorator(executableModel);
+    }
+
+    bool ApproxSteadyStateDecorator::hasApproxSetup()
+    {
+      return true;
     }
 
     /** @endcond PRIVATE */

@@ -35,6 +35,8 @@ namespace rr {
 
         Solver* construct(ExecutableModel* executableModel) const override;
 
+        virtual bool hasPresimSetup() override;
+
     private:
         std::string decoratorName() const override;
     };
