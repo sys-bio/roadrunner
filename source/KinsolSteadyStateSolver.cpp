@@ -287,20 +287,20 @@ namespace rr {
 
     std::unordered_map<std::string, Setting>& KinsolSteadyStateSolver::getSolverStats() {
 //        std::unordered_map<std::string, Setting> map;
-        solverStats["numFuncEvals"] = Setting(numFuncEvals);
-        solverStats["numNolinSolvIters"] = Setting(numNolinSolvIters);
-        solverStats["numBetaCondFails"] = Setting(numBetaCondFails);
-        solverStats["numBacktrackOps"] = Setting(numBacktrackOps);
+        solverStats["numFuncEvals"] = Setting(std::int64_t(numFuncEvals));
+        solverStats["numNolinSolvIters"] = Setting(std::int64_t(numNolinSolvIters));
+        solverStats["numBetaCondFails"] = Setting(std::int64_t(numBetaCondFails));
+        solverStats["numBacktrackOps"] = Setting(std::int64_t(numBacktrackOps));
         solverStats["funcNorm"] = Setting(funcNorm);
         solverStats["stepLength"] = Setting(stepLength);
-        solverStats["numJacEvals"] = Setting(numJacEvals);
-        solverStats["numJtimesEvals"] = Setting(numJtimesEvals);
-        solverStats["numLinConvFails"] = Setting(numLinConvFails);
-        solverStats["numLinFuncEvals"] = Setting(numLinFuncEvals);
-        solverStats["numLinIters"] = Setting(numLinIters);
-        solverStats["numNonlinSolvIters"] = Setting(numNonlinSolvIters);
-        solverStats["numPrecEvals"] = Setting(numPrecEvals);
-        solverStats["numPrecSolves"] = Setting(numPrecSolves);
+        solverStats["numJacEvals"] = Setting(std::int64_t(numJacEvals));
+        solverStats["numJtimesEvals"] = Setting(std::int64_t(numJtimesEvals));
+        solverStats["numLinConvFails"] = Setting(std::int64_t(numLinConvFails));
+        solverStats["numLinFuncEvals"] = Setting(std::int64_t(numLinFuncEvals));
+        solverStats["numLinIters"] = Setting(std::int64_t(numLinIters));
+        solverStats["numNonlinSolvIters"] = Setting(std::int64_t(numNonlinSolvIters));
+        solverStats["numPrecEvals"] = Setting(std::int64_t(numPrecEvals));
+        solverStats["numPrecSolves"] = Setting(std::int64_t(numPrecSolves));
         return solverStats;
     }
 

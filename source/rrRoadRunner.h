@@ -1646,7 +1646,7 @@ namespace rr {
         /**
          * @brief Set the value of Config::RANDOM_SEED
          */
-        void setSeed(long int seed, bool resetModel = true);
+        void setSeed(std::int64_t seed, bool resetModel = true);
 
         /**
          * @brief Returns the value of Config::RANDOM_SEED

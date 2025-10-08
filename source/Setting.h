@@ -88,7 +88,7 @@ namespace rr {
 
         /**
          * @brief constructor for creating a Setting
-         * from a supperted type T.
+         * from a supported type T.
          * @see setting_t for supported types
          * @details for developers: clang-tidy will want
          * you to make this constructor explicit. However,

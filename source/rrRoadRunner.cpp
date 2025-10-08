@@ -7421,7 +7421,7 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(long int seed, bool resetModel) {
+    void RoadRunner::setSeed(std::int64_t seed, bool resetModel) {
         Config::setValue(Config::RANDOM_SEED, seed);
         if (resetModel) {
             regenerateModel(true);
@@ -7456,7 +7456,7 @@ namespace rr {
     }
 
     void RoadRunner::resetSeed() {
-        if (Config::getValue(Config::RANDOM_SEED).getAs<long int>() != -1)
+        if (Config::getValue(Config::RANDOM_SEED).getAs<std::int64_t>() != -1)
             setSeed(-1, false);
         else {
             for (auto integrator : impl->integrators) {
