@@ -13,7 +13,7 @@
 namespace sbmlsupport
 {
 extern "C" {
-double trunc(double d)
+double ss_trunc(double d)
 {
     return (d > 0) ? floor(d) : ceil(d) ;
 }
@@ -87,11 +87,11 @@ double powerf(double base, double exponent)
          return (0.0);                   // 0**n = 0, n > 0
     }
 
-    x = exponent - trunc (exponent);
+    x = exponent - ss_trunc (exponent);
 
     if ((x == 0.0) && (fabs(exponent) <= 2147483647))
     {
-        result = (sign*poweri(base, (int)trunc(exponent)));
+        result = (sign*poweri(base, (int)ss_trunc(exponent)));
     }
     else
     {
