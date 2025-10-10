@@ -12,7 +12,7 @@ namespace sbmlsupport
 {
 extern "C" {
 
-double trunc(double d);
+double ss_trunc(double d);
 
 double poweri(double x, int y);
 
