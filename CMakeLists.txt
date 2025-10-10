@@ -448,13 +448,13 @@ message(STATUS "ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
 # I stole this from libsbml's CMakeLists.txt file, since they apparently also suffer the same problem
 # (and are the probable cause, at that.)  I've only seen this needed on Ubuntu, and even there, it's
 # not needed for the azure ubuntu build, just when actually running Ubuntu.
-if(NOT TARGET ZLIB::ZLIB)
-  add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
-  set_target_properties(ZLIB::ZLIB PROPERTIES
-    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
-    IMPORTED_LOCATION "${ZLIB_LIBRARY}"
-    INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
-endif()
+#if(NOT TARGET ZLIB::ZLIB)
+#  add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
+#  set_target_properties(ZLIB::ZLIB PROPERTIES
+#    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+#    IMPORTED_LOCATION "${ZLIB_LIBRARY}"
+#    INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
+#endif()
 
 
 find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
