@@ -397,7 +397,7 @@ endif (WIN32)
 
 #find_package(Threads) # for libxml2, FindThreads.cmake is shipped with cmake
 #find_package(LibLZMA) # for libxml2, LibLZMA.cmake is shipped with cmake
-find_package(zlib CONFIG REQUIRED)
+find_package(ZLIB CONFIG REQUIRED)
 #find_package(bzip2 CONFIG REQUIRED)
 #find_package(iconv CONFIG REQUIRED)
 
