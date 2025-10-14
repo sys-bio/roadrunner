@@ -1082,6 +1082,11 @@ namespace std { class ostream{}; }
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
 
 
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
+
 /**
  * include the roadrunner files here, this is where the wrappers are generated.
  */
