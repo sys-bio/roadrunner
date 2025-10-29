@@ -1077,6 +1077,12 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::BasicDictionary(std::initializer_list<item>);
 
 
+//Later versions of SWIG found these functions that don't need to be wrapped:
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
+
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
 
