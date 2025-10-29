@@ -1,4 +1,4 @@
-include(GNUInstallDirs)
+ include(GNUInstallDirs)
 set(target roadrunner_c_api)
 
 set(
@@ -90,4 +90,24 @@ target_link_libraries(${target}-static PUBLIC roadrunner-static)
 add_dependencies(${target}-static roadrunner-static)
 
 target_compile_definitions(${target}-static PRIVATE EXPORT_RRC STATIC_RR)
+
+install(
+        TARGETS ${target}-static
+        EXPORT ${target}-static
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT ${target}-static
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr" COMPONENT ${target}-static
+)
+install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr")
+
+# install export info
+install(
+        EXPORT ${target}-static
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
+        NAMESPACE ${target}-static::
+        FILE ${target}-static-config.cmake
+        COMPONENT ${target}-static
+        EXPORT_LINK_INTERFACE_LIBRARIES
+)
 
