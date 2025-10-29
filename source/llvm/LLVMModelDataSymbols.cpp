@@ -1348,10 +1348,28 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
         {
             const SimpleSpeciesReference *r = reactants->get(j);
 
+            int speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
+            if (r->isSetId() && r->getId().length() > 0)
+            {
+              if (namedSpeciesReferenceInfo.find(r->getId()) ==
+                namedSpeciesReferenceInfo.end())
+              {
+                SpeciesReferenceInfo info =
+                { static_cast<uint>(speciesIdx), static_cast<uint>(i), Reactant, r->getId() };
+                namedSpeciesReferenceInfo[r->getId()] = info;
+              }
+              else
+              {
+                std::string msg = "Species Reference with id ";
+                msg += r->getId();
+                msg += " appears more than once in the model";
+                throw_llvm_exception(msg);
+              }
+            }
+
             if (isValidFloatingSpeciesReference(r, "reactant"))
             {
                 // at this point, we'd better have a floating species
-                int speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
                 if (speciesIdx < 0) {
                     continue;
                 }
@@ -1369,23 +1387,6 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
 
-                    if(r->isSetId() && r->getId().length() > 0)
-                    {
-                        if (namedSpeciesReferenceInfo.find(r->getId()) ==
-                                namedSpeciesReferenceInfo.end())
-                        {
-                            SpeciesReferenceInfo info =
-                            {static_cast<uint>(speciesIdx), static_cast<uint>(i), Reactant, r->getId()};
-                            namedSpeciesReferenceInfo[r->getId()] = info;
-                        }
-                        else
-                        {
-                            std::string msg = "Species Reference with id ";
-                            msg += r->getId();
-                            msg += " appears more than once in the model";
-                            throw_llvm_exception(msg);
-                        }
-                    }
                 }
                 else
                 {
@@ -1399,23 +1400,6 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // set all the other ones to Multi...
                     setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
 
-                    if(r->isSetId() && r->getId().length() > 0)
-                    {
-                        if (namedSpeciesReferenceInfo.find(r->getId()) ==
-                                namedSpeciesReferenceInfo.end())
-                        {
-                            SpeciesReferenceInfo info =
-                            { static_cast<uint>(speciesIdx), static_cast<uint>(i), MultiReactantProduct, r->getId()};
-                            namedSpeciesReferenceInfo[r->getId()] = info;
-                        }
-                        else
-                        {
-                            std::string msg = "Species Reference with id ";
-                            msg += r->getId();
-                            msg += " appears more than once in the model";
-                            throw_llvm_exception(msg);
-                        }
-                    }
                 }
             }
         }
@@ -1426,9 +1410,26 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *p = products->get(j);
             // products had better be in the stoich matrix.
 
+            uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
+            if (p->isSetId() && p->getId().length() > 0)
+            {
+              if (namedSpeciesReferenceInfo.find(p->getId())
+                == namedSpeciesReferenceInfo.end())
+              {
+                SpeciesReferenceInfo info =
+                { static_cast<uint>(speciesIdx), static_cast<uint>(i), Product, p->getId() };
+                namedSpeciesReferenceInfo[p->getId()] = info;
+              }
+              else
+              {
+                std::string msg = "Species Reference with id ";
+                msg += p->getId();
+                msg += " appears more than once in the model";
+                throw_llvm_exception(msg);
+              }
+            }
             if (isValidFloatingSpeciesReference(p, "product"))
             {
-                uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
 
@@ -1445,23 +1446,6 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
 
-                    if (p->isSetId() && p->getId().length() > 0)
-                    {
-                        if (namedSpeciesReferenceInfo.find(p->getId())
-                                == namedSpeciesReferenceInfo.end())
-                        {
-                            SpeciesReferenceInfo info =
-                            { static_cast<uint>(speciesIdx), static_cast<uint>(i), Product, p->getId()};
-                            namedSpeciesReferenceInfo[p->getId()] = info;
-                        }
-                        else
-                        {
-                            std::string msg = "Species Reference with id ";
-                            msg += p->getId();
-                            msg += " appears more than once in the model";
-                            throw_llvm_exception(msg);
-                        }
-                    }
                 }
                 else
                 {
@@ -1474,24 +1458,6 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 
                     // set all the other ones to Multi...
                     setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
-
-                    if(p->isSetId() && p->getId().length() > 0)
-                    {
-                        if (namedSpeciesReferenceInfo.find(p->getId()) ==
-                                namedSpeciesReferenceInfo.end())
-                        {
-                            SpeciesReferenceInfo info =
-                            { static_cast<uint>(speciesIdx), static_cast<uint>(i), MultiReactantProduct, p->getId()};
-                            namedSpeciesReferenceInfo[p->getId()] = info;
-                        }
-                        else
-                        {
-                            std::string msg = "Species Reference with id ";
-                            msg += p->getId();
-                            msg += " appears more than once in the model";
-                            throw_llvm_exception(msg);
-                        }
-                    }
                 }
             }
         }

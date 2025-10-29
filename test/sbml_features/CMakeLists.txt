@@ -5,6 +5,7 @@ add_test_executable(
         events.cpp
         fast.cpp
         invalid_sbml.cpp
+        named_stoich.cpp
         piecewise_triggers.cpp
         rateOf.cpp
         unsupported_packages.cpp
