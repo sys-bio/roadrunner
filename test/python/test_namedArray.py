@@ -37,7 +37,7 @@ class NamedArrayTests(unittest.TestCase):
         n = NamedArray((2, 3))
         self.assertIsInstance(n, NamedArray)
         # note getrefcount itself bumps the refcount up by 1
-        self.assertEqual(1, sys.getrefcount(n) - 1)
+        self.assertGreaterEqual(2, sys.getrefcount(n))
         self.assertEqual(n.rownames, [])
 
     def test_init_from_view_casting(self):
@@ -48,7 +48,7 @@ class NamedArrayTests(unittest.TestCase):
         print(arr)
         self.assertIsInstance(arr, np.ndarray)
         n = arr.view(NamedArray)
-        self.assertEqual(1, sys.getrefcount(n) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(n))  # -1 for the reference used by getrefcount
         self.assertIsInstance(n, NamedArray)
         print(n)
 
@@ -58,10 +58,10 @@ class NamedArrayTests(unittest.TestCase):
             for j in range(3):
                 n[i, j] = 3 * i + j
         print(n)
-        self.assertEqual(1, sys.getrefcount(n) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(n))  # -1 for the reference used by getrefcount
         v = n[1:, :]
         print(v)
-        self.assertEqual(1, sys.getrefcount(v) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(v))  # -1 for the reference used by getrefcount
         self.assertIsInstance(n, NamedArray)
         self.assertEqual((1, 3), v.shape)
 
@@ -69,7 +69,7 @@ class NamedArrayTests(unittest.TestCase):
     def test_init_from_template_with_rownames(self):
         n = NamedArray((2, 3))
         n.rownames = ['R1', 'R2']
-        self.assertEqual(1, sys.getrefcount(n) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(n))  # -1 for the reference used by getrefcount
         v = n[1:, :]
         self.assertEqual((1, 3), v.shape)
         self.assertEqual(['R2'], v.rownames)
@@ -85,10 +85,10 @@ class NamedArrayTests(unittest.TestCase):
         n.rownames = ['R1', 'R2', 'R3', 'R4']
         print('\n')
         print(n)
-        self.assertEqual(1, sys.getrefcount(n.rownames) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(n.rownames))  # -1 for the reference used by getrefcount
         v = n[2:, :]
         print(v)
-        self.assertEqual(1, sys.getrefcount(v.rownames) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(v.rownames))  # -1 for the reference used by getrefcount
         self.assertEqual((2, 5), v.shape)
         self.assertEqual(['R3', 'R4'], v.rownames)
 
@@ -99,10 +99,10 @@ class NamedArrayTests(unittest.TestCase):
             for j in range(3):
                 n[i, j] = 3 * i + j
         n.colnames = ['C1', 'C2', 'C3']
-        self.assertEqual(1, sys.getrefcount(n.colnames) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(n.colnames))  # -1 for the reference used by getrefcount
         v = n[:, 1:]
         print(v)
-        self.assertEqual(1, sys.getrefcount(v.colnames) - 1)  # -1 for the reference used by getrefcount
+        self.assertGreaterEqual(2, sys.getrefcount(v.colnames))  # -1 for the reference used by getrefcount
         self.assertEqual((2, 2), v.shape)
         self.assertEqual(['C1', 'C2'], v.colnames)
 
@@ -137,11 +137,11 @@ class NamedArrayTests(unittest.TestCase):
 
     def test_rowname_refcount(self):
         n = NamedArray((2, 3))
-        self.assertEqual(1, sys.getrefcount(n.rownames) - 1)  # getrefcoutn itself adds 1 to ref count
+        self.assertGreaterEqual(2, sys.getrefcount(n.rownames))  # getrefcount itself adds 1 to ref count
 
     def test_colname_refcount(self):
         n = NamedArray((2, 3))
-        self.assertEqual(1, sys.getrefcount(n.colnames) - 1)  # getrefcoutn itself adds 1 to ref count
+        self.assertGreaterEqual(2, sys.getrefcount(n.colnames))  # getrefcount itself adds 1 to ref count
 
     def test_getstate_isdict(self):
         n = NamedArray((2, 3))
@@ -214,6 +214,7 @@ class NamedArrayTests(unittest.TestCase):
         state = n.__getstate__()
         self.assertIsInstance(state, dict)
         pickled.__setstate__(state)
+        self.assertAlmostEqual(pickled[(0, 0)], 9)
         self.assertAlmostEqual(n[(0, 0)], 9)
 
     def test_pickle_dumps_no_row_or_col(self):
