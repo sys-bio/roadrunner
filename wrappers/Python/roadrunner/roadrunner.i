@@ -239,7 +239,7 @@
 //%include "Matrix3D.h"
 %typemap(out) rr::Matrix3D<double, double> {
     // marker for a rr::Matrix3D<double, double> typemap
-    Matrix3DToNumpy matrix3DtoNumpy($1);
+    Matrix3DToNumpy matrix3DtoNumpy(&$1);
     PyObject* npArray3D = matrix3DtoNumpy.convertData();
     PyObject* idx = matrix3DtoNumpy.convertIndex();
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
@@ -265,7 +265,7 @@
 
     double *data = (double*)PyArray_DATA((PyArrayObject*)array);
 
-    std::vector<double>& vec = $1;
+    const std::vector<double>& vec = $1;
 
     memcpy(data, &vec[0], sizeof(double)*len);
 
@@ -279,7 +279,7 @@
 
     typedef std::complex<double> cpx;
 
-    std::vector<cpx>& vec = $1;
+    const std::vector<cpx>& vec = $1;
 
     bool iscpx = false;
 
