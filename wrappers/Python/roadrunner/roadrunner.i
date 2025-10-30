@@ -1076,6 +1076,12 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%ignore rr::DictionaryImpl;
 %ignore rr::BasicDictionary(std::initializer_list<item>);
 
+//Ignore elements found by latest SWIG
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
+
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
