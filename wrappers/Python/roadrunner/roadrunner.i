@@ -265,7 +265,7 @@
 
     double *data = (double*)PyArray_DATA((PyArrayObject*)array);
 
-    std::vector<double>& vec = $1;
+    const std::vector<double>& vec = $1;
 
     memcpy(data, &vec[0], sizeof(double)*len);
 
