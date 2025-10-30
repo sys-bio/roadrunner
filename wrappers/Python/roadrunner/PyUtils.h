@@ -284,7 +284,7 @@ namespace rr {
     public:
         //using DoubleMatrix3D = rr::Matrix3D<double, double>;
 
-        explicit Matrix3DToNumpy(rr::Matrix3D<double, double>&matrix);
+        explicit Matrix3DToNumpy(rr::Matrix3D<double, double>* matrix);
 
         /**
          * @brief converts the index data field of the Double3DMatrix
@@ -314,7 +314,7 @@ namespace rr {
         /**
          * @brief the Matrix3D<double, double> to convert
          */
-        rr::Matrix3D<double, double>& matrix_;
+        rr::Matrix3D<double, double>* matrix_;
     };
 
 

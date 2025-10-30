@@ -1777,14 +1777,14 @@ namespace rr {
     }
 
 
-    Matrix3DToNumpy::Matrix3DToNumpy(rr::Matrix3D<double, double>& matrix)
+    Matrix3DToNumpy::Matrix3DToNumpy(rr::Matrix3D<double, double>* matrix)
             : matrix_(matrix) {}
 
     PyObject *Matrix3DToNumpy::convertData() {
         // collect dimensions. x = width, y=height, z = depth.
-        const npy_intp xMax = matrix_.numCols();
-        const npy_intp yMax = matrix_.numRows();
-        const npy_intp zMax = matrix_.numZ();
+        const npy_intp xMax = matrix_->numCols();
+        const npy_intp yMax = matrix_->numRows();
+        const npy_intp zMax = matrix_->numZ();
 
         // allocate 1D array with enough space to store linearized 3D matrix
         double *data = new double[yMax * xMax * zMax];
@@ -1795,7 +1795,7 @@ namespace rr {
                 for (int x = 0; x < xMax; x++) {
                     // compute the linear index (so loop does idx \in 1, 2, ..., yMax*xMax*zMax)
                     unsigned int linearIdx = x + y * xMax + z * xMax * yMax;
-                    data[linearIdx] = matrix_.slice(z, y, x);
+                    data[linearIdx] = matrix_->slice(z, y, x);
                 }
             }
         }
@@ -1818,13 +1818,13 @@ namespace rr {
     PyObject *Matrix3DToNumpy::convertIndex() {
 
         // matrix_.index dimensions == depth of Matrix3D
-        const npy_intp zMax = matrix_.numZ();
+        const npy_intp zMax = matrix_->numZ();
 
         // allocate 1D array with enough space to store linearized 3D matrix
         double *data = new double[zMax];
 
         // populate the 1D array with values from the Matrix3D<double, double> data values
-        auto &index = matrix_.getIndex();
+        auto &index = matrix_->getIndex();
         for (int z = 0; z < zMax; z++) {
             data[z] = index[z];
         }
@@ -1846,11 +1846,11 @@ namespace rr {
     }
 
     PyObject *Matrix3DToNumpy::convertRowNames() {
-        return convertStringVectorToPython(matrix_.getRowNames());
+        return convertStringVectorToPython(matrix_->getRowNames());
     }
 
     PyObject *Matrix3DToNumpy::convertColNames() {
-        return convertStringVectorToPython(matrix_.getColNames());
+        return convertStringVectorToPython(matrix_->getColNames());
     }
 
 

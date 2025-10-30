@@ -185,7 +185,7 @@ rr::pyutil_init(m);
  */
 %typemap(out) rr::Matrix3D<double, double> {
     // marker for a rr::Matrix3D<double, double> typemap
-    Matrix3DToNumpy matrix3DtoNumpy($1);
+    Matrix3DToNumpy matrix3DtoNumpy(&$1);
     PyObject* npArray3D = matrix3DtoNumpy.convertData();
     PyObject* idx = matrix3DtoNumpy.convertIndex();
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
