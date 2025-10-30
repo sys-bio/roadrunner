@@ -15,24 +15,24 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-13-release
+          - name: macos-14-intel-release
             os_type: macos
-            os_name: macos-13
+            os_name: macos-14-intel
             build_type: Release
             build_python: ON
-          - name: macos-13-debug
+          - name: macos-14-intel-debug
             os_type: macos
-            os_name: macos-13
+            os_name: macos-14-intel
             build_type: Debug
             build_python: OFF
-          - name: macos-14-release
+          - name: macos-14-arm64-release
             os_type: macos
-            os_name: macos-14
+            os_name: macos-14-arm64
             build_type: Release
             build_python: ON
-          - name: macos-14-debug
+          - name: macos-14-arm64-debug
             os_type: macos
-            os_name: macos-14
+            os_name: macos-14-arm64
             build_type: Debug
             build_python: OFF
           - name: ubuntu-latest-release
