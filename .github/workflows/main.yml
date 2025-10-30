@@ -90,11 +90,6 @@ jobs:
           echo "python_v4_name=v4" >> $GITHUB_ENV
 
       - name: Checkout RoadRunner
-        if: matrix.platform.os_type == 'manylinux'
-        uses: actions/checkout@v4
-
-      - name: Checkout RoadRunner
-        if: matrix.platform.os_type != 'manylinux'
         uses: actions/checkout@v4
 
       - name: Setup Python for non-Manylinux platforms
@@ -301,16 +296,15 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          # running against the latest version of swig fails, so we build version 4.0.2
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             brew install pcre pcre2
             mkdir -p ${RUNNER_WORKSPACE}/swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.0/swig-4.4.0.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.0.2/
+            cd swig-4.4.0/
             ./configure --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
@@ -318,19 +312,19 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
+            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.4.0/swigwin-4.4.0.zip/download > swig.zip
             unzip -q swig.zip -d install-swig
             rm swig.zip
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.4.0/" >> "${GITHUB_PATH}"
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             dnf install -y pcre-devel
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.0/swig-4.4.0.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.0.2/
+            cd swig-4.4.0/
             ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
