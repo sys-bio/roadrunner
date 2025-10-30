@@ -279,7 +279,7 @@
 
     typedef std::complex<double> cpx;
 
-    std::vector<cpx>& vec = $1;
+    const std::vector<cpx>& vec = $1;
 
     bool iscpx = false;
 
