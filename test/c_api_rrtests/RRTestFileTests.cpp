@@ -304,8 +304,14 @@ public:
             }
         }
     }
+    void compareMatrices(const ls::DoubleMatrix& ref, const ls::DoubleMatrix& calc) {
+      if (ref.getColNames().empty() && ref.getRowNames().empty()) {
+        return compareMatricesIgnoreLabels(ref, calc);
+      }
+      return compareLabelledMatrices(ref, calc);
+    }
 
-    void compareMatrices(const ls::DoubleMatrix &ref, const ls::DoubleMatrix &calc) {
+    void compareMatricesIgnoreLabels(const ls::DoubleMatrix &ref, const ls::DoubleMatrix &calc) {
         //clog << "Reference Matrix:" << endl;
         //clog << ref << endl;
 
@@ -315,13 +321,117 @@ public:
         ASSERT_TRUE(calc.RSize() == ref.RSize());
         ASSERT_TRUE(calc.CSize() == ref.CSize());
 
+        bool failed = false;
         for (int i = 0; i < ref.RSize(); i++) {
             for (int j = 0; j < ref.CSize(); j++) {
                 if (abs(ref(i, j) - calc(i, j)) > abs((ref(i, j) + 1e-7) * 1e-4))
                     //clog <<  "check close failed zzxx\n";
+                    failed = true;
                     EXPECT_NEAR(ref(i, j), calc(i, j), abs((ref(i, j) + 1e-7) * 1e-4));
             }
         }
+        if (failed) {
+          cout << "Matrices failed to match:" << endl;
+          cout << "Reference Matrix:" << endl;
+          cout << ref << endl;
+
+          cout << "Calculated Matrix:" << endl;
+          cout << calc << endl;
+
+        }
+    }
+
+
+    void compareLabelledMatrices(const ls::DoubleMatrix& ref, const ls::DoubleMatrix& calc) {
+      //clog << "Reference Matrix:" << endl;
+      //clog << ref << endl;
+
+      //clog << "Calculated Matrix:" << endl;
+      //clog << calc << endl;
+
+      ASSERT_TRUE(calc.RSize() == ref.RSize());
+      ASSERT_TRUE(calc.CSize() == ref.CSize());
+
+      vector<string> refcols = ref.getColNames();
+      vector<string> calccols = calc.getColNames();
+      vector<string> refrows = ref.getRowNames();
+      vector<string> calcrows = calc.getRowNames();
+
+      if (refcols.empty()) {
+        refcols = calccols;
+      }
+      if (refrows.empty()) {
+        refrows = calcrows;
+      }
+
+      if (refcols == calccols && refrows == calcrows) {
+        return compareMatricesIgnoreLabels(ref, calc);
+      }
+      vector<size_t> cis;
+      for (size_t i = 0; i < calccols.size(); i++) {
+        if (refcols.empty()) {
+          cis.push_back(i);
+        }
+        else {
+          for (size_t j = 0; j < refcols.size(); j++) {
+            if (calccols[i] == refcols[j]) {
+              cis.push_back(j);
+              break;
+            }
+          }
+        }
+      }
+      if (cis.size() != calccols.size()) {
+        ASSERT_TRUE("false" == "Column labels do not have the same names.");
+      }
+
+
+
+      vector<size_t> ris;
+      if (refrows.empty()) {
+        if (calcrows == calccols) {
+          ris = cis;
+        }
+        else {
+          for (size_t i = 0; i < calcrows.size(); i++) {
+            ris.push_back(i);
+          }
+        }
+      }
+      else {
+        for (size_t i = 0; i < calcrows.size(); i++) {
+          for (size_t j = 0; j < refrows.size(); j++) {
+            if (calcrows[i] == refrows[j]) {
+              ris.push_back(j);
+              break;
+            }
+          }
+        }
+      }
+
+      if (ris.size() != calcrows.size()) {
+        ASSERT_TRUE("false" == "Row labels do not have the same names.");
+      }
+
+      bool failed = false;
+      for (int i = 0; i < ref.RSize(); i++) {
+        for (int j = 0; j < ref.CSize(); j++) {
+          if (abs(ref(i, j) - calc(ris[i], cis[j])) > abs((ref(i, j) + 1e-7) * 1e-4)) {
+            //clog <<  "check close failed zzxx\n";
+            failed = true;
+            EXPECT_NEAR(ref(i, j), ris[i], cis[j], abs((ref(i, j) + 1e-7) * 1e-4));
+          }
+        }
+      }
+      if (failed) {
+        cout << "Matrices failed to match:" << endl;
+        cout << "Reference Matrix:" << endl;
+        cout << ref << endl;
+
+        cout << "Calculated Matrix:" << endl;
+        cout << calc << endl;
+
+      }
     }
 
 

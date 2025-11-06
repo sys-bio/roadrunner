@@ -80,19 +80,33 @@ ls::DoubleMatrix getDoubleMatrixFromString(const string& textMatrix)
 
     //Parse the matrix
     vector<string> rows = splitString(textMatrix, "\n");
+    vector<string> rownames;
+    int collabels = 0;
+    int rowlabels = 0;
     for (int row = 0; row < rows.size(); row++)
     {
         vector<string> values = splitString(rows[row], " \t");
-        for (int col = 0; col < values.size(); col++)
-        {
-            if (!mat.size())
-            {
-                mat.resize(static_cast<unsigned int>(rows.size()), static_cast<unsigned int>(values.size()));
-            }
+        if (collabels == 0 && values[0].find_first_not_of("1234567890-") == 0 && values[1].find_first_not_of("1234567890-") == 0) {
+          collabels = 1;
+          mat.setColNames(values);
+        }
+        else {
+          if (rowlabels || values[0].find_first_not_of("1234567890-") == 0) {
+            rowlabels = 1;
+            rownames.push_back(values[0]);
+          }
+          for (int col = rowlabels; col < values.size(); col++)
+          {
+              if (!mat.size())
+              {
+                mat.resize(static_cast<unsigned int>(rows.size() - collabels), static_cast<unsigned int>(values.size() - rowlabels));
+              }
 
-            mat(row, col) = toDouble(values[col]);
+              mat(row - collabels, col - rowlabels) = toDouble(values[col]);
+            }
         }
     }
+    mat.setRowNames(rownames);
     return mat;
 }
 

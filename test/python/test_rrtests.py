@@ -133,6 +133,12 @@ def checkMatrixVsUpcomingText(calc):
     for i in range(0,rows):
         line = readLine ()
         words = line.split()
+        try:
+            float(words[0])
+        except:
+            msg = "Don't run tests with labelled matrices; they're too compliated."
+            print(passMsg(errorFlag, msg))
+            return
         cols = len(calc[0])
         if(len(words) != cols):
             msg = "Expected a row of length " + str(len(words)) + ", but calculated a row of length " + str(cols)
