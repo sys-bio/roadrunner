@@ -456,29 +456,6 @@ public:
         }
     }
 
-    void compareMatrices(const ls::DoubleMatrix &ref, RRDoubleMatrixPtr calc) {
-        ASSERT_TRUE(calc);
-
-        //clog<<"Reference Matrix:\n";
-        //clog<<ref<<endl;
-
-        //clog<<"Calculated Matrix:";
-        //clog<<matrixToString(calc);
-
-        ASSERT_TRUE(calc->RSize == ref.RSize());
-        ASSERT_TRUE(calc->CSize == ref.CSize());
-
-        for (int i = 0; i < ref.RSize(); i++) {
-            for (int j = 0; j < ref.CSize(); j++) {
-                double val;
-                if (!getMatrixElement(calc, i, j, &val)) {
-                    EXPECT_TRUE(false);
-                }
-                EXPECT_NEAR(ref(i, j), val, abs((val + 1e-7) * 1e-4));
-            }
-        }
-    }
-
     void trySteadyState(RRHandle &gRR) {
         double val;
         for (int i = 0; i < 10; i++) {
@@ -881,10 +858,9 @@ public:
         aSection->mIsUsed = true;
 
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
-
-        RRDoubleMatrixPtr matrix = getLinkMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getLinkMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_UNSCALED_ELASTICITY_MATRIX(IniSection *aSection) {
@@ -951,9 +927,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getUnscaledConcentrationControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getUnscaledConcentrationControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_SCALED_CONCENTRATION_CONTROL_MATRIX(IniSection *aSection) {
@@ -966,9 +942,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getScaledConcentrationControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getScaledConcentrationControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_UNSCALED_FLUX_CONTROL_MATRIX(IniSection *aSection) {
@@ -978,9 +954,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getUnscaledFluxControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getUnscaledFluxControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_SCALED_FLUX_CONTROL_MATRIX(IniSection *aSection) {
@@ -991,9 +967,9 @@ public:
 
         reset(gRR);
 
-        RRDoubleMatrixPtr matrix = getScaledFluxControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getScaledFluxControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_GET_CONTROL_COEFFICIENT(IniSection *aSection) {
