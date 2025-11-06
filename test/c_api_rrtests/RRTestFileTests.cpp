@@ -382,7 +382,8 @@ public:
         }
       }
       if (cis.size() != calccols.size()) {
-        ASSERT_TRUE("false" == "Column labels do not have the same names.");
+        cout << "Column labels do not have the same names." << endl;
+        ASSERT_TRUE(false);
       }
 
 
@@ -410,7 +411,8 @@ public:
       }
 
       if (ris.size() != calcrows.size()) {
-        ASSERT_TRUE("false" == "Row labels do not have the same names.");
+        cout << "Column labels do not have the same names." << endl;
+        ASSERT_TRUE(false);
       }
 
       bool failed = false;
@@ -419,7 +421,7 @@ public:
           if (abs(ref(i, j) - calc(ris[i], cis[j])) > abs((ref(i, j) + 1e-7) * 1e-4)) {
             //clog <<  "check close failed zzxx\n";
             failed = true;
-            EXPECT_NEAR(ref(i, j), ris[i], cis[j], abs((ref(i, j) + 1e-7) * 1e-4));
+            EXPECT_NEAR(ref(i, j), calc(ris[i], cis[j]), abs((ref(i, j) + 1e-7) * 1e-4));
           }
         }
       }
