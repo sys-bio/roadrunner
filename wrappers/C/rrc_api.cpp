@@ -1103,6 +1103,23 @@ RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle handle)
     catch_ptr_macro
 }
 
+RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle)
+{
+  start_try
+      RoadRunner* rri = castToRoadRunner(handle);
+      ExecutableModel* model = rri->getModel();
+      if (model)
+      {
+        double* rrvs = (double*)calloc(model->getNumRateRules(), sizeof(double));
+        model->getRateRuleValues(rrvs);
+        RRVector* aVec = rrc::createVector(*rrvs);
+        free(rrvs);
+        return aVec;
+      }
+      return NULL;
+  catch_ptr_macro
+}
+
 RRVectorPtr rrcCallConv getFloatingSpeciesAmounts(RRHandle handle)
 {
     start_try

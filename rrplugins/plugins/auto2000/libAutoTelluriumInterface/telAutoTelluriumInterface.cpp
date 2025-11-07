@@ -143,20 +143,20 @@ void AutoTellurimInterface::setInitialPCPValue()
 
 void AutoTellurimInterface::run()
 {
-	if(!mRR)
-    {
-		throw(Exception("Roadrunner is NULL in AutoTelluriumInterface function run()"));
-    }
-	
-    if(!setupUsingCurrentModel())
-    {
-		throw(Exception("Failed in Setup AutoTelluriumInterface"));
-    }
-    //Create fort.2 file
-    string temp = getConstantsAsString();
-	autolib::createFort2File(temp.c_str(), joinPath(getTempFolder(), "fort.2"));
-    //Run AUTO
-    CallAuto(getTempFolder());
+  if (!mRR)
+  {
+    throw(Exception("Roadrunner is NULL in AutoTelluriumInterface function run()"));
+  }
+
+  if (!setupUsingCurrentModel())
+  {
+    throw(Exception("Failed in Setup AutoTelluriumInterface"));
+  }
+  //Create fort.2 file
+  string temp = getConstantsAsString();
+  autolib::createFort2File(temp.c_str(), joinPath(getTempFolder(), "fort.2"));
+  //Run AUTO
+  CallAuto(getTempFolder());
 
 }
 
@@ -165,14 +165,15 @@ bool AutoTellurimInterface::setupUsingCurrentModel()
 	mAutoConstants.NDIM = gHostInterface->_getNumIndFloatingSpecies(mRR) + gHostInterface->_getNumRateRules(mRR);
     //k1,k2 etc
 	rrc::RRStringArrayPtr lists= gHostInterface->getGlobalParameterIds(mRR);
-	StringList list1(lists->String,lists->Count);
-	mModelParameters = list1;
+  if (lists) {
+    StringList list1(lists->String, lists->Count);
+    mModelParameters = list1;
     for (int i = 0; i < lists->Count; i++) {
-        delete[] lists->String[i];
+      delete[] lists->String[i];
     }
     delete[] lists->String;
     delete lists;
-
+  }
 	lists= gHostInterface->getBoundarySpeciesIds(mRR);
 	if (lists) {
 		StringList list2(lists->String, lists->Count);
@@ -194,84 +195,107 @@ bool AutoTellurimInterface::setupUsingCurrentModel()
 //Called by Auto
 int autoCallConv AutoTellurimInterface::ModelInitializationCallback(long ndim, double t, double* u, double* par)
 {
-	//The continuation parameter can be a 'parameter' or a boundary species
-	int numBoundaries(0), numParameters(0);
+	  //The continuation parameter can be a 'parameter' or a boundary species
+	  int numBoundaries(0), numParameters(0);
 
-	if(mModelBoundarySpecies.indexOf(mPCPParameterName) != -1)
-	{
-		numBoundaries = 1;
-	}
+	  if(mModelBoundarySpecies.indexOf(mPCPParameterName) != -1)
+	  {
+		  numBoundaries = 1;
+	  }
 
-	if(mModelParameters.indexOf(mPCPParameterName) != -1)
-	{
-		numParameters = 1;
-	}
+	  if(mModelParameters.indexOf(mPCPParameterName) != -1)
+	  {
+		  numParameters = 1;
+	  }
 
-	vector<double> boundaryValues(numBoundaries);
-	vector<double> globalParameters(numParameters);
+	  vector<double> boundaryValues(numBoundaries);
+	  vector<double> globalParameters(numParameters);
 
-	if(numBoundaries > 0)
-	{
-		double* value = new double;
-		for (int i = 0; i < numBoundaries; i++)
-		{
-			unsigned int selSpecieIndex = static_cast<unsigned int>(mModelBoundarySpecies.indexOf(mPCPParameterName));
-			gHostInterface->getBoundarySpeciesByIndex(mRR,selSpecieIndex,value);
-			boundaryValues[i] = *value;
-		}
-		delete value;
-	}
+	  if(numBoundaries > 0)
+	  {
+		  double* value = new double;
+		  for (int i = 0; i < numBoundaries; i++)
+		  {
+			  unsigned int selSpecieIndex = static_cast<unsigned int>(mModelBoundarySpecies.indexOf(mPCPParameterName));
+			  gHostInterface->getBoundarySpeciesByIndex(mRR,selSpecieIndex,value);
+			  boundaryValues[i] = *value;
+		  }
+		  delete value;
+	  }
 
-	if(numParameters > 0)
-	{
-		double* value=new double;
-		for (int i = 0; i < numParameters; i++)
-		{
-			unsigned int selParameter = static_cast<unsigned int>(mModelParameters.indexOf(mPCPParameterName));
-			gHostInterface->getGlobalParameterByIndex(mRR,selParameter,value);
-			globalParameters[i] = *value;
-		}
-		delete value;
-	}
+	  if(numParameters > 0)
+	  {
+		  double* value=new double;
+		  for (int i = 0; i < numParameters; i++)
+		  {
+			  unsigned int selParameter = static_cast<unsigned int>(mModelParameters.indexOf(mPCPParameterName));
+			  gHostInterface->getGlobalParameterByIndex(mRR,selParameter,value);
+			  globalParameters[i] = *value;
+		  }
+		  delete value;
+	  }
 
-	int oParaSize = numBoundaries + numParameters;
-	vector<double> parameterValues(oParaSize);
+	  int oParaSize = numBoundaries + numParameters;
+	  vector<double> parameterValues(oParaSize);
 
-	for(int i = 0; i < numBoundaries; i++)
-	{
-		parameterValues[i] = boundaryValues[i];
-	}
+	  for(int i = 0; i < numBoundaries; i++)
+	  {
+		  parameterValues[i] = boundaryValues[i];
+	  }
 
-	for(int i = 0; i < numParameters; i++)
-	{
-		parameterValues[numBoundaries + i] = globalParameters[i];
-	}
+	  for(int i = 0; i < numParameters; i++)
+	  {
+		  parameterValues[numBoundaries + i] = globalParameters[i];
+	  }
 
-	for(int i = 0; i < oParaSize; i++)
-	{
-		par[i] = parameterValues[i];
-	}
+	  for(int i = 0; i < oParaSize; i++)
+	  {
+		  par[i] = parameterValues[i];
+	  }
 
-	int    nrIndFloatingSpecies = gHostInterface->_getNumIndFloatingSpecies(mRR)+gHostInterface->_getNumRateRules(mRR);
-	rrc::RRVectorPtr floatCon = (gHostInterface->getFloatingSpeciesConcentrations(mRR));
+	  int    nrIndFloatingSpecies = gHostInterface->_getNumIndFloatingSpecies(mRR);
+	  rrc::RRVectorPtr floatCon = (gHostInterface->getFloatingSpeciesConcentrations(mRR));
 
-	int nMin = min(nrIndFloatingSpecies, ndim);
-	for(int i = 0; i < nMin; i++)
-	{
-		u[i] = floatCon->Data[i];
-	}
-
+	  for(int i = 0; i < nrIndFloatingSpecies; i++)
+	  {
+		  u[i] = floatCon->Data[i];
+	  }
     if (floatCon != NULL) {
-        if (floatCon->Data != NULL) {
-            delete[] floatCon->Data;
-            floatCon->Data = NULL;
-        }
+      if (floatCon->Data != NULL) {
+        delete[] floatCon->Data;
+        floatCon->Data = NULL;
+      }
 
-        delete floatCon;
-        floatCon = NULL;
+      delete floatCon;
+      floatCon = NULL;
     }
 
-	return 0;
+
+    if (ndim > nrIndFloatingSpecies) {
+      //Need to fill out u[i] with boundary species concentrations
+      rrc::RRVectorPtr rrCon = gHostInterface->getRateRuleValues(mRR);
+      int num_rrs = gHostInterface->_getNumRateRules(mRR);
+      if (num_rrs + nrIndFloatingSpecies != ndim) {
+        throw std::runtime_error("The number of dimensions found by auto is not the same as the number of floating species plus the number of rate rules:  aborting.");
+      }
+      for (int i = nrIndFloatingSpecies; i < ndim; i++)
+      {
+        u[i] = rrCon->Data[i - nrIndFloatingSpecies];
+      }
+      if (rrCon != NULL) {
+        if (rrCon->Data != NULL) {
+          delete[] rrCon->Data;
+          rrCon->Data = NULL;
+        }
+
+        delete rrCon;
+        rrCon = NULL;
+      }
+
+
+    }
+
+	  return 0;
 }
 
 void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVariables, const double* par, double* oResult)

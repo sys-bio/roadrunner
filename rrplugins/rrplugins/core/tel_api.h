@@ -266,7 +266,17 @@ typedef struct {			// THostInterface
  	*/
  	RRVectorPtr (*getFloatingSpeciesConcentrations)(RRHandle handle);
 
-	bool (*setFloatingSpeciesConcentrations)(RRHandle handle, const RRVectorPtr vec);
+  /*!
+   \brief Retrieve in a vector the values for all the variables controlled by rate rules.
+
+   Example: \code RRVectorPtr values = getRateRuleValues (void); \endcode
+
+   \param[in] handle Handle to a RoadRunner instance
+   \return Returns the vector of rate rule values or null if an error occurred
+  */
+  RRVectorPtr(*getRateRuleValues)(RRHandle handle);
+
+  bool (*setFloatingSpeciesConcentrations)(RRHandle handle, const RRVectorPtr vec);
 
 	RRVectorPtr (*getRatesOfChange)(RRHandle handle);
 

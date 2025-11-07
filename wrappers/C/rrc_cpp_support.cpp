@@ -154,6 +154,10 @@ RRVector* createVector(const vector<double>& vec)
     {
         aVec->Data = new double[aVec->Count];
     }
+    else
+    {
+        aVec->Data = NULL;
+    }
 
     for(int i = 0; i < aVec->Count; i++)
     {
