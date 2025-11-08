@@ -119,11 +119,11 @@ void AutoWorker::run()
     mTheHost.mBifurcationPoints.setValue(mAutoDataParser.getBifurcationPoints());
     mTheHost.mBifurcationLabels.setValue(mAutoDataParser.getBifurcationLabels());
 
-    //Change Telluriumdata header to match labe ls in the SBML model
+    //Change Tellurium data header to match labels in the SBML model
     
     rrc::RRStringArrayPtr temp = gHostInterface->getSteadyStateSelectionList(mTheHost.rrHandle);
-    StringList selRecs (temp->String, temp->Count);
-    StringList              selList = selRecs;
+    StringList selList(temp->String, temp->Count);
+
     if (temp != NULL) {
         if (temp->String != NULL) {
             for (int i = 0; i < temp->Count; i++) {
@@ -138,7 +138,7 @@ void AutoWorker::run()
 
     //First column is the selected parameter
     data.setColumnName(0, mTheHost.mPrincipalContinuationParameter.getValue());
-    for(int col = 1; col < data.cSize(); col++)
+    for(int col = 1; col < data.cSize() && col < selList.size() + 1; col++)
     {
         string newName = selList[col -1 ];
         data.setColumnName(col, newName);

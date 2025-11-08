@@ -2068,6 +2068,17 @@ C_DECL_SPEC bool rrcCallConv setValue(RRHandle handle, const char* symbolId, con
 C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle handle);
 
 /*!
+ \brief Retrieve in a vector the values for all varibles controlled by rate rules
+
+ Example: \code RRVectorPtr values = getRateRuleValues (void); \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns the vector of rate rule values or null if an error occurred
+ \ingroup floating
+*/
+C_DECL_SPEC RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle);
+
+/*!
  \brief Retrieve in a vector the amounts for all the floating species
 
  Example: \code RRVectorPtr values = getFloatingSpeciesAmounts (void); \endcode

@@ -191,66 +191,66 @@ OPEN_FP3:
     }
 
     {
-        int c;
-        while (1)
-        {
-            c = getopt(argc, argv, "mt:?#:v");
-            if (c == -1)
-                break;
-            switch (c){
-    case 'v':
-        global_verbose_flag=1;
-        break;
-    case 'm':
+      int c;
+      while (1)
+      {
+        c = getopt(argc, argv, "mt:?#:v");
+        if (c == -1)
+          break;
+        switch (c) {
+        case 'v':
+          global_verbose_flag = 1;
+          break;
+        case 'm':
 #ifdef MPI
-        global_conpar_type = CONPAR_MPI;
-        global_setubv_type = SETUBV_MPI;
-        break;
+          global_conpar_type = CONPAR_MPI;
+          global_setubv_type = SETUBV_MPI;
+          break;
 #endif
-        scheme_not_supported_error((char*)"mpi");
-        break;
-    case 't':
+          scheme_not_supported_error((char*)"mpi");
+          break;
+        case 't':
 #ifdef PTHREADS
-        if(strcmp(optarg,"setubv")==0) {
+          if (strcmp(optarg, "setubv") == 0) {
             global_setubv_type = SETUBV_PTHREADS;
-        }
-        else if(strcmp(optarg,"conpar")==0) {
+          }
+          else if (strcmp(optarg, "conpar") == 0) {
             global_conpar_type = CONPAR_PTHREADS;
-        }
-        else if(strcmp(optarg,"reduce")==0) {
+          }
+          else if (strcmp(optarg, "reduce") == 0) {
             global_conpar_type = REDUCE_PTHREADS;
-        }
-        else if(strcmp(optarg,"all")==0) {
+          }
+          else if (strcmp(optarg, "all") == 0) {
             global_conpar_type = CONPAR_PTHREADS;
             global_setubv_type = SETUBV_PTHREADS;
             global_reduce_type = REDUCE_PTHREADS;
-        }
-        else {
-            fprintf(stderr,"Unknown type for threads '%s'.  Using 'all'\n",optarg);
+          }
+          else {
+            fprintf(stderr, "Unknown type for threads '%s'.  Using 'all'\n", optarg);
             global_conpar_type = CONPAR_PTHREADS;
             global_setubv_type = SETUBV_PTHREADS;
-        }
-        break;
+          }
+          break;
 #endif
-        scheme_not_supported_error((char*)"threads");
-        break;
-    case '#':
-        global_num_procs=atoi(optarg);
-        break;
-    case '?':
-        options();
-        return 0;
-        //exit(0);
-        //break;
-    default:
-        printf ("?? getopt returned character code 0%o ??\n", c);
-        options();
-                    return 0;
-            //exit(1);
+          scheme_not_supported_error((char*)"threads");
+          break;
+        case '#':
+          global_num_procs = atoi(optarg);
+          break;
+        case '?':
+          options();
+          return 0;
+          //exit(0);
+          //break;
+        default:
+          printf("?? getopt returned character code 0%o ??\n", c);
+          options();
+          return 0;
+          //exit(1);
 
-        //exit(0);
-            }
-        } // while
+      //exit(0);
+        }
+      } // while
     } // scope
 
 #ifdef MPI

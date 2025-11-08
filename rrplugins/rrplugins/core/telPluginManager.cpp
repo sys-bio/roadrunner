@@ -690,6 +690,7 @@ namespace tlp
             host_Interface->setComputeAndAssignConservationLaws = rrc::setComputeAndAssignConservationLaws;
             host_Interface->_getNumIndFloatingSpecies = rrc::_getNumIndFloatingSpecies;
             host_Interface->_getNumRateRules = rrc::_getNumRateRules;
+            host_Interface->getRateRuleValues = rrc::getRateRuleValues;
             host_Interface->getFloatingSpeciesConcentrations = rrc::getFloatingSpeciesConcentrations;
             host_Interface->setFloatingSpeciesConcentrations = rrc::setFloatingSpeciesConcentrations;
             host_Interface->getRatesOfChange = rrc::getRatesOfChange;
