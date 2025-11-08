@@ -451,28 +451,24 @@ TEST_F(StateSavingTests, LOAD_VALID_FILE) {
 
     RoadRunner rri;
 #if defined(_WIN32)
-    rri.loadState((stateSavingModelsDir / "savedState_windows.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_windows.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    path statefile = (stateSavingModelsDir / "savedState_windows.rr");
 #elif (defined(__APPLE__))
 #if defined(__arm64__)
-    rri.loadState((stateSavingModelsDir / "savedState_macos_arm64.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_macos_arm64.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    path statefile = (stateSavingModelsDir / "savedState_macos_arm64.rr");
 #else
-    rri.loadState((stateSavingModelsDir / "savedState_macos_x86.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_macos_x86.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    path statefile = (stateSavingModelsDir / "savedState_macos_x86.rr");
 #endif
 #else
-    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
-    rri.loadState((stateSavingModelsDir / "savedState_linux.rr").string());
-    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    path statefile = (stateSavingModelsDir / "savedState_linux.rr");
 #endif
+    rri.loadState(statefile.string());
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    rri.simulate(0, 10, 10);
+
+    //Load and simulate multiple times, just to make sure.
+    rri.loadState(statefile.string());
+    EXPECT_EQ(rri.getNumberOfFloatingSpecies(), 2);
+    rri.simulate(0, 10, 10);
 }
 
 TEST_F(StateSavingTests, FromFile) {
