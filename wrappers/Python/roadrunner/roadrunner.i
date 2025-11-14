@@ -287,7 +287,7 @@
     npy_intp dims[1] = {static_cast<npy_intp>(len)};
 
     PyObject *array = PyArray_SimpleNew(1, dims, NPY_COMPLEX128);
-    VERIFY_PYARRAY(array);
+    //VERIFY_PYARRAY(array);
 
     if (!array) {
         // TODO error handling.
