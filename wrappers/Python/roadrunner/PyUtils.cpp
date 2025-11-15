@@ -877,12 +877,13 @@ namespace rr {
             return nullptr;
         }
 
-        // these references had a count of 1 when entering the function (the scope reference)
-        // and incremented 1 when they were inserted into the dictionary (the dict reference).
-        // we decerment the function scope reference.
-        Py_DECREF(self->rowNames);
-        Py_DECREF(self->colNames);
+        //cout << "After 'dict' uses rownames:" << self->rowNames->ob_refcnt << endl;
+        //cout << "arrayBytes, post-'dict':" << self->rowNames->ob_refcnt << endl;
+
+        // arrayBytes references started at 1 when we created it, and incremented 1 when it was inserted into the dictionary (the dict reference).  This function doesn't need it any more, so we decrement it again.  self->rowNames and self->colNames used to be decremented, but this seems to be a bug--it finally caused python 3.14 to crash, but was probably wrong before that, too.
         Py_DECREF(arrayBytes);
+
+        //Check to make sure dictObj has a reference from when we created it.
         if (dictObj->ob_refcnt != 1) {
             PyErr_Format(PyExc_MemoryError, "Expecting reference count to be equal to 1 not '%L", dictObj->ob_refcnt);
         }
