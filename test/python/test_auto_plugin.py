@@ -6,10 +6,12 @@ print(roadrunner.__file__)
 
 try:
     from roadrunner.tests import TestModelFactory as tmf
+    from roadrunner.tests.RoadRunnerTest import RoadRunnerTest
 except:
     import TestModelFactory as tmf
+    from RoadRunnerTest import RoadRunnerTest
 
-class AutoPluginTests(unittest.TestCase):
+class AutoPluginTests(RoadRunnerTest):
 
     def setUp(self) -> None:
         pass
@@ -29,7 +31,7 @@ class AutoPluginTests(unittest.TestCase):
         auto = rrplugins.Plugin("tel_auto2000")
         auto.setProperty("SBML", testModel.str())
         auto.execute()
-        
+        print("yup.")
 
 
 if __name__ == "__main__":
