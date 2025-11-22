@@ -24,6 +24,16 @@ set(RRP_AUTO2000_SOURCES
 
 add_library(${target} MODULE ${RRP_AUTO2000_SOURCES})
 
+if(BUILD_PYTHON)
+    add_custom_command(
+        TARGET ${target} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "$<TARGET_FILE:${target}>"
+        "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"
+        COMMENT "Copying library to build directory for testing"
+    )
+endif() #BUILD_PYTHON
+
 target_compile_definitions(${target} PRIVATE
         EXPORT_TEL_PLUGIN
         EXPORT_AUTO2000

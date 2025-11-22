@@ -68,6 +68,8 @@ public:
  * be implemented in future.
  */
 class Result {
+public:
+  virtual ~Result() = default;
 };
 
 /**

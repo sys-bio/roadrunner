@@ -144,6 +144,9 @@ if (BUILD_PYTHON)
     set(RR_PLUGINS_PYTHON_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins")#CACHE PATH "Destination for rrplugins python bindings.")
     set(RR_PLUGINS_PYLIB_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins/libs")#CACHE PATH "Destination for rrplugins python binding libraries.")
 
+    set(RR_PLUGINS_PYLIB_BUILD_PREFIX "${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}/rrplugins/libs/")
+    set(RR_PLUGINS_PYTHON_BUILD_PREFIX "${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}/rrplugins/")
+
     cmake_dependent_option(RR_PLUGINS_BUILD_PYTHON_API "Build the RR plugin PYTHON API" ON "BUILD_RR_PLUGINS" OFF)
 
     #	cmake_dependent_option(BUILD_PYTHON_CTYPES_API "Build the ctypes python API for roadrunner" ON

@@ -35,6 +35,15 @@ set(
 
 #The C-api is built as a shared library..
 add_library(${target} SHARED ${HEADERS} ${SOURCES})
+if(BUILD_PYTHON AND BUILD_RR_PLUGINS)
+    add_custom_command(
+        TARGET ${target} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "$<TARGET_FILE:${target}>"
+        "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"
+        COMMENT "Copying library to build directory for testing"
+    )
+endif() #BUILD_PYTHON
 
 target_include_directories(${target} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>" # for #include "C/rrc_api.h"
