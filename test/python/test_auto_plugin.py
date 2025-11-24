@@ -1,8 +1,5 @@
 import unittest
-import roadrunner
 import rrplugins
-
-print(roadrunner.__file__)
 
 try:
     from roadrunner.tests import TestModelFactory as tmf
@@ -31,7 +28,6 @@ class AutoPluginTests(RoadRunnerTest):
         auto = rrplugins.Plugin("tel_auto2000")
         auto.setProperty("SBML", testModel.str())
         auto.execute()
-        print("yup.")
 
 
 if __name__ == "__main__":

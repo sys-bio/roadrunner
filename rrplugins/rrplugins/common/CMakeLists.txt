@@ -53,6 +53,7 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
     if(BUILD_PYTHON)
         add_custom_command(
             TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${RR_PLUGINS_PYLIB_BUILD_PREFIX}
             COMMAND ${CMAKE_COMMAND} -E copy
             "$<TARGET_FILE:${target}>"
             "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"

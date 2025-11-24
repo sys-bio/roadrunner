@@ -38,6 +38,7 @@ add_library(${target} SHARED ${HEADERS} ${SOURCES})
 if(BUILD_PYTHON AND BUILD_RR_PLUGINS)
     add_custom_command(
         TARGET ${target} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${RR_PLUGINS_PYLIB_BUILD_PREFIX}
         COMMAND ${CMAKE_COMMAND} -E copy
         "$<TARGET_FILE:${target}>"
         "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"
