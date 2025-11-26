@@ -1109,13 +1109,11 @@ namespace rr {
 
             libsbml::SBMLWriter writer;
 
-            std::stringstream stream;
-
-            writer.writeSBML(doc, stream);
+            string ret = writer.writeSBMLToStdString(doc);
 
             delete doc;
 
-            return stream.str();
+            return ret;
         } else {
             libsbml::SBMLDocument *doc = libsbml::readSBMLFromFile(sbml.c_str());
             // converts in-place
@@ -1127,13 +1125,11 @@ namespace rr {
 
             libsbml::SBMLWriter writer;
 
-            std::stringstream stream;
-
-            writer.writeSBML(doc, stream);
+            string ret = writer.writeSBMLToStdString(doc);
 
             delete doc;
 
-            return stream.str();
+            return ret;
         }
     }
 

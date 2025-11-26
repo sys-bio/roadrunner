@@ -117,7 +117,7 @@ void AutoTellurimInterface::setInitialPCPValue()
             delete[] simulationData->Weights;
             if (simulationData->ColumnHeaders != NULL) {
                 for (int i = 0; i < simulationData->CSize; i++)
-                    delete[] simulationData->ColumnHeaders[i];
+                    free(simulationData->ColumnHeaders[i]);
                 delete[] simulationData->ColumnHeaders;
             }
             delete[] simulationData->Data;
@@ -128,7 +128,7 @@ void AutoTellurimInterface::setInitialPCPValue()
             delete[] simulationData->Weights;
             if (simulationData->ColumnHeaders != NULL) {
                 for (int i = 0; i < simulationData->CSize; i++)
-                    delete[] simulationData->ColumnHeaders[i];
+                    free(simulationData->ColumnHeaders[i]);
                 delete[] simulationData->ColumnHeaders;
             }
             delete[] simulationData->Data;
@@ -169,7 +169,7 @@ bool AutoTellurimInterface::setupUsingCurrentModel()
     StringList list1(lists->String, lists->Count);
     mModelParameters = list1;
     for (int i = 0; i < lists->Count; i++) {
-      delete[] lists->String[i];
+      free(lists->String[i]);
     }
     delete[] lists->String;
     delete lists;
@@ -180,7 +180,7 @@ bool AutoTellurimInterface::setupUsingCurrentModel()
 		//Boundary species can be used as PCP as well
 		mModelBoundarySpecies = list2;
         for (int i = 0; i < lists->Count; i++) {
-            delete[] lists->String[i];
+            free(lists->String[i]);
         }
         delete[] lists->String;
         delete lists;
@@ -347,7 +347,7 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 	tlp::StringList selRecs(temp->String, temp->Count);
     if (temp->String) {
         for (int i = 0; i < temp->Count; i++) {
-            delete[] temp->String[i];
+            free(temp->String[i]);
         }
         delete[] temp->String;
     }

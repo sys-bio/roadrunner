@@ -127,7 +127,7 @@ void AutoWorker::run()
     if (temp != NULL) {
         if (temp->String != NULL) {
             for (int i = 0; i < temp->Count; i++) {
-                delete[] temp->String[i];
+                free(temp->String[i]);
             }
             delete[] temp->String;
         }

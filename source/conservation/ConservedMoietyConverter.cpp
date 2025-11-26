@@ -883,13 +883,7 @@ std::string PyConservedMoietyConverter::getDocument()
         return "";
     }
 
-    char* buffer = writer.writeToString(resultDoc);
-
-    std::string result = buffer;
-
-    delete[] buffer;
-
-    return result;
+    return writer.writeSBMLToStdString(resultDoc);
 }
 
 } // namespace rr }
