@@ -8,6 +8,7 @@
 #include "../test_util.h"
 #include <filesystem>
 #include "RoadRunnerTest.h"
+#include "LLVMException.h"
 
 using namespace testing;
 using namespace rr;
@@ -76,107 +77,49 @@ TEST_F(SBMLFeatures, RATEOF_AR2)
 
 TEST_F(SBMLFeatures, RATEOF_AR_recursive_err)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_assignmentRule_invalid.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_assignmentRule_invalid.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_AR_recursive_err2)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_assignmentRule_invalid2.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_assignmentRule_invalid2.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_RateRule_recursive_err)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_rateRule_invalid.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_rateRule_invalid.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_RateRule_recursive_err2)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_rateRule_invalid2.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_rateRule_invalid2.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_Reaction_recursive_err)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_reaction_invalid.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_reaction_invalid.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_Reaction_recursive_err2)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_recursive_reaction_invalid2.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_recursive_reaction_invalid2.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_NoRateOfAssignmentRule_err)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_noARrates_invalid.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        std::cout << "Exception: " << ex.what() << std::endl;
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_noARrates_invalid.xml").string()), rrllvm::LLVMException);
 }
 
 TEST_F(SBMLFeatures, RATEOF_NoRateOfConcentrationWhenCompartmentHasAR_err)
 {
-    try
-    {
-        RoadRunner rri((SBMLFeaturesDir / "rateOf_noSpeciesInARComp_conc_invalid.xml").string());
-        EXPECT_TRUE(false);
-    }
-    catch (std::exception& ex)
-    {
-        std::cout << "Exception: " << ex.what() << std::endl;
-        EXPECT_TRUE(true);
-    }
+  RoadRunner rri;
+  EXPECT_THROW(rri.load((SBMLFeaturesDir / "rateOf_noSpeciesInARComp_conc_invalid.xml").string()), rrllvm::LLVMException);
 }
 
