@@ -4032,8 +4032,16 @@ namespace rr {
             impl->model->getGlobalParameterValues(nparam, 0, params);
             //std::stringstream* orig_state = saveStateS();
 
-            mcaSteadyState();
-
+            try {
+              mcaSteadyState();
+            }
+            catch (...) {
+              delete[] floats;
+              delete[] boundaries;
+              delete[] comps;
+              delete[] params;
+              throw;
+            }
             // Check for the parameter name
             if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0) {
                 parameterType = ptGlobalParameter;
@@ -4088,6 +4096,11 @@ namespace rr {
                 impl->model->setGlobalParameterValues(nparam, 0, params, false);
                 //loadStateS(orig_state);
 
+                delete[] floats;
+                delete[] boundaries;
+                delete[] comps;
+                delete[] params;
+
                 return 1 / (12 * hstep) * (f1 + f2);
             }
             catch (...) //Catch anything... and do 'finalizeObject'
@@ -4098,6 +4111,12 @@ namespace rr {
                 impl->model->setCompartmentVolumes(ncomp, 0, comps);
                 impl->model->setGlobalParameterValues(nparam, 0, params);
                 //loadStateS(orig_state);
+
+                delete[] floats;
+                delete[] boundaries;
+                delete[] comps;
+                delete[] params;
+
                 throw;
             }
         }
@@ -4609,7 +4628,7 @@ namespace rr {
         libsbml::Model *model = doc.getModel();
 
         while (model->getNumInitialAssignments() > 0) {
-            model->removeInitialAssignment(0);
+            delete model->removeInitialAssignment(0);
         }
 
         std::vector<std::string> array = getFloatingSpeciesIds();

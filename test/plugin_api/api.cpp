@@ -32,8 +32,11 @@ TEST_F(PluginAPITests, PropertyList)
     PropertyBase* test = (PropertyBase*)tpCreateProperty("test", "listOfProperties", "", NULL);
     TELHandle properties = test->getValueHandle();
     tpAddPropertyToList(properties, para);
-    string list = tpGetPropertyValueAsString(test);
-    EXPECT_STREQ(list.c_str(), "[stringProp, val1]");
+    char* list = tpGetPropertyValueAsString(test);
+    EXPECT_STREQ(list, "[stringProp, val1]");
     TELHandle props = tpGetPropertyValueHandle(test);
+    delete[] list;
+    delete test;
+    delete para;
 }
 

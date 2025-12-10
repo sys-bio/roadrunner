@@ -64,8 +64,10 @@ namespace tlp
     PluginManager::~PluginManager()
     {
         //No matter what.. here shared libs need to be unloaded and deleted
-        if (host_Interface)delete host_Interface;
         unloadAll();
+        if (host_Interface) {
+          delete host_Interface;
+        }
     }
 
     bool PluginManager::setPluginDir(const string& dir)
@@ -324,7 +326,6 @@ namespace tlp
                 Plugin* aPlugin = create(this);
                 if (aPlugin)
                 {
-                    createRRPluginFunc create = (createRRPluginFunc)libHandle->getSymbol(string(exp_fnc_prefix) + "createPlugin");
                     tlpc::gHM.registerHandle(aPlugin, typeid(aPlugin).name());
                     aPlugin->setLibraryName(getFileNameNoExtension(libName));
                     telPlugin storeMe(libHandle, aPlugin);
@@ -667,6 +668,7 @@ namespace tlp
         if (host_Interface)
         {
             host_Interface->createRRInstance = rrc::createRRInstance;
+            host_Interface->freeRRInstance = rrc::freeRRInstance;
             host_Interface->getInfo = rrc::getInfo;
             host_Interface->getLastError = rrc::getLastError;
             host_Interface->loadSBML = rrc::loadSBML;

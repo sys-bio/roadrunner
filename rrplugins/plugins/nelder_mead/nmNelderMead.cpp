@@ -114,7 +114,10 @@ The Plugin has a number of parameters for fine tuning the algorithm. See the emb
 
 
     NelderMead::~NelderMead()
-    {}
+    {
+      gHostInterface->freeRRInstance(rrHandle);
+      rrHandle = NULL;
+    }
 
     Plugin* NelderMead::getChiSquarePlugin()
     {

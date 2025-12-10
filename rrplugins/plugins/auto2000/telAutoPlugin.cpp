@@ -103,7 +103,6 @@ mMaxColumns(                        7,         "MaxColumns",                    
     gHostInterface->setCurrentSteadyStateSolverParameterDouble(rrHandle, "minimum_damping", 1e-4);
 
     mRRAuto.assignRoadRunner(rrHandle);
-    mAutoWorker.assignRoadRunner(rrHandle);
     
     mHint ="Bifurcation Analyis using AUTO2000";
     mDescription="The Auto2000 plugin is a wrapper around the AUTO 2000 Bifurcation analysis library. This plugin was inspired and are using many of Frank Bergmann's \
@@ -115,6 +114,7 @@ ideas on how to create a usable interface to the AUTO 2000 library.";
 
 AutoPlugin::~AutoPlugin()
 {
+    gHostInterface->freeRRInstance(rrHandle);
     rrHandle=NULL; 
 }
 

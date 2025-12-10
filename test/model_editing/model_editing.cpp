@@ -509,6 +509,7 @@ TEST_F(ModelEditingTests, SET_INITIAL_VALUE_WITH_INITIAL_ASSIGNMENT) {
     rr.addInitialAssignment("S1", "5/3", true);
     rr.setValue("init(S1)", 3);
     //Logger::setLevel(Logger::LOG_DEBUG);
+    delete testModel;
 }
 
 TEST_F(ModelEditingTests, SET_INITIAL_ASSIGNMENT_INIT) {

@@ -49,11 +49,6 @@ bool AutoWorker::start(bool runInThread)
     return true;
 }
 
-void AutoWorker::assignRoadRunner(rrc::RRHandle _rrHandle)
-{
-    mTheHost.rrHandle = _rrHandle;  
-}
-
 void AutoWorker::run()
 {
     if(mTheHost.hasStartedEvent())
@@ -123,16 +118,7 @@ void AutoWorker::run()
     
     rrc::RRStringArrayPtr temp = gHostInterface->getSteadyStateSelectionList(mTheHost.rrHandle);
     StringList selList(temp->String, temp->Count);
-
-    if (temp != NULL) {
-        if (temp->String != NULL) {
-            for (int i = 0; i < temp->Count; i++) {
-                free(temp->String[i]);
-            }
-            delete[] temp->String;
-        }
-        delete temp;
-    }
+    freeStringArray(temp);
 
     TelluriumData& data =  mTheHost.mBifurcationData.getValueReference();
 
