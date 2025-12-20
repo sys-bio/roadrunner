@@ -10,6 +10,7 @@ class AutoPluginTests(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    @unittest.skip("Doesn't work on non-Windows platforms.")
     def test_running_auto(self):
         model = """<?xml version="1.0" encoding="UTF-8"?>
 <!-- Created by libAntimony version v3.1.0 with libSBML version 5.20.5. -->

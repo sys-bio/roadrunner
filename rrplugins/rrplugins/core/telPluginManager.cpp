@@ -280,8 +280,8 @@ namespace tlp
             //Validate the plugin
             if (!checkImplementationLanguage(libHandle))
             {
-                info << "The plugin: " << _libName << " has not implemented the function getImplementationLanguage properly. Plugin can not be loaded";
-                throw std::runtime_error(info.str());
+              RRPLOG(lInfo) << "The plugin: " << _libName << " has not implemented the function getImplementationLanguage properly. Plugin can not be loaded";
+              throw std::runtime_error(info.str());
             }
 
             //Check plugin language
@@ -464,7 +464,7 @@ namespace tlp
         catch (const Poco::Exception& ex)
         {
             stringstream msg;
-            msg << "Poco exception: " << ex.displayText() << endl;
+            msg << "Poco exception in checkImplementationLanguage: " << ex.displayText() << endl;
             RRPLOG(lError) << msg.str();
             return false;
         }
@@ -481,7 +481,7 @@ namespace tlp
         catch (const Poco::Exception& ex)
         {
             stringstream msg;
-            msg << "Poco exception: " << ex.displayText() << endl;
+            msg << "Poco exception in getImplementationLanguage: " << ex.displayText() << endl;
             RRPLOG(lError) << msg.str();
             return NULL;
         }

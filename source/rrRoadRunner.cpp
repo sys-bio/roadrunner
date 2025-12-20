@@ -1456,17 +1456,17 @@ namespace rr {
         } catch (const rr::UninitializedValueException &e) {
             // catch specifically for UninitializedValueException, otherwise for some
             // reason the message is erased, and an 'unknown error' is displayed to the user.
-            throw e;
+            throw;
         } catch (const rrllvm::LLVMException &e) {
             // catch specifically for LLVMException, otherwise the exception type is removed,
             // and an 'unknown error' is displayed to the user.
-            throw e;
+            throw;
         }
         catch (const std::runtime_error &e) {
-            throw e;
+            throw;
         }
         catch (const std::domain_error& e) {
-            throw e;
+            throw;
         }
         catch (const std::exception &e) {
             std::string errors = validateSBML(impl->document.get());
@@ -1476,7 +1476,7 @@ namespace rr {
             }
 
             // re-throw the exception
-            throw e;
+            throw;
         }
 
         impl->syncAllSolversWithModel(impl->model.get());
