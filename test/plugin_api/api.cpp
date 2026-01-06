@@ -37,6 +37,6 @@ TEST_F(PluginAPITests, PropertyList)
     TELHandle props = tpGetPropertyValueHandle(test);
     delete[] list;
     delete test;
-    delete para;
+    tpFreeProperty(para);
 }
 
