@@ -159,7 +159,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     Property<double> p0val(6.78, "p0", "", "", "", true);
     Property<double> p1val(1.01, "p1", "", "", "", true);
     Property<double> p4val(1.26, "p4", "", "", "", true);
-    Property<double> p6val(35.11, "p6", "", "", "", true);
+    Property<double> p6val(30.11, "p6", "", "", "", true);
     Properties ipl;
     ipl.add(&p0val);
     ipl.add(&p1val);

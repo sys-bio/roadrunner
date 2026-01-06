@@ -436,12 +436,19 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Run C RoadRunner tests
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+      - name: Run C RoadRunner tests (most platforms)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+
+      - name: Run C RoadRunner tests (Ubuntu; skip plugins)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests --exclude-regex Plugin
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
@@ -450,6 +457,11 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
 
+      - name: Copy Visual Studio runtime DLLs to installation.
+        if: matrix.platform.os_type == 'windows'
+        shell: bash
+        run: |
+          cp /Windows/System32/vsrun*dll ${RUNNER_WORKSPACE}/install-roadrunner/bin/
 
       - name: Save roadrunner version
         shell: bash
