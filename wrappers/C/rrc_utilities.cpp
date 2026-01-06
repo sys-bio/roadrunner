@@ -81,7 +81,7 @@ void rrcCallConv freeRRList (RRListPtr theList)
     {
         if(theList->Items[i]->ItemType == litString)
         {
-              delete [] theList->Items[i]->data.sValue;
+            free(theList->Items[i]->data.sValue);
         }
 
         if(theList->Items[i]->ItemType == litList)
@@ -110,7 +110,7 @@ RRListItemPtr rrcCallConv createDoubleItem (double value)
     return item;
 }
 
-RRListItemPtr rrcCallConv createStringItem (char* value)
+RRListItemPtr rrcCallConv createStringItem (const char* value)
 {
     RRListItemPtr item = new RRListItem;
     item->ItemType = litString;

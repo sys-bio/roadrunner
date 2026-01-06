@@ -350,7 +350,7 @@ TEST_F(CAPICoreTest, CheckGetEC) {
         }
     }
 
-    delete actual;
+    freeRRList(actual);
     freeRRInstance(rrH);
 }
 
@@ -377,7 +377,7 @@ TEST_F(CAPICoreTest, CheckGetUEC) {
         }
     }
 
-    delete actual;
+    freeRRList(actual);
     freeRRInstance(rrH);
 }
 
@@ -403,7 +403,9 @@ TEST_F(CAPICoreTest, CheckSetTimeCourseSelectionListEx) {
         EXPECT_STREQ(sel_list[i], rescols[i]);
     }
 
+    freeStringArray(sel_rt);
     freeRRInstance(rrH);
+    freeRRCData(res);
 }
 
 TEST_F(CAPICoreTest, CheckSetSteadyStateSelectionListEx) {
@@ -432,7 +434,8 @@ TEST_F(CAPICoreTest, CheckSetSteadyStateSelectionListEx) {
         EXPECT_EQ(values[i], modelval);
     }
 
-
+    freeStringArray(sel_rt);
+    freeVector(res);
     freeRRInstance(rrH);
 }
 
@@ -450,6 +453,7 @@ TEST_F(CAPICoreTest, CheckGetStoichiometryMatrix) {
     EXPECT_EQ(stoichs->Data[3], -1.0);
 
     freeRRInstance(rrH);
+    freeMatrix(stoichs);
 }
 
 TEST_F(CAPICoreTest, CheckRatesOfChangeFunctions) {
@@ -461,22 +465,22 @@ TEST_F(CAPICoreTest, CheckRatesOfChangeFunctions) {
     RRVectorPtr roc = getRatesOfChange(rrH);
     ASSERT_EQ(roc->Count, 1);
     EXPECT_NEAR(roc->Data[0], -0.496, 0.001);
-    delete roc;
+    freeVector(roc);
 
     RRStringArrayPtr roc_ids = getRatesOfChangeIds(rrH);
     ASSERT_EQ(roc_ids->Count, 1);
     EXPECT_STREQ(roc_ids->String[0], "A'");
-    delete roc_ids;
+    freeStringArray(roc_ids);
 
     roc_ids = getIndependentFloatingSpeciesIds(rrH);
     ASSERT_EQ(roc_ids->Count, 1);
     EXPECT_STREQ(roc_ids->String[0], "A");
-    delete roc_ids;
+    freeStringArray(roc_ids);
 
     roc_ids = getDependentFloatingSpeciesIds(rrH);
     ASSERT_EQ(roc_ids->Count, 1);
     EXPECT_STREQ(roc_ids->String[0], "AP");
-    delete roc_ids;
+    freeStringArray(roc_ids);
 
     freeRRInstance(rrH);
 }
@@ -505,6 +509,10 @@ TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_conserved) {
     ASSERT_EQ(dep_amount->Count, 1);
     EXPECT_EQ(dep_amount->Data[0], 50);
 
+    freeVector(indep_conc);
+    freeVector(dep_conc);
+    freeVector(indep_amount);
+    freeVector(dep_amount);
     freeRRInstance(rrH);
 }
 
@@ -534,5 +542,9 @@ TEST_F(CAPICoreTest, CheckGetIndependentAndDependentFloatingSpecies_nonconserved
     ASSERT_EQ(dep_amount->Count, 1);
     EXPECT_EQ(dep_amount->Data[0], 50);
 
+    freeVector(indep_conc);
+    freeVector(dep_conc);
+    freeVector(indep_amount);
+    freeVector(dep_amount);
     freeRRInstance(rrH);
 }

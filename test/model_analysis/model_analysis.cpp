@@ -528,6 +528,11 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
             EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
         }
     }
+    for (int i = 0; i < rows; ++i) {
+      delete[] ues_expect[i];
+    }
+    delete[] ues_expect;
+    delete ues_expected;
    
     double** jac_expect = new double* [2]; // 2x2
     for (int i = 0; i < 2; ++i) {
@@ -554,6 +559,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
@@ -602,6 +613,11 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
             EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
         }
     }
+    for (int i = 0; i < rows; ++i) {
+      delete[] ues_expect[i];
+    }
+    delete[] ues_expect;
+    delete ues_expected;
 
     double** jac_expect = new double* [2]; // 2x2
     for (int i = 0; i < 2; ++i) {
@@ -628,6 +644,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
     }
     // Put back default selected JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
@@ -673,6 +695,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
@@ -718,6 +746,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStartGeneral) {

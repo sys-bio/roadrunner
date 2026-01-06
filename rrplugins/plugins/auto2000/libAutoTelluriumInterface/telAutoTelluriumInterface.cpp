@@ -10,6 +10,7 @@
 
 #include "rrplugins/core/tel_api.h"
 #include "../../../wrappers/C/rrc_types.h"
+#include "C/rrc_utilities.h"
 
 extern rrc::THostInterface* gHostInterface;
 
@@ -117,7 +118,7 @@ void AutoTellurimInterface::setInitialPCPValue()
             delete[] simulationData->Weights;
             if (simulationData->ColumnHeaders != NULL) {
                 for (int i = 0; i < simulationData->CSize; i++)
-                    delete[] simulationData->ColumnHeaders[i];
+                    free(simulationData->ColumnHeaders[i]);
                 delete[] simulationData->ColumnHeaders;
             }
             delete[] simulationData->Data;
@@ -128,7 +129,7 @@ void AutoTellurimInterface::setInitialPCPValue()
             delete[] simulationData->Weights;
             if (simulationData->ColumnHeaders != NULL) {
                 for (int i = 0; i < simulationData->CSize; i++)
-                    delete[] simulationData->ColumnHeaders[i];
+                    free(simulationData->ColumnHeaders[i]);
                 delete[] simulationData->ColumnHeaders;
             }
             delete[] simulationData->Data;
@@ -162,34 +163,26 @@ void AutoTellurimInterface::run()
 
 bool AutoTellurimInterface::setupUsingCurrentModel()
 {
-	mAutoConstants.NDIM = gHostInterface->_getNumIndFloatingSpecies(mRR) + gHostInterface->_getNumRateRules(mRR);
-    //k1,k2 etc
-	rrc::RRStringArrayPtr lists= gHostInterface->getGlobalParameterIds(mRR);
+  mAutoConstants.NDIM = gHostInterface->_getNumIndFloatingSpecies(mRR) + gHostInterface->_getNumRateRules(mRR);
+  //k1,k2 etc
+  rrc::RRStringArrayPtr lists = gHostInterface->getGlobalParameterIds(mRR);
   if (lists) {
     StringList list1(lists->String, lists->Count);
     mModelParameters = list1;
-    for (int i = 0; i < lists->Count; i++) {
-      delete[] lists->String[i];
-    }
-    delete[] lists->String;
-    delete lists;
   }
-	lists= gHostInterface->getBoundarySpeciesIds(mRR);
-	if (lists) {
-		StringList list2(lists->String, lists->Count);
-		//Boundary species can be used as PCP as well
-		mModelBoundarySpecies = list2;
-        for (int i = 0; i < lists->Count; i++) {
-            delete[] lists->String[i];
-        }
-        delete[] lists->String;
-        delete lists;
-	}
-    //Set initial value of Primary continuation parameter
-    setInitialPCPValue();
-    setCallbackStpnt(ModelInitializationCallback);	
-    setCallbackFunc2(ModelFunctionCallback);
-    return true;
+  freeStringArray(lists);
+  lists = gHostInterface->getBoundarySpeciesIds(mRR);
+  if (lists) {
+    StringList list2(lists->String, lists->Count);
+    //Boundary species can be used as PCP as well
+    mModelBoundarySpecies = list2;
+  }
+  freeStringArray(lists);
+  //Set initial value of Primary continuation parameter
+  setInitialPCPValue();
+  setCallbackStpnt(ModelInitializationCallback);
+  setCallbackFunc2(ModelFunctionCallback);
+  return true;
 }
 
 //Called by Auto
@@ -345,13 +338,7 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		
 	rrc::RRStringArrayPtr temp= gHostInterface->getSteadyStateSelectionList(mRR);
 	tlp::StringList selRecs(temp->String, temp->Count);
-    if (temp->String) {
-        for (int i = 0; i < temp->Count; i++) {
-            delete[] temp->String[i];
-        }
-        delete[] temp->String;
-    }
-    delete temp;
+  freeStringArray(temp);
 
 	tlp::StringList              selList = selRecs;
 	vector<double> variableTemp(selList.size());

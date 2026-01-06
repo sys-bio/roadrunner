@@ -24,11 +24,10 @@ TEST_F(SBMLFeatures, FAST_RXN)
 {
     //Logger::enableConsoleLogging();
     //Logger::setLevel(Logger::LOG_DEBUG);
-
+    RoadRunner rri;
     try
     {
-        RoadRunner rri((SBMLFeaturesDir / "fast_reaction.xml").string());
-        rri.simulate();
+        rri.load((SBMLFeaturesDir / "fast_reaction.xml").string());
         EXPECT_TRUE(false);
     }
     catch (std::exception& ex)

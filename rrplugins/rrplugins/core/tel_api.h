@@ -28,6 +28,12 @@ typedef struct {			// THostInterface
 	*/
 	RRHandle  (*createRRInstance)(void);
 
+  /*!
+   \brief Delete a created roadRunner instance.
+   \ingroup initialization
+  */
+  bool (*freeRRInstance)(RRHandle handle);
+
 	/*!
 	 \brief Find and return the requested plugin.
 	 \return Returns a plugin with the given name, returns null if it fails

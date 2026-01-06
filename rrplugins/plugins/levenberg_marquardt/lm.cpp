@@ -113,7 +113,12 @@ The Plugin has numerous parameters for fine tuning the algorithm. See the embedd
     }
 
     LM::~LM()
-    {}
+    {
+      if (rrHandle) {
+        gHostInterface->freeRRInstance(rrHandle);
+        rrHandle = NULL;
+      }
+    }
 
     bool LM::isWorking() const
     {

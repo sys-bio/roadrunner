@@ -225,43 +225,6 @@ RRStringArrayPtr createList(const rrc::StringList& sList)
     return list;
 }
 
-//RRList* createList(const ArrayList& aList)
-//{
-//    if(!aList.Count())
-//    {
-//        return NULL;
-//    }
-//
-//    RRListItemPtr myItem;
-//    // Setup a RRStringArrayList structure from aList
-//     RRListHandle theList = createRRList();
-//
-//    int itemCount = aList.Count();
-//    for(int i = 0; i < itemCount; i++)
-//    {
-////        //Have to figure out subtype of item
-////        ArrayListItem<string>* ptr = const_cast< ArrayListItemBase<string>* >(*aList[i]);
-////        if(ptr->mValue)
-////        {
-////            string item =  *ptr->mValue;
-////            char* str = (char *) new char[item.size() + 1];
-////            strcpy(str, item.c_str());
-////            myItem = createStringItem (str);
-////               addItem (theList, &myItem);
-////        }
-////        else if(ptr->mLinkedList)
-////        {
-////            //ArrayListItem<ArrayList2Item>* listItem = dynamic_cast<ArrayListItem<ArrayList2Item>*>(ptr);
-////            RRListHandle myList = createList (*(ptr->mLinkedList));
-////
-////            RRListItemPtr myListItem = createListItem (myList);
-////            addItem (theList, &myListItem);
-////
-////        }
-//    }
-//    return theList;
-//}
-
 RRList* createArrayList(const rrc::ArrayList& aList)
 {
     if(!aList.Count())
@@ -294,9 +257,7 @@ RRList* createArrayList(const rrc::ArrayList& aList)
         else if(dynamic_cast<ArrayListItem<string>*>(ptr))
         {
             string item = (string) *(dynamic_cast<ArrayListItem<string>*>(ptr));
-            char* str = (char *) new char[item.size() + 1];
-            strcpy (str, item.c_str());
-            myItem = createStringItem (str);
+            myItem = createStringItem (item.c_str());
             addItem (theList, &myItem);
         }
         else if(dynamic_cast<ArrayListItem<StringList>*>(ptr))
@@ -308,7 +269,7 @@ RRList* createArrayList(const rrc::ArrayList& aList)
                 aList.Add(list[i]);
             }
             RRListPtr myList             = createArrayList (aList);
-            myItem                             = createListItem(myList);
+            myItem                       = createListItem(myList);
                addItem (theList, &myItem);
         }
 

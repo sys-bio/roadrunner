@@ -402,6 +402,7 @@ namespace rrllvm {
         delete ownedDoc;
         ownedDoc = 0;
         clearPiecewiseTriggers();
+        delete symbols;
     }
 
     ModelGeneratorContext::~ModelGeneratorContext() {

@@ -109,6 +109,8 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
         //Add weights
         addWeights();
+        gHostInterface->freeRRInstance(rrHandle);
+        rrHandle = NULL;
         return true;
     }
 

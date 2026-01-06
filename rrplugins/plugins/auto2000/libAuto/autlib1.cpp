@@ -2818,7 +2818,7 @@ stplae(iap_type *iap, rap_type *rap, doublereal *par, integer *icp, doublereal *
     integer labw, ndim, nins, iplt, ntot, i;
     doublereal a0, a1;
     integer istop, itpst, ntots;
-    doublereal ss;
+    doublereal ss = 0.0;
 
     doublereal rl0, rl1;
     integer iab, lab, ibr, ndm;

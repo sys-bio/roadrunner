@@ -1240,7 +1240,7 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
     }
 
     if (checkExact(SelectionRecord::STOICHIOMETRY, types)) {
-        for (size_t s = 0; s < getNumFloatingSpecies(); ++s) {
+        for (size_t s = 0; s < getNumIndFloatingSpecies(); ++s) {
             string sid = getFloatingSpeciesId(s);
             for (size_t r = 0; r < getNumReactions(); ++r) {
                 if (getStoichiometry(s, r) != 0)

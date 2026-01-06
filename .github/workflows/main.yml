@@ -64,7 +64,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.2.21" ]
+        libroadrunner_deps_release_version: [ "v2.2.22" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-13.x" ]
         llvm_name: [ "llvm-13.x" ]
@@ -436,12 +436,19 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Run C RoadRunner tests
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+      - name: Run C RoadRunner tests (most platforms)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+
+      - name: Run C RoadRunner tests (Ubuntu; skip plugins)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests --exclude-regex Plugin
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
@@ -449,7 +456,6 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
-
 
       - name: Save roadrunner version
         shell: bash

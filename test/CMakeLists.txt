@@ -276,7 +276,7 @@ add_subdirectory(serialization)
 add_subdirectory(PerformanceTests)
 add_subdirectory(python)
 
-if (WIN32 AND BUILD_RR_PLUGINS)
+if (BUILD_RR_PLUGINS)
    set(
         SharedPluginTestFiles
         # path *must* be absolute to work in cmake functions/macros
@@ -326,6 +326,7 @@ if (BUILD_PYTHON AND BUILD_TESTS)
         add_pytest_to_ctest(python_tests_SteadyStateSolverTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_steadyStateSolver.py")
         add_pytest_to_ctest(python_tests_StructuralAnalysisTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_structuralAnalysis.py")
         add_pytest_to_ctest(python_tests_RoadRunnerMap "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_roadrunner_map.py")
+        add_pytest_to_ctest(python_tests_AutoPluginTest "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_auto_plugin.py")
     endif()
     #add_pytest_to_ctest(python_tests_PickleTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_pickle.py")
     add_pytest_to_ctest(python_tests_RRTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_rrtests.py")

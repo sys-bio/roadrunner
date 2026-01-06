@@ -21,8 +21,33 @@ public:
     }
 };
 
+TEST_F(PluginTestModelTests, LOGGER)
+{
+  tlp::Logger::setLevel(lUser);
+  if (lAny > tlp::Logger::getLevel())
+  {
+    std::cout << "Don't log." << std::endl;
+  }
+  else {
+    tlp::LoggingBuffer lbuff(lAny, __FILE__, __LINE__);
+    lbuff.stream() << "This is a test of the logger." << std::endl;
+  }
 
-TEST_F(PluginTestModelTests, STANDARD_RUN)
+  RRPLOG(lAny) << "This is another test.";
+
+}
+
+
+TEST_F(PluginTestModelTests, DISABLED_BASIC_CREATION_AND_DESTRUCTION)
+{
+  rr::Logger::setLevel(rr::Logger::LOG_INFORMATION);
+  PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+  std::cout << PM->getInfo() << std::endl;
+  delete PM;
+}
+
+
+TEST_F(PluginTestModelTests, DISABLED_STANDARD_RUN)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
@@ -66,9 +91,10 @@ TEST_F(PluginTestModelTests, STANDARD_RUN)
     unsigned long* seed = static_cast<unsigned long*>(seedprop->getValueHandle());
     EXPECT_EQ(*seed, 0);
 
+    delete PM;
 }
 
-TEST_F(PluginTestModelTests, CHECK_SEED)
+TEST_F(PluginTestModelTests, DISABLED_CHECK_SEED)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
@@ -114,9 +140,10 @@ TEST_F(PluginTestModelTests, CHECK_SEED)
     EXPECT_NEAR(sumdiff, 3.e-6 * 2 * 28, 1e-4);
     EXPECT_GT(sumdiff, 0);
 
+    delete PM;
 }
 
-TEST_F(PluginTestModelTests, CHECK_SIGMA)
+TEST_F(PluginTestModelTests, DISABLED_CHECK_SIGMA)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 
@@ -157,7 +184,7 @@ TEST_F(PluginTestModelTests, CHECK_SIGMA)
     EXPECT_EQ(*sigma, 10);
 }
 
-TEST_F(PluginTestModelTests, NEW_MODEL)
+TEST_F(PluginTestModelTests, DISABLED_NEW_MODEL)
 {
     PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
 

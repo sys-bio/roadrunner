@@ -1109,13 +1109,11 @@ namespace rr {
 
             libsbml::SBMLWriter writer;
 
-            std::stringstream stream;
-
-            writer.writeSBML(doc, stream);
+            string ret = writer.writeSBMLToStdString(doc);
 
             delete doc;
 
-            return stream.str();
+            return ret;
         } else {
             libsbml::SBMLDocument *doc = libsbml::readSBMLFromFile(sbml.c_str());
             // converts in-place
@@ -1127,13 +1125,11 @@ namespace rr {
 
             libsbml::SBMLWriter writer;
 
-            std::stringstream stream;
-
-            writer.writeSBML(doc, stream);
+            string ret = writer.writeSBMLToStdString(doc);
 
             delete doc;
 
-            return stream.str();
+            return ret;
         }
     }
 
@@ -1460,17 +1456,17 @@ namespace rr {
         } catch (const rr::UninitializedValueException &e) {
             // catch specifically for UninitializedValueException, otherwise for some
             // reason the message is erased, and an 'unknown error' is displayed to the user.
-            throw e;
+            throw;
         } catch (const rrllvm::LLVMException &e) {
             // catch specifically for LLVMException, otherwise the exception type is removed,
             // and an 'unknown error' is displayed to the user.
-            throw e;
+            throw;
         }
         catch (const std::runtime_error &e) {
-            throw e;
+            throw;
         }
         catch (const std::domain_error& e) {
-            throw e;
+            throw;
         }
         catch (const std::exception &e) {
             std::string errors = validateSBML(impl->document.get());
@@ -1480,7 +1476,7 @@ namespace rr {
             }
 
             // re-throw the exception
-            throw e;
+            throw;
         }
 
         impl->syncAllSolversWithModel(impl->model.get());
@@ -4036,8 +4032,16 @@ namespace rr {
             impl->model->getGlobalParameterValues(nparam, 0, params);
             //std::stringstream* orig_state = saveStateS();
 
-            mcaSteadyState();
-
+            try {
+              mcaSteadyState();
+            }
+            catch (...) {
+              delete[] floats;
+              delete[] boundaries;
+              delete[] comps;
+              delete[] params;
+              throw;
+            }
             // Check for the parameter name
             if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0) {
                 parameterType = ptGlobalParameter;
@@ -4092,6 +4096,11 @@ namespace rr {
                 impl->model->setGlobalParameterValues(nparam, 0, params, false);
                 //loadStateS(orig_state);
 
+                delete[] floats;
+                delete[] boundaries;
+                delete[] comps;
+                delete[] params;
+
                 return 1 / (12 * hstep) * (f1 + f2);
             }
             catch (...) //Catch anything... and do 'finalizeObject'
@@ -4102,6 +4111,12 @@ namespace rr {
                 impl->model->setCompartmentVolumes(ncomp, 0, comps);
                 impl->model->setGlobalParameterValues(nparam, 0, params);
                 //loadStateS(orig_state);
+
+                delete[] floats;
+                delete[] boundaries;
+                delete[] comps;
+                delete[] params;
+
                 throw;
             }
         }
@@ -4613,7 +4628,7 @@ namespace rr {
         libsbml::Model *model = doc.getModel();
 
         while (model->getNumInitialAssignments() > 0) {
-            model->removeInitialAssignment(0);
+            delete model->removeInitialAssignment(0);
         }
 
         std::vector<std::string> array = getFloatingSpeciesIds();

@@ -24,7 +24,9 @@ namespace rr
     {
         std::string sbml = SBMLReader::read(src);
         SBMLDocument* doc = readSBMLFromString(sbml.c_str());
-        return validateSBML(doc, opt);
+        std::string errs =  validateSBML(doc, opt);
+        delete doc;
+        return errs;
     }
 
     std::string validateSBML(SBMLDocument* doc, unsigned opt)
