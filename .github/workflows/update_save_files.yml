@@ -141,7 +141,7 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
             echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
-            if [ "${{ matrix.platform.os_name }}" == 'macos-13' ]; then
+            if [ "${{ matrix.platform.os_name }}" == 'macos-15-intel' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_x86.rr " >> $GITHUB_ENV
             elif [ "${{ matrix.platform.os_name }}" == 'macos-14' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_arm64.rr " >> $GITHUB_ENV
