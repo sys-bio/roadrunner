@@ -47,8 +47,7 @@ setup(
         'roadrunner.stochastic': 'site-packages/roadrunner/stochastic'
     },
     package_data={
-        # add dll, won't hurt unix, not there anyway
-        'roadrunner': ['_roadrunner*', '*.so', '*.so.*', '*.dll', '*.txt', '*.dylib', '*.pyd'],
+        'roadrunner': ['_roadrunner*', '*.so', '*.so.*', '*.dll', '*.txt', '*.dylib', '*.pyd', '*/*.so', '*/*.so.*', '*/*.dll', '*/*.txt', '*/*.dylib', '*/*.pyd'],
         'roadrunner.tests': ['*.so', '*.so.*', '*.dll', '*.dylib', '*.pyd',
                                '*.xml', '*.txt', '*.dat', 'test_data/*']
     },

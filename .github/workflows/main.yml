@@ -457,12 +457,6 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
 
-      - name: Copy Visual Studio runtime DLLs to installation.
-        if: matrix.platform.os_type == 'windows'
-        shell: bash
-        run: |
-          cp /Windows/System32/vsrun*dll ${RUNNER_WORKSPACE}/install-roadrunner/bin/
-
       - name: Save roadrunner version
         shell: bash
         run: |
