@@ -11,9 +11,9 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-13-release
+          - name: macos-15-intel-release
             os_type: macos
-            os_name: macos-13
+            os_name: macos-15-intel
             build_type: Release
           - name: macos-14-release
             os_type: macos
@@ -31,7 +31,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.2.13" ]
+        libroadrunner_deps_release_version: [ "v2.2.22" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-13.x" ]
         llvm_name: [ "llvm-13.x" ]
@@ -141,7 +141,7 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
             echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
-            if [ "${{ matrix.platform.os_name }}" == 'macos-13' ]; then
+            if [ "${{ matrix.platform.os_name }}" == 'macos-15-intel' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_x86.rr " >> $GITHUB_ENV
             elif [ "${{ matrix.platform.os_name }}" == 'macos-14' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_arm64.rr " >> $GITHUB_ENV
