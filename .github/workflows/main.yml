@@ -440,16 +440,13 @@ jobs:
         if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
         shell: bash
         run: |
-          echo "ls base"
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/
-          echo "ls bin"
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/bin/
           echo "ls concrt140.dll"
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/concrt140.dll
-          echo "ls *.dll"
-          ls "${RUNNER_WORKSPACE}/install-roadrunner/bin/c**.dll"
-          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
-          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
+          ls concrt140.dll
+          echo "ls c*.dll"
+          ls c*.dll"
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
       - name: Run C RoadRunner tests (most platforms)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
