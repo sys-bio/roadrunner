@@ -47,7 +47,7 @@ setup(
         'roadrunner.stochastic': 'site-packages/roadrunner/stochastic'
     },
     package_data={
-        'roadrunner': ['_roadrunner*', '*.so', '*.so.*', '*.dll', '*.txt', '*.dylib', '*.pyd', '*/*.so', '*/*.so.*', '*/*.dll', '*/*.txt', '*/*.dylib', '*/*.pyd'],
+        'roadrunner': ['_roadrunner*', '*.so', '*.so.*', '*.dll', '*.txt', '*.dylib'],
         'roadrunner.tests': ['*.so', '*.so.*', '*.dll', '*.dylib', '*.pyd',
                                '*.xml', '*.txt', '*.dat', 'test_data/*']
     },

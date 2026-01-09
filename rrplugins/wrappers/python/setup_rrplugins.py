@@ -43,12 +43,12 @@ setup(name='rrplugins',
         'rrplugins' : [
               '*.py',
               '*.txt',
-              '*/*.so',
-              '*/*.so.*',
-              '*/*.dll',
-              '*/*.lib',
-              '*/*.txt',
-              '*/*.dylib'],
+              'libs/*.so',
+              'libs/*.so.*',
+              'libs/*.dll',
+              'libs/*.lib',
+              'libs/*.txt',
+              'libs/*.dylib'],
 #        'rrplugins.testing' : ['*.xml', '*.txt', '*.dat', 'dsmts/*.xml', 'dsmts/*.csv', 'test_data/*']
     },
     install_requires=[
