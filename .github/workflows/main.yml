@@ -441,10 +441,8 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner/bin/
-          echo "ls concrt140.dll"
-          ls concrt140.dll
-          echo "ls c*.dll"
-          ls c*.dll
+          echo "Copying these files to roadrunner and rrplugins:"
+          ls conc* msvc* vcruntime*
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
