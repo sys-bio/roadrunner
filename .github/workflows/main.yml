@@ -440,9 +440,14 @@ jobs:
         if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
         shell: bash
         run: |
+          echo "ls base"
           ls ${RUNNER_WORKSPACE}/install-roadrunner/
+          echo "ls bin"
           ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/*dll
+          echo "ls concrt140.dll"
+          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/concrt140.dll
+          echo "ls *.dll"
+          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/c*.dll
           cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
