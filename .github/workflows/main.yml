@@ -436,6 +436,16 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
+      - name: Copy Windows Visual Studio runtime DLLs to python install directories
+        if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
+        shell: bash
+        run: |
+          ls ${RUNNER_WORKSPACE}/install-roadrunner/
+          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/
+          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/*dll
+          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
+          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
+
       - name: Run C RoadRunner tests (most platforms)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
@@ -464,16 +474,6 @@ jobs:
           ls -l
           export rrversion="$(cat VERSION.txt)"
           echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
-
-      - name: Copy Windows Visual Studio runtime DLLs to python install directories
-        if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
-        shell: bash
-        run: |
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/
-          ls ${RUNNER_WORKSPACE}/install-roadrunner/bin/*dll
-          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
-          cp ${RUNNER_WORKSPACE}/install-roadrunner/bin/conc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/msvc* ${RUNNER_WORKSPACE}/install-roadrunner/bin/vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
       - name: Set artifacts path and name
         shell: bash
