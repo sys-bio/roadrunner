@@ -436,6 +436,16 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
+      - name: Copy Windows Visual Studio runtime DLLs to python install directories
+        if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/bin/
+          echo "Copying these files to roadrunner and rrplugins:"
+          ls conc* msvc* vcruntime*
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
+
       - name: Run C RoadRunner tests (most platforms)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
