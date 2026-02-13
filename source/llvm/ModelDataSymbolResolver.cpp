@@ -152,7 +152,7 @@ namespace rrllvm
 
         if (modelDataSymbols.isNamedSpeciesReference(symbol))
         {
-            const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
+              const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
                 modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
             Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
@@ -188,7 +188,7 @@ namespace rrllvm
         }
 
 
-        std::string msg = "the symbol \'";
+        std::string msg = "The symbol \'";
         msg += symbol;
         msg += "\' is not physically stored in the ModelData structure, "
             "it either does not exist or is defined by an assigment rule (hence it "

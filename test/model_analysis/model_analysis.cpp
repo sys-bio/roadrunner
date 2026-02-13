@@ -22,6 +22,12 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, issue1306_named_stoich_steadyState) {
+  rr::RoadRunner rr((modelAnalysisModelsDir / "named_stoic_in_kinetic_law.xml").string());
+  rr.steadyState();// , CoreException);
+}
+
+
 TEST_F(ModelAnalysisTests, issue1259) {
   BasicDictionary opt;
   opt.setItem("allow_approx", true);

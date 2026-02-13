@@ -132,6 +132,7 @@ static void updateReactions(Model* newModel,
 static ASTNode *createSpeciesAmountNode(const Model* model, const std::string& name);
 
 static void insertAsModifier(Reaction* reaction, SimpleSpeciesReference *s);
+static void addParameterIfNeeded(SpeciesReference* s, Model* newModel);
 
 void ConservedMoietyConverter::init()
 {
@@ -643,12 +644,13 @@ static void updateReactions(Model* newModel,
         unsigned j = 0;
         while(j < products->size())
         {
-            SimpleSpeciesReference *product = products->get(j);
+            SpeciesReference *product = r->getProduct(j);
 
             if (depSet.find(product->getSpecies()) != depSet.end())
             {
                 products->remove(j);
                 insertAsModifier(r, product);
+                addParameterIfNeeded(product, newModel);
                 delete product;
             }
             else
@@ -660,12 +662,13 @@ static void updateReactions(Model* newModel,
         j = 0;
         while(j < reactants->size())
         {
-            SimpleSpeciesReference *reactant = reactants->get(j);
+            SpeciesReference *reactant = r->getReactant(j);
 
             if (depSet.find(reactant->getSpecies()) != depSet.end())
             {
                 reactants->remove(j);
                 insertAsModifier(r, reactant);
+                addParameterIfNeeded(reactant, newModel);
                 delete reactant;
             }
             else
@@ -679,11 +682,26 @@ static void updateReactions(Model* newModel,
 static void insertAsModifier(Reaction* reaction, SimpleSpeciesReference *s)
 {
     ModifierSpeciesReference *m = reaction->createModifier();
-    m->setId(s->getId());
+    if (s->isSetId()) {
+      m->setId(s->getId() + "_orig");
+    }
     m->setSpecies(s->getSpecies());
     m->setName(s->getName());
 }
 
+static void addParameterIfNeeded(SpeciesReference* s, Model* newModel)
+{
+  if (s->isSetId()) {
+    Parameter* p = newModel->createParameter();
+    p->setId(s->getId());
+    p->setValue(s->getStoichiometry());
+    if (s->isSetStoichiometryMath()) {
+      AssignmentRule* ar = newModel->createAssignmentRule();
+      ar->setVariable(s->getId());
+      ar->setMath(s->getStoichiometryMath()->getMath());
+    }
+  }
+}
 
 static ASTNode *createSpeciesAmountNode(const Model* model, const std::string& name)
 {
