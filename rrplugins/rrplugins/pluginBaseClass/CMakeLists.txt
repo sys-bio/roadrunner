@@ -22,6 +22,17 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
     add_library(${target} SHARED ${sources})
     target_compile_definitions(${target} PUBLIC SHARED_PLUGIN_API)
 
+    if(BUILD_PYTHON)
+        add_custom_command(
+            TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${RR_PLUGINS_PYLIB_BUILD_PREFIX}
+            COMMAND ${CMAKE_COMMAND} -E copy
+            "$<TARGET_FILE:${target}>"
+            "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"
+            COMMENT "Copying library to build directory for testing"
+        )
+    endif() #BUILD_PYTHON
+
     target_link_libraries(${target} PUBLIC
             telplugins_common-static
             )

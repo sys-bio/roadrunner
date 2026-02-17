@@ -188,6 +188,9 @@ namespace rr
          */
         virtual ExecutableModel *getModel() const;
 
+        virtual bool hasPresimSetup();
+        virtual bool hasApproxSetup();
+
 
         using SettingsList     =  std::vector<std::string> ;
         using SettingsMap      =  std::unordered_map<std::string, Setting> ;

@@ -173,7 +173,7 @@ C_DECL_SPEC RRListItemPtr rrcCallConv createDoubleItem  (double value);
  \return A pointer to the list item
  \ingroup list
 */
-C_DECL_SPEC RRListItemPtr rrcCallConv createStringItem  (char* value);
+C_DECL_SPEC RRListItemPtr rrcCallConv createStringItem  (const char* value);
 
 /*!
  \brief Create a list item to store a list

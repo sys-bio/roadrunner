@@ -127,9 +127,9 @@ RR_DECLSPEC double*         createVector(const std::vector<double>& vec);
 RR_DECLSPEC std::vector<double>  createVector(const double* src, const int& size);
 
 #if defined(_WIN32) || defined(__WIN32__)
-RR_DECLSPEC HINSTANCE       loadDLL(const std::string& dll);
-RR_DECLSPEC bool            unLoadDLL(HINSTANCE dllHandle);
-RR_DECLSPEC FARPROC         getFunctionPtr(const std::string& funcName, HINSTANCE DLLHandle);
+//RR_DECLSPEC HINSTANCE       loadDLL(const std::string& dll);
+//RR_DECLSPEC bool            unLoadDLL(HINSTANCE dllHandle);
+//RR_DECLSPEC FARPROC         getFunctionPtr(const std::string& funcName, HINSTANCE DLLHandle);
 RR_DECLSPEC std::string          getWINAPIError(DWORD errorCode, LPTSTR lpszFunction);
 #endif
 

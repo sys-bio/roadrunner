@@ -64,8 +64,10 @@ namespace tlp
     PluginManager::~PluginManager()
     {
         //No matter what.. here shared libs need to be unloaded and deleted
-        if (host_Interface)delete host_Interface;
         unloadAll();
+        if (host_Interface) {
+          delete host_Interface;
+        }
     }
 
     bool PluginManager::setPluginDir(const string& dir)
@@ -278,8 +280,8 @@ namespace tlp
             //Validate the plugin
             if (!checkImplementationLanguage(libHandle))
             {
-                info << "The plugin: " << _libName << " has not implemented the function getImplementationLanguage properly. Plugin can not be loaded";
-                throw std::runtime_error(info.str());
+              RRPLOG(lInfo) << "The plugin: " << _libName << " has not implemented the function getImplementationLanguage properly. Plugin can not be loaded";
+              throw std::runtime_error(info.str());
             }
 
             //Check plugin language
@@ -324,7 +326,6 @@ namespace tlp
                 Plugin* aPlugin = create(this);
                 if (aPlugin)
                 {
-                    createRRPluginFunc create = (createRRPluginFunc)libHandle->getSymbol(string(exp_fnc_prefix) + "createPlugin");
                     tlpc::gHM.registerHandle(aPlugin, typeid(aPlugin).name());
                     aPlugin->setLibraryName(getFileNameNoExtension(libName));
                     telPlugin storeMe(libHandle, aPlugin);
@@ -463,7 +464,7 @@ namespace tlp
         catch (const Poco::Exception& ex)
         {
             stringstream msg;
-            msg << "Poco exception: " << ex.displayText() << endl;
+            msg << "Poco exception in checkImplementationLanguage: " << ex.displayText() << endl;
             RRPLOG(lError) << msg.str();
             return false;
         }
@@ -480,7 +481,7 @@ namespace tlp
         catch (const Poco::Exception& ex)
         {
             stringstream msg;
-            msg << "Poco exception: " << ex.displayText() << endl;
+            msg << "Poco exception in getImplementationLanguage: " << ex.displayText() << endl;
             RRPLOG(lError) << msg.str();
             return NULL;
         }
@@ -667,6 +668,7 @@ namespace tlp
         if (host_Interface)
         {
             host_Interface->createRRInstance = rrc::createRRInstance;
+            host_Interface->freeRRInstance = rrc::freeRRInstance;
             host_Interface->getInfo = rrc::getInfo;
             host_Interface->getLastError = rrc::getLastError;
             host_Interface->loadSBML = rrc::loadSBML;
@@ -690,6 +692,7 @@ namespace tlp
             host_Interface->setComputeAndAssignConservationLaws = rrc::setComputeAndAssignConservationLaws;
             host_Interface->_getNumIndFloatingSpecies = rrc::_getNumIndFloatingSpecies;
             host_Interface->_getNumRateRules = rrc::_getNumRateRules;
+            host_Interface->getRateRuleValues = rrc::getRateRuleValues;
             host_Interface->getFloatingSpeciesConcentrations = rrc::getFloatingSpeciesConcentrations;
             host_Interface->setFloatingSpeciesConcentrations = rrc::setFloatingSpeciesConcentrations;
             host_Interface->getRatesOfChange = rrc::getRatesOfChange;

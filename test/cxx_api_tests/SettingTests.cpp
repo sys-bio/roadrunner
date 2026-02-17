@@ -327,7 +327,7 @@ TEST_F(SettingTests, PutSettingInAVectorAndEqualityOp) {
     Setting setting("I'm a string");
     std::vector<Setting> v({setting});
     Setting x = v[0];
-    bool truth = x == setting;
+    bool truth = (x == setting);
     ASSERT_TRUE(truth);
 }
 
@@ -542,17 +542,6 @@ TEST_F(SettingTests, TypeThatUsesSettingsMapChangeUsingASetting) {
     TypeThatContainsASettingsMap t;
     t.setValue("string", Setting(std::string()));
     ASSERT_TRUE(t.settingsMap["string"] == std::string());
-}
-
-/**
- * Keep the test in case we figure out a way to implement this
- */
-TEST_F(SettingTests, DISABLED_AutomaticTypeDeductionInGet) {
-    Setting setting(1234l);
-    // error this is not supported right now. Probably possible to do
-    // with the likes of decltype(auto).
-    // long x = setting.get(); // error,
-    // ASSERT(x == 1234l);
 }
 
 TEST_F(SettingTests, CastFromSettingToDoubleVector) {

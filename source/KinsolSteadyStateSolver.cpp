@@ -15,6 +15,13 @@ namespace rr {
         KinsolSteadyStateSolver::resetSettings();
     }
 
+    KinsolSteadyStateSolver::~KinsolSteadyStateSolver()
+    {
+      if (mSunContext) {
+        SUNContext_Free(&mSunContext);
+      }
+    }
+
     void KinsolSteadyStateSolver::syncWithModel(ExecutableModel *m) {
         freeKinsol();
         mModel = m;
@@ -31,18 +38,23 @@ namespace rr {
         assert(mStateVector == nullptr && mKinsol_Memory == nullptr &&
                "calling createKinsol, but kinsol objects already exist");
 
+        if (mSunContext) {
+          SUNContext_Free(&mSunContext);
+        }
+        SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);
 
         // create our N_Vector
-        mStateVector = N_VNew_Serial(stateVectorSize);
+        mStateVector = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(mStateVector && "Sundials failed to create N_Vector for state variables");
 
-        fscale = N_VNew_Serial(stateVectorSize);
+        fscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(fscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, fscale); // no scaling. Implement if wanted.
 
-        uscale = N_VNew_Serial(stateVectorSize);
+        uscale = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(uscale && "Sundials failed to create N_Vector for fscale");
         N_VConst(1, uscale); // no scaling. Implement if wanted.
 
@@ -52,12 +64,12 @@ namespace rr {
         int err;
 
         // allocate the main kinsol memory block
-        mKinsol_Memory = KINCreate();
+        mKinsol_Memory = KINCreate(mSunContext);
 
         assert(mKinsol_Memory && "Could not create kinsol memory block, Kinsol failed");
 
         // make non negative
-        constraints = N_VNew_Serial(stateVectorSize);
+        constraints = N_VNew_Serial(stateVectorSize, mSunContext);
         assert(constraints && "Sundials failed to create N_Vector for fscale");
         // constraints. If,
         //  0 -> No constraints
@@ -74,11 +86,7 @@ namespace rr {
         // set our own error handler. This should be the first thing called after creating kinsol memory block
         // This is the only function where we need to collect the error code and decode it, since
         // the purpose of using this function is to enable automatic error handling.
-        if ((err = KINSetErrHandlerFn(
-                mKinsol_Memory,
-                reinterpret_cast<KINErrHandlerFn>(kinsolErrHandler),
-                this)
-            ) != KIN_SUCCESS) {
+        if ((err = SUNContext_PushErrHandler(mSunContext, kinsolErrHandler, this)) != SUN_SUCCESS) {
             decodeKinsolError(err);
         }
 
@@ -260,7 +268,7 @@ namespace rr {
             KINSetEtaForm(mKinsol_Memory, KIN_ETACONSTANT);
         }
         KINSetNumMaxIters(mKinsol_Memory, (int)getValue("num_max_iters"));
-        KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
+        //KINSetPrintLevel(mKinsol_Memory, (int)getValue("print_level"));
         KINSetNoInitSetup(mKinsol_Memory, (bool)getValue("no_init_setup"));
         KINSetNoResMon(mKinsol_Memory, (bool)getValue("no_res_monitoring"));
         KINSetMaxSetupCalls(mKinsol_Memory, (int)getValue("max_setup_calls"));
@@ -279,20 +287,20 @@ namespace rr {
 
     std::unordered_map<std::string, Setting>& KinsolSteadyStateSolver::getSolverStats() {
 //        std::unordered_map<std::string, Setting> map;
-        solverStats["numFuncEvals"] = Setting(numFuncEvals);
-        solverStats["numNolinSolvIters"] = Setting(numNolinSolvIters);
-        solverStats["numBetaCondFails"] = Setting(numBetaCondFails);
-        solverStats["numBacktrackOps"] = Setting(numBacktrackOps);
+        solverStats["numFuncEvals"] = Setting(std::int64_t(numFuncEvals));
+        solverStats["numNolinSolvIters"] = Setting(std::int64_t(numNolinSolvIters));
+        solverStats["numBetaCondFails"] = Setting(std::int64_t(numBetaCondFails));
+        solverStats["numBacktrackOps"] = Setting(std::int64_t(numBacktrackOps));
         solverStats["funcNorm"] = Setting(funcNorm);
         solverStats["stepLength"] = Setting(stepLength);
-        solverStats["numJacEvals"] = Setting(numJacEvals);
-        solverStats["numJtimesEvals"] = Setting(numJtimesEvals);
-        solverStats["numLinConvFails"] = Setting(numLinConvFails);
-        solverStats["numLinFuncEvals"] = Setting(numLinFuncEvals);
-        solverStats["numLinIters"] = Setting(numLinIters);
-        solverStats["numNonlinSolvIters"] = Setting(numNonlinSolvIters);
-        solverStats["numPrecEvals"] = Setting(numPrecEvals);
-        solverStats["numPrecSolves"] = Setting(numPrecSolves);
+        solverStats["numJacEvals"] = Setting(std::int64_t(numJacEvals));
+        solverStats["numJtimesEvals"] = Setting(std::int64_t(numJtimesEvals));
+        solverStats["numLinConvFails"] = Setting(std::int64_t(numLinConvFails));
+        solverStats["numLinFuncEvals"] = Setting(std::int64_t(numLinFuncEvals));
+        solverStats["numLinIters"] = Setting(std::int64_t(numLinIters));
+        solverStats["numNonlinSolvIters"] = Setting(std::int64_t(numNonlinSolvIters));
+        solverStats["numPrecEvals"] = Setting(std::int64_t(numPrecEvals));
+        solverStats["numPrecSolves"] = Setting(std::int64_t(numPrecSolves));
         return solverStats;
     }
 

@@ -14,6 +14,7 @@
 #include "Matrix.h"
 #include "Matrix3D.h"
 #include "nvector/nvector_serial.h"
+#include "sundials/sundials_types.h"
 
 namespace rr {
 
@@ -217,6 +218,7 @@ namespace rr {
          * virtual inheritance, which may come with hidden problems;
          */
         std::unique_ptr<CVODEIntegrator> cvodeIntegrator = nullptr;
+        SUNContext mSunContext = nullptr;
 
         void constructorOperations();
 
@@ -290,9 +292,9 @@ namespace rr {
          */
         std::vector<double> getParameterValuesFromPlist();
 
-        friend int FFSDyDtFcn(realtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData);
+        friend int FFSDyDtFcn(sunrealtype time, N_Vector cv_y, N_Vector cv_ydot, void* userData);
 
-        friend int FFSRootFcn(realtype time, N_Vector y_vector, realtype *gout, void *user_data);
+        friend int FFSRootFcn(sunrealtype time, N_Vector y_vector, sunrealtype *gout, void *user_data);
 
     };
 

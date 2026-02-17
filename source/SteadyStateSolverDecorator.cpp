@@ -15,8 +15,10 @@ namespace rr {
     }
 
     SteadyStateSolverDecorator::SteadyStateSolverDecorator(SteadyStateSolver *solver)
-        : SteadyStateSolver(solver->getModel()), solver_(solver){
+        : SteadyStateSolver(solver->getModel()), solver_(solver)
+    {
         settings = solver_->getSettingsMap();
+        mModel = nullptr;
     }
 
     std::string SteadyStateSolverDecorator::getName() const {
@@ -33,6 +35,21 @@ namespace rr {
 
     void SteadyStateSolverDecorator::resetSettings()  {
         return solver_->resetSettings();
+    }
+
+    ExecutableModel* SteadyStateSolverDecorator::getModel() const
+    {
+        return solver_->getModel();
+    }
+
+    bool SteadyStateSolverDecorator::hasPresimSetup()
+    {
+      return solver_->hasPresimSetup();
+    }
+
+    bool SteadyStateSolverDecorator::hasApproxSetup()
+    {
+      return solver_->hasApproxSetup();
     }
 
     std::string SteadyStateSolverDecorator::decoratorName() const {

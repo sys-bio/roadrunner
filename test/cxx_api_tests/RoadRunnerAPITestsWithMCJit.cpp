@@ -326,6 +326,14 @@ TEST_F(RoadRunnerAPITestsWithMCJit, getExtendedStoichiometryMatrix){
     getExtendedStoichiometryMatrix();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, getReactantsStoichiometryMatrix) {
+    getReactantsStoichiometryMatrix();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, getProductsStoichiometryMatrix) {
+    getProductsStoichiometryMatrix();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, getL0Matrix){
     getL0Matrix();
 }
@@ -430,8 +438,16 @@ TEST_F(RoadRunnerAPITestsWithMCJit, setInitAmount){
     setInitAmount();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, setInitAmountWithSetValue) {
+    setInitAmountWithSetValue();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, setInitConcentration){
     setInitConcentration();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, setInitConcentrationWithSetValue) {
+    setInitConcentrationWithSetValue();
 }
 
 TEST_F(RoadRunnerAPITestsWithMCJit, DISABLED_setConstant){

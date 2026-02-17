@@ -6,7 +6,7 @@
 #define ROADRUNNER_KINSOLSTEADYSTATESOLVER_H
 
 #include <nvector/nvector_serial.h>  /* access to serial N_Vector       */
-#include <sundials/sundials_types.h> /* defs. of realtype, sunindextype */
+#include <sundials/sundials_types.h> /* defs. of sunrealtype, sunindextype */
 #include "kinsol/kinsol.h"
 #include "SteadyStateSolver.h"
 #include "rrExecutableModel.h"
@@ -61,7 +61,7 @@ namespace rr {
         /**
          * @brief virtual destructor
          */
-        ~KinsolSteadyStateSolver() override = default;
+        ~KinsolSteadyStateSolver() override;
 
         /**
          * @brief implementation of Solver::syncWithModel.
@@ -292,6 +292,7 @@ namespace rr {
 
         std::unordered_map<std::string, Setting> solverStats;
 
+        SUNContext mSunContext = nullptr;
 
     };
 

@@ -38,7 +38,9 @@ namespace rr {
     * If a function that returns a pointer to memory encounters an error,
     * it sets error_code to 0.
     */
-    void kinsolErrHandler(int error_code, const char *module, const char *function, char *msg);
+    void kinsolErrHandler(int line, const char* function, const char* file,
+        const char* msg, SUNErrCode error_code,
+        void* err_user_data, SUNContext sunctx);
 
     /**
     * macro to throw an error message

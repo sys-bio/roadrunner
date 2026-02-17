@@ -15,6 +15,22 @@ configure_file(
         ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
 )
 
+# For testing, also install in the build directory:
+configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py.in
+        ${RR_PLUGINS_PYTHON_BUILD_PREFIX}/__init__.py
+)
+
+configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/telplugins.py
+        ${RR_PLUGINS_PYTHON_BUILD_PREFIX}/telplugins.py
+)
+
+configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/telplugins_c_api.py
+        ${RR_PLUGINS_PYTHON_BUILD_PREFIX}/telplugins_c_api.py
+)
+
 set (RRP_PYTHON_API_SOURCE
   ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
   telplugins.py

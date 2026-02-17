@@ -37,11 +37,11 @@ namespace rr {
 
         /* Create dense SUNMatrix for jacobian */
         int numEq = mStateVector->ops->nvgetlength(mStateVector);
-        jac = SUNDenseMatrix(numEq, numEq);
+        jac = SUNDenseMatrix(numEq, numEq, mSunContext);
         KinsolCheckForNull(jac, "SUNDenseMatrix", "SUNMatrix")
 
         /* Create dense SUNLinearSolver object */
-        linearSolver = SUNLinSol_Dense(mStateVector, jac);
+        linearSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
         KinsolCheckForNull(jac, "SUNLinSol_Dense", "SUNLinearSolver")
 
         /* Attach the matrix and linear solver to KINSOL */

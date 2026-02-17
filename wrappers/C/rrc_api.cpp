@@ -1103,6 +1103,23 @@ RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle handle)
     catch_ptr_macro
 }
 
+RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle)
+{
+  start_try
+      RoadRunner* rri = castToRoadRunner(handle);
+      ExecutableModel* model = rri->getModel();
+      if (model)
+      {
+        double* rrvs = (double*)calloc(model->getNumRateRules(), sizeof(double));
+        model->getRateRuleValues(rrvs);
+        RRVector* aVec = rrc::createVector(*rrvs);
+        free(rrvs);
+        return aVec;
+      }
+      return NULL;
+  catch_ptr_macro
+}
+
 RRVectorPtr rrcCallConv getFloatingSpeciesAmounts(RRHandle handle)
 {
     start_try
@@ -1911,29 +1928,11 @@ bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmou
 	catch_bool_macro
 }
 
-bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->setInitAmount(sid, initAmount, false);
-		return true;
-	catch_bool_macro
-}
-
 bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri->setInitConcentration(sid, initConcentration);
-		return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->setInitConcentration(sid, initConcentration, false);
 		return true;
 	catch_bool_macro
 }

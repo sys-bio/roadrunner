@@ -108,18 +108,19 @@ namespace rr {
         return errMsg.str();
     }
 
-
-    void kinsolErrHandler(int error_code, const char *module, const char *function, char *msg) {
+    void kinsolErrHandler(int line, const char* function, const char* file,
+        const char* msg, SUNErrCode error_code,
+        void* err_user_data, SUNContext sunctx) {
         // note, we do not use msg. The error messages in decodeKinsolError are from the docs
         // and are more detailed than those that kinsol automatically provides with msg.
         if (error_code < 0) {
             std::ostringstream err;
-            err << "Kinsol Error: Module: " << module << ", Function: " << function
+            err << "Kinsol Error: Function: " << function
                                      << "Message: " << decodeKinsolError(error_code);
             throw std::runtime_error(err.str());
         } else if (error_code > 0) {
             rrLog(Logger::LOG_WARNING) << "Kinsol Warning: "
-                                       << ", Module: " << module << ", Function: " << function
+                                       << ", Function: " << function
                                        << ", Message: " << msg;
         }
     }

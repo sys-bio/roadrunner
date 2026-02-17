@@ -28,6 +28,12 @@ typedef struct {			// THostInterface
 	*/
 	RRHandle  (*createRRInstance)(void);
 
+  /*!
+   \brief Delete a created roadRunner instance.
+   \ingroup initialization
+  */
+  bool (*freeRRInstance)(RRHandle handle);
+
 	/*!
 	 \brief Find and return the requested plugin.
 	 \return Returns a plugin with the given name, returns null if it fails
@@ -266,7 +272,17 @@ typedef struct {			// THostInterface
  	*/
  	RRVectorPtr (*getFloatingSpeciesConcentrations)(RRHandle handle);
 
-	bool (*setFloatingSpeciesConcentrations)(RRHandle handle, const RRVectorPtr vec);
+  /*!
+   \brief Retrieve in a vector the values for all the variables controlled by rate rules.
+
+   Example: \code RRVectorPtr values = getRateRuleValues (void); \endcode
+
+   \param[in] handle Handle to a RoadRunner instance
+   \return Returns the vector of rate rule values or null if an error occurred
+  */
+  RRVectorPtr(*getRateRuleValues)(RRHandle handle);
+
+  bool (*setFloatingSpeciesConcentrations)(RRHandle handle, const RRVectorPtr vec);
 
 	RRVectorPtr (*getRatesOfChange)(RRHandle handle);
 

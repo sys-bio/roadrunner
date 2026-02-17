@@ -477,10 +477,10 @@
     {
       for (i = 0; i < n-1; i++)
       {
-        sprintf(s, "%d, ", exact_dimensions[i]);
+        snprintf(s, 255, "%d, ", exact_dimensions[i]);
         strcat(dims_str,s);
       }
-      sprintf(s, " or %d", exact_dimensions[n-1]);
+      snprintf(s, 255, " or %d", exact_dimensions[n-1]);
       strcat(dims_str,s);
       PyErr_Format(PyExc_TypeError,
                    "Array must have %s dimensions.  Given array has %d dimensions",
@@ -514,11 +514,11 @@
       {
         if (size[i] == -1)
         {
-          sprintf(s, "*,");
+          snprintf(s, 255, "*,");
         }
         else
         {
-          sprintf(s, "%ld,", (long int)size[i]);
+          snprintf(s, 255, "%ld,", (long int)size[i]);
         }
         strcat(desired_dims,s);
       }
@@ -526,7 +526,7 @@
       desired_dims[len-1] = ']';
       for (i = 0; i < n; i++)
       {
-        sprintf(s, "%ld,", (long int)array_size(ary,i));
+        snprintf(s, 255, "%ld,", (long int)array_size(ary,i));
         strcat(actual_dims,s);
       }
       len = strlen(actual_dims);

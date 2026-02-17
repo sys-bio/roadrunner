@@ -22,17 +22,20 @@ public:
 
 TEST_F(SBMLFeatures, SBML_qual)
 {
-    EXPECT_THROW(RoadRunner rri((SBMLFeaturesDir / "BIOMD0000000562_url.xml").string()), std::domain_error);
+    RoadRunner rri;
+    EXPECT_THROW(rri.load((SBMLFeaturesDir / "BIOMD0000000562_url.xml").string()), std::domain_error);
 }
 
 TEST_F(SBMLFeatures, SBML_spatial)
 {
-    EXPECT_THROW(RoadRunner rri((SBMLFeaturesDir / "organelles.xml").string()), std::domain_error);
+    RoadRunner rri;
+    EXPECT_THROW(rri.load((SBMLFeaturesDir / "organelles.xml").string()), std::domain_error);
 }
 
 TEST_F(SBMLFeatures, SBML_multi)
 {
-    EXPECT_THROW(RoadRunner rri((SBMLFeaturesDir / "simmune_Ecad.xml").string()), std::domain_error);
+    RoadRunner rri;
+    EXPECT_THROW(rri.load((SBMLFeaturesDir / "simmune_Ecad.xml").string()), std::domain_error);
 }
 
 TEST_F(SBMLFeatures, SBML_fbc)

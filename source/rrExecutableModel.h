@@ -48,7 +48,7 @@ namespace rr {
  *
  * They may return a result value specified by the Result enum. Currently, we
  * we only have the HALT_SIMULATION which will result in RoadRunner::oneStep
- * or RoadRunner::simulate to stop at the current time and return. This may be usefull
+ * or RoadRunner::simulate to stop at the current time and return. This may be useful
  * if someone wants to run a simulation up until some threshold or state is reached.
  */
     class EventListener {
@@ -638,14 +638,14 @@ namespace rr {
         virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value) = 0;
 
         /**
-         * Get the current stiochiometry value with the given index
+         * Get the current stoichiometry value with the given index
          *
          * If either are not valid, NaN is returned.
          */
         virtual double getStoichiometry(int index) = 0;
 
         /**
-         * Get the current stiochiometry value for the given species / reaction.
+         * Get the current stoichiometry value for the given species / reaction.
          *
          * If either are not valid, NaN is returned.
          */

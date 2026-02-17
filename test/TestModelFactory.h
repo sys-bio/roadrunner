@@ -68,6 +68,8 @@ public:
  * be implemented in future.
  */
 class Result {
+public:
+  virtual ~Result() = default;
 };
 
 /**
@@ -337,6 +339,10 @@ public:
     rr::Matrix<double> fullStoicMatrix() override;
 
     rr::Matrix<double> extendedStoicMatrix() override;
+
+    rr::Matrix<double> reactantsStoicMatrix();
+
+    rr::Matrix<double> productsStoicMatrix();
 
     rr::Matrix<double> L0Matrix() override;
 

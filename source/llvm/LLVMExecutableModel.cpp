@@ -1240,7 +1240,7 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
     }
 
     if (checkExact(SelectionRecord::STOICHIOMETRY, types)) {
-        for (size_t s = 0; s < getNumFloatingSpecies(); ++s) {
+        for (size_t s = 0; s < getNumIndFloatingSpecies(); ++s) {
             string sid = getFloatingSpeciesId(s);
             for (size_t r = 0; r < getNumReactions(); ++r) {
                 if (getStoichiometry(s, r) != 0)
@@ -2447,9 +2447,18 @@ int LLVMExecutableModel::applyEvents(double timeEnd,
 
         pendingEvents.eraseExpiredEvents();
 
+        int max_cascade = Config::getInt(Config::MAX_EVENT_CASCADE);
         while(applyEvents(p1, p2))
         {
             assignedEvents++;
+            if (max_cascade > 0 && assignedEvents > max_cascade) {
+                //We're probably in an infinite loop
+                std::stringstream msg;
+                msg << "Max number of cascaded events surpassed ("
+                    << max_cascade
+                    << ").  Infinite loop probable.  If this message was obtained in error, set the configuration setting MAX_EVENT_CASCADE to a higher number, or to -1 to turn off this check entirely.";
+                throw_llvm_exception(msg.str());
+            }
 			// Update previous events
             std::swap(p1, p2);
         }

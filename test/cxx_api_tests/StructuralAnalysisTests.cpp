@@ -12,7 +12,10 @@ using namespace rr;
 class StructuralAnalysisTests : public RoadRunnerTest {
 
 public:
-    StructuralAnalysisTests() = default;
+    path modelAnalysisModelsDir;
+    StructuralAnalysisTests() {
+        modelAnalysisModelsDir = rrTestModelsDir_ / "ModelAnalysis";
+    }
 
     /**
      * @brief check equality of int matrices. Fails when expected and actual 
@@ -105,7 +108,7 @@ public:
     }
 
     /**
-     * Note: the extended stioc matix is affected by the
+     * Note: the extended stoic matix is affected by the
      * moiety conservation analysis status of the model.
      * Therefore this should be tested under both conditions
      */
@@ -169,6 +172,82 @@ TEST_F(StructuralAnalysisTests, BimolecularEndfullStoicMatrix) {
 
 TEST_F(StructuralAnalysisTests, BimolecularEndextendedStoicMatrix) {
     checkExtendedStoicMatrix("BimolecularEnd");
+}
+
+TEST_F(StructuralAnalysisTests, SimpleFluxReactantsStoicMatrix) {
+    SimpleFlux simpleFlux;
+    RoadRunner rr(simpleFlux.str());
+    rr.setConservedMoietyAnalysis(true);
+    //std::cout << rr.getReactantsStoichiometryMatrix() << std::endl;
+    ls::DoubleMatrix expected = simpleFlux.reactantsStoicMatrix();
+    ls::DoubleMatrix actual = rr.getReactantsStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
+}
+
+TEST_F(StructuralAnalysisTests, SimpleFluxProductsStoicMatrix) {
+    SimpleFlux simpleFlux;
+    RoadRunner rr(simpleFlux.str());
+    rr.setConservedMoietyAnalysis(true);
+    //std::cout << rr.getProductsStoichiometryMatrix() << std::endl;
+    ls::DoubleMatrix expected = simpleFlux.productsStoicMatrix();
+    ls::DoubleMatrix actual = rr.getProductsStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
+}
+
+TEST_F(StructuralAnalysisTests, OddStoichiometryExtendedStoicMatrix) {
+    RoadRunner rr((modelAnalysisModelsDir / "odd_stoichiometries.xml").string());
+    rr::Matrix<double> expected(
+        {
+                {-1, 0, 2.2,  1},
+                {2,  3, 0,    0},
+                {0,  4, -1.5, 0},
+        });
+    ls::DoubleMatrix actual = rr.getExtendedStoichiometryMatrix();
+    checkMatrixEqual(expected, actual, 1e-7);
+}
+
+TEST_F(StructuralAnalysisTests, OddStoichiometryReactantsStoicMatrix) {
+    RoadRunner rr((modelAnalysisModelsDir / "odd_stoichiometries.xml").string());
+    rr::Matrix<double> expected(
+        {
+                {-1, 0,  0,  -2},
+                { 0, 3,  0,   0},
+        });
+
+    ls::DoubleMatrix actual = rr.getReactantsStoichiometryMatrix(false);
+    checkMatrixEqual(expected, actual, 1e-7);
+
+    rr::Matrix<double> expected_boundary(
+        {
+                {-1, 0,  0,  -2},
+                { 0, 3,  0,   0},
+                { 0, 0, -1.5, 0},
+        });
+
+    actual = rr.getReactantsStoichiometryMatrix(true);
+    checkMatrixEqual(expected_boundary, actual, 1e-7);
+}
+
+TEST_F(StructuralAnalysisTests, OddStoichiometryProductsStoicMatrix) {
+    RoadRunner rr((modelAnalysisModelsDir / "odd_stoichiometries.xml").string());
+    rr::Matrix<double> expected(
+        {
+                {0, 0, 2.2, 3},
+                {2, 0, 0,   0},
+        });
+
+    ls::DoubleMatrix actual = rr.getProductsStoichiometryMatrix(false);
+    checkMatrixEqual(expected, actual, 1e-7);
+
+    rr::Matrix<double> expected_boundary(
+        {
+                {0, 0, 2.2, 3},
+                {2, 0, 0,   0},
+                {0, 4, 0,   0},
+        });
+    actual = rr.getProductsStoichiometryMatrix(true);
+
+    checkMatrixEqual(expected_boundary, actual, 1e-7);
 }
 
 TEST_F(StructuralAnalysisTests, BimolecularEndL0Matrix) {

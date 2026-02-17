@@ -52,7 +52,7 @@ setup(name='rrplugins',
 #        'rrplugins.testing' : ['*.xml', '*.txt', '*.dat', 'dsmts/*.xml', 'dsmts/*.csv', 'test_data/*']
     },
     install_requires=[
-          'numpy>=1.19',
+          'numpy>=2.4',
           'matplotlib>=3',
           ],
     distclass=BinaryDistribution,

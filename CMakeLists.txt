@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.16)
 # Version information and include modules
 
 set(ROADRUNNER_VERSION_MAJOR 2)
-set(ROADRUNNER_VERSION_MINOR 8)
+set(ROADRUNNER_VERSION_MINOR 9)
 set(ROADRUNNER_VERSION_PATCH 0)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
@@ -143,6 +143,9 @@ if (BUILD_PYTHON)
     # plugin directories
     set(RR_PLUGINS_PYTHON_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins")#CACHE PATH "Destination for rrplugins python bindings.")
     set(RR_PLUGINS_PYLIB_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins/libs")#CACHE PATH "Destination for rrplugins python binding libraries.")
+
+    set(RR_PLUGINS_PYLIB_BUILD_PREFIX "${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}/rrplugins/libs/")
+    set(RR_PLUGINS_PYTHON_BUILD_PREFIX "${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}/rrplugins/")
 
     cmake_dependent_option(RR_PLUGINS_BUILD_PYTHON_API "Build the RR plugin PYTHON API" ON "BUILD_RR_PLUGINS" OFF)
 
@@ -380,10 +383,11 @@ endif ()
 
 set(RR_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 set(DEPENDENCY_CMAKE_CONFIG_PATHS
-        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake"
-        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib64/cmake"
         "${RR_DEPENDENCIES_INSTALL_PREFIX}/cmake"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake"
         "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake/Poco"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib64/cmake"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib64/cmake/Poco"
         )
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
@@ -397,7 +401,7 @@ endif (WIN32)
 
 #find_package(Threads) # for libxml2, FindThreads.cmake is shipped with cmake
 #find_package(LibLZMA) # for libxml2, LibLZMA.cmake is shipped with cmake
-find_package(zlib CONFIG REQUIRED)
+find_package(ZLIB CONFIG REQUIRED)
 #find_package(bzip2 CONFIG REQUIRED)
 #find_package(iconv CONFIG REQUIRED)
 
@@ -429,7 +433,7 @@ function(print_target_properties tgt)
     endforeach(prop)
 endfunction(print_target_properties)
 
-cmake_language(CALL print_target_properties zlib::zlibstatic)
+cmake_language(CALL print_target_properties ZLIB::ZLIBSTATIC)
 cmake_language(CALL print_target_properties expat::expat)
 
 #libsbml now needs to know that we found expat, so we set the relevant flags
@@ -437,8 +441,8 @@ set(EXPAT_LIBRARY "expat::expat")
 get_target_property(EXPAT_INCLUDE_DIR expat::expat INTERFACE_INCLUDE_DIRECTORIES)
 get_target_property(EXPAT_LIBRARY expat::expat LOCATION)
 message(STATUS "EXPAT_LIBRARY: ${EXPAT_LIBRARY}")
-set(ZLIB_LIBRARY "zlib::zlibstatic")
-get_target_property(ZLIB_LIBRARY zlib::zlibstatic LOCATION)
+set(ZLIB_LIBRARY ZLIB::ZLIBSTATIC)
+get_target_property(ZLIB_LIBRARY ZLIB::ZLIBSTATIC LOCATION)
 set(ZLIB_INCLUDE_DIR "${RR_DEPENDENCIES_INSTALL_PREFIX}/include/")
 
 message(STATUS "ZLIB_LIBRARY: ${ZLIB_LIBRARY}")
@@ -448,13 +452,13 @@ message(STATUS "ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
 # I stole this from libsbml's CMakeLists.txt file, since they apparently also suffer the same problem
 # (and are the probable cause, at that.)  I've only seen this needed on Ubuntu, and even there, it's
 # not needed for the azure ubuntu build, just when actually running Ubuntu.
-if(NOT TARGET ZLIB::ZLIB)
-  add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
-  set_target_properties(ZLIB::ZLIB PROPERTIES
-    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
-    IMPORTED_LOCATION "${ZLIB_LIBRARY}"
-    INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
-endif()
+#if(NOT TARGET ZLIB::ZLIB)
+#  add_library(ZLIB::ZLIB UNKNOWN IMPORTED)
+#  set_target_properties(ZLIB::ZLIB PROPERTIES
+#    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+#    IMPORTED_LOCATION "${ZLIB_LIBRARY}"
+#    INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
+#endif()
 
 
 find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
@@ -605,6 +609,10 @@ if (BUILD_TESTS)
 
 else ()
     message(STATUS "NOT building tests")
+endif ()
+
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
 endif ()
 
 

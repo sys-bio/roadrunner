@@ -80,12 +80,11 @@ Poco::Logger& getLogger()
 
         // default is console channel,
         // one of two possible terminal channels
-        consoleChannel = new ConsoleChannel();
+        consoleChannel.reset(new ConsoleChannel());
 
         // let the logger manage ownership of the channels, we keep then around
         // so we can know when to add or remove them.
         splitter->addChannel(consoleChannel);
-        consoleChannel->release();
 
         AutoPtr<PatternFormatter> pf(new PatternFormatter());
         pf->setProperty("pattern", "%p: %t");
@@ -141,8 +140,8 @@ void Logger::disableLogging()
 
     splitter->close();
 
-    consoleChannel = 0;
-    simpleFileChannel = 0;
+    consoleChannel.reset(NULL);
+    simpleFileChannel.reset(NULL);
     logFileName = "";
 }
 
@@ -157,13 +156,11 @@ void Logger::enableConsoleLogging(int level)
         SplitterChannel *splitter = getSplitterChannel();
 
         // default is console channel
-        consoleChannel = new ConsoleChannel();
+        consoleChannel.reset(new ConsoleChannel());
 
         // let the logger manage ownership of the channels, we keep then around
         // so we can know when to add or remove them.
         splitter->addChannel(consoleChannel);
-
-        consoleChannel->release();
     }
 }
 
@@ -176,7 +173,7 @@ void Logger::disableFileLogging()
         SplitterChannel *splitter = getSplitterChannel();
 
         splitter->removeChannel(simpleFileChannel);
-        simpleFileChannel = 0;
+        simpleFileChannel.reset(NULL);
         logFileName = "";
     }
 }
@@ -191,14 +188,13 @@ void Logger::enableFileLogging(const std::string& fileName, int level)
     {
         SplitterChannel *splitter = getSplitterChannel();
 
-        simpleFileChannel = new SimpleFileChannel();
+        simpleFileChannel.reset(new SimpleFileChannel());
         simpleFileChannel->setProperty("path", fileName);
         simpleFileChannel->setProperty("rotation", "never");
 
         logFileName = simpleFileChannel->getProperty("path");
 
         splitter->addChannel(simpleFileChannel);
-        simpleFileChannel->release();
     }
 }
 
@@ -333,7 +329,7 @@ void Logger::disableConsoleLogging()
         assert(splitter && "could not get splitter channel from logger");
 
         splitter->removeChannel(consoleChannel);
-        consoleChannel = 0;
+        consoleChannel.reset(NULL);
     }
 }
 

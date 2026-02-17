@@ -22,6 +22,43 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, issue1306_named_stoich_steadyState) {
+  rr::RoadRunner rr((modelAnalysisModelsDir / "named_stoic_in_kinetic_law.xml").string());
+  rr.steadyState();// , CoreException);
+}
+
+
+TEST_F(ModelAnalysisTests, issue1259) {
+  BasicDictionary opt;
+  opt.setItem("allow_approx", true);
+  opt.setItem("allow_presimulation", true);
+
+  rr::RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+  EXPECT_THROW(rr.steadyState(&opt), CoreException);
+
+  rr.load((modelAnalysisModelsDir / "no_steady_state.xml").string());
+  EXPECT_THROW(rr.steadyState(&opt), CoreException);
+}
+
+
+TEST_F(ModelAnalysisTests, RegenerateOddModel) {
+    //This model has both an independent and a dependent floating species, so
+    // the original version of regenerateModel got things wrong when transferring
+    // data from one to the other.  This checks to ensure this was fixed.
+    RoadRunner rr((modelAnalysisModelsDir / "floating_change_rate.xml").string());
+    rr.simulate();
+    double S1 = rr.getValue("init(S1)");
+    EXPECT_EQ(S1, 3);
+    S1 = rr.getValue("S1");
+    EXPECT_EQ(S1, 23);
+    rr.regenerateModel(true, false);
+    S1 = rr.getValue("init(S1)");
+    EXPECT_EQ(S1, 3);
+    S1 = rr.getValue("S1");
+    EXPECT_EQ(S1, 23);
+}
+
+
 TEST_F(ModelAnalysisTests, SimulateWithSameTimes) {
     RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     std::vector<double> times;
@@ -497,6 +534,11 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
             EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
         }
     }
+    for (int i = 0; i < rows; ++i) {
+      delete[] ues_expect[i];
+    }
+    delete[] ues_expect;
+    delete ues_expected;
    
     double** jac_expect = new double* [2]; // 2x2
     for (int i = 0; i < 2; ++i) {
@@ -523,6 +565,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_FALSE) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
@@ -571,6 +619,11 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
             EXPECT_NEAR(ues.Element(r, c), ues_expected->Element(r, c), 0.0001);
         }
     }
+    for (int i = 0; i < rows; ++i) {
+      delete[] ues_expect[i];
+    }
+    delete[] ues_expect;
+    delete ues_expected;
 
     double** jac_expect = new double* [2]; // 2x2
     for (int i = 0; i < 2; ++i) {
@@ -597,6 +650,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_JACOB_MODE_TRUE) {
     }
     // Put back default selected JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
@@ -642,6 +701,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqOne) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
@@ -687,6 +752,12 @@ TEST_F(ModelAnalysisTests, jacobian_multiComp_diffVols_CompsEqSame) {
     }
     // Put back default JACOBIAN_MODE:
     Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
+
+    for (int i = 0; i < 2; ++i) {
+      delete[] jac_expect[i];
+    }
+    delete[] jac_expect;
+    delete jac_expected;
 }
 
 TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStartGeneral) {
@@ -1113,6 +1184,10 @@ TEST_F(ModelAnalysisTests, ResetFloatingSpeciesRate) {
     rr.reset();
     S1 = rr.getValue("S1");
     EXPECT_EQ(S1, 10);
+
+    rr.setValue("init(S2)", 15);
+    EXPECT_EQ(rr.getValue("S2"), 15);
+
 }
 
 

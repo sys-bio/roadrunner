@@ -80,7 +80,7 @@ vector<string>::iterator StringList::end()
 
 string& StringList::operator[](const size_t& index)
 {
-    if(index > count() -1 )
+    if(index >= count() )
     {
         stringstream msg;
         msg<<"index ("<<index<<") out of bounds in StringList with count "<<count();
@@ -92,7 +92,7 @@ string& StringList::operator[](const size_t& index)
 
 const string& StringList::operator[](const size_t& index) const
 {
-    if(index > count() -1 )
+    if(index >= count() )
     {
         stringstream msg;
         msg<<"index ("<<index<<") out of bounds in StringList with count "<<count();

@@ -58,7 +58,7 @@ namespace rrllvm
         if (symbol.compare(SBML_TIME_SYMBOL) == 0)
         {
             Value* timeEP = mdbuilder.createGEP(Time);
-            Value* time = builder.CreateLoad(timeEP, SBML_TIME_SYMBOL);
+            Value* time = builder.CreateLoad(timeEP->getType()->getPointerElementType(), timeEP, SBML_TIME_SYMBOL);
             return cacheValue(symbol, args, time);
         }
 
@@ -152,7 +152,7 @@ namespace rrllvm
 
         if (modelDataSymbols.isNamedSpeciesReference(symbol))
         {
-            const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
+              const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
                 modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
             Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
@@ -188,10 +188,10 @@ namespace rrllvm
         }
 
 
-        std::string msg = "the symbol \'";
+        std::string msg = "The symbol \'";
         msg += symbol;
         msg += "\' is not physically stored in the ModelData structure, "
-            "it either does not exists or is defined by an assigment rule (hence it "
+            "it either does not exist or is defined by an assigment rule (hence it "
             "is not a terminal symbol)";
 
         throw_llvm_exception(msg);
@@ -313,7 +313,7 @@ namespace rrllvm
         std::string msg = "The symbol \'";
         msg += symbol;
         msg += "\' is not physically stored in the ModelData structure, "
-            "it either does not exists or is defined by an assigment rule (hence it "
+            "it either does not exist or is defined by an assigment rule (hence it "
             "is not a terminal symbol)";
 
         throw_llvm_exception(msg);

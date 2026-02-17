@@ -138,8 +138,8 @@ namespace nmfit
 
         if (mTheHost.rrHandle)
         {
-            rrc::RRHandle* rrchandle = static_cast<rrc::RRHandle*>(mTheHost.rrHandle);
-            delete rrchandle;
+          gHostInterface->freeRRInstance(mTheHost.rrHandle);
+          mTheHost.rrHandle = NULL;
         }
 
         mTheHost.rrHandle = gHostInterface->createRRInstance();

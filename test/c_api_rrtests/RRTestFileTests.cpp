@@ -304,8 +304,14 @@ public:
             }
         }
     }
+    void compareMatrices(const ls::DoubleMatrix& ref, const ls::DoubleMatrix& calc) {
+      if (ref.getColNames().empty() && ref.getRowNames().empty()) {
+        return compareMatricesIgnoreLabels(ref, calc);
+      }
+      return compareLabelledMatrices(ref, calc);
+    }
 
-    void compareMatrices(const ls::DoubleMatrix &ref, const ls::DoubleMatrix &calc) {
+    void compareMatricesIgnoreLabels(const ls::DoubleMatrix &ref, const ls::DoubleMatrix &calc) {
         //clog << "Reference Matrix:" << endl;
         //clog << ref << endl;
 
@@ -315,13 +321,119 @@ public:
         ASSERT_TRUE(calc.RSize() == ref.RSize());
         ASSERT_TRUE(calc.CSize() == ref.CSize());
 
+        bool failed = false;
         for (int i = 0; i < ref.RSize(); i++) {
             for (int j = 0; j < ref.CSize(); j++) {
                 if (abs(ref(i, j) - calc(i, j)) > abs((ref(i, j) + 1e-7) * 1e-4))
                     //clog <<  "check close failed zzxx\n";
+                    failed = true;
                     EXPECT_NEAR(ref(i, j), calc(i, j), abs((ref(i, j) + 1e-7) * 1e-4));
             }
         }
+        if (failed) {
+          cout << "Matrices failed to match:" << endl;
+          cout << "Reference Matrix:" << endl;
+          cout << ref << endl;
+
+          cout << "Calculated Matrix:" << endl;
+          cout << calc << endl;
+
+        }
+    }
+
+
+    void compareLabelledMatrices(const ls::DoubleMatrix& ref, const ls::DoubleMatrix& calc) {
+      //clog << "Reference Matrix:" << endl;
+      //clog << ref << endl;
+
+      //clog << "Calculated Matrix:" << endl;
+      //clog << calc << endl;
+
+      ASSERT_TRUE(calc.RSize() == ref.RSize());
+      ASSERT_TRUE(calc.CSize() == ref.CSize());
+
+      vector<string> refcols = ref.getColNames();
+      vector<string> calccols = calc.getColNames();
+      vector<string> refrows = ref.getRowNames();
+      vector<string> calcrows = calc.getRowNames();
+
+      if (refcols.empty()) {
+        refcols = calccols;
+      }
+      if (refrows.empty()) {
+        refrows = calcrows;
+      }
+
+      if (refcols == calccols && refrows == calcrows) {
+        return compareMatricesIgnoreLabels(ref, calc);
+      }
+      vector<size_t> cis;
+      for (size_t i = 0; i < calccols.size(); i++) {
+        if (refcols.empty()) {
+          cis.push_back(i);
+        }
+        else {
+          for (size_t j = 0; j < refcols.size(); j++) {
+            if (calccols[i] == refcols[j]) {
+              cis.push_back(j);
+              break;
+            }
+          }
+        }
+      }
+      if (cis.size() != calccols.size()) {
+        cout << "Column labels do not have the same names." << endl;
+        ASSERT_TRUE(false);
+      }
+
+
+
+      vector<size_t> ris;
+      if (refrows.empty()) {
+        if (calcrows == calccols) {
+          ris = cis;
+        }
+        else {
+          for (size_t i = 0; i < calcrows.size(); i++) {
+            ris.push_back(i);
+          }
+        }
+      }
+      else {
+        for (size_t i = 0; i < calcrows.size(); i++) {
+          for (size_t j = 0; j < refrows.size(); j++) {
+            if (calcrows[i] == refrows[j]) {
+              ris.push_back(j);
+              break;
+            }
+          }
+        }
+      }
+
+      if (ris.size() != calcrows.size()) {
+        cout << "Column labels do not have the same names." << endl;
+        ASSERT_TRUE(false);
+      }
+
+      bool failed = false;
+      for (int i = 0; i < ref.RSize(); i++) {
+        for (int j = 0; j < ref.CSize(); j++) {
+          if (abs(ref(i, j) - calc(ris[i], cis[j])) > abs((ref(i, j) + 1e-7) * 1e-4)) {
+            //clog <<  "check close failed zzxx\n";
+            failed = true;
+            EXPECT_NEAR(ref(i, j), calc(ris[i], cis[j]), abs((ref(i, j) + 1e-7) * 1e-4));
+          }
+        }
+      }
+      if (failed) {
+        cout << "Matrices failed to match:" << endl;
+        cout << "Reference Matrix:" << endl;
+        cout << ref << endl;
+
+        cout << "Calculated Matrix:" << endl;
+        cout << calc << endl;
+
+      }
     }
 
 
@@ -341,29 +453,6 @@ public:
         for (int i = 0; i < ref.RSize(); i++) {
             EXPECT_NEAR(ref(i, 0), std::real(calc[i]), abs((ref(i, 0) + 1e-7) * 1e-4));
             EXPECT_NEAR(ref(i, 1), std::imag(calc[i]), abs((ref(i, 1) + 1e-7) * 1e-4));
-        }
-    }
-
-    void compareMatrices(const ls::DoubleMatrix &ref, RRDoubleMatrixPtr calc) {
-        ASSERT_TRUE(calc);
-
-        //clog<<"Reference Matrix:\n";
-        //clog<<ref<<endl;
-
-        //clog<<"Calculated Matrix:";
-        //clog<<matrixToString(calc);
-
-        ASSERT_TRUE(calc->RSize == ref.RSize());
-        ASSERT_TRUE(calc->CSize == ref.CSize());
-
-        for (int i = 0; i < ref.RSize(); i++) {
-            for (int j = 0; j < ref.CSize(); j++) {
-                double val;
-                if (!getMatrixElement(calc, i, j, &val)) {
-                    EXPECT_TRUE(false);
-                }
-                EXPECT_NEAR(ref(i, j), val, abs((val + 1e-7) * 1e-4));
-            }
         }
     }
 
@@ -769,10 +858,9 @@ public:
         aSection->mIsUsed = true;
 
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
-
-        RRDoubleMatrixPtr matrix = getLinkMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getLinkMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_UNSCALED_ELASTICITY_MATRIX(IniSection *aSection) {
@@ -839,9 +927,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getUnscaledConcentrationControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getUnscaledConcentrationControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_SCALED_CONCENTRATION_CONTROL_MATRIX(IniSection *aSection) {
@@ -854,9 +942,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getScaledConcentrationControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getScaledConcentrationControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_UNSCALED_FLUX_CONTROL_MATRIX(IniSection *aSection) {
@@ -866,9 +954,9 @@ public:
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
         reset(gRR);
-        RRDoubleMatrixPtr matrix = getUnscaledFluxControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getUnscaledFluxControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_SCALED_FLUX_CONTROL_MATRIX(IniSection *aSection) {
@@ -879,9 +967,9 @@ public:
 
         reset(gRR);
 
-        RRDoubleMatrixPtr matrix = getScaledFluxControlCoefficientMatrix(gRR);
+        RoadRunner* rri = castToRoadRunner(gRR);
+        ls::DoubleMatrix matrix = rri->getScaledFluxControlCoefficientMatrix();
         compareMatrices(ref, matrix);
-        freeMatrix(matrix);
     }
 
     void check_GET_CONTROL_COEFFICIENT(IniSection *aSection) {
@@ -988,13 +1076,17 @@ public:
         double d_value_r;
 
         setValue(gRR, d, d_value);
-        setValue(gRR, d_init, d_value);
-
+        
         resetToOrigin(gRR);
-
         getValue(gRR, d, &d_value_r);
 
         EXPECT_NE(d_value, d_value_r);
+
+        setValue(gRR, d_init, d_value);
+        resetToOrigin(gRR);
+        getValue(gRR, d, &d_value_r);
+
+        EXPECT_NEAR(d_value, d_value_r, 1e-6);
     }
 
     void check_CHECK_RK4_OUTPUT(IniSection *aSection) {

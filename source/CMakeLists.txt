@@ -178,6 +178,17 @@ set(
         conservation/ConservedMoietyPlugin.h
         conservation/ConservedMoietyConverter.h
 
+        parallel-hashmap/parallel_hashmap/btree.h
+        parallel-hashmap/parallel_hashmap/meminfo.h
+        parallel-hashmap/parallel_hashmap/phmap.h
+        parallel-hashmap/parallel_hashmap/phmap_base.h
+        parallel-hashmap/parallel_hashmap/phmap_bits.h
+        parallel-hashmap/parallel_hashmap/phmap_config.h
+        parallel-hashmap/parallel_hashmap/phmap_dump.h
+        parallel-hashmap/parallel_hashmap/phmap_fwd_decl.h
+        parallel-hashmap/parallel_hashmap/phmap_utils.h
+
+
         rrRoadRunnerMap.h
 )
 install(FILES ${rrCoreHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr)
@@ -410,7 +421,7 @@ set(INCLUDE_DIRS "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/thread-pool>"
         "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
         "$<BUILD_INTERFACE:${DEPENDENCY_INCLUDE_DIR}>"
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/parallel-hashmap-1.33/parallel_hashmap>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/parallel-hashmap/parallel_hashmap>"
         # though roadrunner does not link libxml2 directly, it does
         # so in the plugins. This next item enables targets that
         # link to roadrunner-static to use
@@ -458,12 +469,12 @@ target_link_libraries(
         #These libraries libraries seem to be already linked in a different way.
         #libz2
         #LibXml2::LibXml2
-        zlib::zlibstatic
+        ZLIB::ZLIBSTATIC
         nleq2::nleq2-static
         nleq1::nleq1-static
         clapack::lapack clapack::blas clapack::f2c
 
-        SUNDIALS::generic_static
+        SUNDIALS::core_static
         SUNDIALS::nvecserial_static
         SUNDIALS::nvecmanyvector_static
         SUNDIALS::sunmatrixband_static
@@ -479,11 +490,9 @@ target_link_libraries(
         SUNDIALS::sunnonlinsolnewton_static
         SUNDIALS::sunnonlinsolfixedpoint_static
         # cvodes is a superset of cvode.
-        # linking the both can cause a duplicate symbol problem
         # SUNDIALS::cvode_static
         SUNDIALS::cvodes_static
         SUNDIALS::kinsol_static
-
 
         Poco::Foundation
         Poco::Net

@@ -63,6 +63,6 @@ void LLVMGeneratedFunctionTests::checkInitialEvaluationSpecies(int options, int 
         std::cout << S1Amt << std::endl;
         std::cout << S1Conc << std::endl;
         ASSERT_EQ(expectedConc, S1Amt);
-
+        LLVMModelData_free(modelData);
     }
 

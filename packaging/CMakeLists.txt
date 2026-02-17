@@ -7,6 +7,7 @@ set(
         roadrunner
         roadrunner-static
         roadrunner_c_api
+        roadrunner_c_api-static
 )
 
 # We add some variables before including CPath

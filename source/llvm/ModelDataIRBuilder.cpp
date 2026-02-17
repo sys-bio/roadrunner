@@ -130,8 +130,8 @@ llvm::Value* ModelDataIRBuilder::createGEP(ModelDataFields field,
     {
         Twine fieldName = LLVMModelDataSymbols::getFieldName(field);
         Value *fieldGEP = createGEP(field);
-        Value *load = builder.CreateLoad(fieldGEP, fieldName + "_load");
-        return builder.CreateConstGEP1_32(load, index, name + "_gep");
+        Value *load = builder.CreateLoad(fieldGEP->getType()->getPointerElementType(), fieldGEP, fieldName + "_load");
+        return builder.CreateConstGEP1_32(load->getType()->getScalarType()->getPointerElementType(), load, index, name + "_gep");
     }
     else
     {
@@ -145,7 +145,7 @@ llvm::Value* ModelDataIRBuilder::createGEP(ModelDataFields field,
             ConstantInt::get(Type::getInt32Ty(context), index),
         };
 
-        return builder.CreateInBoundsGEP(modelData, idxs, name + "_gep");
+        return builder.CreateInBoundsGEP(modelData->getType()->getScalarType()->getPointerElementType(), modelData, idxs, name + "_gep");
     }
 }
 
@@ -279,7 +279,7 @@ llvm::Value* ModelDataIRBuilder::createFloatSpeciesAmtLoad(
         const std::string& id, const llvm::Twine& name)
 {
     Value *gep = createFloatSpeciesAmtGEP(id, name + "_gep");
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createFloatSpeciesAmtStore(
@@ -303,7 +303,7 @@ llvm::Value* ModelDataIRBuilder::createFloatSpeciesAmtRateLoad(
         const std::string& id, const llvm::Twine& name)
 {
     Value *gep = createFloatSpeciesAmtRateGEP(id, name + "_gep");
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createFloatSpeciesAmtRateStore(
@@ -341,7 +341,7 @@ llvm::CallInst* ModelDataIRBuilder::createCSRMatrixGetNZ(IRBuilder<> &builder,
 llvm::Value* ModelDataIRBuilder::createLoad(ModelDataFields field, unsigned index, const llvm::Twine& name)
 {
     Value *gep = this->createGEP(field, index, name);
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createRateRuleValueGEP(const std::string& id,
@@ -359,7 +359,7 @@ llvm::Value* ModelDataIRBuilder::createRateRuleValueLoad(const std::string& id,
 {
     Value *gep = createRateRuleValueGEP(id);
     Twine loadName = (name.isTriviallyEmpty() ? id : name) + "_load";
-    return builder.CreateLoad(gep, loadName);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, loadName);
 }
 
 llvm::Value* ModelDataIRBuilder::createRateRuleValueStore(const std::string& id,
@@ -384,7 +384,7 @@ llvm::Value* ModelDataIRBuilder::createRateRuleRateLoad(const std::string& id,
 {
     Value *gep = createRateRuleRateGEP(id);
     Twine loadName = (name.isTriviallyEmpty() ? id : name) + "_load";
-    return builder.CreateLoad(gep, loadName);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, loadName);
 }
 
 llvm::Value* ModelDataIRBuilder::createRateRuleRateStore(const std::string& id,
@@ -405,7 +405,7 @@ llvm::Value* ModelDataIRBuilder::createCompLoad(const std::string& id,
         const llvm::Twine& name)
 {
     Value *gep = createCompGEP(id);
-    return builder.CreateLoad(gep, name.isTriviallyEmpty() ? id : name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name.isTriviallyEmpty() ? id : name);
 }
 
 llvm::Value* ModelDataIRBuilder::createCompStore(const std::string& id,
@@ -427,7 +427,7 @@ llvm::Value* ModelDataIRBuilder::createBoundSpeciesAmtLoad(
         const std::string& id, const llvm::Twine& name)
 {
     Value *gep = createBoundSpeciesAmtGEP(id, name + "_gep");
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createBoundSpeciesAmtStore(
@@ -487,14 +487,14 @@ llvm::Value* ModelDataIRBuilder::createInitFloatSpeciesAmtLoad(
         const std::string& id, const llvm::Twine& name)
 {
     Value *gep = createInitFloatSpeciesAmtGEP(id);
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createInitBoundarySpeciesAmtLoad(
     const std::string& id, const llvm::Twine& name)
 {
     Value* gep = createInitBoundarySpeciesAmtGEP(id);
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createInitFloatSpeciesAmtStore(
@@ -525,7 +525,7 @@ llvm::Value* ModelDataIRBuilder::createInitCompLoad(const std::string& id,
         const llvm::Twine& name)
 {
     Value *gep = createInitCompGEP(id, name);
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createInitCompStore(const std::string& id,
@@ -549,7 +549,7 @@ llvm::Value* ModelDataIRBuilder::createInitGlobalParamLoad(
         const std::string& id, const llvm::Twine& name)
 {
     Value *gep = createInitGlobalParamGEP(id, name);
-    return builder.CreateLoad(gep, name);
+    return builder.CreateLoad(gep->getType()->getPointerElementType(), gep, name);
 }
 
 llvm::Value* ModelDataIRBuilder::createInitGlobalParamStore(
@@ -578,7 +578,7 @@ llvm::Value* ModelDataIRBuilder::createStoichiometryStore(uint row, uint col,
 {
     LLVMContext &context = builder.getContext();
     Value *stoichEP = createGEP(Stoichiometry);
-    Value *stoich = builder.CreateLoad(stoichEP, "stoichiometry");
+    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
     Value *rowVal = ConstantInt::get(Type::getInt32Ty(context), row, true);
     Value *colVal = ConstantInt::get(Type::getInt32Ty(context), col, true);
     return createCSRMatrixSetNZ(builder, stoich, rowVal, colVal, value, name);
@@ -589,7 +589,7 @@ llvm::Value* ModelDataIRBuilder::createStoichiometryLoad(uint row, uint col,
 {
     LLVMContext &context = builder.getContext();
     Value *stoichEP = createGEP(Stoichiometry);
-    Value *stoich = builder.CreateLoad(stoichEP, "stoichiometry");
+    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
     Value *rowVal = ConstantInt::get(Type::getInt32Ty(context), row, true);
     Value *colVal = ConstantInt::get(Type::getInt32Ty(context), col, true);
     return createCSRMatrixGetNZ(builder, stoich, rowVal, colVal, name);
@@ -598,7 +598,7 @@ llvm::Value* ModelDataIRBuilder::createStoichiometryLoad(uint row, uint col,
 llvm::Value *ModelDataIRBuilder::createRandomLoad()
 {
     Value *randomEP = createGEP(RandomPtr);
-    Value *randomPtr = builder.CreateLoad(randomEP, "randomPtr");
+    Value *randomPtr = builder.CreateLoad(randomEP->getType()->getPointerElementType(), randomEP, "randomPtr");
     return randomPtr;
 }
 
@@ -812,7 +812,7 @@ void LLVMModelDataIRBuilderTesting::createAccessors(Module *module)
 
         Value *gep = mdbuilder.createGEP(Size);
 
-        Value *getRet = builder.CreateLoad(gep);
+        Value *getRet = builder.CreateLoad(gep->getType()->getPointerElementType(), gep);
 
         builder.CreateRet(getRet);
 
@@ -875,7 +875,7 @@ std::pair<Function*, Function*> LLVMModelDataIRBuilderTesting::createFloatingSpe
 
         //Value *getEP = mdbuilder.createFloatSpeciesConcGEP(id);
 
-        //Value *getRet = builder.CreateLoad(getEP);
+        //Value *getRet = builder.CreateLoad(getEP->getType()->getPointerElementType(), getEP);
 
         //builder.CreateRet(getRet);
 

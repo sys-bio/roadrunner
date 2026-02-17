@@ -47,10 +47,10 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
     ASTNodeCodeGen astCodeGen(builder, resolver, modelGenContext, modelData);
     ASTNodeFactory nodes;
 
-    // iterate through all of the reaction, and generate code based on thier
+    // iterate through all of the reaction, and generate code based on their
     // kinetic rules.
 
-    model->getListOfRules();
+    //model->getListOfRules();
     const ListOfRules *rules = model->getListOfRules();
 
     for (int i = 0; i < rules->size(); ++i)

@@ -239,7 +239,7 @@
 //%include "Matrix3D.h"
 %typemap(out) rr::Matrix3D<double, double> {
     // marker for a rr::Matrix3D<double, double> typemap
-    Matrix3DToNumpy matrix3DtoNumpy($1);
+    Matrix3DToNumpy matrix3DtoNumpy(&$1);
     PyObject* npArray3D = matrix3DtoNumpy.convertData();
     PyObject* idx = matrix3DtoNumpy.convertIndex();
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
@@ -265,7 +265,7 @@
 
     double *data = (double*)PyArray_DATA((PyArrayObject*)array);
 
-    std::vector<double>& vec = $1;
+    const std::vector<double>& vec = $1;
 
     memcpy(data, &vec[0], sizeof(double)*len);
 
@@ -279,7 +279,7 @@
 
     typedef std::complex<double> cpx;
 
-    std::vector<cpx>& vec = $1;
+    const std::vector<cpx>& vec = $1;
 
     bool iscpx = false;
 
@@ -287,7 +287,7 @@
     npy_intp dims[1] = {static_cast<npy_intp>(len)};
 
     PyObject *array = PyArray_SimpleNew(1, dims, NPY_COMPLEX128);
-    VERIFY_PYARRAY(array);
+    //VERIFY_PYARRAY(array);
 
     if (!array) {
         // TODO error handling.
@@ -696,6 +696,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 
 %ignore rr::RoadRunner::RoadRunner(const std::string&, const std::string&, const std::string&);
+%ignore rr::RoadRunner::operator =;
 /**
  * We do not need the mutexes in python
  */
@@ -884,10 +885,13 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%rename (keys) rr::Dictionary::getKeys;
 
 // do not create these, pure interface.
+%ignore rr::BasicDictionary(std::initializer_list<item>);
 %nodefaultctor rr::Dictionary;
 %nodefaultdtor Dictionary;
 %nodefaultctor rr::BasicDictionary;
 %nodefaultdtor DictionaryImpl;
+
+%ignore  rr::LoadSBMLOptions(const Dictionary*);
 
 
 // ignore SimulateOptions key access methods,
@@ -1070,6 +1074,20 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 
 //%ignore rr::DictionaryImpl;
+%ignore rr::BasicDictionary(std::initializer_list<item>);
+
+//Ignore elements found by latest SWIG
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
+
+
+//Later versions of SWIG found these functions that don't need to be wrapped:
+%ignore rr::FFSDyDtFcn;
+%ignore rr::FFSRootFcn;
+%ignore rr::cvodeDyDtFcn;
+%ignore rr::cvodeEventAndPiecewiseRootFcn;
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.

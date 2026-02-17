@@ -261,9 +261,7 @@ namespace rrllvm {
         }
         for (size_t r = 0; r < model->getNumReactions(); r++) {
             const libsbml::Reaction* rxn = model->getReaction(r);
-            if (rxn->isSetKineticLaw()) {
-                addPiecewiseTriggersFrom(rxn->getKineticLaw()->getMath());
-            }
+            addPiecewiseTriggersFrom(rxn->getKineticLaw());
         }
         //Event triggers themselves might have piecewise arguments in them:
         for (size_t e = 0; e < model->getNumEvents(); e++) {
@@ -271,6 +269,50 @@ namespace rrllvm {
             if (event->isSetTrigger()) {
                 addPiecewiseTriggersFrom(event->getTrigger()->getMath());
             }
+        }
+    }
+
+    void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl)
+    {
+        if (kl == NULL || kl->getMath() == NULL) {
+            return;
+        }
+        std::map<std::string, double> values;
+        for (unsigned int p = 0; p < kl->getNumParameters(); p++) {
+            const libsbml::Parameter* param = kl->getParameter(p);
+            if (param) {
+                values.insert(make_pair(param->getId(), param->getValue()));
+            }
+        }
+        for (unsigned int p = 0; p < kl->getNumLocalParameters(); p++) {
+            const libsbml::LocalParameter* param = kl->getLocalParameter(p);
+            if (param) {
+                values.insert(make_pair(param->getId(), param->getValue()));
+            }
+        }
+        if (values.size()) {
+            ASTNode* astn = kl->getMath()->deepCopy();
+            replaceLocalParametersWithConstants(astn, values);
+            delete astn;
+        }
+        else {
+            addPiecewiseTriggersFrom(kl->getMath());
+        }
+    }
+
+    void ModelGeneratorContext::replaceLocalParametersWithConstants(libsbml::ASTNode* node, std::map<std::string, double>& values)
+    {
+        if (node->getType() == AST_NAME) {
+            auto found = values.find(node->getName());
+            if (found != values.end()) {
+                node->setType(AST_REAL);
+                node->setName(NULL);
+                node->setValue(found->second);
+            }
+            return;
+        }
+        for (unsigned int ch = 0; ch < node->getNumChildren(); ch++) {
+            replaceLocalParametersWithConstants(node->getChild(ch), values);
         }
     }
 
@@ -360,6 +402,7 @@ namespace rrllvm {
         delete ownedDoc;
         ownedDoc = 0;
         clearPiecewiseTriggers();
+        delete symbols;
     }
 
     ModelGeneratorContext::~ModelGeneratorContext() {

@@ -573,17 +573,6 @@ C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, co
 C_DECL_SPEC bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount);
 
 /*!
- \brief Set initial amount for an existing species, without regenerating it
-		The last modification must regenerate for the modifications to take effect
- \param[in] handle Handle to a RoadRunner instance
- \param[in] sid ID of the species
- \param[in] initAmount Initial amount to be set
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount);
-
-/*!
  \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sid ID of the species
@@ -592,18 +581,6 @@ C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* s
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration);
-
-/*!
- \brief Set initial concentration for an existing species, without regenerating it
-		The last modification must regenerate for the modifications to take effect
- \param[in] handle Handle to a RoadRunner instance
- \param[in] sid ID of the species
- \param[in] initConcentration Initial concentration to be set
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration);
-
 
 /*!
  \brief Set the constant attribute for an existing species/ parameter/ compartment.
@@ -2089,6 +2066,17 @@ C_DECL_SPEC bool rrcCallConv setValue(RRHandle handle, const char* symbolId, con
  \ingroup floating
 */
 C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle handle);
+
+/*!
+ \brief Retrieve in a vector the values for all varibles controlled by rate rules
+
+ Example: \code RRVectorPtr values = getRateRuleValues (void); \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns the vector of rate rule values or null if an error occurred
+ \ingroup floating
+*/
+C_DECL_SPEC RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle);
 
 /*!
  \brief Retrieve in a vector the amounts for all the floating species

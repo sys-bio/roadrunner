@@ -44,6 +44,15 @@ namespace rr {
 
         void resetSettings() override;
 
+        /**
+         * @brief returns the pointer to the ExecutableModel
+         */
+        virtual ExecutableModel* getModel() const override;
+
+        virtual bool hasPresimSetup() override;
+        virtual bool hasApproxSetup() override;
+
+
     protected:
         SteadyStateSolver *solver_;
 

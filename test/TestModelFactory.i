@@ -35,11 +35,6 @@ rr::pyutil_init(m);
 %template() std::vector<int>;
 %template() std::vector<std::string>;
 
-%apply std::vector<std::string> INOUT { // note the INOUT which is important for pass by reference
-    std::vector<std::string>&,
-    const std::vector<std::string>&
-}
-
 // make a Python Tuple from a C++ DoublePair
 %typemap(out) std::pair<double, double>*
 {
@@ -190,7 +185,7 @@ rr::pyutil_init(m);
  */
 %typemap(out) rr::Matrix3D<double, double> {
     // marker for a rr::Matrix3D<double, double> typemap
-    Matrix3DToNumpy matrix3DtoNumpy($1);
+    Matrix3DToNumpy matrix3DtoNumpy(&$1);
     PyObject* npArray3D = matrix3DtoNumpy.convertData();
     PyObject* idx = matrix3DtoNumpy.convertIndex();
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
@@ -279,7 +274,7 @@ rr::pyutil_init(m);
 %typemap(out) std::vector<ls::Complex> {
     typedef std::complex<double> cpx;
 
-    std::vector<cpx>& vec = $1;
+    const std::vector<cpx>& vec = $1;
 
     bool iscpx = false;
 

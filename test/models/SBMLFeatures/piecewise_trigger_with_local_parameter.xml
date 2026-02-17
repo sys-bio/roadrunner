@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v3.0.0 with libSBML version 5.20.4. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="shenorr02" id="shenorr02" name="Simplified from biomodel 316">
+    <listOfCompartments>
+      <compartment id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X" compartment="cell" initialConcentration="0" boundaryCondition="true"/>
+      <species id="Y" compartment="cell" initialConcentration="0"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r1" fast="false">
+        <listOfProducts>
+          <speciesReference species="Y"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="X"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <piecewise>
+              <piece>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <geq/>
+                  <ci> X </ci>
+                  <ci> Ty </ci>
+                </apply>
+              </piece>
+              <otherwise>
+                <cn type="integer"> 0 </cn>
+              </otherwise>
+            </piecewise>
+          </math>
+          <listOfParameters>
+            <parameter id="Ty" value="0.5"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

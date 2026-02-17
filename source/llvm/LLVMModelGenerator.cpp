@@ -282,7 +282,7 @@ namespace rrllvm {
     }
 
     ExecutableModel*
-        LLVMModelGenerator::regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options) 
+        LLVMModelGenerator::regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
     {
         SharedModelResourcesPtr modelResources = std::make_shared<ModelResources>();
 
@@ -305,9 +305,8 @@ namespace rrllvm {
         LLVMExecutableModel* newModel = new LLVMExecutableModel(modelResources, modelData);
 
         if (oldModel) {
-            // the stored SBML document will not keep updated, so we need to
-            // copy the old values (e.g, initial values, current values) to new model
-            // so that we can start from where we paused
+            // the stored SBML document only has initial values, not current values,
+            // so copy all current values to the new model.
 
             std::vector<std::string> newSymbols = newModel->getRateRuleSymbols();
 
@@ -315,45 +314,15 @@ namespace rrllvm {
                 std::string id = oldModel->getFloatingSpeciesId(i);
                 int index = newModel->getFloatingSpeciesIndex(id);
 
-                if (index >= 0 && index < newModel->modelData->numInitFloatingSpecies) {
+                if (index >= 0) {
                     // new model has this species
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        if (!newModel->symbols->hasInitialAssignmentRule(id)) {
-                            double initValue = 0;
-                            oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
-                            newModel->modelData->initFloatingSpeciesAmountsAlias[index] = initValue;
-                            //newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
-                        }
-                    }
-                }
-            }
-
-
-            for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++) {
-                std::string id = oldModel->getFloatingSpeciesId(i);
-                int index = newModel->getFloatingSpeciesIndex(id);
-
-                if (index >= 0 && index < newModel->modelData->numIndFloatingSpecies) {
-                    // new model has this species
-
-                    // TODO: should we change the dirty flag when we call setters?
                     double value = 0;
                     oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        newModel->modelData->floatingSpeciesAmountsAlias[index] = value;
-                        //newModel->setFloatingSpeciesAmounts(1, &index, &value);
+                    try {
+                        newModel->setValue(id, value);
                     }
-                    else if (newModel->symbols->hasRateRule(id)) {
-                        // copy to rate rule value data block
-                        std::vector<std::string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
-                        if (it != newSymbols.end()) {
-                            // found it
-                            index = std::distance(newSymbols.begin(), it);
-                            newModel->modelData->rateRuleValuesAlias[index] = value;
-                        }
-
+                    catch (const exception&) {
+                        //Don't worry about it.
                     }
                 }
             }
@@ -363,33 +332,15 @@ namespace rrllvm {
                 std::string id = oldModel->getBoundarySpeciesId(i);
                 int index = newModel->getBoundarySpeciesIndex(id);
 
-                // TODO: set concentration or amount?
-
-                if (index >= 0 && index < newModel->modelData->numIndBoundarySpecies) {
+                if (index >= 0) {
                     // new model has this species
-
                     double value = 0;
                     oldModel->getBoundarySpeciesAmounts(1, &i, &value);
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        newModel->modelData->boundarySpeciesAmountsAlias[index] = value;
-                        //newModel->setBoundarySpeciesAmounts(1, &index, &value);
+                    try {
+                        newModel->setValue(id, value);
                     }
-                    else if (newModel->symbols->hasRateRule(id)) {
-                        // copy to rate rule value data block
-                        std::vector<std::string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
-                        if (it != newSymbols.end()) {
-                            // found it
-                            index = std::distance(newSymbols.begin(), it);
-                            newModel->modelData->rateRuleValuesAlias[index] = value;
-                        }
-                    }
-                    else {
-                        if (!newModel->symbols->hasInitialAssignmentRule(id)) {
-                            double initValue = 0;
-                            oldModel->getBoundarySpeciesInitAmounts(1, &i, &initValue);
-                            newModel->modelData->initBoundarySpeciesAmountsAlias[index] = initValue;
-                        }
+                    catch (const exception&) {
+                        //Don't worry about it.
                     }
                 }
 
@@ -400,48 +351,16 @@ namespace rrllvm {
                 std::string id = oldModel->getCompartmentId(i);
                 int index = newModel->getCompartmentIndex(id);
 
-                if (index >= 0 && index < newModel->modelData->numInitCompartments) {
-                    // new model has this compartment
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        if (!newModel->symbols->hasInitialAssignmentRule(id)) {
-                            double initValue = 0;
-                            oldModel->getCompartmentInitVolumes(1, &i, &initValue);
-                            newModel->modelData->initCompartmentVolumesAlias[index] = initValue;
-                            //newModel->setCompartmentInitVolumes(1, &index, &initValue);
-                        }
-
-                    }
-
-                }
-
-            }
-
-
-            for (int i = 0; i < oldModel->getNumCompartments(); i++) {
-                std::string id = oldModel->getCompartmentId(i);
-                int index = newModel->getCompartmentIndex(id);
-
-                if (index >= 0 && index < newModel->modelData->numIndCompartments) {
+                if (index >= 0) {
                     // new model has this compartment
                     double value = 0;
                     oldModel->getCompartmentVolumes(1, &i, &value);
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        newModel->modelData->compartmentVolumesAlias[index] = value;
-                        //newModel->setCompartmentVolumes(1, &index, &value);
+                    try {
+                        newModel->setValue(id, value);
                     }
-                    else if (newModel->symbols->hasRateRule(id)) {
-                        // copy to rate rule value data block
-                        std::vector<std::string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
-                        if (it != newSymbols.end()) {
-                            // found it
-                            index = std::distance(newSymbols.begin(), it);
-                            newModel->modelData->rateRuleValuesAlias[index] = value;
-                        }
-
+                    catch (const exception&) {
+                        //Don't worry about it.
                     }
-
                 }
 
             }
@@ -452,41 +371,13 @@ namespace rrllvm {
 
                 if (index >= 0 && index < newModel->modelData->numInitGlobalParameters) {
                     // new model has this parameter
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        if (!newModel->symbols->hasInitialAssignmentRule(id)) {
-                            double initValue = 0;
-                            oldModel->getGlobalParameterInitValues(1, &i, &initValue);
-                            newModel->modelData->initGlobalParametersAlias[index] = initValue;
-                            //newModel->setGlobalParameterInitValues(1, &index, &initValue);
-                        }
-                    }
-                }
-            }
-
-
-            for (int i = 0; i < oldModel->getNumGlobalParameters(); i++) {
-                std::string id = oldModel->getGlobalParameterId(i);
-                int index = newModel->getGlobalParameterIndex(id);
-
-                if (index >= 0 && index < newModel->modelData->numIndGlobalParameters) {
-                    // new model has this parameter
-
                     double value = 0;
                     oldModel->getGlobalParameterValues(1, &i, &value);
-
-                    if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id)) {
-                        newModel->modelData->globalParametersAlias[index] = value;
-                        //newModel->setGlobalParameterValues(1, &index, &value);
+                    try {
+                        newModel->setValue(id, value);
                     }
-                    else if (newModel->symbols->hasRateRule(id)) {
-                        // copy to rate rule value data block
-                        std::vector<std::string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
-                        if (it != newSymbols.end()) {
-                            // found it
-                            index = std::distance(newSymbols.begin(), it);
-                            newModel->modelData->rateRuleValuesAlias[index] = value;
-                        }
+                    catch (const exception&) {
+                        //Don't worry about it.
                     }
                 }
             }

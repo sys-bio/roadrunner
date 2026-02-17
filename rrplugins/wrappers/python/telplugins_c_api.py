@@ -3,7 +3,6 @@
 import os
 import sys
 import numpy as np
-import tellurium as te
 import tempfile
 import ctypes
 from ctypes import CDLL, POINTER, CFUNCTYPE, cast, byref
@@ -1281,6 +1280,7 @@ def plotTelluriumData(data, colHeaders):
 
 def plotBifurcationData(data, colHeaders, bfPoints, bfLabels, legend=True, cmap=None,
                         xlabel=None, ylabel=None, selections=None):
+    import tellurium as te
     nrCols = data.shape[1]
     nrRows = data.shape[0]
     from tellurium.plotting import plot_text
@@ -1324,9 +1324,9 @@ def plotBifurcationData(data, colHeaders, bfPoints, bfLabels, legend=True, cmap=
 
     previousLbl = ''
     cm_i = 0
-    plotargs = {'xtitle': xlbl}
+    plotargs = {'xlabel': xlbl}
     if ylabel != None:
-        plotargs['ytitle'] = ylabel
+        plotargs['ylabel'] = ylabel
     for serie in range(nrOfSeries):
         if selections is not None and not colHeaders[serie + 1] in selections:
             continue

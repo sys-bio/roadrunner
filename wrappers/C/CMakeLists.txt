@@ -1,20 +1,22 @@
-include(GNUInstallDirs)
+ include(GNUInstallDirs)
 set(target roadrunner_c_api)
 
 set(
         HEADERS
-        rrcStringList.h
-        rrArrayList.h
-        rrArrayListItem.h
-        rrArrayListItemBase.h
-        rrc_api.h
-        rrc_logging_api.h
-        rrc_nom_api.h
-        rrc_libstruct_api.h
+        rrcStringList.h 
+        rrArrayList.h 
+        rrArrayListItem.h 
+        rrArrayListItemBase.h 
+        rrc_api.h 
+        rrc_cpp_support.h 
+        rrc_exporter.h 
+        rrc_libstruct_api.h 
+        rrc_logging_api.h 
+        rrc_macros.h 
+        rrc_nom_api.h 
+        rrc_pch.h 
+        rrc_types.h 
         rrc_utilities.h
-        rrc_cpp_support.h
-		rrc_exporter.h
-		rrc_types.h
 )
 
 set(
@@ -33,6 +35,16 @@ set(
 
 #The C-api is built as a shared library..
 add_library(${target} SHARED ${HEADERS} ${SOURCES})
+if(BUILD_PYTHON AND BUILD_RR_PLUGINS)
+    add_custom_command(
+        TARGET ${target} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${RR_PLUGINS_PYLIB_BUILD_PREFIX}
+        COMMAND ${CMAKE_COMMAND} -E copy
+        "$<TARGET_FILE:${target}>"
+        "${RR_PLUGINS_PYLIB_BUILD_PREFIX}"
+        COMMENT "Copying library to build directory for testing"
+    )
+endif() #BUILD_PYTHON
 
 target_include_directories(${target} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>" # for #include "C/rrc_api.h"
@@ -88,4 +100,24 @@ target_link_libraries(${target}-static PUBLIC roadrunner-static)
 add_dependencies(${target}-static roadrunner-static)
 
 target_compile_definitions(${target}-static PRIVATE EXPORT_RRC STATIC_RR)
+
+install(
+        TARGETS ${target}-static
+        EXPORT ${target}-static
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT ${target}-static
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr" COMPONENT ${target}-static
+)
+install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr")
+
+# install export info
+install(
+        EXPORT ${target}-static
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
+        NAMESPACE ${target}-static::
+        FILE ${target}-static-config.cmake
+        COMPONENT ${target}-static
+        EXPORT_LINK_INTERFACE_LIBRARIES
+)
 
