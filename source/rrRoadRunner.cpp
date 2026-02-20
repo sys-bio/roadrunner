@@ -4719,7 +4719,8 @@ namespace rr {
     void RoadRunner::setValue(const std::string &sId, double dValue) {
         check_model();
 
-        SelectionRecord sel(sId);
+        //Run 'createSelection' so it throws if it's an invalid ID right away.
+        SelectionRecord sel = createSelection(sId);
 
         if (sel.selectionType & SelectionRecord::INITIAL && sel.p2 == "") {
             if (sel.selectionType & SelectionRecord::CONCENTRATION) {
@@ -4839,7 +4840,7 @@ namespace rr {
                     break;
                 } else {
                     std::string msg = "No sbml element exists for concentration selection '" + str + "'";
-                    rrLog(Logger::LOG_ERROR) << msg;
+                    //rrLog(Logger::LOG_ERROR) << msg;
                     throw Exception(msg);
                     break;
                 }
@@ -4956,9 +4957,10 @@ namespace rr {
                     break;
                 }
             default:
-                rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
-                                         << sel.to_repr();
-                break;
+                //rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
+                //                         << sel.to_repr();
+                throw Exception("Invalid selection '" + str + "' for selecting an element of this model.");
+              break;
         }
 
         return sel;

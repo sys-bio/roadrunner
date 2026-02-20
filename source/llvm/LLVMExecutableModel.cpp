@@ -1485,8 +1485,8 @@ double LLVMExecutableModel::getValue(const std::string& id)
         }
         break;
     default:
-        rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
-        << sel.to_repr();
+        //rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
+        //<< sel.to_repr();
         throw LLVMException("Invalid selection '" + id + "' for setting value");
         break;
     }
@@ -1631,11 +1631,16 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
             break;
         case SelectionRecord::STOICHIOMETRY:
             sel.index = getStoichiometryIndex(sel.p1, sel.p2);
+            if (sel.index == -1) {
+              throw LLVMException("Invalid id '" + str + "': could not find a species with the ID '" + sel.p1 + "', and/or a reaction with the ID '" + sel.p2 + "'");
+              break;
+            }
+
             break;
 
         default:
-            rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
-                << sel.to_repr();
+            //rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
+            //    << sel.to_repr();
             throw LLVMException("Invalid selection '" + str + "' for setting value");
             break;
         }
