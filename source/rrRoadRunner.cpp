@@ -4840,7 +4840,6 @@ namespace rr {
                     break;
                 } else {
                     std::string msg = "No sbml element exists for concentration selection '" + str + "'";
-                    //rrLog(Logger::LOG_ERROR) << msg;
                     throw Exception(msg);
                     break;
                 }
