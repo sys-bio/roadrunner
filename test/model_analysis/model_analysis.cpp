@@ -25,6 +25,8 @@ public:
 TEST_F(ModelAnalysisTests, issue1306_named_stoich_steadyState) {
   rr::RoadRunner rr((modelAnalysisModelsDir / "named_stoic_in_kinetic_law.xml").string());
   rr.steadyState();// , CoreException);
+  rr.setValue("stoich(A, _J0)", 3);
+  rr.setValue("n", 3);
 }
 
 
