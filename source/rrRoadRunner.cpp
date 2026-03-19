@@ -4554,55 +4554,39 @@ namespace rr {
         }
     }
 
-    static std::string convertSBMLVersion(const std::string &str, int level, int version) {
-        libsbml::SBMLReader reader;
-        std::stringstream stream;
-        libsbml::SBMLDocument *doc = 0;
+    void convertSBMLVersionDocument(libsbml::SBMLDocument* doc, int level, int version) {
+      if (level == 0 || version == 0) {
+        return;
+      }
+      // this does an in-place conversion, at least for the time being
+      libsbml::SBMLLevelVersionConverter versionConverter;
 
+      libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
 
-        try {
-            // new doc
-            doc = reader.readSBMLFromString(str);
+      // this is how the target version is set
+      libsbml::SBMLNamespaces targetNamespace(level, version);
 
-            // this does an in-place conversion, at least for the time being
-            libsbml::SBMLLevelVersionConverter versionConverter;
+      // clones the ns
+      versionProps.setTargetNamespaces(&targetNamespace);
 
-            libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
+      versionConverter.setProperties(&versionProps);
 
-            // this is how the target version is set
-            libsbml::SBMLNamespaces targetNamespace(level, version);
+      // converter does an in-place conversion
+      doc->setApplicableValidators((unsigned char)Config::getInt(
+        Config::SBML_APPLICABLEVALIDATORS));
 
-            // clones the ns
-            versionProps.setTargetNamespaces(&targetNamespace);
+      versionConverter.setDocument(doc);
 
-            versionConverter.setProperties(&versionProps);
+      if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
+        rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
 
-            // converter does an in-place conversion
-            doc->setApplicableValidators((unsigned char) Config::getInt(
-                    Config::SBML_APPLICABLEVALIDATORS));
+        const libsbml::SBMLErrorLog* log = doc->getErrorLog();
+        std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
+        rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
 
-            versionConverter.setDocument(doc);
+        throw std::logic_error("Error version converting sbml: " + errors);
+      }
 
-            if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
-                rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
-
-                const libsbml::SBMLErrorLog *log = doc->getErrorLog();
-                std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
-                rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
-
-                throw std::logic_error("Error version converting sbml: " + errors);
-            }
-
-            libsbml::SBMLWriter writer;
-            writer.writeSBML(doc, stream);
-            delete doc;
-        }
-        catch (std::exception &) {
-            delete doc;
-            throw;
-        }
-
-        return stream.str();
     }
 
     std::string RoadRunner::getSBML(int level, int version) {
@@ -4611,21 +4595,53 @@ namespace rr {
         std::stringstream stream;
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(impl->document.get(), stream);
-
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
+        if (level != 0 && version != 0) {
+          if (impl->document->getLevel() != level || impl->document->getVersion() != version) {
+            libsbml::SBMLDocument* newdoc = impl->document->clone();
+            convertSBMLVersionDocument(newdoc, level, version);
+            writer.writeSBML(newdoc, stream);
+            return stream.str();
+          }
         }
+        writer.writeSBML(impl->document.get(), stream);
         return stream.str();
     }
 
-    std::string RoadRunner::getCurrentSBML(int level, int version) {
+    static std::string convertSBMLVersion(const std::string& str, int level, int version) {
+      libsbml::SBMLReader reader;
+      std::stringstream stream;
+      libsbml::SBMLDocument* doc = 0;
+      try {
+        // new doc
+        doc = reader.readSBMLFromString(str);
+        convertSBMLVersionDocument(doc, level, version);
+        libsbml::SBMLWriter writer;
+        writer.writeSBML(doc, stream);
+        delete doc;
+      }
+      catch (std::exception&) {
+        delete doc;
+        throw;
+      }
+
+      return stream.str();
+    }
+
+    string RoadRunner::getCurrentSBML(int level, int version) {
+      libsbml::SBMLDocument* doc = getCurrentSBMLDocument();
+      libsbml::SBMLWriter writer;
+      std::string docstr = writer.writeSBMLToStdString(doc);
+      delete doc;
+      return docstr;
+    }
+
+    libsbml::SBMLDocument* RoadRunner::getCurrentSBMLDocument(int level, int version) {
+
         check_model();
         get_self();
 
-        std::stringstream stream;
-        libsbml::SBMLDocument doc(*impl->document);
-        libsbml::Model *model = doc.getModel();
+        libsbml::SBMLDocument* doc = impl->document->clone();
+        libsbml::Model *model = doc->getModel();
 
         while (model->getNumInitialAssignments() > 0) {
             delete model->removeInitialAssignment(0);
@@ -4673,23 +4689,83 @@ namespace rr {
             if (param != NULL) {
                 param->setValue(value);
             } else {
-                // sanity check, just make sure that this is a conserved moeity
+                //Could be a species reference that we converted to a global parameter.
                 if (self.model->getConservedMoietyIndex(array[i]) < 0) {
-                    throw std::logic_error("The global parameter name "
-                                           + array[i] + " could not be found in the SBML model, "
-                                                        " and it is not a conserved moiety");
+                    libsbml::SBase* ref = model->getElementBySId(array[i]);
+                    if (ref->getTypeCode() != libsbml::SBML_SPECIES_REFERENCE || ref == NULL) {
+                      // sanity check, just make sure that this is a conserved moeity
+                      throw std::logic_error("The global parameter name "
+                        + array[i] + " could not be found in the SBML model, "
+                        " and it is not a conserved moiety");
+                    }
+                    libsbml::SpeciesReference* sref = static_cast<libsbml::SpeciesReference*>(ref);
+                    sref->setStoichiometry(value);
+
                 }
             }
         }
 
-        libsbml::SBMLWriter writer;
-        writer.writeSBML(&doc, stream);
+        //Set any changed stoichiometries:
+        vector<string> rxnids = getReactionIds();
+        for (int nr = 0; nr < rxnids.size(); nr++) {
+          string rxnid = rxnids[nr];
+          libsbml::Reaction* rxn = model->getReaction(rxnid);
+          int rxnindex = impl->model->getReactionIndex(rxnid);
 
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
+          // First pass: sum stoichiometries across both reactants and products per species.
+          // We use the same sign convention as getStoichiometry(): negative for reactants,
+          // positive for products.
+          std::map<string, double> totalStoich;
+          for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+            libsbml::SpeciesReference* sr = rxn->getReactant(r);
+            totalStoich[sr->getSpecies()] -= sr->getStoichiometry();
+          }
+          for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+            libsbml::SpeciesReference* sp = rxn->getProduct(p);
+            totalStoich[sp->getSpecies()] += sp->getStoichiometry();
+          }
+
+          // Second pass: for each species, apply any delta to the first species reference
+          // seen across both reactants and products.
+          set<string> seen;
+          for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+            libsbml::SpeciesReference* sr = rxn->getReactant(r);
+            string specid = sr->getSpecies();
+            if (seen.find(specid) != seen.end()) continue;
+            seen.insert(specid);
+
+            int specindex = impl->model->getFloatingSpeciesIndex(specid);
+            if (specindex < 0) continue;
+
+            double desired = impl->model->getStoichiometry(specindex, rxnindex);  // negative
+            double delta = desired - totalStoich[specid];
+            if (std::abs(delta) > 1e-15) {
+              // Reactant stoichiometries are positive in SBML, so subtract delta
+              sr->setStoichiometry(sr->getStoichiometry() - delta);
+            }
+          }
+          for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+            libsbml::SpeciesReference* sp = rxn->getProduct(p);
+            string specid = sp->getSpecies();
+            if (seen.find(specid) != seen.end()) continue;
+            seen.insert(specid);
+
+            int specindex = impl->model->getFloatingSpeciesIndex(specid);
+            if (specindex < 0) continue;
+
+            double desired = impl->model->getStoichiometry(specindex, rxnindex);  // positive
+            double delta = desired - totalStoich[specid];
+            if (std::abs(delta) > 1e-15) {
+              // Product stoichiometries are positive in SBML, so add delta
+              sp->setStoichiometry(sp->getStoichiometry() + delta);
+            }
+          }
         }
-        return stream.str();
+
+        convertSBMLVersionDocument(doc, level, version);
+        return doc;
     }
+
 
     void RoadRunner::changeInitialConditions(const std::vector<double>& ic) {
         if (!impl->model) {
@@ -5252,7 +5328,7 @@ namespace rr {
         if (impl->model) {
             impl->model->getIds(types, ids);
 
-            /**
+        /**
          * types is -1 when SelectionRecord is set to ALL.
          */
             if (types & SelectionRecord::EIGENVALUE_REAL) {
@@ -5441,6 +5517,14 @@ namespace rr {
         getIds(SelectionRecord::EIGENVALUE_REAL, list);
 
         return std::vector<std::string>(list.begin(), list.end());
+    }
+
+    std::vector<std::string> RoadRunner::getStoichiometryIds() {
+      std::list<std::string> list;
+
+      getIds(SelectionRecord::STOICHIOMETRY, list);
+
+      return std::vector<std::string>(list.begin(), list.end());
     }
 
 
@@ -5885,7 +5969,7 @@ namespace rr {
         m.setRowNames(spec_ids);
 
         libsbml::SBMLReader reader;
-        libsbml::SBMLDocument* doc = reader.readSBMLFromString(getCurrentSBML());
+        libsbml::SBMLDocument* doc = getCurrentSBMLDocument();
         libsbml::Model* model = doc->getModel();
 
         set<std::pair<string, string> > nonStandardStoichs;
@@ -7187,11 +7271,12 @@ namespace rr {
 
 
             // regenerate the model
+            libsbml::SBMLDocument* currdoc = getCurrentSBMLDocument();
             impl->model.reset(ExecutableModelFactory::regenerateModel(
                     impl->model.get(),
-                    impl->document.get(),
+                    currdoc,
                     impl->loadOpt.modelGeneratorOpt));
-
+            delete currdoc;
 
             impl->syncAllSolversWithModel(impl->model.get());
 

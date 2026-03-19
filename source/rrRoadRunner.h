@@ -878,6 +878,11 @@ namespace rr {
         std::vector<std::string> getEigenValueIds();
 
         /**
+         * returns the list of stoichiometry ids, either their names (if present), or 'stoich(species, rxn)'.
+         */
+        std::vector<std::string> getStoichiometryIds();
+
+        /**
          * Returns the unscaled elasticity for a named reaction with respect to a
          * named parameter
          */
@@ -1976,6 +1981,11 @@ namespace rr {
         void loadSelectionVector(std::istream &, std::vector<SelectionRecord> &);
 
         ls::DoubleMatrix getSubStoichiometryMatrix(bool reactants, bool products, bool boundary);
+
+        protected:
+        libsbml::SBMLDocument* getCurrentSBMLDocument(int level = 0, int version = 0);
+
+
     };
 
 }
