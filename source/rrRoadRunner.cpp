@@ -4554,6 +4554,37 @@ namespace rr {
         }
     }
 
+    void convertSBMLVersionDocument(libsbml::SBMLDocument* doc, int level, int version) {
+      // this does an in-place conversion, at least for the time being
+      libsbml::SBMLLevelVersionConverter versionConverter;
+
+      libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
+
+      // this is how the target version is set
+      libsbml::SBMLNamespaces targetNamespace(level, version);
+
+      // clones the ns
+      versionProps.setTargetNamespaces(&targetNamespace);
+
+      versionConverter.setProperties(&versionProps);
+
+      // converter does an in-place conversion
+      doc->setApplicableValidators((unsigned char)Config::getInt(
+        Config::SBML_APPLICABLEVALIDATORS));
+
+      versionConverter.setDocument(doc);
+
+      if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
+        rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
+
+        const libsbml::SBMLErrorLog* log = doc->getErrorLog();
+        std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
+        rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
+
+        throw std::logic_error("Error version converting sbml: " + errors);
+      }
+    }
+
     static std::string convertSBMLVersion(const std::string &str, int level, int version) {
         libsbml::SBMLReader reader;
         std::stringstream stream;
@@ -4563,36 +4594,7 @@ namespace rr {
         try {
             // new doc
             doc = reader.readSBMLFromString(str);
-
-            // this does an in-place conversion, at least for the time being
-            libsbml::SBMLLevelVersionConverter versionConverter;
-
-            libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
-
-            // this is how the target version is set
-            libsbml::SBMLNamespaces targetNamespace(level, version);
-
-            // clones the ns
-            versionProps.setTargetNamespaces(&targetNamespace);
-
-            versionConverter.setProperties(&versionProps);
-
-            // converter does an in-place conversion
-            doc->setApplicableValidators((unsigned char) Config::getInt(
-                    Config::SBML_APPLICABLEVALIDATORS));
-
-            versionConverter.setDocument(doc);
-
-            if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
-                rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
-
-                const libsbml::SBMLErrorLog *log = doc->getErrorLog();
-                std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
-                rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
-
-                throw std::logic_error("Error version converting sbml: " + errors);
-            }
-
+            convertSBMLVersionDocument(doc, level, version);
             libsbml::SBMLWriter writer;
             writer.writeSBML(doc, stream);
             delete doc;
@@ -4611,83 +4613,95 @@ namespace rr {
         std::stringstream stream;
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(impl->document.get(), stream);
-
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
+        if (level > 0 && version > 0 && level != impl->document->getLevel() && version != impl->document->getVersion()) {
+          //Need to convert the level/version
+          libsbml::SBMLDocument doc(*impl->document.get());
+          convertSBMLVersionDocument(&doc, level, version);
+          writer.writeSBML(impl->document.get(), stream);
         }
+        else {
+          writer.writeSBML(impl->document.get(), stream);
+        }
+
         return stream.str();
     }
 
+    libsbml::SBMLDocument* RoadRunner::getCurrentSBMLDocument(int level, int version)
+    {
+      check_model();
+      get_self();
+
+      libsbml::SBMLDocument* doc = impl->document->clone();
+      libsbml::Model* model = doc->getModel();
+
+      while (model->getNumInitialAssignments() > 0) {
+        delete model->removeInitialAssignment(0);
+      }
+
+      std::vector<std::string> array = getFloatingSpeciesIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        if (model->getSpecies(array[i])->isSetInitialConcentration()) {
+          impl->model->getFloatingSpeciesConcentrations(1, &i, &value);
+          setSBMLValue(model, array[i], value, true);
+        }
+        else {
+          impl->model->getFloatingSpeciesAmounts(1, &i, &value);
+          setSBMLValue(model, array[i], value, false);
+        }
+      }
+
+      array = getBoundarySpeciesIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        if (model->getSpecies(array[i])->isSetInitialConcentration()) {
+          impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
+          setSBMLValue(model, array[i], value, true);
+        }
+        else {
+          impl->model->getBoundarySpeciesAmounts(1, &i, &value);
+          setSBMLValue(model, array[i], value, false);
+        }
+      }
+
+      array = getCompartmentIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        impl->model->getCompartmentVolumes(1, &i, &value);
+        setSBMLValue(model, array[i], value);
+      }
+
+      array = getGlobalParameterIds();
+      for (int i = 0; i < impl->model->getNumGlobalParameters(); i++) {
+        double value = 0;
+        impl->model->getGlobalParameterValues(1, &i, &value);
+
+        libsbml::Parameter* param = model->getParameter(array[i]);
+        if (param != NULL) {
+          param->setValue(value);
+        }
+        else {
+          // sanity check, just make sure that this is a conserved moeity
+          if (self.model->getConservedMoietyIndex(array[i]) < 0) {
+            throw std::logic_error("The global parameter name "
+              + array[i] + " could not be found in the SBML model, "
+              " and it is not a conserved moiety");
+          }
+        }
+      }
+      convertSBMLVersionDocument(doc, level, version);
+      return doc;
+    }
+
     std::string RoadRunner::getCurrentSBML(int level, int version) {
-        check_model();
-        get_self();
 
         std::stringstream stream;
-        libsbml::SBMLDocument doc(*impl->document);
-        libsbml::Model *model = doc.getModel();
 
-        while (model->getNumInitialAssignments() > 0) {
-            delete model->removeInitialAssignment(0);
-        }
-
-        std::vector<std::string> array = getFloatingSpeciesIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            if (model->getSpecies(array[i])->isSetInitialConcentration()) {
-                impl->model->getFloatingSpeciesConcentrations(1, &i, &value);
-                setSBMLValue(model, array[i], value, true);
-            }
-            else {
-                impl->model->getFloatingSpeciesAmounts(1, &i, &value);
-                setSBMLValue(model, array[i], value, false);
-            }
-        }
-
-        array = getBoundarySpeciesIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            if (model->getSpecies(array[i])->isSetInitialConcentration()) {
-                impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
-                setSBMLValue(model, array[i], value, true);
-            }
-            else {
-                impl->model->getBoundarySpeciesAmounts(1, &i, &value);
-                setSBMLValue(model, array[i], value, false);
-            }
-        }
-
-        array = getCompartmentIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            impl->model->getCompartmentVolumes(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
-
-        array = getGlobalParameterIds();
-        for (int i = 0; i < impl->model->getNumGlobalParameters(); i++) {
-            double value = 0;
-            impl->model->getGlobalParameterValues(1, &i, &value);
-
-            libsbml::Parameter *param = model->getParameter(array[i]);
-            if (param != NULL) {
-                param->setValue(value);
-            } else {
-                // sanity check, just make sure that this is a conserved moeity
-                if (self.model->getConservedMoietyIndex(array[i]) < 0) {
-                    throw std::logic_error("The global parameter name "
-                                           + array[i] + " could not be found in the SBML model, "
-                                                        " and it is not a conserved moiety");
-                }
-            }
-        }
+        libsbml::SBMLDocument* doc = getCurrentSBMLDocument(level, version);
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(&doc, stream);
+        writer.writeSBML(doc, stream);
 
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
-        }
         return stream.str();
     }
 
@@ -5441,6 +5455,15 @@ namespace rr {
         getIds(SelectionRecord::EIGENVALUE_REAL, list);
 
         return std::vector<std::string>(list.begin(), list.end());
+    }
+
+    std::vector<std::string> RoadRunner::getStoichiometryIds()
+    {
+      std::list<std::string> list;
+
+      getIds(SelectionRecord::STOICHIOMETRY, list);
+
+      return std::vector<std::string>(list.begin(), list.end());
     }
 
 
