@@ -4439,6 +4439,9 @@ namespace rr {
       if (level == 0 || version == 0) {
         return;
       }
+      if (level == doc->getLevel() && version == doc->getVersion()) {
+        return;
+      }
       // this does an in-place conversion, at least for the time being
       libsbml::SBMLLevelVersionConverter versionConverter;
 
@@ -4476,13 +4479,12 @@ namespace rr {
         std::stringstream stream;
 
         libsbml::SBMLWriter writer;
-        if (level != 0 && version != 0) {
-          if (impl->document->getLevel() != level || impl->document->getVersion() != version) {
-            libsbml::SBMLDocument* newdoc = impl->document->clone();
-            convertSBMLVersionDocument(newdoc, level, version);
-            writer.writeSBML(newdoc, stream);
-            return stream.str();
-          }
+        if (level != 0 && version != 0 && impl->document->getLevel() != level || impl->document->getVersion() != version) {
+          libsbml::SBMLDocument* newdoc = impl->document->clone();
+          convertSBMLVersionDocument(newdoc, level, version);
+          writer.writeSBML(newdoc, stream);
+          delete newdoc;
+          return stream.str();
         }
         writer.writeSBML(impl->document.get(), stream);
         return stream.str();
