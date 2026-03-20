@@ -4689,7 +4689,9 @@ namespace rr {
           }
         }
       }
-      convertSBMLVersionDocument(doc, level, version);
+      if (level > 0 && version > 0 && level != doc->getLevel() && version != doc->getVersion()) {
+        convertSBMLVersionDocument(doc, level, version);
+      }
       return doc;
     }
 
@@ -5908,7 +5910,7 @@ namespace rr {
         m.setRowNames(spec_ids);
 
         libsbml::SBMLReader reader;
-        libsbml::SBMLDocument* doc = reader.readSBMLFromString(getCurrentSBML());
+        libsbml::SBMLDocument* doc = getCurrentSBMLDocument();
         libsbml::Model* model = doc->getModel();
 
         set<std::pair<string, string> > nonStandardStoichs;
