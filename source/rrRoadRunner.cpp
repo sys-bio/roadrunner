@@ -4690,59 +4690,62 @@ namespace rr {
         }
       }
 
-      //Set any changed stoichiometries:
-      vector<string> rxnids = getReactionIds();
-      for (int nr = 0; nr < rxnids.size(); nr++) {
-        string rxnid = rxnids[nr];
-        libsbml::Reaction* rxn = model->getReaction(rxnid);
-        int rxnindex = impl->model->getReactionIndex(rxnid);
+      //Set any changed stoichiometries, but only if conserved moiety analysis is OFF:
+      if (!self.loadOpt.getConservedMoietyConversion()) {
 
-        // First pass: sum stoichiometries across both reactants and products per species.
-        // We use the same sign convention as getStoichiometry(): negative for reactants,
-        // positive for products.
-        std::map<string, double> totalStoich;
-        for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
-          libsbml::SpeciesReference* sr = rxn->getReactant(r);
-          totalStoich[sr->getSpecies()] -= sr->getStoichiometry();
-        }
-        for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
-          libsbml::SpeciesReference* sp = rxn->getProduct(p);
-          totalStoich[sp->getSpecies()] += sp->getStoichiometry();
-        }
+        vector<string> rxnids = getReactionIds();
+        for (int nr = 0; nr < rxnids.size(); nr++) {
+          string rxnid = rxnids[nr];
+          libsbml::Reaction* rxn = model->getReaction(rxnid);
+          int rxnindex = impl->model->getReactionIndex(rxnid);
 
-        // Second pass: for each species, apply any delta to the first species reference
-        // seen across both reactants and products.
-        set<string> seen;
-        for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
-          libsbml::SpeciesReference* sr = rxn->getReactant(r);
-          string specid = sr->getSpecies();
-          if (seen.find(specid) != seen.end()) continue;
-          seen.insert(specid);
-
-          int specindex = impl->model->getFloatingSpeciesIndex(specid);
-          if (specindex < 0) continue;
-
-          double desired = impl->model->getStoichiometry(specindex, rxnindex);  // negative
-          double delta = desired - totalStoich[specid];
-          if (std::abs(delta) > 1e-15) {
-            // Reactant stoichiometries are positive in SBML, so subtract delta
-            sr->setStoichiometry(sr->getStoichiometry() - delta);
+          // First pass: sum stoichiometries across both reactants and products per species.
+          // We use the same sign convention as getStoichiometry(): negative for reactants,
+          // positive for products.
+          std::map<string, double> totalStoich;
+          for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+            libsbml::SpeciesReference* sr = rxn->getReactant(r);
+            totalStoich[sr->getSpecies()] -= sr->getStoichiometry();
           }
-        }
-        for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
-          libsbml::SpeciesReference* sp = rxn->getProduct(p);
-          string specid = sp->getSpecies();
-          if (seen.find(specid) != seen.end()) continue;
-          seen.insert(specid);
+          for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+            libsbml::SpeciesReference* sp = rxn->getProduct(p);
+            totalStoich[sp->getSpecies()] += sp->getStoichiometry();
+          }
 
-          int specindex = impl->model->getFloatingSpeciesIndex(specid);
-          if (specindex < 0) continue;
+          // Second pass: for each species, apply any delta to the first species reference
+          // seen across both reactants and products.
+          set<string> seen;
+          for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+            libsbml::SpeciesReference* sr = rxn->getReactant(r);
+            string specid = sr->getSpecies();
+            if (seen.find(specid) != seen.end()) continue;
+            seen.insert(specid);
 
-          double desired = impl->model->getStoichiometry(specindex, rxnindex);  // positive
-          double delta = desired - totalStoich[specid];
-          if (std::abs(delta) > 1e-15) {
-            // Product stoichiometries are positive in SBML, so add delta
-            sp->setStoichiometry(sp->getStoichiometry() + delta);
+            int specindex = impl->model->getFloatingSpeciesIndex(specid);
+            if (specindex < 0) continue;
+
+            double desired = impl->model->getStoichiometry(specindex, rxnindex);  // negative
+            double delta = desired - totalStoich[specid];
+            if (std::abs(delta) > 1e-15) {
+              // Reactant stoichiometries are positive in SBML, so subtract delta
+              sr->setStoichiometry(sr->getStoichiometry() - delta);
+            }
+          }
+          for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+            libsbml::SpeciesReference* sp = rxn->getProduct(p);
+            string specid = sp->getSpecies();
+            if (seen.find(specid) != seen.end()) continue;
+            seen.insert(specid);
+
+            int specindex = impl->model->getFloatingSpeciesIndex(specid);
+            if (specindex < 0) continue;
+
+            double desired = impl->model->getStoichiometry(specindex, rxnindex);  // positive
+            double delta = desired - totalStoich[specid];
+            if (std::abs(delta) > 1e-15) {
+              // Product stoichiometries are positive in SBML, so add delta
+              sp->setStoichiometry(sp->getStoichiometry() + delta);
+            }
           }
         }
       }
