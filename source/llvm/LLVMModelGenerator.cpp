@@ -286,10 +286,10 @@ namespace rrllvm {
     {
         SharedModelResourcesPtr modelResources = std::make_shared<ModelResources>();
 
-        char* docSBML = doc->toSBML();
 
         ModelGeneratorContext modelGeneratorContext(doc, options, JitFactory::makeJitEngine(options));
 
+        char* docSBML = doc->toSBML();
         std::string sbmlMD5 = getSBMLMD5(std::string((const char*)docSBML), options);
         if (modelResources->sbmlMD5.empty()) {
             modelResources->sbmlMD5 = sbmlMD5;
@@ -382,25 +382,21 @@ namespace rrllvm {
                 }
             }
 
-            ////Copy any changed stoichiometries.  Make sure we know if we're in 'conserved moieties' mode.
-            //for (int r = 0; r < oldModel->getNumReactions(); r++) {
-            //  string rID = oldModel->getReactionId(r);
-            //  int new_r = newModel->getReactionIndex(rID);
-            //  if (new_r < 0) continue;
-            //  int s_max = oldModel->getNumIndFloatingSpecies();
-            //  for (int s = 0; s < s_max; s++) {
-            //    string sID = oldModel->getFloatingSpeciesId(s);
-            //    int new_s = newModel->getFloatingSpeciesIndex(sID);
-            //    if (new_s < 0) continue;
-            //    if (new_s < newModel->getNumIndFloatingSpecies()) continue;
-            //    double stoich = oldModel->getStoichiometry(s, r);
-            //    newModel->setStoichiometry(new_s, new_r, stoich);
-            //  }
-            //  
-            //}
-
-
-
+            //Copy any changed stoichiometries.  Make sure we know if we're in 'conserved moieties' mode.
+            for (int r = 0; r < oldModel->getNumReactions(); r++) {
+              string rID = oldModel->getReactionId(r);
+              int new_r = newModel->getReactionIndex(rID);
+              if (new_r < 0) continue;
+              int s_max = oldModel->getNumIndFloatingSpecies();
+              for (int s = 0; s < s_max; s++) {
+                string sID = oldModel->getFloatingSpeciesId(s);
+                int new_s = newModel->getFloatingSpeciesIndex(sID);
+                if (new_s < 0) continue;
+                if (new_s >= newModel->getNumIndFloatingSpecies()) continue;
+                double stoich = oldModel->getStoichiometry(s, r);
+                newModel->setStoichiometry(new_s, new_r, stoich);
+              }
+            }
 
             newModel->setTime(oldModel->getTime());
         }

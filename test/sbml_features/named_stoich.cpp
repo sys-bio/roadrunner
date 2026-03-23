@@ -44,6 +44,9 @@ TEST_F(SBMLFeatures, issue1306_named_stoich_value) {
   EXPECT_EQ(rr.getValue("J0"), 15.0);
   rr.oneStep(0, 0.01);
   EXPECT_NEAR(rr.getValue("A"), 0.8607083324139845, 0.00001);
+  EXPECT_NEAR(rr.getValue("B"), 6.582124997241953, 0.00001);
+  EXPECT_NEAR(rr.getValue("C"), 0.6964583379300783, 0.00001);
+  EXPECT_NEAR(rr.getValue("D"), 0.9750416731021092, 0.00001);
   string sbml = rr.getCurrentSBML();
 
 }
@@ -57,8 +60,13 @@ TEST_F(SBMLFeatures, issue1306_named_stoich_steadyState) {
   rr.setValue("n", 3);
   rr.setValue("m", 5);
   rr.setValue("q", 7);
+  rr.setConservedMoietyAnalysis(true);
+  EXPECT_EQ(rr.getValue("n"), 3.0);
+  EXPECT_EQ(rr.getValue("m"), 5.0);
+  EXPECT_EQ(rr.getValue("q"), 7.0);
+  EXPECT_EQ(rr.getValue("J0"), 0.0);
   rr.steadyState();
-  //EXPECT_NEAR(rr.getValue("B"), 4.0, 0.00001);
+  EXPECT_NEAR(rr.getValue("B"), 4.0, 0.00001);
 }
 
 

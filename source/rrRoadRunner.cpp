@@ -7297,13 +7297,10 @@ namespace rr {
 
 
             // regenerate the model
-            libsbml::SBMLDocument* currdoc = getCurrentSBMLDocument();
             impl->model.reset(ExecutableModelFactory::regenerateModel(
                     impl->model.get(),
-                    //currdoc,
                     impl->document.get(),
                     impl->loadOpt.modelGeneratorOpt));
-            delete currdoc;
 
 
             impl->syncAllSolversWithModel(impl->model.get());
