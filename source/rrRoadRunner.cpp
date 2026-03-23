@@ -1725,8 +1725,11 @@ namespace rr {
             // have to reload
             self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-            //load(getSBML());
+            //We have to update the stoichiometries manually here:
+            libsbml::SBMLDocument* olddoc = impl->document->clone();
+            updateStoichiometriesWith(impl->document.get(), impl->model.get(), getReactionIds());
             regenerateModel(true);
+            impl->document.reset(olddoc);
 
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -4711,16 +4714,31 @@ namespace rr {
         }
       }
 
-      //Set any changed stoichiometries, but only if conserved moiety analysis is OFF:
-      bool conservedMoieties = self.loadOpt.getConservedMoietyConversion();
+      //Set any changed stoichiometries
+      updateStoichiometriesWith(doc, impl->model.get(), getReactionIds());
 
-      vector<string> rxnids = getReactionIds();
-      int n_ind = impl->model->getNumIndFloatingSpecies();
+
+      if (level > 0 && version > 0 && level != doc->getLevel() && version != doc->getVersion()) {
+        convertSBMLVersionDocument(doc, level, version);
+      }
+      return doc;
+    }
+
+    void RoadRunner::updateStoichiometriesWith(libsbml::SBMLDocument* doc, ExecutableModel* ex_model, vector<string> rxnids)
+    {
+      if (!doc || !ex_model) {
+        return;
+      }
+      libsbml::Model* model = doc->getModel();
+      if (!model) {
+        return;
+      }
+      int n_ind = ex_model->getNumIndFloatingSpecies();
       for (int nr = 0; nr < rxnids.size(); nr++) {
         string rxnid = rxnids[nr];
         libsbml::Reaction* rxn = model->getReaction(rxnid);
         if (!rxn) continue;
-        int rxnindex = impl->model->getReactionIndex(rxnid);
+        int rxnindex = ex_model->getReactionIndex(rxnid);
 
         // First pass: sum stoichiometries across both reactants and products per species.
         // We use the same sign convention as getStoichiometry(): negative for reactants,
@@ -4744,11 +4762,11 @@ namespace rr {
           if (seen.find(specid) != seen.end()) continue;
           seen.insert(specid);
 
-          int specindex = impl->model->getFloatingSpeciesIndex(specid);
+          int specindex = ex_model->getFloatingSpeciesIndex(specid);
           if (specindex < 0) continue;
           if (specindex >= n_ind) continue;
 
-          double desired = impl->model->getStoichiometry(specindex, rxnindex);  // negative
+          double desired = ex_model->getStoichiometry(specindex, rxnindex);  // negative
           double delta = desired - totalStoich[specid];
           if (std::abs(delta) > 1e-15) {
             // Reactant stoichiometries are positive in SBML, so subtract delta
@@ -4761,11 +4779,11 @@ namespace rr {
           if (seen.find(specid) != seen.end()) continue;
           seen.insert(specid);
 
-          int specindex = impl->model->getFloatingSpeciesIndex(specid);
+          int specindex = ex_model->getFloatingSpeciesIndex(specid);
           if (specindex < 0) continue;
           if (specindex >= n_ind) continue;
 
-          double desired = impl->model->getStoichiometry(specindex, rxnindex);  // positive
+          double desired = ex_model->getStoichiometry(specindex, rxnindex);  // positive
           double delta = desired - totalStoich[specid];
           if (std::abs(delta) > 1e-15) {
             // Product stoichiometries are positive in SBML, so add delta
@@ -4773,11 +4791,6 @@ namespace rr {
           }
         }
       }
-
-      if (level > 0 && version > 0 && level != doc->getLevel() && version != doc->getVersion()) {
-        convertSBMLVersionDocument(doc, level, version);
-      }
-      return doc;
     }
 
     std::string RoadRunner::getCurrentSBML(int level, int version) {
@@ -7295,13 +7308,11 @@ namespace rr {
                 }
             }
 
-
             // regenerate the model
             impl->model.reset(ExecutableModelFactory::regenerateModel(
                     impl->model.get(),
                     impl->document.get(),
                     impl->loadOpt.modelGeneratorOpt));
-
 
             impl->syncAllSolversWithModel(impl->model.get());
 

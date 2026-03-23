@@ -1985,6 +1985,7 @@ namespace rr {
         protected:
         libsbml::SBMLDocument* getCurrentSBMLDocument(int level = 0, int version = 0);
 
+        void updateStoichiometriesWith(libsbml::SBMLDocument* doc, ExecutableModel* ex_model, std::vector<std::string> rxnids);
 
     };
 
