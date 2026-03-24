@@ -1351,7 +1351,8 @@ namespace rr {
             case SelectionRecord::INITIAL_COMPARTMENT:
                 impl->model->getCompartmentInitVolumes(1, &record.index, &dResult);
                 break;
-            case SelectionRecord::STOICHIOMETRY: {
+            case SelectionRecord::STOICHIOMETRY:
+            case SelectionRecord::INITIAL_STOICHIOMETRY: {
                 // in case it is entered in the form of stoich(SpeciesId, ReactionId)
                 if (impl->model->getFloatingSpeciesIndex(record.p1) != -1 && impl->model->getReactionIndex(record.p2) != -1)
                     dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1, record.p2));
@@ -4946,7 +4947,14 @@ namespace rr {
                 } else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::INITIAL_COMPARTMENT;
                     break;
-                } else {
+                } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1)) >= 0) {
+                    sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                    break;
+                } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1, sel.p2)) >= 0) {
+                    sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                    break;
+                }
+                else {
                     throw Exception("Invalid id '" + sel.p1 + "' for initial amount");
                     break;
                 }

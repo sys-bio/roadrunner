@@ -1246,7 +1246,7 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
                 if (getStoichiometry(s, r) != 0)
                 {
                     string rid = getReactionId(r);
-                    ids.push_back("stoich(" + sid + ", " + rid + ")");
+                    ids.push_back(symbols->getStoichiometryIdFor(sid, rid));
                 }
             }
         }
@@ -1603,6 +1603,10 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 sel.selectionType = SelectionRecord::INITIAL_GLOBAL_PARAMETER;
                 sel.index = index;
                 break;
+            case LLVMModelDataSymbols::STOICHIOMETRY:
+                sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                sel.index = index;
+                break;
             default:
                 std::string msg = "Invalid Id for initial value: '" + str + "'";
                 throw LLVMException(msg);
@@ -1744,7 +1748,8 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
         setGlobalParameterInitValues(1, &index, &value);
         break;
     case SelectionRecord::STOICHIOMETRY:
-        setStoichiometries(1, &index, &value);
+    case SelectionRecord::INITIAL_STOICHIOMETRY:
+        setStoichiometry(index, value);
         break;
     default:
         throw LLVMException("Invalid selection '" + sel.to_string() + "' for setting value");
@@ -2319,23 +2324,23 @@ int LLVMExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
     return result;
 }
 
-int LLVMExecutableModel::setStoichiometries(size_t len, const int* indx,
-                                               const double* values)
-{
-    return setStoichiometries(len, indx, values, true);
-}
+//int LLVMExecutableModel::setStoichiometries(size_t len, const int* indx,
+//                                               const double* values)
+//{
+//    return setStoichiometries(len, indx, values, true);
+//}
 
-int LLVMExecutableModel::setStoichiometries(size_t len, const int* indx,
-                                               const double* values, bool strict)
-{
-    if (len == 1) {
-        int index = *indx;
-        double value = *values;
-        return setStoichiometry(index, value);
-    }
-
-    return -1;
-}
+//int LLVMExecutableModel::setStoichiometries(size_t len, const int* indx,
+//                                               const double* values, bool strict)
+//{
+//    if (len == 1) {
+//        int index = *indx;
+//        double value = *values;
+//        return setStoichiometry(index, value);
+//    }
+//
+//    return -1;
+//}
 
 int LLVMExecutableModel::setStoichiometry(int index, double value)
 {
@@ -2367,6 +2372,56 @@ int LLVMExecutableModel::setStoichiometry(int speciesIndex, int reactionIndex, d
     return isnan(result) ? 0 : result;
 }
 
+//int LLVMExecutableModel::setInitStoichiometries(size_t len, const int* indx,
+//                                               const double* values)
+//{
+//    return setInitStoichiometries(len, indx, values, true);
+//}
+
+//int LLVMExecutableModel::setInitStoichiometries(size_t len, const int* indx,
+//                                               const double* values, bool strict)
+//{
+//    if (len == 1) {
+//        int index = *indx;
+//        double value = *values;
+//        return setInitStoichiometry(index, value);
+//    }
+//
+//    return -1;
+//}
+
+int LLVMExecutableModel::setInitStoichiometry(int index, double value)
+{
+    if (std::signbit(value))
+        throw LLVMException("Invalid stoichiometry value");
+
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    std::list <LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = symbols->getStoichiometryList();
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
+    for (int i = 0; i < index; i++)
+        ++stoichiometry;
+    if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
+        return setInitStoichiometry(stoichiometry->row, stoichiometry->column, value);
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+        return setInitStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
+        throw LLVMException("Cannot set stoichiometry for a MultiReactantProduct");
+    else
+        throw LLVMException("Cannot set stoichiometry for a Modifier");
+
+    return -1;
+}
+
+int LLVMExecutableModel::setInitStoichiometry(int speciesIndex, int reactionIndex, double value)
+{
+    //For now, we don't store 'initStoichiometry' separately.  Essentially, every stoichiometry set is to the initial value.
+    //double result = csr_matrix_set_nz(modelData->initStoichiometry, speciesIndex, reactionIndex, value);
+    double result = csr_matrix_set_nz(modelData->stoichiometry, speciesIndex, reactionIndex, value);
+    return isnan(result) ? 0 : result;
+}
+
 double LLVMExecutableModel::getStoichiometry(int index)
 {
     if (symbols->isConservedMoietyAnalysis())
@@ -2390,6 +2445,35 @@ double LLVMExecutableModel::getStoichiometry(int index)
 
 double LLVMExecutableModel::getStoichiometry(int speciesIndex, int reactionIndex)
 {
+    double result = csr_matrix_get_nz(modelData->stoichiometry, speciesIndex, reactionIndex);
+    return isnan(result) ? 0 : result;
+}
+
+double LLVMExecutableModel::getInitStoichiometry(int index)
+{
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to get stoichiometries when conserved moieties are on");
+
+    if (index < 0)
+        throw LLVMException("The stoichiometry index is not valid");
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = symbols->getStoichiometryList();
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
+    for (int i = 0; i < index; i++)
+        ++stoichiometry;
+    if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+        return -1 * getInitStoichiometry(stoichiometry->row, stoichiometry->column);
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
+        return getInitStoichiometry(stoichiometry->row, stoichiometry->column);
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
+        throw LLVMException("Cannot return stoichiometry for a MultiReactantProduct");
+    else
+        throw LLVMException("Cannot return stoichiometry for a Modifier");
+}
+
+double LLVMExecutableModel::getInitStoichiometry(int speciesIndex, int reactionIndex)
+{
+    //For now, we don't store 'initStoichiometry' separately.  Essentially, every stoichiometry set is to the initial value.
+    //double result = csr_matrix_get_nz(modelData->initStoichiometry, speciesIndex, reactionIndex);
     double result = csr_matrix_get_nz(modelData->stoichiometry, speciesIndex, reactionIndex);
     return isnan(result) ? 0 : result;
 }

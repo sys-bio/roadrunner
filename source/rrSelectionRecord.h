@@ -299,6 +299,11 @@ public:
         INITIAL_GLOBAL_PARAMETER =          INITIAL | _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT,
 
         /**
+         * SelectionType for initial compartment values.
+         */
+        INITIAL_STOICHIOMETRY =               INITIAL | STOICHIOMETRY | INDEPENDENT | DEPENDENT,
+
+        /**
          * SelectionType for global parameters that have initial assignment rules.
          */
         DEPENDENT_INITIAL_GLOBAL_PARAMETER =  INITIAL | _GLOBAL_PARAMETER | DEPENDENT,

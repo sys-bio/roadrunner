@@ -605,8 +605,8 @@ namespace rr {
          * @param[in] values an array of at least length len which store the
          *                stoichiometries.
          */
-        virtual int setStoichiometries(size_t len, int const *indx,
-                                          const double *values) = 0;
+        //virtual int setStoichiometries(size_t len, int const *indx,
+        //                                  const double *values) = 0;
 
         /*
          * Set the stoichiometries.
@@ -617,8 +617,8 @@ namespace rr {
          *                stoichiometries.
          * @param[in] strict whether to throw if the value cannot be set.
          */
-        virtual int setStoichiometries(size_t len, int const* indx,
-                                          const double* values, bool strict) = 0;
+        //virtual int setStoichiometries(size_t len, int const* indx,
+        //                                  const double* values, bool strict) = 0;
 
         /*
          * Set the setStoichiometry.

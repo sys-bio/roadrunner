@@ -125,6 +125,7 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, data->stateVectorSize);
 	//Save the stoichiometry matrix
 	rr::csr_matrix_dump_binary(data->stoichiometry, out);
+  //rr::csr_matrix_dump_binary(data->initStoichiometry, out);
 
 	//We do not need to save random because LLVMExecutableModel will make a new one if it is null
     
@@ -205,6 +206,7 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 
 	//Load the stoichiometry matrix
 	data->stoichiometry = rr::csr_matrix_new_from_binary(in);
+  //data->initStoichiometry = rr::csr_matrix_new_from_binary(in);
 
 	//Alias pointer offsets
 

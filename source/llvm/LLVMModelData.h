@@ -223,25 +223,30 @@ struct LLVMModelData
      */
     double*                             floatingSpeciesAmountsAlias;      // 31
 
+    /*
+     * initial stoichiometry matrix
+     */
+    //rr::csr_matrix*                     initStoichiometry;                // 32
+
     /**
 	 * binary data layout:
      *
-     * compartmentVolumes                [numIndCompartmentVolumes]       // 32
-     * initCompartmentVolumes            [numInitCompartmentVolumes]      // 33
-     * initFloatingSpeciesAmounts        [numInitFloatingSpecies]         // 34
-     * boundarySpeciesAmounts            [numIndBoundarySpecies]          // 35
-     * initBoundarySpeciesAmounts        [numInitBoundarySpecies]         // 36
-     * globalParameters                  [numIndGlobalParameters]         // 37
-     * initGlobalParameters              [numInitGlobalParameters]        // 38
-     * reactionRates                     [numReactions]                   // 39
+     * compartmentVolumes                [numIndCompartmentVolumes]
+     * initCompartmentVolumes            [numInitCompartmentVolumes]
+     * initFloatingSpeciesAmounts        [numInitFloatingSpecies]
+     * boundarySpeciesAmounts            [numIndBoundarySpecies]
+     * initBoundarySpeciesAmounts        [numInitBoundarySpecies]
+     * globalParameters                  [numIndGlobalParameters]
+     * initGlobalParameters              [numInitGlobalParameters]
+     * reactionRates                     [numReactions]
      *
-     * rateRuleValues                    [numRateRules]                   // 40
-     * floatingSpeciesAmounts            [numIndFloatingSpecies]          // 41
+     * rateRuleValues                    [numRateRules]
+     * floatingSpeciesAmounts            [numIndFloatingSpecies]
      */
 
 	 /**
 	 * This dynamic-sized array will be allocated while this ModelData is allocated.
-	 * Ten array in the permanent data section is stored contiously in this chunck.
+	 * Ten array in the permanent data section is stored contiously in this chunk.
 	 * Size of each array is defined by ten unsigned integer above.
 	 * Values can be accessed using ten alias pointers defined above.
 	 * 

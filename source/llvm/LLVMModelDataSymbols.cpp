@@ -402,6 +402,19 @@ int LLVMModelDataSymbols::getStoichiometryIndex(const std::string& speciesId, co
     return -1;
 }
 
+std::string LLVMModelDataSymbols::getStoichiometryIdFor(const std::string& speciesId, const std::string& reactionId) const
+{
+  int index = getStoichiometryIndex(speciesId, reactionId);
+  if (index == -1) {
+    return "";
+  }
+  string stoichid = stoichIds[index];
+  if (stoichid == "") {
+    return "stoich(" + speciesId + ", " + reactionId + ")";
+  }
+  return stoichid;
+}
+
 std::vector<std::string> LLVMModelDataSymbols::getStoichiometryIds() const
 {
     return stoichIds;
@@ -1328,6 +1341,7 @@ typedef cxx11_ns::unordered_map<uint, ssize_type> UIntUMap;
 void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 {
     // get the reactions
+    std::vector<std::string> namedStoichiometryIds;
     const ListOfReactions *reactions = model->getListOfReactions();
     for (size_t i = 0; i < reactions->size(); i++)
     {
@@ -1357,6 +1371,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Reactant, r->getId() };
                 namedSpeciesReferenceInfo[r->getId()] = info;
+                namedStoichiometryIds.push_back(r->getId());
               }
               else
               {
@@ -1419,6 +1434,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Product, p->getId() };
                 namedSpeciesReferenceInfo[p->getId()] = info;
+                namedStoichiometryIds.push_back(p->getId());
               }
               else
               {
@@ -1462,6 +1478,22 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             }
         }
     }
+    for (size_t ns = 0; ns < namedStoichiometryIds.size(); ns++) {
+      const Rule* rule = model->getRule(namedStoichiometryIds[ns]);
+      if (rule != NULL) {
+        std::string msg = "The named stoichiometry '" + namedStoichiometryIds[ns] + "' (also called a speciesReference) has ";
+        if (rule->isAssignment()) {
+          msg += "an assignment rule";
+        }
+        else {
+          assert(rule->isRate());
+          msg += "a rate rule";
+        }
+        msg += ", which means that the stoichiometry of its reaction varies in time.  Variable stoichiometries are not supported by roadrunner.";
+        throw_llvm_exception(msg);
+      }
+    }
+
 }
 
 
