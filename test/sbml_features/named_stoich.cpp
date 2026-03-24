@@ -54,9 +54,9 @@ TEST_F(SBMLFeatures, issue1306_named_stoich_value) {
 
 TEST_F(SBMLFeatures, issue1306_named_stoich_steadyState) {
   rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
-  //rr.steadyState();
-  //EXPECT_NEAR(rr.getValue("B"), 6.0, 0.00001);
-  //rr.reset();
+  rr.steadyState();
+  EXPECT_NEAR(rr.getValue("B"), 6.0, 0.00001);
+  rr.reset();
   rr.setValue("n", 3);
   rr.setValue("m", 5);
   rr.setValue("q", 7);
