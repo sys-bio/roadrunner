@@ -744,7 +744,7 @@ llvm::StructType *ModelDataIRBuilder::getStructType(llvm::Module *module)
 unsigned ModelDataIRBuilder::getModelDataSize(llvm::Module *module, const DataLayout& dl)
 {
     StructType *structType = getStructType(module);
-	uint64_t llvm_size = dl.getTypeStoreSize(structType);
+    uint64_t llvm_size = dl.getTypeStoreSize(structType);
 
     // the model data struct will NEVER be bigger than a 32 bit pointer!
     return (unsigned)llvm_size;

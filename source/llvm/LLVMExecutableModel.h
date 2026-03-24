@@ -348,19 +348,33 @@ public:
     virtual int setCompartmentVolumes(size_t len, int const* indx,
         const double* values, bool strict);
 
-    virtual int setStoichiometries(size_t len, int const* indx,
-                                      const double* values);
+    //virtual int setStoichiometries(size_t len, int const* indx,
+    //                                  const double* values);
 
-    virtual int setStoichiometries(size_t len, int const* indx,
-                                      const double* values, bool strict);
+    //virtual int setStoichiometries(size_t len, int const* indx,
+    //                                  const double* values, bool strict);
 
     virtual int setStoichiometry(int index, double value);
 
     virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value);
 
+    //virtual int setInitStoichiometries(size_t len, int const* indx,
+    //  const double* values);
+
+    //virtual int setInitStoichiometries(size_t len, int const* indx,
+    //  const double* values, bool strict);
+
+    virtual int setInitStoichiometry(int index, double value);
+
+    virtual int setInitStoichiometry(int speciesIndex, int reactionIndex, double value);
+
     virtual double getStoichiometry(int index);
 
     virtual double getStoichiometry(int speciesIndex, int reactionIndex);
+
+    virtual double getInitStoichiometry(int index);
+
+    virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
 
     /******************************* Initial Conditions Section *******************/
     #if (1) /**********************************************************************/
