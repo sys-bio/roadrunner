@@ -301,7 +301,7 @@ TEST_F(SelectionRecordTests, STOICHIOMETRY){
     SelectionRecord record = rr.createSelection("stoich(S1, _J1)");
     EXPECT_EQ(record.selectionType, SelectionRecord::STOICHIOMETRY);
     EXPECT_STREQ(record.to_string().c_str(), "stoich(S1, _J1)");
-    EXPECT_EQ(record.index, -1);
+    EXPECT_EQ(record.index, 3);
     EXPECT_EQ(record.p1, "S1");
     EXPECT_EQ(record.p2, "_J1");
     delete testModel;

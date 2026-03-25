@@ -1480,7 +1480,7 @@ double LLVMExecutableModel::getValue(const std::string& id)
         break;
     case SelectionRecord::STOICHIOMETRY:
     case SelectionRecord::INITIAL_STOICHIOMETRY:
-        getStoichiometry(index, result);
+        result = getStoichiometry(index);
         break;
     case SelectionRecord::EVENT:
     {
@@ -1638,10 +1638,19 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
             }
             break;
         case SelectionRecord::STOICHIOMETRY:
-            sel.index = getStoichiometryIndex(sel.p1, sel.p2);
-            if (sel.index == -1) {
-              throw LLVMException("Invalid id '" + str + "': could not find a species with the ID '" + sel.p1 + "', and/or a reaction with the ID '" + sel.p2 + "'");
-              break;
+            if (sel.p2.empty()) {
+              sel.index = getStoichiometryIndex(sel.p1);
+              if (sel.index == -1) {
+                throw LLVMException("Invalid id '" + str + "': could not find a stoichiometry with the ID '" + sel.p1 + "'.");
+                break;
+              }
+            }
+            else {
+              sel.index = getStoichiometryIndex(sel.p1, sel.p2);
+              if (sel.index == -1) {
+                throw LLVMException("Invalid id '" + str + "': could not find a species with the ID '" + sel.p1 + "', and/or a reaction with the ID '" + sel.p2 + "'");
+                break;
+              }
             }
 
             break;
