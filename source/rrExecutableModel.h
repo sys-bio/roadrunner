@@ -890,6 +890,8 @@ namespace rr {
 
         virtual void getInitialAssignmentIds(std::list<std::string>&) = 0;
 
+        virtual void getStoichiometryIds(std::list<std::string>&) = 0;
+
         virtual void setEventListener(size_t index, EventListenerPtr eventHandler) = 0;
 
         virtual EventListenerPtr getEventListener(size_t index) = 0;

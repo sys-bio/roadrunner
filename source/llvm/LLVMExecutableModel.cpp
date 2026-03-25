@@ -1478,6 +1478,10 @@ double LLVMExecutableModel::getValue(const std::string& id)
     case SelectionRecord::INITIAL_GLOBAL_PARAMETER:
         getGlobalParameterInitValues(1, &index, &result);
         break;
+    case SelectionRecord::STOICHIOMETRY:
+    case SelectionRecord::INITIAL_STOICHIOMETRY:
+        getStoichiometry(index, result);
+        break;
     case SelectionRecord::EVENT:
     {
             bool trigger = getEventTrigger(index);
@@ -1906,6 +1910,12 @@ void LLVMExecutableModel::getRateRuleIds(std::list<std::string>& out)
 void LLVMExecutableModel::getInitialAssignmentIds(std::list<std::string>& out)
 {
     std::vector<std::string> rrIds = symbols->getInitialAssignmentIds();
+    std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
+}
+
+void LLVMExecutableModel::getStoichiometryIds(std::list<std::string>& out)
+{
+    std::vector<std::string> rrIds = symbols->getStoichiometryIds();
     std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
 }
 
