@@ -1401,6 +1401,10 @@ namespace std { class ostream{}; }
             for s in model.getGlobalParameterIds() + model.getCompartmentIds() + model.getReactionIds() + model.getConservedMoietyIds():
                 makeProperty(s, s)
 
+            for s in model.getStoihiometryIds():
+                if "(" not in s:
+                    makeProperty(s, s)
+
         def __getstate__(self):
             return self.saveStateS()
 
