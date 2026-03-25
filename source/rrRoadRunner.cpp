@@ -1354,12 +1354,6 @@ namespace rr {
             case SelectionRecord::STOICHIOMETRY:
             case SelectionRecord::INITIAL_STOICHIOMETRY: {
                 dResult = impl->model->getStoichiometry(record.index);
-              //// in case it is entered in the form of stoich(SpeciesId, ReactionId)
-              //  if (impl->model->getFloatingSpeciesIndex(record.p1) != -1 && impl->model->getReactionIndex(record.p2) != -1)
-              //      dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1, record.p2));
-              //  // in case it is entered in the form of a stoichiometry parameter
-              //  else
-              //      dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1));
                 break;
             }
             case SelectionRecord::TIME:

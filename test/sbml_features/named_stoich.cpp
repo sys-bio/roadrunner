@@ -91,12 +91,12 @@ TEST_F(SBMLFeatures, named_stoich_values) {
   rr.setValue("n", 3);
   rr.setValue("m", 5);
   rr.setValue("q", 7);
-  //EXPECT_EQ(rr.getModel()->getValue("n"), 3.0);
-  EXPECT_EQ(rr.getValue("m"), 5.0);
-  EXPECT_EQ(rr.getValue("q"), 7.0);
-  EXPECT_EQ(rr.getValue("init(n)"), 3.0);
-  EXPECT_EQ(rr.getValue("init(m)"), 5.0);
-  EXPECT_EQ(rr.getValue("init(q)"), 7.0);
+  EXPECT_EQ(rr.getModel()->getValue("n"), 3.0);
+  EXPECT_EQ(rr.getModel()->getValue("m"), 5.0);
+  EXPECT_EQ(rr.getModel()->getValue("q"), 7.0);
+  EXPECT_EQ(rr.getModel()->getValue("init(n)"), 3.0);
+  EXPECT_EQ(rr.getModel()->getValue("init(m)"), 5.0);
+  EXPECT_EQ(rr.getModel()->getValue("init(q)"), 7.0);
 }
 
 
