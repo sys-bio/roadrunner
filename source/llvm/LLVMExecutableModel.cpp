@@ -1913,12 +1913,6 @@ void LLVMExecutableModel::getInitialAssignmentIds(std::list<std::string>& out)
     std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
 }
 
-void LLVMExecutableModel::getStoichiometryIds(std::list<std::string>& out)
-{
-    std::vector<std::string> rrIds = symbols->getStoichiometryIds();
-    std::copy(rrIds.begin(), rrIds.end(), std::back_inserter(out));
-}
-
 void LLVMExecutableModel::setEventListener(size_t index,
         rr::EventListenerPtr eventHandler)
 {

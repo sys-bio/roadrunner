@@ -2502,6 +2502,10 @@ namespace std { class ostream{}; }
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::REACTION_RATE);
     }
 
+    PyObject *getStoichiometryIds() {
+        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::STOICHIOMETRY);
+    }
+
     PyObject *getFloatingSpeciesInitAmountIds() {
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::INITIAL_FLOATING_AMOUNT);
     }
