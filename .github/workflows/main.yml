@@ -461,7 +461,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython --exclude-regex Plugin
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
