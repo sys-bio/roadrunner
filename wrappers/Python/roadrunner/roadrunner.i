@@ -1401,7 +1401,7 @@ namespace std { class ostream{}; }
             for s in model.getGlobalParameterIds() + model.getCompartmentIds() + model.getReactionIds() + model.getConservedMoietyIds():
                 makeProperty(s, s)
 
-            for s in model.getStoihiometryIds():
+            for s in model.getStoichiometryIds():
                 if "(" not in s:
                     makeProperty(s, s)
 
