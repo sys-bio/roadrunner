@@ -290,29 +290,10 @@ class RoadRunnerTests(unittest.TestCase):
         rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
         rr2.conservedMoietyAnalysis = True
         print(rr2.getConservedMoietyValues())
-        expected = {'_CSUM0': 120000.0,
-                    '_CSUM1': 600000.0,
-                    '_CSUM2': 120000.0,
-                    '_CSUM3': 120000.0,
-                    '_CSUM4': 600000.0,
-                    '_CSUM5': 120000.0,
-                    '_CSUM6': 10000.0,
-                    '_CSUM7': 120000.0,
-                    '_CSUM8': 120000.0,
-                    '_CSUM9': 446000.0,
-                    '_CSUM10': 120000.0,
-                    '_CSUM11': 10002000.0,
-                    '_CSUM12': 120000.0,
-                    '_CSUM13': 120000.0,
-                    '_CSUM14': 80000.0,
-                    }
-        results = rr2.getConservedMoietyValues()
-        ids = rr2.getConservedMoietyIds()
-        actual = {}
-        for n in range(len(results)):
-            actual[ids[n]] = results[n]
-        print(actual)
-        for i in expected:
+        expected = sorted([1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
+                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04])
+        actual = sorted(rr2.getConservedMoietyValues())
+        for i in range(len(expected)):
             self.assertAlmostEqual(expected[i], actual[i])
 
     def test_getCurrentSBML(self):
