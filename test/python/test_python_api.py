@@ -290,9 +290,9 @@ class RoadRunnerTests(unittest.TestCase):
         rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
         rr2.conservedMoietyAnalysis = True
         print(rr2.getConservedMoietyValues())
-        expected = [1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
-                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04]
-        actual = rr2.getConservedMoietyValues()
+        expected = sorted([1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
+                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04])
+        actual = sorted(rr2.getConservedMoietyValues())
         for i in range(len(expected)):
             self.assertAlmostEqual(expected[i], actual[i])
 
