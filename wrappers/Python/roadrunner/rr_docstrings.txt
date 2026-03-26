@@ -508,9 +508,22 @@ ExecutableModel.getConservedMoietyIds([index])
 Returns a vector of conserved moiety identifier symbols.
 
 
-:param index: A array of compartment indices indicating which compartment ids to return.
+:param index: A array of conserved moiety indices indicating which conserved moiety ids to return.
 :type index: None or numpy.ndarray
-:returns: a list of compartment ids.
+:returns: a list of conserved moiety ids.
+";
+
+
+
+%feature("docstring") rr::ExecutableModel::getStoichiometryIds "
+ExecutableModel.getStoichiometryIds([index])
+
+Returns a vector of stoichiometry identifier symbols.
+
+
+:param index: A array of stoichiometry indices indicating which stoichiometry ids to return.
+:type index: None or numpy.ndarray
+:returns: a list of stoichiometry ids.
 ";
 
 

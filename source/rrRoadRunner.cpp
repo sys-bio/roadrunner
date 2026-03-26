@@ -1353,12 +1353,7 @@ namespace rr {
                 break;
             case SelectionRecord::STOICHIOMETRY:
             case SelectionRecord::INITIAL_STOICHIOMETRY: {
-                // in case it is entered in the form of stoich(SpeciesId, ReactionId)
-                if (impl->model->getFloatingSpeciesIndex(record.p1) != -1 && impl->model->getReactionIndex(record.p2) != -1)
-                    dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1, record.p2));
-                // in case it is entered in the form of a stoichiometry parameter
-                else
-                    dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1));
+                dResult = impl->model->getStoichiometry(record.index);
                 break;
             }
             case SelectionRecord::TIME:
@@ -4914,14 +4909,26 @@ namespace rr {
                 }
                 break;
             case SelectionRecord::STOICHIOMETRY:
-                if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0) {
-                    if (impl->model->getReactionIndex(sel.p2) >= 0) {
-                        break;
+                if (sel.p2.empty()) {
+                  if (impl->model->getStoichiometryIndex(sel.p1) < 0) {
+                    throw Exception("The id '" + sel.p1 + "' is not the id of a stoichiometry (speciesReference).");
+                  }
+                  break;
+                }
+                else {
+                    if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0) {
+                        if (impl->model->getReactionIndex(sel.p2) >= 0) {
+                            sel.index = impl->model->getStoichiometryIndex(sel.p1, sel.p2);
+                            if (sel.index < 0) {
+                              throw Exception("The species id '" + sel.p1 + "' and reaction id '" + sel.p2 + "' does not lead to a valid stoichiometry.");
+                            }
+                            break;
+                        } else {
+                            throw Exception("second argument to stoich '" + sel.p2 + "' is not a reaction id.");
+                        }
                     } else {
-                        throw Exception("second argument to stoich '" + sel.p2 + "' is not a reaction id.");
+                        throw Exception("first argument to stoich '" + sel.p1 + "' is not a floating species id.");
                     }
-                } else {
-                    throw Exception("first argument to stoich '" + sel.p1 + "' is not a floating species id.");
                 }
             case SelectionRecord::INITIAL_CONCENTRATION:
                 if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0) {

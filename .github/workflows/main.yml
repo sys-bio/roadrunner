@@ -454,21 +454,21 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
 
       - name: Run C RoadRunner tests (Ubuntu; skip plugins)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests --exclude-regex Plugin
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
       - name: Save roadrunner version
         shell: bash
@@ -591,7 +591,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
 
       - name: Create fourth Python wheel artifacts and rename
