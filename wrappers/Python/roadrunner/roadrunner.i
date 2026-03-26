@@ -1401,6 +1401,10 @@ namespace std { class ostream{}; }
             for s in model.getGlobalParameterIds() + model.getCompartmentIds() + model.getReactionIds() + model.getConservedMoietyIds():
                 makeProperty(s, s)
 
+            for s in model.getStoichiometryIds():
+                if "(" not in s:
+                    makeProperty(s, s)
+
         def __getstate__(self):
             return self.saveStateS()
 
@@ -2496,6 +2500,10 @@ namespace std { class ostream{}; }
 
     PyObject *getReactionIds() {
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::REACTION_RATE);
+    }
+
+    PyObject *getStoichiometryIds() {
+        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::STOICHIOMETRY);
     }
 
     PyObject *getFloatingSpeciesInitAmountIds() {

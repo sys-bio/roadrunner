@@ -44,6 +44,111 @@ TEST_F(SelectionRecordTests, REACTION_RATE) {
     delete testModel;
 }
 
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT) {
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("foo"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("[foo]"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("[S1"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("init(S1"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("init([S1]"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("init(foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("eigen(foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("eigenReal(foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("eigenImag(foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("uec(foo, bar)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ec(foo, bar)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ucc(foo, bar)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("cc(foo, bar)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("stoich(foo, bar)"), Exception);
+  delete testModel;
+}
+
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT_COMBINATION) {
+// test selection records that require two inputs, only one of which doesn't exist.
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("uec(foo, S1)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("uec(_J1, foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ec(foo, S1)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ec(_J1, foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ucc(foo, S1)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("ucc(_J1, foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("cc(foo, S1)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("cc(_J1, foo)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("stoich(foo, _J1)"), Exception);
+  EXPECT_THROW(SelectionRecord record = rr.createSelection("stoich(S1, foo)"), Exception);
+  delete testModel;
+}
+
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT_SET) {
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(rr.setValue("foo", 5), Exception);
+  EXPECT_THROW(rr.setValue("[foo]", 5), Exception);
+  EXPECT_THROW(rr.setValue("init(foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("eigen(foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("eigenReal(foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("eigenImag(foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("uec(foo, bar)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ec(foo, bar)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ucc(foo, bar)", 5), Exception);
+  EXPECT_THROW(rr.setValue("cc(foo, bar)", 5), Exception);
+  EXPECT_THROW(rr.setValue("stoich(foo, bar)", 5), Exception);
+  delete testModel;
+}
+
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT_COMBINATION_SET) {
+  // test selection records that require two inputs, only one of which doesn't exist.
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(rr.setValue("uec(foo, S1)", 5), Exception);
+  EXPECT_THROW(rr.setValue("uec(_J1, foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ec(foo, S1)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ec(_J1, foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ucc(foo, S1)", 5), Exception);
+  EXPECT_THROW(rr.setValue("ucc(_J1, foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("cc(foo, S1)", 5), Exception);
+  EXPECT_THROW(rr.setValue("cc(_J1, foo)", 5), Exception);
+  EXPECT_THROW(rr.setValue("stoich(foo, _J1)", 5), Exception);
+  EXPECT_THROW(rr.setValue("stoich(S1, foo)", 5), Exception);
+  delete testModel;
+}
+
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT_GET) {
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(rr.getValue("foo"), Exception);
+  EXPECT_THROW(rr.getValue("[foo]"), Exception);
+  EXPECT_THROW(rr.getValue("init(foo)"), Exception);
+  EXPECT_THROW(rr.getValue("eigen(foo)"), Exception);
+  EXPECT_THROW(rr.getValue("eigenReal(foo)"), Exception);
+  EXPECT_THROW(rr.getValue("eigenImag(foo)"), Exception);
+  EXPECT_THROW(rr.getValue("uec(foo, bar)"), Exception);
+  EXPECT_THROW(rr.getValue("ec(foo, bar)"), Exception);
+  EXPECT_THROW(rr.getValue("ucc(foo, bar)"), Exception);
+  EXPECT_THROW(rr.getValue("cc(foo, bar)"), Exception);
+  EXPECT_THROW(rr.getValue("stoich(foo, bar)"), Exception);
+  delete testModel;
+}
+
+TEST_F(SelectionRecordTests, NO_SUCH_ELEMENT_COMBINATION_GET) {
+  // test selection records that require two inputs, only one of which doesn't exist.
+  TestModel* testModel = TestModelFactory("SimpleFlux");
+  RoadRunner rr(testModel->str());
+  EXPECT_THROW(rr.getValue("uec(foo, S1)"), Exception);
+  EXPECT_THROW(rr.getValue("uec(_J1, foo)"), Exception);
+  EXPECT_THROW(rr.getValue("ec(foo, S1)"), Exception);
+  EXPECT_THROW(rr.getValue("ec(_J1, foo)"), Exception);
+  EXPECT_THROW(rr.getValue("ucc(foo, S1)"), Exception);
+  EXPECT_THROW(rr.getValue("ucc(_J1, foo)"), Exception);
+  EXPECT_THROW(rr.getValue("cc(foo, S1)"), Exception);
+  EXPECT_THROW(rr.getValue("cc(_J1, foo)"), Exception);
+  EXPECT_THROW(rr.getValue("stoich(foo, _J1)"), Exception);
+  EXPECT_THROW(rr.getValue("stoich(S1, foo)"), Exception);
+  delete testModel;
+}
+
 TEST_F(SelectionRecordTests, BOUNDARY_CONCENTRATION) {
     TestModel* testModel = TestModelFactory("SimpleFlux");
     RoadRunner rr(testModel->str());
@@ -196,7 +301,7 @@ TEST_F(SelectionRecordTests, STOICHIOMETRY){
     SelectionRecord record = rr.createSelection("stoich(S1, _J1)");
     EXPECT_EQ(record.selectionType, SelectionRecord::STOICHIOMETRY);
     EXPECT_STREQ(record.to_string().c_str(), "stoich(S1, _J1)");
-    EXPECT_EQ(record.index, -1);
+    EXPECT_EQ(record.index, 3);
     EXPECT_EQ(record.p1, "S1");
     EXPECT_EQ(record.p2, "_J1");
     delete testModel;

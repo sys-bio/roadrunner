@@ -1,4 +1,6 @@
 name: BuildRoadRunner
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' #for seanmiddleditch/gha-setup-ninja and ilammy/msvc-dev-cmd.
 
 on:
   push:
@@ -90,11 +92,11 @@ jobs:
           echo "python_v4_name=v4" >> $GITHUB_ENV
 
       - name: Checkout RoadRunner
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@main
         id: four_pythons
         with:
           python-version: |
@@ -230,6 +232,7 @@ jobs:
           fi
 
       - name: Setup Ninja
+        if: matrix.platform.os_type == 'manylinux'
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Get Host Architecture
@@ -283,7 +286,7 @@ jobs:
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@v4
+        uses: actions/cache@main
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
@@ -300,11 +303,11 @@ jobs:
             brew install pcre pcre2
             mkdir -p ${RUNNER_WORKSPACE}/swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.0/swig-4.4.0.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.4.0/
+            cd swig-4.4.1/
             ./configure --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
@@ -312,19 +315,19 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.4.0/swigwin-4.4.0.zip/download > swig.zip
+            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.4.1/swigwin-4.4.1.zip/download > swig.zip
             unzip -q swig.zip -d install-swig
             rm swig.zip
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.4.0/" >> "${GITHUB_PATH}"
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.4.1/" >> "${GITHUB_PATH}"
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             dnf install -y pcre-devel pcre2-devel
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.0/swig-4.4.0.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.4.0/
+            cd swig-4.4.1/
             ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
@@ -334,11 +337,11 @@ jobs:
             sudo sed -i "681,684d;686d" /usr/share/swig4.0/swig.swg
             # mkdir -p swig
             # cd swig
-            # curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.3.0/swig-4.3.0.tar.gz/download > swig.tar.gz
+            # curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
             # tar -zxf swig.tar.gz
             # rm swig.tar.gz
             # mkdir -p install-swig
-            # cd swig-4.3.0/
+            # cd swig-4.4.1/
             # sed -i "677,680d;682d" Lib/swig.swg
             # ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             # make
@@ -451,21 +454,21 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
 
       - name: Run C RoadRunner tests (Ubuntu; skip plugins)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex python_tests --exclude-regex Plugin
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
       - name: Save roadrunner version
         shell: bash
@@ -483,7 +486,7 @@ jobs:
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: ${{ env.artifacts_name }}
           path: ${{ env.artifacts_path }}
@@ -588,7 +591,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex python_tests
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
 
       - name: Create fourth Python wheel artifacts and rename
@@ -622,7 +625,7 @@ jobs:
 
       - name: Upload RoadRunner Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}

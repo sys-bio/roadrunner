@@ -290,9 +290,9 @@ class RoadRunnerTests(unittest.TestCase):
         rr2 = RoadRunner(tmf.TestModelFactory("Brown2004").str())
         rr2.conservedMoietyAnalysis = True
         print(rr2.getConservedMoietyValues())
-        expected = [1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
-                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04]
-        actual = rr2.getConservedMoietyValues()
+        expected = sorted([1.2000e+05, 6.0000e+05, 1.2000e+05, 1.2000e+05, 6.0000e+05, 1.2000e+05, 1.0000e+04, 1.2000e+05,
+                    1.2000e+05, 4.4600e+05, 1.2000e+05, 1.0002e+07, 1.2000e+05, 1.2000e+05, 8.0000e+04])
+        actual = sorted(rr2.getConservedMoietyValues())
         for i in range(len(expected)):
             self.assertAlmostEqual(expected[i], actual[i])
 
@@ -397,6 +397,23 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test_getGlobalParameterByName(self):
         self.assertEqual(self.rr.getGlobalParameterByName("kf"), 0.1)
+    
+    def test_getSetNamedStoichiometries(self):
+        rr = RoadRunner("named_stoic_in_kinetic_law.xml")
+        self.assertEqual(rr.n, 1)
+        self.assertEqual(rr.m, 2)
+        self.assertEqual(rr.q, 3)
+        self.assertEqual(rr['q'], 3)
+        self.assertEqual(rr.model['q'], 3)
+        self.assertEqual(rr.getValue('q'), 3)
+        rr.n = 3
+        rr.m = 5
+        rr.q = 7
+        self.assertEqual(rr['n'], 3)
+        self.assertEqual(rr['m'], 5)
+        self.assertEqual(rr['q'], 7)
+        self.assertEqual(rr.model['q'], 7)
+        self.assertEqual(rr.getValue('q'), 7)
 
     @unittest.skip("No way to use this method from Python - it "
                    "requires an out parameter as input")

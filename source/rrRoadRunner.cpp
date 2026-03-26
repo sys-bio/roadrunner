@@ -1351,13 +1351,9 @@ namespace rr {
             case SelectionRecord::INITIAL_COMPARTMENT:
                 impl->model->getCompartmentInitVolumes(1, &record.index, &dResult);
                 break;
-            case SelectionRecord::STOICHIOMETRY: {
-                // in case it is entered in the form of stoich(SpeciesId, ReactionId)
-                if (impl->model->getFloatingSpeciesIndex(record.p1) != -1 && impl->model->getReactionIndex(record.p2) != -1)
-                    dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1, record.p2));
-                // in case it is entered in the form of a stoichiometry parameter
-                else
-                    dResult = impl->model->getStoichiometry(impl->model->getStoichiometryIndex(record.p1));
+            case SelectionRecord::STOICHIOMETRY:
+            case SelectionRecord::INITIAL_STOICHIOMETRY: {
+                dResult = impl->model->getStoichiometry(record.index);
                 break;
             }
             case SelectionRecord::TIME:
@@ -1725,8 +1721,11 @@ namespace rr {
             // have to reload
             self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-            //load(getSBML());
+            //We have to update the stoichiometries manually here:
+            libsbml::SBMLDocument* olddoc = impl->document->clone();
+            updateStoichiometriesWith(impl->document.get(), impl->model.get(), getReactionIds());
             regenerateModel(true);
+            impl->document.reset(olddoc);
 
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -3144,125 +3143,6 @@ namespace rr {
 
     ls::DoubleMatrix RoadRunner::getExtendedStoichiometryMatrix() {
         return getSubStoichiometryMatrix(true, true, true);
-        //check_model();
-        //get_self();
-        //ls::LibStructural *ls = getLibStruct();
-
-        //if (self.loadOpt.getConservedMoietyConversion()) {
-        //    // pointer to mat owned by ls
-        //    ls::DoubleMatrix m = *ls->getReorderedStoichiometryMatrix();
-        //    ls->getReorderedStoichiometryMatrixLabels(
-        //            m.getRowNames(), m.getColNames());
-        //    return m;
-        //}
-
-        //// pointer to owned matrix
-        //ls::DoubleMatrix *mptr = ls->getStoichiometryMatrix();
-        //if (!mptr) {
-        //    throw CoreException("Error: Stoichiometry matrix does not exist for this model");
-        //}
-        //ls::DoubleMatrix m = *mptr;
-        //ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
-
-        //libsbml::SBMLReader reader;
-        //libsbml::SBMLDocument *doc = reader.readSBMLFromString(getSBML());
-        //libsbml::Model *model = doc->getModel();
-        //typedef cxx11_ns::unordered_map<int, int> RxnIdxToRowMap;
-        //typedef cxx11_ns::unordered_map<int, libsbml::Reaction *> RxnIdxToRxnMap;
-        //typedef cxx11_ns::unordered_map<libsbml::Species *, int> SpcToRowMap;
-        //RxnIdxToRowMap missing_rct_row_map;
-        //RxnIdxToRowMap missing_prd_row_map;
-        //RxnIdxToRxnMap rxn_map;
-        //SpcToRowMap boundary_spc_row_map;
-
-        //int n_rows = m.numRows();
-
-        //for (int i = 0; i < m.getColNames().size(); ++i) {
-        //    libsbml::Reaction *r = model->getReaction(m.getColNames().at(i));
-        //    assert(r);
-        //    rxn_map[i] = r;
-        //    if (!r->getNumReactants()) {
-        //        missing_rct_row_map[i] = n_rows++;
-        //    } else {
-        //        for (int j = 0; j < r->getNumReactants(); ++j) {
-        //            libsbml::SpeciesReference *ref = r->getReactant(j);
-        //            assert(ref);
-        //            libsbml::Species *s = model->getSpecies(ref->getSpecies());
-        //            assert(s);
-        //            if (s->getBoundaryCondition() && boundary_spc_row_map.find(s) == boundary_spc_row_map.end())
-        //                boundary_spc_row_map[s] = n_rows++;
-        //        }
-        //    }
-        //    if (!r->getNumProducts()) {
-        //        missing_prd_row_map[i] = n_rows++;
-        //    } else {
-        //        for (int j = 0; j < r->getNumProducts(); ++j) {
-        //            libsbml::SpeciesReference *ref = r->getProduct(j);
-        //            assert(ref);
-        //            libsbml::Species *s = model->getSpecies(ref->getSpecies());
-        //            assert(s);
-        //            if (s->getBoundaryCondition() && boundary_spc_row_map.find(s) == boundary_spc_row_map.end())
-        //                boundary_spc_row_map[s] = n_rows++;
-        //        }
-        //    }
-        //}
-
-        //ls::DoubleMatrix extended_matrix(n_rows, m.numCols());
-        //extended_matrix.setRowNames(m.getRowNames());
-        //extended_matrix.setColNames(m.getColNames());
-        //extended_matrix.getRowNames().resize(n_rows);
-        //for (int i = 0; i < m.numRows(); ++i) {
-        //    for (int j = 0; j < m.numCols(); ++j) {
-        //        extended_matrix(i, j) = m(i, j);
-        //    }
-        //}
-        //for (int i = m.numRows(); i < n_rows; ++i) {
-        //    for (int j = 0; j < m.numCols(); ++j) {
-        //        extended_matrix(i, j) = 0;
-        //    }
-        //}
-        //for (RxnIdxToRowMap::const_iterator i = missing_rct_row_map.begin(); i != missing_rct_row_map.end(); ++i) {
-        //    extended_matrix(i->second, i->first) = -1;
-        //    RxnIdxToRxnMap::const_iterator r = rxn_map.find(i->first);
-        //    if (r != rxn_map.end())
-        //        extended_matrix.getRowNames().at(i->second) = r->second->getId() + "_source";
-        //}
-        //for (RxnIdxToRowMap::const_iterator i = missing_prd_row_map.begin(); i != missing_prd_row_map.end(); ++i) {
-        //    extended_matrix(i->second, i->first) = 1;
-        //    RxnIdxToRxnMap::const_iterator r = rxn_map.find(i->first);
-        //    if (r != rxn_map.end())
-        //        extended_matrix.getRowNames().at(i->second) = r->second->getId() + "_sink";
-        //}
-        //for (SpcToRowMap::const_iterator i = boundary_spc_row_map.begin(); i != boundary_spc_row_map.end(); ++i) {
-        //    for (int j = 0; j < m.getColNames().size(); ++j) {
-        //        libsbml::Reaction *r = model->getReaction(m.getColNames().at(j));
-        //        assert(r);
-        //        for (int k = 0; k < r->getNumReactants(); ++k) {
-        //            libsbml::SpeciesReference *ref = r->getReactant(k);
-        //            assert(ref);
-        //            libsbml::Species *s = model->getSpecies(ref->getSpecies());
-        //            assert(s);
-        //            if (s == i->first) {
-        //                extended_matrix(i->second, j) = -1;
-        //                extended_matrix.getRowNames().at(i->second) = s->getId();
-        //            }
-        //        }
-        //        for (int k = 0; k < r->getNumProducts(); ++k) {
-        //            libsbml::SpeciesReference *ref = r->getProduct(k);
-        //            assert(ref);
-        //            libsbml::Species *s = model->getSpecies(ref->getSpecies());
-        //            assert(s);
-        //            if (s == i->first) {
-        //                extended_matrix(i->second, j) = 1;
-        //                extended_matrix.getRowNames().at(i->second) = s->getId();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //delete doc;
-
-        //return extended_matrix;
     }
 
     ls::DoubleMatrix RoadRunner::getReactantsStoichiometryMatrix(bool boundary)
@@ -4554,6 +4434,37 @@ namespace rr {
         }
     }
 
+    void convertSBMLVersionDocument(libsbml::SBMLDocument* doc, int level, int version) {
+      // this does an in-place conversion, at least for the time being
+      libsbml::SBMLLevelVersionConverter versionConverter;
+
+      libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
+
+      // this is how the target version is set
+      libsbml::SBMLNamespaces targetNamespace(level, version);
+
+      // clones the ns
+      versionProps.setTargetNamespaces(&targetNamespace);
+
+      versionConverter.setProperties(&versionProps);
+
+      // converter does an in-place conversion
+      doc->setApplicableValidators((unsigned char)Config::getInt(
+        Config::SBML_APPLICABLEVALIDATORS));
+
+      versionConverter.setDocument(doc);
+
+      if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
+        rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
+
+        const libsbml::SBMLErrorLog* log = doc->getErrorLog();
+        std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
+        rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
+
+        throw std::logic_error("Error version converting sbml: " + errors);
+      }
+    }
+
     static std::string convertSBMLVersion(const std::string &str, int level, int version) {
         libsbml::SBMLReader reader;
         std::stringstream stream;
@@ -4563,36 +4474,7 @@ namespace rr {
         try {
             // new doc
             doc = reader.readSBMLFromString(str);
-
-            // this does an in-place conversion, at least for the time being
-            libsbml::SBMLLevelVersionConverter versionConverter;
-
-            libsbml::ConversionProperties versionProps = versionConverter.getDefaultProperties();
-
-            // this is how the target version is set
-            libsbml::SBMLNamespaces targetNamespace(level, version);
-
-            // clones the ns
-            versionProps.setTargetNamespaces(&targetNamespace);
-
-            versionConverter.setProperties(&versionProps);
-
-            // converter does an in-place conversion
-            doc->setApplicableValidators((unsigned char) Config::getInt(
-                    Config::SBML_APPLICABLEVALIDATORS));
-
-            versionConverter.setDocument(doc);
-
-            if (versionConverter.convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
-                rrLog(rr::Logger::LOG_ERROR) << "could not change source sbml level or version";
-
-                const libsbml::SBMLErrorLog *log = doc->getErrorLog();
-                std::string errors = log ? log->toString() : std::string(" NULL SBML Error Log");
-                rrLog(rr::Logger::LOG_ERROR) << "Conversion Errors: " + errors;
-
-                throw std::logic_error("Error version converting sbml: " + errors);
-            }
-
+            convertSBMLVersionDocument(doc, level, version);
             libsbml::SBMLWriter writer;
             writer.writeSBML(doc, stream);
             delete doc;
@@ -4611,83 +4493,192 @@ namespace rr {
         std::stringstream stream;
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(impl->document.get(), stream);
-
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
+        if (level > 0 && version > 0 && level != impl->document->getLevel() && version != impl->document->getVersion()) {
+          //Need to convert the level/version
+          libsbml::SBMLDocument doc(*impl->document.get());
+          convertSBMLVersionDocument(&doc, level, version);
+          writer.writeSBML(impl->document.get(), stream);
         }
+        else {
+          writer.writeSBML(impl->document.get(), stream);
+        }
+
         return stream.str();
     }
 
+    libsbml::SBMLDocument* RoadRunner::getCurrentSBMLDocument(int level, int version)
+    {
+      if (!impl->model) {
+        libsbml::SBMLDocument* empty = new libsbml::SBMLDocument(level, version);
+        empty->createModel();
+        return empty;
+      }
+      get_self();
+
+      libsbml::SBMLDocument* doc = impl->document->clone();
+      libsbml::Model* model = doc->getModel();
+
+      while (model->getNumInitialAssignments() > 0) {
+        delete model->removeInitialAssignment(0);
+      }
+
+      std::vector<std::string> array = getFloatingSpeciesIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        if (model->getSpecies(array[i])) {
+          if (model->getSpecies(array[i])->isSetInitialConcentration()) {
+            impl->model->getFloatingSpeciesConcentrations(1, &i, &value);
+            setSBMLValue(model, array[i], value, true);
+          }
+          else {
+            impl->model->getFloatingSpeciesAmounts(1, &i, &value);
+            setSBMLValue(model, array[i], value, false);
+          }
+        }
+      }
+
+      array = getBoundarySpeciesIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        if (model->getSpecies(array[i])) {
+          if (model->getSpecies(array[i])->isSetInitialConcentration()) {
+            impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
+            setSBMLValue(model, array[i], value, true);
+          }
+          else {
+            impl->model->getBoundarySpeciesAmounts(1, &i, &value);
+            setSBMLValue(model, array[i], value, false);
+          }
+        }
+      }
+
+      array = getCompartmentIds();
+      for (int i = 0; i < array.size(); i++) {
+        double value = 0;
+        impl->model->getCompartmentVolumes(1, &i, &value);
+        try {
+          setSBMLValue(model, array[i], value);
+        }
+        catch(std::exception e) {
+          continue;
+        }
+      }
+
+      array = getGlobalParameterIds();
+      for (int i = 0; i < impl->model->getNumGlobalParameters(); i++) {
+        double value = 0;
+        impl->model->getGlobalParameterValues(1, &i, &value);
+
+        libsbml::Parameter* param = model->getParameter(array[i]);
+        if (param != NULL) {
+          param->setValue(value);
+        }
+        else {
+          //Could be a species reference that we converted to a global parameter.
+          if (self.model->getConservedMoietyIndex(array[i]) < 0) {
+            libsbml::SBase* ref = model->getElementBySId(array[i]);
+            if (ref == NULL || ref->getTypeCode() != libsbml::SBML_SPECIES_REFERENCE) {
+              continue;
+              // sanity check, just make sure that this is a conserved moeity
+              //throw std::logic_error("The global parameter name "
+              //  + array[i] + " could not be found in the SBML model, "
+              //  " and it is not a conserved moiety");
+            }
+            libsbml::SpeciesReference* sref = static_cast<libsbml::SpeciesReference*>(ref);
+            sref->setStoichiometry(value);
+
+          }
+        }
+      }
+
+      //Set any changed stoichiometries
+      updateStoichiometriesWith(doc, impl->model.get(), getReactionIds());
+
+
+      if (level > 0 && version > 0 && level != doc->getLevel() && version != doc->getVersion()) {
+        convertSBMLVersionDocument(doc, level, version);
+      }
+      return doc;
+    }
+
+    void RoadRunner::updateStoichiometriesWith(libsbml::SBMLDocument* doc, ExecutableModel* ex_model, vector<string> rxnids)
+    {
+      if (!doc || !ex_model) {
+        return;
+      }
+      libsbml::Model* model = doc->getModel();
+      if (!model) {
+        return;
+      }
+      int n_ind = ex_model->getNumIndFloatingSpecies();
+      for (int nr = 0; nr < rxnids.size(); nr++) {
+        string rxnid = rxnids[nr];
+        libsbml::Reaction* rxn = model->getReaction(rxnid);
+        if (!rxn) continue;
+        int rxnindex = ex_model->getReactionIndex(rxnid);
+
+        // First pass: sum stoichiometries across both reactants and products per species.
+        // We use the same sign convention as getStoichiometry(): negative for reactants,
+        // positive for products.
+        std::map<string, double> totalStoich;
+        for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+          libsbml::SpeciesReference* sr = rxn->getReactant(r);
+          totalStoich[sr->getSpecies()] -= sr->getStoichiometry();
+        }
+        for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+          libsbml::SpeciesReference* sp = rxn->getProduct(p);
+          totalStoich[sp->getSpecies()] += sp->getStoichiometry();
+        }
+
+        // Second pass: for each species, apply any delta to the first species reference
+        // seen across both reactants and products.
+        set<string> seen;
+        for (unsigned int r = 0; r < rxn->getNumReactants(); r++) {
+          libsbml::SpeciesReference* sr = rxn->getReactant(r);
+          string specid = sr->getSpecies();
+          if (seen.find(specid) != seen.end()) continue;
+          seen.insert(specid);
+
+          int specindex = ex_model->getFloatingSpeciesIndex(specid);
+          if (specindex < 0) continue;
+          if (specindex >= n_ind) continue;
+
+          double desired = ex_model->getStoichiometry(specindex, rxnindex);  // negative
+          double delta = desired - totalStoich[specid];
+          if (std::abs(delta) > 1e-15) {
+            // Reactant stoichiometries are positive in SBML, so subtract delta
+            sr->setStoichiometry(sr->getStoichiometry() - delta);
+          }
+        }
+        for (unsigned int p = 0; p < rxn->getNumProducts(); p++) {
+          libsbml::SpeciesReference* sp = rxn->getProduct(p);
+          string specid = sp->getSpecies();
+          if (seen.find(specid) != seen.end()) continue;
+          seen.insert(specid);
+
+          int specindex = ex_model->getFloatingSpeciesIndex(specid);
+          if (specindex < 0) continue;
+          if (specindex >= n_ind) continue;
+
+          double desired = ex_model->getStoichiometry(specindex, rxnindex);  // positive
+          double delta = desired - totalStoich[specid];
+          if (std::abs(delta) > 1e-15) {
+            // Product stoichiometries are positive in SBML, so add delta
+            sp->setStoichiometry(sp->getStoichiometry() + delta);
+          }
+        }
+      }
+    }
+
     std::string RoadRunner::getCurrentSBML(int level, int version) {
-        check_model();
-        get_self();
 
         std::stringstream stream;
-        libsbml::SBMLDocument doc(*impl->document);
-        libsbml::Model *model = doc.getModel();
 
-        while (model->getNumInitialAssignments() > 0) {
-            delete model->removeInitialAssignment(0);
-        }
-
-        std::vector<std::string> array = getFloatingSpeciesIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            if (model->getSpecies(array[i])->isSetInitialConcentration()) {
-                impl->model->getFloatingSpeciesConcentrations(1, &i, &value);
-                setSBMLValue(model, array[i], value, true);
-            }
-            else {
-                impl->model->getFloatingSpeciesAmounts(1, &i, &value);
-                setSBMLValue(model, array[i], value, false);
-            }
-        }
-
-        array = getBoundarySpeciesIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            if (model->getSpecies(array[i])->isSetInitialConcentration()) {
-                impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
-                setSBMLValue(model, array[i], value, true);
-            }
-            else {
-                impl->model->getBoundarySpeciesAmounts(1, &i, &value);
-                setSBMLValue(model, array[i], value, false);
-            }
-        }
-
-        array = getCompartmentIds();
-        for (int i = 0; i < array.size(); i++) {
-            double value = 0;
-            impl->model->getCompartmentVolumes(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
-
-        array = getGlobalParameterIds();
-        for (int i = 0; i < impl->model->getNumGlobalParameters(); i++) {
-            double value = 0;
-            impl->model->getGlobalParameterValues(1, &i, &value);
-
-            libsbml::Parameter *param = model->getParameter(array[i]);
-            if (param != NULL) {
-                param->setValue(value);
-            } else {
-                // sanity check, just make sure that this is a conserved moeity
-                if (self.model->getConservedMoietyIndex(array[i]) < 0) {
-                    throw std::logic_error("The global parameter name "
-                                           + array[i] + " could not be found in the SBML model, "
-                                                        " and it is not a conserved moiety");
-                }
-            }
-        }
+        libsbml::SBMLDocument* doc = getCurrentSBMLDocument(level, version);
 
         libsbml::SBMLWriter writer;
-        writer.writeSBML(&doc, stream);
+        writer.writeSBML(doc, stream);
 
-        if (level > 0) {
-            return convertSBMLVersion(stream.str(), level, version);
-        }
         return stream.str();
     }
 
@@ -4719,7 +4710,8 @@ namespace rr {
     void RoadRunner::setValue(const std::string &sId, double dValue) {
         check_model();
 
-        SelectionRecord sel(sId);
+        //Run 'createSelection' so it throws if it's an invalid ID right away.
+        SelectionRecord sel = createSelection(sId);
 
         if (sel.selectionType & SelectionRecord::INITIAL && sel.p2 == "") {
             if (sel.selectionType & SelectionRecord::CONCENTRATION) {
@@ -4839,7 +4831,6 @@ namespace rr {
                     break;
                 } else {
                     std::string msg = "No sbml element exists for concentration selection '" + str + "'";
-                    rrLog(Logger::LOG_ERROR) << msg;
                     throw Exception(msg);
                     break;
                 }
@@ -4918,14 +4909,26 @@ namespace rr {
                 }
                 break;
             case SelectionRecord::STOICHIOMETRY:
-                if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0) {
-                    if (impl->model->getReactionIndex(sel.p2) >= 0) {
-                        break;
+                if (sel.p2.empty()) {
+                  if (impl->model->getStoichiometryIndex(sel.p1) < 0) {
+                    throw Exception("The id '" + sel.p1 + "' is not the id of a stoichiometry (speciesReference).");
+                  }
+                  break;
+                }
+                else {
+                    if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0) {
+                        if (impl->model->getReactionIndex(sel.p2) >= 0) {
+                            sel.index = impl->model->getStoichiometryIndex(sel.p1, sel.p2);
+                            if (sel.index < 0) {
+                              throw Exception("The species id '" + sel.p1 + "' and reaction id '" + sel.p2 + "' does not lead to a valid stoichiometry.");
+                            }
+                            break;
+                        } else {
+                            throw Exception("second argument to stoich '" + sel.p2 + "' is not a reaction id.");
+                        }
                     } else {
-                        throw Exception("second argument to stoich '" + sel.p2 + "' is not a reaction id.");
+                        throw Exception("first argument to stoich '" + sel.p1 + "' is not a floating species id.");
                     }
-                } else {
-                    throw Exception("first argument to stoich '" + sel.p1 + "' is not a floating species id.");
                 }
             case SelectionRecord::INITIAL_CONCENTRATION:
                 if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0) {
@@ -4951,14 +4954,22 @@ namespace rr {
                 } else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::INITIAL_COMPARTMENT;
                     break;
-                } else {
+                } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1)) >= 0) {
+                    sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                    break;
+                } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1, sel.p2)) >= 0) {
+                    sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                    break;
+                }
+                else {
                     throw Exception("Invalid id '" + sel.p1 + "' for initial amount");
                     break;
                 }
             default:
-                rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
-                                         << sel.to_repr();
-                break;
+                //rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
+                //                         << sel.to_repr();
+                throw Exception("Invalid selection '" + str + "' for selecting an element of this model.");
+              break;
         }
 
         return sel;
@@ -5442,6 +5453,15 @@ namespace rr {
         return std::vector<std::string>(list.begin(), list.end());
     }
 
+    std::vector<std::string> RoadRunner::getStoichiometryIds()
+    {
+      std::list<std::string> list;
+
+      getIds(SelectionRecord::STOICHIOMETRY, list);
+
+      return std::vector<std::string>(list.begin(), list.end());
+    }
+
 
 /************************ End Selection Ids Species Section *******************/
 /******************************************************************************/
@@ -5884,7 +5904,7 @@ namespace rr {
         m.setRowNames(spec_ids);
 
         libsbml::SBMLReader reader;
-        libsbml::SBMLDocument* doc = reader.readSBMLFromString(getCurrentSBML());
+        libsbml::SBMLDocument* doc = getCurrentSBMLDocument();
         libsbml::Model* model = doc->getModel();
 
         set<std::pair<string, string> > nonStandardStoichs;
@@ -7184,13 +7204,11 @@ namespace rr {
                 }
             }
 
-
             // regenerate the model
             impl->model.reset(ExecutableModelFactory::regenerateModel(
                     impl->model.get(),
                     impl->document.get(),
                     impl->loadOpt.modelGeneratorOpt));
-
 
             impl->syncAllSolversWithModel(impl->model.get());
 

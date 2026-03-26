@@ -67,8 +67,8 @@ public:
     MOCK_METHOD(int, getSupportedIdTypes, (), (override));
     MOCK_METHOD(double, getValue, (const std::string &id), (override));
     MOCK_METHOD(void, setValue, (const std::string &id, double value), (override));
-    MOCK_METHOD(int, setStoichiometries, (size_t len, int const *indx, const double *values), (override));
-    MOCK_METHOD(int, setStoichiometries, (size_t len, int const* indx, const double* values, bool strict), (override));
+    //MOCK_METHOD(int, setStoichiometries, (size_t len, int const *indx, const double *values), (override));
+    //MOCK_METHOD(int, setStoichiometries, (size_t len, int const* indx, const double* values, bool strict), (override));
     MOCK_METHOD(int, setStoichiometry, (int index, double value), (override));
     MOCK_METHOD(int, setStoichiometry, (int speciesIndex, int reactionIndex, double value), (override));
     MOCK_METHOD(double, getStoichiometry, (int index), (override));

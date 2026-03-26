@@ -457,7 +457,12 @@ std::string rr::SelectionRecord::to_string() const
         result = "init([" + p1 + "])";
         break;
     case STOICHIOMETRY:
-        result = "stoich(" + p1 + ", " + p2 + ")";
+        if (p2.empty()) {
+          result = p1;
+        }
+        else {
+          result = "stoich(" + p1 + ", " + p2 + ")";
+        }
         break;
     case UNKNOWN:
         result = "UNKNOWN";
