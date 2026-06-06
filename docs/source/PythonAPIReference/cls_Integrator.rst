@@ -165,7 +165,11 @@ Gillespie
 
 .. attribute:: Integrator.nonnegative
 
-    Prevents species amounts from going negative during a simulation. Default value is false.
+    Prevents species amounts from going negative during a simulation. When enabled, a reaction
+    that lacks sufficient reactant molecules is given zero propensity and cannot fire, which is
+    the standard Gillespie direct-method behavior. Default value is true. Set to false to evaluate
+    rate laws literally, which allows e.g. zeroth-order or sign-indefinite rate laws to drive a
+    species' molecule count below zero.
 
 
 .. attribute:: Integrator.seed

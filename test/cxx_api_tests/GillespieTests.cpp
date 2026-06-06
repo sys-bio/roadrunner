@@ -10,6 +10,9 @@
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
 #include "RoadRunnerTest.h"
+
+#include <algorithm>
+#include <limits>
 using namespace rr;
 
 /**
@@ -96,6 +99,67 @@ TEST_F(GillespieTests, MaxStepSize) {
     ASSERT_EQ(results->RSize(), 2);
     EXPECT_EQ(results->Element(0, 0), 0);
     EXPECT_NEAR(results->Element(1, 0), 55, 0.001);
+}
+
+/**
+ * Regression test for https://github.com/sys-bio/roadrunner/issues/1320
+ *
+ * A single irreversible reaction consumes X at a constant (zeroth-order)
+ * propensity that does not depend on X.  Once X reaches 0 a correct
+ * direct-method SSA can no longer fire the reaction, so X must floor at 0.
+ * Previously the reaction kept firing because reactant availability was never
+ * checked, driving the molecule count below zero.
+ */
+static const std::string ZerothOrderSinkSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="m">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies><species id="X" compartment="c" initialAmount="20" hasOnlySubstanceUnits="true"/></listOfSpecies>
+ <listOfParameters><parameter id="k" value="10"/></listOfParameters>
+ <listOfReactions><reaction id="R" reversible="false">
+   <listOfReactants><speciesReference species="X"/></listOfReactants>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><ci>k</ci></math></kineticLaw>
+ </reaction></listOfReactions></model></sbml>)";
+
+TEST_F(GillespieTests, ZerothOrderReactantStaysNonNegative) {
+    RoadRunner rr(ZerothOrderSinkSBML);
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.setSelections({"time", "X"});
+
+    // nonnegative is on by default: X must never drop below zero, and because
+    // the 20 initial molecules are always fully consumed within t = 10, the
+    // floor of exactly zero is reached in every replicate.
+    double globalMin = std::numeric_limits<double>::infinity();
+    for (int seed = 1; seed <= 20; ++seed) {
+        rr.reset();
+        rr.getIntegrator()->setValue("seed", seed);
+        const ls::DoubleMatrix* results = rr.simulate(0, 10, 11);
+        for (unsigned int row = 0; row < results->RSize(); ++row) {
+            double x = results->Element(row, 1);
+            EXPECT_GE(x, 0.0) << "X went negative (" << x << ") at seed " << seed;
+            globalMin = std::min(globalMin, x);
+        }
+    }
+    EXPECT_EQ(globalMin, 0.0);
+}
+
+TEST_F(GillespieTests, NonnegativeDisabledReproducesNegativeAmounts) {
+    // The pre-fix behavior remains available as an explicit opt-out: with the
+    // guard disabled the rate law is evaluated literally, so the zeroth-order
+    // sink drives X below zero.
+    RoadRunner rr(ZerothOrderSinkSBML);
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.getIntegrator()->setValue("nonnegative", false);
+    rr.setSelections({"time", "X"});
+    rr.reset();
+    rr.getIntegrator()->setValue("seed", 1);
+
+    const ls::DoubleMatrix* results = rr.simulate(0, 10, 11);
+    double minX = std::numeric_limits<double>::infinity();
+    for (unsigned int row = 0; row < results->RSize(); ++row)
+        minX = std::min(minX, results->Element(row, 1));
+    EXPECT_LT(minX, 0.0);
 }
 
 TEST_F(GillespieTests, MaxNumSteps) {

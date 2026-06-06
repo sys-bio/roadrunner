@@ -148,6 +148,31 @@ namespace rr
         }
 
         /**
+        * @brief True if firing @p reaction once, in the direction given by
+        * @p sign (+1 forward, -1 reverse), would drive any floating species'
+        * amount below zero.
+        * @details Such a reaction lacks the reactant molecules needed to fire
+        * and therefore has zero propensity in the Gillespie direct method.
+        * Reactant-dependent rate laws already vanish at zero reactant count, so
+        * this guard matters for zeroth-order, saturating, and sign-indefinite
+        * rate laws whose value stays non-zero there.  The check mirrors exactly
+        * how the reaction is applied to the state vector in @ref integrate.
+        */
+        inline bool reactionWouldGoNegative(uint reaction, double sign)
+        {
+            for (int i = floatingSpeciesStart; i < stateVectorSize; ++i)
+            {
+                if (stateVector[i]
+                    + getStoich(i - floatingSpeciesStart, reaction)
+                    * stoichScale * sign < 0.0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
         * @author JKM
         * @brief Initialize model-specific variables
         * @details Called whenever a model is loaded or a Gillespie

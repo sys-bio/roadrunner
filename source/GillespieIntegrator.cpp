@@ -180,7 +180,7 @@ namespace rr
         //addSetting("initial_time_step",     Setting(0.0),   "Initial Time Step", "Specifies the initial time step size. (double)", "(double) Specifies the initial time step size.");
         addSetting("minimum_time_step",     Setting(0.0),   "Minimum Time Step", "Specifies the minimum absolute value of step size allowed. (double)", "(double) The minimum absolute value of step size allowed.");
         addSetting("maximum_time_step",     Setting(0.0),   "Maximum Time Step", "Specifies the maximum absolute value of step size allowed. (double)", "(double) The maximum absolute value of step size allowed.");
-        addSetting("nonnegative",           Setting(false), "Non-negative species only", "Prevents species amounts from going negative during a simulation. (bool)", "(bool) Enforce non-negative species constraint.");
+        addSetting("nonnegative",           Setting(true), "Non-negative species only", "Prevents species amounts from going negative during a simulation. (bool)", "(bool) When enabled (the default), a reaction that lacks sufficient reactant molecules is given zero propensity and cannot fire, so species amounts never go negative -- the standard Gillespie direct-method behavior.  Disable to evaluate rate laws literally, which allows e.g. zeroth-order or sign-indefinite rate laws to drive a species' molecule count below zero.");
         addSetting("max_output_rows",       Setting(Config::getInt(Config::MAX_OUTPUT_ROWS)), "Maximum Output Rows", "For variable step size simulations, the maximum number of output rows produced (int).", "(int) This will set the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents massive output for simulations where the variable step size ends up decreasing too much.  This setting is ignored when the variable_step_size is false, and is also ignored when the output is being written directly to a file.");
         addSetting("maximum_num_steps", Setting(0), "Maximum Number of Steps",
             "Specifies the maximum number of steps to be taken by the Gillespie solver before reaching the next reporting time. (int)",
@@ -250,9 +250,27 @@ namespace rr
             // get the 'propensity' -- reaction rates
             mModel->getReactionRates(nReactions, nullptr, reactionRates);
 
+            const bool nonnegative = getValue("nonnegative").get<bool>();
+
             // sum the propensity
             for (int k = 0; k < nReactions; k++)
             {
+                // In the direct method a reaction that lacks enough reactant
+                // molecules to fire has zero propensity.  Reactant-dependent
+                // rate laws (e.g. mass action) already evaluate to zero at zero
+                // reactant count, but zeroth-order (constant flux), saturating,
+                // and sign-indefinite rate laws do not -- so without this guard
+                // such a reaction keeps firing and drives a species' molecule
+                // count below zero.  Giving it an effective propensity of zero
+                // removes it from both tau sampling and reaction selection,
+                // which is the standard way to keep populations non-negative.
+                if (nonnegative)
+                {
+                    const double sign = (reactionRates[k] > 0) - (reactionRates[k] < 0);
+                    if (reactionWouldGoNegative(k, sign))
+                        reactionRates[k] = 0.0;
+                }
+
                 rrLog(Logger::LOG_DEBUG) << "reac rate: " << k << ": "
                     << reactionRates[k];
 
@@ -303,34 +321,23 @@ namespace rr
             double sign = (reactionRates[reaction] > 0)
                 - (reactionRates[reaction] < 0);
 
-            bool skip = false;
+            // When the non-negativity guard is on, the selected reaction cannot
+            // have been one that would take a species negative (its effective
+            // propensity was zeroed above), so the warning below only fires for
+            // the legacy "nonnegative = false" path that evaluates rate laws
+            // literally.
+            for (int i = floatingSpeciesStart; i < stateVectorSize; ++i)
+            {
+                stateVector[i] = stateVector[i]
+                    + getStoich(i - floatingSpeciesStart, reaction)
+                    * stoichScale * sign;
 
-            if ((bool)getValue("nonnegative")) {
-                // skip reactions which cause species amts to become negative
-                for (int i = floatingSpeciesStart; i < stateVectorSize; ++i) {
-                    if (stateVector[i]
-                        + getStoich(i - floatingSpeciesStart, reaction)
-                        * stoichScale * sign < 0.0) {
-                        skip = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!skip) {
-                for (int i = floatingSpeciesStart; i < stateVectorSize; ++i)
-                {
-                    stateVector[i] = stateVector[i]
-                        + getStoich(i - floatingSpeciesStart, reaction)
-                        * stoichScale * sign;
-
-                    if (stateVector[i] < 0.0) {
-                        rrLog(Logger::LOG_WARNING) << "Error, negative value of "
-                            << stateVector[i]
-                            << " encountred for floating species "
-                            << mModel->getFloatingSpeciesId(i - floatingSpeciesStart);
-                        t = std::numeric_limits<double>::infinity();
-                    }
+                if (stateVector[i] < 0.0) {
+                    rrLog(Logger::LOG_WARNING) << "Error, negative value of "
+                        << stateVector[i]
+                        << " encountred for floating species "
+                        << mModel->getFloatingSpeciesId(i - floatingSpeciesStart);
+                    t = std::numeric_limits<double>::infinity();
                 }
             }
 
