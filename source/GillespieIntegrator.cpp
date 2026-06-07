@@ -16,6 +16,8 @@
 #include <exception>
 #include <limits>
 #include <chrono>
+#include <cmath>
+#include <algorithm>
 
 
 
@@ -66,6 +68,9 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
+        // Determined lazily on the first integrate() call for this model.
+        timeDependentRates = -1;
+
         setEngineSeed(getValue("seed"));
     }
 
@@ -76,7 +81,8 @@ namespace rr
         reactionRates(nullptr),
         reactionRatesBuffer(nullptr),
         stateVector(nullptr),
-        stateVectorRate(nullptr)
+        stateVectorRate(nullptr),
+        timeDependentRates(-1)
     {
         GillespieIntegrator::resetSettings();
 
@@ -187,6 +193,51 @@ namespace rr
             "(int) Maximum number of steps to be taken by the Gillespie solver before reaching the next reporting time.");
     }
 
+    double GillespieIntegrator::totalPropensity(double tEval)
+    {
+        mModel->setTime(tEval);
+        mModel->getReactionRates(nReactions, nullptr, reactionRates);
+        double s = 0.0;
+        for (int k = 0; k < nReactions; ++k)
+            s += std::abs(reactionRates[k]);
+        return s;
+    }
+
+    bool GillespieIntegrator::detectTimeDependentRates(double t, double probeSpan)
+    {
+        // Compare the reaction rates at the current state for several times.  The
+        // state vector is not touched, so the species- and parameter-dependent
+        // parts of every rate law are identical between probes and any difference
+        // can only come from an explicit dependence on time (directly, or through
+        // a time-dependent assignment or rate rule that a rate law reads).
+        if (!(probeSpan > 0.0))
+            probeSpan = 1.0;
+
+        mModel->setTime(t);
+        mModel->getReactionRates(nReactions, nullptr, reactionRatesBuffer);
+
+        const double fractions[] = { 1.0e-3, 0.1, 0.5, 1.0 };
+        bool dependent = false;
+        for (double frac : fractions)
+        {
+            mModel->setTime(t + frac * probeSpan);
+            mModel->getReactionRates(nReactions, nullptr, reactionRates);
+            for (int k = 0; k < nReactions; ++k)
+            {
+                if (reactionRates[k] != reactionRatesBuffer[k])
+                {
+                    dependent = true;
+                    break;
+                }
+            }
+            if (dependent)
+                break;
+        }
+
+        mModel->setTime(t);
+        return dependent;
+    }
+
     double GillespieIntegrator::integrate(double t, double hstep)
     {
         double tf;
@@ -232,6 +283,19 @@ namespace rr
         mModel->getStateVector(stateVector);
         int step = 0;
 
+        // The direct method samples the waiting time from a propensity it assumes
+        // is constant until the next reaction.  That holds only when the rate laws
+        // are time-homogeneous.  Decide once (lazily, so the common case keeps its
+        // exact, byte-for-byte unchanged path) whether any rate depends explicitly
+        // on time; if so, integrate the propensity over time below instead of
+        // freezing it (issue #1318).
+        if (timeDependentRates < 0)
+        {
+            timeDependentRates = detectTimeDependentRates(t, hstep) ? 1 : 0;
+            mModel->setTime(t);
+            mModel->getStateVector(stateVector);
+        }
+
         while (singleStep || (t < tf && (maxNumSteps == 0 || step < maxNumSteps)))
         {
             step++;
@@ -241,61 +305,183 @@ namespace rr
 
             assert(r1 > 0 && r1 <= 1 && r2 >= 0 && r2 <= 1);
 
-            // sum of propensities
-            double s = 0;
+            // which reaction fires this step
+            int reaction = -1;
 
-            // next time
-            double tau;
-
-            // get the 'propensity' -- reaction rates
-            mModel->getReactionRates(nReactions, nullptr, reactionRates);
-
-            // sum the propensity
-            for (int k = 0; k < nReactions; k++)
+            if (!timeDependentRates)
             {
-                rrLog(Logger::LOG_DEBUG) << "reac rate: " << k << ": "
-                    << reactionRates[k];
+                // ---------------- time-homogeneous: standard direct method ----------------
+                // sum of propensities
+                double s = 0;
 
-                // if reaction rate is negative, that means reaction goes in reverse,
-                // this is fine, we just have to reverse the stoichiometry,
-                // but still need to sum the absolute value of the propensities
-                // to get tau.
-                s += std::abs(reactionRates[k]);
-            }
+                // next time
+                double tau;
 
-            // sample tau
-            if (s > 0)
-            {
-                tau = -log(r1) / s;
+                // get the 'propensity' -- reaction rates
+                mModel->getReactionRates(nReactions, nullptr, reactionRates);
+
+                // sum the propensity
+                for (int k = 0; k < nReactions; k++)
+                {
+                    rrLog(Logger::LOG_DEBUG) << "reac rate: " << k << ": "
+                        << reactionRates[k];
+
+                    // if reaction rate is negative, that means reaction goes in reverse,
+                    // this is fine, we just have to reverse the stoichiometry,
+                    // but still need to sum the absolute value of the propensities
+                    // to get tau.
+                    s += std::abs(reactionRates[k]);
+                }
+
+                // sample tau
+                if (s > 0)
+                {
+                    tau = -log(r1) / s;
+                }
+                else
+                {
+                    // no reaction occurs
+                    return tf;
+                }
+                if (!singleStep && t + tau > tf)        // if time exhausted, don't allow reaction to proceed
+                {
+                    return tf;
+                }
+
+                t = t + tau;
+
+                // select reaction
+                double sp = 0.0;
+
+                r2 = r2 * s;
+                for (int i = 0; i < nReactions; ++i)
+                {
+                    sp += std::abs(reactionRates[i]);
+                    if (r2 < sp)
+                    {
+                        reaction = i;
+                        break;
+                    }
+                }
+
+                assert(reaction >= 0 && reaction < nReactions);
             }
             else
             {
-                // no reaction occurs
-                return tf;
-            }
-            if (!singleStep && t + tau > tf)        // if time exhausted, don't allow reaction to proceed
-            {
-                return tf;
-            }
+                // ---------------- time-dependent propensity ----------------
+                // The waiting time tau is defined implicitly by
+                //     integral_{t}^{t+tau} s(u) du = -log(r1),
+                // with s(u) the total propensity re-evaluated as time advances
+                // (species are frozen between reaction events).  This is the
+                // direct-method form of the integrated-propensity representation
+                // for time-dependent rates (D. F. Anderson, J. Chem. Phys. 127,
+                // 214107 (2007)): reaction times are firings of unit-rate Poisson
+                // processes whose internal clock is the integral of the
+                // propensity.  That representation is exact; here we realize it by
+                // accumulating the integral with an adaptive trapezoidal rule,
+                // halving each panel until the propensity is nearly constant
+                // across it, then solving for the firing time inside the panel
+                // that reaches the target.  The result is therefore exact in the
+                // limit of small panels and converges as timeDependentRelTol is
+                // tightened; it is not bit-exact sampling at a finite tolerance.
+                // It reduces exactly to tau = -log(r1)/s when s is constant.
+                const double target = -log(r1);
 
-            t = t + tau;
+                // Largest panel allowed: stay within the reporting interval so a
+                // rate that is rising from zero gets sampled, honouring a user-set
+                // maximum_time_step if it is tighter.
+                double cap = singleStep ? hstep : (tf - t);
+                if (maxTimeStep > minTimeStep && maxTimeStep > 0.0)
+                    cap = std::min(cap, maxTimeStep);
+                if (cap <= 0.0)
+                    return tf;
 
-            // select reaction
-            int reaction = -1;
-            double sp = 0.0;
+                double tEvent = t;
+                double accumulated = 0.0;
+                double s0 = totalPropensity(tEvent);
+                bool fired = false;
 
-            r2 = r2 * s;
-            for (int i = 0; i < nReactions; ++i)
-            {
-                sp += std::abs(reactionRates[i]);
-                if (r2 < sp)
+                // Bound the panel count so a rate that never permits a reaction
+                // (e.g. one that stays exactly zero across the interval) cannot
+                // spin forever.
+                const long maxPanels = 2000000;
+                for (long panel = 0; panel < maxPanels; ++panel)
                 {
-                    reaction = i;
-                    break;
-                }
-            }
+                    const double remaining = target - accumulated;
+                    const double dtFire = (s0 > 0.0)
+                        ? remaining / s0
+                        : std::numeric_limits<double>::infinity();
+                    double h = std::min(dtFire, cap);
+                    if (!singleStep)
+                        h = std::min(h, tf - tEvent);
+                    if (h <= 0.0)
+                        break;      // reached the reporting time with no reaction
 
-            assert(reaction >= 0 && reaction < nReactions);
+                    // shrink the panel until the propensity barely changes over it
+                    double s1 = totalPropensity(tEvent + h);
+                    for (int it = 0; it < 50; ++it)
+                    {
+                        const double denom = std::max(std::max(s0, s1), 1e-12);
+                        if (std::abs(s1 - s0) <= timeDependentRelTol * denom)
+                            break;
+                        h *= 0.5;
+                        s1 = totalPropensity(tEvent + h);
+                    }
+
+                    const double inc = 0.5 * (s0 + s1) * h;   // trapezoidal integral over the panel
+                    if (accumulated + inc >= target && (s0 + s1) > 0.0)
+                    {
+                        // event fires within this panel; with s ~ linear across it,
+                        // s(u) = s0 + k (u - tEvent), so solve
+                        //   s0 * delta + 0.5 * k * delta^2 = remaining
+                        // for the offset delta in [0, h].
+                        const double k = (h > 0.0) ? (s1 - s0) / h : 0.0;
+                        double delta;
+                        if (std::abs(k) < 1e-12)
+                            delta = remaining / s0;
+                        else
+                        {
+                            const double disc = s0 * s0 + 2.0 * k * remaining;
+                            delta = (-s0 + std::sqrt(std::max(disc, 0.0))) / k;
+                        }
+                        if (delta < 0.0) delta = 0.0;
+                        if (delta > h)   delta = h;
+                        tEvent += delta;
+                        fired = true;
+                        break;
+                    }
+
+                    accumulated += inc;
+                    tEvent += h;
+                    s0 = s1;        // reuse the right endpoint as the next left endpoint
+                }
+
+                if (!fired)
+                {
+                    // no reaction before the reporting time
+                    return tf;
+                }
+
+                t = tEvent;
+
+                // select the reaction using the propensities at the firing time
+                double s = totalPropensity(t);
+                if (s <= 0.0)
+                    return tf;
+                double sp = 0.0;
+                r2 = r2 * s;
+                for (int i = 0; i < nReactions; ++i)
+                {
+                    sp += std::abs(reactionRates[i]);
+                    if (r2 < sp)
+                    {
+                        reaction = i;
+                        break;
+                    }
+                }
+                if (reaction < 0)
+                    reaction = nReactions - 1;   // guard against round-off when r2*s == s
+            }
 
             // update chemical species
             // if rate is negative, means reaction goes in reverse, so
