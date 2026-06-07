@@ -782,7 +782,21 @@ void LLVMExecutableModel::reset(int opt)
     if (opt & SelectionRecord::SBML_INITIALIZE)
     {
         rrLog(Logger::LOG_INFORMATION) << "resetting init conditions";
+
+        // Initial conditions are defined at the initial time (t = 0), not at
+        // the pre-simulation sentinel time (-inf) that the model carries before
+        // a simulation starts. evalInitialConditions copies the freshly
+        // computed species amounts into the init-value slots, and for a species
+        // whose compartment size is given by a time-dependent assignment rule
+        // that round trip evaluates the rule against modelData->time. With time
+        // left at -inf the volume comes out as +/-inf or NaN, which corrupts the
+        // initialConcentration -> amount conversion and leaves the species
+        // initialized to 0 (or inf/NaN). Pin time to 0 for the duration of the
+        // call so the volume is evaluated at the initial point. See issue #1319.
+        const double savedTime = getTime();
+        setTime(0.0);
         evalInitialConditions();
+        setTime(savedTime);
     }
 
     // eval the initial conditions and rates

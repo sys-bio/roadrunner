@@ -4,6 +4,7 @@ add_test_executable(
         boolean_delay.cpp
         events.cpp
         fast.cpp
+        init_conc_compartment_assignment.cpp
         invalid_sbml.cpp
         named_stoich.cpp
         piecewise_triggers.cpp
