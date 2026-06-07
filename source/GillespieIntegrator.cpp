@@ -324,12 +324,21 @@ namespace rr
                         + getStoich(i - floatingSpeciesStart, reaction)
                         * stoichScale * sign;
 
+                    // A floating species amount may legitimately go negative (it
+                    // can stand for a charge or a membrane voltage rather than a
+                    // molecule count), so a negative value is neither an error nor
+                    // a reason to stop the trajectory.  Callers that require
+                    // non-negative populations enable the "nonnegative" setting,
+                    // which skips any reaction that would drive a species below zero
+                    // (handled above via 'skip').  This block previously set
+                    // t = infinity here, which silently froze the entire run; a
+                    // benign rounding-error-sized dip below zero from a non-integer
+                    // initial amount was enough to trigger it and corrupt the
+                    // trajectory (#1317).
                     if (stateVector[i] < 0.0) {
-                        rrLog(Logger::LOG_WARNING) << "Error, negative value of "
-                            << stateVector[i]
-                            << " encountred for floating species "
+                        rrLog(Logger::LOG_DEBUG) << "Negative amount ("
+                            << stateVector[i] << ") for floating species "
                             << mModel->getFloatingSpeciesId(i - floatingSpeciesStart);
-                        t = std::numeric_limits<double>::infinity();
                     }
                 }
             }
