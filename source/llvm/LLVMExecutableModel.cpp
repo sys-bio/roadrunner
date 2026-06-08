@@ -944,11 +944,7 @@ void LLVMExecutableModel::reset(int opt)
 
     // this sets up the event system to pull the initial value
     // before the simulation starts.
-    if (opt & SelectionRecord::TIME)
-    {
-      rrLog(Logger::LOG_INFORMATION) << "if time was reset, set it to -inf temporarily";
-      setTime(-std::numeric_limits<double>::infinity());
-    }
+    setTime(-std::numeric_limits<double>::infinity());
 
     // we've reset the species to their init values.
     dirty &= ~DIRTY_INIT_SPECIES;
