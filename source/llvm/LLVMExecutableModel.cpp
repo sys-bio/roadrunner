@@ -776,35 +776,23 @@ void LLVMExecutableModel::reset(int opt)
 {
     using std::max; // weird linux vs windows thing
 
-    // initializes the model to the init values specified in the sbml, and
-    // copies these to the initial initial conditions (not a typo),
-    // sets the 'init(...)' values to the sbml specified init values.
-    if (opt & SelectionRecord::SBML_INITIALIZE)
-    {
-        rrLog(Logger::LOG_INFORMATION) << "resetting init conditions";
-
-        // Initial conditions are defined at the initial time (t = 0), not at
-        // the pre-simulation sentinel time (-inf) that the model carries before
-        // a simulation starts. evalInitialConditions copies the freshly
-        // computed species amounts into the init-value slots, and for a species
-        // whose compartment size is given by a time-dependent assignment rule
-        // that round trip evaluates the rule against modelData->time. With time
-        // left at -inf the volume comes out as +/-inf or NaN, which corrupts the
-        // initialConcentration -> amount conversion and leaves the species
-        // initialized to 0 (or inf/NaN). Pin time to 0 for the duration of the
-        // call so the volume is evaluated at the initial point. See issue #1319.
-        const double savedTime = getTime();
-        setTime(0.0);
-        evalInitialConditions();
-        setTime(savedTime);
-    }
-
-    // eval the initial conditions and rates
+    //Reset time first, since initial conditions might depend on it (see issue #1310)
     if (opt & SelectionRecord::TIME)
     {
         rrLog(Logger::LOG_INFORMATION) << "resetting time";
         setTime(0.0);
     }
+
+    // initializes the model to the init values specified in the sbml, and
+    // copies these to the initial initial conditions (not a typo),
+    // sets the 'init(...)' values to the sbml specified init values.
+    // eval the initial conditions and rates
+    if (opt & SelectionRecord::SBML_INITIALIZE)
+    {
+        rrLog(Logger::LOG_INFORMATION) << "resetting init conditions";
+        evalInitialConditions();
+    }
+
 
     if (getCompartmentInitVolumesPtr && getGlobalParameterInitValuePtr
         && getFloatingSpeciesInitAmountsPtr && getBoundarySpeciesInitAmountsPtr
@@ -956,7 +944,11 @@ void LLVMExecutableModel::reset(int opt)
 
     // this sets up the event system to pull the initial value
     // before the simulation starts.
-    setTime(-std::numeric_limits<double>::infinity());
+    if (opt & SelectionRecord::TIME)
+    {
+      rrLog(Logger::LOG_INFORMATION) << "if time was reset, set it to -inf temporarily";
+      setTime(-std::numeric_limits<double>::infinity());
+    }
 
     // we've reset the species to their init values.
     dirty &= ~DIRTY_INIT_SPECIES;

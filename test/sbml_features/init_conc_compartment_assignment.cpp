@@ -21,7 +21,7 @@ public:
 
     // Build the minimal model from the issue, with the compartment V driven by
     // the supplied assignment-rule expression. X has initialConcentration 0.05.
-    static string model(const string &compartmentRule) {
+    static string comp_init_model(const string &compartmentRule) {
         return
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
@@ -48,7 +48,7 @@ public:
 // V := 1 + time. At t = 0, V = 1, so X should start at its stated
 // initialConcentration of 0.05 (amount 0.05). Before the fix this read 0.
 TEST_F(InitConcCompartmentAssignment, OnePlusTime) {
-    RoadRunner rr(model(
+    RoadRunner rr(comp_init_model(
         "          <apply><plus/>\n"
         "            <cn type=\"integer\">1</cn>\n"
         "            <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/symbols/time\">time</csymbol>\n"
@@ -61,7 +61,7 @@ TEST_F(InitConcCompartmentAssignment, OnePlusTime) {
 // V := 2 / (1 + time). At t = 0, V = 2. [X] must still be 0.05
 // (amount 0.10). Before the fix this read -inf.
 TEST_F(InitConcCompartmentAssignment, TwoOverOnePlusTime) {
-    RoadRunner rr(model(
+    RoadRunner rr(comp_init_model(
         "          <apply><divide/>\n"
         "            <cn type=\"integer\">2</cn>\n"
         "            <apply><plus/>\n"
@@ -77,7 +77,7 @@ TEST_F(InitConcCompartmentAssignment, TwoOverOnePlusTime) {
 // V := 2 + 0*time. At t = 0, V = 2. [X] must still be 0.05.
 // Before the fix this read NaN (0 * (-inf) = NaN).
 TEST_F(InitConcCompartmentAssignment, TwoPlusZeroTime) {
-    RoadRunner rr(model(
+    RoadRunner rr(comp_init_model(
         "          <apply><plus/>\n"
         "            <cn type=\"integer\">2</cn>\n"
         "            <apply><times/>\n"
@@ -93,12 +93,18 @@ TEST_F(InitConcCompartmentAssignment, TwoPlusZeroTime) {
 // The initial concentration must survive an explicit reset as well, since reset
 // re-runs the initial-condition evaluation.
 TEST_F(InitConcCompartmentAssignment, SurvivesReset) {
-    RoadRunner rr(model(
+    RoadRunner rr(comp_init_model(
         "          <apply><plus/>\n"
         "            <cn type=\"integer\">1</cn>\n"
         "            <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/symbols/time\">time</csymbol>\n"
         "          </apply>\n"));
     rr.getModel()->setTime(10.0);
-    rr.reset();
+    EXPECT_DOUBLE_EQ(rr.getValue("V"), 11.0);
+    EXPECT_DOUBLE_EQ(rr.getValue("[X]"), 0.05 / 11.0);
+    //NOTE:  even though we're not resetting time, time gets reset anyway.  If we ever fix this, the following will need to be changed.
+    rr.reset(SelectionRecord::INITIAL_FLOATING_AMOUNT);
+    EXPECT_DOUBLE_EQ(rr.getValue("time"), 0.0);
+    EXPECT_DOUBLE_EQ(rr.getValue("V"), 1.0);
     EXPECT_DOUBLE_EQ(rr.getValue("[X]"), 0.05);
+    EXPECT_DOUBLE_EQ(rr.getValue("X"), 0.05);
 }
