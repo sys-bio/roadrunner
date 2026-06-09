@@ -776,21 +776,23 @@ void LLVMExecutableModel::reset(int opt)
 {
     using std::max; // weird linux vs windows thing
 
+    //Reset time first, since initial conditions might depend on it (see issue #1310)
+    if (opt & SelectionRecord::TIME)
+    {
+        rrLog(Logger::LOG_INFORMATION) << "resetting time";
+        setTime(0.0);
+    }
+
     // initializes the model to the init values specified in the sbml, and
     // copies these to the initial initial conditions (not a typo),
     // sets the 'init(...)' values to the sbml specified init values.
+    // eval the initial conditions and rates
     if (opt & SelectionRecord::SBML_INITIALIZE)
     {
         rrLog(Logger::LOG_INFORMATION) << "resetting init conditions";
         evalInitialConditions();
     }
 
-    // eval the initial conditions and rates
-    if (opt & SelectionRecord::TIME)
-    {
-        rrLog(Logger::LOG_INFORMATION) << "resetting time";
-        setTime(0.0);
-    }
 
     if (getCompartmentInitVolumesPtr && getGlobalParameterInitValuePtr
         && getFloatingSpeciesInitAmountsPtr && getBoundarySpeciesInitAmountsPtr
