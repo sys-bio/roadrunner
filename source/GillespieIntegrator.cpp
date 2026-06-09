@@ -209,7 +209,9 @@ namespace rr
         // state vector is not touched, so the species- and parameter-dependent
         // parts of every rate law are identical between probes and any difference
         // can only come from an explicit dependence on time (directly, or through
-        // a time-dependent assignment or rate rule that a rate law reads).
+        // a time-dependent assignment rule that a rate law reads).  A rate-rule
+        // variable is part of the frozen state, so it does not vary across the
+        // probes and time dependence entering through one is not detected here.
         if (!(probeSpan > 0.0))
             probeSpan = 1.0;
 
