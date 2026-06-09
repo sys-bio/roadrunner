@@ -98,6 +98,84 @@ TEST_F(GillespieTests, MaxStepSize) {
     EXPECT_NEAR(results->Element(1, 0), 55, 0.001);
 }
 
+/**
+ * Regression test for https://github.com/sys-bio/roadrunner/issues/1317
+ *
+ * A floating species M starts at a non-integer amount and only degrades.  The
+ * value used here, 24.999999999999996, is what an initialAssignment that should
+ * give 25 evaluates to in floating point; that is how the gene-expression model
+ * in #1317 set its initial mRNA amounts.  Stepping down by whole molecules, M
+ * crosses below zero by a rounding-error-sized amount (about -1e-15).  The
+ * integrator used to treat any negative amount as fatal and set the simulation
+ * time to infinity, which silently froze the entire trajectory, including an
+ * independent two-state toggle that shares the model but is dynamically
+ * decoupled from M.  Different seeds froze the toggle at different points, so its
+ * stationary on-fraction came out badly biased instead of kon/(kon+koff) = 0.25.
+ * With the halt removed the toggle equilibrates correctly regardless of M's
+ * harmless dip below zero.
+ */
+static const std::string NonIntegerDegraderSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="m">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="M"    compartment="c" initialAmount="24.999999999999996" hasOnlySubstanceUnits="true"/>
+  <species id="Soff" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true"/>
+  <species id="Son"  compartment="c" initialAmount="0" hasOnlySubstanceUnits="true"/>
+ </listOfSpecies>
+ <listOfParameters>
+  <parameter id="kdeg" value="100"/>
+  <parameter id="kon"  value="0.25"/>
+  <parameter id="koff" value="0.75"/>
+ </listOfParameters>
+ <listOfReactions>
+  <reaction id="Rdeg" reversible="false">
+   <listOfReactants><speciesReference species="M"/></listOfReactants>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>kdeg</ci><ci>M</ci></apply></math></kineticLaw>
+  </reaction>
+  <reaction id="Ron" reversible="false">
+   <listOfReactants><speciesReference species="Soff"/></listOfReactants>
+   <listOfProducts><speciesReference species="Son"/></listOfProducts>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>kon</ci><ci>Soff</ci></apply></math></kineticLaw>
+  </reaction>
+  <reaction id="Roff" reversible="false">
+   <listOfReactants><speciesReference species="Son"/></listOfReactants>
+   <listOfProducts><speciesReference species="Soff"/></listOfProducts>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>koff</ci><ci>Son</ci></apply></math></kineticLaw>
+  </reaction>
+ </listOfReactions>
+</model></sbml>)";
+
+TEST_F(GillespieTests, NegativeAmountDoesNotFreezeRun) {
+    RoadRunner rr(NonIntegerDegraderSBML);
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.setSelections(std::vector<std::string>{"time", "Son"});
+
+    // The toggle is decoupled from M, so its time-averaged on-fraction must
+    // approach kon/(kon+koff) = 0.25.  M degrades far faster than the toggle
+    // switches, so before the fix M's tiny dip below zero froze every run almost
+    // immediately, pinning Son near its initial value of 0.  Average over
+    // independent trajectories to keep the assertion away from per-seed
+    // stochastic noise.
+    double sum = 0.0;
+    long rows = 0;
+    const int nrep = 20;
+    for (int seed = 1; seed <= nrep; ++seed) {
+        rr.reset();
+        rr.getIntegrator()->setValue("seed", seed);
+        const ls::DoubleMatrix* results = rr.simulate(0, 4000, 2001);
+        for (unsigned int row = 0; row < results->RSize(); ++row) {
+            sum += results->Element(row, 1);
+            ++rows;
+        }
+    }
+    double onFraction = sum / static_cast<double>(rows);
+    EXPECT_NEAR(onFraction, 0.25, 0.05)
+        << "toggle on-fraction " << onFraction
+        << " is far from the analytic 0.25; the run likely froze when M dipped "
+           "below zero (issue #1317).";
+}
+
 TEST_F(GillespieTests, MaxNumSteps) {
     RoadRunner rr(openLinearFlux.str());
     rr.setIntegrator("gillespie");
