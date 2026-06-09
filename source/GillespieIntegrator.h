@@ -140,13 +140,16 @@ namespace rr
          * @brief Whether any reaction rate depends explicitly on time.
          * @details -1 = not yet determined, 0 = no, 1 = yes.  When a rate law is
          * an explicit function of time (directly, or through a time-dependent
-         * assignment or rate rule) the propensity is not constant between
+         * assignment rule it reads) the propensity is not constant between
          * reaction events, so the standard direct method (which samples the
          * waiting time from a frozen propensity) is biased.  When this is 1 the
          * integrator instead integrates the propensity over time (see
          * @ref integrate).  Determined once, lazily, on the first @ref integrate
          * call so the (common) time-homogeneous case keeps its exact, unchanged
-         * code path.
+         * code path.  Rate rules are not covered: Gillespie holds the state
+         * vector fixed between reaction events and never integrates a rate-rule
+         * variable, so advancing the clock alone does not change its value -- it
+         * is neither detected here nor tracked by the propensity integral.
          */
         int timeDependentRates;
 
