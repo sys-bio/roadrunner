@@ -10,6 +10,9 @@
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
 #include "RoadRunnerTest.h"
+
+#include <cmath>
+#include <vector>
 using namespace rr;
 
 /**
@@ -219,5 +222,94 @@ TEST_F(GillespieTests, MaxNumSteps) {
     rr.getIntegrator()->setValue("minimum_time_step", 0.0);
     rr.getIntegrator()->setValue("maximum_num_steps", 1);
     results = rr.simulate(0, 50, 11);
+}
+
+/**
+ * Regression test for https://github.com/sys-bio/roadrunner/issues/1318
+ *
+ * An immigration-death process whose immigration rate is an explicit function
+ * of time: N is produced at rate lam(t) = A*(exp(c t) - exp(d t)) (zeroth order
+ * in N, and zero at t = 0) and removed at rate mu*N.  Because the system is
+ * affine, the ensemble mean satisfies exactly  m'(t) = lam(t) - mu m,  whose
+ * closed-form solution is the oracle below.  The direct method sampled the
+ * waiting time from a propensity frozen at the start of each reporting interval:
+ * at t = 0 the propensity is zero, so it jumped straight to the next reporting
+ * time leaving N pinned at 0 for the whole first interval, and it then trailed
+ * the true mean by about one interval for the rest of the run.  Integrating the
+ * (time-varying) propensity over the waiting time removes the lag.
+ */
+static const std::string TimeDependentImmigrationSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="td">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="N" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true"/>
+ </listOfSpecies>
+ <listOfParameters>
+  <parameter id="A"  value="10"/>
+  <parameter id="cc" value="-0.2156"/>
+  <parameter id="dd" value="-0.783"/>
+  <parameter id="mu" value="0.5"/>
+  <parameter id="lam" value="0" constant="false"/>
+ </listOfParameters>
+ <listOfRules>
+  <assignmentRule variable="lam">
+   <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <apply><times/><ci>A</ci>
+     <apply><minus/>
+      <apply><exp/><apply><times/><ci>cc</ci><csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol></apply></apply>
+      <apply><exp/><apply><times/><ci>dd</ci><csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol></apply></apply>
+     </apply>
+    </apply>
+   </math>
+  </assignmentRule>
+ </listOfRules>
+ <listOfReactions>
+  <reaction id="Birth" reversible="false">
+   <listOfProducts><speciesReference species="N"/></listOfProducts>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><ci>lam</ci></math></kineticLaw>
+  </reaction>
+  <reaction id="Death" reversible="false">
+   <listOfReactants><speciesReference species="N"/></listOfReactants>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>mu</ci><ci>N</ci></apply></math></kineticLaw>
+  </reaction>
+ </listOfReactions>
+</model></sbml>)";
+
+TEST_F(GillespieTests, TimeDependentPropensityMatchesODE) {
+    // closed-form mean of m'(t) = A(e^{c t}-e^{d t}) - mu m,  m(0)=0
+    const double A = 10.0, c = -0.2156, d = -0.783, mu = 0.5;
+    auto odeMean = [&](double t) {
+        return A * ((std::exp(c * t) - std::exp(-mu * t)) / (c + mu)
+                  - (std::exp(d * t) - std::exp(-mu * t)) / (d + mu));
+    };
+
+    RoadRunner rr(TimeDependentImmigrationSBML);
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.setSelections(std::vector<std::string>{"time", "N"});
+
+    const int nrep = 300;
+    const int npts = 6;                 // coarse grid: t = 0, 2, 4, 6, 8, 10
+    std::vector<double> mean(npts, 0.0);
+    for (int seed = 1; seed <= nrep; ++seed) {
+        rr.reset();
+        rr.getIntegrator()->setValue("seed", seed);
+        const ls::DoubleMatrix* results = rr.simulate(0, 10, npts);
+        for (int row = 0; row < npts; ++row)
+            mean[row] += results->Element(row, 1);
+    }
+    for (int row = 0; row < npts; ++row)
+        mean[row] /= nrep;
+
+    // The SSA mean must track the analytic ODE mean at every reporting time.
+    // Before the fix the t = 2 value was pinned at ~0 (frozen first interval)
+    // against an analytic ~4.3, far outside this tolerance.
+    for (int row = 1; row < npts; ++row) {
+        double t = 10.0 * row / (npts - 1);
+        EXPECT_NEAR(mean[row], odeMean(t), 0.7)
+            << "SSA mean " << mean[row] << " at t=" << t
+            << " does not track the ODE mean " << odeMean(t)
+            << " (time-dependent propensity not integrated; issue #1318).";
+    }
 }
 

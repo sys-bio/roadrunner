@@ -136,11 +136,62 @@ namespace rr
         std::vector<unsigned char> eventStatus;
         std::vector<unsigned char> previousEventStatus;
 
+        /**
+         * @brief Whether any reaction rate depends explicitly on time.
+         * @details -1 = not yet determined, 0 = no, 1 = yes.  When a rate law is
+         * an explicit function of time (directly, or through a time-dependent
+         * assignment rule it reads) the propensity is not constant between
+         * reaction events, so the standard direct method (which samples the
+         * waiting time from a frozen propensity) is biased.  When this is 1 the
+         * integrator instead integrates the propensity over time (see
+         * @ref integrate).  Determined once, lazily, on the first @ref integrate
+         * call so the (common) time-homogeneous case keeps its exact, unchanged
+         * code path.  Rate rules are not covered: Gillespie holds the state
+         * vector fixed between reaction events and never integrates a rate-rule
+         * variable, so advancing the clock alone does not change its value -- it
+         * is neither detected here nor tracked by the propensity integral.
+         */
+        int timeDependentRates;
+
         void testRootsAtInitialTime();
         void applyEvents(double timeEnd, std::vector<unsigned char> &prevEventStatus);
 
         double urand();
         void setEngineSeed(Setting seedSetting);
+
+        /**
+         * @brief Sum of the absolute reaction rates (the total propensity) with
+         * the model evaluated at time @p tEval and the current state vector.
+         * @details Leaves @ref reactionRates holding the individual rates at
+         * @p tEval so the caller can use them for reaction selection.  Species
+         * amounts are not modified, so this re-evaluates only the time- and
+         * parameter-dependent parts of each rate law.
+         */
+        double totalPropensity(double tEval);
+
+        /**
+         * @brief Detect whether any reaction rate changes with time alone.
+         * @details Compares the reaction rates at the current state for several
+         * times spanning @p probeSpan.  If any rate differs the propensity is
+         * time-dependent.  Restores the model time to @p t before returning.
+         *
+         * This is a value-based heuristic: it can in principle miss a rate that
+         * is flat at the sampled times but varies elsewhere.  Explicit time
+         * dependence is a structural property, so inspecting the rate-law
+         * expression trees for the SBML time symbol (following the assignment-rule
+         * graph, so it also catches a rate that reads a time-dependent parameter,
+         * which the value-based check gets for free) would be more robust than
+         * sampling values.
+         */
+        bool detectTimeDependentRates(double t, double probeSpan);
+
+        /**
+         * @brief Relative change in the total propensity tolerated across a
+         * single panel when integrating a time-dependent propensity.  Smaller
+         * values track a fast-varying rate more accurately at the cost of more
+         * rate-law evaluations.
+         */
+        static constexpr double timeDependentRelTol = 0.05;
 
         inline double getStoich(uint species, uint reaction)
         {
