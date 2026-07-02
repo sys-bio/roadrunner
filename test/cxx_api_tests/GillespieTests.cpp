@@ -276,17 +276,18 @@ static const std::string TimeDependentImmigrationSBML = R"(<?xml version="1.0" e
 </model></sbml>)";
 
 TEST_F(GillespieTests, TimeDependentPropensityMatchesODE) {
-    // closed-form mean of m'(t) = A(e^{c t}-e^{d t}) - mu m,  m(0)=0
-    const double A = 10.0, c = -0.2156, d = -0.783, mu = 0.5;
-    auto odeMean = [&](double t) {
-        return A * ((std::exp(c * t) - std::exp(-mu * t)) / (c + mu)
-                  - (std::exp(d * t) - std::exp(-mu * t)) / (d + mu));
-    };
-
     RoadRunner rr(TimeDependentImmigrationSBML);
     rr.setIntegrator("gillespie");
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.setSelections(std::vector<std::string>{"time", "N"});
+
+    const double A = rr.getValue("A"), c = rr.getValue("cc");
+    const double d = rr.getValue("dd"), mu = rr.getValue("mu");
+    // closed-form mean of m'(t) = A(e^{c t}-e^{d t}) - mu m,  m(0)=0
+    auto odeMean = [&](double t) {
+      return A * ((std::exp(c * t) - std::exp(-mu * t)) / (c + mu)
+        - (std::exp(d * t) - std::exp(-mu * t)) / (d + mu));
+      };
 
     const int nrep = 300;
     const int npts = 6;                 // coarse grid: t = 0, 2, 4, 6, 8, 10

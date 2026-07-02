@@ -68,7 +68,7 @@ namespace rr
 
         assert(floatingSpeciesStart >= 0);
 
-        // Determined lazily on the first integrate() call for this model.
+        // Determined in roadrunner::Simulate.
         timeDependentRates = -1;
 
         setEngineSeed(getValue("seed"));
@@ -203,41 +203,12 @@ namespace rr
         return s;
     }
 
-    bool GillespieIntegrator::detectTimeDependentRates(double t, double probeSpan)
+    void GillespieIntegrator::setTimeDependentRates(bool hasTime)
     {
-        // Compare the reaction rates at the current state for several times.  The
-        // state vector is not touched, so the species- and parameter-dependent
-        // parts of every rate law are identical between probes and any difference
-        // can only come from an explicit dependence on time (directly, or through
-        // a time-dependent assignment rule that a rate law reads).  A rate-rule
-        // variable is part of the frozen state, so it does not vary across the
-        // probes and time dependence entering through one is not detected here.
-        if (!(probeSpan > 0.0))
-            probeSpan = 1.0;
-
-        mModel->setTime(t);
-        mModel->getReactionRates(nReactions, nullptr, reactionRatesBuffer);
-
-        const double fractions[] = { 1.0e-3, 0.1, 0.5, 1.0 };
-        bool dependent = false;
-        for (double frac : fractions)
-        {
-            mModel->setTime(t + frac * probeSpan);
-            mModel->getReactionRates(nReactions, nullptr, reactionRates);
-            for (int k = 0; k < nReactions; ++k)
-            {
-                if (reactionRates[k] != reactionRatesBuffer[k])
-                {
-                    dependent = true;
-                    break;
-                }
-            }
-            if (dependent)
-                break;
-        }
-
-        mModel->setTime(t);
-        return dependent;
+      timeDependentRates = 0;
+      if (hasTime) {
+        timeDependentRates = 1;
+      }
     }
 
     double GillespieIntegrator::integrate(double t, double hstep)
@@ -251,6 +222,11 @@ namespace rr
         if (maxTimeStep > minTimeStep)
         {
             hstep = std::min(hstep, maxTimeStep);
+        }
+
+        if (timeDependentRates < 0)
+        {
+          throw std::runtime_error("GillespieIntegrator::integrate failed:  timeDependentRates not set.");
         }
 
         if (varStep)
@@ -285,19 +261,6 @@ namespace rr
         mModel->getStateVector(stateVector);
         int step = 0;
 
-        // The direct method samples the waiting time from a propensity it assumes
-        // is constant until the next reaction.  That holds only when the rate laws
-        // are time-homogeneous.  Decide once (lazily, so the common case keeps its
-        // exact, byte-for-byte unchanged path) whether any rate depends explicitly
-        // on time; if so, integrate the propensity over time below instead of
-        // freezing it (issue #1318).
-        if (timeDependentRates < 0)
-        {
-            timeDependentRates = detectTimeDependentRates(t, hstep) ? 1 : 0;
-            mModel->setTime(t);
-            mModel->getStateVector(stateVector);
-        }
-
         while (singleStep || (t < tf && (maxNumSteps == 0 || step < maxNumSteps)))
         {
             step++;
@@ -328,9 +291,8 @@ namespace rr
                     rrLog(Logger::LOG_DEBUG) << "reac rate: " << k << ": "
                         << reactionRates[k];
 
-                    // if reaction rate is negative, that means reaction goes in reverse,
-                    // this is fine, we just have to reverse the stoichiometry,
-                    // but still need to sum the absolute value of the propensities
+                    // When the reaction rate is negative, reverse the stoichiometries,
+                    // but still sum the absolute value of the propensities
                     // to get tau.
                     s += std::abs(reactionRates[k]);
                 }
@@ -345,7 +307,7 @@ namespace rr
                     // no reaction occurs
                     return tf;
                 }
-                if (!singleStep && t + tau > tf)        // if time exhausted, don't allow reaction to proceed
+                if (!singleStep && t + tau > tf) // if time exhausted, don't allow reaction to proceed
                 {
                     return tf;
                 }
