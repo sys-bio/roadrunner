@@ -30,12 +30,9 @@
 #else                                                       // not __APPLE__
   #if (__cplusplus >= 201103L) || defined(_MSC_VER)
     #include <random>
-  #else
-    #include <tr1/random>
-  #endif
-  // MSVC can use either C++ 11 random or C++ tr1 random
-  #if (__cplusplus >= 201103L)
     #define CXX11_RANDOM
+#else
+    #include <tr1/random>
   #endif
 
 #endif                                                     // __APPLE__

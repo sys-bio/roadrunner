@@ -7,6 +7,7 @@
 #include "ApproxSteadyStateDecorator.h"
 #include "ExecutableModelFactory.h"
 #include "ForwardSensitivitySolver.h"
+#include "GillespieIntegrator.h"
 #include "Integrator.h"
 #include "IntegratorFactory.h"
 #include "PresimulationDecorator.h"
@@ -2012,6 +2013,27 @@ namespace rr {
                 if (event->isSetDelay()) {
                     rrLog(Logger::LOG_ERROR) << "An event with a delay is present in this model, but time is not treated continuously in a gillespie simulation.  Continuing, but the delay will not be precise.  Consider changing the trigger to not have a delay instead.";
                 }
+            }
+            //Tell the gillespie integrator whether or not 'time' is a factor.
+            GillespieIntegrator* gi = static_cast<GillespieIntegrator*>(self.integrator);
+            gi->setTimeDependentRates(false);
+            const libsbml::ListOfReactions* lor = self.document->getModel()->getListOfReactions();
+            for (int r = 0; r < lor->size(); r++) {
+              const libsbml::Reaction* rxn = lor->get(r);
+              const libsbml::ASTNode* kl = rxn->getKineticLaw()->getMath();
+              if (hasTime(kl)) {
+                gi->setTimeDependentRates(true);
+              }
+            }
+            const libsbml::ListOfRules* lorules = self.document->getModel()->getListOfRules();
+            for (int r = 0; r < lorules->size(); r++) {
+              const libsbml::Rule* rule = lorules->get(r);
+              if (rule->isAssignment()) {
+                const libsbml::ASTNode* ar = rule->getMath();
+                if (hasTime(ar)) {
+                  gi->setTimeDependentRates(true);
+                }
+              }
             }
         }
 
