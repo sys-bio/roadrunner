@@ -53,6 +53,7 @@
 #include <memory>
 #include <thread>
 #include <thread_pool.hpp>
+#include <unordered_map>
 #include <utility>
 //Shouldn't need the warning-disabling #pragmas here, since these are all links to *our* llvm, not the offical LLVM source.
 #include "llvm/LLVMExecutableModel.h"
@@ -2767,6 +2768,217 @@ namespace rr {
         return v;
     }
 
+    // A number of MCA functions below combine a matrix fetched from
+    // LibStructural (stoichiometry, Nr, the link matrix) with one built
+    // directly from roadrunner's own model (typically the elasticity
+    // matrix, or roadrunner's own species/reaction index space). This is
+    // only safe if both sides agree on species/reaction ordering, and they
+    // are not guaranteed to: LibStructural derives its ordering from raw
+    // SBML declaration order and has no notion of rate rules at all, while
+    // roadrunner's own model (LLVMModelDataSymbols::initFloatingSpecies)
+    // orders floating species "independent-first" (species with no
+    // rate/assignment rule) and "dependent" ones (species with a rule)
+    // last. These two orderings happen to coincide when a model has no
+    // rate rules, or when every floating species has one -- which is why
+    // this was easy to miss -- but they diverge as soon as a model mixes
+    // rule-free and rule-governed floating species, silently misaligning
+    // any subsequent matrix multiply or index-based lookup.
+    //
+    // reorderRows/reorderCols return a COPY of `m` with the requested
+    // dimension permuted so its row/col names read exactly as
+    // `targetOrder`. They never mutate `m` itself: matrices fetched via
+    // e.g. LibStructural::getNrMatrix() are owned by (and cached inside)
+    // the LibStructural instance, and must not be modified in place.
+    static ls::DoubleMatrix reorderRows(const ls::DoubleMatrix &m, const std::vector<std::string> &targetOrder) {
+        const std::vector<std::string> &labels = m.getRowNames();
+        if (labels.size() != targetOrder.size()) {
+            throw std::runtime_error("reorderRows: matrix has " + std::to_string(labels.size()) +
+                                      " rows but target order has " + std::to_string(targetOrder.size()) +
+                                      " entries");
+        }
+
+        std::unordered_map<std::string, size_t> indexOf;
+        indexOf.reserve(labels.size());
+        for (size_t i = 0; i < labels.size(); ++i) {
+            indexOf[labels[i]] = i;
+        }
+
+        ls::DoubleMatrix result(m.numRows(), m.numCols());
+        result.setColNames(m.getColNames());
+        result.setRowNames(targetOrder);
+
+        for (size_t newRow = 0; newRow < targetOrder.size(); ++newRow) {
+            auto it = indexOf.find(targetOrder[newRow]);
+            if (it == indexOf.end()) {
+                throw std::runtime_error("reorderRows: could not locate '" + targetOrder[newRow] +
+                                          "' among matrix row labels");
+            }
+            size_t oldRow = it->second;
+            for (size_t col = 0; col < m.numCols(); ++col) {
+                result(newRow, col) = m(oldRow, col);
+            }
+        }
+        return result;
+    }
+
+    static ls::DoubleMatrix reorderCols(const ls::DoubleMatrix &m, const std::vector<std::string> &targetOrder) {
+        const std::vector<std::string> &labels = m.getColNames();
+        if (labels.size() != targetOrder.size()) {
+            throw std::runtime_error("reorderCols: matrix has " + std::to_string(labels.size()) +
+                                      " cols but target order has " + std::to_string(targetOrder.size()) +
+                                      " entries");
+        }
+
+        std::unordered_map<std::string, size_t> indexOf;
+        indexOf.reserve(labels.size());
+        for (size_t i = 0; i < labels.size(); ++i) {
+            indexOf[labels[i]] = i;
+        }
+
+        ls::DoubleMatrix result(m.numRows(), m.numCols());
+        result.setRowNames(m.getRowNames());
+        result.setColNames(targetOrder);
+
+        for (size_t newCol = 0; newCol < targetOrder.size(); ++newCol) {
+            auto it = indexOf.find(targetOrder[newCol]);
+            if (it == indexOf.end()) {
+                throw std::runtime_error("reorderCols: could not locate '" + targetOrder[newCol] +
+                                          "' among matrix col labels");
+            }
+            size_t oldCol = it->second;
+            for (size_t row = 0; row < m.numRows(); ++row) {
+                result(row, newCol) = m(row, oldCol);
+            }
+        }
+        return result;
+    }
+
+    // Fetches a matrix from LibStructural, attaches the row/col labels
+    // LibStructural reports for it, and reorders whichever dimensions are
+    // requested to match a target id order (typically roadrunner's own
+    // getFloatingSpeciesIds()/getReactionIds()). Pass an empty vector for
+    // a dimension that should be left exactly as LibStructural returns it
+    // -- e.g. a genuinely reduced "independent species" dimension, which
+    // has no canonical roadrunner-side ordering to reconcile against, and
+    // which LibStructural already keeps self-consistent between the
+    // matrices (Nr, L) that share it.
+    static ls::DoubleMatrix importLibStructMatrix(const ls::DoubleMatrix &raw,
+                                                   const std::vector<std::string> &rowLabels,
+                                                   const std::vector<std::string> &colLabels,
+                                                   const std::vector<std::string> &targetRowOrder,
+                                                   const std::vector<std::string> &targetColOrder) {
+        ls::DoubleMatrix m(raw);
+        m.setRowNames(rowLabels);
+        m.setColNames(colLabels);
+        if (!targetRowOrder.empty()) {
+            m = reorderRows(m, targetRowOrder);
+        }
+        if (!targetColOrder.empty()) {
+            m = reorderCols(m, targetColOrder);
+        }
+        return m;
+    }
+
+    // A floating species governed by a rate rule can never be a
+    // reactant/product of any reaction (SBML disallows specifying a
+    // species' dynamics twice), so its row in the stoichiometry matrix is
+    // always all zero. That means the stoichiometry * elasticity formula
+    // used above genuinely cannot represent that species' own dynamics --
+    // no reordering can fix this, since the data was never computed in
+    // the first place. Any such row has to instead be computed directly,
+    // the same way the numReactions()==0 branch above already does: by
+    // finite-differencing the model's rate of change.
+    //
+    // getNumRateRules() alone is not enough to find these species: a rate
+    // rule can just as easily target a boundary species, a compartment,
+    // or a global parameter, none of which have a row in the
+    // floating-species Jacobian at all. rateRuleSlotForFloatingSpecies
+    // cross-references each rate rule's target symbol against
+    // getFloatingSpeciesIndex() (mirroring the existing pattern in
+    // createDefaultTimeCourseSelectionList(), rrRoadRunner.cpp) to find,
+    // for each floating species, whether it specifically is one of the
+    // rate rule targets, and if so, which slot of the packed state vector
+    // (as returned by RoadRunner::getRatesOfChange(): the first
+    // getNumRateRules() entries are rate-rule rates, in this same order,
+    // followed by the "independent"/rule-free floating species' amount
+    // rates) holds its rate of change.
+    static std::vector<int> rateRuleSlotForFloatingSpecies(ExecutableModel *model) {
+        int numFloating = model->getNumFloatingSpecies();
+        std::vector<int> slot(numFloating, -1);
+
+        // getRateRuleSymbols() is allowed to throw NotImplementedException
+        // on some ExecutableModel backends (see the same guard around its
+        // use in createDefaultTimeCourseSelectionList() above); fall back
+        // to "no rate rules found" rather than propagating that failure.
+        try {
+            std::vector<std::string> rateRuleSymbols = model->getRateRuleSymbols();
+            for (size_t k = 0; k < rateRuleSymbols.size(); ++k) {
+                int fsIndex = model->getFloatingSpeciesIndex(rateRuleSymbols[k]);
+                if (fsIndex >= 0) {
+                    slot[fsIndex] = static_cast<int>(k);
+                }
+            }
+        } catch (const NotImplementedException &) {
+            rrLog(Logger::LOG_WARNING) << "Querying rate rule symbols not supported with this executable model";
+        }
+        return slot;
+    }
+
+    // Computes the derivative of getRatesOfChange()[rateOfChangeIndex]
+    // with respect to each floating species named by global index in
+    // `columnIndices`, via the same 4th-order central finite-difference
+    // stencil already used by the numReactions()==0 branch above. Values
+    // are perturbed/measured in concentration units (matching that
+    // branch's behavior). Restores every perturbed species' concentration
+    // before returning -- including if an exception is thrown partway
+    // through.
+    static std::vector<double> differentiateRateOfChange(RoadRunner &rr, ExecutableModel *model,
+                                                           int rateOfChangeIndex,
+                                                           const std::vector<int> &columnIndices,
+                                                           double diffStepSize) {
+        std::vector<double> row(columnIndices.size(), 0.0);
+
+        for (size_t k = 0; k < columnIndices.size(); ++k) {
+            int j = columnIndices[k];
+            double originalConc = 0;
+            model->getFloatingSpeciesConcentrations(1, &j, &originalConc);
+
+            double hstep = diffStepSize * originalConc;
+            if (fabs(hstep) < 1E-12) {
+                hstep = diffStepSize;
+            }
+
+            try {
+                double value = originalConc + hstep;
+                model->setFloatingSpeciesConcentrations(1, &j, &value);
+                double fi = rr.getRatesOfChange()[rateOfChangeIndex];
+
+                value = originalConc + 2 * hstep;
+                model->setFloatingSpeciesConcentrations(1, &j, &value);
+                double fi2 = rr.getRatesOfChange()[rateOfChangeIndex];
+
+                value = originalConc - hstep;
+                model->setFloatingSpeciesConcentrations(1, &j, &value);
+                double fd = rr.getRatesOfChange()[rateOfChangeIndex];
+
+                value = originalConc - 2 * hstep;
+                model->setFloatingSpeciesConcentrations(1, &j, &value);
+                double fd2 = rr.getRatesOfChange()[rateOfChangeIndex];
+
+                double f1 = fd2 + 8 * fi;
+                double f2 = -(8 * fd + fi2);
+                row[k] = 1.0 / (12.0 * hstep) * (f1 + f2);
+            }
+            catch (const std::exception &) {
+                model->setFloatingSpeciesConcentrations(1, &j, &originalConc);
+                throw;
+            }
+
+            model->setFloatingSpeciesConcentrations(1, &j, &originalConc);
+        }
+        return row;
+    }
+
     ls::DoubleMatrix RoadRunner::getFullJacobian() {
         check_model();
 
@@ -2940,19 +3152,61 @@ namespace rr {
                 return jac;
             }
       
+            // rows: reactions (getReactionIds() order), cols: floating
+            // species (getFloatingSpeciesIds() order) -- roadrunner's own
+            // ordering.
             ls::DoubleMatrix uelast = getUnscaledElasticityMatrix();
 
             // ptr to libstruct owned obj.
             ls::DoubleMatrix *rsm;
             LibStructural *ls = getLibStruct();
+            std::vector<std::string> rsmRowLabels, rsmColLabels;
             if (self.loadOpt.getConservedMoietyConversion()) {
                 rsm = ls->getReorderedStoichiometryMatrix();
+                ls->getReorderedStoichiometryMatrixLabels(rsmRowLabels, rsmColLabels);
             } else {
                 rsm = ls->getStoichiometryMatrix();
+                ls->getStoichiometryMatrixLabels(rsmRowLabels, rsmColLabels);
             }
 
-            ls::DoubleMatrix jac = ls::mult(*rsm, uelast);
-  
+            // This is the full (unreduced) stoichiometry matrix, so every
+            // floating species has a row -- even one with an all-zero
+            // stoichiometric coupling, e.g. a species that's only ever
+            // referenced as a rate-law modifier or governed by a rate rule.
+            // Reordering alone gets these rows correctly *positioned*, but
+            // a rate-rule species' row is genuinely all zero here (it has
+            // no stoichiometric coupling to any reaction), which is wrong
+            // -- see the rate-rule row replacement below.
+            ls::DoubleMatrix rsmOrdered = importLibStructMatrix(*rsm, rsmRowLabels, rsmColLabels,
+                                                                 getFloatingSpeciesIds(), getReactionIds());
+
+            ls::DoubleMatrix jac = ls::mult(rsmOrdered, uelast);
+
+            // Replace the (currently all-zero) row of any floating species
+            // that's actually governed by a rate rule with its true
+            // derivative, computed directly via finite differences on
+            // getRatesOfChange() -- see the comment above
+            // rateRuleSlotForFloatingSpecies/differentiateRateOfChange.
+            {
+                std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+                std::vector<int> allFloatingSpecies(self.model->getNumFloatingSpecies());
+                for (int c = 0; c < (int) allFloatingSpecies.size(); ++c) {
+                    allFloatingSpecies[c] = c;
+                }
+
+                for (int i = 0; i < (int) rateRuleSlot.size(); ++i) {
+                    if (rateRuleSlot[i] < 0) {
+                        continue;
+                    }
+                    std::vector<double> row = differentiateRateOfChange(
+                            *this, self.model.get(), rateRuleSlot[i], allFloatingSpecies,
+                            self.roadRunnerOptions.diffStepSize);
+                    for (int j = 0; j < (int) row.size(); ++j) {
+                        jac(i, j) = row[j];
+                    }
+                }
+            }
+
             // Now divide value in each row by comp vol of floating species.
             int jacCols = jac.CSize();
             //std::cout << "In new code......" << std::endl;
@@ -3005,28 +3259,45 @@ namespace rr {
         }
 
         std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
-        
+
+        // getNumIndFloatingSpecies() counts floating species with NO rule
+        // of any kind -- it lumps together two different reasons a
+        // species can be "dependent": a genuine rate rule (a real,
+        // independent dynamical variable) and an assignment rule (a
+        // purely algebraic relationship, e.g. a species eliminated by
+        // conserved moiety conversion, which really shouldn't be part of
+        // the reduced/independent system). Restricting this function to
+        // just the first getNumIndFloatingSpecies() species silently
+        // drops every rate-rule species entirely. The correct "reduced"
+        // set is: rule-free species (the classic independent set) PLUS
+        // species with a rate rule, MINUS nothing else -- i.e. only
+        // species eliminated by an assignment rule are excluded.
         int nIndSpecies = self.model->getNumIndFloatingSpecies();
+        int numFloating = self.model->getNumFloatingSpecies();
+        int numRateRules = self.model->getNumRateRules();
+
+        std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+
+        std::vector<int> includedIndices;
+        for (int i = 0; i < numFloating; ++i) {
+            if (i < nIndSpecies || rateRuleSlot[i] >= 0) {
+                includedIndices.push_back(i);
+            }
+        }
+        int n = (int) includedIndices.size();
 
         // result matrix
-        ls::DoubleMatrix jac(nIndSpecies, nIndSpecies);
+        ls::DoubleMatrix jac(n, n);
 
-        // get the row/column ids, independent floating species
-        std::list<std::string> list;
-        self.model->getIds(SelectionRecord::INDEPENDENT_FLOATING_AMOUNT, list);
-        std::vector<std::string> ids(list.begin(), list.end());
-        assert(ids.size() == nIndSpecies && "independent species ids length != getNumIndFloatingSpecies");
+        std::vector<std::string> ids;
+        ids.reserve(n);
+        for (int idx : includedIndices) {
+            ids.push_back(self.model->getFloatingSpeciesId(idx));
+        }
         jac.setColNames(ids);
         jac.setRowNames(ids);
 
-        // need 2 buffers for rate central difference.
-        std::vector<double> dy0v(nIndSpecies);
-        std::vector<double> dy1v(nIndSpecies);
-
-        double *dy0 = &dy0v[0];
-        double *dy1 = &dy1v[0];
-
-        // function pointers to the model get values and get init values based on
+        // function pointers to the model get values and set values based on
         // if we are doing amounts or concentrations.
         typedef int (ExecutableModel::*GetValueFuncPtr)(size_t len, int const *indx,
                                                         double *values);
@@ -3034,63 +3305,66 @@ namespace rr {
                                                         double const *values);
 
         GetValueFuncPtr getValuePtr = 0;
-        GetValueFuncPtr getRateValuePtr = 0;
         SetValueFuncPtr setValuePtr = 0;
 
-        Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS); 
+        Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
 
         if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>()
             == Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS) {
             rrLog(Logger::LOG_DEBUG) << "getReducedJacobian in AMOUNT mode";
             getValuePtr = &ExecutableModel::getFloatingSpeciesAmounts;
-            getRateValuePtr = &ExecutableModel::getFloatingSpeciesAmountRates;
             setValuePtr = &ExecutableModel::setFloatingSpeciesAmounts;
         } else {
             rrLog(Logger::LOG_DEBUG) << "getReducedJacobian in CONCENTRATION mode";
             getValuePtr = &ExecutableModel::getFloatingSpeciesConcentrations;
-            getRateValuePtr = &ExecutableModel::getFloatingSpeciesAmountRates;
             setValuePtr = &ExecutableModel::setFloatingSpeciesConcentrations;
         }
 
-        for (int i = 0; i < nIndSpecies; ++i) {
+        for (int ci = 0; ci < n; ++ci) {
+            int i = includedIndices[ci];
             double savedVal = 0;
             double y = 0;
 
             // current value of species i
             (self.model.get()->*getValuePtr)(1, &i, &savedVal);
 
-            // get the entire rate of change for all the species with
+            // get the entire (packed) rate of change vector with
             // species i being value(i) + h;
             y = savedVal + h;
             (self.model.get()->*setValuePtr)(1, &i, &y);
-            (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy0);
+            std::vector<double> dy0 = getRatesOfChange();
 
-
-            // get the entire rate of change for all the species with
+            // get the entire (packed) rate of change vector with
             // species i being value(i) - h;
             y = savedVal - h;
             (self.model.get()->*setValuePtr)(1, &i, &y);
-            (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy1);
+            std::vector<double> dy1 = getRatesOfChange();
 
             // restore original value
             (self.model.get()->*setValuePtr)(1, &i, &savedVal);
 
             // matrix is row-major, so have to copy by elements
-            for (int j = 0; j < nIndSpecies; ++j) {
-                jac(j, i) = (dy0[j] - dy1[j]) / (2.0 * h);
-                //std::cout << "Reduced Jacobian, In new code......" << std::endl;
+            for (int ri = 0; ri < n; ++ri) {
+                int j = includedIndices[ri];
+                // Map floating species j to its slot in the packed rate
+                // vector: rate-rule species read from the rate-rule
+                // section, rule-free species from the independent-species
+                // section that follows it (whose slot is exactly its own
+                // global floating-species index, since indFltSpecies
+                // occupy indices [0, nIndSpecies) in that same order --
+                // see LLVMModelDataSymbols::initFloatingSpecies).
+                int stateIndex = (rateRuleSlot[j] >= 0) ? rateRuleSlot[j] : (numRateRules + j);
+
+                jac(ri, ci) = (dy0[stateIndex] - dy1[stateIndex]) / (2.0 * h);
                 int compIndex = self.model->getCompartmentIndexForFloatingSpecies(j);
                 double compVol = this->getCompartmentByIndex(compIndex);
                 if (compVol == 0) { compVol = 1; }
-                double origVal = jac(j, i);
-                jac(j, i) = origVal / compVol;
-                
+                double origVal = jac(ri, ci);
+                jac(ri, ci) = origVal / compVol;
             }
 
             // Put back User selected JACOBIAN_MODE:
             Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
-
-
         }
         return jac;
     }
@@ -4347,9 +4621,29 @@ namespace rr {
 
         // Compute the Jacobian first
         ls::DoubleMatrix uelast = getUnscaledElasticityMatrix();
-        ls::DoubleMatrix Nr = getNrMatrix();
+
+        // Fetch Nr/L directly from LibStructural rather than through the
+        // public getNrMatrix()/getLinkMatrix() wrappers -- those
+        // intentionally preserve LibStructural's own native ordering for
+        // callers who ask for those matrices directly. Nr's
+        // reaction-columns and L's species-rows need reconciling to
+        // roadrunner's own ordering before combining with uelast; the
+        // "independent species" dimension shared between Nr's rows and
+        // L's columns is left untouched, since LibStructural already
+        // keeps that dimension self-consistent between the two.
+        LibStructural *ls = getLibStruct();
+
+        std::vector<std::string> nrRowLabels, nrColLabels;
+        ls->getNrMatrixLabels(nrRowLabels, nrColLabels);
+        ls::DoubleMatrix Nr = importLibStructMatrix(*ls->getNrMatrix(), nrRowLabels, nrColLabels,
+                                                     {}, getReactionIds());
+
+        std::vector<std::string> linkRowLabels, linkColLabels;
+        ls->getLinkMatrixLabels(linkRowLabels, linkColLabels);
+        ls::DoubleMatrix LinkMatrix = importLibStructMatrix(*ls->getLinkMatrix(), linkRowLabels, linkColLabels,
+                                                             getFloatingSpeciesIds(), {});
+
         ls::DoubleMatrix T1 = mult(Nr, uelast);
-        ls::DoubleMatrix LinkMatrix = getLinkMatrix();
         ls::DoubleMatrix Jac = mult(T1, LinkMatrix);
 
         // Compute -Jac
@@ -5072,8 +5366,26 @@ namespace rr {
             }
 
             ComplexMatrix uelast(getUnscaledElasticityMatrix());
-            ComplexMatrix Nr = getNrMatrix();
-            ComplexMatrix LinkMatrix = getLinkMatrix();
+
+            // Fetch Nr/L directly from LibStructural and reconcile their
+            // reaction/species ordering to roadrunner's own (reactionNames
+            // / speciesNames, both already in roadrunner order above)
+            // before converting to complex matrices -- see the comment
+            // above reorderRows/reorderCols for why this is necessary.
+            LibStructural *ls = getLibStruct();
+
+            std::vector<std::string> nrRowLabels, nrColLabels;
+            ls->getNrMatrixLabels(nrRowLabels, nrColLabels);
+            ls::DoubleMatrix NrOrdered = importLibStructMatrix(*ls->getNrMatrix(), nrRowLabels, nrColLabels,
+                                                                {}, reactionNames);
+
+            std::vector<std::string> linkRowLabels, linkColLabels;
+            ls->getLinkMatrixLabels(linkRowLabels, linkColLabels);
+            ls::DoubleMatrix LinkMatrixOrdered = importLibStructMatrix(*ls->getLinkMatrix(), linkRowLabels,
+                                                                        linkColLabels, speciesNames, {});
+
+            ComplexMatrix Nr = NrOrdered;
+            ComplexMatrix LinkMatrix = LinkMatrixOrdered;
 
             // Compute dv/dp
             for (int j = 0; j < reactionNames.size(); j++) {
