@@ -12,6 +12,8 @@ from os import walk, scandir
 from os.path import isdir
 import time
 import platform
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 import sys
 
@@ -195,19 +197,40 @@ class RoadRunnerTests(unittest.TestCase):
         self.results.write("\n")
 
     def simulateFile(self, fname, tnum, expected_results):
-        try:
-            rr = roadrunner.RoadRunner(self.stochdir + "/" + tnum + "/" + fname)
-        except :
-            raise ValueError("Unable to load test file " +  fname + "; perhaps an unknown distrib csymbol.")
-        rr.timeCourseSelections = ['time'] + self.variables
-        all_results = {}
-        means = {}
-        sds = {}
-        for var in rr.timeCourseSelections:
-            all_results[var] = []
-            means[var] = []
-            sds[var] = []
-        for repeat in range(self.nrepeats):
+        filepath = self.stochdir + "/" + tnum + "/" + fname
+        selections = ['time'] + self.variables
+
+        # roadrunner.i wraps rrRoadRunner.h in a %thread block, so RoadRunner's
+        # load (the constructor) and simulate() release the GIL while they run.
+        # That means the nrepeats simulate() calls below -- the actual cost of
+        # this test -- can run concurrently on real cores via a thread pool
+        # instead of one at a time. Each thread gets its own RoadRunner
+        # instance (instances are never shared/mutated across threads); only
+        # construction (which triggers the LLVM-backed model compile) is
+        # serialized, since concurrent JIT compilation across threads isn't
+        # something we've verified is safe. Set RR_STOCH_TEST_THREADS to
+        # override the worker count (default: os.cpu_count()); set it to 1 to
+        # restore the old fully-sequential behavior.
+        n_workers = int(os.environ.get("RR_STOCH_TEST_THREADS", os.cpu_count() or 1))
+        n_workers = max(1, min(n_workers, self.nrepeats))
+        load_lock = threading.Lock()
+        thread_local = threading.local()
+
+        def get_rr():
+            rr = getattr(thread_local, "rr", None)
+            if rr is None:
+                with load_lock:
+                    try:
+                        rr = roadrunner.RoadRunner(filepath)
+                    except:
+                        raise ValueError(
+                            "Unable to load test file " + fname + "; perhaps an unknown distrib csymbol.")
+                rr.timeCourseSelections = selections
+                thread_local.rr = rr
+            return rr
+
+        def runOneRepeat(_):
+            rr = get_rr()
             rr.resetToOrigin()
             if self.testType == "StochasticTimeCourse":
                 rr.setIntegrator('gillespie')
@@ -218,8 +241,23 @@ class RoadRunnerTests(unittest.TestCase):
                 sim = rr.simulate(self.start, self.duration, self.steps + 1)
             else:
                 self.fail("Unknown stochastic test type " + self.testType + " in test " + tnum + ".")
-            for n, col in enumerate(sim.colnames):
-                all_results[col].append(sim[:, n])
+            return {col: sim[:, n] for n, col in enumerate(sim.colnames)}
+
+        all_results = {var: [] for var in selections}
+        means = {var: [] for var in selections}
+        sds = {var: [] for var in selections}
+
+        if n_workers > 1:
+            with ThreadPoolExecutor(max_workers=n_workers) as executor:
+                for result in executor.map(runOneRepeat, range(self.nrepeats)):
+                    for col, data in result.items():
+                        all_results[col].append(data)
+        else:
+            for repeat in range(self.nrepeats):
+                result = runOneRepeat(repeat)
+                for col, data in result.items():
+                    all_results[col].append(data)
+
         for var in self.variables:
             nmean_wrong = None
             nsd_wrong = None
