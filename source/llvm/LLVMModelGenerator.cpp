@@ -321,8 +321,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for floating species '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
             }
@@ -339,8 +341,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for boundary species '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
 
@@ -358,8 +362,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for compartment '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
 
@@ -376,8 +382,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for global parameter '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
             }
