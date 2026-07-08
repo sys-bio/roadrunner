@@ -1608,15 +1608,24 @@ namespace rr {
                  * compute whether the jacobian matrix is singular
                  * (with SVD::isSingular). This as it turns out, is even more
                  * expensive.
+                 *
+                 * When moiety conversion checking is not possible, just
+                 * set moiety conservation analysis off.
                  */
-                setConservedMoietyAnalysis(true);
-                int numConservedMoieties = getModel()->getNumConservedMoieties();
-                if (numConservedMoieties == 0) {
+                try {
+                    setConservedMoietyAnalysis(true);
+                    int numConservedMoieties = getModel()->getNumConservedMoieties();
+                    if (numConservedMoieties == 0) {
+                        setConservedMoietyAnalysis(false);
+                    } else {
+                        rrLog(Logger::LOG_WARNING) << "Turning on moiety conservation analysis "
+                                                      "because this model has " << numConservedMoieties
+                                                   << "conserved moieties";
+                    }
+                } catch (const std::exception &e) {
+                    rrLog(Logger::LOG_WARNING) << "Skipping automatic conserved moiety analysis: "
+                                                << e.what();
                     setConservedMoietyAnalysis(false);
-                } else {
-                    rrLog(Logger::LOG_WARNING) << "Turning on moiety conservation analysis "
-                                                  "because this model has " << numConservedMoieties
-                                               << "conserved moieties";
                 }
             }
         }
@@ -1711,7 +1720,9 @@ namespace rr {
     void RoadRunner::setConservedMoietyAnalysis(bool value) {
         get_self();
 
-        if (value == self.loadOpt.getConservedMoietyConversion()) {
+        bool previousValue = self.loadOpt.getConservedMoietyConversion();
+
+        if (value == previousValue) {
             rrLog(lDebug) << "The compute and assign conservation laws flag already set to : " << toString(value);
         }
 
@@ -1725,8 +1736,18 @@ namespace rr {
 
             //We have to update the stoichiometries manually here:
             libsbml::SBMLDocument* olddoc = impl->document->clone();
-            updateStoichiometriesWith(impl->document.get(), impl->model.get(), getReactionIds());
-            regenerateModel(true);
+            try {
+                updateStoichiometriesWith(impl->document.get(), impl->model.get(), getReactionIds());
+                regenerateModel(true);
+            }
+            catch (...) {
+                // Avoid memory leak of 'olddoc' when regeneration fails, and
+                // reset options.
+                impl->document.reset(olddoc);
+                self.loadOpt.modelGeneratorOpt = savedOpt;
+                self.loadOpt.setConservedMoietyConversion(previousValue);
+                throw;
+            }
             impl->document.reset(olddoc);
 
             // restore original reload value
@@ -2854,14 +2875,8 @@ namespace rr {
     }
 
     // Fetches a matrix from LibStructural, attaches the row/col labels
-    // LibStructural reports for it, and reorders whichever dimensions are
-    // requested to match a target id order (typically roadrunner's own
-    // getFloatingSpeciesIds()/getReactionIds()). Pass an empty vector for
-    // a dimension that should be left exactly as LibStructural returns it
-    // -- e.g. a genuinely reduced "independent species" dimension, which
-    // has no canonical roadrunner-side ordering to reconcile against, and
-    // which LibStructural already keeps self-consistent between the
-    // matrices (Nr, L) that share it.
+    // LibStructural reports for it, then sorts according to the requested
+    // row/column order.
     static ls::DoubleMatrix importLibStructMatrix(const ls::DoubleMatrix &raw,
                                                    const std::vector<std::string> &rowLabels,
                                                    const std::vector<std::string> &colLabels,
@@ -2880,28 +2895,8 @@ namespace rr {
     }
 
     // A floating species governed by a rate rule can never be a
-    // reactant/product of any reaction (SBML disallows specifying a
-    // species' dynamics twice), so its row in the stoichiometry matrix is
-    // always all zero. That means the stoichiometry * elasticity formula
-    // used above genuinely cannot represent that species' own dynamics --
-    // no reordering can fix this, since the data was never computed in
-    // the first place. Any such row has to instead be computed directly,
-    // the same way the numReactions()==0 branch above already does: by
-    // finite-differencing the model's rate of change.
-    //
-    // getNumRateRules() alone is not enough to find these species: a rate
-    // rule can just as easily target a boundary species, a compartment,
-    // or a global parameter, none of which have a row in the
-    // floating-species Jacobian at all. rateRuleSlotForFloatingSpecies
-    // cross-references each rate rule's target symbol against
-    // getFloatingSpeciesIndex() (mirroring the existing pattern in
-    // createDefaultTimeCourseSelectionList(), rrRoadRunner.cpp) to find,
-    // for each floating species, whether it specifically is one of the
-    // rate rule targets, and if so, which slot of the packed state vector
-    // (as returned by RoadRunner::getRatesOfChange(): the first
-    // getNumRateRules() entries are rate-rule rates, in this same order,
-    // followed by the "independent"/rule-free floating species' amount
-    // rates) holds its rate of change.
+    // reactant/product of any reaction, but needs to be present for various
+    // MCA analyses.  This function notes those species.
     static std::vector<int> rateRuleSlotForFloatingSpecies(ExecutableModel *model) {
         int numFloating = model->getNumFloatingSpecies();
         std::vector<int> slot(numFloating, -1);
@@ -2924,14 +2919,29 @@ namespace rr {
         return slot;
     }
 
+    // True for each floating species (by global index) governed by an
+    // assignment rule.
+    static std::vector<bool> assignmentRuleFloatingSpeciesMask(ExecutableModel *model) {
+        int numFloating = model->getNumFloatingSpecies();
+        std::vector<bool> mask(numFloating, false);
+
+        std::list<std::string> assignmentRuleIds;
+        model->getAssignmentRuleIds(assignmentRuleIds);
+        for (const std::string &id : assignmentRuleIds) {
+            int fsIndex = model->getFloatingSpeciesIndex(id);
+            if (fsIndex >= 0) {
+                mask[fsIndex] = true;
+            }
+        }
+        return mask;
+    }
+
     // Computes the derivative of getRatesOfChange()[rateOfChangeIndex]
     // with respect to each floating species named by global index in
-    // `columnIndices`, via the same 4th-order central finite-difference
-    // stencil already used by the numReactions()==0 branch above. Values
-    // are perturbed/measured in concentration units (matching that
-    // branch's behavior). Restores every perturbed species' concentration
-    // before returning -- including if an exception is thrown partway
-    // through.
+    // `columnIndices`, via a 4th-order central finite-difference stencil.
+    // Values are perturbed/measured in concentration units. Restores every 
+    // perturbed species' concentration before returning, including if an 
+    // exception is thrown partway through.
     static std::vector<double> differentiateRateOfChange(RoadRunner &rr, ExecutableModel *model,
                                                            int rateOfChangeIndex,
                                                            const std::vector<int> &columnIndices,
@@ -2979,40 +2989,231 @@ namespace rr {
         return row;
     }
 
+    // Computes the derivative of getRatesOfChange()[rateOfChangeIndex]
+    // with respect to a named parameter (anything RoadRunner can
+    // getValue()/setValue() by name -- a global parameter, boundary
+    // species, compartment, etc.), via the same 4th-order central
+    // finite-difference stencil used above. Used for the rate-rule
+    // "pseudo-process" entries of dv/dp in getFrequencyResponse,
+    // mirroring what getUnscaledParameterElasticity does for real
+    // reactions (whose rate comes from getReactionRates() instead).
+    static double differentiateRateOfChangeWrtParameter(RoadRunner &rr, int rateOfChangeIndex,
+                                                          const std::string &parameterName, double diffStepSize) {
+        double originalValue = rr.getValue(parameterName);
+
+        double hstep = diffStepSize * originalValue;
+        if (fabs(hstep) < 1E-12) {
+            hstep = diffStepSize;
+        }
+
+        double result = 0;
+        try {
+            rr.setValue(parameterName, originalValue + hstep);
+            double fi = rr.getRatesOfChange()[rateOfChangeIndex];
+
+            rr.setValue(parameterName, originalValue + 2 * hstep);
+            double fi2 = rr.getRatesOfChange()[rateOfChangeIndex];
+
+            rr.setValue(parameterName, originalValue - hstep);
+            double fd = rr.getRatesOfChange()[rateOfChangeIndex];
+
+            rr.setValue(parameterName, originalValue - 2 * hstep);
+            double fd2 = rr.getRatesOfChange()[rateOfChangeIndex];
+
+            double f1 = fd2 + 8 * fi;
+            double f2 = -(8 * fd + fi2);
+            result = 1.0 / (12.0 * hstep) * (f1 + f2);
+        }
+        catch (const std::exception &) {
+            rr.setValue(parameterName, originalValue);
+            throw;
+        }
+
+        rr.setValue(parameterName, originalValue);
+        return result;
+    }
+
+    // ------------------------------------------------------------------
+    // "Extended process" helpers.
+    //
+    // A rate rule contributes exactly the same kind of information to a
+    // model as a reaction does: a rate expression, plus (trivially, for
+    // the one species it governs) a stoichiometric coefficient of 1. The
+    // functions below treat each rate-rule-governed floating species as
+    // its own virtual "reaction" -- a pseudo-process, id'd
+    // "<speciesId>_rate_rule" -- appended alongside the model's real
+    // reactions, rather than excluded from the matrices reactions
+    // normally populate. 
+    // ------------------------------------------------------------------
+
+    // Ordered (ascending, global floating-species-index) list of floating
+    // species governed by a rate rule.
+    static std::vector<int> rateRuleSpeciesIndicesInOrder(const std::vector<int> &rateRuleSlot) {
+        std::vector<int> indices;
+        for (size_t i = 0; i < rateRuleSlot.size(); ++i) {
+            if (rateRuleSlot[i] >= 0) {
+                indices.push_back((int) i);
+            }
+        }
+        return indices;
+    }
+
+    // getReactionIds() followed by one "<speciesId>_rate_rule" pseudo-id
+    // per rate-rule floating species, in rateRuleSpeciesIndicesInOrder().
+    static std::vector<std::string> extendedProcessIds(RoadRunner &rr, ExecutableModel *model,
+                                                        const std::vector<int> &rateRuleSlot) {
+        std::vector<std::string> ids = rr.getReactionIds();
+        for (int idx : rateRuleSpeciesIndicesInOrder(rateRuleSlot)) {
+            ids.push_back(model->getFloatingSpeciesId(idx) + "_rate_rule");
+        }
+        return ids;
+    }
+
+    // Current "rate" of each entry in the extended process list: the
+    // reaction rate for a real reaction, or the rate rule's own current
+    // value (read out of the packed vector RoadRunner::getRatesOfChange()
+    // returns) for a pseudo-process.
+    static std::vector<double> extendedProcessRates(RoadRunner &rr, ExecutableModel *model,
+                                                     const std::vector<int> &rateRuleSlot) {
+        int nReactions = model->getNumReactions();
+        std::vector<int> rrIndices = rateRuleSpeciesIndicesInOrder(rateRuleSlot);
+
+        std::vector<double> rates(nReactions + rrIndices.size(), 0.0);
+        if (nReactions > 0) {
+            model->getReactionRates(nReactions, 0, &rates[0]);
+        }
+        if (!rrIndices.empty()) {
+            std::vector<double> stateRates = rr.getRatesOfChange();
+            for (size_t k = 0; k < rrIndices.size(); ++k) {
+                rates[nReactions + k] = stateRates[rateRuleSlot[rrIndices[k]]];
+            }
+        }
+        return rates;
+    }
+
+    // Extends a full (non-reduced) stoichiometry matrix with one
+    // pseudo-column per rate-rule-governed floating species: a unit
+    // vector (1 at that species' own row, 0 elsewhere), representing the
+    // rate rule's entire contribution going directly into that species'
+    // own d/dt. Every floating species already has a row in the full
+    // (unreduced) stoichiometry matrix, so unlike Nr below, only new
+    // columns are needed here.
+    static ls::DoubleMatrix extendStoichiometryForRateRuleSpecies(const ls::DoubleMatrix &rsm,
+                                                                   const std::vector<std::string> &floatingSpeciesIds,
+                                                                   const std::vector<int> &rateRuleSlot) {
+        std::vector<int> rrIndices = rateRuleSpeciesIndicesInOrder(rateRuleSlot);
+        if (rrIndices.empty()) {
+            return rsm;
+        }
+
+        int oldRows = rsm.numRows();
+        int oldCols = rsm.numCols();
+
+        ls::DoubleMatrix result(oldRows, oldCols + (int) rrIndices.size());
+        for (int i = 0; i < oldRows; ++i) {
+            for (int j = 0; j < oldCols; ++j) {
+                result(i, j) = rsm(i, j);
+            }
+        }
+
+        const std::vector<std::string> &rowNames = rsm.getRowNames();
+        std::vector<std::string> newColNames = rsm.getColNames();
+        for (size_t k = 0; k < rrIndices.size(); ++k) {
+            const std::string &speciesId = floatingSpeciesIds[rrIndices[k]];
+            newColNames.push_back(speciesId + "_rate_rule");
+
+            auto it = std::find(rowNames.begin(), rowNames.end(), speciesId);
+            if (it == rowNames.end()) {
+                throw std::runtime_error("extendStoichiometryForRateRuleSpecies: species '" + speciesId +
+                                          "' not found among stoichiometry matrix rows");
+            }
+            size_t rowIdx = std::distance(rowNames.begin(), it);
+            result((int) rowIdx, oldCols + (int) k) = 1.0;
+        }
+
+        result.setRowNames(rowNames);
+        result.setColNames(newColNames);
+        return result;
+    }
+
+    // Extends Nr (rows: LibStructural's chosen independent species, cols:
+    // reactions) and L (rows: all floating species, cols: same
+    // independent set as Nr's rows) so each rate-rule floating species
+    // gets its own row in Nr and column in L, related by a unit
+    // ("virtual reaction") coefficient -- exactly mirroring
+    // extendStoichiometryForRateRuleSpecies above, but Nr also needs a new
+    // *row* per species (unlike the full stoichiometry matrix, Nr doesn't
+    // already have one: LibStructural has no notion of rate rules, so it
+    // sees a rate-rule species' all-zero row as a trivial standalone
+    // conservation law and folds the species out of its independent set
+    // entirely). Mutates both matrices in place.
+    static void extendNrAndLinkForRateRuleSpecies(ls::DoubleMatrix &Nr, ls::DoubleMatrix &LinkMatrix,
+                                                   const std::vector<std::string> &floatingSpeciesIds,
+                                                   const std::vector<int> &rateRuleSlot) {
+        std::vector<int> rrIndices = rateRuleSpeciesIndicesInOrder(rateRuleSlot);
+        if (rrIndices.empty()) {
+            return;
+        }
+        int nExtra = (int) rrIndices.size();
+
+        // --- Nr: add nExtra rows and nExtra columns ---
+        int oldNrRows = Nr.numRows();
+        int oldNrCols = Nr.numCols();
+
+        ls::DoubleMatrix NrExt(oldNrRows + nExtra, oldNrCols + nExtra);
+        for (int i = 0; i < oldNrRows; ++i) {
+            for (int j = 0; j < oldNrCols; ++j) {
+                NrExt(i, j) = Nr(i, j);
+            }
+        }
+        std::vector<std::string> newNrRowNames = Nr.getRowNames();
+        std::vector<std::string> newNrColNames = Nr.getColNames();
+        for (int k = 0; k < nExtra; ++k) {
+            std::string label = floatingSpeciesIds[rrIndices[k]] + "_rate_rule";
+            newNrRowNames.push_back(label);
+            newNrColNames.push_back(label);
+            NrExt(oldNrRows + k, oldNrCols + k) = 1.0;
+        }
+        NrExt.setRowNames(newNrRowNames);
+        NrExt.setColNames(newNrColNames);
+        Nr = NrExt;
+
+        // --- LinkMatrix: add nExtra columns (rows already cover every
+        // floating species) ---
+        std::vector<std::string> linkRowNames = LinkMatrix.getRowNames();
+        int oldLinkRows = LinkMatrix.numRows();
+        int oldLinkCols = LinkMatrix.numCols();
+
+        ls::DoubleMatrix LinkExt(oldLinkRows, oldLinkCols + nExtra);
+        for (int i = 0; i < oldLinkRows; ++i) {
+            for (int j = 0; j < oldLinkCols; ++j) {
+                LinkExt(i, j) = LinkMatrix(i, j);
+            }
+        }
+        std::vector<std::string> newLinkColNames = LinkMatrix.getColNames();
+        for (int k = 0; k < nExtra; ++k) {
+            const std::string &speciesId = floatingSpeciesIds[rrIndices[k]];
+            newLinkColNames.push_back(speciesId + "_rate_rule");
+
+            auto it = std::find(linkRowNames.begin(), linkRowNames.end(), speciesId);
+            if (it == linkRowNames.end()) {
+                throw std::runtime_error("extendNrAndLinkForRateRuleSpecies: species '" + speciesId +
+                                          "' not found among link matrix rows");
+            }
+            size_t rowIdx = std::distance(linkRowNames.begin(), it);
+            LinkExt((int) rowIdx, oldLinkCols + k) = 1.0;
+        }
+        LinkExt.setRowNames(linkRowNames);
+        LinkExt.setColNames(newLinkColNames);
+        LinkMatrix = LinkExt;
+    }
+
     ls::DoubleMatrix RoadRunner::getFullJacobian() {
         check_model();
 
         get_self();
         std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS); 
-
-        // function pointers to the model get values and get init values based on
-        // if we are doing amounts or concentrations.
-        typedef int (ExecutableModel::*GetValueFuncPtr)(size_t len, int const *indx,
-                                                        double *values);
-        typedef int (ExecutableModel::*SetValueFuncPtr)(size_t len, int const *indx,
-                                                        double const *values);
-        typedef int (ExecutableModel::* SetValueFuncPtrSize)(size_t len, int const *indx,
-                                                             double const *values);
-
-        GetValueFuncPtr getValuePtr = 0;
-        GetValueFuncPtr getInitValuePtr = 0;
-        SetValueFuncPtr setValuePtr = 0;
-        SetValueFuncPtrSize setInitValuePtr = 0;
-        
-        if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>() ==
-            Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS) {
-            getValuePtr = &ExecutableModel::getFloatingSpeciesAmounts;
-            getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitAmounts;
-            setValuePtr = &ExecutableModel::setFloatingSpeciesAmounts;
-            setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitAmounts;
-        } else {
-            getValuePtr = &ExecutableModel::getFloatingSpeciesConcentrations;
-            getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitConcentrations;
-            setValuePtr = &ExecutableModel::setFloatingSpeciesConcentrations;
-            setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitConcentrations;
-        }
-
 
         if (self.model->getNumReactions() == 0 && self.model->getNumRateRules() > 0) {
             if (self.model->getNumFloatingSpecies() < self.model->getNumRateRules()) {
@@ -3024,113 +3225,26 @@ namespace rr {
                       "https://tellurium.readthedocs.io/en/latest/antimony.html#rate-rules if you are using Antimony.";
                 throw std::out_of_range(errSS.str());
             }
-            ls::DoubleMatrix jac(self.model->getNumRateRules(), self.model->getNumRateRules());
+            int n = self.model->getNumRateRules();
+            ls::DoubleMatrix jac(n, n);
 
-            for (int i = 0; i < self.model->getNumRateRules(); i++) {
-                for (int j = 0; j < self.model->getNumRateRules(); j++) {
-                    double value;
-                    double originalConc = 0;
-                    double result = std::numeric_limits<double>::quiet_NaN();
+            std::vector<int> columnIndices(n);
+            for (int c = 0; c < n; ++c) {
+                columnIndices[c] = c;
+            }
 
-                    // note setting init values auotmatically sets the current values to the
-                    // init values
+            for (int i = 0; i < n; i++) {
+              // Uses differentiateRateOfChange because you can't have rate
+              // rules for floating species and also have conserved moieties.
+              std::vector<double> row = differentiateRateOfChange(
+                        *this, self.model.get(), i, columnIndices, self.roadRunnerOptions.diffStepSize);
 
-                    // this causes a reset, so need to save the current amounts to set them back
-                    // as init conditions.
-                    std::vector<double> conc(self.model->getNumFloatingSpecies());
-                    if (conc.size()) {
-                        (self.model.get()->*getValuePtr)(conc.size(), 0, &conc[0]);
-                    }
+                int compIndex = self.model->getCompartmentIndexForFloatingSpecies(i);
+                double compVol = this->getCompartmentByIndex(compIndex);
+                if (compVol == 0) { compVol = 1; }
 
-                    // save the original init values
-                    std::vector<double> initConc(self.model->getNumFloatingSpecies());
-                    if (initConc.size()) {
-                        (self.model.get()->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
-                    }
-
-                    // get the original value
-                    (self.model.get()->*getValuePtr)(1, &j, &originalConc);
-
-                    // now we start changing things
-                    try {
-                        // set init amounts to current amounts, restore them later.
-                        // have to do this as this is only way to set conserved moiety values
-                        if (conc.size()) {
-                            (self.model.get()->*setInitValuePtr)(conc.size(), 0, &conc[0]);
-                        }
-
-                        // sanity check
-                        assert_similar(originalConc, conc[j]);
-                        double tmp = 0;
-                        (self.model.get()->*getInitValuePtr)(1, &j, &tmp);
-                        assert_similar(originalConc, tmp);
-                        (self.model.get()->*getValuePtr)(1, &j, &tmp);
-                        assert_similar(originalConc, tmp);
-
-                        // things check out, start fiddling...
-                        double hstep = self.roadRunnerOptions.diffStepSize * originalConc;
-                        if (fabs(hstep) < 1E-12) {
-                            hstep = self.roadRunnerOptions.diffStepSize;
-                        }
-
-                        value = originalConc + hstep;
-                        setValue(self.model->getFloatingSpeciesId(j), value);
-                        double fi = 0;
-                        fi = getRatesOfChange()[i];
-
-                        value = originalConc + 2 * hstep;
-                        setValue(self.model->getFloatingSpeciesId(j), value);
-                        double fi2 = 0;
-                        fi2 = getRatesOfChange()[i];
-
-                        value = originalConc - hstep;
-                        setValue(self.model->getFloatingSpeciesId(j), value);
-                        double fd = 0;
-                        fd = getRatesOfChange()[i];
-
-                        value = originalConc - 2 * hstep;
-                        setValue(self.model->getFloatingSpeciesId(j), value);
-                        double fd2 = 0;
-                        fd2 = getRatesOfChange()[i];
-
-                        // Use instead the 5th order approximation
-                        // double unscaledElasticity = (0.5/hstep)*(fi-fd);
-                        // The following separated lines avoid small amounts of roundoff error
-                        double f1 = fd2 + 8 * fi;
-                        double f2 = -(8 * fd + fi2);
-
-                        result = 1 / (12 * hstep) * (f1 + f2);
-                    }
-                    catch (const std::exception &) {
-                        // What ever happens, make sure we restore the species level
-                        if (initConc.size()) {
-                            (self.model.get()->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
-                        }
-                        // only set the indep species, setting dep species is not permitted.
-                        if (conc.size()) {
-                            (self.model.get()->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
-                        }
-
-                        // re-throw the exception.
-                        throw;
-                    }
-
-                    // What ever happens, make sure we restore the species level
-                    if (initConc.size()) {
-                        (self.model.get()->*setInitValuePtr)(initConc.size(), 0, &initConc[0]);
-                    }
-
-                    // only set the indep species, setting dep species is not permitted.
-                    if (conc.size()) {
-                        (self.model.get()->*setValuePtr)(self.model->getNumFloatingSpecies(), 0, &conc[0]);
-                    }
-                    jac[i][j] = result;
-                    //std::cout << "Full Jacobian, In new code......" << std::endl;
-                    int compIndex = self.model->getCompartmentIndexForFloatingSpecies(i);
-                    double compVol = this->getCompartmentByIndex(compIndex);
-                    if (compVol == 0) { compVol = 1; }
-                    double origVal = jac(i, j);
-                    jac(i, j) = origVal / compVol;
+                for (int j = 0; j < n; j++) {
+                    jac(i, j) = row[j] / compVol;
                 }
             }
 
@@ -3173,39 +3287,17 @@ namespace rr {
             // floating species has a row -- even one with an all-zero
             // stoichiometric coupling, e.g. a species that's only ever
             // referenced as a rate-law modifier or governed by a rate rule.
-            // Reordering alone gets these rows correctly *positioned*, but
-            // a rate-rule species' row is genuinely all zero here (it has
-            // no stoichiometric coupling to any reaction), which is wrong
-            // -- see the rate-rule row replacement below.
             ls::DoubleMatrix rsmOrdered = importLibStructMatrix(*rsm, rsmRowLabels, rsmColLabels,
                                                                  getFloatingSpeciesIds(), getReactionIds());
 
-            ls::DoubleMatrix jac = ls::mult(rsmOrdered, uelast);
+            // A rate-rule species' row will never have a non-zero value for
+            // a normal reaction.  We add a pseudo-reaction for the rate
+            // rule itself, where the value is one.
+            std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+            ls::DoubleMatrix rsmExtended = extendStoichiometryForRateRuleSpecies(
+                    rsmOrdered, getFloatingSpeciesIds(), rateRuleSlot);
 
-            // Replace the (currently all-zero) row of any floating species
-            // that's actually governed by a rate rule with its true
-            // derivative, computed directly via finite differences on
-            // getRatesOfChange() -- see the comment above
-            // rateRuleSlotForFloatingSpecies/differentiateRateOfChange.
-            {
-                std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
-                std::vector<int> allFloatingSpecies(self.model->getNumFloatingSpecies());
-                for (int c = 0; c < (int) allFloatingSpecies.size(); ++c) {
-                    allFloatingSpecies[c] = c;
-                }
-
-                for (int i = 0; i < (int) rateRuleSlot.size(); ++i) {
-                    if (rateRuleSlot[i] < 0) {
-                        continue;
-                    }
-                    std::vector<double> row = differentiateRateOfChange(
-                            *this, self.model.get(), rateRuleSlot[i], allFloatingSpecies,
-                            self.roadRunnerOptions.diffStepSize);
-                    for (int j = 0; j < (int) row.size(); ++j) {
-                        jac(i, j) = row[j];
-                    }
-                }
-            }
+            ls::DoubleMatrix jac = ls::mult(rsmExtended, uelast);
 
             // Now divide value in each row by comp vol of floating species.
             int jacCols = jac.CSize();
@@ -3239,16 +3331,6 @@ namespace rr {
         }
     }
 
-   // ls::DoubleMatrix RoadRunner::getFullReorderedJacobian() {
-   //     check_model();
-        // ***** REMOVE THIS method
-        //LibStructural *ls = getLibStruct();
-        //ls::DoubleMatrix uelast = getUnscaledElasticityMatrix(); 
-        //ls::DoubleMatrix *rsm = ls->getStoichiometryMatrix();
-        //return mult(*rsm, uelast);
-    
-    //}
-
     ls::DoubleMatrix RoadRunner::getReducedJacobian(double h) {
         get_self();
 
@@ -3260,18 +3342,8 @@ namespace rr {
 
         std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
 
-        // getNumIndFloatingSpecies() counts floating species with NO rule
-        // of any kind -- it lumps together two different reasons a
-        // species can be "dependent": a genuine rate rule (a real,
-        // independent dynamical variable) and an assignment rule (a
-        // purely algebraic relationship, e.g. a species eliminated by
-        // conserved moiety conversion, which really shouldn't be part of
-        // the reduced/independent system). Restricting this function to
-        // just the first getNumIndFloatingSpecies() species silently
-        // drops every rate-rule species entirely. The correct "reduced"
-        // set is: rule-free species (the classic independent set) PLUS
-        // species with a rate rule, MINUS nothing else -- i.e. only
-        // species eliminated by an assignment rule are excluded.
+        // For our purposes here, we want all independent floating species
+        // plus all floating species that have rate rules.
         int nIndSpecies = self.model->getNumIndFloatingSpecies();
         int numFloating = self.model->getNumFloatingSpecies();
         int numRateRules = self.model->getNumRateRules();
@@ -4399,6 +4471,21 @@ namespace rr {
             (self.model.get()->*getValuePtr)(currentVals.size(), 0, &currentVals[0]);
         }
 
+        // Sets every floating species' value from `vals`, one species at a
+        // time.  This allows us to set normal species and species with rate 
+        // rules, while skipping species with assignment rules (whose values
+        // cannot be set).
+        auto setAllFloatingSpeciesValues = [&](SetValueFuncPtr ptr, const std::vector<double> &vals) {
+            for (int s = 0; s < (int) vals.size(); ++s) {
+                try {
+                    (self.model.get()->*ptr)(1, &s, &vals[s]);
+                } catch (const std::exception &) {
+                    // Governed by an assignment rule -- nothing to do,
+                    // its value is always recomputed from other values.
+                }
+            }
+        };
+
         //If the initial volumes have changed, we have to set them, but we'll need to reset them later.
         std::vector<double> origInitVolumes(self.model->getNumCompartments());
         if (origInitVolumes.size()) {
@@ -4435,9 +4522,7 @@ namespace rr {
 
             // Now set init amounts to current amounts, restore them later.
             // have to do this as this is only way to set conserved moiety values
-            if (currentVals.size()) {
-                (self.model.get()->*setInitValuePtr)(currentVals.size(), 0, &currentVals[0]);
-            }
+            setAllFloatingSpeciesValues(setInitValuePtr, currentVals);
             self.model->setTime(origTime);
 
             // sanity check
@@ -4493,31 +4578,18 @@ namespace rr {
             if (origInitVolumes.size()) {
                 (self.model.get()->*setInitVolumesPtr)(origInitVolumes.size(), 0, &origInitVolumes[0]);
             }
-            if (origInitVal.size()) {
-                (self.model.get()->*setInitValuePtr)(origInitVal.size(), 0, &origInitVal[0]);
-            }
+            setAllFloatingSpeciesValues(setInitValuePtr, origInitVal);
             self.model->setTime(origTime);
 
-            // only set the indep species, setting dep species is not permitted.
-            if (currentVals.size()) {
-                (self.model.get()->*setValuePtr)(
-                    self.model->getNumIndFloatingSpecies(), 0, &currentVals[0]);
-            }
+            setAllFloatingSpeciesValues(setValuePtr, currentVals);
             // re-throw the exception.
             throw e;
         }
 
         // Whatever happens, make sure we restore the species and volumes levels, and time.
-        if (origInitVal.size()) {
-            (self.model.get()->*setInitValuePtr)(
-                origInitVal.size(), 0, &origInitVal[0]);
-        }
+        setAllFloatingSpeciesValues(setInitValuePtr, origInitVal);
 
-        // only set the indep species, setting dep species is not permitted.
-        if (currentVals.size()) {
-            (self.model.get()->*setValuePtr)(
-                self.model->getNumIndFloatingSpecies(), 0, &currentVals[0]);
-        }
+        setAllFloatingSpeciesValues(setValuePtr, currentVals);
         self.model->setTime(origTime);
 
         return result;
@@ -4529,14 +4601,47 @@ namespace rr {
 
         check_model();
 
-        ls::DoubleMatrix uElastMatrix(self.model->getNumReactions(), self.model->getNumFloatingSpecies());
+        // Rows: reactions, followed by "<speciesId>_rate_rule" rules 
+        // for floating species with rate rules.
+        int nReactions = self.model->getNumReactions();
+        std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+        std::vector<int> rrIndices = rateRuleSpeciesIndicesInOrder(rateRuleSlot);
+        int nRateRuleRows = (int) rrIndices.size();
 
-        uElastMatrix.setRowNames(getReactionIds());
+        ls::DoubleMatrix uElastMatrix(nReactions + nRateRuleRows, self.model->getNumFloatingSpecies());
+
+        uElastMatrix.setRowNames(extendedProcessIds(*this, self.model.get(), rateRuleSlot));
         uElastMatrix.setColNames(getFloatingSpeciesIds());
 
-        for (int i = 0; i < self.model->getNumReactions(); i++) {
+        std::vector<bool> isAssignmentRuleSpecies = assignmentRuleFloatingSpeciesMask(self.model.get());
+        bool skipAssignmentRuleSpecies = !self.loadOpt.getConservedMoietyConversion();
+
+        for (int i = 0; i < nReactions; i++) {
             for (int j = 0; j < self.model->getNumFloatingSpecies(); j++) {
+                // Species that originally were assignment rules should be skipped,
+                // since they can't be part of MCA in general, but if a species
+                // is a conserved moiety species, it still applies.
+                if (isAssignmentRuleSpecies[j] && skipAssignmentRuleSpecies) {
+                    continue;
+                }
                 uElastMatrix[i][j] = getUnscaledSpeciesElasticity(i, j);
+            }
+        }
+
+        if (nRateRuleRows > 0) {
+            std::vector<int> allFloatingSpecies;
+            for (int c = 0; c < self.model->getNumFloatingSpecies(); ++c) {
+                if (!isAssignmentRuleSpecies[c] || !skipAssignmentRuleSpecies) {
+                    allFloatingSpecies.push_back(c);
+                }
+            }
+            for (int r = 0; r < nRateRuleRows; ++r) {
+                std::vector<double> row = differentiateRateOfChange(
+                        *this, self.model.get(), rateRuleSlot[rrIndices[r]], allFloatingSpecies,
+                        self.roadRunnerOptions.diffStepSize);
+                for (size_t k = 0; k < allFloatingSpecies.size(); ++k) {
+                    uElastMatrix[nReactions + r][allFloatingSpecies[k]] = row[k];
+                }
             }
         }
 
@@ -4554,16 +4659,13 @@ namespace rr {
         result.setColNames(uelast.getColNames());
         result.setRowNames(uelast.getRowNames());
 
-        std::vector<double> rates(self.model->getNumReactions());
-        if (rates.size()) {
-            self.model->getReactionRates(rates.size(), 0, &rates[0]);
-        }
-
-        if (uelast.RSize() != rates.size()) {
-            // this should NEVER happen
-            throw std::runtime_error("row count of unscaled elasticity different "
-                                     "than # of reactions");
-        }
+        // uelast's rows beyond the real reactions are rate-rule
+        // pseudo-processes (see getUnscaledElasticityMatrix); their "rate"
+        // is the rate rule's own current value rather than a reaction
+        // rate, hence extendedProcessRates() instead of a plain
+        // getReactionRates() call.
+        std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+        std::vector<double> rates = extendedProcessRates(*this, self.model.get(), rateRuleSlot);
 
         for (int i = 0; i < uelast.RSize(); i++) {
             for (int j = 0; j < uelast.CSize(); j++) // Columns are species
@@ -4643,6 +4745,11 @@ namespace rr {
         ls::DoubleMatrix LinkMatrix = importLibStructMatrix(*ls->getLinkMatrix(), linkRowLabels, linkColLabels,
                                                              getFloatingSpeciesIds(), {});
 
+        // Give each rate-rule floating species its own row in Nr and
+        // column in L.
+        std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+        extendNrAndLinkForRateRuleSpecies(Nr, LinkMatrix, getFloatingSpeciesIds(), rateRuleSlot);
+
         ls::DoubleMatrix T1 = mult(Nr, uelast);
         ls::DoubleMatrix Jac = mult(T1, LinkMatrix);
 
@@ -4660,7 +4767,7 @@ namespace rr {
         ls::DoubleMatrix T4 = mult(LinkMatrix, T3); // Compute L (iwI - Jac)^-1 . Nr
 
         T4.setRowNames(getFloatingSpeciesIds());
-        T4.setColNames(getReactionIds());
+        T4.setColNames(extendedProcessIds(*this, self.model.get(), rateRuleSlot));
 
         //impl->simulateOpt.steps = orig_steps;
 
@@ -4676,14 +4783,19 @@ namespace rr {
         ls::DoubleMatrix ucc = getUnscaledConcentrationControlCoefficientMatrix();
 
         if (ucc.size() > 0) {
+            // ucc's columns beyond the real reactions are rate-rule
+            // pseudo-processes (see getUnscaledElasticityMatrix); their
+            // "rate" is the rate rule's own current value rather than a
+            // reaction rate, hence extendedProcessRates() instead of a
+            // plain getReactionRates() call.
+            std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+            std::vector<double> rates = extendedProcessRates(*this, self.model.get(), rateRuleSlot);
+
             for (int i = 0; i < ucc.RSize(); i++) {
                 for (int j = 0; j < ucc.CSize(); j++) {
                     double conc = 0;
                     self.model->getFloatingSpeciesConcentrations(1, &i, &conc);
-
-                    double rate = 0;
-                    self.model->getReactionRates(1, &j, &rate);
-                    ucc[i][j] = ucc[i][j] * rate / conc;
+                    ucc[i][j] = ucc[i][j] * rates[j] / conc;
                 }
             }
         }
@@ -4707,8 +4819,10 @@ namespace rr {
             T1[i][i] = T1[i][i] + 1;
         }
 
-        T1.setRowNames(getReactionIds());
-        T1.setColNames(getReactionIds());
+        std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(self.model.get());
+        std::vector<std::string> processIds = extendedProcessIds(*this, self.model.get(), rateRuleSlot);
+        T1.setRowNames(processIds);
+        T1.setColNames(processIds);
 
         return T1;
     }
@@ -4723,19 +4837,26 @@ namespace rr {
             ls::DoubleMatrix ufcc = getUnscaledFluxControlCoefficientMatrix();
 
             if (ufcc.RSize() > 0) {
+                // ufcc's rows/cols beyond the real reactions are rate-rule
+                // pseudo-processes (see getUnscaledElasticityMatrix); use
+                // extendedProcessRates()/extendedProcessIds() instead of
+                // per-cell getReactionRates()/getReactionId() calls so
+                // those are scaled and logged correctly too.
+                std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(impl->model.get());
+                std::vector<double> rates = extendedProcessRates(*this, impl->model.get(), rateRuleSlot);
+                std::vector<std::string> processIds = extendedProcessIds(*this, impl->model.get(), rateRuleSlot);
+
                 for (int i = 0; i < ufcc.RSize(); i++) {
-                    double irate = 0;
-                    impl->model->getReactionRates(1, &i, &irate);
+                    double irate = rates[i];
                     if (abs(irate) < impl->roadRunnerOptions.fluxThreshold) {
                         rrLog(rr::Logger::LOG_INFORMATION) << "The reaction '";
-                        rrLog(rr::Logger::LOG_INFORMATION) << impl->model->getReactionId(i);
+                        rrLog(rr::Logger::LOG_INFORMATION) << processIds[i];
                         rrLog(rr::Logger::LOG_INFORMATION) << "' value is close to zero, so setting the scaled coefficients to zero as well.";
                         irate = 0;
                     }
                     for (int j = 0; j < ufcc.CSize(); j++) {
                         if (irate != 0) {
-                            double jrate = 0;
-                            impl->model->getReactionRates(1, &j, &jrate);
+                            double jrate = rates[j];
                             ufcc[i][j] = ufcc[i][j] * jrate / irate;
                         } else {
                             ufcc[i][j] = 0;
@@ -4895,10 +5016,6 @@ namespace rr {
             libsbml::SBase* ref = model->getElementBySId(array[i]);
             if (ref == NULL || ref->getTypeCode() != libsbml::SBML_SPECIES_REFERENCE) {
               continue;
-              // sanity check, just make sure that this is a conserved moeity
-              //throw std::logic_error("The global parameter name "
-              //  + array[i] + " could not be found in the SBML model, "
-              //  " and it is not a conserved moiety");
             }
             libsbml::SpeciesReference* sref = static_cast<libsbml::SpeciesReference*>(ref);
             sref->setStoichiometry(value);
@@ -5352,15 +5469,14 @@ namespace rr {
             std::vector<std::string> reactionNames = getReactionIds();
             std::vector<std::string> speciesNames = getFloatingSpeciesIds();
 
-            // Prepare the dv/dp array
-            Matrix<std::complex<double>> dvdp(static_cast<unsigned int>(reactionNames.size()), 1);
+            std::vector<int> rateRuleSlot = rateRuleSlotForFloatingSpecies(impl->model.get());
+            std::vector<int> rrIndices = rateRuleSpeciesIndicesInOrder(rateRuleSlot);
 
-            //Guess we don't need to simulate here?? (TK)
-            //        SimulateOptions opt;
-            //        opt.start = 0;
-            //        opt.duration = 50.0;
-            //        opt.steps = 1;
-            //        simulate(&opt);
+            // Prepare the dv/dp array -- one entry per real reaction, plus
+            // one per rate-rule pseudo-process (see the "extended process"
+            // helpers above getFullJacobian).
+            Matrix<std::complex<double>> dvdp(static_cast<unsigned int>(reactionNames.size() + rrIndices.size()), 1);
+
             if (steadyState() > 1E-2) {
                 throw Exception("Unable to locate steady state during frequency response computation");
             }
@@ -5369,9 +5485,8 @@ namespace rr {
 
             // Fetch Nr/L directly from LibStructural and reconcile their
             // reaction/species ordering to roadrunner's own (reactionNames
-            // / speciesNames, both already in roadrunner order above)
-            // before converting to complex matrices -- see the comment
-            // above reorderRows/reorderCols for why this is necessary.
+            // and speciesNames, both already in roadrunner order above)
+            // before converting to complex matrices.
             LibStructural *ls = getLibStruct();
 
             std::vector<std::string> nrRowLabels, nrColLabels;
@@ -5384,6 +5499,12 @@ namespace rr {
             ls::DoubleMatrix LinkMatrixOrdered = importLibStructMatrix(*ls->getLinkMatrix(), linkRowLabels,
                                                                         linkColLabels, speciesNames, {});
 
+            // Give each rate-rule floating species its own row in Nr and
+            // column in L -- see extendNrAndLinkForRateRuleSpecies's
+            // comment for the full reasoning (same fix as
+            // getUnscaledConcentrationControlCoefficientMatrix).
+            extendNrAndLinkForRateRuleSpecies(NrOrdered, LinkMatrixOrdered, speciesNames, rateRuleSlot);
+
             ComplexMatrix Nr = NrOrdered;
             ComplexMatrix LinkMatrix = LinkMatrixOrdered;
 
@@ -5392,6 +5513,16 @@ namespace rr {
                 double val = getUnscaledParameterElasticity(reactionNames[j], parameterName);
                 dvdp(j, 0) = std::complex<double>(val, 0.0);
                 rrLog(lDebug) << "dv/dp: " << dvdp(j, 0);
+            }
+            // ... and the analogous d(rate rule's own flux)/d(parameter)
+            // for each rate-rule pseudo-process, since there's no
+            // reaction backing a rate rule to ask getReactionRates()/
+            // getUnscaledParameterElasticity() about.
+            for (size_t k = 0; k < rrIndices.size(); k++) {
+                double val = differentiateRateOfChangeWrtParameter(
+                        *this, rateRuleSlot[rrIndices[k]], parameterName, impl->roadRunnerOptions.diffStepSize);
+                dvdp((int) reactionNames.size() + (int) k, 0) = std::complex<double>(val, 0.0);
+                rrLog(lDebug) << "dv/dp: " << dvdp((int) reactionNames.size() + (int) k, 0);
             }
 
             // Compute the Jacobian first
@@ -5432,6 +5563,11 @@ namespace rr {
                 for (int j = 0; j < reactionNames.size(); j++) {
                     double realPart = getUnscaledParameterElasticity(reactionNames[j], parameterName);
                     dvdp(j, 0) = std::complex<double>(realPart, 0.0);
+                }
+                for (size_t k = 0; k < rrIndices.size(); k++) {
+                    double realPart = differentiateRateOfChangeWrtParameter(
+                            *this, rateRuleSlot[rrIndices[k]], parameterName, impl->roadRunnerOptions.diffStepSize);
+                    dvdp((int) reactionNames.size() + (int) k, 0) = std::complex<double>(realPart, 0.0);
                 }
 
                 T4 = mult(T3, dvdp);    // Compute(iwI - Jac)^-1 . Nr . dvdp

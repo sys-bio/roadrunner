@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created by libAntimony version v3.1.3 with libSBML version 5.21.1. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="2" comp:required="true">
-  <model metaid="__main" id="chainMixed">
+  <model metaid="chainMixed" id="chainMixed">
     <listOfCompartments>
       <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
     </listOfCompartments>
@@ -33,7 +33,7 @@
       </rateRule>
     </listOfRules>
     <listOfReactions>
-      <reaction id="_J0" reversible="true">
+      <reaction id="J0" reversible="true">
         <listOfProducts>
           <speciesReference species="B" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -50,7 +50,7 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="_J1" reversible="true">
+      <reaction id="J1" reversible="true">
         <listOfReactants>
           <speciesReference species="B" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -67,7 +67,7 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="_J2" reversible="true">
+      <reaction id="J2" reversible="true">
         <listOfReactants>
           <speciesReference species="C" stoichiometry="1" constant="true"/>
         </listOfReactants>

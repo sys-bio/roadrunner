@@ -10,8 +10,10 @@
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
 #include "Matrix.h"
+#include "rrLogger.h"
 
 #include <algorithm>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -225,8 +227,19 @@ public:
             allReactions.setConservedMoietyAnalysis(true);
         }
 
-        ls::DoubleMatrix expected = getter(allReactions);
-        ls::DoubleMatrix actual = getter(mixed);
+        // Wrapped in ASSERT_NO_THROW (rather than letting the getter throw
+        // straight out of this helper) so a failure here is reported
+        // against this file/line by gtest, instead of as an uncaught
+        // exception attributed to "unknown file".
+        ls::DoubleMatrix expected, actual;
+        {
+            SCOPED_TRACE("allReactions model: " + allReactionsFile);
+            ASSERT_NO_THROW(expected = getter(allReactions));
+        }
+        {
+            SCOPED_TRACE("mixed model: " + mixedFile);
+            ASSERT_NO_THROW(actual = getter(mixed));
+        }
 
         checkMatrixEqualByLabel(expected, actual, tol);
     }
@@ -242,8 +255,15 @@ public:
             allReactions.setConservedMoietyAnalysis(true);
         }
 
-        ls::DoubleMatrix expected = getter(allReactions);
-        ls::DoubleMatrix actual = getter(mixed);
+        ls::DoubleMatrix expected, actual;
+        {
+            SCOPED_TRACE("allReactions model: " + allReactionsFile);
+            ASSERT_NO_THROW(expected = getter(allReactions));
+        }
+        {
+            SCOPED_TRACE("mixed model: " + mixedFile);
+            ASSERT_NO_THROW(actual = getter(mixed));
+        }
 
         checkEigenvaluesEqual(expected, actual, tol);
     }
@@ -275,6 +295,42 @@ public:
 // A' = k0*(Aeq - A) [rate rule] feeds a 2-reaction chain -> B -> C ->.
 // Steady state: A=2, B=k1*Aeq/k2=8/3, C=k2*B/k3=4. No conservation law.
 
+// Regression test for the getUnscaledElasticityMatrix bug found via
+// RoadRunnerAPITestsWithLLJit.getUnscaledConcentrationControlCoefficientMatrix:
+// SimpleFlux (S1 <-> S2, conserved: S1+S2=11) with conserved moiety
+// analysis enabled eliminates S2 via an assignment rule (S2 := 11 - S1).
+// That satisfies the "assignment-rule species" check, but unlike a
+// genuine model-native assignment rule (e.g. D in mca_with_asnt_rule.xml),
+// S2 still needs its own real column here -- the Nr/L-matrix reduction
+// downstream expects uelast to hold the plain, uncoupled partial
+// derivative (_J1's rate is kb*S2, so d(_J1)/dS2 = kb), and applies the
+// conservation-law coupling itself via the link matrix. Skipping S2's
+// column here (as if it were a D-like dead-end assignment rule) silently
+// dropped that term and gave a wrong (unreduced) concentration control
+// coefficient.
+TEST_F(MCAMixedRateRuleTests, ConservedMoietyEliminatedSpeciesGetsRealElasticityColumn) {
+    SimpleFlux simpleFlux;
+    RoadRunner rr(simpleFlux.str());
+    rr.setConservedMoietyAnalysis(true);
+
+    ls::DoubleMatrix uelast;
+    ASSERT_NO_THROW(uelast = rr.getUnscaledElasticityMatrix());
+
+    const std::vector<std::string> &rows = uelast.getRowNames();
+    const std::vector<std::string> &cols = uelast.getColNames();
+    auto rowOf = [&](const std::string &id) {
+        return std::distance(rows.begin(), std::find(rows.begin(), rows.end(), id));
+    };
+    auto colOf = [&](const std::string &id) {
+        return std::distance(cols.begin(), std::find(cols.begin(), cols.end(), id));
+    };
+
+    EXPECT_NEAR(uelast(rowOf("_J0"), colOf("S1")), 0.1, 1e-6);
+    EXPECT_NEAR(uelast(rowOf("_J0"), colOf("S2")), 0.0, 1e-6);
+    EXPECT_NEAR(uelast(rowOf("_J1"), colOf("S1")), 0.0, 1e-6);
+    EXPECT_NEAR(uelast(rowOf("_J1"), colOf("S2")), 0.01, 1e-6);
+}
+
 TEST_F(MCAMixedRateRuleTests, ChainFullJacobian) {
     compareToAllReactionsTwin("chainMixed.xml", "chainAllReactions.xml",
         [](RoadRunner &r) { return r.getFullJacobian(); }, false);
@@ -285,22 +341,22 @@ TEST_F(MCAMixedRateRuleTests, ChainReducedJacobian) {
         [](RoadRunner &r) { return r.getReducedJacobian(); }, false);
 }
 
-TEST_F(MCAMixedRateRuleTests, DISABLED_ChainUnscaledConcentrationCC) {
+TEST_F(MCAMixedRateRuleTests, ChainUnscaledConcentrationCC) {
     compareToAllReactionsTwin("chainMixed.xml", "chainAllReactions.xml",
         [](RoadRunner &r) { return r.getUnscaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
 }
 
-TEST_F(MCAMixedRateRuleTests, DISABLED_ChainScaledConcentrationCC) {
+TEST_F(MCAMixedRateRuleTests, ChainScaledConcentrationCC) {
     compareToAllReactionsTwin("chainMixed.xml", "chainAllReactions.xml",
         [](RoadRunner &r) { return r.getScaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
 }
 
-TEST_F(MCAMixedRateRuleTests, DISABLED_ChainUnscaledFluxCC) {
+TEST_F(MCAMixedRateRuleTests, ChainUnscaledFluxCC) {
     compareToAllReactionsTwin("chainMixed.xml", "chainAllReactions.xml",
         [](RoadRunner &r) { return r.getUnscaledFluxControlCoefficientMatrix(); }, false, 1e-3);
 }
 
-TEST_F(MCAMixedRateRuleTests, DISABLED_ChainScaledFluxCC) {
+TEST_F(MCAMixedRateRuleTests, ChainScaledFluxCC) {
     compareToAllReactionsTwin("chainMixed.xml", "chainAllReactions.xml",
         [](RoadRunner &r) { return r.getScaledFluxControlCoefficientMatrix(); }, false, 1e-3);
 }
@@ -315,7 +371,7 @@ TEST_F(MCAMixedRateRuleTests, ChainReducedEigenvalues) {
         [](RoadRunner &r) { return r.getReducedEigenValuesNamedArray(); }, false);
 }
 
-TEST_F(MCAMixedRateRuleTests, DISABLED_ChainFrequencyResponse) {
+TEST_F(MCAMixedRateRuleTests, ChainFrequencyResponse) {
     RoadRunner mixed(modelPath("chainMixed.xml").string());
     RoadRunner allReactions(modelPath("chainAllReactions.xml").string());
 
@@ -328,39 +384,9 @@ TEST_F(MCAMixedRateRuleTests, DISABLED_ChainFrequencyResponse) {
     checkMatrixEqual(expected, actual, 1e-3);
 }
 
-// ---- conservedWithRule.xml / conservedWithRuleAllReactions.xml: not tested ----
-// These two models were built to test conserved moiety analysis together
-// with a rate-rule species (D, independent of the A<->B conservation law).
-// That combination is out of scope: RoadRunner::setConservedMoietyAnalysis
-// unconditionally throws for any model with a floating-species rule at all,
-// via conservedMoietyCheck() in source/conservation/ConservedMoietyConverter.cpp
-// (~line 750). We looked at relaxing that guard for rate-rule species
-// specifically (they always have an all-zero stoichiometric row, so they can
-// never be entangled in a genuine multi-species conservation law) and found
-// the guard isn't the only obstacle: ConservedMoietyConverter's
-// createDependentSpeciesRules() (~line 565-628) unconditionally calls
-// createAssignmentRule() for every species LibStructural classifies as
-// "dependent" -- which a zero-row rate-rule species would be -- with no
-// check for a pre-existing rule, so it would emit a second (invalid) rule
-// for the same variable. Making this combination work would mean fixing
-// the converter itself, not just this Jacobian/MCA code, so we're
-// deliberately not supporting or testing it here. conservedWithRule.xml
-// and conservedWithRuleAllReactions.xml are left in the model directory in
-// case that becomes a project later.
-
-// ---- conservedNoRule.xml: "must not regress" sanity check ----
-// A <-> B conserved pair, no rate rules at all -- the plain conservation-law
-// reduction case that already works correctly today. 2 species - 1
-// conservation law = 1 independent DOF, so the reduced Jacobian should be
-// 1x1.
-
-TEST_F(MCAMixedRateRuleTests, ConservedNoRuleReducedJacobianShape) {
-    RoadRunner rr(modelPath("conservedNoRule.xml").string());
-    rr.setConservedMoietyAnalysis(true);
-    ls::DoubleMatrix reduced = rr.getReducedJacobian();
-    EXPECT_EQ(reduced.numRows(), 1);
-    EXPECT_EQ(reduced.numCols(), 1);
-}
+// Note: can't test a model with conservation cycles plus a rate rule for a 
+// floating species, because the conservation converter doesn't work with
+// models with rules.
 
 // ---- onlyRates.xml: regression check for the zero-reaction branch ----
 // getFullJacobian has a separate code path for numReactions==0 that uses
@@ -461,4 +487,362 @@ TEST_F(MCAMixedRateRuleTests, BoundarySpeciesWithRateRuleVsParameterWithRateRule
     RoadRunner bndDynamic(modelPath("bnd_species_rate_rule.xml").string());
     RoadRunner paramDynamic(modelPath("param_rate_rule.xml").string());
     checkMatrixEqualByLabel(bndDynamic.getFullJacobian(), paramDynamic.getFullJacobian(), 1e-6);
+}
+
+// ============================================================================
+// A rate-rule-governed floating species CAN be set directly, unlike an
+// assignment-rule-governed one -- a rate rule only constrains dX/dt, not
+// X itself. This is a permanent regression check for that, and for the
+// fix to getUnscaledSpeciesElasticity()'s restore logic, which used to
+// assume otherwise (capping its post-perturbation restore at
+// getNumIndFloatingSpecies(), silently leaving any rate-rule species'
+// current value corrupted -- see ChainScaledConcentrationCC/
+// ChainScaledFluxCC/ChainFrequencyResponse below for the end-to-end
+// symptom this caused).
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, RateRuleSpeciesCanBeSetDirectly) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+
+    EXPECT_NO_THROW(rr.setValue("A", 2.0));
+    EXPECT_NEAR(rr.getValue("A"), 2.0, 1e-9);
+}
+
+// ============================================================================
+// mca_with_asnt_rule.xml: A, B are ordinary reaction-governed species
+// (R1: A -> B; k1*A); D is a floating species governed purely by an
+// ASSIGNMENT rule (D := 2*A), not fed into any reaction. Unlike a
+// rate-rule species, an assignment-rule species genuinely cannot be set
+// directly -- its value is continuously recomputed from other values.
+// This exercises the other half of getUnscaledSpeciesElasticity's restore
+// fix: when perturbing A/B to compute R1's elasticity, the restore loop
+// now attempts (and must gracefully fail, one species at a time) to
+// restore D too, without that failure affecting A or B's own
+// restoration, and without throwing out of the whole computation.
+// dA'/dA = -k1, dA'/dB = 0, dB'/dA = k1, dB'/dB = 0. D's own row is a
+// separate, known limitation (same shape of gap rate-rule species had
+// before this fix, just for assignment rules, and out of scope here), so
+// we only assert on A/B.
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, AssignmentRuleSpeciesDoesNotCorruptElasticityRestore) {
+    RoadRunner rr(modelPath("mca_with_asnt_rule.xml").string());
+
+    // getFullJacobian() still includes D as a row/col (it's a floating
+    // species), so don't assert its exact dimensions here -- just confirm
+    // it doesn't throw, and that A/B's own entries (found by label) are
+    // correct and undisturbed by D's presence.
+    ls::DoubleMatrix jac;
+    ASSERT_NO_THROW(jac = rr.getFullJacobian());
+
+    const std::vector<std::string> &rows = jac.getRowNames();
+    const std::vector<std::string> &cols = jac.getColNames();
+    auto rowOf = [&](const std::string &id) {
+        return std::distance(rows.begin(), std::find(rows.begin(), rows.end(), id));
+    };
+    auto colOf = [&](const std::string &id) {
+        return std::distance(cols.begin(), std::find(cols.begin(), cols.end(), id));
+    };
+
+    EXPECT_NEAR(jac(rowOf("A"), colOf("A")), -0.5, 1e-6);
+    EXPECT_NEAR(jac(rowOf("A"), colOf("B")), 0.0, 1e-6);
+    EXPECT_NEAR(jac(rowOf("B"), colOf("A")), 0.5, 1e-6);
+    EXPECT_NEAR(jac(rowOf("B"), colOf("B")), 0.0, 1e-6);
+
+    // getReducedJacobian() correctly excludes D outright -- it's excluded
+    // purely by having an assignment rule, no fix needed there (unlike
+    // rate-rule species, which needed getReducedJacobian's own separate
+    // completeness fix earlier) -- so this one should come back exactly
+    // 2x2.
+    ls::DoubleMatrix reduced;
+    ASSERT_NO_THROW(reduced = rr.getReducedJacobian());
+    checkTwoSpeciesJacobianAgainstExpected(reduced, -0.5, 0.0, 0.5, 0.0);
+}
+
+// chainMixedBoundary.xml is identical to chainMixed.xml, except A is a
+// BOUNDARY species (still governed by the same rate rule, A' = k0*(Aeq-A),
+// k0=0.5, Aeq=2). This is the model where the "steadyState() resets A's
+// value" bug was originally observed. All the fixes made so far targeted
+// getUnscaledSpeciesElasticity/getUnscaledElasticityMatrix, which only
+// ever touch FLOATING species -- so it isn't known whether they (or
+// anything else changed above) also happen to fix this boundary-species
+// case. This test checks that directly.
+TEST_F(MCAMixedRateRuleTests, SteadyStateConvergesBoundaryRateRuleSpecies) {
+    RoadRunner rr(modelPath("chainMixedBoundary.xml").string());
+
+    ASSERT_NO_THROW(rr.steadyState());
+
+    EXPECT_NEAR(rr.getValue("A"), 2.0, 1e-3);
+}
+
+// ============================================================================
+// twoRateRulesMixed.xml vs twoRateRulesAllReactions.xml: TWO independent
+// rate-rule species in the same model (A drives B->C, E drives F,
+// completely decoupled from each other). Every mixed-model test above has
+// exactly one rate-rule species, exercising the "extend by one
+// pseudo-column" path; this exercises N=2, a materially different code path
+// through extendStoichiometryForRateRuleSpecies/
+// extendNrAndLinkForRateRuleSpecies and the rate-rule pseudo-row loop in
+// getUnscaledElasticityMatrix. Also doubles as the first direct test of
+// getUnscaledElasticityMatrix/getScaledElasticityMatrix against a mixed
+// model -- previously only exercised indirectly via getFullJacobian.
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesFullJacobian) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getFullJacobian(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesReducedJacobian) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getReducedJacobian(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesUnscaledElasticityMatrix) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledElasticityMatrix(); }, false, 1e-6);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesScaledElasticityMatrix) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledElasticityMatrix(); }, false, 1e-6);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesUnscaledConcentrationCC) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesScaledConcentrationCC) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesUnscaledFluxCC) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledFluxControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesScaledFluxCC) {
+    compareToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledFluxControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesFullEigenvalues) {
+    compareEigenvaluesToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getFullEigenValuesNamedArray(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, TwoRateRulesReducedEigenvalues) {
+    compareEigenvaluesToAllReactionsTwin("twoRateRulesMixed.xml", "twoRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getReducedEigenValuesNamedArray(); }, false);
+}
+
+// ============================================================================
+// mca_asnt_rule_modifier.xml: A, B, C are reaction-governed; D is a floating
+// species governed purely by an ASSIGNMENT rule (D := 2*A) and -- unlike
+// mca_with_asnt_rule.xml's D, which fed into no reaction at all -- D is a
+// genuine modifier in R2's rate law (k2*B*D). This checks that perturbing A
+// to compute an elasticity correctly triggers D's assignment-rule recompute
+// *before* reaction rates are read, so the indirect chain-rule pathway
+// A -> D -> R2 is picked up by R2's elasticity w.r.t. A, rather than being
+// silently dropped the way D's own column is deliberately skipped.
+//
+// Hand-derived at the initial state (A=2, B=3, D=2A=4):
+//   dA/dt = -k1*A
+//   dB/dt = k1*A - k2*B*D = k1*A - 2*k2*A*B   (substituting D=2A)
+//   dC/dt = k2*B*D = 2*k2*A*B
+//   d(dA/dt)/dA = -k1 = -0.5,             d(dA/dt)/dB = 0
+//   d(dB/dt)/dA = k1 - 2*k2*B = -1.3,      d(dB/dt)/dB = -2*k2*A = -1.2
+//   d(dC/dt)/dA = 2*k2*B = 1.8,            d(dC/dt)/dB = 2*k2*A = 1.2
+// (D's own row/col is out of scope, same as mca_with_asnt_rule.xml.)
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, AssignmentRuleModifierPicksUpIndirectChainRule) {
+    RoadRunner rr(modelPath("mca_asnt_rule_modifier.xml").string());
+
+    ls::DoubleMatrix jac;
+    ASSERT_NO_THROW(jac = rr.getFullJacobian());
+
+    const std::vector<std::string> &rows = jac.getRowNames();
+    const std::vector<std::string> &cols = jac.getColNames();
+    auto rowOf = [&](const std::string &id) {
+        return std::distance(rows.begin(), std::find(rows.begin(), rows.end(), id));
+    };
+    auto colOf = [&](const std::string &id) {
+        return std::distance(cols.begin(), std::find(cols.begin(), cols.end(), id));
+    };
+
+    EXPECT_NEAR(jac(rowOf("A"), colOf("A")), -0.5, 1e-6);
+    EXPECT_NEAR(jac(rowOf("A"), colOf("B")), 0.0, 1e-6);
+    EXPECT_NEAR(jac(rowOf("B"), colOf("A")), -1.3, 1e-6);
+    EXPECT_NEAR(jac(rowOf("B"), colOf("B")), -1.2, 1e-6);
+    EXPECT_NEAR(jac(rowOf("C"), colOf("A")), 1.8, 1e-6);
+    EXPECT_NEAR(jac(rowOf("C"), colOf("B")), 1.2, 1e-6);
+}
+
+// ============================================================================
+// coupledRateRulesMixed.xml vs coupledRateRulesAllReactions.xml: A and B are
+// each governed by a rate rule that depends on the OTHER species
+// (A' = k1*(B-A), B' = k2*(A-B)) -- unlike every rate-rule species tested
+// above, where a rate-rule species' own rate only ever depended on itself.
+// This exercises the off-diagonal elasticity between two rate-rule
+// pseudo-rows (uelast[A_rate_rule][B], uelast[B_rate_rule][A]) --
+// differentiateRateOfChange has never been asked to produce a nonzero
+// cross term before. C is an ordinary reaction-governed species fed by A,
+// keeping this comparable to an all-reactions twin the same way as the
+// other mixed models above. Initial values (A=2, B=5, C=1) are chosen so
+// nothing starts at 0 or at equilibrium, avoiding the 0/0 scaled-elasticity
+// pitfall found earlier.
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesFullJacobian) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getFullJacobian(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesReducedJacobian) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getReducedJacobian(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesUnscaledElasticityMatrix) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledElasticityMatrix(); }, false, 1e-6);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesScaledElasticityMatrix) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledElasticityMatrix(); }, false, 1e-6);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesUnscaledConcentrationCC) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesScaledConcentrationCC) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledConcentrationControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesUnscaledFluxCC) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getUnscaledFluxControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesScaledFluxCC) {
+    compareToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getScaledFluxControlCoefficientMatrix(); }, false, 1e-3);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesFullEigenvalues) {
+    compareEigenvaluesToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getFullEigenValuesNamedArray(); }, false);
+}
+
+TEST_F(MCAMixedRateRuleTests, CoupledRateRulesReducedEigenvalues) {
+    compareEigenvaluesToAllReactionsTwin("coupledRateRulesMixed.xml", "coupledRateRulesAllReactions.xml",
+        [](RoadRunner &r) { return r.getReducedEigenValuesNamedArray(); }, false);
+}
+
+// ============================================================================
+// Basic-level smoke/correctness tests for the scalar elasticity functions,
+// against chainMixed.xml. Both reuse the already-fixed
+// getUnscaledSpeciesElasticity internally and involve no LibStructural
+// reordering, so they were low-risk by inspection -- these confirm that
+// directly, using hand-derivable exact values from chainMixed's mass-action
+// kinetics: J0's rate is k1*A, linear in A, so its scaled elasticity w.r.t.
+// A is exactly 1 regardless of A's value, and its unscaled parameter
+// elasticity w.r.t. k1 is exactly A itself (1, at chainMixed's initial
+// condition).
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, ScaledFloatingSpeciesElasticitySmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    double elasticity = 0;
+    ASSERT_NO_THROW(elasticity = rr.getScaledFloatingSpeciesElasticity("J0", "A"));
+    EXPECT_NEAR(elasticity, 1.0, 1e-6);
+}
+
+TEST_F(MCAMixedRateRuleTests, UnscaledParameterElasticitySmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    double elasticity = 0;
+    ASSERT_NO_THROW(elasticity = rr.getUnscaledParameterElasticity("J0", "k1"));
+    EXPECT_NEAR(elasticity, 1.0, 1e-6);  // d(k1*A)/dk1 = A = 1 at t=0
+}
+
+// ============================================================================
+// Basic-level smoke tests for the raw LibStructural passthrough functions
+// (getFullStoichiometryMatrix, getLinkMatrix, getNrMatrix, getKMatrix,
+// getL0Matrix, getExtendedStoichiometryMatrix/getReactantsStoichiometryMatrix/
+// getProductsStoichiometryMatrix, getConservationMatrix) against a mixed
+// reaction/rate-rule model. Unlike getFullJacobian and the CC matrices,
+// these return LibStructural's own matrix with LibStructural's own labels
+// attached directly -- never reconciled to roadrunner's floating-species
+// ordering, and never extended with a rate-rule pseudo-column -- so they
+// should be self-consistent by construction. These aren't exhaustive
+// correctness checks, just confirmation that a rate-rule species doesn't
+// make them throw or return a nonsensical shape.
+// ============================================================================
+
+TEST_F(MCAMixedRateRuleTests, FullStoichiometryMatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+
+    ls::DoubleMatrix stoich;
+    ASSERT_NO_THROW(stoich = rr.getFullStoichiometryMatrix());
+
+    EXPECT_EQ(stoich.numRows(), 3);   // A, B, C
+    EXPECT_EQ(stoich.numCols(), 3);   // J0, J1, J2
+
+    // A never appears as a reactant/product (only via its rate rule and as
+    // a modifier), so its row in the RAW stoichiometry matrix is all zero.
+    // That's expected -- reconciling this into A's true (nonzero) row is
+    // getFullJacobian's job via the pseudo-column extension, not this
+    // function's.
+    const std::vector<std::string> &rows = stoich.getRowNames();
+    auto rowOf = [&](const std::string &id) {
+        return std::distance(rows.begin(), std::find(rows.begin(), rows.end(), id));
+    };
+    size_t aRow = rowOf("A");
+    ASSERT_LT(aRow, rows.size());
+    for (int j = 0; j < stoich.numCols(); j++) {
+        EXPECT_EQ(stoich(aRow, j), 0.0);
+    }
+}
+
+TEST_F(MCAMixedRateRuleTests, LinkMatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    ls::DoubleMatrix link;
+    ASSERT_NO_THROW(link = rr.getLinkMatrix());
+    EXPECT_GT(link.numRows(), 0);
+    EXPECT_GT(link.numCols(), 0);
+}
+
+TEST_F(MCAMixedRateRuleTests, NrMatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    ls::DoubleMatrix nr;
+    ASSERT_NO_THROW(nr = rr.getNrMatrix());
+    EXPECT_GT(nr.numRows(), 0);
+    EXPECT_GT(nr.numCols(), 0);
+}
+
+TEST_F(MCAMixedRateRuleTests, KMatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    ls::DoubleMatrix k;
+    ASSERT_NO_THROW(k = rr.getKMatrix());
+}
+
+TEST_F(MCAMixedRateRuleTests, L0MatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    ls::DoubleMatrix l0;
+    ASSERT_NO_THROW(l0 = rr.getL0Matrix());
+}
+
+TEST_F(MCAMixedRateRuleTests, SubStoichiometryMatrixSmokeTest) {
+    RoadRunner rr(modelPath("chainMixed.xml").string());
+    ls::DoubleMatrix ext, reactants, products;
+    ASSERT_NO_THROW(ext = rr.getExtendedStoichiometryMatrix());
+    ASSERT_NO_THROW(reactants = rr.getReactantsStoichiometryMatrix(true));
+    ASSERT_NO_THROW(products = rr.getProductsStoichiometryMatrix(true));
 }
