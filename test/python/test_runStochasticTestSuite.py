@@ -12,6 +12,9 @@ from os import walk, scandir
 from os.path import isdir
 import time
 import platform
+import multiprocessing
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
 
 import sys
 
@@ -24,6 +27,83 @@ import csv
 import unittest
 import numpy as np
 import roadrunner
+
+
+def _run_stoch_repeats(filepath, variables, testType, start, duration, steps, n_repeats, seed):
+    """
+    Run n_repeats simulation repeats using one freshly-loaded RoadRunner
+    instance, and return the per-column results.
+
+    This must be called in its own OS process (see simulateFile below), never
+    from a thread: RoadRunner's simulate() is a C++ object method with
+    complicated internal state, and is not safe to call concurrently even
+    from separate RoadRunner instances in the same process -- let alone the
+    same instance. A separate process gives each worker its own address
+    space, so nothing here is ever shared with another worker's RoadRunner
+    instance, compiled model, or integrator state.
+
+    This has to stay a plain module-level function (not a closure or bound
+    method): ProcessPoolExecutor pickles the callable and its arguments to
+    send them to the worker process, and pickle can't serialize local
+    functions -- or a unittest.TestCase, which here would try to drag along
+    the class's open results-file handle.
+
+    `seed` must be distinct across the parallel workers of one simulateFile()
+    call (see simulateFile). RoadRunner's default seeding uses the system
+    clock, which can land on the same value in two or more worker processes
+    that are all spawned within the same short burst -- especially on CI
+    runners with coarser clock resolution. When that happens, those workers
+    produce IDENTICAL sequences of "random" draws instead of independent
+    ones, silently shrinking nrepeats independent samples down to far fewer
+    effective ones. That doesn't crash anything -- it just biases the
+    aggregate mean/SD, which shows up exactly as "too many means outside the
+    expected range" rather than as an error.
+    """
+    import roadrunner  # re-imported fresh in the child process
+
+    selections = ['time'] + variables
+    try:
+        rr = roadrunner.RoadRunner(filepath)
+    except Exception:
+        raise ValueError("Unable to load test file " + filepath + "; perhaps an unknown distrib csymbol.")
+    rr.timeCourseSelections = selections
+
+    if testType == "StochasticTimeCourse":
+        rr.setIntegrator('gillespie')
+    elif testType == "StatisticalDistribution":
+        rr.setIntegrator('cvode')
+        rr.getIntegrator().setValue("absolute_tolerance", 1e-9)
+    else:
+        raise ValueError("Unknown stochastic test type " + testType + ".")
+
+    # Seed this worker's model (used for SBML distrib csymbols) and, since
+    # the integrator above already exists, its "gillespie" integrator's own
+    # RNG too -- setSeed() sets both in one call. resetModel=False so this
+    # is just an RNG re-seed, not a full model recompile.
+    rr.setSeed(seed, False)
+
+    chunk_results = {var: [] for var in selections}
+    for _ in range(n_repeats):
+        rr.resetToOrigin()
+        if testType == "StochasticTimeCourse":
+            rr.setIntegrator('gillespie')
+            sim = rr.simulate(start, duration, steps + 1)
+        else:  # StatisticalDistribution
+            rr.setIntegrator('cvode')
+            rr.getIntegrator().setValue("absolute_tolerance", 1e-9)
+            sim = rr.simulate(start, duration, steps + 1)
+        for n, col in enumerate(sim.colnames):
+            chunk_results[col].append(sim[:, n])
+    return chunk_results
+
+
+# Use 'spawn' explicitly rather than the platform default (which is 'fork' on
+# Linux) so worker processes always start from a clean interpreter instead of
+# forking after the parent may have already initialized LLVM/JIT state --
+# forking a process that has loaded native libraries with their own threads
+# or global state is a known source of hangs/corruption. Windows and macOS
+# already default to spawn; this just makes Linux consistent with them.
+_MP_CONTEXT = multiprocessing.get_context("spawn")
 
 
 class RoadRunnerTests(unittest.TestCase):
@@ -195,31 +275,83 @@ class RoadRunnerTests(unittest.TestCase):
         self.results.write("\n")
 
     def simulateFile(self, fname, tnum, expected_results):
-        try:
-            rr = roadrunner.RoadRunner(self.stochdir + "/" + tnum + "/" + fname)
-        except :
-            raise ValueError("Unable to load test file " +  fname + "; perhaps an unknown distrib csymbol.")
-        rr.timeCourseSelections = ['time'] + self.variables
-        all_results = {}
-        means = {}
-        sds = {}
-        for var in rr.timeCourseSelections:
-            all_results[var] = []
-            means[var] = []
-            sds[var] = []
-        for repeat in range(self.nrepeats):
-            rr.resetToOrigin()
-            if self.testType == "StochasticTimeCourse":
-                rr.setIntegrator('gillespie')
-                sim = rr.simulate(self.start, self.duration, self.steps + 1)
-            elif self.testType == "StatisticalDistribution":
-                rr.setIntegrator('cvode')
-                rr.getIntegrator().setValue("absolute_tolerance", 1e-9)
-                sim = rr.simulate(self.start, self.duration, self.steps + 1)
-            else:
-                self.fail("Unknown stochastic test type " + self.testType + " in test " + tnum + ".")
-            for n, col in enumerate(sim.colnames):
-                all_results[col].append(sim[:, n])
+        filepath = self.stochdir + "/" + tnum + "/" + fname
+        selections = ['time'] + self.variables
+
+        # The nrepeats simulations below are split across separate OS
+        # processes rather than threads or a single shared RoadRunner
+        # instance: RoadRunner's simulate() cannot safely be called
+        # concurrently, even from separate RoadRunner objects in the same
+        # process, because of internal state in the underlying C++/LLVM
+        # machinery. Separate processes give each worker its own address
+        # space, so there's no shared RoadRunner state at all between them.
+        # Set RR_STOCH_TEST_WORKERS to override the worker count (default:
+        # os.cpu_count()); set it to 1 to run everything sequentially in this
+        # process, as before.
+        n_workers = int(os.environ.get("RR_STOCH_TEST_WORKERS", os.cpu_count() or 1))
+        n_workers = max(1, min(n_workers, self.nrepeats))
+
+        all_results = {var: [] for var in selections}
+        means = {var: [] for var in selections}
+        sds = {var: [] for var in selections}
+
+        if n_workers > 1:
+            # Split nrepeats into n_workers roughly-even chunks; each worker
+            # process loads its own RoadRunner instance once and runs its
+            # whole chunk, so we pay the model-load/compile cost n_workers
+            # times total instead of once per repeat.
+            base, extra = divmod(self.nrepeats, n_workers)
+            chunk_sizes = [base + (1 if i < extra else 0) for i in range(n_workers)]
+            chunk_sizes = [c for c in chunk_sizes if c > 0]
+            print("Test {}: running {} repeats across {} worker processes ({} each)".format(
+                tnum, self.nrepeats, len(chunk_sizes), chunk_sizes), flush=True)
+            # Give each worker a distinct RNG seed (see _run_stoch_repeats for
+            # why this matters). base_seed is derived from the wall clock once
+            # here in the parent, so results still vary run to run as before;
+            # adding the worker index guarantees no two workers in this call
+            # collide, regardless of how closely together the OS actually
+            # starts them or how coarse each worker's own clock turns out to
+            # be.
+            base_seed = int(time.time() * 1e6) % (2 ** 31 - 1 - len(chunk_sizes))
+            try:
+                with ProcessPoolExecutor(max_workers=len(chunk_sizes), mp_context=_MP_CONTEXT) as executor:
+                    futures = [
+                        executor.submit(_run_stoch_repeats, filepath, self.variables, self.testType,
+                                         self.start, self.duration, self.steps, chunk_size, base_seed + i)
+                        for i, chunk_size in enumerate(chunk_sizes)
+                    ]
+                    for future in futures:
+                        chunk_results = future.result()
+                        for col, data in chunk_results.items():
+                            all_results[col].extend(data)
+            except BrokenProcessPool as e:
+                # A worker died without raising a normal Python exception --
+                # most likely killed by the OS (OOM, since n_workers separate
+                # processes each load their own copy of the JIT-compiled model
+                # plus numpy/roadrunner, which is far more memory than the
+                # single-process/thread version used) or a native crash inside
+                # simulate(). Re-raise with enough context to actually debug
+                # this instead of just seeing ctest's generic
+                # "Process completed with exit code 8" with no detail.
+                raise RuntimeError(
+                    "Worker process died while running test {} ({}) with "
+                    "RR_STOCH_TEST_WORKERS={}. This usually means a worker was "
+                    "killed (commonly OOM, since each worker loads its own "
+                    "compiled model/roadrunner/numpy) or crashed natively "
+                    "inside simulate(). Try lowering RR_STOCH_TEST_WORKERS "
+                    "(e.g. to 2, or 1 to disable parallelism) to see if that "
+                    "resolves it.".format(tnum, fname, n_workers)
+                ) from e
+        else:
+            # Only one worker (this process) -- no cross-worker collision is
+            # possible, so just let RoadRunner use its own default seeding
+            # (-1 means "seed from the system clock", same as before this
+            # function took an explicit seed argument).
+            chunk_results = _run_stoch_repeats(filepath, self.variables, self.testType,
+                                                self.start, self.duration, self.steps, self.nrepeats, -1)
+            for col, data in chunk_results.items():
+                all_results[col].extend(data)
+
         for var in self.variables:
             nmean_wrong = None
             nsd_wrong = None
