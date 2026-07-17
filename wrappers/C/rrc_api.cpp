@@ -3461,7 +3461,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         //o.integrator = Integrator::GILLESPIE;
         //o.integratorFlags &= !Integrator::VARIABLE_STEP;
         r->setIntegrator("gillespie");
-		r->getIntegrator()->setValue("variable_step_size", Setting(false));
+        r->getIntegrator()->setValue("variable_step_size", Setting(false));
 
         RoadRunner &rref = const_cast<RoadRunner&>(*r);
 
@@ -3480,8 +3480,9 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
             }
         }
 
-        // Runs simulations, obtaining avg with Welford's Algorithm
+        // Runs simulations, obtaining avg with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
             for (int row = 0; row < nRows; row++) {
                 for (int col = 0; col < nCols; col++) {
@@ -3554,8 +3555,9 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
             }
         }
 
-        // Runs simulations, obtaining avg and m2 with Welford's Algorithm
+        // Runs simulations, obtaining avg and m2 with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
             for (int row = 0; row < nRows; row++) {
                 for (int col = 0; col < nCols; col++) {

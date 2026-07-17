@@ -319,35 +319,6 @@ TEST_F(GillespieTests, TimeDependentPropensityMatchesODE) {
 
 /**
  * Regression tests for https://github.com/sys-bio/roadrunner/issues/1337
- *
- * The C API's Gillespie-averaging entry points - gillespieMeanOnGrid(Ex) and
- * gillespieMeanSDOnGrid(Ex) in wrappers/C/rrc_api.cpp - have two independent
- * bugs, both reproduced below with the S1 -> S2 mass-action model from the
- * issue (k1 = 0.5, S1(0) = 100). Each of these functions runs its own fresh
- * batch of `numberOfSimulations` Gillespie simulations internally (that's the
- * whole point of the numberOfSimulations parameter), so unlike the plain
- * gillespie()/gillespieOnGrid() calls, nothing about them should ever depend
- * on some earlier, unrelated simulation having already run:
- *
- * 1. They used to size their accumulator matrix from
- *    RoadRunner::getSimulationData(), which is a default-constructed (0x0,
- *    null-backed) matrix until *some* simulation has populated it, and
- *    otherwise just holds whatever shape that last simulation happened to
- *    have. If nothing had run yet, the very first write into that 0x0
- *    accumulator dereferenced a null pointer and crashed the process - even
- *    if the "gillespie" integrator had already been selected. If something
- *    unrelated *had* run, but on a different grid, the accumulator was
- *    silently the wrong shape. Both are fixed by sizing directly from the
- *    requested grid and the model's current selection list, which are known
- *    up front and don't require having run anything.
- *
- * 2. In the accumulation loop, every write targeted column 0 unconditionally
- *    (`avg(j, 0)`) instead of looping over all columns. Column 0 is time, so
- *    only the time column was ever averaged; every species column was left
- *    at its zero-initialized value. gillespieMeanSDOnGrid had the same
- *    column-0 bug for its variance accumulator, and on top of that never
- *    finished the Welford calculation (divide by n-1, sqrt) or copied it
- *    into the result - it copied the (broken) mean into Weights instead.
  */
 static const std::string S1ToS2MassActionSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="s1_s2">
@@ -384,8 +355,7 @@ TEST_F(GillespieTests, MeanOnGridWorksWithoutAnyPriorSimulation) {
 
     // No gillespie()/gillespieOnGrid()/gillespieOnGridEx() call has happened
     // yet, and none should be needed: gillespieMeanOnGridEx runs its own
-    // batch of simulations. Before the fix this dereferenced a null pointer
-    // (issue #1337, bug 1).
+    // batch of simulations.
     RRCDataPtr meanResult = gillespieMeanOnGridEx(rrHandle, 0, 5, 6, 3);
     ASSERT_NE(meanResult, nullptr);
     EXPECT_EQ(meanResult->RSize, 6);
@@ -411,9 +381,7 @@ TEST_F(GillespieTests, MeanOnGridIgnoresUnrelatedPriorSimulationShape) {
     ASSERT_TRUE(loadSBML(rrHandle, S1ToS2MassActionSBML.c_str()));
 
     // Run something unrelated first, on a coarser grid (3 points) than what's
-    // requested below (51 points). Under the old code, sizing the accumulator
-    // from this leftover result would silently produce a wrong-shaped result
-    // or, in the worst case, an out-of-bounds write.
+    // requested below (51 points).
     RRCDataPtr warmup = gillespieOnGridEx(rrHandle, 0, 5, 3);
     ASSERT_NE(warmup, nullptr);
     freeRRCData(warmup);
@@ -440,14 +408,12 @@ TEST_F(GillespieTests, MeanOnGridAveragesAllSpeciesColumns) {
 
     // Every replicate starts at the same, exactly known initial condition, so
     // the row-0 average must equal it precisely, regardless of the Gillespie
-    // RNG. Before the fix, only column 0 (time) was ever accumulated into, so
-    // every species column - including this one - stayed at 0.
+    // RNG.
     EXPECT_DOUBLE_EQ(result->Data[0 * result->CSize + s1Col], 100.0);
     EXPECT_DOUBLE_EQ(result->Data[0 * result->CSize + s2Col], 0.0);
 
     // Mass is conserved by the single S1 -> S2 reaction, so S1 + S2 == 100 in
-    // every individual trajectory, and therefore in their average too. This
-    // fails under the old code, where both columns average out to 0.
+    // every individual trajectory, and therefore in their average too.
     for (int row = 0; row < result->RSize; row++) {
         double s1 = result->Data[row * result->CSize + s1Col];
         double s2 = result->Data[row * result->CSize + s2Col];
@@ -481,8 +447,7 @@ TEST_F(GillespieTests, MeanSDOnGridReturnsMeanAndRealStandardDeviationTogether) 
 
     // By the final time point, 30 independent stochastic trajectories of a
     // decaying species must disagree with each other, i.e. have a strictly
-    // positive standard deviation. Before the fix, Weights was just a second
-    // copy of the (broken, all-zero) mean, so this was 0 too.
+    // positive standard deviation.
     int lastRow = result->RSize - 1;
     EXPECT_GT(result->Weights[lastRow * result->CSize + s1Col], 0.0);
 
