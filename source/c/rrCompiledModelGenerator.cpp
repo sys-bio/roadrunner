@@ -219,9 +219,14 @@ bool CompiledModelGenerator::expressionContainsSymbol(ASTNode *ast, const std::s
         return false;
     }
 
-    if (ast->getType() == libsbml::AST_NAME && trim(ast->getName()) == trim(symbol))
+    if (ast->getType() == libsbml::AST_NAME)
     {
-        return true;
+        std::string astName = ast->getName();
+        std::string symbolCopy = symbol;
+        if (trim(astName) == trim(symbolCopy))
+        {
+            return true;
+        }
     }
 
     for (u_int i = 0; i < ast->getNumChildren(); i++)

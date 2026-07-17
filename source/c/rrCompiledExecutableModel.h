@@ -117,11 +117,11 @@ public:
 
     virtual int getNumFloatingSpecies();
     virtual int getFloatingSpeciesIndex(const std::string& name);
-    virtual std::string getFloatingSpeciesId(int index);
+    virtual std::string getFloatingSpeciesId(size_t index);
 
     virtual int getNumBoundarySpecies();
     virtual int getBoundarySpeciesIndex(const std::string &name);
-    virtual std::string getBoundarySpeciesId(int index);
+    virtual std::string getBoundarySpeciesId(size_t index);
     virtual int getBoundarySpeciesCompartmentIndex(int index);
 
     /**
@@ -132,10 +132,10 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getFloatingSpeciesAmounts(int len, int const *indx,
+    virtual int getFloatingSpeciesAmounts(size_t len, int const *indx,
             double *values);
 
-    virtual int setFloatingSpeciesAmounts(int len, int const *indx,
+    virtual int setFloatingSpeciesAmounts(size_t len, int const *indx,
             const double *values);
 
     /**
@@ -146,7 +146,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getFloatingSpeciesConcentrations(int len, int const *indx,
+    virtual int getFloatingSpeciesConcentrations(size_t len, int const *indx,
             double *values);
 
     /**
@@ -157,13 +157,13 @@ public:
      * @param[in] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int setFloatingSpeciesConcentrations(int len, int const *indx,
+    virtual int setFloatingSpeciesConcentrations(size_t len, int const *indx,
             double const *values);
 
-    virtual int getFloatingSpeciesAmountRates(int len, int const *indx,
+    virtual int getFloatingSpeciesAmountRates(size_t len, int const *indx,
             double *values);
 
-    virtual int getFloatingSpeciesConcentrationRates(int len, int const *indx,
+    virtual int getFloatingSpeciesConcentrationRates(size_t len, int const *indx,
             double *values);
 
 
@@ -175,7 +175,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getBoundarySpeciesAmounts(int len, int const *indx,
+    virtual int getBoundarySpeciesAmounts(size_t len, int const *indx,
             double *values);
 
     /**
@@ -186,7 +186,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getBoundarySpeciesConcentrations(int len, int const *indx,
+    virtual int getBoundarySpeciesConcentrations(size_t len, int const *indx,
             double *values);
 
     /**
@@ -197,12 +197,12 @@ public:
      * @param[in] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int setBoundarySpeciesConcentrations(int len, int const *indx,
+    virtual int setBoundarySpeciesConcentrations(size_t len, int const *indx,
             double const *values);
 
     virtual int getNumGlobalParameters();
     virtual int getGlobalParameterIndex(const std::string& name);
-    virtual std::string getGlobalParameterId(int index);
+    virtual std::string getGlobalParameterId(size_t index);
 
     /**
      * get the global parameter values
@@ -212,15 +212,15 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getGlobalParameterValues(int len, int const *indx,
+    virtual int getGlobalParameterValues(size_t len, int const *indx,
             double *values);
 
-    virtual int setGlobalParameterValues(int len, int const *indx,
+    virtual int setGlobalParameterValues(size_t len, int const *indx,
             const double *values);
 
     virtual int getNumCompartments();
     virtual int getCompartmentIndex(const std::string& name);
-    virtual std::string getCompartmentId(int index);
+    virtual std::string getCompartmentId(size_t index);
 
     /**
      * get the compartment volumes
@@ -230,7 +230,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getCompartmentVolumes(int len, int const *indx,
+    virtual int getCompartmentVolumes(size_t len, int const *indx,
             double *values);
 
     virtual int getNumRateRules();
@@ -240,7 +240,7 @@ public:
      */
     virtual int getNumReactions();
 
-    virtual int getReactionRates(int len, const int* indx, double* values);
+    virtual int getReactionRates(size_t len, const int* indx, double* values);
 
     /**
      * get the index of a named reaction
@@ -251,7 +251,7 @@ public:
     /**
      * get the name of the specified reaction
      */
-    virtual std::string getReactionId(int index);
+    virtual std::string getReactionId(size_t index);
 
     virtual int getNumEvents();
     virtual void computeEventPriorites();
@@ -278,7 +278,7 @@ public:
     double getAmount(const int i);
     virtual void initializeRates();
 
-    virtual std::string getStateVectorId(int index);
+    virtual std::string getStateVectorId(size_t index);
 
     virtual void setRateRuleValues(const double *rateRuleValues);
 
@@ -340,9 +340,9 @@ public:
 
     virtual void setValue(const std::string& id, double value);
 
-    virtual int getEventDelays(int len, int const *indx, double *values);
+    virtual int getEventDelays(size_t len, int const *indx, double *values);
 
-    virtual int getEventPriorities(int len, int const *indx, double *values);
+    virtual int getEventPriorities(size_t len, int const *indx, double *values);
 
     virtual void eventAssignment(int eventId);
 
@@ -350,20 +350,20 @@ public:
 
     virtual void applyEventAssignment(int eventId, double *values);
 
-    virtual int getEventTriggers(int len, const int *indx, unsigned char *values);
+    virtual int getEventTriggers(size_t len, const int *indx, unsigned char *values);
 
     virtual int getNumConservedMoieties();
     virtual int getConservedMoietyIndex(const std::string& name);
-    virtual std::string getConservedMoietyId(int index);
-    virtual int getConservedMoietyValues(int len, int const *indx, double *values);
-    virtual int setConservedMoietyValues(int len, int const *indx,
+    virtual std::string getConservedMoietyId(size_t index);
+    virtual int getConservedMoietyValues(size_t len, int const *indx, double *values);
+    virtual int setConservedMoietyValues(size_t len, int const *indx,
             const double *values);
 
-    virtual int setCompartmentVolumes(int len, int const *indx,
+    virtual int setCompartmentVolumes(size_t len, int const *indx,
             const double *values);
-    virtual int setFloatingSpeciesInitConcentrations(int len, int const *indx,
+    virtual int setFloatingSpeciesInitConcentrations(size_t len, int const *indx,
             double const *values);
-    virtual int getFloatingSpeciesInitConcentrations(int len, int const *indx,
+    virtual int getFloatingSpeciesInitConcentrations(size_t len, int const *indx,
             double *values);
 
     virtual double getStoichiometry(int speciesIndex, int reactionIndex);
@@ -482,28 +482,28 @@ public:
     void sortEventsByPriority(std::vector<int>& firedEvents);
 
 
-    virtual int setFloatingSpeciesInitAmounts(int len, int const *indx,
+    virtual int setFloatingSpeciesInitAmounts(size_t len, int const *indx,
                 double const *values);
 
-    virtual int getFloatingSpeciesInitAmounts(int len, int const *indx,
+    virtual int getFloatingSpeciesInitAmounts(size_t len, int const *indx,
                     double *values);
 
-    virtual int setCompartmentInitVolumes(int len, int const *indx,
+    virtual int setCompartmentInitVolumes(size_t len, int const *indx,
                 double const *values);
 
-    virtual int getCompartmentInitVolumes(int len, int const *indx,
+    virtual int getCompartmentInitVolumes(size_t len, int const *indx,
                     double *values);
 
     virtual int getEventIndex(const std::string&);
-    virtual std::string getEventId(int);
-    virtual void setEventListener(int, rr::EventListenerPtr);
-    virtual rr::EventListenerPtr getEventListener(int);
+    virtual std::string getEventId(size_t);
+    virtual void setEventListener(size_t, rr::EventListenerPtr);
+    virtual rr::EventListenerPtr getEventListener(size_t);
 
     friend class CompiledModelState;
 
 
 
-    virtual double getFloatingSpeciesAmountRate(int index,
+    virtual double getFloatingSpeciesAmountRate(size_t index,
             const double *reactionRates);
 
     virtual void setRandomSeed(int64_t);
@@ -521,6 +521,62 @@ public:
     {
 
     }
+
+    // ---------------------------------------------------------------
+    // ExecutableModel interface methods added after the legacy C
+    // backend was last maintained. Implemented for real where the
+    // generated ModelData / ModelSymbols already carry the needed
+    // data; otherwise throw, matching the existing convention used
+    // above (e.g. setFloatingSpeciesInitAmounts) for gaps in the
+    // legacy code generator.
+    // ---------------------------------------------------------------
+
+    virtual int setBoundarySpeciesAmounts(size_t len, int const *indx,
+            double const *values);
+    virtual int setBoundarySpeciesAmounts(size_t len, int const *indx,
+            double const *values, bool strict);
+
+    virtual int setBoundarySpeciesInitConcentrations(size_t len, int const *indx,
+            double const *values);
+    virtual int getBoundarySpeciesInitConcentrations(size_t len, int const *indx,
+            double *values);
+    virtual int setBoundarySpeciesInitAmounts(size_t len, int const *indx,
+            double const *values);
+    virtual int getBoundarySpeciesInitAmounts(size_t len, int const *indx,
+            double *values);
+
+    virtual int setFloatingSpeciesAmounts(size_t len, int const *indx,
+            const double *values, bool strict);
+    virtual int setGlobalParameterValues(size_t len, int const *indx,
+            const double *values, bool strict);
+    virtual int setCompartmentVolumes(size_t len, int const *indx,
+            const double *values, bool strict);
+
+    virtual int setGlobalParameterInitValues(size_t len, int const *indx,
+            double const *values);
+    virtual int getGlobalParameterInitValues(size_t len, int const *indx,
+            double *values);
+
+    virtual int getCompartmentIndexForFloatingSpecies(size_t index);
+    virtual int getCompartmentIndexForBoundarySpecies(size_t index);
+
+    virtual int setStoichiometry(int index, double value);
+    virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value);
+    virtual double getStoichiometry(int index);
+
+    virtual std::vector<std::string> getRateRuleSymbols() const;
+
+    virtual int getStoichiometryIndex(const std::string&);
+    virtual int getStoichiometryIndex(const std::string&, const std::string&);
+    virtual std::string getStoichiometryId(size_t index);
+
+    virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot);
+    virtual int getNumPiecewiseTriggers();
+
+    virtual void getEventIds(std::list<std::string>&);
+    virtual void getAssignmentRuleIds(std::list<std::string>&);
+    virtual void getRateRuleIds(std::list<std::string>&);
+    virtual void getInitialAssignmentIds(std::list<std::string>&);
 };
 }
 #endif

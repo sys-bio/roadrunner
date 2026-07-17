@@ -602,7 +602,8 @@ static SymbolList readFloatingSpeciesConcentrationList(NOMSupport& nom, LibStruc
             // We only support assignment and ode rules at the moment
             std::string eqnRule = nom.getNthRule(i);
             RRRule aRule(eqnRule, ruleType);
-            std::string varName = trim(aRule.GetLHS());
+            std::string lhsTemp = aRule.GetLHS();
+            std::string varName = trim(lhsTemp);
 
             bool isRateRule = false;
 
@@ -731,27 +732,27 @@ static std::string findSymbol(const std::string& varName,
       int index = 0;
       if (floatingSpeciesConcentrationList.find(varName, index))
       {
-          return format("md->floatingSpeciesConcentrations[{0}]", index);
+          return rr::format("md->floatingSpeciesConcentrations[{0}]", index);
       }
       else if (globalParameterList.find(varName, index))
       {
-          return format("md->globalParameters[{0}]", index);
+          return rr::format("md->globalParameters[{0}]", index);
       }
       else if (boundarySpeciesList.find(varName, index))
       {
-          return format("md->boundarySpeciesConcentrations[{0}]", index);
+          return rr::format("md->boundarySpeciesConcentrations[{0}]", index);
       }
       else if (compartmentList.find(varName, index))
       {
-          return format("md->compartmentVolumes[{0}]", index);
+          return rr::format("md->compartmentVolumes[{0}]", index);
       }
       else if (modifiableSpeciesReferenceList.find(varName, index))
       {
-          return format("md->sr[{0}]", index);
+          return rr::format("md->sr[{0}]", index);
       }
       else
       {
-          throw Exception(format("Unable to locate lefthand side symbol in assignment[{0}]", varName));
+          throw Exception(rr::format("Unable to locate lefthand side symbol in assignment[{0}]", varName));
       }
 }
 
@@ -775,7 +776,8 @@ static IntStringHashTable readRateRules(NOMSupport &nom,
             // We only support assignment and ode rules at the moment
             std::string eqnRule = nom.getNthRule(i);
             RRRule aRule(eqnRule, ruleType);
-            std::string varName = trim(aRule.GetLHS());
+            std::string lhsTemp = aRule.GetLHS();
+            std::string varName = trim(lhsTemp);
 
             bool isRateRule = false;
 

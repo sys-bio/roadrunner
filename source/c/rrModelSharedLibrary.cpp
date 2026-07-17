@@ -14,7 +14,7 @@ using Poco::UUIDGenerator;
 
 ModelSharedLibrary::ModelSharedLibrary(const std::string& pathTo)
 {
-	if(fileExists(pathTo))
+	if(std::filesystem::exists(pathTo))
     {
     	load(pathTo);
     }
@@ -77,7 +77,7 @@ std::string ModelSharedLibrary::getName()
 
 std::string ModelSharedLibrary::getFullFileName()
 {
-	return joinPath(mPathToLib, mLibName);
+	return (std::filesystem::path(mPathToLib) / mLibName).string();
 }
 
 std::string ModelSharedLibrary::createName(const std::string& baseName)

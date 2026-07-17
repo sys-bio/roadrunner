@@ -1304,8 +1304,8 @@ deque<Rule*> NOMSupport::reorderAssignmentRules(deque<Rule*>& assignmentRules)
 //    var allSymbols = new Dictionary<int, List<std::string>>();
     std::map<int, StringList > allSymbols;
 
-    //    var std::map = new Dictionary<std::string, List<std::string>>();
-    std::map<std::string, StringList > std::map;
+    //    var symbolMap = new Dictionary<std::string, List<std::string>>();
+    std::map<std::string, StringList > symbolMap;
 //    var idList = new List<std::string>();
     StringList idList;
 
@@ -1323,7 +1323,7 @@ deque<Rule*> NOMSupport::reorderAssignmentRules(deque<Rule*>& assignmentRules)
             allSymbols[index] = NOMSupport::getSymbols(rule->getMath());
         }
         idList.add(variable);
-        std::map[variable] = StringList();//new List<std::string>();
+        symbolMap[variable] = StringList();//new List<std::string>();
     }
 
     // initialize order array
@@ -1343,7 +1343,7 @@ deque<Rule*> NOMSupport::reorderAssignmentRules(deque<Rule*>& assignmentRules)
         {
             if (allSymbols[index].Contains( (*id) ))
             {
-                std::map[(assignmentRules[index])->getVariable()].add( (*id) );
+                symbolMap[(assignmentRules[index])->getVariable()].add( (*id) );
             }
         }
     }
@@ -1364,7 +1364,7 @@ deque<Rule*> NOMSupport::reorderAssignmentRules(deque<Rule*>& assignmentRules)
                 std::string secondVar = assignmentRules[second]->getVariable();
                 std::string firstVar = assignmentRules[first]->getVariable();
 
-                if (std::map[firstVar].Contains(secondVar))
+                if (symbolMap[firstVar].Contains(secondVar))
                 {
                     // found dependency, swap and start over
                     order[i] = second;
@@ -1764,7 +1764,7 @@ void NOMSupport::setValue(Model* model, const std::string& id, const double& val
 
     if (throwIfNotFound)
     {
-        throw Exception(format("Invalid std::string name. The id '{0}' does not exist in the model", id));
+        throw Exception(rr::format("Invalid std::string name. The id '{0}' does not exist in the model", id));
     }
 }
 

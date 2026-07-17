@@ -56,9 +56,11 @@
 #include <unordered_map>
 #include <utility>
 //Shouldn't need the warning-disabling #pragmas here, since these are all links to *our* llvm, not the offical LLVM source.
+#if defined(BUILD_LLVM)
 #include "llvm/LLVMExecutableModel.h"
 #include "llvm/ModelResources.h"
 #include "llvm/IR/IRBuilder.h"
+#endif
 
 
 #ifdef _MSC_VER
@@ -1455,11 +1457,14 @@ namespace rr {
             // catch specifically for UninitializedValueException, otherwise for some
             // reason the message is erased, and an 'unknown error' is displayed to the user.
             throw;
-        } catch (const rrllvm::LLVMException &e) {
+        }
+#if defined(BUILD_LLVM)
+        catch (const rrllvm::LLVMException &e) {
             // catch specifically for LLVMException, otherwise the exception type is removed,
             // and an 'unknown error' is displayed to the user.
             throw;
         }
+#endif
         catch (const std::runtime_error &e) {
             throw;
         }
@@ -1854,6 +1859,7 @@ namespace rr {
     bool RoadRunner::llvmInitialized = false;
 
     void RoadRunner::initLLVM() {
+#if defined(BUILD_LLVM)
         // only do this once
         std::lock_guard<std::mutex> lock(rrMtx);
         if (!llvmInitialized) {
@@ -1879,6 +1885,10 @@ namespace rr {
 
             llvmInitialized = true;
         }
+#else
+        // No native-target JIT initialization is needed for the legacy C
+        // (or no) back end; this is a no-op when BUILD_LLVM is off.
+#endif
     }
 
     double

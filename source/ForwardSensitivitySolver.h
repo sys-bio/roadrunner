@@ -10,7 +10,12 @@
 #include "SensitivitySolver.h"
 #include <unordered_map>
 #include <vector>
-#include "LLVMExecutableModel.h"
+// The complete rr::ExecutableModel interface is needed (its methods are
+// called throughout this class), so include the backend-agnostic interface
+// header directly instead of a concrete backend's header (previously this
+// pulled in LLVMExecutableModel.h, which only works when BUILD_LLVM is
+// enabled, and also isn't the right header to depend on architecturally).
+#include "rrExecutableModel.h"
 #include "Matrix.h"
 #include "Matrix3D.h"
 #include "nvector/nvector_serial.h"

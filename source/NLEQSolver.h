@@ -7,7 +7,12 @@
 
 #include "rrExporter.h"
 #include "SteadyStateSolver.h"
-#include "LLVMExecutableModel.h"
+// SteadyStateSolver.h only forward-declares rr::ExecutableModel, but the
+// solveNLEQ() template below calls its methods, so the complete interface
+// definition is needed here. Include the backend-agnostic interface header
+// directly instead of a concrete backend's header (previously this pulled
+// in LLVMExecutableModel.h, which only works when BUILD_LLVM is enabled).
+#include "rrExecutableModel.h"
 
 namespace rr {
 

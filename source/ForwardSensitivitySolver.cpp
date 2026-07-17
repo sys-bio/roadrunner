@@ -4,7 +4,8 @@
 
 #include "ForwardSensitivitySolver.h"
 #include "ForwardSensitivitySolver.h"
-#include "LLVMExecutableModel.h"
+// rrExecutableModel.h is now included (unconditionally) via
+// ForwardSensitivitySolver.h; no separate LLVM-specific include is needed.
 #include <nvector/nvector_serial.h>               /* access to serial N_Vector                    */
 #include <cvodes/cvodes.h>                        /* prototypes for CVODE fcts., consts.          */
 #include <nvector/nvector_serial.h>               /* access to serial N_Vector                    */

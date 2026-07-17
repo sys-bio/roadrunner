@@ -23,7 +23,12 @@
 #include <sundials/sundials_nonlinearsolver.h>
 #include <cvodes/cvodes.h>
 #include <sundials/sundials_nvector.h>
+// ForwardSensitivitySolver is only used here as a forward-declared friend
+// (see below); the full header isn't needed, and pulls in LLVM-backend
+// headers transitively, so only include it when that's actually safe/wanted.
+#if defined(BUILD_LLVM)
 #include "ForwardSensitivitySolver.h"
+#endif
 
 
 namespace rr {

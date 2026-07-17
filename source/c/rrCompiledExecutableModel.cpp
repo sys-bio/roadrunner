@@ -19,7 +19,7 @@ inline bool checkExact(uint32_t type, uint32_t value) {
     return (value & type) == type;
 }
 
-typedef std::string (rr::ExecutableModel::*getNamePtr)(int);
+typedef std::string (rr::ExecutableModel::*getNamePtr)(size_t);
 typedef int (rr::ExecutableModel::*getNumPtr)();
 
 // make this static here, hide our implementation...
@@ -152,7 +152,7 @@ int CompiledExecutableModel::getReactionIndex(const std::string& reactionName)
     return ms.mReactionList.find(reactionName, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getReactionId(int index)
+std::string CompiledExecutableModel::getReactionId(size_t index)
 {
     return ms.mReactionList[index].name;
 }
@@ -163,7 +163,7 @@ int CompiledExecutableModel::getGlobalParameterIndex(const std::string& name)
     return ms.mGlobalParameterList.find(name, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getGlobalParameterId(int index)
+std::string CompiledExecutableModel::getGlobalParameterId(size_t index)
 {
     return ms.mGlobalParameterList[index].name;
 }
@@ -174,7 +174,7 @@ int CompiledExecutableModel::getBoundarySpeciesIndex(const std::string& name)
     return ms.mBoundarySpeciesList.find(name, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getBoundarySpeciesId(int index)
+std::string CompiledExecutableModel::getBoundarySpeciesId(size_t index)
 {
     return ms.mBoundarySpeciesList[index].name;
 }
@@ -193,7 +193,7 @@ int CompiledExecutableModel::getCompartmentIndex(const std::string& name)
     return ms.mCompartmentList.find(name, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getCompartmentId(int index)
+std::string CompiledExecutableModel::getCompartmentId(size_t index)
 {
     return ms.mCompartmentList[index].name;
 }
@@ -204,7 +204,7 @@ int CompiledExecutableModel::getFloatingSpeciesIndex(const std::string& name)
     return ms.mFloatingSpeciesConcentrationList.find(name, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getFloatingSpeciesId(int index)
+std::string CompiledExecutableModel::getFloatingSpeciesId(size_t index)
 {
     return ms.mFloatingSpeciesConcentrationList[index].name;
 }
@@ -753,7 +753,7 @@ int CompiledExecutableModel::getNumRateRules()
     return ms.mNumRules;
 }
 
-int CompiledExecutableModel::getFloatingSpeciesAmounts(int len, const int* indx,
+int CompiledExecutableModel::getFloatingSpeciesAmounts(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -764,7 +764,7 @@ int CompiledExecutableModel::getFloatingSpeciesAmounts(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getFloatingSpeciesConcentrations(int len,
+int CompiledExecutableModel::getFloatingSpeciesConcentrations(size_t len,
         const int* indx, double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -775,7 +775,7 @@ int CompiledExecutableModel::getFloatingSpeciesConcentrations(int len,
     return len;
 }
 
-int CompiledExecutableModel::setFloatingSpeciesConcentrations(int len,
+int CompiledExecutableModel::setFloatingSpeciesConcentrations(size_t len,
         const int* indx, const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -787,7 +787,7 @@ int CompiledExecutableModel::setFloatingSpeciesConcentrations(int len,
     return len;
 }
 
-int CompiledExecutableModel::getBoundarySpeciesAmounts(int len, const int* indx,
+int CompiledExecutableModel::getBoundarySpeciesAmounts(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -803,7 +803,7 @@ int CompiledExecutableModel::getBoundarySpeciesAmounts(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getBoundarySpeciesConcentrations(int len,
+int CompiledExecutableModel::getBoundarySpeciesConcentrations(size_t len,
         const int* indx, double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -821,7 +821,7 @@ int CompiledExecutableModel::getBoundarySpeciesConcentrations(int len,
     return len;
 }
 
-int CompiledExecutableModel::setBoundarySpeciesConcentrations(int len,
+int CompiledExecutableModel::setBoundarySpeciesConcentrations(size_t len,
         const int* indx, const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -839,7 +839,7 @@ int CompiledExecutableModel::setBoundarySpeciesConcentrations(int len,
     return len;
 }
 
-int CompiledExecutableModel::getGlobalParameterValues(int len, const int* indx,
+int CompiledExecutableModel::getGlobalParameterValues(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -857,7 +857,7 @@ int CompiledExecutableModel::getGlobalParameterValues(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::setGlobalParameterValues(int len, const int* indx,
+int CompiledExecutableModel::setGlobalParameterValues(size_t len, const int* indx,
         const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -875,7 +875,7 @@ int CompiledExecutableModel::setGlobalParameterValues(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getCompartmentVolumes(int len, const int* indx,
+int CompiledExecutableModel::getCompartmentVolumes(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -893,7 +893,7 @@ int CompiledExecutableModel::getCompartmentVolumes(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getEventDelays(int len, const int* indx,
+int CompiledExecutableModel::getEventDelays(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -911,7 +911,7 @@ int CompiledExecutableModel::getEventDelays(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getEventPriorities(int len, const int* indx,
+int CompiledExecutableModel::getEventPriorities(size_t len, const int* indx,
         double* values)
 {
     return 0;
@@ -938,7 +938,7 @@ void CompiledExecutableModel::applyEventAssignment(int eventId, double* values)
 {
 }
 
-int CompiledExecutableModel::getEventTriggers(int len, const int *indx,
+int CompiledExecutableModel::getEventTriggers(size_t len, const int *indx,
         unsigned char *values)
 {
     if (len <= 0)
@@ -1287,7 +1287,7 @@ int CompiledExecutableModel::getPendingEventSize()
     return mAssignmentTimes.size();
 }
 
-int CompiledExecutableModel::getReactionRates(int len, const int* indx,
+int CompiledExecutableModel::getReactionRates(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1316,12 +1316,12 @@ int CompiledExecutableModel::getConservedMoietyIndex(const std::string& name)
     return ms.mConservationList.find(name, result) ? result : -1;
 }
 
-std::string CompiledExecutableModel::getConservedMoietyId(int index)
+std::string CompiledExecutableModel::getConservedMoietyId(size_t index)
 {
     return ms.mConservationList[index].name;
 }
 
-int CompiledExecutableModel::getConservedMoietyValues(int len, const int* indx,
+int CompiledExecutableModel::getConservedMoietyValues(size_t len, const int* indx,
         double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1339,7 +1339,7 @@ int CompiledExecutableModel::getConservedMoietyValues(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::setConservedMoietyValues(int len, const int* indx,
+int CompiledExecutableModel::setConservedMoietyValues(size_t len, const int* indx,
         const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1357,7 +1357,7 @@ int CompiledExecutableModel::setConservedMoietyValues(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::getFloatingSpeciesAmountRates(int len,
+int CompiledExecutableModel::getFloatingSpeciesAmountRates(size_t len,
         int const *indx, double *values)
 {
     for (int i = 0; i < len; ++i)
@@ -1375,7 +1375,7 @@ int CompiledExecutableModel::getFloatingSpeciesAmountRates(int len,
     return len;
 }
 
-int CompiledExecutableModel::setFloatingSpeciesAmounts(int len, int const *indx,
+int CompiledExecutableModel::setFloatingSpeciesAmounts(size_t len, int const *indx,
         const double *values)
 {
     for (int i = 0; i < len; ++i)
@@ -1387,7 +1387,7 @@ int CompiledExecutableModel::setFloatingSpeciesAmounts(int len, int const *indx,
 }
 
 
-int CompiledExecutableModel::setCompartmentVolumes(int len, const int* indx,
+int CompiledExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
         const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1398,7 +1398,7 @@ int CompiledExecutableModel::setCompartmentVolumes(int len, const int* indx,
     return len;
 }
 
-int CompiledExecutableModel::setFloatingSpeciesInitConcentrations(int len,
+int CompiledExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
         const int* indx, const double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1409,7 +1409,7 @@ int CompiledExecutableModel::setFloatingSpeciesInitConcentrations(int len,
     return len;
 }
 
-int CompiledExecutableModel::getFloatingSpeciesInitConcentrations(int len,
+int CompiledExecutableModel::getFloatingSpeciesInitConcentrations(size_t len,
         const int* indx, double* values)
 {
     for (int i = 0; i < len; ++i)
@@ -1450,25 +1450,25 @@ int CompiledExecutableModel::getStoichiometryMatrix(int* p_rows, int* p_cols, do
 }
 
 
-int CompiledExecutableModel::setFloatingSpeciesInitAmounts(int len, int const *indx,
+int CompiledExecutableModel::setFloatingSpeciesInitAmounts(size_t len, int const *indx,
             double const *values)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-int CompiledExecutableModel::getFloatingSpeciesInitAmounts(int len, int const *indx,
+int CompiledExecutableModel::getFloatingSpeciesInitAmounts(size_t len, int const *indx,
                 double *values)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-int CompiledExecutableModel::setCompartmentInitVolumes(int len, int const *indx,
+int CompiledExecutableModel::setCompartmentInitVolumes(size_t len, int const *indx,
             double const *values)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-int CompiledExecutableModel::getCompartmentInitVolumes(int len, int const *indx,
+int CompiledExecutableModel::getCompartmentInitVolumes(size_t len, int const *indx,
                 double *values)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
@@ -1526,7 +1526,7 @@ int CompiledExecutableModel::getSupportedIdTypes()
         SelectionRecord::FLOATING_AMOUNT |
         SelectionRecord::BOUNDARY_AMOUNT |
         SelectionRecord::INITIAL_FLOATING_CONCENTRATION |
-        SelectionRecord::CONSREVED_MOIETY;
+        SelectionRecord::CONSERVED_MOIETY;
 }
 
 
@@ -1748,13 +1748,13 @@ void CompiledExecutableModel::setValue(const std::string& id, double value)
     }
 }
 
-int CompiledExecutableModel::getFloatingSpeciesConcentrationRates(int len, int const *indx,
+int CompiledExecutableModel::getFloatingSpeciesConcentrationRates(size_t len, int const *indx,
         double *values)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-std::string CompiledExecutableModel::getStateVectorId(int)
+std::string CompiledExecutableModel::getStateVectorId(size_t)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
@@ -1764,22 +1764,22 @@ int CompiledExecutableModel::getEventIndex(const std::string&)
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-std::string CompiledExecutableModel::getEventId(int)
+std::string CompiledExecutableModel::getEventId(size_t)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-void CompiledExecutableModel::setEventListener(int, EventListenerPtr)
+void CompiledExecutableModel::setEventListener(size_t, EventListenerPtr)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-EventListenerPtr CompiledExecutableModel::getEventListener(int)
+EventListenerPtr CompiledExecutableModel::getEventListener(size_t)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 }
 
-double CompiledExecutableModel::getFloatingSpeciesAmountRate(int index,
+double CompiledExecutableModel::getFloatingSpeciesAmountRate(size_t index,
            const double *reactionRates)
 {
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
@@ -1800,7 +1800,188 @@ double CompiledExecutableModel::getRandom()
     throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
 };
 
+// ---------------------------------------------------------------
+// ExecutableModel interface methods added after the legacy C
+// backend was last maintained (see rrCompiledExecutableModel.h).
+// ---------------------------------------------------------------
 
+int CompiledExecutableModel::setBoundarySpeciesAmounts(size_t len, int const *indx,
+        double const *values)
+{
+    for (size_t i = 0; i < len; ++i)
+    {
+        int j = indx ? indx[i] : (int)i;
+        int nIndex;
+        if (j < mData.numBoundarySpecies && (nIndex = getBoundarySpeciesCompartmentIndex(j)) >= 0)
+        {
+            double volume = mData.compartmentVolumes[nIndex];
+            mData.boundarySpeciesConcentrations[j] = volume != 0.0 ? values[i] / volume : 0.0;
+        }
+        else
+        {
+            throw Exception("index out of range");
+        }
+    }
+    return (int)len;
+}
+
+int CompiledExecutableModel::setBoundarySpeciesAmounts(size_t len, int const *indx,
+        double const *values, bool strict)
+{
+    // 'strict' (whether to throw on an unsettable value) is not distinguished
+    // from the non-strict behavior in the legacy C back end, which always
+    // throws on an out of range index.
+    return setBoundarySpeciesAmounts(len, indx, values);
+}
+
+int CompiledExecutableModel::setBoundarySpeciesInitConcentrations(size_t len, int const *indx,
+        double const *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::getBoundarySpeciesInitConcentrations(size_t len, int const *indx,
+        double *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::setBoundarySpeciesInitAmounts(size_t len, int const *indx,
+        double const *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::getBoundarySpeciesInitAmounts(size_t len, int const *indx,
+        double *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::setFloatingSpeciesAmounts(size_t len, int const *indx,
+        const double *values, bool strict)
+{
+    return setFloatingSpeciesAmounts(len, indx, values);
+}
+
+int CompiledExecutableModel::setGlobalParameterValues(size_t len, int const *indx,
+        const double *values, bool strict)
+{
+    return setGlobalParameterValues(len, indx, values);
+}
+
+int CompiledExecutableModel::setCompartmentVolumes(size_t len, int const *indx,
+        const double *values, bool strict)
+{
+    return setCompartmentVolumes(len, indx, values);
+}
+
+int CompiledExecutableModel::setGlobalParameterInitValues(size_t len, int const *indx,
+        double const *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::getGlobalParameterInitValues(size_t len, int const *indx,
+        double *values)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::getCompartmentIndexForFloatingSpecies(size_t index)
+{
+    std::string compartmentName = ms.mFloatingSpeciesConcentrationList[index].compartmentName;
+    int compartmentIndex = -1;
+    return ms.mCompartmentList.find(compartmentName, compartmentIndex) ? compartmentIndex : -1;
+}
+
+int CompiledExecutableModel::getCompartmentIndexForBoundarySpecies(size_t index)
+{
+    return getBoundarySpeciesCompartmentIndex((int)index);
+}
+
+int CompiledExecutableModel::setStoichiometry(int index, double value)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::setStoichiometry(int speciesIndex, int reactionIndex, double value)
+{
+    if (speciesIndex >= 0 && speciesIndex < stoichiometryMatrix.numRows()
+            && reactionIndex >= 0 && reactionIndex < stoichiometryMatrix.numCols())
+    {
+        stoichiometryMatrix(speciesIndex, reactionIndex) = value;
+        return 0;
+    }
+    throw Exception("index out of range");
+}
+
+double CompiledExecutableModel::getStoichiometry(int index)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+std::vector<std::string> CompiledExecutableModel::getRateRuleSymbols() const
+{
+    std::vector<std::string> result;
+    for (IntStringHashTable::const_iterator it = ms.mRateRules.begin();
+            it != ms.mRateRules.end(); ++it)
+    {
+        result.push_back(it->second);
+    }
+    return result;
+}
+
+int CompiledExecutableModel::getStoichiometryIndex(const std::string&)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+int CompiledExecutableModel::getStoichiometryIndex(const std::string&, const std::string&)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+std::string CompiledExecutableModel::getStoichiometryId(size_t index)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+void CompiledExecutableModel::getPiecewiseTriggerRoots(double time, const double* y, double* gdot)
+{
+    // The legacy C code generator does not emit piecewise-trigger root
+    // functions, so there is nothing to evaluate here.
+}
+
+int CompiledExecutableModel::getNumPiecewiseTriggers()
+{
+    // The legacy C code generator does not track piecewise triggers
+    // separately from ordinary events.
+    return 0;
+}
+
+void CompiledExecutableModel::getEventIds(std::list<std::string>&)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+void CompiledExecutableModel::getAssignmentRuleIds(std::list<std::string>&)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
+
+void CompiledExecutableModel::getRateRuleIds(std::list<std::string>& ids)
+{
+    for (const std::string& symbol : getRateRuleSymbols())
+    {
+        ids.push_back(symbol);
+    }
+}
+
+void CompiledExecutableModel::getInitialAssignmentIds(std::list<std::string>&)
+{
+    throw rr::Exception(std::string(__FUNC__) + " not supported with legacy C back end");
+}
 
 } //Namespace rr
 

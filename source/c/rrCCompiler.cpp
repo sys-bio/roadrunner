@@ -43,7 +43,7 @@ bool CCompiler::setupCompiler(const std::string& supportCodeFolder)
 {
     mSupportCodeFolder = supportCodeFolder;
 
-    if(!folderExists(mSupportCodeFolder))
+    if(!std::filesystem::is_directory(mSupportCodeFolder))
     {
         rrLog(Logger::LOG_ERROR)<<"The roadrunner support code folder : "<<mSupportCodeFolder<<" does not exist.";
         return false;
@@ -68,7 +68,7 @@ bool CCompiler::compileSource(const std::string& sourceFileName)
 #elif defined(__APPLE__)
     std::string dllFName(changeFileExtensionTo(getFileName(sourceFileName), "dylib"));
 #endif
-    mDLLFileName = joinPath(getFilePath(sourceFileName), dllFName);
+    mDLLFileName = (std::filesystem::path(getFilePath(sourceFileName)) / dllFName).string();
 
     //Setup compiler environment
     setupCompilerEnvironment();
@@ -86,7 +86,7 @@ bool CCompiler::compileSource(const std::string& sourceFileName)
     }
 
     //Check if the DLL exists...
-    return fileExists(mDLLFileName);
+    return std::filesystem::exists(mDLLFileName);
 }
 
 bool CCompiler::setCompiler(const std::string& compiler)
@@ -103,7 +103,7 @@ std::string CCompiler::getCompiler() const
 
 bool CCompiler::setCompilerLocation(const std::string& path)
 {
-    if(!folderExists(path))
+    if(!std::filesystem::is_directory(path))
     {
         rrLog(Logger::LOG_ERROR)<<"Tried to set invalid path: "<<path<<" for compiler location";
         return false;
@@ -119,7 +119,7 @@ std::string CCompiler::getCompilerLocation() const
 
 bool CCompiler::setSupportCodeFolder(const std::string& path)
 {
-    if(!folderExists(path))
+    if(!std::filesystem::is_directory(path))
     {
         rrLog(Logger::LOG_ERROR)<<"Tried to set invalid path: "<<path<<" for compiler location";
         return false;
@@ -158,9 +158,9 @@ bool CCompiler::setupCompilerEnvironment()
             mIncludePaths.push_back(".");
             mIncludePaths.push_back("r:/rrl/source");
 
-            mIncludePaths.push_back(joinPath(mCompilerLocation, "include"));
+            mIncludePaths.push_back((std::filesystem::path(mCompilerLocation) / "include").string());
             mLibraryPaths.push_back(".");
-            mLibraryPaths.push_back(joinPath(mCompilerLocation, "lib"));
+            mLibraryPaths.push_back((std::filesystem::path(mCompilerLocation) / "lib").string());
             if(gLog.getLevel() < lDebug)
             {
                 mCompilerFlags.push_back("-v"); // suppress warnings
@@ -203,13 +203,13 @@ std::string CCompiler::createCompilerCommand(const std::string& sourceFileName)
        || getFileNameNoExtension(mCompilerName) == "cc")
     {
         // standard unix compiler options
-        exeCmd<<joinPath(mCompilerLocation, mCompilerName);
+        exeCmd<<(std::filesystem::path(mCompilerLocation) / mCompilerName).string();
         //Add compiler flags
         for(int i = 0; i < mCompilerFlags.size(); i++)
         {
             exeCmd<<" "<<mCompilerFlags[i];
         }
-        exeCmd<<" \""<<sourceFileName<<"\" \""<<joinPath(mSupportCodeFolder, "rrSupport.c")<<"\"";
+        exeCmd<<" \""<<sourceFileName<<"\" \""<<(std::filesystem::path(mSupportCodeFolder) / "rrSupport.c").string()<<"\"";
 
 
         exeCmd<<" -o \""<<mDLLFileName<<"\"";
@@ -243,7 +243,7 @@ bool CCompiler::compile(const std::string& cmdLine)
     PROCESS_INFORMATION pi;
     ZeroMemory( &pi, sizeof(pi) );
 
-    STARTUPINFO si;
+    STARTUPINFOA si;
     ZeroMemory( &si, sizeof(si) );
     si.cb = sizeof(si);
 
@@ -253,7 +253,7 @@ bool CCompiler::compile(const std::string& cmdLine)
     sao.lpSecurityDescriptor=NULL;
     sao.bInheritHandle=1;
 
-    std::string compilerTempFile(joinPath(mOutputPath, getFileNameNoExtension(mDLLFileName)));
+    std::string compilerTempFile((std::filesystem::path(mOutputPath) / getFileNameNoExtension(mDLLFileName)).string());
     compilerTempFile.append("C.log");
 
     Poco::File aFile(compilerTempFile);
@@ -274,7 +274,8 @@ bool CCompiler::compile(const std::string& cmdLine)
     {
         // Retrieve the system error message for the last-error code
         DWORD errorCode = GetLastError();
-        std::string anError = getWINAPIError(errorCode, TEXT("CreateFile"));
+        TCHAR funcNameBuf[] = TEXT("CreateFile");
+        std::string anError = getWINAPIError(errorCode, funcNameBuf);
         rrLog(Logger::LOG_ERROR)<<"WIN wrappers Error (after CreateFile): "<<anError;
         rrLog(Logger::LOG_ERROR)<<"Failed creating logFile for compiler output";
     }
@@ -314,7 +315,8 @@ bool CCompiler::compile(const std::string& cmdLine)
     {
         DWORD errorCode = GetLastError();
 
-        std::string anError = getWINAPIError(errorCode, TEXT("CreateProcess"));
+        TCHAR funcNameBuf[] = TEXT("CreateProcess");
+        std::string anError = getWINAPIError(errorCode, funcNameBuf);
         rrLog(Logger::LOG_ERROR)<<"WIN wrappers Error: (after CreateProcess) "<<anError;
 
         // Close process and thread handles.
@@ -334,7 +336,8 @@ bool CCompiler::compile(const std::string& cmdLine)
     DWORD errorCode = GetLastError();
     if(errorCode != 0)
     {
-        std::string anError = getWINAPIError(errorCode, TEXT("CloseHandle"));
+        TCHAR funcNameBuf[] = TEXT("CloseHandle");
+        std::string anError = getWINAPIError(errorCode, funcNameBuf);
         rrLog(lDebug)<<"WIN wrappers error: (pi.hProcess)"<<anError;
     }
 
@@ -342,12 +345,13 @@ bool CCompiler::compile(const std::string& cmdLine)
     errorCode = GetLastError();
     if(errorCode != 0)
     {
-        std::string anError = getWINAPIError(errorCode, TEXT("CloseHandle"));
+        TCHAR funcNameBuf[] = TEXT("CloseHandle");
+        std::string anError = getWINAPIError(errorCode, funcNameBuf);
         rrLog(lDebug)<<"WIN wrappers error: (pi.hThread)"<<anError;
     }
 
     //Read the log file and log it
-    if(fileExists(compilerTempFile))
+    if(std::filesystem::exists(compilerTempFile))
     {
         std::string log = getFileContent(compilerTempFile.c_str());
         rrLog(lDebug)<<"Compiler output: "<<log<<std::endl;
@@ -362,7 +366,7 @@ bool CCompiler::compile(const std::string& cmdLine)
 {
     std::string toFile(cmdLine);
     toFile += " >> ";
-    toFile += joinPath(mOutputPath, "compilation.log");
+    toFile += (std::filesystem::path(mOutputPath) / "compilation.log").string();
     toFile += " 2>&1";
 
     rrLog(lDebug)<<"Compiler command: "<<toFile;

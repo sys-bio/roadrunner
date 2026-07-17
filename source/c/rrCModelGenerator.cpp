@@ -25,7 +25,7 @@ using namespace libsbml;
 
 static std::string getSupportCodeDir(const std::string supdir) {
     if (supdir.empty()) {
-        return joinPath("..", "rr_support");
+        return (std::filesystem::path("..") / "rr_support").string();
     } else {
         return supdir;
     }
@@ -203,7 +203,7 @@ void CModelGenerator::writeComputeAllRatesOfChange(CodeBuilder& ignore, const in
 
     for (int i = 0; i < numAdditionalRates(); i++)
     {
-        mSource<<format("\tdTemp[{0}] = {1};{2}", i, ms.mRateRules.find(i)->second, NL());
+        mSource<<rr::format("\tdTemp[{0}] = {1};{2}", i, ms.mRateRules.find(i)->second, NL());
     }
 
     mSource<<gTab<<"for(i = 0; i < md->numFloatingSpecies; i++)\n";
@@ -214,22 +214,22 @@ void CModelGenerator::writeComputeAllRatesOfChange(CodeBuilder& ignore, const in
     bool isThereAnEntry = false;
     for (int i = 0; i < numDependentSpecies; i++)
     {
-        mSource<<format("\tmd->floatingSpeciesAmountRates[{0}] = ", (numIndependentSpecies + i));
+        mSource<<rr::format("\tmd->floatingSpeciesAmountRates[{0}] = ", (numIndependentSpecies + i));
         isThereAnEntry = false;
         for (int j = 0; j < numIndependentSpecies; j++)
         {
-            std::string dyName = format("md->floatingSpeciesAmountRates[{0}]", j);
+            std::string dyName = rr::format("md->floatingSpeciesAmountRates[{0}]", j);
 
             if (L0(i,j) > 0)
             {
                 isThereAnEntry = true;
                 if (L0(i,j) == 1)
                 {
-                    mSource<<format(" + {0};{1}", dyName, NL());
+                    mSource<<rr::format(" + {0};{1}", dyName, NL());
                 }
                 else
                 {
-                    mSource<<format(" + (double){0}{1}{2};{3}", writeDouble(L0(i,j)), mFixAmountCompartments, dyName, NL());
+                    mSource<<rr::format(" + (double){0}{1}{2};{3}", writeDouble(L0(i,j)), mFixAmountCompartments, dyName, NL());
                 }
             }
             else if (L0(i,j) < 0)
@@ -237,11 +237,11 @@ void CModelGenerator::writeComputeAllRatesOfChange(CodeBuilder& ignore, const in
                 isThereAnEntry = true;
                 if (L0(i,j) == -1)
                 {
-                    mSource<<format(" - {0};{1}", dyName, NL());
+                    mSource<<rr::format(" - {0};{1}", dyName, NL());
                 }
                 else
                 {
-                    mSource<<format(" - (double){0}{1}{2};{3}", writeDouble(fabs(L0(i,j))), mFixAmountCompartments, dyName, NL());
+                    mSource<<rr::format(" - (double){0}{1}{2};{3}", writeDouble(fabs(L0(i,j))), mFixAmountCompartments, dyName, NL());
                 }
             }
         }
@@ -254,7 +254,7 @@ void CModelGenerator::writeComputeAllRatesOfChange(CodeBuilder& ignore, const in
 
     // done with temp buffer
     mSource << "\n\tfree(dTemp);\n";
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeComputeConservedTotals(CodeBuilder& ignore, const int& numFloatingSpecies, const int& numDependentSpecies)
@@ -271,7 +271,7 @@ void CModelGenerator::writeComputeConservedTotals(CodeBuilder& ignore, const int
 
         for (int i = 0; i < numDependentSpecies; i++)
         {
-            mSource<<format("\n\tmd->dependentSpeciesConservedSums[{0}] = ", i);
+            mSource<<rr::format("\n\tmd->dependentSpeciesConservedSums[{0}] = ", i);
             for (int j = 0; j < numFloatingSpecies; j++)
             {
                 double current = (gamma != NULL) ? (*gamma)(i,j) : 1.0;    //Todo: This is a bug? We should not be here if the matrix is NULL.. Triggered by model 00029
@@ -333,15 +333,15 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
     {
         for (int i = 0; i < numDependentSpecies; i++)
         {
-            mSource<<format("\n\tmd->floatingSpeciesConcentrations[{0}] = ", (i + numIndependentSpecies));
-            mSource<<format("(md->dependentSpeciesConservedSums[{0}]", i);
+            mSource<<rr::format("\n\tmd->floatingSpeciesConcentrations[{0}] = ", (i + numIndependentSpecies));
+            mSource<<rr::format("(md->dependentSpeciesConservedSums[{0}]", i);
             std::string cLeftName =
                 convertCompartmentToC(
                     ms.mFloatingSpeciesConcentrationList[i + numIndependentSpecies].compartmentName);
 
             for (int j = 0; j < numIndependentSpecies; j++)
             {
-                std::string yName = format("md->floatingSpeciesConcentrations[{0}]", j);
+                std::string yName = rr::format("md->floatingSpeciesConcentrations[{0}]", j);
                 std::string cName = convertCompartmentToC(ms.mFloatingSpeciesConcentrationList[j].compartmentName);
                 double* mat = L0.GetPointer();
                 double matElementValue = L0(i,j);
@@ -350,7 +350,7 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
                 {
                     if (L0(i,j) == 1)
                     {
-                        mSource<<format(" + {0}\t{1}{2}{3}{0}\t",
+                        mSource<<rr::format(" + {0}\t{1}{2}{3}{0}\t",
                             "",
                             yName,
                             mFixAmountCompartments,
@@ -358,7 +358,7 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
                     }
                     else
                     {
-                        mSource<<format("{0} + (double){1}{2}{3}{2}{4}",
+                        mSource<<rr::format("{0} + (double){1}{2}{3}{2}{4}",
                             "",
                             writeDouble(L0(i,j)),
                             mFixAmountCompartments,
@@ -370,7 +370,7 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
                 {
                     if (L0(i,j) == -1)
                     {
-                        mSource<<format("{0} - {1}{2}{3}",
+                        mSource<<rr::format("{0} - {1}{2}{3}",
                             "",
                             yName,
                             mFixAmountCompartments,
@@ -378,7 +378,7 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
                     }
                     else
                     {
-                        mSource<<format("{0} - (double){1}{2}{3}{2}{4}",
+                        mSource<<rr::format("{0} - (double){1}{2}{3}{2}{4}",
                             "",
                             writeDouble(fabsl(L0(i,j))),
                             mFixAmountCompartments,
@@ -387,10 +387,10 @@ void CModelGenerator::writeUpdateDependentSpecies(CodeBuilder& ignore, const int
                     }
                 }
             }
-            mSource<<format(") / {0};{1}", cLeftName, NL());
+            mSource<<rr::format(") / {0};{1}", cLeftName, NL());
         }
     }
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeUserDefinedFunctions(CodeBuilder& ignore)
@@ -409,8 +409,8 @@ void CModelGenerator::writeUserDefinedFunctions(CodeBuilder& ignore)
             StringList list2 = oList[2];
             std::string sBody = list2[0];
 
-            mSource<<format("// User defined function:  {0}{1}", sName, NL());
-            mSource<<format("\t double {0} (", sName);
+            mSource<<rr::format("// User defined function:  {0}{1}", sName, NL());
+            mSource<<rr::format("\t double {0} (", sName);
 
             for (int j = 0; j < oArguments.Count(); j++)
             {
@@ -462,59 +462,59 @@ void CModelGenerator::writeResetEvents(CodeBuilder& ignore, const int& numEvents
       mSource<<"void resetEvents(ModelData* md)\n{";
       for (int i = 0; i < numEvents; i++)
       {
-          mSource<<format("\n\tmd->eventStatusArray[{0}] = false;{1}", i, NL());
-          mSource<<format("\tmd->previousEventStatusArray[{0}] = false;", i);
+          mSource<<rr::format("\n\tmd->eventStatusArray[{0}] = false;{1}", i, NL());
+          mSource<<rr::format("\tmd->previousEventStatusArray[{0}] = false;", i);
           if(i == numEvents -1)
           {
               mSource<<"\n";
           }
       }
-      mSource<<format("}{0}", NL());
+      mSource<<rr::format("}{0}", NL());
 }
 
 void CModelGenerator::writeSetConcentration(CodeBuilder& ignore)
 {
     mHeader.AddFunctionExport("void", "setConcentration(ModelData* md, int index, double value)");
     mSource<<"\nvoid setConcentration(ModelData* md, int index, double value)\n{";
-    mSource<<format("\n\tdouble volume = 0.0;{0}", NL());
-    mSource<<format("\tmd->floatingSpeciesConcentrations[index] = value;{0}", NL());
-    mSource<<format("\tswitch (index)\n\t{{0}", NL());
+    mSource<<rr::format("\n\tdouble volume = 0.0;{0}", NL());
+    mSource<<rr::format("\tmd->floatingSpeciesConcentrations[index] = value;{0}", NL());
+    mSource<<rr::format("\tswitch (index)\n\t{{0}", NL());
 
     for (int i = 0; i < ms.mFloatingSpeciesConcentrationList.size(); i++)
     {
-        mSource<<format("\t\tcase {0}:\n\t\t\tvolume = {1};{2}",
+        mSource<<rr::format("\t\tcase {0}:\n\t\t\tvolume = {1};{2}",
           i,
           convertCompartmentToC(ms.mFloatingSpeciesConcentrationList[i].compartmentName),
           NL());
-      mSource<<format("\t\tbreak;{0}", NL());
+      mSource<<rr::format("\t\tbreak;{0}", NL());
     }
 
-    mSource<<format("\t}{0}", NL());
+    mSource<<rr::format("\t}{0}", NL());
 
-    mSource<<format("\tmd->floatingSpeciesAmounts[index] = md->floatingSpeciesConcentrations[index]*volume;{0}", NL());
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("\tmd->floatingSpeciesAmounts[index] = md->floatingSpeciesConcentrations[index]*volume;{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeGetConcentration(CodeBuilder& ignore)
 {
     mHeader.AddFunctionExport("double", "getConcentration(ModelData* md,int index)");
-    mSource<<format("double getConcentration(ModelData* md, int index)\n{{0}", NL());
-    mSource<<format("\treturn md->floatingSpeciesConcentrations[index];{0}", NL());
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("double getConcentration(ModelData* md, int index)\n{{0}", NL());
+    mSource<<rr::format("\treturn md->floatingSpeciesConcentrations[index];{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeConvertToAmounts(CodeBuilder& ignore)
 {
     mHeader.AddFunctionExport("void", "convertToAmounts(ModelData* md)");
-    mSource<<format("void convertToAmounts(ModelData* md)\n{{0}", NL());
+    mSource<<rr::format("void convertToAmounts(ModelData* md)\n{{0}", NL());
     for (int i = 0; i < ms.mFloatingSpeciesConcentrationList.size(); i++)
     {
-        mSource<<format("\tmd->floatingSpeciesAmounts[{0}] = md->floatingSpeciesConcentrations[{0}]*{1};{2}",
+        mSource<<rr::format("\tmd->floatingSpeciesAmounts[{0}] = md->floatingSpeciesConcentrations[{0}]*{1};{2}",
             i,
             convertCompartmentToC(ms.mFloatingSpeciesConcentrationList[i].compartmentName),
             NL());
     }
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeConvertToConcentrations(CodeBuilder& ignore)
@@ -549,27 +549,27 @@ std::string CModelGenerator::findSymbol(const std::string& varName)
       int index = 0;
       if (ms.mFloatingSpeciesConcentrationList.find(varName, index))
       {
-          return format("md->floatingSpeciesConcentrations[{0}]", index);
+          return rr::format("md->floatingSpeciesConcentrations[{0}]", index);
       }
       else if (ms.mGlobalParameterList.find(varName, index))
       {
-          return format("md->globalParameters[{0}]", index);
+          return rr::format("md->globalParameters[{0}]", index);
       }
       else if (ms.mBoundarySpeciesList.find(varName, index))
       {
-          return format("md->boundarySpeciesConcentrations[{0}]", index);
+          return rr::format("md->boundarySpeciesConcentrations[{0}]", index);
       }
       else if (ms.mCompartmentList.find(varName, index))
       {
-          return format("md->compartmentVolumes[{0}]", index);
+          return rr::format("md->compartmentVolumes[{0}]", index);
       }
       else if (ms.mModifiableSpeciesReferenceList.find(varName, index))
       {
-          return format("md->sr[{0}]", index);
+          return rr::format("md->sr[{0}]", index);
       }
       else
       {
-          throw Exception(format("Unable to locate lefthand side symbol in assignment[{0}]", varName));
+          throw Exception(rr::format("Unable to locate lefthand side symbol in assignment[{0}]", varName));
       }
 }
 
@@ -604,7 +604,7 @@ void CModelGenerator::writeEvalInitialAssignments(CodeBuilder& ignore, const int
         std::vector< std::pair<std::string, std::string> > oList;// = new List<Pair<std::string, std::string>>();
         for (int i = 0; i < numInitialAssignments; i++)
         {
-            std::pair<std::string, std::string> std::pair = mNOM->getNthInitialAssignmentPair(i);
+            std::pair<std::string, std::string> aPair = mNOM->getNthInitialAssignmentPair(i);
             oList.push_back(mNOM->getNthInitialAssignmentPair(i));
         }
 
@@ -645,9 +645,9 @@ void CModelGenerator::writeEvalInitialAssignments(CodeBuilder& ignore, const int
         std::vector< std::pair<std::string, std::string> >::iterator iter;
         for(iter = oList.begin(); iter < oList.end(); iter++)
         {
-            std::pair<std::string, std::string>& std::pair = (*iter);
-            std::string leftSideRule = findSymbol(std::pair.first);
-            std::string rightSideRule = std::pair.second;
+            std::pair<std::string, std::string>& aPair = (*iter);
+            std::string leftSideRule = findSymbol(aPair.first);
+            std::string rightSideRule = aPair.second;
             if (leftSideRule.size())
             {
                 mSource<<append(leftSideRule + " = ");
@@ -687,8 +687,10 @@ int CModelGenerator::writeComputeRules(CodeBuilder& ignore, const int& numReacti
             // We only support assignment and ode rules at the moment
             std::string eqnRule = mNOM->getNthRule(i);
             RRRule aRule(eqnRule, ruleType);
-            std::string varName       = trim(aRule.GetLHS());
-            std::string rightSide     = trim(aRule.GetRHS());
+            std::string lhsTemp       = aRule.GetLHS();
+            std::string rhsTemp       = aRule.GetRHS();
+            std::string varName       = trim(lhsTemp);
+            std::string rightSide     = trim(rhsTemp);
 
             bool isRateRule = false;
 
@@ -708,7 +710,7 @@ int CModelGenerator::writeComputeRules(CodeBuilder& ignore, const int& numReacti
                     int index;
                     if (ms.mFloatingSpeciesConcentrationList.find(varName,  index))
                     {
-                        leftSideRule = format("\n\tmd->floatingSpeciesAmountRates[{0}]", index);
+                        leftSideRule = rr::format("\n\tmd->floatingSpeciesAmountRates[{0}]", index);
                         //! ms.mFloatingSpeciesConcentrationList[index].rateRule = true;
                     }
                     else
@@ -742,7 +744,7 @@ int CModelGenerator::writeComputeRules(CodeBuilder& ignore, const int& numReacti
 
                 if(isRateRule && mNOM->multiplyCompartment(varName, sCompartment) && (rightSide.find(sCompartment) == std::string::npos))
                 {
-                    std::string temp = format("({0}) * {1};{2}", substituteTerms(numReactions, "", rightSideRule), findSymbol(sCompartment), NL());
+                    std::string temp = rr::format("({0}) * {1};{2}", substituteTerms(numReactions, "", rightSideRule), findSymbol(sCompartment), NL());
                     //temp = ReplaceWord("time", "md->time", temp);
                     mSource<<temp;
                 }
@@ -750,11 +752,11 @@ int CModelGenerator::writeComputeRules(CodeBuilder& ignore, const int& numReacti
                 {
                     if (isSpecies && !isRateRule && symbol != NULL && symbol->hasOnlySubstance && symbol->compartmentName.size() != 0)
                     {
-                        mSource<<format("({0}) / {1};{2}", substituteTerms(numReactions, "", rightSideRule), findSymbol(symbol->compartmentName), NL());
+                        mSource<<rr::format("({0}) / {1};{2}", substituteTerms(numReactions, "", rightSideRule), findSymbol(symbol->compartmentName), NL());
                     }
                     else
                     {
-                        std::string temp   = format("{0};{1}", substituteTerms(numReactions, "", rightSideRule), NL());
+                        std::string temp   = rr::format("{0};{1}", substituteTerms(numReactions, "", rightSideRule), NL());
                         //temp = ReplaceWord("time", "md->time", temp);
 
                         if(temp.find("spf_piecewise") != std::string::npos)
@@ -890,7 +892,7 @@ void CModelGenerator::writeComputeReactionRates(CodeBuilder& ignore, const int& 
 
         // modify to use current y ...
         modKineticLaw = substitute(modKineticLaw, "_y[", "y[");
-        std::string expression = format("\n\tmd->reactionRates[{0}] = {1}{2}", i, modKineticLaw, NL());
+        std::string expression = rr::format("\n\tmd->reactionRates[{0}] = {1}{2}", i, modKineticLaw, NL());
 
         if(expression.find("spf_and") != std::string::npos)
         {
@@ -921,7 +923,7 @@ void CModelGenerator::writeComputeReactionRates(CodeBuilder& ignore, const int& 
         mSource<<"\n\t"<<expression<<"\n";
     }
 
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeEvalEvents(CodeBuilder& ignore, const int& numEvents, const int& numFloatingSpecies)
@@ -1033,7 +1035,7 @@ void CModelGenerator::writeEvalModel(CodeBuilder& ignore, const int& numReaction
                             int denom = product->getDenominator();
                             if (denom != 1)
                             {
-                                stoich = format("((double){0}/(double){1})*", writeDouble(productStoichiometry), denom);
+                                stoich = rr::format("((double){0}/(double){1})*", writeDouble(productStoichiometry), denom);
                             }
                             else
                             {
@@ -1059,7 +1061,7 @@ void CModelGenerator::writeEvalModel(CodeBuilder& ignore, const int& numReaction
                             stoich = "";
                         }
                     }
-                    eqnBuilder<<format(" + {0}md->reactionRates[{1}]", stoich, j);
+                    eqnBuilder<<rr::format(" + {0}md->reactionRates[{1}]", stoich, j);
                 }
             }
 
@@ -1075,7 +1077,7 @@ void CModelGenerator::writeEvalModel(CodeBuilder& ignore, const int& numReaction
 
                     if (reactant->isSetId() && reactant->getLevel() > 2)
                     {
-                        stoich = format("({0}) * ", substituteTerms(numReactions, "", reactant->getId()));
+                        stoich = rr::format("({0}) * ", substituteTerms(numReactions, "", reactant->getId()));
                     }
                     else if (reactant->isSetStoichiometry())
                     {
@@ -1084,7 +1086,7 @@ void CModelGenerator::writeEvalModel(CodeBuilder& ignore, const int& numReaction
                             int denom = reactant->getDenominator();
                             if (denom != 1)
                             {
-                                stoich = format("((double){0}/(double){1})*", writeDouble(reactantStoichiometry), denom);
+                                stoich = rr::format("((double){0}/(double){1})*", writeDouble(reactantStoichiometry), denom);
                             }
                             else
                             {
@@ -1112,7 +1114,7 @@ void CModelGenerator::writeEvalModel(CodeBuilder& ignore, const int& numReaction
                         }
                     }
 
-                    eqnBuilder<<append(format(" - {0}md->reactionRates[{1}]", stoich, j));
+                    eqnBuilder<<append(rr::format(" - {0}md->reactionRates[{1}]", stoich, j));
                 }
             }
         }
@@ -1183,23 +1185,23 @@ void CModelGenerator::writeEventAssignments(CodeBuilder& ignore, const int& numR
             std::string str = substituteTerms(numReactions, "", event[0]);
             delays.add(str);
 
-            mSource<<format("void eventAssignment_{0}(ModelData* md) \n{{1}", i, NL());
+            mSource<<rr::format("void eventAssignment_{0}(ModelData* md) \n{{1}", i, NL());
 
-            std::string funcName(format("performEventAssignment_{0}(ModelData* md, double* values)", i));
+            std::string funcName(rr::format("performEventAssignment_{0}(ModelData* md, double* values)", i));
             mHeader.AddFunctionExport("void", funcName);
-            mSource<<format("\tperformEventAssignment_{0}(md, computeEventAssignment_{0}(md) );{1}", i, NL());
+            mSource<<rr::format("\tperformEventAssignment_{0}(md, computeEventAssignment_{0}(md) );{1}", i, NL());
             mSource<<append("}\n\n");
 
-            funcName = (format("computeEventAssignment_{0}(ModelData* md)", i));
+            funcName = (rr::format("computeEventAssignment_{0}(ModelData* md)", i));
             mHeader.AddFunctionExport("double*", funcName);
 
-            mSource<<format("double* computeEventAssignment_{0}(ModelData* md)\n{{1}", i, NL());
+            mSource<<rr::format("double* computeEventAssignment_{0}(ModelData* md)\n{{1}", i, NL());
             StringList oTemp;
             StringList oValue;
             int nCount = 0;
             int numAssignments = ev.Count() - 2;
 
-            mSource<<format("\t\tdouble* values = (double*) malloc(sizeof(double)*{0});{1}", numAssignments, NL());
+            mSource<<rr::format("\t\tdouble* values = (double*) malloc(sizeof(double)*{0});{1}", numAssignments, NL());
             for (int j = 2; j < ev.Count(); j++)
             {
                 StringList asgn = (StringList) ev[j];
@@ -1211,30 +1213,30 @@ void CModelGenerator::writeEventAssignments(CodeBuilder& ignore, const int& numR
 
                 if (species != NULL && species->hasOnlySubstance)
                 {
-                    str = format("{0} = ({1}) / {2}", assignmentVar, substituteTerms(numReactions, "", (std::string)asgn[1]), findSymbol(species->compartmentName));
+                    str = rr::format("{0} = ({1}) / {2}", assignmentVar, substituteTerms(numReactions, "", (std::string)asgn[1]), findSymbol(species->compartmentName));
                 }
                 else
                 {
-                    str = format("{0} = {1}", assignmentVar, substituteTerms(numReactions, "", (std::string) asgn[1]));
+                    str = rr::format("{0} = {1}", assignmentVar, substituteTerms(numReactions, "", (std::string) asgn[1]));
                 }
 
-                std::string sTempVar = format("values[{0}]", nCount);
+                std::string sTempVar = rr::format("values[{0}]", nCount);
 
                 oTemp.add(assignmentVar);
                 oValue.add(sTempVar);
 
                 str = sTempVar+ str.substr(str.find(" ="));
                 nCount++;
-                std::string temp = format("\t\t{0};{1}", str, NL());
+                std::string temp = rr::format("\t\t{0};{1}", str, NL());
                 mSource<<temp;
             }
             mSource<<append("\treturn values;" + NL());
             mSource<<append("}" + NL());
-            mSource<<format("void performEventAssignment_{0}(ModelData* md, double* values) \n{{1}", i, NL());
+            mSource<<rr::format("void performEventAssignment_{0}(ModelData* md, double* values) \n{{1}", i, NL());
 
             for (int j = 0; j < oTemp.Count(); j++)
             {
-                mSource<<format("\t\t{0} = values[{1}];{2}", oTemp[j], j, NL());
+                mSource<<rr::format("\t\t{0} = values[{1}];{2}", oTemp[j], j, NL());
                 std::string aStr = (std::string) oTemp[j];
                 aStr = trim(aStr);
 
@@ -1261,12 +1263,12 @@ void CModelGenerator::writeEventAssignments(CodeBuilder& ignore, const int& numR
 
     for (int i = 0; i < delays.Count(); i++)
     {
-        mSource<<format("\tmd->eventDelays[{0}] = (EventDelayHandler) malloc(sizeof(EventDelayHandler) * 1);{2}", i, delays[i], NL());
+        mSource<<rr::format("\tmd->eventDelays[{0}] = (EventDelayHandler) malloc(sizeof(EventDelayHandler) * 1);{2}", i, delays[i], NL());
 
         //Inititialize
-        mSource<<format("\tmd->eventDelays[{0}] = GetEventDelay_{0};\n", i);
-        mSource<<format("\tmd->eventType[{0}] = {1};{2}", i, toString((eventType[i] ? true : false)), NL());
-        mSource<<format("\tmd->eventPersistentType[{0}] = {1};{2}", i, (eventPersistentType[i] ? "true" : "false"), NL());
+        mSource<<rr::format("\tmd->eventDelays[{0}] = GetEventDelay_{0};\n", i);
+        mSource<<rr::format("\tmd->eventType[{0}] = {1};{2}", i, toString((eventType[i] ? true : false)), NL());
+        mSource<<rr::format("\tmd->eventPersistentType[{0}] = {1};{2}", i, (eventPersistentType[i] ? "true" : "false"), NL());
     }
     mSource<<"}\n\n";
 
@@ -1279,15 +1281,15 @@ void CModelGenerator::writeEventAssignments(CodeBuilder& ignore, const int& numR
         if (current->isSetPriority() && current->getPriority()->isSetMath())
         {
             std::string priority = SBML_formulaToStdString(current->getPriority()->getMath());
-            mSource<<"\n"<<format("\tmd->eventPriorities[{0}] = {1};{2}", i, substituteTerms(numReactions, "", priority), NL());
+            mSource<<"\n"<<rr::format("\tmd->eventPriorities[{0}] = {1};{2}", i, substituteTerms(numReactions, "", priority), NL());
 
         }
         else
         {
-            mSource<<"\n"<<format("\tmd->eventPriorities[{0}] = 0;{1}", i, NL());
+            mSource<<"\n"<<rr::format("\tmd->eventPriorities[{0}] = 0;{1}", i, NL());
         }
     }
-    mSource<<format("}{0}{0}", NL());
+    mSource<<rr::format("}{0}{0}", NL());
 }
 
 void CModelGenerator::writeSetParameterValues(CodeBuilder& ignore, const int& numReactions)
@@ -1299,7 +1301,7 @@ void CModelGenerator::writeSetParameterValues(CodeBuilder& ignore, const int& nu
     for (int i = 0; i < ms.mGlobalParameterList.size(); i++)
     {
         //If !+INF
-        std::string para = format("\n\t{0} = (double){1};{2}",
+        std::string para = rr::format("\n\t{0} = (double){1};{2}",
                       convertSymbolToGP(ms.mGlobalParameterList[i].name),
                       writeDouble(ms.mGlobalParameterList[i].value),
                       NL());
@@ -1315,7 +1317,7 @@ void CModelGenerator::writeSetParameterValues(CodeBuilder& ignore, const int& nu
     {
         for (int j = 0; j < ms.mLocalParameterList[i].size(); j++)
         {
-            mSource<<format("\n\t_lp[{0}][{1}] = (double){2};{3}", i, j, writeDouble(ms.mLocalParameterList[i][j].value), NL());
+            mSource<<rr::format("\n\t_lp[{0}][{1}] = (double){2};{3}", i, j, writeDouble(ms.mLocalParameterList[i][j].value), NL());
         }
     }
 
@@ -1531,7 +1533,7 @@ void CModelGenerator::write_getModelNameFunction(CodeBuilder& ignore, CodeBuilde
 bool CModelGenerator::saveSourceCodeToFolder(const std::string& folder, const std::string& baseName)
 {
     std::string fName         = getFileName(baseName);
-    mHeaderCodeFileName = joinPath(folder, fName);
+    mHeaderCodeFileName = (std::filesystem::path(folder) / fName).string();
     mHeaderCodeFileName = changeFileExtensionTo(mHeaderCodeFileName, ".h");
 
     std::ofstream outFile(mHeaderCodeFileName.c_str());
@@ -2136,11 +2138,11 @@ void CModelGenerator::substituteWords(const std::string& reactionName, bool bFix
     int index;
     if (ms.mGlobalParameterList.find(s.tokenString, index))
     {
-        mSource<<format("md->globalParameters[{0}]", index);
+        mSource<<rr::format("md->globalParameters[{0}]", index);
     }
     else if (ms.mBoundarySpeciesList.find(s.tokenString, index))
     {
-        mSource<<format("md->boundarySpeciesConcentrations[{0}]", index);
+        mSource<<rr::format("md->boundarySpeciesConcentrations[{0}]", index);
 
         Symbol symbol = ms.mBoundarySpeciesList[index];
         if (symbol.hasOnlySubstance)
@@ -2150,7 +2152,7 @@ void CModelGenerator::substituteWords(const std::string& reactionName, bool bFix
             int nCompIndex = 0;
             if (ms.mCompartmentList.find(symbol.compartmentName, nCompIndex))
             {
-                mSource<<format("{0}_c[{1}]", mFixAmountCompartments, nCompIndex);
+                mSource<<rr::format("{0}_c[{1}]", mFixAmountCompartments, nCompIndex);
             }
         }
     }
@@ -2159,28 +2161,28 @@ void CModelGenerator::substituteWords(const std::string& reactionName, bool bFix
         Symbol floating1 = ms.mFloatingSpeciesConcentrationList[index];
         if (floating1.hasOnlySubstance)
         {
-            mSource<<format("md->floatingSpeciesAmounts[{0}]", index);
+            mSource<<rr::format("md->floatingSpeciesAmounts[{0}]", index);
         }
         else
         {
-            mSource<<format("md->floatingSpeciesConcentrations[{0}]", index);
+            mSource<<rr::format("md->floatingSpeciesConcentrations[{0}]", index);
         }
     }
     else if (ms.mCompartmentList.find(s.tokenString, index))
     {
-        mSource<<format("md->compartmentVolumes[{0}]", index);
+        mSource<<rr::format("md->compartmentVolumes[{0}]", index);
     }
     else if (ms.mFunctionNames.Contains(s.tokenString))
     {
-        mSource<<format("{0} ", s.tokenString);
+        mSource<<rr::format("{0} ", s.tokenString);
     }
     else if (ms.mModifiableSpeciesReferenceList.find(s.tokenString, index))
     {
-        mSource<<format("md->sr[{0}]", index);
+        mSource<<rr::format("md->sr[{0}]", index);
     }
     else if (ms.mReactionList.find(s.tokenString, index))
     {
-        mSource<<format("md->reactionRates[{0}]", index);
+        mSource<<rr::format("md->reactionRates[{0}]", index);
     }
     else
     {
@@ -2207,31 +2209,31 @@ void CModelGenerator::substituteToken(const std::string& reactionName, bool bFix
             mSource<<append("(double)" + writeDouble((double)s.tokenInteger));
             break;
         case CodeTypes::tPlusToken:
-            mSource<<format("+{0}\t", NL());
+            mSource<<rr::format("+{0}\t", NL());
             break;
         case CodeTypes::tMinusToken:
-            mSource<<format("-{0}\t", NL());
+            mSource<<rr::format("-{0}\t", NL());
             break;
         case CodeTypes::tDivToken:
-            mSource<<format("/{0}\t", NL());
+            mSource<<rr::format("/{0}\t", NL());
             break;
         case CodeTypes::tMultToken:
-            mSource<<format("*{0}\t", NL());
+            mSource<<rr::format("*{0}\t", NL());
             break;
         case CodeTypes::tPowerToken:
-            mSource<<format("^{0}\t", NL());
+            mSource<<rr::format("^{0}\t", NL());
             break;
         case CodeTypes::tLParenToken:
             mSource<<append("(");
             break;
         case CodeTypes::tRParenToken:
-            mSource<<format("){0}\t", NL());
+            mSource<<rr::format("){0}\t", NL());
             break;
         case CodeTypes::tCommaToken:
             mSource<<append(",");
             break;
         case CodeTypes::tEqualsToken:
-            mSource<<format(" = {0}\t", NL());
+            mSource<<rr::format(" = {0}\t", NL());
             break;
         case CodeTypes::tTimeWord1:
             mSource<<append("md->time");
@@ -2243,33 +2245,33 @@ void CModelGenerator::substituteToken(const std::string& reactionName, bool bFix
             mSource<<append("md->time");
             break;
         case CodeTypes::tAndToken:
-            mSource<<format("{0}spf_and", NL());
+            mSource<<rr::format("{0}spf_and", NL());
             break;
         case CodeTypes::tOrToken:
-            mSource<<format("{0}spf_or", NL());
+            mSource<<rr::format("{0}spf_or", NL());
             break;
         case CodeTypes::tNotToken:
-            mSource<<format("{0}spf_not", NL());
+            mSource<<rr::format("{0}spf_not", NL());
             break;
         case CodeTypes::tLessThanToken:
-            mSource<<format("{0}spf_lt", NL());
+            mSource<<rr::format("{0}spf_lt", NL());
             break;
         case CodeTypes::tLessThanOrEqualToken:
-            mSource<<format("{0}spf_leq", NL());
+            mSource<<rr::format("{0}spf_leq", NL());
             break;
         case CodeTypes::tMoreThanOrEqualToken:
-            mSource<<format("{0}spf_geq", NL());
+            mSource<<rr::format("{0}spf_geq", NL());
             break;
         case CodeTypes::tMoreThanToken:
-            mSource<<format("{0}spf_gt", NL());
+            mSource<<rr::format("{0}spf_gt", NL());
             break;
         case CodeTypes::tXorToken:
-            mSource<<format("{0}spf_xor", NL());
+            mSource<<rr::format("{0}spf_xor", NL());
             break;
         default:
         std::string aToken = s.tokenToString(s.token());
         Exception ae = Exception(
-                 format("Unknown token in substituteTerms: {0}", aToken,
+                 rr::format("Unknown token in substituteTerms: {0}", aToken,
                  "Exception raised in Module:roadRunner, Method:substituteTerms"));
          throw ae;
     }
@@ -2339,7 +2341,7 @@ bool CModelGenerator::setTemporaryDirectory(const std::string& _path)
         path = getCWD();
     }
 
-    if(folderExists(path))
+    if(std::filesystem::is_directory(path))
     {
         rrLog(lDebug2)<<"Setting model generators temp file folder to "<< path;
         mCompiler.setOutputPath(path);
@@ -2415,7 +2417,7 @@ ExecutableModel *CModelGenerator::createModel(const std::string& sbml, LibStruct
     try
     {
         //Can't have multiple threads compiling to the same dll at the same time..
-        if(!fileExists(mModelLib->getFullFileName()) || forceReCompile == true)
+        if(!std::filesystem::exists(mModelLib->getFullFileName()) || forceReCompile == true)
         {
             if(!compileModel())
             {
@@ -2536,4 +2538,3 @@ bool CModelGenerator::loadSBMLIntoNOM(NOMSupport &nom, const std::string& sbml)
 }
 
 }//Namespace
-
