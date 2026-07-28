@@ -260,8 +260,8 @@ TEST_F(CAPICoreTest, CheckRK4WorksFromC) {
     }
 
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
+    opt.setStartTime(0);
+    opt.setDuration(10);
     auto *cvode = rr.simulate(&opt);
 
     rr.setIntegrator("rk4");

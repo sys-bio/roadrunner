@@ -5,6 +5,7 @@ add_test_executable(test_c_api_core test_targets
         CAPICoreTest
         libstruct.cpp
         model_editing.cpp
+        SimulateOptionsCAPITests.cpp
         )
 
 

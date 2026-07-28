@@ -21,6 +21,7 @@ try:
         LinesearchNewtonIteration,
         NLEQ1Solver,
         NLEQ2Solver,
+        SimulateOptions,
     )
 
 
@@ -35,6 +36,7 @@ except ImportError:
         LinesearchNewtonIteration,
         NLEQ1Solver,
         NLEQ2Solver,
+        SimulateOptions,
     )
 
 # note, we can also just import test models directly
@@ -1227,10 +1229,66 @@ class RoadRunnerTests(unittest.TestCase):
     def test_simulateWithNumpyIntTimes(self):
         self.rr.resetToOrigin()
         numpy_intvec = numpy.array([0, 1, 5, 10])
-        
+
         self.rr.simulate(times = numpy_intvec)
         result = self.rr.getSimulationData()
         self.assertEqual(list(result[:,0]), [0, 1, 5, 10])
+
+    # https://github.com/sys-bio/roadrunner/issues/1339
+    # SimulateOptions is a long-lived object that gets mutated field-by-field
+    # across repeated simulations, both from the C API and here, where 'opt'
+    # is reused across two _simulate(opt) calls exactly like the C API reuses
+    # its persistent options object. Setting 'opt.start'/'opt.end'/'opt.steps'
+    # or 'opt.times' should each clear whichever of the other is now stale,
+    # so times-mode and steps-mode are always freely interleavable regardless
+    # of what a previous call left set on 'opt'.
+
+    def test_simulateOptions_timesAfterSteps(self):
+        opt = SimulateOptions()
+        opt.start = 0
+        opt.end = 9
+        opt.steps = 3
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times = [0, 1, 2, 9]
+        opt.times = times
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times)
+
+    def test_simulateOptions_stepsAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 1, 5, 10, 20]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        opt.start = 0
+        opt.end = 6
+        opt.steps = 3
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), [0, 2, 4, 6])
+
+    def test_simulateOptions_largerTimesAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 5, 10]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times2 = [0, 1, 2, 3, 10]
+        opt.times = times2
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times2)
+
+    def test_simulateOptions_smallerTimesAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 1, 2, 3, 10]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times2 = [0, 5, 10]
+        opt.times = times2
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times2)
 
 
 if __name__ == "__main__":

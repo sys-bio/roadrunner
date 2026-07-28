@@ -562,7 +562,7 @@ bool rrcCallConv setTimeStart(RRHandle handle, const double timeStart)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        rri->getSimulateOptions().start = timeStart;
+        rri->getSimulateOptions().setStartTime(timeStart);
         return true;
     catch_bool_macro
 }
@@ -572,7 +572,7 @@ bool rrcCallConv setTimeEnd(RRHandle handle, const double timeEnd)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions &opt = rri->getSimulateOptions();
-        opt.duration = timeEnd - opt.start;
+        opt.setDuration(timeEnd - opt.getStartTime());
         return true;
     catch_bool_macro
 }
@@ -582,7 +582,7 @@ bool rrcCallConv setNumPoints(RRHandle handle, const int nrPoints)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions &opt = rri->getSimulateOptions();
-        opt.steps = nrPoints - 1;
+        opt.setSteps(nrPoints - 1);
         return true;
     catch_bool_macro
 }
@@ -592,11 +592,8 @@ bool rrcCallConv setTimes(RRHandle handle, const double* times, int size)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions& opt = rri->getSimulateOptions();
-        opt.times.clear();
-        for (int t = 0; t < size; t++)
-        {
-            opt.times.push_back(times[t]);
-        }
+        std::vector<double> newTimes(times, times + size);
+        opt.setTimes(newTimes);
         return true;
     catch_bool_macro
 }
@@ -605,7 +602,7 @@ bool rrcCallConv getTimeStart(RRHandle handle, double* timeStart)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *timeStart = rri->getSimulateOptions().start;
+        *timeStart = rri->getSimulateOptions().getStartTime();
         return true;
     catch_bool_macro
 }
@@ -614,7 +611,7 @@ bool rrcCallConv getTimeEnd(RRHandle handle, double* timeEnd)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *timeEnd = rri->getSimulateOptions().duration + rri->getSimulateOptions().start;
+        *timeEnd = rri->getSimulateOptions().getDuration() + rri->getSimulateOptions().getStartTime();
         return true;
     catch_bool_macro
 }
@@ -623,7 +620,7 @@ bool rrcCallConv getNumPoints(RRHandle handle, int* numPoints)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *numPoints = rri->getSimulateOptions().steps + 1;
+        *numPoints = rri->getSimulateOptions().getSteps() + 1;
         return true;
     catch_bool_macro
 }
@@ -3468,7 +3465,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         // Size the accumulator from the requested grid (o.steps, set by
         // setNumPoints/gillespieMeanOnGridEx) and the model's current
         // selection list.
-        int nRows = static_cast<int>(o.steps) + 1;
+        int nRows = static_cast<int>(o.getSteps()) + 1;
         const std::vector<SelectionRecord> &selections = rref.getSelections();
         int nCols = static_cast<int>(selections.size());
 
@@ -3540,7 +3537,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
 
         // Size the grid and compute both avg and sum-of-squared-deviations in
         // the same pass.
-        int nRows = static_cast<int>(o.steps) + 1;
+        int nRows = static_cast<int>(o.getSteps()) + 1;
         const std::vector<SelectionRecord> &selections = rref.getSelections();
         int nCols = static_cast<int>(selections.size());
 

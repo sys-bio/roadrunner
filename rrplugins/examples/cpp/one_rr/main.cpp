@@ -33,9 +33,9 @@ int main(int argc, char** argv)
         rr1.load(modelFile, &opt);
 
         SimulateOptions simOpt;
-        simOpt.start = 0;
-        simOpt.start = 10;
-        simOpt.steps= 511;
+        simOpt.setStartTime(0);
+        simOpt.setStartTime(10);
+        simOpt.setSteps(511);
 
         rr1.setGlobalParameterByIndex(2, 0.2);
         double ss = rr1.steadyState();

@@ -1763,7 +1763,7 @@ C_DECL_SPEC bool rrcCallConv setNumPoints(RRHandle handle, int numberOfPoints);
  \return Returns true if successful
  \ingroup simulation
 */
-C_DECL_SPEC bool rrcCallConv setTimes(RRHandle handle, double* times, int size);
+C_DECL_SPEC bool rrcCallConv setTimes(RRHandle handle, const double* times, int size);
 
 
 /*!

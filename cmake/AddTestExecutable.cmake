@@ -36,6 +36,7 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     set(TEST_ENV_VARS "testdir=${RR_ROOT}/test" "CTEST_OUTPUT_ON_FAILURE=TRUE")
     gtest_discover_tests(
             ${TEST_TARGET}
+            DISCOVERY_MODE PRE_TEST
             DISCOVERY_TIMEOUT 500
             PROPERTIES
             TIMEOUT 500
