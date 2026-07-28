@@ -127,6 +127,28 @@ TEST_F(SBMLFeatures, named_stoich_selectors) {
 }
 
 
+TEST_F(SBMLFeatures, named_stoich_set_and_reset) {
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic.xml").string());
+  rr.getSimulateOptions().setDuration(10);
+
+  const ls::DoubleMatrix run1 = *rr.simulate();
+
+  rr.reset();
+  rr.setValue("N", 2);
+  const ls::DoubleMatrix run2 = *rr.simulate();
+
+  rr.reset();
+  const ls::DoubleMatrix run3 = *rr.simulate();
+
+  ASSERT_EQ(run1.numRows(), run2.numRows());
+  ASSERT_EQ(run1.numRows(), run3.numRows());
+  for (int i = 0; i < run1.numRows(); i++) {
+    EXPECT_EQ(run1(i, 1), run3(i, 1));
+    EXPECT_NEAR(run2(i, 1), 2 * run1(i, 1), 1e-12);
+  }
+}
+
+
 TEST_F(SBMLFeatures, get_named_stoich_value_from_model) {
   rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
   ExecutableModel* em = rr.getModel();

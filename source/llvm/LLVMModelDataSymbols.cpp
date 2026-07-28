@@ -1478,21 +1478,21 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             }
         }
     }
-    for (size_t ns = 0; ns < namedStoichiometryIds.size(); ns++) {
-      const Rule* rule = model->getRule(namedStoichiometryIds[ns]);
-      if (rule != NULL) {
-        std::string msg = "The named stoichiometry '" + namedStoichiometryIds[ns] + "' (also called a speciesReference) has ";
-        if (rule->isAssignment()) {
-          msg += "an assignment rule";
-        }
-        else {
-          assert(rule->isRate());
-          msg += "a rate rule";
-        }
-        msg += ", which means that the stoichiometry of its reaction varies in time.  Variable stoichiometries are not supported by roadrunner.";
-        throw_llvm_exception(msg);
-      }
-    }
+    //for (size_t ns = 0; ns < namedStoichiometryIds.size(); ns++) {
+    //  const Rule* rule = model->getRule(namedStoichiometryIds[ns]);
+    //  if (rule != NULL) {
+    //    std::string msg = "The named stoichiometry '" + namedStoichiometryIds[ns] + "' (also called a speciesReference) has ";
+    //    if (rule->isAssignment()) {
+    //      msg += "an assignment rule";
+    //    }
+    //    else {
+    //      assert(rule->isRate());
+    //      msg += "a rate rule";
+    //    }
+    //    msg += ", which means that the stoichiometry of its reaction varies in time.  Variable stoichiometries are not supported by roadrunner.";
+    //    throw_llvm_exception(msg);
+    //  }
+    //}
 
 }
 

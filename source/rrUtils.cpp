@@ -468,8 +468,8 @@ bool hasUnimplementedTags(const std::string& descriptionFileName, const string& 
     badtags.push_back("FastReaction");
     badtags.push_back("VolumeConcentrationRate");
     //badtags.push_back("RateOf");
-    badtags.push_back("AssignedVariableStoichiometry");
-    badtags.push_back("AssignedConstantStoichiometry");
+    //badtags.push_back("AssignedVariableStoichiometry");
+    //badtags.push_back("AssignedConstantStoichiometry");
 
     if (integrator == "rk4" || integrator == "rk45")
     {

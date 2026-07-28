@@ -11,6 +11,7 @@ add_test_executable(
         rateOf.cpp
         unsupported_packages.cpp
         valid_sbml.cpp
+        variable_stoich.cpp
 )
 
 # make test_targets list global to all tests
