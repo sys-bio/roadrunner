@@ -2375,6 +2375,13 @@ int LLVMExecutableModel::setStoichiometry(int index, double value)
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)
         ++stoichiometry;
+
+    if (!stoichiometry->id.empty() && symbols->hasAssignmentRule(stoichiometry->id))
+        throw LLVMException("Cannot set stoichiometry '" + stoichiometry->id + "': it is governed by an assignment rule");
+
+    if (!stoichiometry->id.empty() && symbols->hasRateRule(stoichiometry->id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(stoichiometry->id)] = value;
+
     if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
@@ -2423,6 +2430,13 @@ int LLVMExecutableModel::setInitStoichiometry(int index, double value)
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)
         ++stoichiometry;
+
+    if (!stoichiometry->id.empty() && symbols->hasAssignmentRule(stoichiometry->id))
+        throw LLVMException("Cannot set stoichiometry '" + stoichiometry->id + "': it is governed by an assignment rule");
+
+    if (!stoichiometry->id.empty() && symbols->hasRateRule(stoichiometry->id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(stoichiometry->id)] = value;
+
     if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)

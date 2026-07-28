@@ -100,12 +100,23 @@ TEST_F(SBMLFeatures, named_stoich_values) {
 }
 
 
-TEST_F(SBMLFeatures, no_variable_named_stoich) {
+TEST_F(SBMLFeatures, add_rule_to_named_stoich) {
+  // "n" is the reactant B's stoichiometry (declared 1); "m" (C, declared 2)
+  // and "q" (D, declared 3) are unaffected. Kinetic law rate = (n+m+q)*A.
   rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
-  EXPECT_THROW(rr.addAssignmentRule("n", "5", true), rrllvm::LLVMException);
+  EXPECT_NO_THROW(rr.addAssignmentRule("n", "5", true));
+  EXPECT_EQ(rr.getValue("n"), 5.0);
+  // rate = (5 + 2 + 3) * A(1) = 10
+  EXPECT_NEAR(rr.getValue("J0"), 10.0, 1e-9);
 
+  // "q" is the product D's stoichiometry (declared 3).
   rr::RoadRunner rr2((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
-  EXPECT_THROW(rr2.addRateRule("q", "5", true), rrllvm::LLVMException);
+  EXPECT_NO_THROW(rr2.addRateRule("q", "5", true));
+  // rate rules haven't integrated yet at t=0; q should still be its declared value.
+  EXPECT_NEAR(rr2.getValue("q"), 3.0, 1e-9);
+  rr2.oneStep(0, 1.0);
+  // dq/dt = 5, so after 1 time unit q should have grown by ~5.
+  EXPECT_NEAR(rr2.getValue("q"), 8.0, 1e-6);
 }
 
 

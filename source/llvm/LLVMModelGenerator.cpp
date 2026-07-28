@@ -403,8 +403,18 @@ namespace rrllvm {
                 int new_s = newModel->getFloatingSpeciesIndex(sID);
                 if (new_s < 0) continue;
                 if (new_s >= newModel->getNumIndFloatingSpecies()) continue;
-                double stoich = oldModel->getStoichiometry(s, r);
-                newModel->setStoichiometry(new_s, new_r, stoich);
+                int oldIndex = oldModel->getStoichiometryIndex(sID, rID);
+                int newIndex = newModel->getStoichiometryIndex(sID, rID);
+                if (oldIndex < 0 || newIndex < 0) continue;
+                try {
+                    double stoich = oldModel->getStoichiometry(oldIndex);
+                    newModel->setStoichiometry(newIndex, stoich);
+                }
+                catch (const exception& e) {
+                    rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                        "stoichiometry value for species '" << sID << "' in reaction '" << rID
+                        << "': " << e.what();
+                }
               }
             }
 
