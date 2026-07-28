@@ -1912,7 +1912,8 @@ namespace std { class ostream{}; }
                        SelectionRecord.FLOATING |
                        SelectionRecord.BOUNDARY |
                        SelectionRecord.COMPARTMENT |
-                       SelectionRecord.GLOBAL_PARAMETER)
+                       SelectionRecord.GLOBAL_PARAMETER |
+                       SelectionRecord.STOICHIOMETRY)
 
         def resetParameter(self):
             """ Reset parameters to CURRENT init(X) values.

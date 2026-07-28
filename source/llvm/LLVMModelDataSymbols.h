@@ -711,6 +711,13 @@ private:
     std::vector<SpeciesReferenceType> stoichTypes;
 
     /**
+     * maps a named species reference's id to its index in the
+     * stoichIds / stoichRowIndx / stoichColIndx / stoichTypes arrays,
+     * so lookups don't require scanning stoichIds linearly.
+     */
+    StringUIntMap stoichiometryMap;
+
+    /**
      * the set of rule, these contain the variable name of the rule so that
      * we can quickly see if a symbol has an associated rule.
      */

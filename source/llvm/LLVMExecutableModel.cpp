@@ -184,6 +184,7 @@ LLVMExecutableModel::LLVMExecutableModel() :
     eventAssignPtr(0),
     getPiecewiseTriggerPtr(0),
     evalVolatileStoichPtr(0),
+    resetRateRuleStoichPtr(0),
     evalConversionFactorPtr(0),
     setBoundarySpeciesAmountPtr(0),
     setFloatingSpeciesAmountPtr(0),
@@ -232,6 +233,7 @@ LLVMExecutableModel::LLVMExecutableModel(
     eventAssignPtr(modelResources->eventAssignPtr),
     getPiecewiseTriggerPtr(modelResources->getPiecewiseTriggerPtr),
     evalVolatileStoichPtr(modelResources->evalVolatileStoichPtr),
+    resetRateRuleStoichPtr(modelResources->resetRateRuleStoichPtr),
     evalConversionFactorPtr(modelResources->evalConversionFactorPtr),
     setBoundarySpeciesAmountPtr(modelResources->setBoundarySpeciesAmountPtr),
     setFloatingSpeciesAmountPtr(modelResources->setFloatingSpeciesAmountPtr),
@@ -300,6 +302,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     eventAssignPtr = resources->eventAssignPtr;
     getPiecewiseTriggerPtr = resources->getPiecewiseTriggerPtr;
     evalVolatileStoichPtr = resources->evalVolatileStoichPtr;
+    resetRateRuleStoichPtr = resources->resetRateRuleStoichPtr;
     evalConversionFactorPtr = resources->evalConversionFactorPtr;
     setBoundarySpeciesAmountPtr = resources->setBoundarySpeciesAmountPtr;
     setFloatingSpeciesAmountPtr = resources->setFloatingSpeciesAmountPtr;
@@ -832,6 +835,14 @@ void LLVMExecutableModel::reset(int opt)
         resetOneType(opt, SelectionRecord::_GLOBAL_PARAMETER, modelData->numIndGlobalParameters, getNumGlobalParameters(), &LLVMExecutableModel::getGlobalParameterInitValues, &LLVMExecutableModel::setGlobalParameterValues, &LLVMModelDataSymbols::getGlobalParameterId, buffer, inits, initvals);
         //std::cout << this;
 
+        // Reset rate-rule-controlled stoichiometries, mirroring how rate-rule-
+        // controlled compartments/species/parameters are restored above under
+        // the RATE flag.
+        if ((opt & SelectionRecord::RATE) && !symbols->isConservedMoietyAnalysis())
+        {
+            resetRateRuleStoichPtr(modelData);
+        }
+
         // Whether were we forced to reset cms:
         bool reset_cm = false;
 
@@ -1242,15 +1253,10 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
     }
 
     if (checkExact(SelectionRecord::STOICHIOMETRY, types)) {
-        for (size_t s = 0; s < getNumIndFloatingSpecies(); ++s) {
-            string sid = getFloatingSpeciesId(s);
-            for (size_t r = 0; r < getNumReactions(); ++r) {
-                if (getStoichiometry(s, r) != 0)
-                {
-                    string rid = getReactionId(r);
-                    ids.push_back(symbols->getStoichiometryIdFor(sid, rid));
-                }
-            }
+        for (const LLVMModelDataSymbols::SpeciesReferenceInfo& entry : symbols->getStoichiometryList()) {
+            string sid = getFloatingSpeciesId(entry.row);
+            string rid = getReactionId(entry.column);
+            ids.push_back(symbols->getStoichiometryIdFor(sid, rid));
         }
     }
 

@@ -168,7 +168,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
             else if (rule->getTypeCode() == SBML_RATE_RULE)
             {
                 size_t rri = rateRules.size();
-                rateRules[rule->getId()] = rri;
+                rateRules[rule->getVariable()] = rri;
             }
             else if (rule->getTypeCode() == SBML_ALGEBRAIC_RULE)
             {
@@ -267,14 +267,10 @@ LLVMModelDataSymbols::SymbolIndexType LLVMModelDataSymbols::getSymbolIndex(
         result = i->second;
         return EVENT;
     }
-    else
+    else if ((i = stoichiometryMap.find(name)) != stoichiometryMap.end())
     {
-        for (int stoichIndex = 0 ; stoichIndex < stoichIds.size(); ++stoichIndex) {
-            if (stoichIds.at(stoichIndex) == name) {
-                result = stoichIndex;
-                return STOICHIOMETRY;
-            }
-        }
+        result = i->second;
+        return STOICHIOMETRY;
     }
 
     result = -1;
@@ -376,12 +372,11 @@ size_t LLVMModelDataSymbols::getReactionSize() const
 
 int LLVMModelDataSymbols::getStoichiometryIndex(const std::string& id) const
 {
-    for (int i = 0; i < stoichIds.size(); ++i)
+    StringUIntMap::const_iterator i = stoichiometryMap.find(id);
+    if (i != stoichiometryMap.end())
     {
-        if (stoichIds.at(i) == id)
-            return i;
+        return i->second;
     }
-
     return -1;
 }
 
@@ -1402,6 +1397,11 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
 
+                    if (r->isSetId() && r->getId().length() > 0)
+                    {
+                        stoichiometryMap[r->getId()] = stoichIds.size() - 1;
+                    }
+
                 }
                 else
                 {
@@ -1461,6 +1461,11 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // in case this species is both a product and reactant, can look up
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
+
+                    if (p->isSetId() && p->getId().length() > 0)
+                    {
+                        stoichiometryMap[p->getId()] = stoichIds.size() - 1;
+                    }
 
                 }
                 else
@@ -1960,6 +1965,8 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 
 	rr::saveBinary(out, stoichTypes);
 
+	rr::saveBinary(out, stoichiometryMap);
+
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
@@ -2009,6 +2016,8 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, stoichIds);
 
 	rr::loadBinary(in, stoichTypes);
+
+	rr::loadBinary(in, stoichiometryMap);
 
 	rr::loadBinary(in, assignmentRules);
 

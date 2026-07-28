@@ -135,6 +135,8 @@ namespace rrllvm {
                 "getPiecewiseTrigger"));
         modelResources->evalVolatileStoichPtr = reinterpret_cast<EvalVolatileStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalVolatileStoich"));
+        modelResources->resetRateRuleStoichPtr = reinterpret_cast<ResetRateRuleStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
+                "resetRateRuleStoich"));
         modelResources->evalConversionFactorPtr = reinterpret_cast<EvalConversionFactorCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalConversionFactor"));
         if (options & LoadSBMLOptions::READ_ONLY) {

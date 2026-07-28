@@ -106,6 +106,7 @@ namespace rrllvm {
         dst->eventAssignPtr = src->eventAssignPtr;
         dst->getPiecewiseTriggerPtr = src->getPiecewiseTriggerPtr;
         dst->evalVolatileStoichPtr = src->evalVolatileStoichPtr;
+        dst->resetRateRuleStoichPtr = src->resetRateRuleStoichPtr;
         dst->evalConversionFactorPtr = src->evalConversionFactorPtr;
     }
 
@@ -126,6 +127,7 @@ namespace rrllvm {
         EventAssignCodeGen(context).createFunction();
         GetPiecewiseTriggerCodeGen(context).createFunction();
         EvalVolatileStoichCodeGen(context).createFunction();
+        ResetRateRuleStoichCodeGen(context).createFunction();
         EvalConversionFactorCodeGen(context).createFunction();
 
         Function* setBoundarySpeciesAmountIR = nullptr;

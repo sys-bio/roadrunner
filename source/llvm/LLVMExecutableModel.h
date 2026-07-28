@@ -34,6 +34,7 @@
 #include "EventTriggerCodeGen.h"
 #include "GetPiecewiseTriggerCodeGen.h"
 #include "EvalVolatileStoichCodeGen.h"
+#include "ResetRateRuleStoichCodeGen.h"
 #include "EvalConversionFactorCodeGen.h"
 #include "SetValuesCodeGen.h"
 #include "SetInitialValuesCodeGen.h"
@@ -678,6 +679,7 @@ private:
     EventAssignCodeGen::FunctionPtr eventAssignPtr;
     GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
     EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
+    ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
     EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
 
     // set model values externally.

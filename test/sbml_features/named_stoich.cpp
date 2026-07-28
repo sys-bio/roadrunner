@@ -133,11 +133,11 @@ TEST_F(SBMLFeatures, named_stoich_set_and_reset) {
 
   const ls::DoubleMatrix run1 = *rr.simulate();
 
-  rr.reset();
+  rr.reset(SelectionRecord::ALL);
   rr.setValue("N", 2);
   const ls::DoubleMatrix run2 = *rr.simulate();
 
-  rr.reset();
+  rr.reset(SelectionRecord::ALL);
   const ls::DoubleMatrix run3 = *rr.simulate();
 
   ASSERT_EQ(run1.numRows(), run2.numRows());

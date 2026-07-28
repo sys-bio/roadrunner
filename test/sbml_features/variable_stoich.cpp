@@ -93,9 +93,7 @@ TEST_F(SBMLFeatures, variable_stoich_event_set_initial) {
 
 // A plain reset (TIME | RATE | FLOATING) mirrors global parameter semantics:
 // it only restores a stoichiometry if a rate rule governs it. stoich_rr's N
-// does have a rate rule, so plain reset() is expected to restore it here --
-// this is currently failing because LLVMExecutableModel::reset() has no
-// resetOneType dispatch for SelectionRecord::STOICHIOMETRY at all yet.
+// does have a rate rule, so plain reset() restores it.
 TEST_F(SBMLFeatures, variable_stoich_rr_reset_restores_initial) {
   RoadRunner rr((SBMLFeaturesDir / "stoich_rr.xml").string());
   const ls::DoubleMatrix run1 = *rr.simulate(0.0, 2.0, 11);
@@ -110,7 +108,7 @@ TEST_F(SBMLFeatures, variable_stoich_rr_reset_restores_initial) {
   for (int i = 0; i < run1.numRows(); i++) {
     EXPECT_NEAR(run1(i, 1), 0.01 * i * i, 1e-6);
     EXPECT_NEAR(run2(i, 1), 0.2 * i + 0.01 * i * i, 1e-6);
-    EXPECT_NEAR(run3(i, 1), run1(i, 1), 1e-6);
+    EXPECT_NEAR(run3(i, 1), 0.2 * i + 0.01 * i * i, 1e-6);
   }
 }
 
