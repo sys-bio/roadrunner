@@ -42,6 +42,7 @@
 
 #pragma hdrstop
 #include <string>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -3460,26 +3461,33 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         //o.integrator = Integrator::GILLESPIE;
         //o.integratorFlags &= !Integrator::VARIABLE_STEP;
         r->setIntegrator("gillespie");
-		r->getIntegrator()->setValue("variable_step_size", Setting(false));
-
-        double steps = o.steps;
+        r->getIntegrator()->setValue("variable_step_size", Setting(false));
 
         RoadRunner &rref = const_cast<RoadRunner&>(*r);
-        const DoubleMatrix& reference = *rref.getSimulationData();
 
-        // Initializes a DoubleMatrix "res" with all zeroes
-        DoubleMatrix avg(reference.RSize(), reference.CSize());
-        for (int row = 0; row < reference.RSize(); row++) {
-            for (int col = 0; col < reference.CSize(); col++) {
+        // Size the accumulator from the requested grid (o.steps, set by
+        // setNumPoints/gillespieMeanOnGridEx) and the model's current
+        // selection list.
+        int nRows = static_cast<int>(o.steps) + 1;
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        int nCols = static_cast<int>(selections.size());
+
+        // Initializes a DoubleMatrix "avg" with all zeroes
+        DoubleMatrix avg(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
                 avg(row, col) = 0;
             }
         }
 
-        // Runs simulations, obtaining avg with Welford's Algorithm
+        // Runs simulations, obtaining avg with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
-            for (int j = 0; j < steps + 1; j++) {
-                avg(j, 0) += (temp(j, 0) - avg(j, 0)) / (i + 1);
+            for (int row = 0; row < nRows; row++) {
+                for (int col = 0; col < nCols; col++) {
+                    avg(row, col) += (temp(row, col) - avg(row, col)) / (i + 1);
+                }
             }
         }
 
@@ -3489,7 +3497,6 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         memset(rrCData, 0, sizeof(RRCData));
 
         // Create column info
-        const std::vector<SelectionRecord> &selections = rref.getSelections();
         rrCData->ColumnHeaders = new char*[selections.size()];
         for (int i = 0; i < selections.size(); i++) {
             rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
@@ -3529,28 +3536,48 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
 		//o.integratorFlags &= !Integrator::VARIABLE_STEP;
 		r->getIntegrator()->setValue("variable_step_size", Setting(false));
 
-        double steps = o.steps;
-
         RoadRunner &rref = const_cast<RoadRunner&>(*r);
-        const DoubleMatrix& reference = *rref.getSimulationData();
 
-        // Initializes a DoubleMatrix "res" with all zeroes
-        DoubleMatrix avg(reference.RSize(), reference.CSize());
-        DoubleMatrix stddev(reference.RSize(), reference.CSize());
-        for (int row = 0; row < reference.RSize(); row++) {
-            for (int col = 0; col < reference.CSize(); col++) {
+        // Size the grid and compute both avg and sum-of-squared-deviations in
+        // the same pass.
+        int nRows = static_cast<int>(o.steps) + 1;
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        int nCols = static_cast<int>(selections.size());
+
+        // Initializes DoubleMatrix "avg" and the M2 (sum of squared deviations)
+        // accumulator "m2" with all zeroes
+        DoubleMatrix avg(nRows, nCols);
+        DoubleMatrix m2(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
                 avg(row, col) = 0;
-                stddev(row, col) = 0;
+                m2(row, col) = 0;
             }
         }
 
-        // Runs simulations, obtain avg and stddev with Welford's Algorithm
+        // Runs simulations, obtaining avg and m2 with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
-            for (int j = 0; j < steps + 1; j++) {
-                double delta = temp(j, 0) - avg(j, 0);
-                avg(j, 0) += delta / (i + 1);
-                stddev(j, 0) += delta * (temp(j, 0) - avg(j, 0));
+            for (int row = 0; row < nRows; row++) {
+                for (int col = 0; col < nCols; col++) {
+                    double delta = temp(row, col) - avg(row, col);
+                    avg(row, col) += delta / (i + 1);
+                    m2(row, col) += delta * (temp(row, col) - avg(row, col));
+                }
+            }
+        }
+
+        // Finish the Welford calculation: m2 is the running sum of squared
+        // deviations from the mean, so the (sample) standard deviation is
+        // sqrt(m2 / (n - 1)). With a single simulation there is no variance
+        // to report.
+        DoubleMatrix stddev(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
+                stddev(row, col) = (numberOfSimulations > 1)
+                    ? std::sqrt(m2(row, col) / (numberOfSimulations - 1))
+                    : 0.0;
             }
         }
 
@@ -3560,7 +3587,6 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
         memset(rrCData, 0, sizeof(RRCData));
 
         // Create column info
-        const std::vector<SelectionRecord> &selections = rref.getSelections();
         rrCData->ColumnHeaders = new char*[selections.size()];
         for (int i = 0; i < selections.size(); i++) {
             rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
@@ -3577,7 +3603,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
         for (int row = 0; row < rrCData->RSize; row++) {
             for (int col = 0; col < rrCData->CSize; col++) {
                 rrCData->Data[index] = result(row, col);
-                rrCData->Weights[index] = result(row, col);
+                rrCData->Weights[index] = stddev(row, col);
                 index++;
             }
         }

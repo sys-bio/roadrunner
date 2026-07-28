@@ -10,10 +10,13 @@
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
 #include "RoadRunnerTest.h"
+#include "C/rrc_api.h"
 
 #include <cmath>
+#include <string>
 #include <vector>
 using namespace rr;
+using namespace rrc;
 
 /**
  * This is a more of a stub test suite
@@ -312,5 +315,143 @@ TEST_F(GillespieTests, TimeDependentPropensityMatchesODE) {
             << " does not track the ODE mean " << odeMean(t)
             << " (time-dependent propensity not integrated; issue #1318).";
     }
+}
+
+/**
+ * Regression tests for https://github.com/sys-bio/roadrunner/issues/1337
+ */
+static const std::string S1ToS2MassActionSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="s1_s2">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="S1" compartment="c" initialAmount="100" hasOnlySubstanceUnits="true"/>
+  <species id="S2" compartment="c" initialAmount="0"   hasOnlySubstanceUnits="true"/>
+ </listOfSpecies>
+ <listOfParameters><parameter id="k1" value="0.5"/></listOfParameters>
+ <listOfReactions>
+  <reaction id="R1" reversible="false">
+   <listOfReactants><speciesReference species="S1"/></listOfReactants>
+   <listOfProducts><speciesReference species="S2"/></listOfProducts>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k1</ci><ci>S1</ci></apply></math></kineticLaw>
+  </reaction>
+ </listOfReactions>
+</model></sbml>)";
+
+// Finds the column in an RRCData result whose header contains `name` (e.g.
+// "S1"), returning -1 if not found. Used instead of a hardcoded index so
+// these tests don't depend on the exact default column ordering/formatting.
+static int findColumnContaining(RRCDataPtr data, const std::string &name) {
+    for (int i = 0; i < data->CSize; i++) {
+        if (std::string(data->ColumnHeaders[i]).find(name) != std::string::npos) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+TEST_F(GillespieTests, MeanOnGridWorksWithoutAnyPriorSimulation) {
+    RRHandle rrHandle = createRRInstance();
+    ASSERT_TRUE(loadSBML(rrHandle, S1ToS2MassActionSBML.c_str()));
+
+    // No gillespie()/gillespieOnGrid()/gillespieOnGridEx() call has happened
+    // yet, and none should be needed: gillespieMeanOnGridEx runs its own
+    // batch of simulations.
+    RRCDataPtr meanResult = gillespieMeanOnGridEx(rrHandle, 0, 5, 6, 3);
+    ASSERT_NE(meanResult, nullptr);
+    EXPECT_EQ(meanResult->RSize, 6);
+    EXPECT_GT(meanResult->CSize, 1);
+    freeRRCData(meanResult);
+
+    // Same for the mean+SD variant, on a fresh handle so there's still no
+    // prior simulation of any kind.
+    RRHandle rrHandle2 = createRRInstance();
+    ASSERT_TRUE(loadSBML(rrHandle2, S1ToS2MassActionSBML.c_str()));
+    RRCDataPtr meanSDResult = gillespieMeanSDOnGridEx(rrHandle2, 0, 5, 6, 3);
+    ASSERT_NE(meanSDResult, nullptr);
+    EXPECT_EQ(meanSDResult->RSize, 6);
+    EXPECT_GT(meanSDResult->CSize, 1);
+    freeRRCData(meanSDResult);
+
+    freeRRInstance(rrHandle);
+    freeRRInstance(rrHandle2);
+}
+
+TEST_F(GillespieTests, MeanOnGridIgnoresUnrelatedPriorSimulationShape) {
+    RRHandle rrHandle = createRRInstance();
+    ASSERT_TRUE(loadSBML(rrHandle, S1ToS2MassActionSBML.c_str()));
+
+    // Run something unrelated first, on a coarser grid (3 points) than what's
+    // requested below (51 points).
+    RRCDataPtr warmup = gillespieOnGridEx(rrHandle, 0, 5, 3);
+    ASSERT_NE(warmup, nullptr);
+    freeRRCData(warmup);
+
+    RRCDataPtr result = gillespieMeanOnGridEx(rrHandle, 0, 5, 51, 3);
+    ASSERT_NE(result, nullptr);
+    EXPECT_EQ(result->RSize, 51);
+
+    freeRRCData(result);
+    freeRRInstance(rrHandle);
+}
+
+TEST_F(GillespieTests, MeanOnGridAveragesAllSpeciesColumns) {
+    RRHandle rrHandle = createRRInstance();
+    ASSERT_TRUE(loadSBML(rrHandle, S1ToS2MassActionSBML.c_str()));
+
+    RRCDataPtr result = gillespieMeanOnGridEx(rrHandle, 0, 5, 6, 10);
+    ASSERT_NE(result, nullptr);
+
+    int s1Col = findColumnContaining(result, "S1");
+    int s2Col = findColumnContaining(result, "S2");
+    ASSERT_GE(s1Col, 0);
+    ASSERT_GE(s2Col, 0);
+
+    // Every replicate starts at the same, exactly known initial condition, so
+    // the row-0 average must equal it precisely, regardless of the Gillespie
+    // RNG.
+    EXPECT_DOUBLE_EQ(result->Data[0 * result->CSize + s1Col], 100.0);
+    EXPECT_DOUBLE_EQ(result->Data[0 * result->CSize + s2Col], 0.0);
+
+    // Mass is conserved by the single S1 -> S2 reaction, so S1 + S2 == 100 in
+    // every individual trajectory, and therefore in their average too.
+    for (int row = 0; row < result->RSize; row++) {
+        double s1 = result->Data[row * result->CSize + s1Col];
+        double s2 = result->Data[row * result->CSize + s2Col];
+        EXPECT_NEAR(s1 + s2, 100.0, 1e-9) << "row " << row;
+    }
+
+    freeRRCData(result);
+    freeRRInstance(rrHandle);
+}
+
+TEST_F(GillespieTests, MeanSDOnGridReturnsMeanAndRealStandardDeviationTogether) {
+    RRHandle rrHandle = createRRInstance();
+    ASSERT_TRUE(loadSBML(rrHandle, S1ToS2MassActionSBML.c_str()));
+
+    // gillespieMeanSDOnGrid is the "single call" way to get both the mean and
+    // the standard deviation from the same batch of runs (they're accumulated
+    // together in one pass over `numberOfSimulations` fresh simulations).
+    RRCDataPtr result = gillespieMeanSDOnGridEx(rrHandle, 0, 5, 6, 30);
+    ASSERT_NE(result, nullptr);
+    ASSERT_NE(result->Weights, nullptr);
+
+    int s1Col = findColumnContaining(result, "S1");
+    ASSERT_GE(s1Col, 0);
+
+    // The mean (Data) must be correct, same as gillespieMeanOnGrid.
+    EXPECT_DOUBLE_EQ(result->Data[0 * result->CSize + s1Col], 100.0);
+
+    // At t=0 every replicate is identical, so S1's standard deviation (Weights)
+    // must be exactly zero there.
+    EXPECT_DOUBLE_EQ(result->Weights[0 * result->CSize + s1Col], 0.0);
+
+    // By the final time point, 30 independent stochastic trajectories of a
+    // decaying species must disagree with each other, i.e. have a strictly
+    // positive standard deviation.
+    int lastRow = result->RSize - 1;
+    EXPECT_GT(result->Weights[lastRow * result->CSize + s1Col], 0.0);
+
+    freeRRCData(result);
+    freeRRInstance(rrHandle);
 }
 
