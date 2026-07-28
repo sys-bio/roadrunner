@@ -330,9 +330,9 @@ namespace rr {
          * @code
          * RoadRunner rr = RoadRunner("someFile.xml");
          * SimulateOptions opt = rr.getSimulateOptions();
-         * opt.start = 0;
-         * opt.duration = 10;
-         * opt.steps = 1000;
+         * opt.setStartTime(0);
+         * opt.setDuration(10);
+         * opt.setSteps(1000);
          * const DoubleMatrix *result = rr.simulate(&opt);
          * @endcode
          *
@@ -343,9 +343,9 @@ namespace rr {
          * RoadRunner rr = RoadRunner("someFile.xml");
          * rr.setIntegrator("gillespie");
          * SimulateOptions opt;
-         * opt.start = 0;
-         * opt.duration = 10;
-         * opt.steps = 1000;
+         * opt.setStartTime(0);
+         * opt.setDuration(10);
+         * opt.setSteps(1000);
          * opt.setItem("stiff", true);
          * opt.setItem("seed", 12345);
          * const DoubleMatrix *result = rr.simulate(&opt);

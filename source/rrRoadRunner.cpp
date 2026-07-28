@@ -1574,16 +1574,12 @@ namespace rr {
             throw CoreException(gEmptyModelMessage);
         }
 
-        double start = impl->simulateOpt.start;
-        double duration = impl->simulateOpt.duration;
-        int steps = impl->simulateOpt.steps;
-        impl->simulateOpt.start = 0;
-        impl->simulateOpt.duration = 10.0;
-        impl->simulateOpt.steps = 100;
+        SimulateOptions savedOpt = impl->simulateOpt;
+        impl->simulateOpt.setStartTime(0);
+        impl->simulateOpt.setDuration(10.0);
+        impl->simulateOpt.setSteps(100);
         simulate();
-        impl->simulateOpt.start = start;
-        impl->simulateOpt.duration = duration;
-        impl->simulateOpt.steps = steps;
+        impl->simulateOpt = savedOpt;
 
         return steadyState();
     }
@@ -2370,19 +2366,20 @@ namespace rr {
     }
 
     const ls::DoubleMatrix *RoadRunner::simulate(double start, double stop, int points) {
-        SimulateOptions opt;
-        opt.start = start;
-        opt.duration = stop;
+        // Use existing simulateOpt, so we don't lose other options in it.
+        get_self();
+        self.simulateOpt.setStartTime(start);
+        self.simulateOpt.setDuration(stop);
         // substract 1 so that start, stop, num has the same meaning as it does in numpy functions
         // i.e. see https://numpy.org/doc/stable/reference/generated/numpy.linspace.html
-        opt.steps = points - 1;
-        return simulate(&opt);
+        self.simulateOpt.setSteps(points - 1);
+        return simulate();
     }
 
     const ls::DoubleMatrix *RoadRunner::simulate(const std::vector<double> &times) {
-        SimulateOptions opt;
-        opt.times = times;
-        return simulate(&opt);
+        get_self();
+        self.simulateOpt.setTimes(times);
+        return simulate();
     }
 
     Matrix3D<double, double> RoadRunner::timeSeriesSensitivities(

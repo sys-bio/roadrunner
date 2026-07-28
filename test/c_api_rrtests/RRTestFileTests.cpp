@@ -1097,8 +1097,8 @@ public:
 
         RoadRunner *rri = castToRoadRunner(gRR);
         SimulateOptions opt;
-        opt.start = 0;
-        opt.duration = 10;
+        opt.setStartTime(0);
+        opt.setDuration(10);
 
         // cvode
         //clog <<endl << "  simulate with " << opt.start << ", " << opt.duration << ", " << opt.steps << "\n";
@@ -1122,8 +1122,8 @@ public:
 
         RoadRunner *rri = castToRoadRunner(gRR);
         SimulateOptions opt;
-        opt.start = 0;
-        opt.duration = 10;
+        opt.setStartTime(0);
+        opt.setDuration(10);
 
         // cvode
         //clog <<endl << "  simulate with " << opt.start << ", " << opt.duration << ", " << opt.steps << "\n";
@@ -1710,8 +1710,8 @@ public:
 
         RoadRunner *rri = castToRoadRunner(gRR);
         SimulateOptions opt;
-        opt.start = toDouble(refList.at(0));
-        opt.duration = toDouble(refList.at(1));
+        opt.setStartTime(toDouble(refList.at(0)));
+        opt.setDuration(toDouble(refList.at(1)));
 
         // For variable step
         rri->getIntegrator()->setValue("variable_step_size", true);
@@ -1722,7 +1722,7 @@ public:
         }
 
         // For fixed step
-        opt.steps = toInt(refList.at(2));
+        opt.setSteps(toInt(refList.at(2)));
         rri->getIntegrator()->setValue("variable_step_size", false);
         //clog <<endl << "  simulate with " << opt.start << ", " << opt.duration << ", " << opt.steps << "\n";
         result = rri->simulate(&opt);
@@ -1741,8 +1741,8 @@ public:
 
         RoadRunner *rri = castToRoadRunner(gRR);
         SimulateOptions opt;
-        opt.start = 0;
-        opt.duration = 10;
+        opt.setStartTime(0);
+        opt.setDuration(10);
 
         // For variable step
         rri->getIntegrator()->setValue("variable_step_size", true);

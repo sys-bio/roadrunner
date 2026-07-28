@@ -669,23 +669,25 @@ TEST_F(StateSavingTests, SaveThenLoadAndSimulateCase1120) {
 
 TEST_F(StateSavingTests, SAVE_STATE_19) {
     ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
-        rri->getSimulateOptions().duration /= 2;
-        rri->getSimulateOptions().steps /= 2;
+        SimulateOptions& opt = rri->getSimulateOptions();
+        opt.setDuration(opt.getDuration() / 2);
+        opt.setSteps(opt.getSteps() / 2);
         rri->simulate();
         rri->saveState(fname);
         rri->loadState(fname);
-        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+        opt.setStartTime(opt.getDuration());
     }, "l3v1"));
 }
 
 TEST_F(StateSavingTests, SAVE_STATE_20) {
     ASSERT_TRUE(RunStateSavingTest([](RoadRunner *rri, std::string fname) {
-        rri->getSimulateOptions().duration /= 2;
-        rri->getSimulateOptions().steps /= 2;
+        SimulateOptions& opt = rri->getSimulateOptions();
+        opt.setDuration(opt.getDuration() / 2);
+        opt.setSteps(opt.getSteps() / 2);
         rri->simulate();
         rri->saveState(fname);
         rri->loadState(fname);
-        rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+        opt.setStartTime(opt.getDuration());
     }));
 }
 

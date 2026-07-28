@@ -1213,7 +1213,7 @@ namespace std { class ostream{}; }
             PyErr_Format(PyExc_TypeError, "The argument must be of list or subtype of list.");
             return;
         }
-        opt->times.clear();
+        std::vector<double> newTimes;
         for (unsigned int j = 0; j < PyList_Size(list); ++j) {
             PyObject* pval = PyList_GetItem(list, j);
             double val;
@@ -1228,8 +1228,9 @@ namespace std { class ostream{}; }
                 PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
                 return;
             }
-            opt->times.push_back(val);
+            newTimes.push_back(val);
         }
+        opt->setTimes(newTimes);
      }
 
     /**
@@ -2136,6 +2137,14 @@ namespace std { class ostream{}; }
     double end;
     bool structuredResult;
     bool copyResult;
+    // 'start'/'duration'/'steps' are private in C++ (backed by
+    // setStartTime/setDuration/setSteps, each of which clears a stale
+    // 'times' left by a previous call). These phantom members route
+    // 'opt.start = 5' etc. through those setters so the same guarantee
+    // applies from Python.
+    double start;
+    double duration;
+    int steps;
 
     std::string __repr__() {
         return ($self)->toRepr();
@@ -2159,6 +2168,46 @@ namespace std { class ostream{}; }
         return SWIG_NewPointerObj(SWIG_as_voidptr(other), SWIGTYPE_p_rr__SimulateOptions, SWIG_POINTER_OWN );
     }
 
+    /**
+     * 'times' needs custom (not phantom-member) handling: there's no
+     * automatic Python list <-> std::vector<double> typemap in this file,
+     * so 'times' is implemented as an explicit Python property below,
+     * mirroring RoadRunner::_setSimulateOptionsTimes.
+     */
+    PyObject *_getTimes() {
+        const std::vector<double>& t = ($self)->getTimes();
+        size_t size = t.size();
+        PyObject *pyList = PyList_New(size);
+        for (size_t j = 0; j < size; ++j) {
+            PyList_SET_ITEM(pyList, j, PyFloat_FromDouble(t[j]));
+        }
+        return pyList;
+    }
+
+    void _setTimes(PyObject* list) {
+        if (!PyList_Check(list)) {
+            PyErr_Format(PyExc_TypeError, "The argument must be of list or subtype of list.");
+            return;
+        }
+        std::vector<double> newTimes;
+        for (unsigned int j = 0; j < PyList_Size(list); ++j) {
+            PyObject* pval = PyList_GetItem(list, j);
+            double val;
+            if (PyFloat_Check(pval)) {
+                val = PyFloat_AsDouble(pval);
+            }
+            else if (PyArray_IsIntegerScalar(pval)) {
+                val = PyInt_AsLong(pval);
+            }
+            else {
+                PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
+                return;
+            }
+            newTimes.push_back(val);
+        }
+        ($self)->setTimes(newTimes);
+    }
+
     %pythoncode %{
         def getListener(self):
             return self._getListener()
@@ -2168,17 +2217,25 @@ namespace std { class ostream{}; }
                 self._clearListener()
             else:
                 self._setListener(listener)
+
+        def _getTimesProperty(self):
+            return self._getTimes()
+
+        def _setTimesProperty(self, value):
+            self._setTimes(list(value))
+
+        times = property(_getTimesProperty, _setTimesProperty)
     %}
 
 }
 
 %{
     double rr_SimulateOptions_end_get(SimulateOptions* opt) {
-        return opt->start + opt->duration;
+        return opt->getStartTime() + opt->getDuration();
     }
 
     void rr_SimulateOptions_end_set(SimulateOptions* opt, double end) {
-        opt->duration = end - opt->start;
+        opt->setDuration(end - opt->getStartTime());
     }
 
     bool rr_SimulateOptions_structuredResult_get(SimulateOptions* opt) {
@@ -2195,6 +2252,30 @@ namespace std { class ostream{}; }
 
     void rr_SimulateOptions_copyResult_set(SimulateOptions* opt, bool value) {
         opt->copy_result = value;
+    }
+
+    double rr_SimulateOptions_start_get(SimulateOptions* opt) {
+        return opt->getStartTime();
+    }
+
+    void rr_SimulateOptions_start_set(SimulateOptions* opt, double value) {
+        opt->setStartTime(value);
+    }
+
+    double rr_SimulateOptions_duration_get(SimulateOptions* opt) {
+        return opt->getDuration();
+    }
+
+    void rr_SimulateOptions_duration_set(SimulateOptions* opt, double value) {
+        opt->setDuration(value);
+    }
+
+    int rr_SimulateOptions_steps_get(SimulateOptions* opt) {
+        return opt->getSteps();
+    }
+
+    void rr_SimulateOptions_steps_set(SimulateOptions* opt, int value) {
+        opt->setSteps(value);
     }
 %}
 
