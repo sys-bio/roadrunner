@@ -101,17 +101,23 @@ namespace rrllvm {
                                                  "generating update code for non-constant species "
                                                  "reference reactant " << r->getId();
 
-                    const StoichiometryMath *sm = r->getStoichiometryMath();
-                    if (!sm){
-                        rrLog(Logger::LOG_WARNING) << "No stoichiometry found for "
-                                                      "species \"" << r->getId() << "\""
-                                                      " in reaction \"" << reaction->getName() << "\"" << std::endl;
+                    Value *value = 0;
+
+                    if (dataSymbols.hasAssignmentRule(r->getId())
+                        || dataSymbols.hasRateRule(r->getId())) {
+                        value = resolver.loadSymbolValue(r->getId());
+                    } else if (r->isSetStoichiometryMath()) {
+                        const StoichiometryMath *sm = r->getStoichiometryMath();
+                        value = astCodeGen.codeGenDouble(sm->getMath());
+                    } else {
+                        rrLog(Logger::LOG_WARNING) << "species reference "
+                                                 << r->getId() << " has been determined to be "
+                                                                  "non-constant, but it has no rules or MathML, so"
+                                                                  " no update code will be generated";
                         continue;
                     }
 
-//                    assert(sm && "SmoichiometryMath variable sm is nullptr");
-
-                    Value *value = astCodeGen.codeGenDouble(sm->getMath());
+                    assert(value && "value for species reference stoichiometry is 0");
 
                     // reactants are consumed, so they get a negative stoichiometry
                     Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));

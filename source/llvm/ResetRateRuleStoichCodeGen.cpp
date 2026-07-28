@@ -58,7 +58,17 @@ namespace rrllvm {
             Value *stoichValue = astCodeGen.codeGenDouble(node);
             delete node;
 
-            mdbuilder.createRateRuleValueStore(nz.id, stoichValue);
+            // stoichValue is the net, CSR-signed value (negative for a
+            // reactant); the rate rule slot holds the reference's own
+            // magnitude, so undo that sign flip before storing it there.
+            Value *rateRuleSeed = stoichValue;
+            if (nz.type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+            {
+                Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                rateRuleSeed = builder.CreateFMul(negOne, stoichValue, "unneg_" + nz.id);
+            }
+
+            mdbuilder.createRateRuleValueStore(nz.id, rateRuleSeed);
             mdbuilder.createStoichiometryStore(nz.row, nz.column, stoichValue, nz.id);
         }
 

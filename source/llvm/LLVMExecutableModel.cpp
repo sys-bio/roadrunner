@@ -2464,6 +2464,13 @@ double LLVMExecutableModel::getStoichiometry(int index)
 
     if (index < 0)
         throw LLVMException("The stoichiometry index is not valid");
+
+    // volatile (rule-governed) entries are only resynced into the CSR at
+    // RHS-eval / event-root time during simulation; resync here too so a
+    // plain getValue() reflects the model's current time/state exactly,
+    // rather than whatever the last internal integrator step left behind.
+    evalVolatileStoichPtr(modelData);
+
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = symbols->getStoichiometryList();
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)

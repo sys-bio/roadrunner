@@ -120,6 +120,56 @@ TEST_F(SBMLFeatures, add_rule_to_named_stoich) {
 }
 
 
+TEST_F(SBMLFeatures, add_rate_rule_to_reactant_stoich) {
+  // "n" is reactant B's stoichiometry (declared 1). Mirrors the "q"
+  // (product) rate-rule case in add_rule_to_named_stoich, but exercises the
+  // reactant sign-handling path: createStoichiometryNode negates reactant
+  // values for the CSR cell, and that same negated value must not leak into
+  // the rate-rule integration slot.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
+  EXPECT_NO_THROW(rr.addRateRule("n", "5", true));
+  // rate rules haven't integrated yet at t=0; n should still be its declared value.
+  EXPECT_NEAR(rr.getValue("n"), 1.0, 1e-9);
+  rr.oneStep(0, 1.0);
+  // dn/dt = 5, so after 1 time unit n should have grown by ~5, mirroring q's 3->8.
+  EXPECT_NEAR(rr.getValue("n"), 6.0, 1e-6);
+}
+
+
+TEST_F(SBMLFeatures, add_assignment_rule_to_reactant_stoich_tracks_time) {
+  // "n" is reactant B's stoichiometry. An assignment rule that depends on
+  // time must be resynced into the stoichiometry matrix as the simulation
+  // progresses, not just read once at t=0.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
+  EXPECT_NO_THROW(rr.addAssignmentRule("n", "1 + time", true));
+  EXPECT_NEAR(rr.getValue("n"), 1.0, 1e-9);
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("n"), 3.0, 1e-9);
+}
+
+
+TEST_F(SBMLFeatures, set_value_on_multi_reactant_stoich_before_simulate) {
+  // A appears twice as a reactant in J0, via two independently named,
+  // rule-free species references (r1=2, r2=3). Setting one before
+  // simulating must not disturb the other, and the combined (net) cell used
+  // in the reaction must reflect the sum of both.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_EQ(rr.getValue("r1"), 2.0);
+  EXPECT_EQ(rr.getValue("r2"), 3.0);
+
+  EXPECT_NO_THROW(rr.setValue("r1", 5));
+  EXPECT_EQ(rr.getValue("r1"), 5.0);
+  EXPECT_EQ(rr.getValue("r2"), 3.0);
+
+  // combined cell should be r1 + r2 = 8
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), 8.0, 1e-9);
+
+  // dA/dt = -(r1+r2)*k*A < 0, A should be decreasing
+  rr.oneStep(0, 0.01);
+  EXPECT_LT(rr.getValue("A"), 10.0);
+}
+
+
 TEST_F(SBMLFeatures, named_stoich_selectors) {
   rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
   SelectionRecord record = rr.createSelection("n");

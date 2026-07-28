@@ -214,7 +214,16 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
         // in 1100 tests)
         if (!nz.id.empty() && dataSymbols.hasRateRule(nz.id))
         {
-            modelDataBuilder.createRateRuleValueStore(nz.id, stoichValue);
+            // stoichValue is the net, CSR-signed value (negative for a
+            // reactant); the rate rule slot holds the reference's own
+            // magnitude, so undo that sign flip before storing it there.
+            Value *rateRuleSeed = stoichValue;
+            if (nz.type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+            {
+                Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                rateRuleSeed = builder.CreateFMul(negOne, stoichValue, "unneg_" + nz.id);
+            }
+            modelDataBuilder.createRateRuleValueStore(nz.id, rateRuleSeed);
         }
 
         Value *row = ConstantInt::get(Type::getInt32Ty(context), nz.row, true);
