@@ -154,6 +154,135 @@ TEST_F(SBMLFeatures, variable_stoich_event_full_reset_restores_initial) {
 }
 
 
+// dual_rate_rule_stoich.xml: S1_stoich (reactant of S1, rate rule 0.01)
+// and S2_stoich (product of S2, rate rule 0.02) -- different species, no
+// MultiReactantProduct collision. The named-id form always returns the
+// reference's own positive magnitude; the stoich(species, reaction) form
+// reads the raw matrix cell (negative for a reactant).
+TEST_F(SBMLFeatures, dual_rate_rule_stoich_selectors) {
+  RoadRunner rr((SBMLFeaturesDir / "dual_rate_rule_stoich.xml").string());
+  EXPECT_NEAR(rr.getValue("S1_stoich"), 1.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("S2_stoich"), 2.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("stoich(S1, J0)"), -1.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("stoich(S2, J0)"), 2.0, 1e-9);
+}
+
+
+// named_stoic_multi_reactant.xml: A is consumed via two colliding reactant
+// references, r1=2 and r2=3, kinetic law v = k = 0.1 (constant, so dA/dt
+// doesn't depend on A -- keeps the math polynomial in t).
+// dA/dt = -(r1(t)+r2(t)) * 0.1
+
+TEST_F(SBMLFeatures, multi_reactant_rate_rule_on_one) {
+  // r1 gets a rate rule (dr1/dt = 0.5); r2 stays plain, untouched.
+  // r1(t) = 2 + 0.5t, r2(t) = 3.
+  // dA/dt = -(5 + 0.5t) * 0.1  ->  A(t) = 10 - (0.5t + 0.025t^2)
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addRateRule("r1", "0.5", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -6.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("A"), 8.9, 1e-4);
+}
+
+TEST_F(SBMLFeatures, multi_reactant_rate_rule_on_both) {
+  // r1: dr1/dt = 0.5, r1(0) = 2 -> r1(t) = 2 + 0.5t
+  // r2: dr2/dt = 0.3, r2(0) = 3 -> r2(t) = 3 + 0.3t
+  // dA/dt = -(5 + 0.8t) * 0.1  ->  A(t) = 10 - (0.5t + 0.04t^2)
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addRateRule("r1", "0.5", true));
+  EXPECT_NO_THROW(rr.addRateRule("r2", "0.3", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -6.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("A"), 8.84, 1e-4);
+}
+
+TEST_F(SBMLFeatures, multi_reactant_assignment_rule_on_one) {
+  // r1 = 2 + 0.5*time (assignment rule); r2 stays plain.
+  // Same shape as multi_reactant_rate_rule_on_one -> same A(t).
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addAssignmentRule("r1", "2 + 0.5*time", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -6.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("A"), 8.9, 1e-4);
+}
+
+TEST_F(SBMLFeatures, multi_reactant_assignment_rule_on_both) {
+  // r1 = 2 + 0.5*time, r2 = 3 + 0.3*time (both assignment rules).
+  // Same shape as multi_reactant_rate_rule_on_both -> same A(t).
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addAssignmentRule("r1", "2 + 0.5*time", true));
+  EXPECT_NO_THROW(rr.addAssignmentRule("r2", "3 + 0.3*time", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -6.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("A"), 8.84, 1e-4);
+}
+
+TEST_F(SBMLFeatures, multi_reactant_mixed_rate_and_assignment_rule) {
+  // r1 gets a rate rule (dr1/dt = 0.5), r2 gets an assignment rule
+  // (3 + 0.3*time). Same shape as the "on_both" cases -> same A(t).
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addRateRule("r1", "0.5", true));
+  EXPECT_NO_THROW(rr.addAssignmentRule("r2", "3 + 0.3*time", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -6.6, 1e-4);
+  EXPECT_NEAR(rr.getValue("A"), 8.84, 1e-4);
+}
+
+
+TEST_F(SBMLFeatures, multi_reactant_rate_rule_reset_semantics) {
+  // r1 is rate-rule-governed (part of a colliding pair with r2, which
+  // stays plain). Mirrors the single-reference reset semantics: plain
+  // reset() restores a rate-rule-governed member (like a global parameter
+  // would), and reset(ALL) re-syncs to whatever init(r1) is CURRENTLY
+  // configured to, not the original declared value.
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_NO_THROW(rr.addRateRule("r1", "0.5", true));
+
+  rr.oneStep(0, 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_NEAR(r1, 3.0, 1e-4);
+  EXPECT_NEAR(rr.getValue("r2"), 3.0, 1e-9);
+
+  rr.reset();
+  EXPECT_NEAR(rr.getValue("r1"), 2.0, 1e-9);
+  EXPECT_NEAR(rr.getValue("r2"), 3.0, 1e-9);
+
+  rr.reset(SelectionRecord::ALL);
+  rr.setValue("init(r1)", 4);
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("r1"), 5.0, 1e-4);
+
+  rr.reset(SelectionRecord::ALL);
+  EXPECT_NEAR(rr.getValue("r1"), 4.0, 1e-9);
+}
+
+
 TEST_F(SBMLFeatures, variable_stoich_rr_selection_type) {
   RoadRunner rr((SBMLFeaturesDir / "stoich_rr.xml").string());
   SelectionRecord record = rr.createSelection("N");

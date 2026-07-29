@@ -53,17 +53,17 @@ namespace rrllvm {
         if (!context) {
             std::string err = "Context pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
         if (!module) {
             std::string err = "Module pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
         if (!builder) {
             std::string err = "builder pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
 
         createCLibraryFunctions();

@@ -1434,6 +1434,16 @@ double CompiledExecutableModel::getStoichiometry(int speciesIndex, int reactionI
 
 }
 
+double CompiledExecutableModel::getInitStoichiometry(int index)
+{
+    return std::numeric_limits<double>::quiet_NaN();
+}
+
+double CompiledExecutableModel::getInitStoichiometry(int speciesIndex, int reactionIndex)
+{
+    return std::numeric_limits<double>::quiet_NaN();
+}
+
 
 int CompiledExecutableModel::getStoichiometryMatrix(int* p_rows, int* p_cols, double** p_data)
 {

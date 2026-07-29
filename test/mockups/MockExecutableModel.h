@@ -73,6 +73,8 @@ public:
     MOCK_METHOD(int, setStoichiometry, (int speciesIndex, int reactionIndex, double value), (override));
     MOCK_METHOD(double, getStoichiometry, (int index), (override));
     MOCK_METHOD(double, getStoichiometry, (int speciesIndex, int reactionIndex), (override));
+    MOCK_METHOD(double, getInitStoichiometry, (int index), (override));
+    MOCK_METHOD(double, getInitStoichiometry, (int speciesIndex, int reactionIndex), (override));
     MOCK_METHOD(int, getNumConservedMoieties, (), (override));
     MOCK_METHOD(int, getConservedMoietyIndex, (const std::string &eid), (override));
     MOCK_METHOD(std::string, getConservedMoietyId, (size_t index), (override));

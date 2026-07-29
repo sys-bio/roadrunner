@@ -1354,10 +1354,30 @@ namespace rr {
                 impl->model->getCompartmentInitVolumes(1, &record.index, &dResult);
                 break;
             case SelectionRecord::STOICHIOMETRY:
-            case SelectionRecord::INITIAL_STOICHIOMETRY: {
-                dResult = impl->model->getStoichiometry(record.index);
+                if (record.p2.empty()) {
+                    // named speciesReference (e.g. "n"): its own magnitude,
+                    // regardless of reactant/product role.
+                    dResult = impl->model->getStoichiometry(record.index);
+                }
+                else {
+                    // stoich(species, reaction): the raw stoichiometry
+                    // matrix cell (negative for reactants, positive for
+                    // products), not any individual reference's magnitude.
+                    int speciesIndex = impl->model->getFloatingSpeciesIndex(record.p1);
+                    int reactionIndex = impl->model->getReactionIndex(record.p2);
+                    dResult = impl->model->getStoichiometry(speciesIndex, reactionIndex);
+                }
                 break;
-            }
+            case SelectionRecord::INITIAL_STOICHIOMETRY:
+                if (record.p2.empty()) {
+                    dResult = impl->model->getInitStoichiometry(record.index);
+                }
+                else {
+                    int speciesIndex = impl->model->getFloatingSpeciesIndex(record.p1);
+                    int reactionIndex = impl->model->getReactionIndex(record.p2);
+                    dResult = impl->model->getInitStoichiometry(speciesIndex, reactionIndex);
+                }
+                break;
             case SelectionRecord::TIME:
                 dResult = getCurrentTime();
                 break;

@@ -1487,8 +1487,43 @@ double LLVMExecutableModel::getValue(const std::string& id)
         getGlobalParameterInitValues(1, &index, &result);
         break;
     case SelectionRecord::STOICHIOMETRY:
+        if (sel.p2.empty())
+        {
+            // named speciesReference (e.g. "n"): return its own magnitude,
+            // regardless of whether it's a reactant or a product.
+            result = getStoichiometry(index);
+        }
+        else
+        {
+            // stoich(species, reaction): return the raw stoichiometry
+            // matrix cell (signed: negative for reactants, positive for
+            // products), not any individual reference's own magnitude.
+            if (symbols->isConservedMoietyAnalysis())
+                throw LLVMException("Unable to get stoichiometries when conserved moieties are on");
+
+            std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichList = symbols->getStoichiometryList();
+            std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator it = stoichList.begin();
+            for (int i = 0; i < index; i++)
+                ++it;
+            result = getStoichiometry(it->row, it->column);
+        }
+        break;
     case SelectionRecord::INITIAL_STOICHIOMETRY:
-        result = getStoichiometry(index);
+        if (sel.p2.empty())
+        {
+            result = getInitStoichiometry(index);
+        }
+        else
+        {
+            if (symbols->isConservedMoietyAnalysis())
+                throw LLVMException("Unable to get stoichiometries when conserved moieties are on");
+
+            std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichList = symbols->getStoichiometryList();
+            std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator it = stoichList.begin();
+            for (int i = 0; i < index; i++)
+                ++it;
+            result = getInitStoichiometry(it->row, it->column);
+        }
         break;
     case SelectionRecord::EVENT:
     {
@@ -2387,9 +2422,9 @@ int LLVMExecutableModel::setStoichiometry(int index, double value)
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot set stoichiometry for a MultiReactantProduct");
+        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct");
     else
-        throw LLVMException("Cannot set stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
     return -1;
 }
@@ -2442,9 +2477,9 @@ int LLVMExecutableModel::setInitStoichiometry(int index, double value)
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot set stoichiometry for a MultiReactantProduct");
+        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct");
     else
-        throw LLVMException("Cannot set stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
     return -1;
 }
@@ -2480,9 +2515,9 @@ double LLVMExecutableModel::getStoichiometry(int index)
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot return stoichiometry for a MultiReactantProduct");
+        throw_llvm_exception("Cannot return stoichiometry for a MultiReactantProduct");
     else
-        throw LLVMException("Cannot return stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }
 
 double LLVMExecutableModel::getStoichiometry(int speciesIndex, int reactionIndex)
@@ -2507,9 +2542,9 @@ double LLVMExecutableModel::getInitStoichiometry(int index)
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getInitStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot return stoichiometry for a MultiReactantProduct");
+        throw_llvm_exception("Cannot return stoichiometry for a MultiReactantProduct");
     else
-        throw LLVMException("Cannot return stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }
 
 double LLVMExecutableModel::getInitStoichiometry(int speciesIndex, int reactionIndex)

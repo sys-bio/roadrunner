@@ -651,6 +651,20 @@ namespace rr {
          */
         virtual double getStoichiometry(int speciesIndex, int reactionIndex) = 0;
 
+        /**
+         * Get the initial stoichiometry value with the given index
+         *
+         * If either are not valid, NaN is returned.
+         */
+        virtual double getInitStoichiometry(int index) = 0;
+
+        /**
+         * Get the initial stoichiometry value for the given species / reaction.
+         *
+         * If either are not valid, NaN is returned.
+         */
+        virtual double getInitStoichiometry(int speciesIndex, int reactionIndex) = 0;
+
 
         virtual int getNumConservedMoieties() = 0;
 

@@ -273,7 +273,7 @@ namespace rrllvm {
 
             rrLog(Logger::LOG_FATAL) << s.str();
 
-            throw_llvm_exception(s.str())
+            throw_llvm_exception(s.str());
         }
 
         modelGeneratorContext->getJitNonOwning()->mapLLVMGeneratedFunctionsToSymbols(modelResources.get(), options);

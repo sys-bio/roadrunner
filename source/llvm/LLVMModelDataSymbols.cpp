@@ -176,7 +176,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
                 std::stringstream err;
                 err << "Unable to support algebraic rules.  The formula '0 = " << formula << "' is not supported.";
                 free(formula);
-                throw_llvm_exception(err.str())
+                throw_llvm_exception(err.str());
             }
         }
     }

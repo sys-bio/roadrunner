@@ -2085,13 +2085,21 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 }
 
 TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
+    // S1 is a reactant via "n" (declared 1) and an unnamed product
+    // (declared 1) in the same reaction _J0 -- a MultiReactantProduct
+    // collision. The named-id form ("n") still can't resolve to a single
+    // reference's own magnitude and throws. stoich(S1,_J0), however, reads
+    // the raw (role-agnostic) matrix cell, which is well-defined regardless
+    // of collisions: -1 (reactant "n") + 1 (product) = 0.
     RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
 
     // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.getValue("n"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S1,_J0)"), rrllvm::LLVMException);
+    EXPECT_EQ(rr.getValue("stoich(S1,_J0)"), 0.0);
 
     // set the initial stoichiometry value with parameter and stoich(Species,Reaction)
+    // setValue always targets the underlying reference (ambiguous here), so
+    // both forms still throw.
     EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }

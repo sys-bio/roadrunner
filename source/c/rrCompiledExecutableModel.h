@@ -368,6 +368,9 @@ public:
 
     virtual double getStoichiometry(int speciesIndex, int reactionIndex);
 
+    virtual double getInitStoichiometry(int index);
+    virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
+
     /**
      * allocate a block of memory and copy the stochiometric values into it,
      * and return it.

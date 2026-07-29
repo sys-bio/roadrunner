@@ -40,7 +40,9 @@ TEST_F(SBMLFeatures, issue1306_named_stoich_value) {
   EXPECT_EQ(rr.getValue("n"), 3.0);
   EXPECT_EQ(rr.getValue("m"), 5.0);
   EXPECT_EQ(rr.getValue("q"), 7.0);
-  EXPECT_EQ(rr.getValue("stoich(B, J0)"), 3.0);
+  // stoich(species, reaction) reads the raw stoichiometry-matrix cell:
+  // negative for reactants (B, via "n"), positive for products (C via "m", D via "q").
+  EXPECT_EQ(rr.getValue("stoich(B, J0)"), -3.0);
   EXPECT_EQ(rr.getValue("stoich(C, J0)"), 5.0);
   EXPECT_EQ(rr.getValue("stoich(D, J0)"), 7.0);
   EXPECT_EQ(rr.getValue("J0"), 15.0);
@@ -154,19 +156,81 @@ TEST_F(SBMLFeatures, set_value_on_multi_reactant_stoich_before_simulate) {
   // simulating must not disturb the other, and the combined (net) cell used
   // in the reaction must reflect the sum of both.
   rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
-  EXPECT_EQ(rr.getValue("r1"), 2.0);
+  double r1;
+  ASSERT_NO_THROW(r1 = rr.getValue("r1"));
+  EXPECT_EQ(r1, 2.0);
   EXPECT_EQ(rr.getValue("r2"), 3.0);
 
   EXPECT_NO_THROW(rr.setValue("r1", 5));
   EXPECT_EQ(rr.getValue("r1"), 5.0);
   EXPECT_EQ(rr.getValue("r2"), 3.0);
 
-  // combined cell should be r1 + r2 = 8
-  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), 8.0, 1e-9);
+  // stoich(A, J0) reads the raw matrix cell: A is consumed here, so the
+  // combined cell is negative: -(r1 + r2) = -8.
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -8.0, 1e-9);
 
   // dA/dt = -(r1+r2)*k*A < 0, A should be decreasing
   rr.oneStep(0, 0.01);
   EXPECT_LT(rr.getValue("A"), 10.0);
+}
+
+
+TEST_F(SBMLFeatures, multi_product_stoich_collision_set_one_of_two) {
+  // B is produced twice in J0, via two independently named, rule-free
+  // species references (p1=2, p2=3). Setting one before simulating must
+  // not disturb the other, and the combined (net) cell used in the
+  // reaction must reflect the sum of both.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_product.xml").string());
+  double p1;
+  ASSERT_NO_THROW(p1 = rr.getValue("p1"));
+  EXPECT_EQ(p1, 2.0);
+  EXPECT_EQ(rr.getValue("p2"), 3.0);
+
+  EXPECT_NO_THROW(rr.setValue("p1", 5));
+  EXPECT_EQ(rr.getValue("p1"), 5.0);
+  EXPECT_EQ(rr.getValue("p2"), 3.0);
+
+  // combined cell should be p1 + p2 = 8 (products are positive, no sign flip)
+  EXPECT_NEAR(rr.getValue("stoich(B, J0)"), 8.0, 1e-9);
+
+  rr.oneStep(0, 0.01);
+  EXPECT_GT(rr.getValue("B"), 0.0);
+}
+
+
+TEST_F(SBMLFeatures, multi_reactant_product_cross_collision_set_one_of_two) {
+  // A appears once as a reactant (x1) and once as a product (x2) in the
+  // SAME reaction -- no literal duplicate within either list, but both
+  // occurrences still collide on the same (species, reaction) CSR cell
+  // (LLVMModelDataSymbols shares one speciesMap across the reactant and
+  // product loops). Setting one must not disturb the other. stoich(A, J0)
+  // reads the raw matrix cell (-x1 + x2), unaffected by the ambiguity of
+  // "reactant or product" that a per-reference read would have.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_mixed.xml").string());
+  double x1;
+  ASSERT_NO_THROW(x1 = rr.getValue("x1"));
+  EXPECT_EQ(x1, 2.0);
+  EXPECT_EQ(rr.getValue("x2"), 3.0);
+
+  EXPECT_NO_THROW(rr.setValue("x1", 5));
+  EXPECT_EQ(rr.getValue("x1"), 5.0);
+  EXPECT_EQ(rr.getValue("x2"), 3.0);
+
+  // net effect: -x1 + x2 = -5 + 3 = -2
+  EXPECT_NEAR(rr.getValue("stoich(A, J0)"), -2.0, 1e-9);
+
+  rr.oneStep(0, 0.01);
+  EXPECT_LT(rr.getValue("A"), 10.0);
+}
+
+
+TEST_F(SBMLFeatures, multi_reactant_stoich_set_via_selector_throws) {
+  // Unlike getValue(stoich(x,y)), which reads the role-agnostic matrix
+  // cell, setValue(stoich(x,y), v) means "set the underlying
+  // speciesReference" -- which is ambiguous when more than one reference
+  // shares the cell, so it must throw rather than silently pick one.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+  EXPECT_THROW(rr.setValue("stoich(A, J0)", 5), rrllvm::LLVMException);
 }
 
 
@@ -219,9 +283,14 @@ TEST_F(SBMLFeatures, get_named_stoich_value_from_model) {
   llem->setValue("n", 3);
   EXPECT_EQ(llem->getValue("n"), 3);
 
-  EXPECT_EQ(llem->getValue("stoich(A, J0)"), 1);
+  // getValue(stoich(x,y)) reads the raw (role-agnostic) matrix cell, so A
+  // being a reactant reads as -1. setValue(stoich(x,y), v), by contrast,
+  // means "set the underlying speciesReference" -- it takes v as a
+  // positive magnitude and sign-flips internally for a reactant, same as
+  // the named-id form. Setting 5 here therefore stores -5.
+  EXPECT_EQ(llem->getValue("stoich(A, J0)"), -1);
   llem->setValue("stoich(A, J0)", 5);
-  EXPECT_EQ(llem->getValue("stoich(A, J0)"), 5);
+  EXPECT_EQ(llem->getValue("stoich(A, J0)"), -5);
 }
 
 
