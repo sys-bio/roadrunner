@@ -33,13 +33,15 @@ namespace rrllvm {
 
         codeGenVoidModelDataHeader(FunctionName, modelData);
 
-        // Reads declared/SBML values, same source evalInitialConditions uses,
-        // so this stays consistent with whatever the model was last
-        // (re)compiled with (e.g. after a setValue("init(...)") call, which
-        // mutates the SBML and regenerates the model).
-        SBMLInitialValueSymbolResolver initialValueResolver(modelData, modelGenContext);
+        // Reads back the already-computed initStoichiometry matrix (frozen at
+        // load time / the last setInitStoichiometry call), the same source
+        // codeGenInitStoichiometry copies from -- rather than re-evaluating
+        // the SBML stoichiometry expression, which would ignore any
+        // subsequent setInitStoichiometry call.
         ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
-        ASTNodeCodeGen astCodeGen(builder, initialValueResolver, modelGenContext, modelData);
+
+        Value *initStoichEP = mdbuilder.createGEP(InitStoichiometry);
+        Value *initStoich = builder.CreateLoad(initStoichEP->getType()->getPointerElementType(), initStoichEP, "initStoichiometry");
 
         std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
                 dataSymbols.getStoichiometryList();
@@ -54,9 +56,9 @@ namespace rrllvm {
                 continue;
             }
 
-            const ASTNode *node = modelSymbols.createStoichiometryNode(nz.row, nz.column);
-            Value *stoichValue = astCodeGen.codeGenDouble(node);
-            delete node;
+            Value *row = ConstantInt::get(Type::getInt32Ty(context), nz.row, true);
+            Value *col = ConstantInt::get(Type::getInt32Ty(context), nz.column, true);
+            Value *stoichValue = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, initStoich, row, col);
 
             // stoichValue is the net, CSR-signed value (negative for a
             // reactant); the rate rule slot holds the reference's own

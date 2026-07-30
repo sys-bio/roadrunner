@@ -5407,6 +5407,28 @@ namespace rr {
                     throw Exception("Invalid id '" + sel.p1 + "' for initial amount");
                     break;
                 }
+            case SelectionRecord::INITIAL_STOICHIOMETRY:
+                if (sel.p2.empty()) {
+                    if ((sel.index = impl->model->getStoichiometryIndex(sel.p1)) < 0) {
+                        throw Exception("The id '" + sel.p1 + "' is not the id of a stoichiometry (speciesReference).");
+                    }
+                    break;
+                }
+                else {
+                    if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0) {
+                        if (impl->model->getReactionIndex(sel.p2) >= 0) {
+                            sel.index = impl->model->getStoichiometryIndex(sel.p1, sel.p2);
+                            if (sel.index < 0) {
+                                throw Exception("The species id '" + sel.p1 + "' and reaction id '" + sel.p2 + "' does not lead to a valid stoichiometry.");
+                            }
+                            break;
+                        } else {
+                            throw Exception("second argument to stoich '" + sel.p2 + "' is not a reaction id.");
+                        }
+                    } else {
+                        throw Exception("first argument to stoich '" + sel.p1 + "' is not a floating species id.");
+                    }
+                }
             default:
                 //rrLog(Logger::LOG_ERROR) << "A new SelectionRecord should not have this value: "
                 //                         << sel.to_repr();
@@ -6728,7 +6750,8 @@ namespace rr {
             SelectionRecord::FLOATING |
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
-            SelectionRecord::GLOBAL_PARAMETER);
+            SelectionRecord::GLOBAL_PARAMETER |
+            SelectionRecord::STOICHIOMETRY);
     }
 
     void RoadRunner::setInitStoichiometryValue(const std::string& speciesId, const std::string& reactionId, double initValue) {
@@ -6780,7 +6803,8 @@ namespace rr {
             SelectionRecord::FLOATING |
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
-            SelectionRecord::GLOBAL_PARAMETER);
+            SelectionRecord::GLOBAL_PARAMETER |
+            SelectionRecord::STOICHIOMETRY);
     }
 
     void RoadRunner::setConstant(const std::string& sid, bool constant, bool forceRegenerate) {
