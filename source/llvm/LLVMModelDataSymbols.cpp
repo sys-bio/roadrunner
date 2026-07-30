@@ -91,16 +91,24 @@ static const char* modelDataFieldsNames[] =  {
         "RateRuleValuesAlias",                  // 30
         "FloatingSpeciesAmountsAlias",          // 31
 
-        "CompartmentVolumes",                   // 32
-        "InitCompartmentVolumes",               // 33
-        "InitFloatingSpeciesAmounts",           // 34
-        "BoundarySpeciesAmounts",               // 35
-        "InitBoundarySpeciesAmounts",           // 36
-        "GlobalParameters",                     // 37
-        "InitGlobalParameters",                 // 38
-        "ReactionRates",                        // 39
-        "NotSafe_RateRuleValues",               // 40
-        "NotSafe_FloatingSpeciesAmounts"        // 41
+        "NumMultiReactantProduct",              // 32
+        "MultiReactantProductAlias",            // 33
+        "MultiReactantProductInitAlias",        // 34
+
+        "InitStoichiometry",                    // 35
+
+        "CompartmentVolumes",                   // 36
+        "InitCompartmentVolumes",               // 37
+        "InitFloatingSpeciesAmounts",           // 38
+        "BoundarySpeciesAmounts",               // 39
+        "InitBoundarySpeciesAmounts",           // 40
+        "GlobalParameters",                     // 41
+        "InitGlobalParameters",                 // 42
+        "ReactionRates",                        // 43
+        "NotSafe_RateRuleValues",               // 44
+        "NotSafe_FloatingSpeciesAmounts",       // 45
+        "MultiReactantProductValues",           // 46
+        "MultiReactantProductInitValues"        // 47
 };
 
 
@@ -130,7 +138,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-            == NotSafe_FloatingSpeciesAmounts + 1
+            == MultiReactantProductInitValues + 1
             && "wrong number of items in modelDataFieldsNames");
 }
 
@@ -145,7 +153,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-        == NotSafe_FloatingSpeciesAmounts + 1
+        == MultiReactantProductInitValues + 1
         && "wrong number of items in modelDataFieldsNames");
 
     modelName = model->getName();
@@ -418,6 +426,21 @@ std::vector<std::string> LLVMModelDataSymbols::getStoichiometryIds() const
 size_t LLVMModelDataSymbols::getStoichiometrySize() const
 {
     return getStoichiometryList().size();
+}
+
+int LLVMModelDataSymbols::getMultiReactantProductIndex(const std::string& id) const
+{
+    StringUIntMap::const_iterator i = multiReactantProductMap.find(id);
+    if (i != multiReactantProductMap.end())
+    {
+        return i->second;
+    }
+    return -1;
+}
+
+size_t LLVMModelDataSymbols::getMultiReactantProductSize() const
+{
+    return multiReactantProductMap.size();
 }
 
 size_t  LLVMModelDataSymbols::getFloatingSpeciesSize() const
@@ -1499,6 +1522,17 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
     //  }
     //}
 
+    // give each MultiReactantProduct-typed named stoichiometry a dense,
+    // 0-based slot for its own independent storage.
+    for (StringRefInfoMap::const_iterator i = namedSpeciesReferenceInfo.begin();
+            i != namedSpeciesReferenceInfo.end(); ++i)
+    {
+        if (i->second.type == MultiReactantProduct)
+        {
+            uint slot = static_cast<uint>(multiReactantProductMap.size());
+            multiReactantProductMap[i->first] = slot;
+        }
+    }
 }
 
 
@@ -1967,6 +2001,8 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 
 	rr::saveBinary(out, stoichiometryMap);
 
+	rr::saveBinary(out, multiReactantProductMap);
+
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
@@ -2018,6 +2054,8 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, stoichTypes);
 
 	rr::loadBinary(in, stoichiometryMap);
+
+	rr::loadBinary(in, multiReactantProductMap);
 
 	rr::loadBinary(in, assignmentRules);
 

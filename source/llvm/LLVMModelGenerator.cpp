@@ -557,6 +557,7 @@ namespace rrllvm {
         // no initial conditions for these
         uint numRateRules = static_cast<uint>(symbols.getRateRuleSize());
         uint numReactions = static_cast<uint>(symbols.getReactionSize());
+        uint numMultiReactantProduct = static_cast<uint>(symbols.getMultiReactantProductSize());
 
         uint modelDataSize = modelDataBaseSize +
             sizeof(double) * (
@@ -569,7 +570,9 @@ namespace rrllvm {
                 numInitGlobalParameters +
                 numReactions +
                 numRateRules +
-                numIndFloatingSpecies
+                numIndFloatingSpecies +
+                numMultiReactantProduct +
+                numMultiReactantProduct // multiReactantProductInitValues, same size
                 );
 
         LLVMModelData* modelData = (LLVMModelData*)calloc(
@@ -588,6 +591,7 @@ namespace rrllvm {
 
         modelData->numRateRules = numRateRules;
         modelData->numReactions = numReactions;
+        modelData->numMultiReactantProduct = numMultiReactantProduct;
         modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
         modelData->numPiecewiseTriggers = numPiecewiseTriggers;
 
@@ -624,15 +628,25 @@ namespace rrllvm {
         modelData->floatingSpeciesAmountsAlias = &modelData->data[offset];
         offset += numIndFloatingSpecies;
 
+        modelData->multiReactantProductAlias = &modelData->data[offset];
+        offset += numMultiReactantProduct;
+
+        modelData->multiReactantProductInitAlias = &modelData->data[offset];
+        offset += numMultiReactantProduct;
+
         assert(modelDataBaseSize + offset * sizeof(double) == modelDataSize &&
             "LLVMModelData size not equal to base size + data");
 
-        // allocate the stoichiometry matrix
+        // allocate the stoichiometry matrix, and a second one with the same
+        // sparsity pattern to hold the frozen initial values.
         const std::vector<uint>& stoichRowIndx = symbols.getStoichRowIndx();
         const std::vector<uint>& stoichColIndx = symbols.getStoichColIndx();
         std::vector<double> stoichValues(stoichRowIndx.size(), 0);
 
         modelData->stoichiometry = rr::csr_matrix_new(numIndFloatingSpecies, numReactions,
+            stoichRowIndx, stoichColIndx, stoichValues);
+
+        modelData->initStoichiometry = rr::csr_matrix_new(numIndFloatingSpecies, numReactions,
             stoichRowIndx, stoichColIndx, stoichValues);
 
         // make a copy of the random object

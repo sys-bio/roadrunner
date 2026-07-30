@@ -123,6 +123,8 @@ Value* EvalInitialConditionsCodeGen::codeGen()
         codeGenInitCompartments(initValueStoreResolver, modelValueResolver);
 
         codeGenInitGlobalParameters(initValueStoreResolver, modelValueResolver);
+
+        codeGenInitStoichiometry(modelData);
     }
 
     builder.CreateRetVoid();
@@ -230,6 +232,36 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
         Value *col = ConstantInt::get(Type::getInt32Ty(context), nz.column, true);
         ModelDataIRBuilder::createCSRMatrixSetNZ(builder, stoich, row, col, stoichValue);
 
+    }
+}
+
+void EvalInitialConditionsCodeGen::codeGenInitStoichiometry(llvm::Value *modelData)
+{
+    // mirrors codeGenInitSpecies/Compartments/GlobalParameters: pass 1
+    // (codeGenStoichiometry, above) has already computed the true t=0
+    // value of every stoichiometry-matrix cell, so just copy it over to
+    // the frozen init matrix rather than re-evaluating anything.
+    ModelDataIRBuilder modelDataBuilder(modelData, dataSymbols, builder);
+
+    Value *stoichEP = modelDataBuilder.createGEP(Stoichiometry);
+    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+
+    Value *initStoichEP = modelDataBuilder.createGEP(InitStoichiometry);
+    Value *initStoich = builder.CreateLoad(initStoichEP->getType()->getPointerElementType(), initStoichEP, "initStoichiometry");
+
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
+            dataSymbols.getStoichiometryList();
+
+    for (std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::iterator i =
+            stoichEntries.begin(); i != stoichEntries.end(); i++)
+    {
+        LLVMModelDataSymbols::SpeciesReferenceInfo nz = *i;
+
+        Value *row = ConstantInt::get(Type::getInt32Ty(context), nz.row, true);
+        Value *col = ConstantInt::get(Type::getInt32Ty(context), nz.column, true);
+
+        Value *value = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, row, col);
+        ModelDataIRBuilder::createCSRMatrixSetNZ(builder, initStoich, row, col, value);
     }
 }
 

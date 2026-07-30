@@ -1355,17 +1355,16 @@ namespace rr {
                 break;
             case SelectionRecord::STOICHIOMETRY:
                 if (record.p2.empty()) {
-                    // named speciesReference (e.g. "n"): its own magnitude,
-                    // regardless of reactant/product role.
+                    // named form ("n"): the reference's own literal value,
+                    // with no sign correction for reactant/product.
                     dResult = impl->model->getStoichiometry(record.index);
                 }
                 else {
-                    // stoich(species, reaction): the raw stoichiometry
-                    // matrix cell (negative for reactants, positive for
-                    // products), not any individual reference's magnitude.
-                    int speciesIndex = impl->model->getFloatingSpeciesIndex(record.p1);
-                    int reactionIndex = impl->model->getReactionIndex(record.p2);
-                    dResult = impl->model->getStoichiometry(speciesIndex, reactionIndex);
+                    // stoich(species, reaction) form: the raw
+                    // stoichiometry-matrix cell, with no sign correction.
+                    dResult = impl->model->getStoichiometry(
+                        impl->model->getFloatingSpeciesIndex(record.p1),
+                        impl->model->getReactionIndex(record.p2));
                 }
                 break;
             case SelectionRecord::INITIAL_STOICHIOMETRY:
@@ -1373,9 +1372,9 @@ namespace rr {
                     dResult = impl->model->getInitStoichiometry(record.index);
                 }
                 else {
-                    int speciesIndex = impl->model->getFloatingSpeciesIndex(record.p1);
-                    int reactionIndex = impl->model->getReactionIndex(record.p2);
-                    dResult = impl->model->getInitStoichiometry(speciesIndex, reactionIndex);
+                    dResult = impl->model->getInitStoichiometry(
+                        impl->model->getFloatingSpeciesIndex(record.p1),
+                        impl->model->getReactionIndex(record.p2));
                 }
                 break;
             case SelectionRecord::TIME:
@@ -5163,28 +5162,21 @@ namespace rr {
         //Run 'createSelection' so it throws if it's an invalid ID right away.
         SelectionRecord sel = createSelection(sId);
 
-        if (sel.selectionType & SelectionRecord::INITIAL && sel.p2 == "") {
+        if (sel.selectionType & SelectionRecord::INITIAL) {
             if (sel.selectionType & SelectionRecord::CONCENTRATION) {
                 setInitConcentration(sel.p1, dValue);
+            }
+            else if (sel.selectionType & SelectionRecord::STOICHIOMETRY && !sel.p2.empty()) {
+                // unnamed speciesReference, addressed by species + reaction
+                // rather than by id.
+                setInitStoichiometryValue(sel.p1, sel.p2, dValue);
             }
             else {
                 setInitValue(sel.p1, dValue);
             }
         }
-        
         else {
             impl->model->setValue(sId, dValue);
-
-            if (sel.selectionType & SelectionRecord::INITIAL) {
-                reset(
-                    SelectionRecord::TIME |
-                    SelectionRecord::RATE |
-                    SelectionRecord::FLOATING |
-                    SelectionRecord::BOUNDARY |
-                    SelectionRecord::COMPARTMENT |
-                    SelectionRecord::GLOBAL_PARAMETER |
-                    SelectionRecord::STOICHIOMETRY);
-            }
         }
     }
 
@@ -6729,6 +6721,58 @@ namespace rr {
         setSBMLValue(sbmlModel, sid, initValue, isConcentration);
 
         impl->model->setValue("init(" + origId + ")", initValue);
+        regenerateModel(true);
+        reset(
+            SelectionRecord::TIME |
+            SelectionRecord::RATE |
+            SelectionRecord::FLOATING |
+            SelectionRecord::BOUNDARY |
+            SelectionRecord::COMPARTMENT |
+            SelectionRecord::GLOBAL_PARAMETER);
+    }
+
+    void RoadRunner::setInitStoichiometryValue(const std::string& speciesId, const std::string& reactionId, double initValue) {
+        using namespace libsbml;
+        Model* sbmlModel = impl->document->getModel();
+
+        Reaction* reaction = sbmlModel->getReaction(reactionId);
+        if (reaction == NULL) {
+            throw std::invalid_argument("Unable to find reaction with id '" + reactionId + "'");
+        }
+
+        SpeciesReference* target = NULL;
+        bool isReactant = false;
+        for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
+            SpeciesReference* r = reaction->getReactant(i);
+            if (r->getSpecies() == speciesId) {
+                if (target != NULL) {
+                    throw std::invalid_argument("Species '" + speciesId + "' appears more than once in reaction '"
+                        + reactionId + "'; unable to set its initial stoichiometry unambiguously.");
+                }
+                target = r;
+                isReactant = true;
+            }
+        }
+        for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
+            SpeciesReference* p = reaction->getProduct(i);
+            if (p->getSpecies() == speciesId) {
+                if (target != NULL) {
+                    throw std::invalid_argument("Species '" + speciesId + "' appears more than once in reaction '"
+                        + reactionId + "'; unable to set its initial stoichiometry unambiguously.");
+                }
+                target = p;
+                isReactant = false;
+            }
+        }
+        if (target == NULL) {
+            throw std::invalid_argument("Species '" + speciesId + "' is not a reactant or product of reaction '" + reactionId + "'");
+        }
+
+        // initValue is the desired stoichiometry-matrix cell value; the raw
+        // SBML attribute is negated for a reactant relative to that (see
+        // createStoichiometryNode), so undo that here before writing it.
+        target->setStoichiometry(isReactant ? -initValue : initValue);
+
         regenerateModel(true);
         reset(
             SelectionRecord::TIME |

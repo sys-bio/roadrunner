@@ -70,16 +70,24 @@ enum ModelDataFields {
     RateRuleValuesAlias,                      // 30
     FloatingSpeciesAmountsAlias,              // 31
 
-    CompartmentVolumes,                       // 32
-    InitCompartmentVolumes,                   // 33
-    InitFloatingSpeciesAmounts,               // 34
-    BoundarySpeciesAmounts,                   // 35
-    InitBoundarySpeciesAmounts,               // 36
-    GlobalParameters,                         // 37
-    InitGlobalParameters,                     // 38
-    ReactionRates,                            // 39
-    NotSafe_RateRuleValues,                   // 40
-    NotSafe_FloatingSpeciesAmounts,           // 41
+    NumMultiReactantProduct,                   // 32
+    MultiReactantProductAlias,                 // 33
+    MultiReactantProductInitAlias,             // 34
+
+    InitStoichiometry,                        // 35
+
+    CompartmentVolumes,                       // 36
+    InitCompartmentVolumes,                   // 37
+    InitFloatingSpeciesAmounts,               // 38
+    BoundarySpeciesAmounts,                   // 39
+    InitBoundarySpeciesAmounts,               // 40
+    GlobalParameters,                         // 41
+    InitGlobalParameters,                     // 42
+    ReactionRates,                            // 43
+    NotSafe_RateRuleValues,                   // 44
+    NotSafe_FloatingSpeciesAmounts,           // 45
+    MultiReactantProductValues,        // 46
+    MultiReactantProductInitValues,   // 47
 };
 
 enum EventAtributes
@@ -251,6 +259,21 @@ public:
     std::string getStoichiometryIdFor(const std::string&, const std::string&) const;
     std::vector<std::string> getStoichiometryIds() const;
     size_t getStoichiometrySize() const;
+
+    /**
+     * index of a MultiReactantProduct-typed named stoichiometry's
+     * independent storage slot, or -1 if id is not one.
+     */
+    int getMultiReactantProductIndex(const std::string& id) const;
+
+    /**
+     * number of named stoichiometries whose species is referenced more
+     * than once within a single reaction -- whether the colliding
+     * reference is itself named or not, e.g. both references in
+     * "n A + 2 A -> B" (only "n" named) count, since the two references
+     * to A cannot share the single stoichiometry-matrix cell.
+     */
+    size_t getMultiReactantProductSize() const;
 
 
     std::vector<std::string> getGlobalParameterIds() const;
@@ -716,6 +739,13 @@ private:
      * so lookups don't require scanning stoichIds linearly.
      */
     StringUIntMap stoichiometryMap;
+
+    /**
+     * maps a MultiReactantProduct-typed named stoichiometry's id to a
+     * dense, 0-based slot in the multiReactantProductValues storage array,
+     * built as a post-pass in initReactions().
+     */
+    StringUIntMap multiReactantProductMap;
 
     /**
      * the set of rule, these contain the variable name of the rule so that

@@ -223,10 +223,37 @@ struct LLVMModelData
      */
     double*                             floatingSpeciesAmountsAlias;      // 31
 
-    /*
-     * initial stoichiometry matrix
+    /**
+     * number of named stoichiometries whose species is referenced more
+     * than once within a single reaction -- whether the colliding
+     * reference is itself named or not, e.g. both references in
+     * "n A + 2 A -> B" (only "n" named) count, since they cannot share
+     * the single stoichiometry-matrix cell for that species/reaction
+     * pair. Each such named reference gets its own independent storage slot.
      */
-    //rr::csr_matrix*                     initStoichiometry;                // 32
+    unsigned                            numMultiReactantProduct;           // 32
+
+    /**
+     * independent storage for MultiReactantProduct-typed named
+     * stoichiometries, one slot per numMultiReactantProduct.
+     */
+    double*                             multiReactantProductAlias;         // 33
+
+    /**
+     * independent init-value storage for MultiReactantProduct-typed named
+     * stoichiometries, one slot per numMultiReactantProduct, paired with
+     * multiReactantProductAlias the same way initStoichiometry is paired
+     * with stoichiometry.
+     */
+    double*                             multiReactantProductInitAlias;    // 34
+
+    /**
+     * initial stoichiometry matrix. Frozen at the values setInitStoichiometry
+     * writes (or, absent an explicit set, whatever evalInitialConditions
+     * computed at load time); reset() restores the live stoichiometry
+     * matrix from this, independent of the live matrix.
+     */
+    rr::csr_matrix*                     initStoichiometry;                 // 35
 
     /**
 	 * binary data layout:
@@ -242,14 +269,16 @@ struct LLVMModelData
      *
      * rateRuleValues                    [numRateRules]
      * floatingSpeciesAmounts            [numIndFloatingSpecies]
+     * multiReactantProductValues        [numMultiReactantProduct]
+     * multiReactantProductInitValues    [numMultiReactantProduct]
      */
 
 	 /**
 	 * This dynamic-sized array will be allocated while this ModelData is allocated.
-	 * Ten array in the permanent data section is stored contiously in this chunk.
-	 * Size of each array is defined by ten unsigned integer above.
-	 * Values can be accessed using ten alias pointers defined above.
-	 * 
+	 * Each array in the permanent data section is stored contiously in this chunk.
+	 * Size of each array is defined by the unsigned integers above.
+	 * Values can be accessed using the alias pointers defined above.
+	 *
 	 */
     double                              data[0];                          // not listed
 };

@@ -294,3 +294,93 @@ TEST_F(SBMLFeatures, get_named_stoich_value_from_model) {
 }
 
 
+// init(x) and x currently share the same storage for stoichiometries, which
+// is a bug: setting one should not affect the other. These three tests pin
+// down the expected, independent behavior for the three cases that need it:
+// a plain named stoichiometry, a named stoichiometry whose species is a
+// MultiReactantProduct, and an unnamed stoichiometry accessed via
+// stoich(species, reaction).
+
+TEST_F(SBMLFeatures, named_stoich_init_and_current_are_independent) {
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
+
+  rr.setValue("init(n)", 3);
+  rr.setValue("n", 5);
+
+  EXPECT_EQ(rr.getValue("init(n)"), 3);
+  EXPECT_EQ(rr.getValue("n"), 5);
+}
+
+TEST_F(SBMLFeatures, named_stoich_init_and_current_are_independent_multi_reactant) {
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_multi_reactant.xml").string());
+
+  ASSERT_NO_THROW(rr.setValue("init(r1)", 3));
+  ASSERT_NO_THROW(rr.setValue("r1", 5));
+
+  EXPECT_EQ(rr.getValue("init(r1)"), 3);
+  EXPECT_EQ(rr.getValue("r1"), 5);
+}
+
+TEST_F(SBMLFeatures, unnamed_stoich_init_and_current_are_independent) {
+  RoadRunner rr((SBMLFeaturesDir / "named_stoic_in_kinetic_law.xml").string());
+
+  // A is an unnamed reactant in J0 (stoichiometry 1). setValue(stoich(x,y), v)
+  // takes v as a positive magnitude and sign-flips internally for a reactant,
+  // so 3/5 here become -3/-5.
+  ASSERT_NO_THROW(rr.setValue("init(stoich(A, J0))", 3));
+  ASSERT_NO_THROW(rr.setValue("stoich(A, J0)", 5));
+
+  EXPECT_EQ(rr.getValue("init(stoich(A, J0))"), 3);
+  EXPECT_EQ(rr.getValue("stoich(A, J0)"), 5);
+
+  //For B, its stoichiometry is named 'n', and it is a reactant
+  // When setting this using the 'stoich(B, J0)' form, internally, this
+  // sets the literal stoichiometry of the reactant to a negative value.
+
+  ASSERT_NO_THROW(rr.setValue("init(stoich(B, J0))", 3));
+  ASSERT_NO_THROW(rr.setValue("stoich(B, J0)", 5));
+
+  EXPECT_EQ(rr.getValue("init(stoich(B, J0))"), 3);
+  EXPECT_EQ(rr.getValue("stoich(B, J0)"), 5);
+
+  EXPECT_EQ(rr.getValue("init(n)"), -3);
+  EXPECT_EQ(rr.getValue("n"), -5);
+
+  //Conversely, when setting this using the 'n' form, internally, this
+  // sets the literal stoichiometry of the reactant to a positive value,
+  // meaning that the 'stoich(B, J0)' form will be negative (like the 
+  // stoichiometry matrix)
+
+  ASSERT_NO_THROW(rr.setValue("init(n)", 4));
+  ASSERT_NO_THROW(rr.setValue("n", 6));
+
+  EXPECT_EQ(rr.getValue("init(stoich(B, J0))"), -4);
+  EXPECT_EQ(rr.getValue("stoich(B, J0)"), -6);
+
+  EXPECT_EQ(rr.getValue("init(n)"), 4);
+  EXPECT_EQ(rr.getValue("n"), 6);
+
+  // For C, its stoichiometry is named 'm', and it is a product.
+  // This means the regardless of form, there are never any sign flips
+
+  ASSERT_NO_THROW(rr.setValue("init(stoich(C, J0))", 3));
+  ASSERT_NO_THROW(rr.setValue("stoich(C, J0)", 5));
+
+  EXPECT_EQ(rr.getValue("init(stoich(C, J0))"), 3);
+  EXPECT_EQ(rr.getValue("stoich(C, J0)"), 5);
+
+  EXPECT_EQ(rr.getValue("init(m)"), 3);
+  EXPECT_EQ(rr.getValue("m"), 5);
+
+  ASSERT_NO_THROW(rr.setValue("init(m)", 4));
+  ASSERT_NO_THROW(rr.setValue("m", 6));
+
+  EXPECT_EQ(rr.getValue("init(stoich(C, J0))"), 4);
+  EXPECT_EQ(rr.getValue("stoich(C, J0)"), 6);
+
+  EXPECT_EQ(rr.getValue("init(m)"), 4);
+  EXPECT_EQ(rr.getValue("m"), 6);
+
+}
+
+
