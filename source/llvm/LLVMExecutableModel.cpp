@@ -843,9 +843,9 @@ void LLVMExecutableModel::reset(int opt)
         {
             memcpy(modelData->stoichiometry->values, modelData->initStoichiometry->values,
                 modelData->stoichiometry->nnz * sizeof(double));
-            for (unsigned i = 0; i < modelData->numMultiReactantProduct; ++i)
+            for (unsigned i = 0; i < modelData->numMultiSpeciesReferences; ++i)
             {
-                modelData->multiReactantProductAlias[i] = modelData->multiReactantProductInitAlias[i];
+                modelData->multiSpeciesReferencesAlias[i] = modelData->multiSpeciesReferencesInitAlias[i];
             }
         }
 
@@ -2387,19 +2387,19 @@ int LLVMExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
     return result;
 }
 
-// A row/col cell is a MultiReactantProduct when more than one speciesReference
+// A row/col cell is a MultiSpeciesReference when more than one speciesReference
 // (named or not) collides on it. Setting it via (species, reaction) is
 // ambiguous -- there's no way to tell which underlying speciesReference the
 // caller meant -- so callers that address stoichiometry this way need to
 // check first and throw rather than silently overwrite the combined cell.
-static bool isMultiReactantProductCell(const LLVMModelDataSymbols* symbols, int speciesIndex, int reactionIndex)
+static bool isMultiSpeciesReferenceCell(const LLVMModelDataSymbols* symbols, int speciesIndex, int reactionIndex)
 {
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries = symbols->getStoichiometryList();
     for (std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator i = stoichEntries.begin();
             i != stoichEntries.end(); ++i)
     {
         if (i->row == speciesIndex && i->column == reactionIndex)
-            return i->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct;
+            return i->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference;
     }
     return false;
 }
@@ -2445,8 +2445,8 @@ int LLVMExecutableModel::setStoichiometry(int index, double value)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction.");
     else
         throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
@@ -2458,9 +2458,8 @@ int LLVMExecutableModel::setStoichiometry(int speciesIndex, int reactionIndex, d
     if (symbols->isConservedMoietyAnalysis())
         throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
 
-    if (isMultiReactantProductCell(symbols, speciesIndex, reactionIndex))
-        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct: more than one "
-            "speciesReference shares this (species, reaction) cell, so it is ambiguous which one to set.");
+    if (isMultiSpeciesReferenceCell(symbols, speciesIndex, reactionIndex))
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction: it is ambiguous which one to set.");
 
     double result = csr_matrix_set_nz(modelData->stoichiometry, speciesIndex, reactionIndex, value);
     return isnan(result) ? 0 : result;
@@ -2507,8 +2506,8 @@ int LLVMExecutableModel::setInitStoichiometry(int index, double value)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot set stoichiometry for a MultiSpeciesReference");
     else
         throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
@@ -2520,9 +2519,8 @@ int LLVMExecutableModel::setInitStoichiometry(int speciesIndex, int reactionInde
     if (symbols->isConservedMoietyAnalysis())
         throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
 
-    if (isMultiReactantProductCell(symbols, speciesIndex, reactionIndex))
-        throw_llvm_exception("Cannot set stoichiometry for a MultiReactantProduct: more than one "
-            "speciesReference shares this (species, reaction) cell, so it is ambiguous which one to set.");
+    if (isMultiSpeciesReferenceCell(symbols, speciesIndex, reactionIndex))
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction: it is ambiguous which one to set.");
 
     double result = csr_matrix_set_nz(modelData->initStoichiometry, speciesIndex, reactionIndex, value);
     return isnan(result) ? 0 : result;
@@ -2547,8 +2545,8 @@ double LLVMExecutableModel::getStoichiometry(int index)
         return -1 * getStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getStoichiometry(stoichiometry->row, stoichiometry->column);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw_llvm_exception("Cannot return stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot return stoichiometry for a species that shows up multiple times in the same reaction."); //Might not ever hit this?
     else
         throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }
@@ -2571,8 +2569,8 @@ double LLVMExecutableModel::getInitStoichiometry(int index)
         return -1 * getInitStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getInitStoichiometry(stoichiometry->row, stoichiometry->column);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw_llvm_exception("Cannot return stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot return stoichiometry for a species that shows up multiple times in the same reaction"); //Might not hit this?
     else
         throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }

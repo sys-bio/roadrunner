@@ -157,7 +157,7 @@ namespace rrllvm
 
             Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
 
-            if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
+            if (info.type == LLVMModelDataSymbols::MultiSpeciesReference)
             {
                 std::string msg = "Mutable stochiometry for species which appear "
                     "multiple times in a single reaction is not currently "
@@ -289,7 +289,7 @@ namespace rrllvm
             const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
                 modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
-            if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
+            if (info.type == LLVMModelDataSymbols::MultiSpeciesReference)
             {
                 std::string msg = "Mutable stochiometry for species which appear "
                     "multiple times in a single reaction is not currently "

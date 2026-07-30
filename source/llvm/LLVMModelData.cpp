@@ -66,11 +66,11 @@ std::ostream& operator <<(std::ostream& os, const LLVMModelData& data)
     os << "rateRuleValues: "                << std::endl;
     dump_array(os, data.numRateRules, data.rateRuleValuesAlias);
 
-    os << "numMultiReactantProduct: "        << data.numMultiReactantProduct << std::endl;
-    os << "multiReactantProductValues: "     << std::endl;
-    dump_array(os, data.numMultiReactantProduct, data.multiReactantProductAlias);
-    os << "multiReactantProductInitValues: " << std::endl;
-    dump_array(os, data.numMultiReactantProduct, data.multiReactantProductInitAlias);
+    os << "numMultiSpeciesReferences: "     << data.numMultiSpeciesReferences << std::endl;
+    os << "multiSpeciesReferenceValues: "   << std::endl;
+    dump_array(os, data.numMultiSpeciesReferences, data.multiSpeciesReferencesAlias);
+    os << "multiSpeciesReferencesInitValues: " << std::endl;
+    dump_array(os, data.numMultiSpeciesReferences, data.multiSpeciesReferencesInitAlias);
 
     os << "floatingSpeciesAmounts: "        << std::endl;
     dump_array(os, data.numIndFloatingSpecies, data.floatingSpeciesAmountsAlias);
@@ -128,7 +128,7 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, data->numInitFloatingSpecies);
 	rr::saveBinary(out, data->numInitBoundarySpecies);
 	rr::saveBinary(out, data->numInitGlobalParameters);
-	rr::saveBinary(out, data->numMultiReactantProduct);
+	rr::saveBinary(out, data->numMultiSpeciesReferences);
     
 	rr::saveBinary(out, data->numEvents);
 	rr::saveBinary(out, data->numPiecewiseTriggers);
@@ -174,11 +174,11 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	unsigned floatingSpeciesAmountsAliasOffset = data->floatingSpeciesAmountsAlias - data->data;
 	rr::saveBinary(out, floatingSpeciesAmountsAliasOffset);
 
-	unsigned multiReactantProductAliasOffset = data->multiReactantProductAlias - data->data;
-	rr::saveBinary(out, multiReactantProductAliasOffset);
+	unsigned multiSpeciesReferenceAliasOffset = data->multiSpeciesReferencesAlias - data->data;
+	rr::saveBinary(out, multiSpeciesReferenceAliasOffset);
 
-	unsigned multiReactantProductInitAliasOffset = data->multiReactantProductInitAlias - data->data;
-	rr::saveBinary(out, multiReactantProductInitAliasOffset);
+	unsigned multiSpeciesReferenceInitAliasOffset = data->multiSpeciesReferencesInitAlias - data->data;
+	rr::saveBinary(out, multiSpeciesReferenceInitAliasOffset);
 
 	//save the data itself
 	//the size is the sum of the unsigned integers at the top of LLVMModelData
@@ -186,7 +186,7 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 		                data->numIndGlobalParameters + data->numRateRules + data->numReactions +
 						data->numInitCompartments + data->numInitFloatingSpecies +
 		                data->numInitBoundarySpecies + data->numInitGlobalParameters +
-						data->numMultiReactantProduct + data->numMultiReactantProduct;
+						data->numMultiSpeciesReferences + data->numMultiSpeciesReferences;
 
 	out.write((char*)(data->data), dataSize*sizeof(double));
 }
@@ -216,7 +216,7 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	rr::loadBinary(in, data->numInitFloatingSpecies);
 	rr::loadBinary(in, data->numInitBoundarySpecies);
 	rr::loadBinary(in, data->numInitGlobalParameters);
-	rr::loadBinary(in, data->numMultiReactantProduct);
+	rr::loadBinary(in, data->numMultiSpeciesReferences);
 
 	rr::loadBinary(in, data->numEvents);
 	rr::loadBinary(in, data->numPiecewiseTriggers);
@@ -268,13 +268,13 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	rr::loadBinary(in, floatingSpeciesAmountsAliasOffset);
 	data->floatingSpeciesAmountsAlias = data->data + floatingSpeciesAmountsAliasOffset;
 
-	unsigned multiReactantProductAliasOffset;
-	rr::loadBinary(in, multiReactantProductAliasOffset);
-	data->multiReactantProductAlias = data->data + multiReactantProductAliasOffset;
+	unsigned multiSpeciesReferenceAliasOffset;
+	rr::loadBinary(in, multiSpeciesReferenceAliasOffset);
+	data->multiSpeciesReferencesAlias = data->data + multiSpeciesReferenceAliasOffset;
 
-	unsigned multiReactantProductInitAliasOffset;
-	rr::loadBinary(in, multiReactantProductInitAliasOffset);
-	data->multiReactantProductInitAlias = data->data + multiReactantProductInitAliasOffset;
+	unsigned multiSpeciesReferenceInitAliasOffset;
+	rr::loadBinary(in, multiSpeciesReferenceInitAliasOffset);
+	data->multiSpeciesReferencesInitAlias = data->data + multiSpeciesReferenceInitAliasOffset;
 
 	//save the data itself
 	//the size is the sum of the unsigned integers at the top of LLVMModelData
@@ -282,7 +282,7 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 		                data->numIndGlobalParameters + data->numRateRules + data->numReactions +
 						data->numInitCompartments + data->numInitFloatingSpecies +
 		                data->numInitBoundarySpecies + data->numInitGlobalParameters +
-						data->numMultiReactantProduct + data->numMultiReactantProduct;
+						data->numMultiSpeciesReferences + data->numMultiSpeciesReferences;
 	if (dataSize*sizeof(double) + sizeof(LLVMModelData) != size) {
 		size = dataSize + sizeof(LLVMModelData);
 	}

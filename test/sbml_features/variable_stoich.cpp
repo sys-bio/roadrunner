@@ -156,7 +156,7 @@ TEST_F(SBMLFeatures, variable_stoich_event_full_reset_restores_initial) {
 
 // dual_rate_rule_stoich.xml: S1_stoich (reactant of S1, rate rule 0.01)
 // and S2_stoich (product of S2, rate rule 0.02) -- different species, no
-// MultiReactantProduct collision. The named-id form always returns the
+// MultiSpeciesReference collision. The named-id form always returns the
 // reference's own positive magnitude; the stoich(species, reaction) form
 // reads the raw matrix cell (negative for a reactant).
 TEST_F(SBMLFeatures, dual_rate_rule_stoich_selectors) {

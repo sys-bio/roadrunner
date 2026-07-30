@@ -70,9 +70,9 @@ enum ModelDataFields {
     RateRuleValuesAlias,                      // 30
     FloatingSpeciesAmountsAlias,              // 31
 
-    NumMultiReactantProduct,                   // 32
-    MultiReactantProductAlias,                 // 33
-    MultiReactantProductInitAlias,             // 34
+    NumMultiSpeciesReferences,                // 32
+    MultiSpeciesReferencesAlias,              // 33
+    MultiSpeciesReferencesInitAlias,          // 34
 
     InitStoichiometry,                        // 35
 
@@ -86,8 +86,8 @@ enum ModelDataFields {
     ReactionRates,                            // 43
     NotSafe_RateRuleValues,                   // 44
     NotSafe_FloatingSpeciesAmounts,           // 45
-    MultiReactantProductValues,        // 46
-    MultiReactantProductInitValues,   // 47
+    MultiSpeciesReferenceValues,              // 46
+    MultiSpeciesReferenceInitValues,          // 47
 };
 
 enum EventAtributes
@@ -143,7 +143,7 @@ public:
 
     enum SpeciesReferenceType
     {
-        Reactant, Product, Modifier, MultiReactantProduct
+        Reactant, Product, Modifier, MultiSpeciesReference
     };
 
     /**
@@ -261,10 +261,10 @@ public:
     size_t getStoichiometrySize() const;
 
     /**
-     * index of a MultiReactantProduct-typed named stoichiometry's
+     * index of a MultiSpeciesReference-typed named stoichiometry's
      * independent storage slot, or -1 if id is not one.
      */
-    int getMultiReactantProductIndex(const std::string& id) const;
+    int getMultiSpeciesReferenceIndex(const std::string& id) const;
 
     /**
      * number of named stoichiometries whose species is referenced more
@@ -273,7 +273,7 @@ public:
      * "n A + 2 A -> B" (only "n" named) count, since the two references
      * to A cannot share the single stoichiometry-matrix cell.
      */
-    size_t getMultiReactantProductSize() const;
+    size_t getMultiSpeciesReferenceSize() const;
 
 
     std::vector<std::string> getGlobalParameterIds() const;
@@ -741,11 +741,11 @@ private:
     StringUIntMap stoichiometryMap;
 
     /**
-     * maps a MultiReactantProduct-typed named stoichiometry's id to a
-     * dense, 0-based slot in the multiReactantProductValues storage array,
+     * maps a MultiSpeciesReference-typed named stoichiometry's id to a
+     * dense, 0-based slot in the multiSpeciesReferenceValues storage array,
      * built as a post-pass in initReactions().
      */
-    StringUIntMap multiReactantProductMap;
+    StringUIntMap multiSpeciesReferenceMap;
 
     /**
      * the set of rule, these contain the variable name of the rule so that

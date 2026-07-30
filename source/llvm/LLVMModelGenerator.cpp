@@ -557,7 +557,7 @@ namespace rrllvm {
         // no initial conditions for these
         uint numRateRules = static_cast<uint>(symbols.getRateRuleSize());
         uint numReactions = static_cast<uint>(symbols.getReactionSize());
-        uint numMultiReactantProduct = static_cast<uint>(symbols.getMultiReactantProductSize());
+        uint numMultiSpeciesReferences = static_cast<uint>(symbols.getMultiSpeciesReferenceSize());
 
         uint modelDataSize = modelDataBaseSize +
             sizeof(double) * (
@@ -571,8 +571,8 @@ namespace rrllvm {
                 numReactions +
                 numRateRules +
                 numIndFloatingSpecies +
-                numMultiReactantProduct +
-                numMultiReactantProduct // multiReactantProductInitValues, same size
+                numMultiSpeciesReferences +
+                numMultiSpeciesReferences // multiSpeciesReferencesInitValues, same size
                 );
 
         LLVMModelData* modelData = (LLVMModelData*)calloc(
@@ -591,7 +591,7 @@ namespace rrllvm {
 
         modelData->numRateRules = numRateRules;
         modelData->numReactions = numReactions;
-        modelData->numMultiReactantProduct = numMultiReactantProduct;
+        modelData->numMultiSpeciesReferences = numMultiSpeciesReferences;
         modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
         modelData->numPiecewiseTriggers = numPiecewiseTriggers;
 
@@ -628,11 +628,11 @@ namespace rrllvm {
         modelData->floatingSpeciesAmountsAlias = &modelData->data[offset];
         offset += numIndFloatingSpecies;
 
-        modelData->multiReactantProductAlias = &modelData->data[offset];
-        offset += numMultiReactantProduct;
+        modelData->multiSpeciesReferencesAlias = &modelData->data[offset];
+        offset += numMultiSpeciesReferences;
 
-        modelData->multiReactantProductInitAlias = &modelData->data[offset];
-        offset += numMultiReactantProduct;
+        modelData->multiSpeciesReferencesInitAlias = &modelData->data[offset];
+        offset += numMultiSpeciesReferences;
 
         assert(modelDataBaseSize + offset * sizeof(double) == modelDataSize &&
             "LLVMModelData size not equal to base size + data");

@@ -298,7 +298,7 @@ TEST_F(SBMLFeatures, get_named_stoich_value_from_model) {
 // is a bug: setting one should not affect the other. These three tests pin
 // down the expected, independent behavior for the three cases that need it:
 // a plain named stoichiometry, a named stoichiometry whose species is a
-// MultiReactantProduct, and an unnamed stoichiometry accessed via
+// MultiSpeciesReference, and an unnamed stoichiometry accessed via
 // stoich(species, reaction).
 
 TEST_F(SBMLFeatures, named_stoich_init_and_current_are_independent) {

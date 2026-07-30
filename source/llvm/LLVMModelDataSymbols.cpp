@@ -91,9 +91,9 @@ static const char* modelDataFieldsNames[] =  {
         "RateRuleValuesAlias",                  // 30
         "FloatingSpeciesAmountsAlias",          // 31
 
-        "NumMultiReactantProduct",              // 32
-        "MultiReactantProductAlias",            // 33
-        "MultiReactantProductInitAlias",        // 34
+        "NumMultiSpeciesReferences",            // 32
+        "MultiSpeciesReferencesAlias",          // 33
+        "MultiSpeciesReferencesInitAlias",      // 34
 
         "InitStoichiometry",                    // 35
 
@@ -107,8 +107,8 @@ static const char* modelDataFieldsNames[] =  {
         "ReactionRates",                        // 43
         "NotSafe_RateRuleValues",               // 44
         "NotSafe_FloatingSpeciesAmounts",       // 45
-        "MultiReactantProductValues",           // 46
-        "MultiReactantProductInitValues"        // 47
+        "MultiSpeciesReferenceValues",          // 46
+        "MultiSpeciesReferenceInitValues"       // 47
 };
 
 
@@ -138,7 +138,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-            == MultiReactantProductInitValues + 1
+            == MultiSpeciesReferenceInitValues + 1
             && "wrong number of items in modelDataFieldsNames");
 }
 
@@ -153,7 +153,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-        == MultiReactantProductInitValues + 1
+        == MultiSpeciesReferenceInitValues + 1
         && "wrong number of items in modelDataFieldsNames");
 
     modelName = model->getName();
@@ -428,19 +428,19 @@ size_t LLVMModelDataSymbols::getStoichiometrySize() const
     return getStoichiometryList().size();
 }
 
-int LLVMModelDataSymbols::getMultiReactantProductIndex(const std::string& id) const
+int LLVMModelDataSymbols::getMultiSpeciesReferenceIndex(const std::string& id) const
 {
-    StringUIntMap::const_iterator i = multiReactantProductMap.find(id);
-    if (i != multiReactantProductMap.end())
+    StringUIntMap::const_iterator i = multiSpeciesReferenceMap.find(id);
+    if (i != multiSpeciesReferenceMap.end())
     {
         return i->second;
     }
     return -1;
 }
 
-size_t LLVMModelDataSymbols::getMultiReactantProductSize() const
+size_t LLVMModelDataSymbols::getMultiSpeciesReferenceSize() const
 {
-    return multiReactantProductMap.size();
+    return multiSpeciesReferenceMap.size();
 }
 
 size_t  LLVMModelDataSymbols::getFloatingSpeciesSize() const
@@ -1433,10 +1433,10 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                         << "with reactant " << r->getSpecies();
 
                     // species is listed multiple times as reactant
-                    stoichTypes[si->second] = MultiReactantProduct;
+                    stoichTypes[si->second] = MultiSpeciesReference;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiSpeciesReference);
 
                 }
             }
@@ -1498,10 +1498,10 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                         << "with product " << p->getSpecies();
 
                     // species is listed multiple times as product
-                    stoichTypes[si->second] = MultiReactantProduct;
+                    stoichTypes[si->second] = MultiSpeciesReference;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiSpeciesReference);
                 }
             }
         }
@@ -1522,15 +1522,15 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
     //  }
     //}
 
-    // give each MultiReactantProduct-typed named stoichiometry a dense,
+    // give each MultiSpeciesReference-typed named stoichiometry a dense,
     // 0-based slot for its own independent storage.
     for (StringRefInfoMap::const_iterator i = namedSpeciesReferenceInfo.begin();
             i != namedSpeciesReferenceInfo.end(); ++i)
     {
-        if (i->second.type == MultiReactantProduct)
+        if (i->second.type == MultiSpeciesReference)
         {
-            uint slot = static_cast<uint>(multiReactantProductMap.size());
-            multiReactantProductMap[i->first] = slot;
+            uint slot = static_cast<uint>(multiSpeciesReferenceMap.size());
+            multiSpeciesReferenceMap[i->first] = slot;
         }
     }
 }
@@ -2001,7 +2001,7 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 
 	rr::saveBinary(out, stoichiometryMap);
 
-	rr::saveBinary(out, multiReactantProductMap);
+	rr::saveBinary(out, multiSpeciesReferenceMap);
 
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
@@ -2055,7 +2055,7 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 
 	rr::loadBinary(in, stoichiometryMap);
 
-	rr::loadBinary(in, multiReactantProductMap);
+	rr::loadBinary(in, multiSpeciesReferenceMap);
 
 	rr::loadBinary(in, assignmentRules);
 

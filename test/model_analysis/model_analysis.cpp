@@ -2084,9 +2084,9 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
     EXPECT_THROW(rr.setValue("stoich(S2,_J0)", 3), rrllvm::LLVMException);
 }
 
-TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
+TEST_F(ModelAnalysisTests, Stoichiometry_MultiSpeciesReference) {
     // S1 is a reactant via "n" (declared 1) and an unnamed product
-    // (declared 1) in the same reaction _J0 -- a MultiReactantProduct
+    // (declared 1) in the same reaction _J0 -- a MultiSpeciesReference
     // collision. The named-id form ("n") still can't resolve to a single
     // reference's own magnitude and throws. stoich(S1,_J0), however, reads
     // the raw (role-agnostic) matrix cell, which is well-defined regardless

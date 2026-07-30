@@ -231,21 +231,21 @@ struct LLVMModelData
      * the single stoichiometry-matrix cell for that species/reaction
      * pair. Each such named reference gets its own independent storage slot.
      */
-    unsigned                            numMultiReactantProduct;           // 32
+    unsigned                            numMultiSpeciesReferences;        // 32
 
     /**
-     * independent storage for MultiReactantProduct-typed named
-     * stoichiometries, one slot per numMultiReactantProduct.
+     * independent storage for MultiSpeciesReference-typed named
+     * stoichiometries, one slot per numMultiSpeciesReference.
      */
-    double*                             multiReactantProductAlias;         // 33
+    double*                             multiSpeciesReferencesAlias;      // 33
 
     /**
-     * independent init-value storage for MultiReactantProduct-typed named
-     * stoichiometries, one slot per numMultiReactantProduct, paired with
-     * multiReactantProductAlias the same way initStoichiometry is paired
+     * independent init-value storage for MultiSpeciesReference-typed named
+     * stoichiometries, one slot per numMultiSpeciesReference, paired with
+     * multiSpeciesReferenceAlias the same way initStoichiometry is paired
      * with stoichiometry.
      */
-    double*                             multiReactantProductInitAlias;    // 34
+    double*                             multiSpeciesReferencesInitAlias;  // 34
 
     /**
      * initial stoichiometry matrix. Frozen at the values setInitStoichiometry
@@ -269,8 +269,8 @@ struct LLVMModelData
      *
      * rateRuleValues                    [numRateRules]
      * floatingSpeciesAmounts            [numIndFloatingSpecies]
-     * multiReactantProductValues        [numMultiReactantProduct]
-     * multiReactantProductInitValues    [numMultiReactantProduct]
+     * multiSpeciesReferenceValues       [numMultiSpeciesReferences]
+     * multiSpeciesReferenceInitValues   [numMultiSpeciesReferences]
      */
 
 	 /**

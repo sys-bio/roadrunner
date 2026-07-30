@@ -69,12 +69,12 @@ static bool isAliasOrPointer(ModelDataFields f)
         "RateRuleValuesAlias",                  // 30
         "FloatingSpeciesAmountsAlias",          // 31
 
-        "MultiReactantProductAlias",            // 33 (not contiguous with the above;
-                                                //     NumMultiReactantProduct, 32, sits between)
-        "MultiReactantProductInitAlias",        // 34 (contiguous with the above)
+        "MultiSpeciesReferencesAlias",          // 33 (not contiguous with the above;
+                                                //     NumMultiSpeciesReferences, 32, sits between)
+        "MultiSpeciesReferencesInitAlias",      // 34 (contiguous with the above)
      */
     return (f >= StateVector && f <= FloatingSpeciesAmountsAlias)
-        || (f >= MultiReactantProductAlias && f <= MultiReactantProductInitAlias);
+        || (f >= MultiSpeciesReferencesAlias && f <= MultiSpeciesReferencesInitAlias);
 }
 
 static bool isArray(ModelDataFields f)
@@ -91,11 +91,11 @@ static bool isArray(ModelDataFields f)
         "ReactionRates",                        // 43
         "NotSafe_RateRuleValues",               // 44
         "NotSafe_FloatingSpeciesAmounts",       // 45
-        "MultiReactantProductValues",           // 46
-        "MultiReactantProductInitValues"        // 47
+        "MultiSpeciesReferenceValues",          // 46
+        "MultiSpeciesReferenceInitValues"       // 47
      */
 
-    return f >= CompartmentVolumes && f <= MultiReactantProductInitValues;
+    return f >= CompartmentVolumes && f <= MultiSpeciesReferenceInitValues;
 }
 
 
@@ -656,7 +656,7 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         // no initial conditions for these
         size_t   numRateRules = symbols.getRateRuleSize();
         size_t   numReactions = symbols.getReactionSize();
-        size_t   numMultiReactantProduct = symbols.getMultiReactantProductSize();
+        size_t   numMultiSpeciesReferences = symbols.getMultiSpeciesReferenceSize();
 
         LLVMContext &context = module->getContext();
 
@@ -712,9 +712,9 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         elements.push_back(doublePtrType);    // 30     double*                  rateRuleValuesAlias
         elements.push_back(doublePtrType);    // 31     double*                  floatingSpeciesAmountsAlias
 
-        elements.push_back(int32Type);        // 32     int                      numMultiReactantProduct
-        elements.push_back(doublePtrType);    // 33     double*                  multiReactantProductAlias
-        elements.push_back(doublePtrType);    // 34     double*                  multiReactantProductInitAlias
+        elements.push_back(int32Type);        // 32     int                      numMultiSpeciesReferences
+        elements.push_back(doublePtrType);    // 33     double*                  multiSpeciesReferencesAlias
+        elements.push_back(doublePtrType);    // 34     double*                  multiSpeciesReferencesInitAlias
 
         elements.push_back(csrSparsePtrType); // 35     dcsr_matrix              initStoichiometry;
 
@@ -728,8 +728,8 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         elements.push_back(ArrayType::get(doubleType, numReactions));           // 43 reactionRates
         elements.push_back(ArrayType::get(doubleType, numRateRules));           // 44 rateRuleValues
         elements.push_back(ArrayType::get(doubleType, numIndFloatingSpecies));  // 45 floatingSpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numMultiReactantProduct)); // 46 multiReactantProductValues
-        elements.push_back(ArrayType::get(doubleType, numMultiReactantProduct)); // 47 multiReactantProductInitValues
+        elements.push_back(ArrayType::get(doubleType, numMultiSpeciesReferences)); // 46 multiSpeciesReferenceValues
+        elements.push_back(ArrayType::get(doubleType, numMultiSpeciesReferences)); // 47 multiSpeciesReferenceInitValues
 
         // creates a named struct,
         // the act of creating a named struct should
