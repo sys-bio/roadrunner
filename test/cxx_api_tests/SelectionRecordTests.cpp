@@ -486,6 +486,7 @@ TEST_F(SelectionRecordTests, AllIDs) {
 
     list<string> ids;
     vector<string> stoichids;
+    vector<double> stoichvals;
     rr.getIds(SelectionRecord::ALL, ids);
     for (list<string>::iterator id = ids.begin(); id != ids.end(); id++)
     {
@@ -495,9 +496,14 @@ TEST_F(SelectionRecordTests, AllIDs) {
             std::cout << *id << ": [uncalculatable; no steady state]" << std::endl;
         }
         else if ((*id).find("stoich(") < 2) {
-            EXPECT_THROW(rr.getValue(record), rrllvm::LLVMException);
-            std::cout << *id << ": [uncalculatable when conserved moieties are on]" << std::endl;
+            // Stoichiometries reflect the model's fixed structure -- reading
+            // one is safe regardless of conserved moiety analysis; only
+            // setting one is blocked while CMA is on, since it could
+            // invalidate an already-computed conservation law.
+            double val = rr.getValue(record);
+            std::cout << *id << ": " << val << " [with conserved moieties on]" << std::endl;
             stoichids.push_back(*id);
+            stoichvals.push_back(val);
         }
         else {
             double val = rr.getValue(record);
@@ -509,6 +515,7 @@ TEST_F(SelectionRecordTests, AllIDs) {
     for (size_t sid = 0; sid < stoichids.size(); sid++) {
         SelectionRecord record = rr.createSelection(stoichids[sid]);
         double val = rr.getValue(record);
+        EXPECT_EQ(val, stoichvals[sid]);
         std::cout << stoichids[sid] << ": " << val << std::endl;
     }
 }

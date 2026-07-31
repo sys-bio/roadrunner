@@ -52,6 +52,23 @@ namespace rrllvm
          * document elements.
          */
         bool isConstantASTNode(const libsbml::ASTNode* ast) const;
+
+        /**
+         * update a single MultiSpeciesReference-typed named reference's
+         * contribution to its shared stoichiometry-matrix cell by its own
+         * delta (rawValue vs. its last known value in
+         * multiSpeciesReferencesAlias), rather than overwriting the whole
+         * cell -- overwriting would discard the other reference(s) sharing
+         * that cell. Also updates multiSpeciesReferencesAlias[slot] to
+         * rawValue.
+         *
+         * @param rawValue the reference's own value, unsigned (no sign
+         * correction for reactant/product), as computed from its rate
+         * rule / assignment rule / StoichiometryMath.
+         */
+        void codeGenMultiSpeciesReferenceUpdate(ModelDataIRBuilder& mdbuilder,
+            const LLVMModelDataSymbols::SpeciesReferenceInfo& info,
+            const std::string& id, llvm::Value* rawValue, bool isReactant);
     };
 
 } /* namespace rrllvm */

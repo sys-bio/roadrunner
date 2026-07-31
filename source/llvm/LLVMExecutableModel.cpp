@@ -184,6 +184,7 @@ LLVMExecutableModel::LLVMExecutableModel() :
     eventAssignPtr(0),
     getPiecewiseTriggerPtr(0),
     evalVolatileStoichPtr(0),
+    resetRateRuleStoichPtr(0),
     evalConversionFactorPtr(0),
     setBoundarySpeciesAmountPtr(0),
     setFloatingSpeciesAmountPtr(0),
@@ -232,6 +233,7 @@ LLVMExecutableModel::LLVMExecutableModel(
     eventAssignPtr(modelResources->eventAssignPtr),
     getPiecewiseTriggerPtr(modelResources->getPiecewiseTriggerPtr),
     evalVolatileStoichPtr(modelResources->evalVolatileStoichPtr),
+    resetRateRuleStoichPtr(modelResources->resetRateRuleStoichPtr),
     evalConversionFactorPtr(modelResources->evalConversionFactorPtr),
     setBoundarySpeciesAmountPtr(modelResources->setBoundarySpeciesAmountPtr),
     setFloatingSpeciesAmountPtr(modelResources->setFloatingSpeciesAmountPtr),
@@ -300,6 +302,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     eventAssignPtr = resources->eventAssignPtr;
     getPiecewiseTriggerPtr = resources->getPiecewiseTriggerPtr;
     evalVolatileStoichPtr = resources->evalVolatileStoichPtr;
+    resetRateRuleStoichPtr = resources->resetRateRuleStoichPtr;
     evalConversionFactorPtr = resources->evalConversionFactorPtr;
     setBoundarySpeciesAmountPtr = resources->setBoundarySpeciesAmountPtr;
     setFloatingSpeciesAmountPtr = resources->setFloatingSpeciesAmountPtr;
@@ -832,6 +835,28 @@ void LLVMExecutableModel::reset(int opt)
         resetOneType(opt, SelectionRecord::_GLOBAL_PARAMETER, modelData->numIndGlobalParameters, getNumGlobalParameters(), &LLVMExecutableModel::getGlobalParameterInitValues, &LLVMExecutableModel::setGlobalParameterValues, &LLVMModelDataSymbols::getGlobalParameterId, buffer, inits, initvals);
         //std::cout << this;
 
+        // Reset stoichiometry: copy the frozen initStoichiometry matrix back
+        // over the live stoichiometry matrix. Both matrices share the same
+        // sparsity pattern (see LLVMModelGenerator::createModelData), so a
+        // straight value copy is sufficient.
+        if ((opt & SelectionRecord::STOICHIOMETRY) && !symbols->isConservedMoietyAnalysis())
+        {
+            memcpy(modelData->stoichiometry->values, modelData->initStoichiometry->values,
+                modelData->stoichiometry->nnz * sizeof(double));
+            for (unsigned i = 0; i < modelData->numMultiSpeciesReferences; ++i)
+            {
+                modelData->multiSpeciesReferencesAlias[i] = modelData->multiSpeciesReferencesInitAlias[i];
+            }
+        }
+
+        // Reset rate-rule-controlled stoichiometries, mirroring how rate-rule-
+        // controlled compartments/species/parameters are restored above under
+        // the RATE flag.
+        if ((opt & SelectionRecord::RATE) && !symbols->isConservedMoietyAnalysis())
+        {
+            resetRateRuleStoichPtr(modelData);
+        }
+
         // Whether were we forced to reset cms:
         bool reset_cm = false;
 
@@ -1242,15 +1267,16 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
     }
 
     if (checkExact(SelectionRecord::STOICHIOMETRY, types)) {
-        for (size_t s = 0; s < getNumIndFloatingSpecies(); ++s) {
-            string sid = getFloatingSpeciesId(s);
-            for (size_t r = 0; r < getNumReactions(); ++r) {
-                if (getStoichiometry(s, r) != 0)
-                {
-                    string rid = getReactionId(r);
-                    ids.push_back(symbols->getStoichiometryIdFor(sid, rid));
-                }
-            }
+        for (const LLVMModelDataSymbols::SpeciesReferenceInfo& entry : symbols->getStoichiometryList()) {
+            string sid = getFloatingSpeciesId(entry.row);
+            string rid = getReactionId(entry.column);
+            ids.push_back(symbols->getStoichiometryIdFor(sid, rid));
+        }
+    }
+
+    if (checkExact(SelectionRecord::MULTI_SPECIES_REFERENCE, types)) {
+        for (size_t i = 0; i < symbols->getMultiSpeciesReferenceSize(); ++i) {
+            ids.push_back(symbols->getMultiSpeciesReferenceInfo(static_cast<int>(i)).id);
         }
     }
 
@@ -1420,7 +1446,8 @@ int LLVMExecutableModel::getSupportedIdTypes()
         SelectionRecord::BOUNDARY_AMOUNT |
         SelectionRecord::INITIAL_AMOUNT |
         SelectionRecord::INITIAL_CONCENTRATION |
-        SelectionRecord::STOICHIOMETRY;
+        SelectionRecord::STOICHIOMETRY |
+        SelectionRecord::MULTI_SPECIES_REFERENCE;
 }
 
 double LLVMExecutableModel::getValue(const std::string& id)
@@ -1481,8 +1508,30 @@ double LLVMExecutableModel::getValue(const std::string& id)
         getGlobalParameterInitValues(1, &index, &result);
         break;
     case SelectionRecord::STOICHIOMETRY:
+        if (sel.p2.empty()) {
+            // named form ("n"): the reference's own literal value, with no
+            // sign correction for reactant/product.
+            result = getStoichiometry(index);
+        }
+        else {
+            // stoich(species, reaction) form: the raw stoichiometry-matrix
+            // cell, with no sign correction.
+            result = getStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2));
+        }
+        break;
     case SelectionRecord::INITIAL_STOICHIOMETRY:
-        result = getStoichiometry(index);
+        if (sel.p2.empty()) {
+            result = getInitStoichiometry(index);
+        }
+        else {
+            result = getInitStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2));
+        }
+        break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE:
+        result = getMultiSpeciesReferenceValue(index);
+        break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE:
+        result = getInitMultiSpeciesReferenceValue(index);
         break;
     case SelectionRecord::EVENT:
     {
@@ -1553,6 +1602,10 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 sel.selectionType = SelectionRecord::STOICHIOMETRY;
                 sel.index = index;
                 break;
+            case LLVMModelDataSymbols::MULTI_SPECIES_REFERENCE:
+                sel.selectionType = SelectionRecord::MULTI_SPECIES_REFERENCE;
+                sel.index = index;
+                break;
             default:
                 throw LLVMException("No sbml element exists for symbol '" + str + "'");
                 break;
@@ -1611,6 +1664,10 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 break;
             case LLVMModelDataSymbols::STOICHIOMETRY:
                 sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                sel.index = index;
+                break;
+            case LLVMModelDataSymbols::MULTI_SPECIES_REFERENCE:
+                sel.selectionType = SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE;
                 sel.index = index;
                 break;
             default:
@@ -1763,8 +1820,26 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
         setGlobalParameterInitValues(1, &index, &value);
         break;
     case SelectionRecord::STOICHIOMETRY:
+        if (sel.p2.empty()) {
+            setStoichiometry(index, value);
+        }
+        else {
+            setStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2), value);
+        }
+        break;
     case SelectionRecord::INITIAL_STOICHIOMETRY:
-        setStoichiometry(index, value);
+        if (sel.p2.empty()) {
+            setInitStoichiometry(index, value);
+        }
+        else {
+            setInitStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2), value);
+        }
+        break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE:
+        setMultiSpeciesReferenceValue(index, value);
+        break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE:
+        setInitMultiSpeciesReferenceValue(index, value);
         break;
     default:
         throw LLVMException("Invalid selection '" + sel.to_string() + "' for setting value");
@@ -2339,6 +2414,23 @@ int LLVMExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
     return result;
 }
 
+// A row/col cell is a MultiSpeciesReference when more than one speciesReference
+// (named or not) collides on it. Setting it via (species, reaction) is
+// ambiguous -- there's no way to tell which underlying speciesReference the
+// caller meant -- so callers that address stoichiometry this way need to
+// check first and throw rather than silently overwrite the combined cell.
+static bool isMultiSpeciesReferenceCell(const LLVMModelDataSymbols* symbols, int speciesIndex, int reactionIndex)
+{
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries = symbols->getStoichiometryList();
+    for (std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator i = stoichEntries.begin();
+            i != stoichEntries.end(); ++i)
+    {
+        if (i->row == speciesIndex && i->column == reactionIndex)
+            return i->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference;
+    }
+    return false;
+}
+
 //int LLVMExecutableModel::setStoichiometries(size_t len, const int* indx,
 //                                               const double* values)
 //{
@@ -2369,20 +2461,33 @@ int LLVMExecutableModel::setStoichiometry(int index, double value)
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)
         ++stoichiometry;
+
+    if (!stoichiometry->id.empty() && symbols->hasAssignmentRule(stoichiometry->id))
+        throw LLVMException("Cannot set stoichiometry '" + stoichiometry->id + "': it is governed by an assignment rule");
+
+    if (!stoichiometry->id.empty() && symbols->hasRateRule(stoichiometry->id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(stoichiometry->id)] = value;
+
     if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot set stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction.");
     else
-        throw LLVMException("Cannot set stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
     return -1;
 }
 
 int LLVMExecutableModel::setStoichiometry(int speciesIndex, int reactionIndex, double value)
 {
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (isMultiSpeciesReferenceCell(symbols, speciesIndex, reactionIndex))
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction: it is ambiguous which one to set.");
+
     double result = csr_matrix_set_nz(modelData->stoichiometry, speciesIndex, reactionIndex, value);
     return isnan(result) ? 0 : result;
 }
@@ -2417,33 +2522,48 @@ int LLVMExecutableModel::setInitStoichiometry(int index, double value)
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)
         ++stoichiometry;
+
+    if (!stoichiometry->id.empty() && symbols->hasAssignmentRule(stoichiometry->id))
+        throw LLVMException("Cannot set stoichiometry '" + stoichiometry->id + "': it is governed by an assignment rule");
+
+    if (!stoichiometry->id.empty() && symbols->hasRateRule(stoichiometry->id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(stoichiometry->id)] = value;
+
     if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, value);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
         return setInitStoichiometry(stoichiometry->row, stoichiometry->column, -1 * value);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot set stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot set stoichiometry for a MultiSpeciesReference");
     else
-        throw LLVMException("Cannot set stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot set stoichiometry for a Modifier");
 
     return -1;
 }
 
 int LLVMExecutableModel::setInitStoichiometry(int speciesIndex, int reactionIndex, double value)
 {
-    //For now, we don't store 'initStoichiometry' separately.  Essentially, every stoichiometry set is to the initial value.
-    //double result = csr_matrix_set_nz(modelData->initStoichiometry, speciesIndex, reactionIndex, value);
-    double result = csr_matrix_set_nz(modelData->stoichiometry, speciesIndex, reactionIndex, value);
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (isMultiSpeciesReferenceCell(symbols, speciesIndex, reactionIndex))
+        throw_llvm_exception("Cannot set stoichiometry for a species that shows up multiple times in the same reaction: it is ambiguous which one to set.");
+
+    double result = csr_matrix_set_nz(modelData->initStoichiometry, speciesIndex, reactionIndex, value);
     return isnan(result) ? 0 : result;
 }
 
 double LLVMExecutableModel::getStoichiometry(int index)
 {
-    if (symbols->isConservedMoietyAnalysis())
-        throw LLVMException("Unable to get stoichiometries when conserved moieties are on");
-
     if (index < 0)
         throw LLVMException("The stoichiometry index is not valid");
+
+    // volatile (rule-governed) entries are only resynced into the CSR at
+    // RHS-eval / event-root time during simulation; resync here too so a
+    // plain getValue() reflects the model's current time/state exactly,
+    // rather than whatever the last internal integrator step left behind.
+    evalVolatileStoichPtr(modelData);
+
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = symbols->getStoichiometryList();
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::const_iterator stoichiometry = stoichiometryIndx.begin();
     for (int i = 0; i < index; i++)
@@ -2452,10 +2572,10 @@ double LLVMExecutableModel::getStoichiometry(int index)
         return -1 * getStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getStoichiometry(stoichiometry->row, stoichiometry->column);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot return stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot return stoichiometry for a species that shows up multiple times in the same reaction."); //Might not ever hit this?
     else
-        throw LLVMException("Cannot return stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }
 
 double LLVMExecutableModel::getStoichiometry(int speciesIndex, int reactionIndex)
@@ -2466,9 +2586,6 @@ double LLVMExecutableModel::getStoichiometry(int speciesIndex, int reactionIndex
 
 double LLVMExecutableModel::getInitStoichiometry(int index)
 {
-    if (symbols->isConservedMoietyAnalysis())
-        throw LLVMException("Unable to get stoichiometries when conserved moieties are on");
-
     if (index < 0)
         throw LLVMException("The stoichiometry index is not valid");
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichiometryIndx = symbols->getStoichiometryList();
@@ -2479,18 +2596,95 @@ double LLVMExecutableModel::getInitStoichiometry(int index)
         return -1 * getInitStoichiometry(stoichiometry->row, stoichiometry->column);
     else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::Product)
         return getInitStoichiometry(stoichiometry->row, stoichiometry->column);
-    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiReactantProduct)
-        throw LLVMException("Cannot return stoichiometry for a MultiReactantProduct");
+    else if (stoichiometry->type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference)
+        throw_llvm_exception("Cannot return stoichiometry for a species that shows up multiple times in the same reaction"); //Might not hit this?
     else
-        throw LLVMException("Cannot return stoichiometry for a Modifier");
+        throw_llvm_exception("Cannot return stoichiometry for a Modifier");
 }
 
 double LLVMExecutableModel::getInitStoichiometry(int speciesIndex, int reactionIndex)
 {
-    //For now, we don't store 'initStoichiometry' separately.  Essentially, every stoichiometry set is to the initial value.
-    //double result = csr_matrix_get_nz(modelData->initStoichiometry, speciesIndex, reactionIndex);
-    double result = csr_matrix_get_nz(modelData->stoichiometry, speciesIndex, reactionIndex);
+    double result = csr_matrix_get_nz(modelData->initStoichiometry, speciesIndex, reactionIndex);
     return isnan(result) ? 0 : result;
+}
+
+int LLVMExecutableModel::getMultiSpeciesReferenceIndex(const std::string& id)
+{
+    return symbols->getMultiSpeciesReferenceIndex(id);
+}
+
+double LLVMExecutableModel::getMultiSpeciesReferenceValue(int index)
+{
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    // resync volatile (rule-governed) entries first, same as getStoichiometry(index).
+    evalVolatileStoichPtr(modelData);
+
+    return modelData->multiSpeciesReferencesAlias[index];
+}
+
+double LLVMExecutableModel::getInitMultiSpeciesReferenceValue(int index)
+{
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    return modelData->multiSpeciesReferencesInitAlias[index];
+}
+
+int LLVMExecutableModel::setMultiSpeciesReferenceValue(int index, double value)
+{
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    const LLVMModelDataSymbols::SpeciesReferenceInfo &info = symbols->getMultiSpeciesReferenceInfo(index);
+
+    if (symbols->hasAssignmentRule(info.id))
+        throw LLVMException("Cannot set stoichiometry '" + info.id + "': it is governed by an assignment rule");
+
+    if (symbols->hasRateRule(info.id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(info.id)] = value;
+
+    // update the shared matrix cell by this reference's own delta, leaving
+    // the other references sharing the cell untouched.
+    LLVMModelDataSymbols::SpeciesReferenceType role = symbols->getMultiSpeciesReferenceRole(index);
+    double sign = role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant ? -1.0 : 1.0;
+    double oldValue = modelData->multiSpeciesReferencesAlias[index];
+    double oldCell = csr_matrix_get_nz(modelData->stoichiometry, info.row, info.column);
+    double newCell = (isnan(oldCell) ? 0.0 : oldCell) + sign * (value - oldValue);
+    csr_matrix_set_nz(modelData->stoichiometry, info.row, info.column, newCell);
+
+    modelData->multiSpeciesReferencesAlias[index] = value;
+
+    return 0;
+}
+
+int LLVMExecutableModel::setInitMultiSpeciesReferenceValue(int index, double value)
+{
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    const LLVMModelDataSymbols::SpeciesReferenceInfo &info = symbols->getMultiSpeciesReferenceInfo(index);
+
+    if (symbols->hasAssignmentRule(info.id))
+        throw LLVMException("Cannot set stoichiometry '" + info.id + "': it is governed by an assignment rule");
+
+    LLVMModelDataSymbols::SpeciesReferenceType role = symbols->getMultiSpeciesReferenceRole(index);
+    double sign = role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant ? -1.0 : 1.0;
+    double oldValue = modelData->multiSpeciesReferencesInitAlias[index];
+    double oldCell = csr_matrix_get_nz(modelData->initStoichiometry, info.row, info.column);
+    double newCell = (isnan(oldCell) ? 0.0 : oldCell) + sign * (value - oldValue);
+    csr_matrix_set_nz(modelData->initStoichiometry, info.row, info.column, newCell);
+
+    modelData->multiSpeciesReferencesInitAlias[index] = value;
+
+    return 0;
 }
 
 /******************************* Events Section *******************************/

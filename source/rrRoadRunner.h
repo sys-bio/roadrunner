@@ -1145,6 +1145,18 @@ namespace rr {
          */
         void setInitValue(std::string sid, double initValue);
 
+        /**
+         * Set the initial stoichiometry of an unnamed speciesReference,
+         * addressed by species and reaction rather than by id (named
+         * stoichiometries go through setInitValue instead). Throws if the
+         * species appears more than once in the reaction, since it would be
+         * ambiguous which speciesReference to set.
+         * @param speciesId: the ID of the species
+         * @param reactionId: the ID of the reaction
+         * @param initValue: the initial stoichiometry to be set
+         */
+        void setInitStoichiometryValue(const std::string& speciesId, const std::string& reactionId, double initValue);
+
 
         /**
          * Set the constant attribute for an existing species/ parameter/ compartment

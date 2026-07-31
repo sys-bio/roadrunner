@@ -91,16 +91,24 @@ static const char* modelDataFieldsNames[] =  {
         "RateRuleValuesAlias",                  // 30
         "FloatingSpeciesAmountsAlias",          // 31
 
-        "CompartmentVolumes",                   // 32
-        "InitCompartmentVolumes",               // 33
-        "InitFloatingSpeciesAmounts",           // 34
-        "BoundarySpeciesAmounts",               // 35
-        "InitBoundarySpeciesAmounts",           // 36
-        "GlobalParameters",                     // 37
-        "InitGlobalParameters",                 // 38
-        "ReactionRates",                        // 39
-        "NotSafe_RateRuleValues",               // 40
-        "NotSafe_FloatingSpeciesAmounts"        // 41
+        "NumMultiSpeciesReferences",            // 32
+        "MultiSpeciesReferencesAlias",          // 33
+        "MultiSpeciesReferencesInitAlias",      // 34
+
+        "InitStoichiometry",                    // 35
+
+        "CompartmentVolumes",                   // 36
+        "InitCompartmentVolumes",               // 37
+        "InitFloatingSpeciesAmounts",           // 38
+        "BoundarySpeciesAmounts",               // 39
+        "InitBoundarySpeciesAmounts",           // 40
+        "GlobalParameters",                     // 41
+        "InitGlobalParameters",                 // 42
+        "ReactionRates",                        // 43
+        "NotSafe_RateRuleValues",               // 44
+        "NotSafe_FloatingSpeciesAmounts",       // 45
+        "MultiSpeciesReferenceValues",          // 46
+        "MultiSpeciesReferenceInitValues"       // 47
 };
 
 
@@ -130,7 +138,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-            == NotSafe_FloatingSpeciesAmounts + 1
+            == MultiSpeciesReferenceInitValues + 1
             && "wrong number of items in modelDataFieldsNames");
 }
 
@@ -145,7 +153,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
     independentInitCompartmentSize(0)
 {
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
-        == NotSafe_FloatingSpeciesAmounts + 1
+        == MultiSpeciesReferenceInitValues + 1
         && "wrong number of items in modelDataFieldsNames");
 
     modelName = model->getName();
@@ -168,7 +176,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
             else if (rule->getTypeCode() == SBML_RATE_RULE)
             {
                 size_t rri = rateRules.size();
-                rateRules[rule->getId()] = rri;
+                rateRules[rule->getVariable()] = rri;
             }
             else if (rule->getTypeCode() == SBML_ALGEBRAIC_RULE)
             {
@@ -176,7 +184,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
                 std::stringstream err;
                 err << "Unable to support algebraic rules.  The formula '0 = " << formula << "' is not supported.";
                 free(formula);
-                throw_llvm_exception(err.str())
+                throw_llvm_exception(err.str());
             }
         }
     }
@@ -267,14 +275,15 @@ LLVMModelDataSymbols::SymbolIndexType LLVMModelDataSymbols::getSymbolIndex(
         result = i->second;
         return EVENT;
     }
-    else
+    else if ((i = multiSpeciesReferenceMap.find(name)) != multiSpeciesReferenceMap.end())
     {
-        for (int stoichIndex = 0 ; stoichIndex < stoichIds.size(); ++stoichIndex) {
-            if (stoichIds.at(stoichIndex) == name) {
-                result = stoichIndex;
-                return STOICHIOMETRY;
-            }
-        }
+        result = i->second;
+        return MULTI_SPECIES_REFERENCE;
+    }
+    else if ((i = stoichiometryMap.find(name)) != stoichiometryMap.end())
+    {
+        result = i->second;
+        return STOICHIOMETRY;
     }
 
     result = -1;
@@ -376,12 +385,11 @@ size_t LLVMModelDataSymbols::getReactionSize() const
 
 int LLVMModelDataSymbols::getStoichiometryIndex(const std::string& id) const
 {
-    for (int i = 0; i < stoichIds.size(); ++i)
+    StringUIntMap::const_iterator i = stoichiometryMap.find(id);
+    if (i != stoichiometryMap.end())
     {
-        if (stoichIds.at(i) == id)
-            return i;
+        return i->second;
     }
-
     return -1;
 }
 
@@ -423,6 +431,39 @@ std::vector<std::string> LLVMModelDataSymbols::getStoichiometryIds() const
 size_t LLVMModelDataSymbols::getStoichiometrySize() const
 {
     return getStoichiometryList().size();
+}
+
+int LLVMModelDataSymbols::getMultiSpeciesReferenceIndex(const std::string& id) const
+{
+    StringUIntMap::const_iterator i = multiSpeciesReferenceMap.find(id);
+    if (i != multiSpeciesReferenceMap.end())
+    {
+        return i->second;
+    }
+    return -1;
+}
+
+size_t LLVMModelDataSymbols::getMultiSpeciesReferenceSize() const
+{
+    return multiSpeciesReferenceMap.size();
+}
+
+const LLVMModelDataSymbols::SpeciesReferenceInfo& LLVMModelDataSymbols::getMultiSpeciesReferenceInfo(int index) const
+{
+    if (index < 0 || static_cast<size_t>(index) >= multiSpeciesReferenceInfo.size())
+    {
+        throw_llvm_exception("multi species reference index out of range");
+    }
+    return multiSpeciesReferenceInfo[index];
+}
+
+LLVMModelDataSymbols::SpeciesReferenceType LLVMModelDataSymbols::getMultiSpeciesReferenceRole(int index) const
+{
+    if (index < 0 || static_cast<size_t>(index) >= multiSpeciesReferenceRole.size())
+    {
+        throw_llvm_exception("multi species reference index out of range");
+    }
+    return multiSpeciesReferenceRole[index];
 }
 
 size_t  LLVMModelDataSymbols::getFloatingSpeciesSize() const
@@ -711,6 +752,40 @@ size_t LLVMModelDataSymbols::getGlobalParametersSize() const
     return globalParametersMap.size();
 }
 
+std::vector<std::string> LLVMModelDataSymbols::collectNamedBoundaryStoichiometryIds(
+        const libsbml::Model* model) const
+{
+    std::vector<std::string> ids;
+
+    const ListOfReactions *reactions = model->getListOfReactions();
+    for (size_t i = 0; i < reactions->size(); i++)
+    {
+        const Reaction *reaction = reactions->get(i);
+
+        const ListOfSpeciesReferences *reactants = reaction->getListOfReactants();
+        for (size_t j = 0; j < reactants->size(); j++)
+        {
+            const SimpleSpeciesReference *r = reactants->get(j);
+            if (r->isSetId() && r->getId().length() > 0 && isBoundarySpecies(r->getSpecies()))
+            {
+                ids.push_back(r->getId());
+            }
+        }
+
+        const ListOfSpeciesReferences *products = reaction->getListOfProducts();
+        for (size_t j = 0; j < products->size(); j++)
+        {
+            const SimpleSpeciesReference *p = products->get(j);
+            if (p->isSetId() && p->getId().length() > 0 && isBoundarySpecies(p->getSpecies()))
+            {
+                ids.push_back(p->getId());
+            }
+        }
+    }
+
+    return ids;
+}
+
 void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         bool conservedMoieties)
 {
@@ -721,7 +796,14 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 
     const ListOfParameters *parameters = model->getListOfParameters();
 
-    globalParameterRateRules.resize(parameters->size(), false);
+    // named speciesReferences attached to boundary species have no
+    // stoichiometry-matrix cell (boundary species never get a matrix row),
+    // so they're classified here right alongside real parameters and end up
+    // sharing the same storage and rule machinery.
+    std::vector<std::string> namedBoundaryStoichIds =
+        collectNamedBoundaryStoichiometryIds(model);
+
+    globalParameterRateRules.resize(parameters->size() + namedBoundaryStoichIds.size(), false);
 
     for (size_t i = 0; i < parameters->size(); i++)
     {
@@ -746,6 +828,28 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         }
     }
 
+    for (std::vector<std::string>::const_iterator i = namedBoundaryStoichIds.begin();
+            i != namedBoundaryStoichIds.end(); ++i)
+    {
+        if (isIndependentElement(*i))
+        {
+            indParam.push_back(*i);
+        }
+        else
+        {
+            depParam.push_back(*i);
+        }
+
+        if (isIndependentInitElement(*i))
+        {
+            indInitParam.push_back(*i);
+        }
+        else
+        {
+            depInitParam.push_back(*i);
+        }
+    }
+
     // when this is used, we check the size, so works even
     // when consv moieity is not enabled.
     if (conservedMoieties)
@@ -762,11 +866,13 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         size_t pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
-        // CM parameters can only be independent.
+        // CM parameters can only be independent, and only a real <parameter>
+        // can be a conserved moiety -- a boundary-stoichiometry id has no
+        // Parameter element, so parameters->get(*i) is NULL for it.
         if (conservedMoieties)
         {
             const Parameter* p = parameters->get(*i);
-            bool isCons = ConservationExtension::getConservedMoiety(*p);
+            bool isCons = p && ConservationExtension::getConservedMoiety(*p);
             conservedMoietyGlobalParameter[pi] = isCons;
 
             if (isCons)
@@ -1342,6 +1448,14 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 {
     // get the reactions
     std::vector<std::string> namedStoichiometryIds;
+
+    // a named reference's role (Reactant or Product) as originally read
+    // from SBML, captured before setNamedSpeciesReferenceInfo overwrites
+    // namedSpeciesReferenceInfo's .type to MultiSpeciesReference on
+    // collision. Only needed locally, to populate multiSpeciesReferenceRole
+    // in the post-pass below.
+    std::map<std::string, SpeciesReferenceType> namedSpeciesReferenceOriginalRole;
+
     const ListOfReactions *reactions = model->getListOfReactions();
     for (size_t i = 0; i < reactions->size(); i++)
     {
@@ -1363,7 +1477,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *r = reactants->get(j);
 
             int speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
-            if (r->isSetId() && r->getId().length() > 0)
+            if (r->isSetId() && r->getId().length() > 0 && !isBoundarySpecies(r->getSpecies()))
             {
               if (namedSpeciesReferenceInfo.find(r->getId()) ==
                 namedSpeciesReferenceInfo.end())
@@ -1371,6 +1485,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Reactant, r->getId() };
                 namedSpeciesReferenceInfo[r->getId()] = info;
+                namedSpeciesReferenceOriginalRole[r->getId()] = Reactant;
                 namedStoichiometryIds.push_back(r->getId());
               }
               else
@@ -1402,6 +1517,11 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
 
+                    if (r->isSetId() && r->getId().length() > 0)
+                    {
+                        stoichiometryMap[r->getId()] = stoichIds.size() - 1;
+                    }
+
                 }
                 else
                 {
@@ -1410,10 +1530,10 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                         << "with reactant " << r->getSpecies();
 
                     // species is listed multiple times as reactant
-                    stoichTypes[si->second] = MultiReactantProduct;
+                    stoichTypes[si->second] = MultiSpeciesReference;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiSpeciesReference);
 
                 }
             }
@@ -1426,7 +1546,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             // products had better be in the stoich matrix.
 
             uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
-            if (p->isSetId() && p->getId().length() > 0)
+            if (p->isSetId() && p->getId().length() > 0 && !isBoundarySpecies(p->getSpecies()))
             {
               if (namedSpeciesReferenceInfo.find(p->getId())
                 == namedSpeciesReferenceInfo.end())
@@ -1434,6 +1554,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Product, p->getId() };
                 namedSpeciesReferenceInfo[p->getId()] = info;
+                namedSpeciesReferenceOriginalRole[p->getId()] = Product;
                 namedStoichiometryIds.push_back(p->getId());
               }
               else
@@ -1462,6 +1583,11 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     // index of the just added Reactant
                     speciesMap[speciesIdx] = stoichTypes.size() - 1;
 
+                    if (p->isSetId() && p->getId().length() > 0)
+                    {
+                        stoichiometryMap[p->getId()] = stoichIds.size() - 1;
+                    }
+
                 }
                 else
                 {
@@ -1470,30 +1596,43 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                         << "with product " << p->getSpecies();
 
                     // species is listed multiple times as product
-                    stoichTypes[si->second] = MultiReactantProduct;
+                    stoichTypes[si->second] = MultiSpeciesReference;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiSpeciesReference);
                 }
             }
         }
     }
-    for (size_t ns = 0; ns < namedStoichiometryIds.size(); ns++) {
-      const Rule* rule = model->getRule(namedStoichiometryIds[ns]);
-      if (rule != NULL) {
-        std::string msg = "The named stoichiometry '" + namedStoichiometryIds[ns] + "' (also called a speciesReference) has ";
-        if (rule->isAssignment()) {
-          msg += "an assignment rule";
-        }
-        else {
-          assert(rule->isRate());
-          msg += "a rate rule";
-        }
-        msg += ", which means that the stoichiometry of its reaction varies in time.  Variable stoichiometries are not supported by roadrunner.";
-        throw_llvm_exception(msg);
-      }
-    }
+    //for (size_t ns = 0; ns < namedStoichiometryIds.size(); ns++) {
+    //  const Rule* rule = model->getRule(namedStoichiometryIds[ns]);
+    //  if (rule != NULL) {
+    //    std::string msg = "The named stoichiometry '" + namedStoichiometryIds[ns] + "' (also called a speciesReference) has ";
+    //    if (rule->isAssignment()) {
+    //      msg += "an assignment rule";
+    //    }
+    //    else {
+    //      assert(rule->isRate());
+    //      msg += "a rate rule";
+    //    }
+    //    msg += ", which means that the stoichiometry of its reaction varies in time.  Variable stoichiometries are not supported by roadrunner.";
+    //    throw_llvm_exception(msg);
+    //  }
+    //}
 
+    // give each MultiSpeciesReference-typed named stoichiometry a dense,
+    // 0-based slot for its own independent storage.
+    for (StringRefInfoMap::const_iterator i = namedSpeciesReferenceInfo.begin();
+            i != namedSpeciesReferenceInfo.end(); ++i)
+    {
+        if (i->second.type == MultiSpeciesReference)
+        {
+            uint slot = static_cast<uint>(multiSpeciesReferenceMap.size());
+            multiSpeciesReferenceMap[i->first] = slot;
+            multiSpeciesReferenceInfo.push_back(i->second);
+            multiSpeciesReferenceRole.push_back(namedSpeciesReferenceOriginalRole.at(i->first));
+        }
+    }
 }
 
 
@@ -1960,6 +2099,18 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 
 	rr::saveBinary(out, stoichTypes);
 
+	rr::saveBinary(out, stoichiometryMap);
+
+	rr::saveBinary(out, multiSpeciesReferenceMap);
+
+	rr::saveBinary(out, multiSpeciesReferenceInfo.size());
+	for (SpeciesReferenceInfo sri : multiSpeciesReferenceInfo)
+	{
+	    saveBinarySpeciesReferenceInfo(out, sri);
+	}
+
+	rr::saveBinary(out, multiSpeciesReferenceRole);
+
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
@@ -2009,6 +2160,20 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, stoichIds);
 
 	rr::loadBinary(in, stoichTypes);
+
+	rr::loadBinary(in, stoichiometryMap);
+
+	rr::loadBinary(in, multiSpeciesReferenceMap);
+
+	size_t multiSpeciesReferenceInfoSize;
+	rr::loadBinary(in, multiSpeciesReferenceInfoSize);
+	multiSpeciesReferenceInfo.resize(multiSpeciesReferenceInfoSize);
+	for (size_t i = 0; i < multiSpeciesReferenceInfoSize; ++i)
+	{
+	    loadBinarySpeciesReferenceInfo(in, multiSpeciesReferenceInfo[i]);
+	}
+
+	rr::loadBinary(in, multiSpeciesReferenceRole);
 
 	rr::loadBinary(in, assignmentRules);
 

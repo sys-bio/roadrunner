@@ -368,6 +368,15 @@ public:
 
     virtual double getStoichiometry(int speciesIndex, int reactionIndex);
 
+    virtual double getInitStoichiometry(int index);
+    virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
+
+    virtual int getMultiSpeciesReferenceIndex(const std::string&);
+    virtual double getMultiSpeciesReferenceValue(int index);
+    virtual double getInitMultiSpeciesReferenceValue(int index);
+    virtual int setMultiSpeciesReferenceValue(int index, double value);
+    virtual int setInitMultiSpeciesReferenceValue(int index, double value);
+
     /**
      * allocate a block of memory and copy the stochiometric values into it,
      * and return it.

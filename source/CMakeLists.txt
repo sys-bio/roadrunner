@@ -256,6 +256,7 @@ if (BUILD_LLVM)
             llvm/ModelInitialValueSymbolResolver.cpp
             llvm/ModelResources.cpp
             llvm/Random.cpp
+            llvm/ResetRateRuleStoichCodeGen.cpp
             llvm/SBMLInitialValueSymbolResolver.cpp
             llvm/SBMLModelObjectCache.cpp
             llvm/SBMLSupportFunctions.cpp
@@ -304,6 +305,7 @@ if (BUILD_LLVM)
             llvm/ModelInitialValueSymbolResolver.h
             llvm/ModelResources.h
             llvm/Random.h
+            llvm/ResetRateRuleStoichCodeGen.h
             llvm/SBMLInitialValueSymbolResolver.h
             llvm/SBMLModelObjectCache.h
             llvm/SBMLSupportFunctions.h

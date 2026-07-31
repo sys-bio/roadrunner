@@ -63,6 +63,7 @@ namespace rrllvm
         EventAssignCodeGen::FunctionPtr eventAssignPtr;
         GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
         EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
+        ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
         EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
         SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;
         SetFloatingSpeciesAmountCodeGen::FunctionPtr setFloatingSpeciesAmountPtr;

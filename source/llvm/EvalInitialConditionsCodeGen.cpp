@@ -123,6 +123,8 @@ Value* EvalInitialConditionsCodeGen::codeGen()
         codeGenInitCompartments(initValueStoreResolver, modelValueResolver);
 
         codeGenInitGlobalParameters(initValueStoreResolver, modelValueResolver);
+
+        codeGenInitStoichiometry(modelData);
     }
 
     builder.CreateRetVoid();
@@ -210,17 +212,103 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
 
         // species references may be defined by rate rules, so set the
         // initial value here. In this case, data is duplicated between the
-        // rate rules std::vector and the CSR sparse matrix. (only occurs once
-        // in 1100 tests)
-        if (!nz.id.empty() && dataSymbols.hasRateRule(nz.id))
+        // rate rules std::vector and the CSR sparse matrix.
+        //
+        // MultiSpeciesReference-typed cells are excluded here: nz.id/nz.type
+        // are the PRIMARY colliding reference's, but stoichValue is the
+        // whole cell's summed value, not that one reference's own -- seeding
+        // the rate rule from it would be wrong. The per-reference loop below
+        // seeds each colliding reference's rate rule from its own value
+        // instead.
+        if (!nz.id.empty() && nz.type != LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference
+                && dataSymbols.hasRateRule(nz.id))
         {
-            modelDataBuilder.createRateRuleValueStore(nz.id, stoichValue);
+            // stoichValue is the net, CSR-signed value (negative for a
+            // reactant); the rate rule slot holds the reference's own
+            // magnitude, so undo that sign flip before storing it there.
+            Value *rateRuleSeed = stoichValue;
+            if (nz.type == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+            {
+                Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                rateRuleSeed = builder.CreateFMul(negOne, stoichValue, "unneg_" + nz.id);
+            }
+            modelDataBuilder.createRateRuleValueStore(nz.id, rateRuleSeed);
         }
 
         Value *row = ConstantInt::get(Type::getInt32Ty(context), nz.row, true);
         Value *col = ConstantInt::get(Type::getInt32Ty(context), nz.column, true);
         ModelDataIRBuilder::createCSRMatrixSetNZ(builder, stoich, row, col, stoichValue);
 
+    }
+
+    // seed each MultiSpeciesReference-typed named stoichiometry's own
+    // independent storage slot with its own value (StoichiometryMath or
+    // literal attribute, unsigned, same "raw passthrough" convention as
+    // any other named stoichiometry) -- the cell-level loop above only
+    // ever sees the shared, summed value, not each reference's own.
+    for (size_t i = 0; i < dataSymbols.getMultiSpeciesReferenceSize(); ++i)
+    {
+        const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
+                dataSymbols.getMultiSpeciesReferenceInfo(static_cast<int>(i));
+
+        SymbolForest::Map::const_iterator refNode =
+                modelSymbols.getInitialValues().speciesReferences.find(info.id);
+        assert(refNode != modelSymbols.getInitialValues().speciesReferences.end() &&
+                "MultiSpeciesReference id missing from initial values speciesReferences map");
+
+        Value *refValue = astCodeGen.codeGenDouble(refNode->second);
+
+        // refValue is already this reference's own unsigned value (no sign
+        // undo needed here, unlike the cell-level loop above).
+        if (dataSymbols.hasRateRule(info.id))
+        {
+            modelDataBuilder.createRateRuleValueStore(info.id, refValue);
+        }
+
+        Value *gep = modelDataBuilder.createGEP(MultiSpeciesReferencesAlias,
+                static_cast<unsigned>(i), info.id);
+        builder.CreateStore(refValue, gep);
+    }
+}
+
+void EvalInitialConditionsCodeGen::codeGenInitStoichiometry(llvm::Value *modelData)
+{
+    // mirrors codeGenInitSpecies/Compartments/GlobalParameters: pass 1
+    // (codeGenStoichiometry, above) has already computed the true t=0
+    // value of every stoichiometry-matrix cell, so just copy it over to
+    // the frozen init matrix rather than re-evaluating anything.
+    ModelDataIRBuilder modelDataBuilder(modelData, dataSymbols, builder);
+
+    Value *stoichEP = modelDataBuilder.createGEP(Stoichiometry);
+    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+
+    Value *initStoichEP = modelDataBuilder.createGEP(InitStoichiometry);
+    Value *initStoich = builder.CreateLoad(initStoichEP->getType()->getPointerElementType(), initStoichEP, "initStoichiometry");
+
+    std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
+            dataSymbols.getStoichiometryList();
+
+    for (std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>::iterator i =
+            stoichEntries.begin(); i != stoichEntries.end(); i++)
+    {
+        LLVMModelDataSymbols::SpeciesReferenceInfo nz = *i;
+
+        Value *row = ConstantInt::get(Type::getInt32Ty(context), nz.row, true);
+        Value *col = ConstantInt::get(Type::getInt32Ty(context), nz.column, true);
+
+        Value *value = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, row, col);
+        ModelDataIRBuilder::createCSRMatrixSetNZ(builder, initStoich, row, col, value);
+    }
+
+    // mirror the same copy for each MultiSpeciesReference's own independent
+    // storage slot.
+    for (size_t i = 0; i < dataSymbols.getMultiSpeciesReferenceSize(); ++i)
+    {
+        Value *srcGEP = modelDataBuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(i));
+        Value *refValue = builder.CreateLoad(srcGEP->getType()->getPointerElementType(), srcGEP);
+
+        Value *dstGEP = modelDataBuilder.createGEP(MultiSpeciesReferencesInitAlias, static_cast<unsigned>(i));
+        builder.CreateStore(refValue, dstGEP);
     }
 }
 

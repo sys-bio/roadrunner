@@ -68,27 +68,34 @@ static bool isAliasOrPointer(ModelDataFields f)
 
         "RateRuleValuesAlias",                  // 30
         "FloatingSpeciesAmountsAlias",          // 31
+
+        "MultiSpeciesReferencesAlias",          // 33 (not contiguous with the above;
+                                                //     NumMultiSpeciesReferences, 32, sits between)
+        "MultiSpeciesReferencesInitAlias",      // 34 (contiguous with the above)
      */
-    return f >= StateVector && f <= FloatingSpeciesAmountsAlias;
+    return (f >= StateVector && f <= FloatingSpeciesAmountsAlias)
+        || (f >= MultiSpeciesReferencesAlias && f <= MultiSpeciesReferencesInitAlias);
 }
 
 static bool isArray(ModelDataFields f)
 {
     /* arrays are the last elements in the model data struct */
     /*
-        "CompartmentVolumes",                   // 32
-        "InitCompartmentVolumes",               // 33
-        "InitFloatingSpeciesAmounts",           // 34
-        "BoundarySpeciesAmounts",               // 35
-        "InitBoundarySpeciesAmounts",           // 36
-        "GlobalParameters",                     // 37
-        "InitGlobalParameters",                 // 38
-        "ReactionRates",                        // 39
-        "NotSafe_RateRuleValues",               // 40
-        "NotSafe_FloatingSpeciesAmounts"        // 41
+        "CompartmentVolumes",                   // 36
+        "InitCompartmentVolumes",               // 37
+        "InitFloatingSpeciesAmounts",           // 38
+        "BoundarySpeciesAmounts",               // 39
+        "InitBoundarySpeciesAmounts",           // 40
+        "GlobalParameters",                     // 41
+        "InitGlobalParameters",                 // 42
+        "ReactionRates",                        // 43
+        "NotSafe_RateRuleValues",               // 44
+        "NotSafe_FloatingSpeciesAmounts",       // 45
+        "MultiSpeciesReferenceValues",          // 46
+        "MultiSpeciesReferenceInitValues"       // 47
      */
 
-    return f >= CompartmentVolumes && f <= NotSafe_FloatingSpeciesAmounts;
+    return f >= CompartmentVolumes && f <= MultiSpeciesReferenceInitValues;
 }
 
 
@@ -649,6 +656,7 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         // no initial conditions for these
         size_t   numRateRules = symbols.getRateRuleSize();
         size_t   numReactions = symbols.getReactionSize();
+        size_t   numMultiSpeciesReferences = symbols.getMultiSpeciesReferenceSize();
 
         LLVMContext &context = module->getContext();
 
@@ -704,16 +712,24 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         elements.push_back(doublePtrType);    // 30     double*                  rateRuleValuesAlias
         elements.push_back(doublePtrType);    // 31     double*                  floatingSpeciesAmountsAlias
 
-        elements.push_back(ArrayType::get(doubleType, numIndCompartments));     // 32 CompartmentVolumes
-        elements.push_back(ArrayType::get(doubleType, numInitCompartments));    // 33 initCompartmentVolumes
-        elements.push_back(ArrayType::get(doubleType, numInitFloatingSpecies)); // 34 initFloatingSpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numIndBoundarySpecies));  // 35 boundarySpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numInitBoundarySpecies)); // 36 initBoundarySpeciesAmounts
-        elements.push_back(ArrayType::get(doubleType, numIndGlobalParameters)); // 37 globalParameters
-        elements.push_back(ArrayType::get(doubleType, numInitGlobalParameters));// 38 initGlobalParameters
-        elements.push_back(ArrayType::get(doubleType, numReactions));           // 39 reactionRates
-        elements.push_back(ArrayType::get(doubleType, numRateRules));           // 40 rateRuleValues
-        elements.push_back(ArrayType::get(doubleType, numIndFloatingSpecies));  // 41 floatingSpeciesAmounts
+        elements.push_back(int32Type);        // 32     int                      numMultiSpeciesReferences
+        elements.push_back(doublePtrType);    // 33     double*                  multiSpeciesReferencesAlias
+        elements.push_back(doublePtrType);    // 34     double*                  multiSpeciesReferencesInitAlias
+
+        elements.push_back(csrSparsePtrType); // 35     dcsr_matrix              initStoichiometry;
+
+        elements.push_back(ArrayType::get(doubleType, numIndCompartments));     // 36 CompartmentVolumes
+        elements.push_back(ArrayType::get(doubleType, numInitCompartments));    // 37 initCompartmentVolumes
+        elements.push_back(ArrayType::get(doubleType, numInitFloatingSpecies)); // 38 initFloatingSpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numIndBoundarySpecies));  // 39 boundarySpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numInitBoundarySpecies)); // 40 initBoundarySpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numIndGlobalParameters)); // 41 globalParameters
+        elements.push_back(ArrayType::get(doubleType, numInitGlobalParameters));// 42 initGlobalParameters
+        elements.push_back(ArrayType::get(doubleType, numReactions));           // 43 reactionRates
+        elements.push_back(ArrayType::get(doubleType, numRateRules));           // 44 rateRuleValues
+        elements.push_back(ArrayType::get(doubleType, numIndFloatingSpecies));  // 45 floatingSpeciesAmounts
+        elements.push_back(ArrayType::get(doubleType, numMultiSpeciesReferences)); // 46 multiSpeciesReferenceValues
+        elements.push_back(ArrayType::get(doubleType, numMultiSpeciesReferences)); // 47 multiSpeciesReferenceInitValues
 
         // creates a named struct,
         // the act of creating a named struct should

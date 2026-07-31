@@ -31,11 +31,11 @@ namespace rrllvm
     };
 
 #define throw_llvm_exception(what) \
-        {  \
+        do {  \
             rrLog(rr::Logger::LOG_INFORMATION) << "LLVMException, what: " \
                 << what << ", where: " << __FUNC__; \
                 throw LLVMException(what, __FUNC__); \
-        }
+        } while (0)
 
     /** @endcond PRIVATE */
 }

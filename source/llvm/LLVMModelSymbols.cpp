@@ -220,17 +220,27 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     {
         const SpeciesReference* reactant =
             static_cast<const SpeciesReference*>(reactants->get(i));
+        const ASTNode* stoich = getSpeciesReferenceStoichMath(reactant);
+
+        // record the initial-value math for a named reference regardless of
+        // whether its species is floating or boundary -- a boundary-species
+        // reference has no stoichiometry-matrix row, so it's handled as a
+        // global parameter (see LLVMModelDataSymbols::initGlobalParameters),
+        // but still needs its initial value available here.
+        if (reactant->isSetId() && reactant->getId().size())
+        {
+            initialValues.speciesReferences[reactant->getId()] = stoich;
+        }
+
         index = symbols.getFloatingSpeciesIndex(reactant->getSpecies());
         if (index < 0) {
             continue;
         }
 
         ASTNodeList& speciesNodes = rs.reactants[index];
-        const ASTNode* stoich = getSpeciesReferenceStoichMath(reactant);
 
         if (reactant->isSetId() && reactant->getId().size())
         {
-            initialValues.speciesReferences[reactant->getId()] = stoich;
             ASTNode* refName = nodes.create(AST_NAME);
             refName->setName(reactant->getId().c_str());
             speciesNodes.push_back(refName);
@@ -245,17 +255,23 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     {
         const SpeciesReference* product =
             static_cast<const SpeciesReference*>(products->get(i));
+        const ASTNode* stoich = getSpeciesReferenceStoichMath(product);
+
+        // see matching comment in the reactants loop above.
+        if (product->isSetId() && product->getId().size())
+        {
+            initialValues.speciesReferences[product->getId()] = stoich;
+        }
+
         index = symbols.getFloatingSpeciesIndex(product->getSpecies());
         if (index < 0) {
             continue;
         }
 
         ASTNodeList& speciesNodes = rs.products[index];
-        const ASTNode* stoich = getSpeciesReferenceStoichMath(product);
 
         if (product->isSetId() && product->getId().size())
         {
-            initialValues.speciesReferences[product->getId()] = stoich;
             ASTNode* refName = nodes.create(AST_NAME);
             refName->setName(product->getId().c_str());
             speciesNodes.push_back(refName);
