@@ -161,6 +161,7 @@ public:
         REACTION,
         EVENT,
         STOICHIOMETRY,
+        MULTI_SPECIES_REFERENCE,
         INVALID_SYMBOL
     };
 
@@ -267,13 +268,30 @@ public:
     int getMultiSpeciesReferenceIndex(const std::string& id) const;
 
     /**
-     * number of named stoichiometries whose species is referenced more
-     * than once within a single reaction -- whether the colliding
-     * reference is itself named or not, e.g. both references in
-     * "n A + 2 A -> B" (only "n" named) count, since the two references
-     * to A cannot share the single stoichiometry-matrix cell.
+     * number of named, MultiSpeciesReference-typed stoichiometries, i.e.
+     * named species references that share their (species, reaction)
+     * stoichiometry-matrix cell with at least one other reference. An
+     * unnamed colliding reference does not get a slot, since it has no
+     * id to look one up by.
      */
     size_t getMultiSpeciesReferenceSize() const;
+
+    /**
+     * get the SpeciesReferenceInfo (row, column, type, id) of a
+     * MultiSpeciesReference-typed named stoichiometry, given its
+     * independent storage slot index (as returned by
+     * getMultiSpeciesReferenceIndex).
+     */
+    const SpeciesReferenceInfo& getMultiSpeciesReferenceInfo(int index) const;
+
+    /**
+     * get the Reactant or Product role a MultiSpeciesReference-typed named
+     * stoichiometry originally had in its SBML reaction, given its
+     * independent storage slot index (as returned by
+     * getMultiSpeciesReferenceIndex). Needed to know the sign of its
+     * contribution to the shared stoichiometry-matrix cell.
+     */
+    SpeciesReferenceType getMultiSpeciesReferenceRole(int index) const;
 
 
     std::vector<std::string> getGlobalParameterIds() const;
@@ -746,6 +764,24 @@ private:
      * built as a post-pass in initReactions().
      */
     StringUIntMap multiSpeciesReferenceMap;
+
+    /**
+     * reverse lookup of multiSpeciesReferenceMap: slot index -> the
+     * SpeciesReferenceInfo for that slot. Built alongside
+     * multiSpeciesReferenceMap in initReactions(), and persisted directly
+     * in saveState()/loadState().
+     */
+    std::vector<SpeciesReferenceInfo> multiSpeciesReferenceInfo;
+
+    /**
+     * reverse lookup, parallel to multiSpeciesReferenceInfo: slot index ->
+     * the Reactant or Product role this reference originally had in its
+     * SBML reaction. Needed because SpeciesReferenceInfo::type is
+     * retroactively overwritten to MultiSpeciesReference for every
+     * reference sharing a collided cell (see setNamedSpeciesReferenceInfo),
+     * which loses the sign information a delta-based set needs.
+     */
+    std::vector<SpeciesReferenceType> multiSpeciesReferenceRole;
 
     /**
      * the set of rule, these contain the variable name of the rule so that

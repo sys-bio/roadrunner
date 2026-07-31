@@ -377,6 +377,16 @@ public:
 
     virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
 
+    virtual int getMultiSpeciesReferenceIndex(const std::string&);
+
+    virtual double getMultiSpeciesReferenceValue(int index);
+
+    virtual double getInitMultiSpeciesReferenceValue(int index);
+
+    virtual int setMultiSpeciesReferenceValue(int index, double value);
+
+    virtual int setInitMultiSpeciesReferenceValue(int index, double value);
+
     /******************************* Initial Conditions Section *******************/
     #if (1) /**********************************************************************/
     /******************************************************************************/

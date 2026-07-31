@@ -328,6 +328,8 @@ std::string SelectionRecord::to_repr() const
     case SelectionRecord::INITIAL_CONCENTRATION: selType = "INITIAL_CONCENTRATION"; break;
     case SelectionRecord::STOICHIOMETRY: selType = "STOICHIOMETRY"; break;
     case SelectionRecord::INITIAL_STOICHIOMETRY: selType = "INITIAL_STOICHIOMETRY"; break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE: selType = "MULTI_SPECIES_REFERENCE"; break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE: selType = "INITIAL_MULTI_SPECIES_REFERENCE"; break;
     case SelectionRecord::UNKNOWN_ELEMENT: selType = "UNKNOWN_ELEMENT"; break;
     case SelectionRecord::UNKNOWN_CONCENTRATION: selType = "UNKNOWN_CONCENTRATION"; break;
     default: selType = "UNKNOWN"; break;
@@ -495,6 +497,12 @@ std::string rr::SelectionRecord::to_string() const
         else {
           result = "init(stoich(" + p1 + ", " + p2 + "))";
         }
+        break;
+    case MULTI_SPECIES_REFERENCE:
+        result = p1;
+        break;
+    case INITIAL_MULTI_SPECIES_REFERENCE:
+        result = "init(" + p1 + ")";
         break;
     case UNKNOWN:
         result = "UNKNOWN";

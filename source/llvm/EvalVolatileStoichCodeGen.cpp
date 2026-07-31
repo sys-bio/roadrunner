@@ -83,8 +83,12 @@ namespace rrllvm {
                     const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
                         dataSymbolsPtr->getNamedSpeciesReferenceInfo(p->getId());
 
-                    mdbuilder.createStoichiometryStore(info.row, info.column,
-                                                       value, p->getId());
+                    if (info.type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference) {
+                        codeGenMultiSpeciesReferenceUpdate(mdbuilder, info, p->getId(), value, false);
+                    } else {
+                        mdbuilder.createStoichiometryStore(info.row, info.column,
+                                                           value, p->getId());
+                    }
                 }
             }
 
@@ -119,16 +123,21 @@ namespace rrllvm {
 
                     assert(value && "value for species reference stoichiometry is 0");
 
-                    // reactants are consumed, so they get a negative stoichiometry
-                    Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
-                    negOne->setName("neg_one");
-                    value = builder.CreateFMul(negOne, value, "neg_" + r->getId());
-
                     const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
                         dataSymbolsPtr->getNamedSpeciesReferenceInfo(r->getId());
 
-                    mdbuilder.createStoichiometryStore(info.row, info.column, value,
-                                                       r->getId());
+                    if (info.type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference) {
+                        codeGenMultiSpeciesReferenceUpdate(mdbuilder, info, r->getId(), value, true);
+                    } 
+                    else {
+                        // reactants are consumed, so they get a negative stoichiometry
+                        Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                        negOne->setName("neg_one");
+                        value = builder.CreateFMul(negOne, value, "neg_" + r->getId());
+
+                        mdbuilder.createStoichiometryStore(info.row, info.column, value,
+                                                           r->getId());
+                    }
                 }
             }
         }
@@ -230,6 +239,35 @@ namespace rrllvm {
             }
         }
         return true;
+    }
+
+    void EvalVolatileStoichCodeGen::codeGenMultiSpeciesReferenceUpdate(
+            ModelDataIRBuilder& mdbuilder,
+            const LLVMModelDataSymbols::SpeciesReferenceInfo& info,
+            const std::string& id, llvm::Value* rawValue, bool isReactant)
+    {
+        int slot = dataSymbols.getMultiSpeciesReferenceIndex(id);
+        assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
+
+        Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
+        Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+        Value *rowVal = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.row, true);
+        Value *colVal = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.column, true);
+        Value *oldCell = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, rowVal, colVal);
+
+        Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), id);
+        Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, id + "_old");
+
+        Value *delta = builder.CreateFSub(rawValue, oldRaw, "delta_" + id);
+        if (isReactant) {
+            Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+            delta = builder.CreateFMul(negOne, delta, "neg_delta_" + id);
+        }
+        Value *newCell = builder.CreateFAdd(oldCell, delta, "new_cell_" + id);
+
+        ModelDataIRBuilder::createCSRMatrixSetNZ(builder, stoich, rowVal, colVal, newCell, id);
+
+        builder.CreateStore(rawValue, aliasGEP);
     }
 
 

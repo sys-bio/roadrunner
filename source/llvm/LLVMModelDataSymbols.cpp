@@ -275,6 +275,11 @@ LLVMModelDataSymbols::SymbolIndexType LLVMModelDataSymbols::getSymbolIndex(
         result = i->second;
         return EVENT;
     }
+    else if ((i = multiSpeciesReferenceMap.find(name)) != multiSpeciesReferenceMap.end())
+    {
+        result = i->second;
+        return MULTI_SPECIES_REFERENCE;
+    }
     else if ((i = stoichiometryMap.find(name)) != stoichiometryMap.end())
     {
         result = i->second;
@@ -441,6 +446,24 @@ int LLVMModelDataSymbols::getMultiSpeciesReferenceIndex(const std::string& id) c
 size_t LLVMModelDataSymbols::getMultiSpeciesReferenceSize() const
 {
     return multiSpeciesReferenceMap.size();
+}
+
+const LLVMModelDataSymbols::SpeciesReferenceInfo& LLVMModelDataSymbols::getMultiSpeciesReferenceInfo(int index) const
+{
+    if (index < 0 || static_cast<size_t>(index) >= multiSpeciesReferenceInfo.size())
+    {
+        throw_llvm_exception("multi species reference index out of range");
+    }
+    return multiSpeciesReferenceInfo[index];
+}
+
+LLVMModelDataSymbols::SpeciesReferenceType LLVMModelDataSymbols::getMultiSpeciesReferenceRole(int index) const
+{
+    if (index < 0 || static_cast<size_t>(index) >= multiSpeciesReferenceRole.size())
+    {
+        throw_llvm_exception("multi species reference index out of range");
+    }
+    return multiSpeciesReferenceRole[index];
 }
 
 size_t  LLVMModelDataSymbols::getFloatingSpeciesSize() const
@@ -1360,6 +1383,14 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 {
     // get the reactions
     std::vector<std::string> namedStoichiometryIds;
+
+    // a named reference's role (Reactant or Product) as originally read
+    // from SBML, captured before setNamedSpeciesReferenceInfo overwrites
+    // namedSpeciesReferenceInfo's .type to MultiSpeciesReference on
+    // collision. Only needed locally, to populate multiSpeciesReferenceRole
+    // in the post-pass below.
+    std::map<std::string, SpeciesReferenceType> namedSpeciesReferenceOriginalRole;
+
     const ListOfReactions *reactions = model->getListOfReactions();
     for (size_t i = 0; i < reactions->size(); i++)
     {
@@ -1389,6 +1420,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Reactant, r->getId() };
                 namedSpeciesReferenceInfo[r->getId()] = info;
+                namedSpeciesReferenceOriginalRole[r->getId()] = Reactant;
                 namedStoichiometryIds.push_back(r->getId());
               }
               else
@@ -1457,6 +1489,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 SpeciesReferenceInfo info =
                 { static_cast<uint>(speciesIdx), static_cast<uint>(i), Product, p->getId() };
                 namedSpeciesReferenceInfo[p->getId()] = info;
+                namedSpeciesReferenceOriginalRole[p->getId()] = Product;
                 namedStoichiometryIds.push_back(p->getId());
               }
               else
@@ -1531,6 +1564,8 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
         {
             uint slot = static_cast<uint>(multiSpeciesReferenceMap.size());
             multiSpeciesReferenceMap[i->first] = slot;
+            multiSpeciesReferenceInfo.push_back(i->second);
+            multiSpeciesReferenceRole.push_back(namedSpeciesReferenceOriginalRole.at(i->first));
         }
     }
 }
@@ -2003,6 +2038,14 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 
 	rr::saveBinary(out, multiSpeciesReferenceMap);
 
+	rr::saveBinary(out, multiSpeciesReferenceInfo.size());
+	for (SpeciesReferenceInfo sri : multiSpeciesReferenceInfo)
+	{
+	    saveBinarySpeciesReferenceInfo(out, sri);
+	}
+
+	rr::saveBinary(out, multiSpeciesReferenceRole);
+
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
@@ -2056,6 +2099,16 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, stoichiometryMap);
 
 	rr::loadBinary(in, multiSpeciesReferenceMap);
+
+	size_t multiSpeciesReferenceInfoSize;
+	rr::loadBinary(in, multiSpeciesReferenceInfoSize);
+	multiSpeciesReferenceInfo.resize(multiSpeciesReferenceInfoSize);
+	for (size_t i = 0; i < multiSpeciesReferenceInfoSize; ++i)
+	{
+	    loadBinarySpeciesReferenceInfo(in, multiSpeciesReferenceInfo[i]);
+	}
+
+	rr::loadBinary(in, multiSpeciesReferenceRole);
 
 	rr::loadBinary(in, assignmentRules);
 

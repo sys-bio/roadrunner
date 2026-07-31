@@ -1377,6 +1377,12 @@ namespace rr {
                         impl->model->getReactionIndex(record.p2));
                 }
                 break;
+            case SelectionRecord::MULTI_SPECIES_REFERENCE:
+                dResult = impl->model->getMultiSpeciesReferenceValue(record.index);
+                break;
+            case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE:
+                dResult = impl->model->getInitMultiSpeciesReferenceValue(record.index);
+                break;
             case SelectionRecord::TIME:
                 dResult = getCurrentTime();
                 break;
@@ -5254,6 +5260,9 @@ namespace rr {
                 } else if ((sel.index = impl->model->getReactionIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::REACTION_RATE;
                     break;
+                } else if ((sel.index = impl->model->getMultiSpeciesReferenceIndex(sel.p1)) >= 0) {
+                    sel.selectionType = SelectionRecord::MULTI_SPECIES_REFERENCE;
+                    break;
                 } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::STOICHIOMETRY;
                     break;
@@ -5395,6 +5404,9 @@ namespace rr {
                     break;
                 } else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::INITIAL_COMPARTMENT;
+                    break;
+                } else if ((sel.index = impl->model->getMultiSpeciesReferenceIndex(sel.p1)) >= 0) {
+                    sel.selectionType = SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE;
                     break;
                 } else if ((sel.index = impl->model->getStoichiometryIndex(sel.p1)) >= 0) {
                     sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;

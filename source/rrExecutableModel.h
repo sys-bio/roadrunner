@@ -665,6 +665,38 @@ namespace rr {
          */
         virtual double getInitStoichiometry(int speciesIndex, int reactionIndex) = 0;
 
+        /**
+         * get the index of a named MultiSpeciesReference-typed stoichiometry,
+         * i.e. one whose (species, reaction) stoichiometry-matrix cell is
+         * shared with at least one other speciesReference.
+         * @returns >= 0 on success, < 0 on failure.
+         */
+        virtual int getMultiSpeciesReferenceIndex(const std::string&) = 0;
+
+        /**
+         * Get the current value of a MultiSpeciesReference-typed named
+         * stoichiometry with the given index.
+         */
+        virtual double getMultiSpeciesReferenceValue(int index) = 0;
+
+        /**
+         * Get the initial value of a MultiSpeciesReference-typed named
+         * stoichiometry with the given index.
+         */
+        virtual double getInitMultiSpeciesReferenceValue(int index) = 0;
+
+        /**
+         * Set the current value of a MultiSpeciesReference-typed named
+         * stoichiometry with the given index.
+         */
+        virtual int setMultiSpeciesReferenceValue(int index, double value) = 0;
+
+        /**
+         * Set the initial value of a MultiSpeciesReference-typed named
+         * stoichiometry with the given index.
+         */
+        virtual int setInitMultiSpeciesReferenceValue(int index, double value) = 0;
+
 
         virtual int getNumConservedMoieties() = 0;
 

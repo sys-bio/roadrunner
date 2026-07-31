@@ -1274,6 +1274,12 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
         }
     }
 
+    if (checkExact(SelectionRecord::MULTI_SPECIES_REFERENCE, types)) {
+        for (size_t i = 0; i < symbols->getMultiSpeciesReferenceSize(); ++i) {
+            ids.push_back(symbols->getMultiSpeciesReferenceInfo(static_cast<int>(i)).id);
+        }
+    }
+
     if (checkExact(SelectionRecord::UNSCALED_ELASTICITY, types)) {
         for (size_t r = 0; r < getNumReactions(); ++r) {
             string rid = getReactionId(r);
@@ -1440,7 +1446,8 @@ int LLVMExecutableModel::getSupportedIdTypes()
         SelectionRecord::BOUNDARY_AMOUNT |
         SelectionRecord::INITIAL_AMOUNT |
         SelectionRecord::INITIAL_CONCENTRATION |
-        SelectionRecord::STOICHIOMETRY;
+        SelectionRecord::STOICHIOMETRY |
+        SelectionRecord::MULTI_SPECIES_REFERENCE;
 }
 
 double LLVMExecutableModel::getValue(const std::string& id)
@@ -1520,6 +1527,12 @@ double LLVMExecutableModel::getValue(const std::string& id)
             result = getInitStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2));
         }
         break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE:
+        result = getMultiSpeciesReferenceValue(index);
+        break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE:
+        result = getInitMultiSpeciesReferenceValue(index);
+        break;
     case SelectionRecord::EVENT:
     {
             bool trigger = getEventTrigger(index);
@@ -1589,6 +1602,10 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 sel.selectionType = SelectionRecord::STOICHIOMETRY;
                 sel.index = index;
                 break;
+            case LLVMModelDataSymbols::MULTI_SPECIES_REFERENCE:
+                sel.selectionType = SelectionRecord::MULTI_SPECIES_REFERENCE;
+                sel.index = index;
+                break;
             default:
                 throw LLVMException("No sbml element exists for symbol '" + str + "'");
                 break;
@@ -1647,6 +1664,10 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 break;
             case LLVMModelDataSymbols::STOICHIOMETRY:
                 sel.selectionType = SelectionRecord::INITIAL_STOICHIOMETRY;
+                sel.index = index;
+                break;
+            case LLVMModelDataSymbols::MULTI_SPECIES_REFERENCE:
+                sel.selectionType = SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE;
                 sel.index = index;
                 break;
             default:
@@ -1813,6 +1834,12 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
         else {
             setInitStoichiometry(symbols->getFloatingSpeciesIndex(sel.p1), symbols->getReactionIndex(sel.p2), value);
         }
+        break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE:
+        setMultiSpeciesReferenceValue(index, value);
+        break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE:
+        setInitMultiSpeciesReferenceValue(index, value);
         break;
     default:
         throw LLVMException("Invalid selection '" + sel.to_string() + "' for setting value");
@@ -2579,6 +2606,85 @@ double LLVMExecutableModel::getInitStoichiometry(int speciesIndex, int reactionI
 {
     double result = csr_matrix_get_nz(modelData->initStoichiometry, speciesIndex, reactionIndex);
     return isnan(result) ? 0 : result;
+}
+
+int LLVMExecutableModel::getMultiSpeciesReferenceIndex(const std::string& id)
+{
+    return symbols->getMultiSpeciesReferenceIndex(id);
+}
+
+double LLVMExecutableModel::getMultiSpeciesReferenceValue(int index)
+{
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    // resync volatile (rule-governed) entries first, same as getStoichiometry(index).
+    evalVolatileStoichPtr(modelData);
+
+    return modelData->multiSpeciesReferencesAlias[index];
+}
+
+double LLVMExecutableModel::getInitMultiSpeciesReferenceValue(int index)
+{
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    return modelData->multiSpeciesReferencesInitAlias[index];
+}
+
+int LLVMExecutableModel::setMultiSpeciesReferenceValue(int index, double value)
+{
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    const LLVMModelDataSymbols::SpeciesReferenceInfo &info = symbols->getMultiSpeciesReferenceInfo(index);
+
+    if (symbols->hasAssignmentRule(info.id))
+        throw LLVMException("Cannot set stoichiometry '" + info.id + "': it is governed by an assignment rule");
+
+    if (symbols->hasRateRule(info.id))
+        modelData->rateRuleValuesAlias[symbols->getRateRuleIndex(info.id)] = value;
+
+    // update the shared matrix cell by this reference's own delta, leaving
+    // the other references sharing the cell untouched.
+    LLVMModelDataSymbols::SpeciesReferenceType role = symbols->getMultiSpeciesReferenceRole(index);
+    double sign = role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant ? -1.0 : 1.0;
+    double oldValue = modelData->multiSpeciesReferencesAlias[index];
+    double oldCell = csr_matrix_get_nz(modelData->stoichiometry, info.row, info.column);
+    double newCell = (isnan(oldCell) ? 0.0 : oldCell) + sign * (value - oldValue);
+    csr_matrix_set_nz(modelData->stoichiometry, info.row, info.column, newCell);
+
+    modelData->multiSpeciesReferencesAlias[index] = value;
+
+    return 0;
+}
+
+int LLVMExecutableModel::setInitMultiSpeciesReferenceValue(int index, double value)
+{
+    if (symbols->isConservedMoietyAnalysis())
+        throw LLVMException("Unable to set stoichiometries when conserved moieties are on");
+
+    if (index < 0 || static_cast<size_t>(index) >= symbols->getMultiSpeciesReferenceSize())
+        throw LLVMException("The multi species reference index is not valid");
+
+    const LLVMModelDataSymbols::SpeciesReferenceInfo &info = symbols->getMultiSpeciesReferenceInfo(index);
+
+    if (symbols->hasAssignmentRule(info.id))
+        throw LLVMException("Cannot set stoichiometry '" + info.id + "': it is governed by an assignment rule");
+
+    LLVMModelDataSymbols::SpeciesReferenceType role = symbols->getMultiSpeciesReferenceRole(index);
+    double sign = role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant ? -1.0 : 1.0;
+    double oldValue = modelData->multiSpeciesReferencesInitAlias[index];
+    double oldCell = csr_matrix_get_nz(modelData->initStoichiometry, info.row, info.column);
+    double newCell = (isnan(oldCell) ? 0.0 : oldCell) + sign * (value - oldValue);
+    csr_matrix_set_nz(modelData->initStoichiometry, info.row, info.column, newCell);
+
+    modelData->multiSpeciesReferencesInitAlias[index] = value;
+
+    return 0;
 }
 
 /******************************* Events Section *******************************/

@@ -51,7 +51,13 @@ namespace rrllvm {
         {
             const LLVMModelDataSymbols::SpeciesReferenceInfo& nz = *i;
 
-            if (nz.id.empty() || !dataSymbols.hasRateRule(nz.id))
+            // MultiSpeciesReference-typed cells are handled separately below:
+            // nz.id/nz.type here are the PRIMARY colliding reference's, but
+            // the cell can hold contributions from other references too, so
+            // it can't just be overwritten wholesale from a single reference's
+            // rate rule.
+            if (nz.id.empty() || nz.type == LLVMModelDataSymbols::SpeciesReferenceType::MultiSpeciesReference
+                    || !dataSymbols.hasRateRule(nz.id))
             {
                 continue;
             }
@@ -72,6 +78,59 @@ namespace rrllvm {
 
             mdbuilder.createRateRuleValueStore(nz.id, rateRuleSeed);
             mdbuilder.createStoichiometryStore(nz.row, nz.column, stoichValue, nz.id);
+        }
+
+        // restore each rate-rule-governed MultiSpeciesReference individually,
+        // by the delta between its current value and its frozen init value --
+        // other references sharing the same cell (rule-governed or not) are
+        // left alone.
+        {
+            Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
+            Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+
+            for (size_t i = 0; i < dataSymbols.getMultiSpeciesReferenceSize(); ++i)
+            {
+                const LLVMModelDataSymbols::SpeciesReferenceInfo &info =
+                        dataSymbols.getMultiSpeciesReferenceInfo(static_cast<int>(i));
+
+                if (!dataSymbols.hasRateRule(info.id))
+                {
+                    continue;
+                }
+
+                Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias,
+                        static_cast<unsigned>(i), info.id);
+                Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(),
+                        aliasGEP, info.id + "_old");
+
+                Value *initAliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesInitAlias,
+                        static_cast<unsigned>(i), info.id);
+                Value *initRaw = builder.CreateLoad(initAliasGEP->getType()->getPointerElementType(),
+                        initAliasGEP, info.id + "_init");
+
+                Value *row = ConstantInt::get(Type::getInt32Ty(context), info.row, true);
+                Value *col = ConstantInt::get(Type::getInt32Ty(context), info.column, true);
+                Value *oldCell = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, row, col);
+
+                Value *delta = builder.CreateFSub(initRaw, oldRaw, "reset_delta_" + info.id);
+
+                // info.type has been retroactively overwritten to
+                // MultiSpeciesReference on collision, so use the preserved
+                // original role instead.
+                LLVMModelDataSymbols::SpeciesReferenceType role =
+                        dataSymbols.getMultiSpeciesReferenceRole(static_cast<int>(i));
+                if (role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+                {
+                    Value *negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                    delta = builder.CreateFMul(negOne, delta, "neg_reset_delta_" + info.id);
+                }
+
+                Value *newCell = builder.CreateFAdd(oldCell, delta, "reset_new_cell_" + info.id);
+                ModelDataIRBuilder::createCSRMatrixSetNZ(builder, stoich, row, col, newCell, info.id);
+
+                mdbuilder.createRateRuleValueStore(info.id, initRaw);
+                builder.CreateStore(initRaw, aliasGEP);
+            }
         }
 
         builder.CreateRetVoid();

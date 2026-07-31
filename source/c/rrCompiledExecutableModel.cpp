@@ -1444,6 +1444,31 @@ double CompiledExecutableModel::getInitStoichiometry(int speciesIndex, int react
     return std::numeric_limits<double>::quiet_NaN();
 }
 
+int CompiledExecutableModel::getMultiSpeciesReferenceIndex(const std::string&)
+{
+    return -1;
+}
+
+double CompiledExecutableModel::getMultiSpeciesReferenceValue(int index)
+{
+    return std::numeric_limits<double>::quiet_NaN();
+}
+
+double CompiledExecutableModel::getInitMultiSpeciesReferenceValue(int index)
+{
+    return std::numeric_limits<double>::quiet_NaN();
+}
+
+int CompiledExecutableModel::setMultiSpeciesReferenceValue(int index, double value)
+{
+    return -1;
+}
+
+int CompiledExecutableModel::setInitMultiSpeciesReferenceValue(int index, double value)
+{
+    return -1;
+}
+
 
 int CompiledExecutableModel::getStoichiometryMatrix(int* p_rows, int* p_cols, double** p_data)
 {
