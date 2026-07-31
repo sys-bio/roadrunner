@@ -2043,9 +2043,11 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 
     rr.setConservedMoietyAnalysis(true);
 
-    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction) --
+    // reading an already-valid, independent stoichiometry is safe under CMA; only
+    // setting one is blocked, since it could invalidate already-computed conservation laws.
+    EXPECT_EQ(rr.getValue("m"), 2);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 2);
 
     // set the stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
@@ -2075,9 +2077,10 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 
     rr.setConservedMoietyAnalysis(true);
 
-    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction) --
+    // still safe under CMA; reflects the value set just above, not the original one.
+    EXPECT_EQ(rr.getValue("m"), 6);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 6);
 
     // set the stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
@@ -2087,20 +2090,26 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 TEST_F(ModelAnalysisTests, Stoichiometry_MultiSpeciesReference) {
     // S1 is a reactant via "n" (declared 1) and an unnamed product
     // (declared 1) in the same reaction _J0 -- a MultiSpeciesReference
-    // collision. The named-id form ("n") still can't resolve to a single
-    // reference's own magnitude and throws. stoich(S1,_J0), however, reads
-    // the raw (role-agnostic) matrix cell, which is well-defined regardless
-    // of collisions: -1 (reactant "n") + 1 (product) = 0.
+    // collision. The named-id form ("n") addresses that one reference's own
+    // independent value directly, so it works even though the cell is
+    // shared. stoich(S1,_J0) reads the raw (role-agnostic) matrix cell,
+    // which is well-defined regardless of collisions: -1 (reactant "n")
+    // + 1 (product) = 0. Setting the cell directly via stoich(S1,_J0),
+    // however, is still ambiguous (which reference should change?) and
+    // continues to throw.
     RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
 
     // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("n"), rrllvm::LLVMException);
+    EXPECT_EQ(rr.getValue("n"), 1.0);
     EXPECT_EQ(rr.getValue("stoich(S1,_J0)"), 0.0);
 
-    // set the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    // setValue always targets the underlying reference (ambiguous here), so
-    // both forms still throw.
-    EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
+    // set "n" directly -- updates its own contribution to the shared cell
+    // by its delta (1 -> 3, reactant, so cell shifts by -2: 0 -> -2).
+    rr.setValue("n", 3);
+    EXPECT_EQ(rr.getValue("n"), 3.0);
+    EXPECT_EQ(rr.getValue("stoich(S1,_J0)"), -2.0);
+
+    // setting the shared cell directly is still ambiguous.
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }
 
