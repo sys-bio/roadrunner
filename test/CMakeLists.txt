@@ -37,7 +37,7 @@ set(SBMLTestSuiteStochastic "${SBMLTestSuiteRoot}/stochastic")
 function(add_test_executable TEST_TARGET OUT_VARIABLE)
     #message(STATUS "Adding test ${TEST_TARGET} as part of ${OUT_VARIABLE}. Source Files: ARGN: ${ARGN}" )
     add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>
-            ${ThisSourceDirectory}/TestModelFactory)
+            ${ThisSourceDirectory}/TestModelFactory.cpp)
 
     if (TEST_TARGET MATCHES ".*plugin.*")
         set(TEST_PLUGIN_INCLUDE "$<TARGET_PROPERTY:telplugins_c_api,INCLUDE_DIRECTORIES>")
