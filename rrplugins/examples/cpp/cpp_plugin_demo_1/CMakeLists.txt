@@ -9,7 +9,7 @@ add_library(${target} STATIC ${sources})
 
 add_definitions(
     -DPOCO_STATIC
-    -DSTATIC_PLUGIN_API
+    -DEXPORT_TEL_PLUGIN
 )
 
 target_link_libraries (${target}

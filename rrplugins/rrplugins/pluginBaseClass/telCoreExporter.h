@@ -17,14 +17,10 @@
 
 //Helper macros for plugins
 #if defined(_WIN32)
-    #if defined(STATIC_PLUGIN_API)
-        #define TLP_DS
+    #if defined(EXPORT_TEL_PLUGIN)
+        #define TLP_DS __declspec(dllexport)
     #else
-        #if defined(EXPORT_TEL_PLUGIN)
-            #define TLP_DS __declspec(dllexport)
-        #else
-            #define TLP_DS __declspec(dllimport)
-        #endif
+        #define TLP_DS __declspec(dllimport)
     #endif
 #else
     #define TLP_DS
