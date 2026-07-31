@@ -10,13 +10,20 @@
       <species id="S1" compartment="default_compartment" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="X" compartment="default_compartment" initialConcentration="5" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
     </listOfSpecies>
+    <listOfRules>
+      <rateRule variable="m">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 0.5 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
     <listOfReactions>
       <reaction id="J2" reversible="true">
         <listOfReactants>
           <speciesReference species="S1" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference id="m" species="X" stoichiometry="2" constant="true"/>
+          <speciesReference id="m" species="X" stoichiometry="2" constant="false"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">

@@ -314,3 +314,65 @@ TEST_F(SBMLFeatures, variable_stoich_event_selection_type) {
   vector<string> ids = rr.getStoichiometryIds();
   EXPECT_NE(std::find(ids.begin(), ids.end(), "N"), ids.end());
 }
+
+
+// Rate rules and assignment rules on named boundary-species
+// stoichiometries. Since a boundary reference has no matrix cell, these
+// mirror the plain (non-colliding) rate/assignment-rule tests above, just
+// with a boundary species as the target instead of a floating one.
+
+TEST_F(SBMLFeatures, named_boundary_stoich_assignment_rule) {
+  // J2: S1 (floating reactant) -> m=X (boundary product). m = time.
+  RoadRunner rr((SBMLFeaturesDir / "named_boundary_species_asnt_rule.xml").string());
+  EXPECT_NEAR(rr.getValue("m"), 0.0, 1e-9);
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("m"), 2.0, 1e-9);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_rate_rule) {
+  // J2: S1 (floating reactant) -> m=X (boundary product, declared 2).
+  // dm/dt = 0.5.
+  RoadRunner rr((SBMLFeaturesDir / "named_boundary_species_rate_rule.xml").string());
+  EXPECT_NEAR(rr.getValue("m"), 2.0, 1e-9);
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("m"), 3.0, 1e-6);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_rate_rule_reset_semantics) {
+  // Mirrors multi_reactant_rate_rule_reset_semantics: plain reset() restores
+  // a rate-rule-governed boundary stoichiometry (like a global parameter
+  // would), and reset(ALL) re-syncs to whatever init(m) is CURRENTLY
+  // configured to, not the original declared value.
+  RoadRunner rr((SBMLFeaturesDir / "named_boundary_species_rate_rule.xml").string());
+
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("m"), 3.0, 1e-6);
+
+  rr.reset();
+  EXPECT_NEAR(rr.getValue("m"), 2.0, 1e-9);
+
+  rr.reset(SelectionRecord::ALL);
+  rr.setValue("init(m)", 4);
+  rr.oneStep(0, 2.0);
+  EXPECT_NEAR(rr.getValue("m"), 5.0, 1e-4);
+
+  rr.reset(SelectionRecord::ALL);
+  EXPECT_NEAR(rr.getValue("m"), 4.0, 1e-9);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_referenced_by_other_stoich_assignment_rule) {
+  // J2: m=X (boundary reactant, stoich 2, no rule) -> n=S1 (floating
+  // product, assignment rule n = m). n itself is a plain, non-colliding
+  // floating stoichiometry (already supported); what's new here is that its
+  // assignment rule formula references "m", a boundary stoichiometry.
+  RoadRunner rr((SBMLFeaturesDir / "named_boundary_species_in_kl_and_other_stoich.xml").string());
+  EXPECT_EQ(rr.getValue("m"), 2.0);
+  EXPECT_EQ(rr.getValue("n"), 2.0);
+
+  rr.setValue("m", 5);
+  EXPECT_EQ(rr.getValue("n"), 5.0);
+
+  // stoich(S1, J2) reads the raw matrix cell for the floating species,
+  // driven by n's assignment rule.
+  EXPECT_NEAR(rr.getValue("stoich(S1, J2)"), 5.0, 1e-9);
+}

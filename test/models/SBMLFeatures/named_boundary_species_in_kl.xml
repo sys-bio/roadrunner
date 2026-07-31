@@ -7,23 +7,27 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="S" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
-      <species id="S1" compartment="default_compartment" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="X" compartment="default_compartment" initialConcentration="5" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="S1" compartment="default_compartment" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="J2" reversible="true">
         <listOfReactants>
-          <speciesReference species="S1" stoichiometry="1" constant="true"/>
+          <speciesReference id="m" species="X" stoichiometry="2" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference id="m" species="X" stoichiometry="2" constant="true"/>
+          <speciesReference species="S1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <cn type="integer"> 5 </cn>
-              <ci> S1 </ci>
+              <apply>
+                <power/>
+                <ci> X </ci>
+                <ci> m </ci>
+              </apply>
             </apply>
           </math>
         </kineticLaw>

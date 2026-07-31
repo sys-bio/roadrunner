@@ -58,6 +58,14 @@ namespace rrllvm {
 
                 if (p->isSetId() && p->getId().length() > 0 &&
                     !isConstantSpeciesReference(p)) {
+
+                    if (dataSymbols.isBoundarySpecies(p->getSpecies())) {
+                        // boundary species have no stoichiometry-matrix row,
+                        // so there's no cell to resync here -- p's value is
+                        // handled generically as a global parameter instead.
+                        continue;
+                    }
+
                     rrLog(Logger::LOG_INFORMATION) <<
                                                  "generating update code for non-constant species "
                                                  "reference product " << p->getId();
@@ -101,6 +109,12 @@ namespace rrllvm {
 
                 if (r->isSetId() && r->getId().length() > 0
                     && !isConstantSpeciesReference(r)) {
+
+                    if (dataSymbols.isBoundarySpecies(r->getSpecies())) {
+                        // see matching comment in the products loop above.
+                        continue;
+                    }
+
                     rrLog(Logger::LOG_INFORMATION) <<
                                                  "generating update code for non-constant species "
                                                  "reference reactant " << r->getId();

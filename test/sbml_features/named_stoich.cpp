@@ -504,3 +504,71 @@ TEST_F(SBMLFeatures, stoich_selector_set_reflected_in_sbml) {
 }
 
 
+// Boundary species never get a row in the stoichiometry matrix, so a named 
+// reference to one has no matrix cell to belong to -- it's purely an 
+// independently-stored value, with none of the collision/delta machinery
+// MultiSpeciesReference needs.
+
+TEST_F(SBMLFeatures, named_boundary_stoich_value) {
+  // J2: S1 (floating reactant, stoich 1, unnamed) -> m=X (boundary product,
+  // stoich 2). X is boundary, so "m" has no stoichiometry-matrix cell.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_boundary_species.xml").string());
+  EXPECT_EQ(rr.getValue("m"), 2.0);
+  rr.setValue("m", 7);
+  EXPECT_EQ(rr.getValue("m"), 7.0);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_init_value) {
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_boundary_species.xml").string());
+  rr.setValue("init(m)", 9);
+  EXPECT_EQ(rr.getValue("m"), 9.0);
+  EXPECT_EQ(rr.getValue("init(m)"), 9.0);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_init_and_current_are_independent) {
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_boundary_species.xml").string());
+  rr.setValue("init(m)", 3);
+  rr.setValue("m", 5);
+  EXPECT_EQ(rr.getValue("init(m)"), 3.0);
+  EXPECT_EQ(rr.getValue("m"), 5.0);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_no_species_reaction_form) {
+  // stoich(species, reaction) addresses a matrix cell, and boundary species
+  // don't have one -- X's stoichiometry is only reachable by its own name.
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_boundary_species.xml").string());
+  EXPECT_THROW(rr.createSelection("stoich(X, J2)"), Exception);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_used_in_kinetic_law) {
+  // J2: m=X (boundary reactant, stoich 2) -> S1 (floating product, unnamed).
+  // kineticLaw = 5 * X^m. Exercises "m" resolving to its own raw value when
+  // read as a term inside another formula, not just via getValue("m").
+  rr::RoadRunner rr((SBMLFeaturesDir / "named_boundary_species_in_kl.xml").string());
+  EXPECT_EQ(rr.getValue("m"), 2.0);
+  // rate = 5 * 5^2 = 125
+  EXPECT_NEAR(rr.getValue("J2"), 125.0, 1e-9);
+  rr.setValue("m", 3);
+  // rate = 5 * 5^3 = 625
+  EXPECT_NEAR(rr.getValue("J2"), 625.0, 1e-9);
+}
+
+TEST_F(SBMLFeatures, named_boundary_stoich_reflected_in_sbml) {
+  RoadRunner rr((SBMLFeaturesDir / "named_boundary_species.xml").string());
+
+  rr.setValue("m", 7);
+  string sbml = rr.getCurrentSBML();
+  libsbml::SBMLDocument* doc = libsbml::readSBMLFromString(sbml.c_str());
+  libsbml::Reaction* rxn = doc->getModel()->getReaction("J2");
+  EXPECT_EQ(findSpeciesReference(rxn, "X")->getStoichiometry(), 7.0);
+  delete doc;
+
+  rr.setValue("init(m)", 9);
+  sbml = rr.getSBML();
+  doc = libsbml::readSBMLFromString(sbml.c_str());
+  rxn = doc->getModel()->getReaction("J2");
+  EXPECT_EQ(findSpeciesReference(rxn, "X")->getStoichiometry(), 9.0);
+  delete doc;
+}
+
+

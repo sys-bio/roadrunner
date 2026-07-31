@@ -752,6 +752,40 @@ size_t LLVMModelDataSymbols::getGlobalParametersSize() const
     return globalParametersMap.size();
 }
 
+std::vector<std::string> LLVMModelDataSymbols::collectNamedBoundaryStoichiometryIds(
+        const libsbml::Model* model) const
+{
+    std::vector<std::string> ids;
+
+    const ListOfReactions *reactions = model->getListOfReactions();
+    for (size_t i = 0; i < reactions->size(); i++)
+    {
+        const Reaction *reaction = reactions->get(i);
+
+        const ListOfSpeciesReferences *reactants = reaction->getListOfReactants();
+        for (size_t j = 0; j < reactants->size(); j++)
+        {
+            const SimpleSpeciesReference *r = reactants->get(j);
+            if (r->isSetId() && r->getId().length() > 0 && isBoundarySpecies(r->getSpecies()))
+            {
+                ids.push_back(r->getId());
+            }
+        }
+
+        const ListOfSpeciesReferences *products = reaction->getListOfProducts();
+        for (size_t j = 0; j < products->size(); j++)
+        {
+            const SimpleSpeciesReference *p = products->get(j);
+            if (p->isSetId() && p->getId().length() > 0 && isBoundarySpecies(p->getSpecies()))
+            {
+                ids.push_back(p->getId());
+            }
+        }
+    }
+
+    return ids;
+}
+
 void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         bool conservedMoieties)
 {
@@ -762,7 +796,14 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 
     const ListOfParameters *parameters = model->getListOfParameters();
 
-    globalParameterRateRules.resize(parameters->size(), false);
+    // named speciesReferences attached to boundary species have no
+    // stoichiometry-matrix cell (boundary species never get a matrix row),
+    // so they're classified here right alongside real parameters and end up
+    // sharing the same storage and rule machinery.
+    std::vector<std::string> namedBoundaryStoichIds =
+        collectNamedBoundaryStoichiometryIds(model);
+
+    globalParameterRateRules.resize(parameters->size() + namedBoundaryStoichIds.size(), false);
 
     for (size_t i = 0; i < parameters->size(); i++)
     {
@@ -787,6 +828,28 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         }
     }
 
+    for (std::vector<std::string>::const_iterator i = namedBoundaryStoichIds.begin();
+            i != namedBoundaryStoichIds.end(); ++i)
+    {
+        if (isIndependentElement(*i))
+        {
+            indParam.push_back(*i);
+        }
+        else
+        {
+            depParam.push_back(*i);
+        }
+
+        if (isIndependentInitElement(*i))
+        {
+            indInitParam.push_back(*i);
+        }
+        else
+        {
+            depInitParam.push_back(*i);
+        }
+    }
+
     // when this is used, we check the size, so works even
     // when consv moieity is not enabled.
     if (conservedMoieties)
@@ -803,11 +866,13 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         size_t pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
-        // CM parameters can only be independent.
+        // CM parameters can only be independent, and only a real <parameter>
+        // can be a conserved moiety -- a boundary-stoichiometry id has no
+        // Parameter element, so parameters->get(*i) is NULL for it.
         if (conservedMoieties)
         {
             const Parameter* p = parameters->get(*i);
-            bool isCons = ConservationExtension::getConservedMoiety(*p);
+            bool isCons = p && ConservationExtension::getConservedMoiety(*p);
             conservedMoietyGlobalParameter[pi] = isCons;
 
             if (isCons)
@@ -1412,7 +1477,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *r = reactants->get(j);
 
             int speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
-            if (r->isSetId() && r->getId().length() > 0)
+            if (r->isSetId() && r->getId().length() > 0 && !isBoundarySpecies(r->getSpecies()))
             {
               if (namedSpeciesReferenceInfo.find(r->getId()) ==
                 namedSpeciesReferenceInfo.end())
@@ -1481,7 +1546,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             // products had better be in the stoich matrix.
 
             uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
-            if (p->isSetId() && p->getId().length() > 0)
+            if (p->isSetId() && p->getId().length() > 0 && !isBoundarySpecies(p->getSpecies()))
             {
               if (namedSpeciesReferenceInfo.find(p->getId())
                 == namedSpeciesReferenceInfo.end())

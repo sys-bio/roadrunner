@@ -843,6 +843,17 @@ private:
     void initGlobalParameters(const libsbml::Model *model,
             bool conservedMoieties);
 
+    /**
+     * ids of named speciesReferences whose species is a boundary species.
+     * Boundary species never get a row in the stoichiometry matrix, so these
+     * references have no matrix cell to update -- initGlobalParameters folds
+     * them into the ordinary global parameter machinery instead (settable,
+     * usable in formulas, governed by rate/assignment rules the same way a
+     * real <parameter> would be).
+     */
+    std::vector<std::string> collectNamedBoundaryStoichiometryIds(
+            const libsbml::Model *model) const;
+
     void initReactions(const libsbml::Model *model);
 
     void displayCompartmentInfo();
