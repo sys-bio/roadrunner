@@ -9,6 +9,7 @@ add_library(${target} STATIC ${sources})
 
 add_definitions(
     -DPOCO_STATIC
+    -DSTATIC_PLUGIN_API
 )
 
 target_link_libraries (${target}
