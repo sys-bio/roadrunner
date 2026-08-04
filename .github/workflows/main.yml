@@ -431,7 +431,7 @@ jobs:
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
           ${{ env.PYTHON_DIR }} \
-          ${{ env.SWIG_DIR }}
+          ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
       - name: Build and install RoadRunner
         shell: bash
