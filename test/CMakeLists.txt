@@ -77,12 +77,17 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main rr-mockups)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
-    # Add to ctest.
+    # Add to ctest. Uses gtest_add_tests (source parsing) rather than
+    # gtest_discover_tests (executes the binary at build/ctest time), since
+    # the latter is intermittently unreliable.
     set(TEST_ENV_VARS "testdir=${RR_ROOT}/test" "CTEST_OUTPUT_ON_FAILURE=TRUE")
-    gtest_discover_tests(
-            ${TEST_TARGET}
-            DISCOVERY_TIMEOUT 500
-            PROPERTIES
+    gtest_add_tests(
+            TARGET ${TEST_TARGET}
+            SOURCES ${ARGN}
+            WORKING_DIRECTORY $<TARGET_FILE_DIR:${TEST_TARGET}>
+            TEST_LIST ${TEST_TARGET}_GTESTS
+    )
+    set_tests_properties(${${TEST_TARGET}_GTESTS} PROPERTIES
             TIMEOUT 500
             ENVIRONMENT "${TEST_ENV_VARS}"
     )
