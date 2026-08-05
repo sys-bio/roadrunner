@@ -77,10 +77,16 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main rr-mockups)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
-    # Add to ctest.
+    # Add to ctest. DISCOVERY_MODE PRE_TEST defers running the built binary
+    # with --gtest_list_tests until ctest itself is invoked, instead of
+    # running it immediately after linking (the POST_BUILD default). That
+    # avoids a Windows race where the freshly-linked exe isn't fully
+    # released yet, which was causing ParseTestList.cmake to fail on
+    # truncated/empty JSON output.
     set(TEST_ENV_VARS "testdir=${RR_ROOT}/test" "CTEST_OUTPUT_ON_FAILURE=TRUE")
     gtest_discover_tests(
             ${TEST_TARGET}
+            DISCOVERY_MODE PRE_TEST
             DISCOVERY_TIMEOUT 500
             PROPERTIES
             TIMEOUT 500

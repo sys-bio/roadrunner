@@ -1,5 +1,5 @@
 add_test_executable(test_c_api_rrtests test_targets
-        ${SharedTestFiles} NomTests.cpp RRTestFileTests OtherRRTestFileTests.cpp
+        ${SharedTestFiles} NomTests.cpp RRTestFileTests.cpp OtherRRTestFileTests.cpp
         )
 
 # make test_targets list global to all tests
