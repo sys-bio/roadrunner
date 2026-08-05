@@ -1,8 +1,8 @@
 add_test_executable(test_c_api_core test_targets
-        rrSBMLTestSuiteSimulation_CAPI
+        rrSBMLTestSuiteSimulation_CAPI.cpp
         ${SharedTestFiles}
         exceptions.cpp
-        CAPICoreTest
+        CAPICoreTest.cpp
         libstruct.cpp
         model_editing.cpp
         SimulateOptionsCAPITests.cpp

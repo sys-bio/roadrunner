@@ -77,31 +77,18 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main rr-mockups)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
-    # Add to ctest. Uses gtest_add_tests (source parsing) rather than
-    # gtest_discover_tests (executes the binary at build/ctest time), since
-    # the latter is intermittently unreliable.
-    #
-    # Unlike add_executable, gtest_add_tests does not resolve source names
-    # given without an extension, so resolve any bare names to their .cpp
-    # file here before handing the list to it.
-    set(GTEST_ADD_TESTS_SOURCES)
-    foreach (SRC ${ARGN})
-        get_filename_component(SRC_EXT "${SRC}" EXT)
-        if (SRC_EXT STREQUAL "" AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${SRC}.cpp")
-            list(APPEND GTEST_ADD_TESTS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/${SRC}.cpp")
-        else ()
-            list(APPEND GTEST_ADD_TESTS_SOURCES "${SRC}")
-        endif ()
-    endforeach ()
-
+    # Add to ctest. DISCOVERY_MODE PRE_TEST defers running the built binary
+    # with --gtest_list_tests until ctest itself is invoked, instead of
+    # running it immediately after linking (the POST_BUILD default). That
+    # avoids a Windows race where the freshly-linked exe isn't fully
+    # released yet, which was causing ParseTestList.cmake to fail on
+    # truncated/empty JSON output.
     set(TEST_ENV_VARS "testdir=${RR_ROOT}/test" "CTEST_OUTPUT_ON_FAILURE=TRUE")
-    gtest_add_tests(
-            TARGET ${TEST_TARGET}
-            SOURCES ${GTEST_ADD_TESTS_SOURCES}
-            WORKING_DIRECTORY $<TARGET_FILE_DIR:${TEST_TARGET}>
-            TEST_LIST ${TEST_TARGET}_GTESTS
-    )
-    set_tests_properties(${${TEST_TARGET}_GTESTS} PROPERTIES
+    gtest_discover_tests(
+            ${TEST_TARGET}
+            DISCOVERY_MODE PRE_TEST
+            DISCOVERY_TIMEOUT 500
+            PROPERTIES
             TIMEOUT 500
             ENVIRONMENT "${TEST_ENV_VARS}"
     )
