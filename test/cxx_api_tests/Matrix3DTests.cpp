@@ -4,6 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "Matrix3D.h"
+#include <limits>
 
 using namespace rr;
 
@@ -412,6 +413,50 @@ TEST_F(Matrix3DTests, AlmostEqualsWhenFalse) {
                             {0.2, 2.2},
                             {0.2, 2.2}
                     }
+            }
+    );
+    ASSERT_FALSE(first.almostEquals(second, 1e-4));
+}
+
+TEST_F(Matrix3DTests, AlmostEqualsWhenFalseReverseDirection) {
+    // almostEquals must be symmetric. The one-sided check
+    // (index_[i] - other.index_[i]) > tol only caught the case where the
+    // callee's index was smaller than the argument's.
+    Matrix3D<double, double> small(
+            {0.0, 1.0},
+            {
+                    {{0.0}},
+                    {{0.0}}
+            }
+    );
+    Matrix3D<double, double> large(
+            {0.0, 1000.0},
+            {
+                    {{0.0}},
+                    {{0.0}}
+            }
+    );
+    ASSERT_FALSE(small.almostEquals(large, 1e-4));
+    ASSERT_FALSE(large.almostEquals(small, 1e-4));
+}
+
+TEST_F(Matrix3DTests, AlmostEqualsWithNaNIndexDifferenceIsFalse) {
+    // NaN comparisons are always false, so the old check treated a NaN
+    // difference between index values as "not greater than tolerance",
+    // silently reporting equality.
+    double nan = std::numeric_limits<double>::quiet_NaN();
+    Matrix3D<double, double> first(
+            {nan, 1.0},
+            {
+                    {{0.0}},
+                    {{0.0}}
+            }
+    );
+    Matrix3D<double, double> second(
+            {2.0, 1.0},
+            {
+                    {{0.0}},
+                    {{0.0}}
             }
     );
     ASSERT_FALSE(first.almostEquals(second, 1e-4));

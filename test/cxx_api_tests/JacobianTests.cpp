@@ -10,6 +10,30 @@
 
 using namespace rr;
 
+// A model with no reactions, governed entirely by a rate rule (dS0/dt = -S0).
+// getFullJacobian() takes an early-return path for this case.
+static const std::string PureRateRuleNoReactionsSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="pure_rate_rule">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="S0" compartment="c" initialConcentration="1" hasOnlySubstanceUnits="false"/>
+ </listOfSpecies>
+ <listOfRules>
+  <rateRule variable="S0">
+   <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><minus/><ci>S0</ci></apply></math>
+  </rateRule>
+ </listOfRules>
+</model></sbml>)";
+
+// A model with no species, no reactions, and no rate rules. Both
+// getFullJacobian() (the nr == 0 branch) and getReducedJacobian() (zero
+// included species) take early/degenerate paths for this case.
+static const std::string NoSpeciesNoReactionsSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="empty_model">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfParameters><parameter id="k" value="1"/></listOfParameters>
+</model></sbml>)";
+
 class JacobianTests : public RoadRunnerTest {
 
 public:
@@ -188,6 +212,37 @@ TEST_F(JacobianTests, SimpleFluxReducedAmt) {
 
 TEST_F(JacobianTests, SimpleFluxReducedConc) {
     checkJacobianReducedConc("SimpleFlux", 1e-4);
+}
+
+/**
+ * Regression tests for the ROADRUNNER_JACOBIAN_MODE leak: getFullJacobian()
+ * and getReducedJacobian() force CONCENTRATIONS mode and are supposed to
+ * restore the caller's setting before returning, on every path. Each of
+ * these hits an early/degenerate return that historically skipped the
+ * restore, leaving the config stuck at CONCENTRATIONS.
+ */
+TEST_F(JacobianTests, FullJacobianRestoresConfigOnPureRateRuleEarlyReturn) {
+    RoadRunner rr(PureRateRuleNoReactionsSBML);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
+    rr.getFullJacobian();
+    ASSERT_EQ((std::int32_t) Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS,
+              Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>());
+}
+
+TEST_F(JacobianTests, FullJacobianRestoresConfigWhenNoReactionsOrRateRules) {
+    RoadRunner rr(NoSpeciesNoReactionsSBML);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
+    rr.getFullJacobian();
+    ASSERT_EQ((std::int32_t) Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS,
+              Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>());
+}
+
+TEST_F(JacobianTests, ReducedJacobianRestoresConfigWhenNoIncludedSpecies) {
+    RoadRunner rr(NoSpeciesNoReactionsSBML);
+    Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
+    rr.getReducedJacobian();
+    ASSERT_EQ((std::int32_t) Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS,
+              Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>());
 }
 
 

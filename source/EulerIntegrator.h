@@ -61,43 +61,48 @@ namespace rr {
         */
         EulerIntegrator(ExecutableModel *m)
                 : Integrator(m),
-                  eventStatus(std::vector<unsigned char>(m->getNumEvents(), false)),
-                  previousEventStatus(std::vector<unsigned char>(m->getNumEvents(), false)) {
+                  rateBuffer(nullptr),
+                  stateBufferBegin(nullptr),
+                  stateBufferEnd(nullptr),
+                  stateVectorSize(0) {
             EulerIntegrator::resetSettings();
 
-            mModel = m;
             exampleParameter1 = 3.14;
             exampleParameter2 = "hello";
             rrLog(Logger::LOG_WARNING) << "Euler integrator is inaccurate";
-            //std::cerr << "Number of event triggers: " << m->getEventTriggers(0, 0, 0) << std::endl;
-
-            if (mModel) {
-                // calling the getStateVector with a NULL argument returns
-                // the size of teh state std::vector.
-                stateVectorSize = mModel->getStateVector(NULL);
-                rateBuffer = new double[stateVectorSize];
-                stateBufferBegin = new double[stateVectorSize];
-                stateBufferEnd = new double[stateVectorSize];
-            } else {
-                rateBuffer = NULL;
-                stateBufferBegin = NULL;
-                stateBufferEnd = NULL;
-            }
+            syncWithModel(m);
         }
 
         /**
         * delete any memory we allocated
         */
         ~EulerIntegrator() override {
-            if (mModel) {
-                delete[] rateBuffer;
-                delete[] stateBufferBegin;
-                delete[] stateBufferEnd;
-                rateBuffer = nullptr;
-                stateBufferBegin = nullptr;
-                stateBufferEnd = nullptr;
-            }
+            delete[] rateBuffer;
+            delete[] stateBufferBegin;
+            delete[] stateBufferEnd;
         };
+
+        void syncWithModel(ExecutableModel *m) override {
+            delete[] rateBuffer;
+            delete[] stateBufferBegin;
+            delete[] stateBufferEnd;
+            rateBuffer = nullptr;
+            stateBufferBegin = nullptr;
+            stateBufferEnd = nullptr;
+            stateVectorSize = 0;
+
+            mModel = m;
+            eventStatus.clear();
+            previousEventStatus.clear();
+            if (mModel) {
+                stateVectorSize = mModel->getStateVector(nullptr);
+                rateBuffer = new double[stateVectorSize];
+                stateBufferBegin = new double[stateVectorSize];
+                stateBufferEnd = new double[stateVectorSize];
+                eventStatus.assign(mModel->getNumEvents(), false);
+                previousEventStatus.assign(mModel->getNumEvents(), false);
+            }
+        }
 
         /**
         * integrates the model from t0 to t0 + hstep
@@ -362,12 +367,14 @@ namespace rr {
         * two buffers to store the state std::vector rate, and
         * new state std::vector
         */
-        double *rateBuffer, *stateBufferBegin, *stateBufferEnd;
+        double *rateBuffer = nullptr;
+        double *stateBufferBegin = nullptr;
+        double *stateBufferEnd = nullptr;
 
         /**
         * size of state std::vector
         */
-        int stateVectorSize;
+        int stateVectorSize = 0;
 
         std::vector<unsigned char> eventStatus;
         std::vector<unsigned char> previousEventStatus;

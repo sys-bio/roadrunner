@@ -74,6 +74,23 @@ namespace rr {
 
     typedef std::vector<std::string> string_vector;
 
+    class ConfigValueGuard {
+    public:
+        explicit ConfigValueGuard(Config::Keys key)
+            : key_(key), value_(Config::getValue(key)) {}
+
+        ~ConfigValueGuard() {
+            Config::setValue(key_, value_);
+        }
+
+        ConfigValueGuard(const ConfigValueGuard&) = delete;
+        ConfigValueGuard& operator=(const ConfigValueGuard&) = delete;
+
+    private:
+        Config::Keys key_;
+        Setting value_;
+    };
+
 
 // we can write a single function to pick the std::string lists out
 // of the model instead of duplicating it 6 times with
@@ -3234,7 +3251,7 @@ namespace rr {
         check_model();
 
         get_self();
-        std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+        ConfigValueGuard restoreJacobianMode(Config::ROADRUNNER_JACOBIAN_MODE);
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS); 
 
         if (self.model->getNumReactions() == 0 && self.model->getNumRateRules() > 0) {
@@ -3337,9 +3354,6 @@ namespace rr {
                 }
 
             }
-            // Put back User selected JACOBIAN_MODE:
-            Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
-
             // get the row/column ids, independent floating species
             std::list<std::string> list;
             self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
@@ -3362,7 +3376,7 @@ namespace rr {
             h = self.roadRunnerOptions.jacobianStepSize;
         }
 
-        std::int32_t savedJacobianMode = Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).getAs<std::int32_t>();
+        ConfigValueGuard restoreJacobianMode(Config::ROADRUNNER_JACOBIAN_MODE);
 
         // For our purposes here, we want all independent floating species
         // plus all floating species that have rate rules.
@@ -3457,8 +3471,6 @@ namespace rr {
                 jac(ri, ci) = origVal / compVol;
             }
 
-            // Put back User selected JACOBIAN_MODE:
-            Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, savedJacobianMode);
         }
         return jac;
     }

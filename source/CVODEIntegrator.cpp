@@ -318,22 +318,22 @@ namespace rr {
     void CVODEIntegrator::setIndividualTolerance(std::string sid, double value) {
 
         // the tolerance std::vector that will be stored
-        // [0, numIndFloatingSpecies) stores tolerances for independent floating species
-        // [numIndFloatingSpecies, numIndFloatingSpecies+numRateRule) stores tolerances for variables that have rate rule
+        // Match ExecutableModel::getStateVector(): rate rules first, followed by
+        // independent floating species.
         std::vector<double> v = getAbsoluteToleranceVector();
 
         int speciesIndex = mModel->getFloatingSpeciesIndex(sid);
         std::ptrdiff_t index;
         if (speciesIndex > -1 && speciesIndex < mModel->getNumIndFloatingSpecies()) {
             // sid is an independent floating species
-            v[speciesIndex] = value;
+            v[mModel->getNumRateRules() + speciesIndex] = value;
         } else {
             // sid might has a rate rule
             std::vector<std::string> symbols = mModel->getRateRuleSymbols();
             std::vector<std::string>::iterator it = std::find(symbols.begin(), symbols.end(), sid);
             if (it != symbols.end()) {
                 // found it
-                index = mModel->getNumIndFloatingSpecies() + std::distance(symbols.begin(), it);
+                index = std::distance(symbols.begin(), it);
                 v[index] = value;
             } else {
                 throw std::invalid_argument("CVODEIntegrator::setIndividualTolerance failed, given sid " + sid +
@@ -856,11 +856,11 @@ namespace rr {
             if (initSpecies[s] == 0) {
                 int comp = mModel->getCompartmentIndexForFloatingSpecies(s);
                 if (volumes[comp] != 0.0) {
-                    amount_tolerances[s] = amount_tolerances[s] * abs(volumes[comp]);
+                    amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * abs(volumes[comp]);
                 }
             }
             else {
-                amount_tolerances[s] = amount_tolerances[s] * abs(initSpecies[s]);
+                amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * abs(initSpecies[s]);
             }
         }
 
@@ -873,13 +873,13 @@ namespace rr {
                     // the symbol defined by the rate rule is a species
                     int comp = mModel->getCompartmentIndexForFloatingSpecies(speciesIndex);
                     if (volumes[comp] != 0.0) {
-                        amount_tolerances[species + rr] = amount_tolerances[species + rr] * abs(volumes[comp]);
+                        amount_tolerances[rr] = amount_tolerances[rr] * abs(volumes[comp]);
                     }
                 }
                 //Otherwise just leave amount_tolerances as it is.
             }
             else {
-                amount_tolerances[species + rr] = amount_tolerances[species + rr] * abs(initRRs[rr]);
+                amount_tolerances[rr] = amount_tolerances[rr] * abs(initRRs[rr]);
             }
         }
 
