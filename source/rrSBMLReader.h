@@ -36,7 +36,7 @@ public:
 
     /**
      * read an SBML document from a local file path, a remote URI, or
-     * directlly from a sbml std::string. If the document has the comp
+     * directly from a sbml std::string. If the document has the comp
      * extension, it is automatically flattened before being returned,
      * regardless of whether it came from a file, a URI, or a std::string.
      */
