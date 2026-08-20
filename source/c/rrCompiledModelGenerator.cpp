@@ -242,7 +242,9 @@ bool CompiledModelGenerator::expressionContainsSymbol(const std::string& express
           return false;
       }
       ASTNode *ast = SBML_parseFormula(expression.c_str());
-      return expressionContainsSymbol(ast, symbol);
+      bool contains = expressionContainsSymbol(ast, symbol);
+      delete ast;
+      return contains;
 }
 
 const Symbol* CompiledModelGenerator::getSpecies(const std::string& id)

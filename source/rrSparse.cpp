@@ -128,7 +128,7 @@ csr_matrix* csr_matrix_new(unsigned m, unsigned n,
 
 bool csr_matrix_set_nz(csr_matrix* mat, unsigned row, unsigned col, double val)
 {
-    if (mat && row <= mat->m && col <= mat->n)
+    if (mat && row < mat->m && col < mat->n)
     {
         for (unsigned k = mat->rowptr[row]; k < mat->rowptr[row + 1]; k++)
         {
@@ -144,7 +144,7 @@ bool csr_matrix_set_nz(csr_matrix* mat, unsigned row, unsigned col, double val)
 
 double csr_matrix_get_nz(const csr_matrix* mat, unsigned row, unsigned col)
 {
-    if (mat && row <= mat->m && col <= mat->n)
+    if (mat && row < mat->m && col < mat->n)
     {
         for (unsigned k = mat->rowptr[row]; k < mat->rowptr[row + 1]; k++)
         {
@@ -324,5 +324,4 @@ std::ostream& operator <<(std::ostream& os, const csr_matrix* mat)
 }
 
 }
-
 

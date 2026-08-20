@@ -226,6 +226,98 @@ TEST_F(CVODEIntegratorUnitTests, restart) {
     cvodeIntegrator.restart(0);
 }
 
+/**
+ * Regression tests for the tolerance-vector packing order.
+ *
+ * ExecutableModel::getStateVector() packs the state as
+ * [rate-rule variables, independent floating species]. The tolerance
+ * vector must follow the same layout, but setIndividualTolerance() and
+ * getAbsoluteToleranceVector() historically assumed the reverse order
+ * ([species, rate rules]), silently mapping tolerances to the wrong
+ * state variable whenever a model had both.
+ */
+TEST_F(CVODEIntegratorUnitTests, SetIndividualToleranceRateRuleComesBeforeSpecies) {
+    // 2 independent species (S0, S1) and 1 rate-rule variable (R0): state
+    // vector length 3, overriding the fixture's default of 2.
+    EXPECT_CALL(mockExecutableModel, getStateVector).WillRepeatedly(Return(3));
+    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+    EXPECT_CALL(mockExecutableModel, getNumRateRules).WillRepeatedly(Return(1));
+    EXPECT_CALL(mockExecutableModel, getRateRuleSymbols)
+        .WillRepeatedly(Return(std::vector<std::string>{"R0"}));
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesIndex("R0")).WillRepeatedly(Return(-1));
+    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+
+    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+    cvodeIntegrator.setValue("absolute_tolerance", 1e-6);
+    cvodeIntegrator.setIndividualTolerance("R0", 0.5);
+
+    std::vector<double> tol = cvodeIntegrator.getValue("absolute_tolerance").get<std::vector<double>>();
+    ASSERT_EQ(3, tol.size());
+    // Rate rules occupy [0, numRateRules); R0 is the only one, so its
+    // tolerance must land at index 0, not at index 2 (numIndFloatingSpecies).
+    ASSERT_NEAR(0.5, tol[0], 1e-9);
+    ASSERT_NEAR(1e-6, tol[1], 1e-9);
+    ASSERT_NEAR(1e-6, tol[2], 1e-9);
+}
+
+TEST_F(CVODEIntegratorUnitTests, SetIndividualToleranceForSpeciesIsOffsetByRateRuleCount) {
+    // 2 independent species (S0, S1) and 1 rate-rule variable: state
+    // vector length 3, overriding the fixture's default of 2.
+    EXPECT_CALL(mockExecutableModel, getStateVector).WillRepeatedly(Return(3));
+    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+    EXPECT_CALL(mockExecutableModel, getNumRateRules).WillRepeatedly(Return(1));
+    // getAbsoluteToleranceVector() scales rate-rule tolerances unconditionally,
+    // even though this test's tolerance update itself never touches a rate
+    // rule. With getRateRuleValues() left at its default of 0, that scaling
+    // takes the branch that also calls getFloatingSpeciesIndex("R0") to see
+    // whether the rate-rule variable is itself a species -- so that needs a
+    // matching expectation too, or gmock treats it as an unexpected call to
+    // a method it only has an "S1" expectation for.
+    EXPECT_CALL(mockExecutableModel, getRateRuleSymbols)
+        .WillRepeatedly(Return(std::vector<std::string>{"R0"}));
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesIndex("R0")).WillRepeatedly(Return(-1));
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesIndex("S1")).WillRepeatedly(Return(1));
+    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+
+    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+    cvodeIntegrator.setValue("absolute_tolerance", 1e-6);
+    cvodeIntegrator.setIndividualTolerance("S1", 0.25);
+
+    std::vector<double> tol = cvodeIntegrator.getValue("absolute_tolerance").get<std::vector<double>>();
+    ASSERT_EQ(3, tol.size());
+    // S1 is independent-species index 1. With 1 rate rule packed ahead of
+    // the species block, its slot is numRateRules + 1 == 2, not 1.
+    ASSERT_NEAR(0.25, tol[2], 1e-9);
+    ASSERT_NEAR(1e-6, tol[0], 1e-9);
+    ASSERT_NEAR(1e-6, tol[1], 1e-9);
+}
+
+TEST_F(CVODEIntegratorUnitTests, AbsoluteToleranceVectorPacksRateRulesBeforeSpecies) {
+    // 1 independent species (S0, amount 5) and 1 rate-rule variable
+    // (R0, value 3). Both amounts are non-zero, so getAbsoluteToleranceVector
+    // scales each slot by abs(value) directly, without needing compartment
+    // volumes.
+    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(1));
+    EXPECT_CALL(mockExecutableModel, getNumRateRules).WillRepeatedly(Return(1));
+    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
+    EXPECT_CALL(mockExecutableModel, getRateRuleSymbols)
+        .WillRepeatedly(Return(std::vector<std::string>{"R0"}));
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesAmounts)
+        .WillRepeatedly(DoAll(SetArgPointee<2>(5.0), Return(0)));
+    EXPECT_CALL(mockExecutableModel, getRateRuleValues)
+        .WillRepeatedly(SetArgPointee<0>(3.0));
+
+    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+    cvodeIntegrator.setValue("absolute_tolerance", 1e-6);
+    std::vector<double> tol = cvodeIntegrator.getAbsoluteToleranceVector();
+
+    ASSERT_EQ(2, tol.size());
+    // Packed order is [rate rules, species]: R0 (value 3) at index 0,
+    // S0 (amount 5) at index 1.
+    ASSERT_NEAR(1e-6 * 3.0, tol[0], 1e-12);
+    ASSERT_NEAR(1e-6 * 5.0, tol[1], 1e-12);
+}
+
 
 
 

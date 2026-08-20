@@ -7,6 +7,7 @@
 
 #include "rr-libstruct/lsMatrix.h"
 #include <algorithm>
+#include <cmath>
 
 namespace rr {
 
@@ -209,7 +210,7 @@ namespace rr {
         bool equals = true;
         for (int i = 0; i < numRows(); i++) {
             for (int j = 0; j < numCols(); j++) {
-                if ((this->operator()(i, j) - other(i, j)) > tolerance) {
+                if (!(std::abs(this->operator()(i, j) - other(i, j)) <= tolerance)) {
                     equals = false;
                     break;
                 }

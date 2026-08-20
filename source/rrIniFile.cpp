@@ -162,7 +162,9 @@ namespace rr
 				else if (Line.find_first_of('[') == 0) // Found a section
 				{
 					Line.erase(0, 1);
-					Line.erase(Line.find_last_of(']'), 1);
+					std::string::size_type closingBracket = Line.find_last_of(']');
+					if (closingBracket != std::string::npos)
+						Line.erase(closingBracket, 1);
 					pSection = GetSection(Line, true);
 					rrLog(lDebug3) << "Located section: " + pSection->mName;
 					Comment = std::string("");
@@ -296,7 +298,9 @@ namespace rr
 					if (Line.find_first_of('[') == 0) // Found a section
 					{
 						Line.erase(0, 1);
-						Line.erase(Line.find_last_of(']'), 1);
+						std::string::size_type closingBracket = Line.find_last_of(']');
+						if (closingBracket != std::string::npos)
+							Line.erase(closingBracket, 1);
 
 						if (theSection == Line)
 						{
