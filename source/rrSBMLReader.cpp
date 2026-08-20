@@ -96,9 +96,11 @@ bool SBMLReader::is_sbml(const std::string& str)
 /**
  * extract the <sbml...> tag from an sbml document.
  * This regex should stop at the first match.
+ * RE_DOTALL lets '.' match newlines, since the tag's attributes may be
+ * spread across multiple lines.
  */
 static const Poco::RegularExpression sbml_re("<\\s*sbml\\s*.*?>",
-        RegularExpression::RE_UNGREEDY);
+        RegularExpression::RE_UNGREEDY | RegularExpression::RE_DOTALL);
 
 /**
  * Check if the given sbml std::string uses the composite extension.
