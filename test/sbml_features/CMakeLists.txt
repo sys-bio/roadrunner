@@ -3,6 +3,7 @@ add_test_executable(
         ${SharedTestFiles}
         named_stoich.cpp
         variable_stoich.cpp
+        unsupported_packages.cpp
 )
 
 # make test_targets list global to all tests

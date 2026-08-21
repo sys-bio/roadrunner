@@ -96,9 +96,11 @@ bool SBMLReader::is_sbml(const std::string& str)
 /**
  * extract the <sbml...> tag from an sbml document.
  * This regex should stop at the first match.
+ * RE_DOTALL lets '.' match newlines, since the tag's attributes may be
+ * spread across multiple lines.
  */
 static const Poco::RegularExpression sbml_re("<\\s*sbml\\s*.*?>",
-        RegularExpression::RE_UNGREEDY);
+        RegularExpression::RE_UNGREEDY | RegularExpression::RE_DOTALL);
 
 /**
  * Check if the given sbml std::string uses the composite extension.
@@ -255,6 +257,25 @@ std::string SBMLReader::read(const std::string& str)
 
     if (is_sbml(str))
     {
+        if (has_comp(str))
+        {
+            return flatten_comp(str, "");
+        }
+        if (has_qual(str))
+        {
+            rrLog(Logger::LOG_ERROR) << "Qual model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'qual' package (for qualitative or 'logical' modeling).  These models are not supported by roadrunner or tellurium.  A good source of software that supports qual is the COLOMOTO consortium.  See http://www.colomoto.org/software/ for a list of other software packages that might work for you.");
+        }
+        if (has_spatial(str))
+        {
+            rrLog(Logger::LOG_ERROR) << "Spatial model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'spatial' package.  These models are not supported by roadrunner or tellurium.  A few software packages that do support spatial (as of 2023) include VCell (https://vcell.org/), XitoSBML (https://github.com/spatialsimulator/XitoSBML) and Spatial SBML (https://github.com/fbergmann/spatial-sbml).");
+        }
+        if (has_multi(str))
+        {
+            rrLog(Logger::LOG_ERROR) << "Multi model discovered, but not supported.";
+            throw std::domain_error("This SBML model contains information from the 'multi' package for multistate, multicomponent and multicompartment models, or 'rule-based' models.  These models are not supported by roadrunner or tellurium.  The best software package that supports multi (as of 2023) is Simmune (https://bioinformatics.niaid.nih.gov/simmune/).");
+        }
         return str;
     }
 
