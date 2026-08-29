@@ -19,7 +19,7 @@ libRoadRunner is a C/C++ library that supports simulation of SBML based models. 
 
 We provide C/C++, Python and Julia bindings.
 
-If you need a fully integrated system, we recommend the Python package [Tellurium][https://github.com/sys-bio/tellurium/]. Installation is simple and you'll get a range of additional packages, including Antimony support and more.
+If you need a fully integrated system or you just want an easy to use modeling platform, we recommend the Python package [Tellurium](https://github.com/sys-bio/tellurium/). Installation is simple and you'll get a range of additional packages, including Antimony support. 
 
 # Documentation
 
