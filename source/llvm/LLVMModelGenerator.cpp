@@ -312,23 +312,44 @@ namespace rrllvm {
 
             std::vector<std::string> newSymbols = newModel->getRateRuleSymbols();
 
+            // Species whose value is derived from a conserved-moiety total (see
+            // LLVMExecutableModel::setFloatingSpeciesAmounts) must be transferred
+            // after every other floating species: setting one of them shifts the
+            // conserved total by the difference from its currently derived value,
+            // which is only correct once the other species in that conservation
+            // law hold their transferred values rather than the new model's
+            // freshly-generated init values.
+            auto transferFloatingSpecies = [&](int i, const std::string& id) {
+                double value = 0;
+                oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+                try {
+                    newModel->setValue(id, value);
+                }
+                catch (const exception& e) {
+                    rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                        "value for floating species '" << id << "' (value " << value
+                        << "): " << e.what();
+                }
+            };
+
+            std::vector<int> deferredConservedMoietySpecies;
+
             for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++) {
                 std::string id = oldModel->getFloatingSpeciesId(i);
                 int index = newModel->getFloatingSpeciesIndex(id);
 
                 if (index >= 0) {
                     // new model has this species
-                    double value = 0;
-                    oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-                    try {
-                        newModel->setValue(id, value);
+                    if (newModel->symbols->isConservedMoietySpecies(id)) {
+                        deferredConservedMoietySpecies.push_back(i);
+                        continue;
                     }
-                    catch (const exception& e) {
-                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
-                            "value for floating species '" << id << "' (value " << value
-                            << "): " << e.what();
-                    }
+                    transferFloatingSpecies(i, id);
                 }
+            }
+
+            for (int i : deferredConservedMoietySpecies) {
+                transferFloatingSpecies(i, oldModel->getFloatingSpeciesId(i));
             }
 
 
