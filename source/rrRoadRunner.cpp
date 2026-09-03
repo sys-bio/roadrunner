@@ -6765,6 +6765,7 @@ namespace rr {
         setSBMLValue(sbmlModel, sid, initValue, isConcentration);
         removeInitialAssignment(sid, true, false, false);
 
+        regenerateModel(true);
         impl->model->setValue("init(" + origId + ")", initValue);
         reset(
             SelectionRecord::TIME |
