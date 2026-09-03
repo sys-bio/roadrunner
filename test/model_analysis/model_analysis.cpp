@@ -22,6 +22,29 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, issue1351_steadyStateAfterSimulate) {
+  // https://github.com/sys-bio/roadrunner/issues/1351
+  // This model (ATP <-> ADP <-> AMP) has one conserved moiety, so
+  // ATP + ADP + AMP must equal the same total (2.1 + 1.5 + 0.33 = 3.93)
+  // whether it's read right after construction, after simulate(), or
+  // after steadyState() runs following a simulate().
+  const double conservedTotal = 2.1 + 1.5 + 0.33;
+
+  RoadRunner ssOnly((modelAnalysisModelsDir / "steady_state_after_sim.xml").string());
+  ssOnly.steadyState();
+  EXPECT_NEAR(ssOnly.getValue("ATP") + ssOnly.getValue("ADP") + ssOnly.getValue("AMP"),
+    conservedTotal, 1e-6);
+
+  RoadRunner rr((modelAnalysisModelsDir / "steady_state_after_sim.xml").string());
+  rr.simulate(0, 100, 200);
+  EXPECT_NEAR(rr.getValue("ATP") + rr.getValue("ADP") + rr.getValue("AMP"),
+    conservedTotal, 1e-6);
+
+  rr.steadyState();
+  EXPECT_NEAR(rr.getValue("ATP") + rr.getValue("ADP") + rr.getValue("AMP"),
+    conservedTotal, 1e-6);
+}
+
 // https://github.com/sys-bio/roadrunner/issues/1339
 // SimulateOptions is a long-lived object (RoadRunner::self.simulateOpt) that
 // the C API mutates field-by-field across repeated simulate() calls.  The
