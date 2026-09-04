@@ -1281,7 +1281,14 @@ namespace rr {
                 break;
 
             case SelectionRecord::FLOATING_AMOUNT:
+                if (record.p1 == "W1" || record.p1 == "S2" || record.p1 == "Q") {
+                    std::cerr << "DIAG getValue(" << record.p1 << "): FLOATING_AMOUNT index="
+                        << record.index << std::endl;
+                }
                 impl->model->getFloatingSpeciesAmounts(1, &record.index, &dResult);
+                if (record.p1 == "W1" || record.p1 == "S2" || record.p1 == "Q") {
+                    std::cerr << "DIAG getValue(" << record.p1 << "): result=" << dResult << std::endl;
+                }
                 break;
 
             case SelectionRecord::BOUNDARY_AMOUNT:

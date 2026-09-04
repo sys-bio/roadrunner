@@ -491,7 +491,8 @@ static void createReorderedSpecies(Model* newModel, Model* oldModel,
 
         assert(s && "could not get dependent species from original model");
 
-        newSpecies->insertAndOwn(index++, new ConservedMoietySpecies(*s, true));
+        bool hasOwnRule = oldModel->getRule(depSpecies[i]) != NULL;
+        newSpecies->insertAndOwn(index++, new ConservedMoietySpecies(*s, !hasOwnRule));
     }
 }
 
@@ -510,6 +511,13 @@ static std::vector<std::string> createConservedMoietyParameters(
 
     for (unsigned int i = 0; i < depSpecies.size(); ++i)
     {
+        if (newModel->getRule(depSpecies[i]) != NULL)
+        {
+            // species already has its own rule; it is not a real
+            // conserved moiety, so it needs no CSUM parameter.
+            continue;
+        }
+
         Poco::UUID uuid = uuidGen.create();
         std::string id = "_CSUM" + rr::toStringSize(i);
         std::replace( id.begin(), id.end(), '-', '_');
@@ -591,6 +599,13 @@ static void createDependentSpeciesRules(Model* newModel,
         if (dspecies == 0)
         {
             throw std::invalid_argument("model does not contain dependent species " + id);
+        }
+
+        if (newModel->getRule(id) != NULL)
+        {
+            // species already has its own rule; do not overwrite it with
+            // a bogus conserved-moiety rule.
+            continue;
         }
 
         bool isAmt = dspecies->getHasOnlySubstanceUnits();

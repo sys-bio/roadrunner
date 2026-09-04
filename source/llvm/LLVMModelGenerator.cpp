@@ -21,6 +21,7 @@
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
+#include <iostream>
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
@@ -322,10 +323,19 @@ namespace rrllvm {
             auto transferFloatingSpecies = [&](int i, const std::string& id) {
                 double value = 0;
                 oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+                if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
+                    std::cerr << "DIAG transferFloatingSpecies(" << id << "): oldValue=" << value << std::endl;
+                }
                 try {
                     newModel->setValue(id, value);
+                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
+                        std::cerr << "DIAG transferFloatingSpecies(" << id << "): setValue SUCCEEDED" << std::endl;
+                    }
                 }
                 catch (const exception& e) {
+                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
+                        std::cerr << "DIAG transferFloatingSpecies(" << id << "): setValue THREW: " << e.what() << std::endl;
+                    }
                     rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
                         "value for floating species '" << id << "' (value " << value
                         << "): " << e.what();
@@ -340,7 +350,11 @@ namespace rrllvm {
 
                 if (index >= 0) {
                     // new model has this species
-                    if (newModel->symbols->isConservedMoietySpecies(id)) {
+                    bool isCM = newModel->symbols->isConservedMoietySpecies(id);
+                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
+                        std::cerr << "DIAG transfer loop(" << id << "): isConservedMoietySpecies=" << isCM << std::endl;
+                    }
+                    if (isCM) {
                         deferredConservedMoietySpecies.push_back(i);
                         continue;
                     }

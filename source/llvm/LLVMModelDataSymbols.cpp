@@ -21,6 +21,7 @@
 #pragma warning(default: 4624)
 #endif
 
+#include <iostream>
 #include "rr-libstruct/lsLibStructural.h"
 #include "rrLogger.h"
 #include "rrSparse.h"
@@ -171,6 +172,12 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model, unsigned
 
             if (rule->getTypeCode() == SBML_ASSIGNMENT_RULE)
             {
+                if (rule->getVariable() == "W1" || rule->getVariable() == "S2") {
+                    char* diagFormula = SBML_formulaToL3String(rule->getMath());
+                    std::cerr << "DIAG LLVMModelDataSymbols ctor: assignmentRule variable="
+                        << rule->getVariable() << " formula=" << diagFormula << std::endl;
+                    free(diagFormula);
+                }
                 assignmentRules.insert(rule->getVariable());
             }
             else if (rule->getTypeCode() == SBML_RATE_RULE)
@@ -1181,6 +1188,12 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model, bool
         }
 
         bool conservedMoiety = ConservationExtension::getConservedMoiety(*s);
+
+        if (sid == "W1" || sid == "S2" || sid == "Q" || sid == "A" || sid == "P2" || sid == "B") {
+            std::cerr << "DIAG initFloatingSpecies(" << sid << "): isIndependentElement="
+                << isIndependentElement(sid) << " conservedMoiety=" << conservedMoiety
+                << " hasAssignmentRule=" << hasAssignmentRule(sid) << std::endl;
+        }
 
         bool indInit = (!hasInitialAssignmentRule(sid) &&
                 (!hasAssignmentRule(sid) || conservedMoiety));
