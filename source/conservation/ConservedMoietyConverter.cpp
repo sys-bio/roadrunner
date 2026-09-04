@@ -747,6 +747,38 @@ static inline void conservedMoietyException(const std::string& what)
     throw std::invalid_argument(what + help);
 }
 
+// Non-boundary species can be in rules only if they also do not appear in any reactions.
+static bool speciesParticipatesInReactionStoichiometry(const Model* model,
+        const std::string& speciesId)
+{
+    const ListOfReactions* reactions = model->getListOfReactions();
+
+    for (unsigned int i = 0; i < reactions->size(); ++i)
+    {
+        const Reaction* reaction = reactions->get(i);
+
+        const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+        for (unsigned int j = 0; j < reactants->size(); ++j)
+        {
+            if (reactants->get(j)->getSpecies() == speciesId)
+            {
+                return true;
+            }
+        }
+
+        const ListOfSpeciesReferences* products = reaction->getListOfProducts();
+        for (unsigned int j = 0; j < products->size(); ++j)
+        {
+            if (products->get(j)->getSpecies() == speciesId)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 static void conservedMoietyCheck(const SBMLDocument *doc)
 {
 
@@ -761,7 +793,8 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
 
         const Species *species = model->getSpecies(rule->getVariable());
 
-        if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0)
+        if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0
+                && speciesParticipatesInReactionStoichiometry(model, species->getId()))
         {
             std::string msg = "Cannot perform moiety conversion when floating "
                     "species are defined by rules. The floating species, "
