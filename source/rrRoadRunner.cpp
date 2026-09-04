@@ -6761,13 +6761,12 @@ namespace rr {
             isConcentration = true;
         }
 
-        //Remove initial assignment and regenerate and reset if we do (regardless of forceRegenerate; the later 'setValue' won't work otherwise).
+        //Set the SBML value, and then remove the initial assignment, if any.  Must be this order, because otherwise removing the initial assignment might leave the element with no value.  removeInitialAssignment must regenerate the model so that the subsequent 'setValue' works.
+        setSBMLValue(sbmlModel, sid, initValue, isConcentration);
         removeInitialAssignment(sid, true, false, false);
 
-        setSBMLValue(sbmlModel, sid, initValue, isConcentration);
-
-        impl->model->setValue("init(" + origId + ")", initValue);
         regenerateModel(true);
+        impl->model->setValue("init(" + origId + ")", initValue);
         reset(
             SelectionRecord::TIME |
             SelectionRecord::RATE |
