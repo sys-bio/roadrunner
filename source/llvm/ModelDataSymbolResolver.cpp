@@ -81,10 +81,12 @@ namespace rrllvm
         {
             SymbolForest::ConstIterator i = modelSymbols.getAssigmentRules().find(
                 symbol);
+#if 0
             if (symbol == "W1" || symbol == "S2" || symbol == "Q") {
                 std::cerr << "DIAG loadSymbolValue(" << symbol << "): assignmentRules.find "
                     << (i != modelSymbols.getAssigmentRules().end() ? "FOUND" : "not found") << std::endl;
             }
+#endif
             if (i != modelSymbols.getAssigmentRules().end())
             {
                 recursiveSymbolPush(symbol);
@@ -98,12 +100,14 @@ namespace rrllvm
         /* Species */
         /*************************************************************************/
         const Species* species = model->getSpecies(symbol);
+#if 0
         if (symbol == "W1" || symbol == "S2" || symbol == "Q") {
             std::cerr << "DIAG loadSymbolValue(" << symbol << "): fell through to Species branch, "
                 << "species=" << (species ? "found" : "NULL")
                 << " isIndependentFloatingSpecies=" << (species && modelDataSymbols.isIndependentFloatingSpecies(symbol))
                 << std::endl;
         }
+#endif
         if (species)
         {
             Value* amt = 0;

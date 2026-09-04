@@ -2049,6 +2049,7 @@ int LLVMExecutableModel::getFloatingSpeciesAmounts(size_t len, const int* indx,
         double* values)
 {
     int result = getValues(getFloatingSpeciesAmountPtr, len, indx, values);
+#if 0
     if (len == 1) {
         int j = indx ? indx[0] : 0;
         std::cerr << "DIAG getFloatingSpeciesAmounts: index=" << j
@@ -2058,6 +2059,7 @@ int LLVMExecutableModel::getFloatingSpeciesAmounts(size_t len, const int* indx,
             << " funcPtr=" << (void*)getFloatingSpeciesAmountPtr
             << " value=" << values[0] << std::endl;
     }
+#endif
     return result;
 }
 
