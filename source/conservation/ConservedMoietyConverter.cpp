@@ -435,12 +435,27 @@ static void createReorderedSpecies(Model* newModel, Model* oldModel,
     // remove all the existing independent species
     ListOfSpecies *species = newModel->getListOfSpecies();
 
+    // indSpecies/depSpecies are about to be (re)inserted fresh below --
+    // exclude them here so a species that's both structurally independent
+    // and constant/boundary (e.g. never a reactant or product, but also
+    // flagged constant) doesn't end up inserted twice.
+    std::set<std::string> reorderedSet(indSpecies.begin(), indSpecies.end());
+    reorderedSet.insert(depSpecies.begin(), depSpecies.end());
+
     unsigned index = 0;
 
     while(index < species->size())
     {
         Species *s = species->get(index);
-        if (!s->getBoundaryCondition())
+        // A constant, non-boundary species (e.g. one used only as a fixed
+        // parameter in kinetic laws) is bookkept as a boundary species
+        // elsewhere (see LLVMModelDataSymbols::initFloatingSpecies /
+        // initBoundarySpecies), so it must be kept here too, or symbols that
+        // reference it (e.g. an assignment rule for an independent species)
+        // would no longer resolve after conversion.
+        bool keep = (s->getBoundaryCondition() || s->getConstant())
+                && reorderedSet.find(s->getId()) == reorderedSet.end();
+        if (!keep)
         {
             species->remove(index);
             delete s;
@@ -793,8 +808,17 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
 
         const Species *species = model->getSpecies(rule->getVariable());
 
+        // Only an AssignmentRule is safe to relax here: its RHS is inlined at
+        // every point of use, so the species it governs never enters the ODE
+        // state vector and (per speciesParticipatesInReactionStoichiometry's
+        // comment above) can never be chosen as a conservation law's
+        // eliminated species. A RateRule species has real, independently
+        // integrated dynamics regardless of whether it participates in any
+        // reaction's stoichiometry, so it must keep throwing unconditionally.
+        bool relaxable = rule->isAssignment()
+                && !speciesParticipatesInReactionStoichiometry(model, species ? species->getId() : "");
         if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0
-                && speciesParticipatesInReactionStoichiometry(model, species->getId()))
+                && !relaxable)
         {
             std::string msg = "Cannot perform moiety conversion when floating "
                     "species are defined by rules. The floating species, "
