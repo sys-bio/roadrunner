@@ -21,7 +21,6 @@
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
-#include <iostream>
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
@@ -323,25 +322,10 @@ namespace rrllvm {
             auto transferFloatingSpecies = [&](int i, const std::string& id) {
                 double value = 0;
                 oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-#if 0
-                if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
-                    std::cerr << "DIAG transferFloatingSpecies(" << id << "): oldValue=" << value << std::endl;
-                }
-#endif
                 try {
                     newModel->setValue(id, value);
-#if 0
-                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
-                        std::cerr << "DIAG transferFloatingSpecies(" << id << "): setValue SUCCEEDED" << std::endl;
-                    }
-#endif
                 }
                 catch (const exception& e) {
-#if 0
-                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
-                        std::cerr << "DIAG transferFloatingSpecies(" << id << "): setValue THREW: " << e.what() << std::endl;
-                    }
-#endif
                     rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
                         "value for floating species '" << id << "' (value " << value
                         << "): " << e.what();
@@ -357,11 +341,6 @@ namespace rrllvm {
                 if (index >= 0) {
                     // new model has this species
                     bool isCM = newModel->symbols->isConservedMoietySpecies(id);
-#if 0
-                    if (id == "W1" || id == "S2" || id == "Q" || id == "A" || id == "P2" || id == "B") {
-                        std::cerr << "DIAG transfer loop(" << id << "): isConservedMoietySpecies=" << isCM << std::endl;
-                    }
-#endif
                     if (isCM) {
                         deferredConservedMoietySpecies.push_back(i);
                         continue;

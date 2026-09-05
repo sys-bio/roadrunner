@@ -149,195 +149,15 @@ public:
 
 };
 
-TEST_F(StructuralAnalysisTests, S2ValueUpdatesAfterConservedMoietyConversion) {
-  std::string sbml =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model id=\"AssignmentRuleChainMoiety\">\n"
-    "    <listOfCompartments>\n"
-    "      <compartment id=\"default_compartment\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
-    "    </listOfCompartments>\n"
-    "    <listOfSpecies>\n"
-    "      <species id=\"Q\" compartment=\"default_compartment\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"P2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"A\" compartment=\"default_compartment\" initialConcentration=\"3\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"B\" compartment=\"default_compartment\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"W1\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"S2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "    </listOfSpecies>\n"
-    "    <listOfParameters>\n"
-    "      <parameter id=\"k1\" value=\"0.5\" constant=\"true\"/>\n"
-    "      <parameter id=\"kw1\" value=\"2\" constant=\"true\"/>\n"
-    "      <parameter id=\"ks2\" value=\"3\" constant=\"true\"/>\n"
-    "      <parameter id=\"k2\" value=\"0.8\" constant=\"true\"/>\n"
-    "      <parameter id=\"k3\" value=\"0.4\" constant=\"true\"/>\n"
-    "    </listOfParameters>\n"
-    "    <listOfRules>\n"
-    "      <assignmentRule variable=\"W1\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> kw1 </ci><ci> Q </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "      <assignmentRule variable=\"S2\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> ks2 </ci><ci> W1 </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "    </listOfRules>\n"
-    "    <listOfReactions>\n"
-    "      <reaction id=\"J1\" reversible=\"false\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"Q\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"P2\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><times/><ci> k1 </ci><ci> S2 </ci></apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "      <reaction id=\"J2\" reversible=\"true\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"A\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"B\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><minus/>\n"
-    "              <apply><times/><ci> k2 </ci><ci> A </ci></apply>\n"
-    "              <apply><times/><ci> k3 </ci><ci> B </ci></apply>\n"
-    "            </apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "    </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>";
-
-  RoadRunner rr(sbml);
-  rr.setConservedMoietyAnalysis(true);
-
-  ExecutableModel* model = rr.getModel();
-  std::cout << "numIndFloatingSpecies=" << model->getNumIndFloatingSpecies()
-    << " numConservedMoieties=" << model->getNumConservedMoieties() << std::endl;
-  std::vector<std::string> floatIds = rr.getFloatingSpeciesIds();
-  for (size_t k = 0; k < floatIds.size(); ++k) {
-    std::cout << "floatingSpecies[" << k << "] = " << floatIds[k] << std::endl;
-  }
-  std::cout << rr.getCurrentSBML() << std::endl;
-  int n = model->getStateVector(0);
-  std::vector<std::string> ids;
-  for (int i = 0; i < n; ++i) {
-    ids.push_back(model->getStateVectorId(i));
-  }
-  int qIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "Q"));
-  ASSERT_LT(qIndex, n);
-
-  std::vector<double> y(n);
-  model->getStateVector(y.data());
-
-  double s2Before = rr.getValue("S2");
-  double w1Before = rr.getValue("W1");
-  double qBefore = rr.getValue("Q");
-
-  y[qIndex] += 0.1;
-  model->setStateVector(y.data());
-
-  double s2After = rr.getValue("S2");
-  double w1After = rr.getValue("W1");
-  double qAfter = rr.getValue("Q");
-
-  int j1Index = model->getReactionIndex("J1");
-  double rateAfter = 0;
-  model->getReactionRates(1, &j1Index, &rateAfter);
-
-  std::cout << "Q: " << qBefore << " -> " << qAfter << std::endl;
-  std::cout << "W1: " << w1Before << " -> " << w1After << std::endl;
-  std::cout << "S2: " << s2Before << " -> " << s2After << std::endl;
-  std::cout << "J1 rate after perturbing Q: " << rateAfter << std::endl;
-}
-
-
-// Minimal repro: Q's only reaction (J1) reaches Q solely through two
-// levels of inlined assignment rules (S2 = ks2*W1, W1 = kw1*Q), never
-// directly. A/B form a separate, unrelated conservation law elsewhere in
-// the same model, so setConservedMoietyAnalysis(true) actually converts
-// something. Checks whether J1's rate still responds to Q after
-// conversion, isolating whether the Teusink P-column bug is a general
-// RoadRunner defect in assignment-rule-chain resolution post-conversion,
-// or specific to Teusink's own structure.
-TEST_F(StructuralAnalysisTests, AssignmentRuleChainSurvivesConservedMoietyConversion) {
-  std::string sbml =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model id=\"AssignmentRuleChainMoiety\">\n"
-    "    <listOfCompartments>\n"
-    "      <compartment id=\"default_compartment\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
-    "    </listOfCompartments>\n"
-    "    <listOfSpecies>\n"
-    "      <species id=\"Q\" compartment=\"default_compartment\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"P2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"A\" compartment=\"default_compartment\" initialConcentration=\"3\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"B\" compartment=\"default_compartment\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"W1\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"S2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "    </listOfSpecies>\n"
-    "    <listOfParameters>\n"
-    "      <parameter id=\"k1\" value=\"0.5\" constant=\"true\"/>\n"
-    "      <parameter id=\"kw1\" value=\"2\" constant=\"true\"/>\n"
-    "      <parameter id=\"ks2\" value=\"3\" constant=\"true\"/>\n"
-    "      <parameter id=\"k2\" value=\"0.8\" constant=\"true\"/>\n"
-    "      <parameter id=\"k3\" value=\"0.4\" constant=\"true\"/>\n"
-    "    </listOfParameters>\n"
-    "    <listOfRules>\n"
-    "      <assignmentRule variable=\"W1\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> kw1 </ci><ci> Q </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "      <assignmentRule variable=\"S2\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> ks2 </ci><ci> W1 </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "    </listOfRules>\n"
-    "    <listOfReactions>\n"
-    "      <reaction id=\"J1\" reversible=\"false\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"Q\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"P2\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><times/><ci> k1 </ci><ci> S2 </ci></apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "      <reaction id=\"J2\" reversible=\"true\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"A\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"B\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><minus/>\n"
-    "              <apply><times/><ci> k2 </ci><ci> A </ci></apply>\n"
-    "              <apply><times/><ci> k3 </ci><ci> B </ci></apply>\n"
-    "            </apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "    </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>";
+// Regression test for a general RoadRunner bug (not specific to Teusink's
+// NAD/NADH or ATP/ADP/AMP structure): after a real conserved-moiety
+// conversion, a species governed by its own pre-existing assignment-rule
+// chain stopped responding to changes in its dependency, even though it
+// has nothing to do with the moiety being eliminated. J1's rate reaches Q
+// only through that chain (S2 = ks2*W1, W1 = kw1*Q), so its sensitivity to
+// Q must be identical before and after conversion.
+TEST_F(StructuralAnalysisTests, AssignmentRuleChainRateSensitivitySurvivesConversion) {
+  path sbmlPath = modelAnalysisModelsDir / "assignment_rule_chain_moiety.xml";
 
   auto measureJ1RateSensitivityToQ = [](RoadRunner& rr) {
     ExecutableModel* model = rr.getModel();
@@ -365,91 +185,54 @@ TEST_F(StructuralAnalysisTests, AssignmentRuleChainSurvivesConservedMoietyConver
     return rateAfter - rateBefore;
     };
 
-  RoadRunner rrBefore(sbml);
-  double deltaBefore = measureJ1RateSensitivityToQ(rrBefore);
-  std::cout << "J1 rate change per +0.1 Q, before moiety conversion: " << deltaBefore << std::endl;
-  EXPECT_NEAR(deltaBefore, 0.1 * 0.5 * 3 * 2, 1e-6);
+  double expectedDelta = 0.1 * 0.5 * 3 * 2; // dQ * k1 * ks2 * kw1
 
-  RoadRunner rrAfter(sbml);
+  RoadRunner rrBefore(sbmlPath.string());
+  EXPECT_NEAR(measureJ1RateSensitivityToQ(rrBefore), expectedDelta, 1e-6);
+
+  RoadRunner rrAfter(sbmlPath.string());
   rrAfter.setConservedMoietyAnalysis(true);
-  double deltaAfter = measureJ1RateSensitivityToQ(rrAfter);
-  std::cout << "J1 rate change per +0.1 Q, after moiety conversion: " << deltaAfter << std::endl;
+  EXPECT_NEAR(measureJ1RateSensitivityToQ(rrAfter), expectedDelta, 1e-6);
 }
 
-TEST_F(StructuralAnalysisTests, PrintPostConversionSBMLForAssignmentRuleChain) {
-  std::string sbml =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model id=\"AssignmentRuleChainMoiety\">\n"
-    "    <listOfCompartments>\n"
-    "      <compartment id=\"default_compartment\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
-    "    </listOfCompartments>\n"
-    "    <listOfSpecies>\n"
-    "      <species id=\"Q\" compartment=\"default_compartment\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"P2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"A\" compartment=\"default_compartment\" initialConcentration=\"3\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"B\" compartment=\"default_compartment\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"W1\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "      <species id=\"S2\" compartment=\"default_compartment\" initialConcentration=\"0\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "    </listOfSpecies>\n"
-    "    <listOfParameters>\n"
-    "      <parameter id=\"k1\" value=\"0.5\" constant=\"true\"/>\n"
-    "      <parameter id=\"kw1\" value=\"2\" constant=\"true\"/>\n"
-    "      <parameter id=\"ks2\" value=\"3\" constant=\"true\"/>\n"
-    "      <parameter id=\"k2\" value=\"0.8\" constant=\"true\"/>\n"
-    "      <parameter id=\"k3\" value=\"0.4\" constant=\"true\"/>\n"
-    "    </listOfParameters>\n"
-    "    <listOfRules>\n"
-    "      <assignmentRule variable=\"W1\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> kw1 </ci><ci> Q </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "      <assignmentRule variable=\"S2\">\n"
-    "        <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "          <apply><times/><ci> ks2 </ci><ci> W1 </ci></apply>\n"
-    "        </math>\n"
-    "      </assignmentRule>\n"
-    "    </listOfRules>\n"
-    "    <listOfReactions>\n"
-    "      <reaction id=\"J1\" reversible=\"false\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"Q\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"P2\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><times/><ci> k1 </ci><ci> S2 </ci></apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "      <reaction id=\"J2\" reversible=\"true\" fast=\"false\">\n"
-    "        <listOfReactants>\n"
-    "          <speciesReference species=\"A\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfReactants>\n"
-    "        <listOfProducts>\n"
-    "          <speciesReference species=\"B\" stoichiometry=\"1\" constant=\"true\"/>\n"
-    "        </listOfProducts>\n"
-    "        <kineticLaw>\n"
-    "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "            <apply><minus/>\n"
-    "              <apply><times/><ci> k2 </ci><ci> A </ci></apply>\n"
-    "              <apply><times/><ci> k3 </ci><ci> B </ci></apply>\n"
-    "            </apply>\n"
-    "          </math>\n"
-    "        </kineticLaw>\n"
-    "      </reaction>\n"
-    "    </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>";
-
-  RoadRunner rr(sbml);
+// A species governed by its own assignment rule but with zero stoichiometric
+// coupling to any reaction (W1, S2) is not a real conserved moiety and must
+// not be counted as one: only the genuine Q+P2 (via J1) and A+B (via J2)
+// cycles should be reported. W1 and S2 must also keep tracking their
+// dependency chain dynamically after conversion, not freeze at their
+// pre-conversion value.
+TEST_F(StructuralAnalysisTests, RuleGovernedSpeciesTrackDependencyAfterConversion) {
+  RoadRunner rr((modelAnalysisModelsDir / "assignment_rule_chain_moiety.xml").string());
   rr.setConservedMoietyAnalysis(true);
-  std::cout << rr.getCurrentSBML() << std::endl;
-}
 
+  ExecutableModel* model = rr.getModel();
+  EXPECT_EQ(model->getNumConservedMoieties(), 2);
+
+  int n = model->getStateVector(0);
+  std::vector<std::string> ids;
+  for (int i = 0; i < n; ++i) {
+    ids.push_back(model->getStateVectorId(i));
+  }
+  int qIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "Q"));
+  ASSERT_LT(qIndex, n);
+
+  std::vector<double> y(n);
+  model->getStateVector(y.data());
+  y[qIndex] += 0.1;
+  model->setStateVector(y.data());
+
+  double qAfter = rr.getValue("Q");
+  double w1After = rr.getValue("W1");
+  double s2After = rr.getValue("S2");
+
+  EXPECT_NEAR(w1After, 2.0 * qAfter, 1e-9);
+  EXPECT_NEAR(s2After, 3.0 * w1After, 1e-9);
+
+  int j1Index = model->getReactionIndex("J1");
+  double rate = 0;
+  model->getReactionRates(1, &j1Index, &rate);
+  EXPECT_NEAR(rate, 0.5 * s2After, 1e-9);
+}
 
 // BIOMD0000000064 (Teusink et al. 2000, yeast glycolysis) has two species,
 // SUM_P and F26BP, declared with constant="true" and boundaryCondition="false"
@@ -485,13 +268,11 @@ TEST_F(StructuralAnalysisTests, TeusinkNADCycleIsFound) {
   EXPECT_TRUE(foundNADCycle);
 }
 
-// Before the constant-species-as-boundary fix, steadyState() failed with
-// "Jacobian matrix singular in NLEQ" on this model: SUM_P and F26BP were
-// counted as independent floating species even though nothing ever changes
-// them, giving the Newton solve two structurally-zero Jacobian rows on top
-// of the NAD/NADH moiety dependency. Expected values are this model's own
-// steady state (matches Table 4 of Teusink et al. 2000, and the "this
-// model" column in the SBML's own notes).
+// Before the constant-species-as-boundary fix and the conserved-moiety
+// rule-duplication fix, steadyState() failed with "Jacobian matrix singular
+// in NLEQ" on this model. Expected values are this model's own steady
+// state (matches Table 4 of Teusink et al. 2000, and the "this model"
+// column in the SBML's own notes).
 TEST_F(StructuralAnalysisTests, TeusinkSteadyStateConverges) {
   RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
 
@@ -509,8 +290,11 @@ TEST_F(StructuralAnalysisTests, TeusinkSteadyStateConverges) {
 // the raw stoichiometry, but steadyState()'s auto_moiety_analysis retry
 // swallows any exception from setConservedMoietyAnalysis() and silently falls
 // back to no conversion. Calling it directly here surfaces that exception (if
-// any) instead, and confirms the conversion actually produces a conserved
-// moiety on the compiled model, not just in the structural analysis.
+// any) instead, and confirms the conversion actually produces the expected
+// number of conserved moieties on the compiled model, not just in the
+// structural analysis (3 real cycles: NAD/NADH, the adenylate pool, and one
+// more -- not the 6 a rule-duplication bug once produced by also counting
+// non-reacting, rule-governed species as moieties).
 TEST_F(StructuralAnalysisTests, TeusinkConservedMoietyConversionSucceeds) {
   RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
 
@@ -519,120 +303,10 @@ TEST_F(StructuralAnalysisTests, TeusinkConservedMoietyConversionSucceeds) {
   EXPECT_EQ(rr.getModel()->getNumConservedMoieties(), 3);
 }
 
-// Conversion succeeds and reports a conserved moiety, but steadyState()
-// still hits a singular Jacobian. Print the actual reduced Jacobian NLEQ
-// solves against (row/col names are the floating species included in the
-// post-conversion state vector) to see the singularity directly.
-TEST_F(StructuralAnalysisTests, TeusinkPrintReducedJacobian) {
-  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
-  rr.setConservedMoietyAnalysis(true);
-
-  ls::DoubleMatrix jac = rr.getReducedJacobian();
-  std::cout << jac << std::endl;
-}
-
-// getReducedJacobian() reads its rates through RoadRunner::getRatesOfChange(),
-// which applies a LibStructural link-matrix correction whenever conserved
-// moiety analysis is on (see getRatesOfChange() in rrRoadRunner.cpp). NLEQ's
-// own residual function never goes through that: it calls
-// ExecutableModel::setStateVector()/getStateVectorRate() directly. Build the
-// Jacobian the same way NLEQ does, bypassing getRatesOfChange() entirely, to
-// see what NLEQ itself actually sees.
-TEST_F(StructuralAnalysisTests, TeusinkPrintRawStateVectorJacobian) {
-  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
-  rr.setConservedMoietyAnalysis(true);
-
-  ExecutableModel* model = rr.getModel();
-  int n = model->getStateVector(0);
-  double h = 1e-6;
-
-  std::vector<std::string> ids;
-  for (int i = 0; i < n; ++i) {
-    ids.push_back(model->getStateVectorId(i));
-  }
-
-  std::vector<double> y(n);
-  model->getStateVector(y.data());
-
-  ls::DoubleMatrix jac(n, n);
-  jac.setRowNames(ids);
-  jac.setColNames(ids);
-
-  std::vector<double> dyPlus(n), dyMinus(n);
-  for (int col = 0; col < n; ++col) {
-    double saved = y[col];
-
-    y[col] = saved + h;
-    model->setStateVector(y.data());
-    model->getStateVectorRate(0, y.data(), dyPlus.data());
-
-    y[col] = saved - h;
-    model->setStateVector(y.data());
-    model->getStateVectorRate(0, y.data(), dyMinus.data());
-
-    y[col] = saved;
-    model->setStateVector(y.data());
-
-    for (int row = 0; row < n; ++row) {
-      jac(row, col) = (dyPlus[row] - dyMinus[row]) / (2.0 * h);
-    }
-  }
-
-  std::cout << jac << std::endl;
-}
-
-// Same raw state-vector Jacobian, but on the plain unconverted model (no
-// setConservedMoietyAnalysis call) to check whether the P column is zero
-// even without conserved moiety conversion in the picture -- i.e. whether
-// this is a pre-existing bug unrelated to the NAD/NADH moiety work.
-TEST_F(StructuralAnalysisTests, TeusinkPrintRawStateVectorJacobianNoConservedMoieties) {
-  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
-
-  ExecutableModel* model = rr.getModel();
-  int n = model->getStateVector(0);
-  double h = 1e-6;
-
-  std::vector<std::string> ids;
-  for (int i = 0; i < n; ++i) {
-    ids.push_back(model->getStateVectorId(i));
-  }
-
-  std::vector<double> y(n);
-  model->getStateVector(y.data());
-
-  ls::DoubleMatrix jac(n, n);
-  jac.setRowNames(ids);
-  jac.setColNames(ids);
-
-  std::vector<double> dyPlus(n), dyMinus(n);
-  for (int col = 0; col < n; ++col) {
-    double saved = y[col];
-
-    y[col] = saved + h;
-    model->setStateVector(y.data());
-    model->getStateVectorRate(0, y.data(), dyPlus.data());
-
-    y[col] = saved - h;
-    model->setStateVector(y.data());
-    model->getStateVectorRate(0, y.data(), dyMinus.data());
-
-    y[col] = saved;
-    model->setStateVector(y.data());
-
-    for (int row = 0; row < n; ++row) {
-      jac(row, col) = (dyPlus[row] - dyMinus[row]) / (2.0 * h);
-    }
-  }
-
-  std::cout << jac << std::endl;
-}
-
-// Splits the question: does perturbing P even propagate through the
-// AK-equilibrium assignment rules to ATP/ADP after conversion? If not, the
-// break is in the assignment-rule chain itself. If it does update correctly
-// here (via getValue(), a different read path than getStateVectorRate's
-// inlined kinetic law code), the break must be one level deeper: inside
-// evalReactionRatesPtr's own inlined copy of that same computation.
+// ATP and ADP are related to P (and SUM_P) through the AK-equilibrium
+// assignment rules, never directly through a reaction. Perturbing P must
+// still update them dynamically after conversion, not leave them frozen at
+// their pre-conversion value the way the rule-duplication bug did.
 TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionUpdatesATP) {
   RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
   rr.setConservedMoietyAnalysis(true);
@@ -658,16 +332,16 @@ TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionUpdatesATP) {
   double atpAfter = rr.getValue("[ATP]");
   double adpAfter = rr.getValue("[ADP]");
 
-  std::cout << "ATP: " << atpBefore << " -> " << atpAfter << std::endl;
-  std::cout << "ADP: " << adpBefore << " -> " << adpAfter << std::endl;
+  EXPECT_NE(atpAfter, atpBefore);
+  EXPECT_NE(adpAfter, adpBefore);
 }
 
 // createReorderedSpecies deletes any <species> that's neither
 // boundary/constant nor part of indSpecies/depSpecies -- ATP/ADP/AMP satisfy
-// none of those (not constant, never a reactant/product), so their
-// <species> elements are likely gone post-conversion even though their
-// assignment rules (untouched, in <listOfRules>) still reference P and
-// SUM_P. Check what they actually get classified as.
+// none of those (not constant, never a reactant/product). Their <species>
+// elements, and their classification as ordinary floating species, must
+// survive conversion so their assignment rules (referencing P and SUM_P)
+// keep resolving.
 TEST_F(StructuralAnalysisTests, TeusinkATPClassificationAfterConversion) {
   RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
   rr.setConservedMoietyAnalysis(true);
@@ -676,21 +350,20 @@ TEST_F(StructuralAnalysisTests, TeusinkATPClassificationAfterConversion) {
   auto boundaryIds = rr.getBoundarySpeciesIds();
   auto globalParamIds = rr.getGlobalParameterIds();
 
-  for (const std::string& id : {"ATP", "ADP", "AMP", "SUM_P", "F26BP", "P"}) {
-    bool isFloating = std::find(floatingIds.begin(), floatingIds.end(), id) != floatingIds.end();
-    bool isBoundary = std::find(boundaryIds.begin(), boundaryIds.end(), id) != boundaryIds.end();
-    bool isGlobalParam = std::find(globalParamIds.begin(), globalParamIds.end(), id) != globalParamIds.end();
-    std::cout << id << ": floating=" << isFloating << " boundary=" << isBoundary
-               << " globalParam=" << isGlobalParam << std::endl;
+  for (const std::string& id : {"ATP", "ADP", "AMP"}) {
+    EXPECT_NE(std::find(floatingIds.begin(), floatingIds.end(), id), floatingIds.end()) << id;
+    EXPECT_EQ(std::find(boundaryIds.begin(), boundaryIds.end(), id), boundaryIds.end()) << id;
+    EXPECT_EQ(std::find(globalParamIds.begin(), globalParamIds.end(), id), globalParamIds.end()) << id;
+  }
+  for (const std::string& id : {"SUM_P", "F26BP"}) {
+    EXPECT_NE(std::find(boundaryIds.begin(), boundaryIds.end(), id), boundaryIds.end()) << id;
   }
 }
 
-// Splits the zero P column further: does perturbing P even change the
-// reaction rates themselves (a kinetic-law/inlining problem), or do the
-// rates respond correctly and it's the stoichiometry-matrix multiply that
-// silently drops P's contribution when turning rates into species rates
-// of change (a whole zero column points more toward the former, but
-// check directly rather than assume).
+// P only reaches kinetic laws indirectly, through the inlined ADP/ATP
+// assignment rules, so perturbing it must still change at least one
+// reaction rate after conversion -- the rule-duplication bug froze those
+// rules to a constant, making every reaction rate blind to P.
 TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionChangesReactionRates) {
   RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
   rr.setConservedMoietyAnalysis(true);
@@ -717,34 +390,14 @@ TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionChangesReaction
   std::vector<double> ratesAfter(numReactions);
   model->getReactionRates(numReactions, 0, ratesAfter.data());
 
+  bool anyRateChanged = false;
   for (int i = 0; i < numReactions; ++i) {
-    std::cout << model->getReactionId(i) << ": " << ratesBefore[i] << " -> " << ratesAfter[i] << std::endl;
-  }
-}
-
-// The reaction-rate freeze is specific to P -- other floating species
-// (G6P, TRIO, etc, referenced directly in kinetic laws) respond correctly
-// to perturbation. P only reaches kinetic laws indirectly, through the
-// inlined ADP/ATP assignment rules. Dump the actual post-conversion SBML
-// for those rules to check whether conversion mangled their math, before
-// looking any further at codegen.
-TEST_F(StructuralAnalysisTests, TeusinkPrintConvertedAssignmentRules) {
-  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
-  rr.setConservedMoietyAnalysis(true);
-
-  std::string sbml = rr.getCurrentSBML();
-
-  for (const std::string& variable : {"ADP", "ATP", "AMP"}) {
-    std::string needle = "variable=\"" + variable + "\"";
-    size_t pos = sbml.find(needle);
-    if (pos == std::string::npos) {
-      std::cout << "no rule found for " << variable << std::endl;
-      continue;
+    if (std::abs(ratesAfter[i] - ratesBefore[i]) > 1e-9) {
+      anyRateChanged = true;
+      break;
     }
-    size_t start = sbml.rfind("<assignmentRule", pos);
-    size_t end = sbml.find("</assignmentRule>", pos);
-    std::cout << sbml.substr(start, end + std::string("</assignmentRule>").size() - start) << std::endl;
   }
+  EXPECT_TRUE(anyRateChanged);
 }
 
 /************************************************************
