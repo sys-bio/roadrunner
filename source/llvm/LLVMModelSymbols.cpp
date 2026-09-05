@@ -397,8 +397,11 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
 
     assert(math);
 
-    if (species->getBoundaryCondition())
+    if (species->getBoundaryCondition() || species->getConstant())
     {
+        // Keep in sync with LLVMModelDataSymbols::initFloatingSpecies /
+        // initBoundarySpecies, which route constant non-boundary species
+        // into the boundary-species bucket as well.
         currentSymbols.boundarySpecies[species->getId()] = math;
     }
     else

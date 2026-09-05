@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="AssignmentRuleChainMoiety">
+    <!--
+      Minimal repro of a general RoadRunner bug: Q's only reaction (J1)
+      reaches Q solely through two levels of inlined assignment rules
+      (S2 = ks2*W1, W1 = kw1*Q), never directly. A/B form a separate,
+      unrelated conservation cycle via the reversible J2 reaction, and Q/P2
+      form another via J1, so setConservedMoietyAnalysis(true) actually
+      converts something. W1 and S2 have no part in either cycle, and must
+      keep tracking their dependency chain dynamically after conversion.
+    -->
+    <listOfCompartments>
+      <compartment id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Q" compartment="default_compartment" initialConcentration="2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P2" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="A" compartment="default_compartment" initialConcentration="3" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="B" compartment="default_compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="W1" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S2" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="0.5" constant="true"/>
+      <parameter id="kw1" value="2" constant="true"/>
+      <parameter id="ks2" value="3" constant="true"/>
+      <parameter id="k2" value="0.8" constant="true"/>
+      <parameter id="k3" value="0.4" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="W1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><times/><ci> kw1 </ci><ci> Q </ci></apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><times/><ci> ks2 </ci><ci> W1 </ci></apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Q" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> k1 </ci><ci> S2 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><minus/>
+              <apply><times/><ci> k2 </ci><ci> A </ci></apply>
+              <apply><times/><ci> k3 </ci><ci> B </ci></apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

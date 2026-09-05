@@ -1786,8 +1786,8 @@ namespace rr {
                 self.loadOpt.setConservedMoietyConversion(previousValue);
                 throw;
             }
-            impl->document.reset(olddoc);
-
+            //impl->document.reset(olddoc);
+            delete olddoc;
             // restore original reload value
             self.loadOpt.modelGeneratorOpt = savedOpt;
         }

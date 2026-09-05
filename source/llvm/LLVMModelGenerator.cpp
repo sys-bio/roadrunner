@@ -340,7 +340,8 @@ namespace rrllvm {
 
                 if (index >= 0) {
                     // new model has this species
-                    if (newModel->symbols->isConservedMoietySpecies(id)) {
+                    bool isCM = newModel->symbols->isConservedMoietySpecies(id);
+                    if (isCM) {
                         deferredConservedMoietySpecies.push_back(i);
                         continue;
                     }

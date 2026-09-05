@@ -2048,7 +2048,8 @@ std::vector<std::string> LLVMExecutableModel::getRateRuleSymbols() const {
 int LLVMExecutableModel::getFloatingSpeciesAmounts(size_t len, const int* indx,
         double* values)
 {
-    return getValues(getFloatingSpeciesAmountPtr, len, indx, values);
+    int result = getValues(getFloatingSpeciesAmountPtr, len, indx, values);
+    return result;
 }
 
 int LLVMExecutableModel::setFloatingSpeciesAmounts(size_t len, int const* indx,

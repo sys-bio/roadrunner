@@ -435,12 +435,27 @@ static void createReorderedSpecies(Model* newModel, Model* oldModel,
     // remove all the existing independent species
     ListOfSpecies *species = newModel->getListOfSpecies();
 
+    // indSpecies/depSpecies are about to be (re)inserted fresh below --
+    // exclude them here so a species that's both structurally independent
+    // and constant/boundary (e.g. never a reactant or product, but also
+    // flagged constant) doesn't end up inserted twice.
+    std::set<std::string> reorderedSet(indSpecies.begin(), indSpecies.end());
+    reorderedSet.insert(depSpecies.begin(), depSpecies.end());
+
     unsigned index = 0;
 
     while(index < species->size())
     {
         Species *s = species->get(index);
-        if (!s->getBoundaryCondition())
+        // A constant, non-boundary species (e.g. one used only as a fixed
+        // parameter in kinetic laws) is bookkept as a boundary species
+        // elsewhere (see LLVMModelDataSymbols::initFloatingSpecies /
+        // initBoundarySpecies), so it must be kept here too, or symbols that
+        // reference it (e.g. an assignment rule for an independent species)
+        // would no longer resolve after conversion.
+        bool keep = (s->getBoundaryCondition() || s->getConstant())
+                && reorderedSet.find(s->getId()) == reorderedSet.end();
+        if (!keep)
         {
             species->remove(index);
             delete s;
@@ -476,7 +491,8 @@ static void createReorderedSpecies(Model* newModel, Model* oldModel,
 
         assert(s && "could not get dependent species from original model");
 
-        newSpecies->insertAndOwn(index++, new ConservedMoietySpecies(*s, true));
+        bool hasOwnRule = oldModel->getRule(depSpecies[i]) != NULL;
+        newSpecies->insertAndOwn(index++, new ConservedMoietySpecies(*s, !hasOwnRule));
     }
 }
 
@@ -495,6 +511,13 @@ static std::vector<std::string> createConservedMoietyParameters(
 
     for (unsigned int i = 0; i < depSpecies.size(); ++i)
     {
+        if (newModel->getRule(depSpecies[i]) != NULL)
+        {
+            // species already has its own rule; it is not a real
+            // conserved moiety, so it needs no CSUM parameter.
+            continue;
+        }
+
         Poco::UUID uuid = uuidGen.create();
         std::string id = "_CSUM" + rr::toStringSize(i);
         std::replace( id.begin(), id.end(), '-', '_');
@@ -576,6 +599,13 @@ static void createDependentSpeciesRules(Model* newModel,
         if (dspecies == 0)
         {
             throw std::invalid_argument("model does not contain dependent species " + id);
+        }
+
+        if (newModel->getRule(id) != NULL)
+        {
+            // species already has its own rule; do not overwrite it with
+            // a bogus conserved-moiety rule.
+            continue;
         }
 
         bool isAmt = dspecies->getHasOnlySubstanceUnits();
@@ -747,6 +777,38 @@ static inline void conservedMoietyException(const std::string& what)
     throw std::invalid_argument(what + help);
 }
 
+// Non-boundary species can be in rules only if they also do not appear in any reactions.
+static bool speciesParticipatesInReactionStoichiometry(const Model* model,
+        const std::string& speciesId)
+{
+    const ListOfReactions* reactions = model->getListOfReactions();
+
+    for (unsigned int i = 0; i < reactions->size(); ++i)
+    {
+        const Reaction* reaction = reactions->get(i);
+
+        const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+        for (unsigned int j = 0; j < reactants->size(); ++j)
+        {
+            if (reactants->get(j)->getSpecies() == speciesId)
+            {
+                return true;
+            }
+        }
+
+        const ListOfSpeciesReferences* products = reaction->getListOfProducts();
+        for (unsigned int j = 0; j < products->size(); ++j)
+        {
+            if (products->get(j)->getSpecies() == speciesId)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 static void conservedMoietyCheck(const SBMLDocument *doc)
 {
 
@@ -761,7 +823,17 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
 
         const Species *species = model->getSpecies(rule->getVariable());
 
-        if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0)
+        // Only an AssignmentRule is safe to relax here: its RHS is inlined at
+        // every point of use, so the species it governs never enters the ODE
+        // state vector and (per speciesParticipatesInReactionStoichiometry's
+        // comment above) can never be chosen as a conservation law's
+        // eliminated species. A RateRule species has real, independently
+        // integrated dynamics regardless of whether it participates in any
+        // reaction's stoichiometry, so it must keep throwing unconditionally.
+        bool relaxable = rule->isAssignment()
+                && !speciesParticipatesInReactionStoichiometry(model, species ? species->getId() : "");
+        if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0
+                && !relaxable)
         {
             std::string msg = "Cannot perform moiety conversion when floating "
                     "species are defined by rules. The floating species, "

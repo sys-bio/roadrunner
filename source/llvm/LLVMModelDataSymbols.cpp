@@ -21,6 +21,7 @@
 #pragma warning(default: 4624)
 #endif
 
+#include <iostream>
 #include "rr-libstruct/lsLibStructural.h"
 #include "rrLogger.h"
 #include "rrSparse.h"
@@ -945,7 +946,7 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
         const Species* s = species->get(i);
         std::vector<std::string> quantities = ConservationExtension::getConservedQuantities(*s);
 
-        if (!s->getBoundaryCondition())
+        if (!s->getBoundaryCondition() && !s->getConstant())
         {
             continue;
         }
@@ -1146,8 +1147,14 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model, bool
         const Species *s = species->get(i);
         std::vector<std::string> quantities = ConservationExtension::getConservedQuantities(*s);
 
-        if (s->getBoundaryCondition())
+        if (s->getBoundaryCondition() || s->getConstant())
         {
+            // Constant, non-boundary species (e.g. a species used only as a
+            // fixed parameter in rate laws) are processed as boundary
+            // species instead -- they have no ODE and are never touched by
+            // moiety or state-vector reduction, so treating them as
+            // floating species here would leave a structurally-zero row in
+            // the steady-state Jacobian.
             continue;
         }
 
@@ -1175,6 +1182,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model, bool
         }
 
         bool conservedMoiety = ConservationExtension::getConservedMoiety(*s);
+
 
         bool indInit = (!hasInitialAssignmentRule(sid) &&
                 (!hasAssignmentRule(sid) || conservedMoiety));
