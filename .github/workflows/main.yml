@@ -117,7 +117,12 @@ jobs:
           /Miniconda3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
           /Miniconda3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
           /Miniconda3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }}
+          # Python 3.15 is not yet on 'defaults'; use conda-forge (RC label until 3.15.0 final is published there)
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} \
+            --override-channels \
+            -c conda-forge/label/python_rc -c conda-forge \
+            python=${{ env.python_v4 }}
+          /Miniconda3/envs/${{ env.python_v4_name }}/bin/python --version
            
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
