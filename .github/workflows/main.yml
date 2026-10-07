@@ -85,7 +85,7 @@ jobs:
           echo "python_v1=3.12" >> $GITHUB_ENV
           echo "python_v2=3.13" >> $GITHUB_ENV
           echo "python_v3=3.14" >> $GITHUB_ENV
-          echo "python_v4=3.15.0-rc.3" >> $GITHUB_ENV
+          echo "python_v4=3.15" >> $GITHUB_ENV
           echo "python_v1_name=v1" >> $GITHUB_ENV
           echo "python_v2_name=v2" >> $GITHUB_ENV
           echo "python_v3_name=v3" >> $GITHUB_ENV
@@ -104,6 +104,7 @@ jobs:
             ${{ env.python_v2 }}
             ${{ env.python_v3 }}
             ${{ env.python_v4 }}
+          allow-prereleases: true
 
       - name: Setup Python for Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
