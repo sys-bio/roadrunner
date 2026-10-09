@@ -82,10 +82,10 @@ jobs:
         shell: bash
       # v1 should be the earliest supported version, and v4 the latest.  Tests are only run on v1 and v4.
         run: |
-          echo "python_v1=3.12" >> $GITHUB_ENV
-          echo "python_v2=3.13" >> $GITHUB_ENV
-          echo "python_v3=3.14" >> $GITHUB_ENV
-          echo "python_v4=3.15" >> $GITHUB_ENV
+          echo "python_v1=3.11" >> $GITHUB_ENV
+          echo "python_v2=3.12" >> $GITHUB_ENV
+          echo "python_v3=3.13" >> $GITHUB_ENV
+          echo "python_v4=3.14" >> $GITHUB_ENV
           echo "python_v1_name=v1" >> $GITHUB_ENV
           echo "python_v2_name=v2" >> $GITHUB_ENV
           echo "python_v3_name=v3" >> $GITHUB_ENV
@@ -104,7 +104,6 @@ jobs:
             ${{ env.python_v2 }}
             ${{ env.python_v3 }}
             ${{ env.python_v4 }}
-          allow-prereleases: true
 
       - name: Setup Python for Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
@@ -117,12 +116,7 @@ jobs:
           /Miniconda3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
           /Miniconda3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
           /Miniconda3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
-          # Python 3.15 is not yet on 'defaults'; use conda-forge (RC label until 3.15.0 final is published there)
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} \
-            --override-channels \
-            -c conda-forge/label/python_rc -c conda-forge \
-            python=${{ env.python_v4 }}
-          /Miniconda3/envs/${{ env.python_v4_name }}/bin/python --version
+          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }}
            
           /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
