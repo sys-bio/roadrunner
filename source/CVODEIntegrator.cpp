@@ -90,6 +90,7 @@ namespace rr {
             stateVectorVariables(false),
             variableStepPendingEvent(false),
             variableStepTimeEndEvent(false),
+            variableStepEventTolerance(0),
             typecode_(CVODE_INT_TYPECODE) {
         rrLog(Logger::LOG_INFORMATION) << "creating CVODEIntegrator";
 
@@ -210,6 +211,7 @@ namespace rr {
         stateVectorVariables = false;
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
+        variableStepEventTolerance = 0;
 
         if (m) {
             create();
@@ -439,14 +441,12 @@ namespace rr {
 
     double CVODEIntegrator::integrate(double timeStart, double hstep) {
         static const double epsilon = std::numeric_limits<double>::epsilon();
-        // CVODE root tolerance, used for backing up when an event fires (see CVODE User Doc pp. 13)
-        static const double roottol = 100. * (32. * epsilon) * (fabs(timeStart) + fabs(hstep));
 
         rrLog(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
                                  << timeStart << ", " << hstep << ")";
 
         if (variableStepPendingEvent || variableStepTimeEndEvent) {
-            return applyVariableStepPendingEvents() + roottol;
+            return applyVariableStepPendingEvents() + variableStepEventTolerance;
         }
 
         double timeEnd = timeStart-1; //Just to set it at a minimum; anything lower than timeStart should work.
@@ -502,12 +502,14 @@ namespace rr {
                     if (varstep
                         && (timeEnd - timeStart > 2. * epsilon)) {
                         variableStepPendingEvent = true;
+                        // the row before the event must stay after the previous row
+                        variableStepEventTolerance = std::min(getRootTolerance(timeEnd), 0.5 * (timeEnd - timeStart));
                         assignResultsToModel();
                         mModel->setTime(timeEnd - epsilon);
                         if (listener) {
                             listener->onTimeStep(this, mModel, timeEnd);
                         }
-                        return timeEnd - roottol;
+                        return timeEnd - variableStepEventTolerance;
                     }
 
                     // apply events, copy post event status into integrator state std::vector.
@@ -537,6 +539,7 @@ namespace rr {
                         mModel->setTime(timeEnd - epsilon);
                         assignResultsToModel();
                         variableStepTimeEndEvent = true;
+                        variableStepEventTolerance = getRootTolerance(timeEnd);
                         mLastEventTime = timeEnd;
                         return timeEnd - epsilon;
                     }
@@ -1033,6 +1036,19 @@ namespace rr {
             jac = nullptr;
         }
 
+    }
+
+    double CVODEIntegrator::getRootTolerance(double t) const {
+        static const double epsilon = std::numeric_limits<double>::epsilon();
+
+        double hu = 0;
+        if (!mCVODE_Memory || CVodeGetLastStep(mCVODE_Memory, &hu) != CV_SUCCESS) {
+            hu = 0;
+        }
+        // CVODE root tolerance, used for backing up when an event fires (see CVODE User Doc pp. 13).
+        // It is computed for each event from the time and step of CVODE at that event.  (It used to be
+        // a function-level static, set by the first integration in the process.)
+        return 100. * (32. * epsilon) * (fabs(t) + fabs(hu));
     }
 
     double CVODEIntegrator::applyVariableStepPendingEvents() {

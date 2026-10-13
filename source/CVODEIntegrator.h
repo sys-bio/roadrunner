@@ -272,6 +272,13 @@ namespace rr {
         double mLastEventTime;
         bool variableStepPendingEvent;
         bool variableStepTimeEndEvent;
+
+        /**
+         * Offset of the two rows that a variable step run reports for an event: the
+         * state before it at (event time - offset), the state after it at (event time + offset).
+         * Set when the event is found, from the time CVODE had reached and its last step.
+         */
+        double variableStepEventTolerance;
         std::vector<double> variableStepPostEventState;
         std::vector<unsigned char> eventStatus;
 
@@ -311,6 +318,14 @@ namespace rr {
         void applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus);
 
         double applyVariableStepPendingEvents();
+
+        /**
+         * The tolerance with which CVODE locates a root found at time t:
+         * 100 * unit roundoff * (|t| + |h|), h being the last step of CVODE, with a
+         * safety factor of 32 (see the CVODE User Doc).  It depends only on the
+         * time scale of the event itself, and not on any other integration.
+         */
+        double getRootTolerance(double t) const;
 
         void create();
 
