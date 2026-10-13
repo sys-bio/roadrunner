@@ -452,10 +452,19 @@
 %apply const rr::Dictionary* {const Dictionary*, rr::Dictionary*, Dictionary*};
 
 // typemap for std::stringstream* to python string
+//
+// The caller owns the stream returned by functions such as
+// RoadRunner::saveStateS, so the typemap must delete it once its contents
+// have been copied into the python bytes object.
 %typemap(out) std::stringstream*{
     // marker for typemap(out): std::stringstream*
-    std::string s = $1->str();
-    PyObject* bytes = PyBytes_FromStringAndSize(s.c_str(), s.size());
+    PyObject* bytes = nullptr;
+    {
+        std::string s = $1->str();
+        bytes = PyBytes_FromStringAndSize(s.c_str(), s.size());
+    }
+    delete $1;
+    $1 = nullptr;
     if (!bytes){
         std::string err = "Could not create bytes object from stream";
         PyErr_SetString(PyExc_ValueError, err.c_str());

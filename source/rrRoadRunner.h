@@ -443,7 +443,7 @@ namespace rr {
          * and generated from RoadRunner::saveStateS. It is an error to
          * use a stringstream that was generated in any other way. The memory
          * associated with the stringstream is automatically cleaned up
-         * after loading the state.
+         * after loading the state, including when loading fails with an exception.
          */
         void loadStateS(std::stringstream* state) ;
 

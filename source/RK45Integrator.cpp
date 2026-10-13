@@ -9,7 +9,9 @@
 #include <RK45Integrator.h>
 #include <rrExecutableModel.h>
 
+#include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <math.h>
 
 extern "C" {
@@ -24,7 +26,7 @@ namespace rr {
         rrLog(Logger::LOG_NOTICE) << "Creating Runge-Kutta-Fehlberg integrator";
         resetSettings();
         stateVectorSize = 0;
-        hmin = hmax = 0;
+        hCurrent = 0;
         k1 = k2 = k3 = k4 = k5 = k6 = err = y = ytmp = NULL;
         syncWithModel(m);
     }
@@ -45,6 +47,9 @@ namespace rr {
 
         resetSettings();
 
+        // forget the step size of the previous model
+        hCurrent = 0;
+
         if (mModel) {
             stateVectorSize = mModel->getStateVector(NULL);
             k1 = new double[stateVectorSize];
@@ -56,11 +61,8 @@ namespace rr {
             err = new double[stateVectorSize];
             y = new double[stateVectorSize];
             ytmp = new double[stateVectorSize];
-            hmin = (double) getValue("minimum_time_step");
-            hmax = (double) getValue("maximum_time_step");
         } else {
             stateVectorSize = 0;
-            hmin = hmax = 0;
             k1 = k2 = k3 = k4 = k5 = k6 = err = y = ytmp = NULL;
         }
     }
@@ -81,36 +83,82 @@ namespace rr {
     }
 
     double RK45Integrator::integrate(double t, double tDiff) {
-        double h = (double) getValue("maximum_time_step");
-
         if (!mModel) {
             throw std::runtime_error("RK45Integrator::integrate: No model");
         }
 
+        // The step size limits and the tolerance are read on every call, because they
+        // can be changed after the integrator was created.
+        const double hmin = (double) getValue("minimum_time_step");
+        const double hmax = (double) getValue("maximum_time_step");
+        const double epsilon = (double) getValue("epsilon");
+        const bool varStep = (bool) getValue("variable_step_size");
+
+        // With variable_step_size one error controlled step is taken and the time it
+        // reached is returned (this is what the variable step branch of
+        // RoadRunner::simulate expects).  Without it, steps are taken until t + tDiff
+        // is reached (this is what the fixed output grid of RoadRunner::simulate and
+        // RoadRunner::oneStep expect).  Either way the last step is cut so that it ends
+        // exactly at t + tDiff and no step goes beyond it, so the state at the end of the
+        // interval is the result of an error controlled step and not of an interpolation.
+        // A variable step run that is given no interval (tDiff <= 0, it only counts steps)
+        // takes one step of the size that the error control allows.
+        const bool haveEnd = tDiff > 0;
+        const double tEnd = t + tDiff;
+
+        if (haveEnd) {
+            if (!(tEnd > t)) {
+                // the interval is too small to be resolved in the time variable
+                return t;
+            }
+        } else if (!varStep) {
+            // nothing to integrate
+            return t;
+        }
+
         rrLog(Logger::LOG_DEBUG) <<
-                                 "RK45Integrator::integrate(" << t << ", " << h << ")";
+                                 "RK45Integrator::integrate(" << t << ", " << tDiff << ")";
 
         integer n = stateVectorSize;
         integer inc = 1;
         integer i;
         double alpha = 0;
         double error, q;
+        double tCur = t;
+        bool warned = false;
 
-        do {
-            assert(h > 1e-13);
+        mModel->setTime(t);
 
-            mModel->setTime(t);
+        mModel->getStateVector(y);
 
-            mModel->getStateVector(y);
+        // The step size proposed by the error control.  It is kept from one call to the
+        // next, so that the integration of each output interval does not start over from
+        // the largest step.
+        double hProp = hCurrent > 0 ? hCurrent : hmax;
+        hProp = std::min(std::max(hProp, hmin), hmax);
+
+        while (true) {
+            // hTry is the step size proposed by the error control and h the step size that
+            // is tried.  They are the same, unless the step is cut to end at tEnd.
+            const double hTry = hProp;
+            double h = hTry;
+            bool reachesEnd = false;
+
+            if (haveEnd && h >= tEnd - tCur) {
+                h = tEnd - tCur;
+                reachesEnd = true;
+            }
+
+            mModel->setTime(tCur);
 
             // k1 = f(t_n, y_n)
-            mModel->getStateVectorRate(t, y, k1);
+            mModel->getStateVectorRate(tCur, y, k1);
 
             // k2 = f(t_n + h/4, y_n + (h/4) * k_1)
             alpha = h / 4.;
             dcopy_(&n, y, &inc, ytmp, &inc);
             daxpy_(&n, &alpha, k1, &inc, ytmp, &inc);
-            mModel->getStateVectorRate(t + alpha, ytmp, k2);
+            mModel->getStateVectorRate(tCur + alpha, ytmp, k2);
 
             // k3 = f(t_n + 3*h/8, y_n + (3*h/32) * k_1 + (9*h/32) * k_2)
             alpha = 3 * h / 32.;
@@ -119,7 +167,7 @@ namespace rr {
             alpha = 9 * h / 32.;
             daxpy_(&n, &alpha, k2, &inc, ytmp, &inc);
             alpha = 3 * h / 8.;
-            mModel->getStateVectorRate(t + alpha, ytmp, k3);
+            mModel->getStateVectorRate(tCur + alpha, ytmp, k3);
 
             // k4 = f(t_n + 12*h/13, y_n + (1932*h/2197) * k_1 - (7200*h/2197) * k_2 + (7296*h/2197) * k_3)
             alpha = 1932 * h / 2197.;
@@ -130,7 +178,7 @@ namespace rr {
             alpha = 7296 * h / 2197.;
             daxpy_(&n, &alpha, k3, &inc, ytmp, &inc);
             alpha = 12 * h / 13.;
-            mModel->getStateVectorRate(t + alpha, ytmp, k4);
+            mModel->getStateVectorRate(tCur + alpha, ytmp, k4);
 
             // k5 = f(t_n + h, y_n + (439*h/216) * k_1 - (8*h) * k_2 + (3680*h/513) * k_3 - (845*h/4104) * k_4)
             alpha = 439 * h / 216.;
@@ -143,7 +191,7 @@ namespace rr {
             alpha = -845 * h / 4104.;
             daxpy_(&n, &alpha, k4, &inc, ytmp, &inc);
             alpha = h;
-            mModel->getStateVectorRate(t + alpha, ytmp, k5);
+            mModel->getStateVectorRate(tCur + alpha, ytmp, k5);
 
             // k6 = f(t_n + h/2, y_n - (8*h/27) * k_1 + (2*h) * k_2 - (3544*h/2565) * k_3 + (1859*h/4104) * k_4 - (11*h/40) * k_5)
             alpha = -8 * h / 27.;
@@ -158,7 +206,7 @@ namespace rr {
             alpha = -11 * h / 40.;
             daxpy_(&n, &alpha, k5, &inc, ytmp, &inc);
             alpha = h / 2.;
-            mModel->getStateVectorRate(t + alpha, ytmp, k6);
+            mModel->getStateVectorRate(tCur + alpha, ytmp, k6);
 
             // E = abs(k1/360 - (128/4275)*k3 - (2197/75240)*k4 + (1/50)*k5 + (2/55)*k6)
             for (i = 0; i < stateVectorSize; i++) {
@@ -175,63 +223,90 @@ namespace rr {
             alpha = 2. / 55;
             daxpy_(&n, &alpha, k6, &inc, err, &inc);
             error = dnrm2_(&n, err, &inc);
-            q = 0.84 * pow((double) getValue("epsilon") / error, 0.25);
+
+            // factor for the step size, limited to [0.1, 4]
+            if (!std::isfinite(error)) {
+                q = 0.1;
+            } else if (error == 0.) {
+                q = 4.;
+            } else {
+                q = 0.84 * pow(epsilon / error, 0.25);
+                q = std::min(std::max(q, 0.1), 4.);
+            }
 
             rrLog(Logger::LOG_DEBUG) <<
-                                     "RK45 step: t = " << t << ", error = " << error << ", epsilon = "
-                                     << (double) getValue("epsilon") << ", h = " << h;
-            if (q <= 0.1) {
-                h = 0.1 * h;
-            } else if (q >= 4) {
-                h = 4 * h;
-            } else {
-                h = q * h;
+                                     "RK45 step: t = " << tCur << ", error = " << error << ", epsilon = "
+                                     << epsilon << ", h = " << h;
+
+            if (!(error <= epsilon)) {
+                if (hTry > hmin) {
+                    // step rejected, try again with a smaller step
+                    hProp = std::max(q * h, hmin);
+                    continue;
+                }
+                // The smallest allowed step size does not meet the tolerance, nothing
+                // smaller can be tried, so the step is accepted.
+                if (!warned) {
+                    warned = true;
+                    rrLog(Logger::LOG_WARNING) <<
+                                               "RK45Integrator::integrate: the error estimate " << error
+                                               << " is above epsilon (" << epsilon
+                                               << ") with the minimum time step, at t = " << tCur;
+                }
             }
 
-            if (h > hmax) {
-                h = hmax;
+            rrLog(Logger::LOG_DEBUG) << "RK45: Update state std::vector";
+
+            // The state is advanced with the step size h that was tried, i.e. the one that the
+            // k's and the error estimate belong to (and not with the next proposed one).
+            // y = y + (1408*h/2565) k_3
+            alpha = 1408. * h / 2565;
+            daxpy_(&n, &alpha, k3, &inc, y, &inc);
+
+            // y = y + (1408/2565)*h k_3) + (2197/4104)*h k_4
+            alpha = (2197. / 4104) * h;
+            daxpy_(&n, &alpha, k4, &inc, y, &inc);
+
+            // y = (y + (1408/2565)*h k_3 + (2197/4104)*h k_4) - (1/5)*h k_5
+            alpha = (-1. / 5) * h;
+            daxpy_(&n, &alpha, k5, &inc, y, &inc);
+
+            // y = y + (25/216)*h k_1 + (1408/2565)*h k_3 + (2197/4104)*h k_4 - (1/5)*h k_5
+            alpha = (25. / 216) * h;
+            daxpy_(&n, &alpha, k1, &inc, y, &inc);
+
+            tCur = reachesEnd ? tEnd : tCur + h;
+            if (haveEnd && tCur >= tEnd) {
+                // the end of the interval, whatever the rounding of tCur + h
+                tCur = tEnd;
+                reachesEnd = true;
             }
 
-            if (t > tDiff + t) {
-                return tDiff + t;
-            } else if (h > tDiff) {
-                h = tDiff;
-            } else if (h < hmin) {
-                h = hmin;
-                //throw std::runtime_error("RK45Integrator::integrate: Stepsize became smaller than specified minimum.");
+            mModel->setTime(tCur);
+            mModel->setStateVector(y);
+
+            for (unsigned j = 0; j < stateVectorSize; ++j) {
+                rrLog(Logger::LOG_DEBUG) << "  " << y[j];
             }
 
-        } while (error > (double) getValue("epsilon"));
+            // proposal for the next step; a step that was cut short to end at tEnd does not
+            // lower it
+            hProp = q * h;
+            if (h < hTry && hProp < hTry) {
+                hProp = hTry;
+            }
+            hProp = std::min(std::max(hProp, hmin), hmax);
+            hCurrent = hProp;
 
-        rrLog(Logger::LOG_DEBUG) << "RK45: Update state std::vector";
-
-        // y = y + (1408*h/2565) k_3
-        alpha = 1408. * h / 2565;
-        daxpy_(&n, &alpha, k3, &inc, y, &inc);
-
-        // y = y + (1408/2565)*h k_3) + (2197/4104)*h k_4
-        alpha = (2197. / 4104) * h;
-        daxpy_(&n, &alpha, k4, &inc, y, &inc);
-
-        // y = (y + (1408/2565)*h k_3 + (2197/4104)*h k_4) - (1/5)*h k_5
-        alpha = (-1. / 5) * h;
-        daxpy_(&n, &alpha, k5, &inc, y, &inc);
-
-        // y = y + (25/216)*h k_1 + (1408/2565)*h k_3 + (2197/4104)*h k_4 - (1/5)*h k_5
-        alpha = (25. / 216) * h;
-        daxpy_(&n, &alpha, k1, &inc, y, &inc);
-
-        mModel->setTime(t + h);
-        mModel->setStateVector(y);
-
-        for (int i = 0; i < stateVectorSize; ++i) {
-            rrLog(Logger::LOG_DEBUG) << "  " << y[i];
+            if (varStep || reachesEnd) {
+                break;
+            }
         }
 
         rrLog(Logger::LOG_DEBUG) <<
                                  "RK45: end of step";
 
-        return t + h;
+        return tCur;
     }
 
     void RK45Integrator::testRootsAtInitialTime() {
@@ -249,6 +324,9 @@ namespace rr {
         if (!mModel) {
             return;
         }
+
+        // start the step size control afresh
+        hCurrent = 0;
 
         if (t0 <= 0.0) {
             if (y) {
@@ -297,13 +375,6 @@ namespace rr {
 
     std::string RK45Integrator::getRK45Hint() {
         return "Internal RK45 ODE solver";
-    }
-
-    Setting RK45Integrator::getValue(std::string key) {
-        if (key == "variable_step_size")
-            return Setting(true);
-        else
-            return Integrator::getValue(key);
     }
 
     Integrator::IntegrationMethod RK45Integrator::getIntegrationMethod() const {

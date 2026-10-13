@@ -45,6 +45,11 @@ namespace rr
 
     void Integrator::syncWithModel(ExecutableModel* m) {}
 
+    bool Integrator::interpolateToTime(double t)
+    {
+        return false;
+    }
+
     void Integrator::loadConfigSettings() {}
 
     void Integrator::loadSBMLSettings(const std::string& filename)
