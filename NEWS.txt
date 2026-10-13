@@ -1,3 +1,24 @@
+-- Version 2.11.0
+
+* BEHAVIOR CHANGE: RoadRunner.setSeed() (C++ and Python) no longer takes a 'resetModel' argument and no
+  longer touches the model. Before, the default (resetModel=True) regenerated and recompiled the
+  model from its SBML and then reset it, which took most of a second and discarded the current
+  values, the initial values, and the time; the documentation only mentioned a reset. Now it only
+  reseeds the random number generators (distrib functions, simultaneous events, gillespie),
+  so it is instant and leaves the model as it was. Call reset() as well to restart. Code that passed
+  resetModel will need to drop it, and code that relied on setSeed restarting the model needs reset().
+
+* Events that fire at the same time with the same priority are ordered with the model's own random
+  number generator instead of std::rand: still random by default (SBML leaves the order arbitrary), but
+  repeatable after setSeed(). Roadrunner no longer reseeds the process-wide std::rand when a model
+  is created.
+
+* CVODE's own warnings (such as 't + h = t on the next step') now follow the Logger level: shown at
+  LOG_WARNING and more verbose, silent otherwise (the default is LOG_ERROR).
+
+* C++ RoadRunner::simulate(start, duration, points): the documentation and parameter name now say
+  that the second argument is a duration, which is how it always behaved.
+
 -- Version 1.3.2
 
 * Fix conserved moieties bug (wcopeland)

@@ -253,6 +253,9 @@ namespace rr {
         // for some sbml tests.
         CVodeSetMaxNumSteps(cvodeIntegrator->mCVODE_Memory, cvodeIntegrator->mDefaultMaxNumSteps);
 
+        // this CVODE object is not created by CVODEIntegrator::create
+        cvodeIntegrator->applyWarningLevel();
+
         double t0 = 0.0;
 
         if ((err = CVodeSetUserData(cvodeIntegrator->mCVODE_Memory, (void *) this)) != CV_SUCCESS) {

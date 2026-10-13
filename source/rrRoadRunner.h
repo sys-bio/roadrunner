@@ -372,10 +372,11 @@ namespace rr {
         /**
          * @brief simulate the model using currently set integrator
          * @param start starting time to simulate
-         * @param stop what time point does the simulation end?
+         * @param duration how long to simulate: the simulation ends at time start + duration
+         * (the Python simulate takes an end time instead, and converts it).
          * @param points how many points to output (one greater than the number of steps to take).
          */
-        const ls::DoubleMatrix *simulate(double start, double stop, int points);
+        const ls::DoubleMatrix *simulate(double start, double duration, int points);
 
         /**
          * @brief simulate the model using currently set integrator
@@ -1661,9 +1662,17 @@ namespace rr {
         std::vector<std::string> getConservedMoietyIds();
 
         /**
-         * @brief Set the value of Config::RANDOM_SEED
+         * @brief Set the seed of all random number generators, and the value of Config::RANDOM_SEED
+         * @details The seed controls everything random in a simulation: the Gillespie integrator,
+         * the SBML distribution functions, and the order in which events that fire at the same
+         * time with the same priority are applied (SBML leaves that order arbitrary).
+         * A negative seed means a seed taken from the system clock.
+         *
+         * Only the generators are reseeded: the model is not regenerated or reset, so its
+         * current and initial values, and the current time, stay as they are. Call reset()
+         * as well to restart the simulation from the initial values.
          */
-        void setSeed(std::int64_t seed, bool resetModel = true);
+        void setSeed(std::int64_t seed);
 
         /**
          * @brief Returns the value of Config::RANDOM_SEED

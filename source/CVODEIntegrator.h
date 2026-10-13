@@ -302,6 +302,22 @@ namespace rr {
         void reInit(double t0);
 
         /**
+         * @brief Ties the warnings that CVODE issues itself to the Logger level.
+         * @details Since SUNDIALS 7 these warnings ("t + h = t on the next step",
+         * "a root function is identically zero at the initial time") are written to
+         * stdout by the SUNContext's SUNLogger, and no longer reach roadrunner's
+         * Logger. They are therefore switched on or off here instead: they are
+         * left on when the Logger level is LOG_WARNING or more verbose, and off
+         * otherwise (the default level is LOG_ERROR).
+         * Called whenever CVODE is created or re-initialized, so a change of the
+         * Logger level takes effect at the start of the next run.
+         * @note SUNDIALS has no call that switches the inactive root warning
+         * back on, so once it has been turned off it stays off for this CVODE
+         * object (until the integrator is created anew).
+         */
+        void applyWarningLevel();
+
+        /**
          * @author WBC, ETS, JKM
          * @brief Propagates changes in the following settings to CVODE:\n
          * *  initial_time_step \n

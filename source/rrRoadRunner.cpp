@@ -2416,11 +2416,11 @@ namespace rr {
         return &self.simulationResult;
     }
 
-    const ls::DoubleMatrix *RoadRunner::simulate(double start, double stop, int points) {
+    const ls::DoubleMatrix *RoadRunner::simulate(double start, double duration, int points) {
         // Use existing simulateOpt, so we don't lose other options in it.
         get_self();
         self.simulateOpt.setStartTime(start);
-        self.simulateOpt.setDuration(stop);
+        self.simulateOpt.setDuration(duration);
         // substract 1 so that start, stop, num has the same meaning as it does in numpy functions
         // i.e. see https://numpy.org/doc/stable/reference/generated/numpy.linspace.html
         self.simulateOpt.setSteps(points - 1);
@@ -8068,23 +8068,12 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(std::int64_t seed, bool resetModel) {
+    void RoadRunner::setSeed(std::int64_t seed) {
         Config::setValue(Config::RANDOM_SEED, seed);
-        if (resetModel) {
-            regenerateModel(true);
-            reset(SelectionRecord::TIME |
-            SelectionRecord::RATE |
-            SelectionRecord::FLOATING |
-            SelectionRecord::BOUNDARY |
-            SelectionRecord::COMPARTMENT |
-            SelectionRecord::GLOBAL_PARAMETER);
-        }
-        else {
-            impl->model->setRandomSeed(seed);
-            for (auto integrator : impl->integrators) {
-                if (integrator->getName() == "gillespie")
-                    integrator->setValue("seed", Setting(seed));
-            }
+        impl->model->setRandomSeed(seed);
+        for (auto integrator : impl->integrators) {
+            if (integrator->getName() == "gillespie")
+                integrator->setValue("seed", Setting(seed));
         }
     }
 
@@ -8104,7 +8093,7 @@ namespace rr {
 
     void RoadRunner::resetSeed() {
         if (Config::getValue(Config::RANDOM_SEED).getAs<std::int64_t>() != -1)
-            setSeed(-1, false);
+            setSeed(-1);
         else {
             for (auto integrator : impl->integrators) {
                 if (integrator->getName() == "gillespie")

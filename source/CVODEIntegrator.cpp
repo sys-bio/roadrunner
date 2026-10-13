@@ -437,6 +437,25 @@ namespace rr {
         }
 
         setCVODETolerances();
+        applyWarningLevel();
+    }
+
+    void CVODEIntegrator::applyWarningLevel() {
+        if (mCVODE_Memory == nullptr) {
+            return;
+        }
+
+        // The SUNDIALS default for the number of "t + h = t" warnings per problem.
+        static const int sundialsDefaultMaxHnilWarns = 10;
+
+        const bool warningsWanted = Logger::getLevel() >= Logger::LOG_WARNING;
+
+        // a negative number of warnings switches them off
+        CVodeSetMaxHnilWarns(mCVODE_Memory, warningsWanted ? sundialsDefaultMaxHnilWarns : -1);
+
+        if (!warningsWanted) {
+            CVodeSetNoInactiveRootWarn(mCVODE_Memory);
+        }
     }
 
     double CVODEIntegrator::integrate(double timeStart, double hstep) {
@@ -692,6 +711,8 @@ namespace rr {
         // use non default CVODE value here, default is too short
         // for some sbml tests.
         CVodeSetMaxNumSteps(mCVODE_Memory, mDefaultMaxNumSteps);
+
+        applyWarningLevel();
 
         double t0 = 0.0;
 

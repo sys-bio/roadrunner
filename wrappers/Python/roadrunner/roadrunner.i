@@ -1327,7 +1327,7 @@ namespace std { class ostream{}; }
         def getModel(self):
             return self._getModel()
 
-        def setSeed(self, seed, resetModel=True):
+        def setSeed(self, seed):
             """
             Sets the seed for all random number generators: any use of 'distrib' in the model, any
               simultaneously-firing events, and any use of the 'gillespie' integrator.  Also sets
@@ -1335,12 +1335,13 @@ namespace std { class ostream{}; }
               will be created with the same seed.  Setting the seed to -1 (or any negative integer)
               tells the random number generators to use a seed based on the system clock (in 
               microcseconds) instead.
-            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
-                           the existing model and for the global configuration option")
+
+              Only the random number generators are changed: the model is not regenerated or reset,
+              so its current and initial values, and the current time, stay as they are.  Call
+              reset() as well to restart the simulation from the initial values.
             :param seed: The seed to use for the random number generator.
-            :param resetModel: If True, the model will be reset after setting the seed.
             """
-            _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
+            _roadrunner.RoadRunner_setSeed(self, seed)
 
         def getSeed(self, integratorName=""):
             """
