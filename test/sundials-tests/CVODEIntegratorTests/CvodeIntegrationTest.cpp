@@ -10,6 +10,10 @@
 #include "Matrix.h"
 #include "CvodeIntegrationTest.h"
 
+#include <algorithm>
+#include <cmath>
+#include <string>
+
 
 using namespace rr;
 using namespace testing;
@@ -189,4 +193,67 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetVector) {
     ASSERT_EQ(atols.size(), 2);
     EXPECT_NEAR(atols[0], 1e10, 1.0);
     EXPECT_NEAR(atols[1], 1e-10, 1e-20);
+}
+
+// S' = -0.5 S, S(0) = 10, exact solution 10 exp(-0.5 t)
+static const std::string DecaySBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="decay">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="S" compartment="c" initialConcentration="10" hasOnlySubstanceUnits="false"/>
+ </listOfSpecies>
+ <listOfParameters><parameter id="k" value="0.5"/></listOfParameters>
+ <listOfReactions>
+  <reaction id="J0" reversible="false">
+   <listOfReactants><speciesReference species="S"/></listOfReactants>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k</ci><ci>S</ci></apply></math></kineticLaw>
+  </reaction>
+ </listOfReactions>
+</model></sbml>)";
+
+static double decayRelativeError(double value, double t) {
+    const double exact = 10. * std::exp(-0.5 * t);
+    return std::fabs(value - exact) / exact;
+}
+
+// Largest relative error of S over the rows [first, last) of a (time, S) result.
+static double maxDecayRelativeError(const ls::DoubleMatrix &result, unsigned first, unsigned last) {
+    double worst = 0;
+    for (unsigned i = first; i < last; i++) {
+        worst = std::max(worst, decayRelativeError(result(i, 1), result(i, 0)));
+    }
+    return worst;
+}
+
+// variable step simulation from 0 to end, as simulate(0, end) does without a number of points
+static ls::DoubleMatrix simulateDecayVariableStep(RoadRunner &rr, double end) {
+    rr.getIntegrator()->setValue("variable_step_size", true);
+    SimulateOptions &opt = rr.getSimulateOptions();
+    opt.setStartTime(0);
+    opt.setDuration(end);
+    opt.setSteps(0);
+    return *rr.simulate();
+}
+
+/**
+ * Regression test for O-3: the last row of a CVODE variable step run was a linear
+ * interpolation between the last two internal steps, whose error scales with the
+ * square of the step size (about 1e-4 here whatever the tolerances), while the other
+ * rows are within about 1e-8.
+ */
+TEST_F(CVODEIntegratorTests, VariableStepLastRowIsAsAccurateAsTheOthers) {
+    for (double end : {10., 9.95, 5., 1.}) {
+        RoadRunner rr(DecaySBML);
+        rr.setIntegrator("cvode");
+        rr.getIntegrator()->setValue("absolute_tolerance", 1e-12);
+        rr.getIntegrator()->setValue("relative_tolerance", 1e-10);
+        ls::DoubleMatrix result = simulateDecayVariableStep(rr, end);
+
+        ASSERT_GT(result.numRows(), 2u);
+        unsigned last = result.numRows() - 1;
+        EXPECT_EQ(end, result(last, 0)) << "end " << end;
+        EXPECT_LT(maxDecayRelativeError(result, 0, last), 1e-6) << "end " << end;
+        EXPECT_LT(decayRelativeError(result(last, 1), result(last, 0)), 1e-6)
+            << "end " << end << ": the last row is less accurate than the others";
+    }
 }

@@ -2222,8 +2222,17 @@ namespace rr {
                             if (itime >= 0) {
                                 row.at(itime) = timeEnd;
                             }
+                        } else if (getIntegrator()->interpolateToTime(timeEnd)) {
+                            // ODE simulations: the integrator evaluates its own (dense output)
+                            // solution at the end time, which is as accurate as the other rows.
+                            // The model is now at timeEnd.
+                            rrLog(Logger::LOG_DEBUG)
+                                << "simulate: use the integrator's dense output for last value with timeEnd = " << timeEnd
+                                << ", tout = " << tout << ", last_tout = " << last_tout;
+
+                            getSelectedValues(row, timeEnd);
                         } else {
-                            // ODE simulations use linear interpolation
+                            // integrators without dense output use linear interpolation
                             double alpha = (timeEnd - last_tout) / (tout - last_tout);
                             rrLog(Logger::LOG_DEBUG)
                                 << "simulate: use linear interpolation for last value with timeEnd = " << timeEnd

@@ -796,6 +796,31 @@ namespace rr {
         }
     }
 
+    bool CVODEIntegrator::interpolateToTime(double t) {
+        if (!mStateVector || !mCVODE_Memory || !mModel) {
+            return false;
+        }
+
+        // CVodeGetDky is valid for t within the last internal step, [tn - hu, tn]
+        double tn = 0, hu = 0;
+        if (CVodeGetCurrentTime(mCVODE_Memory, &tn) != CV_SUCCESS ||
+            CVodeGetLastStep(mCVODE_Memory, &hu) != CV_SUCCESS) {
+            return false;
+        }
+        const double fuzz = 100. * std::numeric_limits<double>::epsilon() * (fabs(tn) + fabs(hu));
+        if (t < tn - fabs(hu) - fuzz || t > tn + fuzz) {
+            return false;
+        }
+        t = std::min(t, tn);
+
+        if (CVodeGetDky(mCVODE_Memory, t, 0, mStateVector) != CV_SUCCESS) {
+            return false;
+        }
+        assignResultsToModel();
+        mModel->setTime(t);
+        return true;
+    }
+
     void CVODEIntegrator::assignResultsToModel() const {
         if (mStateVector) {
             mModel->setStateVector(mStateVector->ops->nvgetarraypointer(mStateVector));

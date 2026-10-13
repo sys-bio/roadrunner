@@ -3,6 +3,7 @@ add_test_executable(test_cxx_api_RoadRunnerAPITestsMCJit test_targets RoadRunner
 add_test_executable(test_cxx_api_RoadRunnerAPITestsLLJit test_targets RoadRunnerAPITests.h RoadRunnerAPITestsWithLLJit.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_GillespieTests test_targets GillespieTests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_EulerIntegratorTests test_targets EulerIntegratorTests.cpp ${SharedTestFiles})
+add_test_executable(test_cxx_api_RK45IntegratorTests test_targets RK45IntegratorTests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_SparseMatrixTests test_targets SparseMatrixTests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_IniFileTests test_targets IniFileTests.cpp ${SharedTestFiles})
 add_test_executable(test_cxx_api_LoggerTests test_targets LoggerTests.cpp ${SharedTestFiles})

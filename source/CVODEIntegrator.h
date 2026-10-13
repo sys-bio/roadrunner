@@ -178,6 +178,14 @@ namespace rr {
          */
         void restart(double timeStart) override;
 
+        /**
+         * @brief Sets the model to the state at t, from the interpolating polynomial
+         * (Nordsieck history) of the last internal step of CVODE.
+         * @details Its error is controlled by the tolerances like that of a step.
+         * Returns false if t is not within the last step.
+         */
+        bool interpolateToTime(double t) override;
+
         // ** Listeners ********************************************************
 
         /**

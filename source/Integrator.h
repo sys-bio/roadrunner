@@ -100,6 +100,18 @@ namespace rr {
         virtual void restart(double t0) = 0;
 
         /**
+         * @brief Set the model to the state at time t, from the dense output of the
+         * last step taken by @ref integrate, if the integrator has one.
+         * @details For a variable step run, the last step usually goes beyond the
+         * requested end time.  An integrator that can evaluate its solution anywhere
+         * within its last step does so here, so that the state at the end time is as
+         * accurate as the rest of the solution, and returns true.
+         * @returns false (and leaves the model unchanged) if the integrator has no
+         * dense output, or if t is not within the last step.
+         */
+        virtual bool interpolateToTime(double t);
+
+        /**
          * @author JKM, WBC, ETS, MTK
          * @brief Fix tolerances for SBML tests
          * @details In order to ensure that the results of the SBML test suite
