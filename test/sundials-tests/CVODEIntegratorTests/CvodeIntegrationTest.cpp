@@ -258,6 +258,43 @@ TEST_F(CVODEIntegratorTests, VariableStepLastRowIsAsAccurateAsTheOthers) {
     }
 }
 
+/**
+ * Regression test for sys-bio/roadrunner#1362: a variable step simulate(0, end) left the
+ * model at the end of the last internal step, past the requested end time, so the
+ * model time and state were wrong and a simulation continued from there started from
+ * the wrong state.
+ */
+TEST_F(CVODEIntegratorTests, VariableStepSimulationEndsAtTheRequestedEndTime) {
+    RoadRunner rr(DecaySBML);
+    rr.setIntegrator("cvode");
+    rr.getIntegrator()->setValue("absolute_tolerance", 1e-12);
+    rr.getIntegrator()->setValue("relative_tolerance", 1e-10);
+
+    const double end = 10;
+    ls::DoubleMatrix first = simulateDecayVariableStep(rr, end);
+    ASSERT_GT(first.numRows(), 2u);
+    EXPECT_EQ(end, first(first.numRows() - 1, 0));
+
+    // the model itself is at the end time, not at the end of the last internal step
+    EXPECT_EQ(end, rr.getCurrentTime());
+    EXPECT_LT(decayRelativeError(rr.getValue("S"), end), 1e-6);
+
+    // continuing from there gives the same solution as an uninterrupted run
+    rr.getIntegrator()->setValue("variable_step_size", true);
+    SimulateOptions &opt = rr.getSimulateOptions();
+    opt.setStartTime(end);
+    opt.setDuration(end);
+    opt.setSteps(0);
+    ls::DoubleMatrix second = *rr.simulate();
+
+    ASSERT_GT(second.numRows(), 2u);
+    unsigned last = second.numRows() - 1;
+    EXPECT_EQ(end, second(0, 0));
+    EXPECT_EQ(2 * end, second(last, 0));
+    EXPECT_LT(maxDecayRelativeError(second, 0, last + 1), 1e-6);
+    EXPECT_EQ(2 * end, rr.getCurrentTime());
+}
+
 // Same decay, with an event at time @T@ that sets S to 50.
 static const std::string DecayWithEventSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="decay_with_event">
