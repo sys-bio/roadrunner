@@ -911,6 +911,57 @@ class RoadRunnerTests(unittest.TestCase):
         print(data)
         self.assertEqual((11, 3), data.shape)
 
+    @unittest.skipUnless(sys.platform.startswith("linux"), "reads the resident memory from /proc")
+    def test_loadStateS_does_not_leak_when_loading_fails(self):
+        """loadStateS takes ownership of the state; it must be freed even when
+        the state is rejected."""
+
+        def resident_mb():
+            with open("/proc/self/status") as f:
+                for line in f:
+                    if line.startswith("VmRSS:"):
+                        return int(line.split()[1]) / 1024.0
+            self.fail("VmRSS not found in /proc/self/status")
+
+        bad_state = bytes(len(self.rr.saveStateS()))  # wrong magic number
+        rr2 = RoadRunner()
+        for _ in range(100):  # warm up allocator caches before measuring
+            with self.assertRaises(Exception):
+                rr2.loadStateS(bad_state)
+
+        before = resident_mb()
+        for _ in range(1000):
+            with self.assertRaises(Exception):
+                rr2.loadStateS(bad_state)
+        growth = resident_mb() - before
+        self.assertLess(growth, 5.0, "failed loadStateS leaked %.1f MB over 1000 calls" % growth)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "reads the resident memory from /proc")
+    def test_saveStateS_does_not_leak(self):
+        """saveStateS hands ownership of the serialized state to the caller;
+        the wrapper must free it once it has been copied into bytes."""
+
+        def resident_mb():
+            with open("/proc/self/status") as f:
+                for line in f:
+                    if line.startswith("VmRSS:"):
+                        return int(line.split()[1]) / 1024.0
+            self.fail("VmRSS not found in /proc/self/status")
+
+        self.rr.simulate(0, 10, 11)
+        state = self.rr.saveStateS()
+        self.assertIsInstance(state, bytes)
+
+        # warm up allocator caches before measuring
+        for _ in range(100):
+            self.rr.saveStateS()
+
+        before = resident_mb()
+        for _ in range(1000):
+            self.rr.saveStateS()
+        growth = resident_mb() - before
+        self.assertLess(growth, 5.0, "saveStateS leaked %.1f MB over 1000 calls" % growth)
+
     def test_makeIntegrator(self):
         integrator = self.rr.makeIntegrator("gillespie")
         self.assertIsInstance(

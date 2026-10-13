@@ -6038,11 +6038,10 @@ namespace rr {
 
     void RoadRunner::saveState(std::string filename, char opt) {
         check_model();
-        std::stringstream *state = saveStateS(opt);
+        std::unique_ptr<std::stringstream> state(saveStateS(opt));
         std::ofstream of(filename, std::iostream::binary);
         of << state->rdbuf();
         of.close();
-        delete state;
     }
 
     std::stringstream *RoadRunner::saveStateS(char opt) {
@@ -6051,7 +6050,8 @@ namespace rr {
             case 'b': {
                 // binary mode
                 // can be loaded later
-                auto outPtr = new std::stringstream(
+                // released to the caller only on success, so nothing leaks if saving throws
+                auto outPtr = std::make_unique<std::stringstream>(
                         std::iostream::binary | std::stringstream::out | std::stringstream::in);
                 rr::saveBinary(*outPtr, fileMagicNumber);
                 rr::saveBinary(*outPtr, dataVersionNumber);
@@ -6132,17 +6132,17 @@ namespace rr {
                 //created
                 //It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
                 //If this implementation is too slow we can change that
-                char *sbmlToSave = impl->document->toSBML();
-                rr::saveBinary(*outPtr, std::string(sbmlToSave));
-                free(sbmlToSave);
+                std::unique_ptr<char, decltype(&free)> sbmlToSave(impl->document->toSBML(), &free);
+                rr::saveBinary(*outPtr, std::string(sbmlToSave.get()));
 
-                return outPtr;
+                return outPtr.release();
             }
 
             case 'r': {
                 // human-readble mode
                 // for user debugging
-                auto outPtr = new std::stringstream(
+                // released to the caller only on success, so nothing leaks if saving throws
+                auto outPtr = std::make_unique<std::stringstream>(
                         std::iostream::binary | std::stringstream::out | std::stringstream::in);
                 //                if (!*outPtr) {
                 //                    throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
@@ -6228,7 +6228,7 @@ namespace rr {
 
                 //*outPtr << "configurationXML" << impl->configurationXML << std::endl;
                 //*outPtr << impl->currentSBML;
-                return outPtr;
+                return outPtr.release();
 
             }
             default:
@@ -6255,16 +6255,20 @@ namespace rr {
             throw std::invalid_argument(err);
         }
         std::ifstream ifs(filename, std::ios::binary);
-        std::stringstream *ss = new std::stringstream(
+        auto ss = std::make_unique<std::stringstream>(
                 std::iostream::binary |
                 std::stringstream::out |
                 std::stringstream::in);
         *ss << ifs.rdbuf();
-        loadStateS(ss);
+        loadStateS(ss.release());  // loadStateS takes ownership
     }
 
-    void RoadRunner::loadStateS(std::stringstream *in) {
+    void RoadRunner::loadStateS(std::stringstream *inPtr) {
         rrLog(Logger::LOG_DEBUG) << __FUNC__;
+        // loadStateS takes ownership of the stream: it is released on every
+        // path out of this function, including when loading throws.
+        std::unique_ptr<std::stringstream> owner(inPtr);
+        std::stringstream *in = owner.get();
         int inMagicNumber;
         rr::loadBinary(*in, inMagicNumber);
         std::string x = in->str();
@@ -6397,7 +6401,6 @@ namespace rr {
         //Restart the integrator and reset the model time
         impl->integrator->restart(impl->model->getTime());
         reset(SelectionRecord::TIME);
-        delete in;
     }
 
     void RoadRunner::loadSelectionVector(std::istream &in, std::vector<SelectionRecord> &v) {
