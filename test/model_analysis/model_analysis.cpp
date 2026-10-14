@@ -2156,9 +2156,12 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Check) {
     EXPECT_EQ(rr.getSeed("gillespie"), rr.getIntegrator()->getValue("seed").getAs<int64_t>());
 }
 
-TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
+TEST_F(ModelAnalysisTests, SetSeed_Same_Seed_Gives_Same_Result_Before_Simulating) {
     RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    // "a" has an initial assignment drawn from a normal distribution, which is evaluated when the
+    // model is loaded (with a seed taken from the clock). setSeed resets the model with
+    // reset(SelectionRecord::ALL) by default, which draws it again with the new seed.
     rr1.setSeed(42);
     rr2.setSeed(42);
     rr1.simulate();
@@ -2166,13 +2169,13 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
     EXPECT_NEAR(rr1.getValue("a"), rr2.getValue("a"), 0.0000001);
 }
 
-TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Uniform_Without_Reset_Model) {
+TEST_F(ModelAnalysisTests, SetSeed_Same_Seed_Gives_Same_Result_After_Simulating) {
     RoadRunner rr1((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
     rr1.simulate(0, 5, 50);
     rr2.simulate(0, 5, 50);
-    rr1.setSeed(42, false);
-    rr2.setSeed(42, false);
+    rr1.setSeed(42);
+    rr2.setSeed(42);
     rr1.simulate(5, 10, 50);
     rr2.simulate(5, 10, 50);
     EXPECT_NEAR(rr1.getValue("x"), rr2.getValue("x"), 0.0000001);
@@ -2183,11 +2186,11 @@ TEST_F(ModelAnalysisTests, Set_Gillespie_Random_Seed) {
     RoadRunner rr2((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     rr1.setIntegrator("gillespie");
     rr1.getIntegrator()->setValue("variable_step_size", true);
-    rr1.setSeed(-1, false);
+    rr1.setSeed(-1);
     const ls::DoubleMatrix* rr1_results = rr1.simulate(0, 10, 2);
     rr2.setIntegrator("gillespie");
-    rr1.getIntegrator()->setValue("variable_step_size", true);
-    rr2.setSeed(-1, false);
+    rr2.getIntegrator()->setValue("variable_step_size", true);
+    rr2.setSeed(-1);
     const ls::DoubleMatrix* rr2_results = rr2.simulate(0, 10, 2);
     // With a variable step size, every time step is a random draw, which should be different.
     EXPECT_NE(rr1_results->Element(1, 0), rr2_results->Element(1, 0));

@@ -242,7 +242,12 @@ bool EventQueue::applyEvents()
 
         if (ripe.size())
         {
-            uint index = std::rand() % ripe.size();
+            // Events that are ripe at the same time with the same priority are applied in
+            // arbitrary order (SBML L3V2 section 4.12.6). The choice comes from the model's own
+            // random number generator, so it is random by default and repeatable
+            // after RoadRunner::setSeed.
+            const double draw = ripe.front()->model.getRandom();
+            const size_t index = std::min(static_cast<size_t>(draw * ripe.size()), ripe.size() - 1);
             iterator i = ripe[index];
 
             rrLog(Logger::LOG_DEBUG) << "assigning the " << index << "\'th item";

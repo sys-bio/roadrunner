@@ -78,9 +78,8 @@ def _run_stoch_repeats(filepath, variables, testType, start, duration, steps, n_
 
     # Seed this worker's model (used for SBML distrib csymbols) and, since
     # the integrator above already exists, its "gillespie" integrator's own
-    # RNG too -- setSeed() sets both in one call. resetModel=False so this
-    # is just an RNG re-seed, not a full model recompile.
-    rr.setSeed(seed, False)
+    # RNG too -- setSeed() sets both in one call.
+    rr.setSeed(seed)
 
     chunk_results = {var: [] for var in selections}
     for _ in range(n_repeats):

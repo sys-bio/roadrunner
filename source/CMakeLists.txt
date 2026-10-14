@@ -47,6 +47,7 @@ set(
         rrUtils.cpp
         Integrator.cpp
         CVODEIntegrator.cpp
+        SundialsLogger.cpp
         Dictionary.cpp
         GillespieIntegrator.cpp
         RK4Integrator.cpp
@@ -119,6 +120,7 @@ set(
         rrUtils.h
         Integrator.h
         CVODEIntegrator.h
+        SundialsLogger.h
         Dictionary.h
         GillespieIntegrator.h
         RK4Integrator.h

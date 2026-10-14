@@ -8,6 +8,7 @@
 #include "rrException.h"
 #include "rrConfig.h"
 #include "rrUtils.h"
+#include "SundialsLogger.h"
 
 
 #include <cvodes/cvodes.h>                          /* prototypes for CVODE fcts., consts.          */
@@ -648,6 +649,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // cvode return code
         int err;
@@ -1127,12 +1129,9 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
                                      << ", Function: " << function
                                      << ", Message: " << msg;
-
-        } else if (error_code == CV_WARNING) {
-            rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Function: " << function
-                                       << ", Message: " << msg;
         }
+        // CVODE's warnings do not come through here: SUNDIALS sends them to the SUNLogger of the
+        // SUNContext, which routeSundialsLoggingToRoadRunnerLogger connects to the roadrunner Logger.
     }
 
     void *CVODEIntegrator::getCvodeMemory() const {

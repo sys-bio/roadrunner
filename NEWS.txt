@@ -1,3 +1,26 @@
+-- Version 2.10.1
+
+* RoadRunner.setSeed(seed, resetModel=True) (C++ and Python) no longer regenerates and recompiles the
+  model from its SBML, which took most of a second. It now reseeds the random number generators
+  (distrib functions, simultaneous events, gillespie) and, if resetModel is true (the default), resets
+  the model with reset(SelectionRecord::ALL), so initial assignments that use distrib functions are still
+  drawn again with the new seed. With resetModel=False nothing but the generators changes. (The
+  documentation used to say only that the model was reset; it was actually regenerated.)
+
+* Events that fire at the same time with the same priority are ordered with the model's own random
+  number generator instead of std::rand: still random by default (SBML leaves the order arbitrary), but
+  repeatable after setSeed(). Roadrunner no longer reseeds the process-wide std::rand when a model
+  is created.
+
+* Messages from SUNDIALS (such as CVODE's warning 't + h = t on the next step') now go to roadrunner's
+  Logger, at LOG_WARNING, instead of being printed to stdout by SUNDIALS. They follow the Logger level
+  (shown at LOG_WARNING and more verbose; the default level is LOG_ERROR), format, log file and console
+  stream. SUNDIALS errors were already logged by roadrunner's own handlers and still are. This needs
+  SUNDIALS 7.8.0 or later (SUNLogger_SetQueueAndFlushMsgFns); the build stops with an error otherwise.
+
+* C++ RoadRunner::simulate(start, duration, points): the documentation and parameter name now say
+  that the second argument is a duration, which is how it always behaved.
+
 -- Version 1.3.2
 
 * Fix conserved moieties bug (wcopeland)

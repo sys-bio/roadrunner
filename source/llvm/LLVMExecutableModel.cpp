@@ -207,7 +207,6 @@ LLVMExecutableModel::LLVMExecutableModel() :
     dirty(0),
     flags(defaultFlags())
 {
-    std::srand((unsigned)std::time(0));
 }
 
 LLVMExecutableModel::LLVMExecutableModel(
@@ -262,7 +261,6 @@ LLVMExecutableModel::LLVMExecutableModel(
     modelData->time = -std::numeric_limits<double>::infinity(); // time is initially before simulation starts
     // mIntegrationStartTime defaults to zero in constructor.
 
-    std::srand((unsigned)std::time(0));
 
     eventAssignTimes.resize(modelData->numEvents);
 
@@ -2914,7 +2912,8 @@ bool LLVMExecutableModel::getEventTieBreak(size_t eventA, size_t eventB)
     }
     */
 
-    bool result = (std::rand() % 2) == 0;
+    // uses the model's own random number generator, so that RoadRunner::setSeed controls it
+    bool result = getRandom() < 0.5;
 
 
 

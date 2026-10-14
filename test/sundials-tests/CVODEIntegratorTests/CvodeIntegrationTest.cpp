@@ -12,6 +12,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <sstream>
 #include <string>
 
 
@@ -409,4 +411,218 @@ TEST_F(CVODEIntegratorTests, VariableStepEventRowOffsetFollowsTheTimeOfTheEvent)
         offsets[n++] = rows.timeAfter;
     }
     EXPECT_GT(offsets[1], 100 * offsets[0]);
+}
+
+/**
+ * Tests for the warnings that CVODE issues itself ("t + h = t on the next step" and so on).
+ * SUNDIALS writes them to the SUNLogger of its context, which roadrunner connects to rr::Logger
+ * (see SundialsLogger.h). They therefore appear in the Logger's output when the Logger level is
+ * LOG_WARNING or more verbose, and do not appear on stdout.
+ *
+ * The model decays quickly (k = 1000) from t = 613190, where the spacing of doubles (1.2e-10)
+ * is of the order of the steps CVODE takes once A has decayed away, so that it warns about
+ * t + h = t at the tolerances of 1e-12 and 1e-10 used below.
+ */
+static const std::string StiffDecayAtLargeTimeSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="m" id="m">
+    <listOfParameters>
+      <parameter id="A" value="1" constant="false"/>
+      <parameter id="B" value="0" constant="false"/>
+      <parameter id="k" value="1000" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="A">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><times/><apply><minus/><ci> k </ci></apply><ci> A </ci></apply>
+        </math>
+      </rateRule>
+      <rateRule variable="B">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><minus/><apply><times/><ci> k </ci><ci> A </ci></apply><apply><times/><cn> 0.5 </cn><ci> B </ci></apply></apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>)";
+
+// Collects what the Logger writes to its console stream, and puts the stream back afterwards.
+class ScopedLoggerCapture {
+public:
+    ScopedLoggerCapture() { Logger::setConsoleStream(&stream); }
+    ~ScopedLoggerCapture() { Logger::setConsoleStream(&std::clog); }
+    std::string str() const { return stream.str(); }
+private:
+    std::ostringstream stream;
+};
+
+struct RunOutput {
+    std::string logger; // what the Logger wrote
+    std::string out;    // what was written to stdout
+};
+
+static int countOccurrences(const std::string &text, const std::string &what) {
+    int count = 0;
+    for (size_t pos = text.find(what); pos != std::string::npos; pos = text.find(what, pos + 1)) {
+        count++;
+    }
+    return count;
+}
+
+// One run of the model above at the given Logger level
+static RunOutput runStiffDecayAtLogLevel(RoadRunner &rr, Logger::Level level) {
+    Logger::setLevel(level);
+    rr.reset(SelectionRecord::ALL);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.getIntegrator()->setValue("absolute_tolerance", 1e-12);
+    rr.getIntegrator()->setValue("relative_tolerance", 1e-10);
+
+    RunOutput result;
+    ScopedLoggerCapture loggerCapture;
+    testing::internal::CaptureStdout();
+    rr.simulate(613190, 20, 5); // t = 613190 to 613210, 5 points (the second argument is a duration)
+    fflush(stdout);             // SUNDIALS used to write through C stdio, which is buffered
+    result.out = testing::internal::GetCapturedStdout();
+    result.logger = loggerCapture.str();
+    return result;
+}
+
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreNotLoggedBelowLogLevelWarning) {
+    for (Logger::Level level : {Logger::LOG_FATAL, Logger::LOG_CRITICAL, Logger::LOG_ERROR}) {
+        RoadRunner rr(StiffDecayAtLargeTimeSBML);
+        RunOutput output = runStiffDecayAtLogLevel(rr, level);
+        EXPECT_EQ(0, countOccurrences(output.logger, "t + h = t")) << "Logger level " << level;
+        EXPECT_EQ(0, countOccurrences(output.out, "t + h = t")) << "Logger level " << level;
+    }
+}
+
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreLoggedFromLogLevelWarning) {
+    for (Logger::Level level : {Logger::LOG_WARNING, Logger::LOG_INFORMATION}) {
+        RoadRunner rr(StiffDecayAtLargeTimeSBML);
+        RunOutput output = runStiffDecayAtLogLevel(rr, level);
+        EXPECT_GT(countOccurrences(output.logger, "t + h = t"), 0) << "Logger level " << level;
+        // the message says which SUNDIALS function issued it
+        EXPECT_GT(countOccurrences(output.logger, "CVode ("), 0) << "Logger level " << level;
+    }
+}
+
+// they used to be printed to stdout by SUNDIALS, whatever roadrunner's Logger was set to
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreNotWrittenToStdout) {
+    RoadRunner rr(StiffDecayAtLargeTimeSBML);
+    RunOutput output = runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING);
+    EXPECT_GT(countOccurrences(output.logger, "t + h = t"), 0);
+    EXPECT_EQ(0, countOccurrences(output.out, "t + h = t"));
+    EXPECT_EQ(0, countOccurrences(output.out, "[WARNING]"));
+}
+
+// the Logger level is checked as each message is logged, so changing it between runs of one RoadRunner takes effect
+TEST_F(CVODEIntegratorTests, CvodeWarningsFollowTheLogLevelBetweenRuns) {
+    RoadRunner rr(StiffDecayAtLargeTimeSBML);
+    EXPECT_EQ(0, countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_ERROR).logger, "t + h = t"));
+    EXPECT_GT(countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING).logger, "t + h = t"), 0);
+    EXPECT_EQ(0, countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_ERROR).logger, "t + h = t"));
+    EXPECT_GT(countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING).logger, "t + h = t"), 0);
+}
+
+/**
+ * Two events with the same trigger time and no priority: SBML leaves their order arbitrary, and the
+ * last one applied decides x. The order is chosen with the model's random number generator, so it
+ * is random by default and RoadRunner::setSeed makes it repeatable (it used to come from std::rand,
+ * which setSeed does not reach and which every new model reseeded from the clock).
+ */
+static const std::string SimultaneousEventsSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="m">
+    <listOfParameters>
+      <parameter id="x" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="e1" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><gt/><csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol><cn> 1 </cn></apply></math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="x">
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><cn type="integer"> 1 </cn></math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="e2" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><gt/><csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol><cn> 1 </cn></apply></math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="x">
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><cn type="integer"> 2 </cn></math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+// x at the end of a run in which two events fire at the same time, after setSeed(seed)
+static double lastEventApplied(RoadRunner &rr, int64_t seed) {
+    rr.setSeed(seed);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.simulate(0, 2, 3);
+    return rr.getValue("x");
+}
+
+TEST_F(CVODEIntegratorTests, SimultaneousEventsAreOrderedRandomly) {
+    RoadRunner rr(SimultaneousEventsSBML);
+    int ones = 0, twos = 0;
+    for (int64_t seed = 1; seed <= 100; seed++) {
+        double x = lastEventApplied(rr, seed);
+        ASSERT_TRUE(x == 1 || x == 2) << "x = " << x << " with seed " << seed;
+        (x == 1 ? ones : twos)++;
+    }
+    // both orders happen, and neither dominates (the chance of fewer than 20 in 100 fair draws is below 1e-9)
+    EXPECT_GT(ones, 20);
+    EXPECT_GT(twos, 20);
+}
+
+TEST_F(CVODEIntegratorTests, SimultaneousEventsAreOrderedRepeatablyWithASeed) {
+    RoadRunner rr(SimultaneousEventsSBML);
+    RoadRunner other(SimultaneousEventsSBML);
+    for (int64_t seed = 1; seed <= 20; seed++) {
+        double first = lastEventApplied(rr, seed);
+        // the same seed gives the same order again, also on a second RoadRunner
+        EXPECT_EQ(first, lastEventApplied(rr, seed)) << "seed " << seed;
+        EXPECT_EQ(first, lastEventApplied(other, seed)) << "seed " << seed;
+    }
+}
+
+// setSeed(seed, false) only reseeds the random number generators: it does not reset the model
+TEST_F(CVODEIntegratorTests, SetSeedWithoutResetKeepsTheCurrentAndInitialValuesAndTheTime) {
+    RoadRunner rr(SimultaneousEventsSBML);
+    // setting an initial value regenerates and resets the model, so it has to come first
+    rr.setValue("init(x)", 7);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.simulate(0, 0.5, 3);  // before the events at t = 1
+    rr.setValue("x", 5);
+    ASSERT_EQ(5, rr.getValue("x"));
+    ASSERT_EQ(0.5, rr.getCurrentTime());
+
+    rr.setSeed(42, false);
+
+    EXPECT_EQ(5, rr.getValue("x"));
+    EXPECT_EQ(7, rr.getValue("init(x)"));
+    EXPECT_EQ(0.5, rr.getCurrentTime());
+    EXPECT_EQ(42, rr.getSeed());
+}
+
+// by default setSeed also resets the model (to its original state, like reset(SelectionRecord::ALL))
+TEST_F(CVODEIntegratorTests, SetSeedResetsTheModelByDefault) {
+    RoadRunner rr(SimultaneousEventsSBML);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.simulate(0, 0.5, 3);
+    rr.setValue("x", 5);
+    ASSERT_EQ(0.5, rr.getCurrentTime());
+
+    rr.setSeed(42);
+
+    EXPECT_EQ(0, rr.getValue("x"));
+    EXPECT_EQ(0, rr.getCurrentTime());
+    EXPECT_EQ(42, rr.getSeed());
 }

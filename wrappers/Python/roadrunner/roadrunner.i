@@ -1335,10 +1335,20 @@ namespace std { class ostream{}; }
               will be created with the same seed.  Setting the seed to -1 (or any negative integer)
               tells the random number generators to use a seed based on the system clock (in 
               microcseconds) instead.
-            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
-                           the existing model and for the global configuration option")
+
+              The model is not regenerated or recompiled; only the generators are reseeded.  If
+              resetModel is True (the default), the model is then also reset with
+              reset(SelectionRecord.ALL) (the same as resetToOrigin()), which restarts the simulation
+              at time 0 and evaluates all the initial assignments again, so values drawn when the
+              model was loaded (for example an initial assignment that uses a distribution function)
+              are drawn again with the new seed.  That reset also discards any init() values that
+              were changed, and the current values.  With resetModel=False the current and initial
+              values and the current time stay as they are, and values already drawn are not drawn
+              again.  To seed the very first draw, set Config.RANDOM_SEED before creating the
+              RoadRunner.
             :param seed: The seed to use for the random number generator.
-            :param resetModel: If True, the model will be reset after setting the seed.
+            :param resetModel: If True (the default), reset the model with reset(SelectionRecord.ALL)
+              after setting the seed.
             """
             _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
 

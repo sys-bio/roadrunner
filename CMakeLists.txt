@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(ROADRUNNER_VERSION_MAJOR 2)
 set(ROADRUNNER_VERSION_MINOR 10)
-set(ROADRUNNER_VERSION_PATCH 0)
+set(ROADRUNNER_VERSION_PATCH 1)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
@@ -393,7 +393,7 @@ endif (WIN32)
 
 #find_package(Threads) # for libxml2, FindThreads.cmake is shipped with cmake
 #find_package(LibLZMA) # for libxml2, LibLZMA.cmake is shipped with cmake
-find_package(ZLIB CONFIG REQUIRED)
+find_package(ZLIB CONFIG REQUIRED COMPONENTS static)
 #find_package(bzip2 CONFIG REQUIRED)
 #find_package(iconv CONFIG REQUIRED)
 

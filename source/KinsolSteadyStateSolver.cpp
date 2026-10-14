@@ -7,6 +7,7 @@
 #include "KinsolErrHandler.h"
 #include "rrConfig.h"
 #include "CVODEIntegrator.h"
+#include "SundialsLogger.h"
 
 namespace rr {
 
@@ -42,6 +43,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);
