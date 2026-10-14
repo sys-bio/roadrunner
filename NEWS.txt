@@ -13,8 +13,11 @@
   repeatable after setSeed(). Roadrunner no longer reseeds the process-wide std::rand when a model
   is created.
 
-* CVODE's own warnings (such as 't + h = t on the next step') now follow the Logger level: shown at
-  LOG_WARNING and more verbose, silent otherwise (the default is LOG_ERROR).
+* Messages from SUNDIALS (such as CVODE's warning 't + h = t on the next step') now go to roadrunner's
+  Logger, at LOG_WARNING, instead of being printed to stdout by SUNDIALS. They follow the Logger level
+  (shown at LOG_WARNING and more verbose; the default level is LOG_ERROR), format, log file and console
+  stream. SUNDIALS errors were already logged by roadrunner's own handlers and still are. This needs
+  SUNDIALS 7.8.0 or later (SUNLogger_SetQueueAndFlushMsgFns); the build stops with an error otherwise.
 
 * C++ RoadRunner::simulate(start, duration, points): the documentation and parameter name now say
   that the second argument is a duration, which is how it always behaved.

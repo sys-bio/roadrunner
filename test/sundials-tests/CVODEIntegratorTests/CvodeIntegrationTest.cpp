@@ -12,6 +12,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <sstream>
 #include <string>
 
 
@@ -412,14 +414,14 @@ TEST_F(CVODEIntegratorTests, VariableStepEventRowOffsetFollowsTheTimeOfTheEvent)
 }
 
 /**
- * Tests for the CVODE warnings ("t + h = t on the next step" and so on). SUNDIALS prints them
- * to stdout itself, so they follow roadrunner's Logger level only because CVODEIntegrator
- * switches them on or off at the start of each run: on at LOG_WARNING and above in verbosity,
- * off below that.
+ * Tests for the warnings that CVODE issues itself ("t + h = t on the next step" and so on).
+ * SUNDIALS writes them to the SUNLogger of its context, which roadrunner connects to rr::Logger
+ * (see SundialsLogger.h). They therefore appear in the Logger's output when the Logger level is
+ * LOG_WARNING or more verbose, and do not appear on stdout.
  *
  * The model decays quickly (k = 1000) from t = 613190, where the spacing of doubles (1.2e-10)
  * is of the order of the steps CVODE takes once A has decayed away, so that it warns about
- * t + h = t at the default tolerances of 1e-12 and 1e-10.
+ * t + h = t at the tolerances of 1e-12 and 1e-10 used below.
  */
 static const std::string StiffDecayAtLargeTimeSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
@@ -444,48 +446,82 @@ static const std::string StiffDecayAtLargeTimeSBML = R"(<?xml version="1.0" enco
   </model>
 </sbml>)";
 
-// the number of "t + h = t" warnings CVODE prints in one run at the given Logger level
-static int countHnilWarnings(RoadRunner &rr, Logger::Level level) {
+// Collects what the Logger writes to its console stream, and puts the stream back afterwards.
+class ScopedLoggerCapture {
+public:
+    ScopedLoggerCapture() { Logger::setConsoleStream(&stream); }
+    ~ScopedLoggerCapture() { Logger::setConsoleStream(&std::clog); }
+    std::string str() const { return stream.str(); }
+private:
+    std::ostringstream stream;
+};
+
+struct RunOutput {
+    std::string logger; // what the Logger wrote
+    std::string out;    // what was written to stdout
+};
+
+static int countOccurrences(const std::string &text, const std::string &what) {
+    int count = 0;
+    for (size_t pos = text.find(what); pos != std::string::npos; pos = text.find(what, pos + 1)) {
+        count++;
+    }
+    return count;
+}
+
+// One run of the model above at the given Logger level
+static RunOutput runStiffDecayAtLogLevel(RoadRunner &rr, Logger::Level level) {
     Logger::setLevel(level);
     rr.reset(SelectionRecord::ALL);
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.getIntegrator()->setValue("absolute_tolerance", 1e-12);
     rr.getIntegrator()->setValue("relative_tolerance", 1e-10);
 
+    RunOutput result;
+    ScopedLoggerCapture loggerCapture;
     testing::internal::CaptureStdout();
-    // t = 613190 to 613210, 5 points (the second argument is a duration)
-    rr.simulate(613190, 20, 5);
-    fflush(stdout); // SUNDIALS writes through C stdio, which is buffered when stdout is not a terminal
-    std::string output = testing::internal::GetCapturedStdout();
-
-    int count = 0;
-    for (size_t pos = output.find("t + h = t"); pos != std::string::npos; pos = output.find("t + h = t", pos + 1)) {
-        count++;
-    }
-    return count;
+    rr.simulate(613190, 20, 5); // t = 613190 to 613210, 5 points (the second argument is a duration)
+    fflush(stdout);             // SUNDIALS used to write through C stdio, which is buffered
+    result.out = testing::internal::GetCapturedStdout();
+    result.logger = loggerCapture.str();
+    return result;
 }
 
-TEST_F(CVODEIntegratorTests, CvodeWarningsAreSilentBelowLogLevelWarning) {
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreNotLoggedBelowLogLevelWarning) {
     for (Logger::Level level : {Logger::LOG_FATAL, Logger::LOG_CRITICAL, Logger::LOG_ERROR}) {
         RoadRunner rr(StiffDecayAtLargeTimeSBML);
-        EXPECT_EQ(0, countHnilWarnings(rr, level)) << "Logger level " << level;
+        RunOutput output = runStiffDecayAtLogLevel(rr, level);
+        EXPECT_EQ(0, countOccurrences(output.logger, "t + h = t")) << "Logger level " << level;
+        EXPECT_EQ(0, countOccurrences(output.out, "t + h = t")) << "Logger level " << level;
     }
 }
 
-TEST_F(CVODEIntegratorTests, CvodeWarningsAreShownFromLogLevelWarning) {
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreLoggedFromLogLevelWarning) {
     for (Logger::Level level : {Logger::LOG_WARNING, Logger::LOG_INFORMATION}) {
         RoadRunner rr(StiffDecayAtLargeTimeSBML);
-        EXPECT_GT(countHnilWarnings(rr, level), 0) << "Logger level " << level;
+        RunOutput output = runStiffDecayAtLogLevel(rr, level);
+        EXPECT_GT(countOccurrences(output.logger, "t + h = t"), 0) << "Logger level " << level;
+        // the message says which SUNDIALS function issued it
+        EXPECT_GT(countOccurrences(output.logger, "CVode ("), 0) << "Logger level " << level;
     }
 }
 
-// the level is read at the start of every run, so changing it between runs of one RoadRunner takes effect
+// they used to be printed to stdout by SUNDIALS, whatever roadrunner's Logger was set to
+TEST_F(CVODEIntegratorTests, CvodeWarningsAreNotWrittenToStdout) {
+    RoadRunner rr(StiffDecayAtLargeTimeSBML);
+    RunOutput output = runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING);
+    EXPECT_GT(countOccurrences(output.logger, "t + h = t"), 0);
+    EXPECT_EQ(0, countOccurrences(output.out, "t + h = t"));
+    EXPECT_EQ(0, countOccurrences(output.out, "[WARNING]"));
+}
+
+// the Logger level is checked as each message is logged, so changing it between runs of one RoadRunner takes effect
 TEST_F(CVODEIntegratorTests, CvodeWarningsFollowTheLogLevelBetweenRuns) {
     RoadRunner rr(StiffDecayAtLargeTimeSBML);
-    EXPECT_EQ(0, countHnilWarnings(rr, Logger::LOG_ERROR));
-    EXPECT_GT(countHnilWarnings(rr, Logger::LOG_WARNING), 0);
-    EXPECT_EQ(0, countHnilWarnings(rr, Logger::LOG_ERROR));
-    EXPECT_GT(countHnilWarnings(rr, Logger::LOG_WARNING), 0);
+    EXPECT_EQ(0, countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_ERROR).logger, "t + h = t"));
+    EXPECT_GT(countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING).logger, "t + h = t"), 0);
+    EXPECT_EQ(0, countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_ERROR).logger, "t + h = t"));
+    EXPECT_GT(countOccurrences(runStiffDecayAtLogLevel(rr, Logger::LOG_WARNING).logger, "t + h = t"), 0);
 }
 
 /**
@@ -561,10 +597,13 @@ TEST_F(CVODEIntegratorTests, SimultaneousEventsAreOrderedRepeatablyWithASeed) {
 // setSeed only reseeds the random number generators: it does not regenerate or reset the model
 TEST_F(CVODEIntegratorTests, SetSeedKeepsTheCurrentAndInitialValuesAndTheTime) {
     RoadRunner rr(SimultaneousEventsSBML);
+    // setting an initial value regenerates and resets the model, so it has to come first
+    rr.setValue("init(x)", 7);
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.simulate(0, 0.5, 3);  // before the events at t = 1
     rr.setValue("x", 5);
-    rr.setValue("init(x)", 7);
+    ASSERT_EQ(5, rr.getValue("x"));
+    ASSERT_EQ(0.5, rr.getCurrentTime());
 
     rr.setSeed(42);
 

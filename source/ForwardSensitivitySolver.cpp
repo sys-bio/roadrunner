@@ -5,6 +5,7 @@
 #include "ForwardSensitivitySolver.h"
 #include "ForwardSensitivitySolver.h"
 #include "LLVMExecutableModel.h"
+#include "SundialsLogger.h"
 #include <nvector/nvector_serial.h>               /* access to serial N_Vector                    */
 #include <cvodes/cvodes.h>                        /* prototypes for CVODE fcts., consts.          */
 #include <nvector/nvector_serial.h>               /* access to serial N_Vector                    */
@@ -80,12 +81,8 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "ForwardSensitivitySolver Error: " << decodeSundialsError(i, error_code, false)
                                      << ", Function: " << function
                                      << ", Message: " << msg;
-
-        } else if (error_code == CV_WARNING) {
-            rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Function: " << function
-                                       << ", Message: " << msg;
         }
+        // warnings do not come through here, they go to the SUNLogger (see SundialsLogger.h)
     }
 
     void ForwardSensitivitySolver::setDefaultWhichParameters() {
@@ -201,6 +198,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // still need cvode state std::vector size if we have no vars, but have
         // events, needed so root finder works.
@@ -252,9 +250,6 @@ namespace rr {
         // use non default CVODE value here, default is too short
         // for some sbml tests.
         CVodeSetMaxNumSteps(cvodeIntegrator->mCVODE_Memory, cvodeIntegrator->mDefaultMaxNumSteps);
-
-        // this CVODE object is not created by CVODEIntegrator::create
-        cvodeIntegrator->applyWarningLevel();
 
         double t0 = 0.0;
 

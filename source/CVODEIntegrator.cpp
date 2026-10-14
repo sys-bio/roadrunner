@@ -8,6 +8,7 @@
 #include "rrException.h"
 #include "rrConfig.h"
 #include "rrUtils.h"
+#include "SundialsLogger.h"
 
 
 #include <cvodes/cvodes.h>                          /* prototypes for CVODE fcts., consts.          */
@@ -437,25 +438,6 @@ namespace rr {
         }
 
         setCVODETolerances();
-        applyWarningLevel();
-    }
-
-    void CVODEIntegrator::applyWarningLevel() {
-        if (mCVODE_Memory == nullptr) {
-            return;
-        }
-
-        // The SUNDIALS default for the number of "t + h = t" warnings per problem.
-        static const int sundialsDefaultMaxHnilWarns = 10;
-
-        const bool warningsWanted = Logger::getLevel() >= Logger::LOG_WARNING;
-
-        // a negative number of warnings switches them off
-        CVodeSetMaxHnilWarns(mCVODE_Memory, warningsWanted ? sundialsDefaultMaxHnilWarns : -1);
-
-        if (!warningsWanted) {
-            CVodeSetNoInactiveRootWarn(mCVODE_Memory);
-        }
     }
 
     double CVODEIntegrator::integrate(double timeStart, double hstep) {
@@ -667,6 +649,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // cvode return code
         int err;
@@ -711,8 +694,6 @@ namespace rr {
         // use non default CVODE value here, default is too short
         // for some sbml tests.
         CVodeSetMaxNumSteps(mCVODE_Memory, mDefaultMaxNumSteps);
-
-        applyWarningLevel();
 
         double t0 = 0.0;
 
@@ -1148,12 +1129,9 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
                                      << ", Function: " << function
                                      << ", Message: " << msg;
-
-        } else if (error_code == CV_WARNING) {
-            rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Function: " << function
-                                       << ", Message: " << msg;
         }
+        // CVODE's warnings do not come through here: SUNDIALS sends them to the SUNLogger of the
+        // SUNContext, which routeSundialsLoggingToRoadRunnerLogger connects to the roadrunner Logger.
     }
 
     void *CVODEIntegrator::getCvodeMemory() const {
