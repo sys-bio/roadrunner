@@ -8068,12 +8068,16 @@ namespace rr {
         }
     }
 
-    void RoadRunner::setSeed(std::int64_t seed) {
+    void RoadRunner::setSeed(std::int64_t seed, bool resetModel) {
         Config::setValue(Config::RANDOM_SEED, seed);
         impl->model->setRandomSeed(seed);
         for (auto integrator : impl->integrators) {
             if (integrator->getName() == "gillespie")
                 integrator->setValue("seed", Setting(seed));
+        }
+        if (resetModel) {
+            // after reseeding, so that the initial assignments are drawn with the new seed
+            reset(static_cast<int>(SelectionRecord::ALL));
         }
     }
 

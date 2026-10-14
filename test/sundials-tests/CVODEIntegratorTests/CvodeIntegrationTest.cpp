@@ -564,7 +564,6 @@ static const std::string SimultaneousEventsSBML = R"(<?xml version="1.0" encodin
 // x at the end of a run in which two events fire at the same time, after setSeed(seed)
 static double lastEventApplied(RoadRunner &rr, int64_t seed) {
     rr.setSeed(seed);
-    rr.reset(SelectionRecord::ALL);
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.simulate(0, 2, 3);
     return rr.getValue("x");
@@ -594,8 +593,8 @@ TEST_F(CVODEIntegratorTests, SimultaneousEventsAreOrderedRepeatablyWithASeed) {
     }
 }
 
-// setSeed only reseeds the random number generators: it does not regenerate or reset the model
-TEST_F(CVODEIntegratorTests, SetSeedKeepsTheCurrentAndInitialValuesAndTheTime) {
+// setSeed(seed, false) only reseeds the random number generators: it does not reset the model
+TEST_F(CVODEIntegratorTests, SetSeedWithoutResetKeepsTheCurrentAndInitialValuesAndTheTime) {
     RoadRunner rr(SimultaneousEventsSBML);
     // setting an initial value regenerates and resets the model, so it has to come first
     rr.setValue("init(x)", 7);
@@ -605,10 +604,25 @@ TEST_F(CVODEIntegratorTests, SetSeedKeepsTheCurrentAndInitialValuesAndTheTime) {
     ASSERT_EQ(5, rr.getValue("x"));
     ASSERT_EQ(0.5, rr.getCurrentTime());
 
-    rr.setSeed(42);
+    rr.setSeed(42, false);
 
     EXPECT_EQ(5, rr.getValue("x"));
     EXPECT_EQ(7, rr.getValue("init(x)"));
     EXPECT_EQ(0.5, rr.getCurrentTime());
+    EXPECT_EQ(42, rr.getSeed());
+}
+
+// by default setSeed also resets the model (to its original state, like reset(SelectionRecord::ALL))
+TEST_F(CVODEIntegratorTests, SetSeedResetsTheModelByDefault) {
+    RoadRunner rr(SimultaneousEventsSBML);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.simulate(0, 0.5, 3);
+    rr.setValue("x", 5);
+    ASSERT_EQ(0.5, rr.getCurrentTime());
+
+    rr.setSeed(42);
+
+    EXPECT_EQ(0, rr.getValue("x"));
+    EXPECT_EQ(0, rr.getCurrentTime());
     EXPECT_EQ(42, rr.getSeed());
 }

@@ -2159,6 +2159,9 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Check) {
 TEST_F(ModelAnalysisTests, SetSeed_Same_Seed_Gives_Same_Result_Before_Simulating) {
     RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    // "a" has an initial assignment drawn from a normal distribution, which is evaluated when the
+    // model is loaded (with a seed taken from the clock). setSeed resets the model with
+    // reset(SelectionRecord::ALL) by default, which draws it again with the new seed.
     rr1.setSeed(42);
     rr2.setSeed(42);
     rr1.simulate();

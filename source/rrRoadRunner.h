@@ -1668,11 +1668,20 @@ namespace rr {
          * time with the same priority are applied (SBML leaves that order arbitrary).
          * A negative seed means a seed taken from the system clock.
          *
-         * Only the generators are reseeded: the model is not regenerated or reset, so its
-         * current and initial values, and the current time, stay as they are. Call reset()
-         * as well to restart the simulation from the initial values.
+         * The model is not regenerated or recompiled: this only reseeds the generators. If
+         * @p resetModel is true (the default) the model is then also reset with
+         * reset(SelectionRecord::ALL), which restarts the simulation at time 0 and evaluates all
+         * the initial assignments again, so values drawn when the model was loaded (for example an
+         * initial assignment that uses a distribution function) are drawn again with the new seed.
+         * That reset also discards any init() values that were changed, and the current values.
+         * With @p resetModel false, the current and initial values and the current time stay as
+         * they are, and values already drawn are not drawn again. To seed the very first draw,
+         * set Config::RANDOM_SEED before creating the RoadRunner.
+         *
+         * @param seed the seed to use; negative means a seed taken from the system clock
+         * @param resetModel whether to reset the model after reseeding (default true)
          */
-        void setSeed(std::int64_t seed);
+        void setSeed(std::int64_t seed, bool resetModel = true);
 
         /**
          * @brief Returns the value of Config::RANDOM_SEED

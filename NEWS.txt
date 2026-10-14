@@ -1,12 +1,11 @@
 -- Version 2.11.0
 
-* BEHAVIOR CHANGE: RoadRunner.setSeed() (C++ and Python) no longer takes a 'resetModel' argument and no
-  longer touches the model. Before, the default (resetModel=True) regenerated and recompiled the
-  model from its SBML and then reset it, which took most of a second and discarded the current
-  values, the initial values, and the time; the documentation only mentioned a reset. Now it only
-  reseeds the random number generators (distrib functions, simultaneous events, gillespie),
-  so it is instant and leaves the model as it was. Call reset() as well to restart. Code that passed
-  resetModel will need to drop it, and code that relied on setSeed restarting the model needs reset().
+* RoadRunner.setSeed(seed, resetModel=True) (C++ and Python) no longer regenerates and recompiles the
+  model from its SBML, which took most of a second. It now reseeds the random number generators
+  (distrib functions, simultaneous events, gillespie) and, if resetModel is true (the default), resets
+  the model with reset(SelectionRecord::ALL), so initial assignments that use distrib functions are still
+  drawn again with the new seed. With resetModel=False nothing but the generators changes. (The
+  documentation used to say only that the model was reset; it was actually regenerated.)
 
 * Events that fire at the same time with the same priority are ordered with the model's own random
   number generator instead of std::rand: still random by default (SBML leaves the order arbitrary), but

@@ -1327,7 +1327,7 @@ namespace std { class ostream{}; }
         def getModel(self):
             return self._getModel()
 
-        def setSeed(self, seed):
+        def setSeed(self, seed, resetModel=True):
             """
             Sets the seed for all random number generators: any use of 'distrib' in the model, any
               simultaneously-firing events, and any use of the 'gillespie' integrator.  Also sets
@@ -1336,12 +1336,21 @@ namespace std { class ostream{}; }
               tells the random number generators to use a seed based on the system clock (in 
               microcseconds) instead.
 
-              Only the random number generators are changed: the model is not regenerated or reset,
-              so its current and initial values, and the current time, stay as they are.  Call
-              reset() as well to restart the simulation from the initial values.
+              The model is not regenerated or recompiled; only the generators are reseeded.  If
+              resetModel is True (the default), the model is then also reset with
+              reset(SelectionRecord.ALL) (the same as resetToOrigin()), which restarts the simulation
+              at time 0 and evaluates all the initial assignments again, so values drawn when the
+              model was loaded (for example an initial assignment that uses a distribution function)
+              are drawn again with the new seed.  That reset also discards any init() values that
+              were changed, and the current values.  With resetModel=False the current and initial
+              values and the current time stay as they are, and values already drawn are not drawn
+              again.  To seed the very first draw, set Config.RANDOM_SEED before creating the
+              RoadRunner.
             :param seed: The seed to use for the random number generator.
+            :param resetModel: If True (the default), reset the model with reset(SelectionRecord.ALL)
+              after setting the seed.
             """
-            _roadrunner.RoadRunner_setSeed(self, seed)
+            _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
 
         def getSeed(self, integratorName=""):
             """
