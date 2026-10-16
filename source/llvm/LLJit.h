@@ -9,6 +9,9 @@
 
 #include "SBMLModelObjectCache.h"
 
+#include <atomic>
+#include <cstdint>
+
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
 #pragma warning(disable: 4141)
@@ -41,6 +44,14 @@ namespace rrllvm {
      */
     class LLJit : public Jit {
     public:
+
+        /**
+         * @brief Largest distance in bytes between the lowest and highest section of any object
+         * loaded by an LLJit in this process. Tests reset it to 0 to measure one load.
+         * @details The generated code holds 32-bit offsets between an object's sections, so the
+         * distance must stay below 2 GiB.
+         */
+        static std::atomic<std::uint64_t> largestSectionSpan;
 
         LLJit();
 
