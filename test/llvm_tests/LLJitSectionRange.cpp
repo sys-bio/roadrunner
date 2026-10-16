@@ -177,9 +177,9 @@ TEST(LLJitSectionRange, LargeModelWithAddressSpaceReserved) {
 // The invariant itself, independent of how the address space happens to be laid out: even when
 // read-only data is requested far from the code, the sections of an object stay together.
 TEST(LLJitSectionRange, SectionsStayWithinTwoGiB) {
-    if (sizeof(void *) < 8) {
-        GTEST_SKIP() << "needs a 64-bit address space";
-    }
+#if !defined(__x86_64__) && !defined(_M_X64)
+    GTEST_SKIP() << "the section range is only used on x86-64";
+#endif
     setEnv("RR_LLJIT_FAR_RODATA", "1");
     rrllvm::LLJit::largestSectionSpan = 0;
     const int n = 300;

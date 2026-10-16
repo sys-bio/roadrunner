@@ -65,7 +65,8 @@ namespace rrllvm {
      *   RR_LLJIT_RELOC=static          static relocation model instead of PIC
      *   RR_LLJIT_NO_COMPILE_THREAD=1   compile on the calling thread
      *   RR_LLJIT_NO_EH_FRAMES=1        do not register JIT'd .eh_frame with the unwinder
-     *   RR_LLJIT_FAR_RODATA=1          place read-only data sections about 3 GiB from the code
+     *   RR_LLJIT_FAR_RODATA=1          place read-only data sections about 3 GiB from the code; on Mach-O,
+     *                                  where RuntimeDyld treats no section as read-only, all data sections
      *                                  (ignored unless RR_LLJIT_RESERVE=0, the range keeps sections together)
      *   RR_LLJIT_FAR_RODATA_GIB=n      distance in GiB for RR_LLJIT_FAR_RODATA (default 3)
      *   RR_LLJIT_RESERVE=0             do not allocate the sections of an object from one contiguous range
@@ -159,10 +160,11 @@ namespace rrllvm {
     // sections far from the code section.
     class JitSectionMemoryManager : private RangeMapperHolder, public llvm::SectionMemoryManager {
     public:
-        JitSectionMemoryManager(bool noEhFrames, bool farReadOnlyData, unsigned farGiB, bool reserveRange)
+        JitSectionMemoryManager(bool noEhFrames, bool farReadOnlyData, unsigned farGiB, bool reserveRange,
+                                bool farAllData)
                 : RangeMapperHolder(), llvm::SectionMemoryManager(reserveRange ? &mapper : nullptr),
                   noEhFrames(noEhFrames), farReadOnlyData(farReadOnlyData && !reserveRange), farGiB(farGiB),
-                  reserveRange(reserveRange) {}
+                  reserveRange(reserveRange), farAllData(farAllData) {}
 
         ~JitSectionMemoryManager() override {
             for (llvm::sys::MemoryBlock &block: farBlocks) {
@@ -203,7 +205,7 @@ namespace rrllvm {
         uint8_t *allocateDataSection(uintptr_t size, unsigned alignment, unsigned sectionID,
                                      llvm::StringRef sectionName, bool isReadOnly) override {
             uint8_t *addr = nullptr;
-            if (farReadOnlyData && isReadOnly) {
+            if (farReadOnlyData && (isReadOnly || farAllData)) {
                 addr = codeBase != 0 ? allocateFar(size, alignment) : nullptr;
                 if (addr == nullptr && !warnedFallback) {
                     warnedFallback = true;
@@ -317,6 +319,7 @@ namespace rrllvm {
         bool farReadOnlyData;
         unsigned farGiB;
         bool reserveRange;
+        bool farAllData;
         uintptr_t codeBase = 0;
         uintptr_t spanLow = 0;
         uintptr_t spanHigh = 0;
@@ -500,10 +503,12 @@ namespace rrllvm {
                     [noEhFrames, farReadOnlyData, farGiB, reserveRange](llvm::orc::ExecutionSession &ES,
                                                                     const llvm::Triple &triple)
                             -> Expected<std::unique_ptr<llvm::orc::ObjectLayer>> {
+                        // RuntimeDyld classifies no Mach-O section as read-only
+                        const bool machO = triple.isOSBinFormatMachO();
                         auto layer = std::make_unique<llvm::orc::RTDyldObjectLinkingLayer>(
-                                ES, [noEhFrames, farReadOnlyData, farGiB, reserveRange]() {
+                                ES, [noEhFrames, farReadOnlyData, farGiB, reserveRange, machO]() {
                                     return std::make_unique<JitSectionMemoryManager>(noEhFrames, farReadOnlyData,
-                                                                                     farGiB, reserveRange);
+                                                                                     farGiB, reserveRange, machO);
                                 });
                         // LLJIT's default layer does the same for COFF
                         if (triple.isOSBinFormatCOFF()) {
