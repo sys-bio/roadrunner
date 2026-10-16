@@ -7787,10 +7787,19 @@ namespace rr {
                 Setting::TypeId tolType = absTol.type();
             }
 
-            // if absolute_tolerance is a double vector
+            // if absolute_tolerance is a double vector, it holds the rate rule variables
+            // followed by the independent floating species
             if (auto v1 = absTol.get_if<std::vector<double>>()) {
-                for (int i = 0; i < getNumberOfFloatingSpecies(); i++) {
-                    indTolerances.emplace(getFloatingSpeciesIds()[i], (*v1)[i]);
+                std::vector<std::string> rateRuleSymbols = impl->model->getRateRuleSymbols();
+                int numIndSpecies = impl->model->getNumIndFloatingSpecies();
+                if (v1->size() == rateRuleSymbols.size() + numIndSpecies) {
+                    for (size_t i = 0; i < rateRuleSymbols.size(); i++) {
+                        indTolerances.emplace(rateRuleSymbols[i], (*v1)[i]);
+                    }
+                    for (int i = 0; i < numIndSpecies; i++) {
+                        indTolerances.emplace(impl->model->getFloatingSpeciesId(i),
+                                              (*v1)[rateRuleSymbols.size() + i]);
+                    }
                 }
             }
 
@@ -7802,12 +7811,18 @@ namespace rr {
 
             impl->syncAllSolversWithModel(impl->model.get());
 
-            if (auto v1 = absTol.get_if<std::vector<double>>()) {
+            if (absTol.get_if<std::vector<double>>()) {
                 //Force setIndividualTolerance to construct a std::vector of the correct size
-                impl->integrator->setValue("absolute_tolerance", Setting(Config::CVODE_MIN_ABSOLUTE));
+                impl->integrator->setValue("absolute_tolerance",
+                                           Setting(Config::getDouble(Config::CVODE_MIN_ABSOLUTE)));
+                std::vector<std::string> rateRuleSymbols = impl->model->getRateRuleSymbols();
+                int numIndSpecies = impl->model->getNumIndFloatingSpecies();
                 for (const auto &p: indTolerances) {
-                    auto ids = getFloatingSpeciesIds();
-                    if (std::find(ids.begin(), ids.end(), p.first) != ids.end())
+                    int speciesIndex = impl->model->getFloatingSpeciesIndex(p.first);
+                    bool isIndSpecies = speciesIndex > -1 && speciesIndex < numIndSpecies;
+                    bool hasRateRule = std::find(rateRuleSymbols.begin(), rateRuleSymbols.end(), p.first)
+                                       != rateRuleSymbols.end();
+                    if (isIndSpecies || hasRateRule)
                         impl->integrator->setIndividualTolerance(p.first, p.second);
                 }
             }

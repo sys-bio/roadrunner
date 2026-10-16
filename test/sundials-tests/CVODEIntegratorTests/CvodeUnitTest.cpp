@@ -293,19 +293,23 @@ TEST_F(CVODEIntegratorUnitTests, SetIndividualToleranceForSpeciesIsOffsetByRateR
 }
 
 TEST_F(CVODEIntegratorUnitTests, AbsoluteToleranceVectorPacksRateRulesBeforeSpecies) {
-    // 1 independent species (S0, amount 5) and 1 rate-rule variable
-    // (R0, value 3). Both amounts are non-zero, so getAbsoluteToleranceVector
-    // scales each slot by abs(value) directly, without needing compartment
-    // volumes.
+    // 1 independent species (S0, initial amount 5) and 1 rate-rule variable
+    // (R0, initial value 3). Both initial values are
+    // non-zero, so getAbsoluteToleranceVector scales each slot by abs(value)
+    // directly, without needing compartment volumes. The current values are
+    // different, to show that they are not used.
     EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(1));
     EXPECT_CALL(mockExecutableModel, getNumRateRules).WillRepeatedly(Return(1));
     EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
     EXPECT_CALL(mockExecutableModel, getRateRuleSymbols)
         .WillRepeatedly(Return(std::vector<std::string>{"R0"}));
-    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesAmounts)
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesInitAmounts)
         .WillRepeatedly(DoAll(SetArgPointee<2>(5.0), Return(0)));
+    EXPECT_CALL(mockExecutableModel, getFloatingSpeciesAmounts)
+        .WillRepeatedly(DoAll(SetArgPointee<2>(77.0), Return(0)));
     EXPECT_CALL(mockExecutableModel, getRateRuleValues)
-        .WillRepeatedly(SetArgPointee<0>(3.0));
+        .WillRepeatedly(SetArgPointee<0>(99.0));
+    EXPECT_CALL(mockExecutableModel, getValue("init(R0)")).WillRepeatedly(Return(3.0));
 
     CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
     cvodeIntegrator.setValue("absolute_tolerance", 1e-6);
@@ -318,16 +322,25 @@ TEST_F(CVODEIntegratorUnitTests, AbsoluteToleranceVectorPacksRateRulesBeforeSpec
     ASSERT_NEAR(1e-6 * 5.0, tol[1], 1e-12);
 }
 
+// A stored tolerance vector of the wrong size, which can happen when the model is
+// resized, is replaced by the default tolerance, not by the Config key's number.
+TEST_F(CVODEIntegratorUnitTests, AbsoluteToleranceVectorOfWrongSizeFallsBackToTheDefault) {
+    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(2));
+    EXPECT_CALL(mockExecutableModel, getNumCompartments).WillRepeatedly(Return(1));
 
+    CVODEIntegrator cvodeIntegrator(&mockExecutableModel);
+    cvodeIntegrator.setValue("absolute_tolerance", std::vector<double>{1.0, 2.0});
 
+    // the model now has three independent species
+    EXPECT_CALL(mockExecutableModel, getNumIndFloatingSpecies).WillRepeatedly(Return(3));
+    std::vector<double> tol = cvodeIntegrator.getAbsoluteToleranceVector();
 
-
-
-
-
-
-
-
+    ASSERT_EQ(3, tol.size());
+    const double defaultTolerance = Config::getDouble(Config::CVODE_MIN_ABSOLUTE);
+    for (double t : tol) {
+        ASSERT_NEAR(defaultTolerance, t, 1e-20);
+    }
+}
 
 
 

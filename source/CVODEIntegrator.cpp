@@ -166,7 +166,7 @@ namespace rr {
                    "(double) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.");
         addSetting("absolute_tolerance", Setting(Config::getDouble(Config::CVODE_MIN_ABSOLUTE)), "Absolute Tolerance",
                    "Specifies the scalar or std::vector absolute tolerance (double or double std::vector).",
-                   "(double or double std::vector) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. If a single value is set, that vector is the single value multiplied by the value of the elements of the state vector (floating species, and elements set by rate rules).  If the value of the element is zero, the absolute tolerance value is either multiplied by the species' compartment volume, or, if the element is not a species, the absolute tolerance value is used directly.  Note that the state vector uses species amounts, so if the vector is being set, the values need to be scaled to the amounts of the species, not their concentrations.  (When setting a single value, this will be taken care of automatically.)  The vector being used by the solver can be obtained by calling 'getAbsoluteToleranceVector' on the CVODE integrator.  The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+                   "(double or double std::vector) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. If a single value is set, that vector is the single value multiplied by the value of the elements of the initial state vector (floating species, and elements set by rate rules).  If the value of the element is zero or close to zero (within 1e-30), the absolute tolerance value is either multiplied by the species' compartment volume, or, if the element is not a species, the absolute tolerance value is used directly.  Note that the state vector uses species amounts, so if the vector is being set, the values need to be scaled to the amounts of the species, not their concentrations.  (When setting a single value, this will be taken care of automatically.)  The vector being used by the solver can be obtained by calling 'getAbsoluteToleranceVector' on the CVODE integrator.  The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
         addSetting("stiff", Setting(true), "Stiff",
                    "Specifies whether the integrator attempts to solve stiff equations. (bool)",
                    "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
@@ -864,7 +864,7 @@ namespace rr {
                 //Otherwise, something might have happened, and the amount tolerances vector is the wrong size.  This can happen when the model is being resized, among other situations.
                 amount_tolerances.clear();
                 for (int n = 0; n < species + rrs; n++) {
-                    amount_tolerances.push_back(Config::CVODE_MIN_ABSOLUTE);
+                    amount_tolerances.push_back(Config::getDouble(Config::CVODE_MIN_ABSOLUTE));
                 }
                 break;
             }
@@ -872,50 +872,65 @@ namespace rr {
             default:
                 handleCVODEError(CV_ILL_INPUT);
         }
+        // Scale by the model's initial values rather than its current state, so the
+        // tolerances do not depend on how the simulation is divided into calls.
+        // Magnitudes below zeroThreshold are treated as zero.
+        const double zeroThreshold = 1e-30;
+
         uint ncomp = mModel->getNumCompartments();
-        double* volumes = (double*)calloc(ncomp, sizeof(double));
-        mModel->getCompartmentVolumes(ncomp, 0, volumes);
+        std::vector<double> initVolumes(ncomp, 0.0);
+        if (ncomp > 0) {
+            mModel->getCompartmentInitVolumes(ncomp, 0, initVolumes.data());
+        }
 
-        double* initSpecies = (double*)calloc(species, sizeof(double));
-        mModel->getFloatingSpeciesAmounts(species, 0, initSpecies);
-
-        double* initRRs = (double*)calloc(rrs, sizeof(double));
-        mModel->getRateRuleValues(initRRs);
+        std::vector<double> initSpecies(species, 0.0);
+        if (species > 0) {
+            mModel->getFloatingSpeciesInitAmounts(species, 0, initSpecies.data());
+        }
 
         for (int s = 0; s < species; s++) {
-            if (initSpecies[s] == 0) {
+            double scale = std::abs(initSpecies[s]);
+            if (scale < zeroThreshold) {
+                scale = 1.0;
                 int comp = mModel->getCompartmentIndexForFloatingSpecies(s);
-                if (volumes[comp] != 0.0) {
-                    amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * abs(volumes[comp]);
+                if (comp >= 0 && comp < static_cast<int>(ncomp) && initVolumes[comp] != 0.0) {
+                    scale = std::abs(initVolumes[comp]);
                 }
             }
-            else {
-                amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * abs(initSpecies[s]);
-            }
+            amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * scale;
+        }
+
+        // init(id) resolves the initial value of any variable set by a rate rule.
+        std::vector<double> currentRRs(rrs, 0.0);
+        if (rrs > 0) {
+            mModel->getRateRuleValues(currentRRs.data());
         }
 
         std::vector<std::string> symbols = mModel->getRateRuleSymbols();
         for (int rr = 0; rr < rrs; rr++) {
-            if (initRRs[rr] == 0.0) {
-                std::string symbol = symbols[rr];
-                int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+            // the current value is used only if init(id) does not resolve
+            double initValue = currentRRs[rr];
+            try {
+                initValue = mModel->getValue("init(" + symbols[rr] + ")");
+            }
+            catch (const std::exception &) {
+                // keep the current value
+            }
+
+            double scale = std::abs(initValue);
+            if (scale < zeroThreshold) {
+                scale = 1.0;
+                int speciesIndex = mModel->getFloatingSpeciesIndex(symbols[rr]);
                 if (speciesIndex > -1) {
                     // the symbol defined by the rate rule is a species
                     int comp = mModel->getCompartmentIndexForFloatingSpecies(speciesIndex);
-                    if (volumes[comp] != 0.0) {
-                        amount_tolerances[rr] = amount_tolerances[rr] * abs(volumes[comp]);
+                    if (comp >= 0 && comp < static_cast<int>(ncomp) && initVolumes[comp] != 0.0) {
+                        scale = std::abs(initVolumes[comp]);
                     }
                 }
-                //Otherwise just leave amount_tolerances as it is.
             }
-            else {
-                amount_tolerances[rr] = amount_tolerances[rr] * abs(initRRs[rr]);
-            }
+            amount_tolerances[rr] = amount_tolerances[rr] * scale;
         }
-
-        free(volumes);
-        free(initSpecies);
-        free(initRRs);
         return amount_tolerances;
     }
 

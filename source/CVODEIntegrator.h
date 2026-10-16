@@ -140,7 +140,10 @@ namespace rr {
 
         /**
          * @author FY
-         * @brief Sets tolerance for individual species
+         * @brief Sets tolerance for individual species or rate rule-controlled element.
+         * @details The absolute tolerance for the given sid is set to @ref value.  This
+         * fixes the absolute tolerance vector moving forward, even if other initial values
+         * are changed.
          */
         void setIndividualTolerance(std::string sid, double value) override;
 
