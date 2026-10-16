@@ -1,6 +1,7 @@
 name: BuildRoadRunner
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' #for seanmiddleditch/gha-setup-ninja and ilammy/msvc-dev-cmd.
+  RR_LLJIT_RESERVE: '0' # TEMPORARY: turns the LLJit section range off so the LLJitSectionRange tests fail; remove after checking CI.
 
 on:
   push:
