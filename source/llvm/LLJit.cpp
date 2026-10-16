@@ -478,11 +478,7 @@ namespace rrllvm {
 
         const bool noEhFrames = envEquals("RR_LLJIT_NO_EH_FRAMES", "1");
         const bool farReadOnlyData = envEquals("RR_LLJIT_FAR_RODATA", "1");
-#if defined(__x86_64__) || defined(_M_X64)
         const bool reserveRange = !envEquals("RR_LLJIT_RESERVE", "0");
-#else
-        const bool reserveRange = false;
-#endif
         unsigned farGiB = 3;
         if (const char *gibText = std::getenv("RR_LLJIT_FAR_RODATA_GIB")) {
             if (std::atoi(gibText) > 0) {

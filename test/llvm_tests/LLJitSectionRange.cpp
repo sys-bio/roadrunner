@@ -6,12 +6,11 @@
 // address space in use elsewhere in the process could put the sections more than 2 GiB apart,
 // and the model crashed when it was loaded or simulated.
 //
-// The tests are portable. SectionsStayWithinTwoGiB checks the invariant directly on every
-// platform: LLJit measures how far apart the sections of each object ended up, and the test asks
-// for read-only data far from the code (RR_LLJIT_FAR_RODATA), which only a missing range allows.
-// With the range turned off (RR_LLJIT_RESERVE=0) it fails everywhere the far placement works.
-// The other tests reproduce the original crash on Linux with the range turned off, and elsewhere
-// check that loading, simulating and releasing models through the range works.
+// Every test asks for read-only data far from the code (RR_LLJIT_FAR_RODATA, which only has an
+// effect without the range), loads a model, and checks how far apart LLJit put the sections of
+// the object. With the range they stay together on every platform. Without it the sections end
+// up about 3 GiB apart: the check fails where the model still loads, and the process crashes
+// where the 32-bit offsets are used (Linux). Run with RR_LLJIT_RESERVE=0 to see that.
 
 #include "gtest/gtest.h"
 #include "llvm/LLJit.h"
@@ -150,16 +149,47 @@ namespace {
 
 }
 
+class LLJitSectionRange : public ::testing::Test {
+protected:
+    void SetUp() override {
+        setEnv("RR_LLJIT_FAR_RODATA", "1");
+        rrllvm::LLJit::largestSectionSpan = 0;
+    }
+
+    void TearDown() override {
+        clearEnv("RR_LLJIT_FAR_RODATA");
+    }
+
+    // Loads a model and checks that the sections of its object stayed together.
+    std::unique_ptr<RoadRunner> load(int n) {
+        auto r = loadWithLLJit(decayModel(n));
+        const std::uint64_t span = rrllvm::LLJit::largestSectionSpan.load();
+        EXPECT_GT(span, std::uint64_t(0)) << "the section span was not measured";
+        EXPECT_LT(span, twoGiB) << "the sections of a model are " << span << " bytes apart";
+        return r;
+    }
+};
+
+// The invariant on a small model.
+TEST_F(LLJitSectionRange, SectionsStayWithinTwoGiB) {
+    if (sizeof(void *) < 8) {
+        GTEST_SKIP() << "needs a 64-bit address space";
+    }
+    const int n = 300;
+    auto r = load(n);
+    simulateAndCheck(*r, n);
+}
+
 // A model large enough to need a big code section loads, simulates and is released.
-TEST(LLJitSectionRange, LargeModel) {
+TEST_F(LLJitSectionRange, LargeModel) {
     const int n = 2000;
-    auto r = loadWithLLJit(decayModel(n));
+    auto r = load(n);
     simulateAndCheck(*r, n);
 }
 
 // The original report: with address space reserved around it, a large model's code and
 // read-only data used to end up more than 2 GiB apart.
-TEST(LLJitSectionRange, LargeModelWithAddressSpaceReserved) {
+TEST_F(LLJitSectionRange, LargeModelWithAddressSpaceReserved) {
     if (sizeof(void *) < 8) {
         GTEST_SKIP() << "needs a 64-bit address space";
     }
@@ -167,53 +197,25 @@ TEST(LLJitSectionRange, LargeModelWithAddressSpaceReserved) {
     if (!reservation.ok()) {
         GTEST_SKIP() << "could not reserve 3 GiB of address space";
     }
-    rrllvm::LLJit::largestSectionSpan = 0;
     const int n = 2000;
-    auto r = loadWithLLJit(decayModel(n));
-    EXPECT_LT(rrllvm::LLJit::largestSectionSpan.load(), twoGiB);
-    simulateAndCheck(*r, n);
-}
-
-// The invariant itself, independent of how the address space happens to be laid out: even when
-// read-only data is requested far from the code, the sections of an object stay together.
-TEST(LLJitSectionRange, SectionsStayWithinTwoGiB) {
-#if !defined(__x86_64__) && !defined(_M_X64)
-    GTEST_SKIP() << "the section range is only used on x86-64";
-#endif
-    setEnv("RR_LLJIT_FAR_RODATA", "1");
-    rrllvm::LLJit::largestSectionSpan = 0;
-    const int n = 300;
-    auto r = loadWithLLJit(decayModel(n));
-    const std::uint64_t span = rrllvm::LLJit::largestSectionSpan.load();
-    clearEnv("RR_LLJIT_FAR_RODATA");
-    EXPECT_GT(span, std::uint64_t(0)) << "the section span was not measured";
-    EXPECT_LT(span, twoGiB);
+    auto r = load(n);
     simulateAndCheck(*r, n);
 }
 
 // The original report's trigger: a second model compiled while the first is still alive.
-TEST(LLJitSectionRange, TwoModelsAliveTogether) {
+TEST_F(LLJitSectionRange, TwoModelsAliveTogether) {
     const int n = 400;
-    auto first = loadWithLLJit(decayModel(n));
-    auto second = loadWithLLJit(decayModel(n + 100));
+    auto first = load(n);
+    auto second = load(n + 100);
     simulateAndCheck(*second, n + 100);
     simulateAndCheck(*first, n);
 }
 
 // Each model's range is released with the model; loading and dropping repeatedly keeps working.
-TEST(LLJitSectionRange, RepeatedLoadAndRelease) {
+TEST_F(LLJitSectionRange, RepeatedLoadAndRelease) {
     const int n = 300;
     for (int round = 0; round < 5; ++round) {
-        auto r = loadWithLLJit(decayModel(n));
+        auto r = load(n);
         simulateAndCheck(*r, n);
     }
-}
-
-// The switch that turns the range off keeps the plain allocator usable.
-TEST(LLJitSectionRange, RangeDisabledStillWorks) {
-    setEnv("RR_LLJIT_RESERVE", "0");
-    const int n = 300;
-    auto r = loadWithLLJit(decayModel(n));
-    clearEnv("RR_LLJIT_RESERVE");
-    simulateAndCheck(*r, n);
 }

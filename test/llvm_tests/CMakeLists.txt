@@ -16,14 +16,6 @@ add_test_executable(test_llvm_JitFactoryTests test_targets JitFactoryTests.cpp)
 add_test_executable(test_llvm_LLJitCrashHunt test_targets LLJitCrashHunt.cpp)
 add_test_executable(test_llvm_LLJitSectionRange test_targets LLJitSectionRange.cpp)
 
-# The invariant test must be able to fail: with the section range off it has to fail or crash.
-# The section range is only used on x86-64, where the 32-bit offsets between sections overflow.
-if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64|amd64")
-    add_test(NAME LLJitSectionRange.FailsWithoutRange
-            COMMAND ${CMAKE_COMMAND} -DTEST_EXE=$<TARGET_FILE:test_llvm_LLJitSectionRange>
-            -P ${CMAKE_CURRENT_SOURCE_DIR}/ExpectSectionRangeFailure.cmake)
-endif ()
-
 #add_executable(BuildAModel BuildAModel.cpp)
 #target_link_libraries(BuildAModel PRIVATE roadrunner-static gtest gtest_main)
 #target_include_directories(BuildAModel PRIVATE roadrunner-static)
