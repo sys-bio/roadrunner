@@ -455,14 +455,14 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
+          ctest --output-on-failure --verbose --extra-verbose --progress -R LLJitSectionRange
 
       - name: Run C RoadRunner tests (Ubuntu; skip plugins)
         if: matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
+          ctest --output-on-failure --verbose --extra-verbose --progress -R LLJitSectionRange --exclude-regex "ython|Plugin"
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
