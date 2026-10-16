@@ -68,11 +68,13 @@ CVODE
 
 .. attribute:: Integrator.absolute_tolerance
 
-    Specifies the scalar or vector absolute tolerance. As of roadrunner version 2.4.0, if a scalar absolute tolerance is used, it is multiplied by the value of every element in the state vector before being used.  If an element of the state vector is zero, the scalar is multiplied by 1.0 for non-species values, and by the size of the species compartment for species values (i.e. the amount of species present if its concentration was 1.0).
+    Specifies the scalar or vector absolute tolerance. As of roadrunner version 2.11.0, if a scalar absolute tolerance is used, it is multiplied by the value of every element in the initial state vector before being used.  If an element of that vector is zero, the scalar is multiplied by 1.0 for non-species values, and by the size of the species compartment for species values (i.e. the amount of species present if its concentration was 1.0).
 
     If desired, the full absolute tolerance vector may be used instead of a scalar.  In this case, it is assumed that the user has already done any appropriate scaling for individual state vector levels, and no additional scaling is performed: the values are used in Sundials as-is.  Calling 'getValue('absolute_tolerance') will return the scalar or vector set by the user, or the default Config::CVODE_MIN_ABSOLUTE value.  To obtain the full vector obtained from the scalar, use 'getAbsoluteToleranceVector'.
 
     In Sundials, the CVODE algorithm calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE (a scalar).
+
+    Because the absolute tolerance vector is scaled by the initial values, setting an initial value for a state variable will change its absolute tolerance as long as no individual absolute tolerance (or the vector) has been changed.  This means that breaking up a simulation into chunks will not change roadrunner's behavior.
     
     >>> rr.integrator.absolute_tolerance = 1e-10
     >>> rr.integrator.absolute_tolerance = [1, 0.1, 0.01, 0.001] // setting various tolerances for each species.

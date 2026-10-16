@@ -9,12 +9,14 @@
 #include "TestModelFactory.h"
 #include "Matrix.h"
 #include "CvodeIntegrationTest.h"
+#include "RoadRunnerTest.h"
 
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 
 
 using namespace rr;
@@ -109,20 +111,23 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceDefaults) {
     EXPECT_NEAR(atols[0], 1e-21, 1e-26);
     EXPECT_NEAR(atols[1], 1e-22, 1e-26);
 
+    // The tolerances follow the initial values, so changing the current values leaves them alone.
     r.setValue("default_compartment", 1e-15);
     r.setValue("[S1]", 10.0);
     r.setValue("[S2]", 1.0);
     atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
-    EXPECT_NEAR(atols[0], 1e-26, 1e-31);
-    EXPECT_NEAR(atols[1], 1e-27, 1e-31);
+    EXPECT_NEAR(atols[0], 1e-21, 1e-26);
+    EXPECT_NEAR(atols[1], 1e-22, 1e-26);
 
-    r.setValue("S1", 1e100);
-    r.setValue("S2", 1e-100);
+    // An initial value too small to scale by is treated as zero, and scaled by the initial volume
+    // (1e-10) instead of the current volume (1e-15).
+    r.setValue("init(S1)", 1e100);
+    r.setValue("init(S2)", 1e-100);
     atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
     EXPECT_NEAR(atols[0], 1e88, 1e80);
-    EXPECT_NEAR(atols[1], 1e-112, 1e-120);
+    EXPECT_NEAR(atols[1], 1e-22, 1e-26);
 }
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceNegValues) {
@@ -131,9 +136,8 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceNegValues) {
     // load model
     RoadRunner r(testModelPtr->str());
 
-    r.setValue("default_compartment", -1e-15);
-    r.setValue("[S1]", -10.0);
-    r.setValue("[S2]", -1.0);
+    r.getModel()->setValue("init(S1)", -1e-14);
+    r.getModel()->setValue("init(S2)", -1e-15);
     std::vector<double> atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
     EXPECT_NEAR(atols[0], 1e-26, 1e-31);
@@ -159,13 +163,14 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetDouble) {
     EXPECT_NEAR(atols[0], 1e-24, 1e-29);
     EXPECT_NEAR(atols[1], 1e-25, 1e-29);
 
+    // Changing the current values leaves the tolerances alone.
     r.setValue("default_compartment", 1e-15);
     r.setValue("[S1]", 10.0);
     r.setValue("[S2]", 1.0);
     atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
-    EXPECT_NEAR(atols[0], 1e-29, 1e-34);
-    EXPECT_NEAR(atols[1], 1e-30, 1e-34);
+    EXPECT_NEAR(atols[0], 1e-24, 1e-29);
+    EXPECT_NEAR(atols[1], 1e-25, 1e-29);
 }
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetVector) {
@@ -295,6 +300,233 @@ TEST_F(CVODEIntegratorTests, VariableStepSimulationEndsAtTheRequestedEndTime) {
     EXPECT_EQ(2 * end, second(last, 0));
     EXPECT_LT(maxDecayRelativeError(second, 0, last + 1), 1e-6);
     EXPECT_EQ(2 * end, rr.getCurrentTime());
+}
+
+/**
+ * The absolute tolerance is scaled by the initial values, so it does not change as the
+ * state decays, however the simulation is divided into calls to simulate.
+ */
+TEST_F(CVODEIntegratorTests, AbsToleranceDoesNotFollowTheCurrentState) {
+    RoadRunner rr(DecaySBML);
+    rr.setIntegrator("cvode");
+
+    std::vector<double> before = rr.getIntegrator()->getAbsoluteToleranceVector();
+    ASSERT_EQ(before.size(), 1u);
+    EXPECT_NEAR(before[0], 1e-11, 1e-16);
+
+    SimulateOptions &opt = rr.getSimulateOptions();
+    opt.setSteps(10);
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    rr.simulate();
+    opt.setStartTime(10);
+    rr.simulate();
+
+    ASSERT_LT(rr.getValue("S"), 1e-3);
+    std::vector<double> after = rr.getIntegrator()->getAbsoluteToleranceVector();
+    ASSERT_EQ(after.size(), 1u);
+    EXPECT_EQ(before[0], after[0]);
+}
+
+/**
+ * A species that decays to a value too small to represent used to give a zero
+ * tolerance, which made CVODE fail.
+ */
+TEST_F(CVODEIntegratorTests, StackedSimulationsOfADecayToZero) {
+    RoadRunner rr(DecaySBML);
+    rr.setIntegrator("cvode");
+
+    SimulateOptions &opt = rr.getSimulateOptions();
+    opt.setSteps(10);
+    opt.setDuration(750);
+    for (double start : {0., 750., 1500., 2250.}) {
+        opt.setStartTime(start);
+        EXPECT_NO_THROW(rr.simulate()) << "start " << start;
+    }
+    EXPECT_LT(rr.getValue("S"), 1e-300);
+}
+
+// S' = -k S, and a parameter p with the rate rule p' = 1, so the state vector is [p, S].
+static const std::string DecayWithRateRuleSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="decay_with_rate_rule">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfSpecies>
+  <species id="S" compartment="c" initialConcentration="10" hasOnlySubstanceUnits="false"/>
+ </listOfSpecies>
+ <listOfParameters><parameter id="k" value="0.5"/><parameter id="p" value="2" constant="false"/></listOfParameters>
+ <listOfRules>
+  <rateRule variable="p"><math xmlns="http://www.w3.org/1998/Math/MathML"><cn>1</cn></math></rateRule>
+ </listOfRules>
+ <listOfReactions>
+  <reaction id="J0" reversible="false">
+   <listOfReactants><speciesReference species="S"/></listOfReactants>
+   <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k</ci><ci>S</ci></apply></math></kineticLaw>
+  </reaction>
+ </listOfReactions>
+</model></sbml>)";
+
+/**
+ * The tolerance vector holds the rate rule variables followed by the independent floating
+ * species.  Each value has to stay with its own variable when the model is regenerated.
+ */
+TEST_F(CVODEIntegratorTests, IndividualTolerancesSurviveRegeneratingTheModel) {
+    RoadRunner rr(DecayWithRateRuleSBML);
+    rr.setIntegrator("cvode");
+    rr.getIntegrator()->setIndividualTolerance("p", 0.5);
+    rr.getIntegrator()->setIndividualTolerance("S", 0.25);
+
+    // changing an initial value regenerates the model
+    rr.setValue("init(k)", 0.7);
+
+    std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+    ASSERT_EQ(atols.size(), 2u);
+    EXPECT_EQ(atols[0], 0.5);
+    EXPECT_EQ(atols[1], 0.25);
+}
+
+/**
+ * A tolerance set for an element (as a vector, or with setIndividualTolerance) is used as it
+ * is, so changing that element's initial value leaves it alone.  A scalar tolerance is scaled
+ * by the initial values, so it follows them.  The state vector is [p, S].
+ */
+TEST_F(CVODEIntegratorTests, AbsToleranceVectorIgnoresInitialValuesButScalarFollowsThem) {
+    // a vector
+    {
+        RoadRunner rr(DecayWithRateRuleSBML);
+        rr.setIntegrator("cvode");
+        rr.getIntegrator()->setValue("absolute_tolerance", std::vector<double>{0.5, 0.25});
+        rr.setValue("init(p)", 4.0);
+        rr.setValue("init([S])", 20.0);
+        std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+        ASSERT_EQ(atols.size(), 2u);
+        EXPECT_EQ(atols[0], 0.5);
+        EXPECT_EQ(atols[1], 0.25);
+    }
+
+    // individual tolerances
+    {
+        RoadRunner rr(DecayWithRateRuleSBML);
+        rr.setIntegrator("cvode");
+        rr.getIntegrator()->setIndividualTolerance("p", 0.5);
+        rr.getIntegrator()->setIndividualTolerance("S", 0.25);
+        rr.setValue("init(p)", 4.0);
+        rr.setValue("init([S])", 20.0);
+        std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+        ASSERT_EQ(atols.size(), 2u);
+        EXPECT_EQ(atols[0], 0.5);
+        EXPECT_EQ(atols[1], 0.25);
+    }
+
+    // a scalar
+    {
+        RoadRunner rr(DecayWithRateRuleSBML);
+        rr.setIntegrator("cvode");
+        rr.getIntegrator()->setValue("absolute_tolerance", 1e-6);
+        std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+        ASSERT_EQ(atols.size(), 2u);
+        EXPECT_NEAR(atols[0], 2e-6, 1e-12);
+        EXPECT_NEAR(atols[1], 10e-6, 1e-12);
+
+        rr.setValue("init(p)", 4.0);
+        rr.setValue("init([S])", 20.0);
+        atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+        ASSERT_EQ(atols.size(), 2u);
+        EXPECT_NEAR(atols[0], 4e-6, 1e-12);
+        EXPECT_NEAR(atols[1], 20e-6, 1e-12);
+    }
+}
+
+// Fixture for tests that load a model file from test/models.
+class CVODEConservedMoietyTests : public RoadRunnerTest {
+};
+
+/**
+ * With conserved moieties the dependent species are not in the tolerance vector, which is
+ * then shorter than the number of floating species.  Regenerating the model has to keep
+ * each tolerance with its species and leave the dependent species out.
+ */
+TEST_F(CVODEConservedMoietyTests, IndividualTolerancesSurviveRegeneratingTheModel) {
+    RoadRunner rr((rrTestModelsDir_ / "ModelAnalysis" / "two_cycles.xml").string());
+    rr.setConservedMoietyAnalysis(true);
+
+    ExecutableModel *model = rr.getModel();
+    const int numInd = model->getNumIndFloatingSpecies();
+    ASSERT_GT(numInd, 0);
+    ASSERT_LT(numInd, model->getNumFloatingSpecies());
+
+    std::unordered_map<std::string, double> expected;
+    for (int i = 0; i < numInd; i++) {
+        std::string id = model->getFloatingSpeciesId(i);
+        expected[id] = 0.1 * (i + 1);
+        rr.getIntegrator()->setIndividualTolerance(id, expected[id]);
+    }
+
+    // changing an initial value regenerates the model
+    const std::string init = "init([" + model->getFloatingSpeciesId(0) + "])";
+    rr.setValue(init, rr.getValue(init));
+
+    model = rr.getModel();
+    ASSERT_EQ(model->getNumIndFloatingSpecies(), numInd);
+    std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+    ASSERT_EQ(atols.size(), static_cast<size_t>(numInd));
+    for (int i = 0; i < numInd; i++) {
+        const std::string id = model->getFloatingSpeciesId(i);
+        EXPECT_EQ(atols[i], expected.at(id)) << "species " << id;
+    }
+}
+
+// Like test/models/SBMLFeatures/stoich_rr.xml, but the stoichiometry N starts at 5.
+// N is governed by a rate rule, dN/dt = 1, and dX/dt = N*0.5.  The state vector is [N, X].
+static const std::string RateRuleStoichSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="__main" id="__main">
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" initialConcentration="0"/>
+    </listOfSpecies>
+    <listOfRules>
+      <rateRule variable="N">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="_J0" reversible="true">
+        <listOfProducts>
+          <speciesReference id="N" species="X" stoichiometry="5" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.5 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+
+/**
+ * A species reference governed by a rate rule is part of the state vector.  Its absolute
+ * tolerance is scaled by its initial value, not by the value it has reached.
+ */
+TEST_F(CVODEIntegratorTests, AbsToleranceOfARateRuleStoichiometryUsesItsInitialValue) {
+    RoadRunner rr(RateRuleStoichSBML);
+    rr.setIntegrator("cvode");
+    rr.getIntegrator()->setValue("absolute_tolerance", 1e-6);
+
+    // N grows from 5 to 7, so X reaches 2.5*2 + 0.25*2^2 = 6
+    const ls::DoubleMatrix result = *rr.simulate(0.0, 2.0, 11);
+    ASSERT_EQ(result.numRows(), 11u);
+    ASSERT_NEAR(result(10, 1), 6.0, 1e-3);
+
+    std::vector<double> atols = rr.getIntegrator()->getAbsoluteToleranceVector();
+    ASSERT_EQ(atols.size(), 2u);
+    // N has initial value 5.  X starts at zero, so it is scaled by the compartment volume, 1.
+    EXPECT_NEAR(atols[0], 1e-6 * 5.0, 1e-12);
+    EXPECT_NEAR(atols[1], 1e-6 * 1.0, 1e-12);
 }
 
 // Same decay, with an event at time @T@ that sets S to 50.
