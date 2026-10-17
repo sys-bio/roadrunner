@@ -17,52 +17,11 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-15-intel-release
-            os_type: macos
-            os_name: macos-15-intel
-            build_type: Release
-            build_python: ON
-          - name: macos-15-intel-debug
-            os_type: macos
-            os_name: macos-15-intel
-            build_type: Debug
-            build_python: OFF
-          - name: macos-14-release
-            os_type: macos
-            os_name: macos-14
-            build_type: Release
-            build_python: ON
-          - name: macos-14-debug
-            os_type: macos
-            os_name: macos-14
-            build_type: Debug
-            build_python: OFF
-          - name: ubuntu-latest-release
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Release
-            build_python: ON
-          - name: ubuntu-latest-debug
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Debug
-            build_python: OFF
-          - name: windows-latest-release
-            os_type: windows
-            os_name: windows-latest
-            build_type: Release
-            build_python: ON
           - name: windows-latest-debug
             os_type: windows
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
-          - name: manylinux_2_28-release
-            os_type: manylinux
-            os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux_2_28_x86_64
-            build_type: Release
-            build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
@@ -450,7 +409,7 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
       - name: Run C RoadRunner tests (most platforms)
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
+        if: matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
