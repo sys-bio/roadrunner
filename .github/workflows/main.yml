@@ -463,6 +463,13 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
+      - name: Run LLJit section range tests (Debug; not Windows)
+        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'windows'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
+
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
