@@ -13,6 +13,7 @@ add_test_executable(
 
 )
 add_test_executable(test_llvm_JitFactoryTests test_targets JitFactoryTests.cpp)
+add_test_executable(test_llvm_LLJitSectionRange test_targets LLJitSectionRange.cpp)
 
 #add_executable(BuildAModel BuildAModel.cpp)
 #target_link_libraries(BuildAModel PRIVATE roadrunner-static gtest gtest_main)
