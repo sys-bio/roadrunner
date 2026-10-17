@@ -409,31 +409,11 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
       - name: Run C RoadRunner tests (most platforms)
-        if: matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu' && !(matrix.platform.os_type == 'windows' && matrix.platform.build_type == 'Debug')
+        if: matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
-
-      - name: Stack trace of one crashing test under cdb (Windows Debug)
-        if: matrix.build_tests == 'ON' && matrix.platform.os_type == 'windows' && matrix.platform.build_type == 'Debug'
-        shell: pwsh
-        run: |
-          $kits = 'C:\Program Files (x86)\Windows Kits','C:\Program Files\Windows Kits'
-          $find = { Get-ChildItem $kits -Recurse -Filter cdb.exe -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match '\\x64\\' } | Select-Object -First 1 -ExpandProperty FullName }
-          $cdb = & $find
-          if (-not $cdb) {
-            Write-Host 'cdb not found; installing Debugging Tools for Windows via winget'
-            winget install --id Microsoft.WindowsSDK.10.0.26100 --silent --accept-package-agreements --accept-source-agreements --custom '/features OptionId.WindowsDesktopDebuggers /quiet /norestart'
-            $cdb = & $find
-          }
-          if (-not $cdb) { throw 'cdb.exe not found and the install failed' }
-          Write-Host "Using $cdb"
-          $env:testdir = ($env:GITHUB_WORKSPACE -replace '\\','/') + '/test'
-          $bin = Join-Path $env:RUNNER_WORKSPACE 'build-roadrunner\bin'
-          Set-Location (Join-Path $env:RUNNER_WORKSPACE 'build-roadrunner\test\llvm_tests')
-          & $cdb -y "$bin;srv*C:\symcache*https://msdl.microsoft.com/download/symbols" -c 'sxd eh;g;.ecxr;kn 60;~*kn 25;q' "$bin\test_llvm_LLJitTests.exe" '--gtest_filter=LLJitTests.CheckModelSimulates'
-          exit 0
 
       - name: Run C RoadRunner tests (Ubuntu; skip plugins)
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
