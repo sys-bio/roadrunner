@@ -244,6 +244,7 @@ if (BUILD_LLVM)
             llvm/JitFactory.cpp
             llvm/KineticLawParameterResolver.cpp
             llvm/LLJit.cpp
+            llvm/LLJitSectionMemory.cpp
             llvm/LLVMCompiler.cpp
             llvm/LLVMExecutableModel.cpp
             llvm/LLVMModelData.cpp
@@ -292,6 +293,7 @@ if (BUILD_LLVM)
             llvm/JitFactory.h
             llvm/KineticLawParameterResolver.h
             llvm/LLJit.h
+            llvm/LLJitSectionMemory.h
             llvm/LLVMCompiler.h
             llvm/LLVMExecutableModel.h
             llvm/LLVMException.h
