@@ -135,7 +135,7 @@ namespace rrllvm {
             }
 
             bool needsToReserveAllocationSpace() override {
-                return true;
+                return false;
             }
 
             void reserveAllocationSpace(uintptr_t codeSize, uint32_t codeAlign, uintptr_t roDataSize,
