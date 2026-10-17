@@ -167,6 +167,9 @@ namespace rr {
 
     ForwardSensitivitySolver::~ForwardSensitivitySolver() {
         freeSundialsMemory();
+        if (cvodeIntegrator) {
+            cvodeIntegrator->freeSundialsMemory();
+        }
         if (mSunContext) {
           SUNContext_Free(&mSunContext);
         }
