@@ -1,0 +1,306 @@
+name: ValgrindMemcheck
+
+# A slow valgrind memcheck run over roadrunner's C/C++ (gtest) tests, built
+# in Debug mode. It runs on pull requests into 'release' and on manual
+# dispatch. It deliberately does not run on pull requests into 'develop' or
+# on pushes, because it takes hours of total compute. The Python tests are
+# not run here (no BUILD_PYTHON), as they would be far too slow under valgrind.
+#
+# Structure: two jobs.
+#   build: compiles roadrunner once (Debug) and uploads the build and install
+#          trees as one artifact.
+#   test:  a matrix of `num_shards` jobs. Each downloads that artifact and runs
+#          every num_shards'th test (starting at its own shard index) under
+#          valgrind, so the shards together cover each test exactly once.
+#
+# Every gtest case is its own ctest test (gtest_discover_tests), so the
+# round-robin split spreads the slow tests (e.g. semantic_STS) across shards.
+#
+# roadrunner does not include(CTest), so there is no DartConfiguration.tcl and
+# `ctest -T memcheck` has nothing to read its settings from. The test jobs
+# therefore drive ctest through a small ctest script (`ctest -S`) that sets
+# the valgrind command and options itself.
+#
+# MAINTENANCE NOTE: the dependency download, ccache and CMake configure steps in
+# `build` are copied from the ubuntu legs of main.yml. If those change (new
+# dependency version, new required CMake flag), update this file too.
+
+on:
+  pull_request:
+    branches:
+      - release
+  workflow_dispatch:
+
+# A newer push to the same PR supersedes the old run; there is no point
+# finishing hours of valgrind on a stale commit.
+concurrency:
+  group: valgrind-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  libroadrunner_deps_owner: sys-bio
+  libroadrunner_deps_repo: libroadrunner-deps
+  libroadrunner_deps_name: libroadrunner-deps
+  libroadrunner_deps_release_version: v2.3.7
+  llvm_owner: sys-bio
+  llvm_repo: llvm-13.x
+  llvm_name: llvm-13.x
+  llvm_release_version: v13.1
+  # Must equal the number of entries in the `shard` matrix below.
+  num_shards: '10'
+  # Tests whose names match this regex are skipped (ctest EXCLUDE).
+  ctest_exclude_regex: 'ython'
+
+jobs:
+  build:
+    name: Build RoadRunner (Debug)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout RoadRunner
+        uses: actions/checkout@main
+
+      - name: Get Host Architecture
+        shell: bash
+        run: |
+          architecture=$(uname -m)
+          echo "host_architecture=$architecture" >> "${GITHUB_ENV}"
+
+      - name: Install ccache
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ccache
+
+      - name: Prepare ccache timestamp
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("timestamp=${current_date}" >> $GITHUB_OUTPUT)
+
+      - name: Set ccache cache directory
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> "${GITHUB_ENV}"
+          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+
+      - name: Cache ccache files
+        uses: actions/cache@main
+        with:
+          path: ${{ runner.workspace }}/.ccache
+          key: ${{ runner.os }}-valgrind-debug-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ${{ runner.os }}-valgrind-debug-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+            ${{ runner.os }}-valgrind-debug-
+            ${{ runner.os }}-
+
+      - name: Save standardized os/compiler name
+        shell: bash
+        run: |
+          os_version=$(lsb_release -rs | cut -d '.' -f 1)
+          echo "os_and_compiler=ubuntu-${os_version}" >> "${GITHUB_ENV}"
+
+      - name: Download LibRoadRunner Dependencies binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
+          cd ${{ env.libroadrunner_deps_name }}-binaries
+          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.libroadrunner_deps_release_version }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
+          unzip -q ${{ env.libroadrunner_deps_name }}*.zip
+          rm ${{ env.libroadrunner_deps_name }}*.zip
+          echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
+
+      # As in main.yml, the Ubuntu legs always use the Release LLVM.
+      - name: Download LLVM binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ env.llvm_name }}-binaries
+          cd ${{ env.llvm_name }}-binaries
+          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.llvm_release_version }}/${{ env.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
+          unzip -q ${{ env.llvm_name }}*.zip
+          rm ${{ env.llvm_name }}*.zip
+          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries" >> "${GITHUB_ENV}"
+
+          # make llvm-config executable
+          chmod a+x ${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries/bin/llvm-config
+
+      - name: Create build directory
+        shell: bash
+        run: mkdir -p ${RUNNER_WORKSPACE}/build-roadrunner
+
+      - name: Configure CMake for RoadRunner
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DCMAKE_INSTALL_PREFIX="${RUNNER_WORKSPACE}/install-roadrunner" \
+          -DRR_DEPENDENCIES_INSTALL_PREFIX=${RR_DEPENDENCIES_INSTALL_PREFIX} \
+          -DLLVM_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX} \
+          -DBUILD_TESTS=ON \
+          -DBUILD_RR_PLUGINS=ON \
+          -DBUILD_PYTHON=OFF \
+          -DBUILD_EXAMPLES=ON
+
+      - name: Build and install RoadRunner
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake --build . --target install --config Debug
+
+      # Tar, rather than uploading the directory trees directly, so execute
+      # permissions and symlinks survive. The test jobs run on the same
+      # runner image with the same workspace paths, so absolute paths baked
+      # into the build tree (rpaths, CTest files) stay valid.
+      - name: Archive build and install directories
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          tar -czf roadrunner-debug-build.tar.gz build-roadrunner install-roadrunner
+
+      - name: Upload build
+        uses: actions/upload-artifact@main
+        with:
+          name: roadrunner-debug-build
+          path: ${{ runner.workspace }}/roadrunner-debug-build.tar.gz
+          retention-days: 1
+
+  test:
+    name: Valgrind memcheck shard ${{ matrix.shard }}/10
+    needs: build
+    runs-on: ubuntu-latest
+    # 6 hours is the maximum for GitHub-hosted runners.
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    steps:
+      # The tests read models and the SBML test suite from the source tree.
+      - name: Checkout RoadRunner
+        uses: actions/checkout@main
+
+      - name: Get Host Architecture
+        shell: bash
+        run: |
+          architecture=$(uname -m)
+          echo "host_architecture=$architecture" >> "${GITHUB_ENV}"
+
+      - name: Install valgrind
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y valgrind
+
+      - name: Save standardized os/compiler name
+        shell: bash
+        run: |
+          os_version=$(lsb_release -rs | cut -d '.' -f 1)
+          echo "os_and_compiler=ubuntu-${os_version}" >> "${GITHUB_ENV}"
+
+      # Cheaper to download again per shard than to bundle the dependencies
+      # into the build artifact; they must be at the same path as in `build`.
+      - name: Download LibRoadRunner Dependencies binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
+          cd ${{ env.libroadrunner_deps_name }}-binaries
+          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.libroadrunner_deps_release_version }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
+          unzip -q ${{ env.libroadrunner_deps_name }}*.zip
+          rm ${{ env.libroadrunner_deps_name }}*.zip
+
+      - name: Download LLVM binaries
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ env.llvm_name }}-binaries
+          cd ${{ env.llvm_name }}-binaries
+          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.llvm_release_version }}/${{ env.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
+          unzip -q ${{ env.llvm_name }}*.zip
+          rm ${{ env.llvm_name }}*.zip
+          chmod a+x ${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries/bin/llvm-config
+
+      - name: Download build
+        uses: actions/download-artifact@main
+        with:
+          name: roadrunner-debug-build
+          path: ${{ runner.workspace }}
+
+      - name: Extract build
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          tar -xzf roadrunner-debug-build.tar.gz
+
+      # ctest_memcheck's START/END/STRIDE are the same as `ctest -I`: start at
+      # this shard's own test number, no real upper bound, step by num_shards.
+      # The step fails if any test fails or valgrind reports a defect
+      # (errors, or definitely/indirectly/possibly lost memory). Still-reachable
+      # memory is not counted as a defect by ctest.
+      - name: Run this shard's tests under valgrind (memcheck)
+        shell: bash
+        env:
+          SHARD: ${{ matrix.shard }}
+          NUM_SHARDS: ${{ env.num_shards }}
+          EXCLUDE_REGEX: ${{ env.ctest_exclude_regex }}
+        run: |
+          cat > "${RUNNER_TEMP}/memcheck.cmake" <<'CTEST_SCRIPT'
+          set(CTEST_SOURCE_DIRECTORY "$ENV{GITHUB_WORKSPACE}")
+          set(CTEST_BINARY_DIRECTORY "$ENV{RUNNER_WORKSPACE}/build-roadrunner")
+          set(CTEST_MEMORYCHECK_TYPE "Valgrind")
+          set(CTEST_MEMORYCHECK_COMMAND "/usr/bin/valgrind")
+          set(CTEST_MEMORYCHECK_COMMAND_OPTIONS "--error-exitcode=1 --leak-check=full --show-leak-kinds=definite,indirect,possible --num-callers=50 --error-limit=no")
+
+          ctest_start(Experimental)
+          ctest_memcheck(
+            START $ENV{SHARD}
+            END 999999
+            STRIDE $ENV{NUM_SHARDS}
+            EXCLUDE "$ENV{EXCLUDE_REGEX}"
+            RETURN_VALUE test_rv
+            DEFECT_COUNT defect_count)
+
+          message("ctest_memcheck return value: ${test_rv}")
+          message("valgrind defect count: ${defect_count}")
+          if(NOT test_rv EQUAL 0 OR NOT defect_count EQUAL 0)
+            message(FATAL_ERROR "Test failures or valgrind defects found in this shard.")
+          endif()
+          CTEST_SCRIPT
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest -S "${RUNNER_TEMP}/memcheck.cmake" -VV
+
+      # The console only gets a per-test defect count; the actual valgrind
+      # reports are in Testing/Temporary/MemoryChecker.<test-id>.log.
+      - name: Print any valgrind defects found in this shard
+        if: always()
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner/Testing/Temporary
+          found=0
+          for f in MemoryChecker.*.log; do
+            [ -f "$f" ] || continue
+            if grep -qE "ERROR SUMMARY: [1-9]|(definitely|indirectly|possibly) lost: [1-9]" "$f"; then
+              found=$((found + 1))
+              echo "::group::Valgrind defect: $f"
+              head -n 2000 "$f"
+              echo "::endgroup::"
+            fi
+          done
+          echo "Shard ${{ matrix.shard }}: $found test log(s) with valgrind defects." | tee -a "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload memcheck logs for this shard
+        if: always()
+        uses: actions/upload-artifact@main
+        with:
+          name: valgrind-memcheck-logs-run${{ github.run_number }}-attempt${{ github.run_attempt }}-shard-${{ matrix.shard }}
+          path: ${{ runner.workspace }}/build-roadrunner/Testing/Temporary/
