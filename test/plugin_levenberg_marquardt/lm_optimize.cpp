@@ -24,18 +24,18 @@ public:
 
 TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
     //tpCreatePluginManager();
     //gHM.registerHandle(PM, typeid(PM).name());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    Plugin* tmplugin = PM.getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
     tmplugin->execute();
 
-    Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
+    Plugin* lmplugin = PM.getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
-    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    Plugin* chiplugin = PM.getPlugin("tel_chisquare");
     ASSERT_TRUE(chiplugin != NULL);
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -140,14 +140,14 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_HENRICH_WILBERT)
     // Some of the runs actually fail under this scenario.
     // In Python, the confidence limits are normal, but here in C, for some reason some are nan.
 
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
     //tpCreatePluginManager();
     //gHM.registerHandle(PM, typeid(PM).name());
 
-    Plugin* lmplugin = PM->getPlugin("tel_levenberg_marquardt");
+    Plugin* lmplugin = PM.getPlugin("tel_levenberg_marquardt");
     ASSERT_TRUE(lmplugin != NULL);
 
-    Plugin* chiplugin = PM->getPlugin("tel_chisquare");
+    Plugin* chiplugin = PM.getPlugin("tel_chisquare");
     ASSERT_TRUE(chiplugin != NULL);
 
     lmplugin->setPropertyByString("SBML", (pluginsModelsDir / "HenrichWilbertFit.xml").string().c_str());

@@ -24,13 +24,13 @@ public:
 
 TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    Plugin* tmplugin = PM.getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
     tmplugin->execute();
 
-    Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
+    Plugin* nmplugin = PM.getPlugin("tel_nelder_mead");
     ASSERT_TRUE(nmplugin != NULL);
 
     PropertyBase* sbml = tmplugin->getProperty("Model");
@@ -117,12 +117,12 @@ TEST_F(PluginNelderMeadTests, OPTIMIZE_TEST_MODEL)
 
 TEST_F(PluginNelderMeadTests, OPTIMIZE_NEW_MODEL)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* tmplugin = PM->getPlugin("tel_test_model");
+    Plugin* tmplugin = PM.getPlugin("tel_test_model");
     ASSERT_TRUE(tmplugin != NULL);
 
-    Plugin* nmplugin = PM->getPlugin("tel_nelder_mead");
+    Plugin* nmplugin = PM.getPlugin("tel_nelder_mead");
     ASSERT_TRUE(nmplugin != NULL);
 
     string  newModel = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\

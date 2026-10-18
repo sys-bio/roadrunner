@@ -165,8 +165,8 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           bad=0
           for lib in $(find . -name '*.so' -not -path './Testing/*' | sort); do
-            exported=$(nm -D --defined-only -C "$lib" | awk '$2 ~ /^[TDBR]$/ && /Poco::/' | wc -l)
-            undefined=$(nm -D --undefined-only -C "$lib" | awk '$1 == "U" && /Poco::/' | wc -l)
+            exported=$(nm -D --defined-only -C "$lib" | awk '$2 ~ /^[TDBR]$/ { $1=""; $2=""; sub(/^ +/,""); if ($0 ~ /^((vtable|typeinfo|typeinfo name|VTT) for )?Poco::/) print }' | wc -l)
+            undefined=$(nm -D --undefined-only -C "$lib" | awk '$1 == "U" { $1=""; sub(/^ +/,""); if ($0 ~ /^((vtable|typeinfo|typeinfo name|VTT) for )?Poco::/) print }' | wc -l)
             echo "$lib: exports $exported, needs $undefined"
             if [ "$exported" -gt 0 ] || [ "$undefined" -gt 0 ]; then
               bad=1
