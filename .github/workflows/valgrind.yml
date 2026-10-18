@@ -156,6 +156,25 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config Debug
 
+      # Fails the step (not the job) if any library still exports Poco's own symbols, or needs
+      # Poco symbols that only another library would provide. The tests then still run.
+      - name: Check that Poco symbols are not shared between libraries
+        continue-on-error: true
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          bad=0
+          for lib in $(find . -name '*.so' -not -path './Testing/*' | sort); do
+            exported=$(nm -D --defined-only -C "$lib" | awk '$2 ~ /^[TDBR]$/ && /Poco::/' | wc -l)
+            undefined=$(nm -D --undefined-only -C "$lib" | awk '$1 == "U" && /Poco::/' | wc -l)
+            echo "$lib: exports $exported, needs $undefined"
+            if [ "$exported" -gt 0 ] || [ "$undefined" -gt 0 ]; then
+              bad=1
+              echo "::error::$lib exports $exported Poco symbols and needs $undefined from another library"
+            fi
+          done
+          exit $bad
+
       # Tar, rather than uploading the directory trees directly, so execute
       # permissions and symlinks survive. The test jobs run on the same
       # runner image with the same workspace paths, so absolute paths baked

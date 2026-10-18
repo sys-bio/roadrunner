@@ -461,6 +461,13 @@ find_package(nleq2 CONFIG REQUIRED)
 find_package(PocoFoundation CONFIG REQUIRED)
 find_package(PocoNet CONFIG REQUIRED)
 find_package(PocoXML CONFIG REQUIRED)
+
+# Each shared library embeds its own copy of the static Poco archives. Hiding their symbols
+# stops the dynamic linker from merging the copies' global objects (double init and destruction).
+if (UNIX AND NOT APPLE)
+    add_link_options("LINKER:--exclude-libs,$<TARGET_FILE_NAME:Poco::Foundation>:$<TARGET_FILE_NAME:Poco::Net>:$<TARGET_FILE_NAME:Poco::XML>")
+endif ()
+
 find_package(LLVM REQUIRED)
 
 find_package(SUNDIALS CONFIG REQUIRED)
