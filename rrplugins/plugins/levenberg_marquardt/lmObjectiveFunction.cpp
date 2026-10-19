@@ -42,7 +42,7 @@ namespace lmfit
             setTerribleResiduals(fvec, myData->nrOfSpecies * myData->nrOfTimePoints, thePlugin);
             return;
         }
-        DoubleMatrix* modelData = (DoubleMatrix*)gHostInterface->getSimulationResult(myData->mTheHost->rrHandle);
+        DoubleMatrix* modelData = (DoubleMatrix*)gHostInterface->getSimulationResultAsDoubleMatrix(myData->mTheHost->rrHandle);
 
         if (!modelData)
         {

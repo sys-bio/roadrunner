@@ -278,7 +278,7 @@ jobs:
           set(CTEST_BINARY_DIRECTORY "$ENV{RUNNER_WORKSPACE}/build-roadrunner")
           set(CTEST_MEMORYCHECK_TYPE "Valgrind")
           set(CTEST_MEMORYCHECK_COMMAND "/usr/bin/valgrind")
-          set(CTEST_MEMORYCHECK_COMMAND_OPTIONS "--error-exitcode=1 --leak-check=full --show-leak-kinds=definite,indirect,possible --num-callers=50 --error-limit=no")
+          set(CTEST_MEMORYCHECK_COMMAND_OPTIONS "--error-exitcode=1 --leak-check=full --show-leak-kinds=definite,indirect,possible --num-callers=50 --keep-debuginfo=yes --track-origins=yes --error-limit=no")
 
           ctest_start(Experimental)
           ctest_memcheck(
