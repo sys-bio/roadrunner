@@ -92,9 +92,9 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_VARIABLE_TIMESTEP) {
     rr.getIntegrator()->setValue("seed", 123);
 
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 100;
-    opt.steps = 0;
+    opt.setStartTime(0);
+    opt.setDuration(100);
+    opt.setSteps(0);
     opt.output_file = outputFileName.string();
     rr.setSimulateOptions(opt);
 
@@ -126,9 +126,9 @@ TEST_F(RRTestFilesOtherTests, OUTPUT_FILE_FIXED_TIMESTEP) {
     ASSERT_STREQ("gillespie", rr.getIntegrator()->getName().c_str());
     rr.getIntegrator()->setValue("seed", 123);
     rr.getIntegrator()->setValue("variable_step_size", false);
-    opt.start = 0;
-    opt.duration = 50;
-    opt.steps = 100;
+    opt.setStartTime(0);
+    opt.setDuration(50);
+    opt.setSteps(100);
     opt.output_file = outputFileName.string();
     rr.setSimulateOptions(opt);
 

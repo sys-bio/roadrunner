@@ -116,6 +116,13 @@ public:
         STOICHIOMETRY =                     (0x1 << 16),
 
         /**
+        * SelectionType for an individually-addressed speciesReference that
+        * shares its (species, reaction) stoichiometry-matrix cell with one
+        * or more other speciesReferences.
+        */
+        MULTI_SPECIES_REFERENCE =           (0x1 << 24),
+
+        /**
         * SelectionType for unknown values.
         */
         UNKNOWN =                           (0x1 << 17),
@@ -302,6 +309,13 @@ public:
          * SelectionType for initial compartment values.
          */
         INITIAL_STOICHIOMETRY =               INITIAL | STOICHIOMETRY | INDEPENDENT | DEPENDENT,
+
+        /**
+         * SelectionType for the initial value of an individually-addressed
+         * speciesReference that shares its stoichiometry-matrix cell with
+         * one or more other speciesReferences.
+         */
+        INITIAL_MULTI_SPECIES_REFERENCE =     INITIAL | MULTI_SPECIES_REFERENCE | INDEPENDENT | DEPENDENT,
 
         /**
          * SelectionType for global parameters that have initial assignment rules.

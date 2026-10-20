@@ -34,6 +34,7 @@
 #include "EventTriggerCodeGen.h"
 #include "GetPiecewiseTriggerCodeGen.h"
 #include "EvalVolatileStoichCodeGen.h"
+#include "ResetRateRuleStoichCodeGen.h"
 #include "EvalConversionFactorCodeGen.h"
 #include "SetValuesCodeGen.h"
 #include "SetInitialValuesCodeGen.h"
@@ -376,6 +377,16 @@ public:
 
     virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
 
+    virtual int getMultiSpeciesReferenceIndex(const std::string&);
+
+    virtual double getMultiSpeciesReferenceValue(int index);
+
+    virtual double getInitMultiSpeciesReferenceValue(int index);
+
+    virtual int setMultiSpeciesReferenceValue(int index, double value);
+
+    virtual int setInitMultiSpeciesReferenceValue(int index, double value);
+
     /******************************* Initial Conditions Section *******************/
     #if (1) /**********************************************************************/
     /******************************************************************************/
@@ -678,6 +689,7 @@ private:
     EventAssignCodeGen::FunctionPtr eventAssignPtr;
     GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
     EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
+    ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
     EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
 
     // set model values externally.

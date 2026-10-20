@@ -600,6 +600,24 @@ TEST_F(ModelEditingTests, REMOVE_INITIAL_ASSIGNMENT) {
     EXPECT_NEAR(x, 1.0 / 3.0, 1e-6);
 }
 
+TEST_F(ModelEditingTests, SET_INIT_VALUE_PARAMETER_ONLY_INITIAL_ASSIGNMENT) {
+    // Parameter x has no literal 'value' attribute -- only an initial assignment.
+    static const std::string sbml = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="m">
+ <listOfCompartments><compartment id="c" size="1"/></listOfCompartments>
+ <listOfParameters><parameter id="x" constant="false"/></listOfParameters>
+ <listOfInitialAssignments>
+  <initialAssignment symbol="x"><math xmlns="http://www.w3.org/1998/Math/MathML"><cn>2</cn></math></initialAssignment>
+ </listOfInitialAssignments>
+</model></sbml>)";
+
+    RoadRunner rr(sbml);
+    EXPECT_EQ(rr.getValue("init(x)"), 2.0);
+
+    EXPECT_NO_THROW(rr.setValue("init(x)", 5.0));
+    EXPECT_EQ(rr.getValue("init(x)"), 5.0);
+}
+
 
 TEST_F(ModelEditingTests, GET_CURRENT_SBML_NO_INITIAL_ASSIGNMENTS) {
     RoadRunner rri;

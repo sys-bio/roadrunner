@@ -102,8 +102,8 @@ namespace rrllvm {
     using rr_minFnTy = FnPtr_d2;
 
     // for a sparse matrix used in llvm world
-    using csr_matrix_set_nz_FnTy = rr::csr_matrix *(*)(int, int, double);
-    using csr_matrix_get_nz_FnTy = rr::csr_matrix *(*)(int, int);
+    using csr_matrix_set_nz_FnTy = bool (*)(rr::csr_matrix *, unsigned, unsigned, double);
+    using csr_matrix_get_nz_FnTy = double (*)(const rr::csr_matrix *, unsigned, unsigned);
 
     // function signatures for distrib
     using DistribFnTy_d1 = double (*)(Random *, double);

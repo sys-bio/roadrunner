@@ -37,7 +37,7 @@ set(SBMLTestSuiteStochastic "${SBMLTestSuiteRoot}/stochastic")
 function(add_test_executable TEST_TARGET OUT_VARIABLE)
     #message(STATUS "Adding test ${TEST_TARGET} as part of ${OUT_VARIABLE}. Source Files: ARGN: ${ARGN}" )
     add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>
-            ${ThisSourceDirectory}/TestModelFactory)
+            ${ThisSourceDirectory}/TestModelFactory.cpp)
 
     if (TEST_TARGET MATCHES ".*plugin.*")
         set(TEST_PLUGIN_INCLUDE "$<TARGET_PROPERTY:telplugins_c_api,INCLUDE_DIRECTORIES>")
@@ -77,10 +77,16 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main rr-mockups)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
-    # Add to ctest.
+    # Add to ctest. DISCOVERY_MODE PRE_TEST defers running the built binary
+    # with --gtest_list_tests until ctest itself is invoked, instead of
+    # running it immediately after linking (the POST_BUILD default). That
+    # avoids a Windows race where the freshly-linked exe isn't fully
+    # released yet, which was causing ParseTestList.cmake to fail on
+    # truncated/empty JSON output.
     set(TEST_ENV_VARS "testdir=${RR_ROOT}/test" "CTEST_OUTPUT_ON_FAILURE=TRUE")
     gtest_discover_tests(
             ${TEST_TARGET}
+            DISCOVERY_MODE PRE_TEST
             DISCOVERY_TIMEOUT 500
             PROPERTIES
             TIMEOUT 500
@@ -304,10 +310,18 @@ if (BUILD_PYTHON AND BUILD_TESTS)
     set(PyTestTests)
     macro(add_pytest_to_ctest TestName TestSourceFile)
         # make sure file is up to date
-        # run pytest with -rP to always capture stdout regardless of pass/fail
+        # run pytest with -rP to always capture stdout regardless of pass/fail.
+        # --capture=tee-sys makes pytest stream stdout/stderr live (instead of
+        # only ever releasing it when a test finishes, or -- for passed tests
+        # without -rP -- discarding it) while still keeping pytest's own
+        # per-test captured-output reporting. Without this, ctest's
+        # --output-on-failure has nothing to show if the pytest process itself
+        # dies abnormally (segfault/OOM-kill/etc.) before it can print its own
+        # report, since all output was sitting in an in-memory buffer that
+        # never got flushed to the real stdout ctest is watching.
         add_test(
                 NAME ${TestName}
-                COMMAND Python::Interpreter -m pytest -rPs ${TestSourceFile}
+                COMMAND Python::Interpreter -m pytest -rPs --capture=tee-sys ${TestSourceFile}
                 WORKING_DIRECTORY "${RR_PYTHON_TESTING_BUILD_PREFIX}"
         )
         set_tests_properties(${TestName} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH")

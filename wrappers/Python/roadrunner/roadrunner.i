@@ -452,10 +452,19 @@
 %apply const rr::Dictionary* {const Dictionary*, rr::Dictionary*, Dictionary*};
 
 // typemap for std::stringstream* to python string
+//
+// The caller owns the stream returned by functions such as
+// RoadRunner::saveStateS, so the typemap must delete it once its contents
+// have been copied into the python bytes object.
 %typemap(out) std::stringstream*{
     // marker for typemap(out): std::stringstream*
-    std::string s = $1->str();
-    PyObject* bytes = PyBytes_FromStringAndSize(s.c_str(), s.size());
+    PyObject* bytes = nullptr;
+    {
+        std::string s = $1->str();
+        bytes = PyBytes_FromStringAndSize(s.c_str(), s.size());
+    }
+    delete $1;
+    $1 = nullptr;
     if (!bytes){
         std::string err = "Could not create bytes object from stream";
         PyErr_SetString(PyExc_ValueError, err.c_str());
@@ -1213,7 +1222,7 @@ namespace std { class ostream{}; }
             PyErr_Format(PyExc_TypeError, "The argument must be of list or subtype of list.");
             return;
         }
-        opt->times.clear();
+        std::vector<double> newTimes;
         for (unsigned int j = 0; j < PyList_Size(list); ++j) {
             PyObject* pval = PyList_GetItem(list, j);
             double val;
@@ -1228,8 +1237,9 @@ namespace std { class ostream{}; }
                 PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
                 return;
             }
-            opt->times.push_back(val);
+            newTimes.push_back(val);
         }
+        opt->setTimes(newTimes);
      }
 
     /**
@@ -1325,10 +1335,20 @@ namespace std { class ostream{}; }
               will be created with the same seed.  Setting the seed to -1 (or any negative integer)
               tells the random number generators to use a seed based on the system clock (in 
               microcseconds) instead.
-            warnings.warn("the integrator option is now ignored for this function. So this function now sets the seed used for\
-                           the existing model and for the global configuration option")
+
+              The model is not regenerated or recompiled; only the generators are reseeded.  If
+              resetModel is True (the default), the model is then also reset with
+              reset(SelectionRecord.ALL) (the same as resetToOrigin()), which restarts the simulation
+              at time 0 and evaluates all the initial assignments again, so values drawn when the
+              model was loaded (for example an initial assignment that uses a distribution function)
+              are drawn again with the new seed.  That reset also discards any init() values that
+              were changed, and the current values.  With resetModel=False the current and initial
+              values and the current time stay as they are, and values already drawn are not drawn
+              again.  To seed the very first draw, set Config.RANDOM_SEED before creating the
+              RoadRunner.
             :param seed: The seed to use for the random number generator.
-            :param resetModel: If True, the model will be reset after setting the seed.
+            :param resetModel: If True (the default), reset the model with reset(SelectionRecord.ALL)
+              after setting the seed.
             """
             _roadrunner.RoadRunner_setSeed(self, seed, resetModel)
 
@@ -1911,7 +1931,8 @@ namespace std { class ostream{}; }
                        SelectionRecord.FLOATING |
                        SelectionRecord.BOUNDARY |
                        SelectionRecord.COMPARTMENT |
-                       SelectionRecord.GLOBAL_PARAMETER)
+                       SelectionRecord.GLOBAL_PARAMETER |
+                       SelectionRecord.STOICHIOMETRY)
 
         def resetParameter(self):
             """ Reset parameters to CURRENT init(X) values.
@@ -2136,6 +2157,14 @@ namespace std { class ostream{}; }
     double end;
     bool structuredResult;
     bool copyResult;
+    // 'start'/'duration'/'steps' are private in C++ (backed by
+    // setStartTime/setDuration/setSteps, each of which clears a stale
+    // 'times' left by a previous call). These phantom members route
+    // 'opt.start = 5' etc. through those setters so the same guarantee
+    // applies from Python.
+    double start;
+    double duration;
+    int steps;
 
     std::string __repr__() {
         return ($self)->toRepr();
@@ -2159,6 +2188,46 @@ namespace std { class ostream{}; }
         return SWIG_NewPointerObj(SWIG_as_voidptr(other), SWIGTYPE_p_rr__SimulateOptions, SWIG_POINTER_OWN );
     }
 
+    /**
+     * 'times' needs custom (not phantom-member) handling: there's no
+     * automatic Python list <-> std::vector<double> typemap in this file,
+     * so 'times' is implemented as an explicit Python property below,
+     * mirroring RoadRunner::_setSimulateOptionsTimes.
+     */
+    PyObject *_getTimes() {
+        const std::vector<double>& t = ($self)->getTimes();
+        size_t size = t.size();
+        PyObject *pyList = PyList_New(size);
+        for (size_t j = 0; j < size; ++j) {
+            PyList_SET_ITEM(pyList, j, PyFloat_FromDouble(t[j]));
+        }
+        return pyList;
+    }
+
+    void _setTimes(PyObject* list) {
+        if (!PyList_Check(list)) {
+            PyErr_Format(PyExc_TypeError, "The argument must be of list or subtype of list.");
+            return;
+        }
+        std::vector<double> newTimes;
+        for (unsigned int j = 0; j < PyList_Size(list); ++j) {
+            PyObject* pval = PyList_GetItem(list, j);
+            double val;
+            if (PyFloat_Check(pval)) {
+                val = PyFloat_AsDouble(pval);
+            }
+            else if (PyArray_IsIntegerScalar(pval)) {
+                val = PyInt_AsLong(pval);
+            }
+            else {
+                PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
+                return;
+            }
+            newTimes.push_back(val);
+        }
+        ($self)->setTimes(newTimes);
+    }
+
     %pythoncode %{
         def getListener(self):
             return self._getListener()
@@ -2168,17 +2237,25 @@ namespace std { class ostream{}; }
                 self._clearListener()
             else:
                 self._setListener(listener)
+
+        def _getTimesProperty(self):
+            return self._getTimes()
+
+        def _setTimesProperty(self, value):
+            self._setTimes(list(value))
+
+        times = property(_getTimesProperty, _setTimesProperty)
     %}
 
 }
 
 %{
     double rr_SimulateOptions_end_get(SimulateOptions* opt) {
-        return opt->start + opt->duration;
+        return opt->getStartTime() + opt->getDuration();
     }
 
     void rr_SimulateOptions_end_set(SimulateOptions* opt, double end) {
-        opt->duration = end - opt->start;
+        opt->setDuration(end - opt->getStartTime());
     }
 
     bool rr_SimulateOptions_structuredResult_get(SimulateOptions* opt) {
@@ -2195,6 +2272,30 @@ namespace std { class ostream{}; }
 
     void rr_SimulateOptions_copyResult_set(SimulateOptions* opt, bool value) {
         opt->copy_result = value;
+    }
+
+    double rr_SimulateOptions_start_get(SimulateOptions* opt) {
+        return opt->getStartTime();
+    }
+
+    void rr_SimulateOptions_start_set(SimulateOptions* opt, double value) {
+        opt->setStartTime(value);
+    }
+
+    double rr_SimulateOptions_duration_get(SimulateOptions* opt) {
+        return opt->getDuration();
+    }
+
+    void rr_SimulateOptions_duration_set(SimulateOptions* opt, double value) {
+        opt->setDuration(value);
+    }
+
+    int rr_SimulateOptions_steps_get(SimulateOptions* opt) {
+        return opt->getSteps();
+    }
+
+    void rr_SimulateOptions_steps_set(SimulateOptions* opt, int value) {
+        opt->setSteps(value);
     }
 %}
 

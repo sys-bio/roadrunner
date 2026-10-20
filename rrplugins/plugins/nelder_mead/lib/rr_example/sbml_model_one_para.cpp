@@ -60,9 +60,9 @@ double objfun(double par[], const void* userData)
     }
 
     rr::SimulateOptions opt;
-    opt.start       = expData.getTimeStart();
-    opt.duration    = expData.getTimeEnd() - expData.getTimeStart();
-    opt.steps       = expData.rSize() -1;
+    opt.setStartTime(expData.getTimeStart());
+    opt.setDuration(expData.getTimeEnd() - expData.getTimeStart());
+    opt.setSteps(expData.rSize() -1);
     TelluriumData simData(rr.simulate(&opt));
 
     //Calculate Chi Square using the ChiSquare plugin

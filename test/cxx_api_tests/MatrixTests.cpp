@@ -4,6 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "Matrix.h"
+#include <limits>
 
 using namespace rr;
 
@@ -60,6 +61,34 @@ TEST_F(MatrixTests, TestAlmostEqualsWhenFalse) {
                                   {4.1234, 5.1234, 7.1234},
                           });
     ASSERT_FALSE(first.almostEquals(second, 1e-5));
+}
+
+TEST_F(MatrixTests, TestAlmostEqualsWhenFalseReverseDirection) {
+    // almostEquals must be symmetric: if a.almostEquals(b) is false because
+    // b is bigger, b.almostEquals(a) must also be false. The one-sided check
+    // (lhs - rhs) > tolerance only caught the first ordering.
+    Matrix<double> small({
+                                 {0.0, 0.0},
+                         });
+    Matrix<double> large({
+                                 {1000.0, 0.0},
+                         });
+    ASSERT_FALSE(small.almostEquals(large, 1e-4));
+    ASSERT_FALSE(large.almostEquals(small, 1e-4));
+}
+
+TEST_F(MatrixTests, TestAlmostEqualsWithNaNDifferenceIsFalse) {
+    // NaN comparisons are always false, so the old check
+    // (lhs - rhs) > tolerance treated any NaN difference as "not greater
+    // than tolerance", silently reporting equality.
+    double nan = std::numeric_limits<double>::quiet_NaN();
+    Matrix<double> first({
+                                 {nan, 1.0},
+                         });
+    Matrix<double> second({
+                                  {2.0, 1.0},
+                          });
+    ASSERT_FALSE(first.almostEquals(second, 1e-4));
 }
 
 TEST_F(MatrixTests, TestAlmostEqualsWhenFalseButAcceptableTolerance) {

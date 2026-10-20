@@ -72,6 +72,56 @@ namespace rr {
         hstep = 0;
     }
 
+    void SimulateOptions::setTimes(const std::vector<double>& newTimes)
+    {
+        times = newTimes;
+        // 'times' is now authoritative: discard whatever steps-based state a
+        // previous call may have left behind, so it can't be mistaken for a
+        // deliberate, still-current steps request.
+        steps = Config::getInt(Config::SIMULATEOPTIONS_STEPS);
+        start = 0;
+        duration = Config::getDouble(Config::SIMULATEOPTIONS_DURATION);
+        hstep = 0;
+    }
+
+    const std::vector<double>& SimulateOptions::getTimes() const
+    {
+        return times;
+    }
+
+    void SimulateOptions::setStartTime(double newStart)
+    {
+        times.clear();
+        start = newStart;
+    }
+
+    double SimulateOptions::getStartTime() const
+    {
+        return start;
+    }
+
+    void SimulateOptions::setDuration(double newDuration)
+    {
+        times.clear();
+        duration = newDuration;
+    }
+
+    double SimulateOptions::getDuration() const
+    {
+        return duration;
+    }
+
+    void SimulateOptions::setSteps(int newSteps)
+    {
+        times.clear();
+        steps = newSteps;
+    }
+
+    int SimulateOptions::getSteps() const
+    {
+        return steps;
+    }
+
     void SimulateOptions::loadSBMLSettings(const std::string &fname) {
         if (!fname.size()) {
             rrLog(Logger::LOG_ERROR) << "Empty file name for setings file";

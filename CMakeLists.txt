@@ -8,8 +8,8 @@ cmake_minimum_required(VERSION 3.16)
 # Version information and include modules
 
 set(ROADRUNNER_VERSION_MAJOR 2)
-set(ROADRUNNER_VERSION_MINOR 9)
-set(ROADRUNNER_VERSION_PATCH 2)
+set(ROADRUNNER_VERSION_MINOR 11)
+set(ROADRUNNER_VERSION_PATCH 0)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
@@ -27,14 +27,6 @@ project(
         VERSION ${ROADRUNNER_VERSION}
         LANGUAGES CXX C
 )
-
-if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
-    # Source file extensions (.h/.cpp) do not need to be explicitly
-    #   specified if CMP0115 set to OLD.
-    #   New behavior requires all extensions be explicit
-    cmake_policy(SET CMP0115 OLD)
-endif ()
-
 
 if ("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
     message(STATUS "Build on 32-bit platform")
@@ -401,7 +393,7 @@ endif (WIN32)
 
 #find_package(Threads) # for libxml2, FindThreads.cmake is shipped with cmake
 #find_package(LibLZMA) # for libxml2, LibLZMA.cmake is shipped with cmake
-find_package(ZLIB CONFIG REQUIRED)
+find_package(ZLIB CONFIG REQUIRED COMPONENTS static)
 #find_package(bzip2 CONFIG REQUIRED)
 #find_package(iconv CONFIG REQUIRED)
 
@@ -469,6 +461,13 @@ find_package(nleq2 CONFIG REQUIRED)
 find_package(PocoFoundation CONFIG REQUIRED)
 find_package(PocoNet CONFIG REQUIRED)
 find_package(PocoXML CONFIG REQUIRED)
+
+# Each shared library embeds its own copy of the static Poco archives. Hiding their symbols
+# stops the dynamic linker from merging the copies' global objects (double init and destruction).
+if (UNIX AND NOT APPLE)
+    add_link_options("LINKER:--exclude-libs,$<TARGET_FILE_NAME:Poco::Foundation>:$<TARGET_FILE_NAME:Poco::Net>:$<TARGET_FILE_NAME:Poco::XML>")
+endif ()
+
 find_package(LLVM REQUIRED)
 
 find_package(SUNDIALS CONFIG REQUIRED)

@@ -1,6 +1,6 @@
 
 
-set(SharedTestFiles "${SharedTestFiles}" "${CMAKE_CURRENT_SOURCE_DIR}/SundialsSteadyStateSolverUnitTest")
+set(SharedTestFiles "${SharedTestFiles}" "${CMAKE_CURRENT_SOURCE_DIR}/SundialsSteadyStateSolverUnitTest.cpp")
 ## FixedPointIteration not finished due to difficulties getting it to work.
 #add_test_executable(
 #        FixedPointIterationTests test_targets
@@ -15,7 +15,6 @@ add_test_executable(
 add_test_executable(
         test_sundials_automatic_moiety_conservation test_targets
         AutomaticMoietyConservationTests.cpp
-        SundialsSteadyStateSolverUnitTest
         ${SharedTestFiles}
 )
 
@@ -23,7 +22,6 @@ add_test_executable(
 add_test_executable(
         test_sundials_steady_state_unit_basic_newton test_targets
         SundialsNewtonIterationUnitTests.cpp
-        SundialsSteadyStateSolverUnitTest
         ${SharedTestFiles}
 )
 

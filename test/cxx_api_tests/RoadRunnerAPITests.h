@@ -488,14 +488,14 @@ public:
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
         SimulateOptions options;
-        options.steps = 101;
-        options.duration = 100;
-        options.start = 0;
+        options.setSteps(101);
+        options.setDuration(100);
+        options.setStartTime(0);
         rr.setSimulateOptions(options);
         auto x = rr.getSimulateOptions();
-        ASSERT_EQ(x.steps, 101);
-        ASSERT_EQ(x.duration, 100);
-        ASSERT_EQ(x.start, 0);
+        ASSERT_EQ(x.getSteps(), 101);
+        ASSERT_EQ(x.getDuration(), 100);
+        ASSERT_EQ(x.getStartTime(), 0);
         delete testModel;
     }
 

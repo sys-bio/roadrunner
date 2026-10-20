@@ -66,6 +66,8 @@ private:
 
     void codeGenInitGlobalParameters(StoreSymbolResolver& modelDataResolver,
             LoadSymbolResolver& loadResolver);
+
+    void codeGenInitStoichiometry(llvm::Value *modelData);
 };
 
 } /* namespace rr */

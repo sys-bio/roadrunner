@@ -95,7 +95,7 @@ target_include_directories(roadrunner_python PUBLIC
 if (WIN32)
     target_compile_definitions(roadrunner_python PRIVATE EXPORT_RRC STATIC_RR)
 
-    swig_link_libraries(roadrunner_python
+    target_link_libraries(roadrunner_python
             roadrunner-static
             "${Python_LIBRARIES}"
             )
@@ -103,7 +103,7 @@ if (WIN32)
     set_target_properties(roadrunner_python PROPERTIES SUFFIX ".pyd")
 elseif (UNIX AND NOT APPLE)
     # Linux specific code
-    swig_link_libraries(roadrunner_python
+    target_link_libraries(roadrunner_python
             roadrunner-static
 
             ${Python_LIBRARIES}
@@ -120,7 +120,7 @@ elseif (APPLE)
             INSTALL_RPATH "@loader_path/../../lib;@loader_path/"
             INSTALL_NAME_DIR "@rpath")
     # we use roadrunner not roadrunner-static so we can use shared libraries at runtime
-    swig_link_libraries(roadrunner_python
+    target_link_libraries(roadrunner_python
             roadrunner-static
             ##            ${Python_LIBRARIES}
             )

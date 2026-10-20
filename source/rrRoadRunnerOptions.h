@@ -315,26 +315,6 @@ namespace rr
         bool copy_result;
 
         /**
-        * The number of steps at which the output is sampled. The samples are evenly spaced.
-        * When a simulation system calculates the data points to record, it will typically
-        * divide the duration by the number of time steps. Thus, for X steps, the output
-        * will have X+1 data rows.
-        */
-        int steps;
-
-        /**
-        * The start time of the simulation time-series data.
-        * Often this is 0, but not necessarily.
-        */
-        double start;
-
-        /**
-        * The duration of the simulation run, in the model's units of time.
-        */
-        double duration;
-
-
-        /**
         * The ouptut file for simulation results. If non-empty, then the
         * simulation results are batch-written to output_file every
         * Config::K_ROWS_PER_WRITE rows, and an empty
@@ -372,11 +352,45 @@ namespace rr
         */
         std::vector<std::string> concentrations;
 
-        /*
-        * A list of the requested output times.  If set, the simulator will only
-        * report simulation output at the requested values.
+        /**
+        * Set the requested output times.  The simulation will report output only
+        * at these values.  'times' takes precedence over 'steps'/'start'/'duration':
+        * setting it clears any previously-set steps-based state so that
+        * times-mode and steps-mode are always freely interleavable regardless of
+        * what a previous call configured.
         */
-        std::vector<double> times;
+        void setTimes(const std::vector<double>& times);
+
+        /**
+        * The requested output times, or empty if the simulation is steps-based.
+        */
+        const std::vector<double>& getTimes() const;
+
+        /**
+        * Set the start time of the simulation time-series data.  Often this is 0,
+        * but not necessarily.  Clears any previously-set 'times', since 'times'
+        * and the steps/start/duration triplet are mutually exclusive.
+        */
+        void setStartTime(double start);
+
+        double getStartTime() const;
+
+        /**
+        * Set the duration of the simulation run, in the model's units of time.
+        * Clears any previously-set 'times'.
+        */
+        void setDuration(double duration);
+
+        double getDuration() const;
+
+        /**
+        * Set the number of steps at which the output is sampled. The samples are
+        * evenly spaced. Thus, for X steps, the output will have X+1 data rows.
+        * Clears any previously-set 'times'.
+        */
+        void setSteps(int steps);
+
+        int getSteps() const;
 
         /**
         * get a description of this object, compatable with python __str__
@@ -408,6 +422,35 @@ namespace rr
         virtual void reset();
 
     private:
+
+        // RoadRunner is a tightly-coupled internal collaborator that needs
+        // direct access to these fields.
+        friend class RoadRunner;
+
+        /**
+        * The number of steps at which the output is sampled. The samples are evenly spaced.
+        * When a simulation system calculates the data points to record, it will typically
+        * divide the duration by the number of time steps. Thus, for X steps, the output
+        * will have X+1 data rows.
+        */
+        int steps;
+
+        /**
+        * The start time of the simulation time-series data.
+        * Often this is 0, but not necessarily.
+        */
+        double start;
+
+        /**
+        * The duration of the simulation run, in the model's units of time.
+        */
+        double duration;
+
+        /**
+        * The requested output times.  If set, the simulator will only report
+        * simulation output at the requested values.
+        */
+        std::vector<double> times;
 
         double hstep; //Used if we have a duration and number of steps, but not 'times'.
 

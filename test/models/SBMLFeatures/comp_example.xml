@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1"
+      level="3" version="1" comp:required="true">
+  <model id="main_model">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="sub1" comp:modelRef="submodel_def"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="submodel_def">
+      <listOfCompartments>
+        <compartment id="C" size="1" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species id="S1" compartment="C" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="S2" compartment="C" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfReactions>
+        <reaction id="J0" reversible="false" fast="false">
+          <listOfReactants>
+            <speciesReference species="S1" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="S2" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <ci>C</ci>
+                <cn type="real">0.1</cn>
+                <ci>S1</ci>
+              </apply>
+            </math>
+          </kineticLaw>
+        </reaction>
+      </listOfReactions>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

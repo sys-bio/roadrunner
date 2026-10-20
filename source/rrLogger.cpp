@@ -260,8 +260,6 @@ void Logger::enableConsoleLogging(int level)
         // let the logger manage ownership of the channels, we keep then around
         // so we can know when to add or remove them.
         splitter->addChannel(consoleChannel);
-
-        consoleChannel->release();
     }
 }
 

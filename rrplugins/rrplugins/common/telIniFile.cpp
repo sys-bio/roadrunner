@@ -24,7 +24,8 @@ mIniFileName(szFileName),
 mIsDirty(false),
 mAutoSave(autoSave),
 mAutoCreateKeys(1),
-mAutoCreateSections(1)
+mAutoCreateSections(1),
+mFlags(0)
 {
 	//mFlags = (mAutoCreateSections | mAutoCreateKeys);
 	if(mIniFileName.size() > 2 && autoLoad == true)

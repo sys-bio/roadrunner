@@ -22,6 +22,127 @@ public:
 };
 
 
+TEST_F(ModelAnalysisTests, issue1351_steadyStateAfterSimulate) {
+  // https://github.com/sys-bio/roadrunner/issues/1351
+  // This model (ATP <-> ADP <-> AMP) has one conserved moiety, so
+  // ATP + ADP + AMP must equal the same total (2.1 + 1.5 + 0.33 = 3.93)
+  // whether it's read right after construction, after simulate(), or
+  // after steadyState() runs following a simulate().
+  const double conservedTotal = 2.1 + 1.5 + 0.33;
+
+  RoadRunner ssOnly((modelAnalysisModelsDir / "steady_state_after_sim.xml").string());
+  ssOnly.steadyState();
+  EXPECT_NEAR(ssOnly.getValue("ATP") + ssOnly.getValue("ADP") + ssOnly.getValue("AMP"),
+    conservedTotal, 1e-6);
+
+  RoadRunner rr((modelAnalysisModelsDir / "steady_state_after_sim.xml").string());
+  rr.simulate(0, 100, 200);
+  EXPECT_NEAR(rr.getValue("ATP") + rr.getValue("ADP") + rr.getValue("AMP"),
+    conservedTotal, 1e-6);
+
+  rr.steadyState();
+  EXPECT_NEAR(rr.getValue("ATP") + rr.getValue("ADP") + rr.getValue("AMP"),
+    conservedTotal, 1e-6);
+}
+
+// https://github.com/sys-bio/roadrunner/issues/1339
+// SimulateOptions is a long-lived object (RoadRunner::self.simulateOpt) that
+// the C API mutates field-by-field across repeated simulate() calls.  The
+// planned fix makes 'times'/'start'/'duration'/'steps' private and adds
+// setTimes/setStartTime/setDuration/setSteps methods, each of which clears
+// whichever of 'times' or the steps-triplet is now stale, so that times-mode
+// and steps-mode are always freely interleavable regardless of what a
+// previous call left behind.  These tests exercise those methods directly
+// through SimulateOptions and do not compile until they exist.
+TEST_F(ModelAnalysisTests, issue1339_timesAfterSteps) {
+  RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+
+  // Steps-based simulation: start=0, duration=9, steps=3.
+  rr.simulate(0, 9, 4);
+  rr.reset();
+
+  // Switch to a times-based simulation, as the C API's setTimes should,
+  // via a method that clears the steps-based state left behind.
+  std::vector<double> times{ 0, 1, 2, 9 };
+  SimulateOptions& opt = rr.getSimulateOptions();
+  opt.setTimes(times);
+  const ls::DoubleMatrix* result = rr.simulate();
+
+  ASSERT_EQ(result->numRows(), times.size());
+  for (size_t i = 0; i < times.size(); i++) {
+    EXPECT_EQ(result->Element(i, 0), times[i]);
+  }
+}
+
+TEST_F(ModelAnalysisTests, issue1339_stepsAfterTimes) {
+  RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+
+  // Times-based simulation.
+  SimulateOptions& opt = rr.getSimulateOptions();
+  opt.setTimes(std::vector<double>{ 0, 1, 5, 10, 20 });
+  rr.simulate();
+  rr.reset();
+
+  // Switch back to a steps-based simulation, as the C API's
+  // setTimeStart/setTimeEnd/setNumPoints should, via methods that clear
+  // the stale 'times' left behind.
+  opt.setStartTime(0);
+  opt.setDuration(6);
+  opt.setSteps(3);
+  const ls::DoubleMatrix* result = nullptr;
+  EXPECT_NO_THROW(result = rr.simulate());
+  ASSERT_NE(result, nullptr);
+  ASSERT_EQ(result->numRows(), 4);
+  EXPECT_EQ(result->Element(0, 0), 0);
+  EXPECT_EQ(result->Element(3, 0), 6);
+}
+
+TEST_F(ModelAnalysisTests, issue1339_largerTimesAfterTimes) {
+  RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+
+  // Times-based simulation with a shorter vector.
+  std::vector<double> times1{ 0, 5, 10 };
+  SimulateOptions& opt = rr.getSimulateOptions();
+  opt.setTimes(times1);
+  rr.simulate();
+  rr.reset();
+
+  // Switch to a longer times vector, without calling setSteps in between:
+  // setTimes itself must clear whatever 'steps' the previous call left.
+  std::vector<double> times2{ 0, 1, 2, 3, 10 };
+  opt.setTimes(times2);
+  const ls::DoubleMatrix* result = nullptr;
+  EXPECT_NO_THROW(result = rr.simulate());
+  ASSERT_NE(result, nullptr);
+  ASSERT_EQ(result->numRows(), times2.size());
+  for (size_t i = 0; i < times2.size(); i++) {
+    EXPECT_EQ(result->Element(i, 0), times2[i]);
+  }
+}
+
+TEST_F(ModelAnalysisTests, issue1339_smallerTimesAfterTimes) {
+  RoadRunner rr((modelAnalysisModelsDir / "no_steady_state.xml").string());
+
+  // Times-based simulation with a longer vector.
+  std::vector<double> times1{ 0, 1, 2, 3, 10 };
+  SimulateOptions& opt = rr.getSimulateOptions();
+  opt.setTimes(times1);
+  rr.simulate();
+  rr.reset();
+
+  // Switch to a shorter times vector, without calling setSteps in between:
+  // setTimes itself must clear whatever 'steps' the previous call left.
+  std::vector<double> times2{ 0, 5, 10 };
+  opt.setTimes(times2);
+  const ls::DoubleMatrix* result = nullptr;
+  EXPECT_NO_THROW(result = rr.simulate());
+  ASSERT_NE(result, nullptr);
+  ASSERT_EQ(result->numRows(), times2.size());
+  for (size_t i = 0; i < times2.size(); i++) {
+    EXPECT_EQ(result->Element(i, 0), times2[i]);
+  }
+}
+
 TEST_F(ModelAnalysisTests, issue1259) {
   BasicDictionary opt;
   opt.setItem("allow_approx", true);
@@ -61,7 +182,7 @@ TEST_F(ModelAnalysisTests, SimulateWithSameTimes) {
     times.push_back(1);
     times.push_back(10);
     SimulateOptions opt;
-    opt.times = times;
+    opt.setTimes(times);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     EXPECT_EQ(result->numRows(), 4);
     EXPECT_EQ(result->Element(0, 0), 0);
@@ -81,7 +202,7 @@ TEST_F(ModelAnalysisTests, SimulateWithSameTimes) {
 //    times.push_back(1);
 //    times.push_back(10);
 //    SimulateOptions opt;
-//    opt.times = times;
+//    opt.setTimes(times);
 //    const ls::DoubleMatrix* result = rr.simulate(&opt);
 //    EXPECT_EQ(result->numRows(), 4);
 //    EXPECT_EQ(result->Element(0, 0), 0);
@@ -101,7 +222,7 @@ TEST_F(ModelAnalysisTests, SimulateWithSameEndTimes) {
     times.push_back(10);
     times.push_back(10);
     SimulateOptions opt;
-    opt.times = times;
+    opt.setTimes(times);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     EXPECT_EQ(result->numRows(), 4);
     EXPECT_EQ(result->Element(0, 0), 0);
@@ -392,9 +513,9 @@ TEST_F(ModelAnalysisTests, SameJacobians1) {
     rr.setValue("Vli", 0.1 * (0.3 + (1 - 0.3 - 0.2)));
 
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 0.1;
-    opt.steps = 1;
+    opt.setStartTime(0);
+    opt.setDuration(0.1);
+    opt.setSteps(1);
     rr.simulate(&opt);
 
     double origVext = rr.getValue("Vext");
@@ -426,9 +547,9 @@ TEST_F(ModelAnalysisTests, SameJacobians2) {
     rr.setValue("Vli", 0.1 * (0.3 + (1 - 0.3 - 0.2)));
 
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 0.1;
-    opt.steps = 1;
+    opt.setStartTime(0);
+    opt.setDuration(0.1);
+    opt.setSteps(1);
     rr.simulate(&opt);
 
     double origVext = rr.getValue("Vext");
@@ -457,9 +578,9 @@ TEST_F(ModelAnalysisTests, SameJacobians3) {
     RoadRunner rr((modelAnalysisModelsDir / "apap_liver_core_volchange.xml").string());
 
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 1;
-    opt.steps = 10;
+    opt.setStartTime(0);
+    opt.setDuration(1);
+    opt.setSteps(10);
     rr.simulate(&opt);
 
     ls::DoubleMatrix jf = rr.getFullJacobian();
@@ -758,9 +879,9 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStartGeneral) {
     //Event:  at S1 > 500: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -778,9 +899,9 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Time) {
     //Event:  at time > -1.1: S1 = 0;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -795,9 +916,9 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_TimeDelay) {
     //Event:  at 0.5 after time > -1.1: S1 = 0;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_time_delay.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -812,9 +933,9 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_T0fire) {
     //Event:  at S1 > 500, t0=false: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -832,9 +953,9 @@ TEST_F(ModelAnalysisTests, SimulateCVODEFromNegativeStart_Combo) {
     //         E2: at 0.5 after S1 > 500: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_combo.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -854,9 +975,9 @@ TEST_F(ModelAnalysisTests, DISABLED_SimulateCVODEFromNegativeStart_T0fireDelay) 
     //Event:  at 0.5 after S1 > 500, t0=false: S1 = 300;
     RoadRunner rr((modelAnalysisModelsDir / "negstart_event_t0fire_delay.xml").string());
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     ASSERT_EQ(result->CSize(), 2);
     ASSERT_EQ(result->RSize(), 121);
@@ -877,12 +998,12 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_General) {
     rr.getIntegrator()->setValue("seed", -1);
     //std::cout << rr.getSeed("gillespie") << std::endl;
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
-    for (int i = 0; i <= opt.steps; i++)
+    for (int i = 0; i <= opt.getSteps(); i++)
     {
         EXPECT_LE(result->Element(i, 1), 500);
         EXPECT_GE(result->Element(i, 1), 300);
@@ -896,13 +1017,13 @@ TEST_F(ModelAnalysisTests, SimulateGillespieFromNegativeStart_T0fire) {
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.getIntegrator()->setValue("seed", -1);
     SimulateOptions opt;
-    opt.start = -2;
-    opt.duration = 10;
-    opt.steps = 120;
+    opt.setStartTime(-2);
+    opt.setDuration(10);
+    opt.setSteps(120);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
     EXPECT_EQ(result->Element(0, 1), 300);
-    for (int i = 1; i <= opt.steps; i++)
+    for (int i = 1; i <= opt.getSteps(); i++)
     {
         EXPECT_LE(result->Element(i, 1), 500);
         EXPECT_GE(result->Element(i, 1), 300);
@@ -915,19 +1036,19 @@ TEST_F(ModelAnalysisTests, NonZeroStarts_CVODE) {
     rr.setIntegrator("cvode");
     //rr.getIntegrator()->setValue("variable_step_size", false);
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
-    opt.steps = 50;
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    opt.setSteps(50);
     ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = -2;
+    opt.setStartTime(-2);
     ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = 2;
+    opt.setStartTime(2);
     ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
 
 
-    for (int i = 0; i <= opt.steps; i++)
+    for (int i = 0; i <= opt.getSteps(); i++)
     {
         EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
         EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
@@ -946,18 +1067,18 @@ TEST_F(ModelAnalysisTests, NonZeroStarts_RK4) {
     rr.setIntegrator("rk4");
     //rr.getIntegrator()->setValue("variable_step_size", false);
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
-    opt.steps = 50;
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    opt.setSteps(50);
     ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = -2;
+    opt.setStartTime(-2);
     ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = 2;
+    opt.setStartTime(2);
     ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
 
-    for (int i = 0; i <= opt.steps; i++)
+    for (int i = 0; i <= opt.getSteps(); i++)
     {
         EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
         EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
@@ -977,18 +1098,18 @@ TEST_F(ModelAnalysisTests, NonZeroStarts_RK45) {
     rr.setIntegrator("rk45");
     rr.getIntegrator()->setValue("variable_step_size", false);
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
-    opt.steps = 50;
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    opt.setSteps(50);
     ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = -2;
+    opt.setStartTime(-2);
     ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
-    opt.start = 2;
+    opt.setStartTime(2);
     ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
 
-    for (int i = 0; i <= opt.steps; i++)
+    for (int i = 0; i <= opt.getSteps(); i++)
     {
         EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
         EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
@@ -1007,20 +1128,20 @@ TEST_F(ModelAnalysisTests, NonZeroStarts_Gillespie) {
     rr.getIntegrator()->setValue("variable_step_size", false);
     rr.getIntegrator()->setValue("seed", 1001);
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
-    opt.steps = 50;
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    opt.setSteps(50);
     ls::DoubleMatrix s0result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
     rr.getIntegrator()->setValue("seed", 1001);
-    opt.start = -2;
+    opt.setStartTime(-2);
     ls::DoubleMatrix sneg2result(*(rr.simulate(&opt)));
     rr.reset(int(SelectionRecord::SelectionType::ALL));
     rr.getIntegrator()->setValue("seed", 1001);
-    opt.start = 2;
+    opt.setStartTime(2);
     ls::DoubleMatrix s2result(*(rr.simulate(&opt)));
 
-    for (int i = 0; i <= opt.steps; i++)
+    for (int i = 0; i <= opt.getSteps(); i++)
     {
         EXPECT_NEAR(s0result.Element(i, 0), sneg2result.Element(i, 0) + 2, 0.01);
         EXPECT_NEAR(s0result.Element(i, 0), s2result.Element(i, 0) - 2, 0.01);
@@ -1834,13 +1955,13 @@ TEST_F(ModelAnalysisTests, SimulateGillespieZeroDuration) {
     RoadRunner *rr = new RoadRunner((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     rr->setIntegrator("gillespie");
     SimulateOptions opts = rr->getSimulateOptions();
-    opts.duration = 0;
-    opts.steps = 100;
+    opts.setDuration(0);
+    opts.setSteps(100);
 
     const ls::DoubleMatrix *results = rr->simulate(&opts);
     EXPECT_EQ(results->RSize(), 100);
 
-    opts.steps = 1000;
+    opts.setSteps(1000);
     results = rr->simulate(&opts);
     EXPECT_EQ(results->RSize(), 1000);
 
@@ -1851,13 +1972,13 @@ TEST_F(ModelAnalysisTests, SimulateGillespieDuration) {
     RoadRunner *rr = new RoadRunner((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     rr->setIntegrator("gillespie");
     SimulateOptions opts = rr->getSimulateOptions();
-    opts.duration = 0.5;
+    opts.setDuration(0.5);
 
     const ls::DoubleMatrix *results = rr->simulate(&opts);
     EXPECT_NEAR(results->Element(results->numRows() - 1, 0), 0.5, 0.0001);
 
-    opts.start = 0;
-    opts.duration = 0.7;
+    opts.setStartTime(0);
+    opts.setDuration(0.7);
     results = rr->simulate(&opts);
     EXPECT_NEAR(results->Element(results->numRows() - 1, 0), 0.7, 0.0001);
 
@@ -1867,9 +1988,9 @@ TEST_F(ModelAnalysisTests, SimulateGillespieDuration) {
 TEST_F(ModelAnalysisTests, SimulateAccordingToDocs) {
     RoadRunner rr((modelAnalysisModelsDir / "BIOMD0000000035_url.xml").string());
     SimulateOptions opt;
-    opt.start = 0;
-    opt.duration = 10;
-    opt.steps = 1000;
+    opt.setStartTime(0);
+    opt.setDuration(10);
+    opt.setSteps(1000);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
 
 }
@@ -1882,7 +2003,7 @@ TEST_F(ModelAnalysisTests, SimulateWithTimes) {
     times.push_back(5);
     times.push_back(10);
     SimulateOptions opt;
-    opt.times = times;
+    opt.setTimes(times);
     const ls::DoubleMatrix* result = rr.simulate(&opt);
     EXPECT_EQ(result->numRows(), 4);
     EXPECT_EQ(result->Element(0, 0), 0);
@@ -1905,6 +2026,7 @@ TEST_F(ModelAnalysisTests, SimulateWithTimesFunction) {
     EXPECT_EQ(result->Element(2, 0), 5);
     EXPECT_EQ(result->Element(3, 0), 10);
 }
+
 
 TEST_F(ModelAnalysisTests, ResetAfterControlCalc) {
     RoadRunner rr((modelAnalysisModelsDir / "conserved_cycle.xml").string());
@@ -1944,9 +2066,11 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 
     rr.setConservedMoietyAnalysis(true);
 
-    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction) --
+    // reading an already-valid, independent stoichiometry is safe under CMA; only
+    // setting one is blocked, since it could invalidate already-computed conservation laws.
+    EXPECT_EQ(rr.getValue("m"), 2);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 2);
 
     // set the stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
@@ -1976,24 +2100,39 @@ TEST_F(ModelAnalysisTests, Stoichiometry_Reactant_Or_Product_With_Switching_Cons
 
     rr.setConservedMoietyAnalysis(true);
 
-    // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("m"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S2,_J0)"), rrllvm::LLVMException);
+    // get the initial stoichiometry value with parameter and stoich(Species,Reaction) --
+    // still safe under CMA; reflects the value set just above, not the original one.
+    EXPECT_EQ(rr.getValue("m"), 6);
+    EXPECT_EQ(rr.getValue("stoich(S2,_J0)"), 6);
 
     // set the stoichiometry value with parameter and stoich(Species,Reaction)
     EXPECT_THROW(rr.setValue("m", 3), rrllvm::LLVMException);
     EXPECT_THROW(rr.setValue("stoich(S2,_J0)", 3), rrllvm::LLVMException);
 }
 
-TEST_F(ModelAnalysisTests, Stoichiometry_MultiReactantProduct) {
+TEST_F(ModelAnalysisTests, Stoichiometry_MultiSpeciesReference) {
+    // S1 is a reactant via "n" (declared 1) and an unnamed product
+    // (declared 1) in the same reaction _J0 -- a MultiSpeciesReference
+    // collision. The named-id form ("n") addresses that one reference's own
+    // independent value directly, so it works even though the cell is
+    // shared. stoich(S1,_J0) reads the raw (role-agnostic) matrix cell,
+    // which is well-defined regardless of collisions: -1 (reactant "n")
+    // + 1 (product) = 0. Setting the cell directly via stoich(S1,_J0),
+    // however, is still ambiguous (which reference should change?) and
+    // continues to throw.
     RoadRunner rr((modelAnalysisModelsDir / "get_set_stoichiometry.xml").string());
 
     // get the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.getValue("n"), rrllvm::LLVMException);
-    EXPECT_THROW(rr.getValue("stoich(S1,_J0)"), rrllvm::LLVMException);
+    EXPECT_EQ(rr.getValue("n"), 1.0);
+    EXPECT_EQ(rr.getValue("stoich(S1,_J0)"), 0.0);
 
-    // set the initial stoichiometry value with parameter and stoich(Species,Reaction)
-    EXPECT_THROW(rr.setValue("n", 3), rrllvm::LLVMException);
+    // set "n" directly -- updates its own contribution to the shared cell
+    // by its delta (1 -> 3, reactant, so cell shifts by -2: 0 -> -2).
+    rr.setValue("n", 3);
+    EXPECT_EQ(rr.getValue("n"), 3.0);
+    EXPECT_EQ(rr.getValue("stoich(S1,_J0)"), -2.0);
+
+    // setting the shared cell directly is still ambiguous.
     EXPECT_THROW(rr.setValue("stoich(S1,_J0)", 3), rrllvm::LLVMException);
 }
 
@@ -2017,9 +2156,12 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Check) {
     EXPECT_EQ(rr.getSeed("gillespie"), rr.getIntegrator()->getValue("seed").getAs<int64_t>());
 }
 
-TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
+TEST_F(ModelAnalysisTests, SetSeed_Same_Seed_Gives_Same_Result_Before_Simulating) {
     RoadRunner rr1((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "simple_distrib_model.xml").string());
+    // "a" has an initial assignment drawn from a normal distribution, which is evaluated when the
+    // model is loaded (with a seed taken from the clock). setSeed resets the model with
+    // reset(SelectionRecord::ALL) by default, which draws it again with the new seed.
     rr1.setSeed(42);
     rr2.setSeed(42);
     rr1.simulate();
@@ -2027,13 +2169,13 @@ TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_With_Reset_Model) {
     EXPECT_NEAR(rr1.getValue("a"), rr2.getValue("a"), 0.0000001);
 }
 
-TEST_F(ModelAnalysisTests, SetSeed_Get_Seed_Value_Uniform_Without_Reset_Model) {
+TEST_F(ModelAnalysisTests, SetSeed_Same_Seed_Gives_Same_Result_After_Simulating) {
     RoadRunner rr1((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
     RoadRunner rr2((modelAnalysisModelsDir / "uniform_distrib_model.xml").string());
     rr1.simulate(0, 5, 50);
     rr2.simulate(0, 5, 50);
-    rr1.setSeed(42, false);
-    rr2.setSeed(42, false);
+    rr1.setSeed(42);
+    rr2.setSeed(42);
     rr1.simulate(5, 10, 50);
     rr2.simulate(5, 10, 50);
     EXPECT_NEAR(rr1.getValue("x"), rr2.getValue("x"), 0.0000001);
@@ -2044,11 +2186,11 @@ TEST_F(ModelAnalysisTests, Set_Gillespie_Random_Seed) {
     RoadRunner rr2((modelAnalysisModelsDir / "gillespie_random_seed.xml").string());
     rr1.setIntegrator("gillespie");
     rr1.getIntegrator()->setValue("variable_step_size", true);
-    rr1.setSeed(-1, false);
+    rr1.setSeed(-1);
     const ls::DoubleMatrix* rr1_results = rr1.simulate(0, 10, 2);
     rr2.setIntegrator("gillespie");
-    rr1.getIntegrator()->setValue("variable_step_size", true);
-    rr2.setSeed(-1, false);
+    rr2.getIntegrator()->setValue("variable_step_size", true);
+    rr2.setSeed(-1);
     const ls::DoubleMatrix* rr2_results = rr2.simulate(0, 10, 2);
     // With a variable step size, every time step is a random draw, which should be different.
     EXPECT_NE(rr1_results->Element(1, 0), rr2_results->Element(1, 0));

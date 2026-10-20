@@ -259,6 +259,25 @@ static bool is_init_conc(const std::string& str, std::string& p1)
     }
 }
 
+static const Poco::RegularExpression is_init_stoich_re("^\\s*init\\s*\\(\\s*stoich\\s*\\(\\s*(\\w*)\\s*,\\s*(\\w*)\\s*\\)\\s*\\)\\s*$", RegularExpression::RE_CASELESS);
+static bool is_init_stoich(const std::string& str, std::string& p1, std::string& p2)
+{
+    std::vector<std::string> matches;
+
+    int nmatch = is_init_stoich_re.split(str, matches);
+
+    if (nmatch == 3)
+    {
+        p1 = matches[1];
+        p2 = matches[2];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 namespace rr
 {
@@ -308,6 +327,9 @@ std::string SelectionRecord::to_repr() const
     case SelectionRecord::INITIAL_AMOUNT: selType = "INITIAL_AMOUNT"; break;
     case SelectionRecord::INITIAL_CONCENTRATION: selType = "INITIAL_CONCENTRATION"; break;
     case SelectionRecord::STOICHIOMETRY: selType = "STOICHIOMETRY"; break;
+    case SelectionRecord::INITIAL_STOICHIOMETRY: selType = "INITIAL_STOICHIOMETRY"; break;
+    case SelectionRecord::MULTI_SPECIES_REFERENCE: selType = "MULTI_SPECIES_REFERENCE"; break;
+    case SelectionRecord::INITIAL_MULTI_SPECIES_REFERENCE: selType = "INITIAL_MULTI_SPECIES_REFERENCE"; break;
     case SelectionRecord::UNKNOWN_ELEMENT: selType = "UNKNOWN_ELEMENT"; break;
     case SelectionRecord::UNKNOWN_CONCENTRATION: selType = "UNKNOWN_CONCENTRATION"; break;
     default: selType = "UNKNOWN"; break;
@@ -375,6 +397,10 @@ rr::SelectionRecord::SelectionRecord(const std::string str) :
     else if(is_init_conc(str, p1))
     {
         selectionType = INITIAL_CONCENTRATION;
+    }
+    else if(is_init_stoich(str, p1, p2))
+    {
+        selectionType = INITIAL_STOICHIOMETRY;
     }
     else if(is_stoich(str, p1, p2))
     {
@@ -463,6 +489,20 @@ std::string rr::SelectionRecord::to_string() const
         else {
           result = "stoich(" + p1 + ", " + p2 + ")";
         }
+        break;
+    case INITIAL_STOICHIOMETRY:
+        if (p2.empty()) {
+          result = "init(" + p1 + ")";
+        }
+        else {
+          result = "init(stoich(" + p1 + ", " + p2 + "))";
+        }
+        break;
+    case MULTI_SPECIES_REFERENCE:
+        result = p1;
+        break;
+    case INITIAL_MULTI_SPECIES_REFERENCE:
+        result = "init(" + p1 + ")";
         break;
     case UNKNOWN:
         result = "UNKNOWN";

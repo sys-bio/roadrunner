@@ -330,9 +330,9 @@ namespace rr {
          * @code
          * RoadRunner rr = RoadRunner("someFile.xml");
          * SimulateOptions opt = rr.getSimulateOptions();
-         * opt.start = 0;
-         * opt.duration = 10;
-         * opt.steps = 1000;
+         * opt.setStartTime(0);
+         * opt.setDuration(10);
+         * opt.setSteps(1000);
          * const DoubleMatrix *result = rr.simulate(&opt);
          * @endcode
          *
@@ -343,9 +343,9 @@ namespace rr {
          * RoadRunner rr = RoadRunner("someFile.xml");
          * rr.setIntegrator("gillespie");
          * SimulateOptions opt;
-         * opt.start = 0;
-         * opt.duration = 10;
-         * opt.steps = 1000;
+         * opt.setStartTime(0);
+         * opt.setDuration(10);
+         * opt.setSteps(1000);
          * opt.setItem("stiff", true);
          * opt.setItem("seed", 12345);
          * const DoubleMatrix *result = rr.simulate(&opt);
@@ -372,10 +372,11 @@ namespace rr {
         /**
          * @brief simulate the model using currently set integrator
          * @param start starting time to simulate
-         * @param stop what time point does the simulation end?
+         * @param duration how long to simulate: the simulation ends at time start + duration
+         * (the Python simulate takes an end time instead, and converts it).
          * @param points how many points to output (one greater than the number of steps to take).
          */
-        const ls::DoubleMatrix *simulate(double start, double stop, int points);
+        const ls::DoubleMatrix *simulate(double start, double duration, int points);
 
         /**
          * @brief simulate the model using currently set integrator
@@ -443,7 +444,7 @@ namespace rr {
          * and generated from RoadRunner::saveStateS. It is an error to
          * use a stringstream that was generated in any other way. The memory
          * associated with the stringstream is automatically cleaned up
-         * after loading the state.
+         * after loading the state, including when loading fails with an exception.
          */
         void loadStateS(std::stringstream* state) ;
 
@@ -1145,6 +1146,18 @@ namespace rr {
          */
         void setInitValue(std::string sid, double initValue);
 
+        /**
+         * Set the initial stoichiometry of an unnamed speciesReference,
+         * addressed by species and reaction rather than by id (named
+         * stoichiometries go through setInitValue instead). Throws if the
+         * species appears more than once in the reaction, since it would be
+         * ambiguous which speciesReference to set.
+         * @param speciesId: the ID of the species
+         * @param reactionId: the ID of the reaction
+         * @param initValue: the initial stoichiometry to be set
+         */
+        void setInitStoichiometryValue(const std::string& speciesId, const std::string& reactionId, double initValue);
+
 
         /**
          * Set the constant attribute for an existing species/ parameter/ compartment
@@ -1649,7 +1662,24 @@ namespace rr {
         std::vector<std::string> getConservedMoietyIds();
 
         /**
-         * @brief Set the value of Config::RANDOM_SEED
+         * @brief Set the seed of all random number generators, and the value of Config::RANDOM_SEED
+         * @details The seed controls everything random in a simulation: the Gillespie integrator,
+         * the SBML distribution functions, and the order in which events that fire at the same
+         * time with the same priority are applied (SBML leaves that order arbitrary).
+         * A negative seed means a seed taken from the system clock.
+         *
+         * The model is not regenerated or recompiled: this only reseeds the generators. If
+         * @p resetModel is true (the default) the model is then also reset with
+         * reset(SelectionRecord::ALL), which restarts the simulation at time 0 and evaluates all
+         * the initial assignments again, so values drawn when the model was loaded (for example an
+         * initial assignment that uses a distribution function) are drawn again with the new seed.
+         * That reset also discards any init() values that were changed, and the current values.
+         * With @p resetModel false, the current and initial values and the current time stay as
+         * they are, and values already drawn are not drawn again. To seed the very first draw,
+         * set Config::RANDOM_SEED before creating the RoadRunner.
+         *
+         * @param seed the seed to use; negative means a seed taken from the system clock
+         * @param resetModel whether to reset the model after reseeding (default true)
          */
         void setSeed(std::int64_t seed, bool resetModel = true);
 

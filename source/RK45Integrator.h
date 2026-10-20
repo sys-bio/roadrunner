@@ -62,13 +62,15 @@ namespace rr
         /**
          * @author CC
          * @brief Integrates the model from t to t + h.
-         * @details Attempts to find the state std::vector at
-         * t + h, and returns time t + h if successful.
-         * If the integrator does not find a convergent
-         * solution, the state std::vector is not updated and
-         * t is returned.
-         * Also calculates a new timestep and saves it 
-         * to a member variable for future use.
+         * @details With the variable_step_size setting one adaptive step of
+         * at most h is taken, and the time that was reached is returned.
+         * Otherwise adaptive steps are taken until t + h is reached, which
+         * is returned.  The last step is cut so that it ends exactly at t + h.
+         * In both cases the new state std::vector is set in the model,
+         * and the step size proposed by the error control is saved
+         * to a member variable for the next call.
+         * A variable step call with h <= 0 takes one step of any size
+         * that the error control allows.
          */
         virtual double integrate(double t, double h);
 
@@ -122,8 +124,6 @@ namespace rr
 
         // ** Getters / Setters ************************************************
 
-        virtual Setting getValue(std::string key);
-
         /**
          * @author JKM
          * @brief Always deterministic for RK45
@@ -160,7 +160,11 @@ namespace rr
         double *k1, *k2, *k3, *k4, *y, *ytmp;
 
         // new scalars for RK45
-        double hCurrent, hmin, hmax;
+        /**
+         * the step size proposed by the error control, kept from one call
+         * of integrate to the next (0: none yet, e.g. after a restart)
+         */
+        double hCurrent;
 
         double *k5, *k6, *err;
 

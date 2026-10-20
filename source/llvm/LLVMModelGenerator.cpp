@@ -106,6 +106,7 @@ namespace rrllvm {
         dst->eventAssignPtr = src->eventAssignPtr;
         dst->getPiecewiseTriggerPtr = src->getPiecewiseTriggerPtr;
         dst->evalVolatileStoichPtr = src->evalVolatileStoichPtr;
+        dst->resetRateRuleStoichPtr = src->resetRateRuleStoichPtr;
         dst->evalConversionFactorPtr = src->evalConversionFactorPtr;
     }
 
@@ -126,6 +127,7 @@ namespace rrllvm {
         EventAssignCodeGen(context).createFunction();
         GetPiecewiseTriggerCodeGen(context).createFunction();
         EvalVolatileStoichCodeGen(context).createFunction();
+        ResetRateRuleStoichCodeGen(context).createFunction();
         EvalConversionFactorCodeGen(context).createFunction();
 
         Function* setBoundarySpeciesAmountIR = nullptr;
@@ -271,7 +273,7 @@ namespace rrllvm {
 
             rrLog(Logger::LOG_FATAL) << s.str();
 
-            throw_llvm_exception(s.str())
+            throw_llvm_exception(s.str());
         }
 
         modelGeneratorContext->getJitNonOwning()->mapLLVMGeneratedFunctionsToSymbols(modelResources.get(), options);
@@ -310,21 +312,45 @@ namespace rrllvm {
 
             std::vector<std::string> newSymbols = newModel->getRateRuleSymbols();
 
+            // Species whose value is derived from a conserved-moiety total (see
+            // LLVMExecutableModel::setFloatingSpeciesAmounts) must be transferred
+            // after every other floating species: setting one of them shifts the
+            // conserved total by the difference from its currently derived value,
+            // which is only correct once the other species in that conservation
+            // law hold their transferred values rather than the new model's
+            // freshly-generated init values.
+            auto transferFloatingSpecies = [&](int i, const std::string& id) {
+                double value = 0;
+                oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+                try {
+                    newModel->setValue(id, value);
+                }
+                catch (const exception& e) {
+                    rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                        "value for floating species '" << id << "' (value " << value
+                        << "): " << e.what();
+                }
+            };
+
+            std::vector<int> deferredConservedMoietySpecies;
+
             for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++) {
                 std::string id = oldModel->getFloatingSpeciesId(i);
                 int index = newModel->getFloatingSpeciesIndex(id);
 
                 if (index >= 0) {
                     // new model has this species
-                    double value = 0;
-                    oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-                    try {
-                        newModel->setValue(id, value);
+                    bool isCM = newModel->symbols->isConservedMoietySpecies(id);
+                    if (isCM) {
+                        deferredConservedMoietySpecies.push_back(i);
+                        continue;
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
-                    }
+                    transferFloatingSpecies(i, id);
                 }
+            }
+
+            for (int i : deferredConservedMoietySpecies) {
+                transferFloatingSpecies(i, oldModel->getFloatingSpeciesId(i));
             }
 
 
@@ -339,8 +365,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for boundary species '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
 
@@ -358,8 +386,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for compartment '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
 
@@ -376,8 +406,10 @@ namespace rrllvm {
                     try {
                         newModel->setValue(id, value);
                     }
-                    catch (const exception&) {
-                        //Don't worry about it.
+                    catch (const exception& e) {
+                        rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                            "value for global parameter '" << id << "' (value " << value
+                            << "): " << e.what();
                     }
                 }
             }
@@ -393,8 +425,18 @@ namespace rrllvm {
                 int new_s = newModel->getFloatingSpeciesIndex(sID);
                 if (new_s < 0) continue;
                 if (new_s >= newModel->getNumIndFloatingSpecies()) continue;
-                double stoich = oldModel->getStoichiometry(s, r);
-                newModel->setStoichiometry(new_s, new_r, stoich);
+                int oldIndex = oldModel->getStoichiometryIndex(sID, rID);
+                int newIndex = newModel->getStoichiometryIndex(sID, rID);
+                if (oldIndex < 0 || newIndex < 0) continue;
+                try {
+                    double stoich = oldModel->getStoichiometry(oldIndex);
+                    newModel->setStoichiometry(newIndex, stoich);
+                }
+                catch (const exception& e) {
+                    rrLog(Logger::LOG_WARNING) << "regenerateModel: failed to transfer current "
+                        "stoichiometry value for species '" << sID << "' in reaction '" << rID
+                        << "': " << e.what();
+                }
               }
             }
 
@@ -537,6 +579,7 @@ namespace rrllvm {
         // no initial conditions for these
         uint numRateRules = static_cast<uint>(symbols.getRateRuleSize());
         uint numReactions = static_cast<uint>(symbols.getReactionSize());
+        uint numMultiSpeciesReferences = static_cast<uint>(symbols.getMultiSpeciesReferenceSize());
 
         uint modelDataSize = modelDataBaseSize +
             sizeof(double) * (
@@ -549,7 +592,9 @@ namespace rrllvm {
                 numInitGlobalParameters +
                 numReactions +
                 numRateRules +
-                numIndFloatingSpecies
+                numIndFloatingSpecies +
+                numMultiSpeciesReferences +
+                numMultiSpeciesReferences // multiSpeciesReferencesInitValues, same size
                 );
 
         LLVMModelData* modelData = (LLVMModelData*)calloc(
@@ -568,6 +613,7 @@ namespace rrllvm {
 
         modelData->numRateRules = numRateRules;
         modelData->numReactions = numReactions;
+        modelData->numMultiSpeciesReferences = numMultiSpeciesReferences;
         modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
         modelData->numPiecewiseTriggers = numPiecewiseTriggers;
 
@@ -604,15 +650,25 @@ namespace rrllvm {
         modelData->floatingSpeciesAmountsAlias = &modelData->data[offset];
         offset += numIndFloatingSpecies;
 
+        modelData->multiSpeciesReferencesAlias = &modelData->data[offset];
+        offset += numMultiSpeciesReferences;
+
+        modelData->multiSpeciesReferencesInitAlias = &modelData->data[offset];
+        offset += numMultiSpeciesReferences;
+
         assert(modelDataBaseSize + offset * sizeof(double) == modelDataSize &&
             "LLVMModelData size not equal to base size + data");
 
-        // allocate the stoichiometry matrix
+        // allocate the stoichiometry matrix, and a second one with the same
+        // sparsity pattern to hold the frozen initial values.
         const std::vector<uint>& stoichRowIndx = symbols.getStoichRowIndx();
         const std::vector<uint>& stoichColIndx = symbols.getStoichColIndx();
         std::vector<double> stoichValues(stoichRowIndx.size(), 0);
 
         modelData->stoichiometry = rr::csr_matrix_new(numIndFloatingSpecies, numReactions,
+            stoichRowIndx, stoichColIndx, stoichValues);
+
+        modelData->initStoichiometry = rr::csr_matrix_new(numIndFloatingSpecies, numReactions,
             stoichRowIndx, stoichColIndx, stoichValues);
 
         // make a copy of the random object

@@ -8,6 +8,7 @@
 #include "rrException.h"
 #include "rrConfig.h"
 #include "rrUtils.h"
+#include "SundialsLogger.h"
 
 
 #include <cvodes/cvodes.h>                          /* prototypes for CVODE fcts., consts.          */
@@ -90,6 +91,7 @@ namespace rr {
             stateVectorVariables(false),
             variableStepPendingEvent(false),
             variableStepTimeEndEvent(false),
+            variableStepEventTolerance(0),
             typecode_(CVODE_INT_TYPECODE) {
         rrLog(Logger::LOG_INFORMATION) << "creating CVODEIntegrator";
 
@@ -164,7 +166,7 @@ namespace rr {
                    "(double) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.");
         addSetting("absolute_tolerance", Setting(Config::getDouble(Config::CVODE_MIN_ABSOLUTE)), "Absolute Tolerance",
                    "Specifies the scalar or std::vector absolute tolerance (double or double std::vector).",
-                   "(double or double std::vector) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. If a single value is set, that vector is the single value multiplied by the value of the elements of the state vector (floating species, and elements set by rate rules).  If the value of the element is zero, the absolute tolerance value is either multiplied by the species' compartment volume, or, if the element is not a species, the absolute tolerance value is used directly.  Note that the state vector uses species amounts, so if the vector is being set, the values need to be scaled to the amounts of the species, not their concentrations.  (When setting a single value, this will be taken care of automatically.)  The vector being used by the solver can be obtained by calling 'getAbsoluteToleranceVector' on the CVODE integrator.  The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+                   "(double or double std::vector) CVODE calculates a std::vector of error weights which is used in all error and convergence tests. If a single value is set, that vector is the single value multiplied by the value of the elements of the initial state vector (floating species, and elements set by rate rules).  If the value of the element is zero or close to zero (within 1e-30), the absolute tolerance value is either multiplied by the species' compartment volume, or, if the element is not a species, the absolute tolerance value is used directly.  Note that the state vector uses species amounts, so if the vector is being set, the values need to be scaled to the amounts of the species, not their concentrations.  (When setting a single value, this will be taken care of automatically.)  The vector being used by the solver can be obtained by calling 'getAbsoluteToleranceVector' on the CVODE integrator.  The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
         addSetting("stiff", Setting(true), "Stiff",
                    "Specifies whether the integrator attempts to solve stiff equations. (bool)",
                    "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
@@ -210,6 +212,7 @@ namespace rr {
         stateVectorVariables = false;
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
+        variableStepEventTolerance = 0;
 
         if (m) {
             create();
@@ -318,22 +321,22 @@ namespace rr {
     void CVODEIntegrator::setIndividualTolerance(std::string sid, double value) {
 
         // the tolerance std::vector that will be stored
-        // [0, numIndFloatingSpecies) stores tolerances for independent floating species
-        // [numIndFloatingSpecies, numIndFloatingSpecies+numRateRule) stores tolerances for variables that have rate rule
+        // Match ExecutableModel::getStateVector(): rate rules first, followed by
+        // independent floating species.
         std::vector<double> v = getAbsoluteToleranceVector();
 
         int speciesIndex = mModel->getFloatingSpeciesIndex(sid);
         std::ptrdiff_t index;
         if (speciesIndex > -1 && speciesIndex < mModel->getNumIndFloatingSpecies()) {
             // sid is an independent floating species
-            v[speciesIndex] = value;
+            v[mModel->getNumRateRules() + speciesIndex] = value;
         } else {
             // sid might has a rate rule
             std::vector<std::string> symbols = mModel->getRateRuleSymbols();
             std::vector<std::string>::iterator it = std::find(symbols.begin(), symbols.end(), sid);
             if (it != symbols.end()) {
                 // found it
-                index = mModel->getNumIndFloatingSpecies() + std::distance(symbols.begin(), it);
+                index = std::distance(symbols.begin(), it);
                 v[index] = value;
             } else {
                 throw std::invalid_argument("CVODEIntegrator::setIndividualTolerance failed, given sid " + sid +
@@ -439,14 +442,12 @@ namespace rr {
 
     double CVODEIntegrator::integrate(double timeStart, double hstep) {
         static const double epsilon = std::numeric_limits<double>::epsilon();
-        // CVODE root tolerance, used for backing up when an event fires (see CVODE User Doc pp. 13)
-        static const double roottol = 100. * (32. * epsilon) * (fabs(timeStart) + fabs(hstep));
 
         rrLog(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
                                  << timeStart << ", " << hstep << ")";
 
         if (variableStepPendingEvent || variableStepTimeEndEvent) {
-            return applyVariableStepPendingEvents() + roottol;
+            return applyVariableStepPendingEvents() + variableStepEventTolerance;
         }
 
         double timeEnd = timeStart-1; //Just to set it at a minimum; anything lower than timeStart should work.
@@ -502,12 +503,14 @@ namespace rr {
                     if (varstep
                         && (timeEnd - timeStart > 2. * epsilon)) {
                         variableStepPendingEvent = true;
+                        // the row before the event must stay after the previous row
+                        variableStepEventTolerance = std::min(getRootTolerance(timeEnd), 0.5 * (timeEnd - timeStart));
                         assignResultsToModel();
                         mModel->setTime(timeEnd - epsilon);
                         if (listener) {
                             listener->onTimeStep(this, mModel, timeEnd);
                         }
-                        return timeEnd - roottol;
+                        return timeEnd - variableStepEventTolerance;
                     }
 
                     // apply events, copy post event status into integrator state std::vector.
@@ -537,6 +540,7 @@ namespace rr {
                         mModel->setTime(timeEnd - epsilon);
                         assignResultsToModel();
                         variableStepTimeEndEvent = true;
+                        variableStepEventTolerance = getRootTolerance(timeEnd);
                         mLastEventTime = timeEnd;
                         return timeEnd - epsilon;
                     }
@@ -645,6 +649,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // cvode return code
         int err;
@@ -796,6 +801,31 @@ namespace rr {
         }
     }
 
+    bool CVODEIntegrator::interpolateToTime(double t) {
+        if (!mStateVector || !mCVODE_Memory || !mModel) {
+            return false;
+        }
+
+        // CVodeGetDky is valid for t within the last internal step, [tn - hu, tn]
+        double tn = 0, hu = 0;
+        if (CVodeGetCurrentTime(mCVODE_Memory, &tn) != CV_SUCCESS ||
+            CVodeGetLastStep(mCVODE_Memory, &hu) != CV_SUCCESS) {
+            return false;
+        }
+        const double fuzz = 100. * std::numeric_limits<double>::epsilon() * (fabs(tn) + fabs(hu));
+        if (t < tn - fabs(hu) - fuzz || t > tn + fuzz) {
+            return false;
+        }
+        t = std::min(t, tn);
+
+        if (CVodeGetDky(mCVODE_Memory, t, 0, mStateVector) != CV_SUCCESS) {
+            return false;
+        }
+        assignResultsToModel();
+        mModel->setTime(t);
+        return true;
+    }
+
     void CVODEIntegrator::assignResultsToModel() const {
         if (mStateVector) {
             mModel->setStateVector(mStateVector->ops->nvgetarraypointer(mStateVector));
@@ -834,7 +864,7 @@ namespace rr {
                 //Otherwise, something might have happened, and the amount tolerances vector is the wrong size.  This can happen when the model is being resized, among other situations.
                 amount_tolerances.clear();
                 for (int n = 0; n < species + rrs; n++) {
-                    amount_tolerances.push_back(Config::CVODE_MIN_ABSOLUTE);
+                    amount_tolerances.push_back(Config::getDouble(Config::CVODE_MIN_ABSOLUTE));
                 }
                 break;
             }
@@ -842,50 +872,65 @@ namespace rr {
             default:
                 handleCVODEError(CV_ILL_INPUT);
         }
+        // Scale by the model's initial values rather than its current state, so the
+        // tolerances do not depend on how the simulation is divided into calls.
+        // Magnitudes below zeroThreshold are treated as zero.
+        const double zeroThreshold = 1e-30;
+
         uint ncomp = mModel->getNumCompartments();
-        double* volumes = (double*)calloc(ncomp, sizeof(double));
-        mModel->getCompartmentVolumes(ncomp, 0, volumes);
+        std::vector<double> initVolumes(ncomp, 0.0);
+        if (ncomp > 0) {
+            mModel->getCompartmentInitVolumes(ncomp, 0, initVolumes.data());
+        }
 
-        double* initSpecies = (double*)calloc(species, sizeof(double));
-        mModel->getFloatingSpeciesAmounts(species, 0, initSpecies);
-
-        double* initRRs = (double*)calloc(rrs, sizeof(double));
-        mModel->getRateRuleValues(initRRs);
+        std::vector<double> initSpecies(species, 0.0);
+        if (species > 0) {
+            mModel->getFloatingSpeciesInitAmounts(species, 0, initSpecies.data());
+        }
 
         for (int s = 0; s < species; s++) {
-            if (initSpecies[s] == 0) {
+            double scale = std::abs(initSpecies[s]);
+            if (scale < zeroThreshold) {
+                scale = 1.0;
                 int comp = mModel->getCompartmentIndexForFloatingSpecies(s);
-                if (volumes[comp] != 0.0) {
-                    amount_tolerances[s] = amount_tolerances[s] * abs(volumes[comp]);
+                if (comp >= 0 && comp < static_cast<int>(ncomp) && initVolumes[comp] != 0.0) {
+                    scale = std::abs(initVolumes[comp]);
                 }
             }
-            else {
-                amount_tolerances[s] = amount_tolerances[s] * abs(initSpecies[s]);
-            }
+            amount_tolerances[rrs + s] = amount_tolerances[rrs + s] * scale;
+        }
+
+        // init(id) resolves the initial value of any variable set by a rate rule.
+        std::vector<double> currentRRs(rrs, 0.0);
+        if (rrs > 0) {
+            mModel->getRateRuleValues(currentRRs.data());
         }
 
         std::vector<std::string> symbols = mModel->getRateRuleSymbols();
         for (int rr = 0; rr < rrs; rr++) {
-            if (initRRs[rr] == 0.0) {
-                std::string symbol = symbols[rr];
-                int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+            // the current value is used only if init(id) does not resolve
+            double initValue = currentRRs[rr];
+            try {
+                initValue = mModel->getValue("init(" + symbols[rr] + ")");
+            }
+            catch (const std::exception &) {
+                // keep the current value
+            }
+
+            double scale = std::abs(initValue);
+            if (scale < zeroThreshold) {
+                scale = 1.0;
+                int speciesIndex = mModel->getFloatingSpeciesIndex(symbols[rr]);
                 if (speciesIndex > -1) {
                     // the symbol defined by the rate rule is a species
                     int comp = mModel->getCompartmentIndexForFloatingSpecies(speciesIndex);
-                    if (volumes[comp] != 0.0) {
-                        amount_tolerances[species + rr] = amount_tolerances[species + rr] * abs(volumes[comp]);
+                    if (comp >= 0 && comp < static_cast<int>(ncomp) && initVolumes[comp] != 0.0) {
+                        scale = std::abs(initVolumes[comp]);
                     }
                 }
-                //Otherwise just leave amount_tolerances as it is.
             }
-            else {
-                amount_tolerances[species + rr] = amount_tolerances[species + rr] * abs(initRRs[rr]);
-            }
+            amount_tolerances[rr] = amount_tolerances[rr] * scale;
         }
-
-        free(volumes);
-        free(initSpecies);
-        free(initRRs);
         return amount_tolerances;
     }
 
@@ -1010,6 +1055,19 @@ namespace rr {
 
     }
 
+    double CVODEIntegrator::getRootTolerance(double t) const {
+        static const double epsilon = std::numeric_limits<double>::epsilon();
+
+        double hu = 0;
+        if (!mCVODE_Memory || CVodeGetLastStep(mCVODE_Memory, &hu) != CV_SUCCESS) {
+            hu = 0;
+        }
+        // CVODE root tolerance, used for backing up when an event fires (see CVODE User Doc pp. 13).
+        // It is computed for each event from the time and step of CVODE at that event.  (It used to be
+        // a function-level static, set by the first integration in the process.)
+        return 100. * (32. * epsilon) * (fabs(t) + fabs(hu));
+    }
+
     double CVODEIntegrator::applyVariableStepPendingEvents() {
         if (variableStepTimeEndEvent) {
             // post event state allready calcuated.
@@ -1086,12 +1144,9 @@ namespace rr {
             rrLog(Logger::LOG_ERROR) << "CVODE Error: " << decodeSundialsError(i, error_code, false)
                                      << ", Function: " << function
                                      << ", Message: " << msg;
-
-        } else if (error_code == CV_WARNING) {
-            rrLog(Logger::LOG_WARNING) << "CVODE Warning: "
-                                       << ", Function: " << function
-                                       << ", Message: " << msg;
         }
+        // CVODE's warnings do not come through here: SUNDIALS sends them to the SUNLogger of the
+        // SUNContext, which routeSundialsLoggingToRoadRunnerLogger connects to the roadrunner Logger.
     }
 
     void *CVODEIntegrator::getCvodeMemory() const {

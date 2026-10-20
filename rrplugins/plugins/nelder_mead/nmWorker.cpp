@@ -82,7 +82,7 @@ namespace nmfit
         mTheHost.mStatusMessage.setValueFromString("failed");
 
         //Parameters for the Algorithm..
-        double* intialParameters = new double[nrOfParameters];
+        std::vector<double> intialParameters(nrOfParameters);
 
         for (int i = 0; i < nrOfParameters; i++)
         {
@@ -92,7 +92,7 @@ namespace nmfit
         //Execute minimizer
         double min = simplex2(NelderMeadObjectiveFunction,
             &mTheHost,
-            intialParameters,
+            intialParameters.data(),
             nrOfParameters,
             mTheHost.mEpsilon,
             mTheHost.mScale,

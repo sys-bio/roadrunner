@@ -47,6 +47,7 @@ set(
         rrUtils.cpp
         Integrator.cpp
         CVODEIntegrator.cpp
+        SundialsLogger.cpp
         Dictionary.cpp
         GillespieIntegrator.cpp
         RK4Integrator.cpp
@@ -119,6 +120,7 @@ set(
         rrUtils.h
         Integrator.h
         CVODEIntegrator.h
+        SundialsLogger.h
         Dictionary.h
         GillespieIntegrator.h
         RK4Integrator.h
@@ -242,6 +244,7 @@ if (BUILD_LLVM)
             llvm/JitFactory.cpp
             llvm/KineticLawParameterResolver.cpp
             llvm/LLJit.cpp
+            llvm/LLJitSectionMemory.cpp
             llvm/LLVMCompiler.cpp
             llvm/LLVMExecutableModel.cpp
             llvm/LLVMModelData.cpp
@@ -256,6 +259,7 @@ if (BUILD_LLVM)
             llvm/ModelInitialValueSymbolResolver.cpp
             llvm/ModelResources.cpp
             llvm/Random.cpp
+            llvm/ResetRateRuleStoichCodeGen.cpp
             llvm/SBMLInitialValueSymbolResolver.cpp
             llvm/SBMLModelObjectCache.cpp
             llvm/SBMLSupportFunctions.cpp
@@ -289,6 +293,7 @@ if (BUILD_LLVM)
             llvm/JitFactory.h
             llvm/KineticLawParameterResolver.h
             llvm/LLJit.h
+            llvm/LLJitSectionMemory.h
             llvm/LLVMCompiler.h
             llvm/LLVMExecutableModel.h
             llvm/LLVMException.h
@@ -304,6 +309,7 @@ if (BUILD_LLVM)
             llvm/ModelInitialValueSymbolResolver.h
             llvm/ModelResources.h
             llvm/Random.h
+            llvm/ResetRateRuleStoichCodeGen.h
             llvm/SBMLInitialValueSymbolResolver.h
             llvm/SBMLModelObjectCache.h
             llvm/SBMLSupportFunctions.h

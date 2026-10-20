@@ -66,6 +66,12 @@ std::ostream& operator <<(std::ostream& os, const LLVMModelData& data)
     os << "rateRuleValues: "                << std::endl;
     dump_array(os, data.numRateRules, data.rateRuleValuesAlias);
 
+    os << "numMultiSpeciesReferences: "     << data.numMultiSpeciesReferences << std::endl;
+    os << "multiSpeciesReferenceValues: "   << std::endl;
+    dump_array(os, data.numMultiSpeciesReferences, data.multiSpeciesReferencesAlias);
+    os << "multiSpeciesReferencesInitValues: " << std::endl;
+    dump_array(os, data.numMultiSpeciesReferences, data.multiSpeciesReferencesInitAlias);
+
     os << "floatingSpeciesAmounts: "        << std::endl;
     dump_array(os, data.numIndFloatingSpecies, data.floatingSpeciesAmountsAlias);
 
@@ -80,6 +86,9 @@ std::ostream& operator <<(std::ostream& os, const LLVMModelData& data)
 
     os << "stoichiometry:"                  << std::endl;
     os << data.stoichiometry;
+
+    os << "initStoichiometry:"              << std::endl;
+    os << data.initStoichiometry;
 
 
     os << "numInitFloatingSpecies: "        << data.numInitFloatingSpecies << std::endl;
@@ -119,13 +128,14 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, data->numInitFloatingSpecies);
 	rr::saveBinary(out, data->numInitBoundarySpecies);
 	rr::saveBinary(out, data->numInitGlobalParameters);
+	rr::saveBinary(out, data->numMultiSpeciesReferences);
     
 	rr::saveBinary(out, data->numEvents);
 	rr::saveBinary(out, data->numPiecewiseTriggers);
 	rr::saveBinary(out, data->stateVectorSize);
-	//Save the stoichiometry matrix
+	//Save the stoichiometry matrix, and the frozen-init one alongside it
 	rr::csr_matrix_dump_binary(data->stoichiometry, out);
-  //rr::csr_matrix_dump_binary(data->initStoichiometry, out);
+	rr::csr_matrix_dump_binary(data->initStoichiometry, out);
 
 	//We do not need to save random because LLVMExecutableModel will make a new one if it is null
     
@@ -162,14 +172,21 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, rateRuleValuesAliasOffset); 
 
 	unsigned floatingSpeciesAmountsAliasOffset = data->floatingSpeciesAmountsAlias - data->data;
-	rr::saveBinary(out, floatingSpeciesAmountsAliasOffset); 
+	rr::saveBinary(out, floatingSpeciesAmountsAliasOffset);
+
+	unsigned multiSpeciesReferenceAliasOffset = data->multiSpeciesReferencesAlias - data->data;
+	rr::saveBinary(out, multiSpeciesReferenceAliasOffset);
+
+	unsigned multiSpeciesReferenceInitAliasOffset = data->multiSpeciesReferencesInitAlias - data->data;
+	rr::saveBinary(out, multiSpeciesReferenceInitAliasOffset);
 
 	//save the data itself
-	//the size is the sum of the 10 unsigned integers at the top of LLVMModelData
-	unsigned dataSize = data->numIndCompartments + data->numIndFloatingSpecies + data->numIndBoundarySpecies + 
-		                data->numIndGlobalParameters + data->numRateRules + data->numReactions + 
-						data->numInitCompartments + data->numInitFloatingSpecies + 
-		                data->numInitBoundarySpecies + data->numInitGlobalParameters;
+	//the size is the sum of the unsigned integers at the top of LLVMModelData
+	unsigned dataSize = data->numIndCompartments + data->numIndFloatingSpecies + data->numIndBoundarySpecies +
+		                data->numIndGlobalParameters + data->numRateRules + data->numReactions +
+						data->numInitCompartments + data->numInitFloatingSpecies +
+		                data->numInitBoundarySpecies + data->numInitGlobalParameters +
+						data->numMultiSpeciesReferences + data->numMultiSpeciesReferences;
 
 	out.write((char*)(data->data), dataSize*sizeof(double));
 }
@@ -199,14 +216,15 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	rr::loadBinary(in, data->numInitFloatingSpecies);
 	rr::loadBinary(in, data->numInitBoundarySpecies);
 	rr::loadBinary(in, data->numInitGlobalParameters);
+	rr::loadBinary(in, data->numMultiSpeciesReferences);
 
 	rr::loadBinary(in, data->numEvents);
 	rr::loadBinary(in, data->numPiecewiseTriggers);
 	rr::loadBinary(in, data->stateVectorSize);
 
-	//Load the stoichiometry matrix
+	//Load the stoichiometry matrix, and the frozen-init one alongside it
 	data->stoichiometry = rr::csr_matrix_new_from_binary(in);
-  //data->initStoichiometry = rr::csr_matrix_new_from_binary(in);
+	data->initStoichiometry = rr::csr_matrix_new_from_binary(in);
 
 	//Alias pointer offsets
 
@@ -250,12 +268,21 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	rr::loadBinary(in, floatingSpeciesAmountsAliasOffset);
 	data->floatingSpeciesAmountsAlias = data->data + floatingSpeciesAmountsAliasOffset;
 
+	unsigned multiSpeciesReferenceAliasOffset;
+	rr::loadBinary(in, multiSpeciesReferenceAliasOffset);
+	data->multiSpeciesReferencesAlias = data->data + multiSpeciesReferenceAliasOffset;
+
+	unsigned multiSpeciesReferenceInitAliasOffset;
+	rr::loadBinary(in, multiSpeciesReferenceInitAliasOffset);
+	data->multiSpeciesReferencesInitAlias = data->data + multiSpeciesReferenceInitAliasOffset;
+
 	//save the data itself
-	//the size is the sum of the 10 unsigned integers at the top of LLVMModelData
-	unsigned dataSize = data->numIndCompartments + data->numIndFloatingSpecies + data->numIndBoundarySpecies + 
-		                data->numIndGlobalParameters + data->numRateRules + data->numReactions + 
-						data->numInitCompartments + data->numInitFloatingSpecies + 
-		                data->numInitBoundarySpecies + data->numInitGlobalParameters;
+	//the size is the sum of the unsigned integers at the top of LLVMModelData
+	unsigned dataSize = data->numIndCompartments + data->numIndFloatingSpecies + data->numIndBoundarySpecies +
+		                data->numIndGlobalParameters + data->numRateRules + data->numReactions +
+						data->numInitCompartments + data->numInitFloatingSpecies +
+		                data->numInitBoundarySpecies + data->numInitGlobalParameters +
+						data->numMultiSpeciesReferences + data->numMultiSpeciesReferences;
 	if (dataSize*sizeof(double) + sizeof(LLVMModelData) != size) {
 		size = dataSize + sizeof(LLVMModelData);
 	}
@@ -268,6 +295,7 @@ void  LLVMModelData_free(LLVMModelData *data)
     if (data)
     {
         csr_matrix_delete(data->stoichiometry);
+        csr_matrix_delete(data->initStoichiometry);
         delete data->random;
         ::free(data);
     }

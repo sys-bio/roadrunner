@@ -318,7 +318,7 @@ namespace rr {
             }
             bool equal = true;
             for (int i = 0; i < numZ(); i++) {
-                if ((index_[i] - other.index_[i]) > tol) {
+                if (!(std::abs(index_[i] - other.index_[i]) <= tol)) {
                     equal = false;
                     break;
                 }

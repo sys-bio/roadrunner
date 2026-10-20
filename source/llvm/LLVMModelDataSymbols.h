@@ -70,16 +70,24 @@ enum ModelDataFields {
     RateRuleValuesAlias,                      // 30
     FloatingSpeciesAmountsAlias,              // 31
 
-    CompartmentVolumes,                       // 32
-    InitCompartmentVolumes,                   // 33
-    InitFloatingSpeciesAmounts,               // 34
-    BoundarySpeciesAmounts,                   // 35
-    InitBoundarySpeciesAmounts,               // 36
-    GlobalParameters,                         // 37
-    InitGlobalParameters,                     // 38
-    ReactionRates,                            // 39
-    NotSafe_RateRuleValues,                   // 40
-    NotSafe_FloatingSpeciesAmounts,           // 41
+    NumMultiSpeciesReferences,                // 32
+    MultiSpeciesReferencesAlias,              // 33
+    MultiSpeciesReferencesInitAlias,          // 34
+
+    InitStoichiometry,                        // 35
+
+    CompartmentVolumes,                       // 36
+    InitCompartmentVolumes,                   // 37
+    InitFloatingSpeciesAmounts,               // 38
+    BoundarySpeciesAmounts,                   // 39
+    InitBoundarySpeciesAmounts,               // 40
+    GlobalParameters,                         // 41
+    InitGlobalParameters,                     // 42
+    ReactionRates,                            // 43
+    NotSafe_RateRuleValues,                   // 44
+    NotSafe_FloatingSpeciesAmounts,           // 45
+    MultiSpeciesReferenceValues,              // 46
+    MultiSpeciesReferenceInitValues,          // 47
 };
 
 enum EventAtributes
@@ -135,7 +143,7 @@ public:
 
     enum SpeciesReferenceType
     {
-        Reactant, Product, Modifier, MultiReactantProduct
+        Reactant, Product, Modifier, MultiSpeciesReference
     };
 
     /**
@@ -153,6 +161,7 @@ public:
         REACTION,
         EVENT,
         STOICHIOMETRY,
+        MULTI_SPECIES_REFERENCE,
         INVALID_SYMBOL
     };
 
@@ -251,6 +260,38 @@ public:
     std::string getStoichiometryIdFor(const std::string&, const std::string&) const;
     std::vector<std::string> getStoichiometryIds() const;
     size_t getStoichiometrySize() const;
+
+    /**
+     * index of a MultiSpeciesReference-typed named stoichiometry's
+     * independent storage slot, or -1 if id is not one.
+     */
+    int getMultiSpeciesReferenceIndex(const std::string& id) const;
+
+    /**
+     * number of named, MultiSpeciesReference-typed stoichiometries, i.e.
+     * named species references that share their (species, reaction)
+     * stoichiometry-matrix cell with at least one other reference. An
+     * unnamed colliding reference does not get a slot, since it has no
+     * id to look one up by.
+     */
+    size_t getMultiSpeciesReferenceSize() const;
+
+    /**
+     * get the SpeciesReferenceInfo (row, column, type, id) of a
+     * MultiSpeciesReference-typed named stoichiometry, given its
+     * independent storage slot index (as returned by
+     * getMultiSpeciesReferenceIndex).
+     */
+    const SpeciesReferenceInfo& getMultiSpeciesReferenceInfo(int index) const;
+
+    /**
+     * get the Reactant or Product role a MultiSpeciesReference-typed named
+     * stoichiometry originally had in its SBML reaction, given its
+     * independent storage slot index (as returned by
+     * getMultiSpeciesReferenceIndex). Needed to know the sign of its
+     * contribution to the shared stoichiometry-matrix cell.
+     */
+    SpeciesReferenceType getMultiSpeciesReferenceRole(int index) const;
 
 
     std::vector<std::string> getGlobalParameterIds() const;
@@ -711,6 +752,38 @@ private:
     std::vector<SpeciesReferenceType> stoichTypes;
 
     /**
+     * maps a named species reference's id to its index in the
+     * stoichIds / stoichRowIndx / stoichColIndx / stoichTypes arrays,
+     * so lookups don't require scanning stoichIds linearly.
+     */
+    StringUIntMap stoichiometryMap;
+
+    /**
+     * maps a MultiSpeciesReference-typed named stoichiometry's id to a
+     * dense, 0-based slot in the multiSpeciesReferenceValues storage array,
+     * built as a post-pass in initReactions().
+     */
+    StringUIntMap multiSpeciesReferenceMap;
+
+    /**
+     * reverse lookup of multiSpeciesReferenceMap: slot index -> the
+     * SpeciesReferenceInfo for that slot. Built alongside
+     * multiSpeciesReferenceMap in initReactions(), and persisted directly
+     * in saveState()/loadState().
+     */
+    std::vector<SpeciesReferenceInfo> multiSpeciesReferenceInfo;
+
+    /**
+     * reverse lookup, parallel to multiSpeciesReferenceInfo: slot index ->
+     * the Reactant or Product role this reference originally had in its
+     * SBML reaction. Needed because SpeciesReferenceInfo::type is
+     * retroactively overwritten to MultiSpeciesReference for every
+     * reference sharing a collided cell (see setNamedSpeciesReferenceInfo),
+     * which loses the sign information a delta-based set needs.
+     */
+    std::vector<SpeciesReferenceType> multiSpeciesReferenceRole;
+
+    /**
      * the set of rule, these contain the variable name of the rule so that
      * we can quickly see if a symbol has an associated rule.
      */
@@ -769,6 +842,17 @@ private:
      */
     void initGlobalParameters(const libsbml::Model *model,
             bool conservedMoieties);
+
+    /**
+     * ids of named speciesReferences whose species is a boundary species.
+     * Boundary species never get a row in the stoichiometry matrix, so these
+     * references have no matrix cell to update -- initGlobalParameters folds
+     * them into the ordinary global parameter machinery instead (settable,
+     * usable in formulas, governed by rate/assignment rules the same way a
+     * real <parameter> would be).
+     */
+    std::vector<std::string> collectNamedBoundaryStoichiometryIds(
+            const libsbml::Model *model) const;
 
     void initReactions(const libsbml::Model *model);
 

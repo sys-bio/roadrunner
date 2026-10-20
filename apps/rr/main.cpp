@@ -71,9 +71,9 @@ int main(int argc, char * argv[])
         RoadRunner rr(args.ModelFileName);
 
         SimulateOptions& opt = rr.getSimulateOptions();
-        opt.start = args.StartTime;
-        opt.duration = args.EndTime - args.StartTime;
-        opt.steps = args.Steps;
+        opt.setStartTime(args.StartTime);
+        opt.setDuration(args.EndTime - args.StartTime);
+        opt.setSteps(args.Steps);
         if(args.variableStep) 
 		{
 			rr.getIntegrator()->setValue("variable_step_size", true);

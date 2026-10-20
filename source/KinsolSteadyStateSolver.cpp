@@ -7,6 +7,7 @@
 #include "KinsolErrHandler.h"
 #include "rrConfig.h"
 #include "CVODEIntegrator.h"
+#include "SundialsLogger.h"
 
 namespace rr {
 
@@ -42,6 +43,7 @@ namespace rr {
           SUNContext_Free(&mSunContext);
         }
         SUNContext_Create(SUN_COMM_NULL, &mSunContext);
+        routeSundialsLoggingToRoadRunnerLogger(mSunContext);
 
         // when argument is null, returns size of state std::vector (see rrExecutableModel::getStateVector)
         int stateVectorSize = mModel->getStateVector(nullptr);
@@ -320,9 +322,19 @@ namespace rr {
         assert(mKinsol_Memory && "Kinsol memory block is nullptr");
         assert(mStateVector && "Solvers state std::vector is nullptr");
 
+        // throws any error recorded by kinsolErrHandler
+        auto throwIfKinsolFailed = [this]() {
+            if (!mPendingKinsolError.empty()) {
+                std::string pending;
+                pending.swap(mPendingKinsolError);
+                throw std::runtime_error(pending);
+            }
+        };
+
         // ensures options have been correctly propagated to kinsol
         // before solving
         solverInstance->updateKinsol();
+        throwIfKinsolFailed();
 
         int flag = KINSol(
                 mKinsol_Memory,   // kinsol memory block
@@ -333,9 +345,9 @@ namespace rr {
                 fscale      //scaling std::vector for the variable fval
         );
 
-        char *flagName = KINGetReturnFlagName(flag);
+        throwIfKinsolFailed();
 
-        // errors are handled automatically by the error handler for kinsol.
+        // errors recorded by the kinsol error handler were thrown above.
         // here we handle warnings and success flags
         switch (flag) {
             case KIN_SUCCESS: {
@@ -362,7 +374,6 @@ namespace rr {
                 throw std::runtime_error("Kinsol Error: " + errMsg);
             };
         }
-        free(flagName);
 
         getSolverStatsFromKinsol();
 

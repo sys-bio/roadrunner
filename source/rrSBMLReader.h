@@ -36,13 +36,9 @@ public:
 
     /**
      * read an SBML document from a local file path, a remote URI, or
-     * directlly from a sbml std::string. If the document is a local file,
-     * and has the comp extension, it is automatically flattened before
-     * begin returned.
-     *
-     * If the std::string is already a SBML std::string, it is passed through.
-     * If the std::string is a local file or URI, the document is read
-     * from the source and the contents returned (and flattened if comp).
+     * directly from a sbml std::string. If the document has the comp
+     * extension, it is automatically flattened before being returned,
+     * regardless of whether it came from a file, a URI, or a std::string.
      */
     static std::string read(const std::string& sbml_or_uri);
 

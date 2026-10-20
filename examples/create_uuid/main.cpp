@@ -1,5 +1,4 @@
 #pragma hdrstop
-#pragma argsused
 
 #include <iostream>
 #include "Poco/UUIDGenerator.h"

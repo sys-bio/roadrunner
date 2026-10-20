@@ -121,6 +121,14 @@ namespace rr
          */
         void setListener(IntegratorListenerPtr) override;
 
+        /**
+         * @brief Set whether any reaction rate changes with time alone.
+         *
+         * The caller of this method should look for the csymbol 'time' in
+         * reaction rates or assignment rules used by reaction rates.
+         */
+        void setTimeDependentRates(bool hasTime);
+
     private:
         std::mt19937 engine;
         //unsigned long seed;
@@ -135,12 +143,31 @@ namespace rr
         double* stateVectorRate;
         std::vector<unsigned char> eventStatus;
         std::vector<unsigned char> previousEventStatus;
+        int timeDependentRates; //Whether any reaction rate depends explicitly on time.
 
         void testRootsAtInitialTime();
         void applyEvents(double timeEnd, std::vector<unsigned char> &prevEventStatus);
 
         double urand();
         void setEngineSeed(Setting seedSetting);
+
+        /**
+         * @brief Sum of the absolute reaction rates (the total propensity) with
+         * the model evaluated at time @p tEval and the current state vector.
+         * @details Leaves @ref reactionRates holding the individual rates at
+         * @p tEval so the caller can use them for reaction selection.  Species
+         * amounts are not modified, so this re-evaluates only the time- and
+         * parameter-dependent parts of each rate law.
+         */
+        double totalPropensity(double tEval);
+
+        /**
+         * @brief Relative change in the total propensity tolerated across a
+         * single panel when integrating a time-dependent propensity.  Smaller
+         * values track a fast-varying rate more accurately at the cost of more
+         * rate-law evaluations.
+         */
+        static constexpr double timeDependentRelTol = 0.05;
 
         inline double getStoich(uint species, uint reaction)
         {

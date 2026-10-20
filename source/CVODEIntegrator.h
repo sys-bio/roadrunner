@@ -140,7 +140,10 @@ namespace rr {
 
         /**
          * @author FY
-         * @brief Sets tolerance for individual species
+         * @brief Sets tolerance for individual species or rate rule-controlled element.
+         * @details The absolute tolerance for the given sid is set to @ref value.  This
+         * fixes the absolute tolerance vector moving forward, even if other initial values
+         * are changed.
          */
         void setIndividualTolerance(std::string sid, double value) override;
 
@@ -177,6 +180,14 @@ namespace rr {
          * Reinitializes CVODE and the executable model.
          */
         void restart(double timeStart) override;
+
+        /**
+         * @brief Sets the model to the state at t, from the interpolating polynomial
+         * (Nordsieck history) of the last internal step of CVODE.
+         * @details Its error is controlled by the tolerances like that of a step.
+         * Returns false if t is not within the last step.
+         */
+        bool interpolateToTime(double t) override;
 
         // ** Listeners ********************************************************
 
@@ -264,6 +275,13 @@ namespace rr {
         double mLastEventTime;
         bool variableStepPendingEvent;
         bool variableStepTimeEndEvent;
+
+        /**
+         * Offset of the two rows that a variable step run reports for an event: the
+         * state before it at (event time - offset), the state after it at (event time + offset).
+         * Set when the event is found, from the time CVODE had reached and its last step.
+         */
+        double variableStepEventTolerance;
         std::vector<double> variableStepPostEventState;
         std::vector<unsigned char> eventStatus;
 
@@ -303,6 +321,14 @@ namespace rr {
         void applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus);
 
         double applyVariableStepPendingEvents();
+
+        /**
+         * The tolerance with which CVODE locates a root found at time t:
+         * 100 * unit roundoff * (|t| + |h|), h being the last step of CVODE, with a
+         * safety factor of 32 (see the CVODE User Doc).  It depends only on the
+         * time scale of the event itself, and not on any other integration.
+         */
+        double getRootTolerance(double t) const;
 
         void create();
 

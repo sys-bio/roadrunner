@@ -162,7 +162,9 @@ namespace rr
 				else if (Line.find_first_of('[') == 0) // Found a section
 				{
 					Line.erase(0, 1);
-					Line.erase(Line.find_last_of(']'), 1);
+					std::string::size_type closingBracket = Line.find_last_of(']');
+					if (closingBracket != std::string::npos)
+						Line.erase(closingBracket, 1);
 					pSection = GetSection(Line, true);
 					rrLog(lDebug3) << "Located section: " + pSection->mName;
 					Comment = std::string("");
@@ -269,7 +271,7 @@ namespace rr
 			bool bAutoKey = (mFlags & mAutoCreateKeys) == mAutoCreateKeys;
 			bool bAutoSec = (mFlags & mAutoCreateSections) == mAutoCreateSections;
 
-			char* buffer = new char[MAX_LINE_BUFFER_SIZE];
+			std::vector<char> buffer(MAX_LINE_BUFFER_SIZE);
 			pSection = GetSection("");
 
 			// These need to be set, we'll restore the original values later.
@@ -279,10 +281,10 @@ namespace rr
 			while (!bDone)
 			{
 				std::string Comment;
-				memset(buffer, 0, MAX_LINE_BUFFER_SIZE);
-				file.getline(buffer, MAX_LINE_BUFFER_SIZE);
+				memset(buffer.data(), 0, MAX_LINE_BUFFER_SIZE);
+				file.getline(buffer.data(), MAX_LINE_BUFFER_SIZE);
 
-				std::string Line = buffer;
+				std::string Line = buffer.data();
 				Trim(Line);
 
 				bDone = (file.eof() || file.bad() || file.fail());
@@ -296,7 +298,9 @@ namespace rr
 					if (Line.find_first_of('[') == 0) // Found a section
 					{
 						Line.erase(0, 1);
-						Line.erase(Line.find_last_of(']'), 1);
+						std::string::size_type closingBracket = Line.find_last_of(']');
+						if (closingBracket != std::string::npos)
+							Line.erase(closingBracket, 1);
 
 						if (theSection == Line)
 						{

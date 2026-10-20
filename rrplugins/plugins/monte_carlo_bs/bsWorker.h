@@ -43,7 +43,7 @@ namespace bsmc
 
         tlp::Plugin*                    mMinimizerPlugin;
         std::vector<double>             mResiduals;
-        std::vector<TelluriumData*>     mMCDataSets;
+        std::vector<TelluriumData>      mMCDataSets;
         std::vector<Properties>         mMCParameters;
 
         void                            reset();

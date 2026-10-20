@@ -630,7 +630,7 @@ llvm::Value* ASTNodeCodeGen::delayExprCodeGen(const libsbml::ASTNode* ast)
     std::stringstream err;
     err << "Unable to support delay differential equations.  The function '" << formula << "' is not supported.";
     free(formula);
-    throw_llvm_exception(err.str())
+    throw_llvm_exception(err.str());
 
     //rrLog(Logger::LOG_WARNING)
     //  << "Unable to handle SBML csymbol 'delay'. Delay ignored in expression '"
@@ -652,7 +652,7 @@ llvm::Value* ASTNodeCodeGen::rateOfCodeGen(const libsbml::ASTNode* ast)
         std::stringstream err;
         err << "The rateOf csymbol may only be used on individual symbols, i.e. 'rateOf(S1)'.  The expression '" << formula << "' is illegal.";
         free(formula);
-        throw_llvm_exception(err.str())
+        throw_llvm_exception(err.str());
     }
     string name = child->getName();
     const LLVMModelDataSymbols& dataSymbols = ctx.getModelDataSymbols();

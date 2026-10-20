@@ -5,7 +5,7 @@ ${THIRD_PARTY_INSTALL_FOLDER}/include
 )
 
 set(sources
-main
+main.cpp
 )
 
 add_executable(${target} ${sources})

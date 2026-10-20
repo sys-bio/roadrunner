@@ -689,9 +689,9 @@ SWIGEXPORT jobjectArray JNICALL Java_roadrunner_roadrunnerJNI_jrr_1simulate_1(JN
   n = (int)jn;
 
   rr::SimulateOptions& opt = r->getSimulateOptions();
-  opt.start = tstart;
-  opt.duration = tend - tstart;
-  opt.steps = n;
+  opt.setStartTime(tstart);
+  opt.setDuration(tend - tstart);
+  opt.setSteps(n);
   //if(variable step?) {
   //  opt.integratorFlags |= Integrator::VARIABLE_STEP;
   //}
@@ -814,6 +814,16 @@ SWIGEXPORT jobjectArray JNICALL Java_roadrunner_roadrunnerJNI_jrr_1simulate_1(JN
     bool structuredResult;
     bool variableStep;
     bool copyResult;
+    // 'start'/'duration'/'steps' are private in C++ (backed by
+    // setStartTime/setDuration/setSteps, each of which clears a stale
+    // 'times' left by a previous call). These phantom members route
+    // assignment through those setters so the same guarantee applies from
+    // Java. 'times' (std::vector<double>) is deliberately not exposed as a
+    // property here -- use getTimes()/setTimes() directly, since there is
+    // no working std::vector<double> <-> Java array typemap in this file.
+    double start;
+    double duration;
+    int steps;
 
     std::string __repr__() {
         return ($self)->toRepr();
@@ -827,11 +837,35 @@ SWIGEXPORT jobjectArray JNICALL Java_roadrunner_roadrunnerJNI_jrr_1simulate_1(JN
 
 %{
     double rr_SimulateOptions_end_get(SimulateOptions* opt) {
-        return opt->start + opt->duration;
+        return opt->getStartTime() + opt->getDuration();
     }
 
     void rr_SimulateOptions_end_set(SimulateOptions* opt, double end) {
-        opt->duration = end - opt->start;
+        opt->setDuration(end - opt->getStartTime());
+    }
+
+    double rr_SimulateOptions_start_get(SimulateOptions* opt) {
+        return opt->getStartTime();
+    }
+
+    void rr_SimulateOptions_start_set(SimulateOptions* opt, double value) {
+        opt->setStartTime(value);
+    }
+
+    double rr_SimulateOptions_duration_get(SimulateOptions* opt) {
+        return opt->getDuration();
+    }
+
+    void rr_SimulateOptions_duration_set(SimulateOptions* opt, double value) {
+        opt->setDuration(value);
+    }
+
+    int rr_SimulateOptions_steps_get(SimulateOptions* opt) {
+        return opt->getSteps();
+    }
+
+    void rr_SimulateOptions_steps_set(SimulateOptions* opt, int value) {
+        opt->setSteps(value);
     }
 
     bool rr_SimulateOptions_resetModel_get(SimulateOptions* opt) {

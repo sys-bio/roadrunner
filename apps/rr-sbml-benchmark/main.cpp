@@ -123,7 +123,7 @@ int main(int argc, char** argv)
         {
             int steps = strtol(argv[6], NULL, 0);
             if (steps > 0) {
-                settings.steps = steps;
+                settings.setSteps(steps);
             }
         }
 
@@ -131,13 +131,13 @@ int main(int argc, char** argv)
         {
             double dur = atof(argv[7]);
             if (dur > 0) {
-                settings.duration = dur;
+                settings.setDuration(dur);
             }
         }
 
 	    roadRunner.getIntegrator()->setValue("stiff", false);
 
-        std::cout << "running for " << settings.steps << ", duration " << settings.duration << std::endl;
+        std::cout << "running for " << settings.getSteps() << ", duration " << settings.getDuration() << std::endl;
 
         std::cout << "absolute: " << roadRunner.getIntegrator()->getValue("absolute_tolerance").convert<bool>() << std::endl;
 	    std::cout << "relative: " << roadRunner.getIntegrator()->getValue("relative_tolerance").convert<bool>() << std::endl;

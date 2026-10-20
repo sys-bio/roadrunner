@@ -4,6 +4,7 @@
 
 
 #include "LLJit.h"
+#include "LLJitSectionMemory.h"
 #include "rrConfig.h"
 #include "rrLogger.h"
 #include "SBMLSupportFunctions.h"
@@ -186,6 +187,8 @@ namespace rrllvm {
                             &SBMLModelObjectCache::getObjectCache());
                 });
 
+        // Allocate the sections of each object from one contiguous range (issue 1368).
+        llJitBuilder.setObjectLinkingLayerCreator(createRangeObjectLayer);
 
         auto llJitExpected = llJitBuilder.create();
         if (!llJitExpected) {

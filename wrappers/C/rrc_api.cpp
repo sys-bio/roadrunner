@@ -42,6 +42,7 @@
 
 #pragma hdrstop
 #include <string>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -561,7 +562,7 @@ bool rrcCallConv setTimeStart(RRHandle handle, const double timeStart)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        rri->getSimulateOptions().start = timeStart;
+        rri->getSimulateOptions().setStartTime(timeStart);
         return true;
     catch_bool_macro
 }
@@ -571,7 +572,7 @@ bool rrcCallConv setTimeEnd(RRHandle handle, const double timeEnd)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions &opt = rri->getSimulateOptions();
-        opt.duration = timeEnd - opt.start;
+        opt.setDuration(timeEnd - opt.getStartTime());
         return true;
     catch_bool_macro
 }
@@ -581,7 +582,7 @@ bool rrcCallConv setNumPoints(RRHandle handle, const int nrPoints)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions &opt = rri->getSimulateOptions();
-        opt.steps = nrPoints - 1;
+        opt.setSteps(nrPoints - 1);
         return true;
     catch_bool_macro
 }
@@ -591,11 +592,8 @@ bool rrcCallConv setTimes(RRHandle handle, const double* times, int size)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         SimulateOptions& opt = rri->getSimulateOptions();
-        opt.times.clear();
-        for (int t = 0; t < size; t++)
-        {
-            opt.times.push_back(times[t]);
-        }
+        std::vector<double> newTimes(times, times + size);
+        opt.setTimes(newTimes);
         return true;
     catch_bool_macro
 }
@@ -604,7 +602,7 @@ bool rrcCallConv getTimeStart(RRHandle handle, double* timeStart)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *timeStart = rri->getSimulateOptions().start;
+        *timeStart = rri->getSimulateOptions().getStartTime();
         return true;
     catch_bool_macro
 }
@@ -613,7 +611,7 @@ bool rrcCallConv getTimeEnd(RRHandle handle, double* timeEnd)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *timeEnd = rri->getSimulateOptions().duration + rri->getSimulateOptions().start;
+        *timeEnd = rri->getSimulateOptions().getDuration() + rri->getSimulateOptions().getStartTime();
         return true;
     catch_bool_macro
 }
@@ -622,7 +620,7 @@ bool rrcCallConv getNumPoints(RRHandle handle, int* numPoints)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        *numPoints = rri->getSimulateOptions().steps + 1;
+        *numPoints = rri->getSimulateOptions().getSteps() + 1;
         return true;
     catch_bool_macro
 }
@@ -1110,11 +1108,9 @@ RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle)
       ExecutableModel* model = rri->getModel();
       if (model)
       {
-        double* rrvs = (double*)calloc(model->getNumRateRules(), sizeof(double));
-        model->getRateRuleValues(rrvs);
-        RRVector* aVec = rrc::createVector(*rrvs);
-        free(rrvs);
-        return aVec;
+        vector<double> rrvs(model->getNumRateRules());
+        model->getRateRuleValues(rrvs.data());
+        return rrc::createVector(rrvs);
       }
       return NULL;
   catch_ptr_macro
@@ -2967,17 +2963,17 @@ static ArrayList RoadRunner_getUnscaledFluxControlCoefficientIds(RoadRunner *rr)
 
         for(int i = 0; i < oParameters.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oParameters[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oParameters[i] + ")");
         }
 
         for(int i = 0; i < oBoundary.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oBoundary[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oBoundary[i] + ")");
         }
 
         for(int i = 0; i < oConservation.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oConservation[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oConservation[i] + ")");
         }
 
         oCCReaction.Add(oInner);
@@ -3100,17 +3096,17 @@ ArrayList sel_getFluxControlCoefficientIds(RoadRunner* rr)
 
         for(int i = 0; i < oParameters.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oParameters[i] + ")");
+            oInner.add("cc(" + s + ", " + oParameters[i] + ")");
         }
 
         for(int i = 0; i < oBoundary.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oBoundary[i] + ")");
+            oInner.add("cc(" + s + ", " + oBoundary[i] + ")");
         }
 
         for(int i = 0; i < oConservation.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oConservation[i] + ")");
+            oInner.add("cc(" + s + ", " + oConservation[i] + ")");
         }
 
         oCCReaction.Add(oInner);
@@ -3207,17 +3203,17 @@ ArrayList sel_getConcentrationControlCoefficientIds(RoadRunner* rr)
 
         for(int i = 0; i < oParameters.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oParameters[i] + ")");
+            oInner.add("cc(" + s + ", " + oParameters[i] + ")");
         }
 
         for(int i = 0; i < oBoundary.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oBoundary[i] + ")");
+            oInner.add("cc(" + s + ", " + oBoundary[i] + ")");
         }
 
         for(int i = 0; i < oConservation.size(); i++)
         {
-            oInner.add("cc(" + s + "," + oConservation[i] + ")");
+            oInner.add("cc(" + s + ", " + oConservation[i] + ")");
         }
 
         oCCFloating.Add(oInner);
@@ -3245,17 +3241,17 @@ ArrayList sel_getUnscaledConcentrationControlCoefficientIds(RoadRunner* rr)
 
         for(int i = 0; i < oParameters.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oParameters[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oParameters[i] + ")");
         }
 
         for(int i = 0; i < oBoundary.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oBoundary[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oBoundary[i] + ")");
         }
 
         for(int i = 0; i < oConservation.size(); i++)
         {
-            oInner.push_back("ucc(" + s + "," + oConservation[i] + ")");
+            oInner.push_back("ucc(" + s + ", " + oConservation[i] + ")");
         }
 
         oCCFloating.Add(oInner);
@@ -3284,22 +3280,22 @@ ArrayList sel_getElasticityCoefficientIds(RoadRunner* rr)
 
         for(int j = 0; j < floatingSpeciesNames.size(); j++)
         {
-            oInner.add(format("ec({0},{1})", reac_name, floatingSpeciesNames[j]));
+            oInner.add(format("ec({0}, {1})", reac_name, floatingSpeciesNames[j]));
         }
 
         for(int j = 0; j < boundarySpeciesNames.size(); j++)
         {
-            oInner.add(format("ec({0},{1})", reac_name, boundarySpeciesNames[j]));
+            oInner.add(format("ec({0}, {1})", reac_name, boundarySpeciesNames[j]));
         }
 
         for(int j = 0; j < globalParameterNames.size(); j++)
         {
-            oInner.add(format("ec({0},{1})", reac_name, globalParameterNames[j]));
+            oInner.add(format("ec({0}, {1})", reac_name, globalParameterNames[j]));
         }
 
         for(int j = 0; j < conservationNames.size(); j++)
         {
-            oInner.add(format("ec({0},{1})", reac_name, conservationNames[j]));
+            oInner.add(format("ec({0}, {1})", reac_name, conservationNames[j]));
         }
 
         oCCReaction.Add(oInner);
@@ -3329,25 +3325,25 @@ ArrayList sel_getUnscaledElasticityCoefficientIds(RoadRunner* rr)
         for(int j = 0; j < oFloating.size(); j++)
         {
             string variable = oFloating[j];
-            oInner.add(format("uec({0},{1})", reac_name, variable));
+            oInner.add(format("uec({0}, {1})", reac_name, variable));
         }
 
         for(int j = 0; j < oBoundary.size(); j++)
         {
             string variable = oBoundary[j];
-            oInner.add(format("uec({0},{1})", reac_name, variable));
+            oInner.add(format("uec({0}, {1})", reac_name, variable));
         }
 
         for(int j = 0; j < oGlobalParameters.size(); j++)
         {
             string variable = oGlobalParameters[j];
-            oInner.add(format("uec({0},{1})", reac_name, variable));
+            oInner.add(format("uec({0}, {1})", reac_name, variable));
         }
 
         for(int j = 0; j < oConservation.size(); j++)
         {
             string variable = oConservation[j];
-            oInner.add(format("uec({0},{1})", reac_name, variable));
+            oInner.add(format("uec({0}, {1})", reac_name, variable));
         }
 
         oCCReaction.Add(oInner);
@@ -3460,26 +3456,33 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         //o.integrator = Integrator::GILLESPIE;
         //o.integratorFlags &= !Integrator::VARIABLE_STEP;
         r->setIntegrator("gillespie");
-		r->getIntegrator()->setValue("variable_step_size", Setting(false));
-
-        double steps = o.steps;
+        r->getIntegrator()->setValue("variable_step_size", Setting(false));
 
         RoadRunner &rref = const_cast<RoadRunner&>(*r);
-        const DoubleMatrix& reference = *rref.getSimulationData();
 
-        // Initializes a DoubleMatrix "res" with all zeroes
-        DoubleMatrix avg(reference.RSize(), reference.CSize());
-        for (int row = 0; row < reference.RSize(); row++) {
-            for (int col = 0; col < reference.CSize(); col++) {
+        // Size the accumulator from the requested grid (o.steps, set by
+        // setNumPoints/gillespieMeanOnGridEx) and the model's current
+        // selection list.
+        int nRows = static_cast<int>(o.getSteps()) + 1;
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        int nCols = static_cast<int>(selections.size());
+
+        // Initializes a DoubleMatrix "avg" with all zeroes
+        DoubleMatrix avg(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
                 avg(row, col) = 0;
             }
         }
 
-        // Runs simulations, obtaining avg with Welford's Algorithm
+        // Runs simulations, obtaining avg with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
-            for (int j = 0; j < steps + 1; j++) {
-                avg(j, 0) += (temp(j, 0) - avg(j, 0)) / (i + 1);
+            for (int row = 0; row < nRows; row++) {
+                for (int col = 0; col < nCols; col++) {
+                    avg(row, col) += (temp(row, col) - avg(row, col)) / (i + 1);
+                }
             }
         }
 
@@ -3489,7 +3492,6 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numb
         memset(rrCData, 0, sizeof(RRCData));
 
         // Create column info
-        const std::vector<SelectionRecord> &selections = rref.getSelections();
         rrCData->ColumnHeaders = new char*[selections.size()];
         for (int i = 0; i < selections.size(); i++) {
             rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
@@ -3529,28 +3531,48 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
 		//o.integratorFlags &= !Integrator::VARIABLE_STEP;
 		r->getIntegrator()->setValue("variable_step_size", Setting(false));
 
-        double steps = o.steps;
-
         RoadRunner &rref = const_cast<RoadRunner&>(*r);
-        const DoubleMatrix& reference = *rref.getSimulationData();
 
-        // Initializes a DoubleMatrix "res" with all zeroes
-        DoubleMatrix avg(reference.RSize(), reference.CSize());
-        DoubleMatrix stddev(reference.RSize(), reference.CSize());
-        for (int row = 0; row < reference.RSize(); row++) {
-            for (int col = 0; col < reference.CSize(); col++) {
+        // Size the grid and compute both avg and sum-of-squared-deviations in
+        // the same pass.
+        int nRows = static_cast<int>(o.getSteps()) + 1;
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        int nCols = static_cast<int>(selections.size());
+
+        // Initializes DoubleMatrix "avg" and the M2 (sum of squared deviations)
+        // accumulator "m2" with all zeroes
+        DoubleMatrix avg(nRows, nCols);
+        DoubleMatrix m2(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
                 avg(row, col) = 0;
-                stddev(row, col) = 0;
+                m2(row, col) = 0;
             }
         }
 
-        // Runs simulations, obtain avg and stddev with Welford's Algorithm
+        // Runs simulations, obtaining avg and m2 with Welford's Algorithm.
         for (int i = 0; i < numberOfSimulations; i++) {
+            r->reset();
             const DoubleMatrix &temp = *r->simulate();
-            for (int j = 0; j < steps + 1; j++) {
-                double delta = temp(j, 0) - avg(j, 0);
-                avg(j, 0) += delta / (i + 1);
-                stddev(j, 0) += delta * (temp(j, 0) - avg(j, 0));
+            for (int row = 0; row < nRows; row++) {
+                for (int col = 0; col < nCols; col++) {
+                    double delta = temp(row, col) - avg(row, col);
+                    avg(row, col) += delta / (i + 1);
+                    m2(row, col) += delta * (temp(row, col) - avg(row, col));
+                }
+            }
+        }
+
+        // Finish the Welford calculation: m2 is the running sum of squared
+        // deviations from the mean, so the (sample) standard deviation is
+        // sqrt(m2 / (n - 1)). With a single simulation there is no variance
+        // to report.
+        DoubleMatrix stddev(nRows, nCols);
+        for (int row = 0; row < nRows; row++) {
+            for (int col = 0; col < nCols; col++) {
+                stddev(row, col) = (numberOfSimulations > 1)
+                    ? std::sqrt(m2(row, col) / (numberOfSimulations - 1))
+                    : 0.0;
             }
         }
 
@@ -3560,7 +3582,6 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
         memset(rrCData, 0, sizeof(RRCData));
 
         // Create column info
-        const std::vector<SelectionRecord> &selections = rref.getSelections();
         rrCData->ColumnHeaders = new char*[selections.size()];
         for (int i = 0; i < selections.size(); i++) {
             rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
@@ -3577,7 +3598,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int nu
         for (int row = 0; row < rrCData->RSize; row++) {
             for (int col = 0; col < rrCData->CSize; col++) {
                 rrCData->Data[index] = result(row, col);
-                rrCData->Weights[index] = result(row, col);
+                rrCData->Weights[index] = stddev(row, col);
                 index++;
             }
         }

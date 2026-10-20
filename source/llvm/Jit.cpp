@@ -53,17 +53,17 @@ namespace rrllvm {
         if (!context) {
             std::string err = "Context pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
         if (!module) {
             std::string err = "Module pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
         if (!builder) {
             std::string err = "builder pointer is null";
             rrLogErr << err;
-            throw_llvm_exception(err)
+            throw_llvm_exception(err);
         }
 
         createCLibraryFunctions();
@@ -135,6 +135,8 @@ namespace rrllvm {
                 "getPiecewiseTrigger"));
         modelResources->evalVolatileStoichPtr = reinterpret_cast<EvalVolatileStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalVolatileStoich"));
+        modelResources->resetRateRuleStoichPtr = reinterpret_cast<ResetRateRuleStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
+                "resetRateRuleStoich"));
         modelResources->evalConversionFactorPtr = reinterpret_cast<EvalConversionFactorCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalConversionFactor"));
         if (options & LoadSBMLOptions::READ_ONLY) {

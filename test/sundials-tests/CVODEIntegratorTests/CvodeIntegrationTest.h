@@ -55,11 +55,11 @@ public:
             } else if (setting.first == "copy_result") {
                 opt.copy_result = setting.second;
             } else if (setting.first == "steps") {
-                opt.steps = setting.second;
+                opt.setSteps(setting.second);
             } else if (setting.first == "start") {
-                opt.start = setting.second;
+                opt.setStartTime(setting.second);
             } else if (setting.first == "duration") {
-                opt.duration = setting.second;
+                opt.setDuration(setting.second);
             }
 
             // then try applying integration level settings.

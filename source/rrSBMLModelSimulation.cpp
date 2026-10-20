@@ -208,19 +208,19 @@ namespace rr
 
     bool SBMLModelSimulation::SetTimeStart(const double& startTime)
     {
-        mSettings.start = startTime;
+        mSettings.setStartTime(startTime);
         return true;
     }
 
     bool SBMLModelSimulation::SetTimeEnd(const double& endTime)
     {
-        mSettings.duration = endTime - mSettings.start;
+        mSettings.setDuration(endTime - mSettings.getStartTime());
         return true;
     }
 
     bool SBMLModelSimulation::SetNumberOfPoints(const int& steps)
     {
-        mSettings.steps = steps;
+        mSettings.setSteps(steps);
         return true;
     }
 

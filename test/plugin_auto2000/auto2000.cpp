@@ -28,9 +28,9 @@ public:
 TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_steady_state)
 {
     //This tests to make sure we don't crash if we call 'execute' multiple times.
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "no_steady_state.xml").string().c_str());
     a2kplugin->execute();
@@ -39,9 +39,9 @@ TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_steady_state)
 TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_floating_species)
 {
   //This tests to make sure we don't crash if we call 'execute' multiple times.
-  PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+  PluginManager PM(rrPluginsBuildDir_.string());
 
-  Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+  Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000643_url.xml").string().c_str());
   a2kplugin->execute();
@@ -50,9 +50,9 @@ TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_floating_species)
 TEST_F(PluginAuto2000Tests, Issue_1259_crash_when_run_twice)
 {
   //This tests to make sure we don't crash if we call 'execute' multiple times.
-  PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+  PluginManager PM(rrPluginsBuildDir_.string());
 
-  Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+  Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000648_url.xml").string().c_str());
   a2kplugin->execute();
@@ -62,9 +62,9 @@ TEST_F(PluginAuto2000Tests, Issue_1259_crash_when_run_twice)
 TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 {
   //This just tests to make sure we don't crash if there's no boundary species.
-  PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+  PluginManager PM(rrPluginsBuildDir_.string());
 
-  Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+  Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "auto2000_2rxn.xml").string().c_str());
   a2kplugin->setPropertyByString("PrincipalContinuationParameter", "k");
@@ -78,9 +78,9 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
 TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000203.xml").string().c_str());
@@ -126,9 +126,9 @@ TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "bistable.xml").string().c_str());
@@ -169,9 +169,9 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
 
 TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
 {
-    PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
+    PluginManager PM(rrPluginsBuildDir_.string());
 
-    Plugin* a2kplugin = PM->getPlugin("tel_auto2000");
+    Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "irreversible_bistability.xml").string().c_str());

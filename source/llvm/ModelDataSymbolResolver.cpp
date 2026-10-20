@@ -155,16 +155,22 @@ namespace rrllvm
               const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
                 modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
-            Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
-
-            if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
+            if (info.type == LLVMModelDataSymbols::MultiSpeciesReference)
             {
-                std::string msg = "Mutable stochiometry for species which appear "
-                    "multiple times in a single reaction is not currently "
-                    "supported, species reference id: ";
-                msg += symbol;
-                throw_llvm_exception(msg);
+                // this reference shares its stoichiometry-matrix cell with at
+                // least one other reference, so the cell itself is not this
+                // reference's own value -- read its own independent slot
+                // instead, with its local signed value (probably positive).
+                int slot = modelDataSymbols.getMultiSpeciesReferenceIndex(symbol);
+                assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
+
+                Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), symbol);
+                Value *value = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, symbol + "_load");
+
+                return cacheValue(symbol, args, value);
             }
+
+            Value* value = mdbuilder.createStoichiometryLoad(info.row, info.column, symbol);
 
             if (info.type == LLVMModelDataSymbols::Reactant)
             {
@@ -289,13 +295,40 @@ namespace rrllvm
             const LLVMModelDataSymbols::SpeciesReferenceInfo& info =
                 modelDataSymbolsPtr->getNamedSpeciesReferenceInfo(symbol);
 
-            if (info.type == LLVMModelDataSymbols::MultiReactantProduct)
+            if (info.type == LLVMModelDataSymbols::MultiSpeciesReference)
             {
-                std::string msg = "Mutable stochiometry for species which appear "
-                    "multiple times in a single reaction is not currently "
-                    "supported, species reference id: ";
-                msg += symbol;
-                throw_llvm_exception(msg);
+                // this reference shares its stoichiometry-matrix cell with at
+                // least one other reference (e.g. an event assignment target).
+                // Update the cell by this reference's own delta (new value vs.
+                // its last known value in multiSpeciesReferencesAlias), rather
+                // than overwriting the whole cell, which would discard the
+                // other reference(s)' contributions.
+                int slot = modelDataSymbols.getMultiSpeciesReferenceIndex(symbol);
+                assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
+
+                Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
+                Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+                Value *row = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.row, true);
+                Value *col = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.column, true);
+                Value *oldCell = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, row, col);
+
+                Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), symbol);
+                Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, symbol + "_old");
+
+                Value *delta = builder.CreateFSub(value, oldRaw, "delta_" + symbol);
+
+                LLVMModelDataSymbols::SpeciesReferenceType role =
+                    modelDataSymbols.getMultiSpeciesReferenceRole(slot);
+                if (role == LLVMModelDataSymbols::SpeciesReferenceType::Reactant)
+                {
+                    Value* negOne = ConstantFP::get(builder.getContext(), APFloat(-1.0));
+                    delta = builder.CreateFMul(negOne, delta, "neg_delta_" + symbol);
+                }
+                Value *newCell = builder.CreateFAdd(oldCell, delta, "new_cell_" + symbol);
+
+                ModelDataIRBuilder::createCSRMatrixSetNZ(builder, stoich, row, col, newCell, symbol);
+
+                return builder.CreateStore(value, aliasGEP);
             }
 
             if (info.type == LLVMModelDataSymbols::Reactant)

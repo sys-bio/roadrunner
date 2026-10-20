@@ -1,10 +1,12 @@
 #include <rrRoadRunner.h>
 #include "gtest/gtest.h"
+#include <algorithm>
 
 #include "RoadRunnerTest.h"
 #include "TestModelFactory.h"
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"
+#include "rrExecutableModel.h"
 #include "Matrix.h"
 
 using namespace rr;
@@ -146,6 +148,257 @@ public:
 
 
 };
+
+// Regression test for a general RoadRunner bug (not specific to Teusink's
+// NAD/NADH or ATP/ADP/AMP structure): after a real conserved-moiety
+// conversion, a species governed by its own pre-existing assignment-rule
+// chain stopped responding to changes in its dependency, even though it
+// has nothing to do with the moiety being eliminated. J1's rate reaches Q
+// only through that chain (S2 = ks2*W1, W1 = kw1*Q), so its sensitivity to
+// Q must be identical before and after conversion.
+TEST_F(StructuralAnalysisTests, AssignmentRuleChainRateSensitivitySurvivesConversion) {
+  path sbmlPath = modelAnalysisModelsDir / "assignment_rule_chain_moiety.xml";
+
+  auto measureJ1RateSensitivityToQ = [](RoadRunner& rr) {
+    ExecutableModel* model = rr.getModel();
+    int n = model->getStateVector(0);
+    std::vector<std::string> ids;
+    for (int i = 0; i < n; ++i) {
+      ids.push_back(model->getStateVectorId(i));
+    }
+    int qIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "Q"));
+    EXPECT_LT(qIndex, n);
+
+    std::vector<double> y(n);
+    model->getStateVector(y.data());
+
+    int j1Index = model->getReactionIndex("J1");
+    double rateBefore = 0;
+    model->getReactionRates(1, &j1Index, &rateBefore);
+
+    y[qIndex] += 0.1;
+    model->setStateVector(y.data());
+
+    double rateAfter = 0;
+    model->getReactionRates(1, &j1Index, &rateAfter);
+
+    return rateAfter - rateBefore;
+    };
+
+  double expectedDelta = 0.1 * 0.5 * 3 * 2; // dQ * k1 * ks2 * kw1
+
+  RoadRunner rrBefore(sbmlPath.string());
+  EXPECT_NEAR(measureJ1RateSensitivityToQ(rrBefore), expectedDelta, 1e-6);
+
+  RoadRunner rrAfter(sbmlPath.string());
+  rrAfter.setConservedMoietyAnalysis(true);
+  EXPECT_NEAR(measureJ1RateSensitivityToQ(rrAfter), expectedDelta, 1e-6);
+}
+
+// A species governed by its own assignment rule but with zero stoichiometric
+// coupling to any reaction (W1, S2) is not a real conserved moiety and must
+// not be counted as one: only the genuine Q+P2 (via J1) and A+B (via J2)
+// cycles should be reported. W1 and S2 must also keep tracking their
+// dependency chain dynamically after conversion, not freeze at their
+// pre-conversion value.
+TEST_F(StructuralAnalysisTests, RuleGovernedSpeciesTrackDependencyAfterConversion) {
+  RoadRunner rr((modelAnalysisModelsDir / "assignment_rule_chain_moiety.xml").string());
+  rr.setConservedMoietyAnalysis(true);
+
+  ExecutableModel* model = rr.getModel();
+  EXPECT_EQ(model->getNumConservedMoieties(), 2);
+
+  int n = model->getStateVector(0);
+  std::vector<std::string> ids;
+  for (int i = 0; i < n; ++i) {
+    ids.push_back(model->getStateVectorId(i));
+  }
+  int qIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "Q"));
+  ASSERT_LT(qIndex, n);
+
+  std::vector<double> y(n);
+  model->getStateVector(y.data());
+  y[qIndex] += 0.1;
+  model->setStateVector(y.data());
+
+  double qAfter = rr.getValue("Q");
+  double w1After = rr.getValue("W1");
+  double s2After = rr.getValue("S2");
+
+  EXPECT_NEAR(w1After, 2.0 * qAfter, 1e-9);
+  EXPECT_NEAR(s2After, 3.0 * w1After, 1e-9);
+
+  int j1Index = model->getReactionIndex("J1");
+  double rate = 0;
+  model->getReactionRates(1, &j1Index, &rate);
+  EXPECT_NEAR(rate, 0.5 * s2After, 1e-9);
+}
+
+// BIOMD0000000064 (Teusink et al. 2000, yeast glycolysis) has two species,
+// SUM_P and F26BP, declared with constant="true" and boundaryCondition="false"
+// -- they're used only as fixed parameters inside kinetic laws (the AK
+// equilibrium and the PFK rate law), never as reactants/products. They
+// should be classified as boundary species (and excluded from the
+// floating-species/Newton state vector), not as ordinary floating species
+// with a structurally-zero rate row.
+TEST_F(StructuralAnalysisTests, TeusinkConstantSpeciesAreBoundary) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+
+  auto boundaryIds = rr.getBoundarySpeciesIds();
+  EXPECT_NE(std::find(boundaryIds.begin(), boundaryIds.end(), "SUM_P"), boundaryIds.end());
+  EXPECT_NE(std::find(boundaryIds.begin(), boundaryIds.end(), "F26BP"), boundaryIds.end());
+
+  auto floatingIds = rr.getFloatingSpeciesIds();
+  EXPECT_EQ(std::find(floatingIds.begin(), floatingIds.end(), "SUM_P"), floatingIds.end());
+  EXPECT_EQ(std::find(floatingIds.begin(), floatingIds.end(), "F26BP"), floatingIds.end());
+}
+
+// The NAD/NADH pair forms a genuine stoichiometric conservation cycle in
+// this model (via the GAPDH/ADH/G3PDH reactions), independent of the
+// constant-species fix above. This checks that RoadRunner's structural
+// analysis (the same analysis ConservedMoietyConverter::convert() reads
+// its independent/dependent species split from) actually finds it: NAD or
+// NADH should come back as a dependent species for a conservation law.
+TEST_F(StructuralAnalysisTests, TeusinkNADCycleIsFound) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+
+  auto dependentIds = rr.getDependentFloatingSpeciesIds();
+  bool foundNADCycle = std::find(dependentIds.begin(), dependentIds.end(), "NAD") != dependentIds.end()
+    || std::find(dependentIds.begin(), dependentIds.end(), "NADH") != dependentIds.end();
+  EXPECT_TRUE(foundNADCycle);
+}
+
+// Before the constant-species-as-boundary fix and the conserved-moiety
+// rule-duplication fix, steadyState() failed with "Jacobian matrix singular
+// in NLEQ" on this model. Expected values are this model's own steady
+// state (matches Table 4 of Teusink et al. 2000, and the "this model"
+// column in the SBML's own notes).
+TEST_F(StructuralAnalysisTests, TeusinkSteadyStateConverges) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+
+  ASSERT_NO_THROW(rr.steadyState());
+
+  EXPECT_NEAR(rr.getValue("[G6P]"), 1.0332, 1e-3);
+  EXPECT_NEAR(rr.getValue("[F6P]"), 0.1128, 1e-3);
+  EXPECT_NEAR(rr.getValue("[PYR]"), 8.5232, 1e-3);
+  EXPECT_NEAR(rr.getValue("[ATP]"), 2.5084, 1e-3);
+  EXPECT_NEAR(rr.getValue("[ADP]"), 1.2921, 1e-3);
+  EXPECT_NEAR(rr.getValue("[NADH]"), 0.0444, 1e-3);
+}
+
+// TeusinkNADCycleIsFound confirms LibStructural finds the NAD/NADH cycle from
+// the raw stoichiometry, but steadyState()'s auto_moiety_analysis retry
+// swallows any exception from setConservedMoietyAnalysis() and silently falls
+// back to no conversion. Calling it directly here surfaces that exception (if
+// any) instead, and confirms the conversion actually produces the expected
+// number of conserved moieties on the compiled model, not just in the
+// structural analysis (3 real cycles: NAD/NADH, the adenylate pool, and one
+// more -- not the 6 a rule-duplication bug once produced by also counting
+// non-reacting, rule-governed species as moieties).
+TEST_F(StructuralAnalysisTests, TeusinkConservedMoietyConversionSucceeds) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+
+  ASSERT_NO_THROW(rr.setConservedMoietyAnalysis(true));
+  EXPECT_TRUE(rr.getConservedMoietyAnalysis());
+  EXPECT_EQ(rr.getModel()->getNumConservedMoieties(), 3);
+}
+
+// ATP and ADP are related to P (and SUM_P) through the AK-equilibrium
+// assignment rules, never directly through a reaction. Perturbing P must
+// still update them dynamically after conversion, not leave them frozen at
+// their pre-conversion value the way the rule-duplication bug did.
+TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionUpdatesATP) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+  rr.setConservedMoietyAnalysis(true);
+
+  ExecutableModel* model = rr.getModel();
+  int n = model->getStateVector(0);
+  std::vector<std::string> ids;
+  for (int i = 0; i < n; ++i) {
+    ids.push_back(model->getStateVectorId(i));
+  }
+  int pIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "P"));
+  ASSERT_LT(pIndex, n);
+
+  std::vector<double> y(n);
+  model->getStateVector(y.data());
+
+  double atpBefore = rr.getValue("[ATP]");
+  double adpBefore = rr.getValue("[ADP]");
+
+  y[pIndex] += 1.0;
+  model->setStateVector(y.data());
+
+  double atpAfter = rr.getValue("[ATP]");
+  double adpAfter = rr.getValue("[ADP]");
+
+  EXPECT_NE(atpAfter, atpBefore);
+  EXPECT_NE(adpAfter, adpBefore);
+}
+
+// createReorderedSpecies deletes any <species> that's neither
+// boundary/constant nor part of indSpecies/depSpecies -- ATP/ADP/AMP satisfy
+// none of those (not constant, never a reactant/product). Their <species>
+// elements, and their classification as ordinary floating species, must
+// survive conversion so their assignment rules (referencing P and SUM_P)
+// keep resolving.
+TEST_F(StructuralAnalysisTests, TeusinkATPClassificationAfterConversion) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+  rr.setConservedMoietyAnalysis(true);
+
+  auto floatingIds = rr.getFloatingSpeciesIds();
+  auto boundaryIds = rr.getBoundarySpeciesIds();
+  auto globalParamIds = rr.getGlobalParameterIds();
+
+  for (const std::string& id : {"ATP", "ADP", "AMP"}) {
+    EXPECT_NE(std::find(floatingIds.begin(), floatingIds.end(), id), floatingIds.end()) << id;
+    EXPECT_EQ(std::find(boundaryIds.begin(), boundaryIds.end(), id), boundaryIds.end()) << id;
+    EXPECT_EQ(std::find(globalParamIds.begin(), globalParamIds.end(), id), globalParamIds.end()) << id;
+  }
+  for (const std::string& id : {"SUM_P", "F26BP"}) {
+    EXPECT_NE(std::find(boundaryIds.begin(), boundaryIds.end(), id), boundaryIds.end()) << id;
+  }
+}
+
+// P only reaches kinetic laws indirectly, through the inlined ADP/ATP
+// assignment rules, so perturbing it must still change at least one
+// reaction rate after conversion -- the rule-duplication bug froze those
+// rules to a constant, making every reaction rate blind to P.
+TEST_F(StructuralAnalysisTests, TeusinkPerturbingPAfterConversionChangesReactionRates) {
+  RoadRunner rr((modelAnalysisModelsDir / "teusink_glycolysis.xml").string());
+  rr.setConservedMoietyAnalysis(true);
+
+  ExecutableModel* model = rr.getModel();
+  int n = model->getStateVector(0);
+  std::vector<std::string> ids;
+  for (int i = 0; i < n; ++i) {
+    ids.push_back(model->getStateVectorId(i));
+  }
+  int pIndex = std::distance(ids.begin(), std::find(ids.begin(), ids.end(), "P"));
+  ASSERT_LT(pIndex, n);
+
+  std::vector<double> y(n);
+  model->getStateVector(y.data());
+
+  int numReactions = model->getNumReactions();
+  std::vector<double> ratesBefore(numReactions);
+  model->getReactionRates(numReactions, 0, ratesBefore.data());
+
+  y[pIndex] += 1.0;
+  model->setStateVector(y.data());
+
+  std::vector<double> ratesAfter(numReactions);
+  model->getReactionRates(numReactions, 0, ratesAfter.data());
+
+  bool anyRateChanged = false;
+  for (int i = 0; i < numReactions; ++i) {
+    if (std::abs(ratesAfter[i] - ratesBefore[i]) > 1e-9) {
+      anyRateChanged = true;
+      break;
+    }
+  }
+  EXPECT_TRUE(anyRateChanged);
+}
 
 /************************************************************
  * Check structural properties in the BimolecularEnd TestModel
@@ -479,9 +732,3 @@ J0,J1,J2,J3,J4
 0,1,-1,0,-1
      */
 }
-
-
-
-
-
-

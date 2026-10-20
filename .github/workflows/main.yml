@@ -66,7 +66,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.2.22" ]
+        libroadrunner_deps_release_version: [ "v2.3.7" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-13.x" ]
         llvm_name: [ "llvm-13.x" ]
@@ -431,7 +431,7 @@ jobs:
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
           ${{ env.PYTHON_DIR }} \
-          ${{ env.SWIG_DIR }}
+          ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
       - name: Build and install RoadRunner
         shell: bash
@@ -449,19 +449,19 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
-      - name: Run C RoadRunner tests (most platforms)
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
+      - name: Run C RoadRunner tests
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
 
-      - name: Run C RoadRunner tests (Ubuntu; skip plugins)
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
+      - name: Run LLJit section range tests (Debug)
+        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
+          ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
 
       - name: Run Python Roadrunner tests (first Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'

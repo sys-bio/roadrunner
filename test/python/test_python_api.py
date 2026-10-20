@@ -21,6 +21,7 @@ try:
         LinesearchNewtonIteration,
         NLEQ1Solver,
         NLEQ2Solver,
+        SimulateOptions,
     )
 
 
@@ -35,6 +36,7 @@ except ImportError:
         LinesearchNewtonIteration,
         NLEQ1Solver,
         NLEQ2Solver,
+        SimulateOptions,
     )
 
 # note, we can also just import test models directly
@@ -745,10 +747,10 @@ class RoadRunnerTests(unittest.TestCase):
                     ("S2'", 0.99),
                     ("[S1]'", -0.99),
                     ("[S2]'", 0.99),
-                    ('stoich(S1, _J0)', 1.0),
-                    ('stoich(S1, _J1)', 1.0),
+                    ('stoich(S1, _J0)', -1.0),
                     ('stoich(S2, _J0)', 1.0),
-                    ('stoich(S2, _J1)', 1.0),
+                    ('stoich(S2, _J1)', -1.0),
+                    ('stoich(S1, _J1)', 1.0),
                     ('uec(_J0, S1)', 0.100000),
                     ('uec(_J0, S2)', 0.0),
                     ('uec(_J0, kf)', 10.000000),
@@ -842,9 +844,9 @@ class RoadRunnerTests(unittest.TestCase):
                     "[S1]'",
                     "[S2]'",
                     'stoich(S1, _J0)',
-                    'stoich(S1, _J1)',
                     'stoich(S2, _J0)',
                     'stoich(S2, _J1)',
+                    'stoich(S1, _J1)',
                     'uec(_J0, S1)',
                     'uec(_J0, S2)',
                     'uec(_J0, kf)',
@@ -908,6 +910,57 @@ class RoadRunnerTests(unittest.TestCase):
         data = rr2.simulate(0, 10, 11)
         print(data)
         self.assertEqual((11, 3), data.shape)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "reads the resident memory from /proc")
+    def test_loadStateS_does_not_leak_when_loading_fails(self):
+        """loadStateS takes ownership of the state; it must be freed even when
+        the state is rejected."""
+
+        def resident_mb():
+            with open("/proc/self/status") as f:
+                for line in f:
+                    if line.startswith("VmRSS:"):
+                        return int(line.split()[1]) / 1024.0
+            self.fail("VmRSS not found in /proc/self/status")
+
+        bad_state = bytes(len(self.rr.saveStateS()))  # wrong magic number
+        rr2 = RoadRunner()
+        for _ in range(100):  # warm up allocator caches before measuring
+            with self.assertRaises(Exception):
+                rr2.loadStateS(bad_state)
+
+        before = resident_mb()
+        for _ in range(1000):
+            with self.assertRaises(Exception):
+                rr2.loadStateS(bad_state)
+        growth = resident_mb() - before
+        self.assertLess(growth, 5.0, "failed loadStateS leaked %.1f MB over 1000 calls" % growth)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "reads the resident memory from /proc")
+    def test_saveStateS_does_not_leak(self):
+        """saveStateS hands ownership of the serialized state to the caller;
+        the wrapper must free it once it has been copied into bytes."""
+
+        def resident_mb():
+            with open("/proc/self/status") as f:
+                for line in f:
+                    if line.startswith("VmRSS:"):
+                        return int(line.split()[1]) / 1024.0
+            self.fail("VmRSS not found in /proc/self/status")
+
+        self.rr.simulate(0, 10, 11)
+        state = self.rr.saveStateS()
+        self.assertIsInstance(state, bytes)
+
+        # warm up allocator caches before measuring
+        for _ in range(100):
+            self.rr.saveStateS()
+
+        before = resident_mb()
+        for _ in range(1000):
+            self.rr.saveStateS()
+        growth = resident_mb() - before
+        self.assertLess(growth, 5.0, "saveStateS leaked %.1f MB over 1000 calls" % growth)
 
     def test_makeIntegrator(self):
         integrator = self.rr.makeIntegrator("gillespie")
@@ -1227,10 +1280,66 @@ class RoadRunnerTests(unittest.TestCase):
     def test_simulateWithNumpyIntTimes(self):
         self.rr.resetToOrigin()
         numpy_intvec = numpy.array([0, 1, 5, 10])
-        
+
         self.rr.simulate(times = numpy_intvec)
         result = self.rr.getSimulationData()
         self.assertEqual(list(result[:,0]), [0, 1, 5, 10])
+
+    # https://github.com/sys-bio/roadrunner/issues/1339
+    # SimulateOptions is a long-lived object that gets mutated field-by-field
+    # across repeated simulations, both from the C API and here, where 'opt'
+    # is reused across two _simulate(opt) calls exactly like the C API reuses
+    # its persistent options object. Setting 'opt.start'/'opt.end'/'opt.steps'
+    # or 'opt.times' should each clear whichever of the other is now stale,
+    # so times-mode and steps-mode are always freely interleavable regardless
+    # of what a previous call left set on 'opt'.
+
+    def test_simulateOptions_timesAfterSteps(self):
+        opt = SimulateOptions()
+        opt.start = 0
+        opt.end = 9
+        opt.steps = 3
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times = [0, 1, 2, 9]
+        opt.times = times
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times)
+
+    def test_simulateOptions_stepsAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 1, 5, 10, 20]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        opt.start = 0
+        opt.end = 6
+        opt.steps = 3
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), [0, 2, 4, 6])
+
+    def test_simulateOptions_largerTimesAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 5, 10]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times2 = [0, 1, 2, 3, 10]
+        opt.times = times2
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times2)
+
+    def test_simulateOptions_smallerTimesAfterTimes(self):
+        opt = SimulateOptions()
+        opt.times = [0, 1, 2, 3, 10]
+        self.rr._simulate(opt)
+        self.rr.reset()
+
+        times2 = [0, 5, 10]
+        opt.times = times2
+        result = self.rr._simulate(opt)
+        self.assertEqual(list(result[:, 0]), times2)
 
 
 if __name__ == "__main__":

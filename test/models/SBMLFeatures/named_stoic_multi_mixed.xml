@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="named_stoic_multi_mixed" name="named_stoic_multi_mixed">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="C" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k" value="0.1" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J0" reversible="false">
+        <listOfReactants>
+          <speciesReference id="x1" species="A" stoichiometry="2" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="x2" species="A" stoichiometry="3" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> k </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

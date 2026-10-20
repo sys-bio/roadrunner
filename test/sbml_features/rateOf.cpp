@@ -29,7 +29,7 @@ TEST_F(SBMLFeatures, RATEOF_RNX1)
     try
     {
         RoadRunner rri((SBMLFeaturesDir / "rateOf_1reaction.xml").string());
-        rri.getSimulateOptions().duration = 2;
+        rri.getSimulateOptions().setDuration(2);
         rri.simulate();
         EXPECT_EQ(rri.getValue(rri.createSelection("s2")), 1.2);
     }
@@ -45,7 +45,7 @@ TEST_F(SBMLFeatures, RATEOF_AR1)
     try
     {
         RoadRunner rri((SBMLFeaturesDir / "rateOf_assignmentRule1.xml").string());
-        rri.getSimulateOptions().duration = 2;
+        rri.getSimulateOptions().setDuration(2);
         rri.simulate();
         EXPECT_EQ(rri.getValue(rri.createSelection("s2")), 0.0);
     }
@@ -63,7 +63,7 @@ TEST_F(SBMLFeatures, RATEOF_AR2)
         RoadRunner rri((SBMLFeaturesDir / "rateOf_assignmentRule2.xml").string());
         EXPECT_EQ(rri.getValue(rri.createSelection("s2")), 1.0);
         EXPECT_EQ(rri.getValue(rri.createSelection("s1'")), 1.0);
-        rri.getSimulateOptions().duration = 1;
+        rri.getSimulateOptions().setDuration(1);
         rri.simulate();
         EXPECT_EQ(rri.getValue(rri.createSelection("s2")), 1.0);
         EXPECT_NEAR(rri.getValue(rri.createSelection("s1")), 6.0, 0.0001);
