@@ -40,6 +40,13 @@ Properties& Properties::operator=(const Properties& rhs)
     {
         return *this;
     }
+    for(size_t i = 0; i < mProperties.size(); i++)
+    {
+        if(mProperties[i].second == true)
+        {
+            delete mProperties[i].first;
+        }
+    }
     mProperties.clear();
 
     //Copy each property

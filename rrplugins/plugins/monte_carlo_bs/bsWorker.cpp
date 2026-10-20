@@ -47,10 +47,6 @@ namespace bsmc
     void bsWorker::reset()
     {
         mResiduals.clear();
-        for (int i = 0; i < mMCDataSets.size(); i++)
-        {
-            delete mMCDataSets[i];
-        }
         mMCDataSets.clear();
 
         for (int i = 0; i < mMCParameters.size(); i++)
@@ -133,7 +129,7 @@ namespace bsmc
         for (int i = 0; i < mParent.mNrOfMCRuns; i++)
         {
 
-            Properties parameters = getParameters(mMCDataSets[i]);
+            Properties parameters = getParameters(&mMCDataSets[i]);
             mParent.mCurrentParameters.setValue(parameters);
             mMCParameters.push_back(parameters);
             workerProgress();
@@ -187,7 +183,7 @@ namespace bsmc
             if (values.size() > 0) {
                 double mean = getMean(values);
                 Property<double>* prop = new Property<double>(mean, inpParaList[para]->getName());
-                means.add(prop);
+                means.add(prop, true);
                 RRPLOG(lInfo) << inpParaList[para]->getName() << "mean: " << mean << endl;
                 sort(values.begin(), values.end());
                 if (values.size() >= 4) {
@@ -197,9 +193,9 @@ namespace bsmc
                     double highest = values[values.size() - index - 1];
 
                     prop = new Property<double>(lowest, inpParaList[para]->getName() + "_25_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
                     prop = new Property<double>(highest, inpParaList[para]->getName() + "_75_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
                 }
                 if (values.size() >= 40) {
                     size_t index = roundl(values.size() / 40.0);
@@ -208,12 +204,12 @@ namespace bsmc
                     double interval = (highest - lowest) / 2;
 
                     prop = new Property<double>(interval, inpParaList[para]->getName());
-                    confidenceIntervals.add(prop);
+                    confidenceIntervals.add(prop, true);
 
                     prop = new Property<double>(lowest, inpParaList[para]->getName() + "_02.5_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
                     prop = new Property<double>(highest, inpParaList[para]->getName() + "_97.5_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
 
                     RRPLOG(lInfo) << inpParaList[para]->getName() << "95% confidence interval: " << lowest << " - " << highest << endl;
                 }
@@ -223,9 +219,9 @@ namespace bsmc
                     double highest = values[values.size() - index - 1];
 
                     prop = new Property<double>(lowest, inpParaList[para]->getName() + "_01_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
                     prop = new Property<double>(highest, inpParaList[para]->getName() + "_99_percentile");
-                    percentiles.add(prop);
+                    percentiles.add(prop, true);
                 }
             }
         }
@@ -337,7 +333,7 @@ namespace bsmc
         //Create data sets, use fitted data as the "base", to add residuals to later on
         for (int i = 0; i < mParent.mNrOfMCRuns; i++)
         {
-            mMCDataSets.push_back(new TelluriumData((*initialFit)));
+            mMCDataSets.push_back(*initialFit);
 
         }
 
@@ -346,7 +342,7 @@ namespace bsmc
 
         for (int i = 0; i < mMCDataSets.size(); i++)
         {
-            TelluriumData& data = *(mMCDataSets[i]);
+            TelluriumData& data = mMCDataSets[i];
             int startCol = data.isFirstColumnTime() ? 1 : 0;
             for (int col = startCol; col < data.cSize(); col++)
             {

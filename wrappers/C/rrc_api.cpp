@@ -1108,11 +1108,9 @@ RRVectorPtr rrcCallConv getRateRuleValues(RRHandle handle)
       ExecutableModel* model = rri->getModel();
       if (model)
       {
-        double* rrvs = (double*)calloc(model->getNumRateRules(), sizeof(double));
-        model->getRateRuleValues(rrvs);
-        RRVector* aVec = rrc::createVector(*rrvs);
-        free(rrvs);
-        return aVec;
+        vector<double> rrvs(model->getNumRateRules());
+        model->getRateRuleValues(rrvs.data());
+        return rrc::createVector(rrvs);
       }
       return NULL;
   catch_ptr_macro

@@ -210,31 +210,33 @@ The Plugin has numerous parameters for fine tuning the algorithm. See the embedd
         // the user.  However, this is actually handled by our own system, so we don't
         // need to log anything to the console.  So, while running, stop normal error logging,
         // and turn it back on afterwards.
-        char* origloglevel = gHostInterface->getLogLevel();
+        char* logLevelText = gHostInterface->getLogLevel();
+        std::string origloglevel(logLevelText ? logLevelText : "");
+        free(logLevelText);
         gHostInterface->setLogLevel("LOG_FATAL"); //Only log fatal errors.
         try
         {
             RRPLOG(lInfo) << "Executing the Levenberg-Marquardt plugin";
             mWorker.start(inThread);
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             return true;
         }
         catch (const Exception& ex)
         {
             msg << "There was a problem in the execute of the LMFIT plugin: " << ex.getMessage();
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             throw(Exception(msg.str()));
         }
         catch (rr::Exception& ex)
         {
             msg << "There was a roadrunner problem in the execute of the LMFIT plugin: " << ex.getMessage();
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             throw(Exception(msg.str()));
         }
         catch (exception& ex)
         {
             msg << "There was a problem in the execute method of the LMFIT plugin: " << ex.what();
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             throw(Exception(msg.str()));
         }
         //Should never reach, but suppresses warning:

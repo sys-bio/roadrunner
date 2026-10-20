@@ -33,7 +33,7 @@ namespace lmfit
         for (int i = 0; i < myData->nrOfParameters; i++)
         {
             RRPLOG(lInfo) << myData->parameterLabels[i] << " = " << par[i] << "\n";
-            gHostInterface->setValue(myData->mTheHost->rrHandle, myData->parameterLabels[i], par[i]);
+            gHostInterface->setValue(myData->mTheHost->rrHandle, myData->parameterLabels[i].c_str(), par[i]);
         }
 
         bool ret = gHostInterface->simulateExNoReturn(myData->mTheHost->rrHandle, myData->timeStart, myData->timeEnd, myData->nrOfTimePoints);
@@ -65,7 +65,7 @@ namespace lmfit
                     residuals[count] = fvec[count];
 
                     //If data points are weighted, weigh fvec data points
-                    if (myData->experimentalDataWeights != NULL)
+                    if (!myData->experimentalDataWeights.empty())
                     {
                         if (myData->experimentalDataWeights[i][j] != 0) //Cause the first column is time... :( loks ugly
                         {

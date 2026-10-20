@@ -207,7 +207,9 @@ The Plugin has a number of parameters for fine tuning the algorithm. See the emb
 
     bool NelderMead::execute(bool inThread)
     {
-        char* origloglevel = gHostInterface->getLogLevel();
+        char* logLevelText = gHostInterface->getLogLevel();
+        std::string origloglevel(logLevelText ? logLevelText : "");
+        free(logLevelText);
         gHostInterface->setLogLevel("LOG_FATAL"); //Only log fatal errors.
 
         stringstream msg;
@@ -215,24 +217,24 @@ The Plugin has a number of parameters for fine tuning the algorithm. See the emb
         {
             RRPLOG(lInfo) << "Executing the Nelder-Mead plugin";
             mWorker.start(inThread);
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             return true;
         }
         catch (const Exception& ex)
         {
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             msg << "There was a problem in the execute of the Nelder-Mead plugin: " << ex.getMessage();
             throw(Exception(msg.str()));
         }
         //catch (rr::Exception& ex)
         //{
-        //    gHostInterface->setLogLevel(origloglevel);
+        //    gHostInterface->setLogLevel(origloglevel.c_str());
         //    msg << "There was a roadrunner problem in the execute of the Nelder-Mead plugin: " << ex.getMessage();
         //    throw(Exception(msg.str()));
         //}
         catch (...)
         {
-            gHostInterface->setLogLevel(origloglevel);
+            gHostInterface->setLogLevel(origloglevel.c_str());
             throw(Exception("There was an unknown problem in the execute method of the Nelder-Mead plugin."));
         }
         //Should never reach, but suppresses warning:

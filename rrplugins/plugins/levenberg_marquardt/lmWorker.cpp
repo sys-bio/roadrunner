@@ -24,7 +24,7 @@ namespace lmfit
     lmWorker::lmWorker(LM& host)
         : mTheHost(host)
     {
-        memset(&mLMData, 0, sizeof(lmDataStructure));
+        mLMData = lmDataStructure();
     }
 
     bool lmWorker::isRunning() const
@@ -87,7 +87,7 @@ namespace lmfit
         RRPLOG(lInfo) << mLMData.nrOfResiduePoints << " residue points." << endl;
         //This is the library function doing the minimization.
         lmmin(mLMData.nrOfParameters,
-            mLMData.parameters,
+            mLMData.parameters.data(),
             mLMData.nrOfResiduePoints,
             (const void*)&mTheHost,
             lmObjectiveFunction,
@@ -403,7 +403,7 @@ namespace lmfit
         mLMData.nrOfSpecies = species.count();
         Properties parameters = mTheHost.mInputParameterList.getValue();
         mLMData.nrOfParameters = parameters.count();
-        mLMData.parameters = new double[mLMData.nrOfParameters];
+        mLMData.parameters.assign(mLMData.nrOfParameters, 0.0);
         mLMData.mLMPlugin = static_cast<TELHandle> (&mTheHost);
         mLMData.mTheHost = &mTheHost;
 
@@ -430,27 +430,21 @@ namespace lmfit
         mLMData.timeStart = obsData.getTimeStart();
         mLMData.timeEnd = obsData.getTimeEnd();
         mLMData.nrOfResiduePoints = mLMData.nrOfSpecies * mLMData.nrOfTimePoints;
-        mLMData.time = new double[mLMData.nrOfTimePoints];
+        mLMData.time.assign(mLMData.nrOfTimePoints, 0.0);
 
-        mLMData.experimentalData = new double* [mLMData.nrOfSpecies];
+        mLMData.experimentalData.assign(mLMData.nrOfSpecies, std::vector<double>(mLMData.nrOfTimePoints));
 
+        mLMData.experimentalDataWeights.clear();
         if (obsData.hasWeights())
         {
-            mLMData.experimentalDataWeights = new double* [mLMData.nrOfSpecies];
+            mLMData.experimentalDataWeights.assign(mLMData.nrOfSpecies, std::vector<double>(mLMData.nrOfTimePoints));
         }
 
-        mLMData.speciesLabels = new char* [mLMData.nrOfSpecies];
-
-        //Each species data points and label
+        //Each species label
+        mLMData.speciesLabels.clear();
         for (int i = 0; i < mLMData.nrOfSpecies; i++)
         {
-            mLMData.experimentalData[i] = new double[mLMData.nrOfTimePoints];
-            mLMData.speciesLabels[i] = createText(species[i]);
-
-            if (obsData.hasWeights())
-            {
-                mLMData.experimentalDataWeights[i] = new double[mLMData.nrOfTimePoints];
-            }
+            mLMData.speciesLabels.push_back(species[i]);
         }
 
         //Populate Experimental Data
@@ -478,10 +472,10 @@ namespace lmfit
             }
         }
 
-        mLMData.parameterLabels = new char* [mLMData.nrOfParameters];
+        mLMData.parameterLabels.clear();
         for (int i = 0; i < mLMData.nrOfParameters; i++)
         {
-            mLMData.parameterLabels[i] = createText(parameters[i]->getName());
+            mLMData.parameterLabels.push_back(parameters[i]->getName());
         }
 
         gHostInterface->setTimeCourseSelectionList(mTheHost.rrHandle, species.asString().c_str());
@@ -527,7 +521,7 @@ namespace lmfit
 
         for (int i = 0; i < mLMData.nrOfParameters; i++)
         {
-            gHostInterface->setValue(mTheHost.rrHandle, mLMData.parameterLabels[i], mLMData.parameters[i]);
+            gHostInterface->setValue(mTheHost.rrHandle, mLMData.parameterLabels[i].c_str(), mLMData.parameters[i]);
         }
 
         gHostInterface->reset(mTheHost.rrHandle);

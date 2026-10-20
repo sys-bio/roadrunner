@@ -185,6 +185,11 @@ namespace rr {
           */
           void printSolverStats();
 
+          /**
+           * @brief error text stored by kinsolErrHandler and thrown by solveForSteadyState
+           */
+          std::string mPendingKinsolError;
+
     protected:
 
         /**

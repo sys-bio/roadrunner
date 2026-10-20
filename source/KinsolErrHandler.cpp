@@ -3,6 +3,7 @@
 //
 
 #include "KinsolErrHandler.h"
+#include "KinsolSteadyStateSolver.h"
 #include "kinsol/kinsol.h"
 #include "rrLogger.h"
 #include <iostream>
@@ -117,7 +118,9 @@ namespace rr {
             std::ostringstream err;
             err << "Kinsol Error: Function: " << function
                                      << "Message: " << decodeKinsolError(error_code);
-            throw std::runtime_error(err.str());
+            // Exceptions must not unwind through the SUNDIALS C frames, so the error
+            // is stored on the solver and thrown after the kinsol call returns.
+            static_cast<KinsolSteadyStateSolver*>(err_user_data)->mPendingKinsolError = err.str();
         } else if (error_code > 0) {
             rrLog(Logger::LOG_WARNING) << "Kinsol Warning: "
                                        << ", Function: " << function
