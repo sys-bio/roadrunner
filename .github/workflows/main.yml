@@ -449,19 +449,12 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
-      - name: Run C RoadRunner tests (most platforms)
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
+      - name: Run C RoadRunner tests
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
-
-      - name: Run C RoadRunner tests (Ubuntu; skip plugins)
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
       - name: Run LLJit section range tests (Debug)
         if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'

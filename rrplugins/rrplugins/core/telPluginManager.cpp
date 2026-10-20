@@ -380,26 +380,26 @@ namespace tlp
     {
         bool result(true);
         size_t nrPlugins = getNumberOfPlugins();
+        //Destroy all plugins while every library is still loaded
         for (size_t i = 0; i < nrPlugins; i++)
         {
             telPlugin* aPluginLib = &(mPlugins[i]);
-            if (aPluginLib)
+            if (aPluginLib->second)
             {
-                SharedLibrary* pluginLibHandle = aPluginLib->first;
-                Plugin* aPlugin = aPluginLib->second;
-
-                destroyRRPlugin(aPlugin);
-
-                //Then unload
-                if (pluginLibHandle)
-                {
-                    pluginLibHandle->unload();
-                    delete pluginLibHandle;
-                }
-                //And remove from container
-                aPluginLib->first = NULL;
+                destroyRRPlugin(aPluginLib->second);
                 aPluginLib->second = NULL;
-                aPluginLib = NULL;
+            }
+        }
+
+        //Then unload the libraries
+        for (size_t i = 0; i < nrPlugins; i++)
+        {
+            telPlugin* aPluginLib = &(mPlugins[i]);
+            if (aPluginLib->first)
+            {
+                aPluginLib->first->unload();
+                delete aPluginLib->first;
+                aPluginLib->first = NULL;
             }
         }
 

@@ -94,10 +94,10 @@ TEST_F(CVODEIntegratorTests, OneEvent10Triggers) {
 
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceDefaults) {
-    TestModel* testModelPtr = TestModelFactory("SimpleFlux");
+    SimpleFlux testModel;
 
     // load model
-    RoadRunner r(testModelPtr->str());
+    RoadRunner r(testModel.str());
     std::vector<double> atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
     EXPECT_NEAR(atols[0], 1e-11, 1e-16);
@@ -131,10 +131,10 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceDefaults) {
 }
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceNegValues) {
-    TestModel* testModelPtr = TestModelFactory("SimpleFlux");
+    SimpleFlux testModel;
 
     // load model
-    RoadRunner r(testModelPtr->str());
+    RoadRunner r(testModel.str());
 
     r.getModel()->setValue("init(S1)", -1e-14);
     r.getModel()->setValue("init(S2)", -1e-15);
@@ -145,10 +145,10 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceNegValues) {
 }
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetDouble) {
-    TestModel* testModelPtr = TestModelFactory("SimpleFlux");
+    SimpleFlux testModel;
 
     // load model
-    RoadRunner r(testModelPtr->str());
+    RoadRunner r(testModel.str());
     r.getIntegrator()->setValue("absolute_tolerance", 1e-15);
     std::vector<double> atols = r.getIntegrator()->getAbsoluteToleranceVector();
     ASSERT_EQ(atols.size(), 2);
@@ -174,10 +174,10 @@ TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetDouble) {
 }
 
 TEST_F(CVODEIntegratorTests, CheckAbsToleranceSetVector) {
-    TestModel* testModelPtr = TestModelFactory("SimpleFlux");
+    SimpleFlux testModel;
 
     // load model
-    RoadRunner r(testModelPtr->str());
+    RoadRunner r(testModel.str());
     std::vector<double> orig = r.getIntegrator()->getAbsoluteToleranceVector();
     r.getIntegrator()->setValue("absolute_tolerance", orig);
     std::vector<double> atols = r.getIntegrator()->getAbsoluteToleranceVector();

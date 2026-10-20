@@ -92,6 +92,19 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
         output.setColNames(selections.begin(), selections.end());
 
+        if (result->Weights != NULL) {
+            delete[] result->Weights;
+        }
+        if (result->ColumnHeaders != NULL) {
+            for (int i = 0; i < result->CSize; ++i) {
+                free(result->ColumnHeaders[i]);
+            }
+            delete[] result->ColumnHeaders;
+        }
+        delete[] result->Data;
+        delete result;
+        result = NULL;
+
         TelluriumData data;
         data.setData(output);       //end 
         mTestData.setValue(data);

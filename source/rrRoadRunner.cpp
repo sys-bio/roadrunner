@@ -5154,6 +5154,7 @@ namespace rr {
 
         libsbml::SBMLWriter writer;
         writer.writeSBML(doc, stream);
+        delete doc;
 
         return stream.str();
     }

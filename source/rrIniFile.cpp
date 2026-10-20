@@ -271,7 +271,7 @@ namespace rr
 			bool bAutoKey = (mFlags & mAutoCreateKeys) == mAutoCreateKeys;
 			bool bAutoSec = (mFlags & mAutoCreateSections) == mAutoCreateSections;
 
-			char* buffer = new char[MAX_LINE_BUFFER_SIZE];
+			std::vector<char> buffer(MAX_LINE_BUFFER_SIZE);
 			pSection = GetSection("");
 
 			// These need to be set, we'll restore the original values later.
@@ -281,10 +281,10 @@ namespace rr
 			while (!bDone)
 			{
 				std::string Comment;
-				memset(buffer, 0, MAX_LINE_BUFFER_SIZE);
-				file.getline(buffer, MAX_LINE_BUFFER_SIZE);
+				memset(buffer.data(), 0, MAX_LINE_BUFFER_SIZE);
+				file.getline(buffer.data(), MAX_LINE_BUFFER_SIZE);
 
-				std::string Line = buffer;
+				std::string Line = buffer.data();
 				Trim(Line);
 
 				bDone = (file.eof() || file.bad() || file.fail());
