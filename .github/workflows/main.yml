@@ -17,26 +17,26 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          # - name: macos-15-intel-release
-          #   os_type: macos
-          #   os_name: macos-15-intel
-          #   build_type: Release
-          #   build_python: ON
-          # - name: macos-15-intel-debug
-          #   os_type: macos
-          #   os_name: macos-15-intel
-          #   build_type: Debug
-          #   build_python: OFF
-          # - name: macos-14-release
-          #   os_type: macos
-          #   os_name: macos-14
-          #   build_type: Release
-          #   build_python: ON
-          # - name: macos-14-debug
-          #   os_type: macos
-          #   os_name: macos-14
-          #   build_type: Debug
-          #   build_python: OFF
+          - name: macos-15-intel-release
+            os_type: macos
+            os_name: macos-15-intel
+            build_type: Release
+            build_python: ON
+          - name: macos-15-intel-debug
+            os_type: macos
+            os_name: macos-15-intel
+            build_type: Debug
+            build_python: OFF
+          - name: macos-14-release
+            os_type: macos
+            os_name: macos-14
+            build_type: Release
+            build_python: ON
+          - name: macos-14-debug
+            os_type: macos
+            os_name: macos-14
+            build_type: Debug
+            build_python: OFF
           - name: ubuntu-latest-release
             os_type: ubuntu
             os_name: ubuntu-latest
@@ -47,16 +47,16 @@ jobs:
             os_name: ubuntu-latest
             build_type: Debug
             build_python: OFF
-          # - name: windows-latest-release
-          #   os_type: windows
-          #   os_name: windows-latest
-          #   build_type: Release
-          #   build_python: ON
-          # - name: windows-latest-debug
-          #   os_type: windows
-          #   os_name: windows-latest
-          #   build_type: Debug
-          #   build_python: OFF
+          - name: windows-latest-release
+            os_type: windows
+            os_name: windows-latest
+            build_type: Release
+            build_python: ON
+          - name: windows-latest-debug
+            os_type: windows
+            os_name: windows-latest
+            build_type: Debug
+            build_python: OFF
           - name: manylinux_2_28-release
             os_type: manylinux
             os_name: ubuntu-latest
@@ -449,132 +449,132 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
 
-      # - name: Run C RoadRunner tests (most platforms)
-      #   if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
+      - name: Run C RoadRunner tests (most platforms)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type != 'ubuntu'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
 
-      # - name: Run C RoadRunner tests (Ubuntu; skip plugins)
-      #   if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
+      - name: Run C RoadRunner tests (Ubuntu; skip plugins)
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && matrix.platform.os_type == 'ubuntu'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex "ython|Plugin"
 
-      # - name: Run Python Roadrunner tests (first Python version)
-      #   if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
+      - name: Run Python Roadrunner tests (first Python version)
+        if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
-      # - name: Save roadrunner version
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner
-      #     ls -l
-      #     export rrversion="$(cat VERSION.txt)"
-      #     echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
+      - name: Save roadrunner version
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ls -l
+          export rrversion="$(cat VERSION.txt)"
+          echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
 
-      # - name: Set artifacts path and name
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}
-      #     echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
-      #     echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
+      - name: Set artifacts path and name
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
+          echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
 
-      # - name: Upload roadrunner binaries
-      #   uses: actions/upload-artifact@main
-      #   with:
-      #     name: ${{ env.artifacts_name }}
-      #     path: ${{ env.artifacts_path }}
+      - name: Upload roadrunner binaries
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ env.artifacts_name }}
+          path: ${{ env.artifacts_path }}
 
-      # - name: Create Python wheel artifacts
-      #   if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner
-      #     ${{ env.python_v1_exe }} -m build --wheel
-      #     rm -r -f build
-      #     mv setup_rrplugins.py setup.py
-      #     ${{ env.python_v1_exe }} -m build --wheel
-      #     rm -r -f build
+      - name: Create Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{ env.python_v1_exe }} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{ env.python_v1_exe }} -m build --wheel
+          rm -r -f build
 
-      # - name: Rename Python wheel artifacts
-      #   if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     mkdir ${RUNNER_WORKSPACE}/wheels/
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-      #     if compgen -G "*universal*whl" > /dev/null; then
-      #       mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #       mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #     elif compgen -G "*-linux*whl" > /dev/null; then
-      #       mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #       mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #     fi
-      #     mv * ${RUNNER_WORKSPACE}/wheels/
+      - name: Rename Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          mkdir ${RUNNER_WORKSPACE}/wheels/
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if compgen -G "*universal*whl" > /dev/null; then
+            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
+          elif compgen -G "*-linux*whl" > /dev/null; then
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+          fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
-      # - name: Rebuild RoadRunner with second Python version
-      #   if: matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v2_dir }}
-      #     cmake --build . --target install --config ${{ matrix.platform.build_type }}
+      - name: Rebuild RoadRunner with second Python version
+        if: matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v2_dir }}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      # - name: Create second Python wheel artifacts and rename
-      #   if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner
-      #     ${{ env.python_v2_exe }} -m build --wheel
-      #     rm -r -f build
-      #     mv setup_rrplugins.py setup.py
-      #     ${{ env.python_v2_exe }} -m build --wheel
-      #     rm -r -f build
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-      #     if compgen -G "*universal*whl" > /dev/null; then
-      #       mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #       mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #     elif compgen -G "*-linux*whl" > /dev/null; then
-      #       mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #       mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #     fi
-      #     mv * ${RUNNER_WORKSPACE}/wheels/
+      - name: Create second Python wheel artifacts and rename
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{ env.python_v2_exe }} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{ env.python_v2_exe }} -m build --wheel
+          rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if compgen -G "*universal*whl" > /dev/null; then
+            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
+          elif compgen -G "*-linux*whl" > /dev/null; then
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+          fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
-      # - name: Rebuild RoadRunner with third Python version
-      #   if: matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-      #     cd ${RUNNER_WORKSPACE}/build-roadrunner
-      #     cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
-      #     cmake --build . --target install --config ${{ matrix.platform.build_type }}
+      - name: Rebuild RoadRunner with third Python version
+        if: matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      # - name: Create third Python wheel artifacts and rename
-      #   if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-      #   shell: bash
-      #   run: |
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner
-      #     ${{ env.python_v3_exe }} -m build --wheel
-      #     rm -r -f build
-      #     mv setup_rrplugins.py setup.py
-      #     ${{ env.python_v3_exe }} -m build --wheel
-      #     rm -r -f build
-      #     cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-      #     if compgen -G "*universal*whl" > /dev/null; then
-      #       mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #       mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-      #     elif compgen -G "*-linux*whl" > /dev/null; then
-      #       mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #       mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-      #     fi
-      #     mv * ${RUNNER_WORKSPACE}/wheels/
+      - name: Create third Python wheel artifacts and rename
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-roadrunner
+          ${{ env.python_v3_exe }} -m build --wheel
+          rm -r -f build
+          mv setup_rrplugins.py setup.py
+          ${{ env.python_v3_exe }} -m build --wheel
+          rm -r -f build
+          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
+          if compgen -G "*universal*whl" > /dev/null; then
+            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
+            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
+          elif compgen -G "*-linux*whl" > /dev/null; then
+            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+          fi
+          mv * ${RUNNER_WORKSPACE}/wheels/
 
 
       - name: Rebuild RoadRunner with fourth Python version
