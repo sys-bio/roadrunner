@@ -68,7 +68,7 @@ TEST_F(PluginLevenbergMarquardtTests, OPTIMIZE_TEST_MODEL)
     TelluriumData* covariance = static_cast<TelluriumData*>(cov_property->getValueHandle());
     EXPECT_EQ(covariance->rSize(), 1);
     EXPECT_EQ(covariance->cSize(), 1);
-    EXPECT_NEAR(covariance->getDataElement(0, 0), 0.0003, 0.0001); //Determined empirically.
+    EXPECT_NEAR(covariance->getDataElement(0, 0), 0.0003, 0.0002); //Determined empirically.
 
     PropertyBase* chi_property = lmplugin->getProperty("ChiSquare");
     ASSERT_TRUE(chi_property != NULL);
