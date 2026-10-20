@@ -113,14 +113,9 @@ namespace rr {
  */
     char *rrPyString_getString(PyObject *uni) {
         char *str = NULL;
-//     #pragma message "PY_MAJOR_VERSION = " EXPAND_AND_STRINGIFY(PY_MAJOR_VERSION)
-#if PY_MAJOR_VERSION == 3
         PyObject *bytes = PyUnicode_AsUTF8String(uni);
         str = rr_strclone(PyBytes_AsString(bytes));
         Py_XDECREF(bytes);
-#else
-        str = rr_strclone(PyString_AsString(uni));
-#endif
         return str;
     }
 
@@ -150,31 +145,19 @@ namespace rr {
     }
 
     PyObject *rrPyString_FromString(const char *s) {
-#if PY_MAJOR_VERSION == 3
         return PyUnicode_FromString(s);
-#else
-        return PyString_FromString(s);
-#endif
     }
 
     PyObject *rrPyString_FromStringAndSize(const char *s, Py_ssize_t size) {
-#if PY_MAJOR_VERSION == 3
         return PyUnicode_FromStringAndSize(s, size);
-#else
-        return PyString_FromStringAndSize(s, size);
-#endif
     }
 
     char *rrPyString_AsString(PyObject *s) {
-#if PY_MAJOR_VERSION == 3
         char *str;
         PyObject *bytes = PyUnicode_AsUTF8String(s);
         str = rr_strclone(PyBytes_AsString(bytes));
         Py_XDECREF(bytes);
         return str;
-#else
-        return rr_strclone(PyString_AsString(s));
-#endif
     }
 
     char *rrGetPyErrMessage() {
@@ -219,11 +202,7 @@ namespace rr {
         }
 
         if (type == typeid(std::int32_t)) {
-# if PY_MAJOR_VERSION == 3
             return PyLong_FromLong(var.get<std::int32_t>());
-# else
-            return PyInt_FromLong(var.get<std::int32_t>());
-# endif
         }
 
         if (type == typeid(std::uint32_t)) {
@@ -236,11 +215,7 @@ namespace rr {
         }
 
         if (type == typeid(unsigned char)) {
-# if PY_MAJOR_VERSION == 3
             return PyLong_FromLong((long) var.get<std::int64_t>());
-# else
-            return PyInt_FromLong(var.get<std::int64_t>());
-# endif
         }
 
         if (type == typeid(float)) {
@@ -281,12 +256,7 @@ namespace rr {
             return var;
         }
 
-# if PY_MAJOR_VERSION == 3
-        if (PyUnicode_Check(py))
-# else
-            if (PyString_Check(py))
-# endif
-        {
+        if (PyUnicode_Check(py)) {
             var = rrPyString_getCPPString(py);
             return var;
         } else if (PyBool_Check(py)) {
@@ -311,20 +281,6 @@ namespace rr {
                 throw invalid_argument(ss.str());
             }
 
-            return var;
-        }
-
-# if PY_MAJOR_VERSION == 3
-        else if (PyLong_Check(py))
-# else
-            else if (PyInt_Check(py))
-# endif
-        {
-# if PY_MAJOR_VERSION == 3
-            var = std::int64_t(PyLong_AsLong(py));
-# else
-            var = (std::int32_t)PyInt_AsLong(py);
-# endif
             return var;
         } else if (PyFloat_Check(py)) {
             var = PyFloat_AsDouble(py);
@@ -658,11 +614,7 @@ namespace rr {
         binaryfunc PyArray_subscript = PyArray_Type.tp_as_mapping->mp_subscript;
         int dim = PyArray_NDIM((PyArrayObject*)self);
 
-# if PY_MAJOR_VERSION == 3
         if (dim == 2 && PyUnicode_Check(op)) {
-# else
-            if (dim == 2 && PyString_Check(op)) {
-# endif
             char *keyName = rrPyString_AsString(op);
 
             PyObject *colSeq = PySequence_Fast(self->colNames, "expected a sequence");
@@ -745,11 +697,7 @@ namespace rr {
 
 
     static PyMappingMethods NamedArray_MappingMethods = {
-#if PY_VERSION_HEX >= 0x02050000
             (lenfunc) 0,             /*mp_length*/
-#else
-            (inquiry)0,             /*mp_length*/
-#endif
             (binaryfunc) 0,          /*mp_subscript*/
             (objobjargproc) 0,       /*mp_ass_subscript*/
     };
@@ -1154,24 +1102,10 @@ namespace rr {
         // set our getitem pointer
         NamedArray_MappingMethods.mp_subscript = (binaryfunc) NammedArray_subscript;
 
-#if (PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 9)
-        // this if for python v3.9 and above. Remove
-        // old code when we drop support for py37 and py38
         if (PyModule_AddType(module, &NamedArray_Type) < 0) {
             PyErr_SetString(PyExc_ValueError, "Could not add NamedArray_Type to module roadrunner._roadrunner");
             return;
         }
-#else // python 3.9
-        int result;
-
-        if ((result = PyType_Ready(&NamedArray_Type)) < 0) {
-            std::cout << "PyType_Ready(&NamedArray_Type)) Failed, error: " << result;
-            return;
-        }
-
-        Py_INCREF(&NamedArray_Type);
-        result = PyModule_AddObject(module, "NamedArray", (PyObject *) (&NamedArray_Type));
-#endif // python 3.9
     }
 
 
@@ -1316,11 +1250,7 @@ namespace rr {
         Py_ssize_t pos = 0;
 
         while (PyDict_Next(py, &pos, &pkey, &pvalue)) {
-# if PY_MAJOR_VERSION == 3
             if (PyUnicode_Check(pkey)) {
-# else
-                if (PyString_Check(pkey)) {
-# endif
                 std::string key(rrPyString_AsString(pkey));
                 Setting value = Variant_from_py(pvalue);
 
