@@ -597,6 +597,8 @@ jobs:
           export PYTHONPATH=${RUNNER_WORKSPACE}/build-roadrunner/lib/site-packages
           ${{ env.python_v4_exe }} --version
           set +e
+          ${{ env.python_v4_exe }} -X faulthandler -c "import numpy"
+          rc_numpy=$?
           ${{ env.python_v4_exe }} -X faulthandler -c "import roadrunner"
           rc_import=$?
           ${{ env.python_v4_exe }} -X faulthandler -c "import roadrunner; r = roadrunner.RoadRunner()"
@@ -606,6 +608,9 @@ jobs:
           echo "import only:                 exit code ${rc_import}"
           echo "RoadRunner alive at exit:    exit code ${rc_live}"
           echo "RoadRunner deleted at exit:  exit code ${rc_deleted}"
+          echo "numpy import only (control): exit code ${rc_numpy}"
+          sudo apt-get install -y gdb
+          gdb -batch -ex "set debuginfod enabled off" -ex run -ex "bt 40" -ex "thread apply all bt 15" --args ${{ env.python_v4_exe }} -c "import roadrunner"
           exit $(( rc_import || rc_live || rc_deleted ))
 
       - name: Run Python Roadrunner tests (fourth Python version)
