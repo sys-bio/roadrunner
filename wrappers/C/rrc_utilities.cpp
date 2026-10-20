@@ -303,6 +303,7 @@ int rrcCallConv freeRRCData(RRCDataPtr handle)
         if (handle)
         {
             delete[] handle->Data;
+            delete[] handle->Weights;
             for (int i = 0; i < handle->CSize; i++)
             {
                 rr::freeText(handle->ColumnHeaders[i]);
