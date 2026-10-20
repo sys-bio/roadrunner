@@ -197,8 +197,8 @@ rr::pyutil_init(m);
 // Typemap for a C++ string
 %typemap(in) str {
     // typemap for Python -> C string
-  if (PyString_Check($input)) {
-    $1 = std::string(PyString_AsString($input));
+  if (PyUnicode_Check($input)) {
+    $1 = std::string(PyUnicode_AsUTF8($input));
   } else {
     SWIG_exception(SWIG_TypeError, "string expected");
   }
