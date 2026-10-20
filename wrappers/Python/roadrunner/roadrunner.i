@@ -1200,7 +1200,7 @@ namespace std { class ostream{}; }
         for (std::list<std::string>::const_iterator i = ids.begin(); i != ids.end(); ++i)
         {
             const std::string& id  = *i;
-            PyObject* pyStr = PyString_FromString(id.c_str());
+            PyObject* pyStr = PyUnicode_FromString(id.c_str());
             PyList_SET_ITEM(pyList, j++, pyStr);
         }
 
@@ -1222,7 +1222,7 @@ namespace std { class ostream{}; }
                 val = PyFloat_AsDouble(pval);
             }
             else if (PyArray_IsIntegerScalar(pval)) {
-                val = PyInt_AsLong(pval);
+                val = PyLong_AsLong(pval);
             }
             else {
                 PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
@@ -1249,7 +1249,7 @@ namespace std { class ostream{}; }
              i != selections.end(); ++i) {
             std::string str = i->to_string();
 
-            PyObject *pystr = PyString_FromString(str.c_str());
+            PyObject *pystr = PyUnicode_FromString(str.c_str());
             PyList_SET_ITEM(pysel, j++, pystr);
         }
 
@@ -1272,7 +1272,7 @@ namespace std { class ostream{}; }
              i != selections.end(); ++i) {
             std::string str = i->to_string();
 
-            PyObject *pystr = PyString_FromString(str.c_str());
+            PyObject *pystr = PyUnicode_FromString(str.c_str());
             PyList_SET_ITEM(pysel, j++, pystr);
         }
 
@@ -2198,7 +2198,7 @@ namespace std { class ostream{}; }
                 val = PyFloat_AsDouble(pval);
             }
             else if (PyArray_IsIntegerScalar(pval)) {
-                val = PyInt_AsLong(pval);
+                val = PyLong_AsLong(pval);
             }
             else {
                 PyErr_Format(PyExc_TypeError, "The entries in the list must be numbers.");
@@ -2406,7 +2406,7 @@ namespace std { class ostream{}; }
         for (std::list<std::string>::const_iterator i = ids.begin(); i != ids.end(); ++i)
         {
             const std::string& id  = *i;
-            PyObject* pyStr = PyString_FromString(id.c_str());
+            PyObject* pyStr = PyUnicode_FromString(id.c_str());
             PyList_SET_ITEM(pyList, j++, pyStr);
         }
 
@@ -2431,7 +2431,7 @@ namespace std { class ostream{}; }
         for (std::list<std::string>::const_iterator i = ids.begin(); i != ids.end(); ++i)
         {
             const std::string& id  = *i;
-            PyObject* pyStr = PyString_FromString(id.c_str());
+            PyObject* pyStr = PyUnicode_FromString(id.c_str());
             PyList_SET_ITEM(pyList, j++, pyStr);
         }
 

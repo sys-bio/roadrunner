@@ -114,21 +114,25 @@ private:
             if (PyErr_Occurred()) {
 
                 PyObject* pystr = PyObject_Str(PyErr_Occurred());
-                err = std::string("Error calling Python onTimeStep method: ") + PyString_AsString(pystr);
+                const char* msg = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                err = std::string("Error calling Python onTimeStep method: ") + (msg ? msg : "unknown error");
 
                 rrLog(Logger::LOG_ERROR) << err;
 
                 Py_XDECREF(pystr);
                 PyErr_Clear();
             }
-            else if (PyInt_Check(pyres)) {
-                result = PyInt_AsLong(pyres);
+            else if (PyLong_Check(pyres)) {
+                result = PyLong_AsLong(pyres);
             }
             else if (pyres != Py_None) {
                 PyObject* pystr = PyObject_Str(pyres);
-                const char* cstr = PyString_AsString(pystr);
+                const char* cstr = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                if (!cstr) {
+                    PyErr_Clear();
+                }
 
-                rrLog(Logger::LOG_WARNING) << "The Python onTrigger handler returned " << cstr;
+                rrLog(Logger::LOG_WARNING) << "The Python onTrigger handler returned " << (cstr ? cstr : "<unprintable value>");
                 rrLog(Logger::LOG_WARNING) << "No result is required";
 
                 Py_XDECREF(pystr);
@@ -173,7 +177,8 @@ private:
             if (PyErr_Occurred()) {
 
                 PyObject* pystr = PyObject_Str(PyErr_Occurred());
-                err = std::string("Error calling Python onEvent method: ") + PyString_AsString(pystr);
+                const char* msg = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                err = std::string("Error calling Python onEvent method: ") + (msg ? msg : "unknown error");
 
                 rrLog(Logger::LOG_ERROR) << err;
 
@@ -182,9 +187,12 @@ private:
             }
             else if (pyres != Py_None) {
                 PyObject* pystr = PyObject_Str(pyres);
-                const char* cstr = PyString_AsString(pystr);
+                const char* cstr = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                if (!cstr) {
+                    PyErr_Clear();
+                }
 
-                rrLog(Logger::LOG_WARNING) << "The Python onAssignment handler returned " << cstr;
+                rrLog(Logger::LOG_WARNING) << "The Python onAssignment handler returned " << (cstr ? cstr : "<unprintable value>");
                 rrLog(Logger::LOG_WARNING) << "No result is required";
 
                 Py_XDECREF(pystr);
