@@ -82,10 +82,10 @@ jobs:
         shell: bash
       # v1 should be the earliest supported version, and v4 the latest.  Tests are only run on v1 and v4.
         run: |
-          echo "python_v1=3.11" >> $GITHUB_ENV
-          echo "python_v2=3.12" >> $GITHUB_ENV
-          echo "python_v3=3.13" >> $GITHUB_ENV
-          echo "python_v4=3.14" >> $GITHUB_ENV
+          echo "python_v1=3.12" >> $GITHUB_ENV
+          echo "python_v2=3.13" >> $GITHUB_ENV
+          echo "python_v3=3.14" >> $GITHUB_ENV
+          echo "python_v4=3.15" >> $GITHUB_ENV
           echo "python_v1_name=v1" >> $GITHUB_ENV
           echo "python_v2_name=v2" >> $GITHUB_ENV
           echo "python_v3_name=v3" >> $GITHUB_ENV
@@ -110,25 +110,27 @@ jobs:
         shell: bash
         run: |
           dnf install -y wget
-          wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-          bash Miniconda3-latest-Linux-x86_64.sh -b -p /Miniconda3
+          # Miniforge uses conda-forge as its only channel (no Anaconda 'defaults')
+          wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+          bash Miniforge3-Linux-x86_64.sh -b -p /Miniforge3
 
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
-          /Miniconda3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }}
+          /Miniforge3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
+          /Miniforge3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
+          /Miniforge3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
+          /Miniforge3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }} libpython
            
-          /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
+          /Miniforge3/bin/conda init && bash ~/.bashrc && . ~/.bashrc
+          cd ${RUNNER_WORKSPACE}
           # sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 
-          echo "python_v1_exe=/Miniconda3/envs/${{ env.python_v1_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v1_dir=/Miniconda3/envs/${{ env.python_v1_name }}"  >> $GITHUB_ENV
-          echo "python_v2_exe=/Miniconda3/envs/${{ env.python_v2_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v2_dir=/Miniconda3/envs/${{ env.python_v2_name }}"  >> $GITHUB_ENV
-          echo "python_v3_exe=/Miniconda3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v3_dir=/Miniconda3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
-          echo "python_v4_exe=/Miniconda3/envs/${{ env.python_v4_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v4_dir=/Miniconda3/envs/${{ env.python_v4_name }}" >> $GITHUB_ENV
+          echo "python_v1_exe=/Miniforge3/envs/${{ env.python_v1_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v1_dir=/Miniforge3/envs/${{ env.python_v1_name }}"  >> $GITHUB_ENV
+          echo "python_v2_exe=/Miniforge3/envs/${{ env.python_v2_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v2_dir=/Miniforge3/envs/${{ env.python_v2_name }}"  >> $GITHUB_ENV
+          echo "python_v3_exe=/Miniforge3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v3_dir=/Miniforge3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
+          echo "python_v4_exe=/Miniforge3/envs/${{ env.python_v4_name }}/bin/python" >> $GITHUB_ENV
+          echo "python_v4_dir=/Miniforge3/envs/${{ env.python_v4_name }}" >> $GITHUB_ENV
 
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
@@ -299,15 +301,19 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
+          # Newest SWIG release published on SourceForge
+          swig_version=$(curl -sSL "https://sourceforge.net/projects/swig/rss?path=/swig" | grep -o "swig/swig-[0-9.]*/swig-[0-9.]*\.tar\.gz" | sed -E "s|.*/swig-([0-9.]+)\.tar\.gz|\1|" | sort -u -V | tail -1)
+          test -n "${swig_version}"
+          echo "Using SWIG ${swig_version}"
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             brew install pcre pcre2
             mkdir -p ${RUNNER_WORKSPACE}/swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.4.1/
+            cd swig-${swig_version}/
             ./configure --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
@@ -315,38 +321,36 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.4.1/swigwin-4.4.1.zip/download > swig.zip
+            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-${swig_version}/swigwin-${swig_version}.zip/download > swig.zip
             unzip -q swig.zip -d install-swig
             rm swig.zip
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-4.4.1/" >> "${GITHUB_PATH}"
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-${swig_version}/" >> "${GITHUB_PATH}"
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             dnf install -y pcre-devel pcre2-devel
             mkdir -p swig
             cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
             tar -zxf swig.tar.gz
             rm swig.tar.gz
             mkdir -p install-swig
-            cd swig-4.4.1/
+            cd swig-${swig_version}/
             ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
             make
             make install
             echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            # To fix installed swig 4.2:
-            sudo sed -i "681,684d;686d" /usr/share/swig4.0/swig.swg
-            # mkdir -p swig
-            # cd swig
-            # curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
-            # tar -zxf swig.tar.gz
-            # rm swig.tar.gz
-            # mkdir -p install-swig
-            # cd swig-4.4.1/
-            # sed -i "677,680d;682d" Lib/swig.swg
-            # ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
-            # make
-            # make install
-            # echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
+            sudo apt-get install -y libpcre2-dev
+            mkdir -p swig
+            cd swig
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
+            tar -zxf swig.tar.gz
+            rm swig.tar.gz
+            mkdir -p install-swig
+            cd swig-${swig_version}/
+            ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
+            make
+            make install
+            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
           fi
           echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> $GITHUB_ENV
 
