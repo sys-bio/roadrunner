@@ -344,6 +344,11 @@ namespace rrllvm
         LLVMModelDataSymbols const& symbols;
 
         /**
+         * the named rr_LLVMModelData struct type, used to type the opaque modelData pointer.
+         */
+        llvm::StructType* modelDataStructType;
+
+        /**
          * get the module, only valid whilst a BasicBlock is begin filled.
          *
          * @param builder the  name of the calling function, used for generating exception

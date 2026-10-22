@@ -26,7 +26,7 @@
 #endif
 
 #include "llvm/IR/DataLayout.h"
-#include "llvm/Support/TargetRegistry.h"
+#include "llvm/MC/TargetRegistry.h"
 #include "llvm/Support/DynamicLibrary.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
 

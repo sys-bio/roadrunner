@@ -295,7 +295,7 @@ llvm::Value* ASTNodeCodeGen::notImplemented(const libsbml::ASTNode* ast)
 
 llvm::Value* ASTNodeCodeGen::distribCodeGen(const libsbml::ASTNode *ast)
 {
-    TargetLibraryInfoImpl defaultImpl;
+    TargetLibraryInfoImpl defaultImpl{llvm::Triple()};
 	TargetLibraryInfo targetLib(defaultImpl);
     Function* func;
     Module *module = getModule();
@@ -1088,7 +1088,7 @@ llvm::Value* ASTNodeCodeGen::functionCallCodeGen(const libsbml::ASTNode* ast)
 llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
 {
     LibFunc funcId;
-	TargetLibraryInfoImpl defaultImpl;
+	TargetLibraryInfoImpl defaultImpl{llvm::Triple()};
     TargetLibraryInfo targetLib(defaultImpl);
 
     Function* func;
@@ -1445,7 +1445,7 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
         blocks.push_back(thenBB);
 
         // the else block
-        func->getBasicBlockList().push_back(elseBB);
+        func->insert(func->end(), elseBB);
         builder.SetInsertPoint(elseBB);
     }
 
@@ -1483,7 +1483,7 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
     blocks.push_back(owBlock);
 
     // emit the merge block
-    func->getBasicBlockList().push_back(mergeBB);
+    func->insert(func->end(), mergeBB);
     builder.SetInsertPoint(mergeBB);
 
     assert(values.size() == blocks.size());

@@ -45,7 +45,7 @@ public:
         llvm::BasicBlock *RecurseB = llvm::BasicBlock::Create(ctx, "recurse", FibFn);
 
         // create the if arg < 2 goto exit
-        llvm::Value *CondInst = new llvm::ICmpInst(*BB, llvm::ICmpInst::ICMP_SLE, ArgX, Two, "cond");
+        llvm::Value *CondInst = new llvm::ICmpInst(BB->end(), llvm::ICmpInst::ICMP_SLE, ArgX, Two, "cond");
         llvm::BranchInst::Create(RetBB, RecurseB, CondInst, BB);
         llvm::ReturnInst::Create(ctx, One, RetBB);
 

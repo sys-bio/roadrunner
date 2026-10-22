@@ -49,7 +49,7 @@ Options
     CMake Generator                     ${CMAKE_GENERATOR}
     With LLVM?                          ${BUILD_LLVM}
     With legacy C? (DEP)                ${BUILD_LEGACY_C}
-    llvm-6.x install prefix             ${LLVM_INSTALL_PREFIX}
+    LLVM install prefix                 ${LLVM_INSTALL_PREFIX}
     Build test tools?                   ${BUILD_TEST_TOOLS}
     Build tests?                        ${BUILD_TESTS}
     Build Python bindings               ${BUILD_PYTHON}

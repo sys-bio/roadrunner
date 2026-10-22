@@ -45,7 +45,7 @@ Value* EvalInitialConditionsCodeGen::codeGen()
 {
     // make the set init value function
     llvm::Type *argTypes[] = {
-        llvm::PointerType::get(ModelDataIRBuilder::getStructType(this->module), 0),
+        llvm::PointerType::getUnqual(this->context),
         llvm::Type::getInt32Ty(this->context)
     };
 
@@ -188,7 +188,7 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
     rrLog(Logger::LOG_DEBUG) << "\n";
 
     Value *stoichEP = modelDataBuilder.createGEP(Stoichiometry);
-    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+    Value *stoich = builder.CreateLoad(builder.getPtrTy(), stoichEP, "stoichiometry");
 
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
             dataSymbols.getStoichiometryList();
@@ -289,10 +289,10 @@ void EvalInitialConditionsCodeGen::codeGenInitStoichiometry(llvm::Value *modelDa
     ModelDataIRBuilder modelDataBuilder(modelData, dataSymbols, builder);
 
     Value *stoichEP = modelDataBuilder.createGEP(Stoichiometry);
-    Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+    Value *stoich = builder.CreateLoad(builder.getPtrTy(), stoichEP, "stoichiometry");
 
     Value *initStoichEP = modelDataBuilder.createGEP(InitStoichiometry);
-    Value *initStoich = builder.CreateLoad(initStoichEP->getType()->getPointerElementType(), initStoichEP, "initStoichiometry");
+    Value *initStoich = builder.CreateLoad(builder.getPtrTy(), initStoichEP, "initStoichiometry");
 
     std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
             dataSymbols.getStoichiometryList();
@@ -314,7 +314,7 @@ void EvalInitialConditionsCodeGen::codeGenInitStoichiometry(llvm::Value *modelDa
     for (size_t i = 0; i < dataSymbols.getMultiSpeciesReferenceSize(); ++i)
     {
         Value *srcGEP = modelDataBuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(i));
-        Value *refValue = builder.CreateLoad(srcGEP->getType()->getPointerElementType(), srcGEP);
+        Value *refValue = builder.CreateLoad(builder.getDoubleTy(), srcGEP);
 
         Value *dstGEP = modelDataBuilder.createGEP(MultiSpeciesReferencesInitAlias, static_cast<unsigned>(i));
         builder.CreateStore(refValue, dstGEP);

@@ -41,7 +41,7 @@ namespace rrllvm {
         ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
 
         Value *initStoichEP = mdbuilder.createGEP(InitStoichiometry);
-        Value *initStoich = builder.CreateLoad(initStoichEP->getType()->getPointerElementType(), initStoichEP, "initStoichiometry");
+        Value *initStoich = builder.CreateLoad(builder.getPtrTy(), initStoichEP, "initStoichiometry");
 
         std::list<LLVMModelDataSymbols::SpeciesReferenceInfo> stoichEntries =
                 dataSymbols.getStoichiometryList();
@@ -86,7 +86,7 @@ namespace rrllvm {
         // left alone.
         {
             Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
-            Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+            Value *stoich = builder.CreateLoad(builder.getPtrTy(), stoichEP, "stoichiometry");
 
             for (size_t i = 0; i < dataSymbols.getMultiSpeciesReferenceSize(); ++i)
             {
@@ -100,12 +100,12 @@ namespace rrllvm {
 
                 Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias,
                         static_cast<unsigned>(i), info.id);
-                Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(),
+                Value *oldRaw = builder.CreateLoad(builder.getDoubleTy(),
                         aliasGEP, info.id + "_old");
 
                 Value *initAliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesInitAlias,
                         static_cast<unsigned>(i), info.id);
-                Value *initRaw = builder.CreateLoad(initAliasGEP->getType()->getPointerElementType(),
+                Value *initRaw = builder.CreateLoad(builder.getDoubleTy(),
                         initAliasGEP, info.id + "_init");
 
                 Value *row = ConstantInt::get(Type::getInt32Ty(context), info.row, true);
