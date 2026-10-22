@@ -306,7 +306,7 @@ jobs:
           test -n "${swig_version}"
           echo "Using SWIG ${swig_version}"
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            brew install pcre pcre2
+            brew install pcre2
             mkdir -p ${RUNNER_WORKSPACE}/swig
             cd swig
             curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
