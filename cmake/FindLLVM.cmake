@@ -204,6 +204,12 @@ correct location. ")
     STRING(REGEX REPLACE "[\n\t\r ]+" ";" LLVM_LIBRARIES ${LLVM_LIBRARIES})
     #    message(STATUS "LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
 
+    # LLVMSupport needs system libraries on Windows (ntdll, psapi, shell32, ...).
+    if (WIN32)
+        string(REGEX REPLACE "[\n\t\r ]+" ";" LLVM_SYSTEM_LIBS_WIN "${LLVM_SYSTEM_LIBS}")
+        list(APPEND LLVM_LIBRARIES ${LLVM_SYSTEM_LIBS_WIN})
+    endif ()
+
     # starting with LLVM 3.4 (at least on Ubuntu) it requres functions in
     # ncurses for console IO formatting. So, we find ncurses here.
     if (UNIX)
