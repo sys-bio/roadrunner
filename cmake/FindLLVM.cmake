@@ -140,15 +140,20 @@ if (LLVM_CONFIG_EXECUTABLE)
     execute_process(
             COMMAND ${LLVM_CONFIG_EXECUTABLE} --cxxflags
             OUTPUT_VARIABLE LLVM_FLAGS
+            RESULT_VARIABLE LLVM_CONFIG_RESULT
+            ERROR_VARIABLE LLVM_CONFIG_ERROR
             OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     if (NOT LLVM_FLAGS)
         message(STATUS "LLVM_INSTALL_PREFIX ${LLVM_INSTALL_PREFIX}")
-        message(FATAL_ERROR "The LLVM_FLAGS variable does not exist. This means\
-that the llvm-config binary could not be executed by cmake to query for\
-LLVM flags. Sometimes this happens because you do not have execution permissions\
-on llvm-config. Other times this happens when LLVM_INSTALL_PREFIX does not point to the\
-correct location. ")
+        if (EXISTS "${LLVM_CONFIG_EXECUTABLE}")
+            message(FATAL_ERROR "llvm-config exists at ${LLVM_CONFIG_EXECUTABLE} but failed to run \
+(result: ${LLVM_CONFIG_RESULT}, stderr: ${LLVM_CONFIG_ERROR}). Check that it has execute \
+permissions (on Windows, that its ACLs are valid) and that the runtime libraries it needs are installed.")
+        else ()
+            message(FATAL_ERROR "llvm-config was not found at ${LLVM_CONFIG_EXECUTABLE}. \
+Check that LLVM_INSTALL_PREFIX (${LLVM_INSTALL_PREFIX}) points to the correct location.")
+        endif ()
     endif ()
 #    message(STATUS "LLVM_FLAGS ${LLVM_FLAGS}")
     # strip this from llvm's version, we should add this ourselves in
