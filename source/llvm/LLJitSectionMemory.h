@@ -27,7 +27,7 @@
 #pragma warning(disable: 4624)
 #endif
 
-#include "llvm/ADT/Triple.h"
+#include "llvm/TargetParser/Triple.h"
 #include "llvm/ExecutionEngine/Orc/Layer.h"
 #include "llvm/Support/Error.h"
 

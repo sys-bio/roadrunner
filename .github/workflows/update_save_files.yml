@@ -33,9 +33,9 @@ jobs:
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
         libroadrunner_deps_release_version: [ "v2.3.7" ]
         llvm_owner: [ "sys-bio" ]
-        llvm_repo: [ "llvm-13.x" ]
-        llvm_name: [ "llvm-13.x" ]
-        llvm_release_version: [ "v13.1" ]
+        llvm_repo: [ "llvm-build" ]
+        llvm_name: [ "llvm-23.1.4" ]
+        llvm_release_version: [ "llvm-23.1.4-r2" ]
         build_tests: [ON]
         build_plugins: [ON]
     runs-on: ${{ matrix.platform.os_name }}

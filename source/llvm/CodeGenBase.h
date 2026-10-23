@@ -148,8 +148,7 @@ protected:
     llvm::BasicBlock *codeGenVoidModelDataHeader(const char* functionName,llvm::Value* &modelData)
     {
         llvm::Type *argTypes[] = {
-            llvm::PointerType::get(
-                ModelDataIRBuilder::getStructType(module), 0)
+            llvm::PointerType::getUnqual(context)
         };
 
         const char *argNames[] = { "modelData" };

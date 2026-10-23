@@ -19,8 +19,8 @@
 #pragma warning(disable: 4624)
 #endif
 
-#include "llvm/Support/TargetRegistry.h"
-#include "llvm/Support/Host.h"
+#include "llvm/MC/TargetRegistry.h"
+#include "llvm/TargetParser/Host.h"
 
 #ifdef _MSC_VER
 #pragma warning(default: 4146)
@@ -221,7 +221,7 @@ namespace rrllvm {
         // For some reason I had a problem when I passed the default ctor for TargetLibraryInfoImpl in
         // std::string error;
         //TargetLibraryInfoImpl defaultImpl(TargetRegistry::lookupTarget(sys::getDefaultTargetTriple(), error));
-        llvm::TargetLibraryInfoImpl defaultImpl;
+        llvm::TargetLibraryInfoImpl defaultImpl{llvm::Triple()};
         llvm::TargetLibraryInfo targetLib(defaultImpl);
 
         if (targetLib.has(funcId)) {
@@ -340,7 +340,7 @@ namespace rrllvm {
 
     const llvm::Target *Jit::getDefaultTargetMachine() const {
         std::string err;
-        const llvm::Target *target = llvm::TargetRegistry::lookupTarget(getDefaultTargetTriple(), err);
+        const llvm::Target *target = llvm::TargetRegistry::lookupTarget(llvm::Triple(getDefaultTargetTriple()), err);
 
         // Print an error and exit if we couldn't find the requested target.
         // This generally occurs if we've forgotten to initialise the
@@ -355,7 +355,7 @@ namespace rrllvm {
     FnMap Jit::externalFunctionSignatures() const {
         llvm::Type *double_type = llvm::Type::getDoubleTy(*context);
         llvm::Type *int_type = llvm::Type::getInt32Ty(*context);
-        llvm::Type *voidPtrType = llvm::Type::getInt8PtrTy(*context);
+        llvm::Type *voidPtrType = llvm::PointerType::getUnqual(*context);
 
         llvm::Type *args_i1[] = {int_type};
         llvm::Type *args_d1[] = {double_type};

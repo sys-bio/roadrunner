@@ -51,16 +51,16 @@ namespace rrllvm {
 
     static std::mutex LLJitMtx;
 
-    llvm::CodeGenOpt::Level convertRRCodeGenOptLevelToLLVM(std::uint32_t options) {
+    llvm::CodeGenOptLevel convertRRCodeGenOptLevelToLLVM(std::uint32_t options) {
         // these should be mutually exclusive
         if (options & rr::LoadSBMLOptions::NONE)
-            return llvm::CodeGenOpt::None;
+            return llvm::CodeGenOptLevel::None;
         else if (options & rr::LoadSBMLOptions::LESS)
-            return llvm::CodeGenOpt::Less;
+            return llvm::CodeGenOptLevel::Less;
         else if (options & rr::LoadSBMLOptions::DEFAULT)
-            return llvm::CodeGenOpt::Default;
+            return llvm::CodeGenOptLevel::Default;
         else if (options & rr::LoadSBMLOptions::AGGRESSIVE)
-            return llvm::CodeGenOpt::Aggressive;
+            return llvm::CodeGenOptLevel::Aggressive;
         else {
             throw std::invalid_argument("None of the LLJIT_OPTIMIZATION_LEVELS are set to true");
         }
@@ -97,6 +97,7 @@ namespace rrllvm {
                                         "Cannot create JitTargetMachineBuilder");
         }
         auto JTMB = *expectedJTMB;
+        const llvm::Triple hostTriple = JTMB.getTargetTriple();
 
         /**
          * None, Less, Default or Aggressive are the options.
@@ -188,7 +189,10 @@ namespace rrllvm {
                 });
 
         // Allocate the sections of each object from one contiguous range (issue 1368).
-        llJitBuilder.setObjectLinkingLayerCreator(createRangeObjectLayer);
+        llJitBuilder.setObjectLinkingLayerCreator(
+                [hostTriple](llvm::orc::ExecutionSession &ES, llvm::jitlink::JITLinkMemoryManager &) {
+                    return createRangeObjectLayer(ES, hostTriple);
+                });
 
         auto llJitExpected = llJitBuilder.create();
         if (!llJitExpected) {
@@ -209,7 +213,7 @@ namespace rrllvm {
 
 
     void LLJit::mapFunctionsToJitSymbols() {
-        llvm::DenseMap<llvm::orc::SymbolStringPtr, llvm::JITEvaluatedSymbol> map{};
+        llvm::orc::SymbolMap map{};
         for (auto[fnName, fnTy_addr_pair]: externalFunctionSignatures()) {
             auto[fnTy, addr] = fnTy_addr_pair;
             /**
@@ -223,7 +227,9 @@ namespace rrllvm {
             // std::string mangled = mangleName(fnName);
             Function::Create(fnTy, Function::ExternalLinkage, fnName, getModuleNonOwning());
             map.insert({
-                               llJit->mangleAndIntern(fnName), JITEvaluatedSymbol::fromPointer(addr)
+                               llJit->mangleAndIntern(fnName),
+                               llvm::orc::ExecutorSymbolDef(llvm::orc::ExecutorAddr::fromPtr(addr),
+                                                            llvm::JITSymbolFlags::Exported | llvm::JITSymbolFlags::Callable)
                        });
         }
         // these call out to functions that create the necessary function if
@@ -232,10 +238,12 @@ namespace rrllvm {
         ModelDataIRBuilder::getCSRMatrixGetNZDecl(getModuleNonOwning());
 
         map.insert({llJit->mangleAndIntern(std::string(ModelDataIRBuilder::csr_matrix_set_nzName)),
-                    JITEvaluatedSymbol::fromPointer(&rr::csr_matrix_set_nz)}
+                    llvm::orc::ExecutorSymbolDef(llvm::orc::ExecutorAddr::fromPtr(&rr::csr_matrix_set_nz),
+                                                 llvm::JITSymbolFlags::Exported | llvm::JITSymbolFlags::Callable)}
         );
         map.insert({llJit->mangleAndIntern(std::string(ModelDataIRBuilder::csr_matrix_get_nzName)),
-                    JITEvaluatedSymbol::fromPointer(&rr::csr_matrix_get_nz)}
+                    llvm::orc::ExecutorSymbolDef(llvm::orc::ExecutorAddr::fromPtr(&rr::csr_matrix_get_nz),
+                                                 llvm::JITSymbolFlags::Exported | llvm::JITSymbolFlags::Callable)}
         );
 
         llvm::Error err = llJit->getMainJITDylib().define(llvm::orc::absoluteSymbols(map));
@@ -248,7 +256,7 @@ namespace rrllvm {
 
     std::uint64_t LLJit::lookupFunctionAddress(const std::string &name) {
         // automatically looks up manged name
-        llvm::Expected<llvm::JITEvaluatedSymbol> expectedSymbol = llJit->lookup(name);
+        llvm::Expected<llvm::orc::ExecutorAddr> expectedSymbol = llJit->lookup(name);
         if (!expectedSymbol) {
             std::string err = "Could not find symbol " + mangleName(name);
             rrLogErr << err;
@@ -258,9 +266,9 @@ namespace rrllvm {
                     "[symbol lookup error] ");
             throw std::logic_error(err);
         }
-        llvm::JITEvaluatedSymbol symbol = *expectedSymbol;
+        llvm::orc::ExecutorAddr symbol = *expectedSymbol;
         rrLogInfo << "LLJit has loaded jit'd function called " << name;
-        return symbol.getAddress();
+        return symbol.getValue();
     }
 
 
@@ -374,4 +382,4 @@ namespace rrllvm {
     };
 
 
-}
+}

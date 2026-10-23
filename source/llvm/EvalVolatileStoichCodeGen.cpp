@@ -264,13 +264,13 @@ namespace rrllvm {
         assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
 
         Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
-        Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+        Value *stoich = builder.CreateLoad(builder.getPtrTy(), stoichEP, "stoichiometry");
         Value *rowVal = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.row, true);
         Value *colVal = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.column, true);
         Value *oldCell = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, rowVal, colVal);
 
         Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), id);
-        Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, id + "_old");
+        Value *oldRaw = builder.CreateLoad(builder.getDoubleTy(), aliasGEP, id + "_old");
 
         Value *delta = builder.CreateFSub(rawValue, oldRaw, "delta_" + id);
         if (isReactant) {

@@ -41,8 +41,7 @@ Value* EvalReactionRatesCodeGen::codeGen()
 {
     // single arg type of LLVMModelData*
     llvm::Type *argTypes[] = {
-        llvm::PointerType::get(
-            ModelDataIRBuilder::getStructType(module), 0)
+        llvm::PointerType::getUnqual(context)
     };
 
     const char *argNames[] = { "modelData" };

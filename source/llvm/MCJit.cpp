@@ -20,6 +20,7 @@
 #include "llvm/Support/DynamicLibrary.h"
 #include "llvm/IR/AssemblyAnnotationWriter.h"
 #include "llvm/IR/Mangler.h"
+#include "llvm/Transforms/Scalar/GVN.h"
 
 #ifdef _MSC_VER
 #pragma warning(default: 4146)
@@ -51,7 +52,7 @@ namespace rrllvm {
 #elif LLVM_VERSION_MAJOR >= 12
 
     llvm::CodeGenFileType getCodeGenFileType() {
-        return llvm::CGFT_ObjectFile;
+        return llvm::CodeGenFileType::ObjectFile;
     }
 
 #endif
@@ -291,7 +292,7 @@ namespace rrllvm {
 
             if (options & LoadSBMLOptions::OPTIMIZE_GVN) {
                 rrLog(Logger::LOG_INFORMATION) << "using GVN optimization";
-                functionPassManager->add(createNewGVNPass());
+                functionPassManager->add(createGVNPass());
 
             }
 

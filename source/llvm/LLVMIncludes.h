@@ -95,7 +95,7 @@
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Analysis/TargetLibraryInfo.h>
 #include <llvm/Support/raw_ostream.h>
-#include <llvm/Support/Host.h>
+#include <llvm/TargetParser/Host.h>
 
 #ifdef _MSC_VER
 #pragma warning( pop )

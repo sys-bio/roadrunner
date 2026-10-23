@@ -58,7 +58,7 @@ namespace rrllvm
     {
         // make the set init value function
         llvm::Type* argTypes[] = {
-            llvm::PointerType::get(ModelDataIRBuilder::getStructType(this->module), 0),
+            llvm::PointerType::getUnqual(this->context),
             llvm::Type::getInt32Ty(this->context)
         };
 

@@ -138,16 +138,16 @@ namespace rrllvm {
                 return true;
             }
 
-            void reserveAllocationSpace(uintptr_t codeSize, uint32_t codeAlign, uintptr_t roDataSize,
-                                        uint32_t roDataAlign, uintptr_t rwDataSize, uint32_t rwDataAlign) override {
+            void reserveAllocationSpace(uintptr_t codeSize, llvm::Align codeAlign, uintptr_t roDataSize,
+                                        llvm::Align roDataAlign, uintptr_t rwDataSize, llvm::Align rwDataAlign) override {
                 // Each kind of section gets its size, its alignment padding and some slack for the
                 // page rounding of individual sections and for sections the totals do not cover (GOT).
                 constexpr uint64_t slack = uint64_t(1) << 20;
-                auto needed = [](uint64_t size, uint32_t align) -> uint64_t {
+                auto needed = [](uint64_t size, llvm::Align alignment) -> uint64_t {
                     if (size == 0) {
                         return 0;
                     }
-                    align = std::max<uint32_t>(align, 16);
+                    const uint64_t align = std::max<uint64_t>(alignment.value(), 16);
                     return llvm::alignTo(size, align) + align + slack;
                 };
                 mapper.reserve(needed(codeSize, codeAlign) + needed(roDataSize, roDataAlign) +
@@ -269,7 +269,7 @@ namespace rrllvm {
         const unsigned farGiB = LLJitSectionMemoryTesting::farDataGiB.load();
         const bool machO = triple.isOSBinFormatMachO();
         auto layer = std::make_unique<llvm::orc::RTDyldObjectLinkingLayer>(
-                ES, [farGiB, machO]() {
+                ES, [farGiB, machO](const llvm::MemoryBuffer &) {
                     return std::make_unique<RangeSectionMemoryManager>(farGiB, machO);
                 });
         // LLJIT's default layer does the same for COFF

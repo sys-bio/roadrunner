@@ -58,7 +58,7 @@ namespace rrllvm
         if (symbol.compare(SBML_TIME_SYMBOL) == 0)
         {
             Value* timeEP = mdbuilder.createGEP(Time);
-            Value* time = builder.CreateLoad(timeEP->getType()->getPointerElementType(), timeEP, SBML_TIME_SYMBOL);
+            Value* time = builder.CreateLoad(builder.getDoubleTy(), timeEP, SBML_TIME_SYMBOL);
             return cacheValue(symbol, args, time);
         }
 
@@ -165,7 +165,7 @@ namespace rrllvm
                 assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
 
                 Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), symbol);
-                Value *value = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, symbol + "_load");
+                Value *value = builder.CreateLoad(builder.getDoubleTy(), aliasGEP, symbol + "_load");
 
                 return cacheValue(symbol, args, value);
             }
@@ -307,13 +307,13 @@ namespace rrllvm
                 assert(slot >= 0 && "MultiSpeciesReference id missing from multiSpeciesReferenceMap");
 
                 Value *stoichEP = mdbuilder.createGEP(Stoichiometry);
-                Value *stoich = builder.CreateLoad(stoichEP->getType()->getPointerElementType(), stoichEP, "stoichiometry");
+                Value *stoich = builder.CreateLoad(builder.getPtrTy(), stoichEP, "stoichiometry");
                 Value *row = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.row, true);
                 Value *col = ConstantInt::get(Type::getInt32Ty(builder.getContext()), info.column, true);
                 Value *oldCell = ModelDataIRBuilder::createCSRMatrixGetNZ(builder, stoich, row, col);
 
                 Value *aliasGEP = mdbuilder.createGEP(MultiSpeciesReferencesAlias, static_cast<unsigned>(slot), symbol);
-                Value *oldRaw = builder.CreateLoad(aliasGEP->getType()->getPointerElementType(), aliasGEP, symbol + "_old");
+                Value *oldRaw = builder.CreateLoad(builder.getDoubleTy(), aliasGEP, symbol + "_old");
 
                 Value *delta = builder.CreateFSub(value, oldRaw, "delta_" + symbol);
 
