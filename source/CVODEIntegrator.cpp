@@ -977,6 +977,12 @@ namespace rr {
 
         mLastEventTime = time;
 
+        // an event found by a variable step integration, but not yet applied, belongs to the
+        // integration that is being left
+        variableStepPendingEvent = false;
+        variableStepTimeEndEvent = false;
+        variableStepEventTolerance = 0;
+
         // apply any events that trigger before or at t0.
         // important NOT to set model time before we check get
         // the initial event state, initially time is < 0.
