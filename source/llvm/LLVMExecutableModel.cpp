@@ -278,6 +278,8 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     rrLog(Logger::LOG_DEBUG) << __FUNC__;
     modelData = LLVMModelData_from_save(in);
     resources->loadState(in, modelGeneratorOpt);
+    // the resources of a loaded model have the piecewise trigger count of its model data
+    resources->numPiecewiseTriggers = modelData->numPiecewiseTriggers;
 
     symbols = resources->symbols;
     eventListeners = std::vector<EventListenerPtr>(modelData->numEvents, EventListenerPtr());
