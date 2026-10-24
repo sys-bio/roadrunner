@@ -29,6 +29,13 @@
 
 #define CVODE_INT_TYPECODE 0x7799ff00
 
+// CVodeClearStopTime, used to end a stop time that was not reached, needs SUNDIALS 6.5.1
+#if SUNDIALS_VERSION_MAJOR < 6 || \
+    (SUNDIALS_VERSION_MAJOR == 6 && (SUNDIALS_VERSION_MINOR < 5 || \
+    (SUNDIALS_VERSION_MINOR == 5 && SUNDIALS_VERSION_PATCH < 1)))
+#error "CVODEIntegrator needs SUNDIALS 6.5.1 or later"
+#endif
+
 //
 
 namespace rr {
@@ -484,6 +491,20 @@ namespace rr {
                 nextTargetEndTime = mModel->getNextPendingEventTime(true);
             }
 
+            // CVODE ignores the output time in CV_ONE_STEP mode and steps past it, so a pending
+            // event (an event with a delay) would be applied at the end of that step.  It is told
+            // to stop at the time of the event instead.
+            if (mCVODE_Memory) {
+                double currentTime = 0;
+                if (itask == CV_ONE_STEP && nextTargetEndTime < tout &&
+                    CVodeGetCurrentTime(mCVODE_Memory, &currentTime) == CV_SUCCESS &&
+                    nextTargetEndTime > currentTime) {
+                    CVodeSetStopTime(mCVODE_Memory, nextTargetEndTime);
+                } else {
+                    CVodeClearStopTime(mCVODE_Memory);
+                }
+            }
+
             // event status before time step
             mModel->getEventTriggers(eventStatus.size(), nullptr, eventStatus.empty() ? nullptr : &eventStatus[0]);
 
@@ -534,7 +555,7 @@ namespace rr {
                         listener->onEvent(this, mModel, timeEnd);
                     }
                 }
-            } else if (nResult == CV_SUCCESS) {
+            } else if (nResult == CV_SUCCESS || nResult == CV_TSTOP_RETURN) {
                 // copy integrator state std::vector into model
                 assignResultsToModel();
 
