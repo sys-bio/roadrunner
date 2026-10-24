@@ -984,6 +984,136 @@ TEST_F(CVODEIntegratorTests, VariableStepSimulationContinuesWithoutASpuriousRowA
     EXPECT_NEAR(uninterrupted(uninterrupted.numRows() - 1, 1), second(second.numRows() - 1, 1), 1e-9);
 }
 
+// model delays
+//   var X = 0
+//   var Y = 0
+//   X' = 1
+//   E: at (X >= 1): X = 0
+//   D: at 0.3 after (time >= 0.5): Y = Y + 100
+//   L: at 0.2 after (time >= 0.25), fromTrigger=false: Y = Y + 1
+// end
+static const std::string DelaysSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="delays" id="delays">
+    <listOfParameters>
+      <parameter id="X" value="0" constant="false"/>
+      <parameter id="Y" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> X </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="D" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.5 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.3 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Y </ci>
+                <cn type="integer"> 100 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="L" useValuesFromTriggerTime="false">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 0.25 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.2 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Y </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+/**
+ * Regression test for sys-bio/roadrunner#1382: CVODE steps in CV_ONE_STEP mode, which ignores
+ * the output time, so with variable_step_size an event with a delay fired at the end of the
+ * next step of CVODE, i.e. at the next root of another event, instead of at its time.  Here
+ * L is due at 0.45 (trigger at 0.25, delay 0.2) and D at 0.8 (trigger at 0.5, delay 0.3); L
+ * fired at the trigger of D, at 0.5, and D saw Y = 0 and assigned 100 instead of 101.
+ */
+TEST_F(CVODEIntegratorTests, DelayedEventsFireAtTheirTimeInAVariableStepSimulation) {
+    RoadRunner rr(DelaysSBML);
+    rr.setSelections(std::vector<std::string>{"time", "X", "Y"});
+    const ls::DoubleMatrix result = simulateVariableStep(rr, 0, 1.5);
+    ASSERT_GT(result.numRows(), 2u);
+
+    double timeOfL = -1;
+    double timeOfD = -1;
+    for (unsigned i = 1; i < result.numRows(); i++) {
+        EXPECT_GT(result(i, 0), result(i - 1, 0)) << "row " << i;
+        if (timeOfL < 0 && result(i, 2) > 0.5) {
+            timeOfL = result(i, 0);
+        }
+        if (timeOfD < 0 && result(i, 2) > 50) {
+            timeOfD = result(i, 0);
+            // D has the value of Y after L, 1, at the time of its trigger
+            EXPECT_EQ(101, result(i, 2));
+        }
+    }
+    EXPECT_NEAR(0.45, timeOfL, 1e-6);
+    EXPECT_NEAR(0.8, timeOfD, 1e-6);
+    EXPECT_EQ(101, result(result.numRows() - 1, 2));
+}
+
 // model piecewise_switch
 //   compartment C = 1
 //   species A in C = 10
@@ -1086,4 +1216,109 @@ TEST_F(CVODEIntegratorTests, ModelFromTheModelCacheHasThePiecewiseTriggersOfACom
     }
     // the analytic solution at t = 4 is 10 exp(-2 * 3.3 - 0.5 * 0.7), up to the default tolerances
     EXPECT_NEAR(10 * std::exp(-2 * 3.3 - 0.5 * 0.7), b(4, 1), 1e-6);
+}
+
+// model sawtooth
+//   var X = 0
+//   var Y = 0
+//   X' = 1
+//   E: at (X >= 1): X = 0, Y = Y + 1
+// end
+static const std::string SawtoothSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="sawtooth" id="sawtooth">
+    <listOfParameters>
+      <parameter id="X" value="0" constant="false"/>
+      <parameter id="Y" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> X </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Y </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+/**
+ * Regression test for sys-bio/roadrunner#1384, a remaining case of #1362: when the end of a
+ * variable step simulation was within the root tolerance of an event (about 1e-12 here, around
+ * the event at t = 1), the last row was a linear interpolation between the state before the
+ * event and the state after it, and the model was left at the time of the event, in the state
+ * after it, instead of at the end.
+ *
+ * Every row is the state before the event (Y = 0, X = t) or after it (Y = 1, X = t - 1).  An
+ * end well before the event does not apply it, an end well after it does.  Between, within the
+ * tolerance, either is fine as long as the last row is at the end and the model is in its state.
+ */
+TEST_F(CVODEIntegratorTests, VariableStepSimulationEndingWithinTheRootToleranceOfAnEvent) {
+    for (double end : {1.0 - 1e-12, 1.0 - 1e-13, 1.0, 1.0 + 1e-13, 1.0 + 1e-12, 1.0 + 1e-9}) {
+        std::ostringstream what;
+        what.precision(17);
+        what << "end " << end;
+
+        RoadRunner rr(SawtoothSBML);
+        rr.setSelections(std::vector<std::string>{"time", "X", "Y"});
+        const ls::DoubleMatrix result = simulateVariableStep(rr, 0, end);
+        ASSERT_GT(result.numRows(), 2u) << what.str();
+        const unsigned last = result.numRows() - 1;
+
+        EXPECT_EQ(end, result(last, 0)) << what.str();
+        for (unsigned i = 0; i <= last; i++) {
+            if (i > 0) {
+                EXPECT_GT(result(i, 0), result(i - 1, 0)) << what.str() << ", row " << i;
+            }
+            const double t = result(i, 0);
+            const double X = result(i, 1);
+            const double Y = result(i, 2);
+            if (Y == 0) {
+                EXPECT_NEAR(t, X, 1e-9) << what.str() << ", row " << i << " (before the event)";
+            } else {
+                EXPECT_EQ(1, Y) << what.str() << ", row " << i;
+                EXPECT_NEAR(t - 1, X, 1e-9) << what.str() << ", row " << i << " (after the event)";
+            }
+        }
+
+        // the model is at the end, in the state of the last row
+        EXPECT_EQ(end, rr.getCurrentTime()) << what.str();
+        EXPECT_DOUBLE_EQ(result(last, 1), rr.getValue("X")) << what.str();
+        EXPECT_DOUBLE_EQ(result(last, 2), rr.getValue("Y")) << what.str();
+
+        if (end <= 1.0 - 1e-12) {
+            EXPECT_EQ(0, result(last, 2)) << what.str();
+        }
+        if (end >= 1.0 + 1e-12) {
+            EXPECT_EQ(1, result(last, 2)) << what.str();
+        }
+    }
 }
