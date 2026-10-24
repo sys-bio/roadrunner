@@ -463,6 +463,11 @@ namespace rr {
             itask = CV_ONE_STEP;
         }
 
+        // A variable step integration to an end time.  CVODE ignores that time in CV_ONE_STEP mode,
+        // its steps go past it, and the caller interpolates the last row back to it.  The events
+        // after that time are not part of this integration.
+        const bool varstepToEnd = varstep && hstep > 0;
+
         // loop until machine epislon
         while (tout - timeEnd >= epsilon) {
             // here we bail in case we have no ODEs set up with CVODE ... though we should
@@ -487,6 +492,15 @@ namespace rr {
 
             if (nResult == CV_ROOT_RETURN) {
                 rrLog(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
+
+                if (varstepToEnd && timeEnd > tout) {
+                    // The root of an event is after the requested end.  The event is not applied or left
+                    // pending, and the caller interpolates the state back to the end.  A simulation
+                    // that continues from the end finds the event again.
+                    assignResultsToModel();
+                    mModel->setTime(timeEnd);
+                    return timeEnd;
+                }
 
                 bool tooCloseToStart = fabs(timeEnd - mLastEventTime) > relTol;
 
@@ -527,7 +541,12 @@ namespace rr {
 
                 // need to check if an event occured at the exact time step,
                 // if so, add an extra point if we're doing variable step
-                if (varstep
+                if (varstepToEnd && timeEnd > tout) {
+                    // The step ended after the requested end, so an event at the end of the step is
+                    // after the end too and is not applied.  The caller interpolates the state back to
+                    // the requested end.
+                    mModel->setTime(timeEnd);
+                } else if (varstep
                     && (timeEnd - timeStart > 2. * epsilon)) {
                     // event status before time step
 
@@ -813,6 +832,16 @@ namespace rr {
             return false;
         }
         const double fuzz = 100. * std::numeric_limits<double>::epsilon() * (fabs(tn) + fabs(hu));
+
+        // CVODE was reinitialized at the time of the event just applied, so it has no previous step
+        // to interpolate in.  When the end is within the root tolerance after that event, the state
+        // after the event is used as the state at the end.
+        if (fabs(tn - mLastEventTime) <= fuzz && t >= tn && t <= tn + variableStepEventTolerance + fuzz) {
+            assignResultsToModel();
+            mModel->setTime(t);
+            return true;
+        }
+
         if (t < tn - fabs(hu) - fuzz || t > tn + fuzz) {
             return false;
         }

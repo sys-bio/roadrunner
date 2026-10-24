@@ -1087,3 +1087,108 @@ TEST_F(CVODEIntegratorTests, ModelFromTheModelCacheHasThePiecewiseTriggersOfACom
     // the analytic solution at t = 4 is 10 exp(-2 * 3.3 - 0.5 * 0.7), up to the default tolerances
     EXPECT_NEAR(10 * std::exp(-2 * 3.3 - 0.5 * 0.7), b(4, 1), 1e-6);
 }
+
+// model sawtooth
+//   var X = 0
+//   var Y = 0
+//   X' = 1
+//   E: at (X >= 1): X = 0, Y = Y + 1
+// end
+static const std::string SawtoothSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="sawtooth" id="sawtooth">
+    <listOfParameters>
+      <parameter id="X" value="0" constant="false"/>
+      <parameter id="Y" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> X </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Y </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+/**
+ * Regression test for sys-bio/roadrunner#1384, a remaining case of #1362: when the end of a
+ * variable step simulation was within the root tolerance of an event (about 1e-12 here, around
+ * the event at t = 1), the last row was a linear interpolation between the state before the
+ * event and the state after it, and the model was left at the time of the event, in the state
+ * after it, instead of at the end.
+ *
+ * Every row is the state before the event (Y = 0, X = t) or after it (Y = 1, X = t - 1).  An
+ * end well before the event does not apply it, an end well after it does.  Between, within the
+ * tolerance, either is fine as long as the last row is at the end and the model is in its state.
+ */
+TEST_F(CVODEIntegratorTests, VariableStepSimulationEndingWithinTheRootToleranceOfAnEvent) {
+    for (double end : {1.0 - 1e-12, 1.0 - 1e-13, 1.0, 1.0 + 1e-13, 1.0 + 1e-12, 1.0 + 1e-9}) {
+        std::ostringstream what;
+        what.precision(17);
+        what << "end " << end;
+
+        RoadRunner rr(SawtoothSBML);
+        rr.setSelections(std::vector<std::string>{"time", "X", "Y"});
+        const ls::DoubleMatrix result = simulateVariableStep(rr, 0, end);
+        ASSERT_GT(result.numRows(), 2u) << what.str();
+        const unsigned last = result.numRows() - 1;
+
+        EXPECT_EQ(end, result(last, 0)) << what.str();
+        for (unsigned i = 0; i <= last; i++) {
+            if (i > 0) {
+                EXPECT_GT(result(i, 0), result(i - 1, 0)) << what.str() << ", row " << i;
+            }
+            const double t = result(i, 0);
+            const double X = result(i, 1);
+            const double Y = result(i, 2);
+            if (Y == 0) {
+                EXPECT_NEAR(t, X, 1e-9) << what.str() << ", row " << i << " (before the event)";
+            } else {
+                EXPECT_EQ(1, Y) << what.str() << ", row " << i;
+                EXPECT_NEAR(t - 1, X, 1e-9) << what.str() << ", row " << i << " (after the event)";
+            }
+        }
+
+        // the model is at the end, in the state of the last row
+        EXPECT_EQ(end, rr.getCurrentTime()) << what.str();
+        EXPECT_DOUBLE_EQ(result(last, 1), rr.getValue("X")) << what.str();
+        EXPECT_DOUBLE_EQ(result(last, 2), rr.getValue("Y")) << what.str();
+
+        if (end <= 1.0 - 1e-12) {
+            EXPECT_EQ(0, result(last, 2)) << what.str();
+        }
+        if (end >= 1.0 + 1e-12) {
+            EXPECT_EQ(1, result(last, 2)) << what.str();
+        }
+    }
+}
