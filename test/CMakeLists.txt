@@ -183,7 +183,7 @@ macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
         target_link_libraries(${SWIG_TARGET_NAME} PUBLIC
                 rr-mockups
                 roadrunner-static
-                Python::Python # remember, includes will just come with linking Python::Python
+                Python::Module # links the Python library only where a module must (Windows); includes come with it
                 Python::NumPy  # remember, includes will just come with linking Python::NumPy
                 )
     else ()

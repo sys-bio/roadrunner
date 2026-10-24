@@ -103,10 +103,11 @@ if (WIN32)
     set_target_properties(roadrunner_python PROPERTIES SUFFIX ".pyd")
 elseif (UNIX AND NOT APPLE)
     # Linux specific code
+    # As on macOS, do not link libpython: the Python that imports the module provides
+    # its symbols, and a Python that keeps libpython outside the default library path
+    # (uv's, conda's) could not load the module otherwise (#1280).
     target_link_libraries(roadrunner_python
             roadrunner-static
-
-            ${Python_LIBRARIES}
             )
 elseif (APPLE)
 
