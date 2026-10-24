@@ -859,6 +859,131 @@ TEST_F(CVODEIntegratorTests, SetSeedResetsTheModelByDefault) {
     EXPECT_EQ(42, rr.getSeed());
 }
 
+// model pulses
+//   Q = 0
+//   last = 0
+//   E: at 0.005 after (time - last >= 0.005), persistent=false, fromTrigger=false: last = time, Q = Q + 0.01
+// end
+static const std::string PulsesSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="pulses" id="pulses">
+    <listOfParameters>
+      <parameter id="Q" value="0" constant="false"/>
+      <parameter id="last" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="false">
+        <trigger initialValue="true" persistent="false">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <apply>
+                <minus/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <ci> last </ci>
+              </apply>
+              <cn> 0.005 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.005 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="last">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            </math>
+          </eventAssignment>
+          <eventAssignment variable="Q">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Q </ci>
+                <cn> 0.01 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+// variable step simulation of the given duration from start
+static ls::DoubleMatrix simulateVariableStep(RoadRunner &rr, double start, double duration) {
+    rr.getIntegrator()->setValue("variable_step_size", true);
+    SimulateOptions &opt = rr.getSimulateOptions();
+    opt.setStartTime(start);
+    opt.setDuration(duration);
+    opt.setSteps(0);
+    return *rr.simulate();
+}
+
+// what resetAll does in the python API: all values back to their current initial values
+static void resetAllValues(RoadRunner &rr) {
+    rr.reset(SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING |
+             SelectionRecord::BOUNDARY | SelectionRecord::COMPARTMENT | SelectionRecord::GLOBAL_PARAMETER |
+             SelectionRecord::STOICHIOMETRY);
+}
+
+/**
+ * Regression test for sys-bio/roadrunner#1381: when the last step of CVODE of a variable step
+ * simulation found the root of an event after the end, the integrator kept the event pending
+ * through resetAll.  The first call of the integrator of the next simulation applied it with the
+ * trigger states of the end of the previous simulation, and the event of this model, whose
+ * trigger is not persistent, fired one period late.
+ */
+TEST_F(CVODEIntegratorTests, EventFoundAfterTheEndOfAVariableStepSimulationIsNotPendingAfterAReset) {
+    RoadRunner fresh(PulsesSBML);
+    fresh.setSelections(std::vector<std::string>{"time", "Q"});
+    fresh.getIntegrator()->setValue("variable_step_size", false);
+    const ls::DoubleMatrix expected = *fresh.simulate(0, 1, 11);
+
+    RoadRunner rr(PulsesSBML);
+    rr.setSelections(std::vector<std::string>{"time", "Q"});
+    // the event of the model has its root just after the end, at 10
+    simulateVariableStep(rr, 0, 9.9999999);
+    resetAllValues(rr);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    const ls::DoubleMatrix observed = *rr.simulate(0, 1, 11);
+
+    ASSERT_EQ(expected.numRows(), observed.numRows());
+    for (unsigned i = 0; i < expected.numRows(); i++) {
+        EXPECT_NEAR(expected(i, 1), observed(i, 1), 1e-9) << "row " << i;
+    }
+}
+
+/**
+ * The symptom of the same flag when a simulation continues after the variable step simulation
+ * (without a reset): the first row after the start was at start + the root tolerance, which is
+ * 7e-12 here, with the values of the start, and the simulation then did not reach the same
+ * state as one without the break.
+ */
+TEST_F(CVODEIntegratorTests, VariableStepSimulationContinuesWithoutASpuriousRowAfterAnEventFoundAfterItsEnd) {
+    const double end = 9.9999999;
+
+    RoadRunner whole(PulsesSBML);
+    whole.setSelections(std::vector<std::string>{"time", "Q"});
+    const ls::DoubleMatrix uninterrupted = simulateVariableStep(whole, 0, end + 0.1);
+
+    RoadRunner rr(PulsesSBML);
+    rr.setSelections(std::vector<std::string>{"time", "Q"});
+    simulateVariableStep(rr, 0, end);
+    const ls::DoubleMatrix second = simulateVariableStep(rr, end, 0.1);
+
+    ASSERT_GT(second.numRows(), 2u);
+    EXPECT_EQ(end, second(0, 0));
+    EXPECT_GT(second(1, 0) - second(0, 0), 1e-11);
+    for (unsigned i = 1; i < second.numRows(); i++) {
+        EXPECT_GT(second(i, 0), second(i - 1, 0)) << "row " << i;
+    }
+    EXPECT_EQ(uninterrupted(uninterrupted.numRows() - 1, 0), second(second.numRows() - 1, 0));
+    EXPECT_NEAR(uninterrupted(uninterrupted.numRows() - 1, 1), second(second.numRows() - 1, 1), 1e-9);
+}
+
 // model piecewise_switch
 //   compartment C = 1
 //   species A in C = 10
@@ -914,6 +1039,30 @@ static const std::string PiecewiseSwitchSBML = R"(<?xml version="1.0" encoding="
     </listOfReactions>
   </model>
 </sbml>)";
+
+/**
+ * The same as above for a piecewise trigger, which is a root of the integrator like the trigger of
+ * an event (sys-bio/roadrunner#1381).  The switch of the model is at 3.3, just after the end of the
+ * variable step simulation.
+ */
+TEST_F(CVODEIntegratorTests, PiecewiseSwitchFoundAfterTheEndOfAVariableStepSimulationIsNotPendingAfterAReset) {
+    RoadRunner fresh(PiecewiseSwitchSBML);
+    fresh.setSelections(std::vector<std::string>{"time", "A"});
+    fresh.getIntegrator()->setValue("variable_step_size", false);
+    const ls::DoubleMatrix expected = *fresh.simulate(0, 10, 11);
+
+    RoadRunner rr(PiecewiseSwitchSBML);
+    rr.setSelections(std::vector<std::string>{"time", "A"});
+    simulateVariableStep(rr, 0, 3.2999999);
+    resetAllValues(rr);
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    const ls::DoubleMatrix observed = *rr.simulate(0, 10, 11);
+
+    ASSERT_EQ(expected.numRows(), observed.numRows());
+    for (unsigned i = 0; i < expected.numRows(); i++) {
+        EXPECT_NEAR(expected(i, 1), observed(i, 1), 1e-9) << "row " << i;
+    }
+}
 
 /**
  * Regression test for sys-bio/roadrunner#1383: a model taken from the model cache, as it is
