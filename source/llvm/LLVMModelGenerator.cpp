@@ -255,8 +255,11 @@ namespace rrllvm {
          */
         modelGeneratorContext->getJitNonOwning()->addModule();
 
+        // models made later from these resources (see createModel) need the same number
+        modelResources->numPiecewiseTriggers = modelGeneratorContext->getNumPiecewiseTriggers();
+
         LLVMModelData* modelData = createModelData(modelGeneratorContext->getModelDataSymbols(),
-            modelGeneratorContext->getRandom(), modelGeneratorContext->getNumPiecewiseTriggers());
+            modelGeneratorContext->getRandom(), modelResources->numPiecewiseTriggers);
 
         uint llvmsize = ModelDataIRBuilder::getModelDataSize(
             modelGeneratorContext->getJitNonOwning()->getModuleNonOwning(),
@@ -472,7 +475,7 @@ namespace rrllvm {
 
             if (sp) {
                 rrLog(Logger::LOG_DEBUG) << "found a cached model for \"" << sbmlMD5 << "\"";
-                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random, 0));
+                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random, sp->numPiecewiseTriggers));
             }
             else {
                 rrLog(Logger::LOG_DEBUG) << "no cached model found for " << sbmlMD5

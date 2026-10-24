@@ -103,6 +103,9 @@ namespace rrllvm
 
         std::string moduleStr;
         std::string sbmlMD5;
+
+        // number of piecewise triggers, needed to create the model data of a model made from these resources
+        size_t numPiecewiseTriggers = 0;
         const class Random* random;
         std::unique_ptr<std::string> errStr;
 

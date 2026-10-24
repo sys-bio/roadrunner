@@ -858,3 +858,83 @@ TEST_F(CVODEIntegratorTests, SetSeedResetsTheModelByDefault) {
     EXPECT_EQ(0, rr.getCurrentTime());
     EXPECT_EQ(42, rr.getSeed());
 }
+
+// model piecewise_switch
+//   compartment C = 1
+//   species A in C = 10
+//   k := piecewise(2, time < 3.3, 0.5)
+//   J: A -> ; k*A
+// end
+static const std::string PiecewiseSwitchSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="piecewise_switch" id="piecewise_switch">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="C" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="k">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn type="integer"> 2 </cn>
+              <apply>
+                <lt/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                <cn> 3.3 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 0.5 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J" reversible="true">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+
+/**
+ * Regression test for sys-bio/roadrunner#1383: a model taken from the model cache, as it is
+ * while another instance of the same SBML is alive, was created with no piecewise triggers, so
+ * CVODE did not stop at the switch of a piecewise and the instance integrated differently from
+ * a compiled one (5e-8 absolute here).
+ */
+TEST_F(CVODEIntegratorTests, ModelFromTheModelCacheHasThePiecewiseTriggersOfACompiledModel) {
+    RoadRunner first(PiecewiseSwitchSBML);   // compiled
+    RoadRunner cached(PiecewiseSwitchSBML);  // from the cache, as long as first is alive
+    ASSERT_GT(first.getModel()->getNumPiecewiseTriggers(), 0);
+    EXPECT_EQ(first.getModel()->getNumPiecewiseTriggers(), cached.getModel()->getNumPiecewiseTriggers());
+
+    first.setSelections(std::vector<std::string>{"time", "A"});
+    cached.setSelections(std::vector<std::string>{"time", "A"});
+    const ls::DoubleMatrix a = *first.simulate(0, 10, 11);
+    const ls::DoubleMatrix b = *cached.simulate(0, 10, 11);
+    ASSERT_EQ(a.numRows(), b.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        EXPECT_NEAR(a(i, 1), b(i, 1), 1e-14) << "row " << i;
+    }
+    // the analytic solution at t = 4 is 10 exp(-2 * 3.3 - 0.5 * 0.7), up to the default tolerances
+    EXPECT_NEAR(10 * std::exp(-2 * 3.3 - 0.5 * 0.7), b(4, 1), 1e-6);
+}
