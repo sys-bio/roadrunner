@@ -70,11 +70,7 @@ Eigenvalue: ``eigen()``, ``eigenReal()``, ``eigenImag()``
     ``eigenImag(identifier)`` is the imaginary part of eigenvalue.
 
 Initial Value: ``init()``
-    Represents the initial value of an identifier (species or global parameter) specified in the SBML document, i.e. ``init(S1)``.
-    Setting this value does not reset the *current* value of the quantity. When :cpp:class:`rr::RoadRunner::resetAll` is
-    called, the current values of all quantities will be reset to the designated initial values, including any changes
-    made to the initial values via this syntax. This is in contrast to :cpp:class:`rr::RoadRunner::resetToOrigin`,
-    which resets all current and initial values to the values specified in the SBML document.
+    Represents the initial value of an identifier (species, global parameter, compartment, or stoichiometry) specified in the SBML document, i.e. ``init(S1)``.  Setting this value on the *model* (i.e. `rr.model.setValue('init(x)')`) sets the initial value of that model element, but not the current value of that model element.  In contrast, setting this value on the *roadrunner object* (i.e. `rr.setValue('init(x)')`) sets the 'origin' value of that element, and also resets and regenerates the model itself, setting this and every other value in the model to the initial value.  For calls to :cpp:class:`rr::RoadRunner::resetAll, any initial values set using `rr.model.setValue('init(x)') will be used; for calls to :cpp:class:`rr::RoadRunner::resetToOrigin, original model values from the SBML document and initial values set using `rr.setValue('init(x)')` will be used.
 
 Stoichiometry: ``stoich(ParameterId, ReactionId)``
     Represents the stoichiometric coefficient for a given species and reaction.

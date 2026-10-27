@@ -400,28 +400,23 @@ Model Access
 .. method:: RoadRunner.reset()
    :module: RoadRunner
 
-   Resets time, all floating species, and rates to their initial values.
-   Does NOT reset changed global parameters.
+   Resets time, all floating species, and rates to their initial values, whether as initially loaded from the model or to their set initial values.  By default, resets time, floating species, and anything changed by a rate rule.  Other subsets of model elements can be reset by giving the function a bitwise combination of selection records, i.e. 'RoadRunner.reset(SelectionRecord.TIME | SelectionRecord.RATE)' to reset only time and elements controlled by a rate rule.  'SelectionRecord.ALL' will reset everything to the model's current suite of initial values.
    
 
 .. method:: RoadRunner.resetAll()
    :module: RoadRunner
 
-   Resets time, all floating species, and rates to their CURRENT initial values.
-   Also resets all global parameters back to the values they had when the model was first loaded.
-   "Current" initial values are set by using ``rr.setValue('init(S1)', 5)`` which sets a species 
-   named S1 to have current initial value of 5. Note it is NOT the initial values of when the model was first loaded in.
+   Resets all species, parameters, compartments, and stoichiometries to their CURRENT initial values, and sets time to zero.  Current initial values will include any initial values set using `rr.model.setValue('init(x)')`, which might be different from the initial values read in from the original model, or as set with `rr.setValue('init(x)')`.
 
 .. method:: RoadRunner.resetParameter()
    :module: RoadRunner
 
-   Resets only global parameters to their CURRENT initial values.
+   Resets only global parameters to their CURRENT initial values.  Current initial values will include any initial values set using `rr.model.setValue('init(x)')`, which might be different from the initial values read in from the original model, or as set with `rr.setValue('init(x)')`.
 
 .. method:: RoadRunner.resetToOrigin()
    :module: RoadRunner
 
-   Resets the model back to the state it was when FIRST loaded.
-   The scope of this reset includes all initial values and parameters (everything).
+   Resets the model back to the state it was when first loaded, plus any changes set using `rr.setValue('init(x)')`.  Will not include any values set on the model, i.e. using `rr.model.setValue('init(x)')`.  All model elements (species, parameters, compartments, stoichiometries) will be reset.
 
 .. method:: RoadRunner.setConfigurationXML(*args)
    :module: RoadRunner

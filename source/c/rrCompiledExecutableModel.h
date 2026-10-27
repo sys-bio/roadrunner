@@ -72,7 +72,7 @@ public:
     virtual void evalInitialConditions();
 
     /**
-     * reset the model to its original state
+     * reset the model to its original state, modulo any changes to that initial state from calling setValue('init(x)').
      */
     virtual void reset();
 

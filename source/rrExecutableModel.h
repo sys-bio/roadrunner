@@ -467,7 +467,7 @@ namespace rr {
             const double* values, bool strict) = 0;
 
         /**
-        * Set the initial value of the global parameter.
+        * Set the model's copy of the initial values of the global parameters.
         *
         * Takes the same indices as the other global parameter methods.
         */
@@ -691,6 +691,10 @@ namespace rr {
          */
         virtual int setMultiSpeciesReferenceValue(int index, double value) = 0;
 
+        // TODO(init-origin): Say that ExecutableModel-level init setters only change the initial
+        //   values of the model: reset(SelectionRecord::ALL) restores the values compiled from the
+        //   SBML, unlike RoadRunner::setValue('init(x)'), which edits the SBML and regenerates the
+        //   model, and so changes the origin. Explain this difference.
         /**
          * Set the initial value of a MultiSpeciesReference-typed named
          * stoichiometry with the given index.
@@ -956,6 +960,12 @@ namespace rr {
         virtual double getFloatingSpeciesAmountRate(size_t index,
                                                     const double *reactionRates) = 0;
 
+        // TODO(init-origin): Say that reset() returns to the current init() values, which include
+        //   any that were set, and that SelectionRecord::ALL returns to the origin, which init()
+        //   changes. Say that ExecutableModel-level init setters only change the initial values of
+        //   the model: reset(SelectionRecord::ALL) restores the values compiled from the SBML,
+        //   unlike RoadRunner::setValue('init(x)'), which edits the SBML and regenerates the model,
+        //   and so changes the origin. Explain this difference.
         /**
          * reset the model accordign to a bitfield specified by the
          * SelectionRecord::SelectionType values.

@@ -619,6 +619,94 @@ TEST_F(ModelEditingTests, SET_INIT_VALUE_PARAMETER_ONLY_INITIAL_ASSIGNMENT) {
 }
 
 
+/**
+ * The initial values set with setValue("init(x)") are the new origin of the model, with or without
+ * an initial assignment for x, and they are the values of reset(SelectionRecord::ALL)
+ * (sys-bio/roadrunner#1385).  The model is regenerated once by each call.
+ *
+ * model init_assign
+ *   compartment C = 1
+ *   species A in C = 10
+ *   kb = 1
+ *   k = 2*kb
+ *   J: A -> ; k*A
+ * end
+ */
+static const std::string InitAssignSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="init_assign" id="init_assign">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="C" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="kb" value="1" constant="true"/>
+      <parameter id="k" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="k">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 2 </cn>
+            <ci> kb </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfReactions>
+      <reaction id="J" reversible="true">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+TEST_F(ModelEditingTests, SET_INIT_VALUE_IS_THE_ORIGIN_WITH_AND_WITHOUT_AN_INITIAL_ASSIGNMENT) {
+    RoadRunner rr(InitAssignSBML);
+    ASSERT_EQ(2.0, rr.getValue("k"));
+
+    // kb has no initial assignment, k = 2*kb depends on it
+    rr.setValue("init(kb)", 3.0);
+    EXPECT_EQ(3.0, rr.getValue("init(kb)"));
+    EXPECT_EQ(6.0, rr.getValue("init(k)"));
+
+    // k is the target of an initial assignment, which is removed
+    rr.setValue("init(k)", 5.0);
+    EXPECT_EQ(5.0, rr.getValue("init(k)"));
+    EXPECT_EQ(5.0, rr.getValue("k"));
+
+    rr.reset(SelectionRecord::ALL);
+    EXPECT_EQ(3.0, rr.getValue("init(kb)"));
+    EXPECT_EQ(3.0, rr.getValue("kb"));
+    EXPECT_EQ(5.0, rr.getValue("init(k)"));
+    EXPECT_EQ(5.0, rr.getValue("k"));
+
+    // k no longer has an initial assignment
+    rr.setValue("init(k)", 7.0);
+    rr.reset(SelectionRecord::ALL);
+    EXPECT_EQ(7.0, rr.getValue("init(k)"));
+    EXPECT_EQ(7.0, rr.getValue("k"));
+
+    // A decays with the new rate constant: A(1) = 10 exp(-7), up to the default tolerances
+    rr.setSelections(std::vector<std::string>{"time", "A"});
+    const ls::DoubleMatrix result = *rr.simulate(0, 1, 2);
+    ASSERT_EQ(2u, result.numRows());
+    EXPECT_NEAR(10 * std::exp(-7.0), result(1, 1), 1e-5);
+}
+
 TEST_F(ModelEditingTests, GET_CURRENT_SBML_NO_INITIAL_ASSIGNMENTS) {
     RoadRunner rri;
     //Logger::setLevel(Logger::LOG_DEBUG);

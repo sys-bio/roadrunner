@@ -320,7 +320,7 @@ namespace rr {
              * SelectionRecord::SelectionType.
              *
              * This value determines which values of the model are reset
-             * to their origin SBML specified values.
+             * to their current initial state.
              *
              * Current valid values can be a combination of:
              *

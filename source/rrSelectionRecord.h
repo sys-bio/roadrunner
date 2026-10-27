@@ -384,7 +384,7 @@ public:
          * If this bit is set, then the reset function evaluates all of the
          * SBML model init conditions (init values and all init assignment rules),
          * and assigns them to the model state variable. This setting brings
-         * the model back the originally loaded state.
+         * the model back to the current suite of initial values.
          */
         SBML_INITIALIZE =                   STATE_VECTOR   // the STATE_VECTOR options
                                                            // is used here because it is

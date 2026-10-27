@@ -162,18 +162,6 @@ given by the order of Ids returned by getDependentFloatingSpeciesIds()
 
 
 
-Floating Species Initial Conditions
------------------------------------
-RoadRunner stores all initial conditions separately from the model state variables. This means that
-you can update the initial conditions at any time, and it does not affect the current state of the
-model. To reset the model, that is, reset it to its original state, or a new original state where
-what has changed the initial conditions use the :meth:`~ExecutableModel.reset()` method.
-
-The following methods allow access to the floating species initial condition values:
-";
-
-
-
 %feature("docstring") rr::ExecutableModel::getFloatingSpeciesInitAmountIds "
 ExecutableModel.getFloatingSpeciesInitAmountIds()
 
@@ -603,6 +591,7 @@ time = 10.
 
 
 
+/* TODO(init-origin): Say that reset() returns to the current init() values, which include any that were set, and that SelectionRecord::ALL returns to the origin, which init() changes. The last paragraph says SelectionRecord.ALL resets 'as it was in the current SBML model': say what that means once init() changes the origin. */
 %feature("docstring") rr::ExecutableModel::reset "
 ExecutableModel.reset()
 
@@ -895,6 +884,7 @@ the new time which will be currentTime + StepSize::
 
 
 
+/* TODO(init-origin): Say that reset() returns to the current init() values, which include any that were set, and that SelectionRecord::ALL returns to the origin, which init() changes. The last paragraph says SelectionRecord.ALL resets 'as it was in the current SBML model': say what that means once init() changes the origin. */
 %feature("docstring") rr::RoadRunner::reset "
 RoadRunner.reset()
 

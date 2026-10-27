@@ -563,7 +563,7 @@ C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, co
 
 
 /*!
- \brief Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+ \brief Set initial amount for an existing species. Initial amount/concentration set before will be unset, and the model will be regenerated from the current set of initial values in the roadrunner object.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sid ID of the species
  \param[in] initAmount Initial amount to be set
@@ -573,7 +573,7 @@ C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, co
 C_DECL_SPEC bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount);
 
 /*!
- \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+ \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset, and the model will be regenerated from the current set of initial values in the roadrunner object.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sid ID of the species
  \param[in] initConcentration Initial concentration to be set
@@ -3085,7 +3085,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, doub
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Resets all variables of the model to their current initial values.
+ \brief Resets time, the floating species, and any variables that are changed by a rate rule in the model to their current initial values, as stored in the 'handle' object.
  Does not change the parameters.
 
  \param[in] handle Handle to a RoadRunner instance
@@ -3095,7 +3095,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, doub
 C_DECL_SPEC bool rrcCallConv reset(RRHandle handle);
 
 /*!
- \brief Resets all variables of all types in the model to their 
+ \brief Resets all model elements (time, species, parameters, compartments, stoichiometries) to their current initial values, as stored in the 'model' child of the 'handle' object.
  current initial values.
 
  \param[in] handle Handle to a RoadRunner instance
@@ -3105,7 +3105,7 @@ C_DECL_SPEC bool rrcCallConv reset(RRHandle handle);
 C_DECL_SPEC bool rrcCallConv resetAll(RRHandle handle);
 
 /*!
- \brief Resets the model to the state in which it was first loaded, including
+ \brief Resets all model elements (time, species, parameters, compartments, stoichiometries) to their current initial values, as stored in the 'handle' object.
  initial conditions, variables, and parameters.
 
  \param[in] handle Handle to a RoadRunner instance
@@ -3115,7 +3115,7 @@ C_DECL_SPEC bool rrcCallConv resetAll(RRHandle handle);
 C_DECL_SPEC bool rrcCallConv resetToOrigin(RRHandle handle);
 
 /*!
-\brief Resets all parameters of the model to their current initial values.
+\brief Resets all parameters of the model to their current initial values, as stored in the 'model' child of the 'handle' object.
 
 \param[in] handle Handle to a RoadRunner instance
 \return Boolean indicating success

@@ -1339,7 +1339,7 @@ namespace std { class ostream{}; }
               The model is not regenerated or recompiled; only the generators are reseeded.  If
               resetModel is True (the default), the model is then also reset with
               reset(SelectionRecord.ALL) (the same as resetToOrigin()), which restarts the simulation
-              at time 0 and evaluates all the initial assignments again, so values drawn when the
+              at time 0 and evaluates all the initial assignments again, so values drawn from a distribution when the
               model was loaded (for example an initial assignment that uses a distribution function)
               are drawn again with the new seed.  That reset also discards any init() values that
               were changed, and the current values.  With resetModel=False the current and initial
@@ -1910,6 +1910,9 @@ namespace std { class ostream{}; }
 
             return result
 
+        # TODO(init-origin): The docstring says 'state when FIRST loaded', which is not right:
+        #   setting an init() value changes the origin. Say that this returns to the current origin,
+        #   including initial values and parameters that were set.
         def resetToOrigin(self):
             """ Reset model to state when first loaded.
 
@@ -1921,6 +1924,9 @@ namespace std { class ostream{}; }
             """
             self.reset(SelectionRecord.ALL)
 
+        # TODO(init-origin): Say that reset() returns to the current init() values, which include
+        #   any that were set, and that SelectionRecord::ALL returns to the origin, which init()
+        #   changes.
         def resetAll(self):
             """ Reset all model variables to CURRENT init(X) values.
 
@@ -1934,6 +1940,9 @@ namespace std { class ostream{}; }
                        SelectionRecord.GLOBAL_PARAMETER |
                        SelectionRecord.STOICHIOMETRY)
 
+        # TODO(init-origin): Say that reset() returns to the current init() values, which include
+        #   any that were set, and that SelectionRecord::ALL returns to the origin, which init()
+        #   changes.
         def resetParameter(self):
             """ Reset parameters to CURRENT init(X) values.
 

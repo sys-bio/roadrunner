@@ -6774,9 +6774,9 @@ namespace rr {
             isConcentration = true;
         }
 
-        //Set the SBML value, and then remove the initial assignment, if any.  Must be this order, because otherwise removing the initial assignment might leave the element with no value.  removeInitialAssignment must regenerate the model so that the subsequent 'setValue' works.
+        //Set the SBML value, and then remove the initial assignment, if any.  Must be this order, because otherwise removing the initial assignment might leave the element with no value.  The model is regenerated once below, so that the subsequent 'setValue' works.
         setSBMLValue(sbmlModel, sid, initValue, isConcentration);
-        removeInitialAssignment(sid, true, false, false);
+        removeInitialAssignment(sid, false, false, false);
 
         regenerateModel(true);
         impl->model->setValue("init(" + origId + ")", initValue);
