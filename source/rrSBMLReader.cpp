@@ -17,6 +17,8 @@
 #include "rrSBMLReader.h"
 #include "rrException.h"
 #include <iostream>
+#include <filesystem>
+#include <system_error>
 #include <sstream>
 #include <string>
 #include <algorithm>
@@ -247,6 +249,67 @@ char mytolower(char x) {
     return (char)std::tolower(x);
 }
 
+/**
+ * Applies the checks and conversions every SBML document goes through:
+ * flattens comp models and rejects packages roadrunner does not support.
+ * 'uri' is where the document was read from, used to find external model definitions.
+ */
+static std::string check_and_flatten(const std::string& s, const std::string& uri)
+{
+    if (has_comp(s))
+    {
+        return flatten_comp(s, uri);
+    }
+    if (has_qual(s))
+    {
+        rrLog(Logger::LOG_ERROR) << "Qual model discovered, but not supported.";
+        throw std::domain_error("This SBML model contains information from the 'qual' package (for qualitative or 'logical' modeling).  These models are not supported by roadrunner or tellurium.  A good source of software that supports qual is the COLOMOTO consortium.  See http://www.colomoto.org/software/ for a list of other software packages that might work for you.");
+    }
+    if (has_spatial(s))
+    {
+        rrLog(Logger::LOG_ERROR) << "Spatial model discovered, but not supported.";
+        throw std::domain_error("This SBML model contains information from the 'spatial' package.  These models are not supported by roadrunner or tellurium.  A few software packages that do support spatial (as of 2023) include VCell (https://vcell.org/), XitoSBML (https://github.com/spatialsimulator/XitoSBML) and Spatial SBML (https://github.com/fbergmann/spatial-sbml).");
+    }
+    if (has_multi(s))
+    {
+        rrLog(Logger::LOG_ERROR) << "Multi model discovered, but not supported.";
+        throw std::domain_error("This SBML model contains information from the 'multi' package for multistate, multicomponent and multicompartment models, or 'rule-based' models.  These models are not supported by roadrunner or tellurium.  The best software package that supports multi (as of 2023) is Simmune (https://bioinformatics.niaid.nih.gov/simmune/).");
+    }
+    return s;
+}
+
+/**
+ * Reads a local file with libsbml, which also reads gzip, bzip2 and zip
+ * compressed files. Returns false (reason logged) if the file cannot be read.
+ */
+static bool read_with_libsbml(const std::string& path, std::string& sbml)
+{
+    std::error_code ec;
+    if (!std::filesystem::is_regular_file(path, ec))
+    {
+        return false;
+    }
+    libsbml::SBMLDocument* doc = libsbml::readSBMLFromFile(path.c_str());
+    if (doc == nullptr)
+    {
+        return false;
+    }
+    if (doc->getModel() == nullptr && doc->getNumErrors() > 0)
+    {
+        std::stringstream errors;
+        doc->printErrors(errors);
+        rrLog(Logger::LOG_ERROR) << "libsbml could not read " << path << ": " << errors.str();
+        delete doc;
+        return false;
+    }
+    std::stringstream stream;
+    libsbml::SBMLWriter writer;
+    writer.writeSBML(doc, stream);
+    delete doc;
+    sbml = stream.str();
+    return true;
+}
+
 std::string SBMLReader::read(const std::string& str)
 {
     // bail here (empty str is valid sometimes), but messes
@@ -321,28 +384,14 @@ std::string SBMLReader::read(const std::string& str)
         std::string s(std::istreambuf_iterator<char>(*stream), eos);
         delete stream;
 
-        // read from a stream, only case where we can flatten, so
-        // check
-        if (has_comp(s))
+        // Compressed files are not SBML text; libsbml reads those from the file name.
+        // If that fails, carry on with the text as read.
+        if (!is_sbml(s))
         {
-            return flatten_comp(s, str);
+            read_with_libsbml(str, s);
         }
-        if (has_qual(s))
-        {
-            rrLog(Logger::LOG_ERROR) << "Qual model discovered, but not supported.";
-            throw std::domain_error("This SBML model contains information from the 'qual' package (for qualitative or 'logical' modeling).  These models are not supported by roadrunner or tellurium.  A good source of software that supports qual is the COLOMOTO consortium.  See http://www.colomoto.org/software/ for a list of other software packages that might work for you.");
-        }
-        if (has_spatial(s))
-        {
-            rrLog(Logger::LOG_ERROR) << "Spatial model discovered, but not supported.";
-            throw std::domain_error("This SBML model contains information from the 'spatial' package.  These models are not supported by roadrunner or tellurium.  A few software packages that do support spatial (as of 2023) include VCell (https://vcell.org/), XitoSBML (https://github.com/spatialsimulator/XitoSBML) and Spatial SBML (https://github.com/fbergmann/spatial-sbml).");
-        }
-        if (has_multi(s))
-        {
-            rrLog(Logger::LOG_ERROR) << "Multi model discovered, but not supported.";
-            throw std::domain_error("This SBML model contains information from the 'multi' package for multistate, multicomponent and multicompartment models, or 'rule-based' models.  These models are not supported by roadrunner or tellurium.  The best software package that supports multi (as of 2023) is Simmune (https://bioinformatics.niaid.nih.gov/simmune/).");
-        }
-        return s;
+
+        return check_and_flatten(s, str);
     }
     else
     {
