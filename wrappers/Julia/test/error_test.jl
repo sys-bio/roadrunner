@@ -7,7 +7,10 @@ using Test
         A -> B; k1*A,
         A = 10,
     """
-    @test_throws ErrorException("Error in model string, line 1:  syntax error, unexpected ',', expecting end of line or ';' or '\\n'") RoadRunner.loada(ant_str)
+    err = try RoadRunner.loada(ant_str); nothing catch e; e end
+    @test err isa ErrorException
+    # the order of the expected tokens depends on the parser generator, so only the start is checked
+    @test startswith(err.msg, "Error in model string, line 1:  syntax error, unexpected ','")
 end
 
 @testset "test antimony errors" begin
