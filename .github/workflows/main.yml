@@ -633,3 +633,128 @@ jobs:
         with:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}
+
+  import_manylinux_wheel:
+    name: import manylinux wheel, Python ${{ matrix.python }}
+    # Installs the manylinux wheel built above into a clean Debian container with a
+    # uv-managed Python (libpython kept in the interpreter's own lib/, not on the
+    # loader path), then checks that 'import roadrunner' works and a model simulates.
+    # It guards against the Python module linking libpython (#1280).
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    container:
+      image: debian:12-slim
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14", "3.15"]
+    env:
+      MATRIX_PYTHON: ${{ matrix.python }}
+
+    steps:
+      - name: Install certificates
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+
+      - name: Download manylinux wheels
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@main
+        with:
+          pattern: roadrunner-*-python-wheels-manylinux_2_28-*
+          merge-multiple: true
+          path: wheels
+
+      - name: Report missing wheel artifact
+        if: steps.download.outcome != 'success'
+        run: echo "::warning::No manylinux wheel artifact was found for this run, so nothing was tested."
+
+      - name: Install uv
+        if: steps.download.outcome == 'success'
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
+
+      - name: Create venv from a uv-managed Python
+        if: steps.download.outcome == 'success'
+        run: uv venv --python "$MATRIX_PYTHON" --managed-python venv
+
+      - name: Check libpython is not on the loader path
+        if: steps.download.outcome == 'success'
+        run: |
+          echo "LD_LIBRARY_PATH='${LD_LIBRARY_PATH:-}'"
+          if ldconfig -p | grep -i libpython; then
+            echo "::error::libpython is on the default loader path, which would hide the problem"
+            exit 1
+          fi
+          venv/bin/python -c "import sysconfig; print('LIBDIR', sysconfig.get_config_var('LIBDIR')); print('Py_ENABLE_SHARED', sysconfig.get_config_var('Py_ENABLE_SHARED'))"
+
+      - name: Install the libroadrunner wheel
+        if: steps.download.outcome == 'success'
+        run: |
+          ls -l wheels
+          tag="cp${MATRIX_PYTHON/./}"
+          shopt -s nullglob
+          files=(wheels/libroadrunner-*-${tag}-${tag}-*.whl)
+          if [ ${#files[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one libroadrunner wheel for ${tag}, found ${#files[@]}"
+            exit 1
+          fi
+          uv pip install --python venv/bin/python "${files[0]}"
+
+      - name: Check shared object dependencies
+        if: steps.download.outcome == 'success'
+        run: |
+          status=0
+          count=0
+          for so in $(find venv/lib/python*/site-packages/roadrunner -name '*.so*'); do
+            count=$((count + 1))
+            echo "== $so"
+            ldd "$so" | tee ldd.txt
+            if grep -Ei 'not found|libpython' ldd.txt; then status=1; fi
+          done
+          if [ $count -eq 0 ]; then
+            echo "::error::No shared objects found in the installed roadrunner package"
+            exit 1
+          fi
+          exit $status
+
+      - name: Import roadrunner and simulate
+        if: steps.download.outcome == 'success'
+        run: |
+          unset LD_LIBRARY_PATH
+          venv/bin/python - <<'PY'
+          import math
+          import roadrunner
+
+          sbml = """<?xml version="1.0" encoding="UTF-8"?>
+          <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+            <model id="decay">
+              <listOfParameters>
+                <parameter id="x" value="1" constant="false"/>
+                <parameter id="k" value="1" constant="true"/>
+              </listOfParameters>
+              <listOfRules>
+                <rateRule variable="x">
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply><times/><apply><minus/><ci> k </ci></apply><ci> x </ci></apply>
+                  </math>
+                </rateRule>
+              </listOfRules>
+            </model>
+          </sbml>"""
+
+          print("imported from", roadrunner.__file__)
+          rr = roadrunner.RoadRunner(sbml)
+          rr.simulate(0, 1, 11)
+          x = rr.getValue("x")
+          print("x(1) =", x)
+          assert abs(x - math.exp(-1)) < 1e-4, x
+          PY
