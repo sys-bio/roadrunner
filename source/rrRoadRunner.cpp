@@ -7508,7 +7508,8 @@ namespace rr {
             SelectionRecord::FLOATING |
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
-            SelectionRecord::GLOBAL_PARAMETER);
+            SelectionRecord::GLOBAL_PARAMETER |
+            SelectionRecord::STOICHIOMETRY);
     }
 
 

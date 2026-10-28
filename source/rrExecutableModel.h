@@ -691,12 +691,8 @@ namespace rr {
          */
         virtual int setMultiSpeciesReferenceValue(int index, double value) = 0;
 
-        // TODO(init-origin): Say that ExecutableModel-level init setters only change the initial
-        //   values of the model: reset(SelectionRecord::ALL) restores the values compiled from the
-        //   SBML, unlike RoadRunner::setValue('init(x)'), which edits the SBML and regenerates the
-        //   model, and so changes the origin. Explain this difference.
         /**
-         * Set the initial value of a MultiSpeciesReference-typed named
+         * Set the model's copy of the initial value of a MultiSpeciesReference-typed named
          * stoichiometry with the given index.
          */
         virtual int setInitMultiSpeciesReferenceValue(int index, double value) = 0;
@@ -960,15 +956,9 @@ namespace rr {
         virtual double getFloatingSpeciesAmountRate(size_t index,
                                                     const double *reactionRates) = 0;
 
-        // TODO(init-origin): Say that reset() returns to the current init() values, which include
-        //   any that were set, and that SelectionRecord::ALL returns to the origin, which init()
-        //   changes. Say that ExecutableModel-level init setters only change the initial values of
-        //   the model: reset(SelectionRecord::ALL) restores the values compiled from the SBML,
-        //   unlike RoadRunner::setValue('init(x)'), which edits the SBML and regenerates the model,
-        //   and so changes the origin. Explain this difference.
         /**
-         * reset the model accordign to a bitfield specified by the
-         * SelectionRecord::SelectionType values.
+         * reset the model according to a bitfield specified by the
+         * SelectionRecord::SelectionType values.  Will use the model's copy of the initial values unless SelectionRecord::SBML_INITIALIZE or SelectionRecord::ALL are used, in which case the elements will be reset using the original suite of initial values from when the model was created, and overwrite any model-only initializations.
          */
         virtual void reset(int options) = 0;
 

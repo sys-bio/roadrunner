@@ -496,7 +496,7 @@ namespace rr {
         std::string getCurrentSBML(int level = 0, int version = 0);
 
         /**
-         * Picks up default options from config.  Resets to roadrunner's copy of the initial values for the given default selection record(s).
+         * Picks up default options from config.  Resets to the model's copy of the initial values for the given default selection record(s), unless SelectionRecord::SBML_INITIALIZE is included, in which case roadrunner's copy (and not the model's) is used.
          *
          * The current default is
          * SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING.
@@ -504,10 +504,10 @@ namespace rr {
         void reset();
 
         /**
-         * Picks up default options from config.  Resets to roadrunner's copy of the initial values for the given selection record bitfield.SelectionRecord::SelectionType values.
+         * Resets to the model's copy of the initial values for the given selection record bitfield SelectionRecord::SelectionType values, unless SelectionRecord::SBML_INITIALIZE is included, in which case roadrunner's copy (and not the model's) is used.
          *
-         * Note, this would make more sense as an unsigned, however SWIG has issues mapping
-         * an enum to an unsigned, but seems to std::map enums just fine to an int.
+         * Note, this would make more sense as an unsigned int, however SWIG has issues mapping
+         * an enum to an unsigned, but seems to map enums just fine to an int.
          *
          * For example, to reset the floating species, time and rate rule values:
          * @code
@@ -1654,7 +1654,7 @@ namespace rr {
          * reset(SelectionRecord::ALL), which restarts the simulation at time 0 and evaluates all
          * the initial assignments again, so values drawn from a distribution when the model was loaded (for example an
          * initial assignment that uses a distribution function) are drawn again with the new seed.
-         * That reset also discards any init() values that were changed, and the current values.
+         * That reset also uses roadrunner's copy of all initial values.
          * With @p resetModel false, the current and initial values and the current time stay as
          * they are, and values already drawn are not drawn again. To seed the very first draw,
          * set Config::RANDOM_SEED before creating the RoadRunner object.

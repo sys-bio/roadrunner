@@ -320,7 +320,7 @@ namespace rr {
              * SelectionRecord::SelectionType.
              *
              * This value determines which values of the model are reset
-             * to their current initial state.
+             * to their current initial values.
              *
              * Current valid values can be a combination of:
              *

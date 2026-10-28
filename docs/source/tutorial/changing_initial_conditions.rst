@@ -2,7 +2,7 @@ Changing Initial Conditions
 ===========================
 
 There are a number of methods to get and set the initial conditions of a loaded model. In order to
-specify a given initial conditions we use the notation, ``init()``.  Note that the model's initial conditions can be different from the roadrunner object's initial conditions: the former are set from `rr.model` and the latter from just `rr`.  `resetAll` uses the model's initial conditions preferentially; `resetToOrigin` uses the roadrunner object's initial conditions.
+specify a given initial conditions we use the notation, ``init()``.  Note that the model's initial conditions can be different from the roadrunner object's initial conditions: the former are set from ``rr.model`` and the latter from just ``rr``.  ``resetAll`` uses the model's initial conditions, while ``resetToOrigin`` uses the roadrunner object's initial conditions.
 The values stored in the
 initial conditions are applied to the model whenever it is reset. The list of all initial condition
 symbols can be obtained by the methods, :meth:`~ExecutableModel.getFloatingSpeciesInitAmountIds()`

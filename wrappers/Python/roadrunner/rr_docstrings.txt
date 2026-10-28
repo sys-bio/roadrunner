@@ -159,6 +159,7 @@ given by the order of Ids returned by getDependentFloatingSpeciesIds()
 
 :returns: a named array of dependent floating species rates of change.
 :rtype: numpy.ndarray
+";
 
 
 
@@ -591,11 +592,10 @@ time = 10.
 
 
 
-/* TODO(init-origin): Say that reset() returns to the current init() values, which include any that were set, and that SelectionRecord::ALL returns to the origin, which init() changes. The last paragraph says SelectionRecord.ALL resets 'as it was in the current SBML model': say what that means once init() changes the origin. */
 %feature("docstring") rr::ExecutableModel::reset "
 ExecutableModel.reset()
 
-By default, reset all floating species concentrations and all variables changed by rate rules to their CURRENT init(X) values.
+By default, reset all floating species concentrations and all variables changed by rate rules to the model's copy of any init(X) values.
 
 It is possible to change the behavior of this function by providing a list of \"or'ed\" SelectionRecords.  For example, to reset only time and floating species, use:
 
@@ -612,10 +612,12 @@ The following selection records are added to the above when calling 'resetAll', 
 SelectionRecord.BOUNDARY:  Resets the boundary species.
 SelectionRecord.COMPARTMENT:  Resets the compartments.
 SelectionRecord.GLOBAL_PARAMETER:  Resets the parameter objects.
+SelectionRecord.STOICHIOMETRY:  Resets the reaction stoichiometries.
 
-All of the above will use the current 'init(x)' values, and will re-calculate any initial assignments in the model based on the reset (or not reset) values they reference.  If one wishes to reset the model to its original state as defined in the SBML (resetting the 'init(x)' values as well), use:
+All of the above will use the current 'init(x)' values.  If instead you wish to reset to the init(x) values used to create the model, use:
 
-SelectionRecord.ALL:  Resets everything to as it was in the current SBML model.
+SelectionRecord.SBML_INITIALIZE: Use the original version of any initial values.
+SelectionRecord.ALL: Reset everything, using the original version of any initial values.
 ";
 
 
@@ -884,11 +886,10 @@ the new time which will be currentTime + StepSize::
 
 
 
-/* TODO(init-origin): Say that reset() returns to the current init() values, which include any that were set, and that SelectionRecord::ALL returns to the origin, which init() changes. The last paragraph says SelectionRecord.ALL resets 'as it was in the current SBML model': say what that means once init() changes the origin. */
 %feature("docstring") rr::RoadRunner::reset "
 RoadRunner.reset()
 
-By default, reset all floating species concentrations and all variables changed by rate rules to their CURRENT init(X) values.
+By default, reset all floating species concentrations and all variables changed by rate rules to the model's copy of the init(X) values.
 
 It is possible to change the behavior of this function by providing a list of \"or'ed\" SelectionRecords.  For example, to reset only time and floating species, use:
 
@@ -905,10 +906,11 @@ The following selection records are added to the above when calling 'resetAll', 
 SelectionRecord.BOUNDARY:  Resets the boundary species.
 SelectionRecord.COMPARTMENT:  Resets the compartments.
 SelectionRecord.GLOBAL_PARAMETER:  Resets the parameter objects.
+SelectionRecord.STOICHIOMETRY:  Resets the reaction stoichiometries.
 
-All of the above will use the current 'init(x)' values, and will re-calculate any initial assignments in the model based on the reset (or not reset) values they reference.  If one wishes to reset the model to its original state as defined in the SBML (resetting the 'init(x)' values as well), use:
+All of the above will use the current model's 'init(x)' values, and will re-calculate any initial assignments in the model based on the reset (or not reset) values they reference.  If one wishes to reset the model to the version held in the roadrunner object (used to create the current model):
 
-SelectionRecord.ALL:  Resets everything to as it was in the current SBML model.
+SelectionRecord.ALL:  Resets everything to roadrunner's copy of the initial values.
 ";
 
 

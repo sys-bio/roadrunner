@@ -3634,8 +3634,8 @@ bool rrcCallConv resetAll(RRHandle handle)
             SelectionRecord::FLOATING |
             SelectionRecord::BOUNDARY |
             SelectionRecord::COMPARTMENT |
-            SelectionRecord::GLOBAL_PARAMETER);
-        rri->resetSeed();
+            SelectionRecord::GLOBAL_PARAMETER |
+            SelectionRecord::STOICHIOMETRY);
         return true;
     catch_bool_macro
 }

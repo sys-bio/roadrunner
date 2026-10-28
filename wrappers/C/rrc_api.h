@@ -3085,7 +3085,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, doub
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Resets time, the floating species, and any variables that are changed by a rate rule in the model to their current initial values, as stored in the 'handle' object.
+ \brief Resets time, the floating species, and any variables that are changed by a rate rule in the model to their current initial values, as stored in the 'model' child of 'handle' object.
  Does not change the parameters.
 
  \param[in] handle Handle to a RoadRunner instance
@@ -3096,7 +3096,6 @@ C_DECL_SPEC bool rrcCallConv reset(RRHandle handle);
 
 /*!
  \brief Resets all model elements (time, species, parameters, compartments, stoichiometries) to their current initial values, as stored in the 'model' child of the 'handle' object.
- current initial values.
 
  \param[in] handle Handle to a RoadRunner instance
  \return Boolean indicating success
@@ -3105,8 +3104,7 @@ C_DECL_SPEC bool rrcCallConv reset(RRHandle handle);
 C_DECL_SPEC bool rrcCallConv resetAll(RRHandle handle);
 
 /*!
- \brief Resets all model elements (time, species, parameters, compartments, stoichiometries) to their current initial values, as stored in the 'handle' object.
- initial conditions, variables, and parameters.
+ \brief Resets all model elements (species, parameters, compartments, stoichiometries) to their current initial values, as stored in the 'handle' object, and sets 'time' to zero.  This discards any initial values set on the handle's model object.
 
  \param[in] handle Handle to a RoadRunner instance
  \return Boolean indicating success
