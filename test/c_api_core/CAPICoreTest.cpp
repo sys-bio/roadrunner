@@ -222,6 +222,24 @@ TEST_F(CAPICoreTest, CheckRegisteredIntegrators) {
     delete rr;
 }
 
+TEST_F(CAPICoreTest, SetAndGetSeed) {
+    string xml = getFileContent((testModelFilePath.string()));
+    RRHandle rr = createRRInstance();
+    ASSERT_TRUE(loadSBML(rr, xml.c_str()));
+
+    int64_t seed = 0;
+    ASSERT_TRUE(setSeed(rr, 12345));
+    ASSERT_TRUE(getSeed(rr, &seed));
+    EXPECT_EQ(seed, 12345);
+
+    // a value that does not fit in 32 bits
+    ASSERT_TRUE(setSeed(rr, 5000000000LL));
+    ASSERT_TRUE(getSeed(rr, &seed));
+    EXPECT_EQ(seed, 5000000000LL);
+
+    freeRRInstance(rr);
+}
+
 TEST_F(CAPICoreTest, CheckRK4WorksFromC) {
     // This code is the contents of createRRInstance in the C api
     char *capiLocation = getRRCAPILocation(); // return type is dynamically allocated.

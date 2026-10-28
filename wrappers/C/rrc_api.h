@@ -40,6 +40,7 @@
 */
 #ifndef rrc_apiH
 #define rrc_apiH
+#include <stdint.h>
 #include "rrc_exporter.h"
 #include "rrc_types.h"
 #include "rrc_utilities.h"
@@ -2910,6 +2911,27 @@ C_DECL_SPEC bool rrcCallConv getuEE(RRHandle handle, const char* name, const cha
 // --------------------------------------------------------------------------------
 // Stochastic methods
 // --------------------------------------------------------------------------------
+
+/*!
+ \brief Determine the current seed used by the random number generators
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[out] seed The value of the current seed, returned to the caller
+ \return Returns true if successful
+ \ingroup stochastic
+*/
+C_DECL_SPEC bool rrcCallConv getSeed(RRHandle handle, int64_t* seed);
+
+/*!
+ \brief Set the seed used by all random number generators, and the value of
+ the RANDOM_SEED configuration key. The model is reset after reseeding.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] seed The seed to use; a negative value means a seed taken from the system clock
+ \return Returns true if successful
+ \ingroup stochastic
+*/
+C_DECL_SPEC bool rrcCallConv setSeed(RRHandle handle, int64_t seed);
 
 /*!
  \brief Carry out a time-course simulation using the Gillespie algorithm with
