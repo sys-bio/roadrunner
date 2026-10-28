@@ -3405,6 +3405,22 @@ vector<double> rr_getRatesOfChange(RoadRunner* rr)
     return result;
 }
 
+C_DECL_SPEC bool rrcCallConv getSeed(RRHandle handle, int64_t* seed) {
+    start_try
+        RoadRunner *r = (RoadRunner*)handle;
+        *seed = r->getSeed();
+        return true;
+    catch_bool_macro
+}
+
+C_DECL_SPEC bool rrcCallConv setSeed(RRHandle handle, int64_t seed) {
+    start_try
+        RoadRunner *r = (RoadRunner*)handle;
+        r->setSeed(seed);
+        return true;
+    catch_bool_macro
+}
+
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespie(RRHandle handle) {
     start_try
         RoadRunner *r = (RoadRunner*)handle;
