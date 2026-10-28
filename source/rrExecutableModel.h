@@ -467,7 +467,7 @@ namespace rr {
             const double* values, bool strict) = 0;
 
         /**
-        * Set the initial value of the global parameter.
+        * Set the model's copy of the initial values of the global parameters.
         *
         * Takes the same indices as the other global parameter methods.
         */
@@ -692,7 +692,7 @@ namespace rr {
         virtual int setMultiSpeciesReferenceValue(int index, double value) = 0;
 
         /**
-         * Set the initial value of a MultiSpeciesReference-typed named
+         * Set the model's copy of the initial value of a MultiSpeciesReference-typed named
          * stoichiometry with the given index.
          */
         virtual int setInitMultiSpeciesReferenceValue(int index, double value) = 0;
@@ -957,8 +957,8 @@ namespace rr {
                                                     const double *reactionRates) = 0;
 
         /**
-         * reset the model accordign to a bitfield specified by the
-         * SelectionRecord::SelectionType values.
+         * reset the model according to a bitfield specified by the
+         * SelectionRecord::SelectionType values.  Will use the model's copy of the initial values unless SelectionRecord::SBML_INITIALIZE or SelectionRecord::ALL are used, in which case the elements will be reset using the original suite of initial values from when the model was created, and overwrite any model-only initializations.
          */
         virtual void reset(int options) = 0;
 

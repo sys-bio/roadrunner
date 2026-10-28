@@ -496,7 +496,7 @@ namespace rr {
         std::string getCurrentSBML(int level = 0, int version = 0);
 
         /**
-         * Picks up default options from config.
+         * Picks up default options from config.  Resets to the model's copy of the initial values for the given default selection record(s), unless SelectionRecord::SBML_INITIALIZE is included, in which case roadrunner's copy (and not the model's) is used.
          *
          * The current default is
          * SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING.
@@ -504,11 +504,10 @@ namespace rr {
         void reset();
 
         /**
-         * reset the model accordign to a bitfield specified by the
-         * SelectionRecord::SelectionType values.
+         * Resets to the model's copy of the initial values for the given selection record bitfield SelectionRecord::SelectionType values, unless SelectionRecord::SBML_INITIALIZE is included, in which case roadrunner's copy (and not the model's) is used.
          *
-         * Note, this would make more sense as an unsigned, however SWIG has issues mapping
-         * an enum to an unsigned, but seems to std::map enums just fine to an int.
+         * Note, this would make more sense as an unsigned int, however SWIG has issues mapping
+         * an enum to an unsigned, but seems to map enums just fine to an int.
          *
          * For example, to reset the floating species, time and rate rule values:
          * @code
@@ -1107,42 +1106,24 @@ namespace rr {
         bool getHasOnlySubstanceUnits(const std::string &sid);
 
         /**
-         * Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+         * Set initial amount for an existing species. Initial amount/concentration set before will be unset, and the model will be regenerated from the current set of initial values in the roadrunner object.
          * @param sid: the ID of a species
          * @param initAmount: the initial amount to be set
-         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
-         *					       after this function call
-         *						   default value is true to regenerate model after each call
-         *                         of editing function
-         *						   to save time for editing for multiple times, one could
-         *					       set this flag to true only in the last call of editing
          */
         void setInitAmount(const std::string &sid, double initAmount);
 
 
         /**
-         * Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+         * Set initial concentration for an existing species. Initial amount/concentration set before will be unset, and the model will be regenerated from the current set of initial values in the roadrunner object.
          * @param sid: the ID of a species
          * @param initConcentration: the initial concentration to be set
-         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
-         *					       after this function call
-         *						   default value is true to regenerate model after each call
-         *                         of editing function
-         *						   to save time for editing for multiple times, one could
-         *					       set this flag to true only in the last call of editing
          */
         void setInitConcentration(const std::string &sid, double initConcentration);
 
         /**
-         * Set initial value for any model element. Previous initial levels will be unset.
+         * Set initial value for any model element. Previous initial levels will be unset, and the model will be regenerated from the current set of initial values in the roadrunner object.
          * @param sid: the ID of a model element (if a species, use "S1" for amount or "[S1]" for concentration)
          * @param initValue:       the initial value to be set
-         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
-         *					       after this function call
-         *						   default value is true to regenerate model after each call
-         *                         of editing function
-         *						   to save time for editing for multiple times, one could
-         *					       set this flag to true only in the last call of editing
          */
         void setInitValue(std::string sid, double initValue);
 
@@ -1151,7 +1132,7 @@ namespace rr {
          * addressed by species and reaction rather than by id (named
          * stoichiometries go through setInitValue instead). Throws if the
          * species appears more than once in the reaction, since it would be
-         * ambiguous which speciesReference to set.
+         * ambiguous which speciesReference to set.  The model will be regenerated from the current set of initial values in the roadrunner object.
          * @param speciesId: the ID of the species
          * @param reactionId: the ID of the reaction
          * @param initValue: the initial stoichiometry to be set
@@ -1671,12 +1652,12 @@ namespace rr {
          * The model is not regenerated or recompiled: this only reseeds the generators. If
          * @p resetModel is true (the default) the model is then also reset with
          * reset(SelectionRecord::ALL), which restarts the simulation at time 0 and evaluates all
-         * the initial assignments again, so values drawn when the model was loaded (for example an
+         * the initial assignments again, so values drawn from a distribution when the model was loaded (for example an
          * initial assignment that uses a distribution function) are drawn again with the new seed.
-         * That reset also discards any init() values that were changed, and the current values.
+         * That reset also uses roadrunner's copy of all initial values.
          * With @p resetModel false, the current and initial values and the current time stay as
          * they are, and values already drawn are not drawn again. To seed the very first draw,
-         * set Config::RANDOM_SEED before creating the RoadRunner.
+         * set Config::RANDOM_SEED before creating the RoadRunner object.
          *
          * @param seed the seed to use; negative means a seed taken from the system clock
          * @param resetModel whether to reset the model after reseeding (default true)

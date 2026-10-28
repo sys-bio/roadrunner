@@ -187,10 +187,7 @@ Floating Species
 
 Floating Species Initial Conditions
 -----------------------------------
-RoadRunner stores all initial conditions separately from the model state variables. This means that
-you can update the initial conditions at any time, and it does not affect the current state of the
-model. To reset the model, that is, reset it to its original state, or a new original state where
-what has changed the initial conditions use the :meth:`~ExecutableModel.reset()` method.
+RoadRunner stores all initial conditions separately from the model state variables. This means that you can update the initial conditions at any time, and it does not affect the current state of the model.  To reset the model, use the :meth:`~ExecutableModel.reset()` method. To update an individual initial value, use ``ExecutableModel.setValue('init(x)')`` (which sets the model's initial value) or ``RoadRunner.setValue('init(x)')`` (which sets roadrunner's initial value, regenerates the model, and resets the entire model).  If you only set the initial value of elements from the model's 'setValue' function (and not roadrunner's), calling ``rr.resetToOrigin()`` on the roadrunner object will lose those values: it resets the values to whatever it has as its own canonical version of the model.
 
 The following methods allow access to the floating species initial condition values:
 
@@ -737,18 +734,6 @@ Misc
 .. method:: ExecutableModel.reset()
    :module: RoadRunner_python
 
-   Resets all the floating species concentrations to their initial values.
+   Resets some or all model elements to their initial values, whether from the original model or changed by setting the value of ``init(x)``.  By default, resets time, the floating species, and anything set by a rate rule.  Other subsets of model elements can be reset by giving the function a bitwise combination of selection records, i.e. 'SelectionRecord.TIME | SelectionRecord.RATE' to reset only time and elements controlled by a rate rule.  If 'SelectionRecord.SBML_INITIALIZE' or 'SelectionRecord.ALL' are included, this will reset the elements using the original suite of initial values from when the model was created, and overwrite any model-only initializations that were set.
 
 
-.. method:: ExecutableModel.resetAll()
-   :module: RoadRunner_python
-
-   Resets all variables, species, etc. to the CURRENT initial values.
-   It also resets all parameter back to the values they had when the model was first loaded
-
-
-.. method:: ExecutableModel.resetToOrigin()
-   :module: RoadRunner_python
-
-   Resets the model back to the state is was when it was FIRST loaded.
-   The scope of reset includes all initial values and parameters, etc.

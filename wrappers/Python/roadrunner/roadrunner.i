@@ -1339,10 +1339,9 @@ namespace std { class ostream{}; }
               The model is not regenerated or recompiled; only the generators are reseeded.  If
               resetModel is True (the default), the model is then also reset with
               reset(SelectionRecord.ALL) (the same as resetToOrigin()), which restarts the simulation
-              at time 0 and evaluates all the initial assignments again, so values drawn when the
+              at time 0 and evaluates all the initial assignments again, so values drawn from a distribution when the
               model was loaded (for example an initial assignment that uses a distribution function)
-              are drawn again with the new seed.  That reset also discards any init() values that
-              were changed, and the current values.  With resetModel=False the current and initial
+              are drawn again with the new seed.  With resetModel=False the current and initial
               values and the current time stay as they are, and values already drawn are not drawn
               again.  To seed the very first draw, set Config.RANDOM_SEED before creating the
               RoadRunner.
@@ -1913,8 +1912,8 @@ namespace std { class ostream{}; }
         def resetToOrigin(self):
             """ Reset model to state when first loaded.
 
-            This resets the model back to the state when it was FIRST loaded,
-            this includes all init() and parameters such as k1 etc.
+            This resets the entire model back to the state when it was FIRST loaded, plus any changes to the initial state set on the roadrunner object itself (i.e. rr.setValue('init(x)'), as opposed to rr.model.setValue('init(x)')).
+            This includes all init() and parameters such as k1 etc.
 
             identical to:
                 r.reset(SelectionRecord.ALL)
@@ -1922,9 +1921,9 @@ namespace std { class ostream{}; }
             self.reset(SelectionRecord.ALL)
 
         def resetAll(self):
-            """ Reset all model variables to CURRENT init(X) values.
+            """ Reset all model variables to the model's copy of all init(X) values.
 
-            This resets all variables and parameters in the model (S1, S2, k1, etc.) to the CURRENT init(X) values.
+            This resets all species, parameters, compartments, and stoichiometries in the model (S1, S2, k1, etc.) to the model's copy of the init(X) values.
             """
             self.reset(SelectionRecord.TIME |
                        SelectionRecord.RATE |
@@ -1935,9 +1934,9 @@ namespace std { class ostream{}; }
                        SelectionRecord.STOICHIOMETRY)
 
         def resetParameter(self):
-            """ Reset parameters to CURRENT init(X) values.
+            """ Reset parameters to the model's copy of the init(X) values.
 
-            This resets all parameters to the CURRENT init(X) values.
+            This resets all global parameters to the model's copy of the init(X) values.
             """
             self.reset(SelectionRecord.GLOBAL_PARAMETER)
 
