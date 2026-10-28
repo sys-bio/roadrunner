@@ -4,6 +4,7 @@ add_test_executable(
         named_stoich.cpp
         variable_stoich.cpp
         unsupported_packages.cpp
+        compressed_sbml.cpp
 )
 
 # make test_targets list global to all tests
