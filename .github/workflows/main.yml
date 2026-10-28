@@ -413,6 +413,12 @@ jobs:
           # make llvm-config executable
           chmod a+x ${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries/bin/llvm-config
 
+      - name: Setup Julia
+        if: matrix.platform.os_type != 'manylinux'
+        uses: julia-actions/setup-julia@master
+        with:
+          version: '1'
+
       - name: Create build directory
         shell: bash
         run: mkdir -p ${RUNNER_WORKSPACE}/build-roadrunner
@@ -434,6 +440,7 @@ jobs:
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
+          -DBUILD_JULIA=ON \
           ${{ env.PYTHON_DIR }} \
           ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
@@ -452,6 +459,9 @@ jobs:
           ls conc* msvc* vcruntime*
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/roadrunner/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/site-packages/rrplugins/libs/
+          echo "Copying these files to the Julia package and its Antimony package:"
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/lib/
+          cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/Antimony/lib/
 
       - name: Run C RoadRunner tests
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
@@ -488,12 +498,21 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
+          echo "julia_artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
         uses: actions/upload-artifact@main
         with:
           name: ${{ env.artifacts_name }}
           path: ${{ env.artifacts_path }}
+
+      # The package folder is self-contained: sources, the Antimony package, and the libraries.
+      - name: Upload Julia package artifacts
+        if: matrix.platform.build_type == 'Release'
+        uses: actions/upload-artifact@main
+        with:
+          name: roadrunner-julia-${{ matrix.platform.name }}
+          path: ${{ env.julia_artifacts_path }}
 
       - name: Create Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -758,3 +777,36 @@ jobs:
           print("x(1) =", x)
           assert abs(x - math.exp(-1)) < 1e-4, x
           PY
+
+  # Runs the tests shipped inside the manylinux Julia package on a different Linux
+  # distribution, to check the packaged libraries load there.
+  test_manylinux_julia_package:
+    name: Test the manylinux Julia package on ubuntu
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Download the manylinux Julia package
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@main
+        with:
+          name: roadrunner-julia-manylinux_2_28-release
+          path: roadrunner-julia
+
+      - name: Report missing Julia package artifact
+        if: steps.download.outcome != 'success'
+        run: echo "::warning::No manylinux Julia package artifact was found for this run, so nothing was tested."
+
+      - name: Setup Julia
+        if: steps.download.outcome == 'success'
+        uses: julia-actions/setup-julia@master
+        with:
+          version: '1'
+
+      - name: Run the Julia package tests
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
