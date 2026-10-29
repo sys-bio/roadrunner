@@ -801,21 +801,34 @@ jobs:
           assert abs(x - math.exp(-1)) < 1e-4, x
           PY
 
-  # Runs the tests shipped inside the manylinux Julia package on a different Linux
-  # distribution, to check the packaged libraries load there.
-  test_manylinux_julia_package:
-    name: Test the manylinux Julia package on ubuntu, Julia ${{ matrix.julia }}
+  # Tests the Julia packages from the uploaded artifacts, rather than the build tree, on
+  # runners other than the ones that built them. The manylinux package is tested on ubuntu
+  # to check the packaged libraries load on a different Linux distribution. On macOS the
+  # files are marked as downloaded from the web, as a browser would, to check that the
+  # unsigned libraries still load.
+  test_julia_package:
+    name: Test Julia package ${{ matrix.package }} on ${{ matrix.runner }}, Julia ${{ matrix.julia }}
     needs: build_on_OSs
     if: ${{ !cancelled() }}
     permissions:
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
-        julia: ["1.6", "1.10", "1"]
+        include:
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1.6"}
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1.10"}
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1"}
+          - {package: windows-latest, runner: windows-latest, julia: "1"}
+          - {package: macos-14, runner: macos-14, julia: "1"}
+          - {package: macos-15-intel, runner: macos-15-intel, julia: "1"}
     steps:
       - name: Show the OS version
+        if: runner.os == 'Linux'
         run: |
           . /etc/os-release
           echo "Testing on $PRETTY_NAME"
@@ -825,7 +838,7 @@ jobs:
         continue-on-error: true
         uses: actions/download-artifact@main
         with:
-          pattern: roadrunner-julia-*-manylinux_2_28-release
+          pattern: roadrunner-julia-*-${{ matrix.package }}-release
           merge-multiple: true
           path: roadrunner-julia
 
@@ -841,59 +854,13 @@ jobs:
 
       - name: Check the bundled Antimony version
         if: steps.download.outcome == 'success'
-        shell: bash
-        run: |
-          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
-          echo "Bundled Antimony Julia package version: $ver"
-          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
-
-      - name: Run the Julia package tests
-        if: steps.download.outcome == 'success'
-        shell: bash
-        run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
-
-  # Tests the Julia package from the uploaded artifact, rather than the build tree,
-  # on a different runner from the one that built it.
-  test_windows_julia_package:
-    name: Test the Windows Julia package from the artifact
-    needs: build_on_OSs
-    if: ${{ !cancelled() }}
-    permissions:
-      contents: read
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: Download the Julia package
-        id: download
-        continue-on-error: true
-        uses: actions/download-artifact@main
-        with:
-          pattern: roadrunner-julia-*-windows-latest-release
-          merge-multiple: true
-          path: roadrunner-julia
-
-      - name: Report missing Julia package artifact
-        if: steps.download.outcome != 'success'
-        run: echo "::warning::No Julia package artifact was found for this run, so nothing was tested."
-
-      - name: Setup Julia
-        if: steps.download.outcome == 'success'
-        uses: julia-actions/setup-julia@master
-        with:
-          version: '1'
-
-      - name: Check the bundled Antimony version
-        if: steps.download.outcome == 'success'
-        shell: bash
         run: |
           ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
           echo "Bundled Antimony Julia package version: $ver"
           test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
 
       - name: Check that the package DLLs find all their dependencies
-        if: steps.download.outcome == 'success'
+        if: steps.download.outcome == 'success' && runner.os == 'Windows'
         run: |
           python -m pip install pefile
           python - <<'EOF'
@@ -926,61 +893,12 @@ jobs:
               sys.exit(1)
           EOF
 
-      - name: Run the Julia package tests
-        if: steps.download.outcome == 'success'
-        run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
-
-  # Tests the Julia package from the uploaded artifact, rather than the build tree,
-  # on a different runner from the one that built it.
-  # The files are marked as downloaded from the web, as a browser would, to check that
-  # the unsigned libraries still load.
-  test_macos_julia_package:
-    name: Test the ${{ matrix.platform }} Julia package from the artifact
-    needs: build_on_OSs
-    if: ${{ !cancelled() }}
-    permissions:
-      contents: read
-    runs-on: ${{ matrix.platform }}
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-14, macos-15-intel]
-    steps:
-      - name: Download the Julia package
-        id: download
-        continue-on-error: true
-        uses: actions/download-artifact@main
-        with:
-          pattern: roadrunner-julia-*-${{ matrix.platform }}-release
-          merge-multiple: true
-          path: roadrunner-julia
-
-      - name: Report missing Julia package artifact
-        if: steps.download.outcome != 'success'
-        run: echo "::warning::No Julia package artifact was found for this run, so nothing was tested."
-
-      - name: Setup Julia
-        if: steps.download.outcome == 'success'
-        uses: julia-actions/setup-julia@master
-        with:
-          version: '1'
-
-      - name: Check the bundled Antimony version
-        if: steps.download.outcome == 'success'
-        shell: bash
-        run: |
-          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
-          echo "Bundled Antimony Julia package version: $ver"
-          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
-
       - name: Mark the package as downloaded from the web
-        if: steps.download.outcome == 'success'
-        shell: bash
+        if: steps.download.outcome == 'success' && runner.os == 'macOS'
         run: |
           find roadrunner-julia -type f -exec xattr -w com.apple.quarantine "0081;$(printf '%x' "$(date +%s)");Safari;" {} +
           xattr -l roadrunner-julia/RoadRunner/lib/*.dylib
 
       - name: Run the Julia package tests
         if: steps.download.outcome == 'success'
-        shell: bash
         run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
