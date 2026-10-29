@@ -2,6 +2,13 @@
 // Module Name
 %module(directors="1", docstring="The RoadRunner SBML Simulation Engine, (c) 2009-2014 Andy Somogyi and Herbert Sauro","threads"=1) roadrunner
 
+// Keep windows.h from defining min and max macros, which break the C++ headers.
+%begin %{
+#if defined(_WIN32) && !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+%}
+
 // most methods should leave the GIL locked, no point to extra overhead
 // for fast methods. Only Roadrunner with long methods like simulate
 // and load release the GIL.

@@ -560,7 +560,7 @@ namespace rr {
                     return {};
                 }
                 // Return value: New reference.
-                const char *pystr = PyUnicode_AsUTF8(item);
+                const char *pystr = PyUnicode_AsUTF8AndSize(item, nullptr);
                 result.emplace_back(pystr);
             }
         else
@@ -571,7 +571,7 @@ namespace rr {
                     return {};
                 }
                 // Return value: New reference.
-                const char *pystr = PyUnicode_AsUTF8(item);
+                const char *pystr = PyUnicode_AsUTF8AndSize(item, nullptr);
                 result.emplace_back(pystr);
             }
         Py_XDECREF(seq);
@@ -632,7 +632,7 @@ namespace rr {
         std::vector<std::string> vec(size);
         for (Py_ssize_t i = 0; i < size; i++) {
             PyObject *item = PyList_GetItem(pyList, i);
-            const char *s = PyUnicode_AsUTF8(item);
+            const char *s = PyUnicode_AsUTF8AndSize(item, nullptr);
             vec[(int) i] = std::string(s);
         }
 
