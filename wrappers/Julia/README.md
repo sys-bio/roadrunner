@@ -28,3 +28,5 @@ After installing, the package is in `<prefix>/bindings/julia/RoadRunner`, with t
 To use a different copy of the C API library, set the `ROADRUNNER_C_API_LIBRARY` environment variable to its full path.
 
 Tests are registered with CTest as `julia_roadrunner_bindings` (label `julia`) when `BUILD_TESTS` is on and `julia` is on the path.
+
+On macOS the Julia tests need the C API library to be linked with `-DRR_C_API_HIDE_LLVM_SYMBOLS=ON`. Julia has its own LLVM, and without this the library's statically linked LLVM clashes with it and crashes. This option stops the roadrunner C++ tests from working, so build the C++ tests and the Julia package with separate settings, as the CI workflow does: build and test normally, then reconfigure with the option ON, build the `roadrunner_c_api` and `roadrunner_julia_package` targets, and run `ctest -L julia`.

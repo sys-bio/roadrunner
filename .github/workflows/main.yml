@@ -468,7 +468,22 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
+
+      # On macOS the Julia process has its own LLVM, so the C API library used by the Julia
+      # package must not export its statically linked LLVM. Only that library is relinked.
+      - name: Relink the C API library for Julia and run the Julia tests (macOS)
+        if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'macos'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=ON
+          cmake --build . --target roadrunner_c_api roadrunner_julia_package --config ${{ matrix.platform.build_type }}
+          cp lib/libroadrunner_c_api.dylib ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/lib/
+          if [ "${{ matrix.build_tests }}" == 'ON' ]; then
+            ctest --output-on-failure --verbose --extra-verbose --progress --label-regex julia
+          fi
+          cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=OFF
 
       - name: Run LLJit section range tests (Debug)
         if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
