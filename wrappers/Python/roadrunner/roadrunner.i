@@ -2,6 +2,13 @@
 // Module Name
 %module(directors="1", docstring="The RoadRunner SBML Simulation Engine, (c) 2009-2014 Andy Somogyi and Herbert Sauro","threads"=1) roadrunner
 
+// Keep windows.h from defining min and max macros, which break the C++ headers.
+%begin %{
+#if defined(_WIN32) && !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+%}
+
 // most methods should leave the GIL locked, no point to extra overhead
 // for fast methods. Only Roadrunner with long methods like simulate
 // and load release the GIL.
@@ -20,13 +27,6 @@
 
 
 %{
-    #define SWIG_FILE_WITH_INIT
-    // see discussion on import array,
-    // https://numpy.org/doc/stable/reference/c-api/array.html#importing-the-api
-    #define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API
-    //Can't require new wrappers on MacOS 10.9
-    //#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-    #include <numpy/arrayobject.h>
     #ifdef _MSC_VER
     #pragma warning(disable: 26812)
     #pragma warning(disable: 26451)
@@ -117,11 +117,6 @@
 
     using namespace rr;
 
-#define VERIFY_PYARRAY(p) { \
-    assert(p && "PyArray is NULL"); \
-    assert((PyArray_NBYTES(p) > 0 ? PyArray_ISCARRAY(p) : true) &&  "PyArray must be C format"); \
-}
-
     class DictionaryHolder {
     public:
         rr::Dictionary* dict;
@@ -199,6 +194,9 @@
     // %typemap(out) ls::DoubleMatrix
     const ls::DoubleMatrix* mat = &($1);
     $result = doublematrix_to_py(mat, false, true);
+    if (!$result) {
+        SWIG_fail;
+    }
 }
 
 
@@ -210,6 +208,9 @@
     // %typemap(out) const ls::DoubleMatrix*
     const ls::DoubleMatrix* mat = ($1);
     $result = doublematrix_to_py(mat, false, false);
+    if (!$result) {
+        SWIG_fail;
+    }
 }
 
 %apply const ls::DoubleMatrix* {ls::DoubleMatrix*, DoubleMatrix*, const DoubleMatrix* };
@@ -223,6 +224,9 @@
     // marker for rrDoubleMatrix typemap. Look for me in TestModelFactoryPYTHON_wrap.cxx
     const rr::Matrix<double>* mat = &($1);
     $result = rrDoubleMatrix_to_py(mat, true);
+    if (!$result) {
+        SWIG_fail;
+    }
 }
 
 %apply rr::Matrix<double> {
@@ -245,60 +249,38 @@
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
     PyObject* rownames = matrix3DtoNumpy.convertRowNames();
 
+    if (!idx || !npArray3D || !rownames || !colnames) {
+        Py_XDECREF(idx);
+        Py_XDECREF(npArray3D);
+        Py_XDECREF(rownames);
+        Py_XDECREF(colnames);
+        SWIG_fail;
+    }
+
     $result = PyTuple_Pack(4, idx, npArray3D, rownames, colnames);
+    Py_DECREF(idx);
+    Py_DECREF(npArray3D);
+    Py_DECREF(rownames);
+    Py_DECREF(colnames);
 }
 
 
 /* Convert from C --> Python */
 %typemap(out) std::vector<double> {
-
-    size_t len = $1.size();
-    npy_intp dims[1] = {static_cast<npy_intp>(len)};
-
-    PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-//    VERIFY_PYARRAY(array);
-
-    if (!array) {
-        // TODO error handling.
-        return 0;
+    $result = rr::doubles_to_py($1.data(), $1.size());
+    if (!$result) {
+        SWIG_fail;
     }
-
-    double *data = (double*)PyArray_DATA((PyArrayObject*)array);
-
-    const std::vector<double>& vec = $1;
-
-    memcpy(data, &vec[0], sizeof(double)*len);
-
-    $result  = array;
 }
 
 %typedef ls::Complex std::complex<double>;
 
 /* Convert from C --> Python */
 %typemap(out) std::vector<std::complex<double>> {
-
-    typedef std::complex<double> cpx;
-
-    const std::vector<cpx>& vec = $1;
-
-    bool iscpx = false;
-
-    size_t len = $1.size();
-    npy_intp dims[1] = {static_cast<npy_intp>(len)};
-
-    PyObject *array = PyArray_SimpleNew(1, dims, NPY_COMPLEX128);
-    //VERIFY_PYARRAY(array);
-
-    if (!array) {
-        // TODO error handling.
-        return 0;
+    $result = rr::complexes_to_py($1.data(), $1.size());
+    if (!$result) {
+        SWIG_fail;
     }
-
-    cpx *data = (cpx*)PyArray_DATA((PyArrayObject*)array);
-
-    memcpy(data, &vec[0], sizeof(std::complex<double>)*len);
-
-    $result  = array;
 }
 
 
@@ -566,22 +548,6 @@
 //    $result = std::unique_ptr<rr::RoadRunner>($input);
 //}
 
-%include "numpy.i"
-
-/**
- * C extension modules must import_array before
- * the numpy C api can be used.
- *
- * https://numpy.org/doc/stable/user/c-info.how-to-extend.html
- */
-%init %{
-// see https://docs.scipy.org/doc/numpy-1.10.1/reference/c-api.array.html#importing-the-api
-import_array();
-
-/*@param m is defined by a call to PyModuleInit from swig*/
-rr::pyutil_init(m);
-%}
-
 %{
 
 
@@ -626,21 +592,17 @@ static PyObject* _ExecutableModel_getValues(rr::ExecutableModel *self, getValues
         indx = 0;
     }
 
-    npy_intp dims[1] = {static_cast<npy_intp>(len)};
-    PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-//    VERIFY_PYARRAY(array);
-
-    if (!array) {
-        // TODO error handling.
+    PyObject *buffer = PyByteArray_FromStringAndSize(nullptr, (Py_ssize_t) (len * sizeof(double)));
+    if (!buffer) {
         return 0;
     }
 
-    double *data = (double*)PyArray_DATA((PyArrayObject*)array);
+    double *data = reinterpret_cast<double *>(PyByteArray_AsString(buffer));
 
     (self->*func)(len, indx, data);
 
     // TODO check result
-    return array;
+    return rr::buffer_to_array(buffer, "float64", {(Py_ssize_t) len});
 }
 
 
@@ -679,13 +641,32 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %}
 
 
-%apply (int DIM1, int* IN_ARRAY1) {(size_t len, int const *indx)};
+/**
+ * Pass a Python sequence (list, tuple or numpy array) as a (length, pointer) argument pair.
+ * The values are copied into a temporary vector for the duration of the call.
+ */
+%define %rr_sequence_typemaps(LENGTH, TYPE, POINTER, ELEMENT, CONVERT, PRECEDENCE)
+%typemap(in) (size_t LENGTH, TYPE POINTER) (std::vector<ELEMENT> sequence) {
+    if (!rr::CONVERT($input, sequence)) {
+        SWIG_fail;
+    }
+    $1 = sequence.size();
+    $2 = sequence.data();
+}
 
-%apply (int DIM1, double* IN_ARRAY1) {(size_t len, double const *values)};
+%typecheck(PRECEDENCE) (size_t LENGTH, TYPE POINTER) {
+    $1 = PySequence_Check($input) && !PyUnicode_Check($input);
+}
+%enddef
+
+%rr_sequence_typemaps(len, int const *, indx, int, py_to_ints, SWIG_TYPECHECK_INT32_ARRAY)
+
+%rr_sequence_typemaps(len, double const *, values, double, py_to_doubles, SWIG_TYPECHECK_DOUBLE_ARRAY)
 
 // typemap for the set***Values methods
-%apply (int DIM1, int* IN_ARRAY1) {(size_t leni, int const* indx)};
-%apply (int DIM1, double* IN_ARRAY1) {(size_t lenv, const  double* values)};
+%rr_sequence_typemaps(leni, int const *, indx, int, py_to_ints, SWIG_TYPECHECK_INT32_ARRAY)
+
+%rr_sequence_typemaps(lenv, const double *, values, double, py_to_doubles, SWIG_TYPECHECK_DOUBLE_ARRAY)
 
 %apply int { size_t }
 
@@ -1210,7 +1191,7 @@ namespace std { class ostream{}; }
         {
             const std::string& id  = *i;
             PyObject* pyStr = PyUnicode_FromString(id.c_str());
-            PyList_SET_ITEM(pyList, j++, pyStr);
+            PyList_SetItem(pyList, j++, pyStr);
         }
 
         return pyList;
@@ -1230,7 +1211,7 @@ namespace std { class ostream{}; }
             if (PyFloat_Check(pval)) {
                 val = PyFloat_AsDouble(pval);
             }
-            else if (PyArray_IsIntegerScalar(pval)) {
+            else if (PyIndex_Check(pval)) {
                 val = PyLong_AsLong(pval);
             }
             else {
@@ -1259,7 +1240,7 @@ namespace std { class ostream{}; }
             std::string str = i->to_string();
 
             PyObject *pystr = PyUnicode_FromString(str.c_str());
-            PyList_SET_ITEM(pysel, j++, pystr);
+            PyList_SetItem(pysel, j++, pystr);
         }
 
         return pysel;
@@ -1282,7 +1263,7 @@ namespace std { class ostream{}; }
             std::string str = i->to_string();
 
             PyObject *pystr = PyUnicode_FromString(str.c_str());
-            PyList_SET_ITEM(pysel, j++, pystr);
+            PyList_SetItem(pysel, j++, pystr);
         }
 
         return pysel;
@@ -2198,7 +2179,7 @@ namespace std { class ostream{}; }
         size_t size = t.size();
         PyObject *pyList = PyList_New(size);
         for (size_t j = 0; j < size; ++j) {
-            PyList_SET_ITEM(pyList, j, PyFloat_FromDouble(t[j]));
+            PyList_SetItem(pyList, j, PyFloat_FromDouble(t[j]));
         }
         return pyList;
     }
@@ -2215,7 +2196,7 @@ namespace std { class ostream{}; }
             if (PyFloat_Check(pval)) {
                 val = PyFloat_AsDouble(pval);
             }
-            else if (PyArray_IsIntegerScalar(pval)) {
+            else if (PyIndex_Check(pval)) {
                 val = PyLong_AsLong(pval);
             }
             else {
@@ -2425,7 +2406,7 @@ namespace std { class ostream{}; }
         {
             const std::string& id  = *i;
             PyObject* pyStr = PyUnicode_FromString(id.c_str());
-            PyList_SET_ITEM(pyList, j++, pyStr);
+            PyList_SetItem(pyList, j++, pyStr);
         }
 
         return pyList;
@@ -2450,7 +2431,7 @@ namespace std { class ostream{}; }
         {
             const std::string& id  = *i;
             PyObject* pyStr = PyUnicode_FromString(id.c_str());
-            PyList_SET_ITEM(pyList, j++, pyStr);
+            PyList_SetItem(pyList, j++, pyStr);
         }
 
         return pyList;
@@ -3074,6 +3055,15 @@ namespace std { class ostream{}; }
         onAssignment = property(getOnAssignment, setOnAssignment)
      %}
 }
+
+%pythoncode %{
+
+from .named_array import NamedArray
+# Pickles and existing code look NamedArray up in the compiled module,
+# so it is exposed there as well.
+_roadrunner.NamedArray = NamedArray
+
+%}
 
 %pythoncode {
 

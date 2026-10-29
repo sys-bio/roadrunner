@@ -55,4 +55,8 @@ setup(
     # only from one place.
     install_requires=open("requirements.txt").read().strip(),
     distclass=BinaryDistribution,
+    # The extension uses the Python stable ABI (see Py_LIMITED_API in
+    # roadrunner/CMakeLists.txt), so one wheel serves every Python from 3.10 on.
+    python_requires='>=3.10',
+    options={'bdist_wheel': {'py_limited_api': 'cp310'}},
 )
