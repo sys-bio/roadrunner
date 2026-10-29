@@ -80,16 +80,15 @@ jobs:
     steps:
       - name: Setup python versions
         shell: bash
-      # v1 should be the earliest supported version, and v4 the latest.  Tests are only run on v1 and v4.
+      # The extension uses the Python stable ABI, so it is built and packaged once, with v1.
+      # v1 should be the earliest supported version (the Py_LIMITED_API floor), and v2 the latest
+      # stable release, whatever that is when the workflow runs.
+      # The wheel is tested on both.
         run: |
-          echo "python_v1=3.12" >> $GITHUB_ENV
-          echo "python_v2=3.13" >> $GITHUB_ENV
-          echo "python_v3=3.14" >> $GITHUB_ENV
-          echo "python_v4=3.15" >> $GITHUB_ENV
+          echo "python_v1=3.10" >> $GITHUB_ENV
+          echo "python_v2=3.x" >> $GITHUB_ENV
           echo "python_v1_name=v1" >> $GITHUB_ENV
           echo "python_v2_name=v2" >> $GITHUB_ENV
-          echo "python_v3_name=v3" >> $GITHUB_ENV
-          echo "python_v4_name=v4" >> $GITHUB_ENV
 
       - name: Checkout RoadRunner
         uses: actions/checkout@main
@@ -97,13 +96,20 @@ jobs:
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
         uses: actions/setup-python@main
-        id: four_pythons
         with:
-          python-version: |
-            ${{ env.python_v1 }}
-            ${{ env.python_v2 }}
-            ${{ env.python_v3 }}
-            ${{ env.python_v4 }}
+          python-version: ${{ env.python_v1 }}
+
+      - name: Setup the latest Python for non-Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
+        uses: actions/setup-python@main
+        id: latest_python
+        with:
+          python-version: ${{ env.python_v2 }}
+
+      - name: Record the exact latest Python version
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
+        shell: bash
+        run: echo "python_v2=${{ steps.latest_python.outputs.python-version }}" >> $GITHUB_ENV
 
       - name: Setup Python for Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
@@ -115,9 +121,7 @@ jobs:
           bash Miniforge3-Linux-x86_64.sh -b -p /Miniforge3
 
           /Miniforge3/bin/conda create -y --name ${{ env.python_v1_name }} python=${{ env.python_v1 }}
-          /Miniforge3/bin/conda create -y --name ${{ env.python_v2_name }} python=${{ env.python_v2 }}
-          /Miniforge3/bin/conda create -y --name ${{ env.python_v3_name }} python=${{ env.python_v3 }}
-          /Miniforge3/bin/conda create -y --name ${{ env.python_v4_name }} python=${{ env.python_v4 }} libpython
+          /Miniforge3/bin/conda create -y --name ${{ env.python_v2_name }} python
            
           /Miniforge3/bin/conda init && bash ~/.bashrc && . ~/.bashrc
           cd ${RUNNER_WORKSPACE}
@@ -127,10 +131,6 @@ jobs:
           echo "python_v1_dir=/Miniforge3/envs/${{ env.python_v1_name }}"  >> $GITHUB_ENV
           echo "python_v2_exe=/Miniforge3/envs/${{ env.python_v2_name }}/bin/python" >> $GITHUB_ENV
           echo "python_v2_dir=/Miniforge3/envs/${{ env.python_v2_name }}"  >> $GITHUB_ENV
-          echo "python_v3_exe=/Miniforge3/envs/${{ env.python_v3_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v3_dir=/Miniforge3/envs/${{ env.python_v3_name }}"  >> $GITHUB_ENV
-          echo "python_v4_exe=/Miniforge3/envs/${{ env.python_v4_name }}/bin/python" >> $GITHUB_ENV
-          echo "python_v4_dir=/Miniforge3/envs/${{ env.python_v4_name }}" >> $GITHUB_ENV
 
       - name: Setup Windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'windows'
@@ -150,18 +150,6 @@ jobs:
           echo "python_v2_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
           echo "python_v2_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-          cd ../../${{ env.python_v3 }}*/x64/
-          $pythonWinExecutable = $(realpath .)
-          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v3_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
-          echo "python_v3_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
-
-          cd ../../${{ env.python_v4 }}*/x64/
-          $pythonWinExecutable = $(realpath .)
-          $pythonWinExecutable = $pythonWinExecutable -replace $pattern, '/'
-          echo "python_v4_exe=$pythonWinExecutable/python.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
-          echo "python_v4_dir=$pythonWinExecutable" | Out-File -FilePath $env:GITHUB_ENV -Append
-
       - name: Setup non-windows Python paths
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'windows' && matrix.platform.os_type != 'manylinux'
         shell: bash
@@ -178,14 +166,6 @@ jobs:
           echo "python_v2_exe=$PWD/python" >> $GITHUB_ENV
           echo "python_v2_dir=$PWD" >> $GITHUB_ENV
 
-          cd ../../${{ env.python_v3 }}*/$py_lastdir/
-          echo "python_v3_exe=$PWD/python" >> $GITHUB_ENV
-          echo "python_v3_dir=$PWD" >> $GITHUB_ENV
-
-          cd ../../${{ env.python_v4 }}*/$py_lastdir/
-          echo "python_v4_exe=$PWD/python" >> $GITHUB_ENV
-          echo "python_v4_dir=$PWD" >> $GITHUB_ENV
-
           
       - name: Install Python dependencies
         if: matrix.platform.build_python == 'ON'
@@ -200,14 +180,6 @@ jobs:
           ${{ env.python_v2_exe }} -m pip install -r ./requirements.txt
           ${{ env.python_v2_exe }} -m pip install -r ./test-requirements.txt
           ${{ env.python_v2_exe }} -m pip install build
-          ${{ env.python_v3_exe }} -m pip install --upgrade pip 
-          ${{ env.python_v3_exe }} -m pip install -r ./requirements.txt
-          ${{ env.python_v3_exe }} -m pip install -r ./test-requirements.txt
-          ${{ env.python_v3_exe }} -m pip install build
-          ${{ env.python_v4_exe }} -m pip install --upgrade pip 
-          ${{ env.python_v4_exe }} -m pip install -r ./requirements.txt
-          ${{ env.python_v4_exe }} -m pip install -r ./test-requirements.txt
-          ${{ env.python_v4_exe }} -m pip install build
           # At one point, we needed this on manylinux:
           # ${{ env.python_v1_exe }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
 
@@ -493,7 +465,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
 
-      - name: Run Python Roadrunner tests (first Python version)
+      - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
@@ -556,103 +528,24 @@ jobs:
           fi
           mv * ${RUNNER_WORKSPACE}/wheels/
 
-      - name: Rebuild RoadRunner with second Python version
-        if: matrix.platform.build_python == 'ON'
+      # The wheel built above is installed into the latest Python and tested there.
+      - name: Test the Python wheel on the latest Python version
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash
         run: |
-          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v2_dir }}
-          cmake --build . --target install --config ${{ matrix.platform.build_type }}
-
-      - name: Create second Python wheel artifacts and rename
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/install-roadrunner
-          ${{ env.python_v2_exe }} -m build --wheel
-          rm -r -f build
-          mv setup_rrplugins.py setup.py
-          ${{ env.python_v2_exe }} -m build --wheel
-          rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if compgen -G "*universal*whl" > /dev/null; then
-            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
+          shopt -s nullglob
+          wheels=(${RUNNER_WORKSPACE}/wheels/libroadrunner-*.whl)
+          if [ ${#wheels[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one libroadrunner wheel, found ${#wheels[@]}"
+            exit 1
           fi
-          mv * ${RUNNER_WORKSPACE}/wheels/
-
-
-      - name: Rebuild RoadRunner with third Python version
-        if: matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v3_dir }}
-          cmake --build . --target install --config ${{ matrix.platform.build_type }}
-
-      - name: Create third Python wheel artifacts and rename
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/install-roadrunner
-          ${{ env.python_v3_exe }} -m build --wheel
-          rm -r -f build
-          mv setup_rrplugins.py setup.py
-          ${{ env.python_v3_exe }} -m build --wheel
-          rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if compgen -G "*universal*whl" > /dev/null; then
-            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-          fi
-          mv * ${RUNNER_WORKSPACE}/wheels/
-
-
-      - name: Rebuild RoadRunner with fourth Python version
-        if: matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          rm -r -f ${RUNNER_WORKSPACE}/install-roadrunner
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          cmake $GITHUB_WORKSPACE -DPython_ROOT_DIR=${{ env.python_v4_dir }}
-          cmake --build . --target install --config ${{ matrix.platform.build_type }}
-
-      - name: Run Python Roadrunner tests (fourth Python version)
-        if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
-
-
-      - name: Create fourth Python wheel artifacts and rename
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}/install-roadrunner
-          ${{ env.python_v4_exe }} -m build --wheel
-          rm -r -f build
-          mv setup_rrplugins.py setup.py
-          ${{ env.python_v4_exe }} -m build --wheel
-          rm -r -f build
-          cd ${RUNNER_WORKSPACE}/install-roadrunner/dist
-          if compgen -G "*universal*whl" > /dev/null; then
-            mv libroadrunner*universal*.whl $(echo libroadrunner*universal*.whl | sed "s/universal2/${host_architecture}/g")
-            mv rrplugins*universal*.whl $(echo rrplugins*universal*.whl | sed "s/universal2/${host_architecture}/g")
-          elif compgen -G "*-linux*whl" > /dev/null; then
-            mv libroadrunner*-linux*.whl $(echo libroadrunner*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-            mv rrplugins*-linux*.whl $(echo rrplugins*-linux*.whl | sed "s/-linux/-manylinux_2_28/g")
-          fi
-          mv * ${RUNNER_WORKSPACE}/wheels/
-
+          ${{ env.python_v2_exe }} -m pip install --force-reinstall "${wheels[0]}"
+          # Leave the checkout so that 'import roadrunner' cannot find the source tree.
+          cd "$(mktemp -d)"
+          ${{ env.python_v2_exe }} -c "import sys, roadrunner; print(sys.version); print(roadrunner.__file__)"
+          tests_dir=$(${{ env.python_v2_exe }} -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__))")
+          ${{ env.python_v2_exe }} "$tests_dir"
+          ${{ env.python_v2_exe }} -m pytest "$tests_dir/test_namedArray.py" "$tests_dir/test_python_api.py"
 
       - name: Set Python wheel artifacts path and name
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -688,7 +581,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.12", "3.13", "3.14", "3.15"]
+        python: ["3.10", "latest"]
     env:
       MATRIX_PYTHON: ${{ matrix.python }}
 
@@ -699,30 +592,27 @@ jobs:
           apt-get install -y --no-install-recommends ca-certificates
 
       - name: Download manylinux wheels
-        id: download
-        continue-on-error: true
         uses: actions/download-artifact@main
         with:
           pattern: roadrunner-*-python-wheels-manylinux_2_28-*
           merge-multiple: true
           path: wheels
 
-      - name: Report missing wheel artifact
-        if: steps.download.outcome != 'success'
-        run: echo "::warning::No manylinux wheel artifact was found for this run, so nothing was tested."
-
       - name: Install uv
-        if: steps.download.outcome == 'success'
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: false
 
       - name: Create venv from a uv-managed Python
-        if: steps.download.outcome == 'success'
-        run: uv venv --python "$MATRIX_PYTHON" --managed-python venv
+        run: |
+          if [ "$MATRIX_PYTHON" = latest ]; then
+            uv python install
+            uv venv --managed-python venv
+          else
+            uv venv --python "$MATRIX_PYTHON" --managed-python venv
+          fi
 
       - name: Check libpython is not on the loader path
-        if: steps.download.outcome == 'success'
         run: |
           echo "LD_LIBRARY_PATH='${LD_LIBRARY_PATH:-}'"
           if ldconfig -p | grep -i libpython; then
@@ -732,20 +622,17 @@ jobs:
           venv/bin/python -c "import sysconfig; print('LIBDIR', sysconfig.get_config_var('LIBDIR')); print('Py_ENABLE_SHARED', sysconfig.get_config_var('Py_ENABLE_SHARED'))"
 
       - name: Install the libroadrunner wheel
-        if: steps.download.outcome == 'success'
         run: |
           ls -l wheels
-          tag="cp${MATRIX_PYTHON/./}"
           shopt -s nullglob
-          files=(wheels/libroadrunner-*-${tag}-${tag}-*.whl)
+          files=(wheels/libroadrunner-*-cp310-abi3-*.whl)
           if [ ${#files[@]} -ne 1 ]; then
-            echo "::error::Expected exactly one libroadrunner wheel for ${tag}, found ${#files[@]}"
+            echo "::error::Expected exactly one cp310-abi3 libroadrunner wheel, found ${#files[@]}"
             exit 1
           fi
           uv pip install --python venv/bin/python "${files[0]}"
 
       - name: Check shared object dependencies
-        if: steps.download.outcome == 'success'
         run: |
           status=0
           count=0
@@ -762,7 +649,6 @@ jobs:
           exit $status
 
       - name: Import roadrunner and simulate
-        if: steps.download.outcome == 'success'
         run: |
           unset LD_LIBRARY_PATH
           venv/bin/python - <<'PY'
@@ -794,6 +680,105 @@ jobs:
           assert abs(x - math.exp(-1)) < 1e-4, x
           PY
 
+  # The extension no longer uses the numpy C API, so one wheel has to work with any numpy
+  # that supports the Python in use: the oldest that has Python 3.10 wheels, the last
+  # release that still supports 3.10, and the newest on the latest Python.
+  # Each platform's wheel from the build job is tested with each combination.
+  test_wheel_numpy_versions:
+    name: ${{ matrix.platform.name }} wheel, Python ${{ matrix.combo.python }}, numpy ${{ matrix.combo.label }}
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    runs-on: ${{ matrix.platform.runner }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - name: manylinux
+            runner: ubuntu-latest
+            wheels: roadrunner-*-python-wheels-manylinux_2_28-*
+          - name: ubuntu
+            runner: ubuntu-latest
+            wheels: roadrunner-*-python-wheels-ubuntu-*
+          - name: macos-intel
+            runner: macos-15-intel
+            wheels: roadrunner-*-python-wheels-macos-*-x86_64
+          - name: macos-arm
+            runner: macos-14
+            wheels: roadrunner-*-python-wheels-macos-*-arm64
+          - name: windows
+            runner: windows-latest
+            wheels: roadrunner-*-python-wheels-windows-*
+        combo:
+          - python: "3.10"
+            numpy: "==1.21.3"
+            label: "1.21.3 (oldest)"
+          - python: "3.10"
+            numpy: "==2.2.*"
+            label: "2.2 (last with Python 3.10)"
+          - python: "latest"
+            numpy: ""
+            label: "latest"
+    env:
+      MATRIX_PYTHON: ${{ matrix.combo.python }}
+      NUMPY_SPEC: ${{ matrix.combo.numpy }}
+
+    steps:
+      - name: Download the wheels for this platform
+        uses: actions/download-artifact@main
+        with:
+          pattern: ${{ matrix.platform.wheels }}
+          merge-multiple: true
+          path: wheels
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
+
+      - name: Install the wheel with the chosen numpy
+        run: |
+          shopt -s nullglob
+          files=(wheels/libroadrunner-*-cp310-abi3-*.whl)
+          if [ ${#files[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one cp310-abi3 libroadrunner wheel, found ${#files[@]}"
+            ls -l wheels
+            exit 1
+          fi
+          if [ "$MATRIX_PYTHON" = latest ]; then
+            uv python install
+            uv venv --managed-python venv
+          else
+            uv venv --python "$MATRIX_PYTHON" --managed-python venv
+          fi
+          if [ -x venv/Scripts/python.exe ]; then
+            venv_python="$(realpath venv/Scripts/python.exe)"
+          else
+            venv_python="$(realpath venv/bin/python)"
+          fi
+          echo "VENV_PYTHON=$venv_python" >> "$GITHUB_ENV"
+          # Installed together, so the wheel's own numpy requirement is checked against the chosen numpy.
+          # --no-build makes a numpy with no wheel for this platform fail at once.
+          plugin_files=(wheels/rrplugins-*-cp310-abi3-*.whl)
+          if [ ${#plugin_files[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one cp310-abi3 rrplugins wheel, found ${#plugin_files[@]}"
+            ls -l wheels
+            exit 1
+          fi
+          uv pip install --python "$venv_python" --no-build "${files[0]}" "${plugin_files[0]}" "numpy${NUMPY_SPEC}" pandas py-cpuinfo pytest
+          "$venv_python" -c "import sys, numpy; print(sys.version); print('numpy', numpy.__version__)"
+
+      - name: Run the NamedArray, rrplugins and API tests
+        run: |
+          # Leave the checkout so that 'import roadrunner' finds the installed wheel.
+          cd "$(mktemp -d)"
+          tests_dir=$("$VENV_PYTHON" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
+          "$VENV_PYTHON" -m pytest "$tests_dir/test_namedArray.py" "$tests_dir/test_rrplugins_dataseries.py" "$tests_dir/test_python_api.py"
+
   # Runs the tests shipped inside the manylinux Julia package on a different Linux
   # distribution, to check the packaged libraries load there.
   test_manylinux_julia_package:
@@ -805,24 +790,16 @@ jobs:
       contents: read
     steps:
       - name: Download the manylinux Julia package
-        id: download
-        continue-on-error: true
         uses: actions/download-artifact@main
         with:
           name: roadrunner-julia-manylinux_2_28-release
           path: roadrunner-julia
 
-      - name: Report missing Julia package artifact
-        if: steps.download.outcome != 'success'
-        run: echo "::warning::No manylinux Julia package artifact was found for this run, so nothing was tested."
-
       - name: Setup Julia
-        if: steps.download.outcome == 'success'
         uses: julia-actions/setup-julia@master
         with:
           version: '1'
 
       - name: Run the Julia package tests
-        if: steps.download.outcome == 'success'
         shell: bash
         run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl

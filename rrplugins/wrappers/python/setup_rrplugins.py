@@ -52,8 +52,10 @@ setup(name='rrplugins',
 #        'rrplugins.testing' : ['*.xml', '*.txt', '*.dat', 'dsmts/*.xml', 'dsmts/*.csv', 'test_data/*']
     },
     install_requires=[
-          'numpy>=2.4',
+          'numpy>=1.21.3',
           'matplotlib>=3',
           ],
     distclass=BinaryDistribution,
+    # No compiled Python extension is involved, so one wheel serves every Python from 3.10 on.
+    options={'bdist_wheel': {'py_limited_api': 'cp310'}},
 )
