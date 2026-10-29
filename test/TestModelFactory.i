@@ -2,7 +2,6 @@
 
 %{
     #define SWIG_FILE_WITH_INIT
-    #define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API // for the NamedArrayObject (see roadrunner.i)
 
     #include "PyUtils.h" // for variant_to_py and back.
     #include "Matrix.h"
@@ -18,7 +17,6 @@
 %include "numpy.i"
 %init %{
 import_array();
-rr::pyutil_init(m);
 %}
 //
 #include <vector>

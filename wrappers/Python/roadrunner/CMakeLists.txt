@@ -1,5 +1,6 @@
 # copy to /lib so we can import roadrunner in the build tree
 configure_file(__init__.py.in "${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py" COPYONLY)
+configure_file(named_array.py "${PYTHON_PACKAGE_BUILD_PREFIX}/named_array.py" COPYONLY)
 
 set_source_files_properties(roadrunner.i PROPERTIES
         CPLUSPLUS ON
@@ -89,15 +90,19 @@ target_include_directories(roadrunner_python PUBLIC
         "$<TARGET_PROPERTY:roadrunner-static,INCLUDE_DIRECTORIES>"
         "${RR_DEPENDENCIES_INSTALL_PREFIX}/include/rr-libstruct"
         "${Python_INCLUDE_DIRS}"
-        "${Python_NumPy_INCLUDE_DIRS}"
         )
+
+# The module only uses the Python stable ABI, so one binary works with every
+# Python from 3.10 on. The value must match py_limited_api in setup.py.
+target_compile_definitions(roadrunner_python PRIVATE Py_LIMITED_API=0x030A0000)
 
 if (WIN32)
     target_compile_definitions(roadrunner_python PRIVATE EXPORT_RRC STATIC_RR)
 
+    # Py_LIMITED_API makes pyconfig.h link python3.lib, so only the search path is needed here.
+    target_link_directories(roadrunner_python PRIVATE ${Python_LIBRARY_DIRS})
     target_link_libraries(roadrunner_python
             roadrunner-static
-            "${Python_LIBRARIES}"
             )
     # changes dll name to pyd sop that it is compatible with new Python standard
     set_target_properties(roadrunner_python PROPERTIES SUFFIX ".pyd")
@@ -139,6 +144,7 @@ install(
 install(FILES
         "${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py"
         "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/named_array.py"
         DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}")
 
 
