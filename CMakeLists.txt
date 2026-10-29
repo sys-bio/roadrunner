@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(ROADRUNNER_VERSION_MAJOR 2)
 set(ROADRUNNER_VERSION_MINOR 11)
-set(ROADRUNNER_VERSION_PATCH 0)
+set(ROADRUNNER_VERSION_PATCH 1)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
@@ -149,6 +149,9 @@ endif ()
 
 #Setup so that roadrunner is always built as a dll and linked statically with 'as much as possible'
 option(BUILD_RR_CAPI "Generate C API" ON)
+
+# should we build the Julia wrapper? It calls the C API, so needs BUILD_RR_CAPI.
+option(BUILD_JULIA "Build the Julia wrapper" OFF)
 
 #TODO this option yet supported in new buildsystem (cw).
 option(BUILD_APPS "Build and install Apps" OFF)

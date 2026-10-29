@@ -36,6 +36,10 @@ if (BUILD_PYTHON)
     add_subdirectory("Python")
 endif ()
 
+if (BUILD_JULIA)
+    add_subdirectory("Julia")
+endif ()
+
 
 #if (BUILD_PYTHON_CTYPES_API)
 #    add_subdirectory("c_api_python")
