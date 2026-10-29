@@ -515,6 +515,13 @@ jobs:
           echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
           echo "julia_artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia" >> $GITHUB_ENV
+          julia_platform="${{ matrix.platform.name }}"
+          julia_platform="${julia_platform%-release}"
+          julia_platform="${julia_platform%-debug}"
+          if [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            julia_platform="ubuntu-$(lsb_release -rs)"
+          fi
+          echo "julia_platform=${julia_platform}" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
         uses: actions/upload-artifact@main
@@ -527,7 +534,7 @@ jobs:
         if: matrix.platform.build_type == 'Release'
         uses: actions/upload-artifact@main
         with:
-          name: roadrunner-julia-${{ matrix.platform.name }}
+          name: roadrunner-julia-${{ env.roadrunner_version }}-${{ env.julia_platform }}-release
           path: ${{ env.julia_artifacts_path }}
 
       - name: Create Python wheel artifacts
@@ -797,30 +804,181 @@ jobs:
   # Runs the tests shipped inside the manylinux Julia package on a different Linux
   # distribution, to check the packaged libraries load there.
   test_manylinux_julia_package:
-    name: Test the manylinux Julia package on ubuntu
+    name: Test the manylinux Julia package on ubuntu, Julia ${{ matrix.julia }}
     needs: build_on_OSs
     if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
     permissions:
       contents: read
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        julia: ["1.6", "1.10", "1"]
     steps:
-      - name: Download the manylinux Julia package
+      - name: Show the OS version
+        run: |
+          . /etc/os-release
+          echo "Testing on $PRETTY_NAME"
+
+      - name: Download the Julia package
         id: download
         continue-on-error: true
         uses: actions/download-artifact@main
         with:
-          name: roadrunner-julia-manylinux_2_28-release
+          pattern: roadrunner-julia-*-manylinux_2_28-release
+          merge-multiple: true
           path: roadrunner-julia
 
       - name: Report missing Julia package artifact
         if: steps.download.outcome != 'success'
-        run: echo "::warning::No manylinux Julia package artifact was found for this run, so nothing was tested."
+        run: echo "::warning::No Julia package artifact was found for this run, so nothing was tested."
+
+      - name: Setup Julia
+        if: steps.download.outcome == 'success'
+        uses: julia-actions/setup-julia@master
+        with:
+          version: ${{ matrix.julia }}
+
+      - name: Check the bundled Antimony version
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: |
+          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
+          echo "Bundled Antimony Julia package version: $ver"
+          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
+
+      - name: Run the Julia package tests
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
+
+  # Tests the Julia package from the uploaded artifact, rather than the build tree,
+  # on a different runner from the one that built it.
+  test_windows_julia_package:
+    name: Test the Windows Julia package from the artifact
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download the Julia package
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@main
+        with:
+          pattern: roadrunner-julia-*-windows-latest-release
+          merge-multiple: true
+          path: roadrunner-julia
+
+      - name: Report missing Julia package artifact
+        if: steps.download.outcome != 'success'
+        run: echo "::warning::No Julia package artifact was found for this run, so nothing was tested."
 
       - name: Setup Julia
         if: steps.download.outcome == 'success'
         uses: julia-actions/setup-julia@master
         with:
           version: '1'
+
+      - name: Check the bundled Antimony version
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: |
+          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
+          echo "Bundled Antimony Julia package version: $ver"
+          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
+
+      - name: Check that the package DLLs find all their dependencies
+        if: steps.download.outcome == 'success'
+        run: |
+          python -m pip install pefile
+          python - <<'EOF'
+          import os, re, sys
+          import pefile
+          root = 'roadrunner-julia/RoadRunner'
+          system32 = os.path.join(os.environ['SystemRoot'], 'System32')
+          # The Visual C++ runtime must be shipped in the package, not found on the machine.
+          redist = re.compile(r'^(vcruntime|msvcp|concrt|vcomp)', re.I)
+          problems = []
+          for folder, _, files in os.walk(root):
+              for name in files:
+                  if not name.lower().endswith('.dll'):
+                      continue
+                  path = os.path.join(folder, name)
+                  pe = pefile.PE(path, fast_load=True)
+                  pe.parse_data_directories([pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
+                  imports = [e.dll.decode() for e in getattr(pe, 'DIRECTORY_ENTRY_IMPORT', [])]
+                  print(path, '->', ', '.join(imports))
+                  for dep in imports:
+                      if dep.lower().startswith(('api-ms-win-', 'ext-ms-win-')):
+                          continue
+                      if os.path.exists(os.path.join(folder, dep)):
+                          continue
+                      if os.path.exists(os.path.join(system32, dep)) and not redist.match(dep):
+                          continue
+                      problems.append(path + ' needs ' + dep)
+          if problems:
+              print('\n'.join(problems))
+              sys.exit(1)
+          EOF
+
+      - name: Run the Julia package tests
+        if: steps.download.outcome == 'success'
+        run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
+
+  # Tests the Julia package from the uploaded artifact, rather than the build tree,
+  # on a different runner from the one that built it.
+  # The files are marked as downloaded from the web, as a browser would, to check that
+  # the unsigned libraries still load.
+  test_macos_julia_package:
+    name: Test the ${{ matrix.platform }} Julia package from the artifact
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-14, macos-15-intel]
+    steps:
+      - name: Download the Julia package
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@main
+        with:
+          pattern: roadrunner-julia-*-${{ matrix.platform }}-release
+          merge-multiple: true
+          path: roadrunner-julia
+
+      - name: Report missing Julia package artifact
+        if: steps.download.outcome != 'success'
+        run: echo "::warning::No Julia package artifact was found for this run, so nothing was tested."
+
+      - name: Setup Julia
+        if: steps.download.outcome == 'success'
+        uses: julia-actions/setup-julia@master
+        with:
+          version: '1'
+
+      - name: Check the bundled Antimony version
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: |
+          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
+          echo "Bundled Antimony Julia package version: $ver"
+          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
+
+      - name: Mark the package as downloaded from the web
+        if: steps.download.outcome == 'success'
+        shell: bash
+        run: |
+          find roadrunner-julia -type f -exec xattr -w com.apple.quarantine "0081;$(printf '%x' "$(date +%s)");Safari;" {} +
+          xattr -l roadrunner-julia/RoadRunner/lib/*.dylib
 
       - name: Run the Julia package tests
         if: steps.download.outcome == 'success'
