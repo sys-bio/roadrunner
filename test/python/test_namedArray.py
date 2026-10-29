@@ -380,9 +380,9 @@ class NamedArrayCompatibilityTests(unittest.TestCase):
 
     def test_simulation_result_is_writeable_without_changing_the_model(self):
         m, sim = self.simulation()
-        before = m.getFloatingSpeciesConcentrations().copy()
+        before = m.model.getFloatingSpeciesConcentrations().copy()
         sim[:, 1:] = 12345.0
-        np.testing.assert_array_equal(m.getFloatingSpeciesConcentrations(), before)
+        np.testing.assert_array_equal(m.model.getFloatingSpeciesConcentrations(), before)
 
     def test_pickle_round_trip_of_simulation_result(self):
         m, sim = self.simulation()
