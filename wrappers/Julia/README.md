@@ -6,7 +6,7 @@ The bindings began as [RoadRunner.jl](https://github.com/sys-bio/RoadRunner.jl) 
 
 ## Installing a prebuilt package
 
-1. Download the `roadrunner-julia-<platform>` asset for your system from the roadrunner releases page: `windows-latest`, `macos-14` (Apple silicon), `macos-15-intel`, `manylinux_2_28` or `ubuntu-latest`. The package is platform-specific because it carries the libraries.
+1. Download the `roadrunner-julia-<version>-<platform>-release` asset for your system from the roadrunner releases page: `windows-latest`, `macos-14` (Apple silicon), `macos-15-intel`, `manylinux_2_28` or `ubuntu-<version>` (for example `ubuntu-24.04`). The package is platform-specific because it carries the libraries.
 2. Unzip it to get a `RoadRunner` folder, and leave that folder where you want to use it from.
 3. In Julia (1.6 or newer):
 

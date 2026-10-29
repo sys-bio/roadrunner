@@ -487,6 +487,13 @@ jobs:
           echo "artifacts_name=roadrunner-${{ env.roadrunner_version}}-${{ env.os_and_compiler }}-${host_architecture}-${{ matrix.platform.build_type }}" >> $GITHUB_ENV
           echo "artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner" >> $GITHUB_ENV
           echo "julia_artifacts_path=${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia" >> $GITHUB_ENV
+          julia_platform="${{ matrix.platform.name }}"
+          julia_platform="${julia_platform%-release}"
+          julia_platform="${julia_platform%-debug}"
+          if [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            julia_platform="ubuntu-$(lsb_release -rs)"
+          fi
+          echo "julia_platform=${julia_platform}" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
         uses: actions/upload-artifact@main
@@ -499,7 +506,7 @@ jobs:
         if: matrix.platform.build_type == 'Release'
         uses: actions/upload-artifact@main
         with:
-          name: roadrunner-julia-${{ matrix.platform.name }}
+          name: roadrunner-julia-${{ env.roadrunner_version }}-${{ env.julia_platform }}-release
           path: ${{ env.julia_artifacts_path }}
 
       - name: Create Python wheel artifacts
@@ -779,27 +786,95 @@ jobs:
           tests_dir=$("$VENV_PYTHON" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
           "$VENV_PYTHON" -m pytest "$tests_dir/test_namedArray.py" "$tests_dir/test_rrplugins_dataseries.py" "$tests_dir/test_python_api.py"
 
-  # Runs the tests shipped inside the manylinux Julia package on a different Linux
-  # distribution, to check the packaged libraries load there.
-  test_manylinux_julia_package:
-    name: Test the manylinux Julia package on ubuntu
+  # Tests the Julia packages from the uploaded artifacts, rather than the build tree, on
+  # runners other than the ones that built them. The manylinux package is tested on ubuntu
+  # to check the packaged libraries load on a different Linux distribution. On macOS the
+  # files are marked as downloaded from the web, as a browser would, to check that the
+  # unsigned libraries still load.
+  test_julia_package:
+    name: Test Julia package ${{ matrix.package }} on ${{ matrix.runner }}, Julia ${{ matrix.julia }}
     needs: build_on_OSs
     if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
     permissions:
       contents: read
+    runs-on: ${{ matrix.runner }}
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1.6"}
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1.10"}
+          - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1"}
+          - {package: windows-latest, runner: windows-latest, julia: "1"}
+          - {package: macos-14, runner: macos-14, julia: "1"}
+          - {package: macos-15-intel, runner: macos-15-intel, julia: "1"}
     steps:
-      - name: Download the manylinux Julia package
+      - name: Show the OS version
+        if: runner.os == 'Linux'
+        run: |
+          . /etc/os-release
+          echo "Testing on $PRETTY_NAME"
+
+      - name: Download the Julia package
         uses: actions/download-artifact@main
         with:
-          name: roadrunner-julia-manylinux_2_28-release
+          pattern: roadrunner-julia-*-${{ matrix.package }}-release
+          merge-multiple: true
           path: roadrunner-julia
 
       - name: Setup Julia
         uses: julia-actions/setup-julia@master
         with:
-          version: '1'
+          version: ${{ matrix.julia }}
+
+      - name: Check the bundled Antimony version
+        run: |
+          ver=$(grep '^version' roadrunner-julia/RoadRunner/Antimony/Project.toml | cut -d '"' -f 2)
+          echo "Bundled Antimony Julia package version: $ver"
+          test "$(printf '%s\n' 3.3.0 "$ver" | sort -V | head -n 1)" = "3.3.0"
+
+      - name: Check that the package DLLs find all their dependencies
+        if: runner.os == 'Windows'
+        run: |
+          python -m pip install pefile
+          python - <<'EOF'
+          import os, re, sys
+          import pefile
+          root = 'roadrunner-julia/RoadRunner'
+          system32 = os.path.join(os.environ['SystemRoot'], 'System32')
+          # The Visual C++ runtime must be shipped in the package, not found on the machine.
+          redist = re.compile(r'^(vcruntime|msvcp|concrt|vcomp)', re.I)
+          problems = []
+          for folder, _, files in os.walk(root):
+              for name in files:
+                  if not name.lower().endswith('.dll'):
+                      continue
+                  path = os.path.join(folder, name)
+                  pe = pefile.PE(path, fast_load=True)
+                  pe.parse_data_directories([pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
+                  imports = [e.dll.decode() for e in getattr(pe, 'DIRECTORY_ENTRY_IMPORT', [])]
+                  print(path, '->', ', '.join(imports))
+                  for dep in imports:
+                      if dep.lower().startswith(('api-ms-win-', 'ext-ms-win-')):
+                          continue
+                      if os.path.exists(os.path.join(folder, dep)):
+                          continue
+                      if os.path.exists(os.path.join(system32, dep)) and not redist.match(dep):
+                          continue
+                      problems.append(path + ' needs ' + dep)
+          if problems:
+              print('\n'.join(problems))
+              sys.exit(1)
+          EOF
+
+      - name: Mark the package as downloaded from the web
+        if: runner.os == 'macOS'
+        run: |
+          find roadrunner-julia -type f -exec xattr -w com.apple.quarantine "0081;$(printf '%x' "$(date +%s)");Safari;" {} +
+          xattr -l roadrunner-julia/RoadRunner/lib/*.dylib
 
       - name: Run the Julia package tests
-        shell: bash
         run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
