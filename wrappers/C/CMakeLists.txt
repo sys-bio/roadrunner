@@ -61,6 +61,13 @@ add_dependencies(${target} roadrunner-static)
 
 target_compile_definitions(${target} PRIVATE EXPORT_RRC STATIC_RR)
 
+# LLVM is linked statically. Keep its symbols private on macOS so a host process that
+# has its own LLVM (such as Julia) does not resolve them to its own copy.
+if(APPLE)
+    target_link_options(${target} PRIVATE
+            "LINKER:-unexported_symbols_list,${CMAKE_CURRENT_SOURCE_DIR}/macos_unexported_symbols.txt")
+endif()
+
 install(
         TARGETS ${target}
         EXPORT ${target}
