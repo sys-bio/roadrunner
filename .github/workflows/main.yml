@@ -481,9 +481,10 @@ jobs:
           cmake --build . --target roadrunner_c_api roadrunner_julia_package --config ${{ matrix.platform.build_type }}
           cp lib/libroadrunner_c_api.dylib ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/lib/
           if [ "${{ matrix.build_tests }}" == 'ON' ]; then
-            ctest --output-on-failure --verbose --extra-verbose --progress --label-regex julia
+            julia --project=${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/test/runtests.jl
           fi
           cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=OFF
+          cmake --build . --target roadrunner_c_api --config ${{ matrix.platform.build_type }}
 
       - name: Run LLJit section range tests (Debug)
         if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
