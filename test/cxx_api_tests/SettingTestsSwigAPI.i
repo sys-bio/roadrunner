@@ -1,16 +1,19 @@
 %module SettingTestsSwigAPI
 
+%begin %{
+#if defined(_WIN32) && !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+%}
+
 %{
 #include <unordered_map>
 #include "Setting.h"
 #include <variant> // for visit
-#define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API
-#include <numpy/arrayobject.h>
 #include "PyUtils.h"
 #include "SettingTestsSwigAPI.h"
 %};
 #include "PyUtils.h"
-#include <numpy/arrayobject.h>
 
 %include "exception.i"
 
