@@ -550,9 +550,11 @@ jobs:
           # Leave the checkout so that 'import roadrunner' cannot find the source tree.
           cd "$(mktemp -d)"
           ${{ env.python_v2_exe }} -c "import sys, roadrunner; print(sys.version); print(roadrunner.__file__)"
-          tests_dir=$(${{ env.python_v2_exe }} -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__))")
+          tests_dir=$(${{ env.python_v2_exe }} -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
+          # The tests open their model files by relative path, so they run from their own directory.
+          cd "$tests_dir"
           ${{ env.python_v2_exe }} "$tests_dir"
-          ${{ env.python_v2_exe }} -m pytest "$tests_dir/test_namedArray.py" "$tests_dir/test_python_api.py"
+          ${{ env.python_v2_exe }} -m pytest test_namedArray.py test_python_api.py
 
       - name: Set Python wheel artifacts path and name
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -784,7 +786,9 @@ jobs:
           # Leave the checkout so that 'import roadrunner' finds the installed wheel.
           cd "$(mktemp -d)"
           tests_dir=$("$VENV_PYTHON" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
-          "$VENV_PYTHON" -m pytest "$tests_dir/test_namedArray.py" "$tests_dir/test_rrplugins_dataseries.py" "$tests_dir/test_python_api.py"
+          # The tests open their model files by relative path, so they run from their own directory.
+          cd "$tests_dir"
+          "$VENV_PYTHON" -m pytest test_namedArray.py test_rrplugins_dataseries.py test_python_api.py
 
   # Tests the Julia packages from the uploaded artifacts, rather than the build tree, on
   # runners other than the ones that built them. The manylinux package is tested on ubuntu

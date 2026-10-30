@@ -5,7 +5,7 @@ Installing RoadRunner
 Python Front End
 ===================
 
-The recommended way to use roadrunner is by installing the Python front end and writing Python scripts.
+The recommended way to use roadrunner is by installing the Python front end and writing Python scripts, for Python 3.10 or later:
 
 .. code-block:: bash
 
@@ -158,15 +158,14 @@ These are controlled by turning on or off desired options in cmake.
 Build the Python Bindings
 -------------------------
 
-    1) Download `SWIG version 3.0.0 <https://sourceforge.net/projects/swig/files/>`_ for linux, macos or windows. It is just a zip file - decompress it and put it where you want it. SWIG is now installed and the swig executable is under the top level swig directory.
+    1) Download `SWIG version 4.4.1 <https://sourceforge.net/projects/swig/files/>`_ (or later) for linux, macos or windows. It is just a zip file - decompress it and put it where you want it. SWIG is now installed and the swig executable is under the top level swig directory.
 
     2) Configure or reconfigure cmake using the `-DBUILD_PYTHON=ON` option. If you installed swig
     globally or add the swig directory to the PATH environment variable, you will *not* need
     the `-DSWIG_EXECUTABLE` argument as `swig.exe` will be found
     automatically. However in most circumstances you will need to provide the path to the `swig.exe` using
     `-DSWIG_EXECUTABLE`. As per the instructions for [FindPython](https://cmake.org/cmake/help/git-stage/module/FindPython.html)
-    you can build for specific Python environments by pointing -DPython_ROOT_DIR to the root of your Python installation. Using Conda
-    environments and this variable makes it easy to build Python wheels for different Python versions.
+    you can build for specific Python environments by pointing -DPython_ROOT_DIR to the root of your Python installation.
 
 .. code-block:: bash
 
@@ -176,7 +175,7 @@ Build the Python Bindings
         -DCMAKE_BUILD_TYPE="Release" \
         -DBUILD_PYTHON=ON \
         -DPython_ROOT_DIR="/path/to/miniconda/env/root"
-        -DSWIG_EXECUTABLE="path/to/swig3.0.0/executable/swig.exe" ..
+        -DSWIG_EXECUTABLE="path/to/swig4.x/executable/swig.exe" ..
     cmake --build . --target install --config Release
 
 
