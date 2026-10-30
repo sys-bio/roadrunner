@@ -270,60 +270,22 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Swig
+        if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}
-          # Newest SWIG release published on SourceForge
-          swig_version=$(curl -sSL "https://sourceforge.net/projects/swig/rss?path=/swig" | grep -o "swig/swig-[0-9.]*/swig-[0-9.]*\.tar\.gz" | sed -E "s|.*/swig-([0-9.]+)\.tar\.gz|\1|" | sort -u -V | tail -1)
-          test -n "${swig_version}"
-          echo "Using SWIG ${swig_version}"
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            brew install pcre2
-            mkdir -p ${RUNNER_WORKSPACE}/swig
-            cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
-            tar -zxf swig.tar.gz
-            rm swig.tar.gz
-            mkdir -p install-swig
-            cd swig-${swig_version}/
-            ./configure --prefix=${RUNNER_WORKSPACE}/swig/install-swig
-            make
-            make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            mkdir -p swig
-            cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-${swig_version}/swigwin-${swig_version}.zip/download > swig.zip
-            unzip -q swig.zip -d install-swig
-            rm swig.zip
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/swigwin-${swig_version}/" >> "${GITHUB_PATH}"
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            dnf install -y pcre-devel pcre2-devel
-            mkdir -p swig
-            cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
-            tar -zxf swig.tar.gz
-            rm swig.tar.gz
-            mkdir -p install-swig
-            cd swig-${swig_version}/
-            ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
-            make
-            make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
-          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
-            sudo apt-get install -y libpcre2-dev
-            mkdir -p swig
-            cd swig
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-${swig_version}/swig-${swig_version}.tar.gz/download > swig.tar.gz
-            tar -zxf swig.tar.gz
-            rm swig.tar.gz
-            mkdir -p install-swig
-            cd swig-${swig_version}/
-            ./configure --disable-dependency-tracking --prefix=${RUNNER_WORKSPACE}/swig/install-swig
-            make
-            make install
-            echo SWIG_DIR="-DSWIG_EXECUTABLE=${RUNNER_WORKSPACE}/swig/install-swig/bin/swig" >> $GITHUB_ENV
+          # The PyPI wheels carry a prebuilt SWIG. The Python stable ABI needs 4.4.1 or newer.
+          ${{ env.python_v1_exe }} -m pip install "swig>=4.4.1"
+          scripts_dir=$(${{ env.python_v1_exe }} -c "import sysconfig; print(sysconfig.get_path('scripts').replace(chr(92), '/'))")
+          if [ -f "${scripts_dir}/swig.exe" ]; then
+            swig_exe="${scripts_dir}/swig.exe"
+          elif [ -f "${scripts_dir}/swig" ]; then
+            swig_exe="${scripts_dir}/swig"
+          else
+            swig_exe=$(command -v swig)
           fi
+          test -n "${swig_exe}"
+          "${swig_exe}" -version
+          echo SWIG_DIR="-DSWIG_EXECUTABLE=${swig_exe}" >> $GITHUB_ENV
           echo PYTHON_DIR="-DPython_ROOT_DIR=${{ env.python_v1_dir }}" >> $GITHUB_ENV
 
       - name: Save standardized os/compiler names
@@ -541,12 +503,15 @@ jobs:
         shell: bash
         run: |
           shopt -s nullglob
-          wheels=(${RUNNER_WORKSPACE}/wheels/libroadrunner-*.whl)
+          # cd first: RUNNER_WORKSPACE has backslashes on Windows, which a glob would treat as escapes.
+          cd "${RUNNER_WORKSPACE}/wheels"
+          wheels=(libroadrunner-*.whl)
           if [ ${#wheels[@]} -ne 1 ]; then
             echo "::error::Expected exactly one libroadrunner wheel, found ${#wheels[@]}"
+            ls -l
             exit 1
           fi
-          ${{ env.python_v2_exe }} -m pip install --force-reinstall "${wheels[0]}"
+          ${{ env.python_v2_exe }} -m pip install --force-reinstall "./${wheels[0]}"
           # Leave the checkout so that 'import roadrunner' cannot find the source tree.
           cd "$(mktemp -d)"
           ${{ env.python_v2_exe }} -c "import sys, roadrunner; print(sys.version); print(roadrunner.__file__)"
@@ -764,10 +729,11 @@ jobs:
           else
             uv venv --python "$MATRIX_PYTHON" --managed-python venv
           fi
+          # No realpath here: venv/bin/python is a symlink to the uv-managed interpreter, which uv won't modify.
           if [ -x venv/Scripts/python.exe ]; then
-            venv_python="$(realpath venv/Scripts/python.exe)"
+            venv_python="$PWD/venv/Scripts/python.exe"
           else
-            venv_python="$(realpath venv/bin/python)"
+            venv_python="$PWD/venv/bin/python"
           fi
           echo "VENV_PYTHON=$venv_python" >> "$GITHUB_ENV"
           # Installed together, so the wheel's own numpy requirement is checked against the chosen numpy.
