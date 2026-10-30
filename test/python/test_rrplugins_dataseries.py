@@ -4,6 +4,26 @@ import unittest
 import numpy as np
 
 
+# A model of its own: the compiled TestModelFactory module is not imported here, because
+# loading it next to rrplugins and roadrunner puts three copies of roadrunner in one process.
+DECAY_MODEL = """<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="decay">
+    <listOfParameters>
+      <parameter id="x" value="1" constant="false"/>
+      <parameter id="k" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><times/><apply><minus/><ci> k </ci></apply><ci> x </ci></apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>"""
+
+
 @unittest.skipUnless(importlib.util.find_spec("rrplugins"), "rrplugins is not installed")
 class DataSeriesFromNumPyTests(unittest.TestCase):
     """rrplugins reads numpy and roadrunner results into its own data series."""
@@ -38,8 +58,7 @@ class DataSeriesFromNumPyTests(unittest.TestCase):
 
     def test_roadrunner_simulation_result_keeps_its_column_names(self):
         from roadrunner import RoadRunner
-        from roadrunner.tests import TestModelFactory as tmf
-        sim = RoadRunner(tmf.SimpleFlux().str()).simulate(0, 10, 11)
+        sim = RoadRunner(DECAY_MODEL).simulate(0, 10, 11)
         series = self.tel.DataSeries.fromNumPy(sim)
         self.assertEqual((series.rows, series.cols), sim.shape)
         self.assertEqual(self.headers(series), sim.colnames)

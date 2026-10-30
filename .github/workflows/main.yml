@@ -522,7 +522,7 @@ jobs:
           # One pytest process per file, as ctest does: the tests share process-wide solver registries.
           status=0
           for test_file in test_namedArray.py test_python_api.py; do
-            ${{ env.python_v2_exe }} -m pytest "$test_file" || status=1
+            ${{ env.python_v2_exe }} -X faulthandler -m pytest -rPs --capture=tee-sys "$test_file" || status=1
           done
           exit $status
 
@@ -759,10 +759,12 @@ jobs:
           tests_dir=$("$VENV_PYTHON" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
           # The tests open their model files by relative path, so they run from their own directory.
           cd "$tests_dir"
+          # Load the compiled test helper next to the roadrunner module, with any abort message visible.
+          "$VENV_PYTHON" -X faulthandler -c "import roadrunner; import roadrunner.tests.TestModelFactory as tmf; print('loaded', tmf.__file__)"
           # One pytest process per file, as ctest does: the tests share process-wide solver registries.
           status=0
           for test_file in test_namedArray.py test_rrplugins_dataseries.py test_python_api.py; do
-            "$VENV_PYTHON" -m pytest "$test_file" || status=1
+            "$VENV_PYTHON" -X faulthandler -m pytest -rPs --capture=tee-sys "$test_file" || status=1
           done
           exit $status
 
