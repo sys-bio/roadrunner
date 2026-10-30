@@ -519,7 +519,12 @@ jobs:
           # The tests open their model files by relative path, so they run from their own directory.
           cd "$tests_dir"
           ${{ env.python_v2_exe }} "$tests_dir"
-          ${{ env.python_v2_exe }} -m pytest test_namedArray.py test_python_api.py
+          # One pytest process per file, as ctest does: the tests share process-wide solver registries.
+          status=0
+          for test_file in test_namedArray.py test_python_api.py; do
+            ${{ env.python_v2_exe }} -m pytest "$test_file" || status=1
+          done
+          exit $status
 
       - name: Set Python wheel artifacts path and name
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
@@ -754,7 +759,12 @@ jobs:
           tests_dir=$("$VENV_PYTHON" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__).replace(os.sep, '/'))")
           # The tests open their model files by relative path, so they run from their own directory.
           cd "$tests_dir"
-          "$VENV_PYTHON" -m pytest test_namedArray.py test_rrplugins_dataseries.py test_python_api.py
+          # One pytest process per file, as ctest does: the tests share process-wide solver registries.
+          status=0
+          for test_file in test_namedArray.py test_rrplugins_dataseries.py test_python_api.py; do
+            "$VENV_PYTHON" -m pytest "$test_file" || status=1
+          done
+          exit $status
 
   # Tests the Julia packages from the uploaded artifacts, rather than the build tree, on
   # runners other than the ones that built them. The manylinux package is tested on ubuntu
