@@ -1,8 +1,13 @@
 %module TestModelFactory
 
+%begin %{
+#if defined(_WIN32) && !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+%}
+
 %{
     #define SWIG_FILE_WITH_INIT
-    #define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API // for the NamedArrayObject (see roadrunner.i)
 
     #include "PyUtils.h" // for variant_to_py and back.
     #include "Matrix.h"
@@ -15,11 +20,6 @@
 
 //// since we be using the ls::Matrix from a Python
 //// we'll be using the same API needed by the main roadrunner bindings
-%include "numpy.i"
-%init %{
-import_array();
-rr::pyutil_init(m);
-%}
 //
 #include <vector>
 %include <typemaps.i>
@@ -158,24 +158,9 @@ rr::pyutil_init(m);
  */
 %typemap(out) std::vector<double> {
     // marker for a std::vector<double> typemap
-    const npy_intp length = $1.size();
-
-    // create a numpy type
-    PyArray_Descr *desc = PyArray_DescrFromType(NPY_DOUBLE);
-
-    // copy the data from the std::vector<double> so that we can give the
-    // ptr to the numpy array
-    // hopefully this will be cleaned up by numpy...
-    double* data = new double[length];
-    std::copy($1.begin(), $1.end(), data);
-    $result = PyArray_SimpleNewFromData(1, &length, NPY_DOUBLE, (void*)data);
-
-    PyArrayObject * arr = reinterpret_cast<PyArrayObject*>($result);
-
-    PyArray_ENABLEFLAGS(arr, NPY_ARRAY_OWNDATA);
-    int owned = PyArray_CHKFLAGS(arr, NPY_ARRAY_OWNDATA);
-    if (!owned){
-        std::cerr << "PyArrayObject does not own its memory" << std::endl;
+    $result = rr::doubles_to_py($1.data(), $1.size());
+    if (!$result) {
+        SWIG_fail;
     }
 }
 
@@ -191,14 +176,26 @@ rr::pyutil_init(m);
     PyObject* colnames = matrix3DtoNumpy.convertColNames();
     PyObject* rownames = matrix3DtoNumpy.convertRowNames();
 
+    if (!idx || !npArray3D || !rownames || !colnames) {
+        Py_XDECREF(idx);
+        Py_XDECREF(npArray3D);
+        Py_XDECREF(rownames);
+        Py_XDECREF(colnames);
+        SWIG_fail;
+    }
+
     $result = PyTuple_Pack(4, idx, npArray3D, rownames, colnames);
+    Py_DECREF(idx);
+    Py_DECREF(npArray3D);
+    Py_DECREF(rownames);
+    Py_DECREF(colnames);
 }
 
 // Typemap for a C++ string
 %typemap(in) str {
     // typemap for Python -> C string
   if (PyUnicode_Check($input)) {
-    $1 = std::string(PyUnicode_AsUTF8($input));
+    $1 = std::string(PyUnicode_AsUTF8AndSize($input, nullptr));
   } else {
     SWIG_exception(SWIG_TypeError, "string expected");
   }
@@ -290,39 +287,18 @@ rr::pyutil_init(m);
 
     if (iscpx) {
         // if needed, we use complex
-        size_t len = $1.size();
-        npy_intp dims[1] = {static_cast<npy_intp>(len)};
-
-        PyObject *array = PyArray_SimpleNew(1, dims, NPY_COMPLEX128);
-
-        if (!array) {
-            // TODO error handling.
-            return 0;
-        }
-
-        cpx *data = (cpx*)PyArray_DATA((PyArrayObject*)array);
-
-        memcpy(data, &vec[0], sizeof(std::complex<double>)*len);
-
-        $result  = array;
+        $result = rr::complexes_to_py(vec.data(), vec.size());
     } else {
         // otherwise we just use double
-        size_t len = $1.size();
-        npy_intp dims[1] = {static_cast<npy_intp>(len)};
-
-        PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-
-        if (!array) {
-            // TODO error handling.
-            return 0;
+        std::vector<double> reals;
+        reals.reserve(vec.size());
+        for (const cpx& value : vec) {
+            reals.push_back(std::real(value));
         }
-
-        double *data = (double*)PyArray_DATA((PyArrayObject*)array);
-        for (int i = 0; i < vec.size(); ++i) {
-            data[i] = std::real(vec[i]);
-        }
-
-        $result  = array;
+        $result = rr::doubles_to_py(reals.data(), reals.size());
+    }
+    if (!$result) {
+        SWIG_fail;
     }
 }
 

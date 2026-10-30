@@ -39,6 +39,14 @@ namespace rr {
     void RegistrationFactory::registerSolver(Registrable* i) {
         if (!i)
             throw CoreException("Registrar is null");
+        // Several copies of this code in one process (roadrunner and rrplugins, say) can share
+        // one factory, so a solver that is already registered is not added a second time.
+        for (auto existing : registrars) {
+            if (existing->getName() == i->getName()) {
+                delete i;
+                return;
+            }
+        }
         registrars.push_back(i);
     }
 

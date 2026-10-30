@@ -122,8 +122,8 @@ endfunction()
 #   to be added to the swig target.
 macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
     # no harm in finding python here
-    find_package(Python COMPONENTS Interpreter Development NumPy REQUIRED)
-    find_package(SWIG 4.0.1 REQUIRED
+    find_package(Python COMPONENTS Interpreter Development REQUIRED)
+    find_package(SWIG 4.4.1 REQUIRED
             COMPONENTS python
             )
     include(UseSWIG)
@@ -176,15 +176,21 @@ macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
             $<TARGET_PROPERTY:roadrunner,INCLUDE_DIRECTORIES>
             "${RR_DEPENDENCIES_INSTALL_PREFIX}/include/rr-libstruct"
             "${Python_INCLUDE_DIRS}"
-            "${Python_NumPy_INCLUDE_DIRS}"
             $<TARGET_PROPERTY:roadrunner_python,INCLUDE_DIRECTORIES>
             )
+
+    # Like the roadrunner module, the test modules only use the Python stable ABI, so the
+    # installed wheel can load them from any Python from 3.10 on. Match roadrunner/CMakeLists.txt.
+    target_compile_definitions(${SWIG_TARGET_NAME} PRIVATE Py_LIMITED_API=0x030A0000)
+
     if (NOT APPLE)
+        if (WIN32)
+            # Py_LIMITED_API makes pyconfig.h link python3.lib, so only the search path is needed.
+            target_link_directories(${SWIG_TARGET_NAME} PRIVATE ${Python_LIBRARY_DIRS})
+        endif ()
         target_link_libraries(${SWIG_TARGET_NAME} PUBLIC
                 rr-mockups
                 roadrunner-static
-                Python::Module # links the Python library only where a module must (Windows); includes come with it
-                Python::NumPy  # remember, includes will just come with linking Python::NumPy
                 )
     else ()
 
@@ -338,7 +344,9 @@ if (BUILD_PYTHON AND BUILD_TESTS)
     add_pytest_to_ctest(python_tests_SteadyStateSolverTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_steadyStateSolver.py")
     add_pytest_to_ctest(python_tests_StructuralAnalysisTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_structuralAnalysis.py")
     add_pytest_to_ctest(python_tests_RoadRunnerMap "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_roadrunner_map.py")
-    add_pytest_to_ctest(python_tests_AutoPluginTest "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_auto_plugin.py")
+    if (BUILD_RR_PLUGINS)
+        add_pytest_to_ctest(python_tests_AutoPluginTest "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_auto_plugin.py")
+    endif ()
     #add_pytest_to_ctest(python_tests_PickleTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_pickle.py")
     add_pytest_to_ctest(python_tests_RRTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_rrtests.py")
     add_pytest_to_ctest(python_tests_SettingTests "${RR_PYTHON_TESTING_BUILD_PREFIX}/test_settings.py")

@@ -123,7 +123,7 @@ private:
             if (PyErr_Occurred()) {
 
                 PyObject* pystr = PyObject_Str(PyErr_Occurred());
-                const char* msg = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                const char* msg = pystr ? PyUnicode_AsUTF8AndSize(pystr, nullptr) : nullptr;
                 err = std::string("Error calling Python onTrigger method: ") + (msg ? msg : "unknown error");
 
                 rrLog(Logger::LOG_ERROR) << err;
@@ -136,7 +136,7 @@ private:
             }
             else if (pyres != Py_None) {
                 PyObject* pystr = PyObject_Str(pyres);
-                const char* cstr = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                const char* cstr = pystr ? PyUnicode_AsUTF8AndSize(pystr, nullptr) : nullptr;
                 if (!cstr) {
                     PyErr_Clear();
                 }
@@ -179,7 +179,7 @@ private:
             if (PyErr_Occurred()) {
 
                 PyObject* pystr = PyObject_Str(PyErr_Occurred());
-                const char* msg = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                const char* msg = pystr ? PyUnicode_AsUTF8AndSize(pystr, nullptr) : nullptr;
                 err = std::string("Error calling Python onAssignment method: ") + (msg ? msg : "unknown error");
 
                 rrLog(Logger::LOG_ERROR) << err;
@@ -192,7 +192,7 @@ private:
             }
             else if (pyres != Py_None) {
                 PyObject* pystr = PyObject_Str(pyres);
-                const char* cstr = pystr ? PyUnicode_AsUTF8(pystr) : nullptr;
+                const char* cstr = pystr ? PyUnicode_AsUTF8AndSize(pystr, nullptr) : nullptr;
                 if (!cstr) {
                     PyErr_Clear();
                 }
