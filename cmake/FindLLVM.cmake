@@ -97,6 +97,13 @@ if (LLVM_CONFIG_EXECUTABLE)
     string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)([^\n\r\t ]*)" "\\1" LLVM_VERSION_MAJOR "${LLVM_VERSION}")
     string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)([^\n\r\t ]*)" "\\2" LLVM_VERSION_MINOR "${LLVM_VERSION}")
     string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)([^\n\r\t ]*)" "\\3" LLVM_VERSION_PATCH "${LLVM_VERSION}")
+
+    # Roadrunner is written against the LLVM 23.1 API.
+    if (LLVM_VERSION VERSION_LESS "23.1")
+        message(FATAL_ERROR "Roadrunner requires LLVM 23.1 or newer, but found LLVM ${LLVM_VERSION} (${LLVM_CONFIG_EXECUTABLE}).")
+    elseif (LLVM_VERSION_MAJOR GREATER 23)
+        message(WARNING "Roadrunner is built and tested against LLVM 23.1; found LLVM ${LLVM_VERSION}.")
+    endif ()
 #    message(STATUS "LLVM_VERSION: ${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}")
 
     execute_process(COMMAND ${LLVM_CONFIG_EXECUTABLE} --bindir OUTPUT_VARIABLE LLVM_BIN_DIR)
