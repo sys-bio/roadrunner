@@ -15,9 +15,9 @@ jobs:
             os_type: macos
             os_name: macos-15-intel
             build_type: Release
-          - name: macos-14-release
+          - name: macos-15-release
             os_type: macos
-            os_name: macos-14
+            os_name: macos-15
             build_type: Release
           - name: windows-latest-release
             os_type: windows
@@ -143,7 +143,7 @@ jobs:
             echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
             if [ "${{ matrix.platform.os_name }}" == 'macos-15-intel' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_x86.rr " >> $GITHUB_ENV
-            elif [ "${{ matrix.platform.os_name }}" == 'macos-14' ]; then
+            elif [ "${{ matrix.platform.os_name }}" == 'macos-15' ]; then
               echo "save_state_filename=roadrunner/test/models/StateSavingTests/savedState_macos_arm64.rr " >> $GITHUB_ENV
             fi
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then

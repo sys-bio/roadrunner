@@ -29,13 +29,6 @@
 
 #define CVODE_INT_TYPECODE 0x7799ff00
 
-// CVodeClearStopTime, used to end a stop time that was not reached, needs SUNDIALS 6.5.1
-#if SUNDIALS_VERSION_MAJOR < 6 || \
-    (SUNDIALS_VERSION_MAJOR == 6 && (SUNDIALS_VERSION_MINOR < 5 || \
-    (SUNDIALS_VERSION_MINOR == 5 && SUNDIALS_VERSION_PATCH < 1)))
-#error "CVODEIntegrator needs SUNDIALS 6.5.1 or later"
-#endif
-
 //
 
 namespace rr {

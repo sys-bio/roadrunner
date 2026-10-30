@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # could be command line variables (-DROADRUNNER_INSTALL_PREFIX=...)
 set(ROADRUNNER_INSTALL_PREFIX "D:/roadrunner/roadrunner/roadrunner-install-rel")
-set(LLVM_INSTALL_PREFIX "D:/roadrunner/llvm-13.x/llvm-13.x-msvc2022-x64-rel")
+set(LLVM_INSTALL_PREFIX "D:/roadrunner/llvm-23.1.4-release")
 set(CMAKE_PREFIX_PATH
         "${ROADRUNNER_INSTALL_PREFIX}/cmake" # needed because this is where poco installs config files to
         "${ROADRUNNER_INSTALL_PREFIX}/lib/cmake" # all other normal packages install config files to here

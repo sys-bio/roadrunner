@@ -27,14 +27,14 @@ jobs:
             os_name: macos-15-intel
             build_type: Debug
             build_python: OFF
-          - name: macos-14-release
+          - name: macos-15-release
             os_type: macos
-            os_name: macos-14
+            os_name: macos-15
             build_type: Release
             build_python: ON
-          - name: macos-14-debug
+          - name: macos-15-debug
             os_type: macos
-            os_name: macos-14
+            os_name: macos-15
             build_type: Debug
             build_python: OFF
           - name: ubuntu-latest-release
@@ -687,7 +687,7 @@ jobs:
             runner: macos-15-intel
             wheels: roadrunner-*-python-wheels-macos-*-x86_64
           - name: macos-arm
-            runner: macos-14
+            runner: macos-15
             wheels: roadrunner-*-python-wheels-macos-*-arm64
           - name: windows
             runner: windows-latest
@@ -791,7 +791,7 @@ jobs:
           - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1.10"}
           - {package: manylinux_2_28, runner: ubuntu-latest, julia: "1"}
           - {package: windows-latest, runner: windows-latest, julia: "1"}
-          - {package: macos-14, runner: macos-14, julia: "1"}
+          - {package: macos-15, runner: macos-15, julia: "1"}
           - {package: macos-15-intel, runner: macos-15-intel, julia: "1"}
     steps:
       - name: Show the OS version
