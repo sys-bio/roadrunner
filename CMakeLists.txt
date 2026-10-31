@@ -387,6 +387,10 @@ set(DEPENDENCY_CMAKE_CONFIG_PATHS
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
 message(STATUS "CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}")
+# Minimum versions of the libroadrunner-deps libraries, checked once each is found.
+set(RR_MIN_SUNDIALS_VERSION 7.8.0)
+set(RR_MIN_SBML_VERSION 5.20.5)
+
 if (WIN32)
     set(SBML_TARGET_NAME "libsbml-static")
 else ()
@@ -457,6 +461,12 @@ message(STATUS "ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
 
 
 find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
+set(RR_FOUND_SBML_VERSION "${${SBML_TARGET_NAME}_VERSION}")
+if (RR_FOUND_SBML_VERSION AND RR_FOUND_SBML_VERSION VERSION_LESS RR_MIN_SBML_VERSION)
+    message(FATAL_ERROR "libSBML ${RR_FOUND_SBML_VERSION} was found, but roadrunner needs ${RR_MIN_SBML_VERSION} or later. \
+Please update libroadrunner-deps (https://github.com/sys-bio/libroadrunner-deps) and pass the new install tree to \
+-DRR_DEPENDENCIES_INSTALL_PREFIX.")
+endif ()
 find_package(rr-libstruct CONFIG REQUIRED)
 find_package(clapack CONFIG REQUIRED)
 find_package(nleq1 CONFIG REQUIRED)
@@ -474,6 +484,11 @@ endif ()
 find_package(LLVM REQUIRED)
 
 find_package(SUNDIALS CONFIG REQUIRED)
+if (SUNDIALS_VERSION AND SUNDIALS_VERSION VERSION_LESS RR_MIN_SUNDIALS_VERSION)
+    message(FATAL_ERROR "SUNDIALS ${SUNDIALS_VERSION} was found, but roadrunner needs ${RR_MIN_SUNDIALS_VERSION} or later. \
+Please update libroadrunner-deps (https://github.com/sys-bio/libroadrunner-deps) and pass the new install tree to \
+-DRR_DEPENDENCIES_INSTALL_PREFIX.")
+endif ()
 
 # not for windows. So not required, but we throw error if not win and not found.
 find_package(Curses)
