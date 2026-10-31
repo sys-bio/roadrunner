@@ -227,6 +227,11 @@ jobs:
           elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
             sudo apt-get update
             sudo apt-get install -y ccache
+          elif [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1-windows-x86_64.zip > ccache.zip
+            unzip -q ccache.zip
+            rm ccache.zip
+            echo "$(cygpath -w "$PWD/ccache-4.9.1-windows-x86_64")" >> "$GITHUB_PATH"
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             mkdir -p ccache
             cd ccache
@@ -241,33 +246,25 @@ jobs:
             echo "$RUNNER_WORKSPACE/ccache/install-ccache/bin" >> "${GITHUB_PATH}"
           fi
 
-      - name: Prepare ccache timestamp on non-Windows platforms
-        if: matrix.platform.os_type != 'windows'
-        id: ccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("timestamp=${current_date}" >> $GITHUB_OUTPUT)
-          # message("::set-output name=timestamp::${current_date}")
-
-      - name: Set ccache cache directory on non-Windows
-        if: matrix.platform.os_type != 'windows'
+      - name: Set ccache environment
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}
           echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> $GITHUB_ENV
+          echo "CCACHE_MAXSIZE=500M" >> $GITHUB_ENV
+          echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
           echo "COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
-      - name: Cache ccache files on non-Windows
-        if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@main
+      - name: Restore ccache files
+        uses: actions/cache/restore@main
         with:
-          path: ${RUNNER_WORKSPACE}/.ccache
-          key:
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ matrix.platform.name }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-            ${{ runner.os }}-
+            ccache-${{ matrix.platform.name }}-
+
+      - name: Zero ccache statistics
+        shell: bash
+        run: ccache --zero-stats
 
       - name: Install Swig
         if: matrix.platform.build_python == 'ON'
@@ -375,6 +372,7 @@ jobs:
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
           -DBUILD_JULIA=ON \
+          ${{ matrix.platform.os_type == 'windows' && '-DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded' || '' }} \
           ${{ env.PYTHON_DIR }} \
           ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
@@ -383,6 +381,18 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
+
+      - name: Show ccache statistics
+        if: always()
+        shell: bash
+        run: ccache --show-stats
+
+      - name: Save ccache files
+        if: always()
+        uses: actions/cache/save@main
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ matrix.platform.name }}-${{ github.sha }}
 
       - name: Copy Windows Visual Studio runtime DLLs to python install directories
         if: matrix.platform.build_type == 'Release' && matrix.platform.os_type == 'windows'
