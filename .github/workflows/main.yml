@@ -637,6 +637,20 @@ jobs:
           fi
           exit $status
 
+      - name: Check the JIT debug symbols are not left undefined
+        run: |
+          # A module that leaves them undefined fails to import on a CPython built without the experimental JIT (#1406).
+          apt-get install -y --no-install-recommends binutils
+          status=0
+          for so in $(find venv/lib/python*/site-packages/roadrunner -name '*.so*'); do
+            echo "== $so"
+            if nm -D --undefined-only "$so" | grep -E '__jit_debug_(register_code|descriptor)'; then
+              echo "::error::$so leaves the JIT debug symbols undefined"
+              status=1
+            fi
+          done
+          exit $status
+
       - name: Import roadrunner and simulate
         run: |
           unset LD_LIBRARY_PATH
@@ -668,6 +682,118 @@ jobs:
           print("x(1) =", x)
           assert abs(x - math.exp(-1)) < 1e-4, x
           PY
+
+  # Python from the deadsnakes PPA is built without the experimental JIT, so its libpython does
+  # not define the __jit_debug_* symbols. The module has to define them itself (#1406).
+  import_wheel_deadsnakes:
+    name: import manylinux wheel, deadsnakes Python ${{ matrix.python }}
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.15"]
+    env:
+      MATRIX_PYTHON: ${{ matrix.python }}
+
+    steps:
+      - name: Download manylinux wheels
+        uses: actions/download-artifact@main
+        with:
+          pattern: roadrunner-*-python-wheels-manylinux_2_28-*
+          merge-multiple: true
+          path: wheels
+
+      - name: Install Python from the deadsnakes PPA
+        run: |
+          sudo add-apt-repository -y ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt-get install -y "python${MATRIX_PYTHON}" "python${MATRIX_PYTHON}-venv"
+          "python${MATRIX_PYTHON}" --version
+
+      - name: Check the interpreter does not define the JIT debug symbols
+        run: |
+          exe=$(command -v "python${MATRIX_PYTHON}")
+          lib=$(ldd "$exe" | awk '/libpython/ {print $3}')
+          target=${lib:-$exe}
+          echo "Checking $target"
+          if nm -D --defined-only "$target" | grep -E '__jit_debug_(register_code|descriptor)'; then
+            echo "::warning::This interpreter defines the JIT debug symbols, so it cannot reproduce #1406"
+          fi
+
+      - name: Create venv
+        run: |
+          "python${MATRIX_PYTHON}" -m venv venv
+
+      - name: Install the wheels and the test dependencies
+        run: |
+          ls -l wheels
+          shopt -s nullglob
+          files=(wheels/libroadrunner-*-cp310-abi3-*.whl)
+          if [ ${#files[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one cp310-abi3 libroadrunner wheel, found ${#files[@]}"
+            exit 1
+          fi
+          plugin_files=(wheels/rrplugins-*-cp310-abi3-*.whl)
+          if [ ${#plugin_files[@]} -ne 1 ]; then
+            echo "::error::Expected exactly one cp310-abi3 rrplugins wheel, found ${#plugin_files[@]}"
+            exit 1
+          fi
+          # --only-binary makes a dependency with no wheel for this Python fail at once.
+          venv/bin/python -m pip install --only-binary=:all: "${files[0]}" "${plugin_files[0]}" pandas py-cpuinfo pytest
+
+      - name: Check shared object dependencies
+        run: |
+          status=0
+          count=0
+          for so in $(find venv/lib/python*/site-packages/roadrunner -name '*.so*'); do
+            count=$((count + 1))
+            echo "== $so"
+            ldd "$so" | tee ldd.txt
+            if grep -Ei 'not found|libpython' ldd.txt; then status=1; fi
+          done
+          if [ $count -eq 0 ]; then
+            echo "::error::No shared objects found in the installed roadrunner package"
+            exit 1
+          fi
+          exit $status
+
+      - name: Check the JIT debug symbols are not left undefined
+        run: |
+          status=0
+          for so in $(find venv/lib/python*/site-packages/roadrunner -name '*.so*'); do
+            echo "== $so"
+            if nm -D --undefined-only "$so" | grep -E '__jit_debug_(register_code|descriptor)'; then
+              echo "::error::$so leaves the JIT debug symbols undefined"
+              status=1
+            fi
+          done
+          exit $status
+
+      - name: Run the Python tests
+        run: |
+          unset LD_LIBRARY_PATH
+          venv_python="$GITHUB_WORKSPACE/venv/bin/python"
+          # Leave the checkout so that 'import roadrunner' finds the installed wheel.
+          cd "$(mktemp -d)"
+          tests_dir=$("$venv_python" -c "import os, roadrunner.tests as t; print(os.path.dirname(t.__file__))")
+          # The tests open their model files by relative path, so they run from their own directory.
+          cd "$tests_dir"
+          # Load the compiled test helper next to the roadrunner module, with any abort message visible.
+          "$venv_python" -X faulthandler -c "import roadrunner; import roadrunner.tests.TestModelFactory as tmf; print('loaded', tmf.__file__)"
+          status=0
+          "$venv_python" -X faulthandler "$tests_dir" || status=1
+          # One pytest process per file, as ctest does: the tests share process-wide solver registries.
+          for test_file in test_namedArray.py test_rrplugins_dataseries.py test_python_api.py; do
+            "$venv_python" -X faulthandler -m pytest -rPs --capture=tee-sys "$test_file" || status=1
+          done
+          exit $status
 
   # The extension no longer uses the numpy C API, so one wheel has to work with any numpy
   # that supports the Python in use: the oldest that has Python 3.10 wheels, the last
