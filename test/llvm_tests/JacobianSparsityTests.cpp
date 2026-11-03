@@ -134,3 +134,31 @@ TEST(JacobianSparsityTests, ColoringIsValid) {
     std::cout << "hctz_body: " << n << " states, " << sp.numColors() << " colors, largest row " << maxRow
               << std::endl;
 }
+
+TEST(JacobianSparsityTests, ConcentrationRateRuleInVariableCompartment) {
+    // roadrunner integrates the amount n = S * c, so the rate rule of the concentration S becomes
+    // dn/dt = S * dc/dt + c * dS/dt, which depends on n and on c (S01198 of the test suite)
+    ModelBuilder b;
+    b.compartment("c", false).species("S1", "c", false).rateRule("S1", "0.4").rateRule("c", "0.2");
+    b.model->getSpecies("S1")->setBoundaryCondition(true);
+    LLVMModelDataSymbols sym(b.model, 0);
+    JacobianSparsity sp(*b.model, sym);
+
+    int s1 = sym.getRateRuleIndex("S1"), c = sym.getRateRuleIndex("c");
+    auto e = entries(sp.rateRules());
+    EXPECT_TRUE(e.count({s1, s1}));
+    EXPECT_TRUE(e.count({s1, c}));
+}
+
+TEST(JacobianSparsityTests, ConcentrationRateRuleInConstantCompartment) {
+    // dn/dt = c * dS/dt with a compartment c set by an assignment rule from a species
+    ModelBuilder b;
+    b.compartment("c", false).species("S2").species("S1", "c", false).rateRule("S1", "0.4")
+            .assignmentRule("c", "1 + S2");
+    b.model->getSpecies("S1")->setBoundaryCondition(true);
+    LLVMModelDataSymbols sym(b.model, 0);
+    JacobianSparsity sp(*b.model, sym);
+
+    auto e = entries(sp.rateRules());
+    EXPECT_TRUE(e.count({sym.getRateRuleIndex("S1"), stateColumn(sym, "S2")}));
+}

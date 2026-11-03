@@ -38,9 +38,24 @@ namespace rrllvm {
         // rate rule rows
         std::vector<std::set<int>> rateRuleRows(nRateRules);
         for (int i = 0; i < nRateRules; ++i) {
-            const libsbml::Rule *rule = model.getRateRuleByVariable(symbols.getRateRuleId(i));
+            const std::string &id = symbols.getRateRuleId(i);
+            const libsbml::Rule *rule = model.getRateRuleByVariable(id);
             if (rule != nullptr && rule->isSetMath()) {
                 astDeps(rule->getMath(), Env(), rateRuleRows[i]);
+            }
+            // roadrunner integrates the amount of a species whose rate rule is in concentration:
+            // dn/dt = c * dS/dt, plus S * dc/dt when the compartment has a rate rule itself
+            // (EvalRateRuleRatesCodeGen)
+            const libsbml::Species *species = model.getSpecies(id);
+            if (species != nullptr && !species->getHasOnlySubstanceUnits()) {
+                Deps c = symbolDeps(species->getCompartment());
+                rateRuleRows[i].insert(c.begin(), c.end());
+                const libsbml::Rule *compartmentRule = model.getRateRuleByVariable(species->getCompartment());
+                if (compartmentRule != nullptr && compartmentRule->isSetMath()) {
+                    Deps s = symbolDeps(id);
+                    rateRuleRows[i].insert(s.begin(), s.end());
+                    astDeps(compartmentRule->getMath(), Env(), rateRuleRows[i]);
+                }
             }
         }
 
