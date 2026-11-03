@@ -29,7 +29,7 @@ namespace rr
     static Mutex mutex;
 
     // the NLEQ callback, we use same data types as f2c here.
-    static void ModelFunction(int* nx, double* y, double* fval, int* pErr);
+    static void ModelFunction(integer* nx, double* y, double* fval, integer* pErr);
 
     static std::string ErrorForStatus(int error);
 
@@ -277,7 +277,7 @@ namespace rr
     /*                             ence the value of the reduced damping */
     /*                             factor. */
 
-    void ModelFunction(int* nx, double* y, double* fval, int* pErr)
+    void ModelFunction(integer* nx, double* y, double* fval, integer* pErr)
     {
         ExecutableModel* model = callbackModel;
         assert(model && "model is NULL");
