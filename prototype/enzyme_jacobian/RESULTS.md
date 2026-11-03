@@ -125,8 +125,8 @@ Options for an upstream version:
 - **Not used yet:** `getFullJacobian`, `getReducedJacobian`, the steady-state solvers (NLEQ, KINSOL) and forward sensitivities could use the same Jacobian.
 - **Not measured:** a sparse difference quotient with the same coloring would also feed KLU without Enzyme. It costs one model evaluation per color, 2 to 7 here, and a finite difference error. It would be the cheaper path to the KLU speedup if exactness and the Newton accuracy turn out not to matter.
 - **API.** A combination of `jacobian` and `linear_solver` the model cannot serve falls back to the dense difference quotient with a warning, so the two settings can be set in any order. The one error is `jacobian = "enzyme"` on a model loaded without `Config.LLVM_ENZYME_JACOBIAN`. The two settings exist in every build, so they appear in `getSettings()` and in saved states, which `develop` does not know.
-- **Python binding issues found along the way, outside the prototype:**
-  - A model symbol named `reset` becomes a property of the `RoadRunner` class, which hides `RoadRunner.reset` (test suite cases 00952 to 00999).
-  - A 1 x 1 matrix comes back from the bindings with fewer dimensions.
-  - `python_tests_RunStochasticTestSuite` finds the test suite only at fixed relative paths.
-  - About 110 `ModelEditingTests`/`StateSavingTests` fail under `ctest -j20`, also on `develop`.
+- **Issues found along the way, outside the prototype:**
+  - A model id named like a method of `RoadRunner`, e.g. `reset` (18 test suite cases), replaces that method for every instance and removes it for the rest of the process: #1415.
+  - `python_tests_RunStochasticTestSuite` finds the test suite only at fixed relative paths: #1416.
+  - About 110 `ModelEditingTests`/`StateSavingTests` fail under `ctest -j20`, also on `develop`, because they share one output directory: #1417.
+  - Not a bug, but worth knowing for the new API: the bindings return a matrix with one column and no column names as a 1D array, so the unnamed `getStateVectorJacobian()` of a model with one state comes back with shape `(1,)` (documented in `matrix_to_array`).

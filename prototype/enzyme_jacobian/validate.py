@@ -113,8 +113,8 @@ def check_jacobian(rr) -> dict:
 
 def reset_all(rr) -> None:
     """RoadRunner.resetAll through the SWIG function: the Python bindings turn a model symbol
-    named `reset` into a property of the RoadRunner class, which hides the method (test suite
-    cases 00952 to 00999)."""
+    named `reset` into a property of the RoadRunner class, which hides the method and removes it
+    for the rest of the process (18 test suite cases, sys-bio/roadrunner#1415)."""
     flags = (roadrunner.SelectionRecord.TIME | roadrunner.SelectionRecord.RATE | roadrunner.SelectionRecord.FLOATING
              | roadrunner.SelectionRecord.BOUNDARY | roadrunner.SelectionRecord.COMPARTMENT
              | roadrunner.SelectionRecord.GLOBAL_PARAMETER | roadrunner.SelectionRecord.STOICHIOMETRY)

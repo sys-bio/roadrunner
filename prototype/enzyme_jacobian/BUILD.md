@@ -90,9 +90,9 @@ The `develop` baseline of the benchmark is a second worktree at `2876ab2ed` (`~/
 
 ## Known test failures that are not caused by the prototype
 
-With `ctest -j20`, about 90 `ModelEditingTests` and 20 `StateSavingTests` fail on `develop` as well (110 failures with the same dependencies and `develop` at `2876ab2ed`). They all pass with `ctest -j1`, so they interfere with each other when run in parallel.
+With `ctest -j20`, about 90 `ModelEditingTests` and 20 `StateSavingTests` fail on `develop` as well (110 failures with the same dependencies and `develop` at `2876ab2ed`). They all pass with `ctest -j1`, so they interfere with each other when run in parallel: they share one output directory (#1417).
 
-`python_tests_RunStochasticTestSuite` fails with "Unable to find stochastic test suite directory": the test looks for the suite at fixed relative paths, which do not exist when the build directory is not next to a source tree named `roadrunner`.
+`python_tests_RunStochasticTestSuite` fails with "Unable to find stochastic test suite directory": the test looks for the suite at fixed relative paths, which do not exist when the build directory is not next to a source tree named `roadrunner` (#1416).
 
 ## Go/no-go gate
 
