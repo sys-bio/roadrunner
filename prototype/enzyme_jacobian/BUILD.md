@@ -45,3 +45,7 @@ ctest --test-dir ~/rr-enzyme/build -j20
 ## Known test failures that are not caused by the prototype
 
 With `ctest -j20`, about 90 `ModelEditingTests` and 20 `StateSavingTests` fail on `develop` as well (110 failures with the same dependencies and `develop` at `2876ab2ed`). They all pass with `ctest -j1`, so they interfere with each other when run in parallel.
+
+## Go/no-go gate
+
+Passed on 2026-11-03 with the tagged release `v0.0.303` and no patches to Enzyme: `EnzymeJacobianTests.GateHctzDirectionalDerivative` differentiates the generated `evalReactionRates` of `hctz_body_flat.xml` in roadrunner's JIT (MCJit) and matches the central difference. Enzyme needed IR bodies for the helpers `rr_min` and `rr_max`, which the generated code calls and which are C++ functions otherwise. Enzyme reports failures as error diagnostics of the LLVM context; roadrunner collects them with its own diagnostic handler, so a failure is an exception rather than the termination of the process.

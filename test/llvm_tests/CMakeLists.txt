@@ -19,4 +19,8 @@ add_test_executable(test_llvm_LLJitSectionRange test_targets LLJitSectionRange.c
 #target_link_libraries(BuildAModel PRIVATE roadrunner-static gtest gtest_main)
 #target_include_directories(BuildAModel PRIVATE roadrunner-static)
 
+if (RR_USE_ENZYME)
+    add_test_executable(test_llvm_EnzymeJacobianTests test_targets EnzymeJacobianTests.cpp)
+endif ()
+
 set(test_targets ${test_targets} PARENT_SCOPE)

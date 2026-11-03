@@ -9,6 +9,7 @@
 #ifndef CACHEDMODEL_H_
 #define CACHEDMODEL_H_
 
+#include "EnzymeJacobianCodeGen.h"
 #include "LLVMExecutableModel.h"
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
@@ -65,6 +66,8 @@ namespace rrllvm
         EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
         ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
         EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
+        /** Enzyme tangents of evalReactionRates (load option ENZYME_JACOBIAN), else null. */
+        EnzymeTangents_FunctionPtr evalReactionRatesTangentsPtr = nullptr;
         SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;
         SetFloatingSpeciesAmountCodeGen::FunctionPtr setFloatingSpeciesAmountPtr;
         SetBoundarySpeciesConcentrationCodeGen::FunctionPtr setBoundarySpeciesConcentrationPtr;

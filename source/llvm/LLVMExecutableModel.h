@@ -219,6 +219,13 @@ public:
      */
     virtual void getStateVectorRate(double time, const double *y, double* dydt=0);
 
+    /**
+     * Enzyme tangent of the reaction rates at the current state in the direction seed
+     * (length getStateVector(0), order [rate rule values; floating species amounts]),
+     * written to dv (length getNumReactions()). Needs the load option ENZYME_JACOBIAN.
+     */
+    void evalReactionRatesTangent(const double *seed, double *dv);
+
 
     virtual void testConstraints();
 

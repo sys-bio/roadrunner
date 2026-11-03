@@ -17,6 +17,7 @@
 #include "LLVMIncludes.h"
 #include "JitFactory.h"
 #include "ModelResources.h"
+#include "EnzymeJacobianCodeGen.h"
 #include "Random.h"
 #include <rrLogger.h>
 #include <rrUtils.h>
@@ -231,6 +232,9 @@ namespace rrllvm {
         if (options & LoadSBMLOptions::CONSERVED_MOIETIES) {
             sbmlMD5 += "_conserved";
         }
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            sbmlMD5 += "_enzyme";
+        }
         return sbmlMD5;
     }
 
@@ -247,6 +251,16 @@ namespace rrllvm {
         // Do all code generation here. This populates the IR module representing
         // this sbml model.
         codeGeneration(*modelGeneratorContext, options);
+
+#ifdef RR_USE_ENZYME
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            llvm::Module &module = *modelGeneratorContext->getJitNonOwning()->getModuleNonOwning();
+            EnzymeJacobianCodeGen::defineDifferentiableHelpers(module);
+            EnzymeJacobianCodeGen::emitTangents(module, EvalReactionRatesCodeGen::FunctionName,
+                                                EnzymeJacobianCodeGen::ReactionRatesTangentsName, 1);
+            EnzymeJacobianCodeGen::runEnzymePass(module);
+        }
+#endif
 
         /**
          * Adds the module and context which is owned by the Jit

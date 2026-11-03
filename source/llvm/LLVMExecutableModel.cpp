@@ -6,6 +6,7 @@
  *     andy V1 somogyi V2 gmail V3 com
  */
 #pragma hdrstop
+#include "EnzymeShadow.h"
 #include "LLVMExecutableModel.h"
 #include "ModelResources.h"
 #include "LLVMIncludes.h"
@@ -408,6 +409,21 @@ int LLVMExecutableModel::getFloatingSpeciesConcentrations(size_t len, int const 
 void LLVMExecutableModel::getRateRuleValues(double *rateRuleValues)
 {
     memcpy(rateRuleValues, modelData->rateRuleValuesAlias, modelData->numRateRules * sizeof(double));
+}
+
+void LLVMExecutableModel::evalReactionRatesTangent(const double *seed, double *dv)
+{
+    if (!resources->evalReactionRatesTangentsPtr) {
+        throw_llvm_exception("the model was loaded without the Enzyme Jacobian (Config.LLVM_ENZYME_JACOBIAN)");
+    }
+    LLVMModelData *shadow = EnzymeShadow::create(modelData);
+    std::copy(seed, seed + modelData->numRateRules, shadow->rateRuleValuesAlias);
+    std::copy(seed + modelData->numRateRules, seed + modelData->numRateRules + modelData->numIndFloatingSpecies,
+              shadow->floatingSpeciesAmountsAlias);
+    LLVMModelData *shadows[] = {shadow};
+    resources->evalReactionRatesTangentsPtr(modelData, shadows);
+    std::copy(shadow->reactionRatesAlias, shadow->reactionRatesAlias + modelData->numReactions, dv);
+    EnzymeShadow::free(shadow);
 }
 
 void LLVMExecutableModel::getStateVectorRate(double time, const double *y, double *dydt)

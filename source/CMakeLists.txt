@@ -230,6 +230,8 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.cpp
             llvm/EvalInitialConditionsCodeGen.cpp
             llvm/EvalRateRuleRatesCodeGen.cpp
+            llvm/EnzymeJacobianCodeGen.cpp
+            llvm/EnzymeShadow.cpp
             llvm/EvalReactionRatesCodeGen.cpp
             llvm/EvalVolatileStoichCodeGen.cpp
             llvm/EventAssignCodeGen.cpp
@@ -276,6 +278,8 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.h
             llvm/EvalInitialConditionsCodeGen.h
             llvm/EvalRateRuleRatesCodeGen.h
+            llvm/EnzymeJacobianCodeGen.h
+            llvm/EnzymeShadow.h
             llvm/EvalReactionRatesCodeGen.h
             llvm/EvalVolatileStoichCodeGen.h
             llvm/EventAssignCodeGen.h
