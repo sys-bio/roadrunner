@@ -108,6 +108,11 @@ option(BUILD_LLVM "Build the LLVM back end" ON)
 option(RR_USE_ENZYME "Link Enzyme for the analytic Jacobian of the CVODE integrator" OFF)
 set(RR_ENZYME_LIBRARY "" CACHE FILEPATH "Path to libEnzymeStatic-<LLVM major>.a, built against the LLVM roadrunner links")
 
+# Prototype: the sparse direct solver KLU for CVODE, with the Enzyme Jacobian. Needs SUNDIALS
+# built with KLU and the SuiteSparse install it was built against.
+option(RR_USE_KLU "Use the sparse direct solver KLU in CVODE (needs SUNDIALS with KLU)" OFF)
+set(RR_SUITESPARSE_PREFIX "" CACHE PATH "Install prefix of the SuiteSparse (KLU) that SUNDIALS was built with")
+
 # note I've tried using the C backend and it no longer compiles. Could be useful to keep though
 option(BUILD_LEGACY_C "Build the legacy C code generating backend (deprecated)" OFF)
 
@@ -494,6 +499,16 @@ if (RR_USE_ENZYME)
     endif ()
     add_definitions(-DRR_USE_ENZYME)
     message(STATUS "Enzyme: ${RR_ENZYME_LIBRARY}")
+endif ()
+
+if (RR_USE_KLU)
+    # point every SuiteSparse package at the given install, so a system SuiteSparse is not mixed in
+    foreach (pkg SuiteSparse_config AMD COLAMD BTF KLU)
+        set(${pkg}_DIR "${RR_SUITESPARSE_PREFIX}/lib/cmake/${pkg}" CACHE PATH "" FORCE)
+    endforeach ()
+    find_package(KLU CONFIG REQUIRED)
+    add_definitions(-DRR_USE_KLU)
+    message(STATUS "KLU: ${KLU_DIR}")
 endif ()
 
 find_package(SUNDIALS CONFIG REQUIRED)

@@ -17,6 +17,9 @@
 #include <sunnonlinsol/sunnonlinsol_fixedpoint.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunnonlinsol/sunnonlinsol_newton.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunlinsol/sunlinsol_dense.h>
+#ifdef RR_USE_KLU
+#include <sunlinsol/sunlinsol_klu.h>
+#endif
 
 #include <cstring>
 #include <iomanip>
@@ -785,6 +788,9 @@ namespace rr {
          * to see the different cvode options in action
          */
 
+        mEnzymeJacobian = false;
+        mSparseJacobian = false;
+
         /* create fixed point nonlinear solver object */
         if ((bool) getValue("stiff")) {
             // as per the cvode docs (look closely at docs for CVodeCreate)
@@ -828,8 +834,25 @@ namespace rr {
             }
 
             // the newton method requires use of a linear solver, which we set up here.
-            jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
-            linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            mSparseJacobian = mEnzymeJacobian && linearSolverSetting == "klu";
+            if (mSparseJacobian) {
+#ifdef RR_USE_KLU
+                const CscPattern &p = *mModel->getStateVectorJacobianPattern();
+                jac = SUNSparseMatrix(allocStateVectorSize, allocStateVectorSize, p.nnz(), CSC_MAT, mSunContext);
+                std::copy(p.colPtr.begin(), p.colPtr.end(), SUNSparseMatrix_IndexPointers(jac));
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), SUNSparseMatrix_IndexValues(jac));
+                linSolver = SUNLinSol_KLU(mStateVector, jac, mSunContext);
+                if (linSolver == nullptr) {
+                    throw std::runtime_error("CVODEIntegrator::createCVODE: SUNLinSol_KLU returned nullptr");
+                }
+#else
+                throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs a roadrunner built "
+                                            "with RR_USE_KLU");
+#endif
+            } else {
+                jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
+                linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            }
             if (linSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: call to SunLinSol_Dense returned nullptr. "
                                          "The size of the sundials matrix (created with SUNDenseMatrix) used for the jacobian "
@@ -1152,7 +1175,8 @@ namespace rr {
     std::unordered_map<std::string, long> CVODEIntegrator::getSolverStatistics() const {
         std::unordered_map<std::string, long> s = {
                 {"steps", 0}, {"rhs_evals", 0}, {"rhs_evals_jac", 0}, {"jac_evals", 0}, {"nonlin_iters", 0},
-                {"nonlin_conv_fails", 0}, {"err_test_fails", 0}, {"lin_setups", 0}};
+                {"nonlin_conv_fails", 0}, {"err_test_fails", 0}, {"lin_setups", 0},
+                {"sparse_linear_solver", mSparseJacobian ? 1 : 0}};
         if (mCVODE_Memory == nullptr) {
             return s;
         }

@@ -81,6 +81,7 @@ TEST_F(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
 
     ls::DoubleMatrix enzyme = run(rr, "PODOSE_hctz", 25.0, "enzyme");
     auto stats = cvode(rr)->getSolverStatistics();
+    EXPECT_EQ(stats["sparse_linear_solver"], 0);
     EXPECT_GT(stats["jac_evals"], 0);
     EXPECT_EQ(stats["rhs_evals_jac"], 0);
     EXPECT_GT(stats["steps"], 0);
@@ -126,4 +127,55 @@ TEST_F(CvodeEnzymeJacobianTests, SwitchSettingsBetweenSimulations) {
     EXPECT_GT(cvode(rr)->getSolverStatistics()["rhs_evals_jac"], 0);
     expectSameResults(b, a, "enzyme after difference quotient");
     expectSameResults(c, a, "difference quotient after enzyme");
+}
+
+TEST_F(CvodeEnzymeJacobianTests, KluMatchesDense) {
+    struct Case {
+        std::string path, dose;
+        double value;
+    };
+    for (const Case &c: {Case{hctz(), "PODOSE_hctz", 25.0}, Case{glimepiride(), "PODOSE_gli", 4.0}}) {
+        RoadRunner rr(c.path);
+        ls::DoubleMatrix reference = run(rr, c.dose, c.value, "difference_quotient");
+        ls::DoubleMatrix klu = run(rr, c.dose, c.value, "enzyme", "klu");
+        auto stats = cvode(rr)->getSolverStatistics();
+        EXPECT_EQ(stats["sparse_linear_solver"], 1);
+        EXPECT_GT(stats["jac_evals"], 0);
+        EXPECT_EQ(stats["rhs_evals_jac"], 0);
+        expectSameResults(klu, reference, c.path + " klu vs dense difference quotient");
+    }
+}
+
+TEST_F(CvodeEnzymeJacobianTests, KluRequiresEnzyme) {
+    RoadRunner rr(hctz());
+    EXPECT_THROW(rr.getIntegrator()->setValue("linear_solver", Setting("klu")), std::invalid_argument);
+    // the integrator still works with its previous settings
+    EXPECT_EQ(rr.getIntegrator()->getValue("linear_solver").getAs<std::string>(), "dense");
+    rr.simulate(0, 10, 11);
+}
+
+TEST_F(CvodeEnzymeJacobianTests, KluSurvivesEventsAndReset) {
+    ModelBuilder b;
+    b.compartment("c").species("S1").species("S2").parameter("k", 0.5)
+            .reaction("R1", {"S1"}, {"S2"}, "k*S1").reaction("R2", {"S2"}, {"S1"}, "0.1*S2*S2");
+    auto *event = b.model->createEvent();
+    event->setId("E1");
+    event->setUseValuesFromTriggerTime(true);
+    auto *trigger = event->createTrigger();
+    std::unique_ptr<libsbml::ASTNode> cond(libsbml::SBML_parseL3Formula("time > 3"));
+    trigger->setMath(cond.get());
+    trigger->setInitialValue(false);
+    trigger->setPersistent(true);
+    auto *assignment = event->createEventAssignment();
+    assignment->setVariable("S1");
+    std::unique_ptr<libsbml::ASTNode> value(libsbml::SBML_parseL3Formula("S1 + 2"));
+    assignment->setMath(value.get());
+
+    RoadRunner rr(b.sbml());
+    ls::DoubleMatrix reference = run(rr, "", 0.0, "difference_quotient");
+    ls::DoubleMatrix first = run(rr, "", 0.0, "enzyme", "klu");
+    EXPECT_EQ(cvode(rr)->getSolverStatistics()["sparse_linear_solver"], 1);
+    ls::DoubleMatrix second = run(rr, "", 0.0, "enzyme", "klu");
+    expectSameResults(first, reference, "klu with an event");
+    expectSameResults(second, reference, "klu after reset");
 }

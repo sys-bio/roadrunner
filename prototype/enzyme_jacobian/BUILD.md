@@ -28,6 +28,31 @@ make -C ~/rr-enzyme/build-enzyme -j20 EnzymeStatic-23
 # -> ~/rr-enzyme/build-enzyme/Enzyme/libEnzymeStatic-23.a
 ```
 
+## SuiteSparse (KLU) and SUNDIALS with KLU
+
+SuiteSparse `v7.14.1` (commit `e202a5b`, KLU 2.3.6), only the packages KLU needs, static and position independent. SUNDIALS `v7.9.0` (commit `312fc0f`, the version of the libroadrunner-deps archive) rebuilt with KLU and installed over the SUNDIALS of `~/rr-enzyme/deps` (a copy of the original is in `~/rr-enzyme/deps-orig`). Index size 64 and logging level 2 as in the archive. Ubuntu's own SuiteSparse in `/usr/lib` must not be picked up: SUNDIALS finds the static install through `CMAKE_PREFIX_PATH`, roadrunner through `RR_SUITESPARSE_PREFIX`.
+
+```bash
+git clone --depth 1 --branch v7.14.1 https://github.com/DrTimothyAldenDavis/SuiteSparse.git ~/rr-enzyme/src/SuiteSparse
+cmake -S ~/rr-enzyme/src/SuiteSparse -B ~/rr-enzyme/build-suitesparse -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=$HOME/rr-enzyme/suitesparse \
+  -DSUITESPARSE_ENABLE_PROJECTS="suitesparse_config;amd;colamd;btf;klu" \
+  -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+  -DKLU_USE_CHOLMOD=OFF -DSUITESPARSE_USE_FORTRAN=OFF -DSUITESPARSE_USE_OPENMP=OFF \
+  -DSUITESPARSE_DEMOS=OFF -DBUILD_TESTING=OFF
+make -C ~/rr-enzyme/build-suitesparse -j20 install
+
+git clone --depth 1 --branch v7.9.0 https://github.com/LLNL/sundials.git ~/rr-enzyme/src/sundials
+cmake -S ~/rr-enzyme/src/sundials -B ~/rr-enzyme/build-sundials -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=$HOME/rr-enzyme/deps -DCMAKE_INSTALL_LIBDIR=lib \
+  -DCMAKE_PREFIX_PATH=$HOME/rr-enzyme/suitesparse \
+  -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+  -DSUNDIALS_INDEX_SIZE=64 -DSUNDIALS_LOGGING_LEVEL=2 \
+  -DBUILD_ARKODE=OFF -DBUILD_IDA=OFF -DBUILD_IDAS=OFF -DBUILD_CVODE=ON -DBUILD_CVODES=ON -DBUILD_KINSOL=ON \
+  -DEXAMPLES_ENABLE_C=OFF -DEXAMPLES_INSTALL=OFF -DSUNDIALS_ENABLE_KLU=ON
+make -C ~/rr-enzyme/build-sundials -j20 install
+```
+
 ## roadrunner
 
 ```bash
@@ -37,7 +62,8 @@ cmake -S ~/git/roadrunner-enzyme -B ~/rr-enzyme/build \
   -DRR_DEPENDENCIES_INSTALL_PREFIX=$HOME/rr-enzyme/deps \
   -DCMAKE_INSTALL_PREFIX=$HOME/rr-enzyme/install \
   -DRR_USE_ENZYME=ON \
-  -DRR_ENZYME_LIBRARY=$HOME/rr-enzyme/build-enzyme/Enzyme/libEnzymeStatic-23.a
+  -DRR_ENZYME_LIBRARY=$HOME/rr-enzyme/build-enzyme/Enzyme/libEnzymeStatic-23.a \
+  -DRR_USE_KLU=ON -DRR_SUITESPARSE_PREFIX=$HOME/rr-enzyme/suitesparse
 make -C ~/rr-enzyme/build -j20
 ctest --test-dir ~/rr-enzyme/build -j20
 ```
