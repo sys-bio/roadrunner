@@ -1906,7 +1906,21 @@ namespace rr {
         bool populateResult();
 
 
-        double getNthSelectedOutput(size_t index, double currentTime);
+        /**
+         * the value of the n'th selection, a reaction rate from reactionRates
+         * if given, see getSelectedReactionRates
+         */
+        double getNthSelectedOutput(size_t index, double currentTime,
+                                    const double *reactionRates = nullptr);
+
+        /**
+         * Evaluates the reaction rates once for the selections of an output
+         * row and returns them, or nullptr if no reaction rate is selected.
+         * The rate of one reaction is evaluated with all reaction rates of the
+         * model, so reading every selected rate on its own made an output row
+         * quadratic in the number of reactions.
+         */
+        const double *getSelectedReactionRates();
 
         bool isParameterUsed(const std::string &sid);
 

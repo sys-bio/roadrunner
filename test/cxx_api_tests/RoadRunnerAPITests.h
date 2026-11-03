@@ -588,6 +588,31 @@ public:
         delete testModel;
     }
 
+    void getSelectedReactionRates() {
+        // the reaction rates of every output row are the ones of its state,
+        // also selected twice and between other selections
+        TestModel *testModel = TestModelFactory("SimpleFlux");
+        RoadRunner rr(testModel->str());
+        rr.setSelections({"time", "_J1", "[S1]", "_J0", "[S2]", "_J1"});
+        const ls::DoubleMatrix *result = rr.simulate(0, 10, 11);
+        ASSERT_EQ(result->numRows(), 11);
+        for (int i = 0; i < result->numRows(); ++i) {
+            const double s1 = (*result)(i, 2);
+            const double s2 = (*result)(i, 4);
+            EXPECT_DOUBLE_EQ((*result)(i, 1), 0.01 * s2);
+            EXPECT_DOUBLE_EQ((*result)(i, 3), 0.1 * s1);
+            EXPECT_DOUBLE_EQ((*result)(i, 5), 0.01 * s2);
+        }
+        // the last row is the state of the model at the end
+        std::vector<double> x = rr.getSelectedValues();
+        ASSERT_EQ(x.size(), 6);
+        EXPECT_EQ(x[1], rr.getValue("_J1"));
+        EXPECT_EQ(x[3], rr.getValue("_J0"));
+        EXPECT_EQ(x[5], rr.getValue("_J1"));
+        EXPECT_EQ(x[3], (*result)(10, 3));
+        delete testModel;
+    }
+
     void getIndependentFloatingSpeciesIds() {
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());

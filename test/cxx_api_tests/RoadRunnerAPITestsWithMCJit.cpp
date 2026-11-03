@@ -194,6 +194,10 @@ TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedValues){
     getSelectedValues();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedReactionRates){
+    getSelectedReactionRates();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, getIndependentFloatingSpeciesIds){
     getIndependentFloatingSpeciesIds();
 }

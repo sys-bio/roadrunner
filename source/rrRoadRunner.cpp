@@ -230,6 +230,11 @@ namespace rr {
         std::vector<SelectionRecord> mSelectionList;
 
         /**
+         * the reaction rates of an output row, see getSelectedReactionRates
+         */
+        std::vector<double> selectedReactionRates;
+
+        /**
          * ModelGenerator obtained from the factory
          */
         LoadSBMLOptions loadOpt;
@@ -1410,14 +1415,29 @@ namespace rr {
         return dResult;
     }
 
-    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime) {
+    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime,
+                                            const double *reactionRates) {
         const SelectionRecord &record = impl->mSelectionList[index];
 
         if (record.selectionType == SelectionRecord::TIME) {
             return currentTime;
+        } else if (reactionRates && record.selectionType == SelectionRecord::REACTION_RATE) {
+            return reactionRates[record.index];
         } else {
             return getValue(record);
         }
+    }
+
+    const double *RoadRunner::getSelectedReactionRates() {
+        for (const SelectionRecord &record: impl->mSelectionList) {
+            if (record.selectionType == SelectionRecord::REACTION_RATE) {
+                std::vector<double> &rates = impl->selectedReactionRates;
+                rates.resize(impl->model->getNumReactions());
+                impl->model->getReactionRates(rates.size(), nullptr, rates.data());
+                return rates.data();
+            }
+        }
+        return nullptr;
     }
 
     int RoadRunner::getTimeRowIndex() {
@@ -1432,8 +1452,9 @@ namespace rr {
     }
 
     void RoadRunner::getSelectedValues(ls::DoubleMatrix &results, int nRow, double currentTime) {
+        const double *reactionRates = getSelectedReactionRates();
         for (u_int j = 0; j < impl->mSelectionList.size(); j++) {
-            double out = getNthSelectedOutput(j, currentTime);
+            double out = getNthSelectedOutput(j, currentTime, reactionRates);
             results(nRow, j) = out;
         }
     }
@@ -1443,9 +1464,10 @@ namespace rr {
         assert(results.size() == impl->mSelectionList.size()
                && "given std::vector and selection list different size");
 
+        const double *reactionRates = getSelectedReactionRates();
         size_t size = results.size();
         for (size_t i = 0; i < size; ++i) {
-            results[i] = getNthSelectedOutput(i, currentTime);
+            results[i] = getNthSelectedOutput(i, currentTime, reactionRates);
         }
     }
 
@@ -5222,8 +5244,9 @@ namespace rr {
         std::vector<double> result;
         result.resize(impl->mSelectionList.size());
 
+        const double *reactionRates = getSelectedReactionRates();
         for (int i = 0; i < impl->mSelectionList.size(); i++) {
-            result[i] = getNthSelectedOutput(i, impl->model->getTime());
+            result[i] = getNthSelectedOutput(i, impl->model->getTime(), reactionRates);
         }
         return result;
     }
