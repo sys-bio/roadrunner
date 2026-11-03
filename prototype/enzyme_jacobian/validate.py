@@ -14,10 +14,14 @@ next to large terms of its rate (Chen_MSB2009: a rate of 1.3e5 and derivatives o
 step far above 1e-12 to rise above their rounding, while small states need small steps. At a kink
 (max, min or a piecewise switching exactly at the state) the exact derivative is that of the
 active branch, which matches a one-sided difference, so an entry also passes if it matches a
-one-sided difference within 1e-4.
+one-sided difference within 1e-4. Where the central differences of the different steps disagree
+with each other by more than the closest of them differs from the Enzyme value, they are rounding
+noise and cannot judge the entry; such entries pass and are counted as `noise`. The reported
+relative error only covers entries whose central differences agree with each other within 1e-3.
 
-Usage: python validate.py [--sts-only | --benchmark-only] [--jobs N]
-Writes validation.md and validation.json next to this script; exits non-zero on any failure.
+Usage: [RR_LLVM_BACKEND=lljit [RR_LLJIT_OPT=aggressive]] python validate.py [--sts-only | --benchmark-only] [--jobs N]
+Writes validation.md and validation.json next to this script (validation-lljit-<level>.* for
+LLJit, see models.backend_label); exits non-zero on any failure.
 """
 
 from __future__ import annotations
@@ -33,6 +37,8 @@ from pathlib import Path
 
 import numpy as np
 import roadrunner
+
+from models import apply_backend, backend_label
 
 HERE = Path(__file__).resolve().parent
 STS = HERE.parent.parent / "test" / "sbml-test-suite" / "semantic"
@@ -75,7 +81,7 @@ def check_jacobian(rr) -> dict:
     J = np.asarray(rr.getStateVectorJacobian(), dtype=float).reshape(n, n)
     P = np.asarray(rr.getStateVectorJacobianPattern(), dtype=float).reshape(n, n)
     if n == 0:
-        return {"states": 0, "nnz": 0, "bad": 0, "outside": 0, "max_rel_err": 0.0}
+        return {"states": 0, "nnz": 0, "bad": 0, "noise": 0, "outside": 0, "max_rel_err": 0.0}
     fds = [fd_jacobians(model, floor) for floor in FD_FLOORS]
     c1 = fds[0][0]
     # the largest entry of each row, over all step sizes
@@ -91,6 +97,15 @@ def check_jacobian(rr) -> dict:
     ok = np.zeros(J.shape, dtype=bool)
     for central, forward, backward in fds:
         ok |= close(central) | one_sided(forward) | one_sided(backward)
+    # rounding noise: where the central differences of the different steps disagree with each
+    # other by more than the closest of them differs from the Enzyme value, they cannot judge it
+    # (an entry that is zero by cancellation, e.g. dA/dt = V dS/dt + S dV/dt in a variable
+    # compartment, with fused multiply-adds in the generated code)
+    centrals = np.stack([f[0] for f in fds])
+    spread = np.nanmax(centrals, axis=0) - np.nanmin(centrals, axis=0)
+    nearest = np.nanmin(np.abs(centrals - J), axis=0)
+    noise = ~ok & (nearest <= spread)
+    ok |= noise
     # a nonzero of any central difference above the noise floor must be in the pattern
     outside = np.zeros(J.shape, dtype=bool)
     for central, _, _ in fds:
@@ -98,13 +113,16 @@ def check_jacobian(rr) -> dict:
     # relative error against the closest reference, over the entries above the noise floor
     refs = np.stack([m for f in fds for m in f])
     best = np.take_along_axis(refs, np.argmin(np.nan_to_num(np.abs(refs - J), nan=np.inf), axis=0)[None], axis=0)[0]
-    significant = np.abs(best) > 1e-8 * scale
+    # the error statistic only over entries whose central differences agree within 1e-3
+    reliable = spread <= 1e-3 * np.nanmax(np.abs(centrals), axis=0)
+    significant = (np.abs(best) > 1e-8 * scale) & reliable
     rel = np.where(significant, np.abs(J - best) / np.maximum(np.abs(best), 1e-300), 0.0)
     bad_entries = [(int(i), int(j), float(J[i, j]), float(c1[i, j])) for i, j in zip(*np.nonzero(~ok))]
     return {
         "states": int(n),
         "nnz": int(P.sum()),
         "bad": int((~ok).sum()),
+        "noise": int(noise.sum()),
         "outside": int(outside.sum()),
         "max_rel_err": float(rel.max()),
         "examples": bad_entries[:5],
@@ -240,6 +258,7 @@ def validate_sts_case(case: Path) -> dict:
 def sts_worker(cases: list[str]) -> None:
     """Validate the given cases in this process, one JSON line per case on stdout."""
     roadrunner.Logger.setLevel(roadrunner.Logger.LOG_ERROR)
+    apply_backend()
     roadrunner.Config.setValue(roadrunner.Config.LLVM_ENZYME_JACOBIAN, True)
     for name in cases:
         print(json.dumps(validate_sts_case(STS / name)), flush=True)
@@ -277,6 +296,7 @@ def validate_benchmark() -> dict[str, dict]:
     from models import benchmark_cases
 
     roadrunner.Logger.setLevel(roadrunner.Logger.LOG_ERROR)
+    apply_backend()
     roadrunner.Config.setValue(roadrunner.Config.LLVM_ENZYME_JACOBIAN, True)
     out = {}
     for name, case in benchmark_cases().items():
@@ -291,11 +311,12 @@ def validate_benchmark() -> dict[str, dict]:
 
 def write_report(bench: dict[str, dict], sts: list[dict], seconds: float) -> None:
     """Write validation.md and validation.json."""
-    lines = ["# Validation of the Enzyme Jacobian", ""]
+    label = backend_label()
+    lines = ["# Validation of the Enzyme Jacobian", "", f"JIT backend: `{label}`.", ""]
     lines.append(
         "Generated by `validate.py`. Reference: finite differences of the state vector rate, see the "
         "module docstring for the tolerances. `bad` counts entries that match no reference, `outside` "
-        "finite difference nonzeros outside the sparsity pattern. Simulations: `difference_quotient+dense`, "
+        "finite difference nonzeros outside the sparsity pattern, `noise` entries at the rounding noise of the finite differences. Simulations: `difference_quotient+dense`, "
         "`enzyme+dense` and `enzyme+klu` at `rtol = atol = 1e-10`, each compared with a reference at "
         "`rtol = 1e-12, atol = 1e-14`. The deviation is the largest difference of a column in units of "
         f"{SIM_COLUMN_RTOL:g} of the largest absolute value of the column plus {SIM_ATOL:g} (1 = at the "
@@ -304,15 +325,15 @@ def write_report(bench: dict[str, dict], sts: list[dict], seconds: float) -> Non
     )
     if bench:
         lines += ["", "## Benchmark models", ""]
-        lines.append("| model | states | pattern nnz | time | bad | outside | max rel. error | simulations agree (deviation dq / enzyme / klu) |")
-        lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+        lines.append("| model | states | pattern nnz | time | bad | noise | outside | max rel. error | simulations agree (deviation dq / enzyme / klu) |")
+        lines.append("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
         for name, r in bench.items():
             if "checks" not in r:
-                lines.append(f"| {name} | | | | | | | not available: {r.get('reason')} |")
+                lines.append(f"| {name} | | | | | | | | not available: {r.get('reason')} |")
                 continue
             for c in r["checks"]:
                 lines.append(
-                    f"| {name} | {c['states']} | {c['nnz']} | {c['time']:g} | {c['bad']} | {c['outside']} | "
+                    f"| {name} | {c['states']} | {c['nnz']} | {c['time']:g} | {c['bad']} | {c.get('noise', 0)} | {c['outside']} | "
                     f"{c['max_rel_err']:.1e} | {'yes' if r['simulations_agree'] else 'NO'} "
                     f"({' / '.join(f'{d:.1e}' for d in r['sim_deviation'].values())}) |"
                 )
@@ -323,6 +344,9 @@ def write_report(bench: dict[str, dict], sts: list[dict], seconds: float) -> Non
         lines += ["", "## SBML test suite (semantic)", ""]
         lines.append(f"{len(sts)} cases: " + ", ".join(f"{len(v)} {k}" for k, v in sorted(by_status.items())) + ".")
         ok_cases = by_status.get("ok", [])
+        noisy = [r["case"] for r in ok_cases if any(c.get("noise", 0) for c in r["checks"])]
+        if noisy:
+            lines.append(f"Passing cases with entries at the rounding noise of the finite differences: {', '.join(noisy)}.")
         if ok_cases:
             worst = max(ok_cases, key=lambda r: max(c["max_rel_err"] for c in r["checks"]))
             lines.append(
@@ -347,8 +371,9 @@ def write_report(bench: dict[str, dict], sts: list[dict], seconds: float) -> Non
                 for reason, cases in sorted(reasons.items(), key=lambda kv: -len(kv[1])):
                     lines.append(f"- {len(cases)}: {reason} (e.g. {', '.join(cases[:5])})")
     lines += ["", f"Run time: {seconds:.0f} s.", ""]
-    (HERE / "validation.md").write_text("\n".join(lines))
-    (HERE / "validation.json").write_text(json.dumps({"benchmark": bench, "sts": sts}, indent=1))
+    stem = "validation" if label == "mcjit" else f"validation-{label}"
+    (HERE / f"{stem}.md").write_text("\n".join(lines))
+    (HERE / f"{stem}.json").write_text(json.dumps({"benchmark": bench, "sts": sts}, indent=1))
 
 
 def main() -> int:
@@ -366,7 +391,8 @@ def main() -> int:
     sts = [] if args.benchmark_only else validate_sts(args.jobs)
     write_report(bench, sts, time.time() - t0)
     failed = [n for n, r in bench.items() if not r["ok"]] + [r["case"] for r in sts if r["status"] == "failed"]
-    print((HERE / "validation.md").read_text())
+    stem = "validation" if backend_label() == "mcjit" else f"validation-{backend_label()}"
+    print((HERE / f"{stem}.md").read_text())
     return 1 if failed else 0
 
 

@@ -8,6 +8,9 @@
 // dense difference quotient of CVODE costs one state vector rate per state, so its time is
 // estimated as n times the time of one rate. Also reports the time of loading the model with the
 // Enzyme Jacobian (compiled anew). Prints one JSON object.
+//
+// The JIT backend comes from the environment, as in models.py: RR_LLVM_BACKEND (mcjit, the
+// default, or lljit) and RR_LLJIT_OPT (none, the default, less, default or aggressive).
 
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
@@ -23,10 +26,30 @@
 #include <cstdlib>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
 namespace {
+    void applyBackendFromEnvironment() {
+        const char *backend = std::getenv("RR_LLVM_BACKEND");
+        if (backend == nullptr || std::string(backend) == "mcjit") {
+            rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::MCJIT);
+            return;
+        }
+        if (std::string(backend) != "lljit") {
+            throw std::invalid_argument("RR_LLVM_BACKEND must be mcjit or lljit");
+        }
+        rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLJIT);
+        const char *opt = std::getenv("RR_LLJIT_OPT");
+        const std::vector<std::string> levels{"none", "less", "default", "aggressive"};
+        auto it = std::find(levels.begin(), levels.end(), opt == nullptr ? "none" : opt);
+        if (it == levels.end()) {
+            throw std::invalid_argument("RR_LLJIT_OPT must be none, less, default or aggressive");
+        }
+        rr::Config::setValue(rr::Config::LLJIT_OPTIMIZATION_LEVEL, static_cast<int>(it - levels.begin()));
+    }
+
     template<typename F>
     double medianSeconds(F f, int reps, int batch) {
         std::vector<double> t;
@@ -55,6 +78,7 @@ int main(int argc, char **argv) {
     int reps = argc >= 6 ? std::stoi(argv[5]) : (argc == 4 ? std::stoi(argv[3]) : 21);
 
     rr::Logger::setLevel(rr::Logger::LOG_ERROR);
+    applyBackendFromEnvironment();
     rr::Config::setValue(rr::Config::LLVM_ENZYME_JACOBIAN, true);
     rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_RECOMPILE, true);
     auto loadStart = std::chrono::steady_clock::now();

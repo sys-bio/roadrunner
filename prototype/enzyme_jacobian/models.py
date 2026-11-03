@@ -10,6 +10,7 @@ roadrunner see them like any other value of the model.
 from __future__ import annotations
 
 import csv
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -20,6 +21,53 @@ WORK = HOME / "rr-enzyme" / "models"
 PETAB_CACHE = HOME / ".cache" / "sbmlsim" / "petab-benchmark"
 # the newer of the two cached commits (2026-10-26; the other one is from 2026-09-28)
 PETAB_COMMIT = "c44d5ede9bf979db5aa8ae4e94fc31fba9776675"
+
+
+LLJIT_OPT_LEVELS = ("none", "less", "default", "aggressive")
+
+
+def backend_label() -> str:
+    """The JIT backend chosen by RR_LLVM_BACKEND (mcjit, the default of roadrunner, or lljit) and,
+    for LLJit, RR_LLJIT_OPT (its codegen level, none by default as in roadrunner)."""
+    backend = os.environ.get("RR_LLVM_BACKEND", "mcjit").lower()
+    if backend == "mcjit":
+        return "mcjit"
+    if backend != "lljit":
+        raise ValueError(f"RR_LLVM_BACKEND must be mcjit or lljit, not {backend!r}")
+    opt = os.environ.get("RR_LLJIT_OPT", "none").lower()
+    if opt not in LLJIT_OPT_LEVELS:
+        raise ValueError(f"RR_LLJIT_OPT must be one of {LLJIT_OPT_LEVELS}, not {opt!r}")
+    return f"lljit-{opt}"
+
+
+def set_backend(label: str) -> None:
+    """Set the JIT backend of roadrunner for the next loads: mcjit or lljit-<level>."""
+    import roadrunner
+
+    C = roadrunner.Config
+    if label == "mcjit":
+        C.setValue(C.LLVM_BACKEND, C.MCJIT)
+        return
+    backend, _, opt = label.partition("-")
+    if backend != "lljit" or opt not in LLJIT_OPT_LEVELS:
+        raise ValueError(f"unknown backend {label!r}: mcjit or lljit-<{'|'.join(LLJIT_OPT_LEVELS)}>")
+    C.setValue(C.LLVM_BACKEND, C.LLJIT)
+    C.setValue(C.LLJIT_OPTIMIZATION_LEVEL, LLJIT_OPT_LEVELS.index(opt))
+
+
+def backend_environment(label: str) -> dict[str, str]:
+    """The environment that selects the backend `label` in a subprocess (see backend_label)."""
+    env = {k: v for k, v in os.environ.items() if k not in ("RR_LLVM_BACKEND", "RR_LLJIT_OPT")}
+    if label != "mcjit":
+        env["RR_LLVM_BACKEND"], _, env["RR_LLJIT_OPT"] = label.partition("-")
+    return env
+
+
+def apply_backend() -> str:
+    """Set the JIT backend of roadrunner from the environment (see backend_label), return its label."""
+    label = backend_label()
+    set_backend(label)
+    return label
 
 
 @dataclass

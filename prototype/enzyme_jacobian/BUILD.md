@@ -86,6 +86,23 @@ cd ~/git/roadrunner-enzyme/prototype/enzyme_jacobian
 ~/rr-enzyme/venv/bin/python benchmark.py         # benchmark.csv, needs the target enzyme_jacobian_timing
 ```
 
+## JIT backends
+
+roadrunner has two JITs, MCJit (still the default, see below) and LLJit. The scripts and the timing tool take the backend from the environment: `RR_LLVM_BACKEND=lljit` with `RR_LLJIT_OPT=none|less|default|aggressive` (the codegen level of LLJit, `none` by default as in roadrunner). The C++ tests run every Enzyme test with both backends (`Backends/...MCJit` and `Backends/...LLJit`).
+
+```bash
+RR_LLVM_BACKEND=lljit RR_LLJIT_OPT=none ~/rr-enzyme/venv/bin/python validate.py        # validation-lljit-none.md
+RR_LLVM_BACKEND=lljit RR_LLJIT_OPT=aggressive ~/rr-enzyme/venv/bin/python validate.py  # validation-lljit-aggressive.md
+~/rr-enzyme/venv/bin/python benchmark.py --backends mcjit,lljit-none,lljit-aggressive --reps 10 --load-reps 3 --rounds 3   # jit.csv
+```
+
+Two properties of roadrunner matter for measuring LLJit:
+
+- MCJit is still the default, although #1215 meant to make LLJit the default: it changed the map of the configuration file names instead of the default value (#1419). The effective LLJit defaults are codegen level `none` and one compile thread.
+- LLJit keeps the compiled object of a model for the whole process, regardless of `LOADSBMLOPTIONS_RECOMPILE` and of the optimization level (#1420). A second load of the same model in a process does not compile at all. `benchmark.py` therefore measures every load in a fresh process and every backend in a process of its own.
+
+Variables for experiments, not meant to stay: `RR_ENZYME_BLOCK_SIZE` (reactions per differentiated block, default 64), `RR_ENZYME_MAX_WIDTH` (vector width, default 1), `RR_ENZYME_OPTIONS` (Enzyme command line options, e.g. `enzyme-preopt=0`) and `RR_ENZYME_DUMP_IR` (writes the module as Enzyme gets it to a file).
+
 The `develop` baseline of the benchmark is a second worktree at `2876ab2ed` (`~/git/roadrunner-develop`), built the same way without the two options and without tests into `~/rr-enzyme/build-develop`, with its own environment `~/rr-enzyme/venv-develop`, against the same `~/rr-enzyme/deps`.
 
 ## Known test failures that are not caused by the prototype
