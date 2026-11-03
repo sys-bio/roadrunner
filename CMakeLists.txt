@@ -103,6 +103,11 @@ option(BUILD_TEST_TOOLS "Build and install test tools" OFF)
 option(BUILD_TESTS "Build the SBML C API test suite" OFF)
 option(BUILD_LLVM "Build the LLVM back end" ON)
 
+# Prototype: exact Jacobian by automatic differentiation of the generated LLVM IR with Enzyme
+# (https://enzyme.mit.edu). Needs the static Enzyme library built against the same LLVM.
+option(RR_USE_ENZYME "Link Enzyme for the analytic Jacobian of the CVODE integrator" OFF)
+set(RR_ENZYME_LIBRARY "" CACHE FILEPATH "Path to libEnzymeStatic-<LLVM major>.a, built against the LLVM roadrunner links")
+
 # note I've tried using the C backend and it no longer compiles. Could be useful to keep though
 option(BUILD_LEGACY_C "Build the legacy C code generating backend (deprecated)" OFF)
 
@@ -482,6 +487,14 @@ if (UNIX AND NOT APPLE)
 endif ()
 
 find_package(LLVM REQUIRED)
+
+if (RR_USE_ENZYME)
+    if (NOT EXISTS "${RR_ENZYME_LIBRARY}")
+        message(FATAL_ERROR "RR_USE_ENZYME is ON but RR_ENZYME_LIBRARY ('${RR_ENZYME_LIBRARY}') does not exist")
+    endif ()
+    add_definitions(-DRR_USE_ENZYME)
+    message(STATUS "Enzyme: ${RR_ENZYME_LIBRARY}")
+endif ()
 
 find_package(SUNDIALS CONFIG REQUIRED)
 if (SUNDIALS_VERSION AND SUNDIALS_VERSION VERSION_LESS RR_MIN_SUNDIALS_VERSION)

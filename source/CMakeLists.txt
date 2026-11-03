@@ -462,6 +462,11 @@ message(STATUS " LLVM_LIBRARIES ${LLVM_LIBRARIES}}")
     list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
 
 
+set(RR_ENZYME_LINK_LIBRARY)
+if (RR_USE_ENZYME)
+    set(RR_ENZYME_LINK_LIBRARY ${RR_ENZYME_LIBRARY})
+endif ()
+
 # link the libraries -- remember that order here
 #   is important on linux builds so don't change
 target_link_libraries(
@@ -469,6 +474,8 @@ target_link_libraries(
         PUBLIC
         ${PLATFORM_SPECIFIC_LIBS}
 
+        # Enzyme depends on LLVM, so it comes before the LLVM libraries
+        ${RR_ENZYME_LINK_LIBRARY}
         ${LLVM_LIBRARIES}
         rr-libstruct::rr-libstruct-static
         ${SBML_TARGET_NAME}
