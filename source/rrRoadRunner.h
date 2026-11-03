@@ -44,6 +44,8 @@ namespace rr {
 
     class SensitivitySolver;
 
+    struct SelectedRates;
+
     template<class IndexType, class DataType>
     class Matrix3D;
 
@@ -1907,20 +1909,31 @@ namespace rr {
 
 
         /**
-         * the value of the n'th selection, a reaction rate from reactionRates
-         * if given, see getSelectedReactionRates
+         * the value of the n'th selection, using the rates of the output row
+         * if given, see evaluateSelectedRates
          */
         double getNthSelectedOutput(size_t index, double currentTime,
-                                    const double *reactionRates = nullptr);
+                                    const SelectedRates *rates = nullptr);
 
         /**
-         * Evaluates the reaction rates once for the selections of an output
-         * row and returns them, or nullptr if no reaction rate is selected.
-         * The rate of one reaction is evaluated with all reaction rates of the
-         * model, so reading every selected rate on its own made an output row
-         * quadratic in the number of reactions.
+         * Evaluates once for the selections of an output row the values that
+         * the model can only calculate for all of its elements at once: the
+         * reaction rates, the rates of change of the floating species and the
+         * rates of change given by rate rules. Returns nullptr if none of the
+         * selections needs them. Reading each of them on its own made an
+         * output row quadratic in the size of the model.
          */
-        const double *getSelectedReactionRates();
+        const SelectedRates *evaluateSelectedRates(const std::vector<SelectionRecord> &selections);
+
+        /**
+         * the value of a selection, using the rates from evaluateSelectedRates if given
+         */
+        double getValue(const SelectionRecord &record, const SelectedRates *rates);
+
+        /**
+         * the rate of change of the amount of a floating species selection
+         */
+        double getFloatingAmountRate(const SelectionRecord &record, const SelectedRates *rates);
 
         bool isParameterUsed(const std::string &sid);
 
