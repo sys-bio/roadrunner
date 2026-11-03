@@ -269,12 +269,6 @@ namespace rrllvm {
          */
         auto compileStart = std::chrono::steady_clock::now();
         modelGeneratorContext->getJitNonOwning()->addModule();
-        auto compileEnd = std::chrono::steady_clock::now();
-        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
-            rrLog(Logger::LOG_INFORMATION) << "Enzyme Jacobian: preparation "
-                    << std::chrono::duration<double>(compileStart - enzymeStart).count() << " s, compilation "
-                    << std::chrono::duration<double>(compileEnd - compileStart).count() << " s";
-        }
 
         // models made later from these resources (see createModel) need the same number
         modelResources->numPiecewiseTriggers = modelGeneratorContext->getNumPiecewiseTriggers();
@@ -302,6 +296,13 @@ namespace rrllvm {
 
         modelGeneratorContext->getJitNonOwning()->mapLLVMGeneratedFunctionsToSymbols(modelResources.get(), options);
         EnzymeJacobianCodeGen::lookup(*modelGeneratorContext, modelResources->enzymeJacobian);
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            // MCJit compiles in addModule, LLJit when the functions are looked up
+            auto compileEnd = std::chrono::steady_clock::now();
+            rrLog(Logger::LOG_INFORMATION) << "Enzyme Jacobian: preparation "
+                    << std::chrono::duration<double>(compileStart - enzymeStart).count() << " s, compilation "
+                    << std::chrono::duration<double>(compileEnd - compileStart).count() << " s";
+        }
 
 
         return modelData;

@@ -9,6 +9,7 @@
 #include <vector>
 
 namespace llvm {
+    class Function;
     class Module;
 }
 
@@ -41,6 +42,10 @@ namespace rrllvm {
         int numColors = 0;
         int width = 0;
 
+        /** Number of blocks the reaction rates and the rate rule rates are differentiated in. */
+        int reactionRateBlocks = 0;
+        int rateRuleBlocks = 0;
+
         EnzymeTangents_FunctionPtr reactionRatesTangents = nullptr;
         EnzymeTangents_FunctionPtr rateRuleRatesTangents = nullptr;
 
@@ -66,10 +71,21 @@ namespace rrllvm {
          * Default vector width of the generated tangents functions: one seed direction per pass.
          * Measured on the benchmark models (prototype/enzyme_jacobian/RESULTS.md), a wider vector
          * hardly changes the time of a Jacobian but multiplies the compilation time (Chen_MSB2009,
-         * 7 colors: 11 s to load at width 1, 59 s at width 7). The environment variable
+         * 7 colors, MCJit, before the blocks: 11 s to load at width 1, 59 s at width 7). The environment variable
          * RR_ENZYME_MAX_WIDTH sets a larger width.
          */
         static const int DefaultWidth = 1;
+
+        /**
+         * Default number of rates (stores of the primal function) per block. Enzyme's activity
+         * analysis grows faster than linearly with the size of the differentiated function, so
+         * the primal is differentiated in blocks, each a copy reduced to the rates of the block
+         * (see splitByStores). On Chen_MSB2009 (827 reactions, prototype/enzyme_jacobian/blocks.csv)
+         * 64 loads fastest with both JITs: the Enzyme pass takes 2.6 s instead of 8.6 s with LLJit;
+         * smaller blocks cost more in copying and per-block overhead than they save. The time of a
+         * Jacobian does not change. The environment variable RR_ENZYME_BLOCK_SIZE sets another size.
+         */
+        static const int DefaultBlockSize = 64;
 
         /**
          * @brief Prepare the Enzyme Jacobian of the model of the context: check the cases it
@@ -84,10 +100,25 @@ namespace rrllvm {
         static void lookup(const ModelGeneratorContext &context, EnzymeJacobianResources &res);
 
         /**
-         * @brief Emit the tangents wrapper `name` of the primal function `primal` with vector width `width`.
+         * @brief Emit the tangents wrapper `name` of the primal function `primal` with vector width
+         * `width`, differentiating the primal in blocks of at most `blockSize` rates (see
+         * splitByStores). Returns the number of blocks.
          */
-        static void emitTangents(llvm::Module &module, const std::string &primal, const std::string &name,
-                                 unsigned width);
+        static int emitTangents(llvm::Module &module, const std::string &primal, const std::string &name,
+                                unsigned width, unsigned blockSize);
+
+        /**
+         * @brief Split the primal function f into internal copies that each write only a block of
+         * at most blockSize of the rates f writes, with the code no longer needed removed. The
+         * copies together write what f writes. This needs the shape of the generated
+         * evalReactionRates, which is checked: every store writes the reaction rates of the model
+         * data (the first argument), no load reads them (a reaction id in the math is computed
+         * again from its kinetic law, see LoadSymbolResolverBase::loadReactionRate), every load
+         * reads a field of the model data or through one of its alias pointers, and every call is
+         * to a pure function (an intrinsic, the math library or a helper with an IR body).
+         * Returns {f} if f has another shape or at most blockSize stores.
+         */
+        static std::vector<llvm::Function *> splitByStores(llvm::Function *f, unsigned blockSize);
 
         /**
          * @brief Give the C++ helpers with a simple derivative an IR body in the module, so

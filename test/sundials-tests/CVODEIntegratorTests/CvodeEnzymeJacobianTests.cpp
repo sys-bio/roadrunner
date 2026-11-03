@@ -69,20 +69,26 @@ namespace {
         EXPECT_EQ(bad, 0) << label;
     }
 
-    class CvodeEnzymeJacobianTests : public ::testing::Test {
+    /** Runs every test with both JIT backends of roadrunner. */
+    class CvodeEnzymeJacobianTests : public ::testing::TestWithParam<Config::LLVM_BACKEND_VALUES> {
     public:
-        CvodeEnzymeJacobianTests() {
+        CvodeEnzymeJacobianTests() : backend_(Config::getValue(Config::LLVM_BACKEND).getAs<int>()) {
+            Config::setValue(Config::LLVM_BACKEND, static_cast<int>(GetParam()));
             Config::setValue(Config::LLVM_ENZYME_JACOBIAN, true);
         }
 
         ~CvodeEnzymeJacobianTests() override {
             Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
             Config::setValue(Config::LOADSBMLOPTIONS_CONSERVED_MOIETIES, false);
+            Config::setValue(Config::LLVM_BACKEND, backend_);
         }
+
+    private:
+        int backend_;
     };
 }
 
-TEST_F(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
+TEST_P(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     ls::DoubleMatrix reference = run(rr, "PODOSE_hctz", 25.0, "difference_quotient");
@@ -98,7 +104,7 @@ TEST_F(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
     expectSameResults(enzyme, reference, "hctz enzyme vs difference quotient");
 }
 
-TEST_F(CvodeEnzymeJacobianTests, EnzymeWithoutLoadOptionIsError) {
+TEST_P(CvodeEnzymeJacobianTests, EnzymeWithoutLoadOptionIsError) {
     Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
@@ -110,14 +116,14 @@ TEST_F(CvodeEnzymeJacobianTests, EnzymeWithoutLoadOptionIsError) {
     }
 }
 
-TEST_F(CvodeEnzymeJacobianTests, InvalidSettingValueIsError) {
+TEST_P(CvodeEnzymeJacobianTests, InvalidSettingValueIsError) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     EXPECT_THROW(rr.getIntegrator()->setValue("jacobian", Setting("exact")), std::invalid_argument);
     EXPECT_THROW(rr.getIntegrator()->setValue("linear_solver", Setting("lu")), std::invalid_argument);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, FallbackWarns) {
+TEST_P(CvodeEnzymeJacobianTests, FallbackWarns) {
     ModelBuilder b;
     b.compartment("c").species("S1").species("S2").parameter("k", 0.1)
             .reaction("R1", {"S1"}, {"S2"}, "k*S1").reaction("R2", {"S2"}, {"S1"}, "0.05*S2*S2");
@@ -130,7 +136,7 @@ TEST_F(CvodeEnzymeJacobianTests, FallbackWarns) {
     expectSameResults(fallback, reference, "fallback");
 }
 
-TEST_F(CvodeEnzymeJacobianTests, SwitchSettingsBetweenSimulations) {
+TEST_P(CvodeEnzymeJacobianTests, SwitchSettingsBetweenSimulations) {
     SKIP_UNLESS_FILE(glimepiride());
     RoadRunner rr(glimepiride());
     ls::DoubleMatrix a = run(rr, "PODOSE_gli", 4.0, "difference_quotient");
@@ -142,7 +148,7 @@ TEST_F(CvodeEnzymeJacobianTests, SwitchSettingsBetweenSimulations) {
     expectSameResults(c, a, "difference quotient after enzyme");
 }
 
-TEST_F(CvodeEnzymeJacobianTests, KluMatchesDense) {
+TEST_P(CvodeEnzymeJacobianTests, KluMatchesDense) {
     struct Case {
         std::string path, dose;
         double value;
@@ -160,7 +166,7 @@ TEST_F(CvodeEnzymeJacobianTests, KluMatchesDense) {
     }
 }
 
-TEST_F(CvodeEnzymeJacobianTests, KluWithoutEnzymeFallsBack) {
+TEST_P(CvodeEnzymeJacobianTests, KluWithoutEnzymeFallsBack) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
@@ -171,7 +177,7 @@ TEST_F(CvodeEnzymeJacobianTests, KluWithoutEnzymeFallsBack) {
     EXPECT_GT(stats["rhs_evals_jac"], 0);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, SwitchBackFromKluInEitherOrder) {
+TEST_P(CvodeEnzymeJacobianTests, SwitchBackFromKluInEitherOrder) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     for (bool jacobianFirst: {true, false}) {
@@ -190,7 +196,7 @@ TEST_F(CvodeEnzymeJacobianTests, SwitchBackFromKluInEitherOrder) {
     }
 }
 
-TEST_F(CvodeEnzymeJacobianTests, LoadFallbackModelWhileKluIsSet) {
+TEST_P(CvodeEnzymeJacobianTests, LoadFallbackModelWhileKluIsSet) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
@@ -203,7 +209,7 @@ TEST_F(CvodeEnzymeJacobianTests, LoadFallbackModelWhileKluIsSet) {
     EXPECT_EQ(cvode(rr)->getSolverStatistics()["sparse_linear_solver"], 0);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, LoadWithoutOptionWhileEnzymeIsSet) {
+TEST_P(CvodeEnzymeJacobianTests, LoadWithoutOptionWhileEnzymeIsSet) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
@@ -214,7 +220,7 @@ TEST_F(CvodeEnzymeJacobianTests, LoadWithoutOptionWhileEnzymeIsSet) {
     EXPECT_GT(cvode(rr)->getSolverStatistics()["rhs_evals_jac"], 0);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, ConservedMoietyAnalysisWhileKluIsSet) {
+TEST_P(CvodeEnzymeJacobianTests, ConservedMoietyAnalysisWhileKluIsSet) {
     ModelBuilder b;
     b.compartment("c").species("S1").species("S2").parameter("k", 0.1)
             .reaction("R1", {"S1"}, {"S2"}, "k*S1").reaction("R2", {"S2"}, {"S1"}, "0.05*S2*S2");
@@ -227,7 +233,7 @@ TEST_F(CvodeEnzymeJacobianTests, ConservedMoietyAnalysisWhileKluIsSet) {
     EXPECT_EQ(cvode(rr)->getSolverStatistics()["sparse_linear_solver"], 0);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, CopyWithKluIsSet) {
+TEST_P(CvodeEnzymeJacobianTests, CopyWithKluIsSet) {
     SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
@@ -238,7 +244,7 @@ TEST_F(CvodeEnzymeJacobianTests, CopyWithKluIsSet) {
     EXPECT_GT(cvode(copy)->getSolverStatistics()["rhs_evals_jac"], 0);
 }
 
-TEST_F(CvodeEnzymeJacobianTests, KluSurvivesEventsAndReset) {
+TEST_P(CvodeEnzymeJacobianTests, KluSurvivesEventsAndReset) {
     ModelBuilder b;
     b.compartment("c").species("S1").species("S2").parameter("k", 0.5)
             .reaction("R1", {"S1"}, {"S2"}, "k*S1").reaction("R2", {"S2"}, {"S1"}, "0.1*S2*S2");
@@ -263,3 +269,9 @@ TEST_F(CvodeEnzymeJacobianTests, KluSurvivesEventsAndReset) {
     expectSameResults(first, reference, "klu with an event");
     expectSameResults(second, reference, "klu after reset");
 }
+
+INSTANTIATE_TEST_SUITE_P(Backends, CvodeEnzymeJacobianTests,
+                         ::testing::Values(Config::MCJIT, Config::LLJIT),
+                         [](const ::testing::TestParamInfo<Config::LLVM_BACKEND_VALUES> &info) {
+                             return std::string(info.param == Config::MCJIT ? "MCJit" : "LLJit");
+                         });

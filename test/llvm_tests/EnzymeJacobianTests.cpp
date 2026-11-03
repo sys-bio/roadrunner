@@ -40,15 +40,21 @@ namespace {
         return std::fabs(a - b) <= 1e-6 * std::fabs(b) + 1e-8 * scale;
     }
 
-    class EnzymeJacobianTests : public ::testing::Test {
+    /** Runs every test with both JIT backends of roadrunner. */
+    class EnzymeJacobianTests : public ::testing::TestWithParam<Config::LLVM_BACKEND_VALUES> {
     public:
-        EnzymeJacobianTests() {
+        EnzymeJacobianTests() : backend_(Config::getValue(Config::LLVM_BACKEND).getAs<int>()) {
+            Config::setValue(Config::LLVM_BACKEND, static_cast<int>(GetParam()));
             Config::setValue(Config::LLVM_ENZYME_JACOBIAN, true);
         }
 
         ~EnzymeJacobianTests() override {
             Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
+            Config::setValue(Config::LLVM_BACKEND, backend_);
         }
+
+    private:
+        int backend_;
     };
 }
 
@@ -56,7 +62,7 @@ namespace {
  * Go/no-go gate: the Enzyme tangent of evalReactionRates in direction e_j equals the
  * central difference of the reaction rates in the state y_j.
  */
-TEST_F(EnzymeJacobianTests, GateHctzDirectionalDerivative) {
+TEST_P(EnzymeJacobianTests, GateHctzDirectionalDerivative) {
     SKIP_UNLESS_FILE(modelPath("/git/hctz-model/models", "hctz_body_flat.xml"));
     RoadRunner rr(modelPath("/git/hctz-model/models", "hctz_body_flat.xml"));
     rr.setValue("PODOSE_hctz", 25.0);
@@ -223,7 +229,7 @@ namespace {
     }
 }
 
-TEST_F(EnzymeJacobianTests, FullJacobianMatchesFD) {
+TEST_P(EnzymeJacobianTests, FullJacobianMatchesFD) {
     for (const auto &[name, sbml]: smallModels()) {
         RoadRunner rr(sbml);
         rr.simulate(0, 2, 3);
@@ -249,7 +255,50 @@ TEST_F(EnzymeJacobianTests, FullJacobianMatchesFD) {
     }
 }
 
-TEST_F(EnzymeJacobianTests, HelperDerivatives) {
+/**
+ * The reaction rates are differentiated in blocks of RR_ENZYME_BLOCK_SIZE reactions, each a copy
+ * of evalReactionRates reduced to the rates of its block. The Jacobian must not depend on the
+ * split, also when the blocks share an assignment rule and the rates use piecewise and helpers.
+ */
+TEST_P(EnzymeJacobianTests, BlocksOfReactionsGiveTheSameJacobian) {
+    ModelBuilder b;
+    b.compartment("c").parameter("k", 0.3);
+    for (int i = 0; i < 12; ++i) {
+        b.species("S" + std::to_string(i));
+    }
+    b.parameter("shared", 0.0, false).assignmentRule("shared", "S0*S1 + exp(-S11)");
+    for (int i = 0; i < 11; ++i) {
+        std::string s = "S" + std::to_string(i), t = "S" + std::to_string(i + 1);
+        std::string law = i % 3 == 0 ? "k*shared*" + s
+                        : i % 3 == 1 ? "piecewise(k*" + s + ", " + s + " > 0.5, 2*k*" + s + "*" + t + ")"
+                                     : "max(" + s + ", k)*" + t;
+        b.reaction("R" + std::to_string(i), {s}, {t}, law);
+    }
+    Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, true);
+    auto jacobianWithBlockSize = [&b](const char *blockSize, int expectedBlocks) {
+        setenv("RR_ENZYME_BLOCK_SIZE", blockSize, 1);
+        RoadRunner rr(b.sbml());
+        unsetenv("RR_ENZYME_BLOCK_SIZE");
+        auto *model = dynamic_cast<rrllvm::LLVMExecutableModel *>(rr.getModel());
+        EXPECT_EQ(model->getEnzymeJacobianReactionBlocks(), expectedBlocks) << "block size " << blockSize;
+        rr.simulate(0, 1, 3);
+        expectJacobianMatchesFD(rr, std::string("block size ") + blockSize);
+        return rr.getStateVectorJacobian();
+    };
+    ls::DoubleMatrix whole = jacobianWithBlockSize("1000", 1);
+    ls::DoubleMatrix split = jacobianWithBlockSize("4", 3);
+    ls::DoubleMatrix single = jacobianWithBlockSize("1", 11);
+    Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, false);
+    ASSERT_EQ(whole.numRows(), split.numRows());
+    for (unsigned i = 0; i < whole.numRows(); ++i) {
+        for (unsigned j = 0; j < whole.numCols(); ++j) {
+            EXPECT_NEAR(split(i, j), whole(i, j), 1e-14 * (1 + std::fabs(whole(i, j)))) << i << "," << j;
+            EXPECT_NEAR(single(i, j), whole(i, j), 1e-14 * (1 + std::fabs(whole(i, j)))) << i << "," << j;
+        }
+    }
+}
+
+TEST_P(EnzymeJacobianTests, HelperDerivatives) {
     ModelBuilder b;
     b.compartment("c").species("S1").species("S2").parameter("k", 1.0)
             .reaction("R1", {"S2"}, {}, "max(S1, k)*S2")
@@ -264,7 +313,7 @@ TEST_F(EnzymeJacobianTests, HelperDerivatives) {
     }
 }
 
-TEST_F(EnzymeJacobianTests, FallbackReasons) {
+TEST_P(EnzymeJacobianTests, FallbackReasons) {
     auto reason = [](RoadRunner &rr) {
         EXPECT_FALSE(rr.getModel()->hasStateVectorJacobian());
         return rr.getModel()->getStateVectorJacobianUnavailableReason();
@@ -304,7 +353,7 @@ TEST_F(EnzymeJacobianTests, FallbackReasons) {
     }
 }
 
-TEST_F(EnzymeJacobianTests, JacobianFollowsSetValue) {
+TEST_P(EnzymeJacobianTests, JacobianFollowsSetValue) {
     ModelBuilder b;
     b.compartment("c").species("S1", "c", false).species("S2", "c", false).parameter("k", 0.1)
             .reaction("R1", {"S1"}, {"S2"}, "k*S1*S2");
@@ -318,7 +367,7 @@ TEST_F(EnzymeJacobianTests, JacobianFollowsSetValue) {
     expectJacobianMatchesFD(rr, "after volume");
 }
 
-TEST_F(EnzymeJacobianTests, CacheKeySeparatesEnzyme) {
+TEST_P(EnzymeJacobianTests, CacheKeySeparatesEnzyme) {
     ModelBuilder b;
     b.compartment("c").species("S1").species("S2").reaction("R1", {"S1"}, {"S2"}, "0.1*S1");
     Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
@@ -331,7 +380,7 @@ TEST_F(EnzymeJacobianTests, CacheKeySeparatesEnzyme) {
     EXPECT_TRUE(enzyme.getModel()->hasStateVectorJacobian());
 }
 
-TEST_F(EnzymeJacobianTests, DegenerateModels) {
+TEST_P(EnzymeJacobianTests, DegenerateModels) {
     {
         ModelBuilder b;
         b.compartment("c").parameter("x", 1.0, false).parameter("y", 2.0, false)
@@ -348,3 +397,9 @@ TEST_F(EnzymeJacobianTests, DegenerateModels) {
         rr.simulate(0, 1, 2);
     }
 }
+
+INSTANTIATE_TEST_SUITE_P(Backends, EnzymeJacobianTests,
+                         ::testing::Values(Config::MCJIT, Config::LLJIT),
+                         [](const ::testing::TestParamInfo<Config::LLVM_BACKEND_VALUES> &info) {
+                             return std::string(info.param == Config::MCJIT ? "MCJit" : "LLJit");
+                         });

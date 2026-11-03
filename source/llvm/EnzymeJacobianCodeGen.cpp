@@ -6,10 +6,19 @@
 #include "LLVMModelDataSymbols.h"
 #include "ModelGeneratorContext.h"
 #include "rrRoadRunnerOptions.h"
+#include "rrLogger.h"
 
 #include <sbml/SBMLTypes.h>
+#include <chrono>
+#include <mutex>
 
 #include "llvm/IR/DiagnosticInfo.h"
+#include "llvm/Support/CommandLine.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/Operator.h"
+#include "llvm/Transforms/Utils/Cloning.h"
+#include "llvm/Transforms/Utils/Local.h"
+#include "llvm/Transforms/Utils/ValueMapper.h"
 #include "llvm/IR/DiagnosticPrinter.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
@@ -47,8 +56,8 @@ namespace rrllvm {
         }
     }
 
-    void EnzymeJacobianCodeGen::emitTangents(llvm::Module &module, const std::string &primal,
-                                             const std::string &name, unsigned width) {
+    int EnzymeJacobianCodeGen::emitTangents(llvm::Module &module, const std::string &primal,
+                                            const std::string &name, unsigned width, unsigned blockSize) {
         llvm::LLVMContext &context = module.getContext();
         llvm::Function *f = module.getFunction(primal);
         if (f == nullptr || f->empty()) {
@@ -68,11 +77,10 @@ namespace rrllvm {
 
         llvm::IRBuilder<> builder(llvm::BasicBlock::Create(context, "entry", wrapper));
 
-        std::vector<llvm::Value *> args = {f, marker(module, "enzyme_width"), llvm::ConstantInt::get(i64, width),
-                                           marker(module, "enzyme_dup"), md};
+        std::vector<llvm::Value *> shadowArgs;
         for (unsigned k = 0; k < width; ++k) {
             llvm::Value *slot = builder.CreateConstGEP1_64(ptrTy, shadows, k);
-            args.push_back(builder.CreateLoad(ptrTy, slot, "shadow" + std::to_string(k)));
+            shadowArgs.push_back(builder.CreateLoad(ptrTy, slot, "shadow" + std::to_string(k)));
         }
 
         // the derivative of the return value: a double per direction, or nothing for void
@@ -83,7 +91,13 @@ namespace rrllvm {
         }
         auto *enzymeTy = llvm::FunctionType::get(diffRetTy, {ptrTy}, true);
         llvm::FunctionCallee enzyme = module.getOrInsertFunction("__enzyme_fwddiff", enzymeTy);
-        builder.CreateCall(enzyme, args);
+        std::vector<llvm::Function *> blocks = splitByStores(f, blockSize);
+        for (llvm::Function *block: blocks) {
+            std::vector<llvm::Value *> args = {block, marker(module, "enzyme_width"),
+                                               llvm::ConstantInt::get(i64, width), marker(module, "enzyme_dup"), md};
+            args.insert(args.end(), shadowArgs.begin(), shadowArgs.end());
+            builder.CreateCall(enzyme, args);
+        }
         builder.CreateRetVoid();
 
         std::string err;
@@ -91,6 +105,7 @@ namespace rrllvm {
         if (llvm::verifyFunction(*wrapper, &os)) {
             throw std::runtime_error("Enzyme: invalid tangents function '" + name + "': " + os.str());
         }
+        return static_cast<int>(blocks.size());
     }
 
     namespace {
@@ -176,10 +191,46 @@ namespace rrllvm {
         };
     }
 
+#ifdef RR_USE_ENZYME
+    namespace {
+        /**
+         * Sets Enzyme's command line options from RR_ENZYME_OPTIONS, a comma separated list of
+         * name=value pairs (e.g. "enzyme-preopt=0"), once per process. For experiments only.
+         */
+        void applyEnzymeOptionsFromEnvironment() {
+            static std::once_flag once;
+            std::call_once(once, []() {
+                const char *env = std::getenv("RR_ENZYME_OPTIONS");
+                if (env == nullptr) {
+                    return;
+                }
+                auto registered = llvm::cl::getRegisteredOptions();
+                llvm::SmallVector<llvm::StringRef> items;
+                llvm::StringRef(env).split(items, ',', -1, false);
+                for (llvm::StringRef item: items) {
+                    auto [name, value] = item.trim().split('=');
+                    auto it = registered.find(name);
+                    if (it == registered.end()) {
+                        rrLogWarn << "RR_ENZYME_OPTIONS: unknown option '" << name.str() << "'";
+                        continue;
+                    }
+                    it->second->reset();
+                    if (it->second->addOccurrence(0, name, value)) {
+                        rrLogWarn << "RR_ENZYME_OPTIONS: invalid value for '" << name.str() << "'";
+                    } else {
+                        rrLogInfo << "RR_ENZYME_OPTIONS: " << name.str() << " = " << value.str();
+                    }
+                }
+            });
+        }
+    }
+#endif
+
     void EnzymeJacobianCodeGen::runEnzymePass(llvm::Module &module) {
 #ifndef RR_USE_ENZYME
         throw std::runtime_error("roadrunner was built without Enzyme (CMake option RR_USE_ENZYME)");
 #else
+        applyEnzymeOptionsFromEnvironment();
         llvm::LLVMContext &context = module.getContext();
 
         // Enzyme reports failures as error diagnostics, which terminate the process with the
@@ -334,6 +385,146 @@ namespace rrllvm {
         }
     }
 
+    namespace {
+        /** The helpers defineDifferentiableHelpers gives an IR body, all pure. */
+        const std::set<std::string> &helpersWithBody() {
+            static const std::set<std::string> names = {"rr_max", "rr_min", "rr_logd", "rr_rootd", "arccot",
+                                                        "rr_arccot_negzero"};
+            return names;
+        }
+
+        /** A call without side effects: a pure intrinsic, a math library function or a helper with an IR body. */
+        bool isPureCall(const llvm::CallBase &call) {
+            const llvm::Function *callee = call.getCalledFunction();
+            if (callee == nullptr) {
+                return false;
+            }
+            if (callee->isIntrinsic()) {
+                return !call.mayHaveSideEffects();
+            }
+            const std::string name = callee->getName().str();
+            return differentiableLibm().count(name) || helpersWithBody().count(name);
+        }
+
+        /** The struct field of the model data md that ptr points into, through GEPs, or -1. */
+        int modelDataField(const llvm::Value *ptr, const llvm::Value *md) {
+            auto *gep = llvm::dyn_cast<llvm::GEPOperator>(ptr);
+            while (gep != nullptr && gep->getPointerOperand() != md) {
+                gep = llvm::dyn_cast<llvm::GEPOperator>(gep->getPointerOperand());
+            }
+            if (gep == nullptr || gep->getNumIndices() < 2) {
+                return -1;
+            }
+            auto *first = llvm::dyn_cast<llvm::ConstantInt>(gep->getOperand(1));
+            auto *field = llvm::dyn_cast<llvm::ConstantInt>(gep->getOperand(2));
+            return first != nullptr && first->isZero() && field != nullptr ? static_cast<int>(field->getZExtValue()) : -1;
+        }
+
+        /**
+         * True if the load cannot read the reaction rates: it reads another field of the model
+         * data, or through an alias pointer of the model data other than ReactionRatesAlias.
+         */
+        bool loadAvoidsReactionRates(const llvm::LoadInst &load, const llvm::Value *md) {
+            const llvm::Value *ptr = load.getPointerOperand();
+            int field = modelDataField(ptr, md);
+            if (field >= 0) {
+                return field != ReactionRates;
+            }
+            const llvm::Value *base = ptr;
+            while (auto *gep = llvm::dyn_cast<llvm::GEPOperator>(base)) {
+                base = gep->getPointerOperand();
+            }
+            auto *aliasLoad = llvm::dyn_cast<llvm::LoadInst>(base);
+            if (aliasLoad == nullptr) {
+                return false;
+            }
+            int aliasField = modelDataField(aliasLoad->getPointerOperand(), md);
+            return aliasField >= 0 && aliasField != ReactionRatesAlias;
+        }
+
+        /** Erase every instruction whose result is unused and that has no effect, pure calls included. */
+        void eraseDeadCode(llvm::Function &f) {
+            auto removable = [](llvm::Instruction &inst) {
+                if (!inst.use_empty() || inst.isTerminator()) {
+                    return false;
+                }
+                auto *call = llvm::dyn_cast<llvm::CallBase>(&inst);
+                return llvm::isInstructionTriviallyDead(&inst) || (call != nullptr && isPureCall(*call));
+            };
+            std::vector<llvm::Instruction *> work;
+            for (llvm::BasicBlock &bb: f) {
+                for (llvm::Instruction &inst: bb) {
+                    if (removable(inst)) {
+                        work.push_back(&inst);
+                    }
+                }
+            }
+            while (!work.empty()) {
+                llvm::Instruction *inst = work.back();
+                work.pop_back();
+                std::set<llvm::Instruction *> operands;
+                for (llvm::Use &u: inst->operands()) {
+                    if (auto *op = llvm::dyn_cast<llvm::Instruction>(u.get())) {
+                        operands.insert(op);
+                    }
+                }
+                inst->eraseFromParent();
+                for (llvm::Instruction *op: operands) {
+                    if (removable(*op)) {
+                        work.push_back(op);
+                    }
+                }
+            }
+        }
+    }
+
+    std::vector<llvm::Function *> EnzymeJacobianCodeGen::splitByStores(llvm::Function *f, unsigned blockSize) {
+        if (f->arg_empty()) {
+            return {f};
+        }
+        const llvm::Value *md = f->getArg(0);
+        std::vector<llvm::StoreInst *> stores;
+        for (llvm::BasicBlock &bb: *f) {
+            for (llvm::Instruction &inst: bb) {
+                if (auto *store = llvm::dyn_cast<llvm::StoreInst>(&inst)) {
+                    if (modelDataField(store->getPointerOperand(), md) != ReactionRates) {
+                        return {f};
+                    }
+                    stores.push_back(store);
+                } else if (auto *load = llvm::dyn_cast<llvm::LoadInst>(&inst)) {
+                    if (!loadAvoidsReactionRates(*load, md)) {
+                        return {f};
+                    }
+                } else if (auto *call = llvm::dyn_cast<llvm::CallBase>(&inst)) {
+                    if (!isPureCall(*call)) {
+                        return {f};
+                    }
+                } else if (inst.mayWriteToMemory()) {
+                    return {f};
+                }
+            }
+        }
+        if (blockSize == 0 || stores.size() <= blockSize) {
+            return {f};
+        }
+        std::vector<llvm::Function *> blocks;
+        for (size_t begin = 0; begin < stores.size(); begin += blockSize) {
+            size_t end = std::min(stores.size(), begin + blockSize);
+            llvm::ValueToValueMapTy map;
+            llvm::Function *block = llvm::CloneFunction(f, map);
+            block->setName(f->getName() + ".block" + std::to_string(blocks.size()));
+            block->setLinkage(llvm::GlobalValue::InternalLinkage);
+            for (size_t i = 0; i < stores.size(); ++i) {
+                if (i < begin || i >= end) {
+                    llvm::cast<llvm::StoreInst>(map[stores[i]])->eraseFromParent();
+                }
+            }
+            eraseDeadCode(*block);
+            blocks.push_back(block);
+        }
+        return blocks;
+    }
+
     void EnzymeJacobianCodeGen::prepare(const ModelGeneratorContext &context, unsigned options,
                                         EnzymeJacobianResources &res) {
         res = EnzymeJacobianResources();
@@ -344,6 +535,7 @@ namespace rrllvm {
             res.unavailableReason = "conserved moiety analysis is switched on";
             return;
         }
+        auto start = std::chrono::steady_clock::now();
         const libsbml::Model &model = *context.getModel();
         const LLVMModelDataSymbols &symbols = context.getModelDataSymbols();
         std::string reason = unsupported(model, symbols);
@@ -385,9 +577,40 @@ namespace rrllvm {
         try {
             defineDifferentiableHelpers(module);
             screenCalls(module, {EvalReactionRatesCodeGen::FunctionName, EvalRateRuleRatesCodeGen::FunctionName});
-            emitTangents(module, EvalReactionRatesCodeGen::FunctionName, ReactionRatesTangentsName, res.width);
-            emitTangents(module, EvalRateRuleRatesCodeGen::FunctionName, RateRuleRatesTangentsName, res.width);
+            int blockSize = DefaultBlockSize;
+            if (const char *env = std::getenv("RR_ENZYME_BLOCK_SIZE")) {
+                blockSize = std::max(1, std::atoi(env));
+            }
+            res.reactionRateBlocks = emitTangents(module, EvalReactionRatesCodeGen::FunctionName,
+                                                  ReactionRatesTangentsName, res.width, blockSize);
+            res.rateRuleBlocks = emitTangents(module, EvalRateRuleRatesCodeGen::FunctionName,
+                                              RateRuleRatesTangentsName, res.width, blockSize);
+            if (const char *dump = std::getenv("RR_ENZYME_DUMP_IR")) {
+                // for experiments: the module as Enzyme gets it
+                std::error_code ec;
+                llvm::raw_fd_ostream out(dump, ec);
+                if (!ec) {
+                    module.print(out, nullptr);
+                }
+            }
+            auto enzymeStart = std::chrono::steady_clock::now();
             runEnzymePass(module);
+            auto enzymeEnd = std::chrono::steady_clock::now();
+            // the blocks are only the input of Enzyme; nothing calls them, so do not compile them
+            std::vector<llvm::Function *> unused;
+            for (llvm::Function &g: module) {
+                if (!functions.count(&g) && g.hasInternalLinkage() && g.use_empty()) {
+                    unused.push_back(&g);
+                }
+            }
+            for (llvm::Function *g: unused) {
+                g->eraseFromParent();
+            }
+            rrLog(rr::Logger::LOG_DEBUG) << "Enzyme Jacobian: removed " << unused.size() << " unused functions";
+            rrLog(rr::Logger::LOG_INFORMATION) << "Enzyme Jacobian: " << res.reactionRateBlocks
+                    << " reaction rate blocks, sparsity and IR setup "
+                    << std::chrono::duration<double>(enzymeStart - start).count() << " s, Enzyme pass "
+                    << std::chrono::duration<double>(enzymeEnd - enzymeStart).count() << " s";
             res.unavailableReason.clear();
         } catch (const std::exception &e) {
             eraseNewSymbols(module, functions, globals);

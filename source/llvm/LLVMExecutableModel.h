@@ -226,6 +226,9 @@ public:
      */
     void evalReactionRatesTangent(const double *seed, double *dv);
 
+    /** Number of blocks the reaction rates are differentiated in, 0 without the Enzyme Jacobian. */
+    int getEnzymeJacobianReactionBlocks() const;
+
     virtual bool hasStateVectorJacobian() const override;
 
     virtual std::string getStateVectorJacobianUnavailableReason() const override;

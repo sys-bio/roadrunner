@@ -563,6 +563,11 @@ void LLVMExecutableModel::getStateVectorJacobian(double time, const double *y, d
     }
 }
 
+int LLVMExecutableModel::getEnzymeJacobianReactionBlocks() const
+{
+    return resources->enzymeJacobian.available() ? resources->enzymeJacobian.reactionRateBlocks : 0;
+}
+
 void LLVMExecutableModel::evalReactionRatesTangent(const double *seed, double *dv)
 {
     const EnzymeJacobianResources &ej = resources->enzymeJacobian;
