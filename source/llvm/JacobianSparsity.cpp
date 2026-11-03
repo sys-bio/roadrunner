@@ -9,24 +9,6 @@
 
 namespace rrllvm {
 
-    CscPattern CscPattern::fromRows(int nCols, const std::vector<std::set<int>> &rows) {
-        CscPattern p;
-        p.nRows = (int) rows.size();
-        p.nCols = nCols;
-        std::vector<std::vector<int>> columns(nCols);
-        for (int i = 0; i < p.nRows; ++i) {
-            for (int j: rows[i]) {
-                columns[j].push_back(i);
-            }
-        }
-        p.colPtr.assign(nCols + 1, 0);
-        for (int j = 0; j < nCols; ++j) {
-            p.colPtr[j + 1] = p.colPtr[j] + (int) columns[j].size();
-            p.rowIdx.insert(p.rowIdx.end(), columns[j].begin(), columns[j].end());
-        }
-        return p;
-    }
-
     JacobianSparsity::JacobianSparsity(const libsbml::Model &model, const LLVMModelDataSymbols &symbols)
             : model(model), symbols(symbols),
               nRateRules((int) symbols.getRateRuleSize()),
@@ -86,6 +68,10 @@ namespace rrllvm {
         color();
     }
 
+    bool JacobianSparsity::dependsOnState(const std::string &id) {
+        return !symbolDeps(id).empty();
+    }
+
     JacobianSparsity::Deps JacobianSparsity::allColumns() const {
         Deps d;
         for (int j = 0; j < nStates; ++j) {
@@ -115,6 +101,19 @@ namespace rrllvm {
             }
         } else if (symbols.isIndependentFloatingSpecies(id)) {
             d.insert(nRateRules + symbols.getFloatingSpeciesIndex(id));
+        } else if (const libsbml::Reaction *r = model.getReaction(id)) {
+            // a reaction id in math is the rate of the reaction
+            if (r->isSetKineticLaw() && r->getKineticLaw()->isSetMath()) {
+                Env env;
+                const libsbml::KineticLaw *kl = r->getKineticLaw();
+                for (unsigned k = 0; k < kl->getNumParameters(); ++k) {
+                    env[kl->getParameter(k)->getId()] = Deps();
+                }
+                for (unsigned k = 0; k < kl->getNumLocalParameters(); ++k) {
+                    env[kl->getLocalParameter(k)->getId()] = Deps();
+                }
+                astDeps(kl->getMath(), env, d);
+            }
         }
         // a species read as a concentration also depends on the volume of its compartment
         if (const libsbml::Species *s = model.getSpecies(id)) {

@@ -252,15 +252,13 @@ namespace rrllvm {
         // this sbml model.
         codeGeneration(*modelGeneratorContext, options);
 
-#ifdef RR_USE_ENZYME
         if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
-            llvm::Module &module = *modelGeneratorContext->getJitNonOwning()->getModuleNonOwning();
-            EnzymeJacobianCodeGen::defineDifferentiableHelpers(module);
-            EnzymeJacobianCodeGen::emitTangents(module, EvalReactionRatesCodeGen::FunctionName,
-                                                EnzymeJacobianCodeGen::ReactionRatesTangentsName, 1);
-            EnzymeJacobianCodeGen::runEnzymePass(module);
+            EnzymeJacobianCodeGen::prepare(*modelGeneratorContext, options, modelResources->enzymeJacobian);
+            if (!modelResources->enzymeJacobian.available()) {
+                rrLog(Logger::LOG_WARNING) << "Enzyme Jacobian not available, CVODE falls back to the "
+                                              "difference quotient: " << modelResources->enzymeJacobian.unavailableReason;
+            }
         }
-#endif
 
         /**
          * Adds the module and context which is owned by the Jit
@@ -294,6 +292,7 @@ namespace rrllvm {
         }
 
         modelGeneratorContext->getJitNonOwning()->mapLLVMGeneratedFunctionsToSymbols(modelResources.get(), options);
+        EnzymeJacobianCodeGen::lookup(*modelGeneratorContext, modelResources->enzymeJacobian);
 
 
         return modelData;

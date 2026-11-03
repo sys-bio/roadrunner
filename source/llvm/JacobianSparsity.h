@@ -1,6 +1,8 @@
 #ifndef RR_LLVM_JACOBIAN_SPARSITY_H
 #define RR_LLVM_JACOBIAN_SPARSITY_H
 
+#include "rrSparsityPattern.h"
+
 #include <map>
 #include <set>
 #include <string>
@@ -15,19 +17,7 @@ namespace rrllvm {
 
     class LLVMModelDataSymbols;
 
-    /** A sparsity pattern in compressed sparse column format, row indices sorted in each column. */
-    struct CscPattern {
-        int nRows = 0;
-        int nCols = 0;
-        std::vector<int> colPtr;
-        std::vector<int> rowIdx;
-
-        /** Number of stored entries. */
-        int nnz() const { return colPtr.empty() ? 0 : colPtr.back(); }
-
-        /** Build a pattern from the set of column indices of every row. */
-        static CscPattern fromRows(int nCols, const std::vector<std::set<int>> &rows);
-    };
+    using rr::CscPattern;
 
     /**
      * @brief Conservative sparsity pattern of the Jacobian of a model, read from its SBML math,
@@ -63,6 +53,9 @@ namespace rrllvm {
         const std::vector<int> &colors() const { return columnColors; }
 
         int numColors() const { return nColors; }
+
+        /** True if the value of the symbol id depends on a state of the model. */
+        bool dependsOnState(const std::string &id);
 
     private:
         typedef std::set<int> Deps;

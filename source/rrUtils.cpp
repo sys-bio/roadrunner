@@ -124,6 +124,9 @@ std::string getSBMLMD5(const std::string& text, int modelGenOpt)
     if (modelGenOpt & rr::LoadSBMLOptions::CONSERVED_MOIETIES) {
         digestString += "_conserved";
     }
+    if (modelGenOpt & rr::LoadSBMLOptions::ENZYME_JACOBIAN) {
+        digestString += "_enzyme";
+    }
     return digestString;
 }
 

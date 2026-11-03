@@ -226,6 +226,14 @@ public:
      */
     void evalReactionRatesTangent(const double *seed, double *dv);
 
+    virtual bool hasStateVectorJacobian() const override;
+
+    virtual std::string getStateVectorJacobianUnavailableReason() const override;
+
+    virtual const rr::CscPattern *getStateVectorJacobianPattern() const override;
+
+    virtual void getStateVectorJacobian(double time, const double *y, double *values) override;
+
 
     virtual void testConstraints();
 
@@ -677,6 +685,48 @@ private:
 
     LLVMModelData *modelData;
     cxx11_ns::shared_ptr<ModelResources> resources;
+
+    /**
+     * Buffers and index maps of the Enzyme Jacobian of this model, made on first use: the
+     * shadows of the model data, one per seed direction of a pass, and the maps that assemble
+     * the Jacobian from dv/dy and the rate rule rows.
+     */
+    struct EnzymeJacobianWorkspace {
+        std::vector<LLVMModelData *> shadows;
+        std::vector<std::vector<double>> rateRuleRatesOut;
+        std::vector<double> rateRuleRatesPrimal;
+        std::vector<double> dvdy;
+        std::vector<double> drdy;
+        std::vector<std::vector<int>> columnsOfColor;
+        /** (index in drdy, index in the Jacobian values) */
+        std::vector<std::pair<int, int>> rateRuleTerms;
+        /** J[jac] += cf * N.values[stoich] * dvdy[dvdy] */
+        struct SpeciesTerm {
+            int dvdy;
+            int jac;
+            int stoich;
+        };
+        std::vector<SpeciesTerm> speciesTerms;
+
+        ~EnzymeJacobianWorkspace();
+    };
+
+    /** Owns the workspace; a copy of the model starts without one and makes its own. */
+    struct EnzymeWorkspaceHolder {
+        std::unique_ptr<EnzymeJacobianWorkspace> ptr;
+
+        EnzymeWorkspaceHolder() = default;
+        EnzymeWorkspaceHolder(const EnzymeWorkspaceHolder &) {}
+        EnzymeWorkspaceHolder &operator=(const EnzymeWorkspaceHolder &) {
+            ptr.reset();
+            return *this;
+        }
+    };
+
+    EnzymeWorkspaceHolder enzymeWorkspace;
+
+    void makeEnzymeWorkspace();
+
     const LLVMModelDataSymbols *symbols;
 
 

@@ -1,5 +1,14 @@
 #include "EnzymeJacobianCodeGen.h"
 
+#include "EvalRateRuleRatesCodeGen.h"
+#include "EvalReactionRatesCodeGen.h"
+#include "JacobianSparsity.h"
+#include "LLVMModelDataSymbols.h"
+#include "ModelGeneratorContext.h"
+#include "rrRoadRunnerOptions.h"
+
+#include <sbml/SBMLTypes.h>
+
 #include "llvm/IR/DiagnosticInfo.h"
 #include "llvm/IR/DiagnosticPrinter.h"
 #include "llvm/IR/IRBuilder.h"
@@ -9,7 +18,9 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include <algorithm>
 #include <cmath>
+#include <set>
 #include <stdexcept>
 #include <vector>
 
@@ -210,6 +221,186 @@ namespace rrllvm {
             throw std::runtime_error("Enzyme produced an invalid module: " + os.str());
         }
 #endif
+    }
+
+
+    namespace {
+        /** Math library functions Enzyme differentiates. */
+        const std::set<std::string> &differentiableLibm() {
+            static const std::set<std::string> names = {
+                    "exp", "exp2", "expm1", "log", "log2", "log10", "log1p", "pow", "sqrt", "cbrt", "hypot",
+                    "sin", "cos", "tan", "asin", "acos", "atan", "atan2", "sinh", "cosh", "tanh", "asinh",
+                    "acosh", "atanh", "fabs", "floor", "ceil", "trunc", "round", "fmod", "erf", "erfc"};
+            return names;
+        }
+
+        /**
+         * Throw if a function reachable from the roots calls an external function Enzyme cannot
+         * differentiate: a C++ helper without an IR body.
+         */
+        void screenCalls(llvm::Module &module, const std::vector<std::string> &roots) {
+            std::vector<llvm::Function *> work;
+            std::set<llvm::Function *> seen;
+            for (const std::string &r: roots) {
+                if (llvm::Function *f = module.getFunction(r)) {
+                    work.push_back(f);
+                    seen.insert(f);
+                }
+            }
+            while (!work.empty()) {
+                llvm::Function *f = work.back();
+                work.pop_back();
+                for (llvm::BasicBlock &bb: *f) {
+                    for (llvm::Instruction &inst: bb) {
+                        auto *call = llvm::dyn_cast<llvm::CallBase>(&inst);
+                        if (call == nullptr) {
+                            continue;
+                        }
+                        llvm::Function *callee = call->getCalledFunction();
+                        if (callee == nullptr) {
+                            throw std::runtime_error("the generated code of '" + f->getName().str() +
+                                                     "' makes an indirect call");
+                        }
+                        if (callee->isIntrinsic()) {
+                            continue;
+                        }
+                        if (callee->isDeclaration()) {
+                            if (!differentiableLibm().count(callee->getName().str())) {
+                                throw std::runtime_error("the model calls '" + callee->getName().str() +
+                                                         "', which has no derivative in Enzyme");
+                            }
+                            continue;
+                        }
+                        if (seen.insert(callee).second) {
+                            work.push_back(callee);
+                        }
+                    }
+                }
+            }
+        }
+
+        /** Erase every function and global of the module that is not in the snapshots. */
+        void eraseNewSymbols(llvm::Module &module, const std::set<llvm::Function *> &functions,
+                             const std::set<llvm::GlobalVariable *> &globals) {
+            std::vector<llvm::Function *> newFunctions;
+            for (llvm::Function &f: module) {
+                if (!functions.count(&f)) {
+                    newFunctions.push_back(&f);
+                }
+            }
+            for (llvm::Function *f: newFunctions) {
+                f->dropAllReferences();
+            }
+            for (llvm::Function *f: newFunctions) {
+                f->replaceAllUsesWith(llvm::PoisonValue::get(f->getType()));
+                f->eraseFromParent();
+            }
+            std::vector<llvm::GlobalVariable *> newGlobals;
+            for (llvm::GlobalVariable &g: module.globals()) {
+                if (!globals.count(&g)) {
+                    newGlobals.push_back(&g);
+                }
+            }
+            for (llvm::GlobalVariable *g: newGlobals) {
+                g->replaceAllUsesWith(llvm::PoisonValue::get(g->getType()));
+                g->eraseFromParent();
+            }
+        }
+
+        /** Why the model is outside what the Enzyme Jacobian covers, or an empty string. */
+        std::string unsupported(const libsbml::Model &model, const LLVMModelDataSymbols &symbols) {
+            for (unsigned i = 0; i < model.getNumReactions(); ++i) {
+                const libsbml::Reaction *r = model.getReaction(i);
+                for (const libsbml::ListOfSpeciesReferences *refs: {r->getListOfReactants(), r->getListOfProducts()}) {
+                    for (unsigned k = 0; k < refs->size(); ++k) {
+                        auto *ref = static_cast<const libsbml::SpeciesReference *>(refs->get(k));
+                        bool ruled = ref->isSetId() && !ref->getId().empty() &&
+                                     (symbols.hasAssignmentRule(ref->getId()) || symbols.hasRateRule(ref->getId()));
+                        if (ruled || ref->isSetStoichiometryMath()) {
+                            return "the stoichiometry of reaction '" + r->getId() +
+                                   "' is set by a rule (volatile stoichiometry)";
+                        }
+                    }
+                }
+            }
+            for (unsigned i = 0; i < model.getNumSpecies(); ++i) {
+                const libsbml::Species *s = model.getSpecies(i);
+                if (s->isSetConversionFactor()) {
+                    return "species '" + s->getId() + "' has a conversion factor";
+                }
+            }
+            return "";
+        }
+    }
+
+    void EnzymeJacobianCodeGen::prepare(const ModelGeneratorContext &context, unsigned options,
+                                        EnzymeJacobianResources &res) {
+        res = EnzymeJacobianResources();
+#ifndef RR_USE_ENZYME
+        res.unavailableReason = "roadrunner was built without Enzyme (CMake option RR_USE_ENZYME)";
+#else
+        if (options & rr::LoadSBMLOptions::CONSERVED_MOIETIES) {
+            res.unavailableReason = "conserved moiety analysis is switched on";
+            return;
+        }
+        const libsbml::Model &model = *context.getModel();
+        const LLVMModelDataSymbols &symbols = context.getModelDataSymbols();
+        std::string reason = unsupported(model, symbols);
+        if (!reason.empty()) {
+            res.unavailableReason = reason;
+            return;
+        }
+        JacobianSparsity sparsity(model, symbols);
+        if (model.isSetConversionFactor() && sparsity.dependsOnState(model.getConversionFactor())) {
+            res.unavailableReason = "the conversion factor '" + model.getConversionFactor() + "' depends on the state";
+            return;
+        }
+
+        res.reactionRates = sparsity.reactionRates();
+        res.rateRules = sparsity.rateRules();
+        res.jacobian = sparsity.jacobian();
+        res.colors = sparsity.colors();
+        res.numColors = sparsity.numColors();
+        res.width = std::min(res.numColors, MaxWidth);
+        if (res.width == 0) {
+            res.unavailableReason.clear();  // no states: an empty Jacobian, nothing to generate
+            return;
+        }
+
+        llvm::Module &module = *context.getJitNonOwning()->getModuleNonOwning();
+        std::set<llvm::Function *> functions;
+        for (llvm::Function &f: module) {
+            functions.insert(&f);
+        }
+        std::set<llvm::GlobalVariable *> globals;
+        for (llvm::GlobalVariable &g: module.globals()) {
+            globals.insert(&g);
+        }
+        try {
+            defineDifferentiableHelpers(module);
+            screenCalls(module, {EvalReactionRatesCodeGen::FunctionName, EvalRateRuleRatesCodeGen::FunctionName});
+            emitTangents(module, EvalReactionRatesCodeGen::FunctionName, ReactionRatesTangentsName, res.width);
+            emitTangents(module, EvalRateRuleRatesCodeGen::FunctionName, RateRuleRatesTangentsName, res.width);
+            runEnzymePass(module);
+            res.unavailableReason.clear();
+        } catch (const std::exception &e) {
+            eraseNewSymbols(module, functions, globals);
+            EnzymeJacobianResources failed;
+            failed.unavailableReason = e.what();
+            res = failed;
+        }
+#endif
+    }
+
+    void EnzymeJacobianCodeGen::lookup(const ModelGeneratorContext &context, EnzymeJacobianResources &res) {
+        if (!res.available() || res.width == 0) {
+            return;
+        }
+        Jit *jit = context.getJitNonOwning();
+        res.reactionRatesTangents = reinterpret_cast<EnzymeTangents_FunctionPtr>(
+                jit->lookupFunctionAddress(ReactionRatesTangentsName));
+        res.rateRuleRatesTangents = reinterpret_cast<EnzymeTangents_FunctionPtr>(
+                jit->lookupFunctionAddress(RateRuleRatesTangentsName));
     }
 
 }

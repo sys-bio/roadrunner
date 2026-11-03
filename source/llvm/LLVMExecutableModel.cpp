@@ -411,19 +411,176 @@ void LLVMExecutableModel::getRateRuleValues(double *rateRuleValues)
     memcpy(rateRuleValues, modelData->rateRuleValuesAlias, modelData->numRateRules * sizeof(double));
 }
 
+LLVMExecutableModel::EnzymeJacobianWorkspace::~EnzymeJacobianWorkspace()
+{
+    for (LLVMModelData *shadow: shadows) {
+        EnzymeShadow::free(shadow);
+    }
+}
+
+bool LLVMExecutableModel::hasStateVectorJacobian() const
+{
+    return resources->enzymeJacobian.available();
+}
+
+std::string LLVMExecutableModel::getStateVectorJacobianUnavailableReason() const
+{
+    return resources->enzymeJacobian.unavailableReason;
+}
+
+const rr::CscPattern *LLVMExecutableModel::getStateVectorJacobianPattern() const
+{
+    return hasStateVectorJacobian() ? &resources->enzymeJacobian.jacobian : nullptr;
+}
+
+void LLVMExecutableModel::makeEnzymeWorkspace()
+{
+    const EnzymeJacobianResources &ej = resources->enzymeJacobian;
+    auto work = std::make_unique<EnzymeJacobianWorkspace>();
+    unsigned nRateRules = modelData->numRateRules;
+
+    for (int k = 0; k < ej.width; ++k) {
+        work->shadows.push_back(EnzymeShadow::create(modelData));
+        work->rateRuleRatesOut.emplace_back(std::max(nRateRules, 1u), 0.0);
+        work->shadows.back()->rateRuleRates = work->rateRuleRatesOut.back().data();
+    }
+    work->rateRuleRatesPrimal.assign(std::max(nRateRules, 1u), 0.0);
+    work->dvdy.assign(ej.reactionRates.nnz(), 0.0);
+    work->drdy.assign(ej.rateRules.nnz(), 0.0);
+    work->columnsOfColor.resize(ej.numColors);
+    for (int j = 0; j < (int) ej.colors.size(); ++j) {
+        work->columnsOfColor[ej.colors[j]].push_back(j);
+    }
+
+    const rr::CscPattern &jac = ej.jacobian;
+    auto jacIndex = [&jac](int row, int col) {
+        auto begin = jac.rowIdx.begin() + jac.colPtr[col];
+        auto end = jac.rowIdx.begin() + jac.colPtr[col + 1];
+        auto it = std::lower_bound(begin, end, row);
+        if (it == end || *it != row) {
+            throw_llvm_exception("Enzyme Jacobian: entry outside the sparsity pattern");
+        }
+        return (int) (it - jac.rowIdx.begin());
+    };
+
+    for (int j = 0; j < ej.rateRules.nCols; ++j) {
+        for (int e = ej.rateRules.colPtr[j]; e < ej.rateRules.colPtr[j + 1]; ++e) {
+            work->rateRuleTerms.push_back({e, jacIndex(ej.rateRules.rowIdx[e], j)});
+        }
+    }
+
+    // the species of every reaction in the stoichiometry matrix (species x reactions, CSR)
+    const rr::csr_matrix *N = modelData->stoichiometry;
+    std::vector<std::vector<std::pair<int, int>>> speciesOfReaction(modelData->numReactions);
+    for (unsigned s = 0; s < N->m; ++s) {
+        for (unsigned idx = N->rowptr[s]; idx < N->rowptr[s + 1]; ++idx) {
+            speciesOfReaction[N->colidx[idx]].push_back({(int) s, (int) idx});
+        }
+    }
+    unsigned nIndFloating = modelData->numIndFloatingSpecies;
+    for (int j = 0; j < ej.reactionRates.nCols; ++j) {
+        for (int e = ej.reactionRates.colPtr[j]; e < ej.reactionRates.colPtr[j + 1]; ++e) {
+            for (auto [s, idx]: speciesOfReaction[ej.reactionRates.rowIdx[e]]) {
+                if ((unsigned) s < nIndFloating) {
+                    work->speciesTerms.push_back({e, jacIndex((int) nRateRules + s, j), idx});
+                }
+            }
+        }
+    }
+    enzymeWorkspace.ptr = std::move(work);
+}
+
+void LLVMExecutableModel::getStateVectorJacobian(double time, const double *y, double *values)
+{
+    const EnzymeJacobianResources &ej = resources->enzymeJacobian;
+    if (!ej.available()) {
+        throw_llvm_exception("no exact Jacobian: " + ej.unavailableReason);
+    }
+    std::fill(values, values + ej.jacobian.nnz(), 0.0);
+    if (ej.width == 0) {
+        return;
+    }
+    if (!enzymeWorkspace.ptr) {
+        makeEnzymeWorkspace();
+    }
+    EnzymeJacobianWorkspace &work = *enzymeWorkspace.ptr;
+    unsigned nRateRules = modelData->numRateRules;
+    size_t dataSize = EnzymeShadow::dataSize(modelData);
+
+    modelData->time = time;
+    double *savedRateRules = modelData->rateRuleValuesAlias;
+    double *savedFloatingSpeciesAmounts = modelData->floatingSpeciesAmountsAlias;
+    modelData->rateRuleValuesAlias = const_cast<double *>(y);
+    modelData->floatingSpeciesAmountsAlias = const_cast<double *>(y + nRateRules);
+
+    // the conversion factor does not depend on the state (checked at load)
+    double cf = evalReactionRatesPtr(modelData);
+    dirty |= DIRTY_REACTION_RATES;
+    modelData->rateRuleRates = work.rateRuleRatesPrimal.data();
+
+    for (int c0 = 0; c0 < ej.numColors; c0 += ej.width) {
+        for (int k = 0; k < ej.width; ++k) {
+            LLVMModelData *shadow = work.shadows[k];
+            std::fill(shadow->data, shadow->data + dataSize, 0.0);
+            std::fill(work.rateRuleRatesOut[k].begin(), work.rateRuleRatesOut[k].end(), 0.0);
+            if (c0 + k < ej.numColors) {
+                for (int j: work.columnsOfColor[c0 + k]) {
+                    if ((unsigned) j < nRateRules) {
+                        shadow->rateRuleValuesAlias[j] = 1.0;
+                    } else {
+                        shadow->floatingSpeciesAmountsAlias[j - nRateRules] = 1.0;
+                    }
+                }
+            }
+        }
+        // reactions first: a rate rule can read a reaction rate, and its tangent then reads
+        // the tangent of that rate from the same shadow
+        ej.reactionRatesTangents(modelData, work.shadows.data());
+        ej.rateRuleRatesTangents(modelData, work.shadows.data());
+        for (int k = 0; k < ej.width && c0 + k < ej.numColors; ++k) {
+            const LLVMModelData *shadow = work.shadows[k];
+            for (int j: work.columnsOfColor[c0 + k]) {
+                for (int e = ej.reactionRates.colPtr[j]; e < ej.reactionRates.colPtr[j + 1]; ++e) {
+                    work.dvdy[e] = shadow->reactionRatesAlias[ej.reactionRates.rowIdx[e]];
+                }
+                for (int e = ej.rateRules.colPtr[j]; e < ej.rateRules.colPtr[j + 1]; ++e) {
+                    work.drdy[e] = work.rateRuleRatesOut[k][ej.rateRules.rowIdx[e]];
+                }
+            }
+        }
+    }
+
+    modelData->rateRuleRates = 0;
+    modelData->rateRuleValuesAlias = savedRateRules;
+    modelData->floatingSpeciesAmountsAlias = savedFloatingSpeciesAmounts;
+
+    for (auto [e, idx]: work.rateRuleTerms) {
+        values[idx] = work.drdy[e];
+    }
+    const double *stoich = modelData->stoichiometry->values;
+    for (const auto &t: work.speciesTerms) {
+        values[t.jac] += cf * stoich[t.stoich] * work.dvdy[t.dvdy];
+    }
+}
+
 void LLVMExecutableModel::evalReactionRatesTangent(const double *seed, double *dv)
 {
-    if (!resources->evalReactionRatesTangentsPtr) {
-        throw_llvm_exception("the model was loaded without the Enzyme Jacobian (Config.LLVM_ENZYME_JACOBIAN)");
+    const EnzymeJacobianResources &ej = resources->enzymeJacobian;
+    if (!ej.available() || ej.width == 0) {
+        throw_llvm_exception("no exact Jacobian: " + ej.unavailableReason);
     }
-    LLVMModelData *shadow = EnzymeShadow::create(modelData);
-    std::copy(seed, seed + modelData->numRateRules, shadow->rateRuleValuesAlias);
+    std::vector<LLVMModelData *> shadows;
+    for (int k = 0; k < ej.width; ++k) {
+        shadows.push_back(EnzymeShadow::create(modelData));
+    }
+    std::copy(seed, seed + modelData->numRateRules, shadows[0]->rateRuleValuesAlias);
     std::copy(seed + modelData->numRateRules, seed + modelData->numRateRules + modelData->numIndFloatingSpecies,
-              shadow->floatingSpeciesAmountsAlias);
-    LLVMModelData *shadows[] = {shadow};
-    resources->evalReactionRatesTangentsPtr(modelData, shadows);
-    std::copy(shadow->reactionRatesAlias, shadow->reactionRatesAlias + modelData->numReactions, dv);
-    EnzymeShadow::free(shadow);
+              shadows[0]->floatingSpeciesAmountsAlias);
+    ej.reactionRatesTangents(modelData, shadows.data());
+    std::copy(shadows[0]->reactionRatesAlias, shadows[0]->reactionRatesAlias + modelData->numReactions, dv);
+    for (LLVMModelData *shadow: shadows) {
+        EnzymeShadow::free(shadow);
+    }
 }
 
 void LLVMExecutableModel::getStateVectorRate(double time, const double *y, double *dydt)

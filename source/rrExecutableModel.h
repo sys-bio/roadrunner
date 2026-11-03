@@ -18,6 +18,7 @@
 
 #include "rrOSSpecifics.h"
 #include "rrException.h"
+#include "rrSparsityPattern.h"
 #include "sbml/SBMLDocument.h"
 
 #include <stdint.h>
@@ -835,6 +836,32 @@ namespace rr {
          *         it is ignored.
          */
         virtual void getStateVectorRate(double time, const double *y, double *dydt = 0) = 0;
+
+        /**
+         * True if the model computes the exact Jacobian of its state vector rate
+         * (Enzyme, load option ENZYME_JACOBIAN).
+         */
+        virtual bool hasStateVectorJacobian() const { return false; }
+
+        /** Why the model has no exact Jacobian; empty if it has one. */
+        virtual std::string getStateVectorJacobianUnavailableReason() const {
+            return "this model type has no exact Jacobian";
+        }
+
+        /**
+         * Sparsity pattern of the Jacobian of the state vector rate, states x states, with the
+         * full diagonal; null if the model has no exact Jacobian.
+         */
+        virtual const CscPattern *getStateVectorJacobianPattern() const { return nullptr; }
+
+        /**
+         * The exact Jacobian of the state vector rate at time and state y (the order of
+         * getStateVector), written to values in the CSC order of getStateVectorJacobianPattern.
+         * Throws if the model has no exact Jacobian.
+         */
+        virtual void getStateVectorJacobian(double time, const double *y, double *values) {
+            throw std::runtime_error(getStateVectorJacobianUnavailableReason());
+        }
 
         virtual void testConstraints() = 0;
 

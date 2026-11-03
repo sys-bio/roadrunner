@@ -3256,6 +3256,45 @@ namespace rr {
         LinkMatrix = LinkExt;
     }
 
+    namespace {
+        const CscPattern &stateVectorJacobianPattern(ExecutableModel *model) {
+            if (model == nullptr) {
+                throw std::runtime_error("no model loaded");
+            }
+            const CscPattern *p = model->getStateVectorJacobianPattern();
+            if (p == nullptr) {
+                throw std::runtime_error("no exact Jacobian: " + model->getStateVectorJacobianUnavailableReason());
+            }
+            return *p;
+        }
+    }
+
+    ls::DoubleMatrix RoadRunner::getStateVectorJacobian() {
+        ExecutableModel *model = getModel();
+        const CscPattern &p = stateVectorJacobianPattern(model);
+        std::vector<double> y(p.nCols), values(p.nnz());
+        model->getStateVector(y.data());
+        model->getStateVectorJacobian(model->getTime(), y.data(), values.data());
+        ls::DoubleMatrix J(p.nRows, p.nCols);
+        for (int j = 0; j < p.nCols; ++j) {
+            for (int k = p.colPtr[j]; k < p.colPtr[j + 1]; ++k) {
+                J(p.rowIdx[k], j) = values[k];
+            }
+        }
+        return J;
+    }
+
+    ls::DoubleMatrix RoadRunner::getStateVectorJacobianPattern() {
+        const CscPattern &p = stateVectorJacobianPattern(getModel());
+        ls::DoubleMatrix P(p.nRows, p.nCols);
+        for (int j = 0; j < p.nCols; ++j) {
+            for (int k = p.colPtr[j]; k < p.colPtr[j + 1]; ++k) {
+                P(p.rowIdx[k], j) = 1.0;
+            }
+        }
+        return P;
+    }
+
     ls::DoubleMatrix RoadRunner::getFullJacobian() {
         check_model();
 

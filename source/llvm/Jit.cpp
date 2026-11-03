@@ -2,7 +2,6 @@
 // Created by Ciaran on 25/10/2021.
 //
 
-#include "EnzymeJacobianCodeGen.h"
 #include <stdint.h>
 #include <unordered_map>
 #include <rrRoadRunnerOptions.h>
@@ -140,13 +139,6 @@ namespace rrllvm {
                 "resetRateRuleStoich"));
         modelResources->evalConversionFactorPtr = reinterpret_cast<EvalConversionFactorCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalConversionFactor"));
-        modelResources->evalReactionRatesTangentsPtr = nullptr;
-#ifdef RR_USE_ENZYME
-        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
-            modelResources->evalReactionRatesTangentsPtr = reinterpret_cast<EnzymeTangents_FunctionPtr>(
-                    lookupFunctionAddress(EnzymeJacobianCodeGen::ReactionRatesTangentsName));
-        }
-#endif
         if (options & LoadSBMLOptions::READ_ONLY) {
             modelResources->setBoundarySpeciesAmountPtr = 0;
             modelResources->setBoundarySpeciesConcentrationPtr = 0;

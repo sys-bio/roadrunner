@@ -192,6 +192,12 @@ namespace rrllvm {
         jit->addObjectFile(std::move(owningObject));
         jit->mapLLVMGeneratedFunctionsToSymbols(this, modelGeneratorOpt);
 
+        // the sparsity pattern and coloring are not saved with the compiled code
+        enzymeJacobian = EnzymeJacobianResources();
+        if (modelGeneratorOpt & rr::LoadSBMLOptions::ENZYME_JACOBIAN) {
+            enzymeJacobian.unavailableReason = "the Enzyme Jacobian is not carried over by saveState/loadState or a copy";
+        }
+
     }
 
     /** @endcond PRIVATE */

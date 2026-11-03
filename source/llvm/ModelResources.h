@@ -66,8 +66,8 @@ namespace rrllvm
         EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
         ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
         EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
-        /** Enzyme tangents of evalReactionRates (load option ENZYME_JACOBIAN), else null. */
-        EnzymeTangents_FunctionPtr evalReactionRatesTangentsPtr = nullptr;
+        /** The Enzyme Jacobian (load option ENZYME_JACOBIAN). */
+        EnzymeJacobianResources enzymeJacobian;
         SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;
         SetFloatingSpeciesAmountCodeGen::FunctionPtr setFloatingSpeciesAmountPtr;
         SetBoundarySpeciesConcentrationCodeGen::FunctionPtr setBoundarySpeciesConcentrationPtr;
