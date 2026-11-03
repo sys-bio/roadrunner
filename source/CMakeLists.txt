@@ -232,6 +232,7 @@ if (BUILD_LLVM)
             llvm/EvalRateRuleRatesCodeGen.cpp
             llvm/EnzymeJacobianCodeGen.cpp
             llvm/EnzymeShadow.cpp
+            llvm/JacobianSparsity.cpp
             llvm/EvalReactionRatesCodeGen.cpp
             llvm/EvalVolatileStoichCodeGen.cpp
             llvm/EventAssignCodeGen.cpp
@@ -280,6 +281,7 @@ if (BUILD_LLVM)
             llvm/EvalRateRuleRatesCodeGen.h
             llvm/EnzymeJacobianCodeGen.h
             llvm/EnzymeShadow.h
+            llvm/JacobianSparsity.h
             llvm/EvalReactionRatesCodeGen.h
             llvm/EvalVolatileStoichCodeGen.h
             llvm/EventAssignCodeGen.h
