@@ -114,6 +114,7 @@ set(
         rrGetOptions.h
         rrLogger.h
         rrExecutableModel.h
+        rrSparsityPattern.h
         rrRoadRunner.h
         rrRoadRunnerOptions.h
         rrStringUtils.h

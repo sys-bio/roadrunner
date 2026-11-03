@@ -3,6 +3,7 @@
 
 #include "LLVMModelData.h"
 #include "rrSparsityPattern.h"
+#include "rrExecutableModel.h"
 
 #include <string>
 #include <vector>
@@ -28,7 +29,7 @@ namespace rrllvm {
      */
     struct EnzymeJacobianResources {
         /** Why the Enzyme Jacobian is not available; empty if it is. */
-        std::string unavailableReason = "the model was loaded without Config.LLVM_ENZYME_JACOBIAN";
+        std::string unavailableReason = rr::ExecutableModel::StateVectorJacobianNotRequested;
 
         /** Patterns of dv/dy, d(rate rule rates)/dy and the Jacobian (with full diagonal). */
         rr::CscPattern reactionRates;

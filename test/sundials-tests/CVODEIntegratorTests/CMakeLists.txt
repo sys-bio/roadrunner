@@ -12,6 +12,13 @@ add_test_executable(
         ${SharedTestFiles}
 )
 
+if (RR_USE_ENZYME)
+    add_test_executable(
+            test_sundials_cvode_enzyme_jacobian test_targets
+            CvodeEnzymeJacobianTests.cpp
+    )
+endif ()
+
 # make test_targets list global to all tests
 set(test_targets ${test_targets} PARENT_SCOPE)
 

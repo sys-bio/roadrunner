@@ -1,6 +1,7 @@
 #pragma hdrstop
 
 #include "CVODEIntegrator.h"
+#include <sunmatrix/sunmatrix_sparse.h>
 #include "rrExecutableModel.h"
 #include "rrException.h"
 #include "rrLogger.h"
@@ -37,6 +38,9 @@ namespace rr {
     const int CVODEIntegrator::mDefaultMaxBDFOrder = 5;
 
     int cvodeDyDtFcn(sunrealtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
+
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
 
     int cvodeEventAndPiecewiseRootFcn(sunrealtype t, N_Vector y, sunrealtype *gout, void *userData);
 
@@ -197,6 +201,12 @@ namespace rr {
         addSetting("max_output_rows", Setting(Config::getInt(Config::MAX_OUTPUT_ROWS)), "Maximum Output Rows",
                    "For variable step size simulations, the maximum number of output rows produced (int).",
                    "(int) This will set the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents infinite or massive output for simulations where the variable step size ends up decreasing too much.");
+        addSetting("jacobian", Setting(std::string("difference_quotient")), "Jacobian",
+                   "How CVODE gets the Jacobian: \"difference_quotient\" or \"enzyme\" (string).",
+                   "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by finite differences. \"enzyme\" uses the exact Jacobian of the model, computed by automatic differentiation with Enzyme; the model must be loaded with Config.LLVM_ENZYME_JACOBIAN = True. A model the Enzyme Jacobian does not cover falls back to the difference quotient with a warning.");
+        addSetting("linear_solver", Setting(std::string("dense")), "Linear Solver",
+                   "The linear solver of the Newton iteration: \"dense\" or \"klu\" (string).",
+                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU with a sparse Jacobian; it needs jacobian = \"enzyme\" and a build with RR_USE_KLU.");
         CVODEIntegrator::loadConfigSettings();
     }
 
@@ -366,6 +376,30 @@ namespace rr {
         if (key == "absolute_tolerance" && val.type() == Setting::DOUBLEVECTOR)
             checkVectorSize(mModel->getNumIndFloatingSpecies() + mModel->getNumRateRules(),
                             val.get<std::vector<double> >().size());
+
+        if (key == "jacobian" || key == "linear_solver") {
+            std::string v = val.getAs<std::string>();
+            bool valid = key == "jacobian" ? (v == "difference_quotient" || v == "enzyme")
+                                           : (v == "dense" || v == "klu");
+            if (!valid) {
+                throw std::invalid_argument("CVODEIntegrator: invalid value '" + v + "' of setting '" + key + "'");
+            }
+            Setting previous = getValue(key);
+            Integrator::setValue(key, val);
+            if (mModel) {
+                // the linear solver and the Jacobian are part of the CVODE memory
+                freeSundialsMemory();
+                try {
+                    create();
+                } catch (...) {
+                    freeSundialsMemory();
+                    Integrator::setValue(key, previous);
+                    create();
+                    throw;
+                }
+            }
+            return;
+        }
 
         Integrator::setValue(key, val);
 
@@ -766,6 +800,33 @@ namespace rr {
                 handleCVODEError(err);
             }
 
+            std::string jacobianSetting = getValue("jacobian").getAs<std::string>();
+            std::string linearSolverSetting = getValue("linear_solver").getAs<std::string>();
+            if (linearSolverSetting == "klu" && jacobianSetting != "enzyme") {
+                throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs jacobian = \"enzyme\"");
+            }
+            mEnzymeJacobian = false;
+            if (jacobianSetting == "enzyme") {
+                if (mModel->hasStateVectorJacobian()) {
+                    mEnzymeJacobian = realStateVectorSize > 0;
+                } else if (mModel->getStateVectorJacobianUnavailableReason() ==
+                           ExecutableModel::StateVectorJacobianNotRequested) {
+                    throw std::invalid_argument(
+                            "CVODEIntegrator: jacobian = \"enzyme\" needs a model loaded with "
+                            "Config.LLVM_ENZYME_JACOBIAN = True");
+                } else if (linearSolverSetting == "klu") {
+                    throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs the Enzyme "
+                                                "Jacobian, which is not available: " +
+                                                mModel->getStateVectorJacobianUnavailableReason());
+                } else {
+                    rrLogWarn << "Enzyme Jacobian not available, CVODE uses the difference quotient: "
+                              << mModel->getStateVectorJacobianUnavailableReason();
+                }
+            }
+            if (mEnzymeJacobian) {
+                mJacobianValues.assign(mModel->getStateVectorJacobianPattern()->nnz(), 0.0);
+            }
+
             // the newton method requires use of a linear solver, which we set up here.
             jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
             linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
@@ -780,8 +841,8 @@ namespace rr {
                 handleCVODEError(err);
             };
 
-            // Use a difference quotient Jacobian by not passing Jac to CVodeSetJacFn
-            if ((err = CVodeSetJacFn(mCVODE_Memory, nullptr)) != CV_SUCCESS) {
+            // the exact Jacobian of the model, or a difference quotient Jacobian (nullptr)
+            if ((err = CVodeSetJacFn(mCVODE_Memory, mEnzymeJacobian ? cvodeJacFcn : nullptr)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
         } else {
@@ -1054,6 +1115,59 @@ namespace rr {
 
     // Cvode calls this to compute the dy/dts. This routine in turn calls the
     // model function which is located in the host application.
+    /**
+     * The exact Jacobian of the model for CVODE (setting jacobian = "enzyme"), written into the
+     * dense matrix or, with KLU, into the sparse matrix whose structure is the model's pattern.
+     */
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3) {
+        auto *cv = static_cast<CVODEIntegrator *>(userData);
+        try {
+            const CscPattern &p = *cv->mModel->getStateVectorJacobianPattern();
+            cv->mModel->getStateVectorJacobian(t, NV_DATA_S(y), cv->mJacobianValues.data());
+            const double *values = cv->mJacobianValues.data();
+            if (SUNMatGetID(J) == SUNMATRIX_DENSE) {
+                SUNMatZero(J);
+                for (int j = 0; j < p.nCols; ++j) {
+                    double *col = SUNDenseMatrix_Column(J, j);
+                    for (int k = p.colPtr[j]; k < p.colPtr[j + 1]; ++k) {
+                        col[p.rowIdx[k]] = values[k];
+                    }
+                }
+            } else {
+                sunindextype *colPtr = SUNSparseMatrix_IndexPointers(J);
+                sunindextype *rowIdx = SUNSparseMatrix_IndexValues(J);
+                double *data = SUNSparseMatrix_Data(J);
+                std::copy(p.colPtr.begin(), p.colPtr.end(), colPtr);
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), rowIdx);
+                std::copy(values, values + p.nnz(), data);
+            }
+        } catch (const std::exception &e) {
+            rrLogErr << "Enzyme Jacobian failed: " << e.what();
+            return -1;
+        }
+        return 0;
+    }
+
+    std::unordered_map<std::string, long> CVODEIntegrator::getSolverStatistics() const {
+        std::unordered_map<std::string, long> s = {
+                {"steps", 0}, {"rhs_evals", 0}, {"rhs_evals_jac", 0}, {"jac_evals", 0}, {"nonlin_iters", 0},
+                {"nonlin_conv_fails", 0}, {"err_test_fails", 0}, {"lin_setups", 0}};
+        if (mCVODE_Memory == nullptr) {
+            return s;
+        }
+        long v = 0;
+        if (CVodeGetNumSteps(mCVODE_Memory, &v) == CV_SUCCESS) s["steps"] = v;
+        if (CVodeGetNumRhsEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["rhs_evals"] = v;
+        if (CVodeGetNumErrTestFails(mCVODE_Memory, &v) == CV_SUCCESS) s["err_test_fails"] = v;
+        if (CVodeGetNumLinSolvSetups(mCVODE_Memory, &v) == CV_SUCCESS) s["lin_setups"] = v;
+        if (CVodeGetNumNonlinSolvIters(mCVODE_Memory, &v) == CV_SUCCESS) s["nonlin_iters"] = v;
+        if (CVodeGetNumNonlinSolvConvFails(mCVODE_Memory, &v) == CV_SUCCESS) s["nonlin_conv_fails"] = v;
+        if (CVodeGetNumJacEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["jac_evals"] = v;
+        if (CVodeGetNumLinRhsEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["rhs_evals_jac"] = v;
+        return s;
+    }
+
     int cvodeDyDtFcn(sunrealtype time, N_Vector cv_y, N_Vector cv_ydot, void *userData) {
         double *y = NV_DATA_S(cv_y);
         double *ydot = NV_DATA_S(cv_ydot);

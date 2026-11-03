@@ -837,6 +837,10 @@ namespace rr {
          */
         virtual void getStateVectorRate(double time, const double *y, double *dydt = 0) = 0;
 
+        /** The reason a model gives when it was loaded without Config.LLVM_ENZYME_JACOBIAN. */
+        static constexpr const char *StateVectorJacobianNotRequested =
+                "the model was loaded without Config.LLVM_ENZYME_JACOBIAN";
+
         /**
          * True if the model computes the exact Jacobian of its state vector rate
          * (Enzyme, load option ENZYME_JACOBIAN).
