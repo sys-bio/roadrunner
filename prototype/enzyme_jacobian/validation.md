@@ -37,4 +37,4 @@ Largest relative error of a passing case: 5.2e-05 (case 01395).
 - 34: roadrunner cannot simulate it: Unable to support 'fast' reac (e.g. 00870, 00871, 00872, 00873, 00874)
 - 34: no timecourse in the settings (e.g. 01186, 01187, 01188, 01189, 01190)
 
-Run time: 34 s.
+Run time: 32 s.

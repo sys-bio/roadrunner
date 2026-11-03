@@ -8,9 +8,18 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <filesystem>
 #include <string>
 
 using namespace rr;
+
+/** Skip the test when a benchmark model is not on this machine (RR_ENZYME_MODELS or the default checkouts). */
+#define SKIP_UNLESS_FILE(path)                                                                   \
+    do {                                                                                         \
+        if (!std::filesystem::exists(path)) {                                                    \
+            GTEST_SKIP() << "model file not found: " << (path);                                  \
+        }                                                                                        \
+    } while (0)
 
 namespace {
 
@@ -74,6 +83,7 @@ namespace {
 }
 
 TEST_F(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
+    SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     ls::DoubleMatrix reference = run(rr, "PODOSE_hctz", 25.0, "difference_quotient");
     auto dq = cvode(rr)->getSolverStatistics();
@@ -90,6 +100,7 @@ TEST_F(CvodeEnzymeJacobianTests, EnzymeDenseMatchesDefault) {
 
 TEST_F(CvodeEnzymeJacobianTests, EnzymeWithoutLoadOptionIsError) {
     Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
+    SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     try {
         rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
@@ -100,6 +111,7 @@ TEST_F(CvodeEnzymeJacobianTests, EnzymeWithoutLoadOptionIsError) {
 }
 
 TEST_F(CvodeEnzymeJacobianTests, InvalidSettingValueIsError) {
+    SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
     EXPECT_THROW(rr.getIntegrator()->setValue("jacobian", Setting("exact")), std::invalid_argument);
     EXPECT_THROW(rr.getIntegrator()->setValue("linear_solver", Setting("lu")), std::invalid_argument);
@@ -119,6 +131,7 @@ TEST_F(CvodeEnzymeJacobianTests, FallbackWarns) {
 }
 
 TEST_F(CvodeEnzymeJacobianTests, SwitchSettingsBetweenSimulations) {
+    SKIP_UNLESS_FILE(glimepiride());
     RoadRunner rr(glimepiride());
     ls::DoubleMatrix a = run(rr, "PODOSE_gli", 4.0, "difference_quotient");
     ls::DoubleMatrix b = run(rr, "PODOSE_gli", 4.0, "enzyme");
@@ -135,6 +148,7 @@ TEST_F(CvodeEnzymeJacobianTests, KluMatchesDense) {
         double value;
     };
     for (const Case &c: {Case{hctz(), "PODOSE_hctz", 25.0}, Case{glimepiride(), "PODOSE_gli", 4.0}}) {
+        SKIP_UNLESS_FILE(c.path);
         RoadRunner rr(c.path);
         ls::DoubleMatrix reference = run(rr, c.dose, c.value, "difference_quotient");
         ls::DoubleMatrix klu = run(rr, c.dose, c.value, "enzyme", "klu");
@@ -146,12 +160,82 @@ TEST_F(CvodeEnzymeJacobianTests, KluMatchesDense) {
     }
 }
 
-TEST_F(CvodeEnzymeJacobianTests, KluRequiresEnzyme) {
+TEST_F(CvodeEnzymeJacobianTests, KluWithoutEnzymeFallsBack) {
+    SKIP_UNLESS_FILE(hctz());
     RoadRunner rr(hctz());
-    EXPECT_THROW(rr.getIntegrator()->setValue("linear_solver", Setting("klu")), std::invalid_argument);
-    // the integrator still works with its previous settings
-    EXPECT_EQ(rr.getIntegrator()->getValue("linear_solver").getAs<std::string>(), "dense");
+    rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
+    EXPECT_EQ(rr.getIntegrator()->getValue("linear_solver").getAs<std::string>(), "klu");
     rr.simulate(0, 10, 11);
+    auto stats = cvode(rr)->getSolverStatistics();
+    EXPECT_EQ(stats["sparse_linear_solver"], 0);
+    EXPECT_GT(stats["rhs_evals_jac"], 0);
+}
+
+TEST_F(CvodeEnzymeJacobianTests, SwitchBackFromKluInEitherOrder) {
+    SKIP_UNLESS_FILE(hctz());
+    RoadRunner rr(hctz());
+    for (bool jacobianFirst: {true, false}) {
+        rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
+        rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
+        if (jacobianFirst) {
+            rr.getIntegrator()->setValue("jacobian", Setting("difference_quotient"));
+            rr.getIntegrator()->setValue("linear_solver", Setting("dense"));
+        } else {
+            rr.getIntegrator()->setValue("linear_solver", Setting("dense"));
+            rr.getIntegrator()->setValue("jacobian", Setting("difference_quotient"));
+        }
+        rr.reset();
+        rr.simulate(0, 10, 11);
+        EXPECT_GT(cvode(rr)->getSolverStatistics()["rhs_evals_jac"], 0);
+    }
+}
+
+TEST_F(CvodeEnzymeJacobianTests, LoadFallbackModelWhileKluIsSet) {
+    SKIP_UNLESS_FILE(hctz());
+    RoadRunner rr(hctz());
+    rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
+    rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
+    ModelBuilder b;
+    b.compartment("c").species("S1").species("S2").reaction("R1", {"S1"}, {"S2"}, "factorial(S1)*0.01");
+    rr.load(b.sbml());
+    ASSERT_FALSE(rr.getModel()->hasStateVectorJacobian());
+    rr.simulate(0, 1, 11);
+    EXPECT_EQ(cvode(rr)->getSolverStatistics()["sparse_linear_solver"], 0);
+}
+
+TEST_F(CvodeEnzymeJacobianTests, LoadWithoutOptionWhileEnzymeIsSet) {
+    SKIP_UNLESS_FILE(hctz());
+    RoadRunner rr(hctz());
+    rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
+    Config::setValue(Config::LLVM_ENZYME_JACOBIAN, false);
+    LoadSBMLOptions opt;
+    rr.load(hctz(), &opt);
+    rr.simulate(0, 10, 11);
+    EXPECT_GT(cvode(rr)->getSolverStatistics()["rhs_evals_jac"], 0);
+}
+
+TEST_F(CvodeEnzymeJacobianTests, ConservedMoietyAnalysisWhileKluIsSet) {
+    ModelBuilder b;
+    b.compartment("c").species("S1").species("S2").parameter("k", 0.1)
+            .reaction("R1", {"S1"}, {"S2"}, "k*S1").reaction("R2", {"S2"}, {"S1"}, "0.05*S2*S2");
+    RoadRunner rr(b.sbml());
+    rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
+    rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
+    rr.setConservedMoietyAnalysis(true);
+    EXPECT_TRUE(rr.getConservedMoietyAnalysis());
+    rr.simulate(0, 10, 11);
+    EXPECT_EQ(cvode(rr)->getSolverStatistics()["sparse_linear_solver"], 0);
+}
+
+TEST_F(CvodeEnzymeJacobianTests, CopyWithKluIsSet) {
+    SKIP_UNLESS_FILE(hctz());
+    RoadRunner rr(hctz());
+    rr.getIntegrator()->setValue("jacobian", Setting("enzyme"));
+    rr.getIntegrator()->setValue("linear_solver", Setting("klu"));
+    RoadRunner copy(rr);
+    copy.simulate(0, 10, 11);
+    // the copy falls back to the difference quotient: the Enzyme Jacobian is not carried over
+    EXPECT_GT(cvode(copy)->getSolverStatistics()["rhs_evals_jac"], 0);
 }
 
 TEST_F(CvodeEnzymeJacobianTests, KluSurvivesEventsAndReset) {

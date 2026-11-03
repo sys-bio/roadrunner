@@ -21,17 +21,18 @@ Passed with the tagged Enzyme release `v0.0.303`, built against roadrunner's LLV
 
 ## Validation (`validation.md`)
 
-- **Reference.** The Enzyme Jacobian is compared with central differences of the state vector rate, using a ladder of step sizes, plus one-sided differences at kinks of `max` and `min`.
+- **Reference.** The Enzyme Jacobian is compared with central differences of the state vector rate, using a ladder of step sizes, within 1e-6 relative, plus one-sided differences within 1e-4 relative for kinks of `max` and `min`. The one-sided tolerance applies to every entry, so the effective tolerance is 1e-4: of the 1417 passing cases, one has a largest error above 1e-6 (01395, 5.2e-5, at a state of 2.8e-10, where two finite difference references already disagree by 1.6e-4); the next largest is 1.0e-6.
 - **Benchmark models.** No mismatches and no finite difference nonzeros outside the sparsity pattern. The largest relative error is 5.5e-7.
 - **SBML test suite.** Of 1823 semantic cases:
   - 1417 pass.
-  - 164 fall back, with a reason: 104 have a stoichiometry set by a rule, 46 have species conversion factors, and 14 call a helper that has no derivative.
+  - 164 fall back, with a reason: 104 have a stoichiometry set by a rule, 46 have species conversion factors, and 14 call a function that has no derivative (10 of them `csr_matrix_get_nz`, which `rateOf` calls to read a stoichiometry, 3 `factorial`, 1 `sec`).
   - 242 are skipped: roadrunner cannot simulate 208 of them (algebraic rules, delays, fast reactions), and 34 have no timecourse.
   - None fail.
 - **Simulations.** All three configurations stay within the integration error of a tight-tolerance reference (`rtol = 1e-12`, `atol = 1e-14`). In test case 00197 the difference quotient is the less accurate one.
-- **Bugs the validation found and fixed:**
+- **Bugs found and fixed:**
   - The model cache key ignored the Enzyme option.
   - The sparsity pattern missed the amount conversion of rate rules on concentration species (16 test suite cases).
+  - The final code review found that loading or regenerating a model the `jacobian`/`linear_solver` settings could not serve (a fallback model, a load without the Enzyme option, conserved moiety analysis) made CVODE throw halfway through its setup, and the next simulation crashed. CVODE now falls back to the dense difference quotient with a warning on every such path, including copies of a RoadRunner.
 
 ## Benchmark (`benchmark.csv`)
 
@@ -39,6 +40,8 @@ All three configurations come from the same release build. Settings: `rtol = ato
 
 - **Jacobian timings** are measured with `enzyme_jacobian_timing` at the state in the middle of the timecourse. The difference quotient is counted as n evaluations of the state vector rate, which is what CVODE's dense difference quotient costs.
 - **Shared machine.** Other jobs were running at the same time (load average 6 to 18 on 20 cores). Absolute times vary up to 2x between runs; the ratios are stable within about 10 %.
+
+`glimepiride_body` is `glimepiride_body_flat.xml` of `~/git/glimepiride-model/models` with 51 states, not the 168-state model of the #1409 profiles; `models.py` names every file and the PEtab commit.
 
 | model | states | J nnz | colors | load (s) | load with Enzyme (s) | Jacobian, difference quotient (µs) | Jacobian, Enzyme (µs) | speedup | simulate, dense + DQ (ms) | dense + Enzyme (ms) | KLU + Enzyme (ms) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -113,7 +116,7 @@ Options for an upstream version:
   - stoichiometry set by rules;
   - species conversion factors;
   - a global conversion factor that depends on the state;
-  - calls to helpers without a derivative (`factorial`, the `distrib` functions, `csc`, `sec`, `cot` and the other reciprocal trigonometric helpers);
+  - calls to functions without a derivative: `rateOf` (it reads the stoichiometry through `csr_matrix_get_nz`, which could be marked inactive since a fallback stoichiometry is constant), `factorial`, the `distrib` functions, `csc`, `sec`, `cot` and the other reciprocal trigonometric helpers;
   - models restored with `saveState`/`loadState`.
 
   Most of these can be supported: conserved moieties by differentiating with respect to the independent species, the helpers with IR bodies like `rr_min`/`rr_max`.
@@ -121,7 +124,7 @@ Options for an upstream version:
 - **Dependencies.** Enzyme has to match roadrunner's LLVM exactly, which ties every LLVM update to an Enzyme release. KLU needs SuiteSparse and a SUNDIALS built with it in libroadrunner-deps. Both have to be added to the dependency builds and the wheels on all platforms; the prototype only ran on Linux.
 - **Not used yet:** `getFullJacobian`, `getReducedJacobian`, the steady-state solvers (NLEQ, KINSOL) and forward sensitivities could use the same Jacobian.
 - **Not measured:** a sparse difference quotient with the same coloring would also feed KLU without Enzyme. It costs one model evaluation per color, 2 to 7 here, and a finite difference error. It would be the cheaper path to the KLU speedup if exactness and the Newton accuracy turn out not to matter.
-- **API.** The settings `jacobian` and `linear_solver` are coupled: `"klu"` needs `"enzyme"` at every moment. Switching from KLU back to the difference quotient therefore has to set `linear_solver` first. An upstream version should validate the combination when integration starts.
+- **API.** A combination of `jacobian` and `linear_solver` the model cannot serve falls back to the dense difference quotient with a warning, so the two settings can be set in any order. The one error is `jacobian = "enzyme"` on a model loaded without `Config.LLVM_ENZYME_JACOBIAN`. The two settings exist in every build, so they appear in `getSettings()` and in saved states, which `develop` does not know.
 - **Python binding issues found along the way, outside the prototype:**
   - A model symbol named `reset` becomes a property of the `RoadRunner` class, which hides `RoadRunner.reset` (test suite cases 00952 to 00999).
   - A 1 x 1 matrix comes back from the bindings with fewer dimensions.

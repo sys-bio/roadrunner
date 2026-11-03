@@ -209,7 +209,7 @@ namespace rr {
                    "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by finite differences. \"enzyme\" uses the exact Jacobian of the model, computed by automatic differentiation with Enzyme; the model must be loaded with Config.LLVM_ENZYME_JACOBIAN = True. A model the Enzyme Jacobian does not cover falls back to the difference quotient with a warning.");
         addSetting("linear_solver", Setting(std::string("dense")), "Linear Solver",
                    "The linear solver of the Newton iteration: \"dense\" or \"klu\" (string).",
-                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU with a sparse Jacobian; it needs jacobian = \"enzyme\" and a build with RR_USE_KLU.");
+                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU with a sparse Jacobian; it needs jacobian = \"enzyme\", a model with the Enzyme Jacobian and a build with RR_USE_KLU, and otherwise falls back to the dense solver with the difference quotient, with a warning.");
         CVODEIntegrator::loadConfigSettings();
     }
 
@@ -386,6 +386,12 @@ namespace rr {
                                            : (v == "dense" || v == "klu");
             if (!valid) {
                 throw std::invalid_argument("CVODEIntegrator: invalid value '" + v + "' of setting '" + key + "'");
+            }
+            // the one setting a model can never serve is an error of the caller, not a fallback
+            if (key == "jacobian" && v == "enzyme" && mModel && !mModel->hasStateVectorJacobian() &&
+                mModel->getStateVectorJacobianUnavailableReason() == ExecutableModel::StateVectorJacobianNotRequested) {
+                throw std::invalid_argument("CVODEIntegrator: jacobian = \"enzyme\" needs a model loaded with "
+                                            "Config.LLVM_ENZYME_JACOBIAN = True");
             }
             Setting previous = getValue(key);
             Integrator::setValue(key, val);
@@ -808,26 +814,19 @@ namespace rr {
 
             std::string jacobianSetting = getValue("jacobian").getAs<std::string>();
             std::string linearSolverSetting = getValue("linear_solver").getAs<std::string>();
-            if (linearSolverSetting == "klu" && jacobianSetting != "enzyme") {
-                throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs jacobian = \"enzyme\"");
-            }
+            // Never throw here: create() also runs when a model is loaded, regenerated or copied,
+            // and a setting the model cannot serve falls back to the dense difference quotient.
             mEnzymeJacobian = false;
             if (jacobianSetting == "enzyme") {
                 if (mModel->hasStateVectorJacobian()) {
                     mEnzymeJacobian = realStateVectorSize > 0;
-                } else if (mModel->getStateVectorJacobianUnavailableReason() ==
-                           ExecutableModel::StateVectorJacobianNotRequested) {
-                    throw std::invalid_argument(
-                            "CVODEIntegrator: jacobian = \"enzyme\" needs a model loaded with "
-                            "Config.LLVM_ENZYME_JACOBIAN = True");
-                } else if (linearSolverSetting == "klu") {
-                    throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs the Enzyme "
-                                                "Jacobian, which is not available: " +
-                                                mModel->getStateVectorJacobianUnavailableReason());
                 } else {
-                    rrLogWarn << "Enzyme Jacobian not available, CVODE uses the difference quotient: "
+                    rrLogWarn << "Enzyme Jacobian not available, CVODE uses the dense difference quotient: "
                               << mModel->getStateVectorJacobianUnavailableReason();
                 }
+            } else if (linearSolverSetting == "klu") {
+                rrLogWarn << "linear_solver = \"klu\" needs jacobian = \"enzyme\"; CVODE uses the dense "
+                             "difference quotient";
             }
             if (mEnzymeJacobian) {
                 mJacobianValues.assign(mModel->getStateVectorJacobianPattern()->nnz(), 0.0);
@@ -835,6 +834,13 @@ namespace rr {
 
             // the newton method requires use of a linear solver, which we set up here.
             mSparseJacobian = mEnzymeJacobian && linearSolverSetting == "klu";
+#ifndef RR_USE_KLU
+            if (mSparseJacobian) {
+                rrLogWarn << "linear_solver = \"klu\" needs a roadrunner built with RR_USE_KLU; CVODE uses the "
+                             "dense solver";
+                mSparseJacobian = false;
+            }
+#endif
             if (mSparseJacobian) {
 #ifdef RR_USE_KLU
                 const CscPattern &p = *mModel->getStateVectorJacobianPattern();
@@ -845,9 +851,6 @@ namespace rr {
                 if (linSolver == nullptr) {
                     throw std::runtime_error("CVODEIntegrator::createCVODE: SUNLinSol_KLU returned nullptr");
                 }
-#else
-                throw std::invalid_argument("CVODEIntegrator: linear_solver = \"klu\" needs a roadrunner built "
-                                            "with RR_USE_KLU");
 #endif
             } else {
                 jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);

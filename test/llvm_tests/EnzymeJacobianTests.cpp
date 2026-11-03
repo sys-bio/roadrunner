@@ -12,10 +12,19 @@
 #include <cmath>
 #include <functional>
 #include <cstdlib>
+#include <filesystem>
 #include <string>
 #include <vector>
 
 using namespace rr;
+
+/** Skip the test when a benchmark model is not on this machine (RR_ENZYME_MODELS or the default checkouts). */
+#define SKIP_UNLESS_FILE(path)                                                                   \
+    do {                                                                                         \
+        if (!std::filesystem::exists(path)) {                                                    \
+            GTEST_SKIP() << "model file not found: " << (path);                                  \
+        }                                                                                        \
+    } while (0)
 
 namespace {
 
@@ -48,6 +57,7 @@ namespace {
  * central difference of the reaction rates in the state y_j.
  */
 TEST_F(EnzymeJacobianTests, GateHctzDirectionalDerivative) {
+    SKIP_UNLESS_FILE(modelPath("/git/hctz-model/models", "hctz_body_flat.xml"));
     RoadRunner rr(modelPath("/git/hctz-model/models", "hctz_body_flat.xml"));
     rr.setValue("PODOSE_hctz", 25.0);
     rr.simulate(0, 60, 61);
@@ -225,6 +235,7 @@ TEST_F(EnzymeJacobianTests, FullJacobianMatchesFD) {
     };
     for (const Case &c: {Case{"/git/hctz-model/models", "hctz_body_flat.xml", "PODOSE_hctz", 25.0},
                          Case{"/git/glimepiride-model/models", "glimepiride_body_flat.xml", "PODOSE_gli", 4.0}}) {
+        SKIP_UNLESS_FILE(modelPath(c.dir, c.file));
         RoadRunner rr(modelPath(c.dir, c.file));
         rr.setValue(c.dose, c.value);
         double t0 = 0;

@@ -8,6 +8,7 @@
 #include <sbml/SBMLTypes.h>
 
 #include <algorithm>
+#include <filesystem>
 #include <cstdlib>
 #include <memory>
 #include <set>
@@ -15,6 +16,14 @@
 #include <vector>
 
 using namespace rrllvm;
+
+/** Skip the test when a benchmark model is not on this machine (RR_ENZYME_MODELS or the default checkouts). */
+#define SKIP_UNLESS_FILE(path)                                                                   \
+    do {                                                                                         \
+        if (!std::filesystem::exists(path)) {                                                    \
+            GTEST_SKIP() << "model file not found: " << (path);                                  \
+        }                                                                                        \
+    } while (0)
 
 namespace {
 
@@ -104,6 +113,7 @@ TEST(JacobianSparsityTests, ColoringIsValid) {
     const char *env = std::getenv("RR_ENZYME_MODELS");
     std::string path = (env ? std::string(env) : std::string(std::getenv("HOME")) + "/git/hctz-model/models")
                        + "/hctz_body_flat.xml";
+    SKIP_UNLESS_FILE(path);
     std::unique_ptr<libsbml::SBMLDocument> doc(libsbml::readSBMLFromFile(path.c_str()));
     ASSERT_EQ(doc->getNumErrors(libsbml::LIBSBML_SEV_FATAL) + doc->getNumErrors(libsbml::LIBSBML_SEV_ERROR), 0u);
     LLVMModelDataSymbols sym(doc->getModel(), 0);
