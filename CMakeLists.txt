@@ -570,6 +570,10 @@ endif ()
 
 # We always have to build the roadrunner core, everything depends on this
 add_subdirectory(source)
+if (RR_USE_ENZYME)
+    # prototype tooling of the Enzyme Jacobian
+    add_subdirectory(prototype/enzyme_jacobian)
+endif ()
 
 ###########################################################
 ## API's

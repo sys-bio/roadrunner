@@ -62,8 +62,14 @@ namespace rrllvm {
         static const char *ReactionRatesTangentsName;
         static const char *RateRuleRatesTangentsName;
 
-        /** Largest vector width of a generated tangents function. */
-        static const int MaxWidth = 16;
+        /**
+         * Default vector width of the generated tangents functions: one seed direction per pass.
+         * Measured on the benchmark models (prototype/enzyme_jacobian/RESULTS.md), a wider vector
+         * hardly changes the time of a Jacobian but multiplies the compilation time (Chen_MSB2009,
+         * 7 colors: 11 s to load at width 1, 59 s at width 7). The environment variable
+         * RR_ENZYME_MAX_WIDTH sets a larger width.
+         */
+        static const int DefaultWidth = 1;
 
         /**
          * @brief Prepare the Enzyme Jacobian of the model of the context: check the cases it

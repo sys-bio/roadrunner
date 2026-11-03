@@ -68,9 +68,31 @@ make -C ~/rr-enzyme/build -j20
 ctest --test-dir ~/rr-enzyme/build -j20
 ```
 
+## Python bindings and the scripts
+
+The bindings need SWIG 4.4.1 or later (Ubuntu 24.04 has 4.0), taken from PyPI into the virtual environment of the scripts. The build tree's `site-packages` is put on the path of the environment with a `.pth` file.
+
+```bash
+uv venv ~/rr-enzyme/venv --python /usr/bin/python3.12
+uv pip install --python ~/rr-enzyme/venv/bin/python numpy pandas python-libsbml "swig>=4.4.1" pytest \
+  -r ~/git/roadrunner-enzyme/test-requirements.txt
+cmake ~/rr-enzyme/build -DBUILD_PYTHON=ON -DPython_EXECUTABLE=$HOME/rr-enzyme/venv/bin/python \
+  -DSWIG_EXECUTABLE=$HOME/rr-enzyme/venv/bin/swig
+make -C ~/rr-enzyme/build -j20
+echo "$HOME/rr-enzyme/build/lib/site-packages" > ~/rr-enzyme/venv/lib/python3.12/site-packages/roadrunner-enzyme.pth
+
+cd ~/git/roadrunner-enzyme/prototype/enzyme_jacobian
+~/rr-enzyme/venv/bin/python validate.py          # validation.md
+~/rr-enzyme/venv/bin/python benchmark.py         # benchmark.csv, needs the target enzyme_jacobian_timing
+```
+
+The `develop` baseline of the benchmark is a second worktree at `2876ab2ed` (`~/git/roadrunner-develop`), built the same way without the two options and without tests into `~/rr-enzyme/build-develop`, with its own environment `~/rr-enzyme/venv-develop`, against the same `~/rr-enzyme/deps`.
+
 ## Known test failures that are not caused by the prototype
 
 With `ctest -j20`, about 90 `ModelEditingTests` and 20 `StateSavingTests` fail on `develop` as well (110 failures with the same dependencies and `develop` at `2876ab2ed`). They all pass with `ctest -j1`, so they interfere with each other when run in parallel.
+
+`python_tests_RunStochasticTestSuite` fails with "Unable to find stochastic test suite directory": the test looks for the suite at fixed relative paths, which do not exist when the build directory is not next to a source tree named `roadrunner`.
 
 ## Go/no-go gate
 

@@ -18,6 +18,7 @@
 #include "JitFactory.h"
 #include "ModelResources.h"
 #include "EnzymeJacobianCodeGen.h"
+#include <chrono>
 #include "Random.h"
 #include <rrLogger.h>
 #include <rrUtils.h>
@@ -252,6 +253,7 @@ namespace rrllvm {
         // this sbml model.
         codeGeneration(*modelGeneratorContext, options);
 
+        auto enzymeStart = std::chrono::steady_clock::now();
         if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
             EnzymeJacobianCodeGen::prepare(*modelGeneratorContext, options, modelResources->enzymeJacobian);
             if (!modelResources->enzymeJacobian.available()) {
@@ -265,7 +267,14 @@ namespace rrllvm {
          * to the developing LLVM IR module.
          * In some Jit's (MCJit), this also triggers llvm IR optimization
          */
+        auto compileStart = std::chrono::steady_clock::now();
         modelGeneratorContext->getJitNonOwning()->addModule();
+        auto compileEnd = std::chrono::steady_clock::now();
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            rrLog(Logger::LOG_INFORMATION) << "Enzyme Jacobian: preparation "
+                    << std::chrono::duration<double>(compileStart - enzymeStart).count() << " s, compilation "
+                    << std::chrono::duration<double>(compileEnd - compileStart).count() << " s";
+        }
 
         // models made later from these resources (see createModel) need the same number
         modelResources->numPiecewiseTriggers = modelGeneratorContext->getNumPiecewiseTriggers();

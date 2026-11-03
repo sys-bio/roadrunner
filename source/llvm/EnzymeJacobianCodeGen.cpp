@@ -20,6 +20,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
 #include <set>
 #include <stdexcept>
 #include <vector>
@@ -361,7 +362,12 @@ namespace rrllvm {
         res.jacobian = sparsity.jacobian();
         res.colors = sparsity.colors();
         res.numColors = sparsity.numColors();
-        res.width = std::min(res.numColors, MaxWidth);
+        // a larger width needs fewer passes per Jacobian and compiles much slower
+        int maxWidth = DefaultWidth;
+        if (const char *env = std::getenv("RR_ENZYME_MAX_WIDTH")) {
+            maxWidth = std::max(1, std::atoi(env));
+        }
+        res.width = std::min(res.numColors, maxWidth);
         if (res.width == 0) {
             res.unavailableReason.clear();  // no states: an empty Jacobian, nothing to generate
             return;
