@@ -68,8 +68,6 @@ namespace rrllvm {
     inline ModelGeneratorContext
         createModelGeneratorContext(const libsbml::SBMLDocument* sbml, std::uint32_t options);
 
-    inline std::string getSBMLMD5(const std::string& sbml, const std::uint32_t& options);
-
     inline LLVMModelData* codeGenAddModuleAndMakeModelData(
         ModelGeneratorContext* modelGeneratorContext,
         std::shared_ptr<ModelResources>& modelResources,
@@ -224,16 +222,6 @@ namespace rrllvm {
 
     }
 
-    std::string getSBMLMD5(const std::string& sbml, const std::uint32_t& options) {
-        std::string sbmlMD5;
-        sbmlMD5 = rr::getMD5(sbml);
-
-        if (options & LoadSBMLOptions::CONSERVED_MOIETIES) {
-            sbmlMD5 += "_conserved";
-        }
-        return sbmlMD5;
-    }
-
     /**
      * @brief collect a few essential calls for creating a model into a function
      * @details these operations are required in multiple places and so they are
@@ -295,7 +283,7 @@ namespace rrllvm {
         ModelGeneratorContext modelGeneratorContext(doc, options, JitFactory::makeJitEngine(options));
 
         char* docSBML = doc->toSBML();
-        std::string sbmlMD5 = getSBMLMD5(std::string((const char*)docSBML), options);
+        std::string sbmlMD5 = rr::getSBMLMD5(std::string((const char*)docSBML), options);
         if (modelResources->sbmlMD5.empty()) {
             modelResources->sbmlMD5 = sbmlMD5;
         }
@@ -486,8 +474,8 @@ namespace rrllvm {
         SharedModelResourcesPtr modelResources = std::make_shared<ModelResources>();
 
         /**
-         * The sbml md5 is used as the LLVM module name.
-         * This facilitates object caching via rrObjectCache since
+         * The key of the model (see rr::getSBMLMD5) is used as the LLVM module name.
+         * This facilitates object caching via SBMLModelObjectCache since
          * the LLVM module name is the key in the object map used to
          * cache the objects.
          */
