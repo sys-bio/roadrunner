@@ -26,7 +26,6 @@
 
 // somebody will likely call this multithread and then bitch and moan if
 // there is an issue, so lock it.
-#include <thread>
 #include <mutex>
 // default values of sbml consistency check
 #include <sbml/SBMLDocument.h>
@@ -42,13 +41,6 @@ using std::string;
 namespace rr {
 
     typedef std::unordered_map<std::string, int> StringIntMap;
-
-    int getDefaultNumThreads() {
-        int processor_count = std::thread::hardware_concurrency();
-        if (processor_count == 0) // can't detect
-            processor_count = 1;
-        return processor_count;
-    }
 
     /**
      * check range of key
@@ -143,8 +135,8 @@ namespace rr {
             Setting(10000),                             // MAX_EVENT_CASCADE
             Setting(true),                              // VALIDATION_IN_REGENERATION
             Setting(1000),                              // K_ROWS_PER_WRITE
-            Setting((std::int32_t)Config::MCJIT),       // LLVM_BACKEND
-            Setting((std::int32_t)Config::NONE),        // LLJIT_OPTIMIZATION_LEVEL
+            Setting((std::int32_t)Config::LLJIT),       // LLVM_BACKEND
+            Setting((std::int32_t)Config::DEFAULT),     // LLJIT_OPTIMIZATION_LEVEL
             Setting(1),                                 // LLJIT_NUM_THREADS
             Setting(1.e-9),                             // METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD
             Setting(0.02),                              // METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE
@@ -178,7 +170,9 @@ namespace rr {
     }
 
     /**
-     * load the names of the keys and values into a std::map
+     * load the names of the keys into a std::map from the name to the key.
+     * The name of a key is its name in the enum Config::Keys. It is used in the
+     * configuration file, by stringToKey and by getKeyList.
      */
     static void getKeyNames(StringIntMap& keys) {
         std::lock_guard lock(configMutex);
@@ -263,9 +257,9 @@ namespace rr {
         keys["MAX_EVENT_CASCADE"] = rr::Config::MAX_EVENT_CASCADE;
         keys["VALIDATION_IN_REGENERATION"] = rr::Config::VALIDATION_IN_REGENERATION;
         keys["K_ROWS_PER_WRITE"] = rr::Config::K_ROWS_PER_WRITE;
-        keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND_VALUES::LLJIT;
-        keys["LLJIT_OPTIMIZATION_LEVEL"] = rr::Config::LLJIT_OPTIMIZATION_LEVELS::AGGRESSIVE;
-        keys["LLJIT_NUM_THREADS"] = getDefaultNumThreads();
+        keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND;
+        keys["LLJIT_OPTIMIZATION_LEVEL"] = rr::Config::LLJIT_OPTIMIZATION_LEVEL;
+        keys["LLJIT_NUM_THREADS"] = rr::Config::LLJIT_NUM_THREADS;
         keys["METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
         keys["METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE;
         keys["METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD;
@@ -469,131 +463,13 @@ namespace rr {
     }
 
     Config::Keys Config::stringToKey(const std::string& key) {
-        if (key == "LOADSBMLOPTIONS_CONSERVED_MOIETIES")
-            return Config::LOADSBMLOPTIONS_CONSERVED_MOIETIES;
-        else if (key == "LOADSBMLOPTIONS_RECOMPILE")
-            return Config::LOADSBMLOPTIONS_RECOMPILE;
-        else if (key == "LOADSBMLOPTIONS_READ_ONLY")
-            return Config::LOADSBMLOPTIONS_READ_ONLY;
-        else if (key == "LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS")
-            return Config::LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_GVN")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_GVN;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION;
-        else if (key == "LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER")
-            return Config::LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER;
-        else if (key == "LOADSBMLOPTIONS_USE_MCJIT")
-            return Config::LOADSBMLOPTIONS_USE_MCJIT;
-        else if (key == "SIMULATEOPTIONS_STEPS")
-            return Config::SIMULATEOPTIONS_STEPS;
-        else if (key == "SIMULATEOPTIONS_DURATION")
-            return Config::SIMULATEOPTIONS_DURATION;
-        else if (key == "SIMULATEOPTIONS_ABSOLUTE")
-            return Config::SIMULATEOPTIONS_ABSOLUTE;
-        else if (key == "SIMULATEOPTIONS_RELATIVE")
-            return Config::SIMULATEOPTIONS_RELATIVE;
-        else if (key == "SIMULATEOPTIONS_STRUCTURED_RESULT")
-            return Config::SIMULATEOPTIONS_STRUCTURED_RESULT;
-        else if (key == "SIMULATEOPTIONS_STIFF")
-            return Config::SIMULATEOPTIONS_STIFF;
-        else if (key == "SIMULATEOPTIONS_MULTI_STEP")
-            return Config::SIMULATEOPTIONS_MULTI_STEP;
-        else if (key == "SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP")
-            return Config::SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP;
-        else if (key == "SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP")
-            return Config::SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP;
-        else if (key == "SIMULATEOPTIONS_INTEGRATOR")
-            return Config::SIMULATEOPTIONS_INTEGRATOR;
-        else if (key == "SIMULATEOPTIONS_INITIAL_TIMESTEP")
-            return Config::SIMULATEOPTIONS_INITIAL_TIMESTEP;
-        else if (key == "SIMULATEOPTIONS_MINIMUM_TIMESTEP")
-            return Config::SIMULATEOPTIONS_MINIMUM_TIMESTEP;
-        else if (key == "SIMULATEOPTIONS_MAXIMUM_TIMESTEP")
-            return Config::SIMULATEOPTIONS_MAXIMUM_TIMESTEP;
-        else if (key == "SIMULATEOPTIONS_MAXIMUM_NUM_STEPS")
-            return Config::SIMULATEOPTIONS_MAXIMUM_NUM_STEPS;
-        else if (key == "ROADRUNNER_DISABLE_WARNINGS")
-            return Config::ROADRUNNER_DISABLE_WARNINGS;
-        else if (key == "ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES")
-            return Config::ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES;
-        else if (key == "SBML_APPLICABLEVALIDATORS")
-            return Config::SBML_APPLICABLEVALIDATORS;
-        else if (key == "ROADRUNNER_JACOBIAN_STEP_SIZE")
-            return Config::ROADRUNNER_JACOBIAN_STEP_SIZE;
-        else if (key == "MODEL_RESET")
-            return Config::MODEL_RESET;
-        else if (key == "CVODE_MIN_ABSOLUTE")
-            return Config::CVODE_MIN_ABSOLUTE;
-        else if (key == "CVODE_MIN_RELATIVE")
-            return Config::CVODE_MIN_RELATIVE;
-        else if (key == "SIMULATEOPTIONS_COPY_RESULT")
-            return Config::SIMULATEOPTIONS_COPY_RESULT;
-        else if (key == "STEADYSTATE_PRESIMULATION")
-            return Config::STEADYSTATE_PRESIMULATION;
-        else if (key == "STEADYSTATE_PRESIMULATION_MAX_STEPS")
-            return Config::STEADYSTATE_PRESIMULATION_MAX_STEPS;
-        else if (key == "STEADYSTATE_PRESIMULATION_TIME")
-            return Config::STEADYSTATE_PRESIMULATION_TIME;
-        else if (key == "STEADYSTATE_APPROX")
-            return Config::STEADYSTATE_APPROX;
-        else if (key == "STEADYSTATE_APPROX_TOL")
-            return Config::STEADYSTATE_APPROX_TOL;
-        else if (key == "STEADYSTATE_APPROX_MAX_STEPS")
-            return Config::STEADYSTATE_APPROX_MAX_STEPS;
-        else if (key == "STEADYSTATE_APPROX_TIME")
-            return Config::STEADYSTATE_APPROX_TIME;
-        else if (key == "STEADYSTATE_RELATIVE")
-            return Config::STEADYSTATE_RELATIVE;
-        else if (key == "STEADYSTATE_MAXIMUM_NUM_STEPS")
-            return Config::STEADYSTATE_MAXIMUM_NUM_STEPS;
-        else if (key == "STEADYSTATE_MINIMUM_DAMPING")
-            return Config::STEADYSTATE_MINIMUM_DAMPING;
-        else if (key == "STEADYSTATE_BROYDEN")
-            return Config::STEADYSTATE_BROYDEN;
-        else if (key == "STEADYSTATE_LINEARITY")
-            return Config::STEADYSTATE_LINEARITY;
-        else if (key == "ROADRUNNER_JACOBIAN_MODE")
-            return Config::ROADRUNNER_JACOBIAN_MODE;
-        else if (key == "TEMP_DIR_PATH")
-            return Config::TEMP_DIR_PATH;
-        else if (key == "LOGGER_LOG_FILE_PATH")
-            return Config::LOGGER_LOG_FILE_PATH;
-        else if (key == "RANDOM_SEED")
-            return Config::RANDOM_SEED;
-        else if (key == "PYTHON_ENABLE_NAMED_MATRIX")
-            return Config::PYTHON_ENABLE_NAMED_MATRIX;
-        else if (key == "LLVM_SYMBOL_CACHE")
-            return Config::LLVM_SYMBOL_CACHE;
-        else if (key == "OPTIMIZE_REACTION_RATE_SELECTION")
-            return Config::OPTIMIZE_REACTION_RATE_SELECTION;
-        else if (key == "LOADSBMLOPTIONS_PERMISSIVE")
-            return Config::LOADSBMLOPTIONS_PERMISSIVE;
-        else if (key == "MAX_OUTPUT_ROWS")
-            return Config::MAX_OUTPUT_ROWS;
-        else if (key == "ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS")
-            return Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
-        else if (key == "MAX_EVENT_CASCADE")
-            return Config::MAX_EVENT_CASCADE;
-        else if (key == "VALIDATION_IN_REGENERATION")
-            return Config::VALIDATION_IN_REGENERATION;
-        else if (key == "LLVM_BACKEND")
-            return Config::LLVM_BACKEND;
-        else if (key == "LLJIT_OPTIMIZATION_LEVEL")
-            return Config::LLJIT_OPTIMIZATION_LEVEL;
-        else if (key == "LLJIT_NUM_THREADS")
-            return Config::LLJIT_NUM_THREADS;
-        else if (key == "METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD")
-            return Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
-
-        else
+        StringIntMap keys;
+        getKeyNames(keys);
+        StringIntMap::const_iterator i = keys.find(key);
+        if (i == keys.end()) {
             throw std::runtime_error("No such config key: '" + key + "'");
+        }
+        return (Config::Keys) i->second;
     }
 
 } // namespace rr

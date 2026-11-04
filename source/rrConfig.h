@@ -548,19 +548,20 @@ namespace rr {
             /**
              * An enum value that indicates which
              * llvm JIT compiler is being used.
+             * Either MCJIT or LLJIT (the default).
              */
             LLVM_BACKEND,
 
             /**
-             * Optimization level when using LLJit.
-             * Either NONE, LESS, DEFAULT or AGGRESSIVE
+             * Optimization level of the code generation when using LLJit.
+             * Either NONE, LESS, DEFAULT (the default) or AGGRESSIVE
              */
             LLJIT_OPTIMIZATION_LEVEL,
 
             /**
              * How many threads to use when building
              * models with LLJit.
-             * Defaults to the number of cores
+             * Defaults to 1
              */
             LLJIT_NUM_THREADS,
 

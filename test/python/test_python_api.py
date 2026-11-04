@@ -1342,5 +1342,71 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(list(result[:, 0]), times2)
 
 
+class ConfigTests(unittest.TestCase):
+    """The configuration of roadrunner and its configuration file (issue 1419)."""
+
+    KEYS = ["LLVM_BACKEND", "LLJIT_OPTIMIZATION_LEVEL", "LLJIT_NUM_THREADS", "LOADSBMLOPTIONS_RECOMPILE",
+            "LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS"]
+
+    def setUp(self) -> None:
+        self.saved = {key: Config.getValue(getattr(Config, key)) for key in self.KEYS}
+
+    def tearDown(self) -> None:
+        for key, value in self.saved.items():
+            Config.setValue(getattr(Config, key), value)
+
+    def test_jit_defaults(self):
+        """LLJit with the DEFAULT optimization level and one thread is the default."""
+        import subprocess
+        code = ("import sys; sys.path.insert(0, sys.argv[1]); import roadrunner; C = roadrunner.Config; "
+                "print(C.getValue(C.LLVM_BACKEND), C.getValue(C.LLJIT_OPTIMIZATION_LEVEL), "
+                "C.getValue(C.LLJIT_NUM_THREADS))")
+        out = subprocess.run([sys.executable, "-c", code, rr_site_packages], capture_output=True, text=True,
+                             check=True).stdout.split()
+        self.assertEqual([str(Config.LLJIT), str(Config.DEFAULT), "1"], out[-3:])
+
+    def test_config_file_round_trip(self):
+        import tempfile
+        Config.setValue(Config.LLVM_BACKEND, Config.MCJIT)
+        Config.setValue(Config.LLJIT_OPTIMIZATION_LEVEL, Config.LESS)
+        Config.setValue(Config.LLJIT_NUM_THREADS, 3)
+        Config.setValue(Config.LOADSBMLOPTIONS_RECOMPILE, False)
+        Config.setValue(Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS, True)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "roadrunner.conf")
+            Config.writeConfigFile(path)
+            with open(path) as f:
+                lines = set(line.strip() for line in f)
+            self.assertIn("LLVM_BACKEND: 0", lines)
+            self.assertIn("LLJIT_OPTIMIZATION_LEVEL: 1", lines)
+            self.assertIn("LLJIT_NUM_THREADS: 3", lines)
+
+            Config.setValue(Config.LLVM_BACKEND, Config.LLJIT)
+            Config.setValue(Config.LLJIT_OPTIMIZATION_LEVEL, Config.AGGRESSIVE)
+            Config.setValue(Config.LLJIT_NUM_THREADS, 2)
+            Config.readConfigFile(path)
+        self.assertEqual(Config.MCJIT, Config.getValue(Config.LLVM_BACKEND))
+        self.assertEqual(Config.LESS, Config.getValue(Config.LLJIT_OPTIMIZATION_LEVEL))
+        self.assertEqual(3, Config.getValue(Config.LLJIT_NUM_THREADS))
+        self.assertFalse(Config.getValue(Config.LOADSBMLOPTIONS_RECOMPILE))
+        self.assertTrue(Config.getValue(Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS))
+
+    def test_read_jit_keys_from_config_file(self):
+        """Reading a JIT key sets that key, and no other one."""
+        import tempfile
+        Config.setValue(Config.LLVM_BACKEND, Config.MCJIT)
+        Config.setValue(Config.LOADSBMLOPTIONS_RECOMPILE, False)
+        Config.setValue(Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS, True)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "roadrunner.conf")
+            with open(path, "w") as f:
+                f.write("LLVM_BACKEND: 1\nLLJIT_OPTIMIZATION_LEVEL: 0\n")
+            Config.readConfigFile(path)
+        self.assertEqual(Config.LLJIT, Config.getValue(Config.LLVM_BACKEND))
+        self.assertEqual(Config.NONE, Config.getValue(Config.LLJIT_OPTIMIZATION_LEVEL))
+        self.assertFalse(Config.getValue(Config.LOADSBMLOPTIONS_RECOMPILE))
+        self.assertTrue(Config.getValue(Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS))
+
+
 if __name__ == "__main__":
     unittest.main()
