@@ -17,6 +17,8 @@
 #include "LLVMIncludes.h"
 #include "JitFactory.h"
 #include "ModelResources.h"
+#include "EnzymeJacobianCodeGen.h"
+#include <chrono>
 #include "Random.h"
 #include <rrLogger.h>
 #include <rrUtils.h>
@@ -231,6 +233,9 @@ namespace rrllvm {
         if (options & LoadSBMLOptions::CONSERVED_MOIETIES) {
             sbmlMD5 += "_conserved";
         }
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            sbmlMD5 += "_enzyme";
+        }
         return sbmlMD5;
     }
 
@@ -248,11 +253,21 @@ namespace rrllvm {
         // this sbml model.
         codeGeneration(*modelGeneratorContext, options);
 
+        auto enzymeStart = std::chrono::steady_clock::now();
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            EnzymeJacobianCodeGen::prepare(*modelGeneratorContext, options, modelResources->enzymeJacobian);
+            if (!modelResources->enzymeJacobian.available()) {
+                rrLog(Logger::LOG_WARNING) << "Enzyme Jacobian not available, CVODE falls back to the "
+                                              "difference quotient: " << modelResources->enzymeJacobian.unavailableReason;
+            }
+        }
+
         /**
          * Adds the module and context which is owned by the Jit
          * to the developing LLVM IR module.
          * In some Jit's (MCJit), this also triggers llvm IR optimization
          */
+        auto compileStart = std::chrono::steady_clock::now();
         modelGeneratorContext->getJitNonOwning()->addModule();
 
         // models made later from these resources (see createModel) need the same number
@@ -280,6 +295,14 @@ namespace rrllvm {
         }
 
         modelGeneratorContext->getJitNonOwning()->mapLLVMGeneratedFunctionsToSymbols(modelResources.get(), options);
+        EnzymeJacobianCodeGen::lookup(*modelGeneratorContext, modelResources->enzymeJacobian);
+        if (options & LoadSBMLOptions::ENZYME_JACOBIAN) {
+            // MCJit compiles in addModule, LLJit when the functions are looked up
+            auto compileEnd = std::chrono::steady_clock::now();
+            rrLog(Logger::LOG_INFORMATION) << "Enzyme Jacobian: preparation "
+                    << std::chrono::duration<double>(compileStart - enzymeStart).count() << " s, compilation "
+                    << std::chrono::duration<double>(compileEnd - compileStart).count() << " s";
+        }
 
 
         return modelData;

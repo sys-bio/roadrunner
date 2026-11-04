@@ -390,6 +390,9 @@ namespace rr {
         if (Config::getBool(Config::LLVM_SYMBOL_CACHE))
             modelGeneratorOpt |= LoadSBMLOptions::LLVM_SYMBOL_CACHE;
 
+        if (Config::getBool(Config::LLVM_ENZYME_JACOBIAN))
+            modelGeneratorOpt |= LoadSBMLOptions::ENZYME_JACOBIAN;
+
         // todo delete this options and use the below system instead
         if (Config::getBool(Config::LOADSBMLOPTIONS_USE_MCJIT))
             modelGeneratorOpt |= LoadSBMLOptions::USE_MCJIT;

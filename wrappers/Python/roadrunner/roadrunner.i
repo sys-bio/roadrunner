@@ -989,6 +989,9 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::ExecutableModel::getStateVectorRate(double time, const double *y, double* dydt);
 %ignore rr::ExecutableModel::getStateVectorRate(double time, const double *y);
 %ignore rr::ExecutableModel::getStateVectorId(int index);
+%ignore rr::ExecutableModel::getStateVectorJacobianPattern;
+%ignore rr::ExecutableModel::getStateVectorJacobian;
+%ignore rr::ExecutableModel::StateVectorJacobianNotRequested;
 %ignore rr::ExecutableModel::testConstraints;
 %ignore rr::ExecutableModel::print;
 //%ignore rr::ExecutableModel::getNumEvents;
@@ -1071,6 +1074,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
 
 
 //Later versions of SWIG found these functions that don't need to be wrapped:
@@ -1078,6 +1082,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
@@ -2388,6 +2393,47 @@ namespace std { class ostream{}; }
 {
 
     /**
+     * The state vector (rate rule values, then floating species amounts) as a list.
+     */
+    PyObject *getStateVectorValues() {
+        int n = ($self)->getStateVector(nullptr);
+        std::vector<double> y(n);
+        ($self)->getStateVector(y.data());
+        PyObject *list = PyList_New(n);
+        for (int i = 0; i < n; ++i) {
+            PyList_SetItem(list, i, PyFloat_FromDouble(y[i]));
+        }
+        return list;
+    }
+
+    /**
+     * The rate of the state vector at time and state y (a sequence of floats in the order of
+     * getStateVectorValues), as a list; the state of the model is not changed.
+     */
+    PyObject *getStateVectorRateAt(double time, PyObject *y) {
+        int n = ($self)->getStateVector(nullptr);
+        if (!PySequence_Check(y) || PySequence_Size(y) != n) {
+            PyErr_SetString(PyExc_ValueError, "y must be a sequence of floats of the length of the state vector");
+            return nullptr;
+        }
+        std::vector<double> yv(n), dydt(n);
+        for (int i = 0; i < n; ++i) {
+            PyObject *item = PySequence_GetItem(y, i);
+            yv[i] = PyFloat_AsDouble(item);
+            Py_XDECREF(item);
+        }
+        if (PyErr_Occurred()) {
+            return nullptr;
+        }
+        ($self)->getStateVectorRate(time, yv.data(), dydt.data());
+        PyObject *list = PyList_New(n);
+        for (int i = 0; i < n; ++i) {
+            PyList_SetItem(list, i, PyFloat_FromDouble(dydt[i]));
+        }
+        return list;
+    }
+
+    /**
      * creates a function signature of
      * SWIGINTERN PyObject *rr_ExecutableModel_getIds(rr::ExecutableModel *self,int types);
      */
@@ -2925,6 +2971,25 @@ namespace std { class ostream{}; }
 }
 
 %extend rr::Integrator {
+
+    /**
+     * The counters of the last CVODE integration as a dict, see
+     * CVODEIntegrator::getSolverStatistics. Only for the CVODE integrator.
+     */
+    PyObject *getSolverStatistics() {
+        auto *cv = dynamic_cast<rr::CVODEIntegrator *>($self);
+        if (cv == nullptr) {
+            PyErr_SetString(PyExc_TypeError, "solver statistics are only available for the CVODE integrator");
+            return nullptr;
+        }
+        PyObject *dict = PyDict_New();
+        for (const auto &[key, value]: cv->getSolverStatistics()) {
+            PyObject *v = PyLong_FromLong(value);
+            PyDict_SetItemString(dict, key.c_str(), v);
+            Py_DECREF(v);
+        }
+        return dict;
+    }
 
     void _setListener(const rr::PyIntegratorListenerPtr &listener) {
 

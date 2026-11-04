@@ -148,7 +148,8 @@ namespace rr {
             Setting(1),                                 // LLJIT_NUM_THREADS
             Setting(1.e-9),                             // METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD
             Setting(0.02),                              // METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE
-            Setting(1.e-2)                              // METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD
+            Setting(1.e-2),                             // METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD
+            Setting(false)                              // LLVM_ENZYME_JACOBIAN
     };
 
     static bool initialized = false;
@@ -269,6 +270,7 @@ namespace rr {
         keys["METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
         keys["METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE;
         keys["METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD;
+        keys["LLVM_ENZYME_JACOBIAN"] = rr::Config::LLVM_ENZYME_JACOBIAN;
 
         // add space after develop keys to clean up merging.
 
@@ -591,6 +593,8 @@ namespace rr {
             return Config::LLJIT_NUM_THREADS;
         else if (key == "METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD")
             return Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
+        else if (key == "LLVM_ENZYME_JACOBIAN")
+            return Config::LLVM_ENZYME_JACOBIAN;
 
         else
             throw std::runtime_error("No such config key: '" + key + "'");

@@ -747,6 +747,16 @@ namespace rr {
          */
         ls::DoubleMatrix getFullJacobian();
 
+        /**
+         * The exact Jacobian of the state vector rate (Enzyme, Config.LLVM_ENZYME_JACOBIAN) at
+         * the current state, states x states in the order of the state vector: rate rule values,
+         * then floating species amounts. Throws with the reason if the model has none.
+         */
+        ls::DoubleMatrix getStateVectorJacobian();
+
+        /** The sparsity pattern of getStateVectorJacobian as a 0/1 matrix. */
+        ls::DoubleMatrix getStateVectorJacobianPattern();
+
        // ls::DoubleMatrix getFullReorderedJacobian(); // Not implimented
 
         /**

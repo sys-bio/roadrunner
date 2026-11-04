@@ -18,11 +18,13 @@
 #include "rrRoadRunnerOptions.h"
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_nonlinearsolver.h>
 #include <cvodes/cvodes.h>
 #include <sundials/sundials_nvector.h>
+#include <sundials/sundials_matrix.h>
 #include "ForwardSensitivitySolver.h"
 
 
@@ -46,6 +48,15 @@ namespace rr {
     class CVODEIntegrator : public Integrator {
 
     public:
+
+        /**
+         * Counters of the last integration since CVODE was (re)initialised: steps, right-hand
+         * side evaluations (rhs_evals; rhs_evals_jac for the difference quotient Jacobian),
+         * Jacobian evaluations, nonlinear iterations and convergence failures, error test
+         * failures and linear solver setups. All zero before the first integration.
+         */
+        std::unordered_map<std::string, long> getSolverStatistics() const;
+
 
         friend class ForwardSensitivitySolver;
 
@@ -339,6 +350,18 @@ namespace rr {
         unsigned long typecode_;
 
         friend int cvodeDyDtFcn(double t, N_Vector cv_y, N_Vector cv_ydot, void *f_data);
+
+        friend int cvodeJacFcn(double t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                               N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
+
+        /** True while CVODE uses the exact Jacobian of the model (setting jacobian = "enzyme"). */
+        bool mEnzymeJacobian = false;
+
+        /** True while the linear solver is KLU with a sparse matrix (setting linear_solver = "klu"). */
+        bool mSparseJacobian = false;
+
+        /** Values of the exact Jacobian in the CSC order of the model's pattern. */
+        std::vector<double> mJacobianValues;
 
         friend int cvodeEventAndPiecewiseRootFcn(double t, N_Vector y, double *gout, void *g_data);
 

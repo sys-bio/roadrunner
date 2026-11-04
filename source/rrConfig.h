@@ -580,6 +580,12 @@ namespace rr {
             METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD,
 
             /**
+             * Generate the exact Jacobian of the model with Enzyme when a model is loaded
+             * (load option ENZYME_JACOBIAN). Needs a build with RR_USE_ENZYME. Default false.
+             */
+            LLVM_ENZYME_JACOBIAN,
+
+            /**
              * Needs to be the last item in the enum, no mater how many
              * other items are added, this is used internally to create
              * a static array.

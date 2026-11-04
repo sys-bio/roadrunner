@@ -170,6 +170,12 @@ namespace rr
             */
             TURN_ON_VALIDATION = (0x1 << 12),
 
+            /**
+             * Generate the exact Jacobian of the model with Enzyme (needs a build with
+             * RR_USE_ENZYME). Set from Config::LLVM_ENZYME_JACOBIAN.
+             */
+            ENZYME_JACOBIAN = (0x1 << 13),
+
 
         };
 
