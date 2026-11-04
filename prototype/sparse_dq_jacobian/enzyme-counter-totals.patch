@@ -1,0 +1,101 @@
+diff --git a/source/CVODEIntegrator.cpp b/source/CVODEIntegrator.cpp
+index 1b928ce6f..5a20c7b1c 100644
+--- a/source/CVODEIntegrator.cpp
++++ b/source/CVODEIntegrator.cpp
+@@ -474,6 +474,7 @@ namespace rr {
+             return;
+         }
+ 
++        saveSolverStatistics();
+         int result = CVodeReInit(mCVODE_Memory, t0, mStateVector);
+ 
+         if (result != CV_SUCCESS) {
+@@ -546,6 +547,7 @@ namespace rr {
+ 
+             // time step
+             int nResult = CVode(mCVODE_Memory, nextTargetEndTime, mStateVector, &timeEnd, itask);
++            mLinearSolverCountersCurrent = true;
+ 
+             if (nResult == CV_ROOT_RETURN) {
+                 rrLog(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
+@@ -1176,6 +1178,33 @@ namespace rr {
+     }
+ 
+     std::unordered_map<std::string, long> CVODEIntegrator::getSolverStatistics() const {
++        // the totals since resetSolverStatistics, summed over the reinitializations of CVODE
++        std::unordered_map<std::string, long> s = currentSolverStatistics();
++        for (const auto &[k, v]: mSavedSolverStatistics) {
++            s[k] += v;
++        }
++        return s;
++    }
++
++    void CVODEIntegrator::saveSolverStatistics() {
++        for (const auto &[k, v]: currentSolverStatistics()) {
++            if (k != "sparse_linear_solver") {
++                mSavedSolverStatistics[k] += v;
++            }
++        }
++        mLinearSolverCountersCurrent = false;
++    }
++
++    void CVODEIntegrator::resetSolverStatistics() {
++        mSavedSolverStatistics.clear();
++        for (const auto &[k, v]: currentSolverStatistics()) {
++            if (k != "sparse_linear_solver") {
++                mSavedSolverStatistics[k] = -v;
++            }
++        }
++    }
++
++    std::unordered_map<std::string, long> CVODEIntegrator::currentSolverStatistics() const {
+         std::unordered_map<std::string, long> s = {
+                 {"steps", 0}, {"rhs_evals", 0}, {"rhs_evals_jac", 0}, {"jac_evals", 0}, {"nonlin_iters", 0},
+                 {"nonlin_conv_fails", 0}, {"err_test_fails", 0}, {"lin_setups", 0},
+@@ -1190,8 +1219,11 @@ namespace rr {
+         if (CVodeGetNumLinSolvSetups(mCVODE_Memory, &v) == CV_SUCCESS) s["lin_setups"] = v;
+         if (CVodeGetNumNonlinSolvIters(mCVODE_Memory, &v) == CV_SUCCESS) s["nonlin_iters"] = v;
+         if (CVodeGetNumNonlinSolvConvFails(mCVODE_Memory, &v) == CV_SUCCESS) s["nonlin_conv_fails"] = v;
+-        if (CVodeGetNumJacEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["jac_evals"] = v;
+-        if (CVodeGetNumLinRhsEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["rhs_evals_jac"] = v;
++        // CVODE sets these to zero at the first step after a reinitialization
++        if (mLinearSolverCountersCurrent) {
++            if (CVodeGetNumJacEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["jac_evals"] = v;
++            if (CVodeGetNumLinRhsEvals(mCVODE_Memory, &v) == CV_SUCCESS) s["rhs_evals_jac"] = v;
++        }
+         return s;
+     }
+ 
+@@ -1224,6 +1256,7 @@ namespace rr {
+         }
+ 
+         if (mCVODE_Memory) {
++            saveSolverStatistics();
+             CVodeFree(&mCVODE_Memory);
+             mCVODE_Memory = nullptr;
+         }
+diff --git a/source/CVODEIntegrator.h b/source/CVODEIntegrator.h
+index 93bc91006..eb293d5b0 100644
+--- a/source/CVODEIntegrator.h
++++ b/source/CVODEIntegrator.h
+@@ -57,6 +57,20 @@ namespace rr {
+          */
+         std::unordered_map<std::string, long> getSolverStatistics() const;
+ 
++        /** Local patch: the counters are totals since this call, summed over reinitializations. */
++        void resetSolverStatistics();
++
++    private:
++        std::unordered_map<std::string, long> currentSolverStatistics() const;
++
++        void saveSolverStatistics();
++
++        std::unordered_map<std::string, long> mSavedSolverStatistics;
++
++        bool mLinearSolverCountersCurrent = false;
++
++    public:
++
+ 
+         friend class ForwardSensitivitySolver;
+ 
