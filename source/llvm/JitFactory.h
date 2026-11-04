@@ -23,9 +23,9 @@ namespace rrllvm {
      *   opt.setLLVMBackend(LoadSBMLOptions::MCJIT); // or LoadSBMLOptions::LLJit;
      *   std::unique_ptr<Jit> j = JitFactory::makeJitEngine(opt.modelGeneratorOpt);
      *   // OR
-     *   Config::setValue(LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT); // default
+     *   Config::setValue(LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::LLJIT); // default
      *   // OR
-     *   Config::setValue(LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::LLJIT); // alternative
+     *   Config::setValue(LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT); // alternative
      *   std::unique_ptr<Jit> j = makeJitEngine();
      *  @endcode
      */

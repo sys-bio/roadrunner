@@ -9,6 +9,9 @@
 #include <fstream>
 #include <cstdlib>
 #include <limits>
+#include <set>
+#include <string>
+#include <vector>
 
 using namespace rr;
 
@@ -114,6 +117,59 @@ TEST_F(ConfigTests, writeConfigFile) {
 
 TEST_F(ConfigTests, stringToKey){
     ASSERT_EQ(0, Config::stringToKey("LOADSBMLOPTIONS_CONSERVED_MOIETIES"));
+    ASSERT_EQ(Config::LLVM_BACKEND, Config::stringToKey("LLVM_BACKEND"));
+    ASSERT_EQ(Config::LLJIT_OPTIMIZATION_LEVEL, Config::stringToKey("LLJIT_OPTIMIZATION_LEVEL"));
+    ASSERT_EQ(Config::LLJIT_NUM_THREADS, Config::stringToKey("LLJIT_NUM_THREADS"));
+    ASSERT_EQ(Config::K_ROWS_PER_WRITE, Config::stringToKey("K_ROWS_PER_WRITE"));
+    ASSERT_THROW(Config::stringToKey("NO_SUCH_KEY"), std::runtime_error);
+}
+
+/**
+ * Every key has one name, which is used in the configuration file (issue 1419).
+ */
+TEST_F(ConfigTests, everyKeyHasOneName) {
+    std::vector<std::string> names = Config::getKeyList();
+    ASSERT_EQ((size_t) Config::CONFIG_END, names.size());
+    std::set<int> keys;
+    for (const std::string &name: names) {
+        keys.insert(Config::stringToKey(name));
+    }
+    ASSERT_EQ((size_t) Config::CONFIG_END, keys.size());
+}
+
+/**
+ * Writing and reading a configuration file keeps the values of the keys
+ * (issue 1419).
+ */
+TEST_F(ConfigTests, writeThenReadConfigFile) {
+    std::filesystem::path config = std::filesystem::current_path() / "roadrunner-round-trip.conf";
+    std::vector<Setting> saved;
+    for (int key = 0; key < Config::CONFIG_END; ++key) {
+        saved.push_back(Config::getValue((Config::Keys) key));
+    }
+    Config::setValue(Config::LLVM_BACKEND, Config::MCJIT);
+    Config::setValue(Config::LLJIT_OPTIMIZATION_LEVEL, Config::LESS);
+    Config::setValue(Config::LLJIT_NUM_THREADS, 3);
+    Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, false);
+    Config::writeConfigFile(config.string());
+
+    Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
+    Config::setValue(Config::LLJIT_OPTIMIZATION_LEVEL, Config::AGGRESSIVE);
+    Config::setValue(Config::LLJIT_NUM_THREADS, 2);
+    Config::readConfigFile(config.string());
+    std::filesystem::remove(config);
+
+    int backend = Config::getValue(Config::LLVM_BACKEND);
+    int optimizationLevel = Config::getValue(Config::LLJIT_OPTIMIZATION_LEVEL);
+    int numThreads = Config::getValue(Config::LLJIT_NUM_THREADS);
+    bool recompile = Config::getValue(Config::LOADSBMLOPTIONS_RECOMPILE);
+    for (int key = 0; key < Config::CONFIG_END; ++key) {
+        Config::setValue((Config::Keys) key, saved[key]);
+    }
+    ASSERT_EQ(Config::MCJIT, backend);
+    ASSERT_EQ(Config::LESS, optimizationLevel);
+    ASSERT_EQ(3, numThreads);
+    ASSERT_FALSE(recompile);
 }
 
 TEST_F(ConfigTests, SetLLVMBackendToLLJit){
