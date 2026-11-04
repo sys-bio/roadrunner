@@ -194,6 +194,22 @@ TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedValues){
     getSelectedValues();
 }
 
+TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedReactionRates){
+    getSelectedReactionRates();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedAmountRates){
+    getSelectedAmountRates();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, getSelectedRateRuleRates){
+    getSelectedRateRuleRates();
+}
+
+TEST_F(RoadRunnerAPITestsWithMCJit, getSteadyStateValuesWithRates){
+    getSteadyStateValuesWithRates();
+}
+
 TEST_F(RoadRunnerAPITestsWithMCJit, getIndependentFloatingSpeciesIds){
     getIndependentFloatingSpeciesIds();
 }

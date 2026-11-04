@@ -54,6 +54,7 @@
 #include <thread>
 #include <thread_pool.hpp>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 //Shouldn't need the warning-disabling #pragmas here, since these are all links to *our* llvm, not the offical LLVM source.
 #include "llvm/LLVMExecutableModel.h"
@@ -198,6 +199,25 @@ namespace rr {
 #endif
 
 /**
+ * The values shared by the selections of one output row. The model can only
+ * calculate each of them for all of its elements at once, see
+ * RoadRunner::evaluateSelectedRates.
+ */
+    struct SelectedRates {
+        std::vector<double> reactionRates;
+        std::vector<double> amountRates;
+        std::vector<double> rateRuleRates;
+
+        // position of each rate rule variable in rateRuleRates
+        std::unordered_map<std::string, int> rateRuleIndices;
+        std::unordered_set<std::string> assignmentRuleIds;
+
+        bool hasReactionRates = false;
+        bool hasAmountRates = false;
+        bool hasRateRuleRates = false;
+    };
+
+/**
  * implemention class, hide all details here.
  */
     class RoadRunnerImpl {
@@ -228,6 +248,11 @@ namespace rr {
 
 
         std::vector<SelectionRecord> mSelectionList;
+
+        /**
+         * the rates of an output row, see RoadRunner::evaluateSelectedRates
+         */
+        SelectedRates selectedRates;
 
         /**
          * ModelGenerator obtained from the factory
@@ -1152,11 +1177,41 @@ namespace rr {
         }
     }
 
+    static std::string assignedVolumeMessage(const std::string &id) {
+        std::stringstream err;
+        err << "No rate available for compartment " << id
+            << " because the volume is defined by an assignment rule.";
+        return err.str();
+    }
+
     double RoadRunner::getValue(const SelectionRecord &record) {
         if (!impl->model) {
             throw CoreException(gEmptyModelMessage);
         }
 
+        return getValue(record, nullptr);
+    }
+
+    double RoadRunner::getFloatingAmountRate(const SelectionRecord &record, const SelectedRates *rates) {
+        double rate = 0;
+        try {
+            if (rates && rates->hasAmountRates) {
+                rate = rates->amountRates.at(record.index);
+            }
+            else {
+                impl->model->getFloatingSpeciesAmountRates(1, &record.index, &rate);
+            }
+        }
+        catch (const std::out_of_range &) {
+            std::stringstream err;
+            err << "No rate available for floating species " << record.p1
+                << ": if conserved moieties are enabled, this species may be defined by an implied assignment rule instead, and its rate cannot be determined.";
+            throw std::invalid_argument(err.str());
+        }
+        return rate;
+    }
+
+    double RoadRunner::getValue(const SelectionRecord &record, const SelectedRates *rates) {
         double dResult;
 
         switch (record.selectionType) {
@@ -1171,35 +1226,22 @@ namespace rr {
                 break;
 
             case SelectionRecord::REACTION_RATE:
-                dResult = 0;
-                impl->model->getReactionRates(1, &record.index, &dResult);
+                if (rates && rates->hasReactionRates) {
+                    dResult = rates->reactionRates[record.index];
+                } 
+                else {
+                    dResult = 0;
+                    impl->model->getReactionRates(1, &record.index, &dResult);
+                }
                 break;
 
             case SelectionRecord::FLOATING_AMOUNT_RATE:
-                dResult = 0;
-                try {
-                    impl->model->getFloatingSpeciesAmountRates(1, &record.index, &dResult);
-                }
-                catch (std::out_of_range) {
-                    std::stringstream err;
-                    err << "No rate available for floating species " << record.p1
-                        << ": if conserved moieties are enabled, this species may be defined by an implied assignment rule instead, and its rate cannot be determined.";
-                    throw std::invalid_argument(err.str());
-                }
-
+                dResult = getFloatingAmountRate(record, rates);
                 break;
 
             case SelectionRecord::FLOATING_CONCENTRATION_RATE: {
-                dResult = 0;
+                dResult = getFloatingAmountRate(record, rates);
                 std::stringstream err;
-                try {
-                    impl->model->getFloatingSpeciesAmountRates(1, &record.index, &dResult);
-                }
-                catch (std::out_of_range) {
-                    err << "No rate available for floating species " << record.p1
-                        << ": if conserved moieties are enabled, this species may be defined by an implied assignment rule instead, and its rate cannot be determined.";
-                    throw std::invalid_argument(err.str());
-                }
                 try {
                     int compidx = impl->model->getCompartmentIndexForFloatingSpecies(record.index);
                     string compid = impl->model->getCompartmentId(compidx);
@@ -1245,15 +1287,22 @@ namespace rr {
             case SelectionRecord::GLOBAL_PARAMETER_RATE:
             case SelectionRecord::BOUNDARY_AMOUNT_RATE: {
                 dResult = 0;
+                if (rates && rates->hasRateRuleRates) {
+                    if (rates->assignmentRuleIds.count(record.p1) > 0) {
+                        throw std::invalid_argument(assignedVolumeMessage(record.p1));
+                    }
+                    std::unordered_map<std::string, int>::const_iterator it = rates->rateRuleIndices.find(record.p1);
+                    if (it != rates->rateRuleIndices.end()) {
+                        dResult = rates->rateRuleRates[it->second];
+                    }
+                    break;
+                }
                 list<string> rrs, ars;
                 impl->model->getRateRuleIds(rrs);
                 impl->model->getAssignmentRuleIds(ars);
                 for (list<string>::iterator ar = ars.begin(); ar != ars.end(); ar++) {
                     if (*ar == record.p1) {
-                        std::stringstream err;
-                        err << "No rate available for compartment " << record.p1
-                            << " because the volume is defined by an assignment rule.";
-                        throw std::invalid_argument(err.str());
+                        throw std::invalid_argument(assignedVolumeMessage(record.p1));
                     }
                 }
                 int index = 0;
@@ -1410,14 +1459,76 @@ namespace rr {
         return dResult;
     }
 
-    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime) {
+    double RoadRunner::getNthSelectedOutput(size_t index, double currentTime,
+                                            const SelectedRates *rates) {
         const SelectionRecord &record = impl->mSelectionList[index];
 
         if (record.selectionType == SelectionRecord::TIME) {
             return currentTime;
         } else {
-            return getValue(record);
+            return getValue(record, rates);
         }
+    }
+
+    const SelectedRates *RoadRunner::evaluateSelectedRates(const std::vector<SelectionRecord> &selections) {
+        SelectedRates &rates = impl->selectedRates;
+        rates.hasReactionRates = false;
+        rates.hasAmountRates = false;
+        rates.hasRateRuleRates = false;
+
+        for (const SelectionRecord &record: selections) {
+            switch (record.selectionType) {
+                case SelectionRecord::REACTION_RATE:
+                    rates.hasReactionRates = true;
+                    break;
+                case SelectionRecord::FLOATING_AMOUNT_RATE:
+                case SelectionRecord::FLOATING_CONCENTRATION_RATE:
+                    rates.hasAmountRates = true;
+                    break;
+                case SelectionRecord::COMPARTMENT_RATE:
+                case SelectionRecord::GLOBAL_PARAMETER_RATE:
+                case SelectionRecord::BOUNDARY_AMOUNT_RATE:
+                    rates.hasRateRuleRates = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (!rates.hasReactionRates && !rates.hasAmountRates && !rates.hasRateRuleRates) {
+            return nullptr;
+        }
+
+        if (rates.hasReactionRates) {
+            rates.reactionRates.resize(impl->model->getNumReactions());
+            impl->model->getReactionRates(rates.reactionRates.size(), nullptr, rates.reactionRates.data());
+        }
+
+        if (rates.hasAmountRates) {
+            rates.amountRates.resize(impl->model->getNumIndFloatingSpecies());
+            impl->model->getFloatingSpeciesAmountRates(rates.amountRates.size(), nullptr, rates.amountRates.data());
+        }
+
+        if (rates.hasRateRuleRates) {
+            rates.rateRuleRates.resize(impl->model->getNumRateRules());
+            if (!rates.rateRuleRates.empty()) {
+                impl->model->getRateRuleRates(rates.rateRuleRates.size(), nullptr, rates.rateRuleRates.data());
+            }
+
+            std::list<std::string> ids;
+            impl->model->getRateRuleIds(ids);
+            rates.rateRuleIndices.clear();
+            int index = 0;
+            for (const std::string &id: ids) {
+                rates.rateRuleIndices.emplace(id, index++);
+            }
+
+            ids.clear();
+            impl->model->getAssignmentRuleIds(ids);
+            rates.assignmentRuleIds.clear();
+            rates.assignmentRuleIds.insert(ids.begin(), ids.end());
+        }
+        return &rates;
     }
 
     int RoadRunner::getTimeRowIndex() {
@@ -1432,8 +1543,9 @@ namespace rr {
     }
 
     void RoadRunner::getSelectedValues(ls::DoubleMatrix &results, int nRow, double currentTime) {
+        const SelectedRates *rates = evaluateSelectedRates(impl->mSelectionList);
         for (u_int j = 0; j < impl->mSelectionList.size(); j++) {
-            double out = getNthSelectedOutput(j, currentTime);
+            double out = getNthSelectedOutput(j, currentTime, rates);
             results(nRow, j) = out;
         }
     }
@@ -1443,9 +1555,10 @@ namespace rr {
         assert(results.size() == impl->mSelectionList.size()
                && "given std::vector and selection list different size");
 
+        const SelectedRates *rates = evaluateSelectedRates(impl->mSelectionList);
         size_t size = results.size();
         for (size_t i = 0; i < size; ++i) {
-            results[i] = getNthSelectedOutput(i, currentTime);
+            results[i] = getNthSelectedOutput(i, currentTime, rates);
         }
     }
 
@@ -3701,9 +3814,10 @@ namespace rr {
 
         steadyState();
 
+        const SelectedRates *rates = evaluateSelectedRates(impl->mSteadyStateSelection);
         std::vector<double> result; //= new double[oSelection.Length];
         for (int i = 0; i < impl->mSteadyStateSelection.size(); i++) {
-            result.push_back(getValue(impl->mSteadyStateSelection[i]));
+            result.push_back(getValue(impl->mSteadyStateSelection[i], rates));
         }
         return result;
     }
@@ -3728,9 +3842,10 @@ namespace rr {
 
         steadyState();
 
+        const SelectedRates *rates = evaluateSelectedRates(impl->mSteadyStateSelection);
         ls::DoubleMatrix v(1, static_cast<unsigned int>(impl->mSteadyStateSelection.size()));
         for (int i = 0; i < impl->mSteadyStateSelection.size(); i++) {
-            v(0, i) = getValue(impl->mSteadyStateSelection[i]);
+            v(0, i) = getValue(impl->mSteadyStateSelection[i], rates);
         }
 
         v.setColNames(getSteadyStateSelectionStrings());
@@ -5222,8 +5337,9 @@ namespace rr {
         std::vector<double> result;
         result.resize(impl->mSelectionList.size());
 
+        const SelectedRates *rates = evaluateSelectedRates(impl->mSelectionList);
         for (int i = 0; i < impl->mSelectionList.size(); i++) {
-            result[i] = getNthSelectedOutput(i, impl->model->getTime());
+            result[i] = getNthSelectedOutput(i, impl->model->getTime(), rates);
         }
         return result;
     }

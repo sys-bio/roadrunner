@@ -588,6 +588,83 @@ public:
         delete testModel;
     }
 
+    void getSelectedReactionRates() {
+        // the reaction rates of every output row are the ones of its state,
+        // also selected twice and between other selections
+        TestModel *testModel = TestModelFactory("SimpleFlux");
+        RoadRunner rr(testModel->str());
+        rr.setSelections({"time", "_J1", "[S1]", "_J0", "[S2]", "_J1"});
+        const ls::DoubleMatrix *result = rr.simulate(0, 10, 11);
+        ASSERT_EQ(result->numRows(), 11);
+        for (int i = 0; i < result->numRows(); ++i) {
+            const double s1 = (*result)(i, 2);
+            const double s2 = (*result)(i, 4);
+            EXPECT_DOUBLE_EQ((*result)(i, 1), 0.01 * s2);
+            EXPECT_DOUBLE_EQ((*result)(i, 3), 0.1 * s1);
+            EXPECT_DOUBLE_EQ((*result)(i, 5), 0.01 * s2);
+        }
+        // the last row is the state of the model at the end
+        std::vector<double> x = rr.getSelectedValues();
+        ASSERT_EQ(x.size(), 6);
+        EXPECT_EQ(x[1], rr.getValue("_J1"));
+        EXPECT_EQ(x[3], rr.getValue("_J0"));
+        EXPECT_EQ(x[5], rr.getValue("_J1"));
+        EXPECT_EQ(x[3], (*result)(10, 3));
+        delete testModel;
+    }
+
+    void getSelectedAmountRates() {
+        // the rates of change of every output row are the ones of its state,
+        // also selected twice, between other selections and as concentrations
+        TestModel *testModel = TestModelFactory("SimpleFlux");
+        RoadRunner rr(testModel->str());
+        rr.setSelections({"time", "S1'", "[S1]", "S2'", "[S2]", "[S1]'", "S1'"});
+        const ls::DoubleMatrix *result = rr.simulate(0, 10, 11);
+        ASSERT_EQ(result->numRows(), 11);
+        for (int i = 0; i < result->numRows(); ++i) {
+            const double s1 = (*result)(i, 2);
+            const double s2 = (*result)(i, 4);
+            const double ds1 = -0.1 * s1 + 0.01 * s2;
+            EXPECT_NEAR((*result)(i, 1), ds1, 1e-12);
+            EXPECT_NEAR((*result)(i, 3), -ds1, 1e-12);
+            EXPECT_NEAR((*result)(i, 5), ds1, 1e-12);
+            EXPECT_NEAR((*result)(i, 6), ds1, 1e-12);
+        }
+        // the last row is the state of the model at the end
+        std::vector<double> x = rr.getSelectedValues();
+        ASSERT_EQ(x.size(), 7);
+        EXPECT_EQ(x[1], rr.getValue("S1'"));
+        EXPECT_EQ(x[3], rr.getValue("S2'"));
+        EXPECT_EQ(x[5], rr.getValue("[S1]'"));
+        EXPECT_EQ(x[6], rr.getValue("S1'"));
+        delete testModel;
+    }
+
+    void getSelectedRateRuleRates() {
+        // the rates of change given by a rate rule, also selected twice and
+        // a parameter without one
+        TestModel *testModel = TestModelFactory("SimpleFlux");
+        RoadRunner rr(testModel->str());
+        rr.setBoundary("S2", true);
+        rr.addRateRule("S2", "(kf/kb)*S1", true);
+        rr.setSelections({"time", "S2'", "[S1]", "kb'", "S2'"});
+        const ls::DoubleMatrix *result = rr.simulate(0, 10, 11);
+        ASSERT_EQ(result->numRows(), 11);
+        for (int i = 0; i < result->numRows(); ++i) {
+            const double s1 = (*result)(i, 2);
+            EXPECT_NEAR((*result)(i, 1), 10.0 * s1, 1e-9);
+            EXPECT_EQ((*result)(i, 3), 0.0);
+            EXPECT_NEAR((*result)(i, 4), 10.0 * s1, 1e-9);
+        }
+        // the last row is the state of the model at the end
+        std::vector<double> x = rr.getSelectedValues();
+        ASSERT_EQ(x.size(), 5);
+        EXPECT_EQ(x[1], rr.getValue("S2'"));
+        EXPECT_EQ(x[3], rr.getValue("kb'"));
+        EXPECT_EQ(x[4], rr.getValue("S2'"));
+        delete testModel;
+    }
+
     void getIndependentFloatingSpeciesIds() {
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
@@ -1634,6 +1711,30 @@ public:
         auto x = rr.getSteadyStateValuesNamedArray();
         ls::DoubleMatrix expected({{1, 10}});
         checkMatrixEqual(expected, x);
+    }
+
+    void getSteadyStateValuesWithRates() {
+        // reaction rates and rates of change among the steady state selections
+        SimpleFlux simpleFlux;
+        RoadRunner rr(simpleFlux.str());
+        rr.setSteadyStateSelections(std::vector<std::string>({"_J0", "S1'", "_J1", "[S2]'", "[S2]"}));
+        std::vector<double> x = rr.getSteadyStateValues();
+        ASSERT_EQ(x.size(), 5);
+        EXPECT_EQ(x[0], rr.getValue("_J0"));
+        EXPECT_EQ(x[1], rr.getValue("S1'"));
+        EXPECT_EQ(x[2], rr.getValue("_J1"));
+        EXPECT_EQ(x[3], rr.getValue("[S2]'"));
+        EXPECT_EQ(x[4], rr.getValue("[S2]"));
+        // the net flux is zero at steady state
+        EXPECT_NEAR(x[0], x[2], 1e-6);
+        EXPECT_NEAR(x[1], 0.0, 1e-6);
+        EXPECT_NEAR(x[3], 0.0, 1e-6);
+
+        ls::DoubleMatrix v = rr.getSteadyStateValuesNamedArray();
+        ASSERT_EQ(v.numCols(), 5);
+        for (int i = 0; i < 5; ++i) {
+            EXPECT_NEAR(v(0, i), x[i], 1e-9);
+        }
     }
 
     void regenerateModel() {

@@ -44,6 +44,8 @@ namespace rr {
 
     class SensitivitySolver;
 
+    struct SelectedRates;
+
     template<class IndexType, class DataType>
     class Matrix3D;
 
@@ -1906,7 +1908,32 @@ namespace rr {
         bool populateResult();
 
 
-        double getNthSelectedOutput(size_t index, double currentTime);
+        /**
+         * the value of the n'th selection, using the rates of the output row
+         * if given, see evaluateSelectedRates
+         */
+        double getNthSelectedOutput(size_t index, double currentTime,
+                                    const SelectedRates *rates = nullptr);
+
+        /**
+         * Evaluates once for the selections of an output row the values that
+         * the model can only calculate for all of its elements at once: the
+         * reaction rates, the rates of change of the floating species and the
+         * rates of change given by rate rules. Returns nullptr if none of the
+         * selections needs them. Reading each of them on its own made an
+         * output row quadratic in the size of the model.
+         */
+        const SelectedRates *evaluateSelectedRates(const std::vector<SelectionRecord> &selections);
+
+        /**
+         * the value of a selection, using the rates from evaluateSelectedRates if given
+         */
+        double getValue(const SelectionRecord &record, const SelectedRates *rates);
+
+        /**
+         * the rate of change of the amount of a floating species selection
+         */
+        double getFloatingAmountRate(const SelectionRecord &record, const SelectedRates *rates);
 
         bool isParameterUsed(const std::string &sid);
 
