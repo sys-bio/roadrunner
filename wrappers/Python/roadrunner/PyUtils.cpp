@@ -255,6 +255,26 @@ namespace rr {
         throw invalid_argument(msg);
     }
 
+    PyObject *settingsMap_to_py(const std::unordered_map<std::string, Setting> &map) {
+        PyObject *pyDict = PyDict_New();
+        if (!pyDict) {
+            return nullptr;
+        }
+        for (const auto &item: map) {
+            PyObject *key = PyUnicode_FromString(item.first.c_str());
+            PyObject *value = key ? Variant_to_py(item.second) : nullptr;
+            // PyDict_SetItem does not steal the references
+            int err = value ? PyDict_SetItem(pyDict, key, value) : -1;
+            Py_XDECREF(key);
+            Py_XDECREF(value);
+            if (err < 0) {
+                Py_DECREF(pyDict);
+                return nullptr;
+            }
+        }
+        return pyDict;
+    }
+
     PyObject *dictionary_keys(const Dictionary *dict) {
         std::vector<std::string> keys = dict->getKeys();
 

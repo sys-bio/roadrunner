@@ -5,6 +5,7 @@
 #include "rrRoadRunner.h"
 #include "rrExecutableModel.h"
 #include "CVODEIntegrator.h"
+#include <cvodes/cvodes.h>
 #include "Solver.h"
 #include "TestModelFactory.h"
 #include "Matrix.h"
@@ -49,6 +50,37 @@ TEST_F(CVODEIntegratorTests, OpenLinearFluxWithRoadRunner) {
 
 TEST_F(CVODEIntegratorTests, OneEvent10TriggersWithRoadRunner) {
     checkModelSimulatesWithRoadRunner("OneEvent10Triggers");
+}
+
+/**
+ * CVODE sets its counters to zero when it is reinitialized after an event. The
+ * statistics of the integrator are summed over the reinitializations (issue 1411).
+ */
+TEST_F(CVODEIntegratorTests, StatisticsAreSummedOverReinitializations) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.simulate(0, 10, 101);
+    auto *cvode = dynamic_cast<CVODEIntegrator *>(r.getIntegrator());
+    ASSERT_TRUE(cvode);
+    std::unordered_map<std::string, Setting> stats = cvode->getStatistics();
+
+    long stepsSinceLastReinit = 0;
+    ASSERT_EQ(CV_SUCCESS, CVodeGetNumSteps(cvode->getCvodeMemory(), &stepsSinceLastReinit));
+    ASSERT_GT(stats["num_steps"].getAs<std::int64_t>(), stepsSinceLastReinit);
+
+    std::int64_t numEvents = stats["num_events"].getAs<std::int64_t>();
+    ASSERT_GT(numEvents, 1);
+    ASSERT_EQ(numEvents, stats["num_reinits"].getAs<std::int64_t>());
+
+    // a new simulation starts from zero
+    r.reset();
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> again = cvode->getStatistics();
+    for (const std::string key: {"num_steps", "num_rhs_evals", "num_jac_evals", "num_events", "num_reinits"}) {
+        ASSERT_EQ(stats[key].getAs<std::int64_t>(), again[key].getAs<std::int64_t>()) << key;
+    }
+
+    cvode->resetStatistics();
+    ASSERT_EQ(0, cvode->getStatistics()["num_steps"].getAs<std::int64_t>());
 }
 
 

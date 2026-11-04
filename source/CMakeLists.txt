@@ -114,6 +114,7 @@ set(
         rrGetOptions.h
         rrLogger.h
         rrExecutableModel.h
+        rrSparsityPattern.h
         rrRoadRunner.h
         rrRoadRunnerOptions.h
         rrStringUtils.h
@@ -230,6 +231,7 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.cpp
             llvm/EvalInitialConditionsCodeGen.cpp
             llvm/EvalRateRuleRatesCodeGen.cpp
+            llvm/JacobianSparsity.cpp
             llvm/EvalReactionRatesCodeGen.cpp
             llvm/EvalVolatileStoichCodeGen.cpp
             llvm/EventAssignCodeGen.cpp
@@ -276,6 +278,7 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.h
             llvm/EvalInitialConditionsCodeGen.h
             llvm/EvalRateRuleRatesCodeGen.h
+            llvm/JacobianSparsity.h
             llvm/EvalReactionRatesCodeGen.h
             llvm/EvalVolatileStoichCodeGen.h
             llvm/EventAssignCodeGen.h
@@ -462,6 +465,11 @@ message(STATUS " LLVM_LIBRARIES ${LLVM_LIBRARIES}}")
     list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
 
 
+set(RR_KLU_LINK_LIBRARIES)
+if (RR_USE_KLU)
+    set(RR_KLU_LINK_LIBRARIES SUNDIALS::sunlinsolklu_static SuiteSparse::KLU_static)
+endif ()
+
 # link the libraries -- remember that order here
 #   is important on linux builds so don't change
 target_link_libraries(
@@ -480,6 +488,7 @@ target_link_libraries(
         nleq1::nleq1-static
         clapack::lapack clapack::blas clapack::f2c
 
+        ${RR_KLU_LINK_LIBRARIES}
         SUNDIALS::core_static
         SUNDIALS::nvecserial_static
         SUNDIALS::nvecmanyvector_static

@@ -19,4 +19,7 @@ add_test_executable(test_llvm_LLJitSectionRange test_targets LLJitSectionRange.c
 #target_link_libraries(BuildAModel PRIVATE roadrunner-static gtest gtest_main)
 #target_include_directories(BuildAModel PRIVATE roadrunner-static)
 
+add_test_executable(test_llvm_JacobianSparsityTests test_targets JacobianSparsityTests.cpp)
+add_test_executable(test_llvm_SparseDQJacobianTests test_targets SparseDQJacobianTests.cpp)
+
 set(test_targets ${test_targets} PARENT_SCOPE)

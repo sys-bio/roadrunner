@@ -18,6 +18,7 @@
 #endif
 
 #include "llvm/Jit.h"
+#include "JacobianSparsity.h"
 
 #ifdef _MSC_VER
 #pragma warning(default: 4146)
@@ -106,6 +107,9 @@ namespace rrllvm
 
         // number of piecewise triggers, needed to create the model data of a model made from these resources
         size_t numPiecewiseTriggers = 0;
+
+        // the sparsity pattern and coloring of the Jacobian of the state vector rate
+        JacobianStructure jacobianStructure;
         const class Random* random;
         std::unique_ptr<std::string> errStr;
 

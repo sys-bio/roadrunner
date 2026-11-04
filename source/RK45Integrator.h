@@ -79,6 +79,13 @@ namespace rr
          */
         virtual void restart(double t0);
 
+        /**
+         * @brief the counters num_steps (accepted steps), num_rhs_evals,
+         * num_err_test_fails (rejected steps) and num_events.
+         * @see Integrator::getStatistics
+         */
+        std::unordered_map<std::string, Setting> getStatistics() override;
+
         // ** Meta Info ********************************************************
 
         /**

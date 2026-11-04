@@ -16,6 +16,11 @@
 #include <sunnonlinsol/sunnonlinsol_fixedpoint.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunnonlinsol/sunnonlinsol_newton.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunlinsol/sunlinsol_dense.h>
+#include <sunmatrix/sunmatrix_dense.h>
+#include <sunmatrix/sunmatrix_sparse.h>
+#ifdef RR_USE_KLU
+#include <sunlinsol/sunlinsol_klu.h>
+#endif
 
 #include <cstring>
 #include <iomanip>
@@ -24,6 +29,7 @@
 #include <algorithm>
 #include <limits>
 #include <cassert>
+#include <chrono>
 #include <Poco/Logger.h>
 #include <iostream>
 
@@ -39,6 +45,9 @@ namespace rr {
     int cvodeDyDtFcn(sunrealtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
 
     int cvodeEventAndPiecewiseRootFcn(sunrealtype t, N_Vector y, sunrealtype *gout, void *userData);
+
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
 
     // Sets the value of an element in a N_Vector object
     inline void SetVector(N_Vector v, int Index, double Value) {
@@ -80,6 +89,159 @@ namespace rr {
     { std::string _err_what = std::string("CVODE Error: ") + \
     decodeSundialsError(this, errCode, true); \
     throw IntegratorException(_err_what, std::string(__FUNC__)); }
+
+    namespace {
+        /**
+         * @brief Adds the time from its construction to its destruction to a time,
+         * if it is enabled.
+         */
+        class ScopedTimer {
+        public:
+            ScopedTimer(bool enabled, double &time)
+                : time(enabled ? &time : nullptr) {
+                if (this->time) {
+                    start = std::chrono::steady_clock::now();
+                }
+            }
+
+            ~ScopedTimer() {
+                if (time) {
+                    *time += std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
+                }
+            }
+
+            ScopedTimer(const ScopedTimer &) = delete;
+
+            ScopedTimer &operator=(const ScopedTimer &) = delete;
+
+        private:
+            double *time;
+            std::chrono::steady_clock::time_point start;
+        };
+    }
+
+    /**
+     * @brief A linear solver that times the setups and solves of the linear solver
+     * it wraps, for the statistics of CVODEIntegrator (setting collect_timing).
+     * @details It owns the wrapped linear solver. All other operations are forwarded.
+     */
+    struct TimedLinearSolver {
+        SUNLinearSolver inner;
+        CVODEIntegrator *integrator;
+
+        static SUNLinearSolver innerOf(SUNLinearSolver S) {
+            return static_cast<TimedLinearSolver *>(S->content)->inner;
+        }
+
+        static CVODEIntegrator *integratorOf(SUNLinearSolver S) {
+            return static_cast<TimedLinearSolver *>(S->content)->integrator;
+        }
+
+        static SUNLinearSolver_Type getType(SUNLinearSolver S) {
+            return SUNLinSolGetType(innerOf(S));
+        }
+
+        static SUNLinearSolver_ID getID(SUNLinearSolver S) {
+            return SUNLinSolGetID(innerOf(S));
+        }
+
+        static SUNErrCode setATimes(SUNLinearSolver S, void *data, SUNATimesFn fn) {
+            return SUNLinSolSetATimes(innerOf(S), data, fn);
+        }
+
+        static SUNErrCode setPreconditioner(SUNLinearSolver S, void *data, SUNPSetupFn setup, SUNPSolveFn solve) {
+            return SUNLinSolSetPreconditioner(innerOf(S), data, setup, solve);
+        }
+
+        static SUNErrCode setScalingVectors(SUNLinearSolver S, N_Vector s1, N_Vector s2) {
+            return SUNLinSolSetScalingVectors(innerOf(S), s1, s2);
+        }
+
+        static SUNErrCode setZeroGuess(SUNLinearSolver S, sunbooleantype onoff) {
+            return SUNLinSolSetZeroGuess(innerOf(S), onoff);
+        }
+
+        static SUNErrCode initialize(SUNLinearSolver S) {
+            return SUNLinSolInitialize(innerOf(S));
+        }
+
+        static int setup(SUNLinearSolver S, SUNMatrix A) {
+            CVODEIntegrator *integrator = integratorOf(S);
+            ScopedTimer timer(integrator->collectTiming, integrator->times.linSolvSetups);
+            return SUNLinSolSetup(innerOf(S), A);
+        }
+
+        static int solve(SUNLinearSolver S, SUNMatrix A, N_Vector x, N_Vector b, sunrealtype tol) {
+            CVODEIntegrator *integrator = integratorOf(S);
+            ScopedTimer timer(integrator->collectTiming, integrator->times.linSolvSolves);
+            return SUNLinSolSolve(innerOf(S), A, x, b, tol);
+        }
+
+        static int numIters(SUNLinearSolver S) {
+            return SUNLinSolNumIters(innerOf(S));
+        }
+
+        static sunrealtype resNorm(SUNLinearSolver S) {
+            return SUNLinSolResNorm(innerOf(S));
+        }
+
+        static sunindextype lastFlag(SUNLinearSolver S) {
+            return SUNLinSolLastFlag(innerOf(S));
+        }
+
+        static SUNErrCode space(SUNLinearSolver S, long int *lenrw, long int *leniw) {
+            return SUNLinSolSpace(innerOf(S), lenrw, leniw);
+        }
+
+        static N_Vector resid(SUNLinearSolver S) {
+            return SUNLinSolResid(innerOf(S));
+        }
+
+        static SUNErrCode free(SUNLinearSolver S) {
+            if (S == nullptr) {
+                return SUN_SUCCESS;
+            }
+            if (S->content) {
+                SUNLinSolFree(innerOf(S));
+                delete static_cast<TimedLinearSolver *>(S->content);
+                S->content = nullptr;
+            }
+            SUNLinSolFreeEmpty(S);
+            return SUN_SUCCESS;
+        }
+    };
+
+    /**
+     * @brief a TimedLinearSolver that wraps @param inner, or nullptr if it cannot be
+     * created, in which case @param inner is freed.
+     * @details CVODE checks which operations a linear solver has, so the wrapper has
+     * the same ones as @param inner.
+     */
+    SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator) {
+        SUNLinearSolver S = SUNLinSolNewEmpty(inner->sunctx);
+        if (S == nullptr) {
+            SUNLinSolFree(inner);
+            return nullptr;
+        }
+        S->content = new TimedLinearSolver{inner, integrator};
+        const SUNLinearSolver_Ops ops = inner->ops;
+        S->ops->gettype = ops->gettype ? TimedLinearSolver::getType : nullptr;
+        S->ops->getid = ops->getid ? TimedLinearSolver::getID : nullptr;
+        S->ops->setatimes = ops->setatimes ? TimedLinearSolver::setATimes : nullptr;
+        S->ops->setpreconditioner = ops->setpreconditioner ? TimedLinearSolver::setPreconditioner : nullptr;
+        S->ops->setscalingvectors = ops->setscalingvectors ? TimedLinearSolver::setScalingVectors : nullptr;
+        S->ops->setzeroguess = ops->setzeroguess ? TimedLinearSolver::setZeroGuess : nullptr;
+        S->ops->initialize = ops->initialize ? TimedLinearSolver::initialize : nullptr;
+        S->ops->setup = ops->setup ? TimedLinearSolver::setup : nullptr;
+        S->ops->solve = ops->solve ? TimedLinearSolver::solve : nullptr;
+        S->ops->numiters = ops->numiters ? TimedLinearSolver::numIters : nullptr;
+        S->ops->resnorm = ops->resnorm ? TimedLinearSolver::resNorm : nullptr;
+        S->ops->lastflag = ops->lastflag ? TimedLinearSolver::lastFlag : nullptr;
+        S->ops->space = ops->space ? TimedLinearSolver::space : nullptr;
+        S->ops->resid = ops->resid ? TimedLinearSolver::resid : nullptr;
+        S->ops->free = TimedLinearSolver::free;
+        return S;
+    }
 
 
     CVODEIntegrator::CVODEIntegrator(ExecutableModel *aModel)
@@ -197,6 +359,16 @@ namespace rr {
         addSetting("max_output_rows", Setting(Config::getInt(Config::MAX_OUTPUT_ROWS)), "Maximum Output Rows",
                    "For variable step size simulations, the maximum number of output rows produced (int).",
                    "(int) This will set the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents infinite or massive output for simulations where the variable step size ends up decreasing too much.");
+        addSetting("collect_timing", Setting(false), "Collect Timing",
+                   "Measure the time of the integration and of its parts for getStatistics. (bool)",
+                   "(bool) Enabling this setting measures the time of the integration, of the evaluations of the model rates and root functions, and of the setups and solves of the linear solver. getStatistics returns these times (time_total, time_rhs_evals, time_g_evals, time_lin_solv_setups and time_lin_solv_solves). The measurement adds a little time to every evaluation of the model, so it is off by default.");
+        collectTiming = false;
+        addSetting("jacobian", Setting(std::string("difference_quotient")), "Jacobian",
+                   "How CVODE gets the Jacobian of the stiff solver: \"difference_quotient\" or \"sparse_difference_quotient\" (string).",
+                   "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by forward differences, one evaluation of the model per state. \"sparse_difference_quotient\" computes the same forward differences with the sparsity pattern of the Jacobian, one evaluation of the reaction rates per color of its columns. A model without a sparsity pattern (e.g. with conserved moiety analysis) falls back to \"difference_quotient\".");
+        addSetting("linear_solver", Setting(std::string("dense")), "Linear Solver",
+                   "The linear solver of the stiff solver: \"dense\" or \"klu\" (string).",
+                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU; it needs jacobian = \"sparse_difference_quotient\" and a roadrunner built with RR_USE_KLU, otherwise CVODE falls back to the dense solver.");
         CVODEIntegrator::loadConfigSettings();
     }
 
@@ -361,6 +533,29 @@ namespace rr {
     }
 
     void CVODEIntegrator::setValue(const std::string &key, Setting val) {
+        if (key == "jacobian" || key == "linear_solver") {
+            std::string v = val.getAs<std::string>();
+            bool valid = key == "jacobian" ? (v == "difference_quotient" || v == "sparse_difference_quotient")
+                                           : (v == "dense" || v == "klu");
+            if (!valid) {
+                throw std::invalid_argument("CVODEIntegrator: invalid value '" + v + "' of setting '" + key + "'");
+            }
+            Setting previous = getValue(key);
+            Integrator::setValue(key, val);
+            if (mModel) {
+                // the linear solver and the Jacobian are part of the CVODE memory
+                freeSundialsMemory();
+                try {
+                    create();
+                } catch (...) {
+                    freeSundialsMemory();
+                    Integrator::setValue(key, previous);
+                    create();
+                    throw;
+                }
+            }
+            return;
+        }
         // if std::vector tolerance is set, the size of std::vector must be equal to
         // the number of floating species
         if (key == "absolute_tolerance" && val.type() == Setting::DOUBLEVECTOR)
@@ -399,6 +594,9 @@ namespace rr {
 
             }
         }
+        if (key == "collect_timing") {
+            collectTiming = (bool) getValue("collect_timing");
+        }
         if (key == "stiff") {
             // If the integrator is changed from stiff to standard, we must re-create CVode.
             rrLog(Logger::LOG_INFORMATION) << "Integrator stiffness has been changed. Re-creating CVode.";
@@ -431,6 +629,12 @@ namespace rr {
             return;
         }
 
+        // CVODE sets its counters to zero
+        saveCVODECounters();
+        if (integrating) {
+            numReInits++;
+        }
+
         int result = CVodeReInit(mCVODE_Memory, t0, mStateVector);
 
         if (result != CV_SUCCESS) {
@@ -445,6 +649,17 @@ namespace rr {
 
         rrLog(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
                                  << timeStart << ", " << hstep << ")";
+
+        ScopedTimer timer(collectTiming, times.total);
+
+        // counts the reinitializations (after events) during the integration
+        struct IntegratingFlag {
+            bool &flag;
+
+            explicit IntegratingFlag(bool &flag) : flag(flag) { flag = true; }
+
+            ~IntegratingFlag() { flag = false; }
+        } integratingFlag(integrating);
 
         if (variableStepPendingEvent || variableStepTimeEndEvent) {
             return applyVariableStepPendingEvents() + variableStepEventTolerance;
@@ -503,6 +718,7 @@ namespace rr {
 
             // time step
             int nResult = CVode(mCVODE_Memory, nextTargetEndTime, mStateVector, &timeEnd, itask);
+            linearSolverCountersCurrent = true;
 
             if (nResult == CV_ROOT_RETURN) {
                 rrLog(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
@@ -568,6 +784,7 @@ namespace rr {
                     // apply events and write state to variableStepPostEventState
                     // model state is updated by events.
                     int handled = mModel->applyEvents(timeEnd, eventStatus.empty() ? nullptr : &eventStatus[0], NULL, variableStepPostEventState.empty() ? nullptr : &variableStepPostEventState[0]);
+                    workCounters.numEvents += handled;
                     if (handled > 0) {
                         // write original state back to model
                         mModel->setTime(timeEnd - epsilon);
@@ -766,9 +983,53 @@ namespace rr {
                 handleCVODEError(err);
             }
 
+            // Never throw for a setting the model cannot serve: create() also runs when a model
+            // is loaded, regenerated or copied. CVODE falls back to the dense difference quotient.
+            std::string jacobianSetting = getValue("jacobian").getAs<std::string>();
+            std::string linearSolverSetting = getValue("linear_solver").getAs<std::string>();
+            mSparseDQJacobian = false;
+            if (jacobianSetting == "sparse_difference_quotient" && realStateVectorSize > 0) {
+                if (mModel->getStateVectorJacobianPattern()) {
+                    mSparseDQJacobian = true;
+                } else {
+                    rrLogWarn << "no sparsity pattern of the Jacobian, CVODE uses the dense difference quotient: "
+                              << mModel->getStateVectorJacobianUnavailableReason();
+                }
+            }
+            mSparseLinearSolver = false;
+            if (linearSolverSetting == "klu") {
+#ifdef RR_USE_KLU
+                if (mSparseDQJacobian) {
+                    mSparseLinearSolver = true;
+                } else {
+                    rrLogWarn << "linear_solver = \"klu\" needs jacobian = \"sparse_difference_quotient\" and a "
+                                 "model with a sparsity pattern of the Jacobian; CVODE uses the dense solver";
+                }
+#else
+                rrLogWarn << "linear_solver = \"klu\" needs a roadrunner built with RR_USE_KLU; CVODE uses the "
+                             "dense solver";
+#endif
+            }
+            mJacobianValues.clear();
+            mJacobianIncrements.clear();
+            if (mSparseDQJacobian) {
+                mJacobianValues.assign(mModel->getStateVectorJacobianPattern()->nnz(), 0.0);
+                mJacobianIncrements.assign(realStateVectorSize, 0.0);
+            }
+
             // the newton method requires use of a linear solver, which we set up here.
-            jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
-            linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            if (mSparseLinearSolver) {
+#ifdef RR_USE_KLU
+                const CscPattern &p = *mModel->getStateVectorJacobianPattern();
+                jac = SUNSparseMatrix(allocStateVectorSize, allocStateVectorSize, p.nnz(), CSC_MAT, mSunContext);
+                std::copy(p.colPtr.begin(), p.colPtr.end(), SUNSparseMatrix_IndexPointers(jac));
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), SUNSparseMatrix_IndexValues(jac));
+                linSolver = SUNLinSol_KLU(mStateVector, jac, mSunContext);
+#endif
+            } else {
+                jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
+                linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            }
             if (linSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: call to SunLinSol_Dense returned nullptr. "
                                          "The size of the sundials matrix (created with SUNDenseMatrix) used for the jacobian "
@@ -776,12 +1037,17 @@ namespace rr {
                                          std::to_string(allocStateVectorSize)
                                          + ") is inappropriate for this model\n");
             }
+            // times the setups and solves for the statistics
+            linSolver = newTimedLinearSolver(linSolver, this);
+            if (linSolver == nullptr) {
+                throw std::runtime_error("CVODEIntegrator::createCVODE: could not create the linear solver");
+            }
             if ((err = CVodeSetLinearSolver(mCVODE_Memory, linSolver, jac)) != CV_SUCCESS) {
                 handleCVODEError(err);
             };
 
-            // Use a difference quotient Jacobian by not passing Jac to CVodeSetJacFn
-            if ((err = CVodeSetJacFn(mCVODE_Memory, nullptr)) != CV_SUCCESS) {
+            // the sparse difference quotient, or CVODE's dense difference quotient (nullptr)
+            if ((err = CVodeSetJacFn(mCVODE_Memory, mSparseDQJacobian ? cvodeJacFcn : nullptr)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
         } else {
@@ -795,6 +1061,7 @@ namespace rr {
 
         setCVODETolerances();
         mModel->resetEvents();
+        linearSolverCountersCurrent = false;
     }
 
     void CVODEIntegrator::testRootsAtInitialTime() {
@@ -806,7 +1073,7 @@ namespace rr {
 
     void CVODEIntegrator::applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
         double *stateVector = mStateVector ? NV_DATA_S(mStateVector) : nullptr;
-        mModel->applyEvents(timeEnd, previousEventStatus.empty() ? nullptr : &previousEventStatus[0], stateVector, stateVector);
+        workCounters.numEvents += mModel->applyEvents(timeEnd, previousEventStatus.empty() ? nullptr : &previousEventStatus[0], stateVector, stateVector);
 
         if (timeEnd > mIntegrationStartTime) {
             mModel->setTime(timeEnd);
@@ -827,6 +1094,7 @@ namespace rr {
             // get current event triggered state
             mModel->getEventTriggers(eventStatus.size(), 0, eventStatus.size() == 0 ? NULL : &eventStatus[0]);
             int handled = mModel->applyEvents(timeEnd, eventStatus.size() == 0 ? NULL : &eventStatus[0], NULL, NULL);
+            workCounters.numEvents += handled;
             if (handled > 0) {
                 rrLog(Logger::LOG_DEBUG) << __FUNC__;
                 restart(timeEnd);
@@ -1061,6 +1329,8 @@ namespace rr {
 
         assert(cvInstance && "userData pointer is NULL in cvode dydt callback");
 
+        ScopedTimer timer(cvInstance->collectTiming, cvInstance->times.rhsEvals);
+
         ExecutableModel *model = cvInstance->mModel;
 
         model->getStateVectorRate(time, y, ydot);
@@ -1083,6 +1353,7 @@ namespace rr {
         }
 
         if (mCVODE_Memory) {
+            saveCVODECounters();
             CVodeFree(&mCVODE_Memory);
             mCVODE_Memory = nullptr;
         }
@@ -1101,6 +1372,9 @@ namespace rr {
             SUNMatDestroy(jac);
             jac = nullptr;
         }
+
+        mSparseDQJacobian = false;
+        mSparseLinearSolver = false;
 
     }
 
@@ -1147,6 +1421,8 @@ namespace rr {
         CVODEIntegrator* cvInstance = (CVODEIntegrator*)user_data;
 
         assert(cvInstance && "user data pointer is NULL on CVODE root callback");
+
+        ScopedTimer timer(cvInstance->collectTiming, cvInstance->times.gEvals);
 
         ExecutableModel* model = cvInstance->mModel;
 
@@ -1196,6 +1472,195 @@ namespace rr {
         }
         // CVODE's warnings do not come through here: SUNDIALS sends them to the SUNLogger of the
         // SUNContext, which routeSundialsLoggingToRoadRunnerLogger connects to the roadrunner Logger.
+    }
+
+    CVODEIntegrator::CVODECounters &CVODEIntegrator::CVODECounters::operator+=(const CVODECounters &other) {
+        numSteps += other.numSteps;
+        numRhsEvals += other.numRhsEvals;
+        numLinSolvSetups += other.numLinSolvSetups;
+        numErrTestFails += other.numErrTestFails;
+        numNonlinSolvIters += other.numNonlinSolvIters;
+        numNonlinSolvConvFails += other.numNonlinSolvConvFails;
+        numStepSolveFails += other.numStepSolveFails;
+        numGEvals += other.numGEvals;
+        numStabLimOrderReds += other.numStabLimOrderReds;
+        numJacEvals += other.numJacEvals;
+        numLinRhsEvals += other.numLinRhsEvals;
+        numLinIters += other.numLinIters;
+        numLinConvFails += other.numLinConvFails;
+        return *this;
+    }
+
+    CVODEIntegrator::CVODECounters &CVODEIntegrator::CVODECounters::operator-=(const CVODECounters &other) {
+        numSteps -= other.numSteps;
+        numRhsEvals -= other.numRhsEvals;
+        numLinSolvSetups -= other.numLinSolvSetups;
+        numErrTestFails -= other.numErrTestFails;
+        numNonlinSolvIters -= other.numNonlinSolvIters;
+        numNonlinSolvConvFails -= other.numNonlinSolvConvFails;
+        numStepSolveFails -= other.numStepSolveFails;
+        numGEvals -= other.numGEvals;
+        numStabLimOrderReds -= other.numStabLimOrderReds;
+        numJacEvals -= other.numJacEvals;
+        numLinRhsEvals -= other.numLinRhsEvals;
+        numLinIters -= other.numLinIters;
+        numLinConvFails -= other.numLinConvFails;
+        return *this;
+    }
+
+    CVODEIntegrator::CVODECounters CVODEIntegrator::readCVODECounters() const {
+        CVODECounters c;
+        if (!mCVODE_Memory) {
+            return c;
+        }
+        // A counter that CVODE does not have (e.g. of the linear solver of the
+        // non-stiff solver, which has none) stays 0.
+        CVodeGetNumSteps(mCVODE_Memory, &c.numSteps);
+        CVodeGetNumRhsEvals(mCVODE_Memory, &c.numRhsEvals);
+        CVodeGetNumLinSolvSetups(mCVODE_Memory, &c.numLinSolvSetups);
+        CVodeGetNumErrTestFails(mCVODE_Memory, &c.numErrTestFails);
+        CVodeGetNumNonlinSolvIters(mCVODE_Memory, &c.numNonlinSolvIters);
+        CVodeGetNumNonlinSolvConvFails(mCVODE_Memory, &c.numNonlinSolvConvFails);
+        CVodeGetNumStepSolveFails(mCVODE_Memory, &c.numStepSolveFails);
+        CVodeGetNumGEvals(mCVODE_Memory, &c.numGEvals);
+        CVodeGetNumStabLimOrderReds(mCVODE_Memory, &c.numStabLimOrderReds);
+        if (linearSolverCountersCurrent && linSolver) {
+            CVodeGetNumJacEvals(mCVODE_Memory, &c.numJacEvals);
+            CVodeGetNumLinRhsEvals(mCVODE_Memory, &c.numLinRhsEvals);
+            CVodeGetNumLinIters(mCVODE_Memory, &c.numLinIters);
+            CVodeGetNumLinConvFails(mCVODE_Memory, &c.numLinConvFails);
+        }
+        return c;
+    }
+
+    void CVODEIntegrator::saveCVODECounters() {
+        savedCounters += readCVODECounters();
+        linearSolverCountersCurrent = false;
+    }
+
+    void CVODEIntegrator::resetStatistics() {
+        Integrator::resetStatistics();
+        savedCounters = CVODECounters();
+        savedCounters -= readCVODECounters();
+        numReInits = 0;
+        numJacobianModelEvals = 0;
+        times = CVODETimes();
+    }
+
+    std::unordered_map<std::string, Setting> CVODEIntegrator::getStatistics() {
+        CVODECounters c = savedCounters;
+        c += readCVODECounters();
+
+        std::unordered_map<std::string, Setting> stats = {
+            {"num_steps", Setting(std::int64_t(c.numSteps))},
+            {"num_rhs_evals", Setting(std::int64_t(c.numRhsEvals))},
+            {"num_lin_solv_setups", Setting(std::int64_t(c.numLinSolvSetups))},
+            {"num_err_test_fails", Setting(std::int64_t(c.numErrTestFails))},
+            {"num_nonlin_solv_iters", Setting(std::int64_t(c.numNonlinSolvIters))},
+            {"num_nonlin_solv_conv_fails", Setting(std::int64_t(c.numNonlinSolvConvFails))},
+            {"num_step_solve_fails", Setting(std::int64_t(c.numStepSolveFails))},
+            {"num_jac_evals", Setting(std::int64_t(c.numJacEvals))},
+            {"num_lin_rhs_evals", Setting(std::int64_t(c.numLinRhsEvals))},
+            {"num_lin_iters", Setting(std::int64_t(c.numLinIters))},
+            {"num_lin_conv_fails", Setting(std::int64_t(c.numLinConvFails))},
+            {"num_g_evals", Setting(std::int64_t(c.numGEvals))},
+            {"num_stab_lim_order_reds", Setting(std::int64_t(c.numStabLimOrderReds))},
+            {"num_reinits", Setting(numReInits)},
+            {"num_jac_model_evals", Setting(numJacobianModelEvals)},
+            {"num_jac_colors", Setting(mSparseDQJacobian ? mModel->getStateVectorJacobianNumColors() : 0)},
+            {"sparse_linear_solver", Setting(mSparseLinearSolver)},
+            {"num_events", Setting(workCounters.numEvents)},
+        };
+
+        if (mCVODE_Memory) {
+            double value = 0;
+            int order = 0;
+            if (CVodeGetActualInitStep(mCVODE_Memory, &value) == CV_SUCCESS) {
+                stats["actual_init_step"] = Setting(value);
+            }
+            if (CVodeGetLastStep(mCVODE_Memory, &value) == CV_SUCCESS) {
+                stats["last_step"] = Setting(value);
+            }
+            if (CVodeGetCurrentStep(mCVODE_Memory, &value) == CV_SUCCESS) {
+                stats["current_step"] = Setting(value);
+            }
+            if (CVodeGetCurrentTime(mCVODE_Memory, &value) == CV_SUCCESS) {
+                stats["current_time"] = Setting(value);
+            }
+            if (CVodeGetLastOrder(mCVODE_Memory, &order) == CV_SUCCESS) {
+                stats["last_order"] = Setting(order);
+            }
+            if (CVodeGetCurrentOrder(mCVODE_Memory, &order) == CV_SUCCESS) {
+                stats["current_order"] = Setting(order);
+            }
+        }
+
+        if (collectTiming) {
+            stats["time_total"] = Setting(times.total);
+            stats["time_rhs_evals"] = Setting(times.rhsEvals);
+            stats["time_g_evals"] = Setting(times.gEvals);
+            stats["time_lin_solv_setups"] = Setting(times.linSolvSetups);
+            stats["time_lin_solv_solves"] = Setting(times.linSolvSolves);
+            stats["time_jac_evals"] = Setting(times.jacEvals);
+        }
+        return stats;
+    }
+
+    /**
+     * The sparse difference quotient Jacobian for CVODE (setting jacobian =
+     * "sparse_difference_quotient"), written into the dense matrix or, with KLU, into the
+     * sparse matrix whose structure is the model's pattern. The increments are those of
+     * CVODE's dense difference quotient (cvLsDenseDQJac), so every entry is the forward
+     * difference that CVODE would compute.
+     */
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3) {
+        auto *cv = static_cast<CVODEIntegrator *>(userData);
+        ScopedTimer timer(cv->collectTiming, cv->times.jacEvals);
+        try {
+            const CscPattern &p = *cv->mModel->getStateVectorJacobianPattern();
+            const sunindextype n = NV_LENGTH_S(y);
+            const double *yData = NV_DATA_S(y);
+
+            // the increments of cvLsDenseDQJac
+            N_Vector ewt = tmp1;
+            if (CVodeGetErrWeights(cv->mCVODE_Memory, ewt) != CV_SUCCESS) {
+                return -1;
+            }
+            double h = 0;
+            CVodeGetCurrentStep(cv->mCVODE_Memory, &h);
+            const double uround = std::numeric_limits<double>::epsilon();
+            const double srur = std::sqrt(uround);
+            const double fnorm = N_VWrmsNorm(fy, ewt);
+            const double minInc = fnorm != 0.0 ? 1000.0 * std::fabs(h) * uround * (double) n * fnorm : 1.0;
+            const double *ewtData = NV_DATA_S(ewt);
+            for (sunindextype j = 0; j < n; ++j) {
+                cv->mJacobianIncrements[j] = std::max(srur * std::fabs(yData[j]), minInc / ewtData[j]);
+            }
+
+            cv->mModel->getStateVectorJacobianDQ(t, yData, cv->mJacobianIncrements.data(),
+                                                 cv->mJacobianValues.data());
+            cv->numJacobianModelEvals += cv->mModel->getStateVectorJacobianNumColors() + 1;
+
+            const double *values = cv->mJacobianValues.data();
+            if (SUNMatGetID(J) == SUNMATRIX_DENSE) {
+                SUNMatZero(J);
+                for (int j = 0; j < p.nCols; ++j) {
+                    double *col = SUNDenseMatrix_Column(J, j);
+                    for (int k = p.colPtr[j]; k < p.colPtr[j + 1]; ++k) {
+                        col[p.rowIdx[k]] = values[k];
+                    }
+                }
+            } else {
+                std::copy(p.colPtr.begin(), p.colPtr.end(), SUNSparseMatrix_IndexPointers(J));
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), SUNSparseMatrix_IndexValues(J));
+                std::copy(values, values + p.nnz(), SUNSparseMatrix_Data(J));
+            }
+        } catch (const std::exception &e) {
+            rrLogErr << "sparse difference quotient Jacobian failed: " << e.what();
+            return -1;
+        }
+        return 0;
     }
 
     void *CVODEIntegrator::getCvodeMemory() const {

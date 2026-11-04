@@ -24,7 +24,10 @@
 #include "tr1proxy/rr_unordered_map.h"
 #include "Registrable.h"
 #include "RegistrationFactory.h"
+#include <cstdint>
 #include <stdexcept>
+#include <string>
+#include <unordered_map>
 
 namespace rr {
 
@@ -136,6 +139,29 @@ namespace rr {
         virtual std::vector<double> getAbsoluteToleranceVector();
 
 
+        /**
+         * @brief The counters of the work of the integrator since the last call of
+         * @ref resetStatistics, e.g. the number of steps and of evaluations of the model.
+         * @details RoadRunner resets them when a simulation starts (simulate, and oneStep
+         * when it resets the integrator), so afterwards they hold the work of that
+         * simulation. The integrators return the counters that apply to them, under
+         * the same keys:
+         *  - num_steps: the number of steps (for gillespie, of reactions that fired);
+         *  - num_rhs_evals: the number of evaluations of the rates of the model, i.e.
+         *    of the right hand side of the ODEs (for gillespie, of the propensities);
+         *  - num_err_test_fails: the number of steps that failed the error test, and
+         *    were tried again with a smaller step size;
+         *  - num_events: the number of events that fired.
+         * CVODE returns more counters, see CVODEIntegrator::getStatistics. Counts are
+         * integers and times are in seconds.
+         */
+        virtual std::unordered_map<std::string, Setting> getStatistics();
+
+        /**
+         * @brief Set the counters of @ref getStatistics to zero.
+         */
+        virtual void resetStatistics();
+
         /* CARRYOVER METHODS */
         virtual void setListener(IntegratorListenerPtr) = 0;
 
@@ -154,6 +180,19 @@ namespace rr {
 
     protected:
         double mIntegrationStartTime;
+
+        /**
+         * @brief The counters of the integrators that count their work themselves,
+         * i.e. all except CVODE, which keeps its own counters.
+         */
+        struct WorkCounters {
+            std::int64_t numSteps = 0;
+            std::int64_t numRhsEvals = 0;
+            std::int64_t numErrTestFails = 0;
+            std::int64_t numEvents = 0;
+        };
+
+        WorkCounters workCounters;
 
     };
 

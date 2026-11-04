@@ -197,6 +197,7 @@ namespace rr
     {
         mModel->setTime(tEval);
         mModel->getReactionRates(nReactions, nullptr, reactionRates);
+        workCounters.numRhsEvals++;
         double s = 0.0;
         for (int k = 0; k < nReactions; ++k)
             s += std::abs(reactionRates[k]);
@@ -284,6 +285,7 @@ namespace rr
 
                 // get the 'propensity' -- reaction rates
                 mModel->getReactionRates(nReactions, nullptr, reactionRates);
+                workCounters.numRhsEvals++;
 
                 // sum the propensity
                 for (int k = 0; k < nReactions; k++)
@@ -468,6 +470,7 @@ namespace rr
             }
 
             if (!skip) {
+                workCounters.numSteps++;
                 for (int i = floatingSpeciesStart; i < stateVectorSize; ++i)
                 {
                     stateVector[i] = stateVector[i]
@@ -538,7 +541,16 @@ namespace rr
 
     void GillespieIntegrator::applyEvents(double timeEnd, std::vector<unsigned char>& prevEventStatus)
     {
-        mModel->applyEvents(timeEnd, prevEventStatus.empty() ? nullptr : &prevEventStatus[0], stateVector, stateVector);
+        workCounters.numEvents += mModel->applyEvents(timeEnd, prevEventStatus.empty() ? nullptr : &prevEventStatus[0], stateVector, stateVector);
+    }
+
+    std::unordered_map<std::string, Setting> GillespieIntegrator::getStatistics()
+    {
+        return {
+            {"num_steps", Setting(workCounters.numSteps)},
+            {"num_rhs_evals", Setting(workCounters.numRhsEvals)},
+            {"num_events", Setting(workCounters.numEvents)},
+        };
     }
 
     void GillespieIntegrator::restart(double t0)

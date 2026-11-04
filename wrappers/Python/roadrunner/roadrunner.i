@@ -349,17 +349,19 @@
 %typemap(out) std::unordered_map< std::string, rr::Setting> {
     // I'm a marker for %typemap(out) std::unordered_map< std::string, rr::Setting>
     // Look me up in the swig generated wrapper cxx file to
-    // make sure this typemap is being properly applied
-    $result = PyDict_New();
-    if (!$result){
-        std::cerr << "Could not create Python Dict" << std::endl;
+    // make sure this typemap is being properly applied.
+    // A map returned by value is held in a SwigValueWrapper, which converts to a reference.
+    $result = rr::settingsMap_to_py(static_cast<const std::unordered_map<std::string, rr::Setting>&>($1));
+    if (!$result) {
+        SWIG_fail;
     }
+}
 
-    for (const auto& item: *$1){
-        int err = PyDict_SetItem($result, PyUnicode_FromString(item.first.c_str()), Variant_to_py(item.second));
-        if (err < 0){
-            std::cout << "Could not create item in Python Dict" << std::endl;
-        }
+%typemap(out) std::unordered_map< std::string, rr::Setting>& {
+    // I'm a marker for %typemap(out) std::unordered_map< std::string, rr::Setting>&
+    $result = rr::settingsMap_to_py(*$1);
+    if (!$result) {
+        SWIG_fail;
     }
 }
 
@@ -372,11 +374,13 @@
 %apply std::unordered_map< std::string, rr::Setting>{
     std::unordered_map< std::string,rr::Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,rr::Setting > > >,   // with rr::,       no reference
     std::unordered_map< std::string,Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,Setting > > >,           // no rr::          no reference
-     std::unordered_map< std::string,rr::Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,rr::Setting > > > &, // with rr::        reference
-     std::unordered_map< std::string,Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,Setting > > > &, // without rr::     reference
-
     const std::unordered_map< std::string,rr::Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,rr::Setting > > >,   // with rr::,       no reference
     const std::unordered_map< std::string,Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,Setting > > >          // no rr::          no reference
+};
+
+%apply std::unordered_map< std::string, rr::Setting>&{
+     std::unordered_map< std::string,rr::Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,rr::Setting > > > &, // with rr::        reference
+     std::unordered_map< std::string,Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,Setting > > > & // without rr::     reference
     // note: it seems that this typemap cannot be applied to constant references,
 
     // const std::unordered_map< std::string,rr::Setting,std::hash< std::string >,std::equal_to< std::string >,std::allocator< std::pair< std::string const,rr::Setting > > > &, // with rr::        reference
@@ -1071,6 +1075,9 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
+%ignore rr::ExecutableModel::getStateVectorJacobianDQ;
+%ignore rr::ExecutableModel::getStateVectorJacobianPattern;
 
 
 //Later versions of SWIG found these functions that don't need to be wrapped:
@@ -1078,6 +1085,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
