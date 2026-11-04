@@ -70,7 +70,7 @@ ________________
     - ``num_err_test_fails``: the number of steps that failed the error test and were tried again with a smaller step size (cvode and rk45).
     - ``num_events``: the number of events that fired.
 
-    CVODE resets its counters when it is reinitialized, which roadrunner does after an event. The counters of cvode are summed over these reinitializations. cvode returns these counters too:
+    CVODE resets its counters when it is reinitialized, which roadrunner does at a root of the root functions, i.e. when an event triggers or a piecewise condition switches, and when a delayed event is applied. The counters of cvode are summed over these reinitializations. cvode returns these counters too:
 
     - ``num_lin_solv_setups``: the setups of the linear solver, i.e. its LU factorizations.
     - ``num_nonlin_solv_iters``, ``num_nonlin_solv_conv_fails``: the iterations and the convergence failures of the nonlinear solver.
@@ -80,7 +80,7 @@ ________________
     - ``num_lin_iters``, ``num_lin_conv_fails``: the iterations and convergence failures of an iterative linear solver.
     - ``num_g_evals``: the evaluations of the root functions, i.e. of the event triggers and piecewise conditions.
     - ``num_stab_lim_order_reds``: the order reductions of the BDF stability limit detection.
-    - ``num_reinits``: the reinitializations of CVODE during the integration, i.e. after events.
+    - ``num_reinits``: the reinitializations of CVODE during the integration, i.e. at the roots of the event triggers and piecewise conditions and after delayed events.
     - ``actual_init_step``, ``last_step``, ``current_step``, ``last_order``, ``current_order``, ``current_time``: the values of the last step since the last reinitialization.
 
     With the cvode setting ``collect_timing``, the times in seconds of the integration (``time_total``), of the evaluations of the rates of the model (``time_rhs_evals``, including those for the finite difference Jacobian), of the root functions (``time_g_evals``) and of the setups and solves of the linear solver (``time_lin_solv_setups``, ``time_lin_solv_solves``).

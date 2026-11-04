@@ -261,7 +261,9 @@ namespace rr {
         /**
          * @brief The counters of CVODE since the last call of resetStatistics.
          * @details CVODE sets its counters to zero when it is reinitialized, which
-         * this integrator does after an event and when a simulation starts. The
+         * this integrator does when a simulation starts, at a root of the root functions
+         * (an event trigger or a piecewise condition that switches) and when a delayed
+         * event is applied. The
          * counters returned here are summed over these reinitializations. Besides
          * the keys of Integrator::getStatistics they are (with the CVODE function
          * that returns the counter of one reinitialization):
@@ -283,7 +285,7 @@ namespace rr {
          *  - num_stab_lim_order_reds: the order reductions of the BDF stability limit
          *    detection (CVodeGetNumStabLimOrderReds);
          *  - num_reinits: the reinitializations of CVODE during the integration, i.e.
-         *    after events.
+         *    at the roots of the root functions and after delayed events.
          * The non-stiff solver has no linear solver, so its num_lin_solv_setups,
          * num_jac_evals, num_lin_rhs_evals, num_lin_iters and num_lin_conv_fails are 0.
          *
