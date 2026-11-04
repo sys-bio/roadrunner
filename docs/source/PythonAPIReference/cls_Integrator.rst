@@ -57,6 +57,42 @@ ________________
     
     :param str sid: identifier of individual species or varible that has a rate rule
     :param double value: tolerance value to set
+
+
+.. method:: Integrator.getStatistics()
+
+    Returns the counters of the work of the integrator as a dictionary, e.g. the number of steps and of evaluations of the model. They count the work since the last call of resetStatistics. RoadRunner resets them when a simulation starts (``simulate``, and ``oneStep`` when it resets the integrator), so after a simulation they hold the work of that simulation. They help to find out why a simulation is slow, e.g. whether it takes many steps, or whether each step is expensive.
+
+    All integrators return the counters that apply to them under the same keys:
+
+    - ``num_steps``: the number of steps (for gillespie, of reactions that fired).
+    - ``num_rhs_evals``: the number of evaluations of the rates of the model, i.e. of the right hand side of the ODEs (for gillespie, of the propensities).
+    - ``num_err_test_fails``: the number of steps that failed the error test and were tried again with a smaller step size (cvode and rk45).
+    - ``num_events``: the number of events that fired.
+
+    CVODE resets its counters when it is reinitialized, which roadrunner does after an event. The counters of cvode are summed over these reinitializations. cvode returns these counters too:
+
+    - ``num_lin_solv_setups``: the setups of the linear solver, i.e. its LU factorizations.
+    - ``num_nonlin_solv_iters``, ``num_nonlin_solv_conv_fails``: the iterations and the convergence failures of the nonlinear solver.
+    - ``num_step_solve_fails``: the steps that failed because the nonlinear solver did not converge.
+    - ``num_jac_evals``: the evaluations of the Jacobian.
+    - ``num_lin_rhs_evals``: the evaluations of the rates of the model for the finite difference Jacobian. They are not part of ``num_rhs_evals``.
+    - ``num_lin_iters``, ``num_lin_conv_fails``: the iterations and convergence failures of an iterative linear solver.
+    - ``num_g_evals``: the evaluations of the root functions, i.e. of the event triggers and piecewise conditions.
+    - ``num_stab_lim_order_reds``: the order reductions of the BDF stability limit detection.
+    - ``num_reinits``: the reinitializations of CVODE during the integration, i.e. after events.
+    - ``actual_init_step``, ``last_step``, ``current_step``, ``last_order``, ``current_order``, ``current_time``: the values of the last step since the last reinitialization.
+
+    With the cvode setting ``collect_timing``, the times in seconds of the integration (``time_total``), of the evaluations of the rates of the model (``time_rhs_evals``, including those for the finite difference Jacobian), of the root functions (``time_g_evals``) and of the setups and solves of the linear solver (``time_lin_solv_setups``, ``time_lin_solv_solves``).
+
+    >>> rr.simulate(0, 100, 1001)
+    >>> stats = rr.integrator.getStatistics()
+    >>> stats["num_steps"], stats["num_rhs_evals"], stats["num_err_test_fails"]
+
+
+.. method:: Integrator.resetStatistics()
+
+    Sets the counters of getStatistics to zero.
  
     
 CVODE
@@ -137,6 +173,15 @@ CVODE
 .. attribute:: Integrator.variable_step_size
 
     Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is false.
+
+
+.. attribute:: Integrator.collect_timing
+
+    Measure the time of the integration and of its parts, which getStatistics then returns. The measurement adds a little time to every evaluation of the model, so it is off by default.
+
+    >>> rr.integrator.collect_timing = True
+    >>> rr.simulate(0, 100, 1001)
+    >>> rr.integrator.getStatistics()["time_rhs_evals"]
 
 
 Gillespie

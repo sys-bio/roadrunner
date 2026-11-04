@@ -236,5 +236,137 @@ class CVODEIntegratorTests(unittest.TestCase):
         results = self.rr.simulate()
         self.assertEqual(len(results), 51);
 
+
+class IntegratorStatisticsTests(unittest.TestCase):
+    """The counters of the work of the integrators (issue 1411)."""
+
+    CVODE_COUNTERS = [
+        "num_steps", "num_rhs_evals", "num_lin_solv_setups", "num_err_test_fails",
+        "num_nonlin_solv_iters", "num_nonlin_solv_conv_fails", "num_step_solve_fails",
+        "num_jac_evals", "num_lin_rhs_evals", "num_lin_iters", "num_lin_conv_fails",
+        "num_g_evals", "num_stab_lim_order_reds", "num_reinits", "num_events",
+    ]
+
+    TIMES = ["time_total", "time_rhs_evals", "time_g_evals", "time_lin_solv_setups", "time_lin_solv_solves"]
+
+    def setUp(self) -> None:
+        self.rr = RoadRunner(tmf.TestModelFactory("OneEvent10Triggers").str())
+
+    def numEventsInResult(self, result):
+        """The event of OneEvent10Triggers raises S1, which otherwise decays."""
+        s1 = result[:, 1]
+        return int(np.sum(np.diff(s1) > 0))
+
+    def test_cvode_counters(self):
+        result = self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        for key in self.CVODE_COUNTERS:
+            self.assertIsInstance(stats[key], int, key)
+            self.assertGreaterEqual(stats[key], 0, key)
+        self.assertGreater(stats["num_steps"], 0)
+        self.assertGreaterEqual(stats["num_rhs_evals"], stats["num_steps"])
+        self.assertGreater(stats["num_jac_evals"], 0)
+        self.assertGreater(stats["num_lin_rhs_evals"], 0)
+        self.assertGreater(stats["num_g_evals"], 0)
+        num_events = self.numEventsInResult(result)
+        self.assertGreater(num_events, 1)
+        self.assertEqual(num_events, stats["num_events"])
+        self.assertEqual(num_events, stats["num_reinits"])
+        for key in ["actual_init_step", "last_step", "current_step", "current_time"]:
+            self.assertIsInstance(stats[key], float, key)
+        for key in ["last_order", "current_order"]:
+            self.assertIsInstance(stats[key], int, key)
+        for key in self.TIMES:
+            self.assertNotIn(key, stats)
+
+    def test_cvode_counters_are_summed_over_reinitializations(self):
+        """CVODE sets its counters to zero after every event; the statistics are the totals."""
+        self.rr.simulate(0, 10, 101)
+        total = self.rr.integrator.getStatistics()["num_steps"]
+        self.rr.simulate(0, 1, 11)
+        beforeFirstEvent = self.rr.integrator.getStatistics()["num_steps"]
+        self.assertGreater(total, 5 * beforeFirstEvent)
+
+    def test_each_simulation_has_its_own_statistics(self):
+        self.rr.simulate(0, 10, 101)
+        first = self.rr.integrator.getStatistics()
+        self.rr.resetAll()
+        self.rr.simulate(0, 10, 101)
+        second = self.rr.integrator.getStatistics()
+        for key in self.CVODE_COUNTERS:
+            self.assertEqual(first[key], second[key], key)
+
+    def test_reset_statistics(self):
+        self.rr.simulate(0, 10, 101)
+        self.rr.integrator.resetStatistics()
+        stats = self.rr.integrator.getStatistics()
+        for key in self.CVODE_COUNTERS:
+            self.assertEqual(0, stats[key], key)
+
+    def test_non_stiff_solver_has_no_linear_solver(self):
+        self.rr.integrator.stiff = False
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        self.assertGreater(stats["num_steps"], 0)
+        for key in ["num_lin_solv_setups", "num_jac_evals", "num_lin_rhs_evals"]:
+            self.assertEqual(0, stats[key], key)
+
+    def test_cvode_timing(self):
+        self.rr.integrator.collect_timing = True
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        for key in self.TIMES:
+            self.assertIsInstance(stats[key], float, key)
+            self.assertGreaterEqual(stats[key], 0.0, key)
+        self.assertGreater(stats["time_total"], 0.0)
+        self.assertGreater(stats["time_rhs_evals"], 0.0)
+        self.assertGreater(stats["time_lin_solv_setups"], 0.0)
+        self.assertGreater(stats["time_lin_solv_solves"], 0.0)
+        parts = stats["time_rhs_evals"] + stats["time_g_evals"] + stats["time_lin_solv_setups"] \
+            + stats["time_lin_solv_solves"]
+        self.assertLessEqual(parts, stats["time_total"])
+
+    def test_one_step(self):
+        self.rr.oneStep(0, 0.5)
+        stats = self.rr.integrator.getStatistics()
+        self.assertGreater(stats["num_steps"], 0)
+        self.rr.oneStep(0.5, 0.5, False)
+        self.assertGreater(self.rr.integrator.getStatistics()["num_steps"], stats["num_steps"])
+
+    def test_rk4(self):
+        self.rr.setIntegrator("rk4")
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        self.assertEqual({"num_steps", "num_rhs_evals", "num_events"}, set(stats))
+        self.assertEqual(100, stats["num_steps"])
+        self.assertEqual(400, stats["num_rhs_evals"])
+
+    def test_euler(self):
+        self.rr.setIntegrator("euler")
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        self.assertEqual({"num_steps", "num_rhs_evals", "num_events"}, set(stats))
+        self.assertEqual(100, stats["num_steps"])
+        self.assertEqual(100, stats["num_rhs_evals"])
+
+    def test_rk45(self):
+        self.rr.setIntegrator("rk45")
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        self.assertEqual({"num_steps", "num_rhs_evals", "num_err_test_fails", "num_events"}, set(stats))
+        self.assertGreaterEqual(stats["num_steps"], 100)
+        self.assertEqual(6 * (stats["num_steps"] + stats["num_err_test_fails"]), stats["num_rhs_evals"])
+
+    def test_gillespie(self):
+        rr = RoadRunner(tmf.TestModelFactory("SimpleFlux").str())
+        rr.setIntegrator("gillespie")
+        rr.integrator.seed = 1
+        rr.simulate(0, 10, 11)
+        stats = rr.integrator.getStatistics()
+        self.assertEqual({"num_steps", "num_rhs_evals", "num_events"}, set(stats))
+        self.assertGreater(stats["num_steps"], 0)
+        self.assertGreaterEqual(stats["num_rhs_evals"], stats["num_steps"])
+
+
 if __name__ == "__main__":
     unittest.main()
