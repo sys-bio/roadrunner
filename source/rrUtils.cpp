@@ -23,6 +23,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 #include <cmath>
 #include <math.h>
 #include <float.h>
@@ -120,11 +121,18 @@ std::string getMD5(const std::string& text)
 
 std::string getSBMLMD5(const std::string& text, int modelGenOpt)
 {
-    std::string digestString = getMD5(text);
-    if (modelGenOpt & rr::LoadSBMLOptions::CONSERVED_MOIETIES) {
-        digestString += "_conserved";
+    // The key of the code generated for the SBML: the models with the same key share
+    // their code (the model cache of the LLVMModelGenerator and the object cache of
+    // LLJit), so it holds everything that changes that code.  These are the SBML, the
+    // load options (which include the JIT and its optimization level) and the
+    // configuration values read by the code generation.  RECOMPILE is left out, because
+    // it only says whether a cached model may be reused.
+    std::stringstream key;
+    key << getMD5(text) << "_" << std::hex << (modelGenOpt & ~rr::LoadSBMLOptions::RECOMPILE);
+    if (Config::getBool(Config::LOADSBMLOPTIONS_PERMISSIVE)) {
+        key << "_permissive";
     }
-    return digestString;
+    return key.str();
 }
 
 std::string getTime()

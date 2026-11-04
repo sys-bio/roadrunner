@@ -66,7 +66,7 @@ namespace rr {
 
     ExecutableModel* rr::ExecutableModelFactory::createModel(
         const libsbml::SBMLDocument* sbml, const std::string& md5, const Dictionary* dict) {
-        // note: conserved moieties are now taken into account in rrUtils::getSBMLMD5
+        // note: the load options, e.g. conserved moieties, are taken into account in rr::getSBMLMD5
         LoadSBMLOptions opt(dict);
         return rrllvm::LLVMModelGenerator::createModel(sbml, md5, opt.modelGeneratorOpt);
     }

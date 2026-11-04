@@ -30,6 +30,11 @@ RR_DECLSPEC bool                 cleanFolder(const std::string& folder, const st
 RR_DECLSPEC std::string          getTime();
 RR_DECLSPEC std::string          getDateTime();
 RR_DECLSPEC std::string          getMD5(const std::string& text);
+/**
+ * @brief the key of the code generated for the SBML @param text with the load
+ * options @param modelGenOpt: the md5 of the SBML, the options except RECOMPILE and
+ * the configuration values that change the generated code.
+ */
 RR_DECLSPEC std::string          getSBMLMD5(const std::string& text, int modelGenOpt);
 RR_DECLSPEC void                 sleep(int ms);
 
