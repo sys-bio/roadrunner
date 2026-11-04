@@ -107,6 +107,13 @@ namespace rr
          */
         void restart(double timeStart) override;
 
+        /**
+         * @brief the counters num_steps (reactions that fired), num_rhs_evals
+         * (evaluations of the propensities) and num_events.
+         * @see Integrator::getStatistics
+         */
+        std::unordered_map<std::string, Setting> getStatistics() override;
+
         // ** Listeners ********************************************************
 
         /**

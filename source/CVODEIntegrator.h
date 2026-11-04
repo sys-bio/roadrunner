@@ -18,6 +18,8 @@
 #include "rrRoadRunnerOptions.h"
 
 #include <string>
+#include <cstdint>
+#include <unordered_map>
 #include <vector>
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_nonlinearsolver.h>
@@ -256,8 +258,127 @@ namespace rr {
          */
         std::vector<double> getAbsoluteToleranceVector() override;
 
+        /**
+         * @brief The counters of CVODE since the last call of resetStatistics.
+         * @details CVODE sets its counters to zero when it is reinitialized, which
+         * this integrator does when a simulation starts, at a root of the root functions
+         * (an event trigger or a piecewise condition that switches) and when a delayed
+         * event is applied. The
+         * counters returned here are summed over these reinitializations. Besides
+         * the keys of Integrator::getStatistics they are (with the CVODE function
+         * that returns the counter of one reinitialization):
+         *  - num_lin_solv_setups: the setups of the linear solver (CVodeGetNumLinSolvSetups);
+         *  - num_nonlin_solv_iters: the iterations of the nonlinear solver (CVodeGetNumNonlinSolvIters);
+         *  - num_nonlin_solv_conv_fails: the convergence failures of the nonlinear
+         *    solver (CVodeGetNumNonlinSolvConvFails);
+         *  - num_step_solve_fails: the steps that failed because the nonlinear solver
+         *    did not converge (CVodeGetNumStepSolveFails);
+         *  - num_jac_evals: the evaluations of the Jacobian (CVodeGetNumJacEvals);
+         *  - num_lin_rhs_evals: the evaluations of the rates of the model for the
+         *    finite difference Jacobian (CVodeGetNumLinRhsEvals), which are not
+         *    part of num_rhs_evals;
+         *  - num_lin_iters, num_lin_conv_fails: the iterations and convergence
+         *    failures of an iterative linear solver (CVodeGetNumLinIters,
+         *    CVodeGetNumLinConvFails);
+         *  - num_g_evals: the evaluations of the root functions, i.e. of the event
+         *    triggers and piecewise conditions (CVodeGetNumGEvals);
+         *  - num_stab_lim_order_reds: the order reductions of the BDF stability limit
+         *    detection (CVodeGetNumStabLimOrderReds);
+         *  - num_reinits: the reinitializations of CVODE during the integration, i.e.
+         *    at the roots of the root functions and after delayed events.
+         * The non-stiff solver has no linear solver, so its num_lin_solv_setups,
+         * num_jac_evals, num_lin_rhs_evals, num_lin_iters and num_lin_conv_fails are 0.
+         *
+         * The values of the last step since the last reinitialization, if CVODE exists:
+         * actual_init_step, last_step, current_step (the step size to try next),
+         * last_order, current_order and current_time (CVodeGetActualInitStep,
+         * CVodeGetLastStep, CVodeGetCurrentStep, CVodeGetLastOrder,
+         * CVodeGetCurrentOrder, CVodeGetCurrentTime).
+         *
+         * With the setting collect_timing, the times in seconds of
+         *  - time_total: the integration, i.e. the calls of integrate;
+         *  - time_rhs_evals: the evaluations of the rates of the model, including
+         *    those for the finite difference Jacobian;
+         *  - time_g_evals: the evaluations of the root functions;
+         *  - time_lin_solv_setups, time_lin_solv_solves: the setups (the LU
+         *    factorization) and solves of the linear solver.
+         */
+        std::unordered_map<std::string, Setting> getStatistics() override;
+
+        void resetStatistics() override;
 
     private:
+        /**
+         * @brief The counters that CVODE sets to zero when it is reinitialized.
+         */
+        struct CVODECounters {
+            long numSteps = 0;
+            long numRhsEvals = 0;
+            long numLinSolvSetups = 0;
+            long numErrTestFails = 0;
+            long numNonlinSolvIters = 0;
+            long numNonlinSolvConvFails = 0;
+            long numStepSolveFails = 0;
+            long numGEvals = 0;
+            long numStabLimOrderReds = 0;
+            // the counters of the linear solver interface
+            long numJacEvals = 0;
+            long numLinRhsEvals = 0;
+            long numLinIters = 0;
+            long numLinConvFails = 0;
+
+            CVODECounters &operator+=(const CVODECounters &other);
+
+            CVODECounters &operator-=(const CVODECounters &other);
+        };
+
+        /**
+         * @brief The times of the work of CVODE, see getStatistics.
+         */
+        struct CVODETimes {
+            double total = 0;
+            double rhsEvals = 0;
+            double gEvals = 0;
+            double linSolvSetups = 0;
+            double linSolvSolves = 0;
+        };
+
+        /**
+         * @brief the counters of CVODE since it was last (re)initialized.
+         */
+        CVODECounters readCVODECounters() const;
+
+        /**
+         * @brief adds the counters of CVODE to the statistics, before CVODE is
+         * reinitialized or freed and sets them to zero.
+         */
+        void saveCVODECounters();
+
+        /**
+         * @brief The statistics are these plus the counters of CVODE (readCVODECounters).
+         * @details resetStatistics sets them to minus the counters of CVODE, and
+         * saveCVODECounters adds the counters of CVODE to them.
+         */
+        CVODECounters savedCounters;
+
+        /**
+         * @brief whether CVODE has integrated since it was last (re)initialized.
+         * @details CVODE sets the counters of the linear solver interface to zero
+         * at the first step after a (re)initialization, not at the (re)initialization.
+         * Until that step they still hold the counts that saveCVODECounters added.
+         */
+        bool linearSolverCountersCurrent = false;
+
+        std::int64_t numReInits = 0;
+
+        // whether integrate is running, which is when a reinitialization is counted
+        bool integrating = false;
+
+        CVODETimes times;
+
+        // the setting collect_timing
+        bool collectTiming = false;
+
         // defaults directly from CVODE docs
         static const int mDefaultMaxNumSteps;
         static const int mDefaultMaxAdamsOrder;
@@ -341,6 +462,10 @@ namespace rr {
         friend int cvodeDyDtFcn(double t, N_Vector cv_y, N_Vector cv_ydot, void *f_data);
 
         friend int cvodeEventAndPiecewiseRootFcn(double t, N_Vector y, double *gout, void *g_data);
+
+        friend SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator);
+
+        friend struct TimedLinearSolver;
 
     };
 

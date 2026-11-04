@@ -151,6 +151,8 @@ namespace rr {
 
             mModel->setTime(tCur);
 
+            workCounters.numRhsEvals += 6;
+
             // k1 = f(t_n, y_n)
             mModel->getStateVectorRate(tCur, y, k1);
 
@@ -241,6 +243,7 @@ namespace rr {
             if (!(error <= epsilon)) {
                 if (hTry > hmin) {
                     // step rejected, try again with a smaller step
+                    workCounters.numErrTestFails++;
                     hProp = std::max(q * h, hmin);
                     continue;
                 }
@@ -256,6 +259,8 @@ namespace rr {
             }
 
             rrLog(Logger::LOG_DEBUG) << "RK45: Update state std::vector";
+
+            workCounters.numSteps++;
 
             // The state is advanced with the step size h that was tried, i.e. the one that the
             // k's and the error estimate belong to (and not with the next proposed one).
@@ -317,7 +322,16 @@ namespace rr {
     }
 
     void RK45Integrator::applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
-        mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0], y, y);
+        workCounters.numEvents += mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0], y, y);
+    }
+
+    std::unordered_map<std::string, Setting> RK45Integrator::getStatistics() {
+        return {
+            {"num_steps", Setting(workCounters.numSteps)},
+            {"num_rhs_evals", Setting(workCounters.numRhsEvals)},
+            {"num_err_test_fails", Setting(workCounters.numErrTestFails)},
+            {"num_events", Setting(workCounters.numEvents)},
+        };
     }
 
     void RK45Integrator::restart(double t0) {
