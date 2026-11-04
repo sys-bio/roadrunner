@@ -18,6 +18,8 @@
 #include "JitFactory.h"
 #include "ModelResources.h"
 #include "Random.h"
+#include "JacobianSparsity.h"
+#include <chrono>
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
@@ -257,6 +259,19 @@ namespace rrllvm {
 
         // models made later from these resources (see createModel) need the same number
         modelResources->numPiecewiseTriggers = modelGeneratorContext->getNumPiecewiseTriggers();
+
+        {
+            auto start = std::chrono::steady_clock::now();
+            modelResources->jacobianStructure = JacobianSparsity::analyze(
+                    *modelGeneratorContext->getModel(), modelGeneratorContext->getModelDataSymbols(),
+                    options & LoadSBMLOptions::CONSERVED_MOIETIES);
+            const JacobianStructure &js = modelResources->jacobianStructure;
+            rrLog(Logger::LOG_DEBUG) << "Jacobian structure in "
+                                     << std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count()
+                                     << " s: " << (js.available() ? std::to_string(js.jacobian.nnz()) + " nonzeros, " +
+                                                                    std::to_string(js.numColors) + " colors"
+                                                                  : js.unavailableReason);
+        }
 
         LLVMModelData* modelData = createModelData(modelGeneratorContext->getModelDataSymbols(),
             modelGeneratorContext->getRandom(), modelResources->numPiecewiseTriggers);

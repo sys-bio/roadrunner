@@ -16,6 +16,11 @@
 #include <sunnonlinsol/sunnonlinsol_fixedpoint.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunnonlinsol/sunnonlinsol_newton.h> /* access to the fixed point SUNNonlinearSolver */
 #include <sunlinsol/sunlinsol_dense.h>
+#include <sunmatrix/sunmatrix_dense.h>
+#include <sunmatrix/sunmatrix_sparse.h>
+#ifdef RR_USE_KLU
+#include <sunlinsol/sunlinsol_klu.h>
+#endif
 
 #include <cstring>
 #include <iomanip>
@@ -40,6 +45,9 @@ namespace rr {
     int cvodeDyDtFcn(sunrealtype t, N_Vector cv_y, N_Vector cv_ydot, void *userData);
 
     int cvodeEventAndPiecewiseRootFcn(sunrealtype t, N_Vector y, sunrealtype *gout, void *userData);
+
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
 
     // Sets the value of an element in a N_Vector object
     inline void SetVector(N_Vector v, int Index, double Value) {
@@ -355,6 +363,12 @@ namespace rr {
                    "Measure the time of the integration and of its parts for getStatistics. (bool)",
                    "(bool) Enabling this setting measures the time of the integration, of the evaluations of the model rates and root functions, and of the setups and solves of the linear solver. getStatistics returns these times (time_total, time_rhs_evals, time_g_evals, time_lin_solv_setups and time_lin_solv_solves). The measurement adds a little time to every evaluation of the model, so it is off by default.");
         collectTiming = false;
+        addSetting("jacobian", Setting(std::string("difference_quotient")), "Jacobian",
+                   "How CVODE gets the Jacobian of the stiff solver: \"difference_quotient\" or \"sparse_difference_quotient\" (string).",
+                   "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by forward differences, one evaluation of the model per state. \"sparse_difference_quotient\" computes the same forward differences with the sparsity pattern of the Jacobian, one evaluation of the reaction rates per color of its columns. A model without a sparsity pattern (e.g. with conserved moiety analysis) falls back to \"difference_quotient\".");
+        addSetting("linear_solver", Setting(std::string("dense")), "Linear Solver",
+                   "The linear solver of the stiff solver: \"dense\" or \"klu\" (string).",
+                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU; it needs jacobian = \"sparse_difference_quotient\" and a roadrunner built with RR_USE_KLU, otherwise CVODE falls back to the dense solver.");
         CVODEIntegrator::loadConfigSettings();
     }
 
@@ -519,6 +533,29 @@ namespace rr {
     }
 
     void CVODEIntegrator::setValue(const std::string &key, Setting val) {
+        if (key == "jacobian" || key == "linear_solver") {
+            std::string v = val.getAs<std::string>();
+            bool valid = key == "jacobian" ? (v == "difference_quotient" || v == "sparse_difference_quotient")
+                                           : (v == "dense" || v == "klu");
+            if (!valid) {
+                throw std::invalid_argument("CVODEIntegrator: invalid value '" + v + "' of setting '" + key + "'");
+            }
+            Setting previous = getValue(key);
+            Integrator::setValue(key, val);
+            if (mModel) {
+                // the linear solver and the Jacobian are part of the CVODE memory
+                freeSundialsMemory();
+                try {
+                    create();
+                } catch (...) {
+                    freeSundialsMemory();
+                    Integrator::setValue(key, previous);
+                    create();
+                    throw;
+                }
+            }
+            return;
+        }
         // if std::vector tolerance is set, the size of std::vector must be equal to
         // the number of floating species
         if (key == "absolute_tolerance" && val.type() == Setting::DOUBLEVECTOR)
@@ -946,9 +983,53 @@ namespace rr {
                 handleCVODEError(err);
             }
 
+            // Never throw for a setting the model cannot serve: create() also runs when a model
+            // is loaded, regenerated or copied. CVODE falls back to the dense difference quotient.
+            std::string jacobianSetting = getValue("jacobian").getAs<std::string>();
+            std::string linearSolverSetting = getValue("linear_solver").getAs<std::string>();
+            mSparseDQJacobian = false;
+            if (jacobianSetting == "sparse_difference_quotient" && realStateVectorSize > 0) {
+                if (mModel->getStateVectorJacobianPattern()) {
+                    mSparseDQJacobian = true;
+                } else {
+                    rrLogWarn << "no sparsity pattern of the Jacobian, CVODE uses the dense difference quotient: "
+                              << mModel->getStateVectorJacobianUnavailableReason();
+                }
+            }
+            mSparseLinearSolver = false;
+            if (linearSolverSetting == "klu") {
+#ifdef RR_USE_KLU
+                if (mSparseDQJacobian) {
+                    mSparseLinearSolver = true;
+                } else {
+                    rrLogWarn << "linear_solver = \"klu\" needs jacobian = \"sparse_difference_quotient\" and a "
+                                 "model with a sparsity pattern of the Jacobian; CVODE uses the dense solver";
+                }
+#else
+                rrLogWarn << "linear_solver = \"klu\" needs a roadrunner built with RR_USE_KLU; CVODE uses the "
+                             "dense solver";
+#endif
+            }
+            mJacobianValues.clear();
+            mJacobianIncrements.clear();
+            if (mSparseDQJacobian) {
+                mJacobianValues.assign(mModel->getStateVectorJacobianPattern()->nnz(), 0.0);
+                mJacobianIncrements.assign(realStateVectorSize, 0.0);
+            }
+
             // the newton method requires use of a linear solver, which we set up here.
-            jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
-            linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            if (mSparseLinearSolver) {
+#ifdef RR_USE_KLU
+                const CscPattern &p = *mModel->getStateVectorJacobianPattern();
+                jac = SUNSparseMatrix(allocStateVectorSize, allocStateVectorSize, p.nnz(), CSC_MAT, mSunContext);
+                std::copy(p.colPtr.begin(), p.colPtr.end(), SUNSparseMatrix_IndexPointers(jac));
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), SUNSparseMatrix_IndexValues(jac));
+                linSolver = SUNLinSol_KLU(mStateVector, jac, mSunContext);
+#endif
+            } else {
+                jac = SUNDenseMatrix(allocStateVectorSize, allocStateVectorSize, mSunContext);
+                linSolver = SUNLinSol_Dense(mStateVector, jac, mSunContext);
+            }
             if (linSolver == nullptr) {
                 throw std::runtime_error("CVODEIntegrator::createCVODE: call to SunLinSol_Dense returned nullptr. "
                                          "The size of the sundials matrix (created with SUNDenseMatrix) used for the jacobian "
@@ -965,8 +1046,8 @@ namespace rr {
                 handleCVODEError(err);
             };
 
-            // Use a difference quotient Jacobian by not passing Jac to CVodeSetJacFn
-            if ((err = CVodeSetJacFn(mCVODE_Memory, nullptr)) != CV_SUCCESS) {
+            // the sparse difference quotient, or CVODE's dense difference quotient (nullptr)
+            if ((err = CVodeSetJacFn(mCVODE_Memory, mSparseDQJacobian ? cvodeJacFcn : nullptr)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
         } else {
@@ -1292,6 +1373,9 @@ namespace rr {
             jac = nullptr;
         }
 
+        mSparseDQJacobian = false;
+        mSparseLinearSolver = false;
+
     }
 
     double CVODEIntegrator::getRootTolerance(double t) const {
@@ -1459,6 +1543,7 @@ namespace rr {
         savedCounters = CVODECounters();
         savedCounters -= readCVODECounters();
         numReInits = 0;
+        numJacobianModelEvals = 0;
         times = CVODETimes();
     }
 
@@ -1481,6 +1566,9 @@ namespace rr {
             {"num_g_evals", Setting(std::int64_t(c.numGEvals))},
             {"num_stab_lim_order_reds", Setting(std::int64_t(c.numStabLimOrderReds))},
             {"num_reinits", Setting(numReInits)},
+            {"num_jac_model_evals", Setting(numJacobianModelEvals)},
+            {"num_jac_colors", Setting(mSparseDQJacobian ? mModel->getStateVectorJacobianNumColors() : 0)},
+            {"sparse_linear_solver", Setting(mSparseLinearSolver)},
             {"num_events", Setting(workCounters.numEvents)},
         };
 
@@ -1513,8 +1601,66 @@ namespace rr {
             stats["time_g_evals"] = Setting(times.gEvals);
             stats["time_lin_solv_setups"] = Setting(times.linSolvSetups);
             stats["time_lin_solv_solves"] = Setting(times.linSolvSolves);
+            stats["time_jac_evals"] = Setting(times.jacEvals);
         }
         return stats;
+    }
+
+    /**
+     * The sparse difference quotient Jacobian for CVODE (setting jacobian =
+     * "sparse_difference_quotient"), written into the dense matrix or, with KLU, into the
+     * sparse matrix whose structure is the model's pattern. The increments are those of
+     * CVODE's dense difference quotient (cvLsDenseDQJac), so every entry is the forward
+     * difference that CVODE would compute.
+     */
+    int cvodeJacFcn(sunrealtype t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                    N_Vector tmp1, N_Vector tmp2, N_Vector tmp3) {
+        auto *cv = static_cast<CVODEIntegrator *>(userData);
+        ScopedTimer timer(cv->collectTiming, cv->times.jacEvals);
+        try {
+            const CscPattern &p = *cv->mModel->getStateVectorJacobianPattern();
+            const sunindextype n = NV_LENGTH_S(y);
+            const double *yData = NV_DATA_S(y);
+
+            // the increments of cvLsDenseDQJac
+            N_Vector ewt = tmp1;
+            if (CVodeGetErrWeights(cv->mCVODE_Memory, ewt) != CV_SUCCESS) {
+                return -1;
+            }
+            double h = 0;
+            CVodeGetCurrentStep(cv->mCVODE_Memory, &h);
+            const double uround = std::numeric_limits<double>::epsilon();
+            const double srur = std::sqrt(uround);
+            const double fnorm = N_VWrmsNorm(fy, ewt);
+            const double minInc = fnorm != 0.0 ? 1000.0 * std::fabs(h) * uround * (double) n * fnorm : 1.0;
+            const double *ewtData = NV_DATA_S(ewt);
+            for (sunindextype j = 0; j < n; ++j) {
+                cv->mJacobianIncrements[j] = std::max(srur * std::fabs(yData[j]), minInc / ewtData[j]);
+            }
+
+            cv->mModel->getStateVectorJacobianDQ(t, yData, cv->mJacobianIncrements.data(),
+                                                 cv->mJacobianValues.data());
+            cv->numJacobianModelEvals += cv->mModel->getStateVectorJacobianNumColors() + 1;
+
+            const double *values = cv->mJacobianValues.data();
+            if (SUNMatGetID(J) == SUNMATRIX_DENSE) {
+                SUNMatZero(J);
+                for (int j = 0; j < p.nCols; ++j) {
+                    double *col = SUNDenseMatrix_Column(J, j);
+                    for (int k = p.colPtr[j]; k < p.colPtr[j + 1]; ++k) {
+                        col[p.rowIdx[k]] = values[k];
+                    }
+                }
+            } else {
+                std::copy(p.colPtr.begin(), p.colPtr.end(), SUNSparseMatrix_IndexPointers(J));
+                std::copy(p.rowIdx.begin(), p.rowIdx.end(), SUNSparseMatrix_IndexValues(J));
+                std::copy(values, values + p.nnz(), SUNSparseMatrix_Data(J));
+            }
+        } catch (const std::exception &e) {
+            rrLogErr << "sparse difference quotient Jacobian failed: " << e.what();
+            return -1;
+        }
+        return 0;
     }
 
     void *CVODEIntegrator::getCvodeMemory() const {

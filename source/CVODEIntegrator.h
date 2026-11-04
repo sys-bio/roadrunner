@@ -341,6 +341,7 @@ namespace rr {
             double gEvals = 0;
             double linSolvSetups = 0;
             double linSolvSolves = 0;
+            double jacEvals = 0;
         };
 
         /**
@@ -462,6 +463,22 @@ namespace rr {
         friend int cvodeDyDtFcn(double t, N_Vector cv_y, N_Vector cv_ydot, void *f_data);
 
         friend int cvodeEventAndPiecewiseRootFcn(double t, N_Vector y, double *gout, void *g_data);
+
+        friend int cvodeJacFcn(double t, N_Vector y, N_Vector fy, SUNMatrix J, void *userData,
+                               N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
+
+        /** True while CVODE uses the sparse difference quotient (setting jacobian). */
+        bool mSparseDQJacobian = false;
+
+        /** True while the linear solver is KLU with a sparse matrix (setting linear_solver). */
+        bool mSparseLinearSolver = false;
+
+        /** Values of the Jacobian in the CSC order of the model's pattern, and the increments. */
+        std::vector<double> mJacobianValues;
+        std::vector<double> mJacobianIncrements;
+
+        /** Evaluations of the model for the sparse difference quotient since resetStatistics. */
+        std::int64_t numJacobianModelEvals = 0;
 
         friend SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator);
 

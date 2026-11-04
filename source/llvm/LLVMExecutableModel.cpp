@@ -410,6 +410,145 @@ void LLVMExecutableModel::getRateRuleValues(double *rateRuleValues)
     memcpy(rateRuleValues, modelData->rateRuleValuesAlias, modelData->numRateRules * sizeof(double));
 }
 
+const rr::CscPattern *LLVMExecutableModel::getStateVectorJacobianPattern() const
+{
+    return resources->jacobianStructure.available() ? &resources->jacobianStructure.jacobian : nullptr;
+}
+
+std::string LLVMExecutableModel::getStateVectorJacobianUnavailableReason() const
+{
+    return resources->jacobianStructure.unavailableReason;
+}
+
+int LLVMExecutableModel::getStateVectorJacobianNumColors() const
+{
+    return resources->jacobianStructure.available() ? resources->jacobianStructure.numColors : 0;
+}
+
+void LLVMExecutableModel::makeJacobianDQWorkspace()
+{
+    const JacobianStructure &js = resources->jacobianStructure;
+    auto work = std::make_unique<JacobianDQWorkspace>();
+    unsigned nRateRules = modelData->numRateRules;
+    unsigned nStates = nRateRules + modelData->numIndFloatingSpecies;
+
+    work->perturbed.assign(nStates, 0.0);
+    work->reactionRates0.assign(modelData->numReactions, 0.0);
+    work->rateRuleRates0.assign(std::max(nRateRules, 1u), 0.0);
+    work->rateRuleRates1.assign(std::max(nRateRules, 1u), 0.0);
+    work->dvdy.assign(js.reactionRates.nnz(), 0.0);
+    work->drdy.assign(js.rateRules.nnz(), 0.0);
+    work->columnsOfColor.resize(js.numColors);
+    for (int j = 0; j < (int) js.colors.size(); ++j) {
+        work->columnsOfColor[js.colors[j]].push_back(j);
+    }
+
+    const rr::CscPattern &jac = js.jacobian;
+    auto jacIndex = [&jac](int row, int col) {
+        auto begin = jac.rowIdx.begin() + jac.colPtr[col];
+        auto end = jac.rowIdx.begin() + jac.colPtr[col + 1];
+        auto it = std::lower_bound(begin, end, row);
+        if (it == end || *it != row) {
+            throw_llvm_exception("Jacobian: entry outside the sparsity pattern");
+        }
+        return (int) (it - jac.rowIdx.begin());
+    };
+
+    for (int j = 0; j < js.rateRules.nCols; ++j) {
+        for (int e = js.rateRules.colPtr[j]; e < js.rateRules.colPtr[j + 1]; ++e) {
+            work->rateRuleTerms.push_back({e, jacIndex(js.rateRules.rowIdx[e], j)});
+        }
+    }
+
+    // the species of every reaction in the stoichiometry matrix (species x reactions, CSR)
+    const rr::csr_matrix *N = modelData->stoichiometry;
+    std::vector<std::vector<std::pair<int, int>>> speciesOfReaction(modelData->numReactions);
+    for (unsigned s = 0; s < N->m; ++s) {
+        for (unsigned idx = N->rowptr[s]; idx < N->rowptr[s + 1]; ++idx) {
+            speciesOfReaction[N->colidx[idx]].push_back({(int) s, (int) idx});
+        }
+    }
+    unsigned nIndFloating = modelData->numIndFloatingSpecies;
+    for (int j = 0; j < js.reactionRates.nCols; ++j) {
+        for (int e = js.reactionRates.colPtr[j]; e < js.reactionRates.colPtr[j + 1]; ++e) {
+            for (auto [s, idx]: speciesOfReaction[js.reactionRates.rowIdx[e]]) {
+                if ((unsigned) s < nIndFloating) {
+                    work->speciesTerms.push_back({e, jacIndex((int) nRateRules + s, j), idx});
+                }
+            }
+        }
+    }
+    jacobianDQWorkspace.ptr = std::move(work);
+}
+
+void LLVMExecutableModel::getStateVectorJacobianDQ(double time, const double *y, const double *increments,
+                                                   double *values)
+{
+    const JacobianStructure &js = resources->jacobianStructure;
+    if (!js.available()) {
+        throw_llvm_exception("no sparsity pattern of the Jacobian: " + js.unavailableReason);
+    }
+    std::fill(values, values + js.jacobian.nnz(), 0.0);
+    if (!jacobianDQWorkspace.ptr) {
+        makeJacobianDQWorkspace();
+    }
+    JacobianDQWorkspace &work = *jacobianDQWorkspace.ptr;
+    unsigned nRateRules = modelData->numRateRules;
+    unsigned nStates = nRateRules + modelData->numIndFloatingSpecies;
+    std::copy(y, y + nStates, work.perturbed.begin());
+
+    modelData->time = time;
+    double *savedRateRules = modelData->rateRuleValuesAlias;
+    double *savedFloatingSpeciesAmounts = modelData->floatingSpeciesAmountsAlias;
+    modelData->rateRuleValuesAlias = work.perturbed.data();
+    modelData->floatingSpeciesAmountsAlias = work.perturbed.data() + nRateRules;
+    dirty |= DIRTY_REACTION_RATES;
+
+    // the rates at y; reactions first, since a rate rule can read a reaction rate.
+    // The conversion factor does not depend on the state (see JacobianSparsity::analyze).
+    double cf = evalReactionRatesPtr(modelData);
+    std::copy(modelData->reactionRatesAlias, modelData->reactionRatesAlias + modelData->numReactions,
+              work.reactionRates0.begin());
+    modelData->rateRuleRates = work.rateRuleRates0.data();
+    evalRateRuleRatesPtr(modelData);
+
+    // one evaluation per color: the columns of a color share no row of [dv/dy; d(rate rule rates)/dy]
+    modelData->rateRuleRates = work.rateRuleRates1.data();
+    for (const std::vector<int> &columns: work.columnsOfColor) {
+        for (int j: columns) {
+            work.perturbed[j] = y[j] + increments[j];
+        }
+        evalReactionRatesPtr(modelData);
+        evalRateRuleRatesPtr(modelData);
+        const double *v1 = modelData->reactionRatesAlias;
+        for (int j: columns) {
+            // the increment that was actually added, after rounding
+            double inc = work.perturbed[j] - y[j];
+            for (int e = js.reactionRates.colPtr[j]; e < js.reactionRates.colPtr[j + 1]; ++e) {
+                int row = js.reactionRates.rowIdx[e];
+                work.dvdy[e] = (v1[row] - work.reactionRates0[row]) / inc;
+            }
+            for (int e = js.rateRules.colPtr[j]; e < js.rateRules.colPtr[j + 1]; ++e) {
+                int row = js.rateRules.rowIdx[e];
+                work.drdy[e] = (work.rateRuleRates1[row] - work.rateRuleRates0[row]) / inc;
+            }
+            work.perturbed[j] = y[j];
+        }
+    }
+
+    modelData->rateRuleRates = 0;
+    modelData->rateRuleValuesAlias = savedRateRules;
+    modelData->floatingSpeciesAmountsAlias = savedFloatingSpeciesAmounts;
+
+    for (auto [e, idx]: work.rateRuleTerms) {
+        values[idx] = work.drdy[e];
+    }
+    const double *stoich = modelData->stoichiometry->values;
+    for (const auto &t: work.speciesTerms) {
+        values[t.jac] += cf * stoich[t.stoich] * work.dvdy[t.dvdy];
+    }
+}
+
 void LLVMExecutableModel::getStateVectorRate(double time, const double *y, double *dydt)
 {
     modelData->time = time;
