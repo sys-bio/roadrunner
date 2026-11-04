@@ -11,9 +11,10 @@ This prototype answers one question that the Enzyme Jacobian prototype (#1418) l
 the sparse difference quotient simulates as fast as KLU with the Enzyme Jacobian (Chen_MSB2009:
 260 ms against 267 ms, 4.7x faster than dense with CVODE's difference quotient). It takes the
 same number of steps, error test failures and Jacobians, and the results have the same error
-against a reference. The exactness of the Jacobian does not matter here. A model loads as fast as
-without the prototype, while the Enzyme Jacobian makes Chen_MSB2009 load in 3.8 s instead of
-1.1 s, and the build needs no Enzyme.
+against a reference. The exactness of the Jacobian does not matter here. A model loads as fast and
+with as much memory as without the prototype, while the Enzyme Jacobian makes Chen_MSB2009 load in
+3.8 s instead of 1.1 s, with a peak of 208 MiB instead of 120 MiB, and the build needs no Enzyme.
+KLU also saves 3 MiB of the dense matrices on Chen_MSB2009.
 
 ## What it is
 
@@ -123,6 +124,66 @@ What the numbers show:
 - **Few colors.** 2 to 7 colors for 28 to 500 states, so a Jacobian costs 3 to 8 evaluations of
   the reaction rates instead of 28 to 500 evaluations of the state vector rate.
 
+## Memory
+
+`memory.py` measures every model, build and configuration in a fresh process, as the median of 5
+processes:
+
+- **RSS after the load**: the resident set size after loading the model minus the RSS before; it
+  holds the compiled code, which LLVM does not allocate with malloc.
+- **peak RSS of the load**: the peak RSS during the load (code generation, the Enzyme pass and
+  compilation) minus the RSS before.
+- **heap after the simulation**: the memory allocated with malloc and in use after
+  `simulate(0, end, 201)` (glibc `mallinfo2`), which holds the CVODE memory, the matrices and
+  factorizations of the linear solver and the workspace of the Jacobian. Unlike the RSS, it drops
+  when the dense matrices are replaced by the sparse ones, so it shows the difference between the
+  linear solvers.
+- **heap, change by the simulation**: the part of it allocated by the simulation: the copy of the
+  Jacobian that CVODE keeps (`savedJ`), the KLU factorization, the workspace of the sparse
+  difference quotient and the result.
+
+| model | build and configuration | RSS after the load (MiB) | peak RSS of the load (MiB) | heap after the simulation (MiB) | heap, change by the simulation (MiB) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| hctz_body | dense + DQ | 30.9 | 30.9 | 22.32 | 0.05 |
+|  | dense + sparse DQ | 30.9 | 30.9 | 22.33 | 0.06 |
+|  | KLU + sparse DQ | 30.9 | 30.9 | 22.32 | 0.06 |
+|  | #1418 build without Enzyme: dense + DQ | 32.4 | 32.4 | 22.40 | 0.05 |
+|  | #1418 build with Enzyme: dense + DQ | 39.3 | 39.3 | 22.46 | 0.05 |
+|  | #1418 build with Enzyme: KLU + Enzyme | 39.3 | 39.3 | 22.45 | 0.06 |
+| glimepiride_body | dense + DQ | 35.1 | 35.1 | 23.72 | 0.11 |
+|  | dense + sparse DQ | 35.1 | 35.1 | 23.73 | 0.11 |
+|  | KLU + sparse DQ | 35.1 | 35.1 | 23.70 | 0.10 |
+|  | #1418 build without Enzyme: dense + DQ | 36.5 | 36.5 | 23.81 | 0.11 |
+|  | #1418 build with Enzyme: dense + DQ | 47.7 | 47.7 | 23.85 | 0.11 |
+|  | #1418 build with Enzyme: KLU + Enzyme | 47.7 | 47.7 | 23.82 | 0.10 |
+| Smith_BMCSystBiol2013 | dense + DQ | 51.9 | 51.9 | 32.97 | 0.29 |
+|  | dense + sparse DQ | 51.9 | 51.9 | 33.00 | 0.32 |
+|  | KLU + sparse DQ | 51.9 | 51.9 | 32.90 | 0.29 |
+|  | #1418 build without Enzyme: dense + DQ | 53.4 | 53.4 | 33.04 | 0.29 |
+|  | #1418 build with Enzyme: dense + DQ | 64.7 | 64.7 | 33.11 | 0.29 |
+|  | #1418 build with Enzyme: KLU + Enzyme | 64.6 | 64.6 | 33.05 | 0.30 |
+| Chen_MSB2009 | dense + DQ | 110.3 | 119.8 | 55.98 | 2.68 |
+|  | dense + sparse DQ | 110.3 | 119.8 | 56.14 | 2.81 |
+|  | KLU + sparse DQ | 110.3 | 119.8 | 53.02 | 1.53 |
+|  | #1418 build without Enzyme: dense + DQ | 111.2 | 120.4 | 56.03 | 2.68 |
+|  | #1418 build with Enzyme: dense + DQ | 210.7 | 210.7 | 56.32 | 2.68 |
+|  | #1418 build with Enzyme: KLU + Enzyme | 181.7 | 208.3 | 53.36 | 1.54 |
+
+What the numbers show:
+
+- **The sparse difference quotient costs no memory worth mentioning.** The pattern, the coloring
+  and the workspace of the difference quotient add 0.16 MiB to the heap on Chen_MSB2009 and less
+  than 0.04 MiB on the other models. The RSS after the load is the same as without them (and 0.9 to
+  1.5 MiB below the #1418 build without Enzyme, which is based on an older `develop`).
+- **KLU saves memory on the large model.** The dense solver keeps two dense n x n matrices (the
+  Jacobian and its saved copy, 2 x 1.9 MiB for 500 states); KLU keeps them sparse (4400 nonzeros)
+  plus its factorization. The heap after the simulation of Chen_MSB2009 is 3.0 MiB smaller with
+  KLU, with either Jacobian. On the small models the difference is below 0.1 MiB.
+- **The Enzyme Jacobian costs memory at load.** The derivative code adds 7 to 11 MiB of RSS on
+  the three small models and 70 to 100 MiB on Chen_MSB2009, where the RSS after the load varies
+  between processes (182 to 211 MiB) and the peak of the load is 208 to 211 MiB, against 120 MiB
+  without Enzyme.
+
 ## Validation
 
 - **Against the dense difference quotient.** `SparseDQJacobianTests.SbmlTestSuite` compares the
@@ -156,6 +217,7 @@ What the numbers show:
 
 - Build with `-DRR_USE_KLU=ON -DRR_SUITESPARSE_PREFIX=<SuiteSparse install>` and a SUNDIALS built with
   KLU, as in `prototype/enzyme_jacobian/BUILD.md` of #1418 (without the Enzyme steps).
-- `benchmark.py` writes `benchmark.csv`; it needs this build and a build of the #1418 branch with
-  `enzyme-counter-totals.patch`. `table.py` prints the tables above from `benchmark.csv`.
+- `benchmark.py` writes `benchmark.csv` and `memory.py` writes `memory.csv`; both need this build
+  and a build of the #1418 branch with `enzyme-counter-totals.patch`. `table.py` prints the
+  tables above from them.
 - `models.py` defines the four models, as in #1418.
