@@ -273,3 +273,50 @@ cmake using using the `-DBUILD_PACKAGING=ON` option.
 
 
 
+
+
+Using RoadRunner from another C++ project
+=========================================
+
+The install tree carries cmake package files for the roadrunner targets in
+``<install>/lib/cmake``, next to a helper that imports them together with every
+dependency package they refer to:
+
+.. code-block:: cmake
+
+    set(LLVM_INSTALL_PREFIX "/full/path/to/llvm-23.1.4-release")
+    set(RR_DEPENDENCIES_INSTALL_PREFIX "/full/path/to/libroadrunner-deps/install-Release")
+    include("/full/path/to/install-Release/lib/cmake/ImportRoadrunnerAndDependencies.cmake")
+
+    add_executable(simulate simulate.cpp)
+    target_link_libraries(simulate PRIVATE roadrunner-static::roadrunner-static)
+
+That makes ``roadrunner-static::roadrunner-static``, ``roadrunner::roadrunner``
+and ``roadrunner_c_api::roadrunner_c_api`` available, each with its include
+directory and compile definitions. ``scripts/link-example`` is a complete
+project of this shape: a minimal simulation that prints its results.
+
+A few things to know:
+
+* Link against the install tree, the directory given to
+  ``-DCMAKE_INSTALL_PREFIX``, and not against the cmake build tree. Only the
+  install step writes the package files, the headers and the merged include
+  directory.
+
+* roadrunner links LLVM and the dependencies statically and the exported targets
+  name those archives by absolute path, so the LLVM and libroadrunner-deps trees
+  that roadrunner was built against have to stay where they were. Both prefixes
+  default to the roadrunner install tree. That is enough for a dependency tree
+  that installed into ``lib``, because its package files are copied into the
+  roadrunner install tree; a dependency tree that uses ``lib64``, such as the
+  manylinux build, is not copied, so pass
+  ``RR_DEPENDENCIES_INSTALL_PREFIX`` in that case.
+
+* Compile with C++17 or later and leave RTTI enabled, the way roadrunner itself
+  is built. ``Poco::Foundation``, which arrives with roadrunner, requires
+  ``cxx_std_20``, so the compile lands on C++20 whatever the consuming project
+  asks for.
+
+* ``roadrunner-static::roadrunner-static`` gives a self contained binary.
+  ``roadrunner::roadrunner`` links the shared library instead, which then has to
+  be reachable at run time through RPATH or ``LD_LIBRARY_PATH``.
