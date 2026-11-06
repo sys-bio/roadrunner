@@ -59,10 +59,14 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
                 modelSymbols.getAssigmentRules().find(symbol);
         if (i != modelSymbols.getAssigmentRules().end())
         {
+            if (Value* cached = cacheValue(symbol, args))
+            {
+                return cached;
+            }
             recursiveSymbolPush(symbol);
             Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
             recursiveSymbolPop();
-            return result;
+            return cacheValue(symbol, args, result);
         }
     }
 
@@ -75,7 +79,12 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
 
         if (i != modelSymbols.getInitialValues().end())
         {
-            return ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
+            if (Value* cached = cacheValue(symbol, args))
+            {
+                return cached;
+            }
+            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
+            return cacheValue(symbol, args, result);
         }
     }
 

@@ -95,6 +95,9 @@ namespace rrllvm
             llvm::BasicBlock* block = llvm::BasicBlock::Create(this->context, ids[i].first + "_block", this->function);
             this->builder.SetInsertPoint(block);
 
+            // the values cached in another case block do not dominate this one
+            loadResolver.flushCache();
+
             // the value we are attempting to store, make a copy in loop scope
             // because we can modify the copy.
             llvm::Value* value = args[2];
