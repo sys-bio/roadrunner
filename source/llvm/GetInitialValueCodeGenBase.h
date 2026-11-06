@@ -93,6 +93,9 @@ namespace rrllvm
             llvm::BasicBlock* block = llvm::BasicBlock::Create(this->context, ids[i] + "_block", this->function);
             this->builder.SetInsertPoint(block);
 
+            // the values cached in another case block do not dominate this one
+            resolver.flushCache();
+
             // the requested value
             llvm::Value* value = resolver.loadSymbolValue(ids[i]);
 

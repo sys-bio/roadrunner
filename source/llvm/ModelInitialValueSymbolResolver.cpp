@@ -78,10 +78,14 @@ namespace rrllvm
                 modelSymbols.getInitialAssignmentRules().find(symbol);
             if (i != modelSymbols.getInitialAssignmentRules().end())
             {
+                if (Value* cached = cacheValue(symbol, args))
+                {
+                    return cached;
+                }
                 recursiveSymbolPush(symbol);
                 Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
                 recursiveSymbolPop();
-                return result;
+                return cacheValue(symbol, args, result);
             }
         }
 
@@ -94,10 +98,14 @@ namespace rrllvm
                 modelSymbols.getAssigmentRules().find(symbol);
             if (i != modelSymbols.getAssigmentRules().end())
             {
+                if (Value* cached = cacheValue(symbol, args))
+                {
+                    return cached;
+                }
                 recursiveSymbolPush(symbol);
                 Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
                 recursiveSymbolPop();
-                return result;
+                return cacheValue(symbol, args, result);
             }
         }
 
