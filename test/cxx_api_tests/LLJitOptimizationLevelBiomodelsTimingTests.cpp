@@ -3,7 +3,8 @@
 // each takes to load, how fast the generated code evaluates reaction rates, and how long a
 // simulation takes.
 //
-// By default the test uses the models in test/models/BioModelsTiming; set RR_TIMING_BIOMODELS_DIR
+// Built only with -DRR_BUILD_TIMING_TESTS=ON. By default the test uses the models in
+// test/models/BioModelsTiming; set RR_TIMING_BIOMODELS_DIR
 // to use another folder. Run it with a Release build:
 //   RR_TIMING_BIOMODELS_DIR=/path/to/final test_cxx_api_LLJitOptimizationLevelBiomodelsTimingTests
 //

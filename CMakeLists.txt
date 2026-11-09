@@ -101,6 +101,7 @@ set(LLVM_ROOT_DIR "${LLVM_ROOT_DIR}")
 # todo difference between build tests and build test tools option? (cw)
 option(BUILD_TEST_TOOLS "Build and install test tools" OFF)
 option(BUILD_TESTS "Build the SBML C API test suite" OFF)
+option(RR_BUILD_TIMING_TESTS "Also build the LLJit timing tests (needs BUILD_TESTS)" OFF)
 option(BUILD_LLVM "Build the LLVM back end" ON)
 
 # note I've tried using the C backend and it no longer compiles. Could be useful to keep though

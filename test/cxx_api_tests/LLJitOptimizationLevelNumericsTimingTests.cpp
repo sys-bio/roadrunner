@@ -1,27 +1,26 @@
 //
 // Timing comparison of the LLJit optimization levels (and MCJit) on numerical workloads other
-// than the deterministic ODE simulation: Gillespie runs, Jacobian evaluation and steady state
-// solving, on real BioModels SBML files.
+// than the deterministic ODE simulation, on real BioModels SBML files. Currently this is a seeded
+// Gillespie run. runWorkloadTiming runs any workload (a function of a loaded model) over the same
+// variants, so adding a new workload only takes a new TEST that calls it.
 //
-// By default the tests use the models in test/models/BioModelsTiming and skip themselves if
-// the model folder does not exist. Run them with a Release build:
+// Built only with -DRR_BUILD_TIMING_TESTS=ON. By default the tests use the models in
+// test/models/BioModelsTiming and skip themselves if the model folder does not exist. Run them
+// with a Release build:
 //   test_cxx_api_LLJitOptimizationLevelNumericsTimingTests
 //
 // Environment variables:
 //   RR_TIMING_BIOMODELS_DIR  folder holding one subfolder per model, each with <id>_url.xml
-//   RR_TIMING_MODELS         comma separated model ids (default BIOMD0000000014,BIOMD0000000574,
-//                            BIOMD0000000255 for Gillespie; BIOMD0000000014 for Jacobian and
-//                            steady state, which are very slow)
-//   RR_TIMING_REPS           recorded repetitions per variant (default 2 for Gillespie, 1 for
-//                            Jacobian and steady state)
+//   RR_TIMING_MODELS         comma separated model ids (default for Gillespie is
+//                            BIOMD0000000014,BIOMD0000000574,BIOMD0000000255)
+//   RR_TIMING_REPS           recorded repetitions per variant (default 2)
 //   RR_TIMING_MCJIT          set to 0 to leave MCJit out (default 1, MCJit is included)
 //   RR_TIMING_GILLESPIE_TIME duration of the Gillespie simulation (default 100)
 //   RR_TIMING_GILLESPIE_PTS  output points of the Gillespie simulation (default 10001)
-//   RR_TIMING_JACOBIANS      getFullJacobian calls per load (default 1)
 //
 // The checksum column shows a number derived from the result of the last run of each variant.
-// For Gillespie (fixed seed) and the Jacobian it should agree between variants to several
-// digits; a difference means the variants computed different things.
+// For Gillespie (fixed seed) it should agree between variants to several digits; a difference
+// means the variants computed different things.
 //
 
 #include "gtest/gtest.h"
@@ -238,7 +237,7 @@ namespace {
                       << std::left << std::setw(24) << "variant" << std::right
                       << std::setw(12) << "load min" << std::setw(12) << "load med"
                       << std::setw(12) << "work min" << std::setw(12) << "work med"
-                      << std::setw(16) << "checksum" << "\n";
+                      << std::setw(20) << "checksum" << "\n";
             for (size_t v = 0; v < variants.size(); ++v) {
                 std::cout << std::left << std::setw(24) << variants[v].label << std::right
                           << std::setw(12) << minOf(samples[v].loadMs)
@@ -249,7 +248,7 @@ namespace {
                     std::cout << std::setw(12) << minOf(samples[v].workMs)
                               << std::setw(12) << median(samples[v].workMs);
                 }
-                std::cout << std::setw(16) << std::setprecision(6) << samples[v].checksum
+                std::cout << std::setw(20) << std::setprecision(6) << samples[v].checksum
                           << std::setprecision(1) << samples[v].note << "\n";
             }
             std::cout << std::endl;
@@ -273,36 +272,5 @@ TEST(LLJitOptimizationLevelNumericsTimingTests, GillespieRun) {
             sum += result->Element(last, c);
         }
         return sum;
-    });
-}
-
-// Repeated full Jacobian evaluation, which differentiates the rate laws numerically.
-TEST(LLJitOptimizationLevelNumericsTimingTests, FullJacobian) {
-    const int nCalls = envInt("RR_TIMING_JACOBIANS", 1);
-    runWorkloadTiming("Full Jacobian", std::to_string(nCalls) + " getFullJacobian calls", "BIOMD0000000014", 1,
-                      [&](RoadRunner &rr) {
-        double sum = 0;
-        for (int i = 0; i < nCalls; ++i) {
-            ls::DoubleMatrix jac = rr.getFullJacobian();
-            sum = 0;
-            for (unsigned int r = 0; r < jac.RSize(); ++r) {
-                for (unsigned int c = 0; c < jac.CSize(); ++c) {
-                    sum += std::fabs(jac.Element(r, c));
-                }
-            }
-        }
-        return sum;
-    });
-}
-
-// One steady state solve from the initial conditions. The solver may fail to converge on some
-// models; the time is recorded either way, and the checksum is the returned residual.
-TEST(LLJitOptimizationLevelNumericsTimingTests, SteadyState) {
-    runWorkloadTiming("Steady state", "steadyState solve", "BIOMD0000000014", 1, [](RoadRunner &rr) {
-        try {
-            return rr.steadyState();
-        } catch (const std::exception &) {
-            return -1.0;
-        }
     });
 }

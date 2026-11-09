@@ -9,6 +9,12 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      timing:
+        description: 'Build and run only the LLJit timing tests (Release builds), then fail on purpose'
+        type: boolean
+        default: false
 
 jobs:
   build_on_OSs:
@@ -368,6 +374,7 @@ jobs:
           -DRR_DEPENDENCIES_INSTALL_PREFIX=${RR_DEPENDENCIES_INSTALL_PREFIX} \
           -DLLVM_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX} \
           -DBUILD_TESTS=${{ matrix.build_tests }} \
+          -DRR_BUILD_TIMING_TESTS=${{ github.event.inputs.timing == 'true' && 'ON' || 'OFF' }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
@@ -407,18 +414,24 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/lib/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/Antimony/lib/
 
-      # TEMPORARY: run only the timing tests, then fail on purpose so the remaining steps are
-      # skipped. Restore the full-suite ctest line (below) in the next commit.
-      #   ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
       - name: Run C RoadRunner tests
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && github.event.inputs.timing != 'true'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
+
+      # Manual runs only (Actions > Run workflow > timing). Runs just the timing tests, then fails
+      # on purpose so the remaining steps are skipped. See test/models/BioModelsTiming/README.md.
+      - name: Run LLJit timing tests
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && github.event.inputs.timing == 'true'
         shell: bash
         env:
           RR_TIMING_GILLESPIE_TIME: 10
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --timeout 14400 --tests-regex Timing
-          echo "Failing on purpose: this commit only collects timing results."
+          echo "Failing on purpose: this run only collects timing results."
           exit 1
 
       # On macOS the Julia process has its own LLVM, so the C API library used by the Julia
