@@ -22,7 +22,7 @@ public:
         /**
         * SelectionType for time.
         */
-        TIME =                              (0x1 << 0),  // => 0x00000001,
+        TIME =                              (0x1 << 0),  // => 0b00000001,
 
         /**
          * SelectionType for concentrations. Species must have either a CONCENTRATION or AMOUNT

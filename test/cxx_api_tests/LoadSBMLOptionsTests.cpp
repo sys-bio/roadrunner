@@ -24,6 +24,7 @@ class LoadSBMLOptionsTests : public ::testing::Test {
 public :
 
     LoadSBMLOptionsTests() {
+        Config::resetToDefaults();
         // Ensure everything is off before we begin tests
         Config::setValue(Config::LOADSBMLOPTIONS_CONSERVED_MOIETIES, false);
         Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, false);
@@ -108,26 +109,26 @@ TEST_F(LoadSBMLOptionsTests, ConservedMoietyConversionGetterAndSetter) {
 }
 
 
-TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToMCJit) {
+TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToLLJit) {
     Config::LLVM_BACKEND_VALUES val = (Config::LLVM_BACKEND_VALUES) Config::getValue(Config::LLVM_BACKEND).getAs<int>();
-    ASSERT_EQ(Config::LLVM_BACKEND_VALUES::MCJIT, val);
+    ASSERT_EQ(Config::LLVM_BACKEND_VALUES::LLJIT, val);
 }
 
-TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToMCJitNotLLJit) {
+TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToLLJitNotMCJit) {
     Config::LLVM_BACKEND_VALUES val = (Config::LLVM_BACKEND_VALUES) Config::getValue(Config::LLVM_BACKEND).getAs<int>();
-    ASSERT_NE(Config::LLVM_BACKEND_VALUES::LLJIT, val);
+    ASSERT_NE(Config::LLVM_BACKEND_VALUES::MCJIT, val);
 }
 
-TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToMCJitViaSBMLLoadOptions) {
-    LoadSBMLOptions opt;
-    bool isMcJit = opt.modelGeneratorOpt & LoadSBMLOptions::MCJIT;
-    ASSERT_TRUE(isMcJit);
-}
-
-TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToMCJitViaSBMLLoadOptionsNotLLJit) {
+TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToLLJitViaSBMLLoadOptions) {
     LoadSBMLOptions opt;
     bool isLLJit = opt.modelGeneratorOpt & LoadSBMLOptions::LLJIT;
-    ASSERT_FALSE(isLLJit);
+    ASSERT_TRUE(isLLJit);
+}
+
+TEST_F(LoadSBMLOptionsTests, LLVMBackendDefaultToLLJitViaSBMLLoadOptionsNotMCJit) {
+    LoadSBMLOptions opt;
+    bool isMcJit = opt.modelGeneratorOpt & LoadSBMLOptions::MCJIT;
+    ASSERT_FALSE(isMcJit);
 }
 
 

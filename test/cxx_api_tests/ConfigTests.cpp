@@ -17,6 +17,7 @@ public:
     std::filesystem::path fname = std::filesystem::current_path() / "rr.config";
 
     ConfigTests() {
+        Config::resetToDefaults();
         std::ofstream of(fname);
         of << "LOADSBMLOPTIONS_OPTIMIZE_GVN: true" << std::endl;
         of << "SIMULATEOPTIONS_MINIMUM_TIMESTEP: 1e-4" << std::endl;
@@ -114,6 +115,67 @@ TEST_F(ConfigTests, writeConfigFile) {
 
 TEST_F(ConfigTests, stringToKey){
     ASSERT_EQ(0, Config::stringToKey("LOADSBMLOPTIONS_CONSERVED_MOIETIES"));
+}
+
+TEST_F(ConfigTests, ResetToDefaults) {
+    Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT);
+    Config::setValue(Config::STEADYSTATE_APPROX_MAX_STEPS, 5);
+    Config::resetToDefaults();
+    ASSERT_EQ(Config::LLVM_BACKEND_VALUES::LLJIT, Config::getValue(Config::LLVM_BACKEND).getAs<int>());
+    ASSERT_EQ(10000, Config::getInt(Config::STEADYSTATE_APPROX_MAX_STEPS));
+}
+
+TEST_F(ConfigTests, DefaultLLVMBackendIsLLJit) {
+    ASSERT_EQ(Config::LLVM_BACKEND_VALUES::LLJIT, Config::getValue(Config::LLVM_BACKEND).getAs<int>());
+}
+
+TEST_F(ConfigTests, DefaultLLJitOptLevelIsNone) {
+    ASSERT_EQ(Config::LLJIT_OPTIMIZATION_LEVELS::NONE,
+              Config::getValue(Config::LLJIT_OPTIMIZATION_LEVEL).getAs<int>());
+}
+
+TEST_F(ConfigTests, DefaultLLJitNumThreadsIs0) {
+    ASSERT_EQ(0, Config::getValue(Config::LLJIT_NUM_THREADS).getAs<int>());
+}
+
+TEST_F(ConfigTests, ReadConfigFileLLVMBackendKeys) {
+    std::filesystem::path conf = std::filesystem::current_path() / "rr_llvm_keys.config";
+    {
+        std::ofstream of(conf);
+        of << "LLVM_BACKEND: 0" << std::endl;
+        of << "LLJIT_OPTIMIZATION_LEVEL: 1" << std::endl;
+        of << "LLJIT_NUM_THREADS: 3" << std::endl;
+    }
+    Config::readConfigFile(conf.string());
+    std::filesystem::remove(conf);
+    ASSERT_EQ(Config::LLVM_BACKEND_VALUES::MCJIT, Config::getValue(Config::LLVM_BACKEND).getAs<int>());
+    ASSERT_EQ(Config::LLJIT_OPTIMIZATION_LEVELS::LESS,
+              Config::getValue(Config::LLJIT_OPTIMIZATION_LEVEL).getAs<int>());
+    ASSERT_EQ(3, Config::getValue(Config::LLJIT_NUM_THREADS).getAs<int>());
+}
+
+TEST_F(ConfigTests, WriteConfigFileLLVMBackendKeys) {
+    std::filesystem::path conf = std::filesystem::current_path() / "rr_llvm_keys_out.config";
+    Config::setValue(Config::LLVM_BACKEND, Config::LLVM_BACKEND_VALUES::MCJIT);
+    Config::setValue(Config::LLJIT_OPTIMIZATION_LEVEL, Config::LLJIT_OPTIMIZATION_LEVELS::LESS);
+    Config::setValue(Config::LLJIT_NUM_THREADS, 3);
+    Config::writeConfigFile(conf.string());
+    std::ifstream inStream(conf);
+    ASSERT_TRUE(inStream.good());
+    bool foundBackend = false;
+    bool foundOptLevel = false;
+    bool foundNumThreads = false;
+    std::string line;
+    while (std::getline(inStream, line)) {
+        if (line.find("LLVM_BACKEND: 0") != std::string::npos) foundBackend = true;
+        if (line.find("LLJIT_OPTIMIZATION_LEVEL: 1") != std::string::npos) foundOptLevel = true;
+        if (line.find("LLJIT_NUM_THREADS: 3") != std::string::npos) foundNumThreads = true;
+    }
+    inStream.close();
+    std::filesystem::remove(conf);
+    ASSERT_TRUE(foundBackend);
+    ASSERT_TRUE(foundOptLevel);
+    ASSERT_TRUE(foundNumThreads);
 }
 
 TEST_F(ConfigTests, SetLLVMBackendToLLJit){

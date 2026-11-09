@@ -407,12 +407,19 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/lib/
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/Antimony/lib/
 
+      # TEMPORARY: run only the timing tests, then fail on purpose so the remaining steps are
+      # skipped. Restore the full-suite ctest line (below) in the next commit.
+      #   ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
       - name: Run C RoadRunner tests
         if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
         shell: bash
+        env:
+          RR_TIMING_GILLESPIE_TIME: 10
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
+          ctest --output-on-failure --verbose --extra-verbose --progress --timeout 14400 --tests-regex Timing
+          echo "Failing on purpose: this commit only collects timing results."
+          exit 1
 
       # On macOS the Julia process has its own LLVM, so the C API library used by the Julia
       # package must not export its statically linked LLVM. Only that library is relinked.
