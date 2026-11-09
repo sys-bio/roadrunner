@@ -1,3 +1,4 @@
+add_test_executable(test_llvm_AlgebraicRuleConverterTests test_targets AlgebraicRuleConverterTests.cpp)
 add_test_executable(test_llvm_LLVMModelDataSymbolsTests test_targets LLVMModelDataSymbolsTests.cpp)
 add_test_executable(test_llvm_MCJitTests test_targets MCJitTests.cpp JitTests.h)
 add_test_executable(test_llvm_LLJitTests test_targets LLJitTests.cpp JitTests.h)

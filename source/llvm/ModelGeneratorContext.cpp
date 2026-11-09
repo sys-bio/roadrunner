@@ -12,6 +12,7 @@
 #include "ModelDataIRBuilder.h"
 #include "LLVMException.h"
 #include "SBMLSupportFunctions.h"
+#include "AlgebraicRuleConverter.h"
 #include "conservation/ConservedMoietyConverter.h"
 #include "conservation/ConservationExtension.h"
 #include "rrRoadRunnerOptions.h"
@@ -124,6 +125,11 @@ namespace rrllvm {
 
         try {
 
+            // The caller's document keeps its algebraic rules, only the copy
+            // that gets compiled has them rewritten as assignment rules.
+            ownedDoc = convertAlgebraicRules(doc_);
+            const libsbml::SBMLDocument* sourceDoc = ownedDoc ? ownedDoc : doc_;
+
             if (options & LoadSBMLOptions::CONSERVED_MOIETIES) {
                 if ((rr::Config::getBool(rr::Config::ROADRUNNER_DISABLE_WARNINGS) &&
                      rr::Config::ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY) == 0) {
@@ -131,12 +137,12 @@ namespace rrllvm {
                 }
 
                 // check if already conserved doc
-                if (rr::conservation::ConservationExtension::isConservedMoietyDocument(doc_)) {
-                    doc = doc_;
+                if (rr::conservation::ConservationExtension::isConservedMoietyDocument(sourceDoc)) {
+                    doc = sourceDoc;
                 } else {
                     moietyConverter = std::make_unique<rr::conservation::ConservedMoietyConverter>();
 
-                    if (moietyConverter->setDocument(doc_) != LIBSBML_OPERATION_SUCCESS) {
+                    if (moietyConverter->setDocument(sourceDoc) != LIBSBML_OPERATION_SUCCESS) {
                         throw_llvm_exception("error setting conserved moiety converter document");
                     }
 
@@ -160,7 +166,7 @@ namespace rrllvm {
                     }
                 }
             } else {
-                doc = doc_;
+                doc = sourceDoc;
             }
 
             model = doc->getModel();

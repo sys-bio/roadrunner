@@ -223,6 +223,7 @@ set(rrHeaders ${rrHeaders} ${rrCoreHeaders} ${rrCoreConservationHeaders} ${rrCor
 # Add the LLVM sources to compilation
 if (BUILD_LLVM)
     set(rrLLVMSources
+            llvm/AlgebraicRuleConverter.cpp
             llvm/ASTNodeCodeGen.cpp
             llvm/ASTNodeFactory.cpp
             llvm/AssignmentRuleEvaluator.cpp
@@ -268,6 +269,7 @@ if (BUILD_LLVM)
             )
 
     set(rrLLVMHeaders
+            llvm/AlgebraicRuleConverter.h
             llvm/ASTNodeCodeGen.h
             llvm/ASTNodeFactory.h
             llvm/AssignmentRuleEvaluator.h
