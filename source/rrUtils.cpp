@@ -488,7 +488,6 @@ std::string getTestSuiteSubFolderName(int caseNr)
 bool hasUnimplementedTags(const std::string& descriptionFileName, const string& integrator)
 {
     std::vector<std::string> badtags;
-    badtags.push_back("AlgebraicRule");
     badtags.push_back("CSymbolDelay");
     badtags.push_back("fbc");
     badtags.push_back("FastReaction");
