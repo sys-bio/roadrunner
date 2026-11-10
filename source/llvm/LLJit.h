@@ -32,7 +32,35 @@ using namespace rr;
 
 namespace rrllvm {
 
-    class SBMLModelObjectCache;
+    /**
+     * @brief The object cache of one LLJit.
+     * @details It keeps the object that its LLJit loads, so that the state of the
+     * model can be saved (see LLJit::getModuleAsString). It shares the objects with
+     * the other LLJits through the SBMLModelObjectCache. With the load option
+     * RECOMPILE it does not reuse an object of that cache: the module is compiled,
+     * and the new object replaces the old one in the cache.
+     */
+    class LLJitObjectCache : public llvm::ObjectCache {
+    public:
+        explicit LLJitObjectCache(bool reuseCachedObjects);
+
+        void notifyObjectCompiled(const llvm::Module *M, llvm::MemoryBufferRef obj) override;
+
+        std::unique_ptr<llvm::MemoryBuffer> getObject(const llvm::Module *M) override;
+
+        /**
+         * @brief the object of the module of this LLJit, or nullptr if it was not
+         * compiled or loaded from the cache.
+         */
+        SBMLModelObjectCache::ObjectPtr getModuleObject();
+
+    private:
+        const bool reuseCachedObjects;
+
+        std::mutex mtx;
+
+        SBMLModelObjectCache::ObjectPtr moduleObject;
+    };
 
     /**
      * @brief Thin layer around the llvm::orc::LLJit.
@@ -74,9 +102,8 @@ namespace rrllvm {
          * @brief lookup a model in the roadrunner object cache and return a memory
          * buffer to it.
          * @details When compiled (with LLJit), object files are stored in the SBMLModelObjectCache.
-         * This is basically a string to MemoryBuffer map, where the string is the sbml's md5. In the case
-         * where the moiety conservation is turned on, the sbmlMD5 will be identical. Therefore it is appended
-         * with the string "_conserved".
+         * This is basically a string to MemoryBuffer map, where the string is the key of the
+         * model (see rr::getSBMLMD5): the md5 of the sbml and the load options.
          */
         std::unique_ptr<llvm::MemoryBuffer> getCompiledModelFromCache(const std::string& sbmlMD5) override;
 
@@ -91,12 +118,20 @@ namespace rrllvm {
 
         friend std::ostream& operator<<(std::ostream& os, LLJit* llJit);
 
+        /**
+         * @brief the object of the module of this LLJit.
+         * @details It is the object that this LLJit compiled or loaded from the object
+         * cache, independent of the objects that other LLJits put into that cache later.
+         */
         std::string getModuleAsString(std::string sbmlMD5) override;
 
 
     private:
 
 //        void mapFunctionToAbsoluteSymbol(const std::string &funcName, std::uint64_t funcAddress);
+
+        // declared before llJit, which uses it, so that it is destroyed after llJit
+        std::unique_ptr<LLJitObjectCache> objectCache;
 
         std::unique_ptr<llvm::orc::LLJIT> llJit;
         llvm::TargetMachine* targetMachineNonOwning = nullptr;

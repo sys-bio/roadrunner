@@ -8,6 +8,9 @@
 #define NOMINMAX
 
 #include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
 #pragma warning(disable: 4141)
@@ -35,9 +38,20 @@ namespace rrllvm {
      * @details This object is a singleton. It cannot be copied, moved or assigned
      * and all interactions with this object must occur through the static call
      * SBMLModelObjectCache::getObjectCache();
+     *
+     * The key of an object is the identifier of the module it was compiled from. The
+     * model generator sets it to the key of the model (see rr::getSBMLMD5), which holds
+     * everything that changes the generated code. The code generation optimization
+     * level of LLJit is one of these, because it is one of the load options.
+     *
+     * The objects are shared: an object that is replaced in the cache stays valid for
+     * the Jit that uses it.
+     *
+     * All methods are thread safe.
      */
     class SBMLModelObjectCache : public llvm::ObjectCache {
     public:
+        using ObjectPtr = std::shared_ptr<const llvm::MemoryBuffer>;
 
         static SBMLModelObjectCache& getObjectCache();
 
@@ -53,6 +67,17 @@ namespace rrllvm {
 
         std::unique_ptr<llvm::MemoryBuffer> getObject(const llvm::Module *M) override;
 
+        /**
+         * @brief the object stored under @param key, or nullptr if there is none.
+         */
+        ObjectPtr find(const std::string& key);
+
+        /**
+         * @brief store a copy of @param obj under @param key and return it.
+         * @details replaces the object that was stored under @param key before.
+         */
+        ObjectPtr store(const std::string& key, llvm::MemoryBufferRef obj);
+
         std::vector<std::string> inspect();
 
         void addToCache(const std::string & key, std::unique_ptr<llvm::MemoryBuffer> mb);
@@ -60,7 +85,9 @@ namespace rrllvm {
     private:
         SBMLModelObjectCache()= default;
 
-        llvm::StringMap<std::unique_ptr<llvm::MemoryBuffer>> cachedObjects;
+        std::mutex mtx;
+
+        llvm::StringMap<ObjectPtr> cachedObjects;
 
     };
 
