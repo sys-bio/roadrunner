@@ -62,6 +62,12 @@ namespace rr
     public:
 
         /**
+         * @brief the counters num_steps, num_rhs_evals and num_events.
+         * @see Integrator::getStatistics
+         */
+        std::unordered_map<std::string, Setting> getStatistics() override;
+
+        /**
         * integrates the model from t0 to tf.
         */
         double integrate(double t0, double tf) override;

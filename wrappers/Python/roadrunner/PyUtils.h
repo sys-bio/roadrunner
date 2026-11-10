@@ -18,6 +18,8 @@
 #include "Matrix.h"
 #include "Matrix3D.h"
 #include <complex>
+#include <string>
+#include <unordered_map>
 #include <vector>
 #include "rrLogger.h"
 
@@ -81,6 +83,12 @@ namespace rr {
     PyObject *Variant_to_py(const Setting &var);
 
     PyObject *Variant_to_py(Setting *var);
+
+/**
+ * @brief Convert a map from strings to settings to a Python dict
+ * @returns a new reference, or nullptr with a Python error set
+ */
+    PyObject *settingsMap_to_py(const std::unordered_map<std::string, Setting> &map);
 
 /**
  * @brief Inverse of @ref Variant_from_py
