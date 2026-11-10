@@ -93,6 +93,9 @@ namespace rr
 
         mModel->getStateVector(y);
 
+        workCounters.numSteps++;
+        workCounters.numRhsEvals += 4;
+
         // k1 = f(t_n, y_n)
         mModel->getStateVectorRate(t, y, k1);
 
@@ -146,7 +149,16 @@ namespace rr
 
     void RK4Integrator::applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus)
     {
-        mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0], y, y);
+        workCounters.numEvents += mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0], y, y);
+    }
+
+    std::unordered_map<std::string, Setting> RK4Integrator::getStatistics()
+    {
+        return {
+            {"num_steps", Setting(workCounters.numSteps)},
+            {"num_rhs_evals", Setting(workCounters.numRhsEvals)},
+            {"num_events", Setting(workCounters.numEvents)},
+        };
     }
 
     void RK4Integrator::restart(double t0)

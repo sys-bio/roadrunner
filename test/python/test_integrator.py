@@ -236,5 +236,53 @@ class CVODEIntegratorTests(unittest.TestCase):
         results = self.rr.simulate()
         self.assertEqual(len(results), 51);
 
+
+class IntegratorStatisticsTests(unittest.TestCase):
+    """The dict that Integrator.getStatistics returns (issue 1411). The counters themselves are tested in C++."""
+
+    CVODE_COUNTERS = [
+        "num_steps", "num_rhs_evals", "num_lin_solv_setups", "num_err_test_fails",
+        "num_nonlin_solv_iters", "num_nonlin_solv_conv_fails", "num_step_solve_fails",
+        "num_jac_evals", "num_lin_rhs_evals", "num_lin_iters", "num_lin_conv_fails",
+        "num_g_evals", "num_stab_lim_order_reds", "num_reinits", "num_events",
+    ]
+
+    TIMES = ["time_total", "time_rhs_evals", "time_g_evals", "time_lin_solv_setups", "time_lin_solv_solves"]
+
+    def setUp(self) -> None:
+        self.rr = RoadRunner(tmf.TestModelFactory("OneEvent10Triggers").str())
+
+    def test_counters_are_ints_and_step_values_are_numbers(self):
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        for key in self.CVODE_COUNTERS:
+            self.assertIsInstance(stats[key], int, key)
+        for key in ["actual_init_step", "last_step", "current_step", "current_time"]:
+            self.assertIsInstance(stats[key], float, key)
+        for key in ["last_order", "current_order"]:
+            self.assertIsInstance(stats[key], int, key)
+        for key in self.TIMES:
+            self.assertNotIn(key, stats)
+
+    def test_collect_timing_setting(self):
+        self.rr.integrator.collect_timing = True
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        for key in self.TIMES:
+            self.assertIsInstance(stats[key], float, key)
+        self.rr.integrator.collect_timing = False
+        self.rr.simulate(0, 10, 101)
+        stats = self.rr.integrator.getStatistics()
+        for key in self.TIMES:
+            self.assertNotIn(key, stats)
+
+    def test_reset_statistics(self):
+        self.rr.simulate(0, 10, 101)
+        self.rr.integrator.resetStatistics()
+        stats = self.rr.integrator.getStatistics()
+        for key in self.CVODE_COUNTERS:
+            self.assertEqual(0, stats[key], key)
+
+
 if __name__ == "__main__":
     unittest.main()

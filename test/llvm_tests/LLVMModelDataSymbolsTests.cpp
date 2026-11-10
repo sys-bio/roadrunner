@@ -20,7 +20,7 @@ public:
     Model* model = nullptr;
     LLVMModelDataSymbolTests() {
         Logger::setFormattingPattern("%U:%u:%l: %t");
-        Logger::setLevel(Logger::LOG_DEBUG);
+        //Logger::setLevel(Logger::LOG_DEBUG);
         doc = std::make_unique<SBMLDocument>(3, 2);
         model = doc->createModel("ID");
     };

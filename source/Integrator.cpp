@@ -87,6 +87,16 @@ namespace rr
         return std::vector<double>();
     }
 
+    std::unordered_map<std::string, Setting> Integrator::getStatistics()
+    {
+        return {};
+    }
+
+    void Integrator::resetStatistics()
+    {
+        workCounters = WorkCounters();
+    }
+
     void Integrator::setIntegrationStartTime(double time)
     {
         mIntegrationStartTime = time;

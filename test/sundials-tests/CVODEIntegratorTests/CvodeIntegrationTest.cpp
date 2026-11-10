@@ -5,6 +5,7 @@
 #include "rrRoadRunner.h"
 #include "rrExecutableModel.h"
 #include "CVODEIntegrator.h"
+#include <cvodes/cvodes.h>
 #include "Solver.h"
 #include "TestModelFactory.h"
 #include "Matrix.h"
@@ -13,10 +14,12 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 
 using namespace rr;
@@ -49,6 +52,223 @@ TEST_F(CVODEIntegratorTests, OpenLinearFluxWithRoadRunner) {
 
 TEST_F(CVODEIntegratorTests, OneEvent10TriggersWithRoadRunner) {
     checkModelSimulatesWithRoadRunner("OneEvent10Triggers");
+}
+
+/**
+ * CVODE sets its counters to zero when it is reinitialized after an event. The
+ * statistics of the integrator are summed over the reinitializations (issue 1411).
+ */
+TEST_F(CVODEIntegratorTests, StatisticsAreSummedOverReinitializations) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.simulate(0, 10, 101);
+    auto *cvode = dynamic_cast<CVODEIntegrator *>(r.getIntegrator());
+    ASSERT_TRUE(cvode);
+    std::unordered_map<std::string, Setting> stats = cvode->getStatistics();
+
+    long stepsSinceLastReinit = 0;
+    ASSERT_EQ(CV_SUCCESS, CVodeGetNumSteps(cvode->getCvodeMemory(), &stepsSinceLastReinit));
+    ASSERT_GT(stats["num_steps"].getAs<std::int64_t>(), stepsSinceLastReinit);
+
+    std::int64_t numEvents = stats["num_events"].getAs<std::int64_t>();
+    ASSERT_GT(numEvents, 1);
+    ASSERT_EQ(numEvents, stats["num_reinits"].getAs<std::int64_t>());
+
+    // a new simulation starts from zero
+    r.reset();
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> again = cvode->getStatistics();
+    for (const std::string key: {"num_steps", "num_rhs_evals", "num_jac_evals", "num_events", "num_reinits"}) {
+        ASSERT_EQ(stats[key].getAs<std::int64_t>(), again[key].getAs<std::int64_t>()) << key;
+    }
+
+    cvode->resetStatistics();
+    ASSERT_EQ(0, cvode->getStatistics()["num_steps"].getAs<std::int64_t>());
+}
+
+namespace {
+    // the counters of CVODE that the statistics return
+    const std::vector<std::string> cvodeCounters = {
+        "num_steps", "num_rhs_evals", "num_lin_solv_setups", "num_err_test_fails",
+        "num_nonlin_solv_iters", "num_nonlin_solv_conv_fails", "num_step_solve_fails",
+        "num_jac_evals", "num_lin_rhs_evals", "num_lin_iters", "num_lin_conv_fails",
+        "num_g_evals", "num_stab_lim_order_reds", "num_reinits", "num_events",
+    };
+
+    // the times that the statistics return with the setting collect_timing
+    const std::vector<std::string> cvodeTimes = {
+        "time_total", "time_rhs_evals", "time_g_evals", "time_lin_solv_setups", "time_lin_solv_solves",
+    };
+
+    std::int64_t counterOf(const std::unordered_map<std::string, Setting> &stats, const std::string &key) {
+        return stats.at(key).getAs<std::int64_t>();
+    }
+
+    double timeOf(const std::unordered_map<std::string, Setting> &stats, const std::string &key) {
+        return stats.at(key).getAs<double>();
+    }
+
+    void expectSameResults(const ls::DoubleMatrix &expected, const ls::DoubleMatrix &actual, double tolerance) {
+        ASSERT_EQ(expected.RSize(), actual.RSize());
+        ASSERT_EQ(expected.CSize(), actual.CSize());
+        for (unsigned row = 0; row < expected.RSize(); row++) {
+            for (unsigned col = 0; col < expected.CSize(); col++) {
+                EXPECT_NEAR(expected.Element(row, col), actual.Element(row, col), tolerance)
+                    << "row " << row << ", column " << col;
+            }
+        }
+    }
+}
+
+TEST_F(CVODEIntegratorTests, StatisticsHaveTheCountersOfCVODE) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+
+    for (const std::string &key: cvodeCounters) {
+        ASSERT_EQ(1u, stats.count(key)) << key;
+        ASSERT_GE(counterOf(stats, key), 0) << key;
+    }
+    ASSERT_GT(counterOf(stats, "num_steps"), 0);
+    ASSERT_GE(counterOf(stats, "num_rhs_evals"), counterOf(stats, "num_steps"));
+    ASSERT_GT(counterOf(stats, "num_jac_evals"), 0);
+    ASSERT_GT(counterOf(stats, "num_lin_rhs_evals"), 0);
+    ASSERT_GT(counterOf(stats, "num_g_evals"), 0);
+
+    for (const std::string key: {"actual_init_step", "last_step", "current_step", "current_time",
+                                 "last_order", "current_order"}) {
+        ASSERT_EQ(1u, stats.count(key)) << key;
+    }
+    // the times are only returned when they are collected
+    for (const std::string &key: cvodeTimes) {
+        ASSERT_EQ(0u, stats.count(key)) << key;
+    }
+}
+
+TEST_F(CVODEIntegratorTests, StatisticsOfALongerSimulationAreLarger) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.simulate(0, 10, 101);
+    std::int64_t total = counterOf(r.getIntegrator()->getStatistics(), "num_steps");
+    r.simulate(0, 1, 11);
+    std::int64_t beforeFirstEvent = counterOf(r.getIntegrator()->getStatistics(), "num_steps");
+    ASSERT_GT(total, 5 * beforeFirstEvent);
+}
+
+TEST_F(CVODEIntegratorTests, ResetStatisticsSetsAllCountersToZero) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.simulate(0, 10, 101);
+    r.getIntegrator()->resetStatistics();
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+    for (const std::string &key: cvodeCounters) {
+        ASSERT_EQ(0, counterOf(stats, key)) << key;
+    }
+}
+
+TEST_F(CVODEIntegratorTests, NonStiffSolverHasNoLinearSolverCounters) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.getIntegrator()->setValue("stiff", false);
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+    ASSERT_GT(counterOf(stats, "num_steps"), 0);
+    for (const std::string key: {"num_lin_solv_setups", "num_jac_evals", "num_lin_rhs_evals",
+                                 "num_lin_iters", "num_lin_conv_fails"}) {
+        ASSERT_EQ(0, counterOf(stats, key)) << key;
+    }
+}
+
+TEST_F(CVODEIntegratorTests, OneStepStatistics) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.oneStep(0, 0.5);
+    std::int64_t first = counterOf(r.getIntegrator()->getStatistics(), "num_steps");
+    ASSERT_GT(first, 0);
+    // without a reset the statistics keep counting
+    r.oneStep(0.5, 0.5, false);
+    ASSERT_GT(counterOf(r.getIntegrator()->getStatistics(), "num_steps"), first);
+}
+
+TEST_F(CVODEIntegratorTests, CollectTimingReportsTheTimes) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.getIntegrator()->setValue("collect_timing", true);
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+
+    for (const std::string &key: cvodeTimes) {
+        ASSERT_EQ(1u, stats.count(key)) << key;
+        ASSERT_GE(timeOf(stats, key), 0.0) << key;
+    }
+    ASSERT_GT(timeOf(stats, "time_total"), 0.0);
+    ASSERT_GT(timeOf(stats, "time_rhs_evals"), 0.0);
+    ASSERT_GT(timeOf(stats, "time_lin_solv_setups"), 0.0);
+    ASSERT_GT(timeOf(stats, "time_lin_solv_solves"), 0.0);
+    // the parts of the integration are inside of it
+    double parts = timeOf(stats, "time_rhs_evals") + timeOf(stats, "time_g_evals")
+                   + timeOf(stats, "time_lin_solv_setups") + timeOf(stats, "time_lin_solv_solves");
+    ASSERT_LE(parts, timeOf(stats, "time_total"));
+}
+
+/**
+ * The linear solver is wrapped to time its setups and solves, which must not change the results.
+ */
+TEST_F(CVODEIntegratorTests, CollectTimingDoesNotChangeTheResults) {
+    RoadRunner withoutTiming(OneEvent10Triggers().str());
+    RoadRunner withTiming(OneEvent10Triggers().str());
+    withTiming.getIntegrator()->setValue("collect_timing", true);
+
+    const ls::DoubleMatrix *expected = withoutTiming.simulate(0, 10, 101);
+    const ls::DoubleMatrix *actual = withTiming.simulate(0, 10, 101);
+    expectSameResults(*expected, *actual, 0.0);
+    ASSERT_EQ(counterOf(withoutTiming.getIntegrator()->getStatistics(), "num_steps"),
+              counterOf(withTiming.getIntegrator()->getStatistics(), "num_steps"));
+}
+
+/**
+ * Changing collect_timing re-creates CVODE, which wraps the linear solver only while the times
+ * are collected.
+ */
+TEST_F(CVODEIntegratorTests, CollectTimingCanBeToggled) {
+    RoadRunner r(OneEvent10Triggers().str());
+    Integrator *integrator = r.getIntegrator();
+    ls::DoubleMatrix expected = *r.simulate(0, 10, 101);
+
+    for (bool timing: {true, false, true}) {
+        integrator->setValue("collect_timing", timing);
+        r.reset();
+        const ls::DoubleMatrix *actual = r.simulate(0, 10, 101);
+        expectSameResults(expected, *actual, 1e-10);
+
+        std::unordered_map<std::string, Setting> stats = integrator->getStatistics();
+        ASSERT_EQ(timing ? 1u : 0u, stats.count("time_lin_solv_setups")) << "collect_timing " << timing;
+        if (timing) {
+            ASSERT_GT(timeOf(stats, "time_lin_solv_setups"), 0.0);
+        }
+    }
+}
+
+TEST_F(CVODEIntegratorTests, TogglingCollectTimingInTheMiddleOfARunKeepsTheCounts) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.oneStep(0, 0.5);
+    std::int64_t first = counterOf(r.getIntegrator()->getStatistics(), "num_steps");
+    ASSERT_GT(first, 0);
+
+    r.getIntegrator()->setValue("collect_timing", true);
+    ASSERT_GE(counterOf(r.getIntegrator()->getStatistics(), "num_steps"), first);
+
+    r.oneStep(0.5, 0.5, false);
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+    ASSERT_GT(counterOf(stats, "num_steps"), first);
+    ASSERT_EQ(1u, stats.count("time_total"));
+}
+
+TEST_F(CVODEIntegratorTests, CollectTimingWithTheNonStiffSolver) {
+    RoadRunner r(OneEvent10Triggers().str());
+    r.getIntegrator()->setValue("collect_timing", true);
+    r.getIntegrator()->setValue("stiff", false);
+    r.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+    ASSERT_GT(timeOf(stats, "time_total"), 0.0);
+    ASSERT_GT(timeOf(stats, "time_rhs_evals"), 0.0);
+    // there is no linear solver to time
+    ASSERT_EQ(0.0, timeOf(stats, "time_lin_solv_setups"));
+    ASSERT_EQ(0.0, timeOf(stats, "time_lin_solv_solves"));
 }
 
 

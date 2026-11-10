@@ -17,7 +17,7 @@ class LLJitMapFunctionsToJitSymbolsTests : public MapFunctionsToJitSymbolsTests 
 public:
     LLJitMapFunctionsToJitSymbolsTests()
         : MapFunctionsToJitSymbolsTests(std::make_unique<LLJit>(LoadSBMLOptions().modelGeneratorOpt)){
-        Logger::setLevel(Logger::LOG_DEBUG);
+        //Logger::setLevel(Logger::LOG_DEBUG);
     };
 };
 

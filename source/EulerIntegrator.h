@@ -126,6 +126,8 @@ namespace rr {
                 // the current mModel state is used to evaluate the
                 // state std::vector rate.
                 mModel->getStateVectorRate(t0, NULL, rateBuffer);
+                workCounters.numSteps++;
+                workCounters.numRhsEvals++;
 
                 // copy the current state std::vector into a local buffer
                 mModel->getStateVector(stateBufferBegin);
@@ -179,11 +181,23 @@ namespace rr {
         void applyEvents(double timeEnd, std::vector<unsigned char> &previousEventStatus) {
             //std::cerr << "Size of previous events: " << previousEventStatus.size() << std::endl;
             // If we pass in the events including the ones just triggered, they won't be applied, so use previousEventStatus
-            mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0],
+            workCounters.numEvents += mModel->applyEvents(timeEnd, previousEventStatus.size() == 0 ? NULL : &previousEventStatus[0],
                                 stateBufferEnd, NULL);
             // AHu: jk I think that mModel->applyEvents does update the mode's state std::vector
             // The previous statement loaded the result into the final stateBufferEnd, so now update the mModel's state std::vector
             //mModel->setStateVector(stateBufferEnd);
+        }
+
+        /**
+         * @brief the counters num_steps, num_rhs_evals and num_events.
+         * @see Integrator::getStatistics
+         */
+        std::unordered_map<std::string, Setting> getStatistics() override {
+            return {
+                {"num_steps", Setting(workCounters.numSteps)},
+                {"num_rhs_evals", Setting(workCounters.numRhsEvals)},
+                {"num_events", Setting(workCounters.numEvents)},
+            };
         }
 
         /**

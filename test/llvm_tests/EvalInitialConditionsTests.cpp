@@ -27,7 +27,7 @@ using namespace libsbml;
 class EvalInitialConditionsTests : public LLVMGeneratedFunctionTests {
 public:
     EvalInitialConditionsTests() {
-        Logger::setLevel(Logger::LOG_INFORMATION);
+        //Logger::setLevel(Logger::LOG_INFORMATION);
     }
 };
 

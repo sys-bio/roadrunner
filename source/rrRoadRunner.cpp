@@ -2219,6 +2219,8 @@ namespace rr {
 
         const double timeStart = self.simulateOpt.start;
         self.integrator->setIntegrationStartTime(self.simulateOpt.start);
+        // the statistics of the integrator are those of this simulation
+        self.integrator->resetStatistics();
         self.model->setIntegrationStartTime(self.simulateOpt.start);
 
         const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
@@ -2569,6 +2571,7 @@ namespace rr {
 
         try {
             if (reset) {
+                self.integrator->resetStatistics();
                 self.integrator->restart(currentTime);
             }
             return self.integrator->integrate(currentTime, stepSize);
@@ -2591,6 +2594,7 @@ namespace rr {
 
         try {
             if (reset) {
+                self.integrator->resetStatistics();
                 self.integrator->restart(currentTime);
             }
             endTime = self.integrator->integrate(currentTime, stepSize);
