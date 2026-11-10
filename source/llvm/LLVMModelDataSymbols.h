@@ -92,9 +92,9 @@ enum ModelDataFields {
 
 enum EventAtributes
 {
-    EventUseValuesFromTriggerTime = (0x1 << 0), // => 0x00000001
-    EventInitialValue             = (0x1 << 1), // => 0x00000010
-    EventPersistent               = (0x1 << 2)  // => 0x00000100
+    EventUseValuesFromTriggerTime = (0x1 << 0), // => 0b00000001
+    EventInitialValue             = (0x1 << 1), // => 0b00000010
+    EventPersistent               = (0x1 << 2)  // => 0b00000100
 };
 
 

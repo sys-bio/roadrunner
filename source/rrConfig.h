@@ -553,14 +553,18 @@ namespace rr {
 
             /**
              * Optimization level when using LLJit.
-             * Either NONE, LESS, DEFAULT or AGGRESSIVE
+             * Either NONE, LESS, DEFAULT or AGGRESSIVE.
+             * Defaults to NONE.
+             * In our tests, non-NONE optimization levels roughly doubled the model compilation time, with zero simulation speedup in most situations.  In some cases, Gillespie runs were slightly faster, but not enough to warrant a higher default optimization level.
              */
             LLJIT_OPTIMIZATION_LEVEL,
 
             /**
              * How many threads to use when building
-             * models with LLJit.
-             * Defaults to the number of cores
+             * models with LLJit. 0 compiles on the calling thread
+             * without a thread pool.
+             * Defaults to 0.
+             * Roadrunner's current architecture uses exactly one LLVM 'IR module', which are the elements used in LLJIT's parallelization when this value is >1.  '0' means 'compile on the calling thread', and in our tests, this was 5-35% faster than splitting this off to a separate thread, which happens when LLJIT_NUM_THREADS is 1 or more.
              */
             LLJIT_NUM_THREADS,
 
@@ -602,8 +606,8 @@ namespace rr {
         };
 
         enum ROADRUNNER_DISABLE_WARNINGS_VALUES {
-            ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE = (0x1 << 0),  // => 0x00000001
-            ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY = (0x1 << 1)   // => 0x00000010
+            ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE = (0x1 << 0),  // => 0b00000001
+            ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY = (0x1 << 1)   // => 0b00000010
         };
 
 
@@ -645,6 +649,12 @@ namespace rr {
         //static void setValues(const std::vector<Keys> keys, const std::vector<Setting> values);
 
         static Setting getValue(Keys);
+
+        /**
+         * Reset every key to its compiled-in default value. The configuration file
+         * is not read again, now or later.
+         */
+        static void resetToDefaults();
 
         /**
          * Read all of the values stored in a configuration file and set all the keys

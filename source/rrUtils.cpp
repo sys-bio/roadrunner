@@ -124,6 +124,21 @@ std::string getSBMLMD5(const std::string& text, int modelGenOpt)
     if (modelGenOpt & rr::LoadSBMLOptions::CONSERVED_MOIETIES) {
         digestString += "_conserved";
     }
+    // Compiled code differs by backend and optimization level, so both are part of the key.
+    if (modelGenOpt & rr::LoadSBMLOptions::MCJIT) {
+        digestString += "_MCJIT";
+    } else if (modelGenOpt & rr::LoadSBMLOptions::LLJIT) {
+        digestString += "_LLJIT";
+        if (modelGenOpt & rr::LoadSBMLOptions::NONE) {
+            digestString += "_NONE";
+        } else if (modelGenOpt & rr::LoadSBMLOptions::LESS) {
+            digestString += "_LESS";
+        } else if (modelGenOpt & rr::LoadSBMLOptions::AGGRESSIVE) {
+            digestString += "_AGGRESSIVE";
+        } else {
+            digestString += "_DEFAULT";
+        }
+    }
     return digestString;
 }
 
