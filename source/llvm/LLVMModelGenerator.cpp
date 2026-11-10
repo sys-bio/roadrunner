@@ -474,8 +474,8 @@ namespace rrllvm {
         SharedModelResourcesPtr modelResources = std::make_shared<ModelResources>();
 
         /**
-         * The sbml md5 is used as the LLVM module name.
-         * This facilitates object caching via rrObjectCache since
+         * The key of the model (see rr::getSBMLMD5) is used as the LLVM module name.
+         * This facilitates object caching via SBMLModelObjectCache since
          * the LLVM module name is the key in the object map used to
          * cache the objects.
          */

@@ -95,6 +95,9 @@ namespace rr {
              * It takes a finite amount of time to generate the model value setting
              * functions, and if they are not needed, one may see some performance
              * gains, especially in very large models.
+             *
+             * A read-only model has no mutable initial conditions: when this is set,
+             * LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS is ignored.
              */
             LOADSBMLOPTIONS_READ_ONLY,
 

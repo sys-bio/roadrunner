@@ -24,7 +24,7 @@ using namespace rrllvm;
 class LLJitTests : public JitTests {
 public:
     LLJitTests() {
-        Logger::setLevel(Logger::LOG_DEBUG);
+        Logger::setLevel(Logger::LOG_ERROR);
     };
 
 };
@@ -374,4 +374,173 @@ TEST_F(LLJitTests, DISABLED_DeeplyNestedRateLawCompiles) {
         }
     }
     rr::Config::resetToDefaults();
+}
+
+namespace {
+    // Loads one fresh model with `first`, then with `second`, keeping both alive, and returns how
+    // many objects that added to the object cache. The second model is simulated, which fails
+    // with a missing symbol if it was given the first model's incompatible compiled code.
+    size_t objectsAddedByLoadingWith(LoadSBMLOptions &first, LoadSBMLOptions &second) {
+        const std::string sbml = makeUniqueModel();
+        const size_t before = objectCacheSize();
+        RoadRunner rr1(sbml, &first);
+        RoadRunner rr2(sbml, &second);
+        rr2.simulate(0, 1, 2);
+        return objectCacheSize() - before;
+    }
+}
+
+TEST_F(LLJitTests, ObjectCacheMutableInitialConditionsAddsSeparateEntry) {
+    rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLVM_BACKEND_VALUES::LLJIT);
+    LoadSBMLOptions immutable;
+    immutable.modelGeneratorOpt &= ~LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+    LoadSBMLOptions mutableICs;
+    mutableICs.modelGeneratorOpt |= LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+    ASSERT_EQ(objectsAddedByLoadingWith(immutable, mutableICs), 2u);
+}
+
+TEST_F(LLJitTests, ObjectCacheReadOnlyAddsSeparateEntry) {
+    rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLVM_BACKEND_VALUES::LLJIT);
+    LoadSBMLOptions writable;
+    LoadSBMLOptions readOnly;
+    readOnly.modelGeneratorOpt |= LoadSBMLOptions::READ_ONLY;
+    ASSERT_EQ(objectsAddedByLoadingWith(readOnly, writable), 2u);
+}
+
+TEST_F(LLJitTests, ReadOnlyIgnoresMutableInitialConditions) {
+    rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLVM_BACKEND_VALUES::LLJIT);
+    LoadSBMLOptions opt;
+    opt.modelGeneratorOpt |= LoadSBMLOptions::READ_ONLY | LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+    RoadRunner rr(makeUniqueModel(), &opt);
+    ASSERT_NO_THROW(rr.simulate(0, 1, 2));
+}
+
+TEST_F(LLJitTests, ObjectCachePermissiveSettingAddsSeparateEntry) {
+    rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLVM_BACKEND_VALUES::LLJIT);
+    const std::string sbml = makeUniqueModel();
+    const size_t before = objectCacheSize();
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, true);
+    RoadRunner rr1(sbml);
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, false);
+    RoadRunner rr2(sbml);
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, true);
+    ASSERT_EQ(objectCacheSize() - before, 2u);
+}
+
+/**
+ * Each load option that changes the generated code must change the key; RECOMPILE only changes
+ * whether the cache is consulted, so it must not.
+ */
+TEST_F(LLJitTests, SBMLMD5KeyDependsOnCodeGenerationOptions) {
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, true);
+    const std::string sbml = makeUniqueModel();
+    const int base = (int) LoadSBMLOptions().modelGeneratorOpt & ~(int) LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+    const std::string baseKey = rr::getSBMLMD5(sbml, base);
+
+    EXPECT_NE(baseKey, rr::getSBMLMD5(sbml, base | LoadSBMLOptions::CONSERVED_MOIETIES));
+    EXPECT_NE(baseKey, rr::getSBMLMD5(sbml, base | LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS));
+    EXPECT_NE(baseKey, rr::getSBMLMD5(sbml, base | LoadSBMLOptions::READ_ONLY));
+    EXPECT_EQ(baseKey, rr::getSBMLMD5(sbml, base | LoadSBMLOptions::RECOMPILE));
+
+    LoadSBMLOptions none;
+    none.setLLJitOptimizationLevel(LoadSBMLOptions::NONE);
+    LoadSBMLOptions aggressive;
+    aggressive.setLLJitOptimizationLevel(LoadSBMLOptions::AGGRESSIVE);
+    EXPECT_NE(rr::getSBMLMD5(sbml, (int) none.modelGeneratorOpt),
+              rr::getSBMLMD5(sbml, (int) aggressive.modelGeneratorOpt));
+
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, false);
+    EXPECT_NE(baseKey, rr::getSBMLMD5(sbml, base));
+    rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_PERMISSIVE, true);
+}
+
+
+/**
+ * Sets the LLJit backend and restores the configuration values that the
+ * per-LLJit object cache tests below change.
+ */
+class LLJitObjectCacheTests : public LLJitTests {
+public:
+    LLJitObjectCacheTests() {
+        saved = {Config::LLVM_BACKEND, Config::LOADSBMLOPTIONS_RECOMPILE};
+        for (Config::Keys key: saved) {
+            savedValues.push_back(Config::getValue(key));
+        }
+        Config::setValue(Config::LLVM_BACKEND, Config::LLJIT);
+        Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, false);
+    }
+
+    ~LLJitObjectCacheTests() override {
+        for (size_t i = 0; i < saved.size(); ++i) {
+            Config::setValue(saved[i], savedValues[i]);
+        }
+    }
+
+    /**
+     * @brief the object in the object cache for the model sbml when loaded with the
+     * current configuration.
+     */
+    static SBMLModelObjectCache::ObjectPtr cachedObject(const std::string &sbml) {
+        return SBMLModelObjectCache::getObjectCache().find(
+                rr::getSBMLMD5(sbml, LoadSBMLOptions().modelGeneratorOpt));
+    }
+
+    std::vector<Config::Keys> saved;
+    std::vector<Setting> savedValues;
+};
+
+/**
+ * Without RECOMPILE, a model loaded again after the first one is gone uses
+ * the object that the first one compiled.
+ */
+TEST_F(LLJitObjectCacheTests, ReusesObjectWithoutRecompile) {
+    std::string sbml = OpenLinearFlux().str();
+    {
+        RoadRunner rr(sbml);
+    }
+    SBMLModelObjectCache::ObjectPtr first = cachedObject(sbml);
+    ASSERT_TRUE(first);
+    RoadRunner rr(sbml);
+    ASSERT_EQ(first.get(), cachedObject(sbml).get());
+    ASSERT_NO_THROW(rr.simulate(0, 10, 11));
+}
+
+/**
+ * With RECOMPILE, the model is compiled again, and its object replaces the one
+ * in the object cache (issue 1420).
+ */
+TEST_F(LLJitObjectCacheTests, RecompileDoesNotReuseCachedObject) {
+    std::string sbml = OpenLinearFlux().str();
+    Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, true);
+    RoadRunner rr1(sbml);
+    SBMLModelObjectCache::ObjectPtr first = cachedObject(sbml);
+    ASSERT_TRUE(first);
+    RoadRunner rr2(sbml);
+    SBMLModelObjectCache::ObjectPtr second = cachedObject(sbml);
+    ASSERT_TRUE(second);
+    ASSERT_NE(first.get(), second.get());
+    ASSERT_NO_THROW(rr1.simulate(0, 10, 11));
+    ASSERT_NO_THROW(rr2.simulate(0, 10, 11));
+}
+
+/**
+ * The state of a model holds the object of that model, also after another
+ * model replaced the object in the object cache.
+ */
+TEST_F(LLJitObjectCacheTests, SaveStateUsesTheObjectOfTheModel) {
+    std::string sbml = OpenLinearFlux().str();
+    Config::setValue(Config::LOADSBMLOPTIONS_RECOMPILE, true);
+    RoadRunner rr1(sbml);
+    RoadRunner rr2(sbml);
+    RoadRunner rr3;
+    // loadStateS deletes the stream
+    rr3.loadStateS(rr1.saveStateS());
+    auto expected = rr1.simulate(0, 10, 11);
+    auto actual = rr3.simulate(0, 10, 11);
+    ASSERT_EQ(expected->numRows(), actual->numRows());
+    for (int i = 0; i < actual->numRows(); ++i) {
+        for (int j = 0; j < actual->numCols(); ++j) {
+            ASSERT_NEAR((*expected)(i, j), (*actual)(i, j), 1e-10);
+        }
+    }
 }
