@@ -18,7 +18,7 @@ using namespace rrllvm;
 class MCJitTests : public ::testing::Test {
 public:
     MCJitTests() {
-        Logger::setLevel(Logger::LOG_DEBUG);
+        //Logger::setLevel(Logger::LOG_DEBUG);
     };
 
 //    template<typename FnPtr>

@@ -3,6 +3,10 @@
 #include "RoadRunnerTest.h"
 #include "EulerIntegrator.h"
 
+#include <cstdint>
+#include <set>
+#include <string>
+
 using namespace rr;
 
 // One species, no events. Small enough that the Euler integrator's
@@ -105,4 +109,24 @@ TEST_F(EulerIntegratorTests, ReloadResizesBuffersAndEventsWithoutStaleModel) {
     EXPECT_NEAR(99.0, finalE, 1e-6)
         << "event did not fire after reload; Euler's event bookkeeping "
            "likely still reflects the pre-reload model.";
+}
+
+TEST_F(EulerIntegratorTests, StatisticsCountTheStepsAndRateEvaluations) {
+    RoadRunner rr(OneSpeciesNoEventSBML);
+    rr.setIntegrator("euler");
+    rr.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = rr.getIntegrator()->getStatistics();
+
+    std::set<std::string> keys;
+    for (const auto &item: stats) {
+        keys.insert(item.first);
+    }
+    ASSERT_EQ((std::set<std::string>{"num_steps", "num_rhs_evals", "num_events"}), keys);
+    ASSERT_EQ(100, stats["num_steps"].getAs<std::int64_t>());
+    ASSERT_EQ(100, stats["num_rhs_evals"].getAs<std::int64_t>());
+    ASSERT_EQ(0, stats["num_events"].getAs<std::int64_t>());
+
+    // a new simulation starts from zero
+    rr.simulate(0, 10, 11);
+    ASSERT_EQ(10, rr.getIntegrator()->getStatistics()["num_steps"].getAs<std::int64_t>());
 }

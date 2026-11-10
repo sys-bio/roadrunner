@@ -36,7 +36,7 @@ using namespace libsbml;
 class LLVMGeneratedFunctionTests : public ::testing::Test {
 public:
     LLVMGeneratedFunctionTests() {
-        Logger::setLevel(Logger::LOG_INFORMATION);
+        //Logger::setLevel(Logger::LOG_INFORMATION);
     }
 
     void checkInitialEvaluationSpecies(int options, int speciesAmt, double compVol, double expectedConc);

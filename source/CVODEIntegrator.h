@@ -463,8 +463,6 @@ namespace rr {
 
         friend int cvodeEventAndPiecewiseRootFcn(double t, N_Vector y, double *gout, void *g_data);
 
-        friend SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator);
-
         friend struct TimedLinearSolver;
 
     };

@@ -13,6 +13,8 @@
 #include "C/rrc_api.h"
 
 #include <cmath>
+#include <cstdint>
+#include <set>
 #include <string>
 #include <vector>
 using namespace rr;
@@ -455,3 +457,20 @@ TEST_F(GillespieTests, MeanSDOnGridReturnsMeanAndRealStandardDeviationTogether) 
     freeRRInstance(rrHandle);
 }
 
+TEST_F(GillespieTests, StatisticsCountTheReactionsAndPropensityEvaluations) {
+    RoadRunner rr(openLinearFlux.str());
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("seed", 1234);
+    rr.simulate(0, 10, 11);
+    std::unordered_map<std::string, Setting> stats = rr.getIntegrator()->getStatistics();
+
+    std::set<std::string> keys;
+    for (const auto &item: stats) {
+        keys.insert(item.first);
+    }
+    ASSERT_EQ((std::set<std::string>{"num_steps", "num_rhs_evals", "num_events"}), keys);
+    std::int64_t steps = stats["num_steps"].getAs<std::int64_t>();
+    ASSERT_GT(steps, 0);
+    ASSERT_GE(stats["num_rhs_evals"].getAs<std::int64_t>(), steps);
+    ASSERT_EQ(0, stats["num_events"].getAs<std::int64_t>());
+}

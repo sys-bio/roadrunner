@@ -40,7 +40,7 @@ TEST_F(PluginTestModelTests, LOGGER)
 
 TEST_F(PluginTestModelTests, DISABLED_BASIC_CREATION_AND_DESTRUCTION)
 {
-  rr::Logger::setLevel(rr::Logger::LOG_INFORMATION);
+  //rr::Logger::setLevel(rr::Logger::LOG_INFORMATION);
   PluginManager* PM = new PluginManager(rrPluginsBuildDir_.string());
   std::cout << PM->getInfo() << std::endl;
   delete PM;
