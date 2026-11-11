@@ -4,6 +4,14 @@
 
 #include "RoadRunnerAPITests.h"
 #include "rrConfig.h"
+#include <chrono>
+#include <cmath>
+#include <cstdlib>
+#include <future>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <thread>
 
 using namespace rr;
 
@@ -898,3 +906,123 @@ TEST_F(RoadRunnerAPITestsWithLLJit, DISABLED_sensitivitySolverExistsWhenFalse){
 //    getReactionIds();
 //}
 
+
+/**
+ * Chains of initial assignments.
+ *
+ * Every parameter p_k reads the previous one twice, so inlining the code of an
+ * initial assignment into each reader makes the generated code grow as 2^k.
+ * The initial value resolvers cache one value per symbol, which keeps it linear.
+ * Optionally, one link of the chain is an assignment rule instead.
+ */
+namespace {
+
+    constexpr int ChainLevels = 40;
+
+    // p_k = p_(k-1) + piecewise(p_(k-1), AGE < 50, 2*p_(k-1))
+    std::string chainMath(int k) {
+        std::string p = "<ci> p" + std::to_string(k - 1) + " </ci>";
+        return "<math xmlns='http://www.w3.org/1998/Math/MathML'><apply><plus/>" + p +
+               "<piecewise><piece>" + p + "<apply><lt/><ci> AGE </ci><cn> 50 </cn></apply></piece>"
+               "<otherwise><apply><times/><cn> 2 </cn>" + p + "</apply></otherwise>"
+               "</piecewise></apply></math>";
+    }
+
+    // ruleLevel is the link of the chain given by an assignment rule, 0 for none.
+    // S reads the last two links and the rule of q reads S and p(ChainLevels - 2).
+    std::string chainSBML(int ruleLevel) {
+        std::string params = "<parameter id='AGE' value='35' constant='true'/>"
+                             "<parameter id='p0' value='1' constant='true'/>";
+        std::string assignments;
+        std::string rules;
+        for (int k = 1; k <= ChainLevels; k++) {
+            std::string id = "p" + std::to_string(k);
+            if (k == ruleLevel) {
+                params += "<parameter id='" + id + "' constant='false'/>";
+                rules += "<assignmentRule variable='" + id + "'>" + chainMath(k) + "</assignmentRule>";
+            } else {
+                params += "<parameter id='" + id + "' constant='true'/>";
+                assignments += "<initialAssignment symbol='" + id + "'>" + chainMath(k) +
+                               "</initialAssignment>";
+            }
+        }
+        params += "<parameter id='q' constant='false'/>";
+        assignments += "<initialAssignment symbol='S'>"
+                       "<math xmlns='http://www.w3.org/1998/Math/MathML'><apply><divide/><ci> p" +
+                       std::to_string(ChainLevels) + " </ci><ci> p" + std::to_string(ChainLevels - 1) +
+                       " </ci></apply></math></initialAssignment>";
+        rules += "<assignmentRule variable='q'>"
+                 "<math xmlns='http://www.w3.org/1998/Math/MathML'><apply><plus/><ci> S </ci><ci> p" +
+                 std::to_string(ChainLevels - 2) + " </ci></apply></math></assignmentRule>";
+        return "<?xml version='1.0' encoding='UTF-8'?>"
+               "<sbml xmlns='http://www.sbml.org/sbml/level3/version2/core' level='3' version='2'>"
+               "<model id='chain'>"
+               "<listOfCompartments><compartment id='c' size='1' constant='true' "
+               "spatialDimensions='3'/></listOfCompartments>"
+               "<listOfSpecies><species id='S' compartment='c' hasOnlySubstanceUnits='false' "
+               "boundaryCondition='false' constant='false'/></listOfSpecies>"
+               "<listOfParameters>" + params + "</listOfParameters>"
+               "<listOfInitialAssignments>" + assignments + "</listOfInitialAssignments>"
+               "<listOfRules>" + rules + "</listOfRules></model></sbml>";
+    }
+
+    // Without the cache the code generator does not finish, and a running
+    // compilation cannot be cancelled, so a timeout ends the process.
+    std::unique_ptr<RoadRunner> loadChain(int ruleLevel, std::chrono::seconds limit) {
+        // the initial value resolvers cache whether or not this is set
+        Config::setValue(Config::LLVM_SYMBOL_CACHE, false);
+        auto promise = std::make_shared<std::promise<std::unique_ptr<RoadRunner>>>();
+        std::future<std::unique_ptr<RoadRunner>> loaded = promise->get_future();
+        std::string sbml = chainSBML(ruleLevel);
+        std::thread([promise, sbml]() {
+            try {
+                promise->set_value(std::make_unique<RoadRunner>(sbml));
+            } catch (...) {
+                promise->set_exception(std::current_exception());
+            }
+        }).detach();
+        if (loaded.wait_for(limit) != std::future_status::ready) {
+            std::cerr << "Loading a chain of " << ChainLevels << " initial assignments took more than "
+                      << limit.count() << " s; the initial value code is not generated once per symbol."
+                      << std::endl;
+            std::_Exit(EXIT_FAILURE);
+        }
+        return loaded.get();
+    }
+
+    // Every link is the previous one times branch; S is the last ratio.
+    void checkChain(RoadRunner& rr, double branch) {
+        for (int k : {10, 20, 21, ChainLevels}) {
+            EXPECT_NEAR(rr.getValue("p" + std::to_string(k)) / std::pow(branch, k), 1.0, 1e-12) << "p" << k;
+        }
+        EXPECT_NEAR(rr.getValue("S"), branch, 1e-12);
+        EXPECT_NEAR(rr.getValue("init([S])"), branch, 1e-12);
+        EXPECT_NEAR(rr.getValue("q") / (branch + std::pow(branch, ChainLevels - 2)), 1.0, 1e-12);
+    }
+
+    const std::chrono::seconds ChainTimeout(60);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfInitialAssignments) {
+    auto rr = loadChain(0, ChainTimeout);
+    checkChain(*rr, 2.0);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfInitialAssignmentsChangedInitialValue) {
+    auto rr = loadChain(0, ChainTimeout);
+    rr->setValue("init(AGE)", 60.0);
+    rr->reset();
+    checkChain(*rr, 3.0);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfInitialAssignmentsWithAssignmentRuleInMiddle) {
+    auto rr = loadChain(20, ChainTimeout);
+    checkChain(*rr, 2.0);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfInitialAssignmentsWithAssignmentRuleInMiddleChangedInitialValue) {
+    auto rr = loadChain(20, ChainTimeout);
+    rr->setValue("init(AGE)", 60.0);
+    rr->reset();
+    checkChain(*rr, 3.0);
+}

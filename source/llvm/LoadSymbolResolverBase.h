@@ -87,6 +87,9 @@ protected:
     // cache symbols
     ValueMapStack symbolCache;
 
+    // cache values whether or not the LLVM_SYMBOL_CACHE option is set
+    bool alwaysCache = false;
+
     /**
      * check in the symbol cache if the symbol exists, if so return it.
      *

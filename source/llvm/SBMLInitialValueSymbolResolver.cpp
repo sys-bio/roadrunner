@@ -23,6 +23,8 @@ SBMLInitialValueSymbolResolver::SBMLInitialValueSymbolResolver(
         const ModelGeneratorContext& ctx) :
         LoadSymbolResolverBase(ctx, modelData), modelData(modelData)
 {
+    // the code of an initial assignment is generated once per symbol
+    alwaysCache = true;
 }
 
 llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(

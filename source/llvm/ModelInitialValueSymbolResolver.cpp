@@ -25,6 +25,8 @@ namespace rrllvm
         LoadSymbolResolverBase(ctx, modelData),
         modelData(modelData)
     {
+        // the code of an initial assignment is generated once per symbol
+        alwaysCache = true;
     }
 
 
