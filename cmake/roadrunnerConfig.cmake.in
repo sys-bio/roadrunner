@@ -1,0 +1,76 @@
+# Package configuration for roadrunner. Use:
+#     find_package(roadrunner CONFIG REQUIRED)
+#     target_link_libraries(app PRIVATE roadrunner::roadrunner-static)
+# Other targets: roadrunner::roadrunner, roadrunner::roadrunner_c_api,
+# roadrunner::roadrunner_c_api-static.
+#
+# LLVM is found with its CMake package (lib/cmake/llvm). If it is not in a standard location,
+# set LLVM_INSTALL_PREFIX (or LLVM_ROOT_DIR, LLVM_DIR or CMAKE_PREFIX_PATH) to the LLVM
+# install that roadrunner was built with. It must have RTTI and exceptions enabled.
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# The dependency packages are installed next to roadrunner. A separate dependency tree can be
+# given with RR_DEPENDENCIES_INSTALL_PREFIX. Both are only on the search path while this file runs.
+set(_rr_saved_prefix_path "${CMAKE_PREFIX_PATH}")
+set(_rr_saved_module_path "${CMAKE_MODULE_PATH}")
+set(_rr_dep_dirs)
+foreach (_rr_root "${PACKAGE_PREFIX_DIR}" "${RR_DEPENDENCIES_INSTALL_PREFIX}")
+    if (_rr_root)
+        list(APPEND _rr_dep_dirs
+                "${_rr_root}/cmake"
+                "${_rr_root}/lib/cmake"
+                "${_rr_root}/lib/cmake/Poco"
+                "${_rr_root}/lib64/cmake"
+                "${_rr_root}/lib64/cmake/Poco")
+    endif ()
+endforeach ()
+list(APPEND CMAKE_PREFIX_PATH ${_rr_dep_dirs})
+list(APPEND CMAKE_MODULE_PATH ${_rr_dep_dirs}) # FindLLVM.cmake is installed in lib/cmake
+
+if (WIN32)
+    set(_rr_sbml_package libsbml-static)
+else ()
+    set(_rr_sbml_package sbml-static)
+endif ()
+
+find_dependency(ZLIB CONFIG COMPONENTS static)
+find_dependency(bzip2 CONFIG)
+find_dependency(expat CONFIG)
+find_dependency(${_rr_sbml_package} CONFIG)
+find_dependency(rr-libstruct CONFIG)
+find_dependency(clapack CONFIG)
+find_dependency(nleq1 CONFIG)
+find_dependency(nleq2 CONFIG)
+find_dependency(PocoFoundation CONFIG)
+find_dependency(PocoNet CONFIG)
+find_dependency(PocoXML CONFIG)
+find_dependency(SUNDIALS CONFIG)
+
+if (NOT LLVM_INSTALL_PREFIX AND LLVM_ROOT_DIR)
+    set(LLVM_INSTALL_PREFIX "${LLVM_ROOT_DIR}")
+endif ()
+find_dependency(LLVM)
+
+set(CMAKE_PREFIX_PATH "${_rr_saved_prefix_path}")
+set(CMAKE_MODULE_PATH "${_rr_saved_module_path}")
+unset(_rr_saved_prefix_path)
+unset(_rr_saved_module_path)
+unset(_rr_dep_dirs)
+unset(_rr_root)
+unset(_rr_sbml_package)
+
+include("${CMAKE_CURRENT_LIST_DIR}/roadrunnerTargets.cmake")
+
+# The installed targets link the LLVM libraries through roadrunner::roadrunner_llvm_libs, which is
+# exported empty so that no path from the build machine is recorded. Fill it from the consumer's
+# LLVM (once, even if several roadrunner packages are loaded).
+get_target_property(_rr_llvm_link roadrunner::roadrunner_llvm_libs INTERFACE_LINK_LIBRARIES)
+if (NOT _rr_llvm_link)
+    set_property(TARGET roadrunner::roadrunner_llvm_libs PROPERTY INTERFACE_LINK_LIBRARIES "${LLVM_LIBRARIES}")
+endif ()
+unset(_rr_llvm_link)
+
+check_required_components(roadrunner)
