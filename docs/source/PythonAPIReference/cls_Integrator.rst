@@ -61,11 +61,11 @@ ________________
 
 .. method:: Integrator.getStatistics()
 
-    Returns the counters of the work of the integrator as a dictionary, e.g. the number of steps and of evaluations of the model. They count the work since the last call of resetStatistics. RoadRunner resets them when a simulation starts (``simulate``, and ``oneStep`` when it resets the integrator), so after a simulation they hold the work of that simulation. They help to find out why a simulation is slow, e.g. whether it takes many steps, or whether each step is expensive.
+    Returns various counters of how much work the integrator has done as a dictionary, e.g. the number of steps and evaluations of the model.  Work is summed from the last call of resetStatistics, which happens when a simulation starts (``simulate`` or ``oneStep``), so after a simulation it holds the work of that simulation. This information can be used to profile an integrator and can help to find out why a simulation is slow, e.g. whether it takes many steps, or whether each step is expensive.
 
     All integrators return the counters that apply to them under the same keys:
 
-    - ``num_steps``: the number of steps (for gillespie, of reactions that fired).
+    - ``num_steps``: the number of steps (or, for gillespie, the number of reactions that fired).
     - ``num_rhs_evals``: the number of evaluations of the rates of the model, i.e. of the right hand side of the ODEs (for gillespie, of the propensities).
     - ``num_err_test_fails``: the number of steps that failed the error test and were tried again with a smaller step size (cvode and rk45).
     - ``num_events``: the number of events that fired.
