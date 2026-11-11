@@ -108,6 +108,8 @@ add_library(roadrunner_c_api::roadrunner_c_api ALIAS ${target})
 add_library(roadrunner_c_api-static::roadrunner_c_api-static ALIAS ${target}-static)
 
 target_compile_definitions(${target}-static PRIVATE EXPORT_RRC STATIC_RR)
+# Programs that link the static library must not declare its functions as imported from a DLL.
+target_compile_definitions(${target}-static INTERFACE STATIC_RRC)
 
 install(
         TARGETS ${target}-static
