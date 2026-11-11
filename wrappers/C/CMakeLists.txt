@@ -72,7 +72,7 @@ endif()
 
 install(
         TARGETS ${target}
-        EXPORT ${target}
+        EXPORT roadrunnerTargets
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT ${target}
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}
@@ -80,15 +80,7 @@ install(
 )
 install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr")
 
-# install export info
-install(
-        EXPORT ${target}
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
-        NAMESPACE ${target}::
-        FILE ${target}-config.cmake
-        COMPONENT ${target}
-        EXPORT_LINK_INTERFACE_LIBRARIES
-)
+# The export set roadrunnerTargets is installed from the top-level CMakeLists.txt.
 
 # Create a static c api, too.
 
@@ -108,11 +100,18 @@ target_link_libraries(${target}-static PUBLIC roadrunner-static)
 
 add_dependencies(${target}-static roadrunner-static)
 
+# Same names the installed package (roadrunnerConfig.cmake) provides.
+add_library(roadrunner::roadrunner_c_api ALIAS ${target})
+add_library(roadrunner::roadrunner_c_api-static ALIAS ${target}-static)
+# Deprecated names from the old per-target packages.
+add_library(roadrunner_c_api::roadrunner_c_api ALIAS ${target})
+add_library(roadrunner_c_api-static::roadrunner_c_api-static ALIAS ${target}-static)
+
 target_compile_definitions(${target}-static PRIVATE EXPORT_RRC STATIC_RR)
 
 install(
         TARGETS ${target}-static
-        EXPORT ${target}-static
+        EXPORT roadrunnerTargets
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT ${target}-static
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}-static
@@ -120,13 +119,5 @@ install(
 )
 install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr")
 
-# install export info
-install(
-        EXPORT ${target}-static
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
-        NAMESPACE ${target}-static::
-        FILE ${target}-static-config.cmake
-        COMPONENT ${target}-static
-        EXPORT_LINK_INTERFACE_LIBRARIES
-)
+# The export set roadrunnerTargets is installed from the top-level CMakeLists.txt.
 

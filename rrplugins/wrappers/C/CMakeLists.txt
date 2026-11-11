@@ -35,21 +35,30 @@ endif() #BUILD_PYTHON
 target_include_directories(${target}
         PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../"
         )
+target_include_directories(${target} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/c>"
+        )
 
-target_link_libraries(${target} PUBLIC
-        #telplugins_common-static
-        telplugins_core-static
-        telplugins_math-static
-        #telpluginsBaseClass-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
+# The static libraries are part of this shared library. Targets in this build tree
+# still see them as dependencies; installed consumers do not.
+target_link_libraries(${target}
+        PUBLIC ${RRPLUGINS_COMMON_SHARED_LIBS}
+        PRIVATE telplugins_core-static telplugins_math-static
+        )
+target_link_libraries(${target} INTERFACE
+        "$<BUILD_INTERFACE:telplugins_core-static>"
+        "$<BUILD_INTERFACE:telplugins_math-static>"
         )
 
 # remove the "lib" prefix on some platforms
 set_target_properties(${target} PROPERTIES PREFIX "")
 
+add_library(rrplugins::${target} ALIAS ${target})
+
 #Link C_api shared lib statically to roadrunner and libsbml
 if (WIN32)
-    target_compile_definitions(${target} PUBLIC EXPORT_RRP)
+    target_compile_definitions(${target} PUBLIC "$<BUILD_INTERFACE:EXPORT_RRP>")
 else ()
     if (APPLE)
         set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs -undefined error")
@@ -66,6 +75,7 @@ endif ()
 
 install(
         TARGETS ${target}
+        EXPORT rrpluginsTargets
         RUNTIME DESTINATION bin COMPONENT rrplugins
         ARCHIVE DESTINATION lib COMPONENT rrplugins
         LIBRARY DESTINATION lib COMPONENT rrplugins
@@ -74,3 +84,9 @@ install(
 if (BUILD_PYTHON AND BUILD_RR_PLUGINS)
     install(TARGETS ${target} DESTINATION "${RR_PLUGINS_PYLIB_INSTALL_PREFIX}")
 endif()
+
+# Public headers
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/c"
+        COMPONENT rrplugins
+        FILES_MATCHING PATTERN "*.h")

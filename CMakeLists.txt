@@ -13,13 +13,12 @@ set(ROADRUNNER_VERSION_PATCH 1)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
-if (APPLE AND NOT CMAKE_OSX_ARCHITECTURES)
-    # Some CMake features like object libraries get confused if you don't
-    # explicitly specify an architecture setting with the Xcode generator.
-    #    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
-    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE INTERNAL "Compile for intel chips on apple" FORCE)
-    message(STATUS "building on mac for intel chips only.")
-endif()
+# True when roadrunner is the top-level project, false when added with add_subdirectory.
+if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+    set(RR_IS_TOP_LEVEL TRUE)
+else ()
+    set(RR_IS_TOP_LEVEL FALSE)
+endif ()
 
 project(
         roadrunner
@@ -97,6 +96,30 @@ set(LLVM_INSTALL_PREFIX ${RR_DEPENDENCIES_INSTALL_PREFIX} CACHE PATH "Location o
 set(LLVM_ROOT_DIR "${LLVM_ROOT_DIR}")
 
 #set(USE_UNIVERSAL_BINARIES "ON" CACHE BOOL "Build with universal binaries on MacOS")
+
+# When roadrunner is a subproject, the options below come from the matching RR_-prefixed
+# variables (RR_BUILD_TESTS, RR_BUILD_PYTHON, RR_BUILD_PLUGINS, ...) so the parent's own
+# options of the same name do not apply. A normal variable takes precedence over option().
+if (NOT RR_IS_TOP_LEVEL)
+    foreach (opt BUILD_TEST_TOOLS BUILD_TESTS BUILD_LEGACY_C BUILD_PYTHON BUILD_JULIA BUILD_APPS
+            BUILD_EXAMPLES INSTALL_SBML_MODELS BUILD_DOCS BUILD_JAVA BUILD_PACKAGING
+            WITH_ADDRESS_SANITIZER BUILD_RR_PLUGINS)
+        string(REPLACE "BUILD_RR_" "BUILD_" short_opt "${opt}")
+        if (DEFINED RR_${short_opt})
+            set(${opt} ${RR_${short_opt}})
+        else ()
+            set(${opt} OFF)
+        endif ()
+    endforeach ()
+    foreach (opt BUILD_LLVM BUILD_RR_CAPI)
+        string(REPLACE "BUILD_RR_" "BUILD_" short_opt "${opt}")
+        if (DEFINED RR_${short_opt})
+            set(${opt} ${RR_${short_opt}})
+        else ()
+            set(${opt} ON)
+        endif ()
+    endforeach ()
+endif ()
 
 # todo difference between build tests and build test tools option? (cw)
 option(BUILD_TEST_TOOLS "Build and install test tools" OFF)
@@ -283,9 +306,11 @@ else ()
     option(USE_TR1_CXX_NS "Use the tr1 c++ namespace for swig smart pointer" ${CMAKE_COMPILER_IS_GNUCXX})
 endif ()
 
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-        "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or
+if (RR_IS_TOP_LEVEL)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+            "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or
      CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel.")
+endif ()
 
 message(STATUS "PROJECT_BINARY_DIR ${PROJECT_BINARY_DIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -355,7 +380,7 @@ endif ()
 
 set(CMAKE_DEBUG_POSTFIX "d")
 
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+if(RR_IS_TOP_LEVEL AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "../install-${CMAKE_BUILD_TYPE}" CACHE PATH "..." FORCE)
 endif()
 
@@ -401,11 +426,18 @@ endif (WIN32)
 
 #find_package(Threads) # for libxml2, FindThreads.cmake is shipped with cmake
 #find_package(LibLZMA) # for libxml2, LibLZMA.cmake is shipped with cmake
-find_package(ZLIB CONFIG REQUIRED COMPONENTS static)
-find_package(bzip2 CONFIG REQUIRED)
+# From CMake 3.24, find_package(GLOBAL) makes the dependency targets visible to a parent
+# project. Older versions use rr_promote_imported_global() after add_subdirectory(source).
+set(RR_FIND_PACKAGE_GLOBAL "")
+if (NOT RR_IS_TOP_LEVEL AND NOT CMAKE_VERSION VERSION_LESS 3.24)
+    set(RR_FIND_PACKAGE_GLOBAL GLOBAL)
+endif ()
+
+find_package(ZLIB CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL} COMPONENTS static)
+find_package(bzip2 CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 #find_package(iconv CONFIG REQUIRED)
 
-find_package(expat CONFIG REQUIRED)
+find_package(expat CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 
 ## https://stackoverflow.com/questions/32183975/how-to-print-all-the-properties-of-a-target-in-cmake/56738858#56738858
 ## https://stackoverflow.com/a/56738858/3743145
@@ -461,20 +493,20 @@ message(STATUS "ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
 #endif()
 
 
-find_package(${SBML_TARGET_NAME} CONFIG REQUIRED)
+find_package(${SBML_TARGET_NAME} CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 set(RR_FOUND_SBML_VERSION "${${SBML_TARGET_NAME}_VERSION}")
 if (RR_FOUND_SBML_VERSION AND RR_FOUND_SBML_VERSION VERSION_LESS RR_MIN_SBML_VERSION)
     message(FATAL_ERROR "libSBML ${RR_FOUND_SBML_VERSION} was found, but roadrunner needs ${RR_MIN_SBML_VERSION} or later. \
 Please update libroadrunner-deps (https://github.com/sys-bio/libroadrunner-deps) and pass the new install tree to \
 -DRR_DEPENDENCIES_INSTALL_PREFIX.")
 endif ()
-find_package(rr-libstruct CONFIG REQUIRED)
-find_package(clapack CONFIG REQUIRED)
-find_package(nleq1 CONFIG REQUIRED)
-find_package(nleq2 CONFIG REQUIRED)
-find_package(PocoFoundation CONFIG REQUIRED)
-find_package(PocoNet CONFIG REQUIRED)
-find_package(PocoXML CONFIG REQUIRED)
+find_package(rr-libstruct CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(clapack CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(nleq1 CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(nleq2 CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(PocoFoundation CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(PocoNet CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
+find_package(PocoXML CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 
 # Each shared library embeds its own copy of the static Poco archives. Hiding their symbols
 # stops the dynamic linker from merging the copies' global objects (double init and destruction).
@@ -484,7 +516,7 @@ endif ()
 
 find_package(LLVM REQUIRED)
 
-find_package(SUNDIALS CONFIG REQUIRED)
+find_package(SUNDIALS CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 if (SUNDIALS_VERSION AND SUNDIALS_VERSION VERSION_LESS RR_MIN_SUNDIALS_VERSION)
     message(FATAL_ERROR "SUNDIALS ${SUNDIALS_VERSION} was found, but roadrunner needs ${RR_MIN_SUNDIALS_VERSION} or later. \
 Please update libroadrunner-deps (https://github.com/sys-bio/libroadrunner-deps) and pass the new install tree to \
@@ -504,15 +536,17 @@ set(BUILD_STATIC_LIBS ON)
 
 # install dependencies so clients can use roadrunner from c++/cmake
 message(STATUS "CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR}")
-install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/bin" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/include" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/share" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-if (WIN32)
-    install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/cmake" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-endif()
-# install a cmake script for consumer libraries to easily import roadrunner targets
-install(FILES "cmake/ImportRoadrunnerAndDependencies.cmake" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake")
+if (RR_IS_TOP_LEVEL)
+  install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib" DESTINATION ".")
+  install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/bin" DESTINATION ".")
+  install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/include" DESTINATION ".")
+  install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/share" DESTINATION ".")
+  if (WIN32)
+    install(DIRECTORY "${RR_DEPENDENCIES_INSTALL_PREFIX}/cmake" DESTINATION ".")
+  endif()
+  # install a cmake script for consumer libraries to easily import roadrunner targets
+  install(FILES "cmake/ImportRoadrunnerAndDependencies.cmake" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake")
+endif ()
 
 if (${MINGW})
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
@@ -541,8 +575,46 @@ if (NOT WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 endif ()
 
+# Imported targets are directory scoped. When roadrunner is a subproject the parent links
+# roadrunner-static, so the dependency targets it references must be visible there.
+# Used only below CMake 3.24; from 3.24 the find_package(GLOBAL) calls above do this.
+function(rr_promote_imported_global)
+    set(pending ${ARGN})
+    while (TRUE)
+        list(LENGTH pending num_pending)
+        if (num_pending EQUAL 0)
+            break()
+        endif ()
+        list(POP_FRONT pending tgt)
+        string(REGEX REPLACE "^\\$<LINK_ONLY:(.*)>$" "\\1" tgt "${tgt}")
+        if (NOT TARGET "${tgt}")
+            continue()
+        endif ()
+        get_target_property(aliased "${tgt}" ALIASED_TARGET)
+        if (aliased)
+            list(APPEND pending "${aliased}")
+            continue()
+        endif ()
+        get_target_property(imported "${tgt}" IMPORTED)
+        get_target_property(is_global "${tgt}" IMPORTED_GLOBAL)
+        if (NOT imported OR is_global)
+            continue()
+        endif ()
+        set_target_properties("${tgt}" PROPERTIES IMPORTED_GLOBAL TRUE)
+        get_target_property(deps "${tgt}" INTERFACE_LINK_LIBRARIES)
+        if (deps)
+            list(APPEND pending ${deps})
+        endif ()
+    endwhile ()
+endfunction()
+
 # We always have to build the roadrunner core, everything depends on this
 add_subdirectory(source)
+
+if (NOT RR_IS_TOP_LEVEL AND CMAKE_VERSION VERSION_LESS 3.24)
+    get_target_property(RR_STATIC_LINK_LIBS roadrunner-static LINK_LIBRARIES)
+    rr_promote_imported_global(${RR_STATIC_LINK_LIBS} ${LLVM_LIBRARIES})
+endif ()
 
 ###########################################################
 ## API's
@@ -551,6 +623,87 @@ add_subdirectory(wrappers)
 
 if (BUILD_RR_PLUGINS)
     add_subdirectory(rrplugins)
+endif ()
+
+##########################################################
+# Package configuration for find_package(roadrunner)
+#
+# One export set holds every roadrunner library. roadrunnerConfig.cmake finds the
+# dependencies in the install tree with find_dependency and then loads
+# roadrunnerTargets.cmake, so a consumer only needs
+#     find_package(roadrunner CONFIG REQUIRED)
+# and links roadrunner::roadrunner-static, roadrunner::roadrunner,
+# roadrunner::roadrunner_c_api or roadrunner::roadrunner_c_api-static.
+# Needs CMake 3.18 or later in consumers (the deprecated aliases below).
+#
+# The package files are installed under the component roadrunner-cmake (the rrplugins
+# package files under rrplugins). One export set covers every library, so the files cannot
+# follow the per-library components; install roadrunner-cmake alongside the libraries
+# when installing by component.
+
+if (RR_IS_TOP_LEVEL)
+    include(CMakePackageConfigHelpers)
+    set(RR_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/roadrunner")
+
+    install(EXPORT roadrunnerTargets
+            NAMESPACE roadrunner::
+            FILE roadrunnerTargets.cmake
+            DESTINATION "${RR_INSTALL_CMAKEDIR}"
+            COMPONENT roadrunner-cmake)
+
+    configure_package_config_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/cmake/roadrunnerConfig.cmake.in"
+            "${CMAKE_CURRENT_BINARY_DIR}/roadrunnerConfig.cmake"
+            INSTALL_DESTINATION "${RR_INSTALL_CMAKEDIR}")
+    write_basic_package_version_file(
+            "${CMAKE_CURRENT_BINARY_DIR}/roadrunnerConfigVersion.cmake"
+            VERSION ${ROADRUNNER_VERSION}
+            COMPATIBILITY SameMajorVersion)
+    install(FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/roadrunnerConfig.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/roadrunnerConfigVersion.cmake"
+            DESTINATION "${RR_INSTALL_CMAKEDIR}"
+            COMPONENT roadrunner-cmake)
+
+    # Deprecated: the old per-target packages (find_package(roadrunner-static) and so on).
+    # They forward to the roadrunner package and keep the old imported target names.
+    foreach (RR_LEGACY_PACKAGE roadrunner roadrunner-static roadrunner_c_api roadrunner_c_api-static)
+        set(RR_LEGACY_OLD_TARGET "${RR_LEGACY_PACKAGE}::${RR_LEGACY_PACKAGE}")
+        set(RR_LEGACY_NEW_TARGET "roadrunner::${RR_LEGACY_PACKAGE}")
+        configure_file(
+                "${CMAKE_CURRENT_SOURCE_DIR}/cmake/roadrunnerLegacyConfig.cmake.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/legacy/${RR_LEGACY_PACKAGE}-config.cmake"
+                @ONLY)
+        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/legacy/${RR_LEGACY_PACKAGE}-config.cmake"
+                DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
+                COMPONENT roadrunner-cmake)
+    endforeach ()
+
+    # find_package(rrplugins): the plugin libraries (static C++ libraries and the C API).
+    # The plugin modules themselves are not part of the package. Needs the roadrunner package.
+    if (BUILD_RR_PLUGINS AND (RR_PLUGINS_BUILD_STATIC_LIB OR RR_PLUGINS_BUILD_C_API))
+        set(RRPLUGINS_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/rrplugins")
+
+        install(EXPORT rrpluginsTargets
+                NAMESPACE rrplugins::
+                FILE rrpluginsTargets.cmake
+                DESTINATION "${RRPLUGINS_INSTALL_CMAKEDIR}"
+                COMPONENT rrplugins)
+
+        configure_package_config_file(
+                "${CMAKE_CURRENT_SOURCE_DIR}/cmake/rrpluginsConfig.cmake.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/rrpluginsConfig.cmake"
+                INSTALL_DESTINATION "${RRPLUGINS_INSTALL_CMAKEDIR}")
+        write_basic_package_version_file(
+                "${CMAKE_CURRENT_BINARY_DIR}/rrpluginsConfigVersion.cmake"
+                VERSION ${ROADRUNNER_VERSION}
+                COMPATIBILITY SameMajorVersion)
+        install(FILES
+                "${CMAKE_CURRENT_BINARY_DIR}/rrpluginsConfig.cmake"
+                "${CMAKE_CURRENT_BINARY_DIR}/rrpluginsConfigVersion.cmake"
+                DESTINATION "${RRPLUGINS_INSTALL_CMAKEDIR}"
+                COMPONENT rrplugins)
+    endif ()
 endif ()
 
 
@@ -641,16 +794,17 @@ if (${INSTALL_SBML_MODELS})
 endif ()
 
 
-install(FILES README.md LICENSE.txt AUTHORS.txt FUNDING.txt
+if (RR_IS_TOP_LEVEL)
+   install(FILES README.md LICENSE.txt AUTHORS.txt FUNDING.txt
         DESTINATION .
         COMPONENT info
         )
 
-# make or copy installers into root directory
-add_subdirectory(installer)
+   # make or copy installers into root directory
+   add_subdirectory(installer)
 
-#=== ThirdParties
-if (${BORLAND})
+   #=== ThirdParties
+   if (${BORLAND})
     set(CG_RUNTIMES cc32110MT.dll)
     foreach (runtime ${CG_RUNTIMES})
         install(FILES
@@ -658,38 +812,39 @@ if (${BORLAND})
                 DESTINATION bin
                 COMPONENT rr_core)
     endforeach ()
-endif ()
+   endif ()
 
-configure_file(
+   configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt.in"
         "${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt" @ONLY
 )
 
-configure_file(
+   configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
         "${CMAKE_BINARY_DIR}/requirements.txt" @ONLY
-)
-configure_file(
+   )
+   configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/test-requirements.txt"
         "${CMAKE_BINARY_DIR}/test-requirements.txt" @ONLY
-)
-install(
+   )
+   install(
         FILES
             "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
             "${CMAKE_CURRENT_SOURCE_DIR}/test-requirements.txt"
         DESTINATION .
-)
+   )
 
-install(
+   install(
         FILES
         NOTICE.txt
         NEWS.txt
         "${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt"
         DESTINATION .
-)
+   )
 
-# add FindLLVM to install cmake module path so consuming libraries can use it
-install(FILES cmake/FindLLVM.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
+   # add FindLLVM to install cmake module path so consuming libraries can use it
+   install(FILES cmake/FindLLVM.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
+endif ()
 
 
 # print out configuration summary
