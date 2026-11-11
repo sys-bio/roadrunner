@@ -32,13 +32,9 @@ if (rrplugins_FOUND)
     add_executable(UseRRPluginsFromCxx plugins_main.cpp)
     target_link_libraries(UseRRPluginsFromCxx PRIVATE rrplugins::telplugins_core-static)
 
-    # The plugins are in the lib folder of the install, or in the bin folder on Windows.
+    # The plugins are in the lib folder of the install.
     file(TO_CMAKE_PATH "${ROADRUNNER_INSTALL_PREFIX}" plugin_install_prefix)
-    if (WIN32)
-        set(plugin_folder "${plugin_install_prefix}/bin")
-    else ()
-        set(plugin_folder "${plugin_install_prefix}/lib")
-    endif ()
+    set(plugin_folder "${plugin_install_prefix}/lib")
     target_compile_definitions(UseRRPluginsFromCxx PRIVATE "RR_PLUGIN_FOLDER=\"${plugin_folder}\"")
 else ()
     message(STATUS "The rrplugins package was not found in ${ROADRUNNER_INSTALL_PREFIX}: not building UseRRPluginsFromCxx.")

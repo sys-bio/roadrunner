@@ -6,11 +6,16 @@ project(UseInstalledRoadRunnerLegacy CXX)
 if (NOT ROADRUNNER_INSTALL_PREFIX)
     message(FATAL_ERROR "Set ROADRUNNER_INSTALL_PREFIX to the folder RoadRunner was installed to.")
 endif ()
+# The install goes to lib or lib64 depending on the platform.
 set(CMAKE_PREFIX_PATH
         "${ROADRUNNER_INSTALL_PREFIX}/cmake"
         "${ROADRUNNER_INSTALL_PREFIX}/lib/cmake"
+        "${ROADRUNNER_INSTALL_PREFIX}/lib64/cmake"
         )
-set(CMAKE_MODULE_PATH "${ROADRUNNER_INSTALL_PREFIX}/lib/cmake")
+set(CMAKE_MODULE_PATH
+        "${ROADRUNNER_INSTALL_PREFIX}/lib/cmake"
+        "${ROADRUNNER_INSTALL_PREFIX}/lib64/cmake"
+        )
 include(ImportRoadrunnerAndDependencies)
 
 add_executable(legacy_static main.cpp)

@@ -109,8 +109,8 @@ the target needs come with it, including `roadrunner`.
 The plugins themselves (`tel_add_noise`, `tel_auto2000`, `tel_chisquare`, `tel_hello`,
 `tel_levenberg_marquardt`, `tel_monte_carlo_bs`, `tel_nelder_mead` and `tel_test_model`) are not CMake
 targets, and there is no target per plugin. They are modules that the plugin manager loads while the program runs, so
-nothing links to them. They are installed in the `lib` folder of the RoadRunner install (the `bin` folder on
-Windows). A `PluginManager` created with that folder (`tpCreatePluginManager` in the C API) loads them, as the program above does.
+nothing links to them. They are installed in the `lib` folder of the RoadRunner install.
+A `PluginManager` created with that folder (`tpCreatePluginManager` in the C API) loads them, as the program above does.
 
 The older way
 -------------
