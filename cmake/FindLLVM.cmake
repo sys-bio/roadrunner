@@ -169,11 +169,14 @@ int main() {
                 if (CMAKE_CXX_STANDARD)
                     set(_rr_llvm_std ${CMAKE_CXX_STANDARD})
                 endif ()
-                # With a multi-configuration generator, test in the configuration LLVM was built in.
+                # Test in the configuration that will be built: the one LLVM was built in with a
+                # multi-configuration generator, and CMAKE_BUILD_TYPE with any other generator.
                 set(_rr_llvm_saved_try_config "${CMAKE_TRY_COMPILE_CONFIGURATION}")
                 get_property(_rr_llvm_multi GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
                 if (_rr_llvm_multi AND LLVM_BUILD_TYPE)
                     set(CMAKE_TRY_COMPILE_CONFIGURATION "${LLVM_BUILD_TYPE}")
+                elseif (NOT _rr_llvm_multi AND CMAKE_BUILD_TYPE)
+                    set(CMAKE_TRY_COMPILE_CONFIGURATION "${CMAKE_BUILD_TYPE}")
                 endif ()
                 try_compile(_rr_llvm_probe_ok "${_rr_llvm_probe_dir}/build" "${_rr_llvm_probe_dir}/probe.cpp"
                         CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${LLVM_INCLUDE_DIRS}"
