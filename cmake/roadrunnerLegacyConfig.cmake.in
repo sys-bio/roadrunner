@@ -1,0 +1,9 @@
+# DEPRECATED: forwards to the roadrunner package so existing projects keep working.
+# Use find_package(roadrunner CONFIG REQUIRED) and link @RR_LEGACY_NEW_TARGET@ instead.
+message(DEPRECATION "find_package(@RR_LEGACY_PACKAGE@) is deprecated and will be removed in a future release. Use find_package(roadrunner CONFIG REQUIRED) and link @RR_LEGACY_NEW_TARGET@.")
+
+include("${CMAKE_CURRENT_LIST_DIR}/roadrunner/roadrunnerConfig.cmake")
+
+if (NOT "@RR_LEGACY_OLD_TARGET@" STREQUAL "@RR_LEGACY_NEW_TARGET@" AND NOT TARGET @RR_LEGACY_OLD_TARGET@)
+    add_library(@RR_LEGACY_OLD_TARGET@ ALIAS @RR_LEGACY_NEW_TARGET@)
+endif ()
