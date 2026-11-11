@@ -66,9 +66,10 @@ else ()
     else ()
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
 
-        # add rpath for site-packages/rrplugins directory
+        # add rpath for site-packages/rrplugins directory, and for the roadrunner libraries in the
+        # install libdir (lib64 on some platforms) when this library is installed in lib
         set_target_properties(${target} PROPERTIES
-                INSTALL_RPATH "$ORIGIN/./"
+                INSTALL_RPATH "$ORIGIN/./;$ORIGIN/../${CMAKE_INSTALL_LIBDIR}"
                 )
     endif ()
 endif ()
