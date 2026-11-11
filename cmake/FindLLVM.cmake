@@ -183,11 +183,20 @@ int main() {
                 set(CMAKE_TRY_COMPILE_CONFIGURATION "${_rr_llvm_saved_try_config}")
                 if (NOT _rr_llvm_probe_ok)
                     file(WRITE "${_rr_llvm_probe_dir}/probe.log" "${_rr_llvm_probe_log}")
+                    # The end of the output holds the compiler or linker errors.
+                    string(LENGTH "${_rr_llvm_probe_log}" _rr_llvm_probe_log_length)
+                    set(_rr_llvm_probe_log_tail "${_rr_llvm_probe_log}")
+                    if (_rr_llvm_probe_log_length GREATER 6000)
+                        math(EXPR _rr_llvm_probe_log_start "${_rr_llvm_probe_log_length} - 6000")
+                        string(SUBSTRING "${_rr_llvm_probe_log}" ${_rr_llvm_probe_log_start} -1 _rr_llvm_probe_log_tail)
+                        set(_rr_llvm_probe_log_tail "...${_rr_llvm_probe_log_tail}")
+                    endif ()
                     message(FATAL_ERROR "The LLVM at ${LLVM_DIR} does not work with this compiler "
                             "(${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}): a test program that uses "
                             "${LLVM_LIBRARIES} failed to compile or link. The usual causes are an LLVM built "
                             "with a different compiler, C++ standard library or runtime library setting. "
-                            "The output is in ${_rr_llvm_probe_dir}/probe.log. Set RR_LLVM_SKIP_PROBE=ON to skip this test.")
+                            "The whole output is in ${_rr_llvm_probe_dir}/probe.log. Set RR_LLVM_SKIP_PROBE=ON to skip this test.\n"
+                            "The end of the output:\n${_rr_llvm_probe_log_tail}")
                 endif ()
                 set(RR_LLVM_PROBE_PASSED_FOR "${_rr_llvm_probe_key}" CACHE INTERNAL "LLVM test compile passed for this setup")
             endif ()
