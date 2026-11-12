@@ -178,12 +178,21 @@ int main() {
                 elseif (NOT _rr_llvm_multi AND CMAKE_BUILD_TYPE)
                     set(CMAKE_TRY_COMPILE_CONFIGURATION "${CMAKE_BUILD_TYPE}")
                 endif ()
+                # try_compile copies these into the probe project without escaping backslashes.
+                set(_rr_llvm_saved_module_path "${CMAKE_MODULE_PATH}")
+                set(_rr_llvm_saved_prefix_path "${CMAKE_PREFIX_PATH}")
+                if (WIN32)
+                    file(TO_CMAKE_PATH "${CMAKE_MODULE_PATH}" CMAKE_MODULE_PATH)
+                    file(TO_CMAKE_PATH "${CMAKE_PREFIX_PATH}" CMAKE_PREFIX_PATH)
+                endif ()
                 try_compile(_rr_llvm_probe_ok "${_rr_llvm_probe_dir}/build" "${_rr_llvm_probe_dir}/probe.cpp"
                         CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${LLVM_INCLUDE_DIRS}"
                         LINK_LIBRARIES ${LLVM_LIBRARIES}
                         CXX_STANDARD ${_rr_llvm_std}
                         OUTPUT_VARIABLE _rr_llvm_probe_log)
                 set(CMAKE_TRY_COMPILE_CONFIGURATION "${_rr_llvm_saved_try_config}")
+                set(CMAKE_MODULE_PATH "${_rr_llvm_saved_module_path}")
+                set(CMAKE_PREFIX_PATH "${_rr_llvm_saved_prefix_path}")
                 if (NOT _rr_llvm_probe_ok)
                     file(WRITE "${_rr_llvm_probe_dir}/probe.log" "${_rr_llvm_probe_log}")
                     # The end of the output holds the compiler or linker errors.
