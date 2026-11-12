@@ -1,0 +1,15 @@
+@PACKAGE_INIT@
+
+# rrplugins is built on roadrunner. Look for it next to this package first, so that
+# find_package(rrplugins) also works when only rrplugins_DIR is set.
+include(CMakeFindDependencyMacro)
+
+set(_rrplugins_saved_prefix_path "${CMAKE_PREFIX_PATH}")
+list(PREPEND CMAKE_PREFIX_PATH "${PACKAGE_PREFIX_DIR}")
+find_dependency(roadrunner @ROADRUNNER_VERSION@)
+set(CMAKE_PREFIX_PATH "${_rrplugins_saved_prefix_path}")
+unset(_rrplugins_saved_prefix_path)
+
+include("${CMAKE_CURRENT_LIST_DIR}/rrpluginsTargets.cmake")
+
+check_required_components(rrplugins)

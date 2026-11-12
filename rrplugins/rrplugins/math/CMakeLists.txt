@@ -60,16 +60,21 @@ endif ()
 
 if (RR_PLUGINS_BUILD_STATIC_LIB)
     add_library(${target}-static STATIC ${RRPLUGINS_MATH_SOURCES})
+    add_library(rrplugins::${target}-static ALIAS ${target}-static)
     target_compile_definitions(${target}-static PRIVATE STATIC_PLUGIN_API)
 
     target_link_libraries(${target}-static PUBLIC
             telplugins_common-static
             )
 
-    target_include_directories(${target}-static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+    target_include_directories(${target}-static PUBLIC
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/math>"
+            )
 
     # Install static library
     install(TARGETS ${target}-static
+            EXPORT rrpluginsTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             )
@@ -84,3 +89,9 @@ if (${MSVC})
     # 4996 Deprecated functions
     add_definitions("/W3 /D_CRT_SECURE_NO_WARNINGS /wd4251 /wd4018 /wd4996 /nologo")
 endif ()
+
+# Public headers
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/math"
+        COMPONENT rrplugins
+        FILES_MATCHING PATTERN "*.h")

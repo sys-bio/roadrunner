@@ -3,7 +3,7 @@
 //Debashish Roy
 // API used to connect roadrunner functionality with plugins
 
-#include "../../../wrappers/C/rrc_types.h"		//declaration of types such as rrhandle
+#include "rrc_types.h"		//declaration of types such as rrhandle
 
 #if defined(__cplusplus)
 	namespace rrc { 
