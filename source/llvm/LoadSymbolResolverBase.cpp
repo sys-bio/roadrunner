@@ -112,7 +112,7 @@ llvm::Value* LoadSymbolResolverBase::cacheValue(const std::string& symbol,
         const llvm::ArrayRef<llvm::Value*>& args,
         llvm::Value* value)
 {
-    if(!args.empty() || !modelGenContext.useSymbolCache()) {
+    if(!args.empty() || !(alwaysCache || modelGenContext.useSymbolCache())) {
         return value;
     }
 
