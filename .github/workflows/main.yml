@@ -9,6 +9,12 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      timing:
+        description: 'Build and run only the LLJit timing tests (Release builds), then fail on purpose'
+        type: boolean
+        default: false
 
 jobs:
   build_on_OSs:
@@ -66,7 +72,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.3.9" ]
+        libroadrunner_deps_release_version: [ "v2.3.10" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-build" ]
         llvm_name: [ "llvm-23.1.4" ]
@@ -368,6 +374,7 @@ jobs:
           -DRR_DEPENDENCIES_INSTALL_PREFIX=${RR_DEPENDENCIES_INSTALL_PREFIX} \
           -DLLVM_INSTALL_PREFIX=${LLVM_INSTALL_PREFIX} \
           -DBUILD_TESTS=${{ matrix.build_tests }} \
+          -DRR_BUILD_TIMING_TESTS=${{ github.event.inputs.timing == 'true' && 'ON' || 'OFF' }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
           -DBUILD_EXAMPLES=ON \
@@ -408,11 +415,24 @@ jobs:
           cp conc* msvc* vcruntime* ${RUNNER_WORKSPACE}/install-roadrunner/bindings/julia/RoadRunner/Antimony/lib/
 
       - name: Run C RoadRunner tests
-        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON'
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && github.event.inputs.timing != 'true'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
+
+      # Manual runs only (Actions > Run workflow > timing). Runs just the timing tests, then fails
+      # on purpose so the remaining steps are skipped. See test/models/BioModelsTiming/README.md.
+      - name: Run LLJit timing tests
+        if: matrix.platform.build_type == 'Release' && matrix.build_tests == 'ON' && github.event.inputs.timing == 'true'
+        shell: bash
+        env:
+          RR_TIMING_GILLESPIE_TIME: 10
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --verbose --extra-verbose --progress --timeout 14400 --tests-regex Timing
+          echo "Failing on purpose: this run only collects timing results."
+          exit 1
 
       # On macOS the Julia process has its own LLVM, so the C API library used by the Julia
       # package must not export its statically linked LLVM. Only that library is relinked.
@@ -996,3 +1016,96 @@ jobs:
 
       - name: Run the Julia package tests
         run: julia --project=roadrunner-julia/RoadRunner roadrunner-julia/RoadRunner/test/runtests.jl
+
+  # Builds the projects in test/cmake_consumers and the C++ example of the documentation against the
+  # roadrunner install that build_on_OSs uploaded.
+  test_cmake_consumer:
+    name: ${{ matrix.platform.name }} CMake consumer
+    needs: build_on_OSs
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+    runs-on: ${{ matrix.platform.os_name }}
+    container:
+      image: ${{ matrix.platform.container_image || '' }}
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - {name: macos-15-intel-release, os_type: macos, os_name: macos-15-intel, build_type: Release}
+          - {name: macos-15-intel-debug, os_type: macos, os_name: macos-15-intel, build_type: Debug}
+          - {name: macos-15-release, os_type: macos, os_name: macos-15, build_type: Release}
+          - {name: macos-15-debug, os_type: macos, os_name: macos-15, build_type: Debug}
+          - {name: ubuntu-latest-release, os_type: ubuntu, os_name: ubuntu-latest, build_type: Release}
+          - {name: ubuntu-latest-debug, os_type: ubuntu, os_name: ubuntu-latest, build_type: Debug}
+          - {name: windows-latest-release, os_type: windows, os_name: windows-latest, build_type: Release}
+          - {name: windows-latest-debug, os_type: windows, os_name: windows-latest, build_type: Debug}
+          - {name: manylinux_2_28-release, os_type: manylinux, os_name: ubuntu-latest, container_image: "quay.io/pypa/manylinux_2_28_x86_64", build_type: Release}
+        llvm_owner: [ "sys-bio" ]
+        llvm_repo: [ "llvm-build" ]
+        llvm_name: [ "llvm-23.1.4" ]
+        llvm_release_version: [ "llvm-23.1.4-r2" ]
+    steps:
+      - name: Checkout RoadRunner
+        uses: actions/checkout@main
+
+      - name: Set MSVC as the default compiler on Windows
+        if: matrix.platform.os_type == 'windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Upgrade gcc on manylinux
+        if: matrix.platform.os_type == 'manylinux'
+        run: |
+          dnf install -y gcc-toolset-11
+          echo "/opt/rh/gcc-toolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+
+      - name: Save host architecture and standardized os/compiler names
+        run: |
+          echo "host_architecture=$(uname -m)" >> $GITHUB_ENV
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-msvc$compiler_version" >> $GITHUB_ENV
+          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
+          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            os_version=$(lsb_release -rs | cut -d '.' -f 1)
+            echo "os_and_compiler=${{ matrix.platform.os_type }}-${os_version}" >> $GITHUB_ENV
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            os_name="${{ matrix.platform.name }}"
+            echo "os_and_compiler=${os_name%%-*}" >> $GITHUB_ENV
+          fi
+
+      - name: Download the roadrunner install
+        uses: actions/download-artifact@main
+        with:
+          pattern: roadrunner-*-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}
+          merge-multiple: true
+          path: install-roadrunner
+
+      - name: Download LLVM binaries
+        run: |
+          # Ubuntu only has a Release LLVM.
+          llvm_build_type=${{ matrix.platform.build_type }}
+          if [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            llvm_build_type=Release
+          fi
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ matrix.llvm_name }}-binaries
+          cd ${{ matrix.llvm_name }}-binaries
+          curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ matrix.llvm_release_version }}/${{ matrix.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${llvm_build_type}.zip"
+          unzip -q ${{ matrix.llvm_name }}*.zip
+          rm ${{ matrix.llvm_name }}*.zip
+          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.llvm_name }}-binaries" >> $GITHUB_ENV
+
+      - name: Build and run the consumer projects
+        run: |
+          ls install-roadrunner
+          bash test/cmake_consumers/run_consumers.sh \
+            "${GITHUB_WORKSPACE}/install-roadrunner" \
+            "${LLVM_INSTALL_PREFIX}" \
+            ${{ matrix.platform.build_type }} \
+            "${GITHUB_WORKSPACE}/consumer-build"

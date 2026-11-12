@@ -37,13 +37,13 @@ namespace rr {
          * @brief Constructor for creating a Matrix<T> from a
          * ls::Matrix<T>
          */
-        explicit Matrix<T>(ls::Matrix<T> &matrix);
+        explicit Matrix(ls::Matrix<T> &matrix);
 
         /**
          * @brief Constructor for creating a Matrix<T> from a
          * ls::Matrix<T>
          */
-        explicit Matrix<T>(ls::Matrix<T> *matrix);
+        explicit Matrix(ls::Matrix<T> *matrix);
 
         /**
          * @brief Element-wise equality operator to compare a Matrix<T> with

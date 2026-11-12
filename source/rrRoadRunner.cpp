@@ -1582,6 +1582,11 @@ namespace rr {
             impl->loadOpt = LoadSBMLOptions(dict);
         }
 
+        // A read-only model has no setters, which resetting mutable initial conditions needs.
+        if (impl->loadOpt.modelGeneratorOpt & LoadSBMLOptions::READ_ONLY) {
+            impl->loadOpt.modelGeneratorOpt &= ~LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+        }
+
         // TODO: add documentation for validations
         if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) != 0) {
             std::string errors = validateSBML(currentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML |

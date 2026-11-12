@@ -72,7 +72,7 @@ namespace rr
             *
             * currently only implemented with the C code generating model
             */
-            CONSERVED_MOIETIES = (0x1 << 0),  // => 0x00000001
+            CONSERVED_MOIETIES = (0x1 << 0),  // => 0b00000001
 
             /**
             * Should the model be recompiled?
@@ -85,7 +85,7 @@ namespace rr
             * need to cache the models, and this can safetly be enabled,
             * realizing some performance gains.
             */
-            RECOMPILE = (0x1 << 1),  // => 0x00000010
+            RECOMPILE = (0x1 << 1),  // => 0b00000010
 
             /**
             * If this is set, then a read-only model is generated. A read-only
@@ -96,13 +96,13 @@ namespace rr
             * functions, and if they are not needed, one may see some performance
             * gains, especially in very large models.
             */
-            READ_ONLY = (0x1 << 2),  // => 0x00000100
+            READ_ONLY = (0x1 << 2),  // => 0b00000100
 
             /**
             * Generate accessor functions to allow changing of initial
             * conditions.
             */
-            MUTABLE_INITIAL_CONDITIONS = (0x1 << 3),   // => 0x00001000
+            MUTABLE_INITIAL_CONDITIONS = (0x1 << 3),   // => 0b00001000
 
             /**
             * GVN - This pass performs global value numbering and redundant load
@@ -178,12 +178,12 @@ namespace rr
             /**
             * Do not create a default selection list when the model is loaded.
             */
-            NO_DEFAULT_SELECTIONS = (0x1 << 0),   // => 0x00000001
+            NO_DEFAULT_SELECTIONS = (0x1 << 0),   // => 0b00000001
 
             /**
             * Do not create a default steady state selection list when the model is loaded.
             */
-            NO_DEFAULT_STEADY_STATE_SELECTIONS = (0x1 << 1)   // => 0x00000010
+            NO_DEFAULT_STEADY_STATE_SELECTIONS = (0x1 << 1)   // => 0b00000010
         };
 
         /**
@@ -474,7 +474,7 @@ namespace rr
             * can slow things down. If this feature is not needed, it
             * can be disabled here.
             */
-            DISABLE_PYTHON_DYNAMIC_PROPERTIES = (0x1 << 0), // => 0x00000001
+            DISABLE_PYTHON_DYNAMIC_PROPERTIES = (0x1 << 0), // => 0b00000001
         };
 
         /**

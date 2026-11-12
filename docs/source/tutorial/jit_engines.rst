@@ -46,8 +46,12 @@ There are four optimization levels that you can choose from: `NONE`,
 `LESS`, `DEFAULT` and `AGGRESSIVE`. No optimization means faster
 model compiles but slower compiled code, since all compiler optimizations
 are turned off. On the other end, `AGGRESSIVE` optimization makes for
-faster executable sbml models but it takes longer to compile. The default
-is `DEFAULT`.
+faster executable models but it takes longer to compile. The default
+is `NONE`, as this resulted in 2x faster model load times, with no appreciable
+difference seen in most simulation times.  Higher optimization levels may be
+at least somewhat effective in some model/simulation combinations; gillespie
+simulations seemed to be the most likely to be sped up in our tests by
+higher optimization levels.
 
 Here's how to do it:
 
@@ -59,7 +63,21 @@ Here's how to do it:
     Config.setValue(Config.LLJIT_OPTIMIZATION_LEVEL, Config.DEFAULT)
     Config.setValue(Config.LLJIT_OPTIMIZATION_LEVEL, Config.AGGRESSIVE)
 
+Modifying LLJit number of threads
+-----------------------------------------
+LLJIT (but not MCJIT) can be parallelized for model loading.  However,
+roadrunner uses only one 'IR module' when compiling, and those modules
+are the elements that can be parallelized, so we have seen no speedups
+from increasing the number of threads.  In fact, setting the number of
+threads to '0' means that compilation is performed on the calling thread,
+which in our hands resulted in speedups of 5-35%.  '0 threads' is therefore
+the default.
 
+Here's how to do it:
 
+.. code-block:: python
+    :linenos:
 
+    Config.setValue(Config.LLJIT_NUM_THREADS, 0)
+    Config.setValue(Config.LLJIT_NUM_THREADS, 1)
 

@@ -17,6 +17,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <fstream> // ofstream
+#include <iterator>
 #include <stdexcept>
 
 // TODO When we have gcc 4.4 as minimal compiler, drop poco and use C++ standard
@@ -26,7 +27,6 @@
 
 // somebody will likely call this multithread and then bitch and moan if
 // there is an issue, so lock it.
-#include <thread>
 #include <mutex>
 // default values of sbml consistency check
 #include <sbml/SBMLDocument.h>
@@ -35,6 +35,7 @@
 #include "rrSelectionRecord.h"
 
 #include <string>
+#include <vector>
 
 using Poco::RegularExpression;
 using std::string;
@@ -42,13 +43,6 @@ using std::string;
 namespace rr {
 
     typedef std::unordered_map<std::string, int> StringIntMap;
-
-    int getDefaultNumThreads() {
-        int processor_count = std::thread::hardware_concurrency();
-        if (processor_count == 0) // can't detect
-            processor_count = 1;
-        return processor_count;
-    }
 
     /**
      * check range of key
@@ -84,7 +78,7 @@ namespace rr {
         return out;
     }
 
-    static Setting values[] = {
+    static const Setting defaultValues[] = {
             Setting(false),                             // LOADSBMLOPTIONS_CONSERVED_MOIETIES
             Setting(false),                             // LOADSBMLOPTIONS_RECOMPILE
             Setting(false),                             // LOADSBMLOPTIONS_READ_ONLY
@@ -143,13 +137,16 @@ namespace rr {
             Setting(10000),                             // MAX_EVENT_CASCADE
             Setting(true),                              // VALIDATION_IN_REGENERATION
             Setting(1000),                              // K_ROWS_PER_WRITE
-            Setting((std::int32_t)Config::MCJIT),       // LLVM_BACKEND
+            Setting((std::int32_t)Config::LLJIT),       // LLVM_BACKEND
             Setting((std::int32_t)Config::NONE),        // LLJIT_OPTIMIZATION_LEVEL
-            Setting(1),                                 // LLJIT_NUM_THREADS
+            Setting(0),                                 // LLJIT_NUM_THREADS
             Setting(1.e-9),                             // METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD
             Setting(0.02),                              // METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE
             Setting(1.e-2)                              // METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD
     };
+
+    // current values, initialised from defaultValues
+    static std::vector<Setting> values(std::begin(defaultValues), std::end(defaultValues));
 
     static bool initialized = false;
     static std::mutex configMutex;
@@ -158,7 +155,7 @@ namespace rr {
         std::lock_guard lock(configMutex);
 
         if (!initialized) {
-            assert(rr::Config::CONFIG_END == sizeof(values) / sizeof(Setting) &&
+            assert(rr::Config::CONFIG_END == sizeof(defaultValues) / sizeof(Setting) &&
                 "values array size different than CONFIG_END");
 
             std::string confPath = rr::Config::getConfigFilePath();
@@ -263,16 +260,16 @@ namespace rr {
         keys["MAX_EVENT_CASCADE"] = rr::Config::MAX_EVENT_CASCADE;
         keys["VALIDATION_IN_REGENERATION"] = rr::Config::VALIDATION_IN_REGENERATION;
         keys["K_ROWS_PER_WRITE"] = rr::Config::K_ROWS_PER_WRITE;
-        keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND_VALUES::LLJIT;
-        keys["LLJIT_OPTIMIZATION_LEVEL"] = rr::Config::LLJIT_OPTIMIZATION_LEVELS::AGGRESSIVE;
-        keys["LLJIT_NUM_THREADS"] = getDefaultNumThreads();
+        keys["LLVM_BACKEND"] = rr::Config::LLVM_BACKEND;
+        keys["LLJIT_OPTIMIZATION_LEVEL"] = rr::Config::LLJIT_OPTIMIZATION_LEVEL;
+        keys["LLJIT_NUM_THREADS"] = rr::Config::LLJIT_NUM_THREADS;
         keys["METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
         keys["METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE;
         keys["METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD;
 
         // add space after develop keys to clean up merging.
 
-        assert(rr::Config::CONFIG_END == sizeof(values) / sizeof(Setting) &&
+        assert(rr::Config::CONFIG_END == sizeof(defaultValues) / sizeof(Setting) &&
             "values array size different than CONFIG_END");
         assert(rr::Config::CONFIG_END == keys.size() &&
             "number of keys in std::map does not match static values");
@@ -389,6 +386,12 @@ namespace rr {
         readDefaultConfig();
         CHECK_RANGE(key);
         values[key] = std::move(value);
+    }
+
+    void Config::resetToDefaults() {
+        std::lock_guard lock(configMutex);
+        values.assign(std::begin(defaultValues), std::end(defaultValues));
+        initialized = true;
     }
 
     /*void Config::setValues(const std::vector<Keys> keys, const

@@ -124,6 +124,32 @@ std::string getSBMLMD5(const std::string& text, int modelGenOpt)
     if (modelGenOpt & rr::LoadSBMLOptions::CONSERVED_MOIETIES) {
         digestString += "_conserved";
     }
+    // These options change which functions are generated.
+    if (modelGenOpt & rr::LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS) {
+        digestString += "_mutableICs";
+    }
+    if (modelGenOpt & rr::LoadSBMLOptions::READ_ONLY) {
+        digestString += "_readOnly";
+    }
+    // Code generation also reads this global setting.
+    if (rr::Config::getBool(rr::Config::LOADSBMLOPTIONS_PERMISSIVE)) {
+        digestString += "_permissive";
+    }
+    // Compiled code differs by backend and optimization level, so both are part of the key.
+    if (modelGenOpt & rr::LoadSBMLOptions::MCJIT) {
+        digestString += "_MCJIT";
+    } else if (modelGenOpt & rr::LoadSBMLOptions::LLJIT) {
+        digestString += "_LLJIT";
+        if (modelGenOpt & rr::LoadSBMLOptions::NONE) {
+            digestString += "_NONE";
+        } else if (modelGenOpt & rr::LoadSBMLOptions::LESS) {
+            digestString += "_LESS";
+        } else if (modelGenOpt & rr::LoadSBMLOptions::AGGRESSIVE) {
+            digestString += "_AGGRESSIVE";
+        } else {
+            digestString += "_DEFAULT";
+        }
+    }
     return digestString;
 }
 

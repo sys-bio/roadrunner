@@ -78,8 +78,48 @@ namespace rrllvm {
     {
     }
 
+    LLJitObjectCache::LLJitObjectCache(bool reuseCachedObjects)
+        : reuseCachedObjects(reuseCachedObjects)
+    {
+    }
+
+    void LLJitObjectCache::notifyObjectCompiled(const llvm::Module *M, llvm::MemoryBufferRef obj) {
+        rrLogDebug << "module: " << M->getModuleIdentifier() << " is compiled";
+        SBMLModelObjectCache::ObjectPtr stored = SBMLModelObjectCache::getObjectCache().store(
+                M->getModuleIdentifier(), obj);
+        std::lock_guard<std::mutex> lock(mtx);
+        moduleObject = stored;
+    }
+
+    std::unique_ptr<llvm::MemoryBuffer> LLJitObjectCache::getObject(const llvm::Module *M) {
+        if (!reuseCachedObjects) {
+            rrLogDebug << "Compiling " << M->getModuleIdentifier()
+                       << " without looking in the object cache (RECOMPILE)";
+            return nullptr;
+        }
+
+        SBMLModelObjectCache::ObjectPtr cached = SBMLModelObjectCache::getObjectCache().find(
+                M->getModuleIdentifier());
+        if (!cached) {
+            rrLogDebug << "No object for " << M->getModuleIdentifier() << " in cache. Compiling";
+            return nullptr;
+        }
+
+        rrLogDebug << "Object for " << M->getModuleIdentifier() << " loaded from cache.";
+        std::lock_guard<std::mutex> lock(mtx);
+        moduleObject = cached;
+        // a view of the object, which moduleObject keeps alive as long as this LLJit
+        return llvm::MemoryBuffer::getMemBuffer(cached->getMemBufferRef(), false);
+    }
+
+    SBMLModelObjectCache::ObjectPtr LLJitObjectCache::getModuleObject() {
+        std::lock_guard<std::mutex> lock(mtx);
+        return moduleObject;
+    }
+
     LLJit::LLJit(std::uint32_t options)
         : Jit(options)
+        , objectCache(std::make_unique<LLJitObjectCache>(!(options & LoadSBMLOptions::RECOMPILE)))
         , llJit()
     {
 
@@ -149,10 +189,9 @@ namespace rrllvm {
          */
         int numCompileThreads = rr::Config::getValue(rr::Config::LLJIT_NUM_THREADS).getAs<int>();
 
-        // in case c++ fails to detect num cores from hardware
-        // when using default options.
-        if (numCompileThreads == 0) {
-            numCompileThreads = 1;
+        // 0 compiles on the calling thread; negative values are treated as 0.
+        if (numCompileThreads < 0) {
+            numCompileThreads = 0;
         }
 
         rrLogDebug << "Compiling model with LLJit, num threads: " << numCompileThreads;
@@ -181,11 +220,11 @@ namespace rrllvm {
                     if (numCompileThreads > 0)
                         return std::make_unique<llvm::orc::ConcurrentIRCompiler>(
                                 std::move(JTMB),
-                                &SBMLModelObjectCache::getObjectCache());
+                                objectCache.get());
 
                     return std::make_unique<llvm::orc::TMOwningSimpleCompiler>(
                             std::move(*TM),
-                            &SBMLModelObjectCache::getObjectCache());
+                            objectCache.get());
                 });
 
         // Allocate the sections of each object from one contiguous range (issue 1368).
@@ -334,12 +373,11 @@ namespace rrllvm {
     }
 
     std::unique_ptr<llvm::MemoryBuffer> LLJit::getCompiledModelFromCache(const std::string &sbmlMD5) {
-        SBMLModelObjectCache &cache = SBMLModelObjectCache::getObjectCache();
-        auto v = cache.inspect();
-        LLVMContext ctx;
-        std::unique_ptr<llvm::Module> m = std::make_unique<llvm::Module>(sbmlMD5, ctx);
-        std::unique_ptr<llvm::MemoryBuffer> objBuf = cache.getObject(m.get());
-        return std::move(objBuf);
+        SBMLModelObjectCache::ObjectPtr obj = SBMLModelObjectCache::getObjectCache().find(sbmlMD5);
+        if (!obj) {
+            return nullptr;
+        }
+        return llvm::MemoryBuffer::getMemBufferCopy(obj->getBuffer(), obj->getBufferIdentifier());
     }
 
     llvm::orc::LLJIT *LLJit::getLLJitNonOwning() {
@@ -370,9 +408,8 @@ namespace rrllvm {
     }
 
     std::string LLJit::getModuleAsString(std::string sbmlMD5) {
-        std::unique_ptr<llvm::MemoryBuffer> memBuf = getCompiledModelFromCache(sbmlMD5);
-        MemoryBufferRef memBufRef = memBuf->getMemBufferRef();
-        std::string s = memBufRef.getBuffer().str();
+        SBMLModelObjectCache::ObjectPtr obj = objectCache->getModuleObject();
+        std::string s = obj ? obj->getBuffer().str() : std::string();
         if (s.empty()) {
             std::string err = "Unable to convert module to string. Have you made a call to addModule or addObject yet?";
             rrLogErr << err;

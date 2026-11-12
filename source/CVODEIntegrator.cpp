@@ -209,39 +209,39 @@ namespace rr {
             SUNLinSolFreeEmpty(S);
             return SUN_SUCCESS;
         }
-    };
 
-    /**
-     * @brief a TimedLinearSolver that wraps @param inner, or nullptr if it cannot be
-     * created, in which case @param inner is freed.
-     * @details CVODE checks which operations a linear solver has, so the wrapper has
-     * the same ones as @param inner.
-     */
-    SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator) {
-        SUNLinearSolver S = SUNLinSolNewEmpty(inner->sunctx);
-        if (S == nullptr) {
-            SUNLinSolFree(inner);
-            return nullptr;
+        /**
+         * @brief a TimedLinearSolver that wraps @param inner, or nullptr if it cannot be
+         * created, in which case @param inner is freed.
+         * @details CVODE checks which operations a linear solver has, so the wrapper has
+         * the same ones as @param inner.
+         */
+        static SUNLinearSolver create(SUNLinearSolver inner, CVODEIntegrator *integrator) {
+            SUNLinearSolver S = SUNLinSolNewEmpty(inner->sunctx);
+            if (S == nullptr) {
+                SUNLinSolFree(inner);
+                return nullptr;
+            }
+            S->content = new TimedLinearSolver{inner, integrator};
+            const SUNLinearSolver_Ops ops = inner->ops;
+            S->ops->gettype = ops->gettype ? TimedLinearSolver::getType : nullptr;
+            S->ops->getid = ops->getid ? TimedLinearSolver::getID : nullptr;
+            S->ops->setatimes = ops->setatimes ? TimedLinearSolver::setATimes : nullptr;
+            S->ops->setpreconditioner = ops->setpreconditioner ? TimedLinearSolver::setPreconditioner : nullptr;
+            S->ops->setscalingvectors = ops->setscalingvectors ? TimedLinearSolver::setScalingVectors : nullptr;
+            S->ops->setzeroguess = ops->setzeroguess ? TimedLinearSolver::setZeroGuess : nullptr;
+            S->ops->initialize = ops->initialize ? TimedLinearSolver::initialize : nullptr;
+            S->ops->setup = ops->setup ? TimedLinearSolver::setup : nullptr;
+            S->ops->solve = ops->solve ? TimedLinearSolver::solve : nullptr;
+            S->ops->numiters = ops->numiters ? TimedLinearSolver::numIters : nullptr;
+            S->ops->resnorm = ops->resnorm ? TimedLinearSolver::resNorm : nullptr;
+            S->ops->lastflag = ops->lastflag ? TimedLinearSolver::lastFlag : nullptr;
+            S->ops->space = ops->space ? TimedLinearSolver::space : nullptr;
+            S->ops->resid = ops->resid ? TimedLinearSolver::resid : nullptr;
+            S->ops->free = TimedLinearSolver::free;
+            return S;
         }
-        S->content = new TimedLinearSolver{inner, integrator};
-        const SUNLinearSolver_Ops ops = inner->ops;
-        S->ops->gettype = ops->gettype ? TimedLinearSolver::getType : nullptr;
-        S->ops->getid = ops->getid ? TimedLinearSolver::getID : nullptr;
-        S->ops->setatimes = ops->setatimes ? TimedLinearSolver::setATimes : nullptr;
-        S->ops->setpreconditioner = ops->setpreconditioner ? TimedLinearSolver::setPreconditioner : nullptr;
-        S->ops->setscalingvectors = ops->setscalingvectors ? TimedLinearSolver::setScalingVectors : nullptr;
-        S->ops->setzeroguess = ops->setzeroguess ? TimedLinearSolver::setZeroGuess : nullptr;
-        S->ops->initialize = ops->initialize ? TimedLinearSolver::initialize : nullptr;
-        S->ops->setup = ops->setup ? TimedLinearSolver::setup : nullptr;
-        S->ops->solve = ops->solve ? TimedLinearSolver::solve : nullptr;
-        S->ops->numiters = ops->numiters ? TimedLinearSolver::numIters : nullptr;
-        S->ops->resnorm = ops->resnorm ? TimedLinearSolver::resNorm : nullptr;
-        S->ops->lastflag = ops->lastflag ? TimedLinearSolver::lastFlag : nullptr;
-        S->ops->space = ops->space ? TimedLinearSolver::space : nullptr;
-        S->ops->resid = ops->resid ? TimedLinearSolver::resid : nullptr;
-        S->ops->free = TimedLinearSolver::free;
-        return S;
-    }
+    };
 
 
     CVODEIntegrator::CVODEIntegrator(ExecutableModel *aModel)
@@ -361,8 +361,7 @@ namespace rr {
                    "(int) This will set the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents infinite or massive output for simulations where the variable step size ends up decreasing too much.");
         addSetting("collect_timing", Setting(false), "Collect Timing",
                    "Measure the time of the integration and of its parts for getStatistics. (bool)",
-                   "(bool) Enabling this setting measures the time of the integration, of the evaluations of the model rates and root functions, and of the setups and solves of the linear solver. getStatistics returns these times (time_total, time_rhs_evals, time_g_evals, time_lin_solv_setups and time_lin_solv_solves). The measurement adds a little time to every evaluation of the model, so it is off by default.");
-        collectTiming = false;
+                   "(bool) Enabling this setting measures the time of the integration, of the evaluations of the model rates and root functions, and of the setups and solves of the linear solver. getStatistics returns these times (time_total, time_rhs_evals, time_g_evals, time_lin_solv_setups and time_lin_solv_solves). The measurement adds a little time to every evaluation of the model, so it is off by default. Changing it re-creates CVODE when the stiff solver is used, because the linear solver is wrapped to time it.");
         addSetting("jacobian", Setting(std::string("difference_quotient")), "Jacobian",
                    "How CVODE gets the Jacobian of the stiff solver: \"difference_quotient\" or \"sparse_difference_quotient\" (string).",
                    "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by forward differences, one evaluation of the model per state. \"sparse_difference_quotient\" computes the same forward differences with the sparsity pattern of the Jacobian, one evaluation of the reaction rates per color of its columns. A model without a sparsity pattern (e.g. with conserved moiety analysis) falls back to \"difference_quotient\".");
@@ -595,7 +594,14 @@ namespace rr {
             }
         }
         if (key == "collect_timing") {
-            collectTiming = (bool) getValue("collect_timing");
+            const bool timing = (bool) getValue("collect_timing");
+            const bool changed = timing != collectTiming;
+            collectTiming = timing;
+            // the linear solver is wrapped for timing only while the timing is collected
+            if (changed && mCVODE_Memory && (bool) getValue("stiff")) {
+                freeSundialsMemory();
+                create();
+            }
         }
         if (key == "stiff") {
             // If the integrator is changed from stiff to standard, we must re-create CVode.
@@ -1037,10 +1043,12 @@ namespace rr {
                                          std::to_string(allocStateVectorSize)
                                          + ") is inappropriate for this model\n");
             }
-            // times the setups and solves for the statistics
-            linSolver = newTimedLinearSolver(linSolver, this);
-            if (linSolver == nullptr) {
-                throw std::runtime_error("CVODEIntegrator::createCVODE: could not create the linear solver");
+            if (collectTiming) {
+                // times the setups and solves for the statistics
+                linSolver = TimedLinearSolver::create(linSolver, this);
+                if (linSolver == nullptr) {
+                    throw std::runtime_error("CVODEIntegrator::createCVODE: could not create the linear solver");
+                }
             }
             if ((err = CVodeSetLinearSolver(mCVODE_Memory, linSolver, jac)) != CV_SUCCESS) {
                 handleCVODEError(err);

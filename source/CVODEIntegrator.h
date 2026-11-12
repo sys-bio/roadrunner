@@ -479,9 +479,6 @@ namespace rr {
 
         /** Evaluations of the model for the sparse difference quotient since resetStatistics. */
         std::int64_t numJacobianModelEvals = 0;
-
-        friend SUNLinearSolver newTimedLinearSolver(SUNLinearSolver inner, CVODEIntegrator *integrator);
-
         friend struct TimedLinearSolver;
 
     };

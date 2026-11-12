@@ -817,10 +817,10 @@ private:
     enum
     {
         // init cond for species have changed
-        DIRTY_INIT_SPECIES            = (0x1 << 0),  // => 0x00000001
+        DIRTY_INIT_SPECIES            = (0x1 << 0),  // => 0b00000001
 
         // conserved moieties have changes.
-        DIRTY_CONSERVED_MOIETIES      = (0x1 << 1),  // => 0x00000010
+        DIRTY_CONSERVED_MOIETIES      = (0x1 << 1),  // => 0b00000010
 
         // reaction rates need to be re-calculated.
         DIRTY_REACTION_RATES          = (0x1 << 2)   //

@@ -85,13 +85,28 @@ endif ()
 # ** Static lib ******
 if (RR_PLUGINS_BUILD_STATIC_LIB)
     add_library(${target}-static STATIC ${RRPLUGINS_COMMON_SOURCES})
+    add_library(rrplugins::${target}-static ALIAS ${target}-static)
     target_compile_definitions(${target}-static PUBLIC STATIC_PLUGIN_API)
 
-    target_link_libraries(${target}-static PUBLIC $<TARGET_PROPERTY:${target},LINK_LIBRARIES>)
-    target_include_directories(${target}-static PUBLIC $<TARGET_PROPERTY:${target},INCLUDE_DIRECTORIES>)
+    target_link_libraries(${target}-static PUBLIC
+            rr-libstruct::rr-libstruct-static
+            expat::expat
+            Poco::XML
+            )
+    # The roadrunner C API headers (rrc_api.h, rrc_types.h) are included by name from
+    # the rrplugins core headers, so they are on the include path of everything built on common.
+    target_include_directories(${target}-static PUBLIC
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+            "$<BUILD_INTERFACE:$<TARGET_PROPERTY:roadrunner-static,INCLUDE_DIRECTORIES>>"
+            "$<BUILD_INTERFACE:${RR_PLUGINS_ROOT}/../wrappers/C>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/rr>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/common>"
+            )
 
     # Install
     install(TARGETS ${target}-static
+            EXPORT rrpluginsTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             )
@@ -99,3 +114,9 @@ if (RR_PLUGINS_BUILD_STATIC_LIB)
     set_target_properties(${target}-static PROPERTIES PREFIX "")
 
 endif ()
+
+# Public headers
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/common"
+        COMPONENT rrplugins
+        FILES_MATCHING PATTERN "*.h")

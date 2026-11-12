@@ -55,7 +55,7 @@ namespace rr {
     class EventListener {
     public:
         enum Result {
-            HALT_SIMULATION = (0x1 << 0),  // => 0x00000001
+            HALT_SIMULATION = (0x1 << 0),  // => 0b00000001
         };
         virtual uint onTrigger(ExecutableModel *model, size_t eventIndex, const std::string &eventId) = 0;
 
@@ -1034,12 +1034,12 @@ namespace rr {
              * should not have to re-calculate the reaction rate std::vector
              * as it was calculated in the previous integration step.
              */
-            INTEGRATION = (0x1 << 0),  // => 0x00000001
+            INTEGRATION = (0x1 << 0),  // => 0b00000001
 
             /**
              * optimize not-recalculating the reaction rates during selection.
              */
-            OPTIMIZE_REACTION_RATE_SELECTION = (0x1 << 1),  // => 0x00000010
+            OPTIMIZE_REACTION_RATE_SELECTION = (0x1 << 1),  // => 0b00000010
         };
 
         /**

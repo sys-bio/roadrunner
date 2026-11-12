@@ -21,7 +21,7 @@ public:
 
     CVODEIntegratorTests() {
         Logger::setFormattingPattern("%U:%u:%l: %t");
-        Logger::setLevel(Logger::LOG_WARNING);
+        //Logger::setLevel(Logger::LOG_WARNING);
     };
 
     /**

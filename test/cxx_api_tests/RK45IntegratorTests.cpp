@@ -5,6 +5,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <set>
 #include <string>
 
 using namespace rr;
@@ -177,4 +179,41 @@ TEST_F(RK45IntegratorTests, EpsilonControlsTheError) {
     EXPECT_LT(errors[1], 1e-8);
     EXPECT_LT(errors[1], errors[0]);
     EXPECT_GT(rows[1], rows[0]);
+}
+
+TEST_F(RK45IntegratorTests, StatisticsCountTheAttemptsOfTheSteps) {
+    RoadRunner rr(DecaySBML);
+    rr.setIntegrator("rk45");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = rr.getIntegrator()->getStatistics();
+
+    std::set<std::string> keys;
+    for (const auto &item: stats) {
+        keys.insert(item.first);
+    }
+    ASSERT_EQ((std::set<std::string>{"num_steps", "num_rhs_evals", "num_err_test_fails", "num_events"}), keys);
+    std::int64_t steps = stats["num_steps"].getAs<std::int64_t>();
+    std::int64_t rejected = stats["num_err_test_fails"].getAs<std::int64_t>();
+    ASSERT_GE(steps, 100);
+    // six evaluations of the rates for every attempt of a step
+    ASSERT_EQ(6 * (steps + rejected), stats["num_rhs_evals"].getAs<std::int64_t>());
+    ASSERT_EQ(0, stats["num_events"].getAs<std::int64_t>());
+}
+
+// RK4 has no suite of its own
+TEST_F(RK45IntegratorTests, Rk4StatisticsCountTheStepsAndRateEvaluations) {
+    RoadRunner rr(DecaySBML);
+    rr.setIntegrator("rk4");
+    rr.simulate(0, 10, 101);
+    std::unordered_map<std::string, Setting> stats = rr.getIntegrator()->getStatistics();
+
+    std::set<std::string> keys;
+    for (const auto &item: stats) {
+        keys.insert(item.first);
+    }
+    ASSERT_EQ((std::set<std::string>{"num_steps", "num_rhs_evals", "num_events"}), keys);
+    ASSERT_EQ(100, stats["num_steps"].getAs<std::int64_t>());
+    ASSERT_EQ(400, stats["num_rhs_evals"].getAs<std::int64_t>());
+    ASSERT_EQ(0, stats["num_events"].getAs<std::int64_t>());
 }

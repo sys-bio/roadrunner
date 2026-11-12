@@ -50,7 +50,7 @@
 #include "Poco/SharedLibrary.h"
 
 #include "tel_api.h"
-#include "../../../wrappers/C/rrc_api.h"
+#include "rrc_api.h"
 //---------------------------------------------------------------------------
 /* A minimalistic Plugin manager. */
 
