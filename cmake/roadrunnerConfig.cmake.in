@@ -51,6 +51,11 @@ find_dependency(nleq2 CONFIG)
 find_dependency(PocoFoundation CONFIG)
 find_dependency(PocoNet CONFIG)
 find_dependency(PocoXML CONFIG)
+# A roadrunner built with RR_USE_KLU links KLU. The SuiteSparse install has to be found through
+# CMAKE_PREFIX_PATH or RR_DEPENDENCIES_INSTALL_PREFIX; SUNDIALS needs it as well.
+if (@RR_USE_KLU@)
+    find_dependency(KLU CONFIG)
+endif ()
 find_dependency(SUNDIALS CONFIG)
 
 if (NOT LLVM_INSTALL_PREFIX AND LLVM_ROOT_DIR)

@@ -61,6 +61,7 @@ build_and_run() {
         # the simulation result, and all of the plugins.
         case "$exe" in
             UseRoadRunnerFromCxx) expected_text='S1' ;;
+            use_klu) expected_text='KLU in use: yes' ;;
             UseRRPluginsFromCxx) expected_text='Loaded 8 plugins
 AddNoise
 Auto-2000
@@ -83,7 +84,7 @@ TestModel' ;;
 }
 
 build_and_run docs_example "$docs_example" UseRoadRunnerFromCxx UseRRPluginsFromCxx
-build_and_run package "$here/package" use_static use_shared use_c_static use_c_shared
+build_and_run package "$here/package" use_static use_shared use_c_static use_c_shared use_klu
 build_and_run legacy "$here/legacy" legacy_static legacy_shared legacy_c_static legacy_c_shared
 build_and_run rrplugins "$here/rrplugins" plugins_cpp plugins_c
 

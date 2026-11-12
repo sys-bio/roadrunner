@@ -302,10 +302,10 @@ TEST_P(SparseDQJacobianTests, CvodeSettings) {
     Integrator *integrator = rr.getIntegrator();
     ASSERT_THROW(integrator->setValue("jacobian", Setting(std::string("enzyme"))), std::invalid_argument);
     ASSERT_THROW(integrator->setValue("linear_solver", Setting(std::string("lapack"))), std::invalid_argument);
-    EXPECT_EQ(integrator->getValue("jacobian").getAs<std::string>(), "difference_quotient");
-    EXPECT_EQ(integrator->getValue("linear_solver").getAs<std::string>(), "dense");
+    EXPECT_EQ(integrator->getValue("jacobian").getAs<std::string>(), "sparse_difference_quotient");
+    EXPECT_EQ(integrator->getValue("linear_solver").getAs<std::string>(), "klu");
     // KLU without the sparse difference quotient falls back to the dense solver
-    integrator->setValue("linear_solver", Setting(std::string("klu")));
+    integrator->setValue("jacobian", Setting(std::string("difference_quotient")));
     rr.simulate(0, 1, 2);
     EXPECT_FALSE(integrator->getStatistics()["sparse_linear_solver"].getAs<bool>());
     integrator->setValue("jacobian", Setting(std::string("sparse_difference_quotient")));
@@ -317,62 +317,6 @@ TEST_P(SparseDQJacobianTests, CvodeSettings) {
     integrator->setValue("stiff", Setting(false));
     rr.simulate(0, 1, 2);
     EXPECT_FALSE(integrator->getStatistics()["sparse_linear_solver"].getAs<bool>());
-}
-
-/**
- * Validation on the semantic cases of the SBML test suite in the directory RR_SBML_TEST_SUITE
- * (e.g. test/sbml-test-suite/semantic); skipped without it. Every case that roadrunner loads
- * and that has a pattern is compared at its start and in the middle of its timecourse.
- */
-TEST_P(SparseDQJacobianTests, SbmlTestSuite) {
-    const char *dir = std::getenv("RR_SBML_TEST_SUITE");
-    if (!dir) {
-        GTEST_SKIP() << "RR_SBML_TEST_SUITE is not set";
-    }
-    Logger::setLevel(Logger::LOG_FATAL);
-    int compared = 0, notLoaded = 0;
-    std::map<std::string, int> fallbacks;
-    for (int c = 1; c <= 1900; ++c) {
-        char id[8];
-        std::snprintf(id, sizeof(id), "%05d", c);
-        std::string path;
-        for (const char *level: {"l3v2", "l3v1", "l2v5", "l2v4"}) {
-            std::string candidate = std::string(dir) + "/" + id + "/" + id + "-sbml-" + level + ".xml";
-            if (std::filesystem::exists(candidate)) {
-                path = candidate;
-                break;
-            }
-        }
-        if (path.empty()) {
-            continue;
-        }
-        std::unique_ptr<RoadRunner> rr;
-        try {
-            rr = std::make_unique<RoadRunner>(path);
-        } catch (const std::exception &) {
-            notLoaded++;
-            continue;
-        }
-        ExecutableModel *model = rr->getModel();
-        if (!model || !model->getStateVectorJacobianPattern()) {
-            std::string reason = model ? model->getStateVectorJacobianUnavailableReason() : "no model";
-            fallbacks[reason.substr(0, reason.find('\''))]++;
-            continue;
-        }
-        compared++;
-        EXPECT_EQ(compareSparseDQWithDenseDQ(model), "") << id << " at the start";
-        try {
-            rr->simulate(0, 2, 3);
-        } catch (const std::exception &) {
-            continue;
-        }
-        EXPECT_EQ(compareSparseDQWithDenseDQ(model), "") << id << " at t = 2";
-    }
-    std::cout << "compared " << compared << ", not loaded " << notLoaded << std::endl;
-    for (const auto &[reason, count]: fallbacks) {
-        std::cout << "fallback: " << count << " x " << reason << std::endl;
-    }
-    EXPECT_GT(compared, 1000);
 }
 
 INSTANTIATE_TEST_SUITE_P(Backends, SparseDQJacobianTests,

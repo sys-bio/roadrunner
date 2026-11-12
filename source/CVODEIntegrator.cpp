@@ -362,12 +362,12 @@ namespace rr {
         addSetting("collect_timing", Setting(false), "Collect Timing",
                    "Measure the time of the integration and of its parts for getStatistics. (bool)",
                    "(bool) Enabling this setting measures the time of the integration, of the evaluations of the model rates and root functions, and of the setups and solves of the linear solver. getStatistics returns these times (time_total, time_rhs_evals, time_g_evals, time_lin_solv_setups and time_lin_solv_solves). The measurement adds a little time to every evaluation of the model, so it is off by default. Changing it re-creates CVODE when the stiff solver is used, because the linear solver is wrapped to time it.");
-        addSetting("jacobian", Setting(std::string("difference_quotient")), "Jacobian",
+        addSetting("jacobian", Setting(std::string("sparse_difference_quotient")), "Jacobian",
                    "How CVODE gets the Jacobian of the stiff solver: \"difference_quotient\" or \"sparse_difference_quotient\" (string).",
-                   "(string) \"difference_quotient\" (default) lets CVODE approximate the Jacobian by forward differences, one evaluation of the model per state. \"sparse_difference_quotient\" computes the same forward differences with the sparsity pattern of the Jacobian, one evaluation of the reaction rates per color of its columns. A model without a sparsity pattern (e.g. with conserved moiety analysis) falls back to \"difference_quotient\".");
-        addSetting("linear_solver", Setting(std::string("dense")), "Linear Solver",
+                   "(string) \"difference_quotient\" lets CVODE approximate the Jacobian by forward differences, one evaluation of the model per state. \"sparse_difference_quotient\" (default) computes the same forward differences with the sparsity pattern of the Jacobian, one evaluation of the reaction rates per color of its columns. A model without a sparsity pattern (e.g. with conserved moiety analysis) falls back to \"difference_quotient\".");
+        addSetting("linear_solver", Setting(std::string("klu")), "Linear Solver",
                    "The linear solver of the stiff solver: \"dense\" or \"klu\" (string).",
-                   "(string) \"dense\" (default) is a dense direct solver. \"klu\" is the sparse direct solver KLU; it needs jacobian = \"sparse_difference_quotient\" and a roadrunner built with RR_USE_KLU, otherwise CVODE falls back to the dense solver.");
+                   "(string) \"dense\" is a dense direct solver. \"klu\" (default) is the sparse direct solver KLU; it needs jacobian = \"sparse_difference_quotient\" and a roadrunner built with RR_USE_KLU, otherwise CVODE falls back to the dense solver.");
         CVODEIntegrator::loadConfigSettings();
     }
 

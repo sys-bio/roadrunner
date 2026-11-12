@@ -128,8 +128,9 @@ option(RR_BUILD_TIMING_TESTS "Also build the LLJit timing tests (needs BUILD_TES
 option(BUILD_LLVM "Build the LLVM back end" ON)
 
 # Prototype: the sparse direct solver KLU for CVODE, with a sparse difference quotient Jacobian.
-# Needs SUNDIALS built with KLU and the SuiteSparse install it was built against.
-option(RR_USE_KLU "Use the sparse direct solver KLU in CVODE (needs SUNDIALS with KLU)" OFF)
+# Needs SUNDIALS built with KLU and the SuiteSparse install it was built against. libroadrunner-deps
+# builds both, so KLU is on by default; with -DRR_USE_KLU=OFF the dependencies need neither.
+option(RR_USE_KLU "Use the sparse direct solver KLU in CVODE (needs SUNDIALS with KLU)" ON)
 set(RR_SUITESPARSE_PREFIX "" CACHE PATH "Install prefix of the SuiteSparse (KLU) that SUNDIALS was built with")
 
 # note I've tried using the C backend and it no longer compiles. Could be useful to keep though
@@ -523,10 +524,18 @@ find_package(LLVM REQUIRED)
 
 if (RR_USE_KLU)
     # point every SuiteSparse package at the given install, so a system SuiteSparse is not mixed in
-    foreach (pkg SuiteSparse_config AMD COLAMD BTF KLU)
-        set(${pkg}_DIR "${RR_SUITESPARSE_PREFIX}/lib/cmake/${pkg}" CACHE PATH "" FORCE)
-    endforeach ()
-    find_package(KLU CONFIG REQUIRED)
+    if (RR_SUITESPARSE_PREFIX)
+        foreach (pkg SuiteSparse_config AMD COLAMD BTF KLU)
+            set(${pkg}_DIR "${RR_SUITESPARSE_PREFIX}/lib/cmake/${pkg}" CACHE PATH "" FORCE)
+        endforeach ()
+    endif ()
+    find_package(KLU CONFIG)
+    if (NOT KLU_FOUND)
+        message(FATAL_ERROR "RR_USE_KLU is on, but the KLU package was not found in \
+${RR_DEPENDENCIES_INSTALL_PREFIX} or RR_SUITESPARSE_PREFIX. Use a libroadrunner-deps that was built with \
+SuiteSparse (RR_BUILD_KLU=ON), give the SuiteSparse install with -DRR_SUITESPARSE_PREFIX, or configure with \
+-DRR_USE_KLU=OFF.")
+    endif ()
     add_definitions(-DRR_USE_KLU)
     message(STATUS "KLU: ${KLU_DIR}")
 endif ()
