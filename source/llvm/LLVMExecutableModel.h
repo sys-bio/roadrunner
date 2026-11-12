@@ -219,6 +219,15 @@ public:
      */
     virtual void getStateVectorRate(double time, const double *y, double* dydt=0);
 
+    const rr::CscPattern *getStateVectorJacobianPattern() const override;
+
+    std::string getStateVectorJacobianUnavailableReason() const override;
+
+    int getStateVectorJacobianNumColors() const override;
+
+    void getStateVectorJacobianDQ(double time, const double *y, const double *increments,
+                                  double *values) override;
+
 
     virtual void testConstraints();
 
@@ -671,6 +680,46 @@ private:
     LLVMModelData *modelData;
     cxx11_ns::shared_ptr<ModelResources> resources;
     const LLVMModelDataSymbols *symbols;
+
+    /**
+     * Buffers and index maps of the sparse difference quotient Jacobian, made on first use:
+     * the columns of every color, the rates at the unperturbed state, and the maps that
+     * assemble the Jacobian from dv/dy and the rate rule rows.
+     */
+    struct JacobianDQWorkspace {
+        std::vector<std::vector<int>> columnsOfColor;
+        std::vector<double> perturbed;
+        std::vector<double> reactionRates0;
+        std::vector<double> rateRuleRates0;
+        std::vector<double> rateRuleRates1;
+        std::vector<double> dvdy;
+        std::vector<double> drdy;
+        /** (index in drdy, index in the Jacobian values) */
+        std::vector<std::pair<int, int>> rateRuleTerms;
+        /** J[jac] += cf * N.values[stoich] * dvdy[dvdy] */
+        struct SpeciesTerm {
+            int dvdy;
+            int jac;
+            int stoich;
+        };
+        std::vector<SpeciesTerm> speciesTerms;
+    };
+
+    /** Owns the workspace; a copy of the model starts without one and makes its own. */
+    struct JacobianDQWorkspaceHolder {
+        std::unique_ptr<JacobianDQWorkspace> ptr;
+
+        JacobianDQWorkspaceHolder() = default;
+        JacobianDQWorkspaceHolder(const JacobianDQWorkspaceHolder &) {}
+        JacobianDQWorkspaceHolder &operator=(const JacobianDQWorkspaceHolder &) {
+            ptr.reset();
+            return *this;
+        }
+    };
+
+    JacobianDQWorkspaceHolder jacobianDQWorkspace;
+
+    void makeJacobianDQWorkspace();
 
 
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;
