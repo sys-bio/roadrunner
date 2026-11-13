@@ -8,8 +8,8 @@ cmake_minimum_required(VERSION 3.16)
 # Version information and include modules
 
 set(ROADRUNNER_VERSION_MAJOR 2)
-set(ROADRUNNER_VERSION_MINOR 11)
-set(ROADRUNNER_VERSION_PATCH 1)
+set(ROADRUNNER_VERSION_MINOR 12)
+set(ROADRUNNER_VERSION_PATCH 0)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
@@ -126,6 +126,12 @@ option(BUILD_TEST_TOOLS "Build and install test tools" OFF)
 option(BUILD_TESTS "Build the SBML C API test suite" OFF)
 option(RR_BUILD_TIMING_TESTS "Also build the LLJit timing tests (needs BUILD_TESTS)" OFF)
 option(BUILD_LLVM "Build the LLVM back end" ON)
+
+# Prototype: the sparse direct solver KLU for CVODE, with a sparse difference quotient Jacobian.
+# Needs SUNDIALS built with KLU and the SuiteSparse install it was built against. libroadrunner-deps
+# builds both, so KLU is on by default; with -DRR_USE_KLU=OFF the dependencies need neither.
+option(RR_USE_KLU "Use the sparse direct solver KLU in CVODE (needs SUNDIALS with KLU)" ON)
+set(RR_SUITESPARSE_PREFIX "" CACHE PATH "Install prefix of the SuiteSparse (KLU) that SUNDIALS was built with")
 
 # note I've tried using the C backend and it no longer compiles. Could be useful to keep though
 option(BUILD_LEGACY_C "Build the legacy C code generating backend (deprecated)" OFF)
@@ -515,6 +521,24 @@ if (UNIX AND NOT APPLE)
 endif ()
 
 find_package(LLVM REQUIRED)
+
+if (RR_USE_KLU)
+    # point every SuiteSparse package at the given install, so a system SuiteSparse is not mixed in
+    if (RR_SUITESPARSE_PREFIX)
+        foreach (pkg SuiteSparse_config AMD COLAMD BTF KLU)
+            set(${pkg}_DIR "${RR_SUITESPARSE_PREFIX}/lib/cmake/${pkg}" CACHE PATH "" FORCE)
+        endforeach ()
+    endif ()
+    find_package(KLU CONFIG)
+    if (NOT KLU_FOUND)
+        message(FATAL_ERROR "RR_USE_KLU is on, but the KLU package was not found in \
+${RR_DEPENDENCIES_INSTALL_PREFIX} or RR_SUITESPARSE_PREFIX. Use a libroadrunner-deps that was built with \
+SuiteSparse (RR_BUILD_KLU=ON), give the SuiteSparse install with -DRR_SUITESPARSE_PREFIX, or configure with \
+-DRR_USE_KLU=OFF.")
+    endif ()
+    add_definitions(-DRR_USE_KLU)
+    message(STATUS "KLU: ${KLU_DIR}")
+endif ()
 
 find_package(SUNDIALS CONFIG REQUIRED ${RR_FIND_PACKAGE_GLOBAL})
 if (SUNDIALS_VERSION AND SUNDIALS_VERSION VERSION_LESS RR_MIN_SUNDIALS_VERSION)

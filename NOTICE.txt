@@ -30,6 +30,21 @@ SUNDIALS
     Distributed uner BSD License
     http://computation.llnl.gov/casc/sundials/download/license.html
 
+SuiteSparse (only KLU and the packages it needs; the optional sparse linear solver, RR_USE_KLU)
+    https://github.com/DrTimothyAldenDavis/SuiteSparse
+    KLU: Copyright (c) 2004-2022, University of Florida. GNU Lesser General Public License
+        version 2.1 or later (LGPL-2.1+)
+    BTF: Copyright (c) 2004-2022, University of Florida. GNU Lesser General Public License
+        version 2.1 or later (LGPL-2.1+)
+    AMD: Copyright (c) 1996-2022, Timothy A. Davis, Patrick R. Amestoy, and Iain S. Duff.
+        BSD 3-clause license
+    COLAMD: Copyright (c) 1998-2022, Timothy A. Davis and Stefan Larimore.
+        BSD 3-clause license
+    SuiteSparse_config: Copyright (c) 2012-2023, Timothy A. Davis. BSD 3-clause license
+    The license texts are in the Doc/License.txt of each package of SuiteSparse. KLU and BTF are
+    linked statically; the source of the library is in the libroadrunner-deps repository
+    (third_party/SuiteSparse), so that it can be rebuilt with a modified KLU or BTF.
+
 NLEQ2
     KONRAD-ZUSE-ZENTRUM FUR INFORMATIONSTECHNIK (ZIB)
     BERLIN

@@ -24,3 +24,7 @@ target_link_libraries(use_c_static PRIVATE roadrunner::roadrunner_c_api-static)
 
 add_executable(use_c_shared main_c.cpp)
 target_link_libraries(use_c_shared PRIVATE roadrunner::roadrunner_c_api)
+
+# Simulates with the sparse linear solver KLU, so that a package that cannot find or link KLU fails.
+add_executable(use_klu main_klu.cpp)
+target_link_libraries(use_klu PRIVATE roadrunner::roadrunner-static)

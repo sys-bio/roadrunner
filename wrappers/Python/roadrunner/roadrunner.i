@@ -1075,6 +1075,9 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
+%ignore rr::ExecutableModel::getStateVectorJacobianDQ;
+%ignore rr::ExecutableModel::getStateVectorJacobianPattern;
 
 
 //Later versions of SWIG found these functions that don't need to be wrapped:
@@ -1082,6 +1085,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
