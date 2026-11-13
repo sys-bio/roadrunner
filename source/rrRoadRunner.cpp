@@ -7531,6 +7531,12 @@ namespace rr {
         delete toDelete;
 
         regenerateModel(forceRegenerate);
+        // The rest adjusts values in the regenerated model. Without one, the
+        // compiled model still has the rule and refuses them; the values come
+        // from the SBML when the model is next regenerated.
+        if (!forceRegenerate) {
+            return;
+        }
         // grab the initial initial value from sbml model
         if (assignment) {
             int index = impl->model->getFloatingSpeciesIndex(vid);
