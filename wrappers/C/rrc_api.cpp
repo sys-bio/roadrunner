@@ -2197,6 +2197,42 @@ bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid)
 	catch_bool_macro
 }
 
+bool rrcCallConv addAlgebraicRule(RRHandle handle, const char* id, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAlgebraicRule(id, formula);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addAlgebraicRuleNoRegen(RRHandle handle, const char* id, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAlgebraicRule(id, formula, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeAlgebraicRule(RRHandle handle, const char* id)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeAlgebraicRule(id);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeAlgebraicRuleNoRegen(RRHandle handle, const char* id)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeAlgebraicRule(id, false);
+		return true;
+	catch_bool_macro
+}
+
 bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger)
 {
 	start_try
