@@ -13,9 +13,7 @@
 #   include "Random.h"
 #endif
 
-#if LLVM_VERSION_MAJOR >= 13
-#   include "LLJit.h"
-#endif
+#include "LLJit.h"
 
 using namespace rr;
 using namespace rrllvm;

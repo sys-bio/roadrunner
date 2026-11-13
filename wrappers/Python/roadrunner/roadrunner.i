@@ -1106,6 +1106,7 @@ namespace std { class ostream{}; }
  */
 %newobject rr::ExecutableModelFactory::createModel;
 
+%warnfilter(476) rr::BasicDictionary::BasicDictionary;
 %include <Dictionary.h>
 %include <rrRoadRunnerOptions.h>
 %include <rrCompiler.h>

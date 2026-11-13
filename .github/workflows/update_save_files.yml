@@ -44,11 +44,11 @@ jobs:
 
     steps:
       - name: Checkout RoadRunner
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: ilammy/msvc-dev-cmd@master
 
       - name: Upgrade gcc on Linux
         if: matrix.platform.os_type == 'manylinux'
@@ -122,7 +122,7 @@ jobs:
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@v4
+        uses: actions/cache@main
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
@@ -233,7 +233,7 @@ jobs:
           echo "artifacts_path=${RUNNER_WORKSPACE}/${{ env.save_state_filename }}" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: ${{ env.artifacts_name }}
           path: ${{ env.artifacts_path }}

@@ -97,6 +97,11 @@ target_include_directories(roadrunner_python PUBLIC
 # Python from 3.10 on. The value must match py_limited_api in setup.py.
 target_compile_definitions(roadrunner_python PRIVATE Py_LIMITED_API=0x030A0000)
 
+# Poco exports _XOPEN_SOURCE=500 on Linux, which pyconfig.h redefines.
+if (UNIX AND NOT APPLE)
+    target_compile_options(roadrunner_python PRIVATE -U_XOPEN_SOURCE)
+endif ()
+
 if (WIN32)
     target_compile_definitions(roadrunner_python PRIVATE EXPORT_RRC STATIC_RR)
 

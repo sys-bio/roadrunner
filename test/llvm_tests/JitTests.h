@@ -46,7 +46,7 @@ public:
 
         // create the if arg < 2 goto exit
         llvm::Value *CondInst = new llvm::ICmpInst(BB->end(), llvm::ICmpInst::ICMP_SLE, ArgX, Two, "cond");
-        llvm::BranchInst::Create(RetBB, RecurseB, CondInst, BB);
+        llvm::CondBrInst::Create(CondInst, RetBB, RecurseB, BB);
         llvm::ReturnInst::Create(ctx, One, RetBB);
 
         llvm::Value *sub = llvm::BinaryOperator::CreateSub(ArgX, One, "arg", RecurseB);

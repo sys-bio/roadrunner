@@ -8,15 +8,15 @@
 #ifndef PYLOGGERSTREAM_H_
 #define PYLOGGERSTREAM_H_
 
+// Python.h must precede every standard header: it defines feature-test macros.
+#include <Python.h>
+
 #include <cstdio>
 #include <streambuf>
 
 #include <iostream>
 #include <stdexcept>
 #include "rrLogger.h"
-
-
-#include <Python.h>
 
 
 namespace rr {
