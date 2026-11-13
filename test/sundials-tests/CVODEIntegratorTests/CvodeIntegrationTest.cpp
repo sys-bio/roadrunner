@@ -121,8 +121,12 @@ namespace {
 
 TEST_F(CVODEIntegratorTests, StatisticsHaveTheCountersOfCVODE) {
     RoadRunner r(OneEvent10Triggers().str());
+    // only CVODE's own difference quotient counts the evaluations in num_lin_rhs_evals
+    Setting jacobian = r.getIntegrator()->getValue("jacobian");
+    r.getIntegrator()->setValue("jacobian", Setting(std::string("difference_quotient")));
     r.simulate(0, 10, 101);
     std::unordered_map<std::string, Setting> stats = r.getIntegrator()->getStatistics();
+    r.getIntegrator()->setValue("jacobian", jacobian);
 
     for (const std::string &key: cvodeCounters) {
         ASSERT_EQ(1u, stats.count(key)) << key;

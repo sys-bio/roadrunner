@@ -114,6 +114,7 @@ set(
         rrGetOptions.h
         rrLogger.h
         rrExecutableModel.h
+        rrSparsityPattern.h
         rrRoadRunner.h
         rrRoadRunnerOptions.h
         rrStringUtils.h
@@ -230,6 +231,7 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.cpp
             llvm/EvalInitialConditionsCodeGen.cpp
             llvm/EvalRateRuleRatesCodeGen.cpp
+            llvm/JacobianSparsity.cpp
             llvm/EvalReactionRatesCodeGen.cpp
             llvm/EvalVolatileStoichCodeGen.cpp
             llvm/EventAssignCodeGen.cpp
@@ -276,6 +278,7 @@ if (BUILD_LLVM)
             llvm/EvalConversionFactorCodeGen.h
             llvm/EvalInitialConditionsCodeGen.h
             llvm/EvalRateRuleRatesCodeGen.h
+            llvm/JacobianSparsity.h
             llvm/EvalReactionRatesCodeGen.h
             llvm/EvalVolatileStoichCodeGen.h
             llvm/EventAssignCodeGen.h
@@ -326,8 +329,8 @@ if (BUILD_LLVM)
 
     message(STATUS "LLVM_FLAGS ${LLVM_FLAGS}")
 
-    if (NOT LLVM_FLAGS)
-        message(FATAL_ERROR "No LLVM_FLAGS variable found")
+    if (NOT LLVM_FOUND)
+        message(FATAL_ERROR "LLVM was not found")
     endif ()
     # Don't use add_definitions for LLVM flags per http://stackoverflow.com/questions/13638408/cmake-override-compile-flags-for-single-files
     # Line below kept commented out on purpose - we don't want this.
@@ -462,6 +465,26 @@ message(STATUS " LLVM_LIBRARIES ${LLVM_LIBRARIES}}")
     list(APPEND CMAKE_MODULE_PATH "${LLVM_CMAKE_DIR}")
 
 
+set(RR_KLU_LINK_LIBRARIES)
+if (RR_USE_KLU)
+    set(RR_KLU_LINK_LIBRARIES SUNDIALS::sunlinsolklu_static SuiteSparse::KLU_static)
+endif ()
+# LLVM_LIBRARIES holds LLVM's imported targets, or absolute paths on the build machine when
+# llvm-config was used. They are linked in the build tree only; the exported
+# roadrunner::roadrunner_llvm_libs target is empty, and roadrunnerConfig.cmake fills it from
+# the consumer's own LLVM.
+add_library(roadrunner_llvm_libs INTERFACE)
+foreach (RR_LLVM_LIB IN LISTS LLVM_LIBRARIES)
+    if (RR_LLVM_LIB)
+        target_link_libraries(roadrunner_llvm_libs INTERFACE "$<BUILD_INTERFACE:${RR_LLVM_LIB}>")
+    endif ()
+endforeach ()
+# Below CMake 3.24 the top-level CMakeLists.txt makes the LLVM imported targets global
+# (from 3.24 the find_package(GLOBAL) in FindLLVM.cmake does).
+# LLVM's compression support needs zlib, which has to follow the LLVM archives on the link line.
+target_link_libraries(roadrunner_llvm_libs INTERFACE "$<BUILD_INTERFACE:$<TARGET_FILE:ZLIB::ZLIBSTATIC>>")
+install(TARGETS roadrunner_llvm_libs EXPORT roadrunnerTargets)
+
 # link the libraries -- remember that order here
 #   is important on linux builds so don't change
 target_link_libraries(
@@ -469,7 +492,7 @@ target_link_libraries(
         PUBLIC
         ${PLATFORM_SPECIFIC_LIBS}
 
-        ${LLVM_LIBRARIES}
+        roadrunner_llvm_libs
         rr-libstruct::rr-libstruct-static
         ${SBML_TARGET_NAME}
         #These libraries libraries seem to be already linked in a different way.
@@ -480,6 +503,7 @@ target_link_libraries(
         nleq1::nleq1-static
         clapack::lapack clapack::blas clapack::f2c
 
+        ${RR_KLU_LINK_LIBRARIES}
         SUNDIALS::core_static
         SUNDIALS::nvecserial_static
         SUNDIALS::nvecmanyvector_static
@@ -513,27 +537,26 @@ target_link_libraries(
 add_library(${target} SHARED ${rrSources} ${rrHeaders})
 target_compile_definitions(${target} PRIVATE EXPORT_RR)
 target_link_libraries(${target} PUBLIC $<TARGET_PROPERTY:${target}-static,LINK_LIBRARIES>)
-target_include_directories(${target} PUBLIC $<TARGET_PROPERTY:${target}-static,INCLUDE_DIRECTORIES>)
+target_include_directories(${target} PUBLIC ${INCLUDE_DIRS})
+
+# Same names the installed package (roadrunnerConfig.cmake) provides, so in-tree and
+# installed use look alike.
+add_library(roadrunner::roadrunner ALIAS ${target})
+add_library(roadrunner::roadrunner-static ALIAS ${target}-static)
+# Deprecated name from the old per-target package.
+add_library(roadrunner-static::roadrunner-static ALIAS ${target}-static)
 
 
 install(
         TARGETS ${target}
-        EXPORT ${target}
+        EXPORT roadrunnerTargets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${target}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr COMPONENT ${target}
 )
 
-# install export info so roadrunner can be used with find_package in CONFIG mode
-install(
-        EXPORT ${target}
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
-        NAMESPACE ${target}::
-        FILE ${target}-config.cmake
-        COMPONENT ${target}
-        EXPORT_LINK_INTERFACE_LIBRARIES
-)
+# The export set roadrunnerTargets is installed from the top-level CMakeLists.txt.
 
 #################################################################3
 #   install code for COMPONENT RR
@@ -541,22 +564,14 @@ install(
 
 install(
         TARGETS ${target}-static
-        EXPORT ${target}-static
+        EXPORT roadrunnerTargets
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${target}-static
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}-static
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}-static
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr COMPONENT ${target}-static
 )
 
-# install export info so roadrunner can be used with find_package in CONFIG mode
-install(
-        EXPORT ${target}-static
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
-        NAMESPACE ${target}-static::
-        FILE ${target}-static-config.cmake
-        COMPONENT ${target}-static
-        EXPORT_LINK_INTERFACE_LIBRARIES
-)
+# The export set roadrunnerTargets is installed from the top-level CMakeLists.txt.
 
 
 #Libxml we can't build right now

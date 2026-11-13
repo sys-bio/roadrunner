@@ -27,6 +27,7 @@ set_property(SOURCE roadrunner.i PROPERTY
         # -globals <name>                   # Set <name> used to access C global variable (default: 'cvar')
         # -interface <mod>                  # Set low-level C/C++ module name to <mod> (default: module name prefixed by '_')
         "-keyword"                      # Use keyword arguments
+        "-w511"                         # Overloaded functions cannot take keyword arguments
         # -"nofastunpack"                   # Use traditional UnpackTuple method to parse the argument functions
         # -"noh"                            # Don't generate the output header file
         # -"noproxy"                        # Don't generate proxy classes
@@ -95,6 +96,11 @@ target_include_directories(roadrunner_python PUBLIC
 # The module only uses the Python stable ABI, so one binary works with every
 # Python from 3.10 on. The value must match py_limited_api in setup.py.
 target_compile_definitions(roadrunner_python PRIVATE Py_LIMITED_API=0x030A0000)
+
+# Poco exports _XOPEN_SOURCE=500 on Linux, which pyconfig.h redefines.
+if (UNIX AND NOT APPLE)
+    target_compile_options(roadrunner_python PRIVATE -U_XOPEN_SOURCE)
+endif ()
 
 if (WIN32)
     target_compile_definitions(roadrunner_python PRIVATE EXPORT_RRC STATIC_RR)

@@ -5,14 +5,30 @@
 #  LLVM_INCLUDE_DIRS  - where to find llvm include files
 #  LLVM_LIBRARY_DIRS  - where to find llvm libs
 #  LLVM_LDFLAGS       - llvm linker flags
-#  LLVM_LIBRARIES          - list of llvm libs for working with modules.
-#                      This is a list of absolute path file names, which is
-#                      evidently the cmake convention.
+#  LLVM_LIBRARIES     - list of llvm libs for working with modules. These are LLVM's
+#                      imported targets (LLVMCore, ...) when LLVM's CMake package is used, and
+#                      absolute path file names when the llvm-config fallback is used.
 #  LLVM_FLAGS     - flags to add to the CXX compiler for llvm support
 #  LLVM_VERSION_MAJOR
 #  LLVM_VERSION_MINOR
 #  LLVM_VERSION_PATCH
+#
+# LLVM is located with its own CMake package (<prefix>/lib/cmake/llvm/LLVMConfig.cmake):
+# from LLVM_INSTALL_PREFIX or LLVM_ROOT_DIR, then LLVM_DIR, CMAKE_PREFIX_PATH and the
+# system paths. Only if no such package is found is llvm-config used.
+#
+# The LLVM that is found must have been built the way roadrunner needs it: version 23.1 or
+# newer, with RTTI and exceptions enabled, and with the native target. A small test program
+# is also compiled and linked against it, which catches compiler, standard library and
+# runtime mismatches.
+#
+# Variables that can be set before the search:
+#  LLVM_INSTALL_PREFIX / LLVM_ROOT_DIR - prefix of the LLVM installation
+#  RR_LLVM_USE_LLVM_CONFIG             - ON: skip the CMake package, use llvm-config
+#  RR_LLVM_SKIP_PROBE                  - ON: skip the test compile
 #################################################################################
+
+set(RR_LLVM_MIN_VERSION 23.1)
 
 # this function borrowed from PlPlot, Copyright (C) 2006  Alan W. Irwin
 function(TRANSFORM_VERSION numerical_result version)
@@ -52,7 +68,158 @@ function(TRANSFORM_VERSION numerical_result version)
     set(${numerical_result} ${internal_numerical_result} PARENT_SCOPE)
 endfunction(TRANSFORM_VERSION)
 
-# first try to find llvm-config
+# Preferred: LLVM's own CMake package.
+if (NOT RR_LLVM_USE_LLVM_CONFIG)
+    set(_rr_llvm_hints)
+    foreach (_rr_llvm_root IN ITEMS "${LLVM_INSTALL_PREFIX}" "${LLVM_ROOT_DIR}")
+        if (_rr_llvm_root AND EXISTS "${_rr_llvm_root}/lib/cmake/llvm/LLVMConfig.cmake")
+            list(APPEND _rr_llvm_hints "${_rr_llvm_root}/lib/cmake/llvm")
+        endif ()
+    endforeach ()
+
+    set(_rr_llvm_find_args)
+    if (_rr_llvm_hints)
+        list(GET _rr_llvm_hints 0 _rr_llvm_first_hint)
+        # A cached LLVM_DIR from an earlier configure would win over the prefix that is set now.
+        if (LLVM_DIR AND NOT "${LLVM_DIR}" STREQUAL "${_rr_llvm_first_hint}")
+            unset(LLVM_DIR CACHE)
+        endif ()
+        list(APPEND _rr_llvm_find_args HINTS ${_rr_llvm_hints})
+    endif ()
+
+    # An LLVM built with the DIA SDK looks for it through VSINSTALLDIR, which only a Visual Studio
+    # command prompt sets. Without it, take the DIA SDK folder from the Visual Studio in use.
+    if (WIN32 AND MSVC AND NOT LLVM_WINSYSROOT AND NOT DEFINED MSVC_DIA_SDK_DIR AND NOT DEFINED ENV{VSINSTALLDIR})
+        set(_rr_vs_dir "${CMAKE_GENERATOR_INSTANCE}")
+        if (NOT _rr_vs_dir)
+            string(REGEX MATCH "^(.*)/VC/Tools/MSVC/" _rr_vs_match "${CMAKE_CXX_COMPILER}")
+            set(_rr_vs_dir "${CMAKE_MATCH_1}")
+        endif ()
+        if (_rr_vs_dir AND IS_DIRECTORY "${_rr_vs_dir}/DIA SDK")
+            set(MSVC_DIA_SDK_DIR "${_rr_vs_dir}/DIA SDK" CACHE PATH "Path to the DIA SDK")
+        endif ()
+    endif ()
+
+    find_package(LLVM ${RR_LLVM_MIN_VERSION} CONFIG QUIET ${RR_FIND_PACKAGE_GLOBAL} ${_rr_llvm_find_args})
+
+    if (LLVM_FOUND)
+        message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}: ${LLVM_DIR}")
+
+        if (LLVM_ENABLE_DIA_SDK AND NOT TARGET DIASDK::Diaguids)
+            message(FATAL_ERROR "The LLVM at ${LLVM_DIR} was built with the Microsoft DIA SDK, and the DIA SDK was not found. "
+                    "Set MSVC_DIA_SDK_DIR to the \"DIA SDK\" folder of your Visual Studio installation (it is part of the "
+                    "\"Desktop development with C++\" workload), or configure from a Visual Studio command prompt.")
+        endif ()
+
+        # Options that the LLVM build must have.
+        set(_rr_llvm_problems)
+        if (NOT LLVM_ENABLE_RTTI)
+            list(APPEND _rr_llvm_problems "it was built without RTTI (LLVM_ENABLE_RTTI=OFF), but roadrunner is compiled with RTTI")
+        endif ()
+        if (NOT LLVM_ENABLE_EH)
+            list(APPEND _rr_llvm_problems "it was built without exception handling (LLVM_ENABLE_EH=OFF), but roadrunner is compiled with exceptions")
+        endif ()
+        if (LLVM_NATIVE_ARCH)
+            list(FIND LLVM_TARGETS_TO_BUILD "${LLVM_NATIVE_ARCH}" _rr_llvm_native_index)
+            if (_rr_llvm_native_index EQUAL -1)
+                list(APPEND _rr_llvm_problems "it was not built with its native target ${LLVM_NATIVE_ARCH} (LLVM_TARGETS_TO_BUILD=${LLVM_TARGETS_TO_BUILD})")
+            endif ()
+        endif ()
+        if (_rr_llvm_problems)
+            string(REPLACE ";" "\n  - " _rr_llvm_problem_text "${_rr_llvm_problems}")
+            message(FATAL_ERROR "The LLVM at ${LLVM_DIR} cannot be used by roadrunner:\n  - ${_rr_llvm_problem_text}\n"
+                    "Use an LLVM built with the options roadrunner needs (the one from libroadrunner-deps), "
+                    "or point LLVM_INSTALL_PREFIX at it.")
+        endif ()
+
+        if (LLVM_VERSION_MAJOR GREATER 23)
+            message(WARNING "Roadrunner is built and tested against LLVM 23.1; found LLVM ${LLVM_PACKAGE_VERSION}.")
+        endif ()
+
+        # Same variables as the llvm-config path below.
+        set(LLVM_VERSION "${LLVM_PACKAGE_VERSION}")
+        set(LLVM_FLAGS "${LLVM_DEFINITIONS}")
+        llvm_map_components_to_libnames(LLVM_LIBRARIES core mcjit orcjit support native)
+
+        # Compile and link a small program against these libraries with the compiler and
+        # flags of this project. The result is remembered until one of them changes.
+        if (NOT RR_LLVM_SKIP_PROBE)
+            set(_rr_llvm_probe_key "${LLVM_DIR}|${CMAKE_CXX_COMPILER}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_CXX_FLAGS}|${CMAKE_BUILD_TYPE}")
+            if (NOT "${RR_LLVM_PROBE_PASSED_FOR}" STREQUAL "${_rr_llvm_probe_key}")
+                set(_rr_llvm_probe_dir "${CMAKE_BINARY_DIR}/CMakeFiles/rr_llvm_probe")
+                file(WRITE "${_rr_llvm_probe_dir}/probe.cpp" [[
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Module.h>
+#include <llvm/ExecutionEngine/ExecutionEngine.h>
+#include <llvm/ExecutionEngine/MCJIT.h>
+#include <llvm/Support/TargetSelect.h>
+#include <memory>
+#include <typeinfo>
+struct Probe : llvm::LLVMContext {};
+int main() {
+    llvm::InitializeNativeTarget();
+    llvm::InitializeNativeTargetAsmPrinter();
+    Probe context;
+    auto module = std::make_unique<llvm::Module>("probe", context);
+    try { throw 1; } catch (int) {}
+    return typeid(context) == typeid(Probe) ? 0 : 1;
+}
+]])
+                set(_rr_llvm_std 17)
+                if (CMAKE_CXX_STANDARD)
+                    set(_rr_llvm_std ${CMAKE_CXX_STANDARD})
+                endif ()
+                # Test in the configuration that will be built: the one LLVM was built in with a
+                # multi-configuration generator, and CMAKE_BUILD_TYPE with any other generator.
+                set(_rr_llvm_saved_try_config "${CMAKE_TRY_COMPILE_CONFIGURATION}")
+                get_property(_rr_llvm_multi GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+                if (_rr_llvm_multi AND LLVM_BUILD_TYPE)
+                    set(CMAKE_TRY_COMPILE_CONFIGURATION "${LLVM_BUILD_TYPE}")
+                elseif (NOT _rr_llvm_multi AND CMAKE_BUILD_TYPE)
+                    set(CMAKE_TRY_COMPILE_CONFIGURATION "${CMAKE_BUILD_TYPE}")
+                endif ()
+                # try_compile copies these into the probe project without escaping backslashes.
+                set(_rr_llvm_saved_module_path "${CMAKE_MODULE_PATH}")
+                set(_rr_llvm_saved_prefix_path "${CMAKE_PREFIX_PATH}")
+                if (WIN32)
+                    file(TO_CMAKE_PATH "${CMAKE_MODULE_PATH}" CMAKE_MODULE_PATH)
+                    file(TO_CMAKE_PATH "${CMAKE_PREFIX_PATH}" CMAKE_PREFIX_PATH)
+                endif ()
+                try_compile(_rr_llvm_probe_ok "${_rr_llvm_probe_dir}/build" "${_rr_llvm_probe_dir}/probe.cpp"
+                        CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${LLVM_INCLUDE_DIRS}"
+                        LINK_LIBRARIES ${LLVM_LIBRARIES}
+                        CXX_STANDARD ${_rr_llvm_std}
+                        OUTPUT_VARIABLE _rr_llvm_probe_log)
+                set(CMAKE_TRY_COMPILE_CONFIGURATION "${_rr_llvm_saved_try_config}")
+                set(CMAKE_MODULE_PATH "${_rr_llvm_saved_module_path}")
+                set(CMAKE_PREFIX_PATH "${_rr_llvm_saved_prefix_path}")
+                if (NOT _rr_llvm_probe_ok)
+                    file(WRITE "${_rr_llvm_probe_dir}/probe.log" "${_rr_llvm_probe_log}")
+                    # The end of the output holds the compiler or linker errors.
+                    string(LENGTH "${_rr_llvm_probe_log}" _rr_llvm_probe_log_length)
+                    set(_rr_llvm_probe_log_tail "${_rr_llvm_probe_log}")
+                    if (_rr_llvm_probe_log_length GREATER 6000)
+                        math(EXPR _rr_llvm_probe_log_start "${_rr_llvm_probe_log_length} - 6000")
+                        string(SUBSTRING "${_rr_llvm_probe_log}" ${_rr_llvm_probe_log_start} -1 _rr_llvm_probe_log_tail)
+                        set(_rr_llvm_probe_log_tail "...${_rr_llvm_probe_log_tail}")
+                    endif ()
+                    message(FATAL_ERROR "The LLVM at ${LLVM_DIR} does not work with this compiler "
+                            "(${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}): a test program that uses "
+                            "${LLVM_LIBRARIES} failed to compile or link. The usual causes are an LLVM built "
+                            "with a different compiler, C++ standard library or runtime library setting. "
+                            "The whole output is in ${_rr_llvm_probe_dir}/probe.log. Set RR_LLVM_SKIP_PROBE=ON to skip this test.\n"
+                            "The end of the output:\n${_rr_llvm_probe_log_tail}")
+                endif ()
+                set(RR_LLVM_PROBE_PASSED_FOR "${_rr_llvm_probe_key}" CACHE INTERNAL "LLVM test compile passed for this setup")
+            endif ()
+        endif ()
+
+        return()
+    endif ()
+    message(STATUS "LLVM CMake package ${RR_LLVM_MIN_VERSION} or newer not found, looking for llvm-config")
+endif ()
+
+# Fallback: llvm-config
 find_program(LLVM_CONFIG_EXECUTABLE
         NAMES llvm-config-${LLVM_MIN_VERSION_TEXT} llvm-config
         PATHS /opt/local/bin /usr/local/bin
@@ -259,5 +426,6 @@ else (LLVM_CONFIG_EXECUTABLE)
 endif (LLVM_CONFIG_EXECUTABLE)
 
 if (NOT LLVM_FOUND AND LLVM_FIND_REQUIRED)
-    message(FATAL_ERROR "Could NOT find LLVM")
+    message(FATAL_ERROR "Could NOT find LLVM ${RR_LLVM_MIN_VERSION} or newer. Set LLVM_INSTALL_PREFIX to the "
+            "LLVM install prefix (it contains lib/cmake/llvm), or LLVM_DIR to its lib/cmake/llvm directory.")
 endif (NOT LLVM_FOUND AND LLVM_FIND_REQUIRED)

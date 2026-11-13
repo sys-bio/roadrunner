@@ -273,8 +273,6 @@
     }
 }
 
-%typedef ls::Complex std::complex<double>;
-
 /* Convert from C --> Python */
 %typemap(out) std::vector<std::complex<double>> {
     $result = rr::complexes_to_py($1.data(), $1.size());
@@ -1075,6 +1073,9 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
+%ignore rr::ExecutableModel::getStateVectorJacobianDQ;
+%ignore rr::ExecutableModel::getStateVectorJacobianPattern;
 
 
 //Later versions of SWIG found these functions that don't need to be wrapped:
@@ -1082,6 +1083,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::FFSRootFcn;
 %ignore rr::cvodeDyDtFcn;
 %ignore rr::cvodeEventAndPiecewiseRootFcn;
+%ignore rr::cvodeJacFcn;
 
 // Warning 389: operator[] ignored (consider using %extend)
 // Warning 401: Nothing known about base class 'Configurable'. Ignored.
@@ -1104,6 +1106,7 @@ namespace std { class ostream{}; }
  */
 %newobject rr::ExecutableModelFactory::createModel;
 
+%warnfilter(476) rr::BasicDictionary::BasicDictionary;
 %include <Dictionary.h>
 %include <rrRoadRunnerOptions.h>
 %include <rrCompiler.h>
@@ -1130,6 +1133,8 @@ namespace std { class ostream{}; }
  */
 %include <Solver.h>
 %feature("director") Solver;
+%ignore rr::Integrator::WorkCounters;
+%ignore rr::Integrator::workCounters;
 %include <Integrator.h>
 %include <SteadyStateSolver.h>
 %include <SensitivitySolver.h>
@@ -3196,6 +3201,7 @@ solvers = integrators + steadyStateSolvers
 
 
 // Integrators
+%ignore rr::CVODEIntegrator::ToString;
 %include "CVODEIntegrator.h"
 %include "GillespieIntegrator.h"
 %include "RK4Integrator.h"

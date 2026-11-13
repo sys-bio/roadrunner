@@ -83,6 +83,20 @@ namespace rrllvm {
         delete random;
     }
 
+    void ModelResources::savePattern(std::ostream &out, const rr::CscPattern &p) {
+        rr::saveBinary(out, p.nRows);
+        rr::saveBinary(out, p.nCols);
+        rr::saveBinary(out, p.colPtr);
+        rr::saveBinary(out, p.rowIdx);
+    }
+
+    void ModelResources::loadPattern(std::istream &in, rr::CscPattern &p) {
+        rr::loadBinary(in, p.nRows);
+        rr::loadBinary(in, p.nCols);
+        rr::loadBinary(in, p.colPtr);
+        rr::loadBinary(in, p.rowIdx);
+    }
+
     void ModelResources::saveState(std::ostream &out) const {
         symbols->saveState(out);
         rr::saveBinary(out, sbmlMD5);
@@ -137,6 +151,13 @@ namespace rrllvm {
             rr::saveBinary(out, jit->getModuleBinaryStreamAsString());
         }
 
+        // the structure of the Jacobian is computed from the SBML, which a loaded model does not have
+        rr::saveBinary(out, jacobianStructure.unavailableReason);
+        savePattern(out, jacobianStructure.reactionRates);
+        savePattern(out, jacobianStructure.rateRules);
+        savePattern(out, jacobianStructure.jacobian);
+        rr::saveBinary(out, jacobianStructure.colors);
+        rr::saveBinary(out, jacobianStructure.numColors);
     }
 
     void ModelResources::loadState(std::istream &in, uint modelGeneratorOpt) {
@@ -174,6 +195,13 @@ namespace rrllvm {
             rr::loadBinary(in, stream_str);
             jit->resetModuleBinaryStream(stream_str);
         }
+
+        rr::loadBinary(in, jacobianStructure.unavailableReason);
+        loadPattern(in, jacobianStructure.reactionRates);
+        loadPattern(in, jacobianStructure.rateRules);
+        loadPattern(in, jacobianStructure.jacobian);
+        rr::loadBinary(in, jacobianStructure.colors);
+        rr::loadBinary(in, jacobianStructure.numColors);
 
         //Set up a buffer to read the object code from
         std::unique_ptr<llvm::MemoryBuffer> memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));

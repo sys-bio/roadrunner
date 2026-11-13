@@ -66,7 +66,7 @@ public:
      * @brief Returns a human-readable description of the code generation backend,
      * e.g. LLVM, legacy C, etc.
      */
-    virtual std::string getExecutableModelDesc() const {
+    virtual std::string getExecutableModelDesc() const override {
         return "LLVM Executable Model";
     }
 
@@ -91,9 +91,9 @@ public:
     /**
      * get the name of the model
      */
-    virtual std::string getModelName();
-    virtual void setTime(double _time);
-    virtual double getTime();
+    virtual std::string getModelName() override;
+    virtual void setTime(double _time) override;
+    virtual double getTime() override;
 
     /**
      * evaluate the initial conditions specified in the sbml, this entails
@@ -106,26 +106,26 @@ public:
     /**
      * call reset(options) with defaut options.
      */
-    virtual void reset();
+    virtual void reset() override;
 
     /**
      * reset the model accordign to a bitfield specified by the
      * SelectionRecord::SelectionType values.
      */
-    virtual void reset(int options);
+    virtual void reset(int options) override;
 
 
 
-    virtual int getNumIndFloatingSpecies();
-    virtual int getNumDepFloatingSpecies();
+    virtual int getNumIndFloatingSpecies() override;
+    virtual int getNumDepFloatingSpecies() override;
 
-    virtual int getNumFloatingSpecies();
-    virtual int getNumBoundarySpecies();
-    virtual int getNumGlobalParameters();
+    virtual int getNumFloatingSpecies() override;
+    virtual int getNumBoundarySpecies() override;
+    virtual int getNumGlobalParameters() override;
 
-    virtual int getNumCompartments();
-    virtual int getCompartmentIndexForFloatingSpecies(size_t index);
-    virtual int getCompartmentIndexForBoundarySpecies(size_t index);
+    virtual int getNumCompartments() override;
+    virtual int getCompartmentIndexForFloatingSpecies(size_t index) override;
+    virtual int getCompartmentIndexForBoundarySpecies(size_t index) override;
 
     /**
      * get the global parameter values
@@ -136,18 +136,18 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getGlobalParameterValues(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     virtual int setGlobalParameterValues(size_t len, int const *indx,
-            const double *values);
+            const double *values) override;
 
     virtual int setGlobalParameterValues(size_t len, int const* indx,
-        const double* values, bool strict);
+        const double* values, bool strict) override;
 
-    virtual int getNumReactions();
+    virtual int getNumReactions() override;
 
     virtual int getReactionRates(size_t len, int const *indx,
-                    double *values);
+                    double *values) override;
 
     /**
      * get the compartment volumes
@@ -158,9 +158,9 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getCompartmentVolumes(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
-    virtual int getNumRateRules();
+    virtual int getNumRateRules() override;
 
     /**
      * @author JKM
@@ -168,16 +168,16 @@ public:
      * @brief Gets the symbols defined by rate rules, i.e.
      * returns all x such that x' = f(x) is a rule which defines parameter x.
      */
-    virtual std::vector<std::string> getRateRuleSymbols() const;
+    virtual std::vector<std::string> getRateRuleSymbols() const override;
 
     /**
      * copy (but do not evaluate) existing rate rules values into
      * a buffer.
      */
-    virtual void getRateRuleValues(double *rateRuleValues);
+    virtual void getRateRuleValues(double *rateRuleValues) override;
 
 
-    virtual std::string getStateVectorId(size_t index);
+    virtual std::string getStateVectorId(size_t index) override;
 
     /**
      * copies the internal model state std::vector into the provided
@@ -189,7 +189,7 @@ public:
      * @return the number of items coppied into the provided buffer, if
      *         stateVector is NULL, returns the length of the state std::vector.
      */
-    virtual int getStateVector(double *stateVector);
+    virtual int getStateVector(double *stateVector) override;
 
     /**
      * sets the internal model state to the provided packed state std::vector.
@@ -200,7 +200,7 @@ public:
      * @return the number of items copied from the state std::vector, negative
      *         on failure.
      */
-    virtual int setStateVector(const double *stateVector);
+    virtual int setStateVector(const double *stateVector) override;
 
     /**
      * where most of the juicy bits occur.
@@ -217,17 +217,26 @@ public:
      * @param[out] dydt calculated rate of change of the state std::vector, if null,
      * it is ignored.
      */
-    virtual void getStateVectorRate(double time, const double *y, double* dydt=0);
+    virtual void getStateVectorRate(double time, const double *y, double* dydt=0) override;
+
+    const rr::CscPattern *getStateVectorJacobianPattern() const override;
+
+    std::string getStateVectorJacobianUnavailableReason() const override;
+
+    int getStateVectorJacobianNumColors() const override;
+
+    void getStateVectorJacobianDQ(double time, const double *y, const double *increments,
+                                  double *values) override;
 
 
-    virtual void testConstraints();
+    virtual void testConstraints() override;
 
-    virtual std::string getInfo();
+    virtual std::string getInfo() override;
 
-    virtual int getFloatingSpeciesIndex(const std::string&);
-    virtual std::string getFloatingSpeciesId(size_t index);
-    virtual int getBoundarySpeciesIndex(const std::string&);
-    virtual std::string getBoundarySpeciesId(size_t index);
+    virtual int getFloatingSpeciesIndex(const std::string&) override;
+    virtual std::string getFloatingSpeciesId(size_t index) override;
+    virtual int getBoundarySpeciesIndex(const std::string&) override;
+    virtual std::string getBoundarySpeciesId(size_t index) override;
 
     /**
      * get the floating species amounts
@@ -238,13 +247,13 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getFloatingSpeciesAmounts(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     virtual int getFloatingSpeciesAmountRates(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     virtual int getFloatingSpeciesConcentrationRates(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     /**
      * get the floating species concentrations
@@ -255,7 +264,7 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getFloatingSpeciesConcentrations(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
 
     /**
@@ -267,13 +276,13 @@ public:
      *                returned boundary species amounts.
      */
     virtual int setFloatingSpeciesConcentrations(size_t len, int const *indx,
-            double const *values);
+            double const *values) override;
 
     virtual int setFloatingSpeciesAmounts(size_t len, int const *indx,
-            const double *values);
+            const double *values) override;
 
     virtual int setFloatingSpeciesAmounts(size_t len, int const* indx,
-        const double* values, bool strict);
+        const double* values, bool strict) override;
 
     /**
      * get the boundary species amounts
@@ -284,7 +293,7 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getBoundarySpeciesAmounts(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     /**
      * get the boundary species concentrations
@@ -295,7 +304,7 @@ public:
      *                returned boundary species amounts.
      */
     virtual int getBoundarySpeciesConcentrations(size_t len, int const *indx,
-            double *values);
+            double *values) override;
 
     /**
      * get the boundary species concentrations
@@ -306,7 +315,7 @@ public:
      *                returned boundary species amounts.
      */
     virtual int setBoundarySpeciesConcentrations(size_t len, int const *indx,
-            double const *values);
+            double const *values) override;
 
 
     /**
@@ -318,36 +327,36 @@ public:
       *                returned boundary species amounts.
       */
      virtual int setBoundarySpeciesAmounts(size_t len, int const *indx,
-             double const *values);
+             double const *values) override;
 
      virtual int setBoundarySpeciesAmounts(size_t len, int const* indx,
-         double const* values, bool strict);
+         double const* values, bool strict) override;
 
 
-    virtual int getGlobalParameterIndex(const std::string&);
-    virtual std::string getGlobalParameterId(size_t);
-    virtual int getCompartmentIndex(const std::string&);
-    virtual std::string getCompartmentId(size_t);
-    virtual int getReactionIndex(const std::string&);
-    virtual std::string getReactionId(size_t);
-    virtual int getStoichiometryIndex(const std::string&);
-    virtual int getStoichiometryIndex(const std::string& speciesId, const std::string& reactionId);
-    virtual std::string getStoichiometryId(size_t);
+    virtual int getGlobalParameterIndex(const std::string&) override;
+    virtual std::string getGlobalParameterId(size_t) override;
+    virtual int getCompartmentIndex(const std::string&) override;
+    virtual std::string getCompartmentId(size_t) override;
+    virtual int getReactionIndex(const std::string&) override;
+    virtual std::string getReactionId(size_t) override;
+    virtual int getStoichiometryIndex(const std::string&) override;
+    virtual int getStoichiometryIndex(const std::string& speciesId, const std::string& reactionId) override;
+    virtual std::string getStoichiometryId(size_t) override;
 
-    virtual void print(std::ostream &stream);
+    virtual void print(std::ostream &stream) override;
 
-    virtual int getNumConservedMoieties();
-    virtual int getConservedMoietyIndex(const std::string& name);
-    virtual std::string getConservedMoietyId(size_t index);
-    virtual int getConservedMoietyValues(size_t len, int const *indx, double *values);
+    virtual int getNumConservedMoieties() override;
+    virtual int getConservedMoietyIndex(const std::string& name) override;
+    virtual std::string getConservedMoietyId(size_t index) override;
+    virtual int getConservedMoietyValues(size_t len, int const *indx, double *values) override;
     virtual int setConservedMoietyValues(size_t len, int const *indx,
-            const double *values);
+            const double *values) override;
 
     virtual int setCompartmentVolumes(size_t len, int const* indx,
-        const double* values);
+        const double* values) override;
 
     virtual int setCompartmentVolumes(size_t len, int const* indx,
-        const double* values, bool strict);
+        const double* values, bool strict) override;
 
     //virtual int setStoichiometries(size_t len, int const* indx,
     //                                  const double* values);
@@ -355,9 +364,9 @@ public:
     //virtual int setStoichiometries(size_t len, int const* indx,
     //                                  const double* values, bool strict);
 
-    virtual int setStoichiometry(int index, double value);
+    virtual int setStoichiometry(int index, double value) override;
 
-    virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value);
+    virtual int setStoichiometry(int speciesIndex, int reactionIndex, double value) override;
 
     //virtual int setInitStoichiometries(size_t len, int const* indx,
     //  const double* values);
@@ -369,63 +378,63 @@ public:
 
     virtual int setInitStoichiometry(int speciesIndex, int reactionIndex, double value);
 
-    virtual double getStoichiometry(int index);
+    virtual double getStoichiometry(int index) override;
 
-    virtual double getStoichiometry(int speciesIndex, int reactionIndex);
+    virtual double getStoichiometry(int speciesIndex, int reactionIndex) override;
 
-    virtual double getInitStoichiometry(int index);
+    virtual double getInitStoichiometry(int index) override;
 
-    virtual double getInitStoichiometry(int speciesIndex, int reactionIndex);
+    virtual double getInitStoichiometry(int speciesIndex, int reactionIndex) override;
 
-    virtual int getMultiSpeciesReferenceIndex(const std::string&);
+    virtual int getMultiSpeciesReferenceIndex(const std::string&) override;
 
-    virtual double getMultiSpeciesReferenceValue(int index);
+    virtual double getMultiSpeciesReferenceValue(int index) override;
 
-    virtual double getInitMultiSpeciesReferenceValue(int index);
+    virtual double getInitMultiSpeciesReferenceValue(int index) override;
 
-    virtual int setMultiSpeciesReferenceValue(int index, double value);
+    virtual int setMultiSpeciesReferenceValue(int index, double value) override;
 
-    virtual int setInitMultiSpeciesReferenceValue(int index, double value);
+    virtual int setInitMultiSpeciesReferenceValue(int index, double value) override;
 
     /******************************* Initial Conditions Section *******************/
     #if (1) /**********************************************************************/
     /******************************************************************************/
 
     virtual int setFloatingSpeciesInitConcentrations(size_t len, const int *indx,
-            double const *values);
+            double const *values) override;
 
     virtual int setBoundarySpeciesInitConcentrations(size_t len, const int* indx,
-        double const* values);
+        double const* values) override;
 
     virtual int getFloatingSpeciesInitConcentrations(size_t len, const int *indx,
-            double *values);
+            double *values) override;
 
     virtual int getBoundarySpeciesInitConcentrations(size_t len, const int* indx,
-        double* values);
+        double* values) override;
 
     virtual int setFloatingSpeciesInitAmounts(size_t len, const int *indx,
-                double const *values);
+                double const *values) override;
 
     virtual int setBoundarySpeciesInitAmounts(size_t len, const int* indx,
-        double const* values);
+        double const* values) override;
 
     virtual int getFloatingSpeciesInitAmounts(size_t size_t, const int *indx,
-                    double *values);
+                    double *values) override;
 
     virtual int getBoundarySpeciesInitAmounts(size_t size_t, const int* indx,
-        double* values);
+        double* values) override;
 
     virtual int setCompartmentInitVolumes(size_t len, const int *indx,
-                double const *values);
+                double const *values) override;
 
     virtual int getCompartmentInitVolumes(size_t len, const int *indx,
-                    double *values);
+                    double *values) override;
 
     virtual int setGlobalParameterInitValues(size_t len, const int *indx,
-                double const *values);
+                double const *values) override;
 
     virtual int getGlobalParameterInitValues(size_t len, const int *indx,
-                    double *values);
+                    double *values) override;
 
     /******************************* End Initial Conditions Section ***************/
     #endif /***********************************************************************/
@@ -439,23 +448,23 @@ public:
     /**
      * populates a given list with all the ids that this class can accept.
      */
-    virtual void getIds(int types, std::list<std::string> &ids);
+    virtual void getIds(int types, std::list<std::string> &ids) override;
 
     /**
      * returns a bit field of the ids that this class supports.
      */
-    virtual int getSupportedIdTypes();
+    virtual int getSupportedIdTypes() override;
 
     /**
      * gets the value for the given id std::string. The std::string must be a SelectionRecord
      * std::string that is accepted by this class.
      */
-    virtual double getValue(const std::string& id);
+    virtual double getValue(const std::string& id) override;
 
     /**
      * sets the value coresponding to the given selection stringl
      */
-    virtual void setValue(const std::string& id, double value);
+    virtual void setValue(const std::string& id, double value) override;
 
     /************************ End Selection Ids Species Section *******************/
     #endif /***********************************************************************/
@@ -469,12 +478,12 @@ public:
      * set the seed used by the random number generator. This will by definition
      * reset the RNG.
      */
-    virtual void setRandomSeed(int64_t);
+    virtual void setRandomSeed(int64_t) override;
 
     /**
      * get the seed used by the RNG.
      */
-    virtual int64_t getRandomSeed();
+    virtual int64_t getRandomSeed() override;
 
     /**
      * Get a uniform random number between 0 and 1 created by the RNG.
@@ -482,7 +491,7 @@ public:
      * The type of RNG can be specified in the config file with the
      * RANDOM_GENERATOR_TYPE key.
      */
-    virtual double getRandom();
+    virtual double getRandom() override;
 
     /******************************* End Random Section ***************************/
     #endif  /**********************************************************************/
@@ -493,7 +502,7 @@ public:
     #if (1) /**********************************************************************/
     /******************************************************************************/
 public:
-    virtual int getNumEvents();
+    virtual int getNumEvents() override;
 
     /**
      * @brief Get status of event triggers
@@ -504,24 +513,24 @@ public:
      * @param[in] indx An index into @ref eventState
      * @param[out] eventState The state of the event triggers
      */
-    virtual int getEventTriggers(size_t len, const int *indx, unsigned char *eventState);
+    virtual int getEventTriggers(size_t len, const int *indx, unsigned char *eventState) override;
 
     /**
      * erases expired events, and applies ripe events as long as we have ripe
      * events.
      */
     virtual int applyEvents(double timeEnd, const unsigned char* previousEventState,
-            const double *initialState, double* finalState);
+            const double *initialState, double* finalState) override;
 
-    virtual void getEventRoots(double time, const double* y, double* gdot);
+    virtual void getEventRoots(double time, const double* y, double* gdot) override;
 
-    virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot);
+    virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot) override;
 
-    virtual double getNextPendingEventTime(bool pop);
+    virtual double getNextPendingEventTime(bool pop) override;
 
-    virtual int getPendingEventSize();
+    virtual int getPendingEventSize() override;
 
-    virtual void resetEvents();
+    virtual void resetEvents() override;
 
     inline double getEventDelay(size_t event)
     {
@@ -588,41 +597,41 @@ public:
 
     bool getEventTieBreak(size_t eventA, size_t eventB);
 
-    virtual int getEventIndex(const std::string& eid);
-    virtual std::string getEventId(size_t index);
-    virtual void getEventIds(std::list<std::string>& out);
+    virtual int getEventIndex(const std::string& eid) override;
+    virtual std::string getEventId(size_t index) override;
+    virtual void getEventIds(std::list<std::string>& out) override;
 
-    virtual int getNumPiecewiseTriggers();
+    virtual int getNumPiecewiseTriggers() override;
 
-    virtual void getAssignmentRuleIds(std::list<std::string>& out);
-    virtual void getRateRuleIds(std::list<std::string>& out);
-    virtual void getInitialAssignmentIds(std::list<std::string>& out);
-    virtual void setEventListener(size_t index, rr::EventListenerPtr eventHandler);
-    virtual rr::EventListenerPtr getEventListener(size_t index);
+    virtual void getAssignmentRuleIds(std::list<std::string>& out) override;
+    virtual void getRateRuleIds(std::list<std::string>& out) override;
+    virtual void getInitialAssignmentIds(std::list<std::string>& out) override;
+    virtual void setEventListener(size_t index, rr::EventListenerPtr eventHandler) override;
+    virtual rr::EventListenerPtr getEventListener(size_t index) override;
 
 
     virtual double getFloatingSpeciesAmountRate(size_t index,
-            const double *reactionRates);
+            const double *reactionRates) override;
 
     /**
      * calculate rate rule values.
      * TODO redo this function, not very effecient.
      */
-    virtual int getRateRuleRates(size_t len, int const *indx, double *values);
+    virtual int getRateRuleRates(size_t len, int const *indx, double *values) override;
 
 
     /**
      * Get the current set of flags
      */
-    virtual uint32_t getFlags() const { return flags; }
+    virtual uint32_t getFlags() const override { return flags; }
 
     /**
      * Set certain options that determine the state of the ExecutableModel,
      * these are listed in
      */
-    virtual void setFlags(uint32_t val) { flags = val; }
+    virtual void setFlags(uint32_t val) override { flags = val; }
 	
-	void saveState(std::ostream & out);
+	void saveState(std::ostream & out) override;
 
 
 private:
@@ -671,6 +680,46 @@ private:
     LLVMModelData *modelData;
     cxx11_ns::shared_ptr<ModelResources> resources;
     const LLVMModelDataSymbols *symbols;
+
+    /**
+     * Buffers and index maps of the sparse difference quotient Jacobian, made on first use:
+     * the columns of every color, the rates at the unperturbed state, and the maps that
+     * assemble the Jacobian from dv/dy and the rate rule rows.
+     */
+    struct JacobianDQWorkspace {
+        std::vector<std::vector<int>> columnsOfColor;
+        std::vector<double> perturbed;
+        std::vector<double> reactionRates0;
+        std::vector<double> rateRuleRates0;
+        std::vector<double> rateRuleRates1;
+        std::vector<double> dvdy;
+        std::vector<double> drdy;
+        /** (index in drdy, index in the Jacobian values) */
+        std::vector<std::pair<int, int>> rateRuleTerms;
+        /** J[jac] += cf * N.values[stoich] * dvdy[dvdy] */
+        struct SpeciesTerm {
+            int dvdy;
+            int jac;
+            int stoich;
+        };
+        std::vector<SpeciesTerm> speciesTerms;
+    };
+
+    /** Owns the workspace; a copy of the model starts without one and makes its own. */
+    struct JacobianDQWorkspaceHolder {
+        std::unique_ptr<JacobianDQWorkspace> ptr;
+
+        JacobianDQWorkspaceHolder() = default;
+        JacobianDQWorkspaceHolder(const JacobianDQWorkspaceHolder &) {}
+        JacobianDQWorkspaceHolder &operator=(const JacobianDQWorkspaceHolder &) {
+            ptr.reset();
+            return *this;
+        }
+    };
+
+    JacobianDQWorkspaceHolder jacobianDQWorkspace;
+
+    void makeJacobianDQWorkspace();
 
 
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;

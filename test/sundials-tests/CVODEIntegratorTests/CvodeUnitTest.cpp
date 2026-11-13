@@ -18,7 +18,7 @@ using namespace testing;
 class CVODEIntegratorUnitTests : public ::testing::Test {
 public:
 
-    MockExecutableModel mockExecutableModel;
+    NiceMock<MockExecutableModel> mockExecutableModel;
 
     CVODEIntegratorUnitTests() {
         //When called with no arguments, getStateVector returns

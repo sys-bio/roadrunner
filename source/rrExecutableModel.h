@@ -18,6 +18,7 @@
 
 #include "rrOSSpecifics.h"
 #include "rrException.h"
+#include "rrSparsityPattern.h"
 #include "sbml/SBMLDocument.h"
 
 #include <stdint.h>
@@ -835,6 +836,41 @@ namespace rr {
          *         it is ignored.
          */
         virtual void getStateVectorRate(double time, const double *y, double *dydt = 0) = 0;
+
+        /**
+         * @brief The sparsity pattern of the Jacobian of the state vector rate, states x
+         * states in compressed sparse column format, with the full diagonal; nullptr if the
+         * model has none (see getStateVectorJacobianUnavailableReason).
+         */
+        virtual const CscPattern *getStateVectorJacobianPattern() const { return nullptr; }
+
+        /**
+         * @brief Why the model has no sparsity pattern of its Jacobian; empty if it has one.
+         */
+        virtual std::string getStateVectorJacobianUnavailableReason() const {
+            return "this model type has no sparsity pattern of its Jacobian";
+        }
+
+        /**
+         * @brief The number of colors of the columns of the Jacobian: columns of the same
+         * color are differenced together. 0 if the model has no sparsity pattern.
+         */
+        virtual int getStateVectorJacobianNumColors() const { return 0; }
+
+        /**
+         * @brief The Jacobian of the state vector rate by forward differences, using the
+         * coloring of its columns.
+         * @details The model is evaluated at the state @param y and once per color, with the
+         * state of every column j of the color increased by @param increments[j]. Each entry
+         * is the same forward difference that a dense difference quotient with these increments
+         * computes, since the other columns of the color do not change its row. The values
+         * are written to @param values in the order of getStateVectorJacobianPattern. Throws
+         * if the model has no sparsity pattern.
+         */
+        virtual void getStateVectorJacobianDQ(double time, const double *y, const double *increments,
+                                              double *values) {
+            throw std::runtime_error(getStateVectorJacobianUnavailableReason());
+        }
 
         virtual void testConstraints() = 0;
 

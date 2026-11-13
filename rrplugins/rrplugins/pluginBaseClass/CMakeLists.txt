@@ -53,16 +53,23 @@ endif ()
 
 if (RR_PLUGINS_BUILD_STATIC_LIB)
     add_library(${target}-static STATIC ${sources})
+    add_library(rrplugins::${target}-static ALIAS ${target}-static)
     target_compile_definitions(${target}-static PUBLIC STATIC_PLUGIN_API)
 
     target_link_libraries(${target}-static PUBLIC
             telplugins_common-static
             )
 
-    target_include_directories(${target}-static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${RR_PLUGINS_ROOT})
+    target_include_directories(${target}-static PUBLIC
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+            "$<BUILD_INTERFACE:${RR_PLUGINS_ROOT}>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/pluginBaseClass>"
+            )
 
     # Install static library
     install(TARGETS ${target}-static
+            EXPORT rrpluginsTargets
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT rrplugins
             )
@@ -71,3 +78,9 @@ if (RR_PLUGINS_BUILD_STATIC_LIB)
 endif ()
 
 
+
+# Public headers
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rrplugins/pluginBaseClass"
+        COMPONENT rrplugins
+        FILES_MATCHING PATTERN "*.h")
