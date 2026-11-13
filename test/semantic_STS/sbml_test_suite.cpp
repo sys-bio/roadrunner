@@ -192,6 +192,12 @@ public:
         {
             integrator->setValue("stiff", false);
             rr.setConservedMoietyAnalysis(false);
+            if (caseNumber == 1575)
+            {
+                //This model is so simple that CVODE takes steps long enough to jump
+                // over the short window in which its event trigger is true.
+                integrator->setValue("maximum_time_step", 0.1);
+            }
         }
 
         //Create log file name, e.g. 00001.log
