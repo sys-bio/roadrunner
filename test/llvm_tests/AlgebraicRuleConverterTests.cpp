@@ -519,6 +519,37 @@ TEST(AlgebraicRuleConverterTests, OneRuleTwoSymbolsDeterminesTheVariableOne) {
     EXPECT_NEAR(valueOf(yConstant, "x"), -5, 1e-12);
 }
 
+namespace {
+    std::string setValueError(RoadRunner& rr, const std::string& id) {
+        try {
+            rr.setValue(id, 9);
+        }
+        catch (const std::exception& e) {
+            return e.what();
+        }
+        return "";
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, SettingSolvedSymbolNamesTheAlgebraicRule) {
+    ModelBuilder builder;
+    builder.parameter("x", 1, true).parameter("y").parameter("z").parameter("w", 2)
+        .algebraic("x + y + 3").assignment("z", "2 * x");
+    RoadRunner rr(builder.sbml());
+
+    const std::string solved = setValueError(rr, "y");
+    EXPECT_NE(solved.find("algebraic rule"), std::string::npos) << solved;
+    EXPECT_EQ(solved.find("assignment rule"), std::string::npos) << solved;
+
+    const std::string assigned = setValueError(rr, "z");
+    EXPECT_NE(assigned.find("assignment rule"), std::string::npos) << assigned;
+
+    // A symbol the rule mentions but doesn't solve for can still be set.
+    EXPECT_EQ(setValueError(rr, "x"), "");
+    EXPECT_NEAR(rr.getValue("y"), -12, 1e-12);
+    EXPECT_EQ(setValueError(rr, "w"), "");
+}
+
 TEST(AlgebraicRuleConverterTests, OneRuleTwoSymbolsRejectedWhenBothConstant) {
     ModelBuilder builder;
     builder.parameter("x", 1, true).parameter("y", 2, true).algebraic("x + y + 3");

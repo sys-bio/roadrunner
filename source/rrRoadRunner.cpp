@@ -60,6 +60,7 @@
 #include <utility>
 //Shouldn't need the warning-disabling #pragmas here, since these are all links to *our* llvm, not the offical LLVM source.
 #include "llvm/LLVMExecutableModel.h"
+#include "llvm/LLVMException.h"
 #include "llvm/ModelResources.h"
 #include "llvm/IR/IRBuilder.h"
 
@@ -5353,8 +5354,45 @@ namespace rr {
             }
         }
         else {
-            impl->model->setValue(sId, dValue);
+            try {
+                impl->model->setValue(sId, dValue);
+            }
+            catch (const rrllvm::LLVMException&) {
+                // The compiled model only sees the assignment rule that an
+                // algebraic rule was turned into, so its message names the
+                // wrong kind of rule.
+                if (isSolvedByAlgebraicRule(sel.p1)) {
+                    throw rrllvm::LLVMException("Could not set value for " + sel.p1
+                        + ", as it is determined by an algebraic rule, and can not be set independently.");
+                }
+                throw;
+            }
         }
+    }
+
+    bool RoadRunner::isSolvedByAlgebraicRule(const std::string &sId) const {
+        using namespace libsbml;
+        if (!impl->document || !impl->document->isSetModel()) {
+            return false;
+        }
+        const Model *sbmlModel = impl->document->getModel();
+        if (sbmlModel->getAssignmentRuleByVariable(sId) || sbmlModel->getRateRuleByVariable(sId)) {
+            return false;
+        }
+        for (unsigned i = 0; i < sbmlModel->getNumRules(); ++i) {
+            const Rule *rule = sbmlModel->getRule(i);
+            if (!rule->isAlgebraic() || !rule->isSetMath()) {
+                continue;
+            }
+            std::unique_ptr<List> names(rule->getMath()->getListOfNodes(
+                [](const ASTNode* node) -> int { return node->getType() == AST_NAME; }));
+            for (unsigned j = 0; j < names->getSize(); ++j) {
+                if (static_cast<const ASTNode*>(names->get(j))->getName() == sId) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

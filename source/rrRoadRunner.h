@@ -1905,6 +1905,13 @@ namespace rr {
     private:
 
         /**
+         * True if an algebraic rule in the SBML is what determines sId, so it
+         * has no assignment or rate rule of its own. Used to name the right
+         * kind of rule when setting it fails.
+         */
+        bool isSolvedByAlgebraicRule(const std::string &sId) const;
+
+        /**
          * True once the llvm initialization routines have been run.
          * This is necessary because they are not threadsafe.
          */
