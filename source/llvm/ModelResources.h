@@ -118,6 +118,10 @@ namespace rrllvm
         //private:
         //	void addGlobalMapping(std::string name, void*);
         //	void addGlobalMappings();
+
+    private:
+        static void savePattern(std::ostream &out, const rr::CscPattern &p);
+        static void loadPattern(std::istream &in, rr::CscPattern &p);
     };
 
     /**@endcond PRIVATE */

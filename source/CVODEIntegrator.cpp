@@ -189,10 +189,6 @@ namespace rr {
             return SUNLinSolLastFlag(innerOf(S));
         }
 
-        static SUNErrCode space(SUNLinearSolver S, long int *lenrw, long int *leniw) {
-            return SUNLinSolSpace(innerOf(S), lenrw, leniw);
-        }
-
         static N_Vector resid(SUNLinearSolver S) {
             return SUNLinSolResid(innerOf(S));
         }
@@ -236,7 +232,6 @@ namespace rr {
             S->ops->numiters = ops->numiters ? TimedLinearSolver::numIters : nullptr;
             S->ops->resnorm = ops->resnorm ? TimedLinearSolver::resNorm : nullptr;
             S->ops->lastflag = ops->lastflag ? TimedLinearSolver::lastFlag : nullptr;
-            S->ops->space = ops->space ? TimedLinearSolver::space : nullptr;
             S->ops->resid = ops->resid ? TimedLinearSolver::resid : nullptr;
             S->ops->free = TimedLinearSolver::free;
             return S;
