@@ -6976,22 +6976,55 @@ namespace rr {
         Parameter *parameter = sbmlModel->getParameter(sid);
         Compartment *compartment = sbmlModel->getCompartment(sid);
 
-        if (species != NULL) {
-            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << std::endl;
-            species->setConstant(constant);
-        } else if (parameter != NULL) {
-            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for parameter " << sid << "..." << std::endl;
-            parameter->setConstant(constant);
-        } else if (compartment != NULL) {
-            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for compartment " << sid << "..." << std::endl;
-            compartment->setConstant(constant);
-        } else {
+        if (species == NULL && parameter == NULL && compartment == NULL) {
             throw std::invalid_argument(
                     "Roadrunner::setConstant failed, no species/ parameter/ compartment with ID " + sid +
                     " existed in the model");
         }
 
-        regenerateModel(forceRegenerate);
+        // A symbol that an algebraic rule was solving for may have no value
+        // in the SBML. Once it is constant nothing computes it, so it keeps
+        // the value it has now.
+        const bool needsValue = constant && impl->model && !sbmlModel->getInitialAssignmentBySymbol(sid)
+            && ((species && !species->isSetInitialAmount() && !species->isSetInitialConcentration())
+                || (parameter && !parameter->isSetValue())
+                || (compartment && !compartment->isSetSize()));
+        const double currentValue = needsValue ? getValue(sid) : 0;
+
+        bool wasConstant;
+        if (species != NULL) {
+            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << std::endl;
+            wasConstant = species->getConstant();
+            species->setConstant(constant);
+            if (needsValue) species->setInitialAmount(currentValue);
+        } else if (parameter != NULL) {
+            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for parameter " << sid << "..." << std::endl;
+            wasConstant = parameter->getConstant();
+            parameter->setConstant(constant);
+            if (needsValue) parameter->setValue(currentValue);
+        } else {
+            rrLog(Logger::LOG_DEBUG) << "Setting constant attribute for compartment " << sid << "..." << std::endl;
+            wasConstant = compartment->getConstant();
+            compartment->setConstant(constant);
+            if (needsValue) compartment->setSize(currentValue);
+        }
+
+        try {
+            regenerateModel(forceRegenerate);
+        }
+        catch (...) {
+            if (species != NULL) {
+                species->setConstant(wasConstant);
+                if (needsValue) species->unsetInitialAmount();
+            } else if (parameter != NULL) {
+                parameter->setConstant(wasConstant);
+                if (needsValue) parameter->unsetValue();
+            } else {
+                compartment->setConstant(wasConstant);
+                if (needsValue) compartment->unsetSize();
+            }
+            throw;
+        }
     }
 
 

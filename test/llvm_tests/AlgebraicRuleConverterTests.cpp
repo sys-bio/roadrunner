@@ -519,6 +519,30 @@ TEST(AlgebraicRuleConverterTests, OneRuleTwoSymbolsDeterminesTheVariableOne) {
     EXPECT_NEAR(valueOf(yConstant, "x"), -5, 1e-12);
 }
 
+TEST(AlgebraicRuleConverterTests, MakingSolvedSymbolConstantKeepsItsValue) {
+    // y has no value of its own; the rule gives it -4. Making x variable and
+    // then y constant should keep y at -4 and solve for x instead.
+    ModelBuilder builder;
+    builder.parameter("x", 1, true).parameter("y").algebraic("x + y + 3");
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("y"), -4, 1e-12);
+
+    rr.setConstant("x", false);
+    EXPECT_NEAR(rr.getValue("y"), -4, 1e-12);
+
+    ASSERT_NO_THROW(rr.setConstant("y", true));
+    EXPECT_NEAR(rr.getValue("y"), -4, 1e-12);
+    EXPECT_NEAR(rr.getValue("x"), 1, 1e-12);
+
+    // Both constant leaves nothing to solve for, so the change is refused
+    // and undone.
+    EXPECT_THROW(rr.setConstant("x", true), std::exception);
+    std::unique_ptr<libsbml::SBMLDocument> doc(libsbml::readSBMLFromString(rr.getSBML().c_str()));
+    EXPECT_FALSE(doc->getModel()->getParameter("x")->getConstant());
+    EXPECT_TRUE(doc->getModel()->getParameter("y")->getConstant());
+    EXPECT_NEAR(rr.getValue("x"), 1, 1e-12);
+}
+
 TEST(AlgebraicRuleConverterTests, OneRuleTwoSymbolsRejectedWhenBothConstant) {
     ModelBuilder builder;
     builder.parameter("x", 1, true).parameter("y", 2, true).algebraic("x + y + 3");
