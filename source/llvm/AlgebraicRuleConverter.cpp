@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
@@ -498,6 +499,157 @@ namespace rrllvm {
             return combined(subtractTerms(std::move(left), std::move(product)), a.value - top.value / bottom.value * b.value);
         }
 
+        Coefficient copyOf(const Coefficient& a) {
+            Coefficient result;
+            result.value = a.value;
+            result.math = a.math ? clone(a.math.get()) : nullptr;
+            return result;
+        }
+
+        /** true if a coefficient is a plain number, so its value is exact. */
+        bool isNumber(const Coefficient& a) {
+            return !a.math || namesIn(a.math.get()).empty();
+        }
+
+        /** @p factor * @p term, leaving out a factor of 1. */
+        ASTPtr scaledBy(const Coefficient& factor, ASTPtr term) {
+            if (!term || !factor.math) {
+                return nullptr;
+            }
+            if (isNumber(factor) && factor.value == 1) {
+                return term;
+            }
+            return makeBinary(AST_TIMES, clone(factor.math.get()), std::move(term));
+        }
+
+        /**
+         * Determinants of the square submatrices of @p a, by cofactor expansion
+         * along the first remaining row. The formulas contain no division, so
+         * unlike elimination they don't depend on which entries were non-zero
+         * when the model loaded.
+         */
+        class Determinants {
+        public:
+            explicit Determinants(const std::vector<std::vector<Coefficient>>& a) : a(a) {}
+
+            /** Determinant of the rows in @p rowMask and the columns in @p columnMask. */
+            Coefficient of(uint32_t rowMask, uint32_t columnMask) {
+                if (rowMask == 0) {
+                    return numberCoefficient(1);
+                }
+                const auto key = std::make_pair(rowMask, columnMask);
+                auto found = memo.find(key);
+                if (found != memo.end()) {
+                    return copyOf(found->second);
+                }
+
+                size_t row = 0;
+                while (!(rowMask & (1u << row))) {
+                    ++row;
+                }
+                ASTPtr sum;
+                double value = 0;
+                bool positive = true;
+                for (size_t column = 0; column < a.size(); ++column) {
+                    if (!(columnMask & (1u << column))) {
+                        continue;
+                    }
+                    const Coefficient& entry = a[row][column];
+                    if (entry.math) {
+                        Coefficient minor = of(rowMask & ~(1u << row), columnMask & ~(1u << column));
+                        if (minor.math) {
+                            ASTPtr term = scaledBy(entry, std::move(minor.math));
+                            const double termValue = entry.value * minor.value;
+                            if (positive) {
+                                sum = addTerms(std::move(sum), std::move(term));
+                                value += termValue;
+                            }
+                            else {
+                                sum = subtractTerms(std::move(sum), std::move(term));
+                                value -= termValue;
+                            }
+                        }
+                    }
+                    positive = !positive;
+                }
+
+                Coefficient result = sum ? combined(std::move(sum), value) : Coefficient();
+                memo[key] = copyOf(result);
+                return result;
+            }
+
+        private:
+            const std::vector<std::vector<Coefficient>>& a;
+            std::map<std::pair<uint32_t, uint32_t>, Coefficient> memo;
+        };
+
+        /**
+         * Largest simultaneous system solved by Cramer's rule. Its formulas grow
+         * with the factorial of the size, so bigger systems keep the elimination
+         * result, whose pivots are chosen with the values at load.
+         */
+        constexpr size_t maxCramerSize = 6;
+
+        /**
+         * Solves A * x = -f, where A holds the coefficients of the determined
+         * symbols and f the rest of each rule, as x_j = sum_r C_rj * (-f_r) / det(A)
+         * with C the cofactors of A. @p rows are the rows before elimination.
+         */
+        void solveByCramer(const std::vector<std::vector<Coefficient>>& rows, const std::vector<size_t>& pivotColumn,
+            const std::vector<std::string>& unknowns, const std::vector<ASTPtr>& rests, std::vector<SolvedRule>& solved) {
+            const size_t n = rows.size();
+
+            std::vector<std::vector<Coefficient>> a(n);
+            std::vector<ASTPtr> f(n);
+            for (size_t r = 0; r < n; ++r) {
+                for (size_t column : pivotColumn) {
+                    a[r].push_back(copyOf(rows[r][column]));
+                }
+                for (size_t c = 0; c < unknowns.size(); ++c) {
+                    if (std::find(pivotColumn.begin(), pivotColumn.end(), c) != pivotColumn.end()) {
+                        continue;
+                    }
+                    ASTPtr symbol(new ASTNode(AST_NAME));
+                    symbol->setName(unknowns[c].c_str());
+                    f[r] = addTerms(std::move(f[r]), scaledBy(rows[r][c], std::move(symbol)));
+                }
+                if (rests[r]) {
+                    f[r] = addTerms(std::move(f[r]), scaledBy(rows[r][unknowns.size() + r], clone(rests[r].get())));
+                }
+            }
+
+            const uint32_t all = (1u << n) - 1;
+            Determinants determinants(a);
+            const Coefficient det = determinants.of(all, all);
+            if (!det.math) {
+                throwUnsupported(rows[0][0].math ? rows[0][0].math.get() : rests[0].get(),
+                    "the algebraic rules it must be solved simultaneously with have no unique linear solution.");
+            }
+
+            for (size_t j = 0; j < n; ++j) {
+                ASTPtr numerator;
+                for (size_t r = 0; r < n; ++r) {
+                    if (!f[r]) {
+                        continue;
+                    }
+                    Coefficient minor = determinants.of(all & ~(1u << r), all & ~(1u << j));
+                    ASTPtr term = scaledBy(minor, clone(f[r].get()));
+                    // The cofactor's sign, times -1 for the right-hand side -f.
+                    if ((r + j) % 2 == 1) {
+                        numerator = addTerms(std::move(numerator), std::move(term));
+                    }
+                    else {
+                        numerator = subtractTerms(std::move(numerator), std::move(term));
+                    }
+                }
+                ASTPtr solution = numerator
+                    ? (isNumber(det) && det.value == 1 ? std::move(numerator)
+                        : makeBinary(AST_DIVIDE, std::move(numerator), clone(det.math.get())))
+                    : makeNumber(0);
+                solved.push_back({ unknowns[pivotColumn[j]], std::move(solution) });
+            }
+        }
+
         /** The symbols that every rule mentioning them can be solved for. */
         std::vector<std::string> sharedUnknowns(const std::vector<PendingRule>& rules, const SymbolSet& available) {
             SymbolSet unknowns;
@@ -528,6 +680,8 @@ namespace rrllvm {
          * After elimination, every solved symbol depends only on the symbols
          * solved after it, so the results are ordinary chained assignment rules.
          * Unknowns left without a pivot stay free and are treated like parameters.
+         * When a coefficient isn't a plain number, the elimination only picks the
+         * symbols to solve for, and solveByCramer writes the solutions.
          */
         void solveSimultaneously(const std::vector<PendingRule>& rules, const SymbolSet& available,
             const ModelSymbols& symbols, std::vector<SolvedRule>& solved) {
@@ -559,6 +713,13 @@ namespace rrllvm {
                 }
                 rests.push_back(std::move(rest));
                 rows[r][unknowns.size() + r] = numberCoefficient(1);
+            }
+
+            std::vector<std::vector<Coefficient>> original(rows.size());
+            for (size_t r = 0; r < rows.size(); ++r) {
+                for (const Coefficient& cell : rows[r]) {
+                    original[r].push_back(copyOf(cell));
+                }
             }
 
             std::vector<size_t> order(unknowns.size());
@@ -611,6 +772,22 @@ namespace rrllvm {
                     }
                     rows[r] = std::move(reduced);
                 }
+            }
+
+            // The load-time values only decide which symbols the rules determine.
+            // If a coefficient refers to a symbol that can be changed after
+            // loading, a pivot that was non-zero at load may become zero, so the
+            // solution is written with Cramer's rule instead.
+            const size_t n = rows.size();
+            bool symbolic = false;
+            for (size_t r = 0; r < n; ++r) {
+                for (size_t column : pivotColumn) {
+                    symbolic = symbolic || !isNumber(original[r][column]);
+                }
+            }
+            if (symbolic && n <= maxCramerSize) {
+                solveByCramer(original, pivotColumn, unknowns, rests, solved);
+                return;
             }
 
             for (size_t k = 0; k < rows.size(); ++k) {

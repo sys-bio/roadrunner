@@ -31,6 +31,7 @@
 #include "rrUtils.h"
 #include "rrVersionInfo.h"
 #include "sbml/ListOf.h"
+#include "sbml/SyntaxChecker.h"
 #include "sbml/Model.h"
 #include "sbml/common/operationReturnValues.h"
 #include "sbml/math/FormulaParser.h"
@@ -7590,6 +7591,136 @@ namespace rr {
                 impl->model->setGlobalParameterValues(1, &index, &initValue);
             }
         }
+    }
+
+    namespace {
+        /** Algebraic rules only have an id from SBML Level 3 Version 2 on. */
+        bool algebraicRulesHaveId(const libsbml::SBMLDocument* doc) {
+            return doc->getLevel() > 3 || (doc->getLevel() == 3 && doc->getVersion() >= 2);
+        }
+
+        /** @return the index of the algebraic rule with id or metaid @p id, or -1. */
+        int findAlgebraicRule(const libsbml::Model* model, const std::string& id) {
+            for (unsigned i = 0; i < model->getNumRules(); ++i) {
+                const libsbml::Rule* rule = model->getRule(i);
+                if (rule->isAlgebraic() && ((rule->isSetIdAttribute() && rule->getIdAttribute() == id)
+                    || (rule->isSetMetaId() && rule->getMetaId() == id))) {
+                    return static_cast<int>(i);
+                }
+            }
+            return -1;
+        }
+    }
+
+    void RoadRunner::addAlgebraicRule(const std::string &id, const std::string &formula, bool forceRegenerate) {
+        using namespace libsbml;
+        SBMLDocument *doc = impl->document.get();
+        Model *sbmlModel = doc->getModel();
+
+        if (id.empty()) {
+            throw std::invalid_argument("Roadrunner::addAlgebraicRule failed, the rule needs an id");
+        }
+        const bool useId = algebraicRulesHaveId(doc);
+        if (useId ? !SyntaxChecker::isValidSBMLSId(id) : !SyntaxChecker::isValidXMLID(id)) {
+            throw std::invalid_argument("Roadrunner::addAlgebraicRule failed, '" + id + "' is not a valid id");
+        }
+        if (findAlgebraicRule(sbmlModel, id) >= 0
+            || (useId ? doc->getElementBySId(id) != nullptr : doc->getElementByMetaId(id) != nullptr)) {
+            throw std::invalid_argument(
+                "Roadrunner::addAlgebraicRule failed, the id " + id + " is already used in the model");
+        }
+
+        std::unique_ptr<ASTNode> math(SBML_parseL3Formula(formula.c_str()));
+        if (!math) {
+            char *error = SBML_getLastParseL3Error();
+            std::string message = error ? error : "";
+            free(error);
+            throw std::invalid_argument(
+                "Roadrunner::addAlgebraicRule failed, unable to parse '" + formula + "': " + message);
+        }
+
+        rrLog(Logger::LOG_DEBUG) << "Adding algebraic rule " << id << "..." << std::endl;
+        AlgebraicRule *newRule = sbmlModel->createAlgebraicRule();
+        if (useId) {
+            newRule->setIdAttribute(id);
+        }
+        else {
+            newRule->setMetaId(id);
+        }
+        newRule->setMath(math.get());
+
+        try {
+            regenerateModel(forceRegenerate, true);
+        }
+        catch (...) {
+            // The old model is still loaded, so the document goes back to matching it.
+            delete sbmlModel->getListOfRules()->remove(sbmlModel->getNumRules() - 1);
+            throw;
+        }
+    }
+
+    void RoadRunner::removeAlgebraicRule(const std::string &id, bool forceRegenerate) {
+        using namespace libsbml;
+        Model *sbmlModel = impl->document->getModel();
+
+        const int index = findAlgebraicRule(sbmlModel, id);
+        if (index < 0) {
+            throw std::invalid_argument(
+                "Roadrunner::removeAlgebraicRule failed, no algebraic rule with id " + id + " existed in the model");
+        }
+
+        // The rule may have been all that gave a parameter its value, and
+        // roadrunner requires one, so any parameter it mentions without a value
+        // keeps its current value.
+        std::vector<std::pair<Parameter*, double>> filled;
+        std::unique_ptr<List> names(sbmlModel->getRule(index)->getMath()->getListOfNodes(
+            [](const ASTNode* node) -> int { return node->getType() == AST_NAME; }));
+        for (unsigned i = 0; i < names->getSize(); ++i) {
+            const ASTNode* node = static_cast<const ASTNode*>(names->get(i));
+            Parameter *parameter = sbmlModel->getParameter(node->getName());
+            if (parameter && !parameter->isSetValue() && impl->model) {
+                const double value = getValue(node->getName());
+                filled.emplace_back(parameter, value);
+            }
+        }
+        for (auto& [parameter, value] : filled) {
+            parameter->setValue(value);
+        }
+
+        rrLog(Logger::LOG_DEBUG) << "Removing algebraic rule " << id << "..." << std::endl;
+        std::unique_ptr<Rule> removed(static_cast<Rule*>(sbmlModel->getListOfRules()->remove(index)));
+
+        try {
+            regenerateModel(forceRegenerate);
+        }
+        catch (...) {
+            sbmlModel->getListOfRules()->insertAndOwn(index, removed.release());
+            for (auto& filledValue : filled) {
+                filledValue.first->unsetValue();
+            }
+            throw;
+        }
+    }
+
+    std::vector<std::string> RoadRunner::getAlgebraicRuleIds() const {
+        std::vector<std::string> ids;
+        if (!impl->document || !impl->document->isSetModel()) {
+            return ids;
+        }
+        const libsbml::Model *sbmlModel = impl->document->getModel();
+        for (unsigned i = 0; i < sbmlModel->getNumRules(); ++i) {
+            const libsbml::Rule *rule = sbmlModel->getRule(i);
+            if (!rule->isAlgebraic()) {
+                continue;
+            }
+            if (rule->isSetIdAttribute()) {
+                ids.push_back(rule->getIdAttribute());
+            }
+            else if (rule->isSetMetaId()) {
+                ids.push_back(rule->getMetaId());
+            }
+        }
+        return ids;
     }
 
     void RoadRunner::addInitialAssignment(const std::string &vid, const std::string &formula, bool forceRegenerate) {
