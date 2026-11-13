@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 
+# De-duplicate link libraries on Apple linkers (silences ld "ignoring duplicate libraries").
+if (POLICY CMP0156)
+    cmake_policy(SET CMP0156 NEW)
+endif ()
+if (POLICY CMP0179)
+    cmake_policy(SET CMP0179 NEW)
+endif ()
+
 
 # libRoadRunner semantic versioning (http://semver.org/) - used to generate
 # source files expose library version information

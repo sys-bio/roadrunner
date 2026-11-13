@@ -142,23 +142,23 @@ namespace rr {
         }, value_);
     }
 
-    bool Setting::operator==(const Setting &setting) {
+    bool Setting::operator==(const Setting &setting) const {
         return (value_ == setting.value_);
     }
 
-    bool Setting::operator==(const char *setting) {
+    bool Setting::operator==(const char *setting) const {
         return (*this == std::string(setting));
     }
 
-    bool Setting::operator!=(const char *setting) {
+    bool Setting::operator!=(const char *setting) const {
         return !(*this == setting);
     }
 
-    bool Setting::operator!=(const Setting &setting) {
+    bool Setting::operator!=(const Setting &setting) const {
         return !(value_ == setting.value_);
     }
 
-    std::string Setting::toString() {
+    std::string Setting::toString() const {
         std::ostringstream os;
         os << std::boolalpha;
         if (auto v = get_if<std::monostate>()) {
