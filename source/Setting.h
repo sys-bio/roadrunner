@@ -161,7 +161,7 @@ namespace rr {
          * @returns true is Setting is of type T
          */
         template<class T>
-        bool isType() {
+        bool isType() const {
             return std::holds_alternative<T>(value_);
         }
 
@@ -182,6 +182,16 @@ namespace rr {
          */
         template<class T>
         T *get_if() {
+            checkValidType<T>();
+            return std::get_if<T>(&value_);
+        }
+
+        /**
+         * @brief const version of Setting::get_if()
+         * @see Setting::get_if()
+         */
+        template<class T>
+        const T *get_if() const {
             checkValidType<T>();
             return std::get_if<T>(&value_);
         }
@@ -367,7 +377,7 @@ namespace rr {
          * template for the more general case, but only support for
          * std::vector<double> is needed.
          */
-        operator std::vector<double>() {
+        operator std::vector<double>() const {
             if (auto vec = get_if<std::vector<double>>()) {
                 return *vec;
             } else {
@@ -398,7 +408,7 @@ namespace rr {
          * types that are a part of setting_t.
          */
         template<typename T, class = typename std::enable_if<isValidVariantType<T, setting_t>::value>::type>
-        bool operator==(const T &otherSetting) {
+        bool operator==(const T &otherSetting) const {
             if (auto settingValue = get_if<T>()) {
                 return *settingValue == otherSetting;
             }
@@ -411,7 +421,7 @@ namespace rr {
          */
         template<typename T,
                 class = typename std::enable_if<isValidVariantType<T, setting_t>::value>::type>
-        bool operator!=(const T &setting) {
+        bool operator!=(const T &setting) const {
             return !(*this == setting);
         }
 
@@ -419,7 +429,7 @@ namespace rr {
          * @brief Equality operator, enabling the comparison
          * of this Setting with the other Setting
          */
-        bool operator==(const Setting &setting);
+        bool operator==(const Setting &setting) const;
 
         /**
          * @brief Equality operator, enabling the comparison
@@ -428,7 +438,7 @@ namespace rr {
          * const char*, the main templated `operated==(const T&)`
          * is not used. We therefore define this separately
          */
-        bool operator==(const char *setting);
+        bool operator==(const char *setting) const;
 
         /**
          * @brief Equality operator, enabling the comparison
@@ -437,13 +447,13 @@ namespace rr {
          * const char*, the main templated `operated==(const T&)`
          * is not used. We therefore define this separately.
          */
-        bool operator!=(const char *setting);
+        bool operator!=(const char *setting) const;
 
         /**
          * @brief Inequality operator, enabling the comparison
          * of this Setting with the other Setting
          */
-        bool operator!=(const Setting &setting);
+        bool operator!=(const Setting &setting) const;
 
 
         /**
@@ -593,7 +603,7 @@ namespace rr {
          * @brief gets a string representation
          * of the type stored in this Setting.
          */
-        std::string toString();
+        std::string toString() const;
 
     private:
 
@@ -606,7 +616,7 @@ namespace rr {
          * @see setting_t
          */
         template<class T>
-        void checkValidType() {
+        void checkValidType() const {
             if (!Setting::isValidType<T>()) {
                 std::ostringstream err;
                 err << "Setting does not support ";

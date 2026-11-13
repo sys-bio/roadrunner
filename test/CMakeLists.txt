@@ -131,8 +131,7 @@ macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
     set_source_files_properties(${SWIG_INTERFACE_FILE}
             PROPERTIES
             CPLUSPLUS ON
-            -threads
-            -doxygen
+            SWIG_FLAGS "-doxygen"
             )
 
     swig_add_library(${SWIG_TARGET_NAME}
@@ -182,6 +181,11 @@ macro(add_rr_test_swig_library SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
     # Like the roadrunner module, the test modules only use the Python stable ABI, so the
     # installed wheel can load them from any Python from 3.10 on. Match roadrunner/CMakeLists.txt.
     target_compile_definitions(${SWIG_TARGET_NAME} PRIVATE Py_LIMITED_API=0x030A0000)
+
+    # Poco exports _XOPEN_SOURCE=500 on Linux, which pyconfig.h redefines.
+    if (UNIX AND NOT APPLE)
+        target_compile_options(${SWIG_TARGET_NAME} PRIVATE -U_XOPEN_SOURCE)
+    endif ()
 
     if (NOT APPLE)
         if (WIN32)

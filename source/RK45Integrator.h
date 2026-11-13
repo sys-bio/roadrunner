@@ -51,7 +51,7 @@ namespace rr
         * @brief Called whenever a new model is loaded to allow integrator
         * to reset internal state
         */
-        virtual void syncWithModel(ExecutableModel* m);
+        virtual void syncWithModel(ExecutableModel* m) override;
 
 
         /**
@@ -72,12 +72,12 @@ namespace rr
          * A variable step call with h <= 0 takes one step of any size
          * that the error control allows.
          */
-        virtual double integrate(double t, double h);
+        virtual double integrate(double t, double h) override;
 
         /**
          * @brief Restarts the integrator
          */
-        virtual void restart(double t0);
+        virtual void restart(double t0) override;
 
         /**
          * @brief the counters num_steps (accepted steps), num_rhs_evals,
@@ -93,7 +93,7 @@ namespace rr
          * @brief Get the name for this integrator
          * @note Delegates to @ref getName
          */
-        std::string getName() const;
+        std::string getName() const override;
 
         /**
          * @author JKM
@@ -106,7 +106,7 @@ namespace rr
          * @brief Get the description for this integrator
          * @note Delegates to @ref getDescription
          */
-        std::string getDescription() const;
+        std::string getDescription() const override;
 
         /**
          * @author JKM
@@ -119,7 +119,7 @@ namespace rr
          * @brief Get the hint for this integrator
          * @note Delegates to @ref getHint
          */
-        std::string getHint() const;
+        std::string getHint() const override;
 
         /**
          * @author JKM
@@ -127,7 +127,7 @@ namespace rr
          */
         static std::string getRK45Hint();
 
-        Solver* construct(ExecutableModel* executableModel) const;
+        Solver* construct(ExecutableModel* executableModel) const override;
 
         // ** Getters / Setters ************************************************
 
@@ -135,13 +135,13 @@ namespace rr
          * @author JKM
          * @brief Always deterministic for RK45
          */
-        IntegrationMethod getIntegrationMethod() const;
+        IntegrationMethod getIntegrationMethod() const override;
 
         /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */
-        void resetSettings();
+        void resetSettings() override;
 
         // ** Listeners ********************************************************
 
@@ -149,12 +149,12 @@ namespace rr
         * the integrator can hold a single listener. If clients require multicast,
         * they can create a multi-cast listener.
         */
-        virtual void setListener(IntegratorListenerPtr);
+        virtual void setListener(IntegratorListenerPtr) override;
 
         /**
         * get the integrator listener
         */
-        virtual IntegratorListenerPtr getListener();
+        virtual IntegratorListenerPtr getListener() override;
 
 
     private:

@@ -6,6 +6,9 @@
  */
 
 
+// Python.h must precede every standard header: it defines feature-test macros.
+#include <Python.h>
+
 #include <stdexcept>
 #include <string>
 #include <algorithm>

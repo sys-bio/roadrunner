@@ -35,12 +35,8 @@
 
 
 #include "llvm/ExecutionEngine/ExecutionEngine.h"
-
-#if LLVM_VERSION_MAJOR >= 13
-
 #include "llvm/ExecutionEngine/Orc/LLJIT.h"
 
-#endif // LLVM_VERSION_MAJOR >= 13
 
 #ifdef _MSC_VER
 #pragma warning(default: 4146)

@@ -154,26 +154,12 @@ llvm::Value* ModelDataIRBuilder::createGEP(ModelDataFields field,
     }
 }
 
-/**
- * @brief abstract out the llvm::StructType::getTypeByName which
- * has been removed in llvm 12.
- */
-llvm::StructType *getTypeByName(llvm::Module *module, std::string name)
-{
-    llvm::StructType *t;
-#if LLVM_VERSION_MAJOR >= 13
-    t = llvm::StructType::getTypeByName(module->getContext(), name);
-#else
-    t = module->getTypeByName(name);
-#endif
-  return t;
-}
 
 
 llvm::StructType* ModelDataIRBuilder::getCSRSparseStructType(
         llvm::Module* module, llvm::ExecutionEngine* engine)
 {
-    StructType *structType = getTypeByName(module, csr_matrixName);
+    StructType *structType = StructType::getTypeByName(module->getContext(), csr_matrixName);
 
     if (!structType)
     {
@@ -192,16 +178,8 @@ llvm::StructType* ModelDataIRBuilder::getCSRSparseStructType(
 
         if (engine)
         {
-#if (LLVM_VERSION_MAJOR > 3)
 			const DataLayout& dl = engine->getDataLayout();
 			uint64_t llvm_size = dl.getTypeStoreSize(structType);
-#elif(LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
-            const DataLayout *dl = engine->getDataLayout();
-            uint64_t llvm_size = dl->getTypeStoreSize(structType);
-#else
-            const TargetData* td = engine->getTargetData();
-            uint64_t llvm_size = td->getTypeStoreSize(structType);
-#endif
 
             if (sizeof(csr_matrix) != llvm_size)
             {
@@ -628,7 +606,7 @@ void ModelDataIRBuilder::validateStruct(llvm::Value* s,
 llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *module,
         llvm::ExecutionEngine *engine, LLVMModelDataSymbols const& symbols)
 {
-    StructType *structType = getTypeByName(module, LLVMModelDataName);
+    StructType *structType = StructType::getTypeByName(module->getContext(), LLVMModelDataName);
 
     if (!structType)
     {
@@ -728,7 +706,7 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         structType = StructType::create(context, elements, LLVMModelDataName);
 
         // make sure we can get the struct in the future
-        assert(getTypeByName(module, LLVMModelDataName) &&
+        assert(StructType::getTypeByName(module->getContext(), LLVMModelDataName) &&
                 "Could not get LLVMModelData struct from llvm module after creating it");
     }
     return structType;
@@ -736,7 +714,7 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
 
 llvm::StructType *ModelDataIRBuilder::getStructType(llvm::Module *module)
 {
-    StructType *structType = getTypeByName(module, LLVMModelDataName);
+    StructType *structType = StructType::getTypeByName(module->getContext(), LLVMModelDataName);
 
     if (structType == 0)
     {

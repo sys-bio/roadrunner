@@ -42,7 +42,7 @@ if (BUILD_PYTHON AND BUILD_TESTS)
 
     add_rr_test_swig_library(SettingTestsSwigAPI
             SettingTestsSwigAPI.i
-            SettingTestsSwigAPI
+            SettingTestsSwigAPI.cpp
             "../../wrappers/Python/roadrunner/PyUtils.cpp"
             "../../wrappers/Python/roadrunner/PyUtils.h"
             )

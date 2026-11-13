@@ -35,11 +35,8 @@
 #include "llvm/LLVMExecutableModel.h"
 #include "llvm/MCJit.h"
 
-#if LLVM_VERSION_MAJOR >= 13
+#include "llvm/LLJit.h"
 
-#   include "llvm/LLJit.h"
-
-#endif
 
 #ifdef _MSC_VER
 #pragma warning(default: 4146)

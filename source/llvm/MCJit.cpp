@@ -44,18 +44,11 @@ namespace rrllvm {
      * @brief cross platform mechanism for getting the target machine
      * file type.
      */
-#if LLVM_VERSION_MAJOR == 6
-    llvm::LLVMTargetMachine::CodeGenFileType getCodeGenFileType()
-    {
-        return llvm::TargetMachine::CGFT_ObjectFile;
-    }
-#elif LLVM_VERSION_MAJOR >= 12
 
     llvm::CodeGenFileType getCodeGenFileType() {
         return llvm::CodeGenFileType::ObjectFile;
     }
 
-#endif
 
 
     MCJit::MCJit(std::uint32_t opt)
@@ -230,11 +223,7 @@ namespace rrllvm {
         auto FileType = getCodeGenFileType();
 
 
-#if LLVM_VERSION_MAJOR == 6
-        if (TargetMachine->addPassesToEmitFile(pass, *compiledModuleBinaryStream, FileType))
-#elif LLVM_VERSION_MAJOR >= 12
         if (TargetMachine->addPassesToEmitFile(pass, *compiledModuleBinaryStream, nullptr, FileType))
-#endif
         {
             throw std::logic_error("TargetMachine can't emit a file of type CGFT_ObjectFile");
         }
@@ -254,19 +243,6 @@ namespace rrllvm {
              * Note to developers - passes are stored in llvm/Transforms/Scalar.h.
              */
 
-             // we only support LLVM >= 3.1
-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR == 1)
-            //#if (LLVM_VERSION_MAJOR == 6)
-            functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
-#elif (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR <= 4)
-            functionPassManager->add(new DataLayout(*executionEngine->getDataLayout()));
-#elif (LLVM_VERSION_MINOR > 4)
-            // Needed for LLVM 3.5 regardless of architecture
-            // also, should use DataLayoutPass(module) per Renato (http://reviews.llvm.org/D4607)
-            functionPassManager->add(new DataLayoutPass(module));
-#elif (LLVM_VERSION_MAJOR >= 6)
-            // Do nothing, because I'm not sure what the non-legacy equivalent of DataLayoutPass is
-#endif
 
             // Provide basic AliasAnalysis support for GVN.
             // FIXME: This was deprecated somewhere along the line
@@ -275,14 +251,7 @@ namespace rrllvm {
 
             if (options & LoadSBMLOptions::OPTIMIZE_INSTRUCTION_SIMPLIFIER) {
                 rrLog(Logger::LOG_INFORMATION) << "using OPTIMIZE_INSTRUCTION_SIMPLIFIER";
-#if LLVM_VERSION_MAJOR == 6
-                functionPassManager->add(createInstructionSimplifierPass());
-#elif LLVM_VERSION_MAJOR >= 12
                 functionPassManager->add(createInstSimplifyLegacyPass());
-#else
-                rrLogWarn << "Not using llvm optimization \"OPTIMIZE_INSTRUCTION_SIMPLIFIER\" "
-                    "because llvm version is " << LLVM_VERSION_MAJOR;
-#endif
             }
 
             if (options & LoadSBMLOptions::OPTIMIZE_INSTRUCTION_COMBINING) {
@@ -303,15 +272,8 @@ namespace rrllvm {
 
             if (options & LoadSBMLOptions::OPTIMIZE_DEAD_INST_ELIMINATION) {
                 rrLog(Logger::LOG_INFORMATION) << "using OPTIMIZE_DEAD_INST_ELIMINATION";
-#if LLVM_VERSION_MAJOR == 6
-                functionPassManager->add(createDeadInstEliminationPass());
-#elif LLVM_VERSION_MAJOR >= 12
                 // do nothing since this seems to have been removed
                 // or replaced with createDeadCodeEliminationPass, which we add below anyway
-#else
-                rrLogWarn << "Not using OPTIMIZE_DEAD_INST_ELIMINATION because you are using"
-                    "LLVM version " << LLVM_VERSION_MAJOR;
-#endif
             }
 
             if (options & LoadSBMLOptions::OPTIMIZE_DEAD_CODE_ELIMINATION) {

@@ -380,8 +380,8 @@ public:
  * We use
  *  - kf = 0.1
  *  - kb = 0.01
- *  - S1 @t0 = 10
- *  - S2 @t0 = 1
+ *  - S1 at t0 = 10
+ *  - S2 at t0 = 1
  *  - TOTAL = S1 + S2
  *
  * The solution to f(x) = 0 is:

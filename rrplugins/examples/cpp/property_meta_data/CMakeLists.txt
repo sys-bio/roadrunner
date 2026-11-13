@@ -20,7 +20,7 @@ target_link_libraries (${target}
     telplugins_core-static
 )
 if(APPLE)
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs -undefined error")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs")
 else()
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
 endif()
