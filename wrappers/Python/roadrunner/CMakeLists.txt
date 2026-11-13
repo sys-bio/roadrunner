@@ -27,6 +27,7 @@ set_property(SOURCE roadrunner.i PROPERTY
         # -globals <name>                   # Set <name> used to access C global variable (default: 'cvar')
         # -interface <mod>                  # Set low-level C/C++ module name to <mod> (default: module name prefixed by '_')
         "-keyword"                      # Use keyword arguments
+        "-w511"                         # Overloaded functions cannot take keyword arguments
         # -"nofastunpack"                   # Use traditional UnpackTuple method to parse the argument functions
         # -"noh"                            # Don't generate the output header file
         # -"noproxy"                        # Don't generate proxy classes

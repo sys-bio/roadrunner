@@ -273,8 +273,6 @@
     }
 }
 
-%typedef ls::Complex std::complex<double>;
-
 /* Convert from C --> Python */
 %typemap(out) std::vector<std::complex<double>> {
     $result = rr::complexes_to_py($1.data(), $1.size());
@@ -1134,6 +1132,8 @@ namespace std { class ostream{}; }
  */
 %include <Solver.h>
 %feature("director") Solver;
+%ignore rr::Integrator::WorkCounters;
+%ignore rr::Integrator::workCounters;
 %include <Integrator.h>
 %include <SteadyStateSolver.h>
 %include <SensitivitySolver.h>
@@ -3200,6 +3200,7 @@ solvers = integrators + steadyStateSolvers
 
 
 // Integrators
+%ignore rr::CVODEIntegrator::ToString;
 %include "CVODEIntegrator.h"
 %include "GillespieIntegrator.h"
 %include "RK4Integrator.h"
