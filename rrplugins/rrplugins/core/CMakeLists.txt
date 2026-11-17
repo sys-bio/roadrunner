@@ -24,6 +24,7 @@ set(
 if (RR_PLUGINS_BUILD_SHARED_LIB)
     add_library(${target} SHARED ${sources})
     target_compile_definitions(${target} PUBLIC SHARED_PLUGIN_API)
+    target_compile_definitions(${target} PRIVATE "TLP_VERSION_STR=\"${ROADRUNNER_VERSION}\"")
 
     if(BUILD_PYTHON)
         add_custom_command(
@@ -60,6 +61,7 @@ if (RR_PLUGINS_BUILD_STATIC_LIB)
     add_library(${target}-static STATIC ${sources})
     add_library(rrplugins::${target}-static ALIAS ${target}-static)
     target_compile_definitions(${target}-static PUBLIC STATIC_PLUGIN_API)
+    target_compile_definitions(${target}-static PRIVATE "TLP_VERSION_STR=\"${ROADRUNNER_VERSION}\"")
 
     target_link_libraries(${target}-static PUBLIC
             telplugins_common-static
