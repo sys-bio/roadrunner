@@ -78,7 +78,9 @@ cmake -S "$src" -B "$ws/build" \
     -DLLVM_INSTALL_PREFIX="$ws/llvm" \
     -DBUILD_RR_PLUGINS=ON \
     "$@"
-cmake --build "$ws/build" --target install --config "$type" --parallel
+# A bare --parallel means an unlimited number of jobs with make, which can run out of memory.
+jobs=$(nproc 2> /dev/null || sysctl -n hw.ncpu)
+cmake --build "$ws/build" --target install --config "$type" --parallel "$jobs"
 
 if [ "$check" = yes ]; then
     bash "$src/test/cmake_consumers/run_consumers.sh" "$ws/install" "$ws/llvm" "$type" "$ws/consumer-build"
