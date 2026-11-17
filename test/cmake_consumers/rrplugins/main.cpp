@@ -6,8 +6,9 @@
 int main() {
     tlp::TelluriumData data(2, 2);
     tlp::Random random(5);
-    // The manager needs an existing folder to look for plugins in.
-    tlp::PluginManager manager(".");
+    // Creating the plugin manager loads all of the plugins in the folder.
+    tlp::PluginManager manager(RR_PLUGIN_FOLDER);
+    std::cout << "Loaded " << manager.getNumberOfPlugins() << " plugins" << std::endl;
     std::cout << "rows " << data.rSize() << ", random " << (random.next() >= 0) << std::endl;
     return 0;
 }

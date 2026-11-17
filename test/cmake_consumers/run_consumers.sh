@@ -38,7 +38,7 @@ build_and_run() {
     cmake --build "$work/$name" --config "$build_type"
     echo "::endgroup::"
 
-    local exe candidate output
+    local exe candidate output status
     for exe in "$@"; do
         # Visual Studio puts the programs in a folder named after the configuration.
         for candidate in "$work/$name/$exe" "$work/$name/$exe.exe" \
@@ -51,8 +51,17 @@ build_and_run() {
             exit 1
         fi
         echo "--- running $candidate"
-        output=$(cd "$work/$name" && "$candidate")
+        status=0
+        output=$(cd "$work/$name" && "$candidate" 2>&1) || status=$?
         echo "$output"
+        if [ "$status" -ne 0 ]; then
+            echo "ERROR: $exe exited with status $status" >&2
+            exit 1
+        fi
+        if grep -q 'Error:' <<< "$output"; then
+            echo "ERROR: $exe reported an error" >&2
+            exit 1
+        fi
         if [ -z "$output" ]; then
             echo "ERROR: $exe printed nothing" >&2
             exit 1
@@ -62,6 +71,8 @@ build_and_run() {
         case "$exe" in
             UseRoadRunnerFromCxx) expected_text='S1' ;;
             use_klu) expected_text='KLU in use: yes' ;;
+            plugins_cpp) expected_text='Loaded 8 plugins' ;;
+            plugins_c) expected_text='plugins version' ;;
             UseRRPluginsFromCxx) expected_text='Loaded 8 plugins
 AddNoise
 Auto-2000
