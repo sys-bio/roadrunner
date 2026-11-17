@@ -389,32 +389,6 @@ Check that LLVM_INSTALL_PREFIX (${LLVM_INSTALL_PREFIX}) points to the correct lo
         list(APPEND LLVM_LIBRARIES ${LLVM_SYSTEM_LIBS_WIN})
     endif ()
 
-    # starting with LLVM 3.4 (at least on Ubuntu) it requres functions in
-    # ncurses for console IO formatting. So, we find ncurses here.
-    if (UNIX)
-        #message("UNIX true")
-        #        message("LLVM VERSION >= 3.4, looking for curses library")
-        # sudo apt-get install libncurses5-dev libncursesw5-dev
-        #find_package(Curses REQUIRED)
-        #        message(STATUS "curses: ${CURSES_FOUND}")
-        #        message(STATUS "curdir: ${CURSES_INCLUDE_DIR}")
-        #        message(STATUS "curlib: ${CURSES_LIBRARIES}")
-        #        message(STATUS "LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
-
-        #set(LLVM_LIBRARIES "${LLVM_LIBRARIES};${CURSES_LIBRARIES}")
-
-
-        # LLVM 3.5 seems to require zlib, at least on OSX 10.9.
-        # no big deal to just add it on UNIX in general as it already there.
-        if (LLVM_VERSION_MINOR GREATER 4)
-            message("LLVM > 3.4, looking for zlib")
-            find_package(ZLIB REQUIRED)
-            set(LLVM_LIBRARIES "${LLVM_LIBRARIES};${ZLIB_LIBRARY}")
-        endif ()
-
-    endif ()
-
-
     if (LLVM_INCLUDE_DIRS)
         set(LLVM_FOUND TRUE)
         message(STATUS "Found LLVM: ${LLVM_INCLUDE_DIRS}")

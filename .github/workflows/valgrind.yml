@@ -42,11 +42,8 @@ env:
   libroadrunner_deps_owner: sys-bio
   libroadrunner_deps_repo: libroadrunner-deps
   libroadrunner_deps_name: libroadrunner-deps
-  libroadrunner_deps_release_version: v2.3.10
   llvm_owner: sys-bio
   llvm_repo: llvm-build
-  llvm_name: llvm-23.1.4
-  llvm_release_version: llvm-23.1.4-r2
   # Must equal the number of entries in the `shard` matrix below.
   num_shards: '10'
   # Tests whose names match this regex are skipped (ctest EXCLUDE).
@@ -60,6 +57,11 @@ jobs:
     steps:
       - name: Checkout RoadRunner
         uses: actions/checkout@main
+
+      # The versions of the prebuilt dependencies and LLVM, shared with scripts/build_roadrunner.sh.
+      - name: Read the dependency versions
+        shell: bash
+        run: tr -d '\r' < scripts/versions.env >> "${GITHUB_ENV}"
 
       - name: Get Host Architecture
         shell: bash
@@ -109,7 +111,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
           cd ${{ env.libroadrunner_deps_name }}-binaries
-          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.libroadrunner_deps_release_version }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
+          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.DEPS_RELEASE }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
           unzip -q ${{ env.libroadrunner_deps_name }}*.zip
           rm ${{ env.libroadrunner_deps_name }}*.zip
           echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
@@ -119,15 +121,15 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          mkdir -p ${{ env.llvm_name }}-binaries
-          cd ${{ env.llvm_name }}-binaries
-          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.llvm_release_version }}/${{ env.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
-          unzip -q ${{ env.llvm_name }}*.zip
-          rm ${{ env.llvm_name }}*.zip
-          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries" >> "${GITHUB_ENV}"
+          mkdir -p ${{ env.LLVM_NAME }}-binaries
+          cd ${{ env.LLVM_NAME }}-binaries
+          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.LLVM_RELEASE }}/${{ env.LLVM_NAME }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
+          unzip -q ${{ env.LLVM_NAME }}*.zip
+          rm ${{ env.LLVM_NAME }}*.zip
+          echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.LLVM_NAME }}-binaries" >> "${GITHUB_ENV}"
 
           # make llvm-config executable
-          chmod a+x ${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries/bin/llvm-config
+          chmod a+x ${RUNNER_WORKSPACE}/${{ env.LLVM_NAME }}-binaries/bin/llvm-config
 
       - name: Create build directory
         shell: bash
@@ -208,6 +210,11 @@ jobs:
       - name: Checkout RoadRunner
         uses: actions/checkout@main
 
+      # The versions of the prebuilt dependencies and LLVM, shared with scripts/build_roadrunner.sh.
+      - name: Read the dependency versions
+        shell: bash
+        run: tr -d '\r' < scripts/versions.env >> "${GITHUB_ENV}"
+
       - name: Get Host Architecture
         shell: bash
         run: |
@@ -234,7 +241,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
           cd ${{ env.libroadrunner_deps_name }}-binaries
-          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.libroadrunner_deps_release_version }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
+          curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.DEPS_RELEASE }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
           unzip -q ${{ env.libroadrunner_deps_name }}*.zip
           rm ${{ env.libroadrunner_deps_name }}*.zip
 
@@ -242,12 +249,12 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          mkdir -p ${{ env.llvm_name }}-binaries
-          cd ${{ env.llvm_name }}-binaries
-          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.llvm_release_version }}/${{ env.llvm_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
-          unzip -q ${{ env.llvm_name }}*.zip
-          rm ${{ env.llvm_name }}*.zip
-          chmod a+x ${RUNNER_WORKSPACE}/${{ env.llvm_name }}-binaries/bin/llvm-config
+          mkdir -p ${{ env.LLVM_NAME }}-binaries
+          cd ${{ env.LLVM_NAME }}-binaries
+          curl -LO "https://github.com/${{ env.llvm_owner }}/${{ env.llvm_repo }}/releases/download/${{ env.LLVM_RELEASE }}/${{ env.LLVM_NAME }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Release.zip"
+          unzip -q ${{ env.LLVM_NAME }}*.zip
+          rm ${{ env.LLVM_NAME }}*.zip
+          chmod a+x ${RUNNER_WORKSPACE}/${{ env.LLVM_NAME }}-binaries/bin/llvm-config
 
       - name: Download build
         uses: actions/download-artifact@main

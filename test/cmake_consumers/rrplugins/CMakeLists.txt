@@ -13,6 +13,9 @@ find_package(rrplugins CONFIG REQUIRED)
 
 add_executable(plugins_cpp main.cpp)
 target_link_libraries(plugins_cpp PRIVATE rrplugins::telplugins_core-static rrplugins::telplugins_math-static)
+# The plugins are in the lib folder of the install.
+file(TO_CMAKE_PATH "${ROADRUNNER_INSTALL_PREFIX}" plugin_install_prefix)
+target_compile_definitions(plugins_cpp PRIVATE "RR_PLUGIN_FOLDER=\"${plugin_install_prefix}/lib\"")
 
 add_executable(plugins_c main.c)
 target_link_libraries(plugins_c PRIVATE rrplugins::telplugins_c_api)
