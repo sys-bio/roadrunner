@@ -40,10 +40,9 @@ Python wheels are available at the above binaries link, and can also be installe
 ### Google Colab
 libroadrunner can be used entirely in a browser using [Google Colab](https://colab.research.google.com/).  Ideally, it will work with the following steps (updated May 2023)
   
-1. run a cell with ```!apt-get install libncurses5```
-2. run a cell with ```!pip install libroadrunner```
-3. (Vert important) Restart the runtime (From the menu: 'Runtime / Restart runtime')
-4. Test by running ```import roadrunner```
+1. run a cell with ```!pip install libroadrunner```
+2. (Vert important) Restart the runtime (From the menu: 'Runtime / Restart runtime')
+3. Test by running ```import roadrunner```
   
 The Python version behind Colab is reasonably stable but can change. This issue to changes in how colab handles packages. we try to keep abreast of changes at colab.
 
@@ -65,8 +64,7 @@ This simple script downloads [BioModels 10](https://www.ebi.ac.uk/biomodels/BIOM
 
 All libRoadRunner binaries are self-contained, and should include all libraries it depends on.  When building libRoadRunner from source, its dependencies may either be downloaded *en masse* from the [libroadrunner-deps](https://github.com/sys-bio/libroadrunner-deps) repository, may be obtained directly from their [respective sources](https://github.com/sys-bio/libroadrunner-deps/tree/release/third_party), or the libraries may be installed directly on your operating system.  Compilation requires a C++17 compiler.
 
-The one exception to the above is that the libRoadRunner binaries depend on the 'ncurses' library on linux.
-
+For more information, see the roadrunner [building from source](https://libroadrunner.readthedocs.io/en/latest/Installation/installation.html#building-roadrunner-from-source) documentation.  See also the [example script](https://github.com/sys-bio/roadrunner/tree/develop/test/cmake_consumers) designed to illustrate using the roadrunner build artifacts in a new project.
 
 # Copyright
 
@@ -79,6 +77,8 @@ E. T. Somogyi <sup>1</sup>, J. K. Medley <sup>3</sup>, M. T. Karlsson <sup>2</su
 3. Department of Bioengineering, University of Washington, Seattle, WA, 98195
 
 The current (2021-present) developer is Lucian Smith.
+
+As of July 2026, AI (Claude specifically) has been used as part of roadrunner's development.
 
 ## Contributing
 

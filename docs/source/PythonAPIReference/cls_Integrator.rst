@@ -70,7 +70,7 @@ ________________
     - ``num_err_test_fails``: the number of steps that failed the error test and were tried again with a smaller step size (cvode and rk45).
     - ``num_events``: the number of events that fired.
 
-    CVODE resets its counters when it is reinitialized, which roadrunner does at a root of the root functions, i.e. when an event triggers or a piecewise condition switches, and when a delayed event is applied. The counters of cvode are summed over these reinitializations. cvode returns these counters too:
+    Internally, CVODE resets its counters when it is reinitialized, which roadrunner does at a root of the root functions, i.e. when an event triggers or a piecewise condition switches, and when a delayed event is applied. The counters of cvode are summed over these reinitializations. cvode returns these counters too:
 
     - ``num_lin_solv_setups``: the setups of the linear solver, i.e. its LU factorizations.
     - ``num_nonlin_solv_iters``, ``num_nonlin_solv_conv_fails``: the iterations and the convergence failures of the nonlinear solver.

@@ -1,0 +1,99 @@
+name: BuildScript
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' # for ilammy/msvc-dev-cmd.
+
+# Runs scripts/build_roadrunner.sh on clean runners, the way the installation page tells users to,
+# and checks the install with test/cmake_consumers. The monthly run catches changes in the prebuilt
+# binaries that the script downloads before users do.
+#
+# build_script uses the runner images as they are. bare_bones builds with only the prerequisites
+# that the installation page lists, so that the list is tested.
+on:
+  schedule:
+    - cron: '17 9 1 * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'scripts/**'
+      - 'test/cmake_consumers/**'
+      - '.github/workflows/build_script.yml'
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'test/cmake_consumers/**'
+      - '.github/workflows/build_script.yml'
+
+jobs:
+  build_script:
+    name: ${{ matrix.os }} build script
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-15, windows-latest ]
+    steps:
+      - name: Checkout RoadRunner
+        uses: actions/checkout@main
+
+      - name: Set MSVC as the default compiler on Windows
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build, install and check with the script
+        shell: bash
+        run: bash scripts/build_roadrunner.sh -c -w "${RUNNER_TEMP}/roadrunner-build"
+
+  bare_bones:
+    name: ${{ matrix.name }} bare bones
+    runs-on: ${{ matrix.os }}
+    container:
+      image: ${{ matrix.container || '' }}
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: ubuntu-24.04, os: ubuntu-latest, container: 'ubuntu:24.04' }
+          - { name: macos-15, os: macos-15 }
+          - { name: windows-latest, os: windows-latest }
+    steps:
+      # Linux runs in an empty container, so these packages are the whole list.
+      - name: Install the prerequisites (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates curl unzip git cmake make g++
+
+      - name: Checkout RoadRunner
+        uses: actions/checkout@main
+
+      - name: Set MSVC as the default compiler on Windows
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build, install and check (Linux)
+        if: runner.os == 'Linux'
+        run: bash scripts/build_roadrunner.sh -c -w "${RUNNER_TEMP}/roadrunner-build"
+
+      # The runner cannot be emptied, so the script gets a PATH with the system tools and cmake only.
+      # That also runs it with the bash 3.2 and make that macOS ships, and without Ninja.
+      - name: Build, install and check (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir "${RUNNER_TEMP}/tools"
+          ln -s "$(command -v cmake)" "${RUNNER_TEMP}/tools/cmake"
+          PATH="${RUNNER_TEMP}/tools:/usr/bin:/bin:/usr/sbin:/sbin" /bin/bash scripts/build_roadrunner.sh -c -w "${RUNNER_TEMP}/roadrunner-build"
+
+      # Without Ninja, cmake falls back to the Visual Studio generator.
+      - name: Build, install and check (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          PATH=$(echo "$PATH" | tr ':' '\n' | while read -r dir; do [ -e "$dir/ninja.exe" ] || echo "$dir"; done | paste -sd: -)
+          export PATH
+          bash scripts/build_roadrunner.sh -c -w "${RUNNER_TEMP}/roadrunner-build"
