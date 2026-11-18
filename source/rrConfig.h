@@ -587,6 +587,15 @@ namespace rr {
             METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD,
 
             /**
+             * Return freed heap memory to the operating system after a model
+             * has been compiled, by calling malloc_trim(0).
+             * Only has an effect with glibc, and is ignored elsewhere.
+             * It is a setting of the whole process, and it takes time that
+             * grows with the size of the heap, so it is off (false) by default.
+             */
+            MALLOC_TRIM_AFTER_LOAD,
+
+            /**
              * Needs to be the last item in the enum, no mater how many
              * other items are added, this is used internally to create
              * a static array.
