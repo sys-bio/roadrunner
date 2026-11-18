@@ -1000,6 +1000,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::ExecutableModel::evalEventRoots;
 %ignore rr::ExecutableModel::getNextPendingEventTime;
 %ignore rr::ExecutableModel::getPendingEventSize;
+%ignore rr::ExecutableModel::eventAssignmentDue;
 %ignore rr::ExecutableModel::resetEvents;
 %ignore rr::ExecutableModel::saveState;
 

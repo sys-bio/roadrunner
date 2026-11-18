@@ -112,6 +112,7 @@ public:
     MOCK_METHOD(void, getPiecewiseTriggerRoots, (double time, const double* y, double* gdot), (override));
     MOCK_METHOD(double, getNextPendingEventTime, (bool pop), (override));
     MOCK_METHOD(int, getPendingEventSize, (), (override));
+    MOCK_METHOD(bool, eventAssignmentDue, (double time, const unsigned char *previousEventStatus), (override));
     MOCK_METHOD(void, resetEvents, (), (override));
     MOCK_METHOD(int, getEventIndex, (const std::string &eid), (override));
     MOCK_METHOD(std::string, getEventId, (size_t index), (override));

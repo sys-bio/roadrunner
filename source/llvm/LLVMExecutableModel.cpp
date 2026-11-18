@@ -2976,6 +2976,29 @@ int LLVMExecutableModel::getPendingEventSize()
     return pendingEvents.size();
 }
 
+bool LLVMExecutableModel::eventAssignmentDue(double time, const unsigned char* previousEventStatus)
+{
+    const double savedTime = modelData->time;
+    modelData->time = time;
+
+    // a queued event that is ripe at time
+    bool due = pendingEvents.hasRipe();
+
+    // an event triggered since the previous status is ripe as soon as it is queued when it has no delay
+    for (uint i = 0; !due && i < modelData->numEvents; ++i)
+    {
+        const bool previous = previousEventStatus && previousEventStatus[i];
+        if (!previous && getEventTrigger(i))
+        {
+            const double delay = getEventDelay(i);
+            due = delay == 0.0 || delay + time <= time;
+        }
+    }
+
+    modelData->time = savedTime;
+    return due;
+}
+
 void LLVMExecutableModel::resetEvents()
 {
 }

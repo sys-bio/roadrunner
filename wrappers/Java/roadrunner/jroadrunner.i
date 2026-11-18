@@ -526,6 +526,7 @@ static std::string strvec_to_pystring(const std::vector<std::string>& strvec) {
 %ignore rr::ExecutableModel::evalEventRoots;
 %ignore rr::ExecutableModel::getNextPendingEventTime;
 %ignore rr::ExecutableModel::getPendingEventSize;
+%ignore rr::ExecutableModel::eventAssignmentDue;
 %ignore rr::ExecutableModel::resetEvents;
 
 %ignore rr::ExecutableModel::getFloatingSpeciesId(int index);

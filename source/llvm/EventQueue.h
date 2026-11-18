@@ -102,6 +102,11 @@ namespace rrllvm {
         bool hasCurrentEvents();
 
         /**
+         * is any queued event ripe at the current time of the model
+         */
+        bool hasRipe() const;
+
+        /**
          * assign all of the top most events with the same priority
          * and remove them from the queue.
          *

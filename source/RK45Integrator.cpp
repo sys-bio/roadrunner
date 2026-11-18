@@ -314,6 +314,9 @@ namespace rr {
         return tCur;
     }
 
+    // Events are applied only here, at the initial time: the steps of integrate do not apply them.  A
+    // variable step run therefore has no rows before and after an event assignment.  They would be
+    // reported where ExecutableModel::eventAssignmentDue is true, as CVODEIntegrator does.
     void RK45Integrator::testRootsAtInitialTime() {
         std::vector<unsigned char> initialEventStatus(mModel->getEventTriggers(0, 0, 0), false);
         mModel->getEventTriggers(initialEventStatus.size(), 0,
