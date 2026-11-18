@@ -684,6 +684,44 @@ namespace rr {
         // after that time are not part of this integration.
         const bool varstepToEnd = varstep && hstep > 0;
 
+        // For a step of CVODE that ended after the requested end of a variable step integration: the
+        // triggers are evaluated on the state interpolated to the end.  When a trigger that was false
+        // before the step is true there, the events are left pending at the end as for the root of an
+        // event, a row before it is returned (at the time returned by the caller) and the next call applies
+        // them, and true is returned.  Otherwise the state of the end of the step is kept and false is
+        // returned.  The root finding does not see an event whose trigger is already true at the end, or
+        // whose root is a few ulps before it.
+        auto leaveEventsAtVarstepEndPending = [&]() -> bool {
+            if (!mStateVector || tout - timeStart <= 2. * epsilon) {
+                return false;
+            }
+            double *y = NV_DATA_S(mStateVector);
+            const std::vector<double> stepEndState(y, y + NV_LENGTH_S(mStateVector));
+
+            bool triggeredAtEnd = false;
+            if (interpolateToTime(tout)) {
+                std::vector<unsigned char> triggers(eventStatus.size());
+                mModel->getEventTriggers(triggers.size(), nullptr, triggers.empty() ? nullptr : &triggers[0]);
+                for (size_t i = 0; i < triggers.size(); i++) {
+                    triggeredAtEnd = triggeredAtEnd || (triggers[i] && !eventStatus[i]);
+                }
+            }
+
+            if (triggeredAtEnd) {
+                // the state of the integrator is the state at the end, before the events
+                variableStepPendingEvent = true;
+                variableStepEventTolerance = std::min(getRootTolerance(tout), 0.5 * (tout - timeStart));
+                mLastEventTime = tout;
+                assignResultsToModel();
+                mModel->setTime(tout - epsilon);
+                return true;
+            }
+
+            std::copy(stepEndState.begin(), stepEndState.end(), y);
+            assignResultsToModel();
+            return false;
+        };
+
         // loop until machine epislon
         while (tout - timeEnd >= epsilon) {
             // here we bail in case we have no ODEs set up with CVODE ... though we should
@@ -727,7 +765,11 @@ namespace rr {
                 if (varstepToEnd && timeEnd > tout) {
                     // The root of an event is after the requested end.  The event is not applied or left
                     // pending, and the caller interpolates the state back to the end.  A simulation
-                    // that continues from the end finds the event again.
+                    // that continues from the end finds the event again.  An event whose trigger is true
+                    // at the end fires there.
+                    if (leaveEventsAtVarstepEndPending()) {
+                        return tout - variableStepEventTolerance;
+                    }
                     assignResultsToModel();
                     mModel->setTime(timeEnd);
                     return timeEnd;
@@ -775,7 +817,10 @@ namespace rr {
                 if (varstepToEnd && timeEnd > tout) {
                     // The step ended after the requested end, so an event at the end of the step is
                     // after the end too and is not applied.  The caller interpolates the state back to
-                    // the requested end.
+                    // the requested end.  An event whose trigger is true at the end fires there.
+                    if (leaveEventsAtVarstepEndPending()) {
+                        return tout - variableStepEventTolerance;
+                    }
                     mModel->setTime(timeEnd);
                 } else if (varstep
                     && (timeEnd - timeStart > 2. * epsilon)) {

@@ -902,14 +902,18 @@ static const std::string StiffDecayAtLargeTimeSBML = R"(<?xml version="1.0" enco
   </model>
 </sbml>)";
 
-// Collects what the Logger writes to its console stream, and puts the stream back afterwards.
+// Collects what the Logger writes to its console stream, and puts the stream and the level back afterwards.
 class ScopedLoggerCapture {
 public:
-    ScopedLoggerCapture() { Logger::setConsoleStream(&stream); }
-    ~ScopedLoggerCapture() { Logger::setConsoleStream(&std::clog); }
+    ScopedLoggerCapture() : previousLevel(Logger::getLevel()) { Logger::setConsoleStream(&stream); }
+    ~ScopedLoggerCapture() {
+        Logger::setConsoleStream(&std::clog);
+        Logger::setLevel(previousLevel);
+    }
     std::string str() const { return stream.str(); }
 private:
     std::ostringstream stream;
+    int previousLevel;
 };
 
 struct RunOutput {
@@ -927,6 +931,7 @@ static int countOccurrences(const std::string &text, const std::string &what) {
 
 // One run of the model above at the given Logger level
 static RunOutput runStiffDecayAtLogLevel(RoadRunner &rr, Logger::Level level) {
+    ScopedLoggerCapture loggerCapture;
     Logger::setLevel(level);
     rr.reset(SelectionRecord::ALL);
     rr.getIntegrator()->setValue("variable_step_size", false);
@@ -934,7 +939,6 @@ static RunOutput runStiffDecayAtLogLevel(RoadRunner &rr, Logger::Level level) {
     rr.getIntegrator()->setValue("relative_tolerance", 1e-10);
 
     RunOutput result;
-    ScopedLoggerCapture loggerCapture;
     testing::internal::CaptureStdout();
     rr.simulate(613190, 20, 5); // t = 613190 to 613210, 5 points (the second argument is a duration)
     fflush(stdout);             // SUNDIALS used to write through C stdio, which is buffered
@@ -1545,4 +1549,179 @@ TEST_F(CVODEIntegratorTests, VariableStepSimulationEndingWithinTheRootToleranceO
             EXPECT_EQ(1, result(last, 2)) << what.str();
         }
     }
+}
+
+// model end_trigger
+//   var X = 1
+//   var n = 0
+//   X' = -0.1 * X
+//   E: at (time <op> T), after @DELAY@: n = n + 1   (the trigger is false at the start)
+static const std::string EndTriggerSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="end_trigger" id="end_trigger">
+    <listOfParameters>
+      <parameter id="X" value="1" constant="false"/>
+      <parameter id="n" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> -0.1 </cn>
+            <ci> X </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <@OP@/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> @T@ </cn>
+            </apply>
+          </math>
+        </trigger>@DELAY@
+        <listOfEventAssignments>
+          <eventAssignment variable="n">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> n </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+// the model with the comparison of the trigger (geq or gt), its time and the delay of the event (none if 0)
+static std::string endTriggerModel(const std::string &op, double triggerTime, double delay) {
+    std::string delayElement;
+    if (delay > 0) {
+        delayElement = "\n        <delay>\n          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+                       "            <cn> " + std::to_string(delay) + " </cn>\n          </math>\n        </delay>";
+    }
+    std::string sbml = EndTriggerSBML;
+    const std::pair<std::string, std::string> substitutions[] = {
+            {"@OP@", op}, {"@T@", std::to_string(triggerTime)}, {"@DELAY@", delayElement}};
+    for (const auto &substitution : substitutions) {
+        sbml.replace(sbml.find(substitution.first), substitution.first.size(), substitution.second);
+    }
+    return sbml;
+}
+
+struct EndTriggerCase {
+    const char *op;
+    double triggerTime;
+    double end;
+    int nAtEnd;  // n at the end of the first simulation
+};
+
+/**
+ * Regression test for sys-bio/roadrunner#1445 (a regression of #1390): an event whose trigger was
+ * true at the end of a variable step simulation never fired.  The root of the event was not
+ * found after the end, because the trigger was already true there (time >= 1 with the end at 1),
+ * or a few ulps before it (time >= 2 with the end a few ulps after 2) and reported by CVODE after
+ * it.  The event fires at the end, with a row before it, and once: a simulation that continues
+ * from the end does not fire it again.  An event with a trigger that is not true at the end
+ * (time > 1 with the end at 1) fires after it, once.
+ */
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsTrueAtTheEndOfAVariableStepSimulationFiresAtTheEnd) {
+    const double stop = 5;
+    const EndTriggerCase cases[] = {
+            {"geq", 1.0, 1.0, 1},
+            {"geq", 2.0, 2.0 + 1e-15, 1},
+            {"gt", 1.0, 1.0, 0},
+    };
+
+    for (const EndTriggerCase &c : cases) {
+        std::ostringstream what;
+        what.precision(17);
+        what << "time " << c.op << " " << c.triggerTime << ", end " << c.end;
+        SCOPED_TRACE(what.str());
+
+        RoadRunner rr(endTriggerModel(c.op, c.triggerTime, 0));
+        rr.setSelections(std::vector<std::string>{"time", "X", "n"});
+
+        const ls::DoubleMatrix first = simulateVariableStep(rr, 0, c.end);
+        ASSERT_GT(first.numRows(), 2u);
+        const unsigned last = first.numRows() - 1;
+        for (unsigned i = 1; i <= last; i++) {
+            EXPECT_GT(first(i, 0), first(i - 1, 0)) << "row " << i;
+        }
+        EXPECT_EQ(c.end, first(last, 0));
+        EXPECT_EQ(c.nAtEnd, first(last, 2));
+        if (c.nAtEnd > 0) {
+            // the row before the event
+            EXPECT_EQ(0, first(last - 1, 2));
+        }
+        EXPECT_NEAR(std::exp(-0.1 * c.end), first(last, 1), 1e-5);
+        EXPECT_EQ(c.end, rr.getCurrentTime());
+        EXPECT_EQ(c.nAtEnd, rr.getValue("n"));
+
+        const ls::DoubleMatrix second = simulateVariableStep(rr, c.end, stop - c.end);
+        ASSERT_GT(second.numRows(), 2u);
+        const unsigned lastSecond = second.numRows() - 1;
+        for (unsigned i = 1; i <= lastSecond; i++) {
+            EXPECT_GT(second(i, 0), second(i - 1, 0)) << "row " << i;
+        }
+        EXPECT_EQ(c.end, second(0, 0));
+        EXPECT_EQ(c.nAtEnd, second(0, 2));
+        EXPECT_EQ(stop, second(lastSecond, 0));
+        EXPECT_EQ(1, second(lastSecond, 2));
+        EXPECT_NEAR(std::exp(-0.1 * stop), second(lastSecond, 1), 1e-5);
+    }
+}
+
+/**
+ * An event with a delay whose trigger becomes true at the end of a variable step simulation is
+ * not applied at the end, it is due after it.  It stays pending when the simulation ends, and
+ * fires once, at its time, in a simulation that continues from the end.
+ */
+TEST_F(CVODEIntegratorTests, DelayedEventTriggeredAtTheEndOfAVariableStepSimulationFiresAfterItsDelay) {
+    const double triggerTime = 1.0;
+    const double delay = 0.5;
+    const double stop = 5;
+
+    RoadRunner rr(endTriggerModel("geq", triggerTime, delay));
+    rr.setSelections(std::vector<std::string>{"time", "X", "n"});
+
+    const ls::DoubleMatrix first = simulateVariableStep(rr, 0, triggerTime);
+    ASSERT_GT(first.numRows(), 2u);
+    EXPECT_EQ(triggerTime, first(first.numRows() - 1, 0));
+    for (unsigned i = 0; i < first.numRows(); i++) {
+        EXPECT_EQ(0, first(i, 2)) << "row " << i;
+    }
+    EXPECT_EQ(triggerTime, rr.getCurrentTime());
+    EXPECT_EQ(0, rr.getValue("n"));
+
+    const ls::DoubleMatrix second = simulateVariableStep(rr, triggerTime, stop - triggerTime);
+    ASSERT_GT(second.numRows(), 2u);
+    const unsigned last = second.numRows() - 1;
+    EXPECT_EQ(triggerTime, second(0, 0));
+    EXPECT_EQ(0, second(0, 2));
+
+    bool fired = false;
+    unsigned firedRow = 0;
+    for (unsigned i = 1; i <= last; i++) {
+        EXPECT_GT(second(i, 0), second(i - 1, 0)) << "row " << i;
+        if (!fired && second(i, 2) > 0.5) {
+            fired = true;
+            firedRow = i;
+        }
+    }
+    ASSERT_TRUE(fired);
+    EXPECT_NEAR(triggerTime + delay, second(firedRow, 0), 1e-6);
+    for (unsigned i = firedRow; i <= last; i++) {
+        EXPECT_EQ(1, second(i, 2)) << "row " << i;
+    }
+    EXPECT_EQ(stop, second(last, 0));
+    EXPECT_NEAR(std::exp(-0.1 * stop), second(last, 1), 1e-5);
 }
