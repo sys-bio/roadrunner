@@ -530,6 +530,8 @@ public:
 
     virtual int getPendingEventSize() override;
 
+    virtual bool eventAssignmentDue(double time, const unsigned char* previousEventStatus) override;
+
     virtual void resetEvents() override;
 
     inline double getEventDelay(size_t event)

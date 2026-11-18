@@ -484,6 +484,8 @@ public:
 
     virtual int getPendingEventSize();
 
+    virtual bool eventAssignmentDue(double time, const unsigned char *previousEventStatus);
+
     void removePendingAssignmentForIndex(int eventIndex);
 
     void sortEventsByPriority(std::vector<Event>& firedEvents);

@@ -934,6 +934,18 @@ namespace rr {
 
         virtual int getPendingEventSize() = 0;
 
+        /**
+         * Would applyEvents, called with the same time and previous event status, assign at least
+         * one event?  An event assignment is due when an event that is queued is ripe at the given
+         * time, or when an event that triggered since the previous status has no delay.  An event
+         * that is only triggered, and has a delay, is not due.  The model is not changed, and its
+         * state must be the state at the given time.
+         *
+         * @param time: model time to evaluate the events at.
+         * @param previousEventStatus: array of previous event triggered states.
+         */
+        virtual bool eventAssignmentDue(double time, const unsigned char *previousEventStatus) = 0;
+
         virtual void resetEvents() = 0;
 
         /**

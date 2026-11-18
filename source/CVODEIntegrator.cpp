@@ -684,36 +684,50 @@ namespace rr {
         // after that time are not part of this integration.
         const bool varstepToEnd = varstep && hstep > 0;
 
+        // Leaves the events that are due at time t pending.  The model is left in the state before them, at
+        // a time just before t, for the row that the caller returns before them, and the next call applies
+        // them.  The row before them must stay after the previous row.
+        auto leaveEventsPendingAt = [&](double t) {
+            variableStepPendingEvent = true;
+            variableStepEventTolerance = std::min(getRootTolerance(t), 0.5 * (t - timeStart));
+            mLastEventTime = t;
+            assignResultsToModel();
+            mModel->setTime(t - epsilon);
+        };
+
         // For a step of CVODE that ended after the requested end of a variable step integration: the
-        // triggers are evaluated on the state interpolated to the end.  When a trigger that was false
-        // before the step is true there, the events are left pending at the end as for the root of an
-        // event, a row before it is returned (at the time returned by the caller) and the next call applies
-        // them, and true is returned.  Otherwise the state of the end of the step is kept and false is
-        // returned.  The root finding does not see an event whose trigger is already true at the end, or
-        // whose root is a few ulps before it.
+        // events are evaluated on the state interpolated to the end.  When an event assignment is due
+        // there, the events are left pending at the end, a row before it is returned (at the time returned
+        // by the caller), and true is returned.  An event that is triggered there with a delay is queued,
+        // with no rows.  Otherwise the state of the end of the step is kept and false is returned.  The
+        // root finding does not see an event whose trigger is already true at the end, or whose root is a
+        // few ulps before it.
         auto leaveEventsAtVarstepEndPending = [&]() -> bool {
             if (!mStateVector || tout - timeStart <= 2. * epsilon) {
                 return false;
             }
             double *y = NV_DATA_S(mStateVector);
             const std::vector<double> stepEndState(y, y + NV_LENGTH_S(mStateVector));
+            unsigned char *previousStatus = eventStatus.empty() ? nullptr : &eventStatus[0];
 
-            bool triggeredAtEnd = false;
+            bool assignmentDue = false;
             if (interpolateToTime(tout)) {
-                std::vector<unsigned char> triggers(eventStatus.size());
-                mModel->getEventTriggers(triggers.size(), nullptr, triggers.empty() ? nullptr : &triggers[0]);
-                for (size_t i = 0; i < triggers.size(); i++) {
-                    triggeredAtEnd = triggeredAtEnd || (triggers[i] && !eventStatus[i]);
+                assignmentDue = mModel->eventAssignmentDue(tout, previousStatus);
+                if (!assignmentDue) {
+                    std::vector<unsigned char> triggers(eventStatus.size());
+                    mModel->getEventTriggers(triggers.size(), nullptr, triggers.empty() ? nullptr : &triggers[0]);
+                    bool triggeredAtEnd = false;
+                    for (size_t i = 0; i < triggers.size(); i++) {
+                        triggeredAtEnd = triggeredAtEnd || (triggers[i] && !eventStatus[i]);
+                    }
+                    if (triggeredAtEnd) {
+                        mModel->applyEvents(tout, previousStatus, nullptr, nullptr);
+                    }
                 }
             }
 
-            if (triggeredAtEnd) {
-                // the state of the integrator is the state at the end, before the events
-                variableStepPendingEvent = true;
-                variableStepEventTolerance = std::min(getRootTolerance(tout), 0.5 * (tout - timeStart));
-                mLastEventTime = tout;
-                assignResultsToModel();
-                mModel->setTime(tout - epsilon);
+            if (assignmentDue) {
+                leaveEventsPendingAt(tout);
                 return true;
             }
 
@@ -789,15 +803,15 @@ namespace rr {
 
                     if (varstep
                         && (timeEnd - timeStart > 2. * epsilon)) {
-                        variableStepPendingEvent = true;
-                        // the row before the event must stay after the previous row
-                        variableStepEventTolerance = std::min(getRootTolerance(timeEnd), 0.5 * (timeEnd - timeStart));
+                        // only an event assignment has rows before and after it
                         assignResultsToModel();
-                        mModel->setTime(timeEnd - epsilon);
-                        if (listener) {
-                            listener->onTimeStep(this, mModel, timeEnd);
+                        if (mModel->eventAssignmentDue(timeEnd, eventStatus.empty() ? nullptr : &eventStatus[0])) {
+                            leaveEventsPendingAt(timeEnd);
+                            if (listener) {
+                                listener->onTimeStep(this, mModel, timeEnd);
+                            }
+                            return timeEnd - variableStepEventTolerance;
                         }
-                        return timeEnd - variableStepEventTolerance;
                     }
 
                     // apply events, copy post event status into integrator state std::vector.
@@ -824,6 +838,12 @@ namespace rr {
                     mModel->setTime(timeEnd);
                 } else if (varstep
                     && (timeEnd - timeStart > 2. * epsilon)) {
+                    // an event assignment due at the end of the step has a row before it, at the end
+                    if (mModel->eventAssignmentDue(timeEnd, eventStatus.empty() ? nullptr : &eventStatus[0])) {
+                        leaveEventsPendingAt(timeEnd);
+                        return timeEnd - variableStepEventTolerance;
+                    }
+
                     // event status before time step
 
                     mModel->getEventTriggers(eventStatus.size(), 0, eventStatus.empty() ? nullptr : &eventStatus[0]);

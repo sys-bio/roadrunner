@@ -1287,6 +1287,42 @@ int CompiledExecutableModel::getPendingEventSize()
     return mAssignmentTimes.size();
 }
 
+// This function was not compiled or tested: the legacy C backend is off by default.
+bool CompiledExecutableModel::eventAssignmentDue(double time, const unsigned char *previousEventStatus)
+{
+    // the event status array is set by evalEvents, and is put back before returning
+    const std::vector<bool> savedStatus(mData.eventStatusArray, mData.eventStatusArray + mData.numEvents);
+
+    // as in applyEvents, the concentrations are brought up to date before the triggers are evaluated
+    this->convertToConcentrations();
+    this->updateDependentSpeciesValues();
+    this->evalEvents(time, 0);
+
+    bool due = false;
+
+    // a pending assignment that is due, for an event that is persistent or still triggered
+    for (size_t i = 0; !due && i < mAssignments.size(); i++)
+    {
+        const int index = mAssignments[i].getIndex();
+        due = time >= mAssignments[i].getTime() &&
+                (mData.eventPersistentType[index] || mData.eventStatusArray[index]);
+    }
+
+    // an event that triggered since the previous status, with no delay
+    for (int i = 0; !due && i < mData.numEvents; i++)
+    {
+        if (mData.eventStatusArray[i] && !(previousEventStatus && previousEventStatus[i]))
+        {
+            double delay = 0;
+            this->getEventDelays(1, &i, &delay);
+            due = delay == 0;
+        }
+    }
+
+    std::copy(savedStatus.begin(), savedStatus.end(), mData.eventStatusArray);
+    return due;
+}
+
 int CompiledExecutableModel::getReactionRates(int len, const int* indx,
         double* values)
 {

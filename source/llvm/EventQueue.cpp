@@ -208,6 +208,12 @@ bool EventQueue::hasCurrentEvents()
     return size() && top().isCurrent();
 }
 
+bool EventQueue::hasRipe() const
+{
+    return std::any_of(sequence.begin(), sequence.end(),
+            [](const Event& event) { return event.isRipe(); });
+}
+
 
 
 bool EventQueue::applyEvents()
