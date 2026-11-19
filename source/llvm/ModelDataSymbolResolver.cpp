@@ -82,6 +82,10 @@ namespace rrllvm
                 symbol);
             if (i != modelSymbols.getAssigmentRules().end())
             {
+                if (Value* cached = cacheValue(symbol, args))
+                {
+                    return cached;
+                }
                 recursiveSymbolPush(symbol);
                 Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGenDouble(i->second);
                 recursiveSymbolPop();

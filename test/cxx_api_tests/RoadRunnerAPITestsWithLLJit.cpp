@@ -6,9 +6,12 @@
 #include "rrConfig.h"
 #include <chrono>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
+#include <fstream>
 #include <future>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <string>
 #include <thread>
@@ -1025,4 +1028,141 @@ TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfInitialAssignmentsWithAssignmentRuleI
     rr->setValue("init(AGE)", 60.0);
     rr->reset();
     checkChain(*rr, 3.0);
+}
+
+
+/**
+ * Chains of assignment rules.
+ *
+ * Every rule p_k reads the previous one twice, so inlining the code of an
+ * assignment rule into each reader makes the generated code grow as 2^k.
+ * The model data resolvers cache one value per symbol in each generated
+ * function, which keeps it linear.
+ * A rate rule reads the end of the chain, and an event changes the start of it
+ * while it records the end.
+ *
+ * The cache logs every value it stores, so the number of those lines for the
+ * bottom of the chain counts how often its code was generated. The chain is
+ * short enough to load without the cache, so a missing cache fails the count
+ * and does not hang the load.
+ */
+namespace {
+
+    constexpr int RuleChainLevels = 8;
+
+    // p_k := p_(k-1) + piecewise(p_(k-1), AGE < 50, 2*p_(k-1)), so every link is
+    // the previous one times 2 for AGE = 35 and times 3 for AGE = 60.
+    // x' = p_n / p_(n-1) is that factor. At t = 0.5 an event sets p0 to 3 and y
+    // to p_n, which is the value p_n has before the event.
+    std::string ruleChainSBML() {
+        const std::string math = "<math xmlns='http://www.w3.org/1998/Math/MathML'>";
+        const std::string last = "p" + std::to_string(RuleChainLevels);
+        std::string params = "<parameter id='AGE' value='35' constant='true'/>"
+                             "<parameter id='p0' value='1' constant='false'/>"
+                             "<parameter id='x' value='0' constant='false'/>"
+                             "<parameter id='y' value='0' constant='false'/>";
+        std::string rules;
+        for (int k = 1; k <= RuleChainLevels; k++) {
+            std::string id = "p" + std::to_string(k);
+            params += "<parameter id='" + id + "' constant='false'/>";
+            rules += "<assignmentRule variable='" + id + "'>" + chainMath(k) + "</assignmentRule>";
+        }
+        rules += "<rateRule variable='x'>" + math + "<apply><divide/><ci> " + last + " </ci><ci> p" +
+                 std::to_string(RuleChainLevels - 1) + " </ci></apply></math></rateRule>";
+        std::string event = "<event id='e' useValuesFromTriggerTime='true'>"
+                            "<trigger initialValue='false' persistent='true'>" + math +
+                            "<apply><geq/><csymbol encoding='text' "
+                            "definitionURL='http://www.sbml.org/sbml/symbols/time'> time </csymbol>"
+                            "<cn> 0.5 </cn></apply></math></trigger>"
+                            "<listOfEventAssignments>"
+                            "<eventAssignment variable='p0'>" + math + "<cn> 3 </cn></math></eventAssignment>"
+                            "<eventAssignment variable='y'>" + math + "<ci> " + last + " </ci></math></eventAssignment>"
+                            "</listOfEventAssignments></event>";
+        return "<?xml version='1.0' encoding='UTF-8'?>"
+               "<sbml xmlns='http://www.sbml.org/sbml/level3/version2/core' level='3' version='2'>"
+               "<model id='ruleChain'>"
+               "<listOfParameters>" + params + "</listOfParameters>"
+               "<listOfRules>" + rules + "</listOfRules>"
+               "<listOfEvents>" + event + "</listOfEvents></model></sbml>";
+    }
+
+    std::unique_ptr<RoadRunner> loadRuleChain() {
+        // the model data resolvers cache only when this is set, which it is by default
+        bool previous = Config::getBool(Config::LLVM_SYMBOL_CACHE);
+        Config::setValue(Config::LLVM_SYMBOL_CACHE, true);
+        auto rr = std::make_unique<RoadRunner>(ruleChainSBML());
+        Config::setValue(Config::LLVM_SYMBOL_CACHE, previous);
+        return rr;
+    }
+
+    // Every link is the previous one times factor, so p_k = p0 * factor^k.
+    void checkRuleChain(RoadRunner& rr, double p0, double factor) {
+        for (int k : {2, RuleChainLevels / 2, RuleChainLevels - 1, RuleChainLevels}) {
+            EXPECT_NEAR(rr.getValue("p" + std::to_string(k)) / (p0 * std::pow(factor, k)), 1.0, 1e-12)
+                << "p" << k;
+        }
+    }
+
+    bool isIdentifierChar(char c) {
+        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+    }
+
+    // The number of lines of the log which say that the value of symbol was cached.
+    int countCachedValues(const std::string& log, const std::string& symbol) {
+        const std::string needle = "caching value for " + symbol;
+        int count = 0;
+        for (size_t pos = log.find(needle); pos != std::string::npos; pos = log.find(needle, pos + 1)) {
+            size_t end = pos + needle.size();
+            if (end >= log.size() || !isIdentifierChar(log[end])) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfAssignmentRules) {
+    auto rr = loadRuleChain();
+    checkRuleChain(*rr, 1.0, 2.0);
+    rr->simulate(0, 0.4, 2);
+    EXPECT_NEAR(rr->getValue("x"), 0.8, 1e-6);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfAssignmentRulesChangedParameter) {
+    auto rr = loadRuleChain();
+    rr->setValue("AGE", 60.0);
+    checkRuleChain(*rr, 1.0, 3.0);
+    rr->simulate(0, 0.4, 2);
+    EXPECT_NEAR(rr->getValue("x"), 1.2, 1e-6);
+}
+
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfAssignmentRulesWithEvent) {
+    auto rr = loadRuleChain();
+    rr->simulate(0, 1, 2);
+    // the event assigned y from the chain as it was before the event changed p0
+    EXPECT_NEAR(rr->getValue("y") / std::pow(2.0, RuleChainLevels), 1.0, 1e-12);
+    checkRuleChain(*rr, 3.0, 2.0);
+    EXPECT_NEAR(rr->getValue("x"), 2.0, 1e-6);
+}
+
+// Without the cache p2 is generated once per path through the chain, 2^6 times
+// for every function that reads p8; with it once per function that reads it.
+TEST_F(RoadRunnerAPITestsWithLLJit, ChainOfAssignmentRulesIsGeneratedOncePerSymbol) {
+    const std::string logFile = ::testing::TempDir() + "ruleChainSymbolCache.log";
+    const int previousLevel = Logger::getLevel();
+    Logger::disableConsoleLogging();
+    Logger::enableFileLogging(logFile, Logger::LOG_DEBUG);
+    Logger::setLevel(Logger::LOG_DEBUG);
+    auto rr = loadRuleChain();
+    Logger::disableFileLogging();
+    Logger::setLevel(previousLevel);
+    Logger::enableConsoleLogging();
+
+    std::ifstream in(logFile);
+    std::string log((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    in.close();
+    std::remove(logFile.c_str());
+
+    EXPECT_GT(countCachedValues(log, "p8"), 0) << "the cache logged nothing; is debug logging compiled in?";
+    EXPECT_LE(countCachedValues(log, "p2"), 10 * RuleChainLevels);
 }
