@@ -452,12 +452,12 @@ jobs:
           cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=OFF
           cmake --build . --target roadrunner_c_api --config ${{ matrix.platform.build_type }}
 
-      - name: Run LLJit section range tests (Debug)
+      - name: Run all C tests (Debug)
         if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
+          ctest --output-on-failure --progress --exclude-regex ython
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
