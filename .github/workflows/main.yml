@@ -355,11 +355,11 @@ jobs:
           ${{ env.PYTHON_DIR }} \
           ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
-      - name: Build the LLJitSectionRange test
+      - name: Build and install RoadRunner
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          cmake --build . --target test_llvm_LLJitSectionRange --config ${{ matrix.platform.build_type }}
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
       - name: Show ccache statistics
         if: always()
@@ -422,14 +422,11 @@ jobs:
           cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=OFF
           cmake --build . --target roadrunner_c_api --config ${{ matrix.platform.build_type }}
 
-      - name: Run the LLJitSectionRange tests with a stack trace on a crash
+      - name: Run all C tests (Debug)
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}/build-roadrunner/test/llvm_tests
-          rc=0
-          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitPlainCreate.*' --gtest_catch_exceptions=0 || rc=$?
-          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitSectionRange.*' --gtest_catch_exceptions=0 || rc=$?
-          exit $rc
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest --output-on-failure --progress --exclude-regex ython
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
