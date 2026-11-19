@@ -50,6 +50,8 @@ bool EventAssignCodeGen::eventCodeGen(llvm::Value *modelData,
             Value* loc = builder.CreateConstGEP1_32(builder.getDoubleTy(), data, id);
             Value* value = builder.CreateLoad(builder.getDoubleTy(), loc, a->getVariable() + "_data");
             mdStoreResolver.storeSymbolValue(a->getVariable(), value);
+            // values cached before this store may depend on the symbol it changed
+            mdLoadResolver.flushCache();
         }
     }
 
@@ -64,6 +66,8 @@ bool EventAssignCodeGen::eventCodeGen(llvm::Value *modelData,
             Value* loc = builder.CreateConstGEP1_32(builder.getDoubleTy(), data, id);
             Value* value = builder.CreateLoad(builder.getDoubleTy(), loc, a->getVariable() + "_data");
             mdStoreResolver.storeSymbolValue(a->getVariable(), value);
+            // values cached before this store may depend on the symbol it changed
+            mdLoadResolver.flushCache();
         }
     }
 

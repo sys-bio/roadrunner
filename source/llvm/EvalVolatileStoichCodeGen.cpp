@@ -97,6 +97,8 @@ namespace rrllvm {
                         mdbuilder.createStoichiometryStore(info.row, info.column,
                                                            value, p->getId());
                     }
+                    // values cached before this store may depend on the stoichiometry it changed
+                    resolver.flushCache();
                 }
             }
 
@@ -152,6 +154,8 @@ namespace rrllvm {
                         mdbuilder.createStoichiometryStore(info.row, info.column, value,
                                                            r->getId());
                     }
+                    // values cached before this store may depend on the stoichiometry it changed
+                    resolver.flushCache();
                 }
             }
         }
