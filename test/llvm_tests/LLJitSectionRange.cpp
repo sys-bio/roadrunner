@@ -17,6 +17,24 @@
 #include "rrRoadRunner.h"
 #include "rrRoadRunnerOptions.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
+
+#include "llvm/ExecutionEngine/Orc/LLJIT.h"
+#include "llvm/Support/Error.h"
+#include "llvm/Support/TargetSelect.h"
+
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
+
 #include <cmath>
 #include <cstdint>
 #include <memory>
@@ -122,6 +140,14 @@ TEST_F(LLJitSectionRange, TwoModelsAliveTogether) {
     auto second = load(n + 100);
     simulateAndCheck(*second, n + 100);
     simulateAndCheck(*first, n);
+}
+
+// Creates an LLJIT with LLVM's defaults and nothing from roadrunner.
+TEST(LLJitPlainCreate, DefaultBuilderCreates) {
+    llvm::InitializeNativeTarget();
+    llvm::InitializeNativeTargetAsmPrinter();
+    auto jit = llvm::orc::LLJITBuilder().create();
+    ASSERT_TRUE(static_cast<bool>(jit)) << llvm::toString(jit.takeError());
 }
 
 // Prints the stack of the first access violations in this process.

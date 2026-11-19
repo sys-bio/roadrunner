@@ -424,7 +424,10 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner/test/llvm_tests
-          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitSectionRange.*' --gtest_catch_exceptions=0
+          rc=0
+          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitPlainCreate.*' --gtest_catch_exceptions=0 || rc=$?
+          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitSectionRange.*' --gtest_catch_exceptions=0 || rc=$?
+          exit $rc
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
