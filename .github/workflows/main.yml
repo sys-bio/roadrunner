@@ -15,6 +15,10 @@ on:
         description: 'Build and run only the LLJit timing tests (Release builds), then fail on purpose'
         type: boolean
         default: false
+      no_ccache:
+        description: 'Disable ccache for this run'
+        type: boolean
+        default: false
 
 jobs:
   build_on_OSs:
@@ -23,59 +27,18 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-15-intel-release
-            os_type: macos
-            os_name: macos-15-intel
-            build_type: Release
-            build_python: ON
-          - name: macos-15-intel-debug
-            os_type: macos
-            os_name: macos-15-intel
-            build_type: Debug
-            build_python: OFF
-          - name: macos-15-release
-            os_type: macos
-            os_name: macos-15
-            build_type: Release
-            build_python: ON
-          - name: macos-15-debug
-            os_type: macos
-            os_name: macos-15
-            build_type: Debug
-            build_python: OFF
-          - name: ubuntu-latest-release
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Release
-            build_python: ON
-          - name: ubuntu-latest-debug
-            os_type: ubuntu
-            os_name: ubuntu-latest
-            build_type: Debug
-            build_python: OFF
-          - name: windows-latest-release
-            os_type: windows
-            os_name: windows-latest
-            build_type: Release
-            build_python: ON
           - name: windows-latest-debug
             os_type: windows
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
-          - name: manylinux_2_28-release
-            os_type: manylinux
-            os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux_2_28_x86_64
-            build_type: Release
-            build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-build" ]
         build_tests: [ON]
-        build_plugins: [ON]
+        build_plugins: [OFF]
     runs-on: ${{ matrix.platform.os_name }}
     container:
       image: ${{ matrix.platform.container_image || '' }}
@@ -262,6 +225,11 @@ jobs:
           echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
           echo "COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
+      - name: Disable ccache
+        if: github.event.inputs.no_ccache == 'true'
+        shell: bash
+        run: echo "CCACHE_DISABLE=1" >> $GITHUB_ENV
+
       - name: Restore ccache files
         uses: actions/cache/restore@main
         with:
@@ -353,7 +321,7 @@ jobs:
           chmod a+x ${RUNNER_WORKSPACE}/${{ env.LLVM_NAME }}-binaries/bin/llvm-config
 
       - name: Setup Julia
-        if: matrix.platform.os_type != 'manylinux'
+        if: ${{ false }}
         uses: julia-actions/setup-julia@master
         with:
           version: '1'
@@ -379,17 +347,17 @@ jobs:
           -DRR_BUILD_TIMING_TESTS=${{ github.event.inputs.timing == 'true' && 'ON' || 'OFF' }} \
           -DBUILD_RR_PLUGINS=${{ matrix.build_plugins }} \
           -DBUILD_PYTHON=${{ matrix.platform.build_python }} \
-          -DBUILD_EXAMPLES=ON \
-          -DBUILD_JULIA=ON \
+          -DBUILD_EXAMPLES=OFF \
+          -DBUILD_JULIA=OFF \
           ${{ matrix.platform.os_type == 'windows' && '-DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded' || '' }} \
           ${{ env.PYTHON_DIR }} \
           ${{ matrix.platform.build_python == 'ON' && env.SWIG_DIR || '' }}
 
-      - name: Build and install RoadRunner
+      - name: Build the LLJitSectionRange test
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          cmake --build . --target install --config ${{ matrix.platform.build_type }}
+          cmake --build . --target test_llvm_LLJitSectionRange --config ${{ matrix.platform.build_type }}
 
       - name: Show ccache statistics
         if: always()
@@ -452,12 +420,11 @@ jobs:
           cmake $GITHUB_WORKSPACE -DRR_C_API_HIDE_LLVM_SYMBOLS=OFF
           cmake --build . --target roadrunner_c_api --config ${{ matrix.platform.build_type }}
 
-      - name: Run all C tests (Debug)
-        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
+      - name: Run the LLJitSectionRange tests with a stack trace on a crash
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --progress --exclude-regex ython
+          cd ${RUNNER_WORKSPACE}/build-roadrunner/test/llvm_tests
+          ../../bin/test_llvm_LLJitSectionRange.exe --gtest_filter='LLJitSectionRange.*' --gtest_catch_exceptions=0
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
@@ -467,6 +434,7 @@ jobs:
           ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
       - name: Save roadrunner version
+        if: ${{ false }}
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-roadrunner
@@ -475,6 +443,7 @@ jobs:
           echo "roadrunner_version=$rrversion" >> ${GITHUB_ENV}
 
       - name: Set artifacts path and name
+        if: ${{ false }}
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
@@ -490,6 +459,7 @@ jobs:
           echo "julia_platform=${julia_platform}" >> $GITHUB_ENV
 
       - name: Upload roadrunner binaries
+        if: ${{ false }}
         uses: actions/upload-artifact@main
         with:
           name: ${{ env.artifacts_name }}
@@ -580,7 +550,7 @@ jobs:
     # loader path), then checks that 'import roadrunner' works and a model simulates.
     # It guards against the Python module linking libpython (#1280).
     needs: build_on_OSs
-    if: ${{ !cancelled() }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -710,7 +680,7 @@ jobs:
   import_wheel_deadsnakes:
     name: import manylinux wheel, deadsnakes Python ${{ matrix.python }}
     needs: build_on_OSs
-    if: ${{ !cancelled() }}
+    if: ${{ false }}
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -824,7 +794,7 @@ jobs:
   test_wheel_numpy_versions:
     name: ${{ matrix.platform.name }} wheel, Python ${{ matrix.combo.python }}, numpy ${{ matrix.combo.label }}
     needs: build_on_OSs
-    if: ${{ !cancelled() }}
+    if: ${{ false }}
     runs-on: ${{ matrix.platform.runner }}
     permissions:
       contents: read
@@ -934,7 +904,7 @@ jobs:
   test_julia_package:
     name: Test Julia package ${{ matrix.package }} on ${{ matrix.runner }}, Julia ${{ matrix.julia }}
     needs: build_on_OSs
-    if: ${{ !cancelled() }}
+    if: ${{ false }}
     permissions:
       contents: read
     runs-on: ${{ matrix.runner }}
@@ -1024,7 +994,7 @@ jobs:
   test_cmake_consumer:
     name: ${{ matrix.platform.name }} CMake consumer
     needs: build_on_OSs
-    if: ${{ !cancelled() }}
+    if: ${{ false }}
     permissions:
       contents: read
     runs-on: ${{ matrix.platform.os_name }}

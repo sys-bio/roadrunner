@@ -123,3 +123,86 @@ TEST_F(LLJitSectionRange, TwoModelsAliveTogether) {
     simulateAndCheck(*second, n + 100);
     simulateAndCheck(*first, n);
 }
+
+// Prints the stack of the first access violations in this process.
+#ifdef _WIN32
+#define NOMINMAX
+#include <windows.h>
+#include <dbghelp.h>
+#include <atomic>
+#include <cstdint>
+#include <cstdio>
+
+#pragma comment(lib, "dbghelp.lib")
+
+namespace {
+
+    LONG CALLBACK printAccessViolationStack(EXCEPTION_POINTERS *info) {
+        static std::atomic<int> printed{0};
+        const EXCEPTION_RECORD *record = info->ExceptionRecord;
+        if (record->ExceptionCode != EXCEPTION_ACCESS_VIOLATION || printed++ >= 3) {
+            return EXCEPTION_CONTINUE_SEARCH;
+        }
+        const HANDLE process = GetCurrentProcess();
+        const HANDLE thread = GetCurrentThread();
+        SymSetOptions(SYMOPT_LOAD_LINES | SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS);
+        SymInitialize(process, nullptr, TRUE);
+
+        const ULONG_PTR kind = record->ExceptionInformation[0];
+        std::fprintf(stderr, "\n=== ACCESS VIOLATION: %s of address %p, instruction at %p ===\n",
+                     kind == 0 ? "read" : kind == 1 ? "write" : "execute",
+                     reinterpret_cast<void *>(record->ExceptionInformation[1]), record->ExceptionAddress);
+
+        CONTEXT context = *info->ContextRecord;
+        STACKFRAME64 frame = {};
+        frame.AddrPC.Offset = context.Rip;
+        frame.AddrPC.Mode = AddrModeFlat;
+        frame.AddrFrame.Offset = context.Rbp;
+        frame.AddrFrame.Mode = AddrModeFlat;
+        frame.AddrStack.Offset = context.Rsp;
+        frame.AddrStack.Mode = AddrModeFlat;
+
+        for (int i = 0; i < 64; ++i) {
+            if (!StackWalk64(IMAGE_FILE_MACHINE_AMD64, process, thread, &frame, &context, nullptr,
+                             SymFunctionTableAccess64, SymGetModuleBase64, nullptr) ||
+                frame.AddrPC.Offset == 0) {
+                break;
+            }
+            const DWORD64 pc = frame.AddrPC.Offset;
+
+            char module[MAX_PATH] = "?";
+            HMODULE handle = nullptr;
+            if (GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
+                                   GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                                   reinterpret_cast<LPCSTR>(static_cast<std::uintptr_t>(pc)), &handle)) {
+                GetModuleFileNameA(handle, module, MAX_PATH);
+            }
+
+            alignas(SYMBOL_INFO) char buffer[sizeof(SYMBOL_INFO) + 512];
+            SYMBOL_INFO *symbol = reinterpret_cast<SYMBOL_INFO *>(buffer);
+            symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+            symbol->MaxNameLen = 512;
+            DWORD64 symbolOffset = 0;
+            const bool haveSymbol = SymFromAddr(process, pc, &symbolOffset, symbol) != FALSE;
+
+            IMAGEHLP_LINE64 line = {};
+            line.SizeOfStruct = sizeof(line);
+            DWORD lineOffset = 0;
+            const bool haveLine = SymGetLineFromAddr64(process, pc, &lineOffset, &line) != FALSE;
+
+            std::fprintf(stderr, "  #%d %p %s+0x%llx  %s:%lu  [%s]\n", i, reinterpret_cast<void *>(pc),
+                         haveSymbol ? symbol->Name : "(no symbol)",
+                         static_cast<unsigned long long>(symbolOffset),
+                         haveLine ? line.FileName : "(no line)", haveLine ? line.LineNumber : 0UL, module);
+        }
+        std::fflush(stderr);
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    struct InstallStackPrinter {
+        InstallStackPrinter() {
+            AddVectoredExceptionHandler(1, printAccessViolationStack);
+        }
+    } installStackPrinter;
+}
+#endif
