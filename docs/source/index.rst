@@ -15,7 +15,7 @@ Features
 
 * Time Dependent Simulation (with optional conservation law reduction) using CVODE from the sundials suite.
 * Steady State evaluation using NLEQ2
-* Supports SBML Level 2 to 3 but currently excludes algebraic rules and delay differential equations
+* Supports SBML Level 2 to 3, including linear algebraic rules, but currently excludes nonlinear algebraic rules and delay differential equations
 * Uses latest libSBML distribution
 * Defaults to LLVM code generation on the backend, resulting is very fast simulation times
 * Optional generation of model C code and linking at run-time
