@@ -15,6 +15,10 @@ on:
         description: 'Build and run only the LLJit timing tests (Release builds), then fail on purpose'
         type: boolean
         default: false
+      no_ccache:
+        description: 'Disable ccache for this run, so everything is compiled from scratch'
+        type: boolean
+        default: false
 
 jobs:
   build_on_OSs:
@@ -262,6 +266,11 @@ jobs:
           echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
           echo "COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
+      - name: Disable ccache
+        if: github.event.inputs.no_ccache == 'true'
+        shell: bash
+        run: echo "CCACHE_DISABLE=1" >> $GITHUB_ENV
+
       - name: Restore ccache files
         uses: actions/cache/restore@main
         with:
@@ -322,6 +331,47 @@ jobs:
           rm ${{ matrix.libroadrunner_deps_name }}*.zip
           echo RR_DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> $GITHUB_ENV
 
+      - name: Choose the LLVM package for the MSVC toolset
+        if: matrix.platform.os_type == 'windows'
+        shell: bash
+        run: |
+          # Use the newest LLVM package built with a toolset no newer than this runner's.
+          runner_toolset=$(echo "$VCToolsVersion" | cut -d '.' -f 1,2)
+          major=${runner_toolset%%.*}
+          minor=$((10#${runner_toolset#*.}))
+          release_url="https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ env.LLVM_RELEASE }}"
+          used=""
+          for ((m = minor; m >= 40; m--)); do
+            candidate="${major}.${m}"
+            url="${release_url}/${{ env.LLVM_NAME }}-${{ env.os_and_compiler }}-${candidate}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
+            code=$(curl -sL --retry 3 -r 0-0 -o /dev/null -w '%{http_code}' "$url") || code=curl-failed
+            if [ "$code" = 200 ] || [ "$code" = 206 ]; then
+              used=$candidate
+              break
+            fi
+            if [ "$code" != 404 ]; then
+              echo "::error::Unexpected result ($code) while looking for $url"
+              exit 1
+            fi
+          done
+          echo "llvm_toolset_runner=$runner_toolset" >> $GITHUB_ENV
+          if [ -z "$used" ]; then
+            message="No LLVM package is named for an MSVC toolset, so the unversioned one is used (this runner has MSVC $runner_toolset)."
+            echo "::notice title=LLVM toolset::$message"
+            echo "$message" >> "$GITHUB_STEP_SUMMARY"
+            echo "llvm_toolset_used=unversioned" >> $GITHUB_ENV
+            echo "llvm_toolset_fallback=1" >> $GITHUB_ENV
+          else
+            echo "llvm_os_and_compiler=${{ env.os_and_compiler }}-${used}" >> $GITHUB_ENV
+            echo "llvm_toolset_used=$used" >> $GITHUB_ENV
+            if [ "$used" != "$runner_toolset" ]; then
+              message="This runner has MSVC $runner_toolset, but the newest LLVM package is the one built with MSVC $used, so that one is used."
+              echo "::warning title=LLVM toolset fallback::$message"
+              echo "$message" >> "$GITHUB_STEP_SUMMARY"
+              echo "llvm_toolset_fallback=1" >> $GITHUB_ENV
+            fi
+          fi
+
       - name: Download LLVM binaries
         if: matrix.platform.os_type != 'ubuntu'
         shell: bash
@@ -329,7 +379,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ env.LLVM_NAME }}-binaries
           cd ${{ env.LLVM_NAME }}-binaries
-          curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ env.LLVM_RELEASE }}/${{ env.LLVM_NAME }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
+          curl -LO "https://github.com/${{ matrix.llvm_owner }}/${{ matrix.llvm_repo }}/releases/download/${{ env.LLVM_RELEASE }}/${{ env.LLVM_NAME }}-${{ env.llvm_os_and_compiler || env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
           unzip -q ${{ env.LLVM_NAME }}*.zip
           rm ${{ env.LLVM_NAME }}*.zip
           echo LLVM_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ env.LLVM_NAME }}-binaries" >> $GITHUB_ENV
@@ -572,6 +622,24 @@ jobs:
         with:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}
+
+      # A Debug build has to be consumed with the toolset that built it and the LLVM it used, and a
+      # separate job can get another runner image, so Windows Debug runs its consumers here.
+      # Windows Release keeps its own job, which starts from a bare runner.
+      - name: Build and run the CMake consumer projects (Windows Debug)
+        if: matrix.platform.os_type == 'windows' && matrix.platform.build_type == 'Debug' && github.event.inputs.timing != 'true'
+        shell: bash
+        run: |
+          bash test/cmake_consumers/run_consumers.sh \
+            "${RUNNER_WORKSPACE}/install-roadrunner" \
+            "${LLVM_INSTALL_PREFIX}" \
+            ${{ matrix.platform.build_type }} \
+            "${RUNNER_WORKSPACE}/consumer-build"
+
+      - name: Note the LLVM toolset mismatch
+        if: failure() && env.llvm_toolset_fallback == '1'
+        shell: bash
+        run: echo "::error title=LLVM toolset mismatch::This job ran MSVC ${llvm_toolset_runner} but used the LLVM package built with ${llvm_toolset_used}. A failure here may come from that mismatch."
 
   import_manylinux_wheel:
     name: import manylinux wheel, Python ${{ matrix.python }}
@@ -1044,7 +1112,6 @@ jobs:
           - {name: ubuntu-latest-release, os_type: ubuntu, os_name: ubuntu-latest, build_type: Release}
           - {name: ubuntu-latest-debug, os_type: ubuntu, os_name: ubuntu-latest, build_type: Debug}
           - {name: windows-latest-release, os_type: windows, os_name: windows-latest, build_type: Release}
-          - {name: windows-latest-debug, os_type: windows, os_name: windows-latest, build_type: Debug}
           - {name: manylinux_2_28-release, os_type: manylinux, os_name: ubuntu-latest, container_image: "quay.io/pypa/manylinux_2_28_x86_64", build_type: Release}
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-build" ]
