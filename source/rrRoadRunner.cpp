@@ -50,6 +50,7 @@
 #include <list>
 #include <list>
 #include <math.h>
+#include <cmath>
 #include <memory>
 #include <thread>
 #include <thread_pool.hpp>
@@ -162,6 +163,8 @@ namespace rr {
     static void writeDoubleVectorListToStream(std::ostream &out, const DoubleVectorList &results);
 
     static void writeDoubleMatrixToStream(std::ostream &out, const ls::DoubleMatrix &results, int nrows);
+
+    static double stepLengthToEnd(double start, double end);
 
 //The instance count increases/decreases as instances are created/destroyed.
     static int mInstanceCount = 0;
@@ -1698,6 +1701,10 @@ namespace rr {
 
             if (!impl->integrator)
                 throw std::runtime_error("No integrator set");
+
+            // the restart tests the events at the start time of a simulation from time 0
+            impl->integrator->setIntegrationStartTime(0.0);
+            impl->model->setIntegrationStartTime(0.0);
             impl->integrator->restart(0.0);
 
             try {
@@ -2150,6 +2157,23 @@ namespace rr {
         return false;
     }
 
+    // The length of a step from start to end, for an integrator that finds the end of the step by adding
+    // the length to start.  That sum can be a unit in the last place beyond end, which puts an event at
+    // that time at the end of the step.  The length is adjusted so that the sum is as close to end as it
+    // can be without passing it.
+    static double stepLengthToEnd(double start, double end) {
+        double length = end - start;
+        if (length > 0) {
+            for (int n = 0; n < 4 && start + length > end; n++) {
+                length = std::nextafter(length, 0.0);
+            }
+            for (int n = 0; n < 4 && start + std::nextafter(length, HUGE_VAL) <= end; n++) {
+                length = std::nextafter(length, HUGE_VAL);
+            }
+        }
+        return length;
+    }
+
     const ls::DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt) {
         get_self();
         check_model();
@@ -2306,7 +2330,7 @@ namespace rr {
 
                     rrLog(Logger::LOG_DEBUG) << "variable step, start: " << tout
                                              << ", end: " << timeEnd;
-                    tout = self.integrator->integrate(tout, timeEnd - tout);
+                    tout = self.integrator->integrate(tout, stepLengthToEnd(tout, timeEnd));
 
                     //If tout is larger than timeEnd but not infinite, this is actually OK, because
                     // it means that we're just taking a certain number of steps and don't care
@@ -2505,7 +2529,7 @@ namespace rr {
                     }
                     rrLog(Logger::LOG_DEBUG) << "Step " << i;
                     double next = self.simulateOpt.getNext(i);
-                    double itime = self.integrator->integrate(tout, next - tout);
+                    double itime = self.integrator->integrate(tout, stepLengthToEnd(tout, next));
 
                     // the test suite is extremly sensitive to time differences,
                     // so need to use the *exact* time here. occasionally the integrator

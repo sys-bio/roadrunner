@@ -1964,3 +1964,191 @@ TEST_F(CVODEIntegratorTests, TwoDelayedEventsDueAtTheSameTimeHaveOneRowBeforeBot
     EXPECT_NEAR(0.45, result(first, 1), timeTolerance);
     EXPECT_NEAR(0.45, result(first + 1, 1), timeTolerance);
 }
+
+// model dose
+//   A = 0; k = 0.1; A' = -k * A
+//   Y = 0
+//   E: at (time >= 1.6): A = A + 10, Y = Y + 1
+static const std::string DoseSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="dose" id="dose">
+    <listOfParameters>
+      <parameter id="A" value="0" constant="false"/>
+      <parameter id="Y" value="0" constant="false"/>
+      <parameter id="k" value="0.1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="A">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <ci> k </ci>
+            </apply>
+            <ci> A </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <cn> 1.6 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="A">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> A </ci>
+                <cn> 10 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <plus/>
+                <ci> Y </ci>
+                <cn> 1 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>)";
+
+/**
+ * Regression test for the follow-up to sys-bio/roadrunner#1445 (reported by sbmlsim): an event whose
+ * trigger is false at the end of a variable step simulation fired there.  A segment of a simulation
+ * ends one unit in the last place before a change, so that an event at the time of the change fires
+ * after it, and the event fired at the end of the segment and again in the simulation that continued.
+ *
+ * The caller of the integrator gives it the length of the step, and the integrator adds it to the
+ * start of the step to find the end.  For some starts of the last step that sum is not the requested
+ * end but the time of the event, one unit in the last place after it, so the root of the event was
+ * taken to be at the end.  Ends from 1.6 down to eight units in the last place below it are tried, so
+ * that the test does not depend on the steps that CVODE takes.  Only an end at or after 1.6 has the
+ * event fired, and the event fires once in all of the simulations that continue to a later time.
+ */
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsFalseAtTheEndOfAVariableStepSimulationDoesNotFire) {
+    const double eventTime = 1.6;
+    const double stop = 5;
+
+    RoadRunner rr(DoseSBML);
+    rr.setSelections(std::vector<std::string>{"time", "A", "Y"});
+
+    double end = eventTime;
+    for (int ulps = 0; ulps <= 8; ulps++, end = std::nextafter(end, 0.0)) {
+        std::ostringstream what;
+        what.precision(17);
+        what << "end " << end << " (" << ulps << " units in the last place below " << eventTime << ")";
+        SCOPED_TRACE(what.str());
+
+        resetAllValues(rr);
+        const double fired = ulps == 0 ? 1 : 0;
+
+        const ls::DoubleMatrix first = simulateVariableStep(rr, 0, end);
+        ASSERT_GT(first.numRows(), 2u);
+        const unsigned last = first.numRows() - 1;
+        for (unsigned i = 1; i <= last; i++) {
+            EXPECT_GT(first(i, 0), first(i - 1, 0)) << "row " << i;
+        }
+        EXPECT_EQ(end, first(last, 0));
+        EXPECT_EQ(10 * fired, first(last, 1));
+        EXPECT_EQ(fired, first(last, 2));
+        EXPECT_EQ(end, rr.getCurrentTime());
+        EXPECT_EQ(fired, rr.getValue("Y"));
+
+        const ls::DoubleMatrix second = simulateVariableStep(rr, end, stop - end);
+        ASSERT_GT(second.numRows(), 2u);
+        const unsigned lastSecond = second.numRows() - 1;
+        for (unsigned i = 1; i <= lastSecond; i++) {
+            EXPECT_GT(second(i, 0), second(i - 1, 0)) << "row " << i;
+        }
+        EXPECT_EQ(end, second(0, 0));
+        EXPECT_EQ(fired, second(0, 2));
+        EXPECT_EQ(stop, second(lastSecond, 0));
+        EXPECT_EQ(1, second(lastSecond, 2));
+        EXPECT_NEAR(10 * std::exp(-0.1 * (stop - eventTime)), second(lastSecond, 1), 1e-4);
+    }
+}
+
+/**
+ * The fixed step version of the test above: the output times are given, and the integrator is given
+ * the length of the step from one output time to the next, and adds it to the previous output time to
+ * find the end of the step.  For the previous output time here, that sum for an end one unit in the
+ * last place below the time of the event is the time of the event, so the row at the end had the event
+ * fired.  Only an end at or after 1.6 has the event fired, and it fires once in the simulation that
+ * continues to a later time.
+ */
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsFalseAtAnOutputTimeOfAFixedStepSimulationDoesNotFire) {
+    const double eventTime = 1.6;
+    const double previousOutputTime = 0.5492163665262385;
+    const double stop = 5;
+
+    RoadRunner rr(DoseSBML);
+    rr.setSelections(std::vector<std::string>{"time", "A", "Y"});
+    rr.getIntegrator()->setValue("variable_step_size", false);
+
+    double end = eventTime;
+    for (int ulps = 0; ulps <= 8; ulps++, end = std::nextafter(end, 0.0)) {
+        std::ostringstream what;
+        what.precision(17);
+        what << "end " << end << " (" << ulps << " units in the last place below " << eventTime << ")";
+        SCOPED_TRACE(what.str());
+
+        resetAllValues(rr);
+        const double fired = ulps == 0 ? 1 : 0;
+
+        const ls::DoubleMatrix first = *rr.simulate(std::vector<double>{0.0, previousOutputTime, end});
+        ASSERT_EQ(3u, first.numRows());
+        EXPECT_EQ(previousOutputTime, first(1, 0));
+        EXPECT_EQ(0, first(1, 1));
+        EXPECT_EQ(0, first(1, 2));
+        EXPECT_EQ(end, first(2, 0));
+        EXPECT_EQ(10 * fired, first(2, 1));
+        EXPECT_EQ(fired, first(2, 2));
+
+        const ls::DoubleMatrix second = *rr.simulate(std::vector<double>{end, stop});
+        ASSERT_EQ(2u, second.numRows());
+        EXPECT_EQ(fired, second(0, 2));
+        EXPECT_EQ(1, second(1, 2));
+        EXPECT_NEAR(10 * std::exp(-0.1 * (stop - eventTime)), second(1, 1), 1e-4);
+    }
+}
+
+/**
+ * A reset returns to time 0, where an event whose trigger is false at that time must not fire.  The
+ * reset tested the events at the start time of the last simulation, which was the time of the event
+ * here, so the event fired during the reset and the next simulation began with its assignments.
+ */
+TEST_F(CVODEIntegratorTests, ResetAfterASimulationStartingAtTheTimeOfAnEventDoesNotFireTheEvent) {
+    RoadRunner rr(DoseSBML);
+    rr.setSelections(std::vector<std::string>{"time", "A", "Y"});
+    rr.getIntegrator()->setValue("variable_step_size", false);
+
+    rr.simulate(std::vector<double>{0.0, 1.6});
+    const ls::DoubleMatrix later = *rr.simulate(std::vector<double>{1.6, 5.0});
+    EXPECT_EQ(1, later(1, 2));
+
+    resetAllValues(rr);
+    EXPECT_EQ(0, rr.getValue("A"));
+    EXPECT_EQ(0, rr.getValue("Y"));
+
+    const ls::DoubleMatrix again = *rr.simulate(std::vector<double>{0.0, 1.0});
+    ASSERT_EQ(2u, again.numRows());
+    for (unsigned i = 0; i < again.numRows(); i++) {
+        EXPECT_EQ(0, again(i, 1)) << "row " << i;
+        EXPECT_EQ(0, again(i, 2)) << "row " << i;
+    }
+}
