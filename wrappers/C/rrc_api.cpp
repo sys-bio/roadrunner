@@ -2008,7 +2008,7 @@ bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeReaction(rid, false);
+		rri->removeReaction(rid, false, false);
 		return true;
 	catch_bool_macro
 }
@@ -2192,7 +2192,43 @@ bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeRules(vid, false);
+		rri->removeRules(vid, false, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addAlgebraicRule(RRHandle handle, const char* id, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAlgebraicRule(id, formula);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addAlgebraicRuleNoRegen(RRHandle handle, const char* id, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAlgebraicRule(id, formula, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeAlgebraicRule(RRHandle handle, const char* id)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeAlgebraicRule(id);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeAlgebraicRuleNoRegen(RRHandle handle, const char* id)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeAlgebraicRule(id, false);
 		return true;
 	catch_bool_macro
 }

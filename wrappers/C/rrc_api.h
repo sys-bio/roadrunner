@@ -886,6 +886,46 @@ C_DECL_SPEC bool rrcCallConv removeRules(RRHandle handle, const char* vid);
 C_DECL_SPEC bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid);
 
 /*!
+ \brief Add an algebraic rule, 0 = formula, to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] id ID of the new rule, used to remove it again
+ \param[in] formula The math formula that the rule sets to zero
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAlgebraicRule(RRHandle handle, const char* id, const char* formula);
+
+/*!
+ \brief Add an algebraic rule, 0 = formula, to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] id ID of the new rule, used to remove it again
+ \param[in] formula The math formula that the rule sets to zero
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAlgebraicRuleNoRegen(RRHandle handle, const char* id, const char* formula);
+
+/*!
+ \brief Remove the algebraic rule with the given id or metaid from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] id ID of the algebraic rule
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeAlgebraicRule(RRHandle handle, const char* id);
+
+/*!
+ \brief Remove the algebraic rule with the given id or metaid from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] id ID of the algebraic rule
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeAlgebraicRuleNoRegen(RRHandle handle, const char* id);
+
+/*!
  \brief Add an event to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to be added

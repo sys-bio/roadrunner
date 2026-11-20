@@ -668,3 +668,109 @@ TEST_F(CAPIModelEditingTests, FROM_SCRATCH_7) {
     validateModifiedSBML(std::string(model));
     rr::freeText(model);
 }
+
+namespace {
+    const char* ruleAndReactionModel = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="m">
+    <listOfCompartments><compartment id="C" size="1" constant="true"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="10" hasOnlySubstanceUnits="true"
+               boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="x" value="1" constant="false"/>
+      <parameter id="y" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="y"><math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply><times/><cn>2</cn><ci>x</ci></apply></math></assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="R" reversible="false">
+        <listOfReactants><speciesReference species="S1" stoichiometry="1" constant="true"/></listOfReactants>
+        <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><ci>S1</ci></math></kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+}
+
+// The NoRegen variants must leave the compiled model in place until something
+// regenerates it.
+TEST_F(CAPIModelEditingTests, RemoveRulesNoRegenDoesNotRegenerate) {
+    RoadRunner rr;
+    ASSERT_TRUE(loadSBML(&rr, ruleAndReactionModel));
+    const ExecutableModel* before = rr.getModel();
+    ASSERT_TRUE(removeRulesNoRegen(&rr, "y"));
+    EXPECT_EQ(rr.getModel(), before);
+    EXPECT_EQ(rr.getSBML().find("assignmentRule"), std::string::npos);
+
+    ASSERT_TRUE(removeReaction(&rr, "R"));
+    EXPECT_NE(rr.getModel(), before);
+    // y no longer has a rule, so it can be set.
+    EXPECT_NO_THROW(rr.setValue("y", 5));
+    EXPECT_NEAR(rr.getValue("y"), 5, 1e-12);
+}
+
+TEST_F(CAPIModelEditingTests, RemoveReactionNoRegenDoesNotRegenerate) {
+    RoadRunner rr;
+    ASSERT_TRUE(loadSBML(&rr, ruleAndReactionModel));
+    const ExecutableModel* before = rr.getModel();
+    ASSERT_TRUE(removeReactionNoRegen(&rr, "R"));
+    EXPECT_EQ(rr.getModel(), before);
+    EXPECT_EQ(rr.getModel()->getNumReactions(), 1);
+
+    ASSERT_TRUE(removeRules(&rr, "y"));
+    EXPECT_NE(rr.getModel(), before);
+    EXPECT_EQ(rr.getModel()->getNumReactions(), 0);
+}
+
+// Removing a rule without regenerating, and regenerating afterwards, should
+// leave the same state as removing it with a regeneration.
+TEST_F(CAPIModelEditingTests, RemoveRulesNoRegenHonoursUseInitialValueAsCurrent) {
+    RoadRunner immediate;
+    RoadRunner deferred;
+    ASSERT_TRUE(loadSBML(&immediate, ruleAndReactionModel));
+    ASSERT_TRUE(loadSBML(&deferred, ruleAndReactionModel));
+    for (RoadRunner* rr : { &immediate, &deferred }) {
+        rr->setValue("x", 3);
+        ASSERT_NEAR(rr->getValue("y"), 6, 1e-12);
+    }
+    immediate.removeRules("y", true, true);
+    deferred.removeRules("y", true, false);
+    // Regenerate both the same way.
+    immediate.removeReaction("R");
+    deferred.removeReaction("R");
+    EXPECT_NEAR(deferred.getValue("y"), immediate.getValue("y"), 1e-12);
+}
+
+namespace {
+    const char* rateRuleModel = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="m">
+    <listOfParameters><parameter id="p" value="0" constant="false"/></listOfParameters>
+    <listOfRules>
+      <rateRule variable="p"><math xmlns="http://www.w3.org/1998/Math/MathML"><cn>1</cn></math></rateRule>
+    </listOfRules>
+  </model>
+</sbml>)";
+}
+
+// The same as for an assignment rule: removing a rate rule without regenerating, and
+// regenerating afterwards, should leave the same state as removing it with a regeneration.
+TEST_F(CAPIModelEditingTests, RemoveRateRuleNoRegenHonoursUseInitialValueAsCurrent) {
+    RoadRunner immediate;
+    RoadRunner deferred;
+    ASSERT_TRUE(loadSBML(&immediate, rateRuleModel));
+    ASSERT_TRUE(loadSBML(&deferred, rateRuleModel));
+    for (RoadRunner* rr : { &immediate, &deferred }) {
+        rr->simulate(0, 1, 3);
+        ASSERT_NEAR(rr->getValue("p"), 1, 1e-6);
+    }
+    immediate.removeRules("p", true, true);
+    deferred.removeRules("p", true, false);
+    immediate.regenerateModel();
+    deferred.regenerateModel();
+    EXPECT_NEAR(deferred.getValue("p"), immediate.getValue("p"), 1e-12);
+}
