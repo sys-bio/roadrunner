@@ -474,3 +474,72 @@ TEST_F(GillespieTests, StatisticsCountTheReactionsAndPropensityEvaluations) {
     ASSERT_GE(stats["num_rhs_evals"].getAs<std::int64_t>(), steps);
     ASSERT_EQ(0, stats["num_events"].getAs<std::int64_t>());
 }
+
+// model timed dose
+//   A = 0; k = 0.1; reaction: A -> (rate k * A)
+//   Y = 0
+//   E: at (time >= 1.6): A = A + 10, Y = Y + 1
+static const std::string TimedDoseSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+ <model id="dose">
+  <listOfCompartments><compartment id="c" size="1" constant="true" spatialDimensions="3"/></listOfCompartments>
+  <listOfSpecies>
+   <species id="A" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+  </listOfSpecies>
+  <listOfParameters>
+   <parameter id="Y" value="0" constant="false"/>
+   <parameter id="k" value="0.1" constant="true"/>
+  </listOfParameters>
+  <listOfReactions>
+   <reaction id="decay" reversible="false" fast="false">
+    <listOfReactants><speciesReference species="A" stoichiometry="1" constant="true"/></listOfReactants>
+    <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>k</ci><ci>A</ci></apply></math></kineticLaw>
+   </reaction>
+  </listOfReactions>
+  <listOfEvents>
+   <event id="E" useValuesFromTriggerTime="true">
+    <trigger initialValue="false" persistent="true">
+     <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><geq/><csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol><cn> 1.6 </cn></apply>
+     </math>
+    </trigger>
+    <listOfEventAssignments>
+     <eventAssignment variable="A">
+      <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><plus/><ci>A</ci><cn>10</cn></apply></math>
+     </eventAssignment>
+     <eventAssignment variable="Y">
+      <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><plus/><ci>Y</ci><cn>1</cn></apply></math>
+     </eventAssignment>
+    </listOfEventAssignments>
+   </event>
+  </listOfEvents>
+ </model>
+</sbml>)";
+
+/**
+ * A reset returns to time 0, where an event whose trigger is false at that time must not fire.  The
+ * reset tested the events at the start time of the last simulation, which was the time of the event
+ * here, so the event fired during the reset and the next simulation began with its assignments.
+ * A has no amount, so no reaction fires and the events are never tested during the simulations: the
+ * only event firing that can happen is the one in the reset.
+ */
+TEST_F(GillespieTests, ResetAfterASimulationStartingAtTheTimeOfAnEventDoesNotFireTheEvent) {
+    RoadRunner rr(TimedDoseSBML);
+    rr.setIntegrator("gillespie");
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    rr.setSelections(std::vector<std::string>{"time", "A", "Y"});
+
+    rr.simulate(std::vector<double>{0.0, 1.6});
+    rr.simulate(std::vector<double>{1.6, 5.0});
+
+    rr.reset();
+    EXPECT_EQ(0, rr.getValue("A"));
+    EXPECT_EQ(0, rr.getValue("Y"));
+
+    const ls::DoubleMatrix *again = rr.simulate(std::vector<double>{0.0, 1.0});
+    ASSERT_EQ(2u, again->numRows());
+    for (unsigned int row = 0; row < again->numRows(); ++row) {
+        EXPECT_EQ(0, again->Element(row, 1)) << "row " << row;
+        EXPECT_EQ(0, again->Element(row, 2)) << "row " << row;
+    }
+}
