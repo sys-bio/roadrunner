@@ -725,3 +725,52 @@ TEST_F(CAPIModelEditingTests, RemoveReactionNoRegenDoesNotRegenerate) {
     EXPECT_NE(rr.getModel(), before);
     EXPECT_EQ(rr.getModel()->getNumReactions(), 0);
 }
+
+// Removing a rule without regenerating, and regenerating afterwards, should
+// leave the same state as removing it with a regeneration.
+TEST_F(CAPIModelEditingTests, RemoveRulesNoRegenHonoursUseInitialValueAsCurrent) {
+    RoadRunner immediate;
+    RoadRunner deferred;
+    ASSERT_TRUE(loadSBML(&immediate, ruleAndReactionModel));
+    ASSERT_TRUE(loadSBML(&deferred, ruleAndReactionModel));
+    for (RoadRunner* rr : { &immediate, &deferred }) {
+        rr->setValue("x", 3);
+        ASSERT_NEAR(rr->getValue("y"), 6, 1e-12);
+    }
+    immediate.removeRules("y", true, true);
+    deferred.removeRules("y", true, false);
+    // Regenerate both the same way.
+    immediate.removeReaction("R");
+    deferred.removeReaction("R");
+    EXPECT_NEAR(deferred.getValue("y"), immediate.getValue("y"), 1e-12);
+}
+
+namespace {
+    const char* rateRuleModel = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="m">
+    <listOfParameters><parameter id="p" value="0" constant="false"/></listOfParameters>
+    <listOfRules>
+      <rateRule variable="p"><math xmlns="http://www.w3.org/1998/Math/MathML"><cn>1</cn></math></rateRule>
+    </listOfRules>
+  </model>
+</sbml>)";
+}
+
+// The same as for an assignment rule: removing a rate rule without regenerating, and
+// regenerating afterwards, should leave the same state as removing it with a regeneration.
+TEST_F(CAPIModelEditingTests, RemoveRateRuleNoRegenHonoursUseInitialValueAsCurrent) {
+    RoadRunner immediate;
+    RoadRunner deferred;
+    ASSERT_TRUE(loadSBML(&immediate, rateRuleModel));
+    ASSERT_TRUE(loadSBML(&deferred, rateRuleModel));
+    for (RoadRunner* rr : { &immediate, &deferred }) {
+        rr->simulate(0, 1, 3);
+        ASSERT_NEAR(rr->getValue("p"), 1, 1e-6);
+    }
+    immediate.removeRules("p", true, true);
+    deferred.removeRules("p", true, false);
+    immediate.regenerateModel();
+    deferred.regenerateModel();
+    EXPECT_NEAR(deferred.getValue("p"), immediate.getValue("p"), 1e-12);
+}
