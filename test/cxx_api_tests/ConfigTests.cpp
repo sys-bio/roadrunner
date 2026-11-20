@@ -138,6 +138,17 @@ TEST_F(ConfigTests, DefaultLLJitNumThreadsIs0) {
     ASSERT_EQ(0, Config::getValue(Config::LLJIT_NUM_THREADS).getAs<int>());
 }
 
+TEST_F(ConfigTests, DefaultMallocTrimAfterLoadIsOff) {
+    ASSERT_FALSE(Config::getValue(Config::MALLOC_TRIM_AFTER_LOAD).getAs<bool>());
+}
+
+TEST_F(ConfigTests, SetMallocTrimAfterLoad) {
+    Config::setValue(Config::MALLOC_TRIM_AFTER_LOAD, true);
+    ASSERT_TRUE(Config::getValue(Config::MALLOC_TRIM_AFTER_LOAD).getAs<bool>());
+    Config::setValue(Config::MALLOC_TRIM_AFTER_LOAD, false);
+    ASSERT_FALSE(Config::getValue(Config::MALLOC_TRIM_AFTER_LOAD).getAs<bool>());
+}
+
 TEST_F(ConfigTests, ReadConfigFileLLVMBackendKeys) {
     std::filesystem::path conf = std::filesystem::current_path() / "rr_llvm_keys.config";
     {

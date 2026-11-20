@@ -41,3 +41,31 @@ and ``Test_1.xml`` are available in the ``roadrunner.tests`` module. To access t
    rr = test.getRoadRunner('feedback.xml')
 
 There are a few additional models in the ``models/`` directory of the distribution, where you installed libRoadRunner.
+
+Memory after loading a large model
+----------------------------------
+Compiling a large model makes a great many small, short-lived allocations.
+They are freed when the compilation is over, but with the GNU C library (glibc)
+the freed memory usually stays in the heap of the process instead of going back
+to the operating system.  The process then stays larger than the loaded model
+needs, which adds up when one process loads many large models, for example in
+a test session or in a long-running worker.
+
+If you are running roadrunner using the manylinux wheel, or as part of a linux project that uses glibc, roadrunner can give this memory back by calling glibc's `malloc_trim(0)` once
+a model has been compiled.  This is off by default, and is switched on with
+`MALLOC_TRIM_AFTER_LOAD`, which must be set before the model is loaded:
+
+.. code-block:: python
+    :linenos:
+
+    Config.setValue(Config.MALLOC_TRIM_AFTER_LOAD, True)
+
+Things to know before switching it on:
+
+* It only has an effect with glibc, so the manylinux wheel, or on Linux systems that use it.  On other
+  platforms and with other memory allocators the setting is ignored.
+* It applies to the whole process, not just to roadrunner, and it takes time
+  that grows with the size of the heap.  Models that are small have little
+  to give back, so for them it only costs time.
+* It does not lower the memory used while the model is being compiled, only
+  what is left afterwards.

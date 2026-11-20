@@ -23,6 +23,10 @@
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
+#include <rrConfig.h>
+#if defined(__linux__) && defined(__GLIBC__)
+#include <malloc.h>
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4146)
@@ -61,6 +65,21 @@ namespace rrllvm {
 
     static Poco::Mutex cachedModelsMutex;
     static ModelResourcesPtrMap cachedModelResources;
+
+    /**
+     * Calls malloc_trim(0) when it goes out of scope, if Config::MALLOC_TRIM_AFTER_LOAD
+     * is set. Declare it before the ModelGeneratorContext, so that it runs after the
+     * context has been destroyed. Does nothing unless the C library is glibc.
+     */
+    struct TrimHeapOnExit {
+        ~TrimHeapOnExit() {
+#if defined(__linux__) && defined(__GLIBC__)
+            if (rr::Config::getValue(rr::Config::MALLOC_TRIM_AFTER_LOAD).getAs<bool>()) {
+                malloc_trim(0);
+            }
+#endif
+        }
+    };
 
     inline void codeGeneration(ModelGeneratorContext& context, std::uint32_t options);
 
@@ -291,7 +310,7 @@ namespace rrllvm {
     {
         SharedModelResourcesPtr modelResources = std::make_shared<ModelResources>();
 
-
+        TrimHeapOnExit trimHeapOnExit;
         ModelGeneratorContext modelGeneratorContext(doc, options, JitFactory::makeJitEngine(options));
 
         char* docSBML = doc->toSBML();
@@ -493,6 +512,7 @@ namespace rrllvm {
          */
         modelResources->sbmlMD5 = sbmlMD5;
 
+        TrimHeapOnExit trimHeapOnExit;
         ModelGeneratorContext modelGeneratorContext(sbml, options, JitFactory::makeJitEngine(options));
 
         // name the llvm module
