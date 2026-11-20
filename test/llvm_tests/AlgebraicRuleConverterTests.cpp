@@ -8,7 +8,9 @@
 #include <sbml/SBMLTypes.h>
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -241,17 +243,16 @@ TEST(AlgebraicRuleConverterTests, RejectsPowerOfUnknown) {
     EXPECT_NE(errorFrom(builder).find("not supported"), std::string::npos);
 }
 
-TEST(AlgebraicRuleConverterTests, RejectsCoefficientThatChangesWithTime) {
+TEST(AlgebraicRuleConverterTests, AcceptsCoefficientThatChangesWithTime) {
+    // time * x = 1 gives x = 1 / time, which is infinite at time zero, as 'x := 1 / time' would be.
     ModelBuilder builder;
     builder.parameter("x").algebraic("time * x - 1");
-    EXPECT_NE(errorFrom(builder).find("constant coefficient"), std::string::npos);
+    RoadRunner rr(builder.sbml());
+    EXPECT_TRUE(std::isinf(rr.getValue("x")));
+    rr.simulate(0, 2, 3);
+    EXPECT_NEAR(rr.getValue("x"), 0.5, 1e-6);
 }
 
-TEST(AlgebraicRuleConverterTests, RejectsCoefficientFromRateRule) {
-    ModelBuilder builder;
-    builder.parameter("s", 1).parameter("x").rate("s", "-1").algebraic("s * x - 1");
-    EXPECT_NE(errorFrom(builder).find("constant coefficient"), std::string::npos);
-}
 
 TEST(AlgebraicRuleConverterTests, RejectsCancelledSymbol) {
     ModelBuilder builder;
@@ -519,6 +520,16 @@ TEST(AlgebraicRuleConverterTests, OneRuleTwoSymbolsDeterminesTheVariableOne) {
     EXPECT_NEAR(valueOf(yConstant, "x"), -5, 1e-12);
 }
 
+TEST(AlgebraicRuleConverterTests, MakingTheOnlySolvableSymbolConstantIsRefused) {
+    // x is the only symbol the rule can determine. With x constant as well there is
+    // nothing to solve for.
+    ModelBuilder builder;
+    builder.parameter("x", 1).parameter("y", 2, true).algebraic("x + y + 3");
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("x"), -5, 1e-12);
+    EXPECT_THROW(rr.setConstant("x", true), std::exception);
+}
+
 namespace {
     std::string setValueError(RoadRunner& rr, const std::string& id) {
         try {
@@ -674,16 +685,6 @@ TEST(AlgebraicRuleConverterTests, AddAlgebraicRuleRejectsBadIdsAndFormulas) {
     EXPECT_THROW(rr.addAlgebraicRule("r", "x - 2"), std::invalid_argument);
 }
 
-TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleKeepsValueOfSymbolWithoutOne) {
-    ModelBuilder builder;
-    builder.parameter("x").algebraic("x - 2", "r");
-    RoadRunner rr(builder.sbml());
-    rr.removeAlgebraicRule("r");
-    EXPECT_TRUE(rr.getAlgebraicRuleIds().empty());
-    EXPECT_NEAR(rr.getValue("x"), 2, 1e-12);
-    rr.setValue("x", 9);
-    EXPECT_NEAR(rr.getValue("x"), 9, 1e-12);
-}
 
 TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleFreesSolvedSymbol) {
     ModelBuilder builder;
@@ -706,4 +707,532 @@ TEST(AlgebraicRuleConverterTests, AlgebraicRuleEditingUsesMetaIdBeforeL3V2) {
     EXPECT_NE(rr.getCurrentSBML().find("metaid=\"r\""), std::string::npos);
     rr.removeAlgebraicRule("r");
     EXPECT_NO_THROW(rr.setValue("x", 1));
+}
+
+namespace {
+    /** n unknowns in a ring, k * x_i + x_(i+1) = 3, with k a parameter that can change. */
+    void addRingOfRules(ModelBuilder& builder, int n, double k) {
+        builder.parameter("k", k, true);
+        for (int i = 0; i < n; ++i) {
+            builder.parameter("x" + std::to_string(i));
+        }
+        for (int i = 0; i < n; ++i) {
+            builder.algebraic("k * x" + std::to_string(i) + " + x" + std::to_string((i + 1) % n) + " - 3");
+        }
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemSurvivesCoefficientBecomingZero) {
+    // Above the size Cramer's rule is used for, the pivots chosen at load are
+    // kept. With k = 0 the rules say x(i+1) = 3, which still has a unique solution.
+    const int n = 7;
+    ModelBuilder builder;
+    addRingOfRules(builder, n, 2);
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("x0"), 1, 1e-12);
+    rr.setValue("k", 0);
+    for (int i = 0; i < n; ++i) {
+        EXPECT_NEAR(rr.getValue("x" + std::to_string(i)), 3, 1e-12) << "x" << i;
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, CramersRuleSolvesRingsWhenCoefficientChanges) {
+    // The ring has the solution x = 3 / (k + 1) whenever its determinant,
+    // k^n - (-1)^n, is not zero, which holds for these values of k.
+    for (int n : { 4, 6 }) {
+        ModelBuilder builder;
+        addRingOfRules(builder, n, 2);
+        RoadRunner rr(builder.sbml());
+        EXPECT_NEAR(rr.getValue("x0"), 1, 1e-12) << "n = " << n;
+        for (double k : { 0.0, 3.0, -2.0 }) {
+            rr.setValue("k", k);
+            for (int i = 0; i < n; ++i) {
+                EXPECT_NEAR(rr.getValue("x" + std::to_string(i)), 3 / (k + 1), 1e-9)
+                    << "n = " << n << ", k = " << k << ", x" << i;
+            }
+        }
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, FailedRegenerationLeavesNoUnsupportedRuleBehind) {
+    // The unsupported rule is either refused when it is added or refused by the
+    // next regeneration. Either way the document has to match the model that is
+    // loaded, so later edits are not blocked by it.
+    ModelBuilder builder;
+    builder.parameter("x", 0).parameter("y", 0);
+    RoadRunner rr(builder.sbml());
+    try {
+        rr.addAlgebraicRule("bad", "x * x - 4", false);
+    }
+    catch (const std::exception&) {
+    }
+    try {
+        rr.addAlgebraicRule("ok", "y - 1");
+    }
+    catch (const std::exception&) {
+    }
+    const std::vector<std::string> ids = rr.getAlgebraicRuleIds();
+    EXPECT_EQ(std::count(ids.begin(), ids.end(), "bad"), 0);
+    EXPECT_NO_THROW(rr.addAlgebraicRule("ok2", "y - 2"));
+    EXPECT_NEAR(rr.getValue("y"), 2, 1e-12);
+}
+
+TEST(AlgebraicRuleConverterTests, MakingSymbolWithoutValueConstantReportsMissingValue) {
+    // y has no value of its own; the rule gives it -4. Once y is constant nothing
+    // computes it, and roadrunner does not guess a value: regenerating the model
+    // reports it as missing, as for any parameter without a value.
+    ModelBuilder builder;
+    builder.parameter("x", 1, true).parameter("y").algebraic("x + y + 3");
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("y"), -4, 1e-12);
+    rr.setConstant("x", false);
+
+    std::string error;
+    try {
+        rr.setConstant("y", true);
+    }
+    catch (const std::exception& e) {
+        error = e.what();
+    }
+    EXPECT_NE(error.find("missing a value"), std::string::npos) << "error was: '" << error << "'";
+}
+
+namespace {
+    /** x is held at 5 by an algebraic rule; @p valueAttribute is x's own value, if any. */
+    std::string xHeldByAlgebraicRule(const std::string& valueAttribute) {
+        return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="__main" id="__main">
+    <listOfParameters>
+      <parameter id="x")") + valueAttribute + R"( constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule id="_alg0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> x </ci>
+            <cn type="integer"> 5 </cn>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>)";
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleLeavesInitialValueOfSymbolThatHasOne) {
+    // The rule holds x at 5, but x's own value is 3, and that is what stays.
+    RoadRunner rr(xHeldByAlgebraicRule(R"( value="3")"));
+    EXPECT_NEAR(rr.getValue("x"), 5, 1e-12);
+    rr.removeAlgebraicRule("_alg0");
+    EXPECT_NEAR(rr.getValue("init(x)"), 3, 1e-12);
+    EXPECT_NO_THROW(rr.setValue("x", 7));
+}
+
+TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleDoesNotInventValueForSymbolWithoutOne) {
+    // x has no value of its own. Without the rule nothing would give it one, and
+    // roadrunner does not guess, so the removal is refused and undone.
+    RoadRunner rr(xHeldByAlgebraicRule(""));
+    EXPECT_NEAR(rr.getValue("x"), 5, 1e-12);
+
+    std::string error;
+    try {
+        rr.removeAlgebraicRule("_alg0");
+    }
+    catch (const std::exception& e) {
+        error = e.what();
+    }
+    EXPECT_NE(error.find("missing a value"), std::string::npos) << "error was: '" << error << "'";
+
+    // The rule is still there, and still determines x.
+    const std::vector<std::string> ids = rr.getAlgebraicRuleIds();
+    EXPECT_EQ(std::count(ids.begin(), ids.end(), "_alg0"), 1);
+    EXPECT_NEAR(rr.getValue("x"), 5, 1e-12);
+    EXPECT_ANY_THROW(rr.setValue("x", 9));
+}
+
+TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleLeavesSymbolWithoutValueUnsetWhenNotRegenerating) {
+    RoadRunner rr(xHeldByAlgebraicRule(""));
+    rr.removeAlgebraicRule("_alg0", false);
+    std::unique_ptr<SBMLDocument> doc(readSBMLFromString(rr.getSBML().c_str()));
+    EXPECT_FALSE(doc->getModel()->getParameter("x")->isSetValue());
+}
+
+TEST(AlgebraicRuleConverterTests, SetValueIsRefusedForSymbolDeterminedByAlgebraicRule) {
+    RoadRunner rr(xHeldByAlgebraicRule(R"( value="3")"));
+    EXPECT_ANY_THROW(rr.setValue("x", 7));
+    EXPECT_NEAR(rr.getValue("x"), 5, 1e-12);
+}
+
+TEST(AlgebraicRuleConverterTests, SetInitialValueIsRefusedForSymbolDeterminedByAlgebraicRule) {
+    RoadRunner rr(xHeldByAlgebraicRule(R"( value="3")"));
+    EXPECT_ANY_THROW(rr.setValue("init(x)", 9));
+    EXPECT_NEAR(rr.getValue("x"), 5, 1e-12);
+}
+
+TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleWithoutRegeneratingThenSetInitialValue) {
+    // x has no value of its own, so removing the rule and giving it a value are two
+    // steps, and the model can only be generated after both. Not regenerating after
+    // the first leaves the loaded model alone until the value is set.
+    RoadRunner rr(xHeldByAlgebraicRule(""));
+    const rr::ExecutableModel* before = rr.getModel();
+    ASSERT_NO_THROW(rr.removeAlgebraicRule("_alg0", false));
+    EXPECT_EQ(rr.getModel(), before);
+    EXPECT_TRUE(rr.getAlgebraicRuleIds().empty());
+
+    ASSERT_NO_THROW(rr.setValue("init(x)", 3));
+    EXPECT_NE(rr.getModel(), before);
+    EXPECT_NEAR(rr.getValue("init(x)"), 3, 1e-12);
+    EXPECT_NO_THROW(rr.setValue("x", 7));
+    EXPECT_NEAR(rr.getValue("x"), 7, 1e-12);
+}
+
+TEST(AlgebraicRuleConverterTests, RemoveAlgebraicRuleWithoutRegeneratingThenRegenerate) {
+    RoadRunner rr(xHeldByAlgebraicRule(R"( value="3")"));
+    const rr::ExecutableModel* before = rr.getModel();
+    ASSERT_NO_THROW(rr.removeAlgebraicRule("_alg0", false));
+    EXPECT_EQ(rr.getModel(), before);
+
+    ASSERT_NO_THROW(rr.regenerateModel());
+    EXPECT_NE(rr.getModel(), before);
+    EXPECT_NEAR(rr.getValue("init(x)"), 3, 1e-12);
+    EXPECT_NO_THROW(rr.setValue("x", 7));
+    EXPECT_NEAR(rr.getValue("x"), 7, 1e-12);
+}
+
+namespace {
+    /** Solves a * x = b by Gaussian elimination with partial pivoting. */
+    std::vector<double> solveDense(std::vector<std::vector<double>> a, std::vector<double> b) {
+        const size_t n = b.size();
+        for (size_t k = 0; k < n; ++k) {
+            size_t pivot = k;
+            for (size_t r = k + 1; r < n; ++r) {
+                if (std::fabs(a[r][k]) > std::fabs(a[pivot][k])) {
+                    pivot = r;
+                }
+            }
+            std::swap(a[k], a[pivot]);
+            std::swap(b[k], b[pivot]);
+            for (size_t r = k + 1; r < n; ++r) {
+                const double factor = a[r][k] / a[k][k];
+                for (size_t c = k; c < n; ++c) {
+                    a[r][c] -= factor * a[k][c];
+                }
+                b[r] -= factor * b[k];
+            }
+        }
+        std::vector<double> x(n);
+        for (size_t k = n; k-- > 0;) {
+            double sum = b[k];
+            for (size_t c = k + 1; c < n; ++c) {
+                sum -= a[k][c] * x[c];
+            }
+            x[k] = sum / a[k][k];
+        }
+        return x;
+    }
+
+    std::string coefficientId(int row, int column) {
+        return "a" + std::to_string(row) + "_" + std::to_string(column);
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, CramersRuleSolvesDenseSystemOfSixWhenCoefficientsChange) {
+    // Six rules, sum_j a_ij * x_j = b_i, where all 36 coefficients are parameters.
+    // This is the largest system Cramer's rule is used for, and the one with the
+    // largest formulas: each determinant has hundreds of terms.
+    const int n = 6;
+    std::vector<double> b;
+    for (int i = 0; i < n; ++i) {
+        b.push_back(3.0 * i - 4);
+    }
+
+    // Diagonally dominant at load, so elimination pivots on the diagonal.
+    std::vector<std::vector<double>> a(n, std::vector<double>(n));
+    ModelBuilder builder;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            a[i][j] = (i == j) ? 20 : 1 + (2 * i + j) % 2;
+            builder.parameter(coefficientId(i, j), a[i][j], true);
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        builder.parameter("x" + std::to_string(i));
+    }
+    for (int i = 0; i < n; ++i) {
+        std::string formula;
+        for (int j = 0; j < n; ++j) {
+            formula += (j ? " + " : "") + coefficientId(i, j) + " * x" + std::to_string(j);
+        }
+        builder.algebraic(formula + " - (" + std::to_string(b[i]) + ")");
+    }
+
+    const auto start = std::chrono::steady_clock::now();
+    RoadRunner rr(builder.sbml());
+    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now() - start).count();
+    std::cout << "[  timing  ] dense system of six rules loaded in " << milliseconds << " ms" << std::endl;
+    RecordProperty("load_milliseconds", static_cast<int>(milliseconds));
+
+    auto expectSolution = [&](const std::string& when) {
+        const std::vector<double> expected = solveDense(a, b);
+        for (int i = 0; i < n; ++i) {
+            EXPECT_NEAR(rr.getValue("x" + std::to_string(i)), expected[i], 1e-9) << when << ", x" << i;
+        }
+    };
+    auto assignCoefficients = [&]() {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                rr.setValue(coefficientId(i, j), a[i][j]);
+            }
+        }
+    };
+
+    expectSolution("at load");
+
+    // Every coefficient that was a pivot at load is now zero.
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            a[i][j] = (j == (i + 1) % n) ? 20 : (i == j ? 0 : 1 + (i + j) % 2);
+        }
+    }
+    assignCoefficients();
+    expectSolution("with the diagonal zero");
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            a[i][j] = (j == (i + 2) % n) ? -15 : (i == j ? 3 : 1);
+        }
+    }
+    assignCoefficients();
+    expectSolution("with a different dominant pattern");
+}
+
+TEST(AlgebraicRuleConverterTests, MathlessAlgebraicRuleIsDroppedAtLoadLikeOtherMathlessRules) {
+    // A rule with no math is ignored at load and does not stay in the document,
+    // as for an assignment rule, so there is nothing to list or to remove.
+    RoadRunner rr(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="m">
+    <listOfParameters>
+      <parameter id="x" value="3" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule id="r"/>
+    </listOfRules>
+  </model>
+</sbml>)");
+    EXPECT_NEAR(rr.getValue("x"), 3, 1e-12);
+    EXPECT_NO_THROW(rr.setValue("x", 7));
+    EXPECT_EQ(rr.getSBML().find("algebraicRule"), std::string::npos);
+    ASSERT_TRUE(rr.getAlgebraicRuleIds().empty());
+    EXPECT_THROW(rr.removeAlgebraicRule("r"), std::invalid_argument);
+}
+
+TEST(AlgebraicRuleConverterTests, CramersRuleLeavesExtraSymbolFreeWhenCoefficientChanges) {
+    // Two rules and three symbols: z keeps its value, and x and y follow k.
+    // The rules have to hold for every k that leaves the system solvable.
+    ModelBuilder builder;
+    builder.parameter("x").parameter("y").parameter("z", 4).parameter("k", 2, true)
+        .algebraic("k * x + y + z - 7").algebraic("x - y + z - 5");
+    RoadRunner rr(builder.sbml());
+    for (double k : { 2.0, 0.0, 3.0 }) {
+        rr.setValue("k", k);
+        const double x = rr.getValue("x");
+        const double y = rr.getValue("y");
+        const double z = rr.getValue("z");
+        EXPECT_NEAR(k * x + y + z - 7, 0, 1e-9) << "k = " << k;
+        EXPECT_NEAR(x - y + z - 5, 0, 1e-9) << "k = " << k;
+        EXPECT_NEAR(z, 4, 1e-12) << "k = " << k;
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, SettingConstantSymbolInRuleWorksAndSolvedSymbolNamesTheRule) {
+    // y is constant, so the rule x - y = 0 solves for x. y is mentioned but not
+    // solved for: it can be set, and x follows. x cannot be set, and the error
+    // names the algebraic rule.
+    ModelBuilder builder;
+    builder.parameter("x", 1).parameter("y", 2, true).algebraic("x - y");
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("x"), 2, 1e-12);
+
+    const std::string solved = setValueError(rr, "x");
+    EXPECT_NE(solved.find("algebraic rule"), std::string::npos) << solved;
+    EXPECT_EQ(solved.find("assignment rule"), std::string::npos) << solved;
+
+    EXPECT_EQ(setValueError(rr, "y"), "");
+    EXPECT_NEAR(rr.getValue("x"), 9, 1e-12);
+}
+
+TEST(AlgebraicRuleConverterTests, AcceptsCoefficientFromRateRuleWhenItStaysNonZero) {
+    // The rule y / x = 1 has the coefficient 1 / x in y. x follows a rate rule,
+    // so the coefficient changes, but it is not zero, and y follows x.
+    ModelBuilder builder;
+    builder.parameter("x", 1).parameter("y").rate("x", "1").algebraic("y / x - 1");
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("y"), 1, 1e-12);
+    rr.simulate(0, 2, 5);
+    EXPECT_NEAR(rr.getValue("x"), 3, 1e-6);
+    EXPECT_NEAR(rr.getValue("y"), 3, 1e-6);
+    EXPECT_ANY_THROW(rr.setValue("y", 9));
+}
+
+namespace {
+    /** An SBML Level 3 Version 2 model with the given lists as its body. */
+    std::string sbmlModel(const std::string& body) {
+        return R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="m">)" + body + R"(
+  </model>
+</sbml>)";
+    }
+
+    /** The algebraic rule 0 = symbol - 2 * p. */
+    std::string ruleSolvingForTwiceP(const std::string& symbol) {
+        return R"(
+    <listOfRules>
+      <algebraicRule><math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply><minus/><ci>)" + symbol + R"(</ci><apply><times/><cn>2</cn><ci>p</ci></apply></apply>
+      </math></algebraicRule>
+    </listOfRules>)";
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, SolvesForSpeciesConcentration) {
+    // The species is a concentration in the rule, in a compartment of size 2.
+    RoadRunner rr(sbmlModel(R"(
+    <listOfCompartments><compartment id="C" size="2" constant="true"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters><parameter id="p" value="3" constant="true"/></listOfParameters>)"
+        + ruleSolvingForTwiceP("S")));
+    EXPECT_NEAR(rr.getValue("[S]"), 6, 1e-12);
+    EXPECT_NEAR(rr.getValue("S"), 12, 1e-12);
+    rr.setValue("p", 5);
+    EXPECT_NEAR(rr.getValue("[S]"), 10, 1e-12);
+    EXPECT_NEAR(rr.getValue("S"), 20, 1e-12);
+    EXPECT_ANY_THROW(rr.setValue("S", 1));
+    EXPECT_ANY_THROW(rr.setValue("[S]", 1));
+}
+
+TEST(AlgebraicRuleConverterTests, SolvesForSpeciesAmount) {
+    // The species is an amount in the rule, in a compartment of size 2.
+    RoadRunner rr(sbmlModel(R"(
+    <listOfCompartments><compartment id="C" size="2" constant="true"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters><parameter id="p" value="3" constant="true"/></listOfParameters>)"
+        + ruleSolvingForTwiceP("S")));
+    EXPECT_NEAR(rr.getValue("S"), 6, 1e-12);
+    EXPECT_NEAR(rr.getValue("[S]"), 3, 1e-12);
+    rr.setValue("p", 5);
+    EXPECT_NEAR(rr.getValue("S"), 10, 1e-12);
+    EXPECT_NEAR(rr.getValue("[S]"), 5, 1e-12);
+    EXPECT_ANY_THROW(rr.setValue("S", 1));
+}
+
+TEST(AlgebraicRuleConverterTests, SolvesForCompartmentSize) {
+    // The compartment has no size of its own. The species amount stays at 4, so its
+    // concentration follows the size.
+    RoadRunner rr(sbmlModel(R"(
+    <listOfCompartments><compartment id="C" constant="false"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" initialAmount="4" hasOnlySubstanceUnits="true"
+               boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters><parameter id="p" value="3" constant="true"/></listOfParameters>)"
+        + ruleSolvingForTwiceP("C")));
+    EXPECT_NEAR(rr.getValue("C"), 6, 1e-12);
+    EXPECT_NEAR(rr.getValue("[S]"), 4.0 / 6, 1e-12);
+    rr.setValue("p", 4);
+    EXPECT_NEAR(rr.getValue("C"), 8, 1e-12);
+    EXPECT_NEAR(rr.getValue("[S]"), 0.5, 1e-12);
+    EXPECT_ANY_THROW(rr.setValue("C", 1));
+}
+
+TEST(AlgebraicRuleConverterTests, SolvesForBoundarySpeciesThatDrivesReaction) {
+    // B is held at 3 by the rule, and makes S at the rate k * B = 1.5.
+    RoadRunner rr(sbmlModel(R"(
+    <listOfCompartments><compartment id="C" size="1" constant="true"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="B" compartment="C" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false"/>
+      <species id="S" compartment="C" initialAmount="0" hasOnlySubstanceUnits="true"
+               boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters><parameter id="k" value="0.5" constant="true"/></listOfParameters>
+    <listOfRules>
+      <algebraicRule><math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply><minus/><ci>B</ci><cn>3</cn></apply></math></algebraicRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="R" reversible="false">
+        <listOfReactants><speciesReference species="B" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference species="S" stoichiometry="1" constant="true"/></listOfProducts>
+        <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply><times/><ci>k</ci><ci>B</ci></apply></math></kineticLaw>
+      </reaction>
+    </listOfReactions>)"));
+    EXPECT_NEAR(rr.getValue("B"), 3, 1e-12);
+    rr.simulate(0, 2, 5);
+    EXPECT_NEAR(rr.getValue("B"), 3, 1e-12);
+    EXPECT_NEAR(rr.getValue("S"), 3, 1e-6);
+    EXPECT_ANY_THROW(rr.setValue("B", 1));
+}
+
+TEST(AlgebraicRuleConverterTests, SolvesForStoichiometry) {
+    // The rule gives the reactant's stoichiometry the value 2, so S falls at 2 per unit time.
+    RoadRunner rr(sbmlModel(R"(
+    <listOfCompartments><compartment id="C" size="1" constant="true"/></listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" initialAmount="10" hasOnlySubstanceUnits="true"
+               boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfRules>
+      <algebraicRule><math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply><minus/><ci>sr</ci><cn>2</cn></apply></math></algebraicRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="R" reversible="false">
+        <listOfReactants><speciesReference id="sr" species="S" constant="false"/></listOfReactants>
+        <kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><cn>1</cn></math></kineticLaw>
+      </reaction>
+    </listOfReactions>)"));
+    rr.simulate(0, 1, 3);
+    EXPECT_NEAR(rr.getValue("S"), 8, 1e-6);
+}
+
+TEST(AlgebraicRuleConverterTests, SingularSystemGivesNonFiniteValuesWithoutThrowing) {
+    // A coefficient that reaches zero at run time makes the solved value
+    // non-finite. That is the same as an assignment rule x := 1 / k.
+    {
+        ModelBuilder builder;
+        builder.parameter("x").parameter("k", 2, true).algebraic("k * x - 1");
+        RoadRunner rr(builder.sbml());
+        EXPECT_NEAR(rr.getValue("x"), 0.5, 1e-12);
+        EXPECT_NO_THROW(rr.setValue("k", 0));
+        EXPECT_FALSE(std::isfinite(rr.getValue("x")));
+        rr.setValue("k", 2);
+        EXPECT_NEAR(rr.getValue("x"), 0.5, 1e-12);
+    }
+
+    // Two rules in two symbols are singular when k = 1: both say x + y = 3.
+    {
+        ModelBuilder builder;
+        builder.parameter("x").parameter("y").parameter("k", 2, true)
+            .parameter("a", 3, true).parameter("b", 3, true)
+            .algebraic("x + y - a").algebraic("x + k * y - b");
+        RoadRunner rr(builder.sbml());
+        EXPECT_NEAR(rr.getValue("x"), 3, 1e-12);
+        EXPECT_NEAR(rr.getValue("y"), 0, 1e-12);
+        EXPECT_NO_THROW(rr.setValue("k", 1));
+        EXPECT_FALSE(std::isfinite(rr.getValue("x")));
+        EXPECT_FALSE(std::isfinite(rr.getValue("y")));
+        rr.setValue("k", 2);
+        EXPECT_NEAR(rr.getValue("x"), 3, 1e-12);
+        EXPECT_NEAR(rr.getValue("y"), 0, 1e-12);
+    }
 }
