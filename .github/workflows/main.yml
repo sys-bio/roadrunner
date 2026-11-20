@@ -623,10 +623,11 @@ jobs:
           name: ${{ env.roadrunner_python_wheel_artifacts_name }}
           path: ${{ env.roadrunner_python_wheel_artifacts_file }}
 
-      # The consumers have to be built with the toolset that built the install, and with the LLVM it
-      # used. On Windows they run here, because a separate job can get another runner image.
-      - name: Build and run the CMake consumer projects (Windows)
-        if: matrix.platform.os_type == 'windows' && github.event.inputs.timing != 'true'
+      # A Debug build has to be consumed with the toolset that built it and the LLVM it used, and a
+      # separate job can get another runner image, so Windows Debug runs its consumers here.
+      # Windows Release keeps its own job, which starts from a bare runner.
+      - name: Build and run the CMake consumer projects (Windows Debug)
+        if: matrix.platform.os_type == 'windows' && matrix.platform.build_type == 'Debug' && github.event.inputs.timing != 'true'
         shell: bash
         run: |
           bash test/cmake_consumers/run_consumers.sh \
@@ -1110,6 +1111,7 @@ jobs:
           - {name: macos-15-debug, os_type: macos, os_name: macos-15, build_type: Debug}
           - {name: ubuntu-latest-release, os_type: ubuntu, os_name: ubuntu-latest, build_type: Release}
           - {name: ubuntu-latest-debug, os_type: ubuntu, os_name: ubuntu-latest, build_type: Debug}
+          - {name: windows-latest-release, os_type: windows, os_name: windows-latest, build_type: Release}
           - {name: manylinux_2_28-release, os_type: manylinux, os_name: ubuntu-latest, container_image: "quay.io/pypa/manylinux_2_28_x86_64", build_type: Release}
         llvm_owner: [ "sys-bio" ]
         llvm_repo: [ "llvm-build" ]
