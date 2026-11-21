@@ -44,6 +44,13 @@
 
 #ifndef TLP_MTRAND_H
 #define TLP_MTRAND_H
+
+//Keep the generator's inline members and statics private to each image, so a copy in one
+//library cannot be merged with, or split from, the copy in another.
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC visibility push(hidden)
+#endif
+
 namespace tlp
 {
 
@@ -198,5 +205,9 @@ class MTRand53 : public MTRand_int32
 };
 
 } // namespace tlp
+
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC visibility pop
+#endif
 
 #endif // TLP_MTRAND_H
