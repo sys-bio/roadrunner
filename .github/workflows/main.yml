@@ -514,6 +514,8 @@ jobs:
         if: always() && matrix.platform.build_type == 'Debug' && matrix.platform.os_type == 'macos' && matrix.build_tests == 'ON'
         shell: bash
         run: |
+          set +e
+          set +o pipefail
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           for f in $(find lib bin -type f \( -name '*.dylib' -o -name '*.so' -o -name 'test_plugin_monte_carlo_bs' \)); do
             n=$(nm -m "$f" 2>/dev/null | grep -c -E 'MTRand|rand_int32')
@@ -530,7 +532,7 @@ jobs:
       # CHECK_SEED has failed in Debug on macOS only. Its [SEEDDIAG] lines go to stderr.
       # RANDOM_DRAWS_* repeat the seed check through the minimal tel_random_draws plugin.
       - name: Run Monte Carlo seed test (Debug)
-        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
+        if: always() && matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
