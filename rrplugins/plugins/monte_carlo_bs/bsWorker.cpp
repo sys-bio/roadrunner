@@ -90,6 +90,8 @@ namespace bsmc
             delete mRandom;
             mRandom = new tlp::Random(seed);
         }
+        fprintf(stderr, "[SEEDDIAG] run %d: after reseed state=%016llx addr=%p\n",
+            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
         if (runInThread)
         {
             if (mThread.isRunning())
@@ -126,6 +128,8 @@ namespace bsmc
             RRPLOG(lError) << "Failed setting up the Monte Carlo Bootstrap plugin. Aborting.";
             return;
         }
+        fprintf(stderr, "[SEEDDIAG] run %d: after setup state=%016llx addr=%p\n",
+            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
 
         workerProgress();
         //Create MC data sets
@@ -372,6 +376,8 @@ namespace bsmc
     {
         TelluriumData& expData = mParent.mExperimentalData;
         TelluriumData* initialFit = (TelluriumData*)mMinimizerPlugin->getPropertyValueHandle("FittedData");
+        fprintf(stderr, "[SEEDDIAG] run %d: before first draw state=%016llx addr=%p\n",
+            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
 
         //Create data sets, use fitted data as the "base", to add residuals to later on
         for (int i = 0; i < mParent.mNrOfMCRuns; i++)

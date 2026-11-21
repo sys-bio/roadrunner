@@ -14,5 +14,15 @@ double Random::next() const
 {
     return mRand();
 }
+
+unsigned long long Random::diagFingerprint()
+{
+    return MTRand_int32::diagFingerprint();
+}
+
+const void* Random::diagStateAddress()
+{
+    return MTRand_int32::diagStateAddress();
+}
 }
 
