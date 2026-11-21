@@ -29,6 +29,7 @@ endif()
 
 if (RR_PLUGINS_BUILD_HELLO_PLUGIN)
     add_subdirectory(hello_roadrunner)
+    add_subdirectory(random_draws)
 endif()
 
 
