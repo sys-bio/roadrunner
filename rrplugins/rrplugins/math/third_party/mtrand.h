@@ -77,10 +77,6 @@ class  MTRand_int32
         // 2007-02-11: made the destructor virtual; thanks "double more" for pointing this out
         virtual ~MTRand_int32() {} // destructor
 
-        //SEEDDIAG: hash of the shared generator state, and the address of that state
-        static unsigned long long diagFingerprint();
-        static const void* diagStateAddress();
-
     protected: // used by derived classes, otherwise not accessible; use the ()-operator
       unsigned long rand_int32() const; // generate 32 bit random integer
 

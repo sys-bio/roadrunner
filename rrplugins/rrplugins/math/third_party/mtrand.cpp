@@ -58,22 +58,4 @@ void MTRand_int32::seed(const unsigned long* array, int size) { // init by array
   p = n; // force gen_state() to be called for next random number
 }
 
-unsigned long long MTRand_int32::diagFingerprint()
-{
-    unsigned long long h = 14695981039346656037ULL;
-    for (int i = 0; i < n; ++i)
-    {
-        h ^= (unsigned long long)(state[i] & 0xFFFFFFFFUL);
-        h *= 1099511628211ULL;
-    }
-    h ^= (unsigned long long) p;
-    h *= 1099511628211ULL;
-    return h;
-}
-
-const void* MTRand_int32::diagStateAddress()
-{
-    return (const void*) state;
-}
-
 } // namespace tlp

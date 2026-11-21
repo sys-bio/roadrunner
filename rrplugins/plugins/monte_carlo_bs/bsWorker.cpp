@@ -1,6 +1,5 @@
 #pragma hdrstop
 #include <time.h>
-#include <stdio.h>
 #include <algorithm>
 #include "telLogger.h"
 #include "bsWorker.h"
@@ -57,41 +56,14 @@ namespace bsmc
         mMCParameters.clear();
     }
 
-    //SEEDDIAG: counts calls to start() so diagnostic lines from different executes can be told apart
-    static int sSeedDiagRun = 0;
-
     void bsWorker::start(bool runInThread)
     {
         unsigned long seed = *(unsigned long*)(mParent.getPropertyValueHandle("Seed"));
-
-        //SEEDDIAG: state of the inputs at the start of each execute
-        {
-            ++sSeedDiagRun;
-            TelluriumData* diagData = (TelluriumData*)mParent.mExperimentalData.getValueHandle();
-            double diagSum = 0;
-            for (int r = 0; r < diagData->rSize(); r++)
-            {
-                for (int c = 0; c < diagData->cSize(); c++)
-                {
-                    diagSum += diagData->getDataElement(r, c);
-                }
-            }
-            fprintf(stderr, "[SEEDDIAG] run %d: seed=%lu sizeof(unsigned long)=%zu expData=%dx%d sum=%.17g\n",
-                sSeedDiagRun, seed, sizeof(unsigned long), (int) diagData->rSize(), (int) diagData->cSize(), diagSum);
-            Properties& diagParas = mParent.mInputParameterList.getValueReference();
-            for (int i = 0; i < diagParas.count(); i++)
-            {
-                fprintf(stderr, "[SEEDDIAG] run %d: input %s=%.17g\n",
-                    sSeedDiagRun, diagParas[i]->getName().c_str(), *((double*)diagParas[i]->getValueHandle()));
-            }
-        }
         if (seed != 0.0)
         {
             delete mRandom;
             mRandom = new tlp::Random(seed);
         }
-        fprintf(stderr, "[SEEDDIAG] run %d: after reseed state=%016llx addr=%p\n",
-            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
         if (runInThread)
         {
             if (mThread.isRunning())
@@ -128,8 +100,6 @@ namespace bsmc
             RRPLOG(lError) << "Failed setting up the Monte Carlo Bootstrap plugin. Aborting.";
             return;
         }
-        fprintf(stderr, "[SEEDDIAG] run %d: after setup state=%016llx addr=%p\n",
-            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
 
         workerProgress();
         //Create MC data sets
@@ -353,31 +323,12 @@ namespace bsmc
             }
         }
 
-        //SEEDDIAG: initial fit results that the resampling is based on
-        {
-            double diagSum = 0;
-            for (size_t i = 0; i < mResiduals.size(); i++)
-            {
-                diagSum += mResiduals[i];
-            }
-            fprintf(stderr, "[SEEDDIAG] run %d: initial fit residuals n=%zu sum=%.17g first=%.17g\n",
-                sSeedDiagRun, mResiduals.size(), diagSum, mResiduals.empty() ? 0.0 : mResiduals[0]);
-            Properties* diagOut = (Properties*)mMinimizerPlugin->getPropertyValueHandle("OutputParameterList");
-            for (int i = 0; diagOut && i < diagOut->count(); i++)
-            {
-                fprintf(stderr, "[SEEDDIAG] run %d: initial fit %s=%.17g\n",
-                    sSeedDiagRun, (*diagOut)[i]->getName().c_str(), *((double*)(*diagOut)[i]->getValueHandle()));
-            }
-        }
-
         return true;
     }
     bool bsWorker::createMonteCarloDataSets()
     {
         TelluriumData& expData = mParent.mExperimentalData;
         TelluriumData* initialFit = (TelluriumData*)mMinimizerPlugin->getPropertyValueHandle("FittedData");
-        fprintf(stderr, "[SEEDDIAG] run %d: before first draw state=%016llx addr=%p\n",
-            sSeedDiagRun, tlp::Random::diagFingerprint(), tlp::Random::diagStateAddress());
 
         //Create data sets, use fitted data as the "base", to add residuals to later on
         for (int i = 0; i < mParent.mNrOfMCRuns; i++)
@@ -387,7 +338,6 @@ namespace bsmc
         }
 
         TelluriumData all;
-        double lastResid = 0;
         //Create MC data by randomly adding residuals from the residuals vector to each point in each data set
 
         for (int i = 0; i < mMCDataSets.size(); i++)
@@ -398,19 +348,11 @@ namespace bsmc
             {
                 for (int row = 0; row < data.rSize(); row++)
                 {
-                    double resid = getRandomElement(mResiduals, *mRandom);
-                    data(row, col) = data(row, col) + resid;
-                    lastResid = resid;
-                    if (i == 0 && col == startCol && row < 3)
-                    {
-                        fprintf(stderr, "[SEEDDIAG] run %d: set 0 draw %d -> residual %.17g\n", sSeedDiagRun, row, resid);
-                    }
+                    data(row, col) = data(row, col) + getRandomElement(mResiduals, *mRandom);
                 }
             }
             all.append(data);
         }
-
-        fprintf(stderr, "[SEEDDIAG] run %d: last draw -> residual %.17g\n", sSeedDiagRun, lastResid);
 
         all.write("MCDataSets.dat");
         return true;

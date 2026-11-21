@@ -509,34 +509,14 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
 
-      # Lists which images carry the tlp random number generator, and how the test links to them.
-      - name: List random number generator symbols (Debug, macOS)
-        if: always() && matrix.platform.build_type == 'Debug' && matrix.platform.os_type == 'macos' && matrix.build_tests == 'ON'
-        shell: bash
-        run: |
-          set +e
-          set +o pipefail
-          cd ${RUNNER_WORKSPACE}/build-roadrunner
-          for f in $(find lib bin -type f \( -name '*.dylib' -o -name '*.so' -o -name 'test_plugin_monte_carlo_bs' \)); do
-            n=$(nm -m "$f" 2>/dev/null | grep -c -E 'MTRand|rand_int32')
-            if [ "$n" != "0" ]; then
-              echo "=== $f ($n symbols)"
-              nm -m "$f" 2>/dev/null | grep -E 'MTRand|rand_int32|Random' | head -40
-            fi
-          done
-          for f in bin/test_plugin_monte_carlo_bs $(find lib -name '*random_draws*' -o -name '*monte_carlo_bs*' -o -name '*c_api*'); do
-            echo "=== otool -L $f"
-            otool -L "$f"
-          done
-
-      # CHECK_SEED has failed in Debug on macOS only. Its [SEEDDIAG] lines go to stderr.
-      # RANDOM_DRAWS_* repeat the seed check through the minimal tel_random_draws plugin.
+      # CHECK_SEED failed in Debug on macOS only, where each plugin library carries its own copy of the
+      # random number generator.
       - name: Run Monte Carlo seed test (Debug)
-        if: always() && matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
+        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex 'PluginMonteCarloTests\.(CHECK_SEED|RANDOM_DRAWS_.*)'
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex 'PluginMonteCarloTests\.CHECK_SEED'
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
