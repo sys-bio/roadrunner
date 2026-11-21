@@ -510,12 +510,13 @@ jobs:
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
 
       # CHECK_SEED has failed in Debug on macOS only. Its [SEEDDIAG] lines go to stderr.
+      # RANDOM_DRAWS_* repeat the seed check through the minimal tel_random_draws plugin.
       - name: Run Monte Carlo seed test (Debug)
         if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex 'PluginMonteCarloTests\.CHECK_SEED'
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex 'PluginMonteCarloTests\.(CHECK_SEED|RANDOM_DRAWS_.*)'
 
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
