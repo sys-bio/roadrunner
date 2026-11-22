@@ -42,8 +42,18 @@
 // Feedback about the C++ port should be sent to Jasper Bedaux,
 // see http://www.bedaux.net/mtrand/ for e-mail address and info.
 
-#ifndef MTRAND_H
-#define MTRAND_H
+#ifndef TLP_MTRAND_H
+#define TLP_MTRAND_H
+
+//Keep the generator's inline members and statics private to each image, so a copy in one
+//library cannot be merged with, or split from, the copy in another.
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC visibility push(hidden)
+#endif
+
+namespace tlp
+{
+
 class  MTRand_int32
 {
     // Mersenne Twister random number generator
@@ -190,4 +200,10 @@ class MTRand53 : public MTRand_int32
         void operator=(const MTRand53&);    // assignment operator not defined
 };
 
-#endif // MTRAND_H
+} // namespace tlp
+
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC visibility pop
+#endif
+
+#endif // TLP_MTRAND_H

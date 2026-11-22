@@ -509,6 +509,15 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-roadrunner
           ctest --output-on-failure --verbose --extra-verbose --progress --tests-regex LLJitSectionRange
 
+      # CHECK_SEED failed in Debug on macOS only, where each plugin library carries its own copy of the
+      # random number generator.
+      - name: Run Monte Carlo seed test (Debug)
+        if: matrix.platform.build_type == 'Debug' && matrix.build_tests == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-roadrunner
+          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex 'PluginMonteCarloTests\.CHECK_SEED'
+
       - name: Run Python Roadrunner tests (earliest Python version)
         if: matrix.platform.build_python == 'ON' && matrix.build_tests == 'ON'
         shell: bash

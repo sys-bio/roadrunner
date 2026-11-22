@@ -42,10 +42,13 @@
 // Feedback about the C++ port should be sent to Jasper Bedaux,
 // see http://www.bedaux.net/mtrand/ for e-mail address and info.
 
-#ifndef MTRAND_H
-#define MTRAND_H
+#ifndef RR_MTRAND_H
+#define RR_MTRAND_H
 
 #include "rrExporter.h"
+
+namespace rr
+{
 
 class  MTRand_int32
 { // Mersenne Twister random number generator
@@ -154,4 +157,6 @@ private:
   void operator=(const MTRand53&); // assignment operator not defined
 };
 
-#endif // MTRAND_H
+} // namespace rr
+
+#endif // RR_MTRAND_H
