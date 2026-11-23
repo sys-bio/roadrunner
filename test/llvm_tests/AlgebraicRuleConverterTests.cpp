@@ -369,20 +369,20 @@ TEST(AlgebraicRuleConverterTests, ThreeSimultaneousRulesSurviveCoefficientsChang
     EXPECT_NEAR(rr.getValue("z"), 9, 1e-12);
 }
 
-TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemWithConstantCoefficientLoads) {
-    // Larger than Cramer's rule is used for, so elimination is kept.
+TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemWithNumberCoefficientsLoads) {
+    // Coefficients that are plain numbers can't change, so elimination is used
+    // and there is no limit on the size.
     ModelBuilder builder;
-    builder.parameter("k", 2, true);
-    const int n = 7;
+    const int n = 12;
     for (int i = 0; i < n; ++i) {
         builder.parameter("x" + std::to_string(i));
     }
     for (int i = 0; i < n; ++i) {
-        builder.algebraic("k * x" + std::to_string(i) + " + x" + std::to_string((i + 1) % n) + " - 3");
+        builder.algebraic("2 * x" + std::to_string(i) + " + x" + std::to_string((i + 1) % n) + " - 3");
     }
     // Every x is 1.
     EXPECT_NEAR(valueOf(builder, "x0"), 1, 1e-12);
-    EXPECT_NEAR(valueOf(builder, "x6"), 1, 1e-12);
+    EXPECT_NEAR(valueOf(builder, "x11"), 1, 1e-12);
 }
 
 TEST(AlgebraicRuleConverterTests, RuleSolvesForOtherSymbolWhenSolvedOneBecomesConstant) {
@@ -723,8 +723,9 @@ namespace {
 }
 
 TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemSurvivesCoefficientBecomingZero) {
-    // Above the size Cramer's rule is used for, the pivots chosen at load are
-    // kept. With k = 0 the rules say x(i+1) = 3, which still has a unique solution.
+    // The largest system with a changing coefficient that is supported. With
+    // k = 0 the rules say x(i+1) = 3, which still has a unique solution, and the
+    // pivots chosen at load (on k) are all zero.
     const int n = 7;
     ModelBuilder builder;
     addRingOfRules(builder, n, 2);
@@ -734,6 +735,17 @@ TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemSurvivesCoefficientBeco
     for (int i = 0; i < n; ++i) {
         EXPECT_NEAR(rr.getValue("x" + std::to_string(i)), 3, 1e-12) << "x" << i;
     }
+}
+
+TEST(AlgebraicRuleConverterTests, RejectsTooLargeSystemWithChangingCoefficient) {
+    // One rule more than Cramer's rule is used for. Elimination would give a wrong
+    // answer once a pivot chosen at load becomes zero, so the model is refused
+    // with an error that names the limit.
+    ModelBuilder builder;
+    addRingOfRules(builder, 8, 2);
+    const std::string error = errorFrom(builder);
+    EXPECT_NE(error.find("not supported"), std::string::npos) << error;
+    EXPECT_NE(error.find("up to 7 rules"), std::string::npos) << error;
 }
 
 TEST(AlgebraicRuleConverterTests, CramersRuleSolvesRingsWhenCoefficientChanges) {

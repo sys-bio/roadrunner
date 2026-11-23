@@ -1354,8 +1354,12 @@ namespace rr {
 
         /**
          * Remove an algebraic rule added with addAlgebraicRule, or any algebraic rule
-         * whose id or metaid is @p id, from the current model. The symbol it determined
-         * keeps its current value.
+         * whose id or metaid is @p id, from the current model. No value is filled in
+         * for the symbol it determined: that symbol keeps its own initial value from
+         * the SBML, or stays without one. If that leaves a symbol without a value,
+         * regenerating fails with the usual "missing a value" error and the rule is
+         * put back. To give the symbol a value instead, remove the rule with
+         * forceRegenerate = false and then call setValue("init(x)", value).
          * @param id: id or metaid of the algebraic rule
          * @param forceRegenerate: a boolean value to indicate if the model is regenerated
          *					       after this function call
@@ -2045,6 +2049,12 @@ namespace rr {
         * Remove a variable from the current model.
         */
         void removeVariable(const std::string &sid);
+
+        /*
+        * After the rule for vid has been removed and the model regenerated, give vid
+        * its initial value, and also its current value if useInitialValueAsCurrent.
+        */
+        void applyRemovedRuleValues(const std::string &vid, bool assignment, bool useInitialValueAsCurrent);
 
         /*
         * check recursively if a ASTnode or any of its child has the given variable

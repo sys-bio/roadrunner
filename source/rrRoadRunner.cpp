@@ -299,6 +299,17 @@ namespace rr {
         */
         bool simulatedSinceReset = false;
 
+        /**
+         * A rule removed without regenerating leaves its value adjustment until
+         * the model is next regenerated; these are the ones still waiting.
+         */
+        struct PendingRuleRemoval {
+            std::string vid;
+            bool assignment;
+            bool useInitialValueAsCurrent;
+        };
+        std::vector<PendingRuleRemoval> pendingRuleRemovals;
+
         RoadRunnerImpl(const std::string &uriOrSBML, const Dictionary *dict) :
                 simulationResult(),
                 integrator(0),
@@ -1579,6 +1590,7 @@ namespace rr {
         currentSBML = trim(currentSBML);
 
         impl->model.reset(nullptr);
+        impl->pendingRuleRemovals.clear();
 
         delete impl->mLS;
         impl->mLS = NULL;
@@ -7512,31 +7524,10 @@ namespace rr {
         regenerateModel(forceRegenerate);
     }
 
-// TODO: update C wrappers
-    void RoadRunner::removeRules(const std::string &vid, bool useInitialValueAsCurrent, bool forceRegenerate) {
-        using namespace libsbml;
-        Model *sbmlModel = impl->document->getModel();
-
-        bool assignment = false;
-        //check if the rule to remove is an assignment rule
-        if (sbmlModel->getAssignmentRule(vid) != NULL) {
-            assignment = true;
-        }
-        Rule *toDelete = sbmlModel->removeRule(vid);
-        if (toDelete == NULL) {
-            throw std::invalid_argument(
-                    "Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
-        }
-        rrLog(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << std::endl;
-        delete toDelete;
-
-        regenerateModel(forceRegenerate);
-        // The rest adjusts values in the regenerated model. Without one, the
-        // compiled model still has the rule and refuses them; the values come
-        // from the SBML when the model is next regenerated.
-        if (!forceRegenerate) {
-            return;
-        }
+    void RoadRunner::applyRemovedRuleValues(const std::string &vid, bool assignment, bool useInitialValueAsCurrent) {
+        // The value comes from the SBML for an assignment rule, as the compiled model had
+        // none of its own.
+        libsbml::Model *sbmlModel = impl->document->getModel();
         // grab the initial initial value from sbml model
         if (assignment) {
             int index = impl->model->getFloatingSpeciesIndex(vid);
@@ -7637,6 +7628,35 @@ namespace rr {
         }
     }
 
+// TODO: update C wrappers
+    void RoadRunner::removeRules(const std::string &vid, bool useInitialValueAsCurrent, bool forceRegenerate) {
+        using namespace libsbml;
+        Model *sbmlModel = impl->document->getModel();
+
+        bool assignment = false;
+        //check if the rule to remove is an assignment rule
+        if (sbmlModel->getAssignmentRule(vid) != NULL) {
+            assignment = true;
+        }
+        Rule *toDelete = sbmlModel->removeRule(vid);
+        if (toDelete == NULL) {
+            throw std::invalid_argument(
+                    "Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
+        }
+        rrLog(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << std::endl;
+        delete toDelete;
+
+        if (forceRegenerate) {
+            regenerateModel(true);
+            applyRemovedRuleValues(vid, assignment, useInitialValueAsCurrent);
+        }
+        else {
+            // The compiled model still has the rule and refuses the values, so
+            // they are adjusted when the model is next regenerated.
+            impl->pendingRuleRemovals.push_back({vid, assignment, useInitialValueAsCurrent});
+        }
+    }
+
     namespace {
         /** Algebraic rules only have an id from SBML Level 3 Version 2 on. */
         bool algebraicRulesHaveId(const libsbml::SBMLDocument* doc) {
@@ -7713,24 +7733,10 @@ namespace rr {
                 "Roadrunner::removeAlgebraicRule failed, no algebraic rule with id " + id + " existed in the model");
         }
 
-        // The rule may have been all that gave a parameter its value, and
-        // roadrunner requires one, so any parameter it mentions without a value
-        // keeps its current value.
-        std::vector<std::pair<Parameter*, double>> filled;
-        std::unique_ptr<List> names(sbmlModel->getRule(index)->getMath()->getListOfNodes(
-            [](const ASTNode* node) -> int { return node->getType() == AST_NAME; }));
-        for (unsigned i = 0; i < names->getSize(); ++i) {
-            const ASTNode* node = static_cast<const ASTNode*>(names->get(i));
-            Parameter *parameter = sbmlModel->getParameter(node->getName());
-            if (parameter && !parameter->isSetValue() && impl->model) {
-                const double value = getValue(node->getName());
-                filled.emplace_back(parameter, value);
-            }
-        }
-        for (auto& [parameter, value] : filled) {
-            parameter->setValue(value);
-        }
-
+        // No value is filled in for a symbol the rule was solving: if that leaves
+        // a symbol without one, regenerating fails with the usual "missing a value"
+        // error and the rule is put back. Without regenerating, the user can give
+        // the symbol a value next.
         rrLog(Logger::LOG_DEBUG) << "Removing algebraic rule " << id << "..." << std::endl;
         std::unique_ptr<Rule> removed(static_cast<Rule*>(sbmlModel->getListOfRules()->remove(index)));
 
@@ -7739,9 +7745,6 @@ namespace rr {
         }
         catch (...) {
             sbmlModel->getListOfRules()->insertAndOwn(index, removed.release());
-            for (auto& filledValue : filled) {
-                filledValue.first->unsetValue();
-            }
             throw;
         }
     }
@@ -8156,6 +8159,16 @@ namespace rr {
             // reset();
             if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0) {
                 createDefaultSelectionLists();
+            }
+
+            // Rules removed without regenerating get their values now, unless the
+            // symbol has been given a rule again since.
+            std::vector<RoadRunnerImpl::PendingRuleRemoval> pending;
+            pending.swap(impl->pendingRuleRemovals);
+            for (const auto &removal: pending) {
+                if (impl->document->getModel()->getRule(removal.vid) == nullptr) {
+                    applyRemovedRuleValues(removal.vid, removal.assignment, removal.useInitialValueAsCurrent);
+                }
             }
 
             if (reset) {

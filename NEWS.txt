@@ -2,17 +2,26 @@
 
 * Linear algebraic rules are now supported. Each rule is rewritten as an assignment rule when the model
   is compiled, so getSBML() and getCurrentSBML() still return the algebraic rule as it was written. Rules
-  that depend on each other are solved together, and while a coefficient of such rules refers to a
-  parameter, up to six of them are solved by Cramer's rule so that changing the parameter after loading
-  gives the right answer whenever one exists. A rule that is nonlinear or has a coefficient that changes
-  during a simulation, or a set of rules with no unique solution, still gives an error when the model is
+  that depend on each other are solved together. A coefficient may change after loading or during a
+  simulation (a parameter, a symbol with a rate rule, time). If it reaches zero the solved value is
+  infinite or NaN, as it would be for the equivalent assignment rule (x := 1 / k with k = 0). Rules that
+  must be solved together and have such coefficients are solved by Cramer's rule, so the answer stays
+  right whenever one exists; that is supported for up to seven rules, and a bigger system gives an error
+  when the model is loaded. Rules whose coefficients are all plain numbers have no such limit. A
+  nonlinear rule, or a set of rules with no unique solution, still gives an error when the model is
   loaded. The symbol a rule determines can't be set with setValue, in the same way as the target of an
   assignment rule.
 
 * New model editing functions RoadRunner.addAlgebraicRule(id, formula, forceRegenerate=True),
   removeAlgebraicRule(id, forceRegenerate=True) and getAlgebraicRuleIds() (C++ and Python), with
   addAlgebraicRule[NoRegen] and removeAlgebraicRule[NoRegen] in the C API. A rule that can't be
-  supported is taken out of the model again when it is added.
+  supported is taken out of the model again when it is added. removeAlgebraicRule doesn't fill in a
+  value for the symbol the rule determined: if that symbol has no value of its own, the removal is
+  refused with "missing a value", unless forceRegenerate is false, so that the value can be set next.
+
+* RoadRunner.removeRules(vid, useInitialValueAsCurrent, forceRegenerate=False), and so the C API's
+  removeRulesNoRegen, now honour useInitialValueAsCurrent when the model is next regenerated, as the
+  regenerating call already did.
 
 * RoadRunner.setSeed(seed, resetModel=True) (C++ and Python) no longer regenerates and recompiles the
   model from its SBML, which took most of a second. It now reseeds the random number generators

@@ -18,7 +18,9 @@ namespace rrllvm {
      * @brief Returns a copy of @p doc with its algebraic rules replaced.
      *
      * Each rule '0 = c * x + r' becomes the assignment rule 'x = -r / c', where
-     * x is a symbol that nothing else in the model determines and c is constant.
+     * x is a symbol that nothing else in the model determines. c may change
+     * during a simulation; where it is zero, x is infinite or NaN, as it would be
+     * for that assignment rule written by hand.
      * Rules with no math are dropped, as the SBML test suite requires.
      *
      * When a rule could determine several symbols, the one chosen is, in order:
@@ -29,17 +31,18 @@ namespace rrllvm {
      * SBML itself only requires that some valid choice exists, so the order
      * above follows the expected results in the SBML Test Suite.
      *
-     * Rules that share their unknowns are solved together by Gaussian elimination.
-     * The result is still a set of assignment rules, written as formulas so that
-     * changing a constant after loading is honoured. The value of each constant
-     * at load only decides the elimination order and whether a solution exists.
+     * Rules that share their unknowns are solved together. The values at load
+     * decide which symbols they determine. If every coefficient is a plain number,
+     * Gaussian elimination writes the solution. Otherwise Cramer's rule does, so
+     * the formulas stay right when a coefficient changes; that is supported for
+     * up to seven rules solved together, and a bigger system is refused.
      *
      * @param doc the document to read. It is not changed.
      * @return a new document owned by the caller, or nullptr if @p doc has no
      * algebraic rules and can be used as it is.
-     * @throws rrllvm::LLVMException if a rule is nonlinear, has a coefficient
-     * that can change during a simulation or isn't known at load, can't determine
-     * any symbol, or is part of a set of rules with no unique solution.
+     * @throws rrllvm::LLVMException if a rule is nonlinear, can't determine any
+     * symbol, or is part of a set of rules with no unique solution, or of a
+     * system with changing coefficients bigger than Cramer's rule is used for.
      */
     RR_DECLSPEC libsbml::SBMLDocument* convertAlgebraicRules(const libsbml::SBMLDocument* doc);
 

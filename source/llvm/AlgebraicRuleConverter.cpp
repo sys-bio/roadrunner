@@ -236,32 +236,31 @@ namespace rrllvm {
             }
         }
 
-        /** true if @p node can't change during a simulation. */
-        bool isConstantExpression(const ASTNode* node, const SymbolSet& constants) {
+        /**
+         * true if @p node refers to anything that can change: a symbol, time,
+         * delay or rateOf. Otherwise it is a plain number.
+         */
+        bool hasVariableParts(const ASTNode* node) {
             switch (node->getType()) {
             case AST_NAME:
-                if (constants.count(node->getName()) == 0) {
-                    return false;
-                }
-                break;
             case AST_NAME_TIME:
             case AST_FUNCTION_DELAY:
             case AST_FUNCTION_RATE_OF:
-                return false;
+                return true;
             default:
                 break;
             }
             for (unsigned i = 0; i < node->getNumChildren(); ++i) {
-                if (!isConstantExpression(node->getChild(i), constants)) {
-                    return false;
+                if (hasVariableParts(node->getChild(i))) {
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         /** true for a formula such as '1 - 1' where x has cancelled out. */
         bool isLiteralZero(const ASTNode* node) {
-            return namesIn(node).empty() && SBMLTransforms::evaluateASTNode(node) == 0.0;
+            return !hasVariableParts(node) && SBMLTransforms::evaluateASTNode(node) == 0.0;
         }
 
         /** Everything in a model that decides how its symbols may be treated. */
@@ -273,7 +272,7 @@ namespace rrllvm {
             SymbolSet rateOfTargets;
             SymbolSet boundarySpecies;
             SymbolSet withoutValue;
-            std::map<std::string, double> constantValues; // when known at load
+            std::map<std::string, double> loadValues; // values when the model loads, where known
         };
 
         /** Adds every symbol that rateOf is applied to inside @p node. */
@@ -305,8 +304,8 @@ namespace rrllvm {
                 if (!hasValue) {
                     s.withoutValue.insert(id);
                 }
-                else if (constant) {
-                    s.constantValues[id] = value;
+                else {
+                    s.loadValues[id] = value;
                 }
             };
 
@@ -410,14 +409,14 @@ namespace rrllvm {
             for (unsigned pass = 0; pass < model->getNumInitialAssignments(); ++pass) {
                 for (unsigned i = 0; i < model->getNumInitialAssignments(); ++i) {
                     const InitialAssignment* assignment = model->getInitialAssignment(i);
-                    if (s.constants.count(assignment->getSymbol()) == 0 || !assignment->isSetMath()) {
+                    if (!assignment->isSetMath()) {
                         continue;
                     }
                     ASTPtr math = clone(assignment->getMath());
                     SBMLTransforms::replaceFD(math.get(), model->getListOfFunctionDefinitions());
-                    const double value = valueAtLoad(math.get(), s.constantValues);
+                    const double value = valueAtLoad(math.get(), s.loadValues);
                     if (!std::isnan(value)) {
-                        s.constantValues[assignment->getSymbol()] = value;
+                        s.loadValues[assignment->getSymbol()] = value;
                     }
                 }
             }
@@ -439,8 +438,10 @@ namespace rrllvm {
                     continue;
                 }
                 LinearSplit split;
+                // The coefficient may change during a simulation. If it reaches
+                // zero the solved value is infinite or NaN, as it would be for the
+                // equivalent assignment rule.
                 if (splitLinear(math, name, split) && split.coefficient
-                    && isConstantExpression(split.coefficient.get(), symbols.constants)
                     && !isLiteralZero(split.coefficient.get())) {
                     result.insert(name);
                 }
@@ -476,7 +477,7 @@ namespace rrllvm {
 
         /** Plain numbers are folded, which stops formulas growing at every step. */
         Coefficient combined(ASTPtr math, double value) {
-            if (namesIn(math.get()).empty()) {
+            if (!hasVariableParts(math.get())) {
                 return numberCoefficient(value);
             }
             Coefficient result;
@@ -508,7 +509,7 @@ namespace rrllvm {
 
         /** true if a coefficient is a plain number, so its value is exact. */
         bool isNumber(const Coefficient& a) {
-            return !a.math || namesIn(a.math.get()).empty();
+            return !a.math || !hasVariableParts(a.math.get());
         }
 
         /** @p factor * @p term, leaving out a factor of 1. */
@@ -584,11 +585,15 @@ namespace rrllvm {
         };
 
         /**
-         * Largest simultaneous system solved by Cramer's rule. Its formulas grow
-         * with the factorial of the size, so bigger systems keep the elimination
-         * result, whose pivots are chosen with the values at load.
+         * Largest simultaneous system whose coefficients can change that is
+         * supported. Such a system is solved by Cramer's rule, whose formulas
+         * grow with the factorial of the size. Elimination can't be used
+         * instead: its pivots are chosen with the values at load, and give a
+         * wrong answer when one of them later becomes zero. A bigger system
+         * is refused. A system whose coefficients are all plain numbers has
+         * no limit.
          */
-        constexpr size_t maxCramerSize = 6;
+        constexpr size_t maxCramerSize = 7;
 
         /**
          * Solves A * x = -f, where A holds the coefficients of the determined
@@ -703,9 +708,13 @@ namespace rrllvm {
                     }
                     LinearSplit split;
                     splitLinear(rest.get(), unknowns[c], split);
-                    const double value = valueAtLoad(split.coefficient.get(), symbols.constantValues);
+                    // A value is only used to choose pivots. One that isn't known
+                    // at load, such as one that depends on time, belongs to a
+                    // coefficient that can change, so Cramer's rule writes the
+                    // solution and any non-zero stand-in will do.
+                    double value = valueAtLoad(split.coefficient.get(), symbols.loadValues);
                     if (std::isnan(value)) {
-                        throwUnsupported(rules[r].math.get(), "the value of a coefficient is not known when the model loads.");
+                        value = 1;
                     }
                     rows[r][c] = combined(std::move(split.coefficient), value);
                     largest = std::max(largest, std::fabs(value));
@@ -785,7 +794,12 @@ namespace rrllvm {
                     symbolic = symbolic || !isNumber(original[r][column]);
                 }
             }
-            if (symbolic && n <= maxCramerSize) {
+            if (symbolic) {
+                if (n > maxCramerSize) {
+                    throwUnsupported(rowRule[0], "it must be solved simultaneously with " + std::to_string(n - 1)
+                        + " other algebraic rules whose coefficients can change, and such systems are only supported up to "
+                        + std::to_string(maxCramerSize) + " rules.");
+                }
                 solveByCramer(original, pivotColumn, unknowns, rests, solved);
                 return;
             }
@@ -876,7 +890,7 @@ namespace rrllvm {
                     for (const PendingRule& rule : rules) {
                         if (optionsOf(rule).empty()) {
                             throwUnsupported(rule.math.get(),
-                                "it is not linear with a constant coefficient in any symbol it could determine.");
+                                "it is not linear in any symbol it could determine.");
                         }
                     }
                     solveSimultaneously(rules, available, symbols, solved);
