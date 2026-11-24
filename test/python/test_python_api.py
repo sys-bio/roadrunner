@@ -1342,5 +1342,221 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(list(result[:, 0]), times2)
 
 
+def _sbml_with_param(param_id, species_id="S0"):
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2"><model id="m">
+<listOfCompartments><compartment id="c" size="1" constant="true"/></listOfCompartments>
+<listOfSpecies><species id="{1}" compartment="c" initialAmount="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/></listOfSpecies>
+<listOfParameters><parameter id="{0}" value="0.1" constant="true"/></listOfParameters>
+<listOfReactions><reaction id="J0" reversible="false"><listOfReactants><speciesReference species="{1}" stoichiometry="1" constant="true"/></listOfReactants>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML"><apply><times/><ci>{0}</ci><ci>{1}</ci></apply></math></kineticLaw></reaction></listOfReactions>
+</model></sbml>""".format(param_id, species_id)
+
+
+class DynamicPropertyTests(unittest.TestCase):
+    """Model ids exposed as attributes (r.k, r.S0_amt) must be per instance and
+    must never replace attributes defined by the RoadRunner class."""
+
+    def test_model_ids_readable_and_writable(self):
+        r = RoadRunner(_sbml_with_param("k"))
+        self.assertAlmostEqual(r.k, 0.1)
+        self.assertAlmostEqual(r.S0_amt, 10)
+        self.assertAlmostEqual(r.S0_conc, 10)
+        self.assertAlmostEqual(r.S0, 10)
+        self.assertAlmostEqual(r.c, 1)
+        self.assertAlmostEqual(r.J0, 1.0)
+
+        r.k = 0.5
+        self.assertAlmostEqual(r["k"], 0.5)
+        r.S0_amt = 4
+        self.assertAlmostEqual(r["S0"], 4)
+
+    def test_model_ids_in_dir(self):
+        r = RoadRunner(_sbml_with_param("k"))
+        names = dir(r)
+        for n in ("k", "S0", "S0_amt", "S0_conc", "c", "J0", "reset"):
+            self.assertIn(n, names)
+
+    def test_id_named_like_method_does_not_shadow_it(self):
+        # consequence 1: the id replaced the method on the class
+        names = ["reset", "simulate", "model", "integrator", "selections", "load", "keys"]
+        for name in names:
+            with self.subTest(name=name):
+                original = getattr(RoadRunner, name)
+                with self.assertWarns(UserWarning):
+                    r = RoadRunner(_sbml_with_param(name))
+                self.assertIs(getattr(RoadRunner, name), original)
+                self.assertAlmostEqual(r[name], 0.1)
+
+    def test_reset_still_callable_when_id_is_reset(self):
+        with self.assertWarns(UserWarning):
+            r = RoadRunner(_sbml_with_param("reset"))
+        r.reset()
+        self.assertAlmostEqual(r["reset"], 0.1)
+
+    def test_method_survives_loading_other_models(self):
+        # consequence 2: the next load deleted the name from the class
+        with self.assertWarns(UserWarning):
+            r = RoadRunner(_sbml_with_param("reset"))
+        r.load(_sbml_with_param("k"))
+        other = RoadRunner(_sbml_with_param("k"))
+
+        self.assertTrue(hasattr(RoadRunner, "reset"))
+        r.reset()
+        other.reset()
+
+    def test_instances_do_not_share_properties(self):
+        # consequence 3: properties came from the last loaded model
+        a = RoadRunner(_sbml_with_param("ka"))
+        b = RoadRunner(_sbml_with_param("kb"))
+
+        self.assertAlmostEqual(a.ka, 0.1)
+        self.assertAlmostEqual(b.kb, 0.1)
+        self.assertFalse(hasattr(a, "kb"))
+        self.assertFalse(hasattr(b, "ka"))
+        self.assertNotIn("kb", dir(a))
+        self.assertFalse(hasattr(RoadRunner, "ka"))
+        self.assertFalse(hasattr(RoadRunner, "kb"))
+
+        a.ka = 0.7
+        self.assertAlmostEqual(a.ka, 0.7)
+        self.assertAlmostEqual(b.kb, 0.1)
+
+        # loading into one instance leaves the other untouched
+        b.load(_sbml_with_param("kc"))
+        self.assertAlmostEqual(a.ka, 0.7)
+        self.assertAlmostEqual(b.kc, 0.1)
+        self.assertFalse(hasattr(b, "kb"))
+
+    def test_id_shared_with_other_instance_reset_sequence(self):
+        # sequence from issue 1415
+        a = RoadRunner(_sbml_with_param("k"))
+        a.reset()
+        with self.assertWarns(UserWarning):
+            b = RoadRunner(_sbml_with_param("reset"))
+        b.reset()
+        a.reset()
+        c = RoadRunner(_sbml_with_param("k"))
+        c.reset()
+        a.reset()
+        self.assertTrue(hasattr(RoadRunner, "reset"))
+
+    def test_disable_dynamic_properties(self):
+        old = Config.getValue(Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES)
+        self.addCleanup(Config.setValue, Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES, old)
+        Config.setValue(Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES, True)
+
+        r = RoadRunner(_sbml_with_param("reset"))
+        r.reset()
+        self.assertAlmostEqual(r["reset"], 0.1)
+        self.assertFalse(hasattr(r, "S0_amt"))
+
+    def test_non_model_attributes_still_settable(self):
+        r = RoadRunner(_sbml_with_param("k"))
+        r.myAttribute = 3
+        self.assertEqual(r.myAttribute, 3)
+        r.selections = ["time", "S0"]
+        self.assertEqual(r.selections, ["time", "S0"])
+
+    def test_pickle_restores_properties(self):
+        import pickle
+        r = RoadRunner(_sbml_with_param("k"))
+        r2 = pickle.loads(pickle.dumps(r))
+        self.assertAlmostEqual(r2.k, 0.1)
+        self.assertAlmostEqual(r2.S0_amt, 10)
+
+    def test_loadState_refreshes_properties(self):
+        import tempfile
+        a = RoadRunner(_sbml_with_param("ka", "SA"))
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        self.assertAlmostEqual(b.SB_amt, 10)
+
+        with tempfile.TemporaryDirectory() as d:
+            fname = os.path.join(d, "state.rr")
+            a.saveState(fname)
+            b.loadState(fname)
+
+        self.assertAlmostEqual(b.ka, 0.1)
+        self.assertAlmostEqual(b.SA_amt, 10)
+        self.assertAlmostEqual(b.SA_conc, 10)
+        self.assertFalse(hasattr(b, "SB_amt"))
+        self.assertFalse(hasattr(b, "kb"))
+        self.assertNotIn("SB_amt", dir(b))
+        self.assertIn("SA_amt", dir(b))
+
+        b.SA_amt = 3
+        self.assertAlmostEqual(b["SA"], 3)
+        self.assertAlmostEqual(a.SA_amt, 10)
+
+    def test_loadStateS_refreshes_properties(self):
+        a = RoadRunner(_sbml_with_param("ka", "SA"))
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        b.loadStateS(a.saveStateS())
+
+        self.assertAlmostEqual(b.ka, 0.1)
+        self.assertAlmostEqual(b.SA_amt, 10)
+        self.assertFalse(hasattr(b, "SB_amt"))
+        self.assertFalse(hasattr(b, "kb"))
+        # the source instance is unaffected
+        self.assertAlmostEqual(a.SA_amt, 10)
+        self.assertFalse(hasattr(a, "SB_amt"))
+
+    def test_loadStateS_into_empty_instance(self):
+        a = RoadRunner(_sbml_with_param("ka", "SA"))
+        b = RoadRunner()
+        b.loadStateS(a.saveStateS())
+        self.assertAlmostEqual(b.ka, 0.1)
+        self.assertAlmostEqual(b.SA_amt, 10)
+
+    def test_failed_loadStateS_keeps_properties(self):
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        with self.assertRaises(Exception):
+            b.loadStateS(bytes(100))
+        self.assertAlmostEqual(b.kb, 0.1)
+        self.assertAlmostEqual(b.SB_amt, 10)
+
+    def test_failed_loadState_keeps_properties(self):
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        with self.assertRaises(Exception):
+            b.loadState(os.path.join(thisDir, "no_such_state_file.rr"))
+        self.assertAlmostEqual(b.kb, 0.1)
+        self.assertAlmostEqual(b.SB_amt, 10)
+
+    def test_loadStateS_with_id_named_like_method(self):
+        with self.assertWarns(UserWarning):
+            a = RoadRunner(_sbml_with_param("reset", "SA"))
+        state = a.saveStateS()
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        with self.assertWarns(UserWarning):
+            b.loadStateS(state)
+
+        b.reset()
+        self.assertAlmostEqual(b["reset"], 0.1)
+        self.assertAlmostEqual(b.SA_amt, 10)
+        self.assertTrue(hasattr(RoadRunner, "reset"))
+
+    def test_pickle_restores_instance_specific_properties(self):
+        import pickle
+        a = RoadRunner(_sbml_with_param("ka", "SA"))
+        b = RoadRunner(_sbml_with_param("kb", "SB"))
+        a2 = pickle.loads(pickle.dumps(a))
+        b2 = pickle.loads(pickle.dumps(b))
+
+        self.assertAlmostEqual(a2.SA_amt, 10)
+        self.assertAlmostEqual(b2.SB_amt, 10)
+        self.assertFalse(hasattr(a2, "SB_amt"))
+        self.assertFalse(hasattr(b2, "SA_amt"))
+        self.assertAlmostEqual(a.SA_amt, 10)
+        self.assertAlmostEqual(b.SB_amt, 10)
+
+    def test_copy_has_independent_properties(self):
+        import copy
+        a = RoadRunner(_sbml_with_param("ka", "SA"))
+        a2 = copy.deepcopy(a)
+        a2.ka = 0.9
+        self.assertAlmostEqual(a2.ka, 0.9)
+        self.assertAlmostEqual(a.ka, 0.1)
+
+
 if __name__ == "__main__":
     unittest.main()

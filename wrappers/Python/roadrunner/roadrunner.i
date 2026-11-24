@@ -852,6 +852,8 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::RoadRunner::simulate;
 
 %rename (_load) rr::RoadRunner::load;
+%rename (_loadState) rr::RoadRunner::loadState;
+%rename (_loadStateS) rr::RoadRunner::loadStateS;
 %rename (_getValue) rr::RoadRunner::getValue;
 
 %ignore rr::Config::getInt;
@@ -1283,10 +1285,23 @@ namespace std { class ostream{}; }
 
    %pythoncode %{
         def __getattr__(self, name):
+            props = self.__dict__.get("_dynamicProperties")
+            if props is not None and name in props:
+                return self.getModel()[props[name]]
             if name != "this" and name in self._getIds(_roadrunner.SelectionRecord_ALL):
                 return self[name]
             else:
                 raise AttributeError(name)
+
+        def __setattr__(self, name, value):
+            props = self.__dict__.get("_dynamicProperties")
+            if props is not None and name in props:
+                self.getModel()[props[name]] = value
+            else:
+                object.__setattr__(self, name, value)
+
+        def __dir__(self):
+            return sorted(set(object.__dir__(self)) | set(self.__dict__.get("_dynamicProperties", ())))
 
         def getValue(self, *args):
             import re
@@ -1362,58 +1377,42 @@ namespace std { class ostream{}; }
         model = property(_getModel)
         integrator = property(getIntegrator, setIntegrator)
 
-        # static list of properties added to the RoadRunner class object
-        _properties = []
-
         def _makeProperties(self):
             """creates dynamic properties for model components, like floating species
             concentrations or amounts etc.
+
+            The properties are kept per instance and resolved by __getattr__ and
+            __setattr__. Ids that match an attribute of the RoadRunner class are skipped
+            and remain reachable as r["id"].
             """
-            #global _properties
+            props = {}
+            self.__dict__["_dynamicProperties"] = props
 
-            # always clear the old properties
-            for s in self._properties:
-                if hasattr(RoadRunner, s):
-                    delattr(RoadRunner, s)
-
-            # properties now empty
-            RoadRunner._properties = []
-
-            # check if we should make new properties
             if Config.getValue(Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES):
                 return
 
             # can't make properties without a model.
-            if self.getModel() is None:
+            model = self.getModel()
+            if model is None:
                 return
 
-            def makeProperty(name, sel):
-                prop = property(
-                        lambda self: self.getModel().__getitem__(sel),
-                        lambda self, val: self.getModel().__setitem__(sel, val)
-                )
-                setattr(RoadRunner, name, prop)
-                RoadRunner._properties.append(name)
-
-            model = self.getModel()
-            for s in model.getFloatingSpeciesIds():
-                makeProperty(s, "[" + s + "]")  # concentrations for backwards compatibility
-                makeProperty(s + "_conc", "[" + s + "]")  # concentrations
-                makeProperty(s + "_amt", s)     # amounts
-
-
-            for s in model.getBoundarySpeciesIds():
-                makeProperty(s, "[" + s + "]")  # concentrations for backwards compatibility
-                makeProperty(s + "_conc", "[" + s + "]")  # concentrations
-                makeProperty(s + "_amt", s)     # amounts
-
+            for s in model.getFloatingSpeciesIds() + model.getBoundarySpeciesIds():
+                props[s] = "[" + s + "]"  # concentrations for backwards compatibility
+                props[s + "_conc"] = "[" + s + "]"  # concentrations
+                props[s + "_amt"] = s  # amounts
 
             for s in model.getGlobalParameterIds() + model.getCompartmentIds() + model.getReactionIds() + model.getConservedMoietyIds():
-                makeProperty(s, s)
+                props[s] = s
 
             for s in model.getStoichiometryIds():
                 if "(" not in s:
-                    makeProperty(s, s)
+                    props[s] = s
+
+            import warnings
+            for name in [n for n in props if hasattr(RoadRunner, n)]:
+                del props[name]
+                warnings.warn("Model id '{0}' matches an attribute of RoadRunner and is not available as "
+                              "an attribute of the instance, use r['{0}'] instead.".format(name))
 
         def __getstate__(self):
             return self.saveStateS()
@@ -1458,6 +1457,20 @@ namespace std { class ostream{}; }
         def load(self, *args):
             self._load(*args)
             RoadRunner._makeProperties(self)
+
+        def loadState(self, filename):
+            """Load a state saved with saveState from a file, replacing the current model."""
+            try:
+                self._loadState(filename)
+            finally:
+                RoadRunner._makeProperties(self)
+
+        def loadStateS(self, state):
+            """Load a state saved with saveStateS, replacing the current model."""
+            try:
+                self._loadStateS(state)
+            finally:
+                RoadRunner._makeProperties(self)
 
         def keys(self, types=_roadrunner.SelectionRecord_ALL):
             return self.getIds(types)
