@@ -1,0 +1,34 @@
+# ctest names of tests that are stochastic by design and fail every so often.
+# scripts/ctest_retry_stochastic.py re-runs all of these once if any of them fails.
+# One name per line; blank lines and lines starting with '#' are ignored.
+
+# Python stochastic test suite (test/python/test_runStochasticTestSuite.py)
+python_tests_RunStochasticTestSuite
+
+# SBML semantic test suite cases whose -model.m synopsis says "STOCHASTIC TEST"
+SbmlTestSuite.t952
+SbmlTestSuite.t962
+SbmlTestSuite.t964
+SbmlTestSuite.t965
+SbmlTestSuite.t966
+SbmlTestSuite.t1588
+SbmlTestSuite.t1589
+SbmlTestSuite.t1590
+SbmlTestSuite.t1591
+SbmlTestSuite.t1592
+SbmlTestSuite.t1593
+SbmlTestSuite.t1599
+SbmlTestSuite.t1605
+SbmlTestSuite.t1626
+SbmlTestSuite.t1627
+
+# SBML semantic test suite cases tagged RandomEventExecution without the STOCHASTIC note
+SbmlTestSuite.t1000
+SbmlTestSuite.t1466
+
+# Plugin tests that add unseeded noise via tel_test_model
+PluginNelderMeadTests.OPTIMIZE_TEST_MODEL
+PluginNelderMeadTests.OPTIMIZE_NEW_MODEL
+PluginMonteCarloTests.OPTIMIZE_TEST_MODEL
+PluginMonteCarloTests.OPTIMIZE_NELDER_MEAD
+PluginLevenbergMarquardtTests.OPTIMIZE_TEST_MODEL
