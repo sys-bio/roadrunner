@@ -93,7 +93,7 @@ class RoadRunnerTests(unittest.TestCase):
 
     def test___dict__(self):
         self.assertEqual(
-            ["this"],
+            ["this", "_dynamicProperties"],
             list(self.rr.__dict__.keys())
         )
 
