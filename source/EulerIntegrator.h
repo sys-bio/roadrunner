@@ -121,11 +121,13 @@ namespace rr {
 
             h /= internal_steps;
             for (int subdiv = 0; subdiv < internal_steps; ++subdiv) {
+                double t = t0 + subdiv * h;
+
                 // evaluate and copy the rate of change of the state std::vector
                 // rate into the local buffer. If the 2nd argument is NULL,
                 // the current mModel state is used to evaluate the
                 // state std::vector rate.
-                mModel->getStateVectorRate(t0, NULL, rateBuffer);
+                mModel->getStateVectorRate(t, NULL, rateBuffer);
                 workCounters.numSteps++;
                 workCounters.numRhsEvals++;
 
@@ -142,7 +144,7 @@ namespace rr {
                 mModel->setStateVector(stateBufferEnd);
 
                 // update the mModel time to the new time
-                double timeEnd = t0 + h;
+                double timeEnd = t + h;
                 mModel->setTime(timeEnd);
 
                 // if we have a client, notify them that we have taken
