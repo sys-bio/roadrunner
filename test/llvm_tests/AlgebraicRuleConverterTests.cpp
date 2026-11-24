@@ -1248,3 +1248,69 @@ TEST(AlgebraicRuleConverterTests, SingularSystemGivesNonFiniteValuesWithoutThrow
         EXPECT_NEAR(rr.getValue("y"), 0, 1e-12);
     }
 }
+
+TEST(AlgebraicRuleConverterTests, SparseSystemOfNineWithChangingCoefficientIsSolved) {
+    // Each rule has two unknowns, so the determinants stay small however many
+    // rules there are. The ring has the solution x = 3 / (k + 1) whenever its
+    // determinant, k^9 + 1, is not zero, which holds for these values of k.
+    const int n = 9;
+    ModelBuilder builder;
+    addRingOfRules(builder, n, 2);
+    ASSERT_EQ(errorFrom(builder), "");
+
+    const auto start = std::chrono::steady_clock::now();
+    RoadRunner rr(builder.sbml());
+    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now() - start).count();
+    std::cout << "[  timing  ] sparse system of nine rules loaded in " << milliseconds << " ms" << std::endl;
+    RecordProperty("load_milliseconds", static_cast<int>(milliseconds));
+
+    EXPECT_NEAR(rr.getValue("x0"), 1, 1e-12);
+    for (double k : { 0.0, 3.0, -2.0 }) {
+        rr.setValue("k", k);
+        for (int i = 0; i < n; ++i) {
+            EXPECT_NEAR(rr.getValue("x" + std::to_string(i)), 3 / (k + 1), 1e-9)
+                << "k = " << k << ", x" << i;
+        }
+    }
+}
+
+TEST(AlgebraicRuleConverterTests, RejectsDenseSystemOfEightWithChangingCoefficients) {
+    // All 64 coefficients are parameters, so the formulas for the solution are
+    // far larger than for any system that is accepted, and the model is refused
+    // when it loads.
+    const int n = 8;
+    ModelBuilder builder;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            builder.parameter(coefficientId(i, j), i == j ? 20 : 1, true);
+        }
+        builder.parameter("x" + std::to_string(i));
+    }
+    for (int i = 0; i < n; ++i) {
+        std::string formula;
+        for (int j = 0; j < n; ++j) {
+            formula += (j ? " + " : "") + coefficientId(i, j) + " * x" + std::to_string(j);
+        }
+        builder.algebraic(formula + " - 1");
+    }
+    EXPECT_NE(errorFrom(builder), "");
+}
+
+TEST(AlgebraicRuleConverterTests, SimultaneousRulesWithTimeCoefficientsLoadWhenSolvableAtLoad) {
+    // The coefficients are 0 at load, so the rules say y = 1 and x = 2. The
+    // determinant is time^2 - 1, so the system stays solvable until time 1.
+    // Where time is 0.5, x = 2 and y = 0.
+    ModelBuilder builder;
+    builder.parameter("x").parameter("y")
+        .algebraic("time * x + y - 1").algebraic("x + time * y - 2");
+    ASSERT_EQ(errorFrom(builder), "");
+
+    RoadRunner rr(builder.sbml());
+    EXPECT_NEAR(rr.getValue("x"), 2, 1e-12);
+    EXPECT_NEAR(rr.getValue("y"), 1, 1e-12);
+
+    rr.simulate(0, 0.5, 2);
+    EXPECT_NEAR(rr.getValue("x"), 2, 1e-9);
+    EXPECT_NEAR(rr.getValue("y"), 0, 1e-9);
+}
