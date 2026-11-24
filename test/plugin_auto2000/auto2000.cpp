@@ -18,9 +18,19 @@ using namespace tlp;
 class PluginAuto2000Tests : public RoadRunnerTest {
 public:
     path pluginsModelsDir;
+    path autoTempDir;
 
     PluginAuto2000Tests() {
         pluginsModelsDir = rrTestModelsDir_ / "PLUGINS";
+        const TestInfo *info = UnitTest::GetInstance()->current_test_info();
+        autoTempDir = std::filesystem::temp_directory_path() / "roadrunner-tests" / "Auto2000"
+                      / (std::string(info->test_suite_name()) + "." + info->name());
+        std::filesystem::create_directories(autoTempDir);
+    }
+
+    ~PluginAuto2000Tests() override {
+        std::error_code ec;
+        std::filesystem::remove_all(autoTempDir, ec);
     }
 };
 
@@ -32,6 +42,7 @@ TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_steady_state)
 
     Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
+    a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "no_steady_state.xml").string().c_str());
     a2kplugin->execute();
 }
@@ -43,6 +54,7 @@ TEST_F(PluginAuto2000Tests, Issue_1233_crash_when_no_floating_species)
 
   Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
+  a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000643_url.xml").string().c_str());
   a2kplugin->execute();
 }
@@ -54,6 +66,7 @@ TEST_F(PluginAuto2000Tests, Issue_1259_crash_when_run_twice)
 
   Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
+  a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000648_url.xml").string().c_str());
   a2kplugin->execute();
   a2kplugin->execute();
@@ -66,6 +79,7 @@ TEST_F(PluginAuto2000Tests, Issue_773_no_boundary_species)
 
   Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
   ASSERT_TRUE(a2kplugin != NULL);
+  a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
   a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "auto2000_2rxn.xml").string().c_str());
   a2kplugin->setPropertyByString("PrincipalContinuationParameter", "k");
   a2kplugin->setPropertyByString("ScanDirection", "Positive");
@@ -82,6 +96,7 @@ TEST_F(PluginAuto2000Tests, RUN_BIOMOD_203)
 
     Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
+    a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "BIOMD0000000203.xml").string().c_str());
     a2kplugin->setPropertyByString("ScanDirection", "Positive");
@@ -130,6 +145,7 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE)
 
     Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
+    a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "bistable.xml").string().c_str());
     a2kplugin->setPropertyByString("ScanDirection", "Negative");
@@ -173,6 +189,7 @@ TEST_F(PluginAuto2000Tests, RUN_BISTABLE_IRREVERSIBLE)
 
     Plugin* a2kplugin = PM.getPlugin("tel_auto2000");
     ASSERT_TRUE(a2kplugin != NULL);
+    a2kplugin->setPropertyByString("TempFolder", autoTempDir.string().c_str());
 
     a2kplugin->setPropertyByString("SBML", (pluginsModelsDir / "irreversible_bistability.xml").string().c_str());
     a2kplugin->setPropertyByString("ScanDirection", "Positive");

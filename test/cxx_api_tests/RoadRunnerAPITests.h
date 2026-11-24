@@ -439,7 +439,9 @@ public:
     void saveState() {
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
-        fs::path fname = fs::current_path() / "testSaveState.rr";
+        const ::testing::TestInfo *info = ::testing::UnitTest::GetInstance()->current_test_info();
+        fs::path fname = fs::temp_directory_path() /
+                         (std::string("testSaveState.") + info->test_suite_name() + "." + info->name() + ".rr");
         rr.saveState(fname.string());
         ASSERT_TRUE(fs::exists(fname));
         fs::remove(fname); // clear up written files
@@ -449,7 +451,9 @@ public:
     void loadState() {
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
-        fs::path fname = fs::current_path() / "testSaveState.rr";
+        const ::testing::TestInfo *info = ::testing::UnitTest::GetInstance()->current_test_info();
+        fs::path fname = fs::temp_directory_path() /
+                         (std::string("testSaveState.") + info->test_suite_name() + "." + info->name() + ".rr");
         rr.saveState(fname.string());
         ASSERT_TRUE(fs::exists(fname));
         RoadRunner loaded;
@@ -464,7 +468,9 @@ public:
         TestModel *testModel = TestModelFactory("SimpleFlux");
         RoadRunner rr(testModel->str());
         RoadRunner rr2(rr);
-        fs::path fname = fs::current_path() / "testSaveState.rr";
+        const ::testing::TestInfo *info = ::testing::UnitTest::GetInstance()->current_test_info();
+        fs::path fname = fs::temp_directory_path() /
+                         (std::string("testSaveState.") + info->test_suite_name() + "." + info->name() + ".rr");
         rr2.saveState(fname.string());
         ASSERT_TRUE(fs::exists(fname));
         RoadRunner loaded;
