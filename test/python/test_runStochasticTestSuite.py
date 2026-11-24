@@ -112,20 +112,26 @@ class RoadRunnerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.stochdir = ""
-        for dir in ["../sbml-test-suite/stochastic/", "../test/sbml-test-suite/stochastic/",
-                    "../../test/sbml-test-suite/stochastic/", "../../../test/sbml-test-suite/stochastic/",
-                    "../../../../test/sbml-test-suite/stochastic/", "../../../../../test/sbml-test-suite/stochastic/",
-                    "../../../../../../test/sbml-test-suite/stochastic/",
-                    "../roadrunner/sbml-test-suite/stochastic/", "../roadrunner/test/sbml-test-suite/stochastic/",
-                    "../../roadrunner/test/sbml-test-suite/stochastic/",
-                    "../../../roadrunner/test/sbml-test-suite/stochastic/",
-                    "../../../../roadrunner/test/sbml-test-suite/stochastic/",
-                    "../../../../../roadrunner/test/sbml-test-suite/stochastic/",
-                    "../../../../../../roadrunner/test/sbml-test-suite/stochastic/"]:
-            if isdir(dir):
-                cls.stochdir = dir
+        envdir = os.environ.get("SBMLTestSuiteStochastic", "")
+        if envdir and isdir(envdir):
+            cls.stochdir = envdir
+        else:
+            for dir in ["../sbml-test-suite/stochastic/", "../test/sbml-test-suite/stochastic/",
+                        "../../test/sbml-test-suite/stochastic/", "../../../test/sbml-test-suite/stochastic/",
+                        "../../../../test/sbml-test-suite/stochastic/", "../../../../../test/sbml-test-suite/stochastic/",
+                        "../../../../../../test/sbml-test-suite/stochastic/",
+                        "../roadrunner/sbml-test-suite/stochastic/", "../roadrunner/test/sbml-test-suite/stochastic/",
+                        "../../roadrunner/test/sbml-test-suite/stochastic/",
+                        "../../../roadrunner/test/sbml-test-suite/stochastic/",
+                        "../../../../roadrunner/test/sbml-test-suite/stochastic/",
+                        "../../../../../roadrunner/test/sbml-test-suite/stochastic/",
+                        "../../../../../../roadrunner/test/sbml-test-suite/stochastic/"]:
+                if isdir(dir):
+                    cls.stochdir = dir
         if cls.stochdir == "":
             raise ValueError("Unable to find stochastic test suite directory.")
+        if not cls.stochdir.endswith("/"):
+            cls.stochdir += "/"
         cls.outfile = "results.tsv"
         cls.nrepeats = 10000
 
@@ -134,7 +140,9 @@ class RoadRunnerTests(unittest.TestCase):
 
         cls.stochdirs = [f.path for f in scandir(cls.stochdir) if f.is_dir()]
 
-        cls.results = open(cls.stochdir + cls.outfile, "w")
+        resultsdir = os.environ.get("RR_STOCH_TEST_RESULTS_DIR") or cls.stochdir
+        os.makedirs(resultsdir, exist_ok=True)
+        cls.results = open(os.path.join(resultsdir, cls.outfile), "w")
         cls.results.write("Test #")
         cls.results.write("\tLevel/Version")
         cls.results.write("\tSynopsis")

@@ -334,7 +334,8 @@ if (BUILD_PYTHON AND BUILD_TESTS)
                 COMMAND Python::Interpreter -m pytest -rPs --capture=tee-sys ${TestSourceFile}
                 WORKING_DIRECTORY "${RR_PYTHON_TESTING_BUILD_PREFIX}"
         )
-        set_tests_properties(${TestName} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH")
+        set_tests_properties(${TestName} PROPERTIES ENVIRONMENT
+                "PYTHONPATH=${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}:$PYTHONPATH;SBMLTestSuiteStochastic=${SBMLTestSuiteStochastic};RR_STOCH_TEST_RESULTS_DIR=${ThisBinaryDirectory}/stochastic_results")
         set(PyTestTests ${PyTestTests} ${TestName})
     endmacro()
 
