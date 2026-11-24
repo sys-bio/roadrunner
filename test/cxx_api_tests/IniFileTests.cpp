@@ -10,7 +10,9 @@ public:
     std::filesystem::path tempFile;
 
     IniFileTests() {
-        tempFile = std::filesystem::temp_directory_path() / "roadrunner_malformed_ini_test.ini";
+        const ::testing::TestInfo *info = ::testing::UnitTest::GetInstance()->current_test_info();
+        tempFile = std::filesystem::temp_directory_path() /
+                   (std::string("roadrunner_malformed_ini_test.") + info->test_suite_name() + "." + info->name() + ".ini");
     }
 
     ~IniFileTests() override {

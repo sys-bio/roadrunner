@@ -47,10 +47,15 @@ static std::mutex SerializationMutex;
 class StateSavingTests : public RoadRunnerTest {
 public:
     path stateSavingModelsDir = rrTestModelsDir_ / "StateSavingTests";
-    path stateSavingOutputDir = rrTestDir_ / "StateSavingOutput";
-    path fname_ = stateSavingOutputDir / "state-saving-test.rr";
+    path stateSavingOutputDir;
+    path fname_;
     std::string fname;
     StateSavingTests() {
+        const TestInfo *info = UnitTest::GetInstance()->current_test_info();
+        stateSavingOutputDir = fs::temp_directory_path() / "roadrunner-tests" / "StateSaving"
+                               / (string(info->test_suite_name()) + "." + info->name());
+        fs::create_directories(stateSavingOutputDir);
+        fname_ = stateSavingOutputDir / "state-saving-test.rr";
         fname = fname_.string();
 //        Logger::setLevel(Logger::LOG_DEBUG);
     }
@@ -472,7 +477,7 @@ TEST_F(StateSavingTests, LOAD_VALID_FILE) {
 }
 
 TEST_F(StateSavingTests, FromFile) {
-    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
+    std::filesystem::path p = stateSavingOutputDir / "savedState.rr";
     //std::cout << "saved to " << p << std::endl;
     RoadRunner rr(OpenLinearFlux().str());
     rr.saveState(p.string());
@@ -498,7 +503,7 @@ TEST_F(StateSavingTests, COPY_RR) {
 
 TEST_F(StateSavingTests, COPY_RR_WITH_ASSIGNMENT) {
     path f = rrTestSbmlTestSuiteDir_ / "semantic" / "00001" / "00001-sbml-l2v4.xml";
-    path stateFname = fs::current_path() / "save-state-tests.rr";
+    path stateFname = stateSavingOutputDir / "save-state-tests.rr";
     RoadRunner rri(f.string());
     rri.getIntegrator()->setIndividualTolerance("S1", 5.0);
     rri.getIntegrator()->setIndividualTolerance("S2", 3.0);
@@ -693,7 +698,7 @@ TEST_F(StateSavingTests, SAVE_STATE_20) {
 
 TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
     path f = rrTestSbmlTestSuiteDir_ / "semantic" / "00001" / "00001-sbml-l2v4.xml";
-    path stateFname = fs::current_path() / "save-state-tests.rr";
+    path stateFname = stateSavingOutputDir / "save-state-tests.rr";
     RoadRunner rri(f.string());
     rri.getIntegrator()->setIndividualTolerance("S1", 5.0);
     rri.getIntegrator()->setIndividualTolerance("S2", 3.0);
@@ -710,8 +715,8 @@ TEST_F(StateSavingTests, RETAIN_ABSOLUTE_TOLERANCES_1) {
 TEST_F(StateSavingTests, FROM_SCRATCH_1) {
     ASSERT_TRUE(StateRunTestModelFromScratch([](RoadRunner *rri, std::string fname) {
         rri->addCompartment("compartment", 1);
-        rri->saveState("test-save-state.rr");
-        rri->loadState("test-save-state.rr");
+        rri->saveState(fname);
+        rri->loadState(fname);
         rri->addSpeciesConcentration("S1", "compartment", 0.00015, true);
         rri->addSpeciesConcentration("S2", "compartment", 0, true);
         rri->addParameter("k1", 1);
@@ -725,8 +730,8 @@ TEST_F(StateSavingTests, FROM_SCRATCH_2) {
         rri->addSpeciesConcentration("S1", "compartment", 1, true);
         rri->addSpeciesConcentration("S2", "compartment", 0, true);
 
-        rri->saveState("test-save-state.rr");
-        rri->loadState("test-save-state.rr");
+        rri->saveState(fname);
+        rri->loadState(fname);
 
         rri->addParameter("k1", 1);
         rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
@@ -742,8 +747,8 @@ TEST_F(StateSavingTests, FROM_SCRATCH_3) {
         rri->addSpeciesConcentration("S1", "compartment", 0, true, true);
         rri->addRateRule("S1", "7");
 
-        rri->saveState("test-save-state.rr");
-        rri->loadState("test-save-state.rr");
+        rri->saveState(fname);
+        rri->loadState(fname);
     }));
 }
 
@@ -751,11 +756,11 @@ TEST_F(StateSavingTests, FROM_SCRATCH_4) {
     ASSERT_TRUE(StateRunTestModelFromScratch([](RoadRunner *rri, std::string fname) {
         rri->addCompartment("compartment", 1);
 
-        rri->saveState("test-save-state.rr");
+        rri->saveState(fname);
 
         rri->addSpeciesConcentration("S1", "compartment", 7, true);
 
-        rri->loadState("test-save-state.rr");
+        rri->loadState(fname);
 
         rri->addSpeciesConcentration("S1", "compartment", 7, true, true);
         rri->addAssignmentRule("S1", "7");
@@ -765,8 +770,8 @@ TEST_F(StateSavingTests, FROM_SCRATCH_4) {
 TEST_F(StateSavingTests, FROM_SCRATCH_5) {
     ASSERT_TRUE(StateRunTestModelFromScratch([](RoadRunner *rri, std::string fname) {
         rri->addCompartment("compartment", 1);
-        rri->saveState("test-save-state.rr");
-        rri->loadState("test-save-state.rr");
+        rri->saveState(fname);
+        rri->loadState(fname);
         rri->addSpeciesConcentration("S1", "compartment", 1, true);
         rri->addSpeciesConcentration("S2", "compartment", 1.5e-15, true);
         rri->addSpeciesConcentration("S3", "compartment", 1, true, true);
@@ -787,8 +792,8 @@ TEST_F(StateSavingTests, FROM_SCRATCH_6) {
         rri->addParameter("reset2", 0);
 
         rri->addEvent("Qinc", true, "(time - reset) >= 0.01", true);
-        rri->saveState("test-save-state.rr");
-        rri->loadState("test-save-state.rr");
+        rri->saveState(fname);
+        rri->loadState(fname);
         rri->addEventAssignment("Qinc", "reset", "time", false);
         rri->addEventAssignment("Qinc", "Q", "Q + 0.01", false);
         rri->addPriority("Qinc", "1");
@@ -813,9 +818,9 @@ TEST_F(StateSavingTests, FROM_SCRATCH_6) {
 TEST_F(StateSavingTests, FROM_SCRATCH_7) {
     ASSERT_TRUE(StateRunTestModelFromScratch([](RoadRunner *rri, std::string fname) {
         rri->addCompartment("compartment", 1);
-        rri->saveState("test-save-state.rr");
+        rri->saveState(fname);
         rri->clearModel();
-        rri->loadState("test-save-state.rr");
+        rri->loadState(fname);
         rri->addSpeciesConcentration("S1", "compartment", 0.00015, true);
         rri->addSpeciesConcentration("S2", "compartment", 0, true);
         rri->addParameter("k1", 1);
@@ -829,9 +834,9 @@ TEST_F(StateSavingTests, FROM_SCRATCH_8) {
         rri->addSpeciesConcentration("S1", "compartment", 1, true);
         rri->addSpeciesConcentration("S2", "compartment", 0, true);
 
-        rri->saveState("test-save-state.rr");
+        rri->saveState(fname);
         rri->clearModel();
-        rri->loadState("test-save-state.rr");
+        rri->loadState(fname);
 
         rri->addParameter("k1", 1);
         rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
@@ -847,17 +852,17 @@ TEST_F(StateSavingTests, FROM_SCRATCH_9) {
         rri->addSpeciesConcentration("S1", "compartment", 0, true, true);
         rri->addRateRule("S1", "7");
 
-        rri->saveState("test-save-state.rr");
+        rri->saveState(fname);
         rri->clearModel();
-        rri->loadState("test-save-state.rr");
+        rri->loadState(fname);
     }));
 }
 
 TEST_F(StateSavingTests, LOAD_ON_NEW_INSTANCE) {
     RoadRunner rri1(OpenLinearFlux().str());
-    rri1.saveState("test-save-state.rr");
+    rri1.saveState(fname);
     RoadRunner rri2;
-    rri2.loadState("test-save-state.rr");
+    rri2.loadState(fname);
     ASSERT_TRUE(rri2.getFloatingSpeciesByIndex(0) == 0);
 }
 

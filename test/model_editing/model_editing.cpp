@@ -22,7 +22,9 @@ public:
     path modelEditingTestOutputDir;
 
     ModelEditingTests() {
-        modelEditingTestOutputDir = rrTestDir_ / "modelEditingTestOutputDir";
+        const TestInfo *info = UnitTest::GetInstance()->current_test_info();
+        modelEditingTestOutputDir = fs::temp_directory_path() / "roadrunner-tests" / "ModelEditing"
+                                    / (string(info->test_suite_name()) + "." + info->name());
     }
 
     ~ModelEditingTests() override {

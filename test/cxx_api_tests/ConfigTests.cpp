@@ -14,10 +14,13 @@ using namespace rr;
 
 class ConfigTests : public ::testing::Test {
 public:
-    std::filesystem::path fname = std::filesystem::current_path() / "rr.config";
+    std::filesystem::path fname;
 
     ConfigTests() {
         Config::resetToDefaults();
+        const ::testing::TestInfo *info = ::testing::UnitTest::GetInstance()->current_test_info();
+        fname = std::filesystem::temp_directory_path() /
+                (std::string("rr.config.") + info->test_suite_name() + "." + info->name());
         std::ofstream of(fname);
         of << "LOADSBMLOPTIONS_OPTIMIZE_GVN: true" << std::endl;
         of << "SIMULATEOPTIONS_MINIMUM_TIMESTEP: 1e-4" << std::endl;
@@ -64,14 +67,15 @@ TEST_F(ConfigTests, getDouble) {
 TEST_F(ConfigTests, getConfigFilePathFromHOME) {
     std::filesystem::path conf = Poco::Path::home(); // get home directory. There is no standard C++ for this
     conf = conf / "roadrunner.conf";
-    // if this file already exists on disk, we don't want to overwrite it
-    if (!std::filesystem::exists(conf)) {
+    // if this file already exists on disk, we don't want to overwrite or delete it
+    const bool created = !std::filesystem::exists(conf);
+    if (created) {
         std::ofstream of(conf); // write empty file so it exists
         of.close(); // make sure file is closed
     }
     std::string fp = Config::getConfigFilePath();
     ASSERT_STREQ(fp.c_str(), conf.string().c_str());
-    if (std::filesystem::exists(conf)) {
+    if (created) {
         std::filesystem::remove(conf);
     }
 }
