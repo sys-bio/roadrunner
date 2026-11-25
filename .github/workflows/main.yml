@@ -471,7 +471,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest --output-on-failure --verbose --extra-verbose --progress --parallel 4 --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
+          ${{ env.python_v2_exe || 'python3' }} $GITHUB_WORKSPACE/scripts/ctest_retry_stochastic.py -- --output-on-failure --verbose --extra-verbose --progress --parallel 4 --exclude-regex ython ${{ matrix.platform.os_type == 'macos' && '--label-exclude julia' || '' }}
 
       # Manual runs only (Actions > Run workflow > timing). Runs just the timing tests, then fails
       # on purpose so the remaining steps are skipped. See test/models/BioModelsTiming/README.md.
@@ -523,7 +523,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/build-roadrunner
-          ctest -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
+          ${{ env.python_v2_exe || 'python3' }} $GITHUB_WORKSPACE/scripts/ctest_retry_stochastic.py -- -C ${{ matrix.platform.build_type }} --output-on-failure --verbose --extra-verbose --progress --tests-regex ython
 
       - name: Save roadrunner version
         shell: bash
