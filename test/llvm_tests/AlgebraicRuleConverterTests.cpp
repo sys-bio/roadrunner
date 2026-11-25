@@ -2,6 +2,7 @@
 
 #include "llvm/AlgebraicRuleConverter.h"
 #include "llvm/LLVMException.h"
+#include "rrConfig.h"
 #include "rrRoadRunner.h"
 #include "rrRoadRunnerOptions.h"
 
@@ -723,9 +724,8 @@ namespace {
 }
 
 TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemSurvivesCoefficientBecomingZero) {
-    // The largest system with a changing coefficient that is supported. With
-    // k = 0 the rules say x(i+1) = 3, which still has a unique solution, and the
-    // pivots chosen at load (on k) are all zero.
+    // With k = 0 the rules say x(i+1) = 3, which still has a unique solution,
+    // and the pivots chosen at load (on k) are all zero.
     const int n = 7;
     ModelBuilder builder;
     addRingOfRules(builder, n, 2);
@@ -737,15 +737,53 @@ TEST(AlgebraicRuleConverterTests, LargeSimultaneousSystemSurvivesCoefficientBeco
     }
 }
 
-TEST(AlgebraicRuleConverterTests, RejectsTooLargeSystemWithChangingCoefficient) {
-    // One rule more than Cramer's rule is used for. Elimination would give a wrong
-    // answer once a pivot chosen at load becomes zero, so the model is refused
-    // with an error that names the limit.
+namespace {
+    /** Sets ALGEBRAIC_RULE_MAX_FORMULA_SIZE for the life of the object. */
+    class FormulaSizeLimit {
+    public:
+        explicit FormulaSizeLimit(std::int64_t limit)
+            : previous(rr::Config::getValue(rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE)) {
+            rr::Config::setValue(rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE, rr::Setting(limit));
+        }
+        ~FormulaSizeLimit() {
+            rr::Config::setValue(rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE, previous);
+        }
+    private:
+        const rr::Setting previous;
+    };
+}
+
+TEST(AlgebraicRuleConverterTests, RejectsSystemWhoseFormulasPassTheSizeLimit) {
+    // A ring of eight writes about 4000 nodes. With the limit below that, the
+    // model is refused with an error that names the setting, because
+    // elimination would give a wrong answer once a pivot chosen at load
+    // becomes zero.
     ModelBuilder builder;
     addRingOfRules(builder, 8, 2);
-    const std::string error = errorFrom(builder);
-    EXPECT_NE(error.find("not supported"), std::string::npos) << error;
-    EXPECT_NE(error.find("up to 7 rules"), std::string::npos) << error;
+    {
+        FormulaSizeLimit limit(1000);
+        const std::string error = errorFrom(builder);
+        EXPECT_NE(error.find("not supported"), std::string::npos) << error;
+        EXPECT_NE(error.find("more than 1000 nodes"), std::string::npos) << error;
+        EXPECT_NE(error.find("ALGEBRAIC_RULE_MAX_FORMULA_SIZE"), std::string::npos) << error;
+    }
+    EXPECT_EQ(errorFrom(builder), "");
+}
+
+TEST(AlgebraicRuleConverterTests, FormulaSizeLimitOfZeroMeansNoLimit) {
+    ModelBuilder builder;
+    addRingOfRules(builder, 8, 2);
+    FormulaSizeLimit limit(0);
+    EXPECT_EQ(errorFrom(builder), "");
+}
+
+TEST(AlgebraicRuleConverterTests, FormulaSizeLimitDoesNotApplyToNumberCoefficients) {
+    // Elimination writes the solution when every coefficient is a number, so
+    // the limit doesn't apply even when it is tiny.
+    ModelBuilder builder;
+    builder.parameter("x").parameter("y").algebraic("2 * x + y - 1").algebraic("x + 3 * y - 2");
+    FormulaSizeLimit limit(1);
+    EXPECT_EQ(errorFrom(builder), "");
 }
 
 TEST(AlgebraicRuleConverterTests, CramersRuleSolvesRingsWhenCoefficientChanges) {
@@ -953,8 +991,8 @@ namespace {
 
 TEST(AlgebraicRuleConverterTests, CramersRuleSolvesDenseSystemOfSixWhenCoefficientsChange) {
     // Six rules, sum_j a_ij * x_j = b_i, where all 36 coefficients are parameters.
-    // This is the largest system Cramer's rule is used for, and the one with the
-    // largest formulas: each determinant has hundreds of terms.
+    // This is the largest dense system that the default formula size limit
+    // accepts: its formulas have about 205,000 nodes.
     const int n = 6;
     std::vector<double> b;
     for (int i = 0; i < n; ++i) {
@@ -1276,9 +1314,10 @@ TEST(AlgebraicRuleConverterTests, SparseSystemOfNineWithChangingCoefficientIsSol
 }
 
 TEST(AlgebraicRuleConverterTests, RejectsDenseSystemOfEightWithChangingCoefficients) {
-    // All 64 coefficients are parameters, so the formulas for the solution are
-    // far larger than for any system that is accepted, and the model is refused
-    // when it loads.
+    // All 64 coefficients are parameters, so the formulas for the solution
+    // would have about 15 million nodes, far past the default limit, and the
+    // model is refused when it loads. The work stops at the limit, so the
+    // refusal comes quickly.
     const int n = 8;
     ModelBuilder builder;
     for (int i = 0; i < n; ++i) {

@@ -783,6 +783,17 @@ Easy edit to the model without modifying and reloading sbml files.
 
    >>> rr.addAlgebraicRule("total", "x + y - 10")
 
+   Rules that share their unknowns are solved together. If one of their coefficients can change,
+   such as a parameter, the solution is written with Cramer's rule, whose formulas can grow with
+   the factorial of the number of rules. How fast they grow depends on how many coefficients are
+   not zero, so the limit is on the size of the formulas rather than on the number of rules: the
+   setting ``ALGEBRAIC_RULE_MAX_FORMULA_SIZE`` counts every number, symbol and operator. The
+   default, 1,000,000, accepts six rules whose 36 coefficients are all parameters, and many more
+   rules with only a few unknowns each. Raising it lets bigger systems load, but they take longer
+   to load and to simulate; 0 means no limit. It must be set before the model is loaded:
+
+   >>> roadrunner.Config.setValue(roadrunner.Config.ALGEBRAIC_RULE_MAX_FORMULA_SIZE, 5000000)
+
    :param str id: the ID of the new rule, used to remove it again
    :param str formula: the math formula that the rule sets to zero
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call

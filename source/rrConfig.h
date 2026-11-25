@@ -596,6 +596,19 @@ namespace rr {
             MALLOC_TRIM_AFTER_LOAD,
 
             /**
+             * The largest formulas that may be written to solve algebraic rules
+             * that have to be solved together and have a coefficient that can
+             * change (such as a parameter), counted as the number of nodes:
+             * every number, symbol and operator. Such rules are solved with
+             * Cramer's rule, whose formulas can grow with the factorial of the
+             * number of rules, and a model whose formulas would be bigger is
+             * refused when it loads. Rules whose coefficients are all plain
+             * numbers are never limited. Bigger formulas take longer to load
+             * and to simulate. 0 means no limit.
+             */
+            ALGEBRAIC_RULE_MAX_FORMULA_SIZE,
+
+            /**
              * Needs to be the last item in the enum, no mater how many
              * other items are added, this is used internally to create
              * a static array.

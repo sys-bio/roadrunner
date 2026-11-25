@@ -149,6 +149,17 @@ TEST_F(ConfigTests, SetMallocTrimAfterLoad) {
     ASSERT_FALSE(Config::getValue(Config::MALLOC_TRIM_AFTER_LOAD).getAs<bool>());
 }
 
+TEST_F(ConfigTests, DefaultAlgebraicRuleMaxFormulaSizeIsOneMillion) {
+    ASSERT_EQ(1000000, Config::getValue(Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE).getAs<std::int64_t>());
+}
+
+TEST_F(ConfigTests, SetAlgebraicRuleMaxFormulaSizeByName) {
+    ASSERT_EQ(Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE, Config::stringToKey("ALGEBRAIC_RULE_MAX_FORMULA_SIZE"));
+    Config::setValue(Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE, Setting(std::int64_t(5000)));
+    ASSERT_EQ(5000, Config::getValue(Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE).getAs<std::int64_t>());
+    Config::setValue(Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE, Setting(std::int64_t(1000000)));
+}
+
 TEST_F(ConfigTests, ReadConfigFileLLVMBackendKeys) {
     std::filesystem::path conf = std::filesystem::current_path() / "rr_llvm_keys.config";
     {

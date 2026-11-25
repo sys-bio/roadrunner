@@ -5,6 +5,7 @@
 
 #include "AlgebraicRuleConverter.h"
 #include "LLVMException.h"
+#include "rrConfig.h"
 
 #include <sbml/SBMLTransforms.h>
 #include <sbml/SBMLTypes.h>
@@ -523,15 +524,57 @@ namespace rrllvm {
             return makeBinary(AST_TIMES, clone(factor.math.get()), std::move(term));
         }
 
+        /** The number of nodes (numbers, symbols and operators) in @p math. */
+        size_t nodeCount(const ASTNode* math) {
+            size_t count = 1;
+            for (unsigned i = 0; i < math->getNumChildren(); ++i) {
+                count += nodeCount(math->getChild(i));
+            }
+            return count;
+        }
+
+        /**
+         * Adds up the size of the formulas Cramer's rule writes for one system,
+         * and refuses the system as soon as the total passes the limit, so the
+         * work stops before the formulas get any bigger. A limit of 0 means none.
+         */
+        class FormulaBudget {
+        public:
+            FormulaBudget(size_t limit, const ASTNode* rule, size_t rules) : limit(limit), rule(rule), rules(rules) {}
+
+            void spend(const ASTNode* math) {
+                if (!math) {
+                    return;
+                }
+                spent += nodeCount(math);
+                if (limit > 0 && spent > limit) {
+                    throwUnsupported(rule, "it must be solved simultaneously with " + std::to_string(rules - 1)
+                        + " other algebraic rules whose coefficients can change, and the formulas for their solution"
+                        " would have more than " + std::to_string(limit) + " nodes, the limit set by"
+                        " Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE.");
+                }
+            }
+
+            size_t total() const {
+                return spent;
+            }
+
+        private:
+            const size_t limit;
+            const ASTNode* rule;
+            const size_t rules;
+            size_t spent = 0;
+        };
+
         /**
          * Determinants of the square submatrices of @p a, by cofactor expansion
          * along the first remaining row. The formulas contain no division, so
          * unlike elimination they don't depend on which entries were non-zero
-         * when the model loaded.
+         * when the model loaded. Each determinant is counted against @p budget.
          */
         class Determinants {
         public:
-            explicit Determinants(const std::vector<std::vector<Coefficient>>& a) : a(a) {}
+            Determinants(const std::vector<std::vector<Coefficient>>& a, FormulaBudget& budget) : a(a), budget(budget) {}
 
             /** Determinant of the rows in @p rowMask and the columns in @p columnMask. */
             Coefficient of(uint32_t rowMask, uint32_t columnMask) {
@@ -575,34 +618,42 @@ namespace rrllvm {
                 }
 
                 Coefficient result = sum ? combined(std::move(sum), value) : Coefficient();
+                budget.spend(result.math.get());
                 memo[key] = copyOf(result);
                 return result;
             }
 
         private:
             const std::vector<std::vector<Coefficient>>& a;
+            FormulaBudget& budget;
             std::map<std::pair<uint32_t, uint32_t>, Coefficient> memo;
         };
-
-        /**
-         * Largest simultaneous system whose coefficients can change that is
-         * supported. Such a system is solved by Cramer's rule, whose formulas
-         * grow with the factorial of the size. Elimination can't be used
-         * instead: its pivots are chosen with the values at load, and give a
-         * wrong answer when one of them later becomes zero. A bigger system
-         * is refused. A system whose coefficients are all plain numbers has
-         * no limit.
-         */
-        constexpr size_t maxCramerSize = 7;
 
         /**
          * Solves A * x = -f, where A holds the coefficients of the determined
          * symbols and f the rest of each rule, as x_j = sum_r C_rj * (-f_r) / det(A)
          * with C the cofactors of A. @p rows are the rows before elimination.
+         *
+         * Cramer's rule is used when a coefficient can change, because elimination
+         * picks its pivots with the values at load and gives a wrong answer once
+         * one of them becomes zero. Its formulas can grow with the factorial of
+         * the number of rules, though how fast depends on how many coefficients
+         * are non-zero, so the limit is on the size of the formulas
+         * (Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE) rather than on the number of
+         * rules. A system whose coefficients are all plain numbers has no limit.
          */
         void solveByCramer(const std::vector<std::vector<Coefficient>>& rows, const std::vector<size_t>& pivotColumn,
-            const std::vector<std::string>& unknowns, const std::vector<ASTPtr>& rests, std::vector<SolvedRule>& solved) {
+            const std::vector<std::string>& unknowns, const std::vector<ASTPtr>& rests, const ASTNode* firstRule,
+            std::vector<SolvedRule>& solved) {
             const size_t n = rows.size();
+            // A uint32_t mask selects the rows and columns of a minor. The formula
+            // size limit stops a system long before it gets near that many rules.
+            if (n >= 32) {
+                throwUnsupported(firstRule, "it must be solved simultaneously with " + std::to_string(n - 1)
+                    + " other algebraic rules whose coefficients can change, and at most 31 such rules are supported.");
+            }
+            const int64_t limit = rr::Config::getValue(rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE).getAs<std::int64_t>();
+            FormulaBudget budget(limit > 0 ? static_cast<size_t>(limit) : 0, firstRule, n);
 
             std::vector<std::vector<Coefficient>> a(n);
             std::vector<ASTPtr> f(n);
@@ -624,7 +675,7 @@ namespace rrllvm {
             }
 
             const uint32_t all = (1u << n) - 1;
-            Determinants determinants(a);
+            Determinants determinants(a, budget);
             const Coefficient det = determinants.of(all, all);
             if (!det.math) {
                 throwUnsupported(rows[0][0].math ? rows[0][0].math.get() : rests[0].get(),
@@ -651,6 +702,7 @@ namespace rrllvm {
                     ? (isNumber(det) && det.value == 1 ? std::move(numerator)
                         : makeBinary(AST_DIVIDE, std::move(numerator), clone(det.math.get())))
                     : makeNumber(0);
+                budget.spend(solution.get());
                 solved.push_back({ unknowns[pivotColumn[j]], std::move(solution) });
             }
         }
@@ -795,12 +847,7 @@ namespace rrllvm {
                 }
             }
             if (symbolic) {
-                if (n > maxCramerSize) {
-                    throwUnsupported(rowRule[0], "it must be solved simultaneously with " + std::to_string(n - 1)
-                        + " other algebraic rules whose coefficients can change, and such systems are only supported up to "
-                        + std::to_string(maxCramerSize) + " rules.");
-                }
-                solveByCramer(original, pivotColumn, unknowns, rests, solved);
+                solveByCramer(original, pivotColumn, unknowns, rests, rowRule[0], solved);
                 return;
             }
 
