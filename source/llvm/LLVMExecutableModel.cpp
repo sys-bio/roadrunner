@@ -2049,30 +2049,31 @@ int LLVMExecutableModel::setBoundarySpeciesAmounts(size_t len, const int* indx,
 int LLVMExecutableModel::setBoundarySpeciesAmounts(size_t len, const int* indx,
     const double* values, bool strict)
 {
-    bool result = false;
-    if (setBoundarySpeciesAmountPtr)
+    if (!setBoundarySpeciesAmountPtr)
     {
-        for (int i = 0; i < len; ++i)
+        throw_llvm_exception("Cannot set boundary species amounts: the model was loaded read-only");
+    }
+    bool result = false;
+    for (int i = 0; i < len; ++i)
+    {
+        int j = indx ? indx[i] : i;
+        result = setBoundarySpeciesAmountPtr(modelData, j, values[i]);
+        if (!result && strict)
         {
-            int j = indx ? indx[i] : i;
-            result = setBoundarySpeciesAmountPtr(modelData, j, values[i]);
-            if (!result && strict)
+            std::stringstream s;
+            std::string id = symbols->getBoundarySpeciesId(j);
+            s << "Could not set value for NON conserved moiety floating species " << id;
+
+            if (symbols->hasAssignmentRule(id))
             {
-                std::stringstream s;
-                std::string id = symbols->getBoundarySpeciesId(j);
-                s << "Could not set value for NON conserved moiety floating species " << id;
-
-                if (symbols->hasAssignmentRule(id))
-                {
-                    s << ", it is defined by an assignment rule, can not be set independently.";
-                }
-                else if (symbols->hasRateRule(id))
-                {
-                    s << ", it is defined by a rate rule and can not be set independently.";
-                }
-
-                throw_llvm_exception(s.str());
+                s << ", it is defined by an assignment rule, can not be set independently.";
             }
+            else if (symbols->hasRateRule(id))
+            {
+                s << ", it is defined by a rate rule and can not be set independently.";
+            }
+
+            throw_llvm_exception(s.str());
         }
     }
     return result;
@@ -2200,6 +2201,10 @@ int LLVMExecutableModel::setFloatingSpeciesAmounts(size_t len, int const* indx,
 int LLVMExecutableModel::setFloatingSpeciesAmounts(size_t len, int const* indx,
     const double* values, bool strict)
 {
+    if (!setFloatingSpeciesAmountPtr)
+    {
+        throw_llvm_exception("Cannot set floating species amounts: the model was loaded read-only");
+    }
     for (int i = 0; i < len; ++i)
     {
         int j = indx ? indx[i] : i;
@@ -2256,6 +2261,10 @@ int LLVMExecutableModel::setFloatingSpeciesAmounts(size_t len, int const* indx,
 int LLVMExecutableModel::setFloatingSpeciesConcentrations(size_t len,
         const int* indx, const double* values)
 {
+    if (!setFloatingSpeciesConcentrationPtr)
+    {
+        throw_llvm_exception("Cannot set floating species concentrations: the model was loaded read-only");
+    }
     for (int i = 0; i < len; ++i)
     {
         int j = indx ? indx[i] : i;
@@ -2329,12 +2338,12 @@ int LLVMExecutableModel::getBoundarySpeciesConcentrations(size_t len,
 int LLVMExecutableModel::setBoundarySpeciesConcentrations(size_t len,
         const int* indx, const double* values)
 {
-    int result = -1;
-    if (setBoundarySpeciesConcentrationPtr)
+    if (!setBoundarySpeciesConcentrationPtr)
     {
-        result = setValues(setBoundarySpeciesConcentrationPtr,
-                &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
+        throw_llvm_exception("Cannot set boundary species concentrations: the model was loaded read-only");
     }
+    int result = setValues(setBoundarySpeciesConcentrationPtr,
+            &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
     return result;
 }
 
@@ -2353,23 +2362,23 @@ int LLVMExecutableModel::setGlobalParameterValues(size_t len, const int* indx,
 int LLVMExecutableModel::setGlobalParameterValues(size_t len, const int* indx,
     const double* values, bool strict)
 {
-    int result = -1;
-    if (setGlobalParameterPtr)
+    if (!setGlobalParameterPtr)
     {
-        result = setValues(setGlobalParameterPtr,
-                &LLVMExecutableModel::getGlobalParameterId, len, indx, values, strict);
+        throw_llvm_exception("Cannot set global parameter values: the model was loaded read-only");
+    }
+    int result = setValues(setGlobalParameterPtr,
+            &LLVMExecutableModel::getGlobalParameterId, len, indx, values, strict);
 
-        for (int i = 0; i < len; ++i)
+    for (int i = 0; i < len; ++i)
+    {
+        int j = indx ? indx[i] : i;
+        if (symbols->isConservedMoietyParameter(j))
         {
-            int j = indx ? indx[i] : i;
-            if (symbols->isConservedMoietyParameter(j))
-            {
-                dirty |= DIRTY_CONSERVED_MOIETIES;
+            dirty |= DIRTY_CONSERVED_MOIETIES;
 
-                // clear the dirty init flag, user explicity set a cm, so they don't care
-                // about init any more.
-                dirty &= ~DIRTY_INIT_SPECIES;
-            }
+            // clear the dirty init flag, user explicity set a cm, so they don't care
+            // about init any more.
+            dirty &= ~DIRTY_INIT_SPECIES;
         }
     }
     return result;
@@ -2545,12 +2554,12 @@ int LLVMExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
 int LLVMExecutableModel::setCompartmentVolumes(size_t len, const int* indx,
     const double* values, bool strict)
 {
-    int result = -1;
-    if (setCompartmentVolumePtr)
+    if (!setCompartmentVolumePtr)
     {
-        result = setValues(setCompartmentVolumePtr,
-                &LLVMExecutableModel::getCompartmentId, len, indx, values, strict);
+        throw_llvm_exception("Cannot set compartment volumes: the model was loaded read-only");
     }
+    int result = setValues(setCompartmentVolumePtr,
+            &LLVMExecutableModel::getCompartmentId, len, indx, values, strict);
     return result;
 }
 
@@ -3100,12 +3109,12 @@ bool LLVMExecutableModel::getEventTieBreak(size_t eventA, size_t eventB)
 int LLVMExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
         const int* indx, const double* values)
 {
-    int result = -1;
-    if (setFloatingSpeciesInitConcentrationsPtr)
+    if (!setFloatingSpeciesInitConcentrationsPtr)
     {
-        result = setValues(setFloatingSpeciesInitConcentrationsPtr,
-                &LLVMExecutableModel::getFloatingSpeciesId, len, indx, values);
+        throw_llvm_exception("Cannot set floating species initial concentrations: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setFloatingSpeciesInitConcentrationsPtr,
+            &LLVMExecutableModel::getFloatingSpeciesId, len, indx, values);
 
     dirty |= DIRTY_INIT_SPECIES;
 
@@ -3119,12 +3128,12 @@ int LLVMExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
 int LLVMExecutableModel::setBoundarySpeciesInitConcentrations(size_t len,
     const int* indx, const double* values)
 {
-    int result = -1;
-    if (setBoundarySpeciesInitConcentrationsPtr)
+    if (!setBoundarySpeciesInitConcentrationsPtr)
     {
-        result = setValues(setBoundarySpeciesInitConcentrationsPtr,
-            &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
+        throw_llvm_exception("Cannot set boundary species initial concentrations: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setBoundarySpeciesInitConcentrationsPtr,
+        &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
 
     dirty |= DIRTY_INIT_SPECIES;
 
@@ -3160,12 +3169,12 @@ int LLVMExecutableModel::getBoundarySpeciesInitConcentrations(size_t len,
 int LLVMExecutableModel::setFloatingSpeciesInitAmounts(size_t len, int const *indx,
             double const *values)
 {
-    int result = -1;
-    if (setFloatingSpeciesInitAmountsPtr)
+    if (!setFloatingSpeciesInitAmountsPtr)
     {
-        result = setValues(setFloatingSpeciesInitAmountsPtr,
-                &LLVMExecutableModel::getFloatingSpeciesId, len, indx, values);
+        throw_llvm_exception("Cannot set floating species initial amounts: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setFloatingSpeciesInitAmountsPtr,
+            &LLVMExecutableModel::getFloatingSpeciesId, len, indx, values);
 
     dirty |= DIRTY_INIT_SPECIES;
 
@@ -3178,12 +3187,12 @@ int LLVMExecutableModel::setFloatingSpeciesInitAmounts(size_t len, int const *in
 int LLVMExecutableModel::setBoundarySpeciesInitAmounts(size_t len, int const* indx,
     double const* values)
 {
-    int result = -1;
-    if (setBoundarySpeciesInitAmountsPtr)
+    if (!setBoundarySpeciesInitAmountsPtr)
     {
-        result = setValues(setBoundarySpeciesInitAmountsPtr,
-            &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
+        throw_llvm_exception("Cannot set boundary species initial amounts: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setBoundarySpeciesInitAmountsPtr,
+        &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
 
     dirty |= DIRTY_INIT_SPECIES;
 
@@ -3218,12 +3227,12 @@ int LLVMExecutableModel::getBoundarySpeciesInitAmounts(size_t len, int const* in
 int LLVMExecutableModel::setCompartmentInitVolumes(size_t len, const int *indx,
             double const *values)
 {
-    int result = -1;
-    if (setCompartmentInitVolumesPtr)
+    if (!setCompartmentInitVolumesPtr)
     {
-        result = setValues(setCompartmentInitVolumesPtr,
-                &LLVMExecutableModel::getCompartmentId, len, indx, values);
+        throw_llvm_exception("Cannot set compartment initial volumes: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setCompartmentInitVolumesPtr,
+            &LLVMExecutableModel::getCompartmentId, len, indx, values);
     return result;
 }
 
@@ -3241,12 +3250,12 @@ int LLVMExecutableModel::getCompartmentInitVolumes(size_t len, const int *indx,
 int LLVMExecutableModel::setGlobalParameterInitValues(size_t len, const int* indx,
         const double* values)
 {
-    int result = -1;
-    if (setGlobalParameterInitValuePtr)
+    if (!setGlobalParameterInitValuePtr)
     {
-        result = setValues(setGlobalParameterInitValuePtr,
-                &LLVMExecutableModel::getGlobalParameterId, len, indx, values);
+        throw_llvm_exception("Cannot set global parameter initial values: the model was loaded without mutable initial conditions or as read-only");
     }
+    int result = setValues(setGlobalParameterInitValuePtr,
+            &LLVMExecutableModel::getGlobalParameterId, len, indx, values);
     return result;
 }
 

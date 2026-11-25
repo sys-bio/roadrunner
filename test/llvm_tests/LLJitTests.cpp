@@ -14,9 +14,11 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include "llvm/SBMLModelObjectCache.h"
+#include "llvm/LLVMException.h"
 
 using namespace rr;
 using namespace rrllvm;
@@ -413,6 +415,118 @@ TEST_F(LLJitTests, ReadOnlyIgnoresMutableInitialConditions) {
     opt.modelGeneratorOpt |= LoadSBMLOptions::READ_ONLY | LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
     RoadRunner rr(makeUniqueModel(), &opt);
     ASSERT_NO_THROW(rr.simulate(0, 1, 2));
+}
+
+TEST_F(LLJitTests, ReadOnlyModelLoadsAndSettersThrow) {
+    for (int backend : {rr::Config::LLVM_BACKEND_VALUES::LLJIT, rr::Config::LLVM_BACKEND_VALUES::MCJIT}) {
+        rr::Config::setValue(rr::Config::LLVM_BACKEND, backend);
+        rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_READ_ONLY, true);
+        RoadRunner rr(makeUniqueModel());
+        rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_READ_ONLY, false);
+        ASSERT_NO_THROW(rr.simulate(0, 1, 2));
+        for (const char *id : {"S1", "[S1]", "k", "c", "init(S1)", "init([S1])", "init(k)", "init(c)"}) {
+            EXPECT_THROW(rr.setValue(id, 2.0), std::exception) << id;
+        }
+    }
+}
+
+namespace {
+    // Loads a model through the global READ_ONLY setting, as a user would.
+    std::unique_ptr<RoadRunner> loadReadOnlyModel() {
+        rr::Config::setValue(rr::Config::LLVM_BACKEND, rr::Config::LLVM_BACKEND_VALUES::LLJIT);
+        rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_READ_ONLY, true);
+        std::unique_ptr<RoadRunner> rr(new RoadRunner(makeUniqueModel()));
+        rr::Config::setValue(rr::Config::LOADSBMLOPTIONS_READ_ONLY, false);
+        return rr;
+    }
+}
+
+TEST_F(LLJitTests, ReadOnlySetFloatingSpeciesAmountsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setFloatingSpeciesAmounts(1, &index, &value), LLVMException);
+    EXPECT_THROW(rr->getModel()->setFloatingSpeciesAmounts(1, &index, &value, false), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetFloatingSpeciesConcentrationsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setFloatingSpeciesConcentrations(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetBoundarySpeciesAmountsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setBoundarySpeciesAmounts(1, &index, &value), LLVMException);
+    EXPECT_THROW(rr->getModel()->setBoundarySpeciesAmounts(1, &index, &value, false), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetBoundarySpeciesConcentrationsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setBoundarySpeciesConcentrations(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetGlobalParameterValuesThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setGlobalParameterValues(1, &index, &value), LLVMException);
+    EXPECT_THROW(rr->getModel()->setGlobalParameterValues(1, &index, &value, false), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetCompartmentVolumesThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setCompartmentVolumes(1, &index, &value), LLVMException);
+    EXPECT_THROW(rr->getModel()->setCompartmentVolumes(1, &index, &value, false), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetFloatingSpeciesInitConcentrationsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setFloatingSpeciesInitConcentrations(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetFloatingSpeciesInitAmountsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setFloatingSpeciesInitAmounts(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetBoundarySpeciesInitConcentrationsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setBoundarySpeciesInitConcentrations(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetBoundarySpeciesInitAmountsThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setBoundarySpeciesInitAmounts(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetCompartmentInitVolumesThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setCompartmentInitVolumes(1, &index, &value), LLVMException);
+}
+
+TEST_F(LLJitTests, ReadOnlySetGlobalParameterInitValuesThrows) {
+    auto rr = loadReadOnlyModel();
+    const int index = 0;
+    const double value = 2.0;
+    EXPECT_THROW(rr->getModel()->setGlobalParameterInitValues(1, &index, &value), LLVMException);
 }
 
 TEST_F(LLJitTests, ObjectCachePermissiveSettingAddsSeparateEntry) {
