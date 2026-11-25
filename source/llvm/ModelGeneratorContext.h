@@ -19,6 +19,8 @@
 #include <sbml/SBMLDocument.h>
 #include <string>
 #include <memory>
+#include <set>
+#include <utility>
 
 
 #ifdef _MSC_VER
@@ -120,9 +122,35 @@ namespace rrllvm {
 
         const libsbml::Model *getModel() const;
 
+        /**
+         * One expression for each piecewise function, which is the index of the branch that it takes: for
+         * piecewise(v0, c0, v1, c1, ..., vn) it is piecewise(0, c0, 1, c1, ..., n).  The integrator compares
+         * them before and after a root to find out whether the rates changed there.
+         */
         const std::vector<libsbml::ASTNode*>* getPiecewiseTriggers() const;
 
+        /**
+         * The kinetic law whose piecewise function produced the given piecewise trigger, or null if
+         * the trigger did not come from a kinetic law.  Its local parameters are needed to resolve the trigger.
+         */
+        const libsbml::KineticLaw* getPiecewiseTriggerKineticLaw(size_t index) const;
+
         size_t getNumPiecewiseTriggers() const;
+
+        /**
+         * The relational leaves of event triggers that have two or more of them, and of the conditions
+         * of piecewise functions.  CVODE finds roots of these in addition to the event triggers
+         * themselves, so that a trigger or a condition that is true only for part of a step is noticed.
+         */
+        const std::vector<libsbml::ASTNode*>* getBooleanLeaves() const;
+
+        /**
+         * The kinetic law whose piecewise function produced the given leaf, or null if the leaf
+         * did not come from a kinetic law.  Its local parameters are needed to resolve the leaf.
+         */
+        const libsbml::KineticLaw* getBooleanLeafKineticLaw(size_t index) const;
+
+        size_t getNumBooleanLeaves() const;
 
         Jit *getJitNonOwning() const;
 
@@ -171,6 +199,15 @@ namespace rrllvm {
         const libsbml::SBMLDocument *doc;
 
         std::vector<libsbml::ASTNode*> mPiecewiseTriggers;
+
+        std::vector<const libsbml::KineticLaw*> mPiecewiseTriggerKineticLaws;
+
+        std::vector<libsbml::ASTNode*> mBooleanLeaves;
+
+        std::vector<const libsbml::KineticLaw*> mBooleanLeafKineticLaws;
+
+        // the kinetic law and the formula of each leaf, so that the same comparison is only a root once
+        std::set<std::pair<const libsbml::KineticLaw*, std::string> > mBooleanLeafKeys;
 
         const LLVMModelDataSymbols *symbols;
 
@@ -226,29 +263,41 @@ namespace rrllvm {
         void addAllPiecewiseTriggers(const libsbml::Model* model);
 
         /**
-         * Add the triggers from a kinetic law.  Needs to deal with local parameters.
+         * Add the triggers and the leaves of every piecewise ASTNode in the math, including those in the
+         * bodies of the user functions it calls.  'kl' is the kinetic law the math belongs to, or null.
          */
-        void addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl);
+        void addPiecewiseTriggersFrom(const libsbml::Model* model, const libsbml::ASTNode* math, const libsbml::KineticLaw* kl);
 
         /**
-        * Replace the local parameters with a constant value.  Roadrunner doesn't allow changes anyway.
-        */
-        void replaceLocalParametersWithConstants(libsbml::ASTNode* node, std::map<std::string, double>& values);
+         * Add the trigger and the leaves of each piecewise ASTNode at or below node, which has no
+         * calls of user functions.
+         */
+        void addPiecewiseBranchesFrom(const libsbml::ASTNode* node, const libsbml::KineticLaw* kl);
 
         /**
-         * Add the triggers from a particular Piecewise ASTNode.
+         * Add a leaf, unless the same comparison of the same kinetic law was added already.
          */
-        void addPiecewiseTriggersFrom(const libsbml::ASTNode* node);
-
-        /**
-         * Get all transitions from any piecewise equations in the model.
-         */
-        bool containsPiecewise(const libsbml::ASTNode* node);
+        void addBooleanLeaf(const libsbml::ASTNode* leaf, const libsbml::KineticLaw* kl);
 
         /**
          * Delete any piecewise trigger nodes (which we own)
          */
         void clearPiecewiseTriggers();
+
+        /**
+         * Collect the relational leaves of each event trigger that has more than one.
+         */
+        void addAllBooleanLeaves(const libsbml::Model* model);
+
+        /**
+         * Append the relational nodes found below node, without descending into them.
+         */
+        void addBooleanLeavesFrom(const libsbml::ASTNode* node, std::vector<const libsbml::ASTNode*>& leaves);
+
+        /**
+         * Delete the boolean leaf nodes (which we own)
+         */
+        void clearBooleanLeaves();
 
         /**
          * free any memory this class allocated.
@@ -257,7 +306,7 @@ namespace rrllvm {
     };
 
 
-    LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols, const Random *random, uint numPiecewiseTriggers);
+    LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols, const Random *random, uint numPiecewiseTriggers, uint numBooleanLeaves = 0);
 
 
 } /* namespace rr */

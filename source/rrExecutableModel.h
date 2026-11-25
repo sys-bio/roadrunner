@@ -928,7 +928,22 @@ namespace rr {
          */
         virtual void getEventRoots(double time, const double *y, double *gdot) = 0;
 
+        /**
+         * The index of the branch that each piecewise function of the model takes.  The integrator compares
+         * them before and after a root of a boolean leaf to find out whether the rates changed there.
+         *
+         * @param[out] gdot the indices, this is of length getNumPiecewiseTriggers().
+         */
         virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot) = 0;
+
+        /**
+         * Roots for the relational leaves of event triggers that have more than one, and of the conditions of
+         * piecewise functions, so that a trigger or a condition that is true only within one step of the
+         * integrator is found.  Models without them have none.
+         *
+         * @param[out] gdot result roots, this is of length getNumBooleanLeaves().
+         */
+        virtual void getBooleanLeafRoots(double time, const double* y, double* gdot) {}
 
         virtual double getNextPendingEventTime(bool pop) = 0;
 
@@ -949,9 +964,15 @@ namespace rr {
         virtual void resetEvents() = 0;
 
         /**
-         * We do root-finding for 'piecewise triggers': those times in a piecewise function that transition from one condition to the next.
+         * The number of piecewise functions that have a comparison in a condition, whose branches are compared
+         * (see getPiecewiseTriggerRoots).  The comparisons are roots (see getBooleanLeafRoots).
          */
         virtual int getNumPiecewiseTriggers() = 0;
+
+        /**
+         * We also do root-finding for the relational leaves of event triggers and piecewise conditions (see getBooleanLeafRoots).
+         */
+        virtual int getNumBooleanLeaves() { return 0; }
 
 
 

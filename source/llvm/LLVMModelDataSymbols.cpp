@@ -74,6 +74,7 @@ static const char* modelDataFieldsNames[] =  {
         "RandomPtr",                            // 14
         "NumEvents",                            // 15
         "NumPiecewiseTriggers",                 // 16
+        "NumBooleanLeaves",                 // 16a
         "StateVectorSize",                      // 17
         "StateVector",                          // 18
         "StateVectorRate",                      // 19

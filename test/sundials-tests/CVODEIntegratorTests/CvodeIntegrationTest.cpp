@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -2151,4 +2152,975 @@ TEST_F(CVODEIntegratorTests, ResetAfterASimulationStartingAtTheTimeOfAnEventDoes
         EXPECT_EQ(0, again(i, 1)) << "row " << i;
         EXPECT_EQ(0, again(i, 2)) << "row " << i;
     }
+}
+
+// ---- The roots of the relational leaves of event triggers ----
+// The models below have X' = 1, three counters n, m and p, and events that add one to a counter.
+
+static const std::string LeafTimeMath = R"(<csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>)";
+
+// MathML for a comparison of a symbol, X or time, with a constant.  The op is gt, lt, geq, ...
+static std::string leafRelation(const std::string &op, const std::string &symbol, const std::string &value) {
+    const std::string left = symbol == "time" ? LeafTimeMath : "<ci> " + symbol + " </ci>";
+    return "<apply><" + op + "/>" + left + "<cn> " + value + " </cn></apply>";
+}
+
+// MathML for and, or, not, ... of the operands
+static std::string leafLogical(const std::string &op, const std::vector<std::string> &operands) {
+    std::string result = "<apply><" + op + "/>";
+    for (const std::string &operand : operands) {
+        result += operand;
+    }
+    return result + "</apply>";
+}
+
+// the trigger of a window: true for low < symbol < high, which is shorter than the steps of CVODE
+static std::string leafWindow(const std::string &low, const std::string &high, const std::string &symbol = "X") {
+    return leafLogical("and", {leafRelation("gt", symbol, low), leafRelation("lt", symbol, high)});
+}
+
+// an event that adds one to the variable when its trigger becomes true, after the delay if it has one
+static std::string leafEvent(const std::string &id, const std::string &trigger, const std::string &variable = "n",
+                             const std::string &delay = "", bool initialValue = false, bool persistent = true) {
+    std::string xml = "      <event id=\"" + id + "\" useValuesFromTriggerTime=\"true\">\n";
+    xml += std::string("        <trigger initialValue=\"") + (initialValue ? "true" : "false") +
+           "\" persistent=\"" + (persistent ? "true" : "false") + "\">\n";
+    xml += "          <math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + trigger + "</math>\n";
+    xml += "        </trigger>\n";
+    if (!delay.empty()) {
+        xml += "        <delay><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><cn> " + delay + " </cn></math></delay>\n";
+    }
+    xml += "        <listOfEventAssignments>\n";
+    xml += "          <eventAssignment variable=\"" + variable + "\">\n";
+    xml += "            <math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply><plus/><ci> " + variable +
+           " </ci><cn type=\"integer\"> 1 </cn></apply></math>\n";
+    xml += "          </eventAssignment>\n";
+    xml += "        </listOfEventAssignments>\n";
+    xml += "      </event>\n";
+    return xml;
+}
+
+static std::string leafModelSBML(const std::string &events) {
+    return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="leaves" id="leaves">
+    <listOfParameters>
+      <parameter id="X" value="0" constant="false"/>
+      <parameter id="n" value="0" constant="false"/>
+      <parameter id="m" value="0" constant="false"/>
+      <parameter id="p" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfEvents>
+)") + events + R"(    </listOfEvents>
+  </model>
+</sbml>)";
+}
+
+// The counters n, m and p at the end of simulations to time 10 have the expected values, whatever the
+// output times of a fixed step simulation and the maximum time step of a variable step simulation are.
+static void checkLeafEventCounts(RoadRunner &rr, double expectedCountN, double expectedCountM = 0,
+                                 double expectedCountP = 0) {
+    rr.setSelections(std::vector<std::string>{"time", "n", "m", "p"});
+
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    for (int points : {11, 21, 51, 101}) {
+        SCOPED_TRACE("fixed step with " + std::to_string(points) + " output points");
+        resetAllValues(rr);
+        std::vector<double> times;
+        for (int i = 0; i < points; i++) {
+            times.push_back(10.0 * i / (points - 1));
+        }
+        const ls::DoubleMatrix result = *rr.simulate(times);
+        ASSERT_EQ(static_cast<unsigned>(points), result.numRows());
+        EXPECT_EQ(expectedCountN, result(points - 1, 1));
+        EXPECT_EQ(expectedCountM, result(points - 1, 2));
+        EXPECT_EQ(expectedCountP, result(points - 1, 3));
+    }
+
+    for (double maximumTimeStep : {0.0, 1.0, 0.1}) {
+        SCOPED_TRACE("variable step with a maximum time step of " + std::to_string(maximumTimeStep));
+        resetAllValues(rr);
+        rr.getIntegrator()->setValue("maximum_time_step", maximumTimeStep);
+        const ls::DoubleMatrix result = simulateVariableStep(rr, 0, 10);
+        ASSERT_GT(result.numRows(), 1u);
+        EXPECT_EQ(expectedCountN, result(result.numRows() - 1, 1));
+        EXPECT_EQ(expectedCountM, result(result.numRows() - 1, 2));
+        EXPECT_EQ(expectedCountP, result(result.numRows() - 1, 3));
+    }
+}
+
+static std::unordered_map<std::string, Setting> leafStatistics(RoadRunner &rr) {
+    auto *cvode = dynamic_cast<CVODEIntegrator *>(rr.getIntegrator());
+    EXPECT_TRUE(cvode);
+    return cvode->getStatistics();
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseAndTriggerIsTrueOnlyWithinOneStepFires) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"))));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1);
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseNotOrTriggerIsTrueOnlyWithinOneStepFires) {
+    const std::string trigger = leafLogical("not", {leafLogical("or", {leafRelation("lt", "X", "0.5"),
+                                                                       leafRelation("gt", "X", "0.8")})});
+    RoadRunner rr(leafModelSBML(leafEvent("E", trigger)));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1);
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsAWindowOfTimeFires) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8", "time"))));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1);
+}
+
+// The event fires where the window opens, not before it, and its assignment is there from then on.
+TEST_F(CVODEIntegratorTests, EventWithAWindowTriggerFiresWhereTheWindowOpens) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"))));
+    rr.setSelections(std::vector<std::string>{"time", "n", "m"});
+
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    const ls::DoubleMatrix fixed = *rr.simulate(std::vector<double>{0.0, 0.4, 1.0, 2.0});
+    ASSERT_EQ(4u, fixed.numRows());
+    EXPECT_EQ(0, fixed(1, 1));
+    EXPECT_EQ(1, fixed(2, 1));
+    EXPECT_EQ(1, fixed(3, 1));
+
+    resetAllValues(rr);
+    const ls::DoubleMatrix variable = simulateVariableStep(rr, 0, 2);
+    unsigned first = 0;
+    for (unsigned i = 0; i < variable.numRows() && first == 0; i++) {
+        if (variable(i, 1) > 0.5) {
+            first = i;
+        }
+    }
+    ASSERT_GT(first, 0u);
+    EXPECT_NEAR(0.5, variable(first, 0), 1e-6);
+    EXPECT_EQ(0, variable(first - 1, 1));
+    EXPECT_LE(variable(first - 1, 0), 0.5 + 1e-9);
+    EXPECT_EQ(1, variable(variable.numRows() - 1, 1));
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerHasTwoWindowsFiresOncePerWindow) {
+    const std::string trigger = leafLogical("or", {leafWindow("0.5", "0.8"), leafWindow("2", "2.3")});
+    RoadRunner rr(leafModelSBML(leafEvent("E", trigger)));
+    EXPECT_EQ(4, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 2);
+}
+
+// The comparison X > 0.5 is a root once, and both events fire.
+TEST_F(CVODEIntegratorTests, TwoEventsThatShareAComparisonBothFire) {
+    RoadRunner rr(leafModelSBML(leafEvent("E1", leafWindow("0.5", "0.8"), "n") +
+                                leafEvent("E2", leafWindow("0.5", "2"), "m")));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1, 1);
+}
+
+// A trigger with one comparison, a comparison under a not, or the same comparison twice, has no leaf
+// roots: the root of the event is enough.
+TEST_F(CVODEIntegratorTests, TriggersWithOneDistinctComparisonHaveNoLeafRoots) {
+    const std::string comparison = leafRelation("gt", "X", "0.5");
+    RoadRunner rr(leafModelSBML(
+            leafEvent("E1", comparison, "n") +
+            leafEvent("E2", leafLogical("not", {comparison}), "m", "", true) +
+            leafEvent("E3", leafLogical("and", {comparison, comparison}), "p")));
+    EXPECT_EQ(0, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1, 0, 1);
+}
+
+TEST_F(CVODEIntegratorTests, NestedTriggerHasTheLeavesOfAllItsComparisons) {
+    const std::string trigger = leafLogical("not", {leafLogical("or", {leafWindow("0.5", "0.8"),
+                                                                       leafRelation("gt", "X", "3")})});
+    RoadRunner rr(leafModelSBML(leafEvent("E", trigger, "n", "", true)));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+    // true at the start, false from 0.5 to 0.8 and after 3, true from 0.8 to 3: fires once, at 0.8
+    checkLeafEventCounts(rr, 1);
+}
+
+// A window that is open at the start, with an initial trigger value of true, does not fire.
+TEST_F(CVODEIntegratorTests, EventWhoseWindowIsOpenAtTheStartWithAnInitialValueOfTrueDoesNotFire) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("-1", "0.8"), "n", "", true)));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 0);
+}
+
+TEST_F(CVODEIntegratorTests, EventWithANonPersistentWindowTriggerFires) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"), "n", "", false, false)));
+    checkLeafEventCounts(rr, 1);
+}
+
+// The trigger of a persistent event with a delay is false again before the delay is over, and the
+// event fires after its delay.
+TEST_F(CVODEIntegratorTests, PersistentEventWithADelayFiresAfterItsWindowIsClosed) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"), "n", "2", false, true)));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 1);
+
+    rr.setSelections(std::vector<std::string>{"time", "n", "m"});
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    resetAllValues(rr);
+    const ls::DoubleMatrix result = *rr.simulate(std::vector<double>{0.0, 2.0, 3.0});
+    ASSERT_EQ(3u, result.numRows());
+    EXPECT_EQ(0, result(1, 1));
+    EXPECT_EQ(1, result(2, 1));
+}
+
+// The trigger of a non-persistent event with a delay goes false before the delay is over, which
+// removes the event.  This is a change at a root of a comparison, with an event queued.
+TEST_F(CVODEIntegratorTests, NonPersistentEventWithADelayIsRemovedWhenItsWindowIsClosed) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"), "n", "2", false, false)));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(rr, 0);
+}
+
+// The roots of comparisons at which no event is triggered change nothing: the rows of a variable step
+// simulation are those of the same simulation without them, and CVODE is not reinitialized.
+TEST_F(CVODEIntegratorTests, LeafRootsThatChangeNothingAddNoRowsAndNoReinitializations) {
+    // the trigger is never true, though X > 0.5 and X < 0.3 each change
+    const std::string never = leafLogical("and", {leafRelation("gt", "X", "0.5"), leafRelation("lt", "X", "0.3")});
+    RoadRunner withLeaves(leafModelSBML(leafEvent("E", never)));
+    RoadRunner without(leafModelSBML(leafEvent("E", leafRelation("gt", "X", "1000"))));
+    ASSERT_EQ(2, withLeaves.getModel()->getNumBooleanLeaves());
+    ASSERT_EQ(0, without.getModel()->getNumBooleanLeaves());
+    withLeaves.setSelections(std::vector<std::string>{"time", "X"});
+    without.setSelections(std::vector<std::string>{"time", "X"});
+
+    const ls::DoubleMatrix a = simulateVariableStep(withLeaves, 0, 10);
+    const ls::DoubleMatrix b = simulateVariableStep(without, 0, 10);
+    ASSERT_EQ(b.numRows(), a.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        EXPECT_DOUBLE_EQ(b(i, 0), a(i, 0)) << "row " << i;
+        EXPECT_DOUBLE_EQ(b(i, 1), a(i, 1)) << "row " << i;
+    }
+    EXPECT_EQ(0, leafStatistics(withLeaves)["num_reinits"].getAs<std::int64_t>());
+    EXPECT_EQ(0, leafStatistics(without)["num_reinits"].getAs<std::int64_t>());
+}
+
+// The event fires at the root of X > 0.5, which reinitializes CVODE.  The root of X < 0.8, where the
+// trigger goes false, changes nothing, so CVODE continues from it.
+TEST_F(CVODEIntegratorTests, RootOfAnBooleanLeafThatChangesNothingDoesNotReinitializeCVODE) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"))));
+    rr.setSelections(std::vector<std::string>{"time", "n"});
+    rr.getIntegrator()->setValue("variable_step_size", false);
+
+    const ls::DoubleMatrix result = *rr.simulate(std::vector<double>{0.0, 5.0, 10.0});
+    ASSERT_EQ(3u, result.numRows());
+    EXPECT_EQ(1, result(2, 1));
+
+    std::unordered_map<std::string, Setting> stats = leafStatistics(rr);
+    EXPECT_EQ(1, stats["num_events"].getAs<std::int64_t>());
+    EXPECT_EQ(1, stats["num_reinits"].getAs<std::int64_t>());
+}
+
+// An event with a simple trigger reinitializes CVODE once each time it fires, as before.
+TEST_F(CVODEIntegratorTests, EventWithASimpleTriggerReinitializesCVODEOncePerFiring) {
+    RoadRunner rr(SawtoothSBML);
+    ASSERT_EQ(0, rr.getModel()->getNumBooleanLeaves());
+    rr.simulate(0, 10, 11);
+    std::unordered_map<std::string, Setting> stats = leafStatistics(rr);
+    ASSERT_GT(stats["num_events"].getAs<std::int64_t>(), 1);
+    EXPECT_EQ(stats["num_events"].getAs<std::int64_t>(), stats["num_reinits"].getAs<std::int64_t>());
+}
+
+// A model taken from the model cache, as it is while another instance of the same SBML is alive, has
+// the boolean leaves of a compiled one.
+TEST_F(CVODEIntegratorTests, ModelFromTheModelCacheHasTheBooleanLeavesOfACompiledModel) {
+    const std::string sbml = leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8")));
+    RoadRunner first(sbml);   // compiled
+    RoadRunner cached(sbml);  // from the cache, as long as first is alive
+    ASSERT_EQ(2, first.getModel()->getNumBooleanLeaves());
+    EXPECT_EQ(2, cached.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(cached, 1);
+}
+
+TEST_F(CVODEIntegratorTests, SavedStateHasTheBooleanLeaves) {
+    const std::filesystem::path dir = std::filesystem::temp_directory_path() / "roadrunner-tests" / "BooleanLeaves";
+    std::filesystem::create_directories(dir);
+    const std::string file = (dir / "window.rr").string();
+
+    RoadRunner rr(leafModelSBML(leafEvent("E", leafWindow("0.5", "0.8"))));
+    rr.saveState(file);
+    RoadRunner loaded;
+    loaded.loadState(file);
+    std::filesystem::remove(file);
+
+    EXPECT_EQ(2, loaded.getModel()->getNumBooleanLeaves());
+    checkLeafEventCounts(loaded, 1);
+}
+
+// The trigger of this event goes false at X = 1, which changes nothing: the rows of a variable step
+// simulation are those of the same simulation with an event that never changes, and CVODE is not
+// reinitialized.
+TEST_F(CVODEIntegratorTests, RootWhereATriggerGoesFalseAddsNoRowAndNoReinitialization) {
+    RoadRunner goesFalse(leafModelSBML(leafEvent("E", leafRelation("lt", "X", "1"), "n", "", true)));
+    RoadRunner unchanged(leafModelSBML(leafEvent("E", leafRelation("gt", "X", "1000"))));
+    ASSERT_EQ(0, goesFalse.getModel()->getNumBooleanLeaves());
+    goesFalse.setSelections(std::vector<std::string>{"time", "X", "n"});
+    unchanged.setSelections(std::vector<std::string>{"time", "X", "n"});
+
+    const ls::DoubleMatrix a = simulateVariableStep(goesFalse, 0, 10);
+    const ls::DoubleMatrix b = simulateVariableStep(unchanged, 0, 10);
+    ASSERT_EQ(b.numRows(), a.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        EXPECT_DOUBLE_EQ(b(i, 0), a(i, 0)) << "row " << i;
+        EXPECT_DOUBLE_EQ(b(i, 1), a(i, 1)) << "row " << i;
+        EXPECT_EQ(0, a(i, 2)) << "row " << i;
+    }
+    EXPECT_EQ(0, leafStatistics(goesFalse)["num_reinits"].getAs<std::int64_t>());
+    EXPECT_EQ(0, leafStatistics(unchanged)["num_reinits"].getAs<std::int64_t>());
+}
+
+// The trigger becomes true at X = 0.3, and X > 0.5 is true from 0.5 on, which changes nothing: the
+// root of the comparison reinitializes CVODE no more than the event does.
+TEST_F(CVODEIntegratorTests, RootOfAComparisonMaskedByAnotherComparisonDoesNotReinitializeCVODE) {
+    const std::string trigger = leafLogical("or", {leafRelation("gt", "X", "0.3"), leafRelation("gt", "X", "0.5")});
+    RoadRunner rr(leafModelSBML(leafEvent("E", trigger)));
+    ASSERT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+    rr.setSelections(std::vector<std::string>{"time", "n"});
+    rr.getIntegrator()->setValue("variable_step_size", false);
+
+    const ls::DoubleMatrix result = *rr.simulate(std::vector<double>{0.0, 5.0, 10.0});
+    ASSERT_EQ(3u, result.numRows());
+    EXPECT_EQ(1, result(2, 1));
+
+    std::unordered_map<std::string, Setting> stats = leafStatistics(rr);
+    EXPECT_EQ(1, stats["num_events"].getAs<std::int64_t>());
+    EXPECT_EQ(1, stats["num_reinits"].getAs<std::int64_t>());
+}
+
+// ---- Piecewise functions in kinetic laws with local parameters ----
+
+// -> S with the rate piecewise(k, time < tsw, 0): S' = 2 until 3.3 and 0 after, so S(10) = 6.6.  The
+// parameters k and tsw are local to the kinetic law or global.
+static std::string piecewiseKineticLawSBML(bool kIsLocal, bool tswIsLocal) {
+    const std::string kGlobal = R"(<parameter id="k" value="2" constant="true"/>)";
+    const std::string tswGlobal = R"(<parameter id="tsw" value="3.3" constant="true"/>)";
+    const std::string kLocal = R"(<localParameter id="k" value="2"/>)";
+    const std::string tswLocal = R"(<localParameter id="tsw" value="3.3"/>)";
+    const std::string globalList = (kIsLocal ? "" : kGlobal) + (tswIsLocal ? "" : tswGlobal);
+    const std::string localList = (kIsLocal ? kLocal : "") + (tswIsLocal ? tswLocal : "");
+    return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="piecewiseKineticLaw" id="piecewiseKineticLaw">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+)") + (globalList.empty() ? std::string() : "    <listOfParameters>" + globalList + "</listOfParameters>\n") + R"(    <listOfReactions>
+      <reaction id="R" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <piecewise>
+              <piece>
+                <ci> k </ci>
+                <apply><lt/>)" + LeafTimeMath + R"(<ci> tsw </ci></apply>
+              </piece>
+              <otherwise><cn> 0 </cn></otherwise>
+            </piecewise>
+          </math>
+)" + (localList.empty() ? std::string() : "          <listOfLocalParameters>" + localList + "</listOfLocalParameters>\n") + R"(        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+}
+
+// The piecewise of a kinetic law is a root whether its parameters are local or global.
+TEST_F(CVODEIntegratorTests, PiecewiseInAKineticLawWithLocalParametersHasPiecewiseTriggers) {
+    RoadRunner reference(piecewiseKineticLawSBML(false, false));
+    ASSERT_GT(reference.getModel()->getNumPiecewiseTriggers(), 0);
+
+    for (const auto &locals : {std::make_pair(true, true), std::make_pair(true, false), std::make_pair(false, true)}) {
+        SCOPED_TRACE(std::string("k is ") + (locals.first ? "local" : "global") +
+                     ", tsw is " + (locals.second ? "local" : "global"));
+        RoadRunner rr(piecewiseKineticLawSBML(locals.first, locals.second));
+        EXPECT_EQ(reference.getModel()->getNumPiecewiseTriggers(), rr.getModel()->getNumPiecewiseTriggers());
+    }
+}
+
+// CVODE is reinitialized at the switch of the piecewise at 3.3 whether the parameters are local or
+// global, and the integration is the same.
+TEST_F(CVODEIntegratorTests, PiecewiseInAKineticLawWithLocalParametersIsReinitializedAtItsSwitch) {
+    RoadRunner reference(piecewiseKineticLawSBML(false, false));
+    RoadRunner local(piecewiseKineticLawSBML(true, true));
+    reference.setSelections(std::vector<std::string>{"time", "S"});
+    local.setSelections(std::vector<std::string>{"time", "S"});
+
+    const ls::DoubleMatrix a = *reference.simulate(0, 10, 11);
+    const ls::DoubleMatrix b = *local.simulate(0, 10, 11);
+    ASSERT_EQ(a.numRows(), b.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        EXPECT_NEAR(a(i, 1), b(i, 1), 1e-14) << "row " << i;
+    }
+
+    const std::int64_t reinits = leafStatistics(reference)["num_reinits"].getAs<std::int64_t>();
+    EXPECT_GT(reinits, 0);
+    EXPECT_EQ(reinits, leafStatistics(local)["num_reinits"].getAs<std::int64_t>());
+}
+
+// ---- Piecewise functions inside function definitions ----
+
+// Same model as piecewiseKineticLawSBML, but the piecewise is in the function definition f(a, b, c) =
+// piecewise(a, b < c, 0) and the kinetic law is f(k, time, tsw).  With nested set, the kinetic law calls
+// g(k, time, tsw) where g(a, b, c) = f(a, b, c).
+static std::string piecewiseFunctionDefinitionSBML(bool nested, bool paramsAreLocal) {
+    const std::string globals = R"(<parameter id="k" value="2" constant="true"/><parameter id="tsw" value="3.3" constant="true"/>)";
+    const std::string locals = R"(<localParameter id="k" value="2"/><localParameter id="tsw" value="3.3"/>)";
+    const std::string lambdaHead = R"(<lambda><bvar><ci> a </ci></bvar><bvar><ci> b </ci></bvar><bvar><ci> c </ci></bvar>)";
+    const std::string gDefinition = nested ? R"(<functionDefinition id="g"><math xmlns="http://www.w3.org/1998/Math/MathML">)" + lambdaHead +
+        R"(<apply><ci> f </ci><ci> a </ci><ci> b </ci><ci> c </ci></apply></lambda></math></functionDefinition>)" : std::string();
+    return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="piecewiseFunctionDefinition" id="piecewiseFunctionDefinition">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="f">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">)") + lambdaHead + R"(
+          <piecewise>
+            <piece><ci> a </ci><apply><lt/><ci> b </ci><ci> c </ci></apply></piece>
+            <otherwise><cn> 0 </cn></otherwise>
+          </piecewise></lambda>
+        </math>
+      </functionDefinition>)" + gDefinition + R"(
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+)" + (paramsAreLocal ? std::string() : "    <listOfParameters>" + globals + "</listOfParameters>\n") + R"(    <listOfReactions>
+      <reaction id="R" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><ci> )" + (nested ? "g" : "f") + R"( </ci><ci> k </ci>)" + LeafTimeMath + R"(<ci> tsw </ci></apply>
+          </math>
+)" + (paramsAreLocal ? "          <listOfLocalParameters>" + locals + "</listOfLocalParameters>\n" : std::string()) + R"(        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+}
+
+// A piecewise inside a function definition (called directly or through another function, with global or
+// local parameters as arguments) has the same roots and the same integration as the inlined piecewise.
+TEST_F(CVODEIntegratorTests, PiecewiseInAFunctionDefinitionIsTheSameAsTheInlinedPiecewise) {
+    RoadRunner reference(piecewiseKineticLawSBML(false, false));
+    reference.setSelections(std::vector<std::string>{"time", "S"});
+    const ls::DoubleMatrix a = *reference.simulate(0, 10, 11);
+    const std::int64_t referenceReinits = leafStatistics(reference)["num_reinits"].getAs<std::int64_t>();
+    ASSERT_GT(referenceReinits, 0);
+
+    for (bool nested : {false, true}) {
+        for (bool paramsAreLocal : {false, true}) {
+            SCOPED_TRACE(std::string(nested ? "nested" : "direct") + " call, " + (paramsAreLocal ? "local" : "global") + " parameters");
+            RoadRunner rr(piecewiseFunctionDefinitionSBML(nested, paramsAreLocal));
+            EXPECT_EQ(reference.getModel()->getNumPiecewiseTriggers(), rr.getModel()->getNumPiecewiseTriggers());
+
+            rr.setSelections(std::vector<std::string>{"time", "S"});
+            const ls::DoubleMatrix b = *rr.simulate(0, 10, 11);
+            ASSERT_EQ(a.numRows(), b.numRows());
+            for (unsigned i = 0; i < a.numRows(); i++) {
+                EXPECT_NEAR(a(i, 1), b(i, 1), 1e-14) << "row " << i;
+            }
+            EXPECT_EQ(referenceReinits, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+        }
+    }
+}
+
+// ---- Editing a model that has piecewise functions ----
+
+// The reaction of piecewiseKineticLawSBML(true, true) as a stand-alone element for addReaction.
+static const std::string PiecewiseReactionXML = std::string(R"(<reaction xmlns="http://www.sbml.org/sbml/level3/version2/core" id="R" reversible="false" fast="false">
+  <listOfProducts>
+    <speciesReference species="S" stoichiometry="1" constant="true"/>
+  </listOfProducts>
+  <kineticLaw>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <piecewise>
+        <piece>
+          <ci> k </ci>
+          <apply><lt/>)") + LeafTimeMath + R"(<ci> tsw </ci></apply>
+        </piece>
+        <otherwise><cn> 0 </cn></otherwise>
+      </piecewise>
+    </math>
+    <listOfLocalParameters>
+      <localParameter id="k" value="2"/>
+      <localParameter id="tsw" value="3.3"/>
+    </listOfLocalParameters>
+  </kineticLaw>
+</reaction>)";
+
+// The S column of a simulation from 0 to 10 with 11 points.
+static std::vector<double> simulateSpeciesS(RoadRunner &rr) {
+    rr.setSelections(std::vector<std::string>{"time", "S"});
+    const ls::DoubleMatrix result = *rr.simulate(0, 10, 11);
+    std::vector<double> s;
+    for (unsigned i = 0; i < result.numRows(); i++) {
+        s.push_back(result(i, 1));
+    }
+    return s;
+}
+
+static void expectSameSimulation(const std::vector<double> &expected, const std::vector<double> &actual) {
+    ASSERT_EQ(expected.size(), actual.size());
+    for (size_t i = 0; i < expected.size(); i++) {
+        EXPECT_NEAR(expected[i], actual[i], 1e-14) << "row " << i;
+    }
+}
+
+// Removing the reaction without regenerating leaves the compiled model, with its piecewise triggers,
+// untouched, and it still integrates as before.
+TEST_F(CVODEIntegratorTests, ReactionRemovedWithoutRegeneratingKeepsTheCompiledPiecewiseTriggers) {
+    RoadRunner reference(piecewiseKineticLawSBML(true, true));
+    RoadRunner edited(piecewiseKineticLawSBML(true, true));
+    ASSERT_GT(reference.getModel()->getNumPiecewiseTriggers(), 0);
+
+    edited.removeReaction("R", false, false);
+
+    EXPECT_EQ(reference.getModel()->getNumPiecewiseTriggers(), edited.getModel()->getNumPiecewiseTriggers());
+    expectSameSimulation(simulateSpeciesS(reference), simulateSpeciesS(edited));
+    EXPECT_EQ(leafStatistics(reference)["num_reinits"].getAs<std::int64_t>(),
+              leafStatistics(edited)["num_reinits"].getAs<std::int64_t>());
+}
+
+// Regenerating after the removal drops the piecewise triggers and nothing flows into S.
+TEST_F(CVODEIntegratorTests, ReactionRemovedWithoutRegeneratingHasNoPiecewiseTriggersOnceRegenerated) {
+    RoadRunner rr(piecewiseKineticLawSBML(true, true));
+    rr.removeReaction("R", false, false);
+    simulateSpeciesS(rr);
+
+    rr.regenerateModel();
+    rr.reset();
+
+    EXPECT_EQ(0, rr.getModel()->getNumPiecewiseTriggers());
+    for (double s : simulateSpeciesS(rr)) {
+        EXPECT_EQ(0.0, s);
+    }
+}
+
+TEST_F(CVODEIntegratorTests, ReactionRemovedWithRegeneratingHasNoPiecewiseTriggers) {
+    RoadRunner rr(piecewiseKineticLawSBML(true, true));
+    rr.removeReaction("R");
+
+    EXPECT_EQ(0, rr.getModel()->getNumPiecewiseTriggers());
+    for (double s : simulateSpeciesS(rr)) {
+        EXPECT_EQ(0.0, s);
+    }
+}
+
+// A reaction removed and added back, with its local parameters, is the same model as the original.
+TEST_F(CVODEIntegratorTests, ReactionAddedBackWithLocalParametersHasTheSamePiecewiseTriggers) {
+    RoadRunner reference(piecewiseKineticLawSBML(true, true));
+    const std::vector<double> expected = simulateSpeciesS(reference);
+    const std::int64_t expectedReinits = leafStatistics(reference)["num_reinits"].getAs<std::int64_t>();
+
+    for (bool regenerateWithTheAdd : {true, false}) {
+        SCOPED_TRACE(regenerateWithTheAdd ? "regenerated by addReaction" : "regenerated afterwards");
+        RoadRunner rr(piecewiseKineticLawSBML(true, true));
+        rr.removeReaction("R");
+        rr.addReaction(PiecewiseReactionXML, regenerateWithTheAdd);
+        if (!regenerateWithTheAdd) {
+            rr.regenerateModel();
+        }
+
+        EXPECT_EQ(reference.getModel()->getNumPiecewiseTriggers(), rr.getModel()->getNumPiecewiseTriggers());
+        expectSameSimulation(expected, simulateSpeciesS(rr));
+        EXPECT_EQ(expectedReinits, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+    }
+}
+
+// The same removals when the piecewise is in a function definition.
+TEST_F(CVODEIntegratorTests, ReactionWithAPiecewiseFunctionDefinitionRemovedWithoutRegenerating) {
+    RoadRunner reference(piecewiseFunctionDefinitionSBML(true, true));
+    RoadRunner edited(piecewiseFunctionDefinitionSBML(true, true));
+    ASSERT_GT(reference.getModel()->getNumPiecewiseTriggers(), 0);
+
+    edited.removeReaction("R", false, false);
+
+    EXPECT_EQ(reference.getModel()->getNumPiecewiseTriggers(), edited.getModel()->getNumPiecewiseTriggers());
+    expectSameSimulation(simulateSpeciesS(reference), simulateSpeciesS(edited));
+
+    edited.regenerateModel();
+
+    EXPECT_EQ(0, edited.getModel()->getNumPiecewiseTriggers());
+}
+
+// ---- Piecewise functions whose branch changes within one step, or does not change ----
+
+// MathML of piecewise(v1, c1, v2, c2, ..., otherwise) from (value, condition) pairs of MathML
+static std::string branchPiecewise(const std::vector<std::pair<std::string, std::string>> &pieces, const std::string &otherwise) {
+    std::string math = "<piecewise>";
+    for (const auto &piece : pieces) {
+        math += "<piece>" + piece.first + piece.second + "</piece>";
+    }
+    return math + "<otherwise>" + otherwise + "</otherwise></piecewise>";
+}
+
+// A model with the rate rules S' = rate and X' = 1, the extra parameters, the events and the extra rules.
+static std::string branchRateRuleModel(const std::string &rate, const std::string &extraParameters = "",
+                                       const std::string &events = "", const std::string &extraRules = "") {
+    return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="branches" id="branches">
+    <listOfParameters>
+      <parameter id="S" value="0" constant="false"/>
+      <parameter id="X" value="0" constant="false"/>)") + extraParameters + R"(
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="S"><math xmlns="http://www.w3.org/1998/Math/MathML">)" + rate + R"(</math></rateRule>
+      <rateRule variable="X"><math xmlns="http://www.w3.org/1998/Math/MathML"><cn type="integer"> 1 </cn></math></rateRule>
+)" + extraRules + R"(    </listOfRules>
+)" + (events.empty() ? std::string() : "    <listOfEvents>\n" + events + "    </listOfEvents>\n") + R"(  </model>
+</sbml>)";
+}
+
+// A model with a reaction -> S whose rate is the kinetic law, with the local and global parameters.
+static std::string branchReactionModel(const std::string &rate, const std::string &localParameters,
+                                       const std::string &globalParameters) {
+    return std::string(R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="branchReaction" id="branchReaction">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="C" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+)") + (globalParameters.empty() ? std::string() : "    <listOfParameters>" + globalParameters + "</listOfParameters>\n") + R"(    <listOfReactions>
+      <reaction id="R" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">)" + rate + R"(</math>
+)" + (localParameters.empty() ? std::string() : "          <listOfLocalParameters>" + localParameters + "</listOfLocalParameters>\n") + R"(        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>)";
+}
+
+// The rate is 1 only for 3 < time < 3.01, a window shorter than the steps of CVODE, so S(10) = 0.01.
+// CVODE is reinitialized where the window opens and where it closes.
+TEST_F(CVODEIntegratorTests, PiecewiseWhoseConditionIsTrueOnlyWithinOneStepIsIntegrated) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafWindow("3", "3.01", "time")}}, "<cn> 0 </cn>")));
+    const std::vector<double> s = simulateSpeciesS(rr);
+    EXPECT_NEAR(0.01, s.back(), 1e-6);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// The same window in a variable of the model and not in time.
+TEST_F(CVODEIntegratorTests, PiecewiseWhoseConditionIsTrueOnlyWithinOneStepOfAVariableIsIntegrated) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafWindow("3", "3.01", "X")}}, "<cn> 0 </cn>")));
+    const std::vector<double> s = simulateSpeciesS(rr);
+    EXPECT_NEAR(0.01, s.back(), 1e-6);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// The same window in a kinetic law whose parameters are local or global.
+TEST_F(CVODEIntegratorTests, PiecewiseInAKineticLawWhoseConditionIsTrueOnlyWithinOneStepIsIntegrated) {
+    const std::string window = "<apply><and/><apply><gt/>" + LeafTimeMath + "<ci> a </ci></apply><apply><lt/>" +
+                               LeafTimeMath + "<ci> b </ci></apply></apply>";
+    const std::string rate = branchPiecewise({{"<ci> k </ci>", window}}, "<cn> 0 </cn>");
+    const std::string parameters[] = {R"(<localParameter id="a" value="3"/><localParameter id="b" value="3.01"/><localParameter id="k" value="1"/>)",
+                                      R"(<parameter id="a" value="3" constant="true"/><parameter id="b" value="3.01" constant="true"/><parameter id="k" value="1" constant="true"/>)"};
+    for (bool local : {true, false}) {
+        SCOPED_TRACE(local ? "local parameters" : "global parameters");
+        RoadRunner rr(branchReactionModel(rate, local ? parameters[0] : "", local ? "" : parameters[1]));
+        const std::vector<double> s = simulateSpeciesS(rr);
+        EXPECT_NEAR(0.01, s.back(), 1e-6);
+        EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+    }
+}
+
+// CVODE is reinitialized once at each threshold of a piecewise with sequential thresholds.
+TEST_F(CVODEIntegratorTests, PiecewiseWithSequentialThresholdsReinitializesCVODEOncePerThreshold) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "time", "1")},
+                                                       {"<cn> 2 </cn>", leafRelation("lt", "time", "2")},
+                                                       {"<cn> 3 </cn>", leafRelation("lt", "time", "3")}}, "<cn> 0 </cn>")));
+    const std::vector<double> s = simulateSpeciesS(rr);
+    EXPECT_NEAR(6.0, s.back(), 1e-5);
+    EXPECT_EQ(3, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// The condition time < 3 is true only while time < 5 is, so its change at 3 does not change the branch
+// that is taken.  CVODE is not reinitialized there, and the rows of a variable step simulation are those
+// of the same model without that condition.
+TEST_F(CVODEIntegratorTests, PiecewiseConditionThatChangesWhileAnEarlierOneHoldsAddsNoRowAndNoReinitialization) {
+    RoadRunner masked(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "time", "5")},
+                                                           {"<cn> 2 </cn>", leafRelation("lt", "time", "3")}}, "<cn> 0 </cn>")));
+    RoadRunner without(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "time", "5")}}, "<cn> 0 </cn>")));
+    masked.setSelections(std::vector<std::string>{"time", "S"});
+    without.setSelections(std::vector<std::string>{"time", "S"});
+
+    const ls::DoubleMatrix a = simulateVariableStep(masked, 0, 10);
+    const ls::DoubleMatrix b = simulateVariableStep(without, 0, 10);
+    ASSERT_EQ(b.numRows(), a.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        EXPECT_DOUBLE_EQ(b(i, 0), a(i, 0)) << "row " << i;
+        EXPECT_DOUBLE_EQ(b(i, 1), a(i, 1)) << "row " << i;
+    }
+    EXPECT_NEAR(5.0, a(a.numRows() - 1, 1), 1e-5);
+    EXPECT_EQ(1, leafStatistics(masked)["num_reinits"].getAs<std::int64_t>());
+    EXPECT_EQ(1, leafStatistics(without)["num_reinits"].getAs<std::int64_t>());
+}
+
+// An event changes the branch of the piecewise at 2.5 by an assignment, and the branch goes back at 4.5
+// where time < 4.5 changes.  CVODE is reinitialized at both.
+TEST_F(CVODEIntegratorTests, PiecewiseBranchChangedByAnEventAssignmentIsReinitializedWhereItChangesBack) {
+    const std::string condition = leafLogical("and", {leafRelation("gt", "g", "0"), leafRelation("lt", "time", "4.5")});
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", condition}}, "<cn> 0 </cn>"),
+                                      R"(<parameter id="g" value="0" constant="false"/>)",
+                                      leafEvent("E", leafRelation("gt", "time", "2.5"), "g")));
+    const std::vector<double> s = simulateSpeciesS(rr);
+    EXPECT_NEAR(2.0, s.back(), 1e-5);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// ---- The rows of variable step simulations at roots ----
+
+// the number of rows whose time is within the tolerance of t
+static int rowsAtTime(const ls::DoubleMatrix &result, double t, double tolerance = 1e-9) {
+    int rows = 0;
+    for (unsigned i = 0; i < result.numRows(); i++) {
+        if (fabs(result(i, 0) - t) < tolerance) {
+            rows++;
+        }
+    }
+    return rows;
+}
+
+// the times of the rows within 1e-4 of t, for the message of a failed expectation
+static std::string rowTimesNear(const ls::DoubleMatrix &result, double t) {
+    std::ostringstream times;
+    times.precision(17);
+    for (unsigned i = 0; i < result.numRows(); i++) {
+        if (fabs(result(i, 0) - t) < 1e-4) {
+            times << " " << result(i, 0);
+        }
+    }
+    return times.str();
+}
+
+static void expectTimesIncrease(const ls::DoubleMatrix &result) {
+    for (unsigned i = 1; i < result.numRows(); i++) {
+        EXPECT_GT(result(i, 0), result(i - 1, 0)) << "row " << i;
+    }
+}
+
+// The window of a condition has a row where it opens and a row where it closes, where CVODE is reinitialized.
+// The first steps of CVODE after a reinitialization with S = 0 are tiny, so the rows after the root of the
+// opening are within 1e-9 of it too; the row of the root itself is within 1e-12.
+TEST_F(CVODEIntegratorTests, VariableStepRowsOfAPiecewiseWindowAreAtItsEdges) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafWindow("3", "3.01", "time")}}, "<cn> 0 </cn>")));
+    rr.setSelections(std::vector<std::string>{"time", "S"});
+    const ls::DoubleMatrix result = simulateVariableStep(rr, 0, 10);
+
+    EXPECT_GE(rowsAtTime(result, 3, 1e-12), 1) << "rows near 3:" << rowTimesNear(result, 3);
+    EXPECT_GE(rowsAtTime(result, 3.01, 1e-12), 1) << "rows near 3.01:" << rowTimesNear(result, 3.01);
+    expectTimesIncrease(result);
+    EXPECT_NEAR(0.01, result(result.numRows() - 1, 1), 1e-6);
+}
+
+// A piecewise with sequential thresholds has one row at each of them.
+TEST_F(CVODEIntegratorTests, VariableStepRowsOfAPiecewiseWithSequentialThresholdsAreAtTheThresholds) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "time", "1")},
+                                                       {"<cn> 2 </cn>", leafRelation("lt", "time", "2")},
+                                                       {"<cn> 3 </cn>", leafRelation("lt", "time", "3")}}, "<cn> 0 </cn>")));
+    rr.setSelections(std::vector<std::string>{"time", "S"});
+    const ls::DoubleMatrix result = simulateVariableStep(rr, 0, 10);
+
+    for (double threshold : {1.0, 2.0, 3.0}) {
+        EXPECT_EQ(1, rowsAtTime(result, threshold)) << "threshold " << threshold << ", rows near it:" << rowTimesNear(result, threshold);
+    }
+    expectTimesIncrease(result);
+}
+
+// X < 2.5 changes at 2.5, after time < 1 has made the condition false, so it changes nothing: the rows
+// are those of the same model without that comparison.
+TEST_F(CVODEIntegratorTests, VariableStepRowsOfACompoundPiecewiseConditionExcludeTheMaskedComparison) {
+    const std::string compound = leafLogical("and", {leafRelation("lt", "time", "1"), leafRelation("lt", "X", "2.5")});
+    RoadRunner masked(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", compound}}, "<cn> 0 </cn>")));
+    RoadRunner without(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "time", "1")}}, "<cn> 0 </cn>")));
+    masked.setSelections(std::vector<std::string>{"time", "X", "S"});
+    without.setSelections(std::vector<std::string>{"time", "X", "S"});
+
+    const ls::DoubleMatrix a = simulateVariableStep(masked, 0, 10);
+    const ls::DoubleMatrix b = simulateVariableStep(without, 0, 10);
+    ASSERT_EQ(b.numRows(), a.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        for (unsigned j = 0; j < 3; j++) {
+            EXPECT_DOUBLE_EQ(b(i, j), a(i, j)) << "row " << i << ", column " << j;
+        }
+    }
+    EXPECT_EQ(1, leafStatistics(masked)["num_reinits"].getAs<std::int64_t>());
+    EXPECT_EQ(1, leafStatistics(without)["num_reinits"].getAs<std::int64_t>());
+}
+
+// X > 0.5 becomes true after the trigger X > 0.3 or X > 0.5 has, so it changes nothing: the rows are
+// those of the event with the trigger X > 0.3.
+TEST_F(CVODEIntegratorTests, VariableStepRowsOfAnOrTriggerExcludeTheMaskedComparison) {
+    const std::string orTrigger = leafLogical("or", {leafRelation("gt", "X", "0.3"), leafRelation("gt", "X", "0.5")});
+    RoadRunner masked(leafModelSBML(leafEvent("E", orTrigger)));
+    RoadRunner without(leafModelSBML(leafEvent("E", leafRelation("gt", "X", "0.3"))));
+    ASSERT_EQ(2, masked.getModel()->getNumBooleanLeaves());
+    masked.setSelections(std::vector<std::string>{"time", "X", "n"});
+    without.setSelections(std::vector<std::string>{"time", "X", "n"});
+
+    const ls::DoubleMatrix a = simulateVariableStep(masked, 0, 10);
+    const ls::DoubleMatrix b = simulateVariableStep(without, 0, 10);
+    ASSERT_EQ(b.numRows(), a.numRows());
+    for (unsigned i = 0; i < a.numRows(); i++) {
+        for (unsigned j = 0; j < 3; j++) {
+            EXPECT_DOUBLE_EQ(b(i, j), a(i, j)) << "row " << i << ", column " << j;
+        }
+    }
+    EXPECT_EQ(1, leafStatistics(masked)["num_reinits"].getAs<std::int64_t>());
+    EXPECT_EQ(1, leafStatistics(without)["num_reinits"].getAs<std::int64_t>());
+}
+
+// ---- A leaf shared by several events and piecewise functions ----
+
+static const std::string CounterParameters = R"(<parameter id="n" value="0" constant="false"/><parameter id="m" value="0" constant="false"/>)";
+
+// the final row of a simulation to time 10 with the selections
+static std::vector<double> sharedLeafFinalRow(RoadRunner &rr, const std::vector<std::string> &selections) {
+    rr.setSelections(selections);
+    const ls::DoubleMatrix result = *rr.simulate(0, 10, 11);
+    std::vector<double> row;
+    for (unsigned j = 0; j < result.numCols(); j++) {
+        row.push_back(result(result.numRows() - 1, j));
+    }
+    return row;
+}
+
+// X > 3 is a leaf of both triggers.  Both events fire at its root, which reinitializes CVODE once.  The
+// triggers go false later at roots that change nothing.
+TEST_F(CVODEIntegratorTests, LeafSharedByTwoEventsIsOneRootAndOneReinitialization) {
+    const std::string first = leafEvent("E1", leafWindow("3", "3.01"), "n");
+    const std::string second = leafEvent("E2", leafWindow("3", "5"), "m");
+    RoadRunner rr(branchRateRuleModel("<cn> 0 </cn>", CounterParameters, first + second));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+
+    const std::vector<double> row = sharedLeafFinalRow(rr, {"time", "S", "n", "m"});
+    EXPECT_EQ(1, row[2]);
+    EXPECT_EQ(1, row[3]);
+    EXPECT_EQ(1, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// time > 3 is a leaf of both piecewise functions.  Their branches change at it together, with one
+// reinitialization; each of the other leaves changes the branch of one of them.
+TEST_F(CVODEIntegratorTests, LeafSharedByTwoPiecewiseFunctionsIsOneRootAndOneReinitializationWhereTheyChange) {
+    const std::string tRule = R"(      <rateRule variable="T"><math xmlns="http://www.w3.org/1998/Math/MathML">)" +
+                              branchPiecewise({{"<cn> 2 </cn>", leafWindow("3", "5", "time")}}, "<cn> 0 </cn>") +
+                              "</math></rateRule>\n";
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafWindow("3", "3.01", "time")}}, "<cn> 0 </cn>"),
+                                      R"(<parameter id="T" value="0" constant="false"/>)", "", tRule));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+
+    const std::vector<double> row = sharedLeafFinalRow(rr, {"time", "S", "T"});
+    EXPECT_NEAR(0.01, row[1], 1e-6);
+    EXPECT_NEAR(4.0, row[2], 1e-5);
+    EXPECT_EQ(3, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// X > 3 is a leaf of the trigger and of the condition.  The event fires and the branch changes at the same
+// root, which reinitializes CVODE once.  The trigger goes false at a root that changes nothing.
+TEST_F(CVODEIntegratorTests, LeafSharedByAnEventAndAPiecewiseFunctionReinitializesCVODEOnce) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafWindow("3", "5")}}, "<cn> 0 </cn>"),
+                                      CounterParameters, leafEvent("E", leafWindow("3", "3.01"), "n")));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+
+    const std::vector<double> row = sharedLeafFinalRow(rr, {"time", "S", "n"});
+    EXPECT_NEAR(2.0, row[1], 1e-5);
+    EXPECT_EQ(1, row[2]);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// X < 3 is a leaf of both.  Where it changes, the event trigger goes false, which changes nothing, and
+// the piecewise function takes another branch, which needs CVODE to be reinitialized.
+TEST_F(CVODEIntegratorTests, RootWhereAnEventNeedsNothingButAPiecewiseFunctionDoesReinitializesCVODE) {
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", leafRelation("lt", "X", "3")}}, "<cn> 0 </cn>"),
+                                      CounterParameters, leafEvent("E", leafWindow("1", "3"), "n")));
+    EXPECT_EQ(2, rr.getModel()->getNumBooleanLeaves());
+
+    const std::vector<double> row = sharedLeafFinalRow(rr, {"time", "S", "n"});
+    EXPECT_NEAR(3.0, row[1], 1e-5);
+    EXPECT_EQ(1, row[2]);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// X > 3 is a leaf of the trigger and of a condition that X > 2 has made true already.  Where it changes,
+// the branch does not, and the event fires, which needs CVODE to be reinitialized.
+TEST_F(CVODEIntegratorTests, RootWhereAPiecewiseFunctionNeedsNothingButAnEventDoesReinitializesCVODE) {
+    const std::string condition = leafLogical("or", {leafRelation("gt", "X", "2"), leafRelation("gt", "X", "3")});
+    RoadRunner rr(branchRateRuleModel(branchPiecewise({{"<cn> 1 </cn>", condition}}, "<cn> 0 </cn>"),
+                                      CounterParameters, leafEvent("E", leafWindow("3", "3.01"), "n")));
+    EXPECT_EQ(3, rr.getModel()->getNumBooleanLeaves());
+
+    const std::vector<double> row = sharedLeafFinalRow(rr, {"time", "S", "n"});
+    EXPECT_NEAR(8.0, row[1], 1e-5);
+    EXPECT_EQ(1, row[2]);
+    EXPECT_EQ(2, leafStatistics(rr)["num_reinits"].getAs<std::int64_t>());
+}
+
+// ---- Triggers that are true at a single instant ----
+// The event adds one to n when the trigger of time == 3 or of time <= 3 && time >= 3 becomes true.  The
+// trigger is true for an instant only, so no step of CVODE ends where it is true unless it ends at 3.
+
+// Counts of n at time 10 of simulations whose output times do not include 3, and of a variable step simulation.
+static void checkEventsOfSingleInstantTrigger(const std::string &trigger, double expectedCount) {
+    RoadRunner rr(leafModelSBML(leafEvent("E", trigger)));
+    rr.setSelections(std::vector<std::string>{"time", "n"});
+    std::cout << "boolean leaves: " << rr.getModel()->getNumBooleanLeaves() << std::endl;
+
+    rr.getIntegrator()->setValue("variable_step_size", false);
+    for (int points : {8, 14, 1000}) {
+        SCOPED_TRACE("fixed step with " + std::to_string(points) + " output points");
+        resetAllValues(rr);
+        std::vector<double> times;
+        for (int i = 0; i < points; i++) {
+            times.push_back(10.0 * i / (points - 1));
+        }
+        const ls::DoubleMatrix result = *rr.simulate(times);
+        std::cout << points << " output points: n = " << result(points - 1, 1) << std::endl;
+        EXPECT_EQ(expectedCount, result(points - 1, 1));
+    }
+
+    for (double maximumTimeStep : {0.0, 1.0, 0.1}) {
+        SCOPED_TRACE("variable step with a maximum time step of " + std::to_string(maximumTimeStep));
+        resetAllValues(rr);
+        rr.getIntegrator()->setValue("maximum_time_step", maximumTimeStep);
+        const ls::DoubleMatrix result = simulateVariableStep(rr, 0, 10);
+        std::cout << "maximum time step " << maximumTimeStep << ": n = " << result(result.numRows() - 1, 1)
+                  << ", rows = " << result.numRows()
+                  << ", reinits = " << leafStatistics(rr)["num_reinits"].getAs<std::int64_t>() << std::endl;
+        EXPECT_EQ(expectedCount, result(result.numRows() - 1, 1));
+    }
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsTimeEqualToAConstantFiresOnce) {
+    checkEventsOfSingleInstantTrigger(leafRelation("eq", "time", "3"), 1);
+}
+
+TEST_F(CVODEIntegratorTests, EventWhoseTriggerIsTimeAtMostAndAtLeastAConstantFiresOnce) {
+    checkEventsOfSingleInstantTrigger(
+        leafLogical("and", {leafRelation("leq", "time", "3"), leafRelation("geq", "time", "3")}), 1);
 }

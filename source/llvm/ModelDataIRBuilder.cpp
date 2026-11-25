@@ -662,6 +662,7 @@ llvm::StructType *ModelDataIRBuilder::createModelDataStructType(llvm::Module *mo
         elements.push_back(voidPtrType);      // 14     void*                    random;
         elements.push_back(int32Type);        // 15     int                      numEvents;
         elements.push_back(int32Type);        // 16     int                      numPiecewiseTriggers;
+        elements.push_back(int32Type);        // 16a    int                      numBooleanLeaves;
         elements.push_back(int32Type);        // 17     int                      stateVectorSize;
         elements.push_back(doublePtrType);    // 18     double*                  stateVector;
         elements.push_back(doublePtrType);    // 19     double*                  stateVectorRate;

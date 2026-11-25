@@ -238,6 +238,7 @@ if (BUILD_LLVM)
             llvm/EventQueue.cpp
             llvm/EventTriggerCodeGen.cpp
             llvm/FunctionResolver.cpp
+            llvm/GetBooleanLeafCodeGen.cpp
             llvm/GetEventValuesCodeGen.cpp
             llvm/GetInitialValuesCodeGen.cpp
             llvm/GetPiecewiseTriggerCodeGen.cpp
@@ -286,6 +287,7 @@ if (BUILD_LLVM)
             llvm/EventQueue.h
             llvm/EventTriggerCodeGen.h
             llvm/FunctionResolver.h
+            llvm/GetBooleanLeafCodeGen.h
             llvm/GetEventValuesCodeGen.h
             llvm/GetInitialValueCodeGenBase.h
             llvm/GetInitialValuesCodeGen.h

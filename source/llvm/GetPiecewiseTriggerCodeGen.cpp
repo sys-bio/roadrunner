@@ -5,6 +5,7 @@
 #include "GetPiecewiseTriggerCodeGen.h"
 #include "LLVMException.h"
 #include "ModelDataSymbolResolver.h"
+#include "KineticLawParameterResolver.h"
 #include "rrLogger.h"
 
 #include <Poco/Logger.h>
@@ -47,9 +48,7 @@ namespace rrllvm
 
         ModelDataLoadSymbolResolver resolver(args[0], this->modelGenContext);
 
-        ASTNodeCodeGen astCodeGen(this->builder, resolver, this->modelGenContext, args[0]);
-
-        // default, return NaN
+        // default, return -1
         llvm::BasicBlock* def = llvm::BasicBlock::Create(this->context, "default", this->function);
         this->builder.SetInsertPoint(def);
 
@@ -70,7 +69,17 @@ namespace rrllvm
             this->builder.SetInsertPoint(block);
             resolver.flushCache();
 
-            llvm::Value* value = astCodeGen.codeGenBoolean((*piecewiseTriggers)[i]);
+            // A trigger from a kinetic law may use the local parameters of that law.
+            LoadSymbolResolver* triggerResolver = &resolver;
+            std::unique_ptr<KineticLawParameterResolver> kineticLawResolver;
+            const libsbml::KineticLaw* kineticLaw = this->modelGenContext.getPiecewiseTriggerKineticLaw(i);
+            if (kineticLaw != NULL) {
+                kineticLawResolver.reset(new KineticLawParameterResolver(resolver, *kineticLaw, this->builder));
+                triggerResolver = kineticLawResolver.get();
+            }
+            ASTNodeCodeGen astCodeGen(this->builder, *triggerResolver, this->modelGenContext, args[0]);
+
+            llvm::Value* value = astCodeGen.codeGenDouble((*piecewiseTriggers)[i]);
 
             // convert type to return type
             value = createRet(value);
@@ -84,18 +93,18 @@ namespace rrllvm
 
     llvm::Type* GetPiecewiseTriggerCodeGen::getRetType()
     {
-        return llvm::Type::getInt8Ty(context);
+        return llvm::Type::getInt32Ty(context);
     };
 
     llvm::Value* GetPiecewiseTriggerCodeGen::createRet(llvm::Value* value)
     {
         if (!value)
         {
-            return llvm::ConstantInt::get(getRetType(), 0xff, false);
+            return llvm::ConstantInt::getSigned(getRetType(), -1);
         }
         else
         {
-            return builder.CreateIntCast(value, getRetType(), false);
+            return builder.CreateFPToSI(value, getRetType());
         }
     }
 

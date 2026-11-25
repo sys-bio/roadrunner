@@ -183,6 +183,7 @@ LLVMExecutableModel::LLVMExecutableModel() :
     eventTriggerPtr(0),
     eventAssignPtr(0),
     getPiecewiseTriggerPtr(0),
+    getBooleanLeafPtr(0),
     evalVolatileStoichPtr(0),
     resetRateRuleStoichPtr(0),
     evalConversionFactorPtr(0),
@@ -231,6 +232,7 @@ LLVMExecutableModel::LLVMExecutableModel(
     eventTriggerPtr(modelResources->eventTriggerPtr),
     eventAssignPtr(modelResources->eventAssignPtr),
     getPiecewiseTriggerPtr(modelResources->getPiecewiseTriggerPtr),
+    getBooleanLeafPtr(modelResources->getBooleanLeafPtr),
     evalVolatileStoichPtr(modelResources->evalVolatileStoichPtr),
     resetRateRuleStoichPtr(modelResources->resetRateRuleStoichPtr),
     evalConversionFactorPtr(modelResources->evalConversionFactorPtr),
@@ -280,6 +282,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     resources->loadState(in, modelGeneratorOpt);
     // the resources of a loaded model have the piecewise trigger count of its model data
     resources->numPiecewiseTriggers = modelData->numPiecewiseTriggers;
+    resources->numBooleanLeaves = modelData->numBooleanLeaves;
 
     symbols = resources->symbols;
     eventListeners = std::vector<EventListenerPtr>(modelData->numEvents, EventListenerPtr());
@@ -301,6 +304,7 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     eventTriggerPtr = resources->eventTriggerPtr;
     eventAssignPtr = resources->eventAssignPtr;
     getPiecewiseTriggerPtr = resources->getPiecewiseTriggerPtr;
+    getBooleanLeafPtr = resources->getBooleanLeafPtr;
     evalVolatileStoichPtr = resources->evalVolatileStoichPtr;
     resetRateRuleStoichPtr = resources->resetRateRuleStoichPtr;
     evalConversionFactorPtr = resources->evalConversionFactorPtr;
@@ -2121,6 +2125,11 @@ int LLVMExecutableModel::getNumPiecewiseTriggers()
     return modelData->numPiecewiseTriggers;
 }
 
+int LLVMExecutableModel::getNumBooleanLeaves()
+{
+    return modelData->numBooleanLeaves;
+}
+
 void LLVMExecutableModel::getAssignmentRuleIds(std::list<std::string>& out)
 {
     std::vector<std::string> arIds = symbols->getAssignmentRuleIds();
@@ -2964,7 +2973,33 @@ void  LLVMExecutableModel::getPiecewiseTriggerRoots(double time, const double* y
 
     for (uint i = 0; i < modelData->numPiecewiseTriggers; ++i)
     {
-        unsigned char triggered = getPiecewiseTriggerPtr(modelData, i);
+        gdot[i] = getPiecewiseTriggerPtr(modelData, i);
+    }
+
+    modelData->rateRuleValuesAlias = savedRateRules;
+    modelData->floatingSpeciesAmountsAlias = savedFloatingSpeciesAmounts;
+
+    return;
+}
+
+void  LLVMExecutableModel::getBooleanLeafRoots(double time, const double* y, double* gdot)
+{
+    modelData->time = time;
+
+    double* savedRateRules = modelData->rateRuleValuesAlias;
+    double* savedFloatingSpeciesAmounts = modelData->floatingSpeciesAmountsAlias;
+
+    if (y)
+    {
+        modelData->rateRuleValuesAlias = const_cast<double*>(y);
+        modelData->floatingSpeciesAmountsAlias = const_cast<double*>(y + modelData->numRateRules);
+
+        evalVolatileStoichPtr(modelData);
+    }
+
+    for (uint i = 0; i < modelData->numBooleanLeaves; ++i)
+    {
+        unsigned char triggered = getBooleanLeafPtr(modelData, i);
 
         gdot[i] = triggered ? 1.0 : -1.0;
     }

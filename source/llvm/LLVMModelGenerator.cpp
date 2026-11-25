@@ -121,6 +121,7 @@ namespace rrllvm {
         dst->eventTriggerPtr = src->eventTriggerPtr;
         dst->eventAssignPtr = src->eventAssignPtr;
         dst->getPiecewiseTriggerPtr = src->getPiecewiseTriggerPtr;
+        dst->getBooleanLeafPtr = src->getBooleanLeafPtr;
         dst->evalVolatileStoichPtr = src->evalVolatileStoichPtr;
         dst->resetRateRuleStoichPtr = src->resetRateRuleStoichPtr;
         dst->evalConversionFactorPtr = src->evalConversionFactorPtr;
@@ -142,6 +143,7 @@ namespace rrllvm {
         EventTriggerCodeGen(context).createFunction();
         EventAssignCodeGen(context).createFunction();
         GetPiecewiseTriggerCodeGen(context).createFunction();
+        GetBooleanLeafCodeGen(context).createFunction();
         EvalVolatileStoichCodeGen(context).createFunction();
         ResetRateRuleStoichCodeGen(context).createFunction();
         EvalConversionFactorCodeGen(context).createFunction();
@@ -263,6 +265,7 @@ namespace rrllvm {
 
         // models made later from these resources (see createModel) need the same number
         modelResources->numPiecewiseTriggers = modelGeneratorContext->getNumPiecewiseTriggers();
+        modelResources->numBooleanLeaves = modelGeneratorContext->getNumBooleanLeaves();
 
         {
             auto start = std::chrono::steady_clock::now();
@@ -278,7 +281,7 @@ namespace rrllvm {
         }
 
         LLVMModelData* modelData = createModelData(modelGeneratorContext->getModelDataSymbols(),
-            modelGeneratorContext->getRandom(), modelResources->numPiecewiseTriggers);
+            modelGeneratorContext->getRandom(), modelResources->numPiecewiseTriggers, modelResources->numBooleanLeaves);
 
         uint llvmsize = ModelDataIRBuilder::getModelDataSize(
             modelGeneratorContext->getJitNonOwning()->getModuleNonOwning(),
@@ -494,7 +497,7 @@ namespace rrllvm {
 
             if (sp) {
                 rrLog(Logger::LOG_DEBUG) << "found a cached model for \"" << sbmlMD5 << "\"";
-                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random, sp->numPiecewiseTriggers));
+                return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random, sp->numPiecewiseTriggers, sp->numBooleanLeaves));
             }
             else {
                 rrLog(Logger::LOG_DEBUG) << "no cached model found for " << sbmlMD5
@@ -586,7 +589,7 @@ namespace rrllvm {
         return str;
     }
 
-    LLVMModelData* createModelData(const rrllvm::LLVMModelDataSymbols& symbols, const Random* random, uint numPiecewiseTriggers) {
+    LLVMModelData* createModelData(const rrllvm::LLVMModelDataSymbols& symbols, const Random* random, uint numPiecewiseTriggers, uint numBooleanLeaves) {
         uint modelDataBaseSize = sizeof(LLVMModelData);
 
         uint numIndCompartments = static_cast<uint>(symbols.getIndependentCompartmentSize());
@@ -639,6 +642,7 @@ namespace rrllvm {
         modelData->numMultiSpeciesReferences = numMultiSpeciesReferences;
         modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
         modelData->numPiecewiseTriggers = numPiecewiseTriggers;
+        modelData->numBooleanLeaves = numBooleanLeaves;
 
         // set the aliases to the offsets
         uint offset = 0;

@@ -643,6 +643,14 @@ namespace rr {
         }
 
         setCVODETolerances();
+        savePiecewiseBranches(t0);
+    }
+
+    void CVODEIntegrator::savePiecewiseBranches(double t) {
+        piecewiseBranches.resize(mModel->getNumPiecewiseTriggers());
+        if (!piecewiseBranches.empty()) {
+            mModel->getPiecewiseTriggerRoots(t, nullptr, &piecewiseBranches[0]);
+        }
     }
 
     double CVODEIntegrator::integrate(double timeStart, double hstep) {
@@ -736,8 +744,64 @@ namespace rr {
             return false;
         };
 
+        // True when CVODE stopped at roots of event triggers, or of the relational leaves of event triggers and
+        // piecewise conditions, and nothing in the model changes there: no event is triggered, no event
+        // assignment is due, no trigger that a queued event depends on goes false, and no piecewise function
+        // takes another branch.  The model is left at the root.
+        auto rootChangesNothing = [&](double t) -> bool {
+            const int numEvents = mModel->getNumEvents();
+            const int numRoots = numEvents + mModel->getNumBooleanLeaves();
+            if (!mCVODE_Memory || numRoots == 0) {
+                return false;
+            }
+            std::vector<int> rootsFound(numRoots, 0);
+            if (CVodeGetRootInfo(mCVODE_Memory, &rootsFound[0]) != CV_SUCCESS) {
+                return false;
+            }
+            bool rootFound = false;
+            for (int i = 0; i < numRoots; i++) {
+                rootFound = rootFound || rootsFound[i] != 0;
+            }
+            if (!rootFound) {
+                return false;
+            }
+
+            assignResultsToModel();
+            mModel->setTime(t);
+
+            // the rates change where a piecewise function takes another branch
+            std::vector<double> branches(piecewiseBranches.size());
+            if (!branches.empty()) {
+                mModel->getPiecewiseTriggerRoots(t, nullptr, &branches[0]);
+            }
+            if (branches != piecewiseBranches) {
+                piecewiseBranches = branches;
+                return false;
+            }
+
+            unsigned char *previousStatus = eventStatus.empty() ? nullptr : &eventStatus[0];
+            std::vector<unsigned char> triggers(eventStatus.size());
+            mModel->getEventTriggers(triggers.size(), nullptr, triggers.empty() ? nullptr : &triggers[0]);
+            bool triggerWentFalse = false;
+            for (size_t i = 0; i < triggers.size(); i++) {
+                if (triggers[i] && !eventStatus[i]) {
+                    return false;
+                }
+                triggerWentFalse = triggerWentFalse || (!triggers[i] && eventStatus[i]);
+            }
+            if (triggerWentFalse && mModel->getPendingEventSize() > 0) {
+                return false;
+            }
+            return !mModel->eventAssignmentDue(t, previousStatus);
+        };
+
+        // set when a root found by CVODE changed nothing, so that the loop steps on without returning
+        bool skippedLeafRoot = false;
+
         // loop until machine epislon
-        while (tout - timeEnd >= epsilon) {
+        while (skippedLeafRoot || tout - timeEnd >= epsilon) {
+            skippedLeafRoot = false;
+
             // here we bail in case we have no ODEs set up with CVODE ... though we should
             // still at least evaluate the model function
             if (!haveVariables() && mModel->getNumEvents() == 0) {
@@ -787,6 +851,12 @@ namespace rr {
                     assignResultsToModel();
                     mModel->setTime(timeEnd);
                     return timeEnd;
+                }
+
+                // CVODE is not reinitialized at such a root, and the next step of it continues from the root.
+                if (rootChangesNothing(timeEnd)) {
+                    skippedLeafRoot = true;
+                    continue;
                 }
 
                 bool tooCloseToStart = fabs(timeEnd - mLastEventTime) > relTol;
@@ -1021,8 +1091,10 @@ namespace rr {
             handleCVODEError(err);
         }
 
-        if (mModel->getNumEvents() + mModel->getNumPiecewiseTriggers() > 0) {
-            if ((err = CVodeRootInit(mCVODE_Memory, mModel->getNumEvents() + mModel->getNumPiecewiseTriggers(),
+        savePiecewiseBranches(mModel->getTime());
+
+        if (mModel->getNumEvents() + mModel->getNumBooleanLeaves() > 0) {
+            if ((err = CVodeRootInit(mCVODE_Memory, mModel->getNumEvents() + mModel->getNumBooleanLeaves(),
                                      cvodeEventAndPiecewiseRootFcn)) != CV_SUCCESS) {
                 handleCVODEError(err);
             }
@@ -1153,6 +1225,9 @@ namespace rr {
 
             // set tolerances and so forth.
             reInit(timeEnd);
+        }
+        else {
+            savePiecewiseBranches(timeEnd);
         }
     }
 
@@ -1500,8 +1575,8 @@ namespace rr {
             model->getEventRoots(time, y, gout);
         }
 
-        if (model->getNumPiecewiseTriggers() > 0) {
-            model->getPiecewiseTriggerRoots(time, y, gout + model->getNumEvents());
+        if (model->getNumBooleanLeaves() > 0) {
+            model->getBooleanLeafRoots(time, y, gout + model->getNumEvents());
         }
 
         return CV_SUCCESS;
