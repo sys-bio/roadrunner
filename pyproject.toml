@@ -1,0 +1,38 @@
+[tool.ty.environment]
+python-version = "3.10"
+extra-paths = ["wrappers/Python"]
+
+[tool.ty.src]
+include = [
+    "wrappers/Python/roadrunner/*.pyi",
+    "wrappers/Python/roadrunner/named_array.py",
+    "wrappers/Python/roadrunner/stochastic/*.pyi",
+    "test/typing/*.py",
+]
+
+[tool.ty.rules]
+unused-ignore-comment = "error"
+
+[tool.ruff]
+target-version = "py310"
+include = [
+    "pyproject.toml",
+    "wrappers/Python/roadrunner/*.pyi",
+    "wrappers/Python/roadrunner/named_array.py",
+    "wrappers/Python/roadrunner/stochastic/*.pyi",
+    "test/typing/*.py",
+]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "ANN", "PYI"]
+ignore = [
+    "PYI021", # Module docstrings explain the native type mappings.
+    "PYI029", # Explicit native methods are checked against the generated API.
+]
+
+[tool.ruff.lint.per-file-ignores]
+# NumPy's scalar/array indexing boundary requires Any.
+"wrappers/Python/roadrunner/named_array.py" = ["ANN401"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true

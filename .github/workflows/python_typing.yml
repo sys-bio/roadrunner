@@ -1,0 +1,42 @@
+name: Python typing
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  typing:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        include:
+          - python: '3.10'
+            numpy: 'numpy==1.26.4'
+          - python: '3.13'
+            numpy: numpy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install checking tools
+        run: |
+          uv venv --python '${{ matrix.python }}'
+          uv pip install '${{ matrix.numpy }}' pytest ruff 'swig>=4.4.1' ty typing-extensions
+      - name: Generate the SWIG interface and check stub coverage
+        run: |
+          mkdir -p "$RUNNER_TEMP/rr-swig"
+          cp source/rrVersionInfo.h.in "$RUNNER_TEMP/rr-swig/rrVersionInfo.h"
+          .venv/bin/swig -c++ -python -threads -doxygen -keyword -w511 \
+            -I"$RUNNER_TEMP/rr-swig" -Isource -Iwrappers/Python/include -Iwrappers/Python/roadrunner \
+            -o "$RUNNER_TEMP/rr-swig/roadrunner_wrap.cxx" wrappers/Python/roadrunner/roadrunner.i
+          .venv/bin/python test/typing/check_swig_coverage.py "$RUNNER_TEMP/rr-swig/roadrunner.py" \
+            --package-stub wrappers/Python/roadrunner/__init__.pyi
+      - name: Check the stubs and downstream calls
+        run: |
+          .venv/bin/ty check
+          .venv/bin/ruff check
+          .venv/bin/ruff format --check
+      - name: Exercise NamedArray at runtime
+        run: .venv/bin/python -m pytest -q test/python/test_named_array_module.py
