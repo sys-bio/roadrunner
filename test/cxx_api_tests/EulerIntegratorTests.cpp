@@ -130,3 +130,32 @@ TEST_F(EulerIntegratorTests, StatisticsCountTheStepsAndRateEvaluations) {
     rr.simulate(0, 10, 11);
     ASSERT_EQ(10, rr.getIntegrator()->getStatistics()["num_steps"].getAs<std::int64_t>());
 }
+
+// dS/dt = time with S(0) = 0, so the exact S(10) is 50.
+static const std::string TimeRateSBML = R"(<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"><model id="time_rate">
+ <listOfParameters><parameter id="S" value="0" constant="false"/></listOfParameters>
+ <listOfRules>
+  <rateRule variable="S">
+   <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+   </math>
+  </rateRule>
+ </listOfRules>
+</model></sbml>)";
+
+// One outer step of length 10 split into n forward Euler sub-steps of
+// h = 10 / n, with rates evaluated at the start of each sub-step, gives
+// S = h * sum_{i<n} (i * h) = 50 * (1 - 1 / n).
+TEST_F(EulerIntegratorTests, SubdivisionStepsAdvanceTimeBetweenSubsteps) {
+    for (int n : {1, 10, 100}) {
+        RoadRunner rr(TimeRateSBML);
+        rr.setIntegrator("euler");
+        rr.getIntegrator()->setValue("subdivision_steps", n);
+        rr.simulate(0, 10, 2);
+        EXPECT_NEAR(50.0 * (1.0 - 1.0 / n), rr.getValue("S"), 1e-8)
+            << "subdivision_steps = " << n;
+        EXPECT_NEAR(10.0, rr.getValue("time"), 1e-9)
+            << "subdivision_steps = " << n;
+    }
+}
