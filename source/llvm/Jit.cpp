@@ -133,6 +133,8 @@ namespace rrllvm {
                 "eventAssign"));
         modelResources->getPiecewiseTriggerPtr = reinterpret_cast<GetPiecewiseTriggerCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "getPiecewiseTrigger"));
+        modelResources->getBooleanLeafPtr = reinterpret_cast<GetBooleanLeafCodeGen::FunctionPtr>(lookupFunctionAddress(
+                "getBooleanLeaf"));
         modelResources->evalVolatileStoichPtr = reinterpret_cast<EvalVolatileStoichCodeGen::FunctionPtr>(lookupFunctionAddress(
                 "evalVolatileStoich"));
         modelResources->resetRateRuleStoichPtr = reinterpret_cast<ResetRateRuleStoichCodeGen::FunctionPtr>(lookupFunctionAddress(

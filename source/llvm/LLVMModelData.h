@@ -120,6 +120,9 @@ struct LLVMModelData
     //Piecewise triggers that get treated like events for rootfinding purposes.
     unsigned                            numPiecewiseTriggers;             // 16
 
+    //Event trigger leaves that get treated like events for rootfinding purposes.
+    unsigned                            numBooleanLeaves;             // 16a
+
     /**
      * number of items in the state std::vector.
      * should be numIndFloatingSpecies + numRateRules

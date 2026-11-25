@@ -407,6 +407,14 @@ namespace rr {
         std::vector<double> variableStepPostEventState;
         std::vector<unsigned char> eventStatus;
 
+        /**
+         * The index of the branch that each piecewise function of the model took when CVODE was last
+         * (re)initialized, which is when it takes the signs of its roots.
+         */
+        std::vector<double> piecewiseBranches;
+
+        void savePiecewiseBranches(double t);
+
         void testRootsAtInitialTime();
 
         bool haveVariables() const;

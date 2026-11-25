@@ -63,6 +63,7 @@ namespace rrllvm
         EventTriggerCodeGen::FunctionPtr eventTriggerPtr;
         EventAssignCodeGen::FunctionPtr eventAssignPtr;
         GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
+        GetBooleanLeafCodeGen::FunctionPtr getBooleanLeafPtr;
         EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
         ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
         EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;
@@ -107,6 +108,9 @@ namespace rrllvm
 
         // number of piecewise triggers, needed to create the model data of a model made from these resources
         size_t numPiecewiseTriggers = 0;
+
+        // number of boolean leaves, needed to create the model data of a model made from these resources
+        size_t numBooleanLeaves = 0;
 
         // the sparsity pattern and coloring of the Jacobian of the state vector rate
         JacobianStructure jacobianStructure;

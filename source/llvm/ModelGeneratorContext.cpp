@@ -31,7 +31,7 @@
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
 
 #include <sbml/math/ASTNodeType.h>
-#include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
+#include <sbml/math/FormulaFormatter.h>
 
 
 #include "llvm/ExecutionEngine/ExecutionEngine.h"
@@ -47,7 +47,9 @@
 
 #include <sbml/SBMLReader.h>
 #include <memory>
+#include <set>
 #include <string>
+#include <utility>
 #include <vector>
 #include <math.h>
 #include <memory>
@@ -107,6 +109,7 @@ namespace rrllvm {
             ownedDoc(nullptr),
             doc(nullptr),
             mPiecewiseTriggers(),
+            mBooleanLeaves(),
             symbols(nullptr),
             options(options),
             random(nullptr),
@@ -161,6 +164,8 @@ namespace rrllvm {
 
             model = doc->getModel();
 
+            addAllBooleanLeaves(model);
+
             addAllPiecewiseTriggers(model);
 
             symbols = new LLVMModelDataSymbols(doc->getModel(), options);
@@ -210,6 +215,7 @@ namespace rrllvm {
         : ownedDoc(createEmptyDocument())
         , doc(ownedDoc)
         , mPiecewiseTriggers()
+        , mBooleanLeaves()
         , symbols(new LLVMModelDataSymbols(doc->getModel(), 0))
         , modelSymbols(new LLVMModelSymbols(doc->getModel(), *symbols))
         , model(doc->getModel())
@@ -233,157 +239,153 @@ namespace rrllvm {
     {
         clearPiecewiseTriggers();
 
-        //If there are piecewise functions in function definitions, we need to convert the document to not have function definitions any more (sigh)
-        for (size_t fd = 0; fd < model->getNumFunctionDefinitions(); fd++) {
-            if (containsPiecewise(model->getFunctionDefinition(fd)->getMath())) {
-                libsbml::SBMLFunctionDefinitionConverter converter;
-                SBMLDocument doc(model->getLevel(), model->getVersion());
-                doc.setModel(model);
-                converter.setDocument(&doc);
-                if (converter.convert() == LIBSBML_OPERATION_SUCCESS) {
-                    return addAllPiecewiseTriggers(doc.getModel());
-                }
-                //Otherwise, I suppose we just continue?
-                rrLog(Logger::LOG_WARNING) << "A piecewise function was discovered in a function definition, but we were unable to convert the document to remove function definitions.  Any transitions in those piecewise functions may not be noticed by the simulator.";
-            }
-        }
-
         //Only worry about piecewise functions in continuous contexts:  initial assignments and event assignments are fine, because we don't need to stop simulation to check things; the assignment is already happening when simulation is stopped.
         for (size_t r = 0; r < model->getNumRules(); r++) {
             //We don't care whether the rule is assignment, rate, or even algebraic; we're just looking for piecewise functions.
             const libsbml::Rule* rule = model->getRule(r);
-            const ASTNode* node = rule->getMath();
-            addPiecewiseTriggersFrom(node);
+            addPiecewiseTriggersFrom(model, rule->getMath(), NULL);
         }
         for (size_t r = 0; r < model->getNumReactions(); r++) {
-            const libsbml::Reaction* rxn = model->getReaction(r);
-            addPiecewiseTriggersFrom(rxn->getKineticLaw());
+            const libsbml::KineticLaw* kl = model->getReaction(r)->getKineticLaw();
+            if (kl != NULL) {
+                addPiecewiseTriggersFrom(model, kl->getMath(), kl);
+            }
         }
         //Event triggers themselves might have piecewise arguments in them:
         for (size_t e = 0; e < model->getNumEvents(); e++) {
             const libsbml::Event* event = model->getEvent(e);
             if (event->isSetTrigger()) {
-                addPiecewiseTriggersFrom(event->getTrigger()->getMath());
+                addPiecewiseTriggersFrom(model, event->getTrigger()->getMath(), NULL);
             }
         }
     }
 
-    void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::KineticLaw* kl)
+    // Replaces each name in the tree that is a key of 'bindings' with a copy of its bound node.  The
+    // replacement is simultaneous: names inside the copied nodes are not substituted again.
+    static void substituteBoundVariables(libsbml::ASTNode* node, const std::map<std::string, const libsbml::ASTNode*>& bindings)
     {
-        if (kl == NULL || kl->getMath() == NULL) {
-            return;
-        }
-        std::map<std::string, double> values;
-        for (unsigned int p = 0; p < kl->getNumParameters(); p++) {
-            const libsbml::Parameter* param = kl->getParameter(p);
-            if (param) {
-                values.insert(make_pair(param->getId(), param->getValue()));
+        for (unsigned int c = 0; c < node->getNumChildren(); c++) {
+            libsbml::ASTNode* child = node->getChild(c);
+            std::map<std::string, const libsbml::ASTNode*>::const_iterator found = bindings.end();
+            if (child->getType() == libsbml::AST_NAME) {
+                found = bindings.find(child->getName());
             }
-        }
-        for (unsigned int p = 0; p < kl->getNumLocalParameters(); p++) {
-            const libsbml::LocalParameter* param = kl->getLocalParameter(p);
-            if (param) {
-                values.insert(make_pair(param->getId(), param->getValue()));
+            if (found != bindings.end()) {
+                node->replaceChild(c, found->second->deepCopy(), true);
             }
-        }
-        if (values.size()) {
-            ASTNode* astn = kl->getMath()->deepCopy();
-            replaceLocalParametersWithConstants(astn, values);
-            delete astn;
-        }
-        else {
-            addPiecewiseTriggersFrom(kl->getMath());
+            else {
+                substituteBoundVariables(child, bindings);
+            }
         }
     }
 
-    void ModelGeneratorContext::replaceLocalParametersWithConstants(libsbml::ASTNode* node, std::map<std::string, double>& values)
+    // A copy of the body of the function with the arguments of the call in place of its bound variables, or null if the call does not match the function.
+    static libsbml::ASTNode* expandFunctionCall(const libsbml::FunctionDefinition* function, const libsbml::ASTNode* call)
     {
-        if (node->getType() == AST_NAME) {
-            auto found = values.find(node->getName());
-            if (found != values.end()) {
-                node->setType(AST_REAL);
-                node->setName(NULL);
-                node->setValue(found->second);
+        const libsbml::ASTNode* lambda = function->getMath();
+        const unsigned int numArgs = call->getNumChildren();
+        if (lambda == NULL || !lambda->isLambda() || lambda->getNumChildren() != numArgs + 1) {
+            return NULL;
+        }
+        std::map<std::string, const libsbml::ASTNode*> bindings;
+        for (unsigned int a = 0; a < numArgs; a++) {
+            bindings[lambda->getChild(a)->getName()] = call->getChild(a);
+        }
+        libsbml::ASTNode* body = lambda->getChild(numArgs)->deepCopy();
+        if (body->getType() == libsbml::AST_NAME) {
+            std::map<std::string, const libsbml::ASTNode*>::const_iterator found = bindings.find(body->getName());
+            if (found != bindings.end()) {
+                libsbml::ASTNode* argument = found->second->deepCopy();
+                delete body;
+                return argument;
             }
-            return;
         }
-        for (unsigned int ch = 0; ch < node->getNumChildren(); ch++) {
-            replaceLocalParametersWithConstants(node->getChild(ch), values);
-        }
+        substituteBoundVariables(body, bindings);
+        return body;
     }
 
-    void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::ASTNode* node)
+    // A copy of the math with the calls of user functions expanded, nested calls included, or null if a call can't be expanded.
+    static libsbml::ASTNode* expandUserFunctionCalls(const libsbml::Model* model, const libsbml::ASTNode* node, unsigned int depth)
     {
-        if (node == NULL) {
+        const unsigned int maxFunctionDepth = 64;
+        if (node->getType() == libsbml::AST_FUNCTION && node->getName() != NULL) {
+            const libsbml::FunctionDefinition* function = model->getFunctionDefinition(node->getName());
+            if (function != NULL) {
+                libsbml::ASTNode* body = depth < maxFunctionDepth ? expandFunctionCall(function, node) : NULL;
+                if (body == NULL) {
+                    return NULL;
+                }
+                libsbml::ASTNode* expanded = expandUserFunctionCalls(model, body, depth + 1);
+                delete body;
+                return expanded;
+            }
+        }
+        libsbml::ASTNode* copy = node->deepCopy();
+        for (unsigned int c = 0; c < node->getNumChildren(); c++) {
+            libsbml::ASTNode* child = expandUserFunctionCalls(model, node->getChild(c), depth);
+            if (child == NULL) {
+                delete copy;
+                return NULL;
+            }
+            copy->replaceChild(c, child, true);
+        }
+        return copy;
+    }
+
+    void ModelGeneratorContext::addPiecewiseTriggersFrom(const libsbml::Model* model, const libsbml::ASTNode* math, const libsbml::KineticLaw* kl)
+    {
+        if (math == NULL) {
             return;
         }
+        // The calls of user functions are expanded, since the function body is where the piecewise functions are.
+        libsbml::ASTNode* expanded = expandUserFunctionCalls(model, math, 0);
+        if (expanded == NULL) {
+            rrLog(Logger::LOG_WARNING) << "Unable to expand a call of a user function when looking for piecewise functions.  Any transitions in those piecewise functions may not be noticed by the simulator.";
+            return;
+        }
+        addPiecewiseBranchesFrom(expanded, kl);
+        delete expanded;
+    }
+
+    void ModelGeneratorContext::addPiecewiseBranchesFrom(const libsbml::ASTNode* node, const libsbml::KineticLaw* kl)
+    {
         if (node->getType() == libsbml::AST_FUNCTION_PIECEWISE) {
-            // The format of the piecewise function is (val1, cond1, val2, cond2, ..., val_otherwise).  They're checked sequentially, so if cond1 is true, val1 is always returned, and if cond1 is false but cond2 is true, val2 is returned, etc.  This means the value returned is dependent on the following conditions:
-            // cond1
-            // cond2 && (!cond1)
-            // cond3 && (!cond1 && !cond2)
-            // ...
-            // !cond1 && !cond2 && !cond3  && ...
-
-            // None of the values need to be checked, just the conditions.  Hence:
-            std::vector<const libsbml::ASTNode*> conditions;
+            // The format of the piecewise function is (val1, cond1, val2, cond2, ..., val_otherwise).  They're checked sequentially, so if cond1 is true, val1 is always returned, and if cond1 is false but cond2 is true, val2 is returned, etc.
+            // The branch that is taken changes only where a comparison inside a condition changes, so those comparisons are roots.  The trigger of the piecewise function is the index of the branch that it takes,
+            // piecewise(0, cond1, 1, cond2, ..., n), which the integrator compares before and after a root.  None of the values need to be checked, just the conditions.
+            libsbml::ASTNode* branch = new libsbml::ASTNode(libsbml::AST_FUNCTION_PIECEWISE);
+            unsigned int numConditions = 0;
+            size_t numLeaves = 0;
             for (size_t c = 1; c < node->getNumChildren(); c += 2) {
-                conditions.push_back(node->getChild(c));
+                libsbml::ASTNode* index = new libsbml::ASTNode(libsbml::AST_INTEGER);
+                index->setValue(static_cast<long>(numConditions++));
+                branch->addChild(index);
+                branch->addChild(node->getChild(c)->deepCopy());
+
+                std::vector<const libsbml::ASTNode*> leaves;
+                addBooleanLeavesFrom(node->getChild(c), leaves);
+                for (size_t l = 0; l < leaves.size(); l++) {
+                    addBooleanLeaf(leaves[l], kl);
+                }
+                numLeaves += leaves.size();
             }
-            for (size_t c = 0; c < conditions.size(); c++) {
-                std::vector<const libsbml::ASTNode*> nots;
-                for (size_t n = 0; n < c; n++) {
-                    nots.push_back(conditions[n]);
-                }
-                if (nots.size() > 0) {
-                    libsbml::ASTNode* root = new libsbml::ASTNode(libsbml::AST_LOGICAL_AND);
-                    root->addChild(conditions[c]->deepCopy());
-                    for (size_t n = 0; n < nots.size(); n++) {
-                        libsbml::ASTNode* child_not = new libsbml::ASTNode(libsbml::AST_LOGICAL_NOT);
-                        child_not->addChild(nots[n]->deepCopy());
-                        root->addChild(child_not);
-                    }
-                    mPiecewiseTriggers.push_back(root);
-                }
-                else {
-                    mPiecewiseTriggers.push_back(conditions[c]->deepCopy());
-                }
+            // Conditions that have no comparison never change.
+            if (numLeaves > 0) {
+                libsbml::ASTNode* otherwise = new libsbml::ASTNode(libsbml::AST_INTEGER);
+                otherwise->setValue(static_cast<long>(numConditions));
+                branch->addChild(otherwise);
+                mPiecewiseTriggers.push_back(branch);
+                mPiecewiseTriggerKineticLaws.push_back(kl);
             }
-            //If there's an 'otherwise', we need an all-nots trigger:
-            if (node->getNumChildren() % 2 == 1) {
-                libsbml::ASTNode* root = new libsbml::ASTNode(libsbml::AST_LOGICAL_AND);
-                for (size_t c = 0; c < conditions.size(); c++) {
-                    libsbml::ASTNode* child_not = new libsbml::ASTNode(libsbml::AST_LOGICAL_NOT);
-                    child_not->addChild(conditions[c]->deepCopy());
-                    root->addChild(child_not);
-                }
-                mPiecewiseTriggers.push_back(root);
+            else {
+                delete branch;
             }
         }
 
         //Not 'else', since a piecewise function can have piecewise children.
         for (size_t c = 0; c < node->getNumChildren(); c++) {
-            const ASTNode* child = node->getChild(c);
-            addPiecewiseTriggersFrom(child);
+            addPiecewiseBranchesFrom(node->getChild(c), kl);
         }
-    }
-
-    bool ModelGeneratorContext::containsPiecewise(const libsbml::ASTNode* node)
-    {
-        if (node == NULL) {
-            return false;
-        }
-        if (node->getType() == libsbml::AST_FUNCTION_PIECEWISE) {
-            return true;
-        }
-
-        for (size_t c = 0; c < node->getNumChildren(); c++) {
-            if (containsPiecewise(node->getChild(c))) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     void ModelGeneratorContext::clearPiecewiseTriggers()
@@ -392,12 +394,105 @@ namespace rrllvm {
             delete mPiecewiseTriggers[pt];
         }
         mPiecewiseTriggers.clear();
+        mPiecewiseTriggerKineticLaws.clear();
+    }
+
+    static bool isRelationalNode(const libsbml::ASTNode* node)
+    {
+        switch (node->getType()) {
+        case libsbml::AST_RELATIONAL_EQ:
+        case libsbml::AST_RELATIONAL_GEQ:
+        case libsbml::AST_RELATIONAL_GT:
+        case libsbml::AST_RELATIONAL_LEQ:
+        case libsbml::AST_RELATIONAL_LT:
+        case libsbml::AST_RELATIONAL_NEQ:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    void ModelGeneratorContext::addBooleanLeavesFrom(const libsbml::ASTNode* node, std::vector<const libsbml::ASTNode*>& leaves)
+    {
+        if (node == NULL) {
+            return;
+        }
+        if (isRelationalNode(node)) {
+            leaves.push_back(node);
+            return;
+        }
+        for (size_t c = 0; c < node->getNumChildren(); c++) {
+            addBooleanLeavesFrom(node->getChild(c), leaves);
+        }
+    }
+
+    void ModelGeneratorContext::addBooleanLeaf(const libsbml::ASTNode* leaf, const libsbml::KineticLaw* kl)
+    {
+        char* formula = SBML_formulaToL3String(leaf);
+        std::string key = formula ? formula : "";
+        free(formula);
+        if (key.empty()) {
+            key = "#" + std::to_string(mBooleanLeaves.size());
+        }
+        if (mBooleanLeafKeys.insert(std::make_pair(kl, key)).second) {
+            mBooleanLeaves.push_back(leaf->deepCopy());
+            mBooleanLeafKineticLaws.push_back(kl);
+        }
+    }
+
+    void ModelGeneratorContext::addAllBooleanLeaves(const libsbml::Model* model)
+    {
+        clearBooleanLeaves();
+
+        for (size_t e = 0; e < model->getNumEvents(); e++) {
+            const libsbml::Event* event = model->getEvent(e);
+            if (!event->isSetTrigger() || !event->getTrigger()->isSetMath()) {
+                continue;
+            }
+            libsbml::ASTNode* trigger = expandUserFunctionCalls(model, event->getTrigger()->getMath(), 0);
+            if (trigger == NULL) {
+                rrLog(Logger::LOG_WARNING) << "Unable to expand a call of a user function in the trigger of event '" << event->getId() << "'.  A trigger that is true only within one step of the integrator may not be noticed by the simulator.";
+                continue;
+            }
+            std::vector<const libsbml::ASTNode*> leaves;
+            addBooleanLeavesFrom(trigger, leaves);
+
+            std::set<std::string> distinct;
+            for (size_t l = 0; l < leaves.size(); l++) {
+                char* formula = SBML_formulaToL3String(leaves[l]);
+                std::string key = formula ? formula : "";
+                free(formula);
+                if (key.empty()) {
+                    key = "#" + std::to_string(l);
+                }
+                distinct.insert(key);
+            }
+
+            // A trigger with a single comparison already has its own root.
+            if (distinct.size() >= 2) {
+                for (size_t l = 0; l < leaves.size(); l++) {
+                    addBooleanLeaf(leaves[l], NULL);
+                }
+            }
+            delete trigger;
+        }
+    }
+
+    void ModelGeneratorContext::clearBooleanLeaves()
+    {
+        for (size_t lt = 0; lt < mBooleanLeaves.size(); lt++) {
+            delete mBooleanLeaves[lt];
+        }
+        mBooleanLeaves.clear();
+        mBooleanLeafKineticLaws.clear();
+        mBooleanLeafKeys.clear();
     }
 
     void ModelGeneratorContext::cleanup() {
         delete ownedDoc;
         ownedDoc = 0;
         clearPiecewiseTriggers();
+        clearBooleanLeaves();
         delete symbols;
     }
 
@@ -426,9 +521,29 @@ namespace rrllvm {
         return &mPiecewiseTriggers;
     }
 
+    const libsbml::KineticLaw* ModelGeneratorContext::getPiecewiseTriggerKineticLaw(size_t index) const
+    {
+        return mPiecewiseTriggerKineticLaws[index];
+    }
+
     size_t ModelGeneratorContext::getNumPiecewiseTriggers() const
     {
         return mPiecewiseTriggers.size();
+    }
+
+    const std::vector<libsbml::ASTNode*>* ModelGeneratorContext::getBooleanLeaves() const
+    {
+        return &mBooleanLeaves;
+    }
+
+    const libsbml::KineticLaw* ModelGeneratorContext::getBooleanLeafKineticLaw(size_t index) const
+    {
+        return mBooleanLeafKineticLaws[index];
+    }
+
+    size_t ModelGeneratorContext::getNumBooleanLeaves() const
+    {
+        return mBooleanLeaves.size();
     }
 
     void ModelGeneratorContext::transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> modelResources) {

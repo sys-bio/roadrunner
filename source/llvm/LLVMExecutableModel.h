@@ -33,6 +33,7 @@
 #include "EventAssignCodeGen.h"
 #include "EventTriggerCodeGen.h"
 #include "GetPiecewiseTriggerCodeGen.h"
+#include "GetBooleanLeafCodeGen.h"
 #include "EvalVolatileStoichCodeGen.h"
 #include "ResetRateRuleStoichCodeGen.h"
 #include "EvalConversionFactorCodeGen.h"
@@ -526,6 +527,8 @@ public:
 
     virtual void getPiecewiseTriggerRoots(double time, const double* y, double* gdot) override;
 
+    virtual void getBooleanLeafRoots(double time, const double* y, double* gdot) override;
+
     virtual double getNextPendingEventTime(bool pop) override;
 
     virtual int getPendingEventSize() override;
@@ -604,6 +607,8 @@ public:
     virtual void getEventIds(std::list<std::string>& out) override;
 
     virtual int getNumPiecewiseTriggers() override;
+
+    virtual int getNumBooleanLeaves() override;
 
     virtual void getAssignmentRuleIds(std::list<std::string>& out) override;
     virtual void getRateRuleIds(std::list<std::string>& out) override;
@@ -739,6 +744,7 @@ private:
     EventTriggerCodeGen::FunctionPtr eventTriggerPtr;
     EventAssignCodeGen::FunctionPtr eventAssignPtr;
     GetPiecewiseTriggerCodeGen::FunctionPtr getPiecewiseTriggerPtr;
+    GetBooleanLeafCodeGen::FunctionPtr getBooleanLeafPtr;
     EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;
     ResetRateRuleStoichCodeGen::FunctionPtr resetRateRuleStoichPtr;
     EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;

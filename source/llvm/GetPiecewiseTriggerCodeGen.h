@@ -24,10 +24,10 @@ namespace rrllvm
 {
     //Based on GetEventTriggerCodeGen (-LS)
 
-    typedef unsigned char (*GetPiecewiseTriggerCodeGen_FunctionPtr)(LLVMModelData*, size_t);
+    typedef int (*GetPiecewiseTriggerCodeGen_FunctionPtr)(LLVMModelData*, size_t);
 
     /** @class GetPiecewiseTriggerCodeGen
-    * Class for getting piecewise trigger values.
+    * Class for getting the index of the branch that each piecewise function takes.
     */
     class GetPiecewiseTriggerCodeGen :
         public CodeGenBase<GetPiecewiseTriggerCodeGen_FunctionPtr>
@@ -48,12 +48,12 @@ namespace rrllvm
         static const char* IndexArgName;
 
         /**
-         * The ret type is a boolean, aka 'getInt8Ty'
+         * The ret type is the index of a branch, aka 'getInt32Ty'
          */
         llvm::Type* getRetType();
 
         /**
-         * create a return type, a zero value should return the default type
+         * create a return value from the index of a branch, a zero value should return the default, -1
          */
         llvm::Value* createRet(llvm::Value*);
 
