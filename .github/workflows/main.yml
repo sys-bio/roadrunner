@@ -326,6 +326,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ matrix.libroadrunner_deps_name }}-binaries
           cd ${{ matrix.libroadrunner_deps_name }}-binaries
+          # DEPS_RELEASE (the libroadrunner-deps version) is set in scripts/versions.env
           curl -LO "https://github.com/${{ matrix.libroadrunner_deps_owner }}/${{ matrix.libroadrunner_deps_repo }}/releases/download/${{ env.DEPS_RELEASE }}/${{ matrix.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-${{ matrix.platform.build_type }}.zip"
           unzip -q ${{ matrix.libroadrunner_deps_name }}*.zip
           rm ${{ matrix.libroadrunner_deps_name }}*.zip

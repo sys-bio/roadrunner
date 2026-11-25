@@ -14,10 +14,12 @@
 #include <cmath>
 #include <math.h>
 
-extern "C" {
-#include <clapack/f2c.h>
-#include <clapack/clapack.h>
-}
+#if defined(__has_include)
+#if !__has_include(<rr-libstruct/lsLapack.h>)
+#error "libroadrunner-deps is too old: it must provide rr-libstruct/lsLapack.h (BLAS and LAPACK from OpenBLAS). Update libroadrunner-deps."
+#endif
+#endif
+#include <rr-libstruct/lsLapack.h>
 
 namespace rr {
 
@@ -119,9 +121,9 @@ namespace rr {
         rrLog(Logger::LOG_DEBUG) <<
                                  "RK45Integrator::integrate(" << t << ", " << tDiff << ")";
 
-        integer n = stateVectorSize;
-        integer inc = 1;
-        integer i;
+        ls_int n = stateVectorSize;
+        ls_int inc = 1;
+        ls_int i;
         double alpha = 0;
         double error, q;
         double tCur = t;

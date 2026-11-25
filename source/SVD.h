@@ -6,12 +6,12 @@
 #define ROADRUNNER_SVD_H
 
 #include "rr-libstruct/lsMatrix.h"
-extern "C" {
-    // this one cost me a few hours. Name mangling causes link errors
-    #include "clapack/f2c.h" // must be included before clapack
-    #include "clapack/clapack.h"
-    #include "clapack/blaswrap.h"
-}
+#if defined(__has_include)
+#if !__has_include(<rr-libstruct/lsLapack.h>)
+#error "libroadrunner-deps is too old: it must provide rr-libstruct/lsLapack.h (BLAS and LAPACK from OpenBLAS). Update libroadrunner-deps."
+#endif
+#endif
+#include "rr-libstruct/lsLapack.h"
 #include <memory>
 
 namespace rr {
@@ -85,11 +85,11 @@ namespace rr {
 
         ls::DoubleMatrix inputMatrix_;
         std::unique_ptr<ls::DoubleMatrix> inputMatrixTranspose_ = nullptr;
-        integer nRows_;
-        integer nCols_;
-        integer lda_;
-        integer ldu_;
-        integer ldvt_;
+        ls_int nRows_;
+        ls_int nCols_;
+        ls_int lda_;
+        ls_int ldu_;
+        ls_int ldvt_;
 
         ls::DoubleMatrix singularValues_;
         ls::DoubleMatrix leftSingularVectors_;

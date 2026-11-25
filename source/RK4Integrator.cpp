@@ -10,10 +10,12 @@
 
 #include <cassert>
 
-extern "C" {
-#include <clapack/f2c.h>
-#include <clapack/clapack.h>
-}
+#if defined(__has_include)
+#if !__has_include(<rr-libstruct/lsLapack.h>)
+#error "libroadrunner-deps is too old: it must provide rr-libstruct/lsLapack.h (BLAS and LAPACK from OpenBLAS). Update libroadrunner-deps."
+#endif
+#endif
+#include <rr-libstruct/lsLapack.h>
 
 namespace rr
 {
@@ -85,8 +87,8 @@ namespace rr
                 "RK4Integrator::integrate(" << t << ", " << h << ")";
 
         // blas daxpy: y -> y + \alpha x
-        integer n = stateVectorSize;
-        integer inc = 1;
+        ls_int n = stateVectorSize;
+        ls_int inc = 1;
         double alpha = 0;
 
         mModel->setTime(t);

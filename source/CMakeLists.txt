@@ -500,7 +500,7 @@ target_link_libraries(
         ZLIB::ZLIBSTATIC
         nleq2::nleq2-static
         nleq1::nleq1-static
-        clapack::lapack clapack::blas clapack::f2c
+        OpenBLAS::OpenBLAS f2c::f2c
 
         ${RR_KLU_LINK_LIBRARIES}
         SUNDIALS::core_static

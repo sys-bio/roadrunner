@@ -4,6 +4,8 @@
 
 #include "SVD.h"
 #include "rrException.h"
+#include <algorithm>
+#include <cstdlib>
 #include <memory>
 #include "rr-libstruct/lsMatrix.h"
 
@@ -18,7 +20,7 @@ namespace rr {
         ldvt_ = (int) inputMatrix_.numCols();
 
         // resize out data types
-        singularValues_.resize(1, min(nRows_, nCols_));
+        singularValues_.resize(1, std::min(nRows_, nCols_));
         leftSingularVectors_.resize(nRows_, nRows_);
         rightSingularVectors_.resize(nCols_, nCols_);
 
@@ -40,9 +42,9 @@ namespace rr {
      *  https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgesvd_ex.c.html
      */
     void SVD::compute() {
-        integer info, lwork;
-        doublereal wkopt;
-        doublereal *work;
+        ls_int info, lwork;
+        double wkopt;
+        double *work;
         /* Query and allocate the optimal workspace */
         lwork = -1;
         // dgesdd_ or dgesvd_?
@@ -52,7 +54,7 @@ namespace rr {
                 &ldu_, rightSingularVectors_.getArray(), &ldvt_, &wkopt, &lwork, &info);
         lwork = (int) wkopt;
 
-        work = (doublereal *) malloc(lwork * sizeof(doublereal));
+        work = (double *) malloc(lwork * sizeof(double));
         /* Compute SVD */
         dgesvd_((char*)"All", (char*)"All", &nRows_, &nCols_, (*inputMatrixTranspose_).getArray(),
                 &lda_, singularValues_.getArray(), leftSingularVectors_.getArray(),
@@ -99,6 +101,6 @@ namespace rr {
     }
 
     bool SVD::isSingular(){
-        return rank() < min(nRows_,nCols_);
+        return rank() < std::min(nRows_,nCols_);
     }
 }
