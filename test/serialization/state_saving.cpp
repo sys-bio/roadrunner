@@ -477,7 +477,7 @@ TEST_F(StateSavingTests, LOAD_VALID_FILE) {
 }
 
 TEST_F(StateSavingTests, FromFile) {
-    std::filesystem::path p = stateSavingOutputDir / "savedState.rr";
+    std::filesystem::path p = std::filesystem::current_path() / "savedState.rr";
     //std::cout << "saved to " << p << std::endl;
     RoadRunner rr(OpenLinearFlux().str());
     rr.saveState(p.string());
