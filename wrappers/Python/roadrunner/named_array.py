@@ -3,13 +3,50 @@
 Also holds the factory that turns matrix memory handed over by the
 compiled extension into numpy arrays without using the numpy C API.
 """
+
+from __future__ import annotations
+
+from collections.abc import Iterable, Sequence
+from types import EllipsisType
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Final,
+    SupportsIndex,
+    TypeAlias,
+    TypedDict,
+    overload,
+)
+
 import numpy as np
+import numpy.typing as npt
+
+if TYPE_CHECKING:
+    # NumPy's integer index type includes nested lists and array-like objects.
+    from numpy._typing import _ArrayLikeInt_co
+
+    _IndexArray: TypeAlias = npt.NDArray[np.integer[Any] | np.bool_]
+    _Index: TypeAlias = SupportsIndex | slice | EllipsisType | _ArrayLikeInt_co | None
 
 PICKLE_VERSION = 5
-PICKLE_VERSION_KEY = "_pickle_version"
+PICKLE_VERSION_KEY: Final = "_pickle_version"
 
 
-def _format_table(rows_of_values, rownames, colnames):
+class _PickleState(TypedDict):
+    array: bytes
+    nDims: int
+    dim1: int
+    dim2: int
+    rownames: list[str]
+    colnames: list[str]
+    _pickle_version: int
+
+
+def _format_table(
+    rows_of_values: Iterable[Iterable[float]],
+    rownames: Iterable[str],
+    colnames: Iterable[str],
+) -> str:
     """Render a 2D list of floats as a table with optional row and column names."""
     rnames = [str(s) for s in rownames]
     cnames = [str(s) for s in colnames]
@@ -55,11 +92,21 @@ class NamedArray(np.ndarray):
     # Pickles refer to the class by this module path.
     __module__ = "roadrunner._roadrunner"
 
-    def __array_finalize__(self, obj):
-        self.rownames = []
-        self.colnames = []
+    def __array_finalize__(self, obj: npt.NDArray[Any] | None) -> None:
+        self.rownames: list[str] = []
+        self.colnames: list[str] = []
 
-    def __getitem__(self, key):
+    @overload
+    def __getitem__(self, key: _IndexArray | tuple[_IndexArray, ...]) -> NamedArray: ...
+    @overload
+    def __getitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...]) -> Any: ...
+    @overload
+    def __getitem__(self, key: _Index | tuple[_Index, ...]) -> NamedArray: ...
+    @overload
+    def __getitem__(self, key: str) -> npt.NDArray[Any]: ...
+    @overload
+    def __getitem__(self, key: list[str]) -> npt.NDArray[np.void]: ...
+    def __getitem__(self, key: Any) -> Any:
         if isinstance(key, str) and self.ndim == 2:
             plain = self.view(np.ndarray)
             if key in self.colnames:
@@ -68,7 +115,7 @@ class NamedArray(np.ndarray):
                 return plain[self.rownames.index(key), :].copy()
         return super().__getitem__(key)
 
-    def __str__(self):
+    def __str__(self) -> str:
         plain = self.view(np.ndarray)
         if plain.ndim != 2 or 0 in plain.shape or plain.dtype.kind != "f":
             return str(plain)
@@ -76,7 +123,7 @@ class NamedArray(np.ndarray):
 
     __repr__ = __str__
 
-    def __getstate__(self):
+    def __getstate__(self) -> _PickleState:
         if self.ndim not in (1, 2):
             raise ValueError(f"Unexpected number of dimensions {self.ndim}")
         return {
@@ -89,11 +136,13 @@ class NamedArray(np.ndarray):
             PICKLE_VERSION_KEY: PICKLE_VERSION,
         }
 
-    def __reduce_ex__(self, protocol):
+    def __reduce_ex__(
+        self, protocol: SupportsIndex
+    ) -> tuple[type[NamedArray], tuple[tuple[int, ...]], _PickleState, None, None]:
         state = self.__getstate__()
         return (type(self), (self.shape,), state, None, None)
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: object) -> None:
         if not isinstance(state, dict):
             raise ValueError("__setstate__ input object is not a dict")
         if PICKLE_VERSION_KEY not in state:
@@ -106,9 +155,12 @@ class NamedArray(np.ndarray):
 
         data = state["array"]
         if not isinstance(data, (bytes, bytearray)):
-            raise TypeError(f"Cannot accept object of type {type(data).__name__}, expected a bytes object")
+            raise TypeError(
+                f"Cannot accept object of type {type(data).__name__}, expected a bytes object"
+            )
 
         n_dims = state["nDims"]
+        shape: tuple[int, ...]
         if n_dims == 1:
             shape = (state["dim1"],)
         elif n_dims == 2:
@@ -118,7 +170,9 @@ class NamedArray(np.ndarray):
 
         values = np.frombuffer(data, dtype=np.float64)
         if tuple(self.shape) != shape or values.size != int(np.prod(shape)):
-            raise ValueError(f"State of shape {shape} does not fit an array of shape {self.shape}")
+            raise ValueError(
+                f"State of shape {shape} does not fit an array of shape {self.shape}"
+            )
         self[...] = values.reshape(shape)
 
         self.rownames = list(state["rownames"] or [])
@@ -128,7 +182,7 @@ class NamedArray(np.ndarray):
 class _Buffer:
     """Exposes raw double memory to numpy and keeps its owner alive."""
 
-    def __init__(self, address, shape, owner):
+    def __init__(self, address: int, shape: tuple[int, ...], owner: object) -> None:
         self.__array_interface__ = {
             "data": (address, False),
             "shape": tuple(shape),
@@ -138,7 +192,9 @@ class _Buffer:
         self._owner = owner
 
 
-def _wrap(address, shape, owner, copy):
+def _wrap(
+    address: int, shape: tuple[int, ...], owner: object, copy: bool
+) -> npt.NDArray[np.float64]:
     if 0 in shape:
         return np.empty(shape, dtype=np.float64)
     buffer = _Buffer(address, shape, owner)
@@ -147,7 +203,17 @@ def _wrap(address, shape, owner, copy):
     return np.asarray(buffer)
 
 
-def matrix_to_array(address, rows, cols, rownames, colnames, copy, named, structured=False, owner=None):
+def matrix_to_array(
+    address: int,
+    rows: int,
+    cols: int,
+    rownames: Iterable[str],
+    colnames: Sequence[str],
+    copy: bool,
+    named: bool,
+    structured: bool = False,
+    owner: object = None,
+) -> NamedArray | npt.NDArray[np.float64] | npt.NDArray[np.void] | None:
     """Build a numpy array from a row-major block of doubles at ``address``.
 
     With ``copy`` false the array shares the memory and holds a reference to

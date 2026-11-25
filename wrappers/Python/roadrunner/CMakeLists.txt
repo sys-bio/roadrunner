@@ -1,6 +1,10 @@
 # copy to /lib so we can import roadrunner in the build tree
 configure_file(__init__.py.in "${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py" COPYONLY)
-configure_file(named_array.py "${PYTHON_PACKAGE_BUILD_PREFIX}/named_array.py" COPYONLY)
+set(roadrunner_package_files named_array.py __init__.pyi roadrunner.pyi py.typed)
+foreach(package_file IN ITEMS ${roadrunner_package_files}
+        stochastic/__init__.py stochastic/__init__.pyi stochastic/ensemble.py stochastic/ensemble.pyi)
+    configure_file("${package_file}" "${PYTHON_PACKAGE_BUILD_PREFIX}/${package_file}" COPYONLY)
+endforeach()
 
 set_source_files_properties(roadrunner.i PROPERTIES
         CPLUSPLUS ON
@@ -150,7 +154,7 @@ install(
 install(FILES
         "${PYTHON_PACKAGE_BUILD_PREFIX}/__init__.py"
         "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py"
-        "${CMAKE_CURRENT_SOURCE_DIR}/named_array.py"
+        ${roadrunner_package_files}
         DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}")
 
 
