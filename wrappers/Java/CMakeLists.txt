@@ -114,9 +114,8 @@ if(SWIG_FOUND)
       nleq1-static
       nleq2-static
       ${LIBSBML_STATIC_LIBRARY}
-      lapack
-      blas
-      f2c
+      OpenBLAS::OpenBLAS
+      f2c::f2c
       ${Java_LIBRARIES}
       )
 

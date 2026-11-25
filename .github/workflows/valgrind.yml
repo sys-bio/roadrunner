@@ -111,6 +111,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
           cd ${{ env.libroadrunner_deps_name }}-binaries
+          # DEPS_RELEASE (the libroadrunner-deps version) is set in scripts/versions.env
           curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.DEPS_RELEASE }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
           unzip -q ${{ env.libroadrunner_deps_name }}*.zip
           rm ${{ env.libroadrunner_deps_name }}*.zip
@@ -241,6 +242,7 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           mkdir -p ${{ env.libroadrunner_deps_name }}-binaries
           cd ${{ env.libroadrunner_deps_name }}-binaries
+          # DEPS_RELEASE (the libroadrunner-deps version) is set in scripts/versions.env
           curl -LO "https://github.com/${{ env.libroadrunner_deps_owner }}/${{ env.libroadrunner_deps_repo }}/releases/download/${{ env.DEPS_RELEASE }}/${{ env.libroadrunner_deps_name }}-${{ env.os_and_compiler }}-${{ env.host_architecture }}-Debug.zip"
           unzip -q ${{ env.libroadrunner_deps_name }}*.zip
           rm ${{ env.libroadrunner_deps_name }}*.zip
