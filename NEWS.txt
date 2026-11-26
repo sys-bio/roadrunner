@@ -1,5 +1,12 @@
 -- Version 2.10.1
 
+* Linear algebraic rules are now supported. Each rule is rewritten as an assignment rule when the model
+  is compiled, so getSBML() and getCurrentSBML() still return the algebraic rule as it was written. Rules
+  that depend on each other are solved together. A rule that is nonlinear or has a coefficient that changes
+  during a simulation, or a set of rules with no unique solution, still gives an error when the model is
+  loaded. The symbol a rule determines can't be set with setValue, in the same way as the target of an
+  assignment rule.
+
 * RoadRunner.setSeed(seed, resetModel=True) (C++ and Python) no longer regenerates and recompiles the
   model from its SBML, which took most of a second. It now reseeds the random number generators
   (distrib functions, simultaneous events, gillespie) and, if resetModel is true (the default), resets
