@@ -143,7 +143,8 @@ namespace rr {
             Setting(1.e-9),                             // METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD
             Setting(0.02),                              // METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE
             Setting(1.e-2),                             // METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD
-            Setting(false)                              // MALLOC_TRIM_AFTER_LOAD
+            Setting(false),                             // MALLOC_TRIM_AFTER_LOAD
+            Setting(std::int64_t(1000000))              // ALGEBRAIC_RULE_MAX_FORMULA_SIZE
     };
 
     // current values, initialised from defaultValues
@@ -268,6 +269,7 @@ namespace rr {
         keys["METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_DIFFERENTIAL_STEP_SIZE;
         keys["METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD"] = rr::Config::METABOLIC_CONTROL_ANALYSIS_STEADY_STATE_THRESHOLD;
         keys["MALLOC_TRIM_AFTER_LOAD"] = rr::Config::MALLOC_TRIM_AFTER_LOAD;
+        keys["ALGEBRAIC_RULE_MAX_FORMULA_SIZE"] = rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE;
 
         // add space after develop keys to clean up merging.
 
@@ -598,6 +600,8 @@ namespace rr {
             return Config::METABOLIC_CONTROL_ANALYSIS_FLUX_THRESHOLD;
         else if (key == "MALLOC_TRIM_AFTER_LOAD")
             return Config::MALLOC_TRIM_AFTER_LOAD;
+        else if (key == "ALGEBRAIC_RULE_MAX_FORMULA_SIZE")
+            return Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE;
 
         else
             throw std::runtime_error("No such config key: '" + key + "'");

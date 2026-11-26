@@ -770,6 +770,57 @@ Easy edit to the model without modifying and reloading sbml files.
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
    
+.. method:: RoadRunner.addAlgebraicRule(id, formula, forceRegenerate)
+   :module: RoadRunner
+
+   Add an algebraic rule, 0 = formula, to the current model. Only linear rules are supported.
+   The symbol the rule determines is chosen when the model is regenerated, and can't be set
+   with setValue afterwards. If regenerating fails, for example because the rule isn't linear,
+   the rule is taken out of the model again and the error is raised.
+
+   The id is stored as the rule's id in SBML Level 3 Version 2 and later, and as its metaid in
+   earlier versions, which don't give algebraic rules an id.
+
+   >>> rr.addAlgebraicRule("total", "x + y - 10")
+
+   Rules that share their unknowns are solved together. If one of their coefficients can change,
+   such as a parameter, the solution is written with Cramer's rule, whose formulas can grow with
+   the factorial of the number of rules. How fast they grow depends on how many coefficients are
+   not zero, so the limit is on the size of the formulas rather than on the number of rules: the
+   setting ``ALGEBRAIC_RULE_MAX_FORMULA_SIZE`` counts every number, symbol and operator. The
+   default, 1,000,000, accepts six rules whose 36 coefficients are all parameters, and many more
+   rules with only a few unknowns each. Raising it lets bigger systems load, but they take longer
+   to load and to simulate; 0 means no limit. The limit is checked whenever the model is compiled,
+   so set it before loading a model that already has algebraic rules, and before the regeneration
+   that compiles rules added with this function (this call with forceRegenerate set to True, or a
+   later call to regenerateModel). After a model is refused, raising the limit takes effect the
+   next time the model is loaded or regenerated:
+
+   >>> roadrunner.Config.setValue(roadrunner.Config.ALGEBRAIC_RULE_MAX_FORMULA_SIZE, 5000000)
+
+   :param str id: the ID of the new rule, used to remove it again
+   :param str formula: the math formula that the rule sets to zero
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+
+
+.. method:: RoadRunner.removeAlgebraicRule(id, forceRegenerate)
+   :module: RoadRunner
+
+   Remove the algebraic rule with the given id or metaid from the current model. The symbol
+   it determined keeps its current value.
+
+   >>> rr.removeAlgebraicRule("total")
+
+   :param str id: the id or metaid of the algebraic rule
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+
+
+.. method:: RoadRunner.getAlgebraicRuleIds()
+   :module: RoadRunner
+
+   The ids of the algebraic rules in the current model, using the metaid of a rule that has no id.
+
+
 .. method:: RoadRunner.addEvent(eid, useValuesFromTriggerTime, trigger, forceRegenerate)
    :module: RoadRunner
    

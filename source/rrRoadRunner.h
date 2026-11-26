@@ -1332,6 +1332,48 @@ namespace rr {
         void removeRules(const std::string &vid, bool useInitialValue = false, bool forceRegenerate = true);
 
 
+        /**
+         * Add an algebraic rule, 0 = formula, to the current model.
+         * Only linear rules are supported. The symbol the rule determines is chosen
+         * when the model is regenerated, and can't be set with setValue afterwards.
+         * If regenerating the model fails, for example because the rule isn't linear,
+         * the rule is taken out of the model again before the exception is passed on.
+         * @param id: ID of the new rule, used to remove it again. It is stored as the
+         *            rule's id in SBML Level 3 Version 2 and later, and as its metaid
+         *            in earlier versions, which don't give algebraic rules an id.
+         * @param formula: the math formula that the rule sets to zero
+         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+         *					      after this function call
+         *						  default value is true to regenerate model after each call
+         *                         of editing function
+         *						  to save time for editing for multiple times, one could
+         *					      set this flag to true only in the last call of editing
+         */
+        void addAlgebraicRule(const std::string &id, const std::string &formula, bool forceRegenerate = true);
+
+
+        /**
+         * Remove an algebraic rule added with addAlgebraicRule, or any algebraic rule
+         * whose id or metaid is @p id, from the current model. No value is filled in
+         * for the symbol it determined: that symbol keeps its own initial value from
+         * the SBML, or stays without one. If that leaves a symbol without a value,
+         * regenerating fails with the usual "missing a value" error and the rule is
+         * put back. To give the symbol a value instead, remove the rule with
+         * forceRegenerate = false and then call setValue("init(x)", value).
+         * @param id: id or metaid of the algebraic rule
+         * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+         *					       after this function call
+         */
+        void removeAlgebraicRule(const std::string &id, bool forceRegenerate = true);
+
+
+        /**
+         * The ids of the algebraic rules in the current model, using the metaid of a
+         * rule that has no id. Rules with neither are left out.
+         */
+        std::vector<std::string> getAlgebraicRuleIds() const;
+
+
         /*
         * Add an initial assignment to an exsiting symbol of the current model
         * @param vid: ID of symbol
@@ -1867,6 +1909,13 @@ namespace rr {
     private:
 
         /**
+         * True if an algebraic rule in the SBML is what determines sId, so it
+         * has no assignment or rate rule of its own. Used to name the right
+         * kind of rule when setting it fails.
+         */
+        bool isSolvedByAlgebraicRule(const std::string &sId) const;
+
+        /**
          * True once the llvm initialization routines have been run.
          * This is necessary because they are not threadsafe.
          */
@@ -2000,6 +2049,12 @@ namespace rr {
         * Remove a variable from the current model.
         */
         void removeVariable(const std::string &sid);
+
+        /*
+        * After the rule for vid has been removed and the model regenerated, give vid
+        * its initial value, and also its current value if useInitialValueAsCurrent.
+        */
+        void applyRemovedRuleValues(const std::string &vid, bool assignment, bool useInitialValueAsCurrent);
 
         /*
         * check recursively if a ASTnode or any of its child has the given variable

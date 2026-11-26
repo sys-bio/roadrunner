@@ -5,6 +5,7 @@
 
 #include "AlgebraicRuleConverter.h"
 #include "LLVMException.h"
+#include "rrConfig.h"
 
 #include <sbml/SBMLTransforms.h>
 #include <sbml/SBMLTypes.h>
@@ -13,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
@@ -235,32 +237,31 @@ namespace rrllvm {
             }
         }
 
-        /** true if @p node can't change during a simulation. */
-        bool isConstantExpression(const ASTNode* node, const SymbolSet& constants) {
+        /**
+         * true if @p node refers to anything that can change: a symbol, time,
+         * delay or rateOf. Otherwise it is a plain number.
+         */
+        bool hasVariableParts(const ASTNode* node) {
             switch (node->getType()) {
             case AST_NAME:
-                if (constants.count(node->getName()) == 0) {
-                    return false;
-                }
-                break;
             case AST_NAME_TIME:
             case AST_FUNCTION_DELAY:
             case AST_FUNCTION_RATE_OF:
-                return false;
+                return true;
             default:
                 break;
             }
             for (unsigned i = 0; i < node->getNumChildren(); ++i) {
-                if (!isConstantExpression(node->getChild(i), constants)) {
-                    return false;
+                if (hasVariableParts(node->getChild(i))) {
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         /** true for a formula such as '1 - 1' where x has cancelled out. */
         bool isLiteralZero(const ASTNode* node) {
-            return namesIn(node).empty() && SBMLTransforms::evaluateASTNode(node) == 0.0;
+            return !hasVariableParts(node) && SBMLTransforms::evaluateASTNode(node) == 0.0;
         }
 
         /** Everything in a model that decides how its symbols may be treated. */
@@ -272,7 +273,7 @@ namespace rrllvm {
             SymbolSet rateOfTargets;
             SymbolSet boundarySpecies;
             SymbolSet withoutValue;
-            std::map<std::string, double> constantValues; // when known at load
+            std::map<std::string, double> loadValues; // values when the model loads, where known
         };
 
         /** Adds every symbol that rateOf is applied to inside @p node. */
@@ -304,8 +305,8 @@ namespace rrllvm {
                 if (!hasValue) {
                     s.withoutValue.insert(id);
                 }
-                else if (constant) {
-                    s.constantValues[id] = value;
+                else {
+                    s.loadValues[id] = value;
                 }
             };
 
@@ -409,14 +410,14 @@ namespace rrllvm {
             for (unsigned pass = 0; pass < model->getNumInitialAssignments(); ++pass) {
                 for (unsigned i = 0; i < model->getNumInitialAssignments(); ++i) {
                     const InitialAssignment* assignment = model->getInitialAssignment(i);
-                    if (s.constants.count(assignment->getSymbol()) == 0 || !assignment->isSetMath()) {
+                    if (!assignment->isSetMath()) {
                         continue;
                     }
                     ASTPtr math = clone(assignment->getMath());
                     SBMLTransforms::replaceFD(math.get(), model->getListOfFunctionDefinitions());
-                    const double value = valueAtLoad(math.get(), s.constantValues);
+                    const double value = valueAtLoad(math.get(), s.loadValues);
                     if (!std::isnan(value)) {
-                        s.constantValues[assignment->getSymbol()] = value;
+                        s.loadValues[assignment->getSymbol()] = value;
                     }
                 }
             }
@@ -438,8 +439,10 @@ namespace rrllvm {
                     continue;
                 }
                 LinearSplit split;
+                // The coefficient may change during a simulation. If it reaches
+                // zero the solved value is infinite or NaN, as it would be for the
+                // equivalent assignment rule.
                 if (splitLinear(math, name, split) && split.coefficient
-                    && isConstantExpression(split.coefficient.get(), symbols.constants)
                     && !isLiteralZero(split.coefficient.get())) {
                     result.insert(name);
                 }
@@ -475,7 +478,7 @@ namespace rrllvm {
 
         /** Plain numbers are folded, which stops formulas growing at every step. */
         Coefficient combined(ASTPtr math, double value) {
-            if (namesIn(math.get()).empty()) {
+            if (!hasVariableParts(math.get())) {
                 return numberCoefficient(value);
             }
             Coefficient result;
@@ -496,6 +499,212 @@ namespace rrllvm {
             ASTPtr product = makeBinary(AST_TIMES, std::move(factor), clone(b.math.get()));
             ASTPtr left = a.math ? clone(a.math.get()) : nullptr;
             return combined(subtractTerms(std::move(left), std::move(product)), a.value - top.value / bottom.value * b.value);
+        }
+
+        Coefficient copyOf(const Coefficient& a) {
+            Coefficient result;
+            result.value = a.value;
+            result.math = a.math ? clone(a.math.get()) : nullptr;
+            return result;
+        }
+
+        /** true if a coefficient is a plain number, so its value is exact. */
+        bool isNumber(const Coefficient& a) {
+            return !a.math || !hasVariableParts(a.math.get());
+        }
+
+        /** @p factor * @p term, leaving out a factor of 1. */
+        ASTPtr scaledBy(const Coefficient& factor, ASTPtr term) {
+            if (!term || !factor.math) {
+                return nullptr;
+            }
+            if (isNumber(factor) && factor.value == 1) {
+                return term;
+            }
+            return makeBinary(AST_TIMES, clone(factor.math.get()), std::move(term));
+        }
+
+        /** The number of nodes (numbers, symbols and operators) in @p math. */
+        size_t nodeCount(const ASTNode* math) {
+            size_t count = 1;
+            for (unsigned i = 0; i < math->getNumChildren(); ++i) {
+                count += nodeCount(math->getChild(i));
+            }
+            return count;
+        }
+
+        /**
+         * Adds up the size of the formulas Cramer's rule writes for one system,
+         * and refuses the system as soon as the total passes the limit, so the
+         * work stops before the formulas get any bigger. A limit of 0 means none.
+         */
+        class FormulaBudget {
+        public:
+            FormulaBudget(size_t limit, const ASTNode* rule, size_t rules) : limit(limit), rule(rule), rules(rules) {}
+
+            void spend(const ASTNode* math) {
+                if (!math) {
+                    return;
+                }
+                spent += nodeCount(math);
+                if (limit > 0 && spent > limit) {
+                    throwUnsupported(rule, "it must be solved simultaneously with " + std::to_string(rules - 1)
+                        + " other algebraic rules whose coefficients can change, and the formulas for their solution"
+                        " would have more than " + std::to_string(limit) + " nodes, the limit set by"
+                        " Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE.");
+                }
+            }
+
+            size_t total() const {
+                return spent;
+            }
+
+        private:
+            const size_t limit;
+            const ASTNode* rule;
+            const size_t rules;
+            size_t spent = 0;
+        };
+
+        /**
+         * Determinants of the square submatrices of @p a, by cofactor expansion
+         * along the first remaining row. The formulas contain no division, so
+         * unlike elimination they don't depend on which entries were non-zero
+         * when the model loaded. Each determinant is counted against @p budget.
+         */
+        class Determinants {
+        public:
+            Determinants(const std::vector<std::vector<Coefficient>>& a, FormulaBudget& budget) : a(a), budget(budget) {}
+
+            /** Determinant of the rows in @p rowMask and the columns in @p columnMask. */
+            Coefficient of(uint32_t rowMask, uint32_t columnMask) {
+                if (rowMask == 0) {
+                    return numberCoefficient(1);
+                }
+                const auto key = std::make_pair(rowMask, columnMask);
+                auto found = memo.find(key);
+                if (found != memo.end()) {
+                    return copyOf(found->second);
+                }
+
+                size_t row = 0;
+                while (!(rowMask & (1u << row))) {
+                    ++row;
+                }
+                ASTPtr sum;
+                double value = 0;
+                bool positive = true;
+                for (size_t column = 0; column < a.size(); ++column) {
+                    if (!(columnMask & (1u << column))) {
+                        continue;
+                    }
+                    const Coefficient& entry = a[row][column];
+                    if (entry.math) {
+                        Coefficient minor = of(rowMask & ~(1u << row), columnMask & ~(1u << column));
+                        if (minor.math) {
+                            ASTPtr term = scaledBy(entry, std::move(minor.math));
+                            const double termValue = entry.value * minor.value;
+                            if (positive) {
+                                sum = addTerms(std::move(sum), std::move(term));
+                                value += termValue;
+                            }
+                            else {
+                                sum = subtractTerms(std::move(sum), std::move(term));
+                                value -= termValue;
+                            }
+                        }
+                    }
+                    positive = !positive;
+                }
+
+                Coefficient result = sum ? combined(std::move(sum), value) : Coefficient();
+                budget.spend(result.math.get());
+                memo[key] = copyOf(result);
+                return result;
+            }
+
+        private:
+            const std::vector<std::vector<Coefficient>>& a;
+            FormulaBudget& budget;
+            std::map<std::pair<uint32_t, uint32_t>, Coefficient> memo;
+        };
+
+        /**
+         * Solves A * x = -f, where A holds the coefficients of the determined
+         * symbols and f the rest of each rule, as x_j = sum_r C_rj * (-f_r) / det(A)
+         * with C the cofactors of A. @p rows are the rows before elimination.
+         *
+         * Cramer's rule is used when a coefficient can change, because elimination
+         * picks its pivots with the values at load and gives a wrong answer once
+         * one of them becomes zero. Its formulas can grow with the factorial of
+         * the number of rules, though how fast depends on how many coefficients
+         * are non-zero, so the limit is on the size of the formulas
+         * (Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE) rather than on the number of
+         * rules. A system whose coefficients are all plain numbers has no limit.
+         */
+        void solveByCramer(const std::vector<std::vector<Coefficient>>& rows, const std::vector<size_t>& pivotColumn,
+            const std::vector<std::string>& unknowns, const std::vector<ASTPtr>& rests, const ASTNode* firstRule,
+            std::vector<SolvedRule>& solved) {
+            const size_t n = rows.size();
+            // A uint32_t mask selects the rows and columns of a minor. The formula
+            // size limit stops a system long before it gets near that many rules.
+            if (n >= 32) {
+                throwUnsupported(firstRule, "it must be solved simultaneously with " + std::to_string(n - 1)
+                    + " other algebraic rules whose coefficients can change, and at most 31 such rules are supported.");
+            }
+            const int64_t limit = rr::Config::getValue(rr::Config::ALGEBRAIC_RULE_MAX_FORMULA_SIZE).getAs<std::int64_t>();
+            FormulaBudget budget(limit > 0 ? static_cast<size_t>(limit) : 0, firstRule, n);
+
+            std::vector<std::vector<Coefficient>> a(n);
+            std::vector<ASTPtr> f(n);
+            for (size_t r = 0; r < n; ++r) {
+                for (size_t column : pivotColumn) {
+                    a[r].push_back(copyOf(rows[r][column]));
+                }
+                for (size_t c = 0; c < unknowns.size(); ++c) {
+                    if (std::find(pivotColumn.begin(), pivotColumn.end(), c) != pivotColumn.end()) {
+                        continue;
+                    }
+                    ASTPtr symbol(new ASTNode(AST_NAME));
+                    symbol->setName(unknowns[c].c_str());
+                    f[r] = addTerms(std::move(f[r]), scaledBy(rows[r][c], std::move(symbol)));
+                }
+                if (rests[r]) {
+                    f[r] = addTerms(std::move(f[r]), scaledBy(rows[r][unknowns.size() + r], clone(rests[r].get())));
+                }
+            }
+
+            const uint32_t all = (1u << n) - 1;
+            Determinants determinants(a, budget);
+            const Coefficient det = determinants.of(all, all);
+            if (!det.math) {
+                throwUnsupported(rows[0][0].math ? rows[0][0].math.get() : rests[0].get(),
+                    "the algebraic rules it must be solved simultaneously with have no unique linear solution.");
+            }
+
+            for (size_t j = 0; j < n; ++j) {
+                ASTPtr numerator;
+                for (size_t r = 0; r < n; ++r) {
+                    if (!f[r]) {
+                        continue;
+                    }
+                    Coefficient minor = determinants.of(all & ~(1u << r), all & ~(1u << j));
+                    ASTPtr term = scaledBy(minor, clone(f[r].get()));
+                    // The cofactor's sign, times -1 for the right-hand side -f.
+                    if ((r + j) % 2 == 1) {
+                        numerator = addTerms(std::move(numerator), std::move(term));
+                    }
+                    else {
+                        numerator = subtractTerms(std::move(numerator), std::move(term));
+                    }
+                }
+                ASTPtr solution = numerator
+                    ? (isNumber(det) && det.value == 1 ? std::move(numerator)
+                        : makeBinary(AST_DIVIDE, std::move(numerator), clone(det.math.get())))
+                    : makeNumber(0);
+                budget.spend(solution.get());
+                solved.push_back({ unknowns[pivotColumn[j]], std::move(solution) });
+            }
         }
 
         /** The symbols that every rule mentioning them can be solved for. */
@@ -528,6 +737,8 @@ namespace rrllvm {
          * After elimination, every solved symbol depends only on the symbols
          * solved after it, so the results are ordinary chained assignment rules.
          * Unknowns left without a pivot stay free and are treated like parameters.
+         * When a coefficient isn't a plain number, the elimination only picks the
+         * symbols to solve for, and solveByCramer writes the solutions.
          */
         void solveSimultaneously(const std::vector<PendingRule>& rules, const SymbolSet& available,
             const ModelSymbols& symbols, std::vector<SolvedRule>& solved) {
@@ -549,9 +760,13 @@ namespace rrllvm {
                     }
                     LinearSplit split;
                     splitLinear(rest.get(), unknowns[c], split);
-                    const double value = valueAtLoad(split.coefficient.get(), symbols.constantValues);
+                    // A value is only used to choose pivots. One that isn't known
+                    // at load, such as one that depends on time, belongs to a
+                    // coefficient that can change, so Cramer's rule writes the
+                    // solution and any non-zero stand-in will do.
+                    double value = valueAtLoad(split.coefficient.get(), symbols.loadValues);
                     if (std::isnan(value)) {
-                        throwUnsupported(rules[r].math.get(), "the value of a coefficient is not known when the model loads.");
+                        value = 1;
                     }
                     rows[r][c] = combined(std::move(split.coefficient), value);
                     largest = std::max(largest, std::fabs(value));
@@ -559,6 +774,13 @@ namespace rrllvm {
                 }
                 rests.push_back(std::move(rest));
                 rows[r][unknowns.size() + r] = numberCoefficient(1);
+            }
+
+            std::vector<std::vector<Coefficient>> original(rows.size());
+            for (size_t r = 0; r < rows.size(); ++r) {
+                for (const Coefficient& cell : rows[r]) {
+                    original[r].push_back(copyOf(cell));
+                }
             }
 
             std::vector<size_t> order(unknowns.size());
@@ -611,6 +833,22 @@ namespace rrllvm {
                     }
                     rows[r] = std::move(reduced);
                 }
+            }
+
+            // The load-time values only decide which symbols the rules determine.
+            // If a coefficient refers to a symbol that can be changed after
+            // loading, a pivot that was non-zero at load may become zero, so the
+            // solution is written with Cramer's rule instead.
+            const size_t n = rows.size();
+            bool symbolic = false;
+            for (size_t r = 0; r < n; ++r) {
+                for (size_t column : pivotColumn) {
+                    symbolic = symbolic || !isNumber(original[r][column]);
+                }
+            }
+            if (symbolic) {
+                solveByCramer(original, pivotColumn, unknowns, rests, rowRule[0], solved);
+                return;
             }
 
             for (size_t k = 0; k < rows.size(); ++k) {
@@ -699,7 +937,7 @@ namespace rrllvm {
                     for (const PendingRule& rule : rules) {
                         if (optionsOf(rule).empty()) {
                             throwUnsupported(rule.math.get(),
-                                "it is not linear with a constant coefficient in any symbol it could determine.");
+                                "it is not linear in any symbol it could determine.");
                         }
                     }
                     solveSimultaneously(rules, available, symbols, solved);
