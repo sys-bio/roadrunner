@@ -790,7 +790,11 @@ Easy edit to the model without modifying and reloading sbml files.
    setting ``ALGEBRAIC_RULE_MAX_FORMULA_SIZE`` counts every number, symbol and operator. The
    default, 1,000,000, accepts six rules whose 36 coefficients are all parameters, and many more
    rules with only a few unknowns each. Raising it lets bigger systems load, but they take longer
-   to load and to simulate; 0 means no limit. It must be set before the model is loaded:
+   to load and to simulate; 0 means no limit. The limit is checked whenever the model is compiled,
+   so set it before loading a model that already has algebraic rules, and before the regeneration
+   that compiles rules added with this function (this call with forceRegenerate set to True, or a
+   later call to regenerateModel). After a model is refused, raising the limit takes effect the
+   next time the model is loaded or regenerated:
 
    >>> roadrunner.Config.setValue(roadrunner.Config.ALGEBRAIC_RULE_MAX_FORMULA_SIZE, 5000000)
 
