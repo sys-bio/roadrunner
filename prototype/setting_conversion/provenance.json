@@ -1,0 +1,43 @@
+{
+  "source_commit": "291d2932161f18a74009aa59790fb7aac02a590e",
+  "compiler": "GNU C++ 13.3.0",
+  "build_type": "Release, -O3 -DNDEBUG, GNU C++20",
+  "llvm": "23.1.4",
+  "sundials": "7.9.0, 64-bit indices, KLU enabled",
+  "swig": "4.5.1",
+  "trajectories_verified": 14136,
+  "correctness": {
+    "compared_records": 25848,
+    "matching_exception_records": 7456,
+    "ubsan_passed": true,
+    "excluded_undefined_or_platform_sensitive_float_probes": 5480
+  },
+  "pr_base_commit": "f35126ec5e8b94828d710af1e82e04895d29c761",
+  "baseline_native_source_note": "Recorded source commit 291d2932161f contains Python annotations on top of f35126ec5. Native C++ sources and the SWIG interface are identical to the PR base. Both recorded variants use the same Python files.",
+  "archives": {
+    "raw_results.json.gz": {
+      "sha256": "1404a03e896e30dc3036ced69fd2dbc1b5bf15cadf2b8737cd43189246fd6aed",
+      "source_sha256": "3c80ea7c20935dc1a0887c3b95ae5f2b4760aff0a3f247b617036f1a2b5ebc39",
+      "workers": 12
+    },
+    "control_results.json.gz": {
+      "sha256": "be49e8e620ac6c96ca652597020a99b0d08972e31a9919f490bda3ea92af0621",
+      "source_sha256": "f7b138ee5afeca220670c051bfd7df3882b44ea7e94c7dfb34810055f5428378",
+      "workers": 8
+    }
+  },
+  "recorded_sha256": {
+    "baseline/site-packages/roadrunner/_roadrunner.so": "4e31b0bf087b52ef22144d2af2994063162ed425af97074f939a4191bfe066d2",
+    "lazy/site-packages/roadrunner/_roadrunner.so": "be49970e5156fa996d931814eb51babf9a78dbc97bc95582b019f936cc91cd09",
+    "correctness/original/Setting.h": "beec2f181bc669004452cf8e26082a60b65a502c87b138e3946c79b9fd3913e2",
+    "correctness/lazy/Setting.h": "4894eacf7daa171b59edf564ce9482e508aaf2e8e900df6e5749329cef397df4",
+    "correctness/lazy.patch": "f0433225a461769cf4f1b291a528c46d581b2a9d89e6dd2bf599bd8c7c13e761",
+    "correctness/original/defined.tsv": "d7439cc7f200bea815647265b47c780955ad53059b0e856aa002e8c1c3ff7465",
+    "correctness/lazy/defined.tsv": "d7439cc7f200bea815647265b47c780955ad53059b0e856aa002e8c1c3ff7465",
+    "correctness/lazy/defined-ubsan.tsv": "d7439cc7f200bea815647265b47c780955ad53059b0e856aa002e8c1c3ff7465",
+    "benchmark.py": "54eb051dcac7ab0119e783972295715d5376c2f44933bf969fc08af148bc0eca",
+    "control.py": "d024af7e4f93fc0801297d8234131740114f87466b2fd85c20e8cdee82f947b7",
+    "micro/baseline.json": "5e63fa54617dc3e90f2c4b1c970a6121c4d1aad0cefbf6890cf6dec8950856d3",
+    "micro/lazy.json": "1ceff46dda903d373b2873257a8da3602a247db5f5292e69ebec80d98cfe3c89"
+  }
+}

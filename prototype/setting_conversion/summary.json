@@ -1,0 +1,214 @@
+{
+  "change": "Lazy diagnostic stream construction and failure-only diagnostic typeInfo in Setting::getAs, preserving numeric predicates and conversion return expressions.",
+  "scope": "Lazy formatting only, without the extra bool/double exact-type fast path from the preceding brainstorming microbenchmark.",
+  "public_simulation_results": [
+    {
+      "model": "demo",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 2.2786480438492913,
+          "paired_speedup_range": [
+            2.2385389925355907,
+            2.3528334442246113
+          ],
+          "baseline_process_pair_median_us": 129.0950412941953,
+          "lazy_process_pair_median_us": 57.66932884558312
+        },
+        "1001": {
+          "paired_median_speedup": 3.145609977870337,
+          "paired_speedup_range": [
+            3.1046068995163094,
+            3.2738211472517276
+          ],
+          "baseline_process_pair_median_us": 1025.3509512513272,
+          "lazy_process_pair_median_us": 330.26756186461944
+        }
+      }
+    },
+    {
+      "model": "repressilator",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 1.368746400704551,
+          "paired_speedup_range": [
+            1.365273093613794,
+            1.3928789054880222
+          ],
+          "baseline_process_pair_median_us": 309.75628942767287,
+          "lazy_process_pair_median_us": 226.8822925439532
+        },
+        "1001": {
+          "paired_median_speedup": 2.370804891643384,
+          "paired_speedup_range": [
+            2.297134712833882,
+            2.383879504093778
+          ],
+          "baseline_process_pair_median_us": 1237.7881984755109,
+          "lazy_process_pair_median_us": 522.096188867531
+        }
+      }
+    },
+    {
+      "model": "hctz",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 1.1535785127916414,
+          "paired_speedup_range": [
+            1.1329465361171847,
+            1.1632950061613347
+          ],
+          "baseline_process_pair_median_us": 573.0399392795405,
+          "lazy_process_pair_median_us": 496.7498379393294
+        },
+        "1001": {
+          "paired_median_speedup": 1.7663655074064797,
+          "paired_speedup_range": [
+            1.7300770085843504,
+            1.7756929719490033
+          ],
+          "baseline_process_pair_median_us": 1718.5072649590388,
+          "lazy_process_pair_median_us": 975.8892625141943
+        }
+      }
+    },
+    {
+      "model": "midazolam",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 1.2292324280398785,
+          "paired_speedup_range": [
+            1.208799505839198,
+            1.2330514697402541
+          ],
+          "baseline_process_pair_median_us": 428.74247920517536,
+          "lazy_process_pair_median_us": 347.7085018158173
+        },
+        "1001": {
+          "paired_median_speedup": 1.8134814672091208,
+          "paired_speedup_range": [
+            1.8000316986484712,
+            1.8273092367622314
+          ],
+          "baseline_process_pair_median_us": 1702.4164941281265,
+          "lazy_process_pair_median_us": 943.5782417366082
+        }
+      }
+    },
+    {
+      "model": "repeated_dose",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 1.4692403082620606,
+          "paired_speedup_range": [
+            1.1284168540143766,
+            1.5032458847944963
+          ],
+          "baseline_process_pair_median_us": 2144.690493878777,
+          "lazy_process_pair_median_us": 1426.7063795567753
+        },
+        "1001": {
+          "paired_median_speedup": 1.9356296484170676,
+          "paired_speedup_range": [
+            1.5051739967400355,
+            2.0368607074430765
+          ],
+          "baseline_process_pair_median_us": 3728.2481107372673,
+          "lazy_process_pair_median_us": 1845.781262378077
+        }
+      }
+    },
+    {
+      "model": "perfusion",
+      "measurements": {
+        "101": {
+          "paired_median_speedup": 1.0187647212654425,
+          "paired_speedup_range": [
+            1.0141371231025227,
+            1.2252292450946145
+          ],
+          "baseline_process_pair_median_us": 46253.53236009143,
+          "lazy_process_pair_median_us": 44984.58553250585
+        }
+      }
+    }
+  ],
+  "protocol": "Three ABBA blocks / 12 fresh processes, CPU2, 3 warmups each, fixed shared repetitions calibrated on baseline, LLJIT DEFAULT/O2, BDF/KLU sparse DQ, rtol1e-6 / base atol1e-10, all-state outputs. Compilation/reset excluded from simulate timings; reset measured separately. CPU and wall samples retained.",
+  "correctness": {
+    "compared_records": 25848,
+    "matching_exception_records": 7456,
+    "ubsan_passed": true,
+    "excluded_undefined_or_platform_sensitive_float_probes": 5480
+  },
+  "verified_trajectories": 14136,
+  "controls": {
+    "demo/101/public": {
+      "baseline_ns": 129222.29046552892,
+      "lazy_ns": 126949.82170570275,
+      "speedup_median": 1.017900552864563,
+      "speedup_min": 1.0175510075032737,
+      "speedup_max": 1.0182500982258522,
+      "blocks": [
+        {
+          "baseline_ns": 129187.3356022175,
+          "lazy_ns": 126959.0759083415,
+          "baseline_over_lazy": 1.0175510075032737
+        },
+        {
+          "baseline_ns": 129257.24532884033,
+          "lazy_ns": 126940.567503064,
+          "baseline_over_lazy": 1.0182500982258522
+        }
+      ]
+    },
+    "hctz/101/public": {
+      "baseline_ns": 565796.0519482081,
+      "lazy_ns": 566982.1141687371,
+      "speedup_median": 0.9979813661549863,
+      "speedup_min": 0.9889427516538901,
+      "speedup_max": 1.0070199806560827,
+      "blocks": [
+        {
+          "baseline_ns": 565257.0989629403,
+          "lazy_ns": 571577.1696770258,
+          "baseline_over_lazy": 0.9889427516538901
+        },
+        {
+          "baseline_ns": 566335.0049334759,
+          "lazy_ns": 562387.0586604483,
+          "baseline_over_lazy": 1.0070199806560827
+        }
+      ]
+    },
+    "perfusion/101/public": {
+      "baseline_ns": 45266329.82042552,
+      "lazy_ns": 44634316.05301692,
+      "speedup_median": 1.0141596375796373,
+      "speedup_min": 1.0134841271791848,
+      "speedup_max": 1.0148351479800897,
+      "blocks": [
+        {
+          "baseline_ns": 45308534.115155794,
+          "lazy_ns": 44646201.11486788,
+          "baseline_over_lazy": 1.0148351479800897
+        },
+        {
+          "baseline_ns": 45224125.52569524,
+          "lazy_ns": 44622430.991165966,
+          "baseline_over_lazy": 1.0134841271791848
+        }
+      ]
+    }
+  },
+  "interpretation": [
+    "Primary 101-point PBPK wall/CPU time drops approximately 13% (HCTZ) and 19% (midazolam). Higher sample counts amplify gain because integrate re-reads bool/double settings per output time.",
+    "Ranges are spread of three paired block ratios, not confidence intervals. Table times summarize baseline and lazy independently; paired speedup is the median of within-block ratios, not their quotient.",
+    "Same-binary control effects near 1-2% flag the perfusion gain as unresolved; do not subtract the control effect from the measured speedup.",
+    "The published production change is confined to source/Setting.h; regression tests and benchmark artifacts are added separately."
+  ],
+  "artifacts": {
+    "raw_results": "raw_results.json.gz",
+    "same_binary_control": "control_results.json.gz",
+    "benchmark": "benchmark.py",
+    "model_configuration": "models.example.json"
+  }
+}

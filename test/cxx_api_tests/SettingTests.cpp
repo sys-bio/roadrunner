@@ -3,7 +3,10 @@
 //
 
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 #include "Setting.h"
+#include <cmath>
+#include <cstring>
 #include <exception>
 #include <unordered_map>
 
@@ -110,9 +113,12 @@ TEST_F(SettingTests, TestImplicitCastToStringAndDoSomethingWithIt) {
 
 
 TEST_F(SettingTests, TestImplicitCastToBool) {
-    Setting setting(true);
-    bool x = setting;
-    ASSERT_EQ(typeid(x), typeid(bool));
+    for (const bool value : {false, true}) {
+        const Setting setting(value);
+        const bool result = setting;
+        EXPECT_EQ(value, result);
+        EXPECT_EQ(value, setting.getAs<bool>());
+    }
 }
 
 TEST_F(SettingTests, TestImplicitCastToInt32_t) {
@@ -292,13 +298,47 @@ TEST_F(SettingTests, GetUnsignedIntFromInt) {
 
 TEST_F(SettingTests, GetAsBadTypeRequest) {
     Setting setting(5);
-    // setting contains an int
-    ASSERT_EQ(setting.get<int>(), 5);
-    // but we request conversion from unsigned int
-    ASSERT_THROW(
-    setting.getAs<std::string>();,
-    std::invalid_argument
-    );
+    const std::string intName = typeid(int).name();
+    const std::string expected = "Setting::getAs:TypeError. You have requested the conversion of a \"" +
+        intName + "\" to a \"" + typeid(std::string).name() + "\" but this Setting contains a \"" +
+        intName + "\". Note, see Setting::toString() for string representation.\n";
+    EXPECT_THAT([&] { setting.getAs<std::string>(); },
+                ::testing::ThrowsMessage<std::invalid_argument>(::testing::StrEq(expected)));
+    EXPECT_THROW({ std::string value = setting; }, std::bad_variant_access);
+}
+
+TEST_F(SettingTests, GetAsNumericDiagnostics) {
+    auto check = [](const Setting& setting, auto destination, const std::string& detail) {
+        using To = decltype(destination);
+        const std::string expected = std::string("Cannot retrieve setting value:  you have requested the value as a \"") +
+            typeid(To).name() + "\", but the value of the setting is " + detail + "\n";
+        const auto error = ::testing::ThrowsMessage<std::invalid_argument>(::testing::StrEq(expected));
+        EXPECT_THAT([&] { setting.getAs<To>(); }, error);
+        EXPECT_THAT([&]() -> To { return setting; }, error);
+    };
+    check(Setting(-4), 0u, "\"-4\", which is negative.");
+    if constexpr (std::numeric_limits<int>::digits < std::numeric_limits<std::int64_t>::digits) {
+        const auto high = static_cast<std::int64_t>((std::numeric_limits<int>::max)()) + 1;
+        const auto low = static_cast<std::int64_t>((std::numeric_limits<int>::min)()) - 1;
+        check(Setting(high), 0, "\"" + std::to_string(high) + "\", which is too large.");
+        check(Setting(low), 0, "\"" + std::to_string(low) + "\", which is too large.");
+        check(Setting(low), false, "\"" + std::to_string(low) + "\", which is too large.");
+    }
+    const float infinity = std::numeric_limits<float>::infinity();
+    std::ostringstream text;
+    text << "\"" << infinity << "\", which is too large.";
+    check(Setting(infinity), float{}, text.str());
+}
+
+TEST_F(SettingTests, GetAsPreservesDoubleValues) {
+    for (const double value : {0.0, -0.0, 1e-6, std::numeric_limits<double>::infinity(),
+                               -std::numeric_limits<double>::infinity(), std::nan("0x42")}) {
+        const Setting setting(value);
+        const double explicitValue = setting.getAs<double>();
+        const double implicitValue = setting;
+        EXPECT_EQ(0, std::memcmp(&value, &explicitValue, sizeof(value)));
+        EXPECT_EQ(0, std::memcmp(&value, &implicitValue, sizeof(value)));
+    }
 }
 
 /********************************************

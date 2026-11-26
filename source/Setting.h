@@ -222,13 +222,22 @@ namespace rr {
          */
         template<class As>
         As getAs() const{
-            const std::type_info &inf = typeInfo();
             return visit([&](auto &&val) {
                 if constexpr (std::is_convertible_v<decltype(val), As>) {
-                    std::ostringstream os;
-                    os << "Cannot retrieve setting value:  you have requested the value as a ";
-                    os << "\"" << typeid(As).name() << "\", but the value of the setting is ";
-                    std::ostringstream oss_val;
+                    auto conversionError = [&](const char *reason) {
+                        std::ostringstream os;
+                        os << "Cannot retrieve setting value:  you have requested the value as a ";
+                        os << "\"" << typeid(As).name() << "\", but the value of the setting is ";
+                        if constexpr (std::is_integral_v<std::decay_t<decltype(val)>>) {
+                            std::ostringstream oss_val;
+                            oss_val << "\"" << val << "\", which is ";
+                            os << oss_val.str();
+                        } else if constexpr (std::is_same_v<std::decay_t<decltype(val)>, float>) {
+                            os << "\"" << val << "\", which is ";
+                        }
+                        os << reason << std::endl;
+                        return std::invalid_argument(os.str());
+                    };
 
                     // if we have some form of negative signed integer
                     bool isNegInt = false;
@@ -242,7 +251,6 @@ namespace rr {
                             int64val = *intValue;
                         }
                         uint64val = *intValue;
-                        oss_val << "\"" << *intValue << "\", which is ";
                     }
                     else if (auto intValue = std::get_if<int64_t>(&value_))
                     {
@@ -251,17 +259,14 @@ namespace rr {
                             isNegInt = true;
                             int64val = *intValue;
                         }
-                        oss_val << "\"" << *intValue << "\", which is ";
                         uint64val = *intValue;
                     }
                     else if (auto intValue = std::get_if<unsigned int>(&value_))
                     {
-                        oss_val << "\"" << *intValue << "\", which is ";
                         uint64val = *intValue;
                     }
                     else if (auto intValue = std::get_if<uint64_t>(&value_))
                     {
-                        oss_val << "\"" << *intValue << "\", which is ";
                         uint64val = *intValue;
                     }
                     if (isNegInt)
@@ -270,8 +275,7 @@ namespace rr {
                         if (typeid(As) == typeid(unsigned int) || typeid(As) == typeid(unsigned long)) {
                             // would prefer to throw std::bad_variant_access, but it seems
                             // it does not have the appropriate constructor (?)
-                            os << oss_val.str() << "negative." << std::endl;
-                            throw std::invalid_argument(os.str());
+                            throw conversionError("negative.");
                             return As{}; // oddly enough, this *is* necessary
                         }
                     }
@@ -279,8 +283,7 @@ namespace rr {
                     // and we try to convert to float, we have an error
                     if (auto lValue = std::get_if<float>(&value_)) {
                         if (*lValue > ((std::numeric_limits<float>::max)())) {
-                            os << "\"" << *lValue << "\", which is too large." << std::endl;
-                            throw std::invalid_argument(os.str());
+                            throw conversionError("too large.");
                             return As{}; // must be present
                         }
                     }
@@ -289,22 +292,19 @@ namespace rr {
                         (uint64val > ((std::int64_t)(std::numeric_limits<int>::max)()) && !isNegInt) ||
                             (isNegInt && int64val < ((std::int64_t)(std::numeric_limits<int>::min)())))
                     {
-                        os << oss_val.str() << "too large." << std::endl;
-                        throw std::invalid_argument(os.str());
+                        throw conversionError("too large.");
                         return As{}; // must be present
                     }
                     else if (typeid(As) == typeid(unsigned int) &&
                         uint64val > ((std::int64_t)(std::numeric_limits<unsigned int>::max)()))
                     {
-                        os << oss_val.str() << "too large." << std::endl;
-                        throw std::invalid_argument(os.str());
+                        throw conversionError("too large.");
                         return As{}; // must be present
                     }
                     else if (typeid(As) == typeid(int64_t) &&
                         (uint64val > ((std::int64_t)(std::numeric_limits<int64_t>::max)()) && !isNegInt))
                     {
-                        os << oss_val.str() << "too large." << std::endl;
-                        throw std::invalid_argument(os.str());
+                        throw conversionError("too large.");
                         return As{}; // must be present
                     }
                     return As(val);
@@ -313,7 +313,7 @@ namespace rr {
                     os << "Setting::getAs:TypeError. You have requested the conversion "
                           "of a \"" << typeid(decltype(val)).name() << "\" to a ";
                     os << "\"" << typeid(As).name() << "\" but this Setting contains ";
-                    os << "a \"" << inf.name() << "\". Note, see Setting::toString() "
+                    os << "a \"" << typeInfo().name() << "\". Note, see Setting::toString() "
                                                   "for string representation." << std::endl;
                     // would prefer to throw std::bad_variant_access, but it seems
                     // it does not have the appropriate constructor (?)
